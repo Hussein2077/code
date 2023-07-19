@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
+import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+
+import 'widget/otp_continers.dart';
+import 'widget/resend_code_widget.dart';
+
+class OtpScreen extends StatelessWidget {
+  const OtpScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: Column(
+        children: [
+          const Spacer(
+            flex: 4,
+          ),
+          const HeaderWithOnlyTitle(
+            title: StringManager.enterTheVerificatiOnCode,
+          ),
+          const Spacer(
+            flex: 7,
+          ),
+       Image.asset(
+              AssetsPath.iconApp,
+              scale: 2.5,
+            ),
+                const Spacer(
+            flex: 1,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width - 50,
+            child: Text(
+              StringManager.verificatiCodeWiilBeSent,
+              style: Theme.of(context).textTheme.titleMedium
+            ),
+          ),
+                 const Spacer(
+            flex: 1,
+          ),
+          Text(
+            "+20 - 01140051992",
+            style: TextStyle(
+                fontFamily: "Inter",
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: ConfigSize.defaultSize! + 6),
+          ),
+                 const Spacer(
+            flex: 2,
+          ),
+
+          const OtpContiners(),
+          
+          const ResendCodeWidget(),
+                 const Spacer(
+            flex: 7,
+          ),
+
+          MainButton(onTap: (){
+Navigator.pushNamed(context, Routes.addInfo);
+  
+
+          }, title: StringManager.done),
+
+          
+          const Spacer(
+            flex: 20,
+          ),
+
+
+        ],
+      ),
+    );
+  }
+}
