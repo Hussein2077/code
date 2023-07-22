@@ -1,4 +1,25 @@
 class StringManager {
+    static const int versionApp = 2;
+
+
+//shared
+  static const String platform = "PlatForm";
+  static const String android = "Android";
+  static const String iphone = "IOS";
+  static const String userDataKey = "User Data";
+  static const String userTokenKey = "User Token Key";
+  static const String deviceToken = "DeviceToken";
+  static const String chachGifts = 'chachGifts';
+  static const String lastTimeCacheGift ='last_time_cache_gift';
+  static const String lastTimeCacheEntro ='last_time_cache_entro';
+  static const String lastTimeCacheFrame ='last_time_cache_gift_frame';
+  static const String lastTimeCacheExtra ='last_time_cache_Extra';
+  static const String lastTimeCacheEmojie ='last_time_cache_Emojie';
+
+
+  ////
+
+
   static const String appTitle = "Tikchat";
   static const String enterPhoneNum = "Enter your phone number";
   static const String signUp = "Sign Up";
@@ -192,6 +213,12 @@ class StringManager {
 
   static const String createAcoount = "Create Account";
     static const String donnotHaveAccount = "Don't Have Account?  ";
+
+  static const String unexcepectedError = "UnExcepected Error";
+
+  static const String loading = "Loading";
+    static const String wrongCode = 'OTP code is wrong';
+
 
 
 }

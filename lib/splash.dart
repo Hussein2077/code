@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
+import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
+import 'package:tik_chat_v2/features/home/domin/use_case/get_confige_uc.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,9 +18,58 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String errorMessage = "" ;
+  ConfigModel configModel = const ConfigModel();
+
   @override
   void initState() {
+        loadResources();
+
     Timer(const Duration(seconds: 4), () {
+        if((configModel.isForce??false)){
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.login, (route) => false,
+                  // arguments: LoginPramiter(
+                  //     isForceUpdate: configModel.isForce,
+                  //     isUpdate: true)
+                      );
+            }
+            else if (!(configModel.isLastVersion??false)
+                &&(configModel.isAuth??false)){
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.mainScreen, (route) => false ,
+                  // arguments:MainPramiter(
+                  //     isUpdate:true,
+                  //     isCachEmojie: configModel.updateEmojieCach,
+                  //     isCachEntro: configModel.updateEntroCach,
+                  //     isCachExtra: configModel.updateExtraCach,
+                  //     isCachFrame: configModel.updateFrameCach,
+                  //     isChachGift: configModel.updateGiftCache
+                  // )
+                   );
+            }
+            else if(!(configModel.isAuth??false)){
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.login, (route) => false,
+                  // arguments: const  LoginPramiter(
+                  // isForceUpdate: false,
+                  // isUpdate:false)
+                  );
+            }
+            else if ((configModel.isAuth??false)){
+        
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.mainScreen, (route) => false ,
+                  // arguments:MainPramiter(
+                  //     isUpdate:false,
+                  //     isCachEmojie: configModel.updateEmojieCach,
+                  //     isCachEntro: configModel.updateEntroCach,
+                  //     isCachExtra: configModel.updateExtraCach,
+                  //     isCachFrame: configModel.updateFrameCach,
+                  //     isChachGift: configModel.updateGiftCache
+                  // )
+                   );
+            }
       Navigator.pushNamed(context, Routes.login);
     });
 
@@ -54,4 +107,30 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Future<void> loadResources() async {
+    final result = await GetConfigeAppUseCase(
+        homeRepo: getIt()).call(ConfigModelBody(
+        appVersion: StringManager.versionApp.toString(),
+    ));
+    result.fold((l) => configModel =l,
+            (r) => errorMessage = DioHelper().getTypeOfFailure(r));
+
+
+
+  }
+
 }
