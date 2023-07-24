@@ -138,7 +138,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
         return data;
 
     } on DioError  catch (e) {
-      throw DioHelper.buildFailure(e);
+      throw DioHelper.handleDioError(e);
     }
   }
 
@@ -166,7 +166,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
       return data;
 
     } on DioError  catch (e) {
-      throw DioHelper.buildFailure(e);
+      throw DioHelper.handleDioError(e);
     }
   }
 

@@ -4,7 +4,6 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 
@@ -24,11 +23,13 @@ class FireBaseDataSource {
       verificationFailed: (FirebaseAuthException e) {
         if (e.code == 'invalid-phone-number')
         {
-           showToastWidget(ToastWidget().errorToast('invalid-phone-number'),
-               context: context, position: StyledToastPosition.top);
+                errorToast(context: context, title: "invalid-phone-number");
+
+
         }else {
-          showToastWidget(ToastWidget().errorToast(e.message.toString()),
-              context: context, position: StyledToastPosition.top);
+                          errorToast(context: context, title: e.message.toString());
+
+ 
         }
       },
       verificationCompleted: (PhoneAuthCredential credential) async {
@@ -56,8 +57,9 @@ Future<UserCredential?> verifyOTP(String otp,BuildContext context )async{
 
     return credential ;
   }catch(e) {
-    showToastWidget(ToastWidget().errorToast(StringManager.wrongCode),
-        context: context, position: StyledToastPosition.top);
+                              errorToast(context: context, title: StringManager.wrongCode);
+
+  
   }
 }
 

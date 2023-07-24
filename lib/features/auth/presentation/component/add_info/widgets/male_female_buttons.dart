@@ -5,6 +5,8 @@ import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 class MaleFemaleButtons extends StatefulWidget {
+   static String selectedGender = "male";
+
   const MaleFemaleButtons({super.key});
 
   @override
@@ -12,7 +14,6 @@ class MaleFemaleButtons extends StatefulWidget {
 }
 
 class _MaleFemaleButtonsState extends State<MaleFemaleButtons> {
-  String selectedGender = "male";
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -20,12 +21,12 @@ class _MaleFemaleButtonsState extends State<MaleFemaleButtons> {
       children: [
         GestureDetector(
           onTap: () {
-            selectedGender = "male";
+            MaleFemaleButtons.selectedGender = "male";
             setState(() {});
           },
           child: Container(
             decoration: BoxDecoration(
-                color: selectedGender == "male"
+                color: MaleFemaleButtons.selectedGender == "male"
                     ? ColorManager.lightBlue
                     : ColorManager.lightGray,
                 borderRadius: BorderRadius.only(
@@ -40,7 +41,7 @@ class _MaleFemaleButtonsState extends State<MaleFemaleButtons> {
                 Text(
                   StringManager.male,
                   style: TextStyle(
-                      color: selectedGender == "male"
+                      color: MaleFemaleButtons.selectedGender == "male"
                           ? ColorManager.blue
                           : Colors.grey,
                       fontSize: ConfigSize.defaultSize! * 1.8),
@@ -48,7 +49,7 @@ class _MaleFemaleButtonsState extends State<MaleFemaleButtons> {
                 SizedBox(
                   width: ConfigSize.defaultSize,
                 ),
-                Image.asset(selectedGender == "male"
+                Image.asset(MaleFemaleButtons.selectedGender == "male"
                     ? AssetsPath.maleIcon
                     : AssetsPath.unSelectedMaleIcon)
               ],
@@ -57,14 +58,14 @@ class _MaleFemaleButtonsState extends State<MaleFemaleButtons> {
         ),
         GestureDetector(
           onTap: () {
-            selectedGender = "female";
+            MaleFemaleButtons.selectedGender = "female";
             setState(() {});
           },
           child: Container(
             width: (MediaQuery.of(context).size.width - 50) / 2,
             height: ConfigSize.defaultSize! * 6,
             decoration: BoxDecoration(
-              color: selectedGender == "female"
+              color: MaleFemaleButtons.selectedGender == "female"
                   ? ColorManager.lightPink
                   : ColorManager.lightGray,
               borderRadius: BorderRadius.only(
@@ -78,7 +79,7 @@ class _MaleFemaleButtonsState extends State<MaleFemaleButtons> {
                 Text(
                   StringManager.female,
                   style: TextStyle(
-                      color: selectedGender == "female"
+                      color: MaleFemaleButtons.selectedGender == "female"
                           ? ColorManager.pink
                           : Colors.grey,
                       fontSize: ConfigSize.defaultSize! * 1.8),
@@ -86,7 +87,7 @@ class _MaleFemaleButtonsState extends State<MaleFemaleButtons> {
                 SizedBox(
                   width: ConfigSize.defaultSize,
                 ),
-                Image.asset(selectedGender == "female"
+                Image.asset(MaleFemaleButtons.selectedGender == "female"
                     ? AssetsPath.femaleIcon
                     : AssetsPath.unSelectedFemaleIcon)
               ],

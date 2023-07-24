@@ -38,7 +38,6 @@ Future<String> initPlatformState() async {
     if (Platform.isAndroid) {
       Methods().setPlatform(platForm: StringManager.android);
       deviceAndroidData = await deviceInfoPlugin.androidInfo;
-    log(_readAndroidBuildData(deviceAndroidData).toString());
       deviceToken= deviceAndroidData.fingerprint ;
       return  deviceToken;
     } else if (Platform.isIOS) {
@@ -59,7 +58,7 @@ Future<String> initPlatformState() async {
 }
 
 
-Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
+Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
   return <String, dynamic>{
     'serialNumber':build.serialNumber,
     'version.securityPatch': build.version.securityPatch,

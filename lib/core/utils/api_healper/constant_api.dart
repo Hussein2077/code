@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 class ConstentApi {
-  // static const String baseUrl = "https://dragon-chat-app.com/api/v2" ;
-  static const String baseUrl = "https://dragon-chat-app.com/test/api/v2";
+  // static const String baseUrl = "https://tik-chat.com/api";
+    // static const String baseUrl = "https://dragon-chat-app.com/api/v2" ;
+  static const String baseUrl = "https://tik-chat.com/test/api";
 // static const String baseUrl = "http://34.18.25.91/api";
 
   static const String getBoxes = "$baseUrl/box/list";

@@ -1,74 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
-import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
-import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
-import 'package:tik_chat_v2/core/widgets/user_info_row.dart';
-import 'package:tik_chat_v2/features/profile/persentation/widget/card2.dart';
-import 'package:tik_chat_v2/features/profile/persentation/widget/card3.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 
-import 'widget/card1.dart';
-import 'widget/f_f_f_v_row.dart';
-import 'widget/gold_sliver_buttons.dart';
+import 'widget/profile_body.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    Brightness currentBrightness = Theme.of(context).brightness;
-    bool isDarkTheme = currentBrightness == Brightness.dark;
-    return Scaffold(
-      body: SingleChildScrollView(
-          child: ScreenColorBackGround(
-        color1: isDarkTheme ? Colors.black : ColorManager.lightGray,
-        child: Column(
-          children: [
-        const Spacer(flex: 2,),
-            InkWell(
-              onTap: (){
-                Navigator.pushNamed(context, Routes.userProfile);
-              },
-              child: UserInfoRow(
-                imageSize: ConfigSize.defaultSize! * 7,
-                underName: const IdWithCopyIcon(),
-                endIcon: Container(
-                  padding: EdgeInsets.all(ConfigSize.defaultSize!),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                          colors: ColorManager.mainColorList,
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight)),
-                          child: Icon(Icons.arrow_forward_ios ,color:  Colors.white , size: ConfigSize.defaultSize!),
-                ),
-              ),
-            ),
-             const Spacer(flex: 1,),
-
-     const FFFVRow(),
-             const Spacer(flex: 1,),
-
-     const GoldSilverButton(),
-             const Spacer(flex: 1,),
-
+    return  Scaffold(
      
-      Card1(isDarkTheme: isDarkTheme),
-             const Spacer(flex: 1,),
+      body: SingleChildScrollView(child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
+        builder: (context, state) {
+       if (state is GetMyDataSucssesState){
+          return CustoumErrorWidget(message: "state",);
+           return const ProfileBody();
+       }
+      else if (state is GetMyDataErrorState){
+        return CustoumErrorWidget(message: state.errorMassage,);
+        }
+       else {
+        return const LoadingWidget();
 
-      
-      Card2(isDarkTheme: isDarkTheme),
-             const Spacer(flex: 1,),
-
-     
-      Card3(isDarkTheme: isDarkTheme),
-             const Spacer(flex: 1,),
-
-
-     
-          ],
-        ),
+       }
+        },
       )),
     );
   }

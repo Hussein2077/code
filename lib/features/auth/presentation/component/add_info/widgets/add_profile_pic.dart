@@ -1,22 +1,47 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+// ignore: depend_on_referenced_packages
+import 'package:path_provider/path_provider.dart';
+
 
 class AddProFilePic extends StatefulWidget {
-  const AddProFilePic({super.key});
+ final String? gooleImageUrl ;
+  const AddProFilePic({this.gooleImageUrl, super.key});
+    static XFile? image;
+  static File? googleImage; 
 
   @override
   State<AddProFilePic> createState() => _AddProFilePicState();
 }
 
 class _AddProFilePicState extends State<AddProFilePic> {
+
   final ImagePicker picker = ImagePicker();
-  XFile? image;
+
+
+@override
+  void initState() {
+    if(widget.gooleImageUrl!=null){
+ getGoogleImage();
+    }
+    
+    super.initState();
+  }
+
+  Future<void> getGoogleImage() async{
+    AddProFilePic.googleImage = await getImageFileFromNetwork(widget.gooleImageUrl!);
+        setState(() {});
+
+  }
+
   Future<void> _getImage() async {
-    image = await picker.pickImage(source: ImageSource.gallery);
+    
+    AddProFilePic.image = await picker.pickImage(source: ImageSource.gallery);
     setState(() {});
   }
 
@@ -34,16 +59,26 @@ class _AddProFilePicState extends State<AddProFilePic> {
               Container(
                 width: ConfigSize.defaultSize! * 11,
                 height: ConfigSize.defaultSize! * 11,
-                decoration: image != null
+                decoration: AddProFilePic.image != null
                     ? BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: FileImage(File(image!.path)),
+                          image: FileImage(File(AddProFilePic.image!.path)),
                           fit: BoxFit.cover,
                         ),
                       )
-                    : BoxDecoration(
+                    :AddProFilePic.googleImage!=null?
+                    BoxDecoration(
+                        border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: FileImage(AddProFilePic.googleImage!),
+                          fit: BoxFit.cover,
+                        ),
+                      ):
+                    
+                     BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,
                       ),
@@ -69,4 +104,17 @@ class _AddProFilePicState extends State<AddProFilePic> {
           ),
         ));
   }
+
+
+
+  Future<File> getImageFileFromNetwork(String imageUrl) async {
+  var response = await Dio().get(imageUrl,
+      options: Options(responseType: ResponseType.bytes));
+          final dir = await getTemporaryDirectory();
+          var filename = '${dir.path}/image.png';
+
+   final file = File(filename);
+    await file.writeAsBytes(response.data);
+  return file;
+}
 }

@@ -28,7 +28,7 @@ class AddInFormationUC extends BaseUseCase<OwnerDataModel,InformationPramiter>{
 }
 
 class InformationPramiter extends Equatable {
-   final String bio ; 
+   final String? bio ; 
   final String name ;
   final String date ;
   final File? image ;
@@ -37,7 +37,7 @@ class InformationPramiter extends Equatable {
   final String countryCode;
 
 
-  const InformationPramiter({required this.bio , required this.gender,
+  const InformationPramiter({ this.bio , required this.gender,
     required this.country,  this.image ,required this.date ,required this.countryCode,required this.name});
 
   @override

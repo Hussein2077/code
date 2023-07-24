@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_question_mark
 
 import 'dart:convert';
-import 'dart:developer';
 
 
 import 'package:tik_chat_v2/core/model/family_data_model.dart';
@@ -131,7 +130,6 @@ class OwnerDataModel {
   }
 
   factory OwnerDataModel.fromMap(Map<String, dynamic> map) {
-    log("map['family_data']${map['family_data']}");
     return OwnerDataModel(
         id: map['id'] != null ? map['id'] as int : null,
         chatId: map['chat_id'] ,

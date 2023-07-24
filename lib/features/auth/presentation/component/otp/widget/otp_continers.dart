@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
@@ -6,6 +5,7 @@ import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 class OtpContiners extends StatefulWidget {
+  static  String code = "";
   const OtpContiners({super.key});
 
   @override
@@ -15,7 +15,7 @@ class OtpContiners extends StatefulWidget {
 class _OtpContinersState extends State<OtpContiners> {
   final int _otpCodeLength = 6;
   TextEditingController textEditingController = TextEditingController(text: "");
-  String code = "";
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +38,8 @@ class _OtpContinersState extends State<OtpContiners> {
         ),
         onChange: (value) {
           setState(() {
-            code = value;
+            OtpContiners.code = value;
 
-            log(code.toString());
           });
         });
   }

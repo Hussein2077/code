@@ -218,7 +218,14 @@ class StringManager {
 
   static const String loading = "Loading";
     static const String wrongCode = 'OTP code is wrong';
+    static const String pleaseAddPhoto = 'please add photo';
+    static const String pleaseEnterYourName = 'Please Enter Your Name';
+    static const String pleaseEnterYourBirthDate = 'Please Enter Your BirthDate';
+    static const String pleaseSelectYourCountry = 'Please Select Your Country';
+      static const String loginSuccesfully = " Login Succesfully";
 
+
+      static const String logOut = "Logout";
 
 
 }

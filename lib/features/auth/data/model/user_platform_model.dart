@@ -7,6 +7,7 @@ class UserPlatformModel extends Equatable {
   final String? name ;
   final PictureModel? pictureModel ;
   final String ? id ;
+  
 
   const UserPlatformModel({this.name,this.pictureModel,this.email, this.id});
 

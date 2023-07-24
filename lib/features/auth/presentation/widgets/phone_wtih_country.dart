@@ -8,15 +8,29 @@ import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 class PhoneWithCountry extends StatefulWidget {
   const PhoneWithCountry({super.key});
+  static     PhoneNumber number = PhoneNumber(isoCode: 'EG');
+  static   bool phoneIsValid = false ;
+
+
 
   @override
   State<PhoneWithCountry> createState() => _PhoneWithCountryState();
 }
-TextEditingController phonecontroller = TextEditingController();
+late TextEditingController phonecontroller ;
 
 class _PhoneWithCountryState extends State<PhoneWithCountry> {
+ @override
+  void initState() {
+phonecontroller = TextEditingController();
+    super.initState();
+  }
 
-    PhoneNumber number = PhoneNumber(isoCode: 'EG');
+  @override
+  void dispose() {
+phonecontroller.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +50,11 @@ class _PhoneWithCountryState extends State<PhoneWithCountry> {
                                               ),
                                             ) ,
                                           onInputChanged: (PhoneNumber number) {
-                                            this.number = number;
+                                            PhoneWithCountry.number = number;
     
                                           },
                                           onInputValidated: (bool value) {
+                                            PhoneWithCountry.phoneIsValid = value ;
                                           },
                                           cursorColor: Colors.black,
                                           textStyle:const TextStyle(color: Colors.purple),
@@ -81,14 +96,24 @@ class _PhoneWithCountryState extends State<PhoneWithCountry> {
                                           ignoreBlank: false,
                                           autoValidateMode: AutovalidateMode.onUserInteraction,
                                           selectorTextStyle: const TextStyle(color: Colors.black),
-                                          initialValue: number,
+                                          initialValue: PhoneWithCountry.number,
                                           textFieldController: phonecontroller,
                                           formatInput: true,
                                           keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
                                           onSubmit: (){
-                                            // getPhoneNumber(this.number);
+
+                                          getPhoneNumber(PhoneWithCountry.number);
+
                                           },
                                         ),
     );
+  }
+   void getPhoneNumber( PhoneNumber phoneNumber ) async {
+    PhoneNumber number =
+    await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber.phoneNumber!, phoneNumber.dialCode!);
+
+    setState(() {
+     PhoneWithCountry.number = number;
+    });
   }
 }
