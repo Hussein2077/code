@@ -68,6 +68,7 @@ class Methods {
     if (file != null && await file.file.exists()){
       var res = await file.file.readAsString();
       OwnerDataModel ownerDataModel = OwnerDataModel.fromMap(jsonDecode(res));
+      
       return ownerDataModel;
     }else{
       return OwnerDataModel();

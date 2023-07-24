@@ -24,10 +24,14 @@ import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/back_pack_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/buy_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_data_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_mydata_usecase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -44,7 +48,9 @@ class ServerLocator {
 
             getIt.registerFactory(() => GetMyDataBloc(getmyDataUsecase: getIt()));
                         getIt.registerFactory(() => MallBloc(gatDataUseCase: getIt()));
+                        getIt.registerFactory(() => MallBuyBloc(buyUseCase: getIt()));
 
+                        getIt.registerFactory(() => MyBagBloc(getBackPackUseCase: getIt()));
 
 
 
@@ -65,7 +71,10 @@ class ServerLocator {
         () => GetmyDataUsecase(baseRepositoryProfile: getIt()));
           getIt.registerLazySingleton(
         () => GatDataMallUseCase(baseRepositoryProfile: getIt()));
-
+                  getIt.registerLazySingleton(
+        () => BuyUseCase(baseRepositoryProfile: getIt()));
+               getIt.registerLazySingleton(
+        () => GetBackPackUseCase(baseRepositoryProfile: getIt()));
 
 //repo
     getIt.registerLazySingleton<BaseRepository>(

@@ -3,11 +3,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
-import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/data_mall_entities.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/widget/mall_card.dart';
 

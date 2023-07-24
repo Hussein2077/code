@@ -1,9 +1,10 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_state.dart';
 
 import 'widgets/my_bag_tab_view.dart';
 import 'widgets/my_bag_tabs.dart';
@@ -15,34 +16,51 @@ class MyBagScreen extends StatefulWidget {
   State<MyBagScreen> createState() => _MyBagScreenState();
 }
 
-class _MyBagScreenState extends State<MyBagScreen>with TickerProviderStateMixin {
-  late TabController bagController ; 
+class _MyBagScreenState extends State<MyBagScreen>
+    with TickerProviderStateMixin {
+  late TabController bagController;
   @override
   void initState() {
-   bagController = TabController(length: 3, vsync: this);
+    bagController = TabController(length: 3, vsync: this);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body:Column(children: [
-        SizedBox(height: ConfigSize.defaultSize!*3,),
-    const  HeaderWithOnlyTitle(title: StringManager.myBag) ,
-            SizedBox(height: ConfigSize.defaultSize!,),
-
-    MyBagScreenTabs(controller: bagController,),
-     Expanded(child: TabBarView(
-      controller: bagController,
-      children:const [
-MyBagTabView(),
-MyBagTabView(),
-MyBagTabView(),
-
-    ],))
-   
-    
-      
-    ],) ,);
+    return BlocBuilder<MyBagBloc, MyBagState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: Column(
+            children: [
+              SizedBox(
+                height: ConfigSize.defaultSize! * 3,
+              ),
+              const HeaderWithOnlyTitle(title: StringManager.myBag),
+              SizedBox(
+                height: ConfigSize.defaultSize!,
+              ),
+              MyBagScreenTabs(
+                controller: bagController,
+              ),
+              Expanded(
+                  child: TabBarView(
+                controller: bagController,
+                children:  [
+                  MyBagTabView(
+                    myBagData: state.framesBackPack,
+                    stateRequest: state.framesBackPackRequest,
+                  ),
+                  MyBagTabView(    myBagData: state.entering,
+                    stateRequest: state.enteringBackPackRequest,),
+                  MyBagTabView(    myBagData: state.bubblesPackBack,
+                    stateRequest: state.bubblesPackBackRequest,),
+                ],
+              ))
+            ],
+          ),
+        );
+      },
+    );
   }
 }

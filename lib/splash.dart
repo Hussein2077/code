@@ -24,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+    
         loadResources();
 
     Timer(const Duration(seconds: 4), () {
@@ -125,6 +126,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
   Future<void> loadResources() async {
+    
     final result = await GetConfigeAppUseCase(
         homeRepo: getIt()).call(ConfigModelBody(
         appVersion: StringManager.versionApp.toString(),
