@@ -66,9 +66,12 @@ class MallCard extends StatelessWidget {
                     MainButton(
                       title: StringManager.buy,
                       onTap: () {
-                      log("message");
-                        PopUpDialog(accpetText: (){}, cancelText: (){}, greenText: "", headerText: "",redText: "",widget: SizedBox(),);
-
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return
+                        PopUpDialog(accpetText: (){},  headerText:StringManager.youWillBuy,widget:SizedBox(),);
+                            });
                       },
                       width: ConfigSize.defaultSize! * 7,
                       height: ConfigSize.defaultSize! * 2,
