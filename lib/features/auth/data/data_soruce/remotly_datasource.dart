@@ -72,7 +72,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       Map<String, dynamic> jsonData = response.data;
 
       OwnerDataModel userData = OwnerDataModel.fromMap(jsonData['data']);
-      Methods().saveUserData(jsonString: jsonData);
       Methods().saveUserToken(authToken: userData.authToken);
       
       return userData;
@@ -101,9 +100,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       );
       Map<String, dynamic> jsonData = response.data;
       OwnerDataModel userData = OwnerDataModel.fromMap(jsonData['data']);
-      Methods().saveUserData(jsonString: jsonData);
       Methods().saveUserToken(authToken: userData.authToken);
-     // Methods().KeepUserLogin(KeepInLogin: true);
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
@@ -149,15 +146,12 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
           headers:headers
         ),
       );
-      final result = response.data;
-     
+
 
 
       OwnerDataModel userData = OwnerDataModel.fromMap(response.data[ConstentApi.data]);
 
-      Methods().saveUserData(jsonString: result);
-      // Methods().saveUserToken();
-      //Methods().KeepUserLogin(KeepInLogin: true);
+      Methods().saveUserData();
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
@@ -255,8 +249,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       if (sussec) {
         OwnerDataModel userData = OwnerDataModel.fromMap(resultData['data']);
         Methods().saveUserToken(authToken: userData.authToken);
-        Methods().saveUserData(jsonString: resultData);
-       // Methods().KeepUserLogin(KeepInLogin: true);
         return userData;
       }
       else {

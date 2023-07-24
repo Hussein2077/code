@@ -165,10 +165,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           headers: headers,
         ),
       );
-      bool succes = response.data[ConstentApi.succes];
-      if (succes) {
-        Methods().saveUserData(jsonString: response.data);
-      }
+
+        Methods().saveUserData();
       OwnerDataModel userData =
           OwnerDataModel.fromMap(response.data[ConstentApi.data]);
       return userData;

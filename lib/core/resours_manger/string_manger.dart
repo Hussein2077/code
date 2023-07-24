@@ -15,6 +15,7 @@ class StringManager {
   static const String lastTimeCacheFrame ='last_time_cache_gift_frame';
   static const String lastTimeCacheExtra ='last_time_cache_Extra';
   static const String lastTimeCacheEmojie ='last_time_cache_Emojie';
+  static const String cachUserData ='Cache_User_Key';
 
 
   ////

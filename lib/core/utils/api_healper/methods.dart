@@ -67,7 +67,6 @@ class Methods {
 
     if (file != null && await file.file.exists()){
       var res = await file.file.readAsString();
-      log("heeeeeee");
       OwnerDataModel ownerDataModel = OwnerDataModel.fromMap(jsonDecode(res));
       return ownerDataModel;
     }else{
@@ -77,14 +76,6 @@ class Methods {
 
 
 
-  Future<OwnerDataModel> returnUserData() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String userPref = preferences.getString(StringManager.userDataKey)!;
-
-    Map<String, dynamic> userMap = jsonDecode(userPref) as Map<String, dynamic>;
-    OwnerDataModel userModel = OwnerDataModel.fromMap(userMap['data']);
-    return userModel;
-  }
 
   Future<void> saveUserToken({String? authToken}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
