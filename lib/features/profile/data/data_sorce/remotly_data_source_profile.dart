@@ -57,15 +57,10 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<OwnerDataModel>> getVaistors({String? page});
   Future<List<BackPackModel>> getBackPack(String type);
   Future<String> useItem(String id);
-
   Future<ShowFamilyModel> creatFamily(CreateFamilyPramiter creatFamilyPramiter);
-
   Future<String> buy(String idItem, String quantity);
-
   Future<String> sendPack(String packId, String touid);
-
   Future<String> unUsedPack(String id);
-
   Future<FamilyRankModel> familyRanking(String time);
 
   Future<String> deletFamily(String id);

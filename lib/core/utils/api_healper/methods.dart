@@ -42,13 +42,25 @@ class Methods {
   //   SharedPreferences preferences = await SharedPreferences.getInstance();
   //   preferences.setBool(StringManager.keepLogin, KeepInLogin);
   // }
-
-
-  void saveUserData({required Map<String, dynamic> jsonString}) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    // String user = jsonEncode(UserModel.fromJson(jsonString));
-    preferences.setString(StringManager.userDataKey, jsonEncode(jsonString));
+  Future<void> saveUserData() async {
+    Map<String, String> headers = await DioHelper().header();
+    await DefaultCacheManager().getSingleFile(ConstentApi.getmyDataUrl,
+        headers: headers,key: StringManager.cachUserData);
   }
+  Future<OwnerDataModel> returnUserData() async {
+    var file = await DefaultCacheManager().getFileFromCache(StringManager.cachUserData);
+
+    if (file != null && await file.file.exists()){
+      var res = await file.file.readAsString();
+      log("heeeeeee");
+      OwnerDataModel ownerDataModel = OwnerDataModel.fromMap(jsonDecode(res));
+      return ownerDataModel;
+    }else{
+      return OwnerDataModel();
+    }
+  }
+
+
 
   // Future<OwnerDataModel> returnUserData() async {
   //   SharedPreferences preferences = await SharedPreferences.getInstance();
