@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 
 class PopUpDialog extends StatelessWidget {
   final String headerText;
-  final String greenText;
-  final String redText;
-  final Widget widget;
-  final VoidCallback cancelText;
+  final Widget? widget;
   final VoidCallback accpetText;
 
   const PopUpDialog({Key? key,
     required this.headerText,
-    required this.greenText,
-    required this.redText,
-    required this.widget,
-    required this.cancelText,
+     this.widget,
     required this.accpetText,
   }) : super(key: key);
 
@@ -31,48 +26,47 @@ class PopUpDialog extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: [
-              Color(0xffEFFFDB),
-              Color(0xffFFF1CC),
-            ]
+           colors: ColorManager.mainColorList
           ),
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
         ),
         child: Column(
           children: [
-
-            SizedBox(height: ConfigSize.defaultSize!*1.5,),
+const Spacer(flex: 1,),
             Text(headerText , style: Theme.of(context).textTheme.bodyLarge,),
-       
-            SizedBox(height: ConfigSize.defaultSize!*3,),
-            SizedBox(
-              height: ConfigSize.defaultSize!*2,
-                child: widget),
-            SizedBox(height:ConfigSize.defaultSize!,),
+       const Spacer(flex: 1,),
+
+            widget!,
+            const Spacer(flex: 1,),
+
             Divider(
               color: Colors.black.withOpacity(0.12),
             ),
-            SizedBox(height:ConfigSize.defaultSize!,),
+            const Spacer(flex: 3,),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
-                  onTap: ()=>cancelText(),
+                  onTap: ()=>Navigator.pop(context),
                   child: Text(StringManager.cancel , style: Theme.of(context).textTheme.bodyMedium,)
                 ),
                 SizedBox(
-                  height: ConfigSize.defaultSize,
+                  height: ConfigSize.defaultSize!*2,
                   child: const VerticalDivider(
                     color: Color(0xffB5B5B5),
-                    width: 1,
+                    width: 2,
                   ),
                 ),
                 InkWell(
                   onTap: ()=>accpetText(),
                   child: Text(StringManager.accept , style: Theme.of(context).textTheme.bodyMedium,)
                 ),
+
               ],
-            )
+            ),
+            const Spacer(flex: 1,),
+
 
           ],
         ),
