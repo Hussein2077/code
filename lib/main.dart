@@ -10,7 +10,6 @@ Future <void> main() async{
     WidgetsFlutterBinding.ensureInitialized();
     CreateLiveVideoBody.cameras = await availableCameras();
     await ServerLocator().init();
-
   
   runApp(const MyApp());
 }
