@@ -7,14 +7,16 @@ import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 class CountryWidget extends StatefulWidget {
   const CountryWidget({super.key});
+  static String? countryFlag;
+  static String? codeContry;
+
 
   @override
   State<CountryWidget> createState() => _CountryWidgetState();
 }
 
 class _CountryWidgetState extends State<CountryWidget> {
-  String? countryFlag;
-String? codeContry;
+String? countryName ;
 
 
   @override
@@ -22,20 +24,20 @@ String? codeContry;
     return            InkWell(
                           child: Row(
                             children: [
-                              countryFlag == null
+                              CountryWidget.countryFlag == null
                                   ? Text(StringManager.selectyourCountry,
                                       style: TextStyle(
                                         color: Colors.grey,
                                           fontSize: ConfigSize.defaultSize!*1.8))
-                                  : Text(countryFlag!,
+                                  : Text(CountryWidget.countryFlag!,
                                      ),
                               SizedBox(
                                 width: ConfigSize.defaultSize,
                               ),
                               Visibility(
-                                  visible: codeContry == null ? false : true,
+                                  visible: countryName == null ? false : true,
                                   child: Text(
-                                    codeContry.toString(),
+                                    countryName.toString(),
                                     style:TextStyle(
                                         color: Colors.grey,
                                           fontSize: ConfigSize.defaultSize!*1.8),
@@ -62,8 +64,9 @@ String? codeContry;
                               ),
                               onSelect: (Country country) {
                                 setState(() {
-                                  countryFlag = country.flagEmoji;
-                                  codeContry = country.name;
+                                  CountryWidget.countryFlag = country.flagEmoji;
+                                  CountryWidget.codeContry = country.phoneCode;
+                                  countryName= country.name;
                                 });
                               },
                             );

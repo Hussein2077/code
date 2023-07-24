@@ -146,6 +146,7 @@ class AssetsPath {
                                 static const String mentionIcon = "$pathIcon/mention_icon.png";
                                 static const String hashTagIcon = "$pathIcon/hashtag_icon.png";
 
+                                static const String snapIcon = "$pathIcon/snap_icon.png";
 
 
 

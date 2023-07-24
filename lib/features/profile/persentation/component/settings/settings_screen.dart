@@ -1,10 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
+import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/widget/linking_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -24,41 +32,61 @@ class SettingsScreen extends StatelessWidget {
             height: ConfigSize.defaultSize! * 3.5,
           ),
           settingsRow(
-              context: context,
-              icon: AssetsPath.linkingIcon,
-              title: StringManager.linkingAccount , 
-              onTap: () => bottomDailog(context: context, widget: const LinkingScreen()),
-              
-              ),
+            context: context,
+            icon: AssetsPath.linkingIcon,
+            title: StringManager.linkingAccount,
+            onTap: () =>
+                bottomDailog(context: context, widget: const LinkingScreen()),
+          ),
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
           settingsRow(
-              context: context,
-              icon: AssetsPath.languageIcon,
-              title: StringManager.language , 
-              onTap: () => Navigator.pushNamed(context, Routes.language),),
+            context: context,
+            icon: AssetsPath.languageIcon,
+            title: StringManager.language,
+            onTap: () => Navigator.pushNamed(context, Routes.language),
+          ),
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
           settingsRow(
-              context: context,
-              icon: AssetsPath.modeIcon,
-              title: StringManager.mode ,
-              onTap: () => Navigator.pushNamed(context, Routes.mode),
-              ),
+            context: context,
+            icon: AssetsPath.modeIcon,
+            title: StringManager.mode,
+            onTap: () => Navigator.pushNamed(context, Routes.mode),
+          ),
+          const Spacer(),
+          BlocConsumer<LogOutBloc, LogOutState>(
+            listener: (context, state) async{
+              if(state is LogOutSucssesState) {
+                    await FirebaseAuth.instance.signOut();
+                    Methods().clearAuth();
+
+
+                // ignore: use_build_context_synchronously
+                Navigator.pushNamedAndRemoveUntil(context, Routes.login, (route) => false);
+              }else if (state is LogOutErrorState){
+                errorToast(context: context, title: state.error);
+              }
+            },
+            builder: (context, state) {
+              return MainButton(onTap: () {
+                BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
+              }, title: StringManager.logOut);
+            },
+          )
         ],
       ),
     );
   }
 }
 
-Widget settingsRow({
-  required BuildContext context,
-  required String icon,
-  required String title,
-  void Function()? onTap
-}) {
+Widget settingsRow(
+    {required BuildContext context,
+    required String icon,
+    required String title,
+    void Function()? onTap}) {
   return InkWell(
     onTap: onTap,
     child: Row(

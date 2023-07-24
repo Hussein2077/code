@@ -179,7 +179,7 @@ Widget familyInfo(
           ),
           Row(
             children: [
-              const UserCountryIcon(),
+               const UserCountryIcon(country: ""),
               SizedBox(
                 width: ConfigSize.defaultSize!,
               ),

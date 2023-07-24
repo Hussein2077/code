@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
@@ -37,7 +38,9 @@ class UpperProfileBody extends StatelessWidget {
                   const HeaderProfile(),
                           const      Spacer(flex: 2,),
             
-                  UserImage(imageSize: ConfigSize.defaultSize! * 8),
+                  UserImage(
+                    image: "",
+                    imageSize: ConfigSize.defaultSize! * 8),
                           const      Spacer(flex: 1,),
             
                   Text(
@@ -81,7 +84,7 @@ class UpperProfileBody extends StatelessWidget {
                   ),
                           const      Spacer(flex: 5,),
             
-                  const FFFVRow(userProfile: true),
+                   FFFVRow(userProfile: true , userData: OwnerDataModel()),
                           const      Spacer(flex: 2,),
             
                 ],

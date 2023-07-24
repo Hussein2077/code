@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
@@ -77,10 +78,18 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case Routes.otp:
-        return MaterialPageRoute(builder: (_) => const OtpScreen());
+              OtpScreenParameter otpScreenParameter =
+            settings.arguments as OtpScreenParameter;
+        return MaterialPageRoute(builder: (_) =>  OtpScreen(
+          codeCountry: otpScreenParameter.codeCountry,
+                  phone: otpScreenParameter.phone,
+                  password: otpScreenParameter.password,
+        ));
 
       case Routes.addInfo:
-        return MaterialPageRoute(builder: (_) => const AddInfoScreen());
+              GoogleSignInAccount googleData = settings.arguments as GoogleSignInAccount;
+
+        return MaterialPageRoute(builder: (_) =>  AddInfoScreen( googleData:googleData ,));
 
       case Routes.mainScreen:
         return MaterialPageRoute(builder: (_) => const MainScreen());
@@ -148,4 +157,14 @@ class RouteGenerator {
         // ignore: prefer_const_constructors
         builder: (context) => Container());
   }
+}
+
+
+class OtpScreenParameter {
+  final String phone;
+  final String password;
+  final String codeCountry;
+
+  const OtpScreenParameter(
+      {required this.codeCountry, required this.password, required this.phone});
 }

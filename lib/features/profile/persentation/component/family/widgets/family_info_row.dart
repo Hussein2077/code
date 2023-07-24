@@ -21,6 +21,7 @@ class FamilyInfoRow extends StatelessWidget {
               width: ConfigSize.defaultSize,
             ),
             UserImage(
+              image: "",
               imageSize: ConfigSize.defaultSize! * 5,
             ),
             SizedBox(
@@ -35,7 +36,7 @@ class FamilyInfoRow extends StatelessWidget {
                 ),
                 Row(
                   children: const [
-                    UserCountryIcon(),
+                    UserCountryIcon(country: ""),
                     CustomIcon(
                       color: ColorManager.deepBlue,
                       icon: AssetsPath.groupIcon,

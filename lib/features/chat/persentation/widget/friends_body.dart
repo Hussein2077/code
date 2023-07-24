@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
@@ -50,7 +51,7 @@ class FriendsBody extends StatelessWidget {
             itemCount: 10,
             itemBuilder: (context , index){
 
-            return Padding(padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*2), child: const UserInfoRow());
+            return Padding(padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*2), child:  UserInfoRow(userData: OwnerDataModel(),));
           }),
         )
       ],

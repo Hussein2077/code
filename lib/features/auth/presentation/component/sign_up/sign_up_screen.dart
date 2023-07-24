@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/continer_with_icons.dart';
 
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
@@ -26,10 +28,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     passwordController = TextEditingController();
     super.initState();
   }
+  @override
+  void dispose() {
+passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    ConfigSize().init(context);
 
     return Scaffold(
         body: ScreenBackGround(
@@ -65,7 +71,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
      
           MainButton(
             onTap: () {
-              Navigator.pushNamed(context, Routes.otp);
+                  if (PhoneWithCountry.number.dialCode == null) {
+                               warningToast(context: context, title: StringManager.pleaseSelectYourCountry);
+
+                                  } else {
+                                   
+                                    if(PhoneWithCountry.phoneIsValid){
+                                      getIt<FireBaseDataSource>().phoneAuthentication(PhoneWithCountry.number.phoneNumber!, context);
+                                      Navigator.pushNamed(context, Routes.otp,
+                                          arguments: OtpScreenParameter(
+                                              codeCountry: PhoneWithCountry.number.dialCode!,
+                                              password: passwordController.text,
+                                              phone:PhoneWithCountry.number.phoneNumber! ));
+
+                                    }else{
+                                warningToast(context: context, title: StringManager.enterPhoneNum);
+                                    }
+
+
+                                  }
             },
             title: StringManager.signUp,
           ),

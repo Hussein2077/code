@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
+import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_confige_uc.dart';
@@ -70,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   // )
                    );
             }
-      Navigator.pushNamed(context, Routes.login);
+      // Navigator.pushNamed(context, Routes.login);
     });
 
     super.initState();
@@ -78,6 +79,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+        ConfigSize().init(context);
+
     return Scaffold(
       body: ScreenBackGround(
         image: AssetsPath.splashBackGround,

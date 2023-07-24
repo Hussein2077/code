@@ -28,6 +28,7 @@ class FamilyMemberCard extends StatelessWidget {
                             left: ConfigSize.defaultSize!,
                             top: ConfigSize.defaultSize! * 1.5),
                         child: UserImage(
+                          image: "",
                           imageSize: ConfigSize.defaultSize! * 4,
                         ),
                       ),

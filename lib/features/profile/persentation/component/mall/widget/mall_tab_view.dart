@@ -1,72 +1,38 @@
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/features/profile/domin/entitie/data_mall_entities.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/mall/widget/mall_card.dart';
 
 class MallTabView extends StatelessWidget {
-  const MallTabView({super.key});
+    final List<DataMallEntities> dataMall;
+  final RequestState stateRequest;
+  final String dataMallMessage;
+  const MallTabView({required this.dataMall, required this.dataMallMessage , required this.stateRequest, super.key});
 
   @override
   Widget build(BuildContext context) {
    return GridView.builder(
+    
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 1.1),
-        itemCount: 10,
+            crossAxisCount: 2, childAspectRatio: 1),
+        itemCount: dataMall.length,
         itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.only(
-                left: ConfigSize.defaultSize!,
-                right: ConfigSize.defaultSize!,
-                bottom: ConfigSize.defaultSize! * 1.2),
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-                borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: ConfigSize.defaultSize!,
-                ),
-                Align(alignment: Alignment.topRight, child:     Text(
-                  "هديه موت",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),),
-                Image.asset(
-                  AssetsPath.testImage,
-                  scale: 25,
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize!,
-                ),
+          log("message");
+          return MallCard(
+            image: dataMall[index].image,
+            id: dataMall[index].id.toString(),
+            name: dataMall[index].name,
+            price: dataMall[index].price.toString(),
+            time: dataMall[index].expire.toString(),           
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [  Text(
-                  "520 / 7 ايام",
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-                Image.asset(AssetsPath.goldCoinIcon,scale: 10,)
-                ],)     ,       
-                  SizedBox(
-                  height: ConfigSize.defaultSize!,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MainButton(
-                      title: StringManager.buy,
-                      onTap: () {},
-                      width: ConfigSize.defaultSize! * 7,
-                      height: ConfigSize.defaultSize! * 2,
-                      titleSize: ConfigSize.defaultSize!*1.4,
-                    ),
-                      
-                  ],
-                )
-              ],
-            ),
           );
         });
   }

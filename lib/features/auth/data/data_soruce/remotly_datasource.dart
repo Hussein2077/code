@@ -2,6 +2,7 @@
 
 
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -13,6 +14,7 @@ import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
+import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
@@ -24,7 +26,7 @@ abstract class BaseRemotlyDataSource {
   Future<OwnerDataModel> loginWithPassAndPhone(AuthPramiter authPramiter);
   Future<OwnerDataModel> addInformation(InformationPramiter informationPramiter);
   Future<OwnerDataModel> sigInWithFacebook();
-  Future<OwnerDataModel> sigInWithGoogle();
+  Future<AuthWithGoogleModel> sigInWithGoogle();
   Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
 
@@ -110,6 +112,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   
   @override
   Future<OwnerDataModel> addInformation(InformationPramiter informationPramiter)async {
+    log(informationPramiter.image.toString());
      FormData formData;
     if (informationPramiter.image == null) {
       formData = FormData.fromMap({
@@ -153,7 +156,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       OwnerDataModel userData = OwnerDataModel.fromMap(response.data[ConstentApi.data]);
 
       Methods().saveUserData(jsonString: result);
-      Methods().saveUserToken();
+      // Methods().saveUserToken();
       //Methods().KeepUserLogin(KeepInLogin: true);
       return userData;
     } on DioError catch (e) {
@@ -162,16 +165,18 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   }
   
   @override
-  Future<OwnerDataModel> sigInWithGoogle() async{
-    
+  Future<AuthWithGoogleModel> sigInWithGoogle() async{
+
   
     // ignore: no_leading_underscores_for_local_identifiers
     final _googleSignIn = GoogleSignIn(scopes: ['email']);
 
     Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
+
     // ignore: unused_element
     Future logout() => _googleSignIn.disconnect();
     final userModel = await login();
+
 
     final devicedata = await DioHelper().initPlatformState(); // to get information device
      Map<String, String> headers = await DioHelper().header();
@@ -189,6 +194,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
           'device_token':devicedata
       };
  try{
+
       final response = await Dio().post(
         ConstentApi.loginUrl,
         data: body,
@@ -202,11 +208,13 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       
         OwnerDataModel userData = OwnerDataModel.fromMap(resultData['data']);
-        Methods().saveUserData(jsonString: resultData);
+        log(userData.authToken.toString());
+        // Methods().saveUserData(jsonString: resultData);
         Methods().saveUserToken(authToken: userData.authToken);
-      // Methods().KeepUserLogin(KeepInLogin: true);
-        return userData;
+
+        return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );
       }on DioError catch (e){
+
          throw DioHelper.handleDioError(e);
       }
       } 

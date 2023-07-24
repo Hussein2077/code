@@ -9,13 +9,13 @@ import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widget
 
 class DateWidget extends StatefulWidget {
   const DateWidget({super.key});
+  static String selectedDatee = StringManager.birthdayDate;
 
   @override
   State<DateWidget> createState() => _DateWidgetState();
 }
 
 class _DateWidgetState extends State<DateWidget> {
-  String selectedDatee = StringManager.birthdayDate;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _DateWidgetState extends State<DateWidget> {
 
                         dateChangeListener: (String selectedDate) {
                           log(selectedDate.toString());
-                          selectedDatee = selectedDate;
+                          DateWidget.selectedDatee = selectedDate;
                         },
                         showMonthName: true,
                         columnWidth: ConfigSize.defaultSize! * 13,
@@ -72,7 +72,7 @@ class _DateWidgetState extends State<DateWidget> {
           );
         },
         child: Text(
-          selectedDatee,
+          DateWidget.selectedDatee,
           style: TextStyle(
               fontSize: ConfigSize.defaultSize! * 1.9, color: Colors.grey),
         ));
