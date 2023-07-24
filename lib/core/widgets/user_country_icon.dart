@@ -1,11 +1,11 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 class UserCountryIcon extends StatelessWidget {
-  const UserCountryIcon({super.key});
+  final String country ; 
+  const UserCountryIcon({required this.country, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,8 @@ class UserCountryIcon extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-       Image.asset(AssetsPath.globalIcon , scale: 2.3,),
-       Text("دريم" , style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!),)
+      //  Image.asset(AssetsPath.globalIcon , scale: 2.3,),
+       Text(country , style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!),)
       ],),
     );
   }

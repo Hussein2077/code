@@ -6,13 +6,14 @@ import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 class IdWithCopyIcon extends StatelessWidget {
-  const IdWithCopyIcon({super.key});
+  final String id ; 
+  const IdWithCopyIcon({required this.id ,  super.key});
 
   @override
   Widget build(BuildContext context) {
     return    InkWell(
                             onTap: (){
-                              Clipboard.setData(const ClipboardData(text:"123456"));
+                              Clipboard.setData( ClipboardData(text:id));
                             
 
                             },
@@ -20,7 +21,7 @@ class IdWithCopyIcon extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                               Text(
-                                  'ID: ${123456}',
+                                  'ID: $id',
                                   style:
                                   TextStyle(color: ColorManager.orang , fontSize: ConfigSize.defaultSize!*1.7)
                                 ),

@@ -17,6 +17,8 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_pho
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/video/create_video_live_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
 
 Future <void> main() async{
@@ -67,7 +69,11 @@ class MyApp extends StatelessWidget {
               create: (context) => getIt<GetMyDataBloc>(),
             ),
 
-            
+                              BlocProvider(
+              create: (context) => getIt<MallBloc>()..add(const GetCarMallEvent(type: 6))
+        ..add(const GetFramesMallEvent(type: 4))
+        ..add(const GetBubbleMallEvent(type: 5)),
+            ),
       ],
       child: MaterialApp(
         

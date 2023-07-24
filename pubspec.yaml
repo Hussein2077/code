@@ -67,6 +67,9 @@ dependencies:
   flutter_cache_manager: ^3.3.1
   flutter_bloc: ^8.1.1
   motion_toast: ^2.7.8
+  liquid_pull_to_refresh: ^3.0.1
+  shimmer: ^2.0.0
+
   # snapkit: any
 
 

@@ -226,6 +226,8 @@ class StringManager {
 
 
       static const String logOut = "Logout";
+            static const String accept = "Accept";
+
 
 
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
@@ -6,7 +7,8 @@ import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 class GoldSilverButton extends StatelessWidget {
-  const GoldSilverButton({super.key});
+  final OwnerDataModel userData  ;
+  const GoldSilverButton({required this.userData ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +18,13 @@ class GoldSilverButton extends StatelessWidget {
         button(
             image: AssetsPath.goldButton,
             title: StringManager.coins,
-            num: "1345",
+            num: userData.myStore!.coins.toString(),
             gold: true , 
             onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "gold"),),
         button(
             image: AssetsPath.silverButton,
             title: StringManager.silver,
-            num: "2945",
+            num: userData.myStore!.silverCoin.toString(),
             gold: false
             ,onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "silver"),
             )

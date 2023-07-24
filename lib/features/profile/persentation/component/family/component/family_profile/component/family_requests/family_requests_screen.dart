@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
@@ -21,7 +22,7 @@ class FamilyRequestsScreen extends StatelessWidget {
           itemCount: 20,
           itemExtent:  70,
           itemBuilder: (context , index ){
-            return UserInfoRow( endIcon: Row(children: [
+            return UserInfoRow(userData: OwnerDataModel(), endIcon: Row(children: [
               Image.asset(AssetsPath.acceptIcon , scale: 2.8,),
               SizedBox(width: ConfigSize.defaultSize!*2,),
               Image.asset(AssetsPath.declineIcon , scale: 2.8,)
