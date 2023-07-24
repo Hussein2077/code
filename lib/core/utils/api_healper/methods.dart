@@ -47,16 +47,16 @@ class Methods {
   }
 
 
- 
 
 
-  
 
 
-  // void KeepUserLogin({required bool KeepInLogin}) async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   preferences.setBool(StringManager.keepLogin, KeepInLogin);
-  // }
+
+
+  void KeepUserLogin({required bool KeepInLogin}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool(StringManager.keepLogin, KeepInLogin);
+  }
   Future<void> saveUserData() async {
     Map<String, String> headers = await DioHelper().header();
     await DefaultCacheManager().getSingleFile(ConstentApi.getmyDataUrl,

@@ -1,6 +1,9 @@
 
 
+import 'dart:developer';
+
 import 'package:bottom_nav_layout/bottom_nav_layout.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/features/chat/persentation/chat_screen.dart';
 import 'package:tik_chat_v2/features/following/persentation/following_live_screen.dart';
@@ -21,7 +24,14 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  
+
+  @override
+  void initState() {
+  listenToInternet();
+
+super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -49,5 +59,19 @@ class _MainScreenState extends State<MainScreen> {
 
 
     );
+  }
+
+
+  listenToInternet(){
+
+    Connectivity().onConnectivityChanged.listen((event) {
+      if(event == ConnectivityResult.wifi
+          || event ==ConnectivityResult.mobile){
+         //todo add all evens here
+      }else if (event == ConnectivityResult.none){
+         // todo show dialog or toast here
+      }
+
+    });
   }
 }
