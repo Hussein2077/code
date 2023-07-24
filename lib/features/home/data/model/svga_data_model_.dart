@@ -1,0 +1,71 @@
+
+class SvgaDataModel {
+
+  List <PKImages> pkIamges;
+
+  List <VIPImage> vipImage;
+
+  SvgaDataModel({required this.pkIamges,required this.vipImage});
+
+  factory SvgaDataModel.fromJason(Map<String,dynamic>json){
+
+    return SvgaDataModel(
+        pkIamges: List<PKImages>.from(json['pk_images'].map((e)=>PKImages.fromJason(e))),
+        vipImage: List<VIPImage>.from(json['vip_images'].map((e)=>VIPImage.fromJason(e)))
+    );
+
+  }
+
+
+}
+
+class PKImages {
+
+  int? id ;
+  String ? name;
+  String? url;
+
+  PKImages({this.id, this.name, this.url});
+
+  factory PKImages.fromJason(Map<String,dynamic>json){
+    return PKImages(
+        id: json['id'],
+        name: json['name'],
+        url: json['url']
+    );
+
+  }
+
+}
+
+class VIPImage {
+
+  int? id ;
+  String ? name;
+  int? level;
+  String? img;
+  String?  frame ;
+  int?  frameId ;
+  String?  entro ;
+  int?  entroId ;
+
+
+  VIPImage({ this.id, this.name, this.level, this.img, this.frameId, this.entroId, this.entro, this.frame });
+
+  factory VIPImage.fromJason(Map<String,dynamic>json){
+    return VIPImage(
+        name: json['name'],
+        id: json['id'],
+        img: json['img'],
+        level: json['level'],
+        frame:json['frame'] ==null? null :json['frame']['img2'] ,
+        entro:json['intro'] ==null? null : json['intro']['img2'],
+        frameId:json['frame'] ==null? null :json['frame']['id'] ,
+        entroId:json['intro'] ==null? null : json['intro']['id']
+    );
+
+
+  }
+
+}
+

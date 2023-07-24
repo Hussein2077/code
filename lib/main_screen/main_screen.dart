@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/features/chat/persentation/chat_screen.dart';
 import 'package:tik_chat_v2/features/following/persentation/following_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
-import 'package:tik_chat_v2/features/profile/profile_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 
 
