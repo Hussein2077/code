@@ -8,7 +8,8 @@ import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/widge
 class MyBagTabView extends StatelessWidget {
     final List<BackPackEnities> myBagData;
   final RequestState stateRequest;
-  const MyBagTabView({required this.myBagData , required this.stateRequest , super.key});
+  final int viewIndex ;
+  const MyBagTabView({required this.viewIndex ,  required this.myBagData , required this.stateRequest , super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +19,12 @@ class MyBagTabView extends StatelessWidget {
         itemCount: myBagData.length,
         itemBuilder: (context, index) {
           return MyBagCard(
+            viewIndex: viewIndex,
             id: myBagData[index].id.toString(),
             image:myBagData[index].showImg ,
             time: myBagData[index].expire,
             name: myBagData[index].name,
+            targetId:myBagData[index].targetId.toString(),
           );
         });
   }

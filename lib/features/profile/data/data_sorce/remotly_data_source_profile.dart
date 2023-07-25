@@ -35,6 +35,7 @@ import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
+import 'package:tik_chat_v2/features/profile/data/model/useitem_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
@@ -56,7 +57,7 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<int> getvipCount();
   Future<List<OwnerDataModel>> getVaistors({String? page});
   Future<List<BackPackModel>> getBackPack(String type);
-  Future<String> useItem(String id);
+  Future<UesItemModel> useItem(String id);
   Future<ShowFamilyModel> creatFamily(CreateFamilyPramiter creatFamilyPramiter);
   Future<String> buy(String idItem, String quantity);
   Future<String> sendPack(String packId, String touid);
@@ -377,7 +378,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<String> useItem(String id) async {
+  Future<UesItemModel> useItem(String id) async {
     Map<String, String> headers = await DioHelper().header();
     try {
       final response = await Dio().post(ConstentApi.useItem,
@@ -385,7 +386,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           options: Options(
             headers: headers,
           ));
-      return response.data["message"];
+      return  UesItemModel.fromJson(response.data) ;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }

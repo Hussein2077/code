@@ -231,5 +231,6 @@ class StringManager {
 
             static const String youWillBuy = "You Will Buy";
 
+            static const String takeOff = "take off";
 
 }

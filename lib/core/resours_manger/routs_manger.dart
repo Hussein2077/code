@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
@@ -116,7 +117,9 @@ class RouteGenerator {
                   type: type,
                 ));
       case Routes.myBag:
-        return MaterialPageRoute(builder: (_) => const MyBagScreen());
+              OwnerDataModel userData = settings.arguments as OwnerDataModel;
+
+        return MaterialPageRoute(builder: (_) =>  MyBagScreen(myData: userData,));
       case Routes.mall:
         return MaterialPageRoute(builder: (_) => const MallScreen());
       case Routes.level:

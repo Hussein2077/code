@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 class Card1 extends StatelessWidget {
+  final OwnerDataModel myData ; 
   final bool isDarkTheme ; 
-  const Card1({required this.isDarkTheme ,  super.key});
+  const Card1({required this.myData , required this.isDarkTheme ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class Card1 extends StatelessWidget {
                 context: context,
                 image: AssetsPath.bagProfileIcon,
                 title: StringManager.bag, 
-                onTap: () => Navigator.pushNamed(context, Routes.myBag),),
+                onTap: () => Navigator.pushNamed(context, Routes.myBag , arguments:myData ),),
             card1Coulumn(
                 context: context,
                 image: AssetsPath.mallprofileIcon,

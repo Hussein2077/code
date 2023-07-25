@@ -28,9 +28,12 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/back_pack_usecase.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_data_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_mydata_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/unused_item_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/use_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 
 final getIt = GetIt.instance;
@@ -51,6 +54,8 @@ class ServerLocator {
                         getIt.registerFactory(() => MallBuyBloc(buyUseCase: getIt()));
 
                         getIt.registerFactory(() => MyBagBloc(getBackPackUseCase: getIt()));
+                                                getIt.registerFactory(() => UseItemBloc(useItemUseCase: getIt() , unusedItemUsecase: getIt()));
+
 
 
 
@@ -75,6 +80,10 @@ class ServerLocator {
         () => BuyUseCase(baseRepositoryProfile: getIt()));
                getIt.registerLazySingleton(
         () => GetBackPackUseCase(baseRepositoryProfile: getIt()));
+                 getIt.registerLazySingleton(
+        () => UseItemUseCase(baseRepositoryProfile: getIt()));
+                 getIt.registerLazySingleton(
+        () => UnusedItemUsecase(baseRepositoryProfile: getIt()));
 
 //repo
     getIt.registerLazySingleton<BaseRepository>(

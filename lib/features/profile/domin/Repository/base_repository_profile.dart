@@ -21,6 +21,7 @@ import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
+import 'package:tik_chat_v2/features/profile/data/model/useitem_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/data_mall_entities.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/back_pack_entities.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.dart';
@@ -55,7 +56,7 @@ abstract class BaseRepositoryProfile {
 
   Future<Either<List<BackPackEnities>, Failure>> getBckPack(String type);
 
-  Future<Either<String, Failure>> useItem(String id);
+  Future<Either<UesItemModel, Failure>> useItem(String id);
 
 
   Future<Either<String, Failure>> deleteAccount();

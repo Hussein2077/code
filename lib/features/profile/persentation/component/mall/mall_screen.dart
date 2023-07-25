@@ -9,6 +9,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manag
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 
 import 'widget/mall_tab_view.dart';
 
@@ -28,10 +30,19 @@ class _MallScreenState extends State<MallScreen> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+mallController.dispose();    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<MallBuyBloc, MallBuyState>(
       listener: (context, state) {
         if(state is BuyScussesState ){
+          
+         BlocProvider.of<MyBagBloc>(context)..add(const GetFramesMyBagEvent(type: "4"))
+         ..add(const GetFramesMyBagEvent(type: "6"))..add(const GetFramesMyBagEvent(type: "5"));
+            
           sucssesToast(context: context, title: state.massage);
         }else if (state is BuyErorrState){
           errorToast(context: context, title: state.massage);

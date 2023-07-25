@@ -21,6 +21,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
@@ -87,7 +88,9 @@ class MyApp extends StatelessWidget {
             ..add(const GetEntrieMyBagEvent(type: '6'))
             ..add(const GetBubbleBackPackMyBagEvent(type: "5")),
             ),
-
+                      BlocProvider(
+              create: (context) => getIt<UseItemBloc>(),
+            ),
             
       ],
       child: MaterialApp(

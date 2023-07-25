@@ -56,7 +56,7 @@ class ProfileBody extends StatelessWidget {
              const Spacer(flex: 1,),
 
      
-      Card1(isDarkTheme: isDarkTheme),
+      Card1(isDarkTheme: isDarkTheme , myData:myData ),
              const Spacer(flex: 1,),
 
       

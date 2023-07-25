@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_state.dart';
 
+import 'widgets/my_bag_card.dart';
 import 'widgets/my_bag_tab_view.dart';
 import 'widgets/my_bag_tabs.dart';
 
 class MyBagScreen extends StatefulWidget {
-  const MyBagScreen({super.key});
+ final OwnerDataModel myData ;
+  const MyBagScreen({required this.myData ,  super.key});
 
   @override
   State<MyBagScreen> createState() => _MyBagScreenState();
@@ -18,17 +24,30 @@ class MyBagScreen extends StatefulWidget {
 
 class _MyBagScreenState extends State<MyBagScreen>
     with TickerProviderStateMixin {
+    
+
   late TabController bagController;
   @override
   void initState() {
+MyBagCard.frameUsed = widget.myData.frameId;
+MyBagCard.entriesUsed = widget.myData.introId;
+
+MyBagCard.bublesUsed = widget.myData.bubbleId;
+
     bagController = TabController(length: 3, vsync: this);
     super.initState();
+  }
+  @override
+  void dispose() {
+bagController.dispose();    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+ 
     return BlocBuilder<MyBagBloc, MyBagState>(
       builder: (context, state) {
+  
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           body: Column(
@@ -46,15 +65,22 @@ class _MyBagScreenState extends State<MyBagScreen>
               Expanded(
                   child: TabBarView(
                 controller: bagController,
-                children:  [
+                children: [
                   MyBagTabView(
+                    viewIndex: 0,
                     myBagData: state.framesBackPack,
                     stateRequest: state.framesBackPackRequest,
                   ),
-                  MyBagTabView(    myBagData: state.entering,
-                    stateRequest: state.enteringBackPackRequest,),
-                  MyBagTabView(    myBagData: state.bubblesPackBack,
-                    stateRequest: state.bubblesPackBackRequest,),
+                  MyBagTabView(
+                    viewIndex: 1,
+                    myBagData: state.entering,
+                    stateRequest: state.enteringBackPackRequest,
+                  ),
+                  MyBagTabView(
+                    viewIndex: 2,
+                    myBagData: state.bubblesPackBack,
+                    stateRequest: state.bubblesPackBackRequest,
+                  ),
                 ],
               ))
             ],
