@@ -106,10 +106,12 @@ Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
         return Strings.serverFailureMessage;
       case UnauthorizedFailure:
         return Strings.unauthorizedFailureMassage;
-            case SiginGoogleFailure :
+      case SiginGoogleFailure :
         return Strings.signinGoogleFailureMessage;
         case  SiginFacebookFailure : 
        return Strings.signinFacebookFailureMessage;
+      case InternetFailure :
+        return Strings.checkYourInternet ;
       default:
         return failure.errorMessage?? StringManager.unexcepectedError;
     }
@@ -121,13 +123,13 @@ Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
         return ServerFailure();
       case UnauthorizedException:
         return UnauthorizedFailure();
-    
     case SiginFacebookException :
-    return SiginFacebookFailure();
+     return SiginFacebookFailure();
     case SiginGoogleException :
-    return SiginGoogleFailure();
-
-      case ErrorModelException :
+     return SiginGoogleFailure();
+    case InternetException :
+     return InternetFailure();
+    case ErrorModelException :
         return ErrorMessageFailure(message: e.errorMessage) ;
       default:
         return ErrorMessageFailure(message:e.message);
@@ -139,6 +141,7 @@ Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
     switch (dioError.type) {
       case DioErrorType.response:
       case DioErrorType.other:
+        throw InternetException();
       case DioErrorType.cancel:
         handleStatuesCodeResponse(dioError.response);
         break;
@@ -151,15 +154,12 @@ Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
 
   static Exception handleStatuesCodeResponse(Response? response) {
     log(response!.data.toString());
-    
+    log("statescode"+response.statusCode.toString());
     switch (response.statusCode) {
       case 500:
         throw ServerException();
       case 401:
         throw UnauthorizedException();
-         
-          
-
       default:
         throw ErrorModelException.fromJson(response.data);
 

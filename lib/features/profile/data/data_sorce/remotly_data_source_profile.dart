@@ -157,7 +157,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<OwnerDataModel> getmyData(Noparamiter noparamiter) async {
     Map<String, String> headers = await DioHelper().header();
-
+ log("getmyData") ;
     try {
       final response = await Dio().get(
         ConstentApi.getmyDataUrl,

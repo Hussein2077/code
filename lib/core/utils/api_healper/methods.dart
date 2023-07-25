@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -67,7 +68,7 @@ class Methods {
 
     if (file != null && await file.file.exists()){
       var res = await file.file.readAsString();
-      OwnerDataModel ownerDataModel = OwnerDataModel.fromMap(jsonDecode(res));
+      OwnerDataModel ownerDataModel = OwnerDataModel.fromMap(jsonDecode(res)['data']);
       return ownerDataModel;
     }else{
       return OwnerDataModel();

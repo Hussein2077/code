@@ -28,6 +28,6 @@ class Strings {
   static const String banUser = "Owner this room ban you " ;
   static const String connectionTimeOutMesssage ="there is error in server" ;
     static const String banDevice ="You Have A ban Device" ;
-
+  static const String checkYourInternet ="Check your internet" ;
 
 }

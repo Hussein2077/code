@@ -24,3 +24,5 @@ class ServerFailure extends Failure {}
 // code => 401
 class UnauthorizedFailure extends Failure {}
 
+
+class InternetFailure extends Failure {}
