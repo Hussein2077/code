@@ -4,6 +4,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
@@ -21,16 +22,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   OwnerDataModel ? tempData ; 
-  
- 
+
+
   @override
   void initState() {
-    BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-    getUserData();
+ //   BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
     super.initState();
-  }
-  Future<void> getUserData ()async{
-  
   }
   @override
   Widget build(BuildContext context) {
@@ -42,23 +39,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
         showChildOpacityTransition : false,
 
    onRefresh: ()async{
-                    BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+      BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
       
               },
-        child: SingleChildScrollView(child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
+        child: SingleChildScrollView(
+            child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
          if (state is GetMyDataSucssesState){
           tempData = state.userData ;
              return  ProfileBody(myData: state.userData,);
          }
         else if (state is GetMyDataErrorState){
-          return CustoumErrorWidget(message: state.errorMassage,);
+          //todo show toast here to show error
+          return  ProfileBody(myData: getIt<OwnerDataModel>());
           }
-         else if(state is GetMyDataLoadingState) {
-           
-          return tempData==null? const LoadingWidget() :ProfileBody(myData: tempData!);
-      
+         else if(state is GetMyDataLoadingState){
+          return tempData==null? const LoadingWidget() :
+          ProfileBody(myData: tempData!);
          }else {
+           //todo update this ui
           return const CustoumErrorWidget(message: StringManager.unexcepectedError,);
          }
           },

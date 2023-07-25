@@ -26,7 +26,7 @@ class ConfigModel extends Equatable {
        isAuth: json['is_auth'],
       isForce: json['is_force'],
       isLastVersion: json['is_last_version'],
-       updateExtraCach: json['cache_update']['extra'],
+       updateExtraCach: json['cache_update']['extras'],
        updateFrameCach:  json['cache_update']['frames'],
           updateGiftCache: json['cache_update']['gifts'],
         updateEmojieCach:json['cache_update']['emoji'] ,
@@ -34,7 +34,7 @@ class ConfigModel extends Equatable {
       ) ;
 
   @override
-  List<Object?> get props =>[isAuth,isLastVersion, isForce,updateExtraCach,updateExtraCach,updateFrameCach];
+  List<Object?> get props =>[isAuth,isLastVersion, isForce,updateExtraCach,updateFrameCach,updateGiftCache,updateEntroCach,updateEmojieCach];
 
 
 }

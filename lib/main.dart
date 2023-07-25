@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
               create: (context) => getIt<SignInWithPlatformBloc>(),
             ),
 
-   BlocProvider(
+        BlocProvider(
               create: (context) => getIt<AddInfoBloc>(),
             ),
             

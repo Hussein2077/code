@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
-
 import 'widget/body/home_body.dart';
 import 'widget/header/home_header.dart';
 
@@ -18,6 +17,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     liveController = TabController(length: 2, vsync: this);
+    // if((widget.isChachGift??false)){
+    //   Methods().chachGiftInRoom();
+    // }
+    // if((widget.isCachExtra??false)){
+    //   Methods().getAndLoadExtraData();
+    // }
+    // if((widget.isCachFrame??false)){
+    //   Methods().getAndLoadFrames();
+    // }
+    // if((widget.isCachEntro??false)){
+    //   Methods().getAndLoadEntro();
+    // }
+    // if((widget.isCachEmojie??false)){
+    //   Methods().getAndLoadEmojie();
+    // }
+    // if((widget.isUpdate??false)){
+    //   SchedulerBinding.instance.addPostFrameCallback((_) {
+    //     showDialog(
+    //         barrierDismissible:true,
+    //         context: context,
+    //         builder: (BuildContext context) {
+    //           return const  Material(
+    //               color: Colors.transparent,
+    //               child: UpdateScreen(isForceUpdate: false));
+    //         });
+    //
+    //   });
+    // }
     super.initState();
   }
 
@@ -41,4 +68,5 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     );
   }
+
 }

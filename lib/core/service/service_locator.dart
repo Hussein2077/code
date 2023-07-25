@@ -1,5 +1,8 @@
+import 'dart:developer';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/remotly_datasource.dart';
 import 'package:tik_chat_v2/features/auth/data/repo_imp/repo_imp.dart';
@@ -18,7 +21,6 @@ import 'package:tik_chat_v2/features/following/data/data_sorce/follwoing_remote_
 import 'package:tik_chat_v2/features/following/data/repository_imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/following/domin/repository/follwoing_repository.dart';
 import 'package:tik_chat_v2/features/home/data/data_source/home_remote_data_source.dart';
-import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
 import 'package:tik_chat_v2/features/home/data/repository_imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
@@ -118,8 +120,9 @@ getIt.registerLazySingleton<BaseRemotlyDataSource>(
     final sharedPreferences = await SharedPreferences.getInstance();
     getIt.registerLazySingleton(() => sharedPreferences);
 
-          ConfigModel configModel = const ConfigModel();
-    getIt.registerLazySingleton(() => configModel);
+    final OwnerDataModel cacheMyData = await Methods().returnUserData() ;
+    log('cacheMyData'+cacheMyData.id.toString());
+      getIt.registerLazySingleton(() => cacheMyData);
      FireBaseDataSource fireBaseDataSource = FireBaseDataSource();
     getIt.registerLazySingleton(() => fireBaseDataSource);
 
