@@ -4,9 +4,7 @@ import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
-import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_state.dart';
+
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_state.dart';
 

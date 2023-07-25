@@ -8,8 +8,8 @@ Color(0xFFFFBB0D),
 
 ];
 static const List<Color> bageGriedinet = [
-Color(0xFFFFEAC2),
-Color(0xFFFFBB0D),
+Color(0xFF9d50bb),
+Color(0xFF6e48aa),
 
 ];
 

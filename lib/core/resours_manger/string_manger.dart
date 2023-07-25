@@ -232,5 +232,10 @@ class StringManager {
             static const String youWillBuy = "You Will Buy";
 
             static const String takeOff = "take off";
+            static const String theNumberOfPoints = "The number of points you need to upgrade";
+
+            static const String comingSoon = "Coming Soon";
+
+
 
 }
