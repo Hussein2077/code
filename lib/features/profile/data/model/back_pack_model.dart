@@ -6,7 +6,9 @@ import 'package:tik_chat_v2/features/profile/domin/entitie/back_pack_entities.da
 
 class BackPackModel extends BackPackEnities {
   const BackPackModel(
-      { required super.isDress, required super.firstUsed,
+      { 
+        required super.name,
+        required super.isDress, required super.firstUsed,
         required super.expire,
       required super.id,
       required super.showImg,
@@ -15,6 +17,7 @@ class BackPackModel extends BackPackEnities {
   factory BackPackModel.fromjson(Map<String, dynamic> json) {
     log(json['expire'].runtimeType.toString());
     return BackPackModel(
+      name: json["name"],
       isDress:json['is_dress'] ,
       firstUsed: json['is_used'],
         targetId: json['target_id'],

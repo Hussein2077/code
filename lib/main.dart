@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,12 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_pho
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/video/create_video_live_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
 
 Future <void> main() async{
@@ -74,6 +79,19 @@ class MyApp extends StatelessWidget {
         ..add(const GetFramesMallEvent(type: 4))
         ..add(const GetBubbleMallEvent(type: 5)),
             ),
+
+                                BlocProvider(
+              create: (context) => getIt<MallBuyBloc>(),
+            ),
+                                      BlocProvider(
+              create: (context) => getIt<MyBagBloc>() ..add(const GetFramesMyBagEvent(type: "4"))
+            ..add(const GetEntrieMyBagEvent(type: '6'))
+            ..add(const GetBubbleBackPackMyBagEvent(type: "5")),
+            ),
+                      BlocProvider(
+              create: (context) => getIt<UseItemBloc>(),
+            ),
+            
       ],
       child: MaterialApp(
         

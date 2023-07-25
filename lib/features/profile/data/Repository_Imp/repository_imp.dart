@@ -26,6 +26,7 @@ import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
+import 'package:tik_chat_v2/features/profile/data/model/useitem_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/data_mall_entities.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/back_pack_entities.dart';
@@ -165,7 +166,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<String, Failure>> useItem(String id) async {
+  Future<Either<UesItemModel, Failure>> useItem(String id) async {
     try {
       final result = await baseRemotlyDataSourceProfile.useItem(id);
       return left(result);
