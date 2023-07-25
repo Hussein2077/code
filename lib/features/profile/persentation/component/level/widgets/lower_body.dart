@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
@@ -67,9 +66,9 @@ class LowerBody extends StatelessWidget {
             //     );
             //   }),
             // )
-Spacer(),
+const Spacer(),
             Center(child: Text(StringManager.comingSoon , style: Theme.of(context).textTheme.headlineLarge),),
-            Spacer()
+            const Spacer()
           ],
         ),
       ),
