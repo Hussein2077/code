@@ -1,43 +1,43 @@
-
-
-
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
 
 dynamic deleteToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return MotionToast.delete(
+  return CherryToast.warning(
   
-	title:  Text(title),
+	title:  Text(title,style:const TextStyle(color:Colors.red)),
 	description:  Text(subTitle??""),
 ).show(context);
 }
 
 dynamic sucssesToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return MotionToast.success(
+  return CherryToast.success(
   
-	title:  Text(title),
+	title:   Text(title,style:const TextStyle(color:Colors.green)),
 	description:  Text(subTitle??""),
 ).show(context);
 }
 
 dynamic errorToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return MotionToast.error(
+  return CherryToast.error(
   
-	title:  Text(title),
+	title:   Text(title,style:const TextStyle(color:Colors.red)),
+
 	description:  Text(subTitle??""),
 ).show(context);
 }
 
 dynamic infoToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return MotionToast.info(
+  return CherryToast.info(
   
-	title:  Text(title),
+	title:  Text(title,style:const TextStyle(color:Colors.black)),
 	description:  Text(subTitle??""),
 ).show(context);
 }
 
 dynamic warningToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return MotionToast.warning(
+  return CherryToast.warning(
   
 	title:  Text(title),
 	description:  Text(subTitle??""),
