@@ -1,45 +1,69 @@
-import 'package:cherry_toast/cherry_toast.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:motion_toast/motion_toast.dart';
+import 'package:m_toast/m_toast.dart';
+import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
+
+ShowMToast toast = ShowMToast();
 
 dynamic deleteToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return CherryToast.warning(
-  
-	title:  Text(title,style:const TextStyle(color:Colors.red)),
-	description:  Text(subTitle??""),
-).show(context);
+	return toast.errorToast(
+
+		message:title,
+		textColor:Colors.red,
+		icon: Icons.delete,
+		iconColor:Colors.red,
+		context, alignment: Alignment.topCenter,
+	);
 }
 
 dynamic sucssesToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return CherryToast.success(
-  
-	title:   Text(title,style:const TextStyle(color:Colors.green)),
-	description:  Text(subTitle??""),
-).show(context);
+	return toast.successToast(
+		message:title,
+		textColor:Colors.green,
+		icon: Icons.check_circle,
+		iconColor:Colors.green,
+		context, alignment: Alignment.topCenter,
+	);
 }
 
 dynamic errorToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return CherryToast.error(
-  
-	title:   Text(title,style:const TextStyle(color:Colors.red)),
+  return toast.errorToast(
 
-	description:  Text(subTitle??""),
-).show(context);
+       message:title,
+			textColor:Colors.red,
+			icon: Icons.error,
+			iconColor:Colors.red,
+			context, alignment: Alignment.topCenter,
+	);
 }
 
-dynamic infoToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return CherryToast.info(
-  
-	title:  Text(title,style:const TextStyle(color:Colors.black)),
-	description:  Text(subTitle??""),
-).show(context);
+dynamic loadingToast ({required BuildContext context , required String title , String? subTitle , } ){
+  return toast.loadingToast(
+       message:title,
+			textColor:Colors.green,
+			widget: SizedBox(
+				width: 30,
+					height:30,
+					child: const CircularProgressIndicator(
+						color: Colors.green,
+					)),
+
+			iconColor:Colors.green,
+			context,
+		  alignment: Alignment.topCenter,
+	);
 }
+
+
 
 dynamic warningToast ({required BuildContext context , required String title , String? subTitle , } ){
-  return CherryToast.warning(
-  
-	title:  Text(title),
-	description:  Text(subTitle??""),
-).show(context);
+	return toast.errorToast(
+
+		message:title,
+		textColor:Colors.red,
+		icon: Icons.warning,
+		iconColor:Colors.red,
+		context, alignment: Alignment.topCenter,
+	);
 }

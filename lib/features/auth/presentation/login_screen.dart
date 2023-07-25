@@ -48,111 +48,119 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<LoginWithPhoneBloc, LoginWithPhoneState>(
     
       builder: (context, state) {
-        return Scaffold(
-            body: ScreenBackGround(
-          image: AssetsPath.loginBackGround,
-          child: Column(
-            children: [
-              const Spacer(
-                flex: 20,
-              ),
-              Image.asset(
-                AssetsPath.iconAppWithTitle,
-                scale: 2.5,
-              ),
-              const Spacer(
-                flex: 20,
-              ),
-              const PhoneWithCountry(),
-              const Spacer(
-                flex: 2,
-              ),
-              ContinerWithIcons(
-                  color: Colors.white,
-                  icon1: Icons.lock,
-                  widget: SizedBox(
-                      width: MediaQuery.of(context).size.width - 140,
-                      child: TextFieldWidget(
-                          hintColor: Colors.black.withOpacity(0.6),
-                          hintText: StringManager.password,
-                          controller: passwordController))),
-              const Spacer(
-                flex: 2,
-              ),
-              MainButton(
-                onTap: () {
-                 
-                  if (PhoneWithCountry.phoneIsValid) {
-                    BlocProvider.of<LoginWithPhoneBloc>(context).add(
-                        LoginWithPhoneEvent(
-                            phone: PhoneWithCountry.number.phoneNumber!,
-                            password: passwordController.text));
-                  }
-                },
-                title: StringManager.login,
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+        return SizedBox(
+          height:MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Scaffold(
+              body: SingleChildScrollView(
+                child: ScreenBackGround(
+            image: AssetsPath.loginBackGround,
+            child: Column(
                 children: [
-                  CustomHorizntalDvider(width: ConfigSize.defaultSize! * 10),
-                  Text(
-                    StringManager.orLoginWith,
-                    style: TextStyle(
-                        fontSize: ConfigSize.defaultSize! + 4,
-                        color: ColorManager.whiteColor),
+                  const Spacer(
+                    flex: 20,
                   ),
-                  CustomHorizntalDvider(width: ConfigSize.defaultSize! * 10),
-                ],
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:const [
-                GoogleAuth(),
-           ],),
-              const Spacer(
-                flex: 1,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    StringManager.donnotHaveAccount,
-                    style: TextStyle(
-                        fontSize: ConfigSize.defaultSize! + 4,
-                        color: ColorManager.whiteColor),
+                  Image.asset(
+                    AssetsPath.iconAppWithTitle,
+                    scale: 2.5,
                   ),
-                  InkWell(
+                  const Spacer(
+                    flex: 20,
+                  ),
+                  const PhoneWithCountry(),
+                  const Spacer(
+                    flex: 2,
+                  ),
+                  ContinerWithIcons(
+                      color: Colors.white,
+                      icon1: Icons.lock,
+                      widget: SizedBox(
+                          width: MediaQuery.of(context).size.width - 140,
+                          child: TextFieldWidget(
+                              hintColor: Colors.black.withOpacity(0.6),
+                              hintText: StringManager.password,
+                              controller: passwordController))),
+                  const Spacer(
+                    flex: 2,
+                  ),
+                  MainButton(
                     onTap: () {
-                      Authcontroller().clearAuth();
-                      Navigator.pushNamed(context, Routes.signUp);
+
+                      if (PhoneWithCountry.phoneIsValid) {
+                        BlocProvider.of<LoginWithPhoneBloc>(context).add(
+                            LoginWithPhoneEvent(
+                                phone: PhoneWithCountry.number.phoneNumber!,
+                                password: passwordController.text));
+                      }
                     },
-                    child: Text(
-                      StringManager.createAcoount,
-                      style: TextStyle(
-                          fontSize: ConfigSize.defaultSize! + 4,
-                          color: ColorManager.whiteColor),
-                    ),
+                    title: StringManager.login,
                   ),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CustomHorizntalDvider(width: ConfigSize.defaultSize! * 10),
+                      Text(
+                        StringManager.orLoginWith,
+                        style: TextStyle(
+                            fontSize: ConfigSize.defaultSize! + 4,
+                            color: ColorManager.whiteColor),
+                      ),
+                      CustomHorizntalDvider(width: ConfigSize.defaultSize! * 10),
+                    ],
+                  ),
+                  const Spacer(
+                    flex: 1,
+                  ),
+             Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children:const [
+                    GoogleAuth(),
+             ],),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        StringManager.donnotHaveAccount,
+                        style: TextStyle(
+                            fontSize: ConfigSize.defaultSize! + 4,
+                            color: ColorManager.whiteColor),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Authcontroller().clearAuth();
+                          Navigator.pushNamed(context, Routes.signUp);
+                        },
+                        child: Text(
+                          StringManager.createAcoount,
+                          style: TextStyle(
+                              fontSize: ConfigSize.defaultSize! + 4,
+                              color: ColorManager.whiteColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const PrivacyAndServiceTextWidget(),
+                  const Spacer(
+                    flex: 1,
+                  )
                 ],
-              ),
-              const PrivacyAndServiceTextWidget(),
-              const Spacer(
-                flex: 1,
-              )
-            ],
+            ),
           ),
-        ));
+              )),
+        );
       },
         listener: (context, state) {
            if (state is LoginWithPhoneSuccesMessageState) {
 
-                                    Authcontroller().clearAuth();
+             sucssesToast(context: context, title: state.succesMessage);
+
+             Authcontroller().clearAuth();
 
                Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen , (route) => false,);
                       //to do getmy data
@@ -160,6 +168,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
            }  else if (state is LoginWithPhoneErrorMessageState) {
             errorToast(context: context, title: state.errorMessage);
+           }else if(state is LoginWithPhoneLoadingState){
+             loadingToast(context: context, title: StringManager.loading);
+
            }
       },
     );

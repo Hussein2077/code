@@ -43,7 +43,9 @@ class _MyBagCardState extends State<MyBagCard> {
   Widget build(BuildContext context) {
     return BlocListener<UseItemBloc, UseItemState>(
       listener: (context, state) {
-        if (state is UseItemSuccseesState) {
+        if(state is UseItemLoadingState){
+          loadingToast(context: context, title: StringManager.loading);
+        }else if (state is UseItemSuccseesState) {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           if (widget.viewIndex == 0) {
             MyBagCard.frameUsed = state.data.targetId;
@@ -55,6 +57,7 @@ class _MyBagCardState extends State<MyBagCard> {
           setState(() {});
 
           sucssesToast(context: context, title: state.data.message);
+          //loadingToast(context: context, title: 'Loading...');
         } else if (state is UseItemErrorState) {
           errorToast(context: context, title: state.error);
         } else if (state is UnusedSucssesState) {
@@ -71,6 +74,8 @@ class _MyBagCardState extends State<MyBagCard> {
           sucssesToast(context: context, title: state.massage);
         } else if (state is UnusedErrorState) {
           errorToast(context: context, title: state.massage);
+        }else if(state is UnusedloadingState){
+          loadingToast(context: context, title: StringManager.loading);
         }
       },
       child: Container(

@@ -38,7 +38,7 @@ phonecontroller.dispose();
       padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
       decoration:  BoxDecoration(color:ColorManager.whiteColor , borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*6 )),
       width: MediaQuery.of(context).size.width-50,
-      height: ConfigSize.defaultSize!*6,
+      height: ConfigSize.defaultSize!*7.3,
       child: InternationalPhoneNumberInput(
 
          
