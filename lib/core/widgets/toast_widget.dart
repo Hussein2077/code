@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:m_toast/m_toast.dart';
-import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 
 ShowMToast toast = ShowMToast();
 
@@ -42,10 +41,10 @@ dynamic loadingToast ({required BuildContext context , required String title , S
   return toast.loadingToast(
        message:title,
 			textColor:Colors.green,
-			widget: SizedBox(
+			widget: const SizedBox(
 				width: 30,
 					height:30,
-					child: const CircularProgressIndicator(
+					child:  CircularProgressIndicator(
 						color: Colors.green,
 					)),
 
