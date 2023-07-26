@@ -106,14 +106,13 @@ class MyApp extends StatelessWidget {
             
       ],
       child: MaterialApp(
-        
        debugShowCheckedModeBanner: false,
        theme: lightTheme,
        darkTheme: darkTheme,
-    
+
                   onGenerateRoute: RouteGenerator.getRoute,
                   initialRoute: Routes.splash,
-    
+
       ),
     );
   }

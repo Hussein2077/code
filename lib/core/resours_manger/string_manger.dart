@@ -218,7 +218,7 @@ class StringManager {
 
   static const String unexcepectedError = "UnExcepected Error";
 
-  static const String loading = "Loading";
+  static const String loading = "Loading...";
     static const String wrongCode = 'OTP code is wrong';
     static const String pleaseAddPhoto = 'please add photo';
     static const String pleaseEnterYourName = 'Please Enter Your Name';
@@ -236,7 +236,6 @@ class StringManager {
             static const String theNumberOfPoints = "The number of points you need to upgrade";
 
             static const String comingSoon = "Coming Soon";
-
 
 
 }

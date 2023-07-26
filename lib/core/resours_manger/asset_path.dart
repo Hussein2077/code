@@ -38,9 +38,10 @@ class AssetsPath {
   static const String lowProtected = "$pathImage/low_protected.png";
   static const String medProtected = "$pathImage/med_protected.png";
   static const String highProtected = "$pathImage/high_protected.png";
-  static const String createVoicBackGround = "$pathImage/create_live_background.png";
-    static const String seatsImage = "$pathImage/seats_image.png";
-
+  static const String createVoicBackGround =
+      "$pathImage/create_live_background.png";
+  static const String seatsImage = "$pathImage/seats_image.png";
+  static const String loadingGif = "$pathImage/output-onlinegiftools.gif";
 
   //icons
   static const String googleIcon = "$pathIcon/google_icon.png";
@@ -82,7 +83,7 @@ class AssetsPath {
   static const String createLiveIcon = "$pathIcon/create_live_icon.png";
   static const String searchIcon = "$pathIcon/search_icon.png";
   static const String globalIcon = "$pathIcon/global_icon.png";
-    static const String whiteGlobalIcon = "$pathIcon/uiw_global.png";
+  static const String whiteGlobalIcon = "$pathIcon/uiw_global.png";
 
   static const String firstBadge = "$pathIcon/first_badge.png";
 
@@ -138,18 +139,13 @@ class AssetsPath {
   static const String phoneIcon = "$pathIcon/phoneIcon.png";
   static const String acceptIcon = "$pathIcon/acceptIcon.png";
   static const String declineIcon = "$pathIcon/declineIcon.png";
-    static const String lock = "$pathIcon/lock.png";
-    static const String flipIcon = "$pathIcon/flip_icon.png";
-        static const String filtterIcon = "$pathIcon/filtter_icon.png";
-                static const String uploadIcon = "$pathIcon/upload.png";
-                                static const String reelVideoIcon = "$pathIcon/reel_video_icon.png";
-                                static const String mentionIcon = "$pathIcon/mention_icon.png";
-                                static const String hashTagIcon = "$pathIcon/hashtag_icon.png";
+  static const String lock = "$pathIcon/lock.png";
+  static const String flipIcon = "$pathIcon/flip_icon.png";
+  static const String filtterIcon = "$pathIcon/filtter_icon.png";
+  static const String uploadIcon = "$pathIcon/upload.png";
+  static const String reelVideoIcon = "$pathIcon/reel_video_icon.png";
+  static const String mentionIcon = "$pathIcon/mention_icon.png";
+  static const String hashTagIcon = "$pathIcon/hashtag_icon.png";
 
-                                static const String snapIcon = "$pathIcon/snap_icon.png";
-
-
-
-
-  
+  static const String snapIcon = "$pathIcon/snap_icon.png";
 }
