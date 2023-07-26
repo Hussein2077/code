@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
-import 'package:tik_chat_v2/core/widgets/custom_icon.dart';
-import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 
 import '../../../../../../core/widgets/user_image.dart';
 
 class FamilyInfoRow extends StatelessWidget {
-  const FamilyInfoRow({super.key});
+  final String image ;
+  final String name ; 
+  final String intro ; 
+  const FamilyInfoRow({required this.image , required this.intro , required this.name ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class FamilyInfoRow extends StatelessWidget {
               width: ConfigSize.defaultSize,
             ),
             UserImage(
-              image: "",
+              image: image,
               imageSize: ConfigSize.defaultSize! * 5,
             ),
             SizedBox(
@@ -31,21 +31,21 @@ class FamilyInfoRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "حموديات صغيرين",
+                  name,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                Row(
-                  children: const [
-                    UserCountryIcon(country: ""),
-                    CustomIcon(
-                      color: ColorManager.deepBlue,
-                      icon: AssetsPath.groupIcon,
-                      title: "18",
-                    )
-                  ],
-                ),
+                // Row(
+                //   children: const [
+                //     UserCountryIcon(country: ""),
+                //     CustomIcon(
+                //       color: ColorManager.deepBlue,
+                //       icon: AssetsPath.groupIcon,
+                //       title: "18",
+                //     )
+                //   ],
+                // ),
                 Text(
-                  "مرحباً بالجميع انضموا الينا!",
+                  intro,
                   style: Theme.of(context).textTheme.titleMedium,
                 )
               ],

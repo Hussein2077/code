@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
+import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/widgets/family_info_row.dart';
 
 class OtherTopWidget extends StatelessWidget {
-  const OtherTopWidget({super.key});
+    final List<FamilyRanking> otherRanking;
+
+  const OtherTopWidget({required this.otherRanking ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +33,11 @@ class OtherTopWidget extends StatelessWidget {
           ),
           Expanded(child: ListView.builder(
             itemExtent: 100,
-            itemCount: 10,
+            itemCount: otherRanking.length,
             itemBuilder: (context , index){
-            return const FamilyInfoRow();
+            return  FamilyInfoRow(image: otherRanking[index].img!, 
+            intro: otherRanking[index].introduce!,
+            name: otherRanking[index].name!,);
           }))
         ],
       ),

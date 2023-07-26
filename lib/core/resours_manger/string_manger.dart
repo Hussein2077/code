@@ -135,6 +135,8 @@ class StringManager {
   static const String king = "King";
   static const String superKing = "Super King";
   static const String buyToEnjoy = "Buy to enjoy many advantages";
+    static const String youAreVip = "You are vip";
+
 
   static const String advantages = "Advantages";
 
@@ -222,6 +224,9 @@ class StringManager {
     static const String wrongCode = 'OTP code is wrong';
     static const String pleaseAddPhoto = 'please add photo';
     static const String pleaseEnterYourName = 'Please Enter Your Name';
+        static const String pleaseEnterFamilyName = 'Please Enter Family Name';
+        static const String pleaseEnterFamilyBio = 'Please Enter Family Bio';
+
     static const String pleaseEnterYourBirthDate = 'Please Enter Your BirthDate';
     static const String pleaseSelectYourCountry = 'Please Select Your Country';
       static const String loginSuccesfully = " Login Succesfully";

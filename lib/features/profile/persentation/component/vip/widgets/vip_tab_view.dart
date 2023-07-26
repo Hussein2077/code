@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
@@ -7,6 +8,8 @@ import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 
 import 'vip_bottom_bar.dart';
 import 'vip_dailog.dart';
@@ -14,7 +17,7 @@ import 'vip_dailog.dart';
 class VipTabView extends StatelessWidget {
   final VipCenterModel vipData;
   final String vipIcon;
-  const VipTabView({   required this.vipData, required this.vipIcon, super.key});
+  const VipTabView({required this.vipData, required this.vipIcon, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +30,35 @@ class VipTabView extends StatelessWidget {
         SizedBox(
           height: ConfigSize.defaultSize! * 3,
         ),
-        Text(
-          StringManager.buyToEnjoy,
-          style: TextStyle(
-              color: Colors.white.withOpacity(0.7),
-              fontSize: ConfigSize.defaultSize! * 1.7),
+        BlocBuilder<GetMyDataBloc, GetMyDataState>(
+          builder: (context, state) {
+            if(state is GetMyDataSucssesState){
+              if(vipData.level == state.userData.vip1!.level){
+ return Text(
+              "${StringManager.youAreVip}  ${vipData.level.toString()}",
+              style: TextStyle(
+                  color: Colors.white.withOpacity(0.7),
+                  fontSize: ConfigSize.defaultSize! * 1.7),
+            );
+              }else {
+                 return Text(
+              StringManager.buyToEnjoy,
+              style: TextStyle(
+                  color: Colors.white.withOpacity(0.7),
+                  fontSize: ConfigSize.defaultSize! * 1.7),
+            );
+              }
+ 
+            }else {
+                return Text(
+              StringManager.buyToEnjoy,
+              style: TextStyle(
+                  color: Colors.white.withOpacity(0.7),
+                  fontSize: ConfigSize.defaultSize! * 1.7),
+            );
+            }
+          
+          },
         ),
         SizedBox(
           height: ConfigSize.defaultSize! * 3,
@@ -85,11 +112,11 @@ class VipTabView extends StatelessWidget {
                       }),
                 ),
                 VipBottomBar(
-                  expire:vipData.expire.toString() ,
+                  expire: vipData.expire.toString(),
                   id: vipData.id.toString(),
                   price: vipData.price.toString(),
                   name: vipData.name.toString(),
-                  vipBadge:vipIcon ,
+                  vipBadge: vipIcon,
                 )
               ],
             ),

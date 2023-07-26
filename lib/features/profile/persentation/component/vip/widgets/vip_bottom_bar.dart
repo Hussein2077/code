@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_event.dart';
 
 class VipBottomBar extends StatelessWidget {
   final String price;
@@ -62,6 +65,11 @@ class VipBottomBar extends StatelessWidget {
                   builder: (context) {
                     return PopUpDialog(
                         accpetText: () {
+                          BlocProvider.of<BuyOrSendVipBloc>(context).add(BuyOrSendVipEvent(
+                            type: "0", 
+                            vipId: id,
+                            toUId: "0"
+                          ));
                           Navigator.pop(context);
                         },
                         headerText: name,

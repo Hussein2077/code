@@ -6,6 +6,8 @@ import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 
 class AddFamilyPic extends StatefulWidget {
+  static   XFile? image;
+
   const AddFamilyPic({super.key});
 
   @override
@@ -14,9 +16,8 @@ class AddFamilyPic extends StatefulWidget {
 
 class _AddFamilyPicState extends State<AddFamilyPic> {
   final ImagePicker picker = ImagePicker();
-  XFile? image;
   Future<void> _getImage() async {
-    image = await picker.pickImage(source: ImageSource.gallery);
+    AddFamilyPic.image = await picker.pickImage(source: ImageSource.gallery);
     setState(() {});
   }
 
@@ -34,12 +35,12 @@ class _AddFamilyPicState extends State<AddFamilyPic> {
               Container(
                 width: ConfigSize.defaultSize! * 10,
                 height: ConfigSize.defaultSize! * 10,
-                decoration: image != null
+                decoration: AddFamilyPic.image != null
                     ? BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: FileImage(File(image!.path)),
+                          image: FileImage(File(AddFamilyPic.image!.path)),
                           fit: BoxFit.cover,
                         ),
                       )

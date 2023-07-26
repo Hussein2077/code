@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
@@ -6,11 +8,12 @@ import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/family/widgets/other_top_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_state.dart';
 
 import 'widgets/family_rank_bottom_bar.dart';
 import 'widgets/family_rank_tabs.dart';
-import 'widgets/top_three_widget.dart';
+import 'widgets/tab_bar_view.dart';
 
 class FamilyRankingScreen extends StatefulWidget {
   const FamilyRankingScreen({super.key});
@@ -27,46 +30,59 @@ class _FamilyRankingScreenState extends State<FamilyRankingScreen>
     rankingController = TabController(length: 3, vsync: this);
     super.initState();
   }
+  @override
+  void dispose() {
+   rankingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: ScreenColorBackGround(
-            color: ColorManager.mainColorList,
-            child: ScreenBackGround(
-                image: AssetsPath.familyBackGround,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 3.5,
-                    ),
-                    const HeaderWithOnlyTitle(
-                      title: StringManager.family,
-                      titleColor: Colors.white,
-                    ),
-                    FamilyRankTabs(
-                      rankingController: rankingController,
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 3,
-                    ),
-                    Expanded(
-                      child:
-                          TabBarView(controller: rankingController, children: [
-                        for (int i = 0; i < 3; i++)
-                          Stack(
-                            children: [
-                              const TopThreeWidget(),
-                              Padding(
-                                  padding: EdgeInsets.only(
-                                      top: ConfigSize.defaultSize! * 21),
-                                  child: const OtherTopWidget())
-                            ],
-                          ),
-                      ]),
-                    ),
-                    const FamilyRankBottomBar()
-                  ],
-                ))));
+    return BlocBuilder<FamilyRankingBloc, FamilyRankingStates>(
+      builder: (context, state) {
+        return Scaffold(
+            body: ScreenColorBackGround(
+                color: ColorManager.mainColorList,
+                child: ScreenBackGround(
+                    image: AssetsPath.familyBackGround,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: ConfigSize.defaultSize! * 3.5,
+                        ),
+                        const HeaderWithOnlyTitle(
+                          title: StringManager.family,
+                          titleColor: Colors.white,
+                        ),
+                        FamilyRankTabs(
+                          rankingController: rankingController,
+                        ),
+                        SizedBox(
+                          height: ConfigSize.defaultSize! * 3,
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                              controller: rankingController,
+                              children: [
+                                RankingTabBarView(
+                                  data: state.dailyData,
+                                  stateRequest: state.dailyDataRequest,
+                                  message: state.dailyDatakMassage,
+                                ),
+                                RankingTabBarView(         data: state.weekData,
+                                  stateRequest: state.weekDataRequest,
+                                                                    message: state.weekDatakMassage,
+),
+                                RankingTabBarView(         data: state.monthData,
+                                  stateRequest: state.monthDataRequest,
+                                                                    message: state.monthDatakMassage,
+),
+                              ]),
+                        ),
+                        const FamilyRankBottomBar()
+                      ],
+                    ))));
+      },
+    );
   }
 }

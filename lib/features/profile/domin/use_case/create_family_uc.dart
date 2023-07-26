@@ -4,17 +4,16 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
-import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
 
 
-class CreateFamilyUC extends BaseUseCase<ShowFamilyModel, CreateFamilyPramiter> {
+class CreateFamilyUC extends BaseUseCase<String, CreateFamilyPramiter> {
   BaseRepositoryProfile baseRepositoryProfile;
 
   CreateFamilyUC({required this.baseRepositoryProfile});
 
   @override
-  Future<Either<ShowFamilyModel, Failure>> call(CreateFamilyPramiter parameter) async {
+  Future<Either<String, Failure>> call(CreateFamilyPramiter parameter) async {
     final result = await baseRepositoryProfile.createFamily(parameter);
 
     return result;
