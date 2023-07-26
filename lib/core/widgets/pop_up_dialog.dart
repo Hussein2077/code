@@ -26,7 +26,7 @@ class PopUpDialog extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-           colors: ColorManager.mainColorList
+           colors: ColorManager.bageGriedinet
           ),
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
         ),

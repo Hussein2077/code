@@ -27,15 +27,19 @@ import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/back_pack_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/buy_or_send_vip.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_data_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_mydata_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_vip_center_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/unused_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/use_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 
 final getIt = GetIt.instance;
@@ -57,7 +61,9 @@ class ServerLocator {
 
                         getIt.registerFactory(() => MyBagBloc(getBackPackUseCase: getIt()));
                                                 getIt.registerFactory(() => UseItemBloc(useItemUseCase: getIt() , unusedItemUsecase: getIt()));
+                                                getIt.registerFactory(() => VipCenterBloc(getVipCenterUsecase: getIt() , ));
 
+                                                getIt.registerFactory(() => BuyOrSendVipBloc(buyOrSendVipUseCase: getIt() , ));
 
 
 
@@ -86,6 +92,10 @@ class ServerLocator {
         () => UseItemUseCase(baseRepositoryProfile: getIt()));
                  getIt.registerLazySingleton(
         () => UnusedItemUsecase(baseRepositoryProfile: getIt()));
+                    getIt.registerLazySingleton(
+        () => GetVipCenterUsecase(baseRepositoryProfile: getIt()));
+                            getIt.registerLazySingleton(
+        () => BuyOrSendVipUseCase(baseRepositoryProfile: getIt()));
 
 //repo
     getIt.registerLazySingleton<BaseRepository>(
@@ -121,7 +131,7 @@ getIt.registerLazySingleton<BaseRemotlyDataSource>(
     getIt.registerLazySingleton(() => sharedPreferences);
 
     final OwnerDataModel cacheMyData = await Methods().returnUserData() ;
-    log('cacheMyData'+cacheMyData.id.toString());
+    log('cacheMyData${cacheMyData.id}');
       getIt.registerLazySingleton(() => cacheMyData);
      FireBaseDataSource fireBaseDataSource = FireBaseDataSource();
     getIt.registerLazySingleton(() => fireBaseDataSource);

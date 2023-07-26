@@ -154,7 +154,7 @@ Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
 
   static Exception handleStatuesCodeResponse(Response? response) {
     log(response!.data.toString());
-    log("statescode"+response.statusCode.toString());
+    log("statescode${response.statusCode}");
     switch (response.statusCode) {
       case 500:
         throw ServerException();

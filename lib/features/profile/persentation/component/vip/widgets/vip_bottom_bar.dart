@@ -3,9 +3,21 @@ import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 
 class VipBottomBar extends StatelessWidget {
-  const VipBottomBar({super.key});
+  final String price;
+  final String expire;
+  final String id;
+  final String name;
+  final String vipBadge;
+  const VipBottomBar(
+      {required this.vipBadge,
+      required this.name,
+      required this.expire,
+      required this.id,
+      required this.price,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +33,13 @@ class VipBottomBar extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(
-                    text: '160.000 ',
+                    text: price,
                     style: TextStyle(
                         color: const Color.fromARGB(255, 236, 172, 51),
                         fontSize: ConfigSize.defaultSize! * 1.6)),
                 TextSpan(
-                    text: '${StringManager.coins} / 30 ${StringManager.day}',
+                    text:
+                        ' ${StringManager.coins} / $expire ${StringManager.day}',
                     style: Theme.of(context).textTheme.bodyLarge),
               ],
             ),
@@ -34,14 +47,30 @@ class VipBottomBar extends StatelessWidget {
           MainButton(
             width: ConfigSize.defaultSize! * 7,
             height: ConfigSize.defaultSize! * 3,
-            onTap: () {},
+            onTap: () {
+              // bottomDailog(context: context, widget: widget)
+            },
             title: StringManager.send,
             buttonColor: ColorManager.bageGriedinet,
           ),
           MainButton(
             width: ConfigSize.defaultSize! * 7,
             height: ConfigSize.defaultSize! * 3,
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return PopUpDialog(
+                        accpetText: () {
+                          Navigator.pop(context);
+                        },
+                        headerText: name,
+                        widget: Image.asset(
+                          vipBadge,
+                          scale: 5,
+                        ));
+                  });
+            },
             title: StringManager.buy,
           )
         ],

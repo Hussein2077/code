@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
+// ignore: depend_on_referenced_packages
+import 'package:cached_network_image/cached_network_image.dart';
+
+import 'vip_bottom_bar.dart';
+import 'vip_dailog.dart';
 
 class VipTabView extends StatelessWidget {
+  final VipCenterModel vipData;
   final String vipIcon;
-  const VipTabView({required this.vipIcon, super.key});
+  const VipTabView({   required this.vipData, required this.vipIcon, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +24,18 @@ class VipTabView extends StatelessWidget {
           vipIcon,
           scale: 2.5,
         ),
-              SizedBox(height: ConfigSize.defaultSize!*3,),
-
+        SizedBox(
+          height: ConfigSize.defaultSize! * 3,
+        ),
         Text(
           StringManager.buyToEnjoy,
           style: TextStyle(
               color: Colors.white.withOpacity(0.7),
               fontSize: ConfigSize.defaultSize! * 1.7),
         ),
-                      SizedBox(height: ConfigSize.defaultSize!*3,),
-
+        SizedBox(
+          height: ConfigSize.defaultSize! * 3,
+        ),
         Expanded(
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -37,9 +46,9 @@ class VipTabView extends StatelessWidget {
                     topRight: Radius.circular(ConfigSize.defaultSize! * 4))),
             child: Column(
               children: [
-                              SizedBox(height: ConfigSize.defaultSize!*2,),
-
-
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 2,
+                ),
                 Text(
                   StringManager.advantages,
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -50,25 +59,37 @@ class VipTabView extends StatelessWidget {
                 ),
                 Expanded(
                   child: GridView.builder(
-                      itemCount: 20,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 1.2),
+                      itemCount: vipData.privilgesData!.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3, childAspectRatio: 1.2),
                       itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            Container(
-                              width: ConfigSize.defaultSize! * 5,
-                              height: ConfigSize.defaultSize! * 5,
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(AssetsPath.testImage))),
-                            ),
-                        SizedBox(height: ConfigSize.defaultSize!,),
-                            Text("ميزه موت", style: Theme.of(context).textTheme.bodySmall,)
-                          ],
+                        return InkWell(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return VipDailog(
+                                    title: vipData
+                                        .privilgesData![index].item!.title!,
+                                    headerText: vipData
+                                        .privilgesData![index].item!.name!,
+                                    image: vipData
+                                        .privilgesData![index].item!.image!,
+                                  );
+                                });
+                          },
+                          child: privilgesVipIcon(
+                              context: context, index: index, vipData: vipData),
                         );
                       }),
+                ),
+                VipBottomBar(
+                  expire:vipData.expire.toString() ,
+                  id: vipData.id.toString(),
+                  price: vipData.price.toString(),
+                  name: vipData.name.toString(),
+                  vipBadge:vipIcon ,
                 )
               ],
             ),
@@ -77,4 +98,32 @@ class VipTabView extends StatelessWidget {
       ],
     );
   }
+}
+
+Widget privilgesVipIcon(
+    {required BuildContext context,
+    required VipCenterModel vipData,
+    required index}) {
+  return Column(
+    children: [
+      Container(
+        width: ConfigSize.defaultSize! * 5,
+        height: ConfigSize.defaultSize! * 5,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: CachedNetworkImageProvider(vipData
+                        .privilgesData![index].active
+                    ? ConstentApi().getImage(vipData.privilgesData![index].img1)
+                    : ConstentApi()
+                        .getImage(vipData.privilgesData![index].img2)))),
+      ),
+      SizedBox(
+        height: ConfigSize.defaultSize!,
+      ),
+      Text(
+        vipData.privilgesData![index].name,
+        style: Theme.of(context).textTheme.bodySmall,
+      )
+    ],
+  );
 }

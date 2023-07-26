@@ -22,6 +22,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manag
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
@@ -91,6 +94,15 @@ class MyApp extends StatelessWidget {
                       BlocProvider(
               create: (context) => getIt<UseItemBloc>(),
             ),
+                      BlocProvider(
+              create: (context) =>
+                  getIt<VipCenterBloc>()..add(GetVipCenterEvent()),
+            ),
+                          BlocProvider(
+              create: (context) =>
+                  getIt<BuyOrSendVipBloc>(),
+            ),
+            
             
       ],
       child: MaterialApp(

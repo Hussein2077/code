@@ -21,6 +21,11 @@ class _LevelScreenState extends State<LevelScreen>
     levelController = TabController(length: 2, vsync: this);
     super.initState();
   }
+  @override
+  void dispose() {
+levelController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

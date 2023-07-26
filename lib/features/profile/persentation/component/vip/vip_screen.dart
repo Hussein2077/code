@@ -1,13 +1,15 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
+import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_states.dart';
 
-import 'widgets/vip_bottom_bar.dart';
 import 'widgets/vip_tab_view.dart';
 import 'widgets/vip_tabs.dart';
 
@@ -18,71 +20,78 @@ class VipScreen extends StatefulWidget {
   State<VipScreen> createState() => _VipScreenState();
 }
 
-class _VipScreenState extends State<VipScreen>with TickerProviderStateMixin {
-  late TabController vipContriller ; 
+class _VipScreenState extends State<VipScreen> with TickerProviderStateMixin {
+  late TabController vipContriller;
   @override
   void initState() {
-   vipContriller = TabController(length: 8, vsync: this);
+    vipContriller = TabController(length: 8, vsync: this);
     super.initState();
   }
+
+  @override
+  void dispose() {
+    vipContriller.dispose();
+    super.dispose();
+  }
+
+  List<String> vipBage = [
+    AssetsPath.kinghtIcon,
+    AssetsPath.baronIcon,
+    AssetsPath.viscount,
+    AssetsPath.count,
+    AssetsPath.marquis,
+    AssetsPath.duke,
+    AssetsPath.king,
+    AssetsPath.superKing,
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:
-    ScreenBackGround(image: AssetsPath.vipBackGround, child: Column(children: [
-      SizedBox(height: ConfigSize.defaultSize!*3.5,),
-const HeaderWithOnlyTitle(title: StringManager.vip , titleColor: Colors.white, ),
-      SizedBox(height: ConfigSize.defaultSize!*2,),
-
-VipTabs(vipContriller: vipContriller,),
-      SizedBox(height: ConfigSize.defaultSize!*5,),
-
-Expanded(
-  child:    TabBarView(
-  
-    controller: vipContriller,
-  
-    children:const [
-  
-      VipTabView(vipIcon: AssetsPath.kinghtIcon),
-  
-      VipTabView(vipIcon: AssetsPath.baronIcon),
-  
-  
-  
-      VipTabView(vipIcon: AssetsPath.viscount),
-  
-  
-  
-      VipTabView(vipIcon: AssetsPath.count),
-  
-  
-  
-      VipTabView(vipIcon: AssetsPath.marquis),
-  
-  
-  
-      VipTabView(vipIcon: AssetsPath.duke),
-  
-  
-  
-      VipTabView(vipIcon: AssetsPath.king),
-  
-  
-  
-      VipTabView(vipIcon: AssetsPath.superKing),
-  
-  
-  
-    ]),
-),
-
-
-
-const VipBottomBar()
-
-
-
-    ],))
-     ,);
+    return Scaffold(
+      body: ScreenBackGround(
+          image: AssetsPath.vipBackGround,
+          child: Column(
+            children: [
+              SizedBox(
+                height: ConfigSize.defaultSize! * 3.5,
+              ),
+              const HeaderWithOnlyTitle(
+                title: StringManager.vip,
+                titleColor: Colors.white,
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! * 2,
+              ),
+              VipTabs(
+                vipContriller: vipContriller,
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! * 5,
+              ),
+              Expanded(
+                child: BlocBuilder<VipCenterBloc, VipStates>(
+                  builder: (context, state) {
+                    if (state is VipStatesSuccessState) {
+                      return TabBarView(controller: vipContriller, children: [
+                        for (int i = 0; i < 8; i++)
+                          VipTabView(
+                            vipData: state.vipData[i],
+                            vipIcon: vipBage[i],
+                          ),
+                      ]);
+                    } else if (state is VipStatesLoadingState) {
+                      return const LoadingWidget();
+                    } else if (state is VipStatesErrorState) {
+                      return CustoumErrorWidget(message: state.message);
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
+              ),
+      
+            ],
+          )),
+    );
   }
 }

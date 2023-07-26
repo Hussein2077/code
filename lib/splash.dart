@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_confige_uc.dart';
 
 class SplashScreen extends StatefulWidget {
+  static bool isDark = false ; 
   const SplashScreen({super.key});
 
   @override
