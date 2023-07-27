@@ -7,7 +7,11 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 
 class FamilyMemberCard extends StatelessWidget {
-  const FamilyMemberCard({super.key});
+  final String id ; 
+  final String name ; 
+  final String type ; 
+  final String image ; 
+  const FamilyMemberCard({required this.id ,  required this.image , required this.name , required this.type ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class FamilyMemberCard extends StatelessWidget {
                             left: ConfigSize.defaultSize!,
                             top: ConfigSize.defaultSize! * 1.5),
                         child: UserImage(
-                          image: "",
+                          image: image,
                           imageSize: ConfigSize.defaultSize! * 4,
                         ),
                       ),
@@ -36,19 +40,27 @@ class FamilyMemberCard extends StatelessWidget {
                         padding: EdgeInsets.only(
                             top: ConfigSize.defaultSize! * 4,
                             left: ConfigSize.defaultSize! * 4),
-                        child: Image.asset(
+                        child:type==StringManager.owner? Image.asset(
                           AssetsPath.ownerIcon,
                           scale: 2.3,
-                        ),
+                        ):type==StringManager.admin?Image.asset(
+                          AssetsPath.adminIcon,
+                          scale: 2.3,
+                        ):const SizedBox(),
                       )
                     ],
                   ),
                   SizedBox(
                     height: ConfigSize.defaultSize,
                   ),
-                  Text(
-                    "الحمود",
-                    style: Theme.of(context).textTheme.bodySmall,
+                  SizedBox(
+                    width: ConfigSize.defaultSize!*14,
+                    child: Center(
+                      child: Text(
+                        name,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
                   ),
                   CustomHorizntalDvider(
                     width: ConfigSize.defaultSize! * 7,
@@ -56,7 +68,7 @@ class FamilyMemberCard extends StatelessWidget {
                         Theme.of(context).colorScheme.primary.withOpacity(0.3),
                   ),
                   Text(
-                    StringManager.owner,
+                    type,
                     style: Theme.of(context).textTheme.bodySmall,
                   )
                 ]),

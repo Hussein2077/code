@@ -19,7 +19,7 @@ class UserInfoRow extends StatelessWidget {
       children: [
               const  Spacer(flex: 1,),
 
-     UserImage(imageSize: imageSize ,image: userData.profile!.image, ),
+     UserImage(imageSize: imageSize ,image: userData.profile!.image!, ),
                       const  Spacer(flex: 1,),
 
         Column(

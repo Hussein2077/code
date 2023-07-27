@@ -29,19 +29,35 @@ import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_pr
 import 'package:tik_chat_v2/features/profile/domin/use_case/back_pack_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_or_send_vip.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/change_user_type.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/delet_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/family_ranking_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/family_take_action_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_data_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_member_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_request_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_mydata_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vip_center_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/show_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/unused_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/use_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_delete_family/bloc/delete_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_take_action/bloc/take_action_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_join_family/bloc/join_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_remove_user/bloc/family_remove_user_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_change_user_type/bloc/change_user_type_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_create_family/bloc/create_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
@@ -87,8 +103,31 @@ class ServerLocator {
                  getIt.registerFactory(() => GetConfigKeysBloc(
           getConfigKeyUc: getIt(),
         ));
+                     getIt.registerFactory(() => ShowFamilyBloc(
+          showFamilymUsecase: getIt(),
+        ));
+                       getIt.registerFactory(() => FamilyMemberBloc(
+          getfamilymember: getIt(),
+        ));
+                             getIt.registerFactory(() => FamilyRequestBloc(
+          getFamilyRequestUsecase: getIt(),
+        ));
+                         getIt.registerFactory(() => DeleteFamilyBloc(
+          deleteFamilyUseCse: getIt(),
+        ));
 
-
+                     getIt.registerFactory(() => TakeActionBloc(
+          familyTakeActionUsecase: getIt(),
+        ));
+                      getIt.registerFactory(() => ChangeUserTypeBloc(
+          changeUserTypeUsecase: getIt(),
+        ));
+                         getIt.registerFactory(() => FamilyRemoveUserBloc(
+          removeUserFromFamilyUsecase: getIt(),
+        ));
+                           getIt.registerFactory(() => JoinFamilyBloc(
+          joinFamilymUsecase: getIt(),
+        ));
         
 
 //usecase
@@ -125,8 +164,23 @@ class ServerLocator {
         () => CreateFamilyUC(baseRepositoryProfile: getIt()));
             getIt.registerLazySingleton(
         () => GetConfigKeyUc(baseRepositoryProfile: getIt()));
-        
+              getIt.registerLazySingleton(
+        () => ShowFamilymUsecase(baseRepositoryProfile: getIt()));
+                   getIt.registerLazySingleton(
+        () => GetFamilyMemberUseCase(baseRepositoryProfile: getIt()));
+                           getIt.registerLazySingleton(
+        () => GetFamilyRequestUsecase(baseRepositoryProfile: getIt()));
+                                  getIt.registerLazySingleton(
+        () => DeleteFamilyUseCse(baseRepositoryProfile: getIt()));
+                                     getIt.registerLazySingleton(
+        () => FamilyTakeActionUsecase(baseRepositoryProfile: getIt()));
+                                        getIt.registerLazySingleton(
+        () => ChangeUserTypeUsecase(baseRepositoryProfile: getIt()));
 
+                                  getIt.registerLazySingleton(
+        () => RemoveUserFromFamilyUsecase(baseRepositoryProfile: getIt()));
+                                     getIt.registerLazySingleton(
+        () => JoinFamilymUsecase(baseRepositoryProfile: getIt()));
 //repo
     getIt.registerLazySingleton<BaseRepository>(
         () => RepositoryImp(baseRemotlyDataSource: getIt()));

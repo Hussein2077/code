@@ -35,7 +35,7 @@ class PopUpDialog extends StatelessWidget {
 const Spacer(flex: 1,),
             Text(headerText , style: Theme.of(context).textTheme.bodyLarge,),
        const Spacer(flex: 1,),
-
+            if(widget!=null)
             widget!,
             const Spacer(flex: 1,),
 

@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/features/home/presentation/component/create_live/ree
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/coins_scrren.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/custom_service/custoum_service_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/f_f_f_v_screens/f_f_f_v_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_delete/delete_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_member/family_member_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_requests/family_requests_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/family_profile_screen.dart';
@@ -66,6 +67,7 @@ class Routes {
     static const String uploadReels = "/UploadReels";
         static const String signUp = "/SignUp";
 
+        static const String deleteFamily = "/DeleteFamily";
 
 }
 
@@ -129,7 +131,9 @@ class RouteGenerator {
       case Routes.familyRanking:
         return MaterialPageRoute(builder: (_) => const FamilyRankingScreen());
       case Routes.familyProfile:
-        return MaterialPageRoute(builder: (_) => const FamilyProfileScreen());
+              String familyId = settings.arguments as String;
+
+        return MaterialPageRoute(builder: (_) =>  FamilyProfileScreen(familyId: familyId,));
       case Routes.custoumService:
         return MaterialPageRoute(builder: (_) => const CustoumServiceScreen());
 
@@ -143,13 +147,17 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const FamilyRequestsScreen());
 
       case Routes.familyMembers:
-        return MaterialPageRoute(builder: (_) => const FamilyMemberScreen());
+                    OwnerDataModel ownerData = settings.arguments as OwnerDataModel;
+
+        return MaterialPageRoute(builder: (_) =>  FamilyMemberScreen(owner: ownerData,));
       case Routes.createLive:
         return MaterialPageRoute(builder: (_) => const CreateLiveScreen());
         case Routes.uploadReels:
         return MaterialPageRoute(builder: (_) => const UploadReelsScreen());
            case Routes.signUp:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
+                case Routes.deleteFamily:
+        return MaterialPageRoute(builder: (_) => const DeleteScreen());
     }
 
     return unDefinedRoute();

@@ -19,11 +19,19 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_palt
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/video/create_video_live_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_delete_family/bloc/delete_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_take_action/bloc/take_action_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_join_family/bloc/join_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_remove_user/bloc/family_remove_user_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_change_user_type/bloc/change_user_type_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_create_family/bloc/create_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
@@ -113,6 +121,32 @@ class MyApp extends StatelessWidget {
        BlocProvider(
           create: (context) => getIt<GetConfigKeysBloc>(),
         ),
+         BlocProvider(
+          create: (context) => getIt<ShowFamilyBloc>(),
+        ),
+
+             BlocProvider(
+          create: (context) => getIt<FamilyMemberBloc>(),
+        ),
+                BlocProvider(
+          create: (context) => getIt<FamilyRequestBloc>(),
+        ),
+                     BlocProvider(
+          create: (context) => getIt<DeleteFamilyBloc>(),
+        ),
+                        BlocProvider(
+          create: (context) => getIt<TakeActionBloc>(),
+        ),
+                            BlocProvider(
+          create: (context) => getIt<ChangeUserTypeBloc>(),
+        ),
+                             BlocProvider(
+          create: (context) => getIt<FamilyRemoveUserBloc>(),
+        ),
+                              BlocProvider(
+          create: (context) => getIt<JoinFamilyBloc>(),
+        ),
+        
         
       ],
       child: MaterialApp(

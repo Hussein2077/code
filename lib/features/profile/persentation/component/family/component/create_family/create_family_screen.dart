@@ -14,6 +14,8 @@ import 'package:tik_chat_v2/features/profile/persentation/component/family/compo
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_create_family/bloc/create_family_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_create_family/bloc/create_family_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_create_family/bloc/create_family_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_state.dart';
@@ -51,7 +53,8 @@ class _CreateFamilyState extends State<CreateFamily> {
     return BlocListener<CreateFamilyBloc, CreateFamilyState>(
       listener: (context, state) {
         if (state is CreateFamilySucssesState) {
-          Navigator.pushNamed(context, Routes.familyProfile);
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+          Navigator.pushNamed(context, Routes.familyProfile , arguments: state.id.toString());
         } else if (state is CreateFamilyLoadingState) {
           loadingToast(context: context, title: StringManager.loading);
         } else if (state is CreateFamilyErrorState) {
