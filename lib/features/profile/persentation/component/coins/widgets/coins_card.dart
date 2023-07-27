@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class CoinCard extends StatelessWidget {
   final String card;
@@ -26,7 +26,7 @@ class CoinCard extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
           Text(
-            "9990.0",
+            "235.0",
             style: TextStyle(
                 color: Colors.white,
                 fontSize: ConfigSize.defaultSize! * 1.8,

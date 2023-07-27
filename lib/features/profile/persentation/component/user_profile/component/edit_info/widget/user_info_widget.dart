@@ -1,9 +1,9 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({super.key});

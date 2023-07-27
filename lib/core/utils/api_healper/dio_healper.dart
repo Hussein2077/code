@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:tik_chat_v2/core/error/exceptions.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/error/failures_string.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 
 class DioHelper {

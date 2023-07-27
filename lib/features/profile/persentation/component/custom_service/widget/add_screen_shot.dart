@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../../core/utils/config_sizee.dart';
+import '../../../../../../core/utils/config_size.dart';
 
 class AddScreenShot extends StatefulWidget {
   const AddScreenShot({super.key});

@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 
 class CustomHorizntalDvider extends StatelessWidget {
   final Color? color ; 

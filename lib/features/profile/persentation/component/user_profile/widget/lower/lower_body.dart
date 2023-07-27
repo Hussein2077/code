@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 import 'profile_tab_view_body.dart';
 import 'profile_tabs.dart';

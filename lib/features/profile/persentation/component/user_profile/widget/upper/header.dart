@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class HeaderProfile extends StatelessWidget {
   const HeaderProfile({super.key});

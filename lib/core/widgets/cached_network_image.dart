@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 
 class CustoumCachedImage extends StatelessWidget{
@@ -15,9 +15,10 @@ class CustoumCachedImage extends StatelessWidget{
   final double height;
   final Widget? errorWidget ;
   final double? radius;
+  final Widget? widget;
   final BoxFit? boxFit;
 
-  const  CustoumCachedImage({super.key, required this.url,required this.height,required this.width, this.errorWidget, this.radius, this.boxFit});
+  const  CustoumCachedImage({super.key, required this.url,this.widget,required this.height,required this.width, this.errorWidget, this.radius, this.boxFit});
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
@@ -32,6 +33,7 @@ class CustoumCachedImage extends StatelessWidget{
           image: DecorationImage(
               image: imageProvider, fit:boxFit ?? BoxFit.cover),
         ),
+        child: widget??const SizedBox(),
       ),
       placeholder: (context, url) => Shimmer.fromColors(
         baseColor: Colors.grey[850]!,

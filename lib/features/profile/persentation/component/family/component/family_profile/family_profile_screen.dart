@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 
 import 'widgets/family_profile_bottom_bar.dart';
 import 'widgets/family_profile_info.dart';

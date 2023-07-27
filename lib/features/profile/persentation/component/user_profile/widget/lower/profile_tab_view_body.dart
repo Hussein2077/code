@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/asset_path.dart';
-import 'package:tik_chat_v2/core/resours_manger/routs_manger.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class ProfileTabViewBody extends StatelessWidget {
   const ProfileTabViewBody({super.key});
@@ -17,7 +17,7 @@ class ProfileTabViewBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             cover(
-                title: StringManager.dimond,
+                title: StringManager.diamond,
                 num: "12.4 k",
                 image: AssetsPath.dimondCover),
             cover(

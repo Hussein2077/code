@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
-import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class OtpContiners extends StatefulWidget {
   static  String code = "";

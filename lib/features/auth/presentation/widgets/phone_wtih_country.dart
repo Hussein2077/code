@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class PhoneWithCountry extends StatefulWidget {
   const PhoneWithCountry({super.key});
@@ -38,7 +38,7 @@ phonecontroller.dispose();
       padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
       decoration:  BoxDecoration(color:ColorManager.whiteColor , borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*6 )),
       width: MediaQuery.of(context).size.width-50,
-      height: ConfigSize.defaultSize!*7.3,
+      height: ConfigSize.defaultSize!*7.8,
       child: InternationalPhoneNumberInput(
 
          

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 import 'widgets/coin_tabs.dart';
 import 'widgets/coins_tab_view.dart';
