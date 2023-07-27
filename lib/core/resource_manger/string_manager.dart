@@ -268,5 +268,13 @@ class StringManager {
   static const String enterYourNumberHere = 'Enter your number here';
   static const String applicationToJoinAnAgency = 'Application to join an agency';
   static const String cantBeEmpty = "Can't be Empty";
+  static const String diamond = "Diamond";
+  static const String hours = "Hours";
+  static const String dataInMounth = "Data in this month";
+  static const String allInformation = "All Information";
+  static const String today = "Today";
+  static const String myFamily = "My Family";
+  static const String youAreVip = "You are vip";
+
 
 }

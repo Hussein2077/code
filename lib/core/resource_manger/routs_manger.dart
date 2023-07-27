@@ -142,7 +142,8 @@ class RouteGenerator {
       case Routes.familyRanking:
         return MaterialPageRoute(builder: (_) => const FamilyRankingScreen());
       case Routes.familyProfile:
-        return MaterialPageRoute(builder: (_) => const FamilyProfileScreen());
+        String familyId = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) =>  FamilyProfileScreen(familyId: familyId,));
       case Routes.custoumService:
         return MaterialPageRoute(builder: (_) => const CustoumServiceScreen());
 
@@ -156,7 +157,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const FamilyRequestsScreen());
 
       case Routes.familyMembers:
-        return MaterialPageRoute(builder: (_) => const FamilyMemberScreen());
+        OwnerDataModel ownerData = settings.arguments as OwnerDataModel;
+        return MaterialPageRoute(builder: (_) =>  FamilyMemberScreen(owner: ownerData,));
       case Routes.createLive:
         return MaterialPageRoute(builder: (_) => const CreateLiveScreen());
         case Routes.uploadReels:
