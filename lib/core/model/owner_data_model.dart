@@ -11,10 +11,9 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'profile_room_model.dart';
 import 'vip_center_model.dart';
 
-
 class OwnerDataModel {
   final int? id;
-  final String? chatId ;
+  final String? chatId;
   final String? name;
   final String? email;
   final dynamic? phone;
@@ -27,7 +26,7 @@ class OwnerDataModel {
   final NowRoomModel? nowRoom;
   final LevelDataModel? level;
   final VipCenterModel? vip1;
- // final IncomeDataModle? income;
+  // final IncomeDataModle? income;
   final MyStoreModel? myStore;
   final String? authToken;
   final String? frame;
@@ -39,76 +38,76 @@ class OwnerDataModel {
   final MyAgencyModel? myAgencyModel;
   final bool? isAgencyRequest;
 
-  final String? visitTime ;
+  final String? visitTime;
   final bool? isFriend;
   final bool? isFirst;
   final int? familyId;
   final FamilyDataModel? familyData;
   final String? uuid;
   final String? notificationId;
-  final String? bio ;
-  final bool? hasRoom ;
-  final bool? hasColorName ;
-  final bool? isHideRoom ;
-  final bool? isAanonymous ;
-  final int? numPobUp ;
+  final String? bio;
+  final bool? hasRoom;
+  final bool? hasColorName;
+  final bool? isHideRoom;
+  final bool? isAanonymous;
+  final int? numPobUp;
   final String? onlineTime;
-    final bool? isCountryHiden ;
-    final String? groupMessage ; 
-    final String? massageCreatedAt ;
-  final bool? isFacebook ;
-  final bool? isGoogle ;
-  final bool? isPhone ;
+  final bool? isCountryHiden;
+  final String? groupMessage;
+  final String? massageCreatedAt;
+  final bool? isFacebook;
+  final bool? isGoogle;
+  final bool? isPhone;
+  final bool? isFamilyAdmin;
 
-
-
-  OwnerDataModel(
-      {this.bubbleId,
-      this.introId,
-        this.numPobUp,
-      this.hasColorName,
-     this.onlineTime,
-      this.frameId,
-     this.isAanonymous,
-      this.isFirst,
-      this.hasRoom,
-      this.profileVisotrs,
-      this.id,
-      this.chatId,
-      this.isFollow,
-      this.name,
-      this.email,
-      this.phone,
-      this.numberOfFans,
-      this.numberOfFollowings,
-      this.numberOfFriends,
-      this.profile,
-      this.level,
-      this.visitTime,
-      this.vip1,
-      //this.income,
-      this.myStore,
-      this.authToken,
-      this.nowRoom,
-      this.intro,
-      this.frame,
-      this.myAgencyModel,
-      this.isAgencyRequest,
-      this.familyId,
-      this.familyData,
-      this.uuid ,
-      this.notificationId,
-      this.isFriend,this.bio,
-      this.bubble,
-      this.isHideRoom,
-        this.isCountryHiden ,
-        this.groupMessage , 
-        this.massageCreatedAt,
-        this.isFacebook,
-        this.isGoogle,
-        this.isPhone,
-      });
-
+  OwnerDataModel({
+    this.bubbleId,
+    this.introId,
+    this.numPobUp,
+    this.hasColorName,
+    this.onlineTime,
+    this.frameId,
+    this.isAanonymous,
+    this.isFirst,
+    this.hasRoom,
+    this.profileVisotrs,
+    this.id,
+    this.chatId,
+    this.isFollow,
+    this.name,
+    this.email,
+    this.phone,
+    this.numberOfFans,
+    this.numberOfFollowings,
+    this.numberOfFriends,
+    this.profile,
+    this.level,
+    this.visitTime,
+    this.vip1,
+    //this.income,
+    this.myStore,
+    this.authToken,
+    this.nowRoom,
+    this.intro,
+    this.frame,
+    this.myAgencyModel,
+    this.isAgencyRequest,
+    this.familyId,
+    this.familyData,
+    this.uuid,
+    this.notificationId,
+    this.isFriend,
+    this.bio,
+    this.bubble,
+    this.isHideRoom,
+    this.isCountryHiden,
+    this.groupMessage,
+    this.massageCreatedAt,
+    this.isFacebook,
+    this.isGoogle,
+    this.isPhone,
+    this.isFamilyAdmin,
+  });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -130,7 +129,7 @@ class OwnerDataModel {
   factory OwnerDataModel.fromMap(Map<String, dynamic> map) {
     return OwnerDataModel(
         id: map['id'] != null ? map['id'] as int : null,
-        chatId: map['chat_id'] ,
+        chatId: map['chat_id'],
         notificationId: map['notification_id'],
         numPobUp: map['wapel_num'],
         onlineTime: map['online_time'],
@@ -149,18 +148,19 @@ class OwnerDataModel {
         isAgencyRequest: map['is_agency_request'],
         hasRoom: map['has_room'],
         isHideRoom: map['room_hidden'],
-        isAanonymous :map['anonymous'],
-        isFacebook:map['facebook_bind'],
-        isGoogle:map['google_bind'],
-        isPhone:map['phone_bind'],
-        vip1:map['vip']==null?null: VipCenterModel.fromJson(map['vip']),
+        isAanonymous: map['anonymous'],
+        isFacebook: map['facebook_bind'],
+        isGoogle: map['google_bind'],
+        isPhone: map['phone_bind'],
+        vip1: map['vip'] == null ? null : VipCenterModel.fromJson(map['vip']),
         familyId: map['family_id'],
         uuid: map['uuid'] != null ? map['uuid'] as String : "0",
         isFollow: map['is_follow'] != null ? map['is_follow'] as bool : false,
-         bio: map['bio'] != null ?map['bio'] as String :"",
-         groupMessage:  map['group_message'] != null ?map['group_message'] as String :"",
-         massageCreatedAt:  map['created_at'] != null ?map['created_at'] as String :"",
-         
+        bio: map['bio'] != null ? map['bio'] as String : "",
+        groupMessage:
+            map['group_message'] != null ? map['group_message'] as String : "",
+        massageCreatedAt:
+            map['created_at'] != null ? map['created_at'] as String : "",
         authToken: map[ConstentApi.authToken] != null
             ? map[ConstentApi.authToken] as String
             : null,
@@ -192,20 +192,14 @@ class OwnerDataModel {
             : null,
         hasColorName: map['has_color_name'],
         isCountryHiden: map['country_hidden'],
-        familyData: map['family_data']==null? null:  FamilyDataModel.fromjosn(
-            map['family_data']),
+        familyData: map['family_data'] == null
+            ? null
+            : FamilyDataModel.fromjosn(map['family_data']),
         myAgencyModel: map['agency'] != null
             ? MyAgencyModel.fromjson(map["agency"])
-            : null);
-
+            : null,
+        isFamilyAdmin: map["is_family_admin"] ?? false);
   }
 
   String toJson() => json.encode(toMap());
-
-
-
-
-
-
-
 }

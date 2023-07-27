@@ -4,7 +4,7 @@
 import 'dart:convert';
 
 class ProfileRoomModel {
-  final dynamic? image;
+  final String? image;
   final String? gender;
   final String? imageId;
   final dynamic? birthday;
@@ -57,7 +57,7 @@ class ProfileRoomModel {
 
   factory ProfileRoomModel.fromMap(Map<String, dynamic> map) {
     return ProfileRoomModel(
-      image: map['image'] != null ? map['image'] as dynamic : null,
+      image: map['image'] != null ? map['image'] as String : "",
       imageId: map['image_id'] != null ? map['image_id'] as dynamic : null,
       gender: map['gender'] != null ? map['gender'] as String : null,
       birthday: map['birthday'] != null ? map['birthday'] as dynamic : null,

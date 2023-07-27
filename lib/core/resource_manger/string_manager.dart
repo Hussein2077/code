@@ -1,5 +1,6 @@
 class StringManager {
-  static const int versionApp = 2;
+    static const int versionApp = 2;
+
 
 //shared
   static const String platform = "PlatForm";
@@ -9,15 +10,17 @@ class StringManager {
   static const String userTokenKey = "User Token Key";
   static const String deviceToken = "DeviceToken";
   static const String chachGifts = 'chachGifts';
-  static const String lastTimeCacheGift = 'last_time_cache_gift';
-  static const String lastTimeCacheEntro = 'last_time_cache_entro';
-  static const String lastTimeCacheFrame = 'last_time_cache_gift_frame';
-  static const String lastTimeCacheExtra = 'last_time_cache_Extra';
-  static const String lastTimeCacheEmojie = 'last_time_cache_Emojie';
-  static const String cachUserData = 'Cache_User_Key';
-  static const String keepLogin = 'Keep_Login';
+  static const String lastTimeCacheGift ='last_time_cache_gift';
+  static const String lastTimeCacheEntro ='last_time_cache_entro';
+  static const String lastTimeCacheFrame ='last_time_cache_gift_frame';
+  static const String lastTimeCacheExtra ='last_time_cache_Extra';
+  static const String lastTimeCacheEmojie ='last_time_cache_Emojie';
+  static const String cachUserData ='Cache_User_Key';
+  static const String keepLogin = 'Keep_Login' ;
+
 
   ////
+
 
   static const String appTitle = "Tikchat";
   static const String enterPhoneNum = "Enter your phone number";
@@ -96,7 +99,7 @@ class StringManager {
   static const String settings = "Settings";
   static const String custoumService = "CustoumService";
   static const String giftGallery = "Gift Gallery";
-  static const String diamond = "Diamond";
+  static const String dimond = "Dimond";
 
   static const String addFriend = "Add Friend";
   static const String follow = "Follow";
@@ -177,62 +180,65 @@ class StringManager {
   static const String lightMode = "Light Mode";
   static const String darkMode = "Dark Mode";
   static const String joinRequests = "Join Requests";
-  static const String deleteFamily = "Delete Family";
-  static const String cancel = "Cancel";
-  static const String createVoice = "Create a voice chat room";
-  static const String roomName = "Room Name";
+    static const String deleteFamily = "Delete Family";
+        static const String cancel = "Cancel";
+        static const String createVoice = "Create a voice chat room";
+                static const String roomName = "Room Name";
   static const String public = "Public";
-  static const String private = "Private";
-  static const String createRoom = "Create Room";
+    static const String private = "Private";
+      static const String createRoom = "Create Room";
 
-  static const String createLiveVideo = "Create Live Video";
 
-  static const String startLive = "Start Live";
-  static const String flip = "Flip";
-  static const String fillter = "Fillter";
+      static const String createLiveVideo = "Create Live Video";
 
-  static const String record = "Record";
-  static const String upload = "Upload";
-  static const String newReel = "New Reel";
-  static const String reelName = "reel name";
-  static const String shareYourMoment =
-      "Share your moment with the world at reels";
-  static const String yourVideoWillPublished =
-      "Your video will be published on the reels page";
+      static const String startLive = "Start Live";
+            static const String flip = "Flip";
+            static const String fillter = "Fillter";
 
-  static const String mentionYourFriends = "Mention your friends";
+            static const String record = "Record";
+            static const String upload = "Upload";
+                        static const String newReel = "New Reel";
+                                                static const String reelName = "reel name";
+                                                static const String shareYourMoment = "Share your moment with the world at reels";
+                                                static const String yourVideoWillPublished = "Your video will be published on the reels page";
 
-  static const String chooseTheTopic = "Choose the topic";
-  static const String postTheVideo = "Post the video";
-  static const String mention = "Mention";
-  static const String user = "User";
-  static const String host = "Host";
+                        static const String mentionYourFriends = "Mention your friends";
 
-  static const String password = "Password";
+                        static const String chooseTheTopic = "Choose the topic";
+                        static const String postTheVideo = "Post the video";
+                        static const String mention = "Mention";
+                                                static const String user = "User";
+                                                                                                static const String host = "Host";
+
+                                                                                                static const String password = "Password";
+
 
   static const String createAcoount = "Create Account";
-  static const String donnotHaveAccount = "Don't Have Account?  ";
+    static const String donnotHaveAccount = "Don't Have Account?  ";
 
   static const String unexcepectedError = "UnExcepected Error";
 
   static const String loading = "Loading...";
-  static const String wrongCode = 'OTP code is wrong';
-  static const String pleaseAddPhoto = 'please add photo';
-  static const String pleaseEnterYourName = 'Please Enter Your Name';
-  static const String pleaseEnterYourBirthDate = 'Please Enter Your BirthDate';
-  static const String pleaseSelectYourCountry = 'Please Select Your Country';
-  static const String loginSuccesfully = " Login Succesfully";
+    static const String wrongCode = 'OTP code is wrong';
+    static const String pleaseAddPhoto = 'please add photo';
+    static const String pleaseEnterYourName = 'Please Enter Your Name';
+    static const String pleaseEnterYourBirthDate = 'Please Enter Your BirthDate';
+    static const String pleaseSelectYourCountry = 'Please Select Your Country';
+      static const String loginSuccesfully = " Login Succesfully";
+  static const String pleaseEnterFamilyName = 'Please Enter Family Name';
+  static const String pleaseEnterFamilyBio = 'Please Enter Family Bio';
 
-  static const String logOut = "Logout";
-  static const String accept = "Accept";
 
-  static const String youWillBuy = "You Will Buy";
+      static const String logOut = "Logout";
+            static const String accept = "Accept";
 
-  static const String takeOff = "take off";
-  static const String theNumberOfPoints =
-      "The number of points you need to upgrade";
+            static const String youWillBuy = "You Will Buy";
 
-  static const String comingSoon = "Coming Soon";
+            static const String takeOff = "take off";
+            static const String theNumberOfPoints = "The number of points you need to upgrade";
+
+            static const String comingSoon = "Coming Soon";
+
   static const String income = "Income";
 
   ///INCOME SCREEN 💲💸💰
@@ -244,9 +250,14 @@ class StringManager {
   static const String fourthInstructions = "4- When you accept the agency, please avoid any login to your account from another device and prevent anyone other than you from using your account, and if this is discovered, your account will be banned from using the application";
   static const String fifthInstructions = "5- The Live Agency room will be available to you by the management of Tik Chat, and please follow the usual rules in the room, such as not publishing inappropriate materials and messages, and if this is explored, your membership in the agency will be canceled and you will not be able to join the agency again";
   static const String agreedToTheRegulations = "After reading the instructions means that you have agreed to the regulations";
-
- ///Join To Agency or income SCREEN 💲💸💰
-
+  static const String areYouSureDeleteFamily =
+      "Are you sure do you want delete Family";
+  static const String no = "No";
+  static const String yes = "Yes";
+  static const String showProfile = "Show Profile";
+  static const String addAdmin = "Add Admin";
+  static const String deleteMember = "Delete Member";
+  static const String removeAdmin = "Remove Admin";
   static const String diamondsEarned= "Diamonds earned";
   static const String liveReport= "live Report";
   static const String withdrawal= "Withdrawal";
@@ -257,12 +268,5 @@ class StringManager {
   static const String enterYourNumberHere = 'Enter your number here';
   static const String applicationToJoinAnAgency = 'Application to join an agency';
   static const String cantBeEmpty = "Can't be Empty";
-
-
-///Live Report SCREEN 💲💸💰
-  static const String today = "Today";
-  static const String hours = "Hours";
-  static const String dataInMounth = "Data in this month";
-  static const String allInformation = "All Information";
 
 }

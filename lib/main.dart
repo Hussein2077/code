@@ -17,10 +17,22 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/video/create_video_live_body.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_delete_family/bloc/delete_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_take_action/bloc/take_action_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_join_family/bloc/join_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_remove_user/bloc/family_remove_user_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_change_user_type/bloc/change_user_type_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_create_family/bloc/create_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
@@ -29,10 +41,10 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
 
-Future <void> main() async{
-    WidgetsFlutterBinding.ensureInitialized();
-    CreateLiveVideoBody.cameras = await availableCameras();
-     await Permission.notification.isDenied.then((value) {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  CreateLiveVideoBody.cameras = await availableCameras();
+  await Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
     }
@@ -42,9 +54,8 @@ Future <void> main() async{
   );
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-    await ServerLocator().init();
+  await ServerLocator().init();
 
-  
   runApp(const MyApp());
 }
 
@@ -53,69 +64,98 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return  MultiBlocProvider(
+    return MultiBlocProvider(
       providers: [
-             BlocProvider(
-              create: (context) => getIt<SignInWithPlatformBloc>(),
-            ),
-
         BlocProvider(
-              create: (context) => getIt<AddInfoBloc>(),
-            ),
-            
-               BlocProvider(
-              create: (context) => getIt<RegisterWithPhoneBloc>(),
-            ),
-                    BlocProvider(
-              create: (context) => getIt<LoginWithPhoneBloc>(),
-            ),
-                       BlocProvider(
-              create: (context) => getIt<LogOutBloc>(),
-            ),
-                           BlocProvider(
-              create: (context) => getIt<GetMyDataBloc>(),
-            ),
-
-                              BlocProvider(
-              create: (context) => getIt<MallBloc>()..add(const GetCarMallEvent(type: 6))
-        ..add(const GetFramesMallEvent(type: 4))
-        ..add(const GetBubbleMallEvent(type: 5)),
-            ),
-
-                                BlocProvider(
-              create: (context) => getIt<MallBuyBloc>(),
-            ),
-                                      BlocProvider(
-              create: (context) => getIt<MyBagBloc>() ..add(const GetFramesMyBagEvent(type: "4"))
+          create: (context) => getIt<SignInWithPlatformBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<AddInfoBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<RegisterWithPhoneBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<LoginWithPhoneBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<LogOutBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<GetMyDataBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<MallBloc>()
+            ..add(const GetCarMallEvent(type: 6))
+            ..add(const GetFramesMallEvent(type: 4))
+            ..add(const GetBubbleMallEvent(type: 5)),
+        ),
+        BlocProvider(
+          create: (context) => getIt<MallBuyBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<MyBagBloc>()
+            ..add(const GetFramesMyBagEvent(type: "4"))
             ..add(const GetEntrieMyBagEvent(type: '6'))
             ..add(const GetBubbleBackPackMyBagEvent(type: "5")),
-            ),
-                      BlocProvider(
-              create: (context) => getIt<UseItemBloc>(),
-            ),
-                      BlocProvider(
-              create: (context) =>
-                  getIt<VipCenterBloc>()..add(GetVipCenterEvent()),
-            ),
-                          BlocProvider(
-              create: (context) =>
-                  getIt<BuyOrSendVipBloc>(),
-            ),
-            
-            
+        ),
+        BlocProvider(
+          create: (context) => getIt<UseItemBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<VipCenterBloc>()..add(GetVipCenterEvent()),
+        ),
+        BlocProvider(
+          create: (context) => getIt<BuyOrSendVipBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<FamilyRankingBloc>()
+            ..add(const GetFamilyRankingDailyEvent(time: "today"))
+            ..add(const GetFamilyRankingWeekEvent(time: "week"))
+            ..add(const GetFamilyRankingMonthEvent(time: "month")),
+        ),
+            BlocProvider(
+          create: (context) => getIt<CreateFamilyBloc>(),
+        ),
+        
+       BlocProvider(
+          create: (context) => getIt<GetConfigKeysBloc>(),
+        ),
+         BlocProvider(
+          create: (context) => getIt<ShowFamilyBloc>(),
+        ),
+
+             BlocProvider(
+          create: (context) => getIt<FamilyMemberBloc>(),
+        ),
+                BlocProvider(
+          create: (context) => getIt<FamilyRequestBloc>(),
+        ),
+                     BlocProvider(
+          create: (context) => getIt<DeleteFamilyBloc>(),
+        ),
+                        BlocProvider(
+          create: (context) => getIt<TakeActionBloc>(),
+        ),
+                            BlocProvider(
+          create: (context) => getIt<ChangeUserTypeBloc>(),
+        ),
+                             BlocProvider(
+          create: (context) => getIt<FamilyRemoveUserBloc>(),
+        ),
+                              BlocProvider(
+          create: (context) => getIt<JoinFamilyBloc>(),
+        ),
+        
+        
       ],
       child: MaterialApp(
-       debugShowCheckedModeBanner: false,
-       theme: lightTheme,
-       darkTheme: darkTheme,
-
-                  onGenerateRoute: RouteGenerator.getRoute,
-                  initialRoute: Routes.splash,
-
+        debugShowCheckedModeBanner: false,
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.splash,
       ),
     );
   }
 }
-
-

@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/features/home/presentation/component/create_live/ree
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/coins_scrren.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/custom_service/custoum_service_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/f_f_f_v_screens/f_f_f_v_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_delete/delete_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_member/family_member_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_requests/family_requests_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/family_profile_screen.dart';
@@ -68,8 +69,12 @@ class Routes {
   static const String familyRequests = "/FamilyRequests";
   static const String familyMembers = "/FamilyMembers";
   static const String createLive = "/CreateLive";
-  static const String uploadReels = "/UploadReels";
-  static const String signUp = "/SignUp";
+    static const String uploadReels = "/UploadReels";
+        static const String signUp = "/SignUp";
+
+        static const String deleteFamily = "/DeleteFamily";
+
+
   static const String instructionsScreen = "/instructionsScreen";
   static const String agencyScreen = "/agencyScreen";
   static const String joinToAgencyScreen = "/joinToAgencyScreen";
@@ -87,23 +92,18 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case Routes.otp:
-        OtpScreenParameter otpScreenParameter =
+              OtpScreenParameter otpScreenParameter =
             settings.arguments as OtpScreenParameter;
-        return MaterialPageRoute(
-            builder: (_) => OtpScreen(
-                  codeCountry: otpScreenParameter.codeCountry,
+        return MaterialPageRoute(builder: (_) =>  OtpScreen(
+          codeCountry: otpScreenParameter.codeCountry,
                   phone: otpScreenParameter.phone,
                   password: otpScreenParameter.password,
-                ));
+        ));
 
       case Routes.addInfo:
-        GoogleSignInAccount googleData =
-            settings.arguments as GoogleSignInAccount;
+              GoogleSignInAccount googleData = settings.arguments as GoogleSignInAccount;
 
-        return MaterialPageRoute(
-            builder: (_) => AddInfoScreen(
-                  googleData: googleData,
-                ));
+        return MaterialPageRoute(builder: (_) =>  AddInfoScreen( googleData:googleData ,));
 
       case Routes.mainScreen:
         return MaterialPageRoute(builder: (_) => const MainScreen());
@@ -130,12 +130,9 @@ class RouteGenerator {
                   type: type,
                 ));
       case Routes.myBag:
-        OwnerDataModel userData = settings.arguments as OwnerDataModel;
+              OwnerDataModel userData = settings.arguments as OwnerDataModel;
 
-        return MaterialPageRoute(
-            builder: (_) => MyBagScreen(
-                  myData: userData,
-                ));
+        return MaterialPageRoute(builder: (_) =>  MyBagScreen(myData: userData,));
       case Routes.mall:
         return MaterialPageRoute(builder: (_) => const MallScreen());
       case Routes.level:
@@ -162,10 +159,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const FamilyMemberScreen());
       case Routes.createLive:
         return MaterialPageRoute(builder: (_) => const CreateLiveScreen());
-      case Routes.uploadReels:
+        case Routes.uploadReels:
         return MaterialPageRoute(builder: (_) => const UploadReelsScreen());
-      case Routes.signUp:
+           case Routes.signUp:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
+                case Routes.deleteFamily:
+        return MaterialPageRoute(builder: (_) => const DeleteScreen());
 
         case Routes.instructionsScreen:
         return MaterialPageRoute(builder: (_) =>  const InstructionsScreen());
@@ -195,6 +194,7 @@ class RouteGenerator {
         builder: (context) => Container());
   }
 }
+
 
 class OtpScreenParameter {
   final String phone;

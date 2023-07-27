@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 
 
@@ -23,7 +22,7 @@ class FamilyRanking {
   final String? img;
   // final String? notice;
   // final int? maxNumOfMembers;
-  final int? rank;
+  final String? rank;
   // final OwnerDataModel? ownerData ; 
   FamilyRanking(
       { this.id,
@@ -35,15 +34,16 @@ class FamilyRanking {
       //  this.notice,
       });
   factory FamilyRanking.fromJson(Map<String, dynamic> json) {
-    log(json["image"].toString());
+  
+
     return FamilyRanking(
-      id: json['id'],
-      img: json["image"],
-      introduce: json["introduce"],
+      id: json['id']??0,
+      img: json["image"]??"",
+      introduce: json["introduce"]??"",
       // maxNumOfMembers: json["max_num_of_members"],
-      name: json["name"],
+      name: json["name"]??"",
       // notice: json["notice"],
-      rank: json["rank"],
+      rank: json["rank"]??"",
       // ownerData:  OwnerDataModel.fromMap(json['owner'])
     );
   }

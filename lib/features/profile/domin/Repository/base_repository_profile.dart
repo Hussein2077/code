@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/features/profile/data/model/charge_to_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
@@ -28,6 +29,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 
@@ -60,7 +62,7 @@ abstract class BaseRepositoryProfile {
 
 
   Future<Either<String, Failure>> deleteAccount();
-  Future<Either<ShowFamilyModel, Failure>> createFamily(
+  Future<Either<String, Failure>> createFamily(
       CreateFamilyPramiter createFamilyPramiter);
 
   Future<Either<String, Failure>> buy(String idItem, String quantity);
@@ -168,6 +170,7 @@ abstract class BaseRepositoryProfile {
 
        Future<Either<String, Failure>> userReporet(UserReporetPramiter pramiter);
 
+      Future<Either<GetConfigKeyModel,Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
 
 
 }

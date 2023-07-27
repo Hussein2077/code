@@ -29,7 +29,7 @@ class UserLevelBody extends StatelessWidget {
 level: state.userData.level!.senderLevel.toString(),
 nextLevel: state.userData.level!.nextSenderLevel.toString(),
 percent: state.userData.level!.senderPer!,
-userImage: state.userData.profile!.image,
+userImage: state.userData.profile!.image!,
 levelRemining: state.userData.level!.remSenderLevel.toString(),
 
 

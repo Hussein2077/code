@@ -28,7 +28,7 @@ class HostLevelBody extends StatelessWidget {
                     level: state.userData.level!.reciverLivel.toString(),
 nextLevel: state.userData.level!.nextReciverLevel.toString(),
 percent: state.userData.level!.reciverPer!,
-userImage: state.userData.profile!.image,
+userImage: state.userData.profile!.image!,
 levelRemining: state.userData.level!.remReceiverLevel.toString(),
                   );
             }else {

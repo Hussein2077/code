@@ -26,6 +26,7 @@ import 'package:tik_chat_v2/features/profile/data/model/charge_to_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
@@ -40,6 +41,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 
@@ -58,7 +60,7 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<OwnerDataModel>> getVaistors({String? page});
   Future<List<BackPackModel>> getBackPack(String type);
   Future<UesItemModel> useItem(String id);
-  Future<ShowFamilyModel> creatFamily(CreateFamilyPramiter creatFamilyPramiter);
+  Future<String> creatFamily(CreateFamilyPramiter creatFamilyPramiter);
   Future<String> buy(String idItem, String quantity);
   Future<String> sendPack(String packId, String touid);
   Future<String> unUsedPack(String id);
@@ -146,6 +148,8 @@ abstract class BaseRemotlyDataSourceProfile {
     Future<bool> updateFamily(UpdateFamilyPramiter updateFamilyPramiter);
 
     Future<String> userReporet(UserReporetPramiter userReporetPramiter);
+              Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) ;
+
 
 
 
@@ -395,7 +399,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
 
   @override
-  Future<ShowFamilyModel> creatFamily(creatFamilyPramiter) async {
+  Future<String> creatFamily(creatFamilyPramiter) async {
     Map<String, String> headers = await DioHelper().header();
 
 
@@ -417,8 +421,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       Map<String, dynamic> resultData = response.data;
-      log(resultData.toString());
-      return ShowFamilyModel.fromJson(resultData['data']);
+      
+      return resultData["data"]["id"].toString();
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
@@ -1582,6 +1586,46 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
+  }
+
+      @override
+  Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) async{
+
+     Map<String, String> headers = await DioHelper().header();
+     final Map<String, Object> body ; 
+ if (getConfigKeyPram==null){
+    body = {
+      'keys': [],
+      "enable-special" : 1
+     
+      
+      };
+ }else {
+  body = {
+      'keys': [getConfigKeyPram.specialBar],
+      "enable-special" : 1
+     
+      
+      };
+ }
+   
+
+
+    try {
+      final response = await Dio().post(ConstentApi.getConfigKey,
+          options: Options(
+            headers: headers,
+          ),
+          data: body);
+          final result =GetConfigKeyModel.fromJson(response.data['data']);
+        log(result.toString());
+      return  result ;
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+
+    
+
   }
   }
 
