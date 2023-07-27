@@ -14,6 +14,11 @@ import 'package:tik_chat_v2/features/profile/persentation/component/family/compo
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_requests/family_requests_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/family_profile_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/family_ranking_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/agency_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/request%20_to_join%20_agency_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/instruction.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/live_report_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/exchange_for_gold.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
@@ -63,10 +68,13 @@ class Routes {
   static const String familyRequests = "/FamilyRequests";
   static const String familyMembers = "/FamilyMembers";
   static const String createLive = "/CreateLive";
-    static const String uploadReels = "/UploadReels";
-        static const String signUp = "/SignUp";
-
-
+  static const String uploadReels = "/UploadReels";
+  static const String signUp = "/SignUp";
+  static const String instructionsScreen = "/instructionsScreen";
+  static const String agencyScreen = "/agencyScreen";
+  static const String joinToAgencyScreen = "/joinToAgencyScreen";
+  static const String liveReportScreen = "/liveReportScreen";
+  static const String exchangeForGoldScreen = "/exchangeForGoldScreen";
 }
 
 class RouteGenerator {
@@ -79,18 +87,23 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case Routes.otp:
-              OtpScreenParameter otpScreenParameter =
+        OtpScreenParameter otpScreenParameter =
             settings.arguments as OtpScreenParameter;
-        return MaterialPageRoute(builder: (_) =>  OtpScreen(
-          codeCountry: otpScreenParameter.codeCountry,
+        return MaterialPageRoute(
+            builder: (_) => OtpScreen(
+                  codeCountry: otpScreenParameter.codeCountry,
                   phone: otpScreenParameter.phone,
                   password: otpScreenParameter.password,
-        ));
+                ));
 
       case Routes.addInfo:
-              GoogleSignInAccount googleData = settings.arguments as GoogleSignInAccount;
+        GoogleSignInAccount googleData =
+            settings.arguments as GoogleSignInAccount;
 
-        return MaterialPageRoute(builder: (_) =>  AddInfoScreen( googleData:googleData ,));
+        return MaterialPageRoute(
+            builder: (_) => AddInfoScreen(
+                  googleData: googleData,
+                ));
 
       case Routes.mainScreen:
         return MaterialPageRoute(builder: (_) => const MainScreen());
@@ -117,9 +130,12 @@ class RouteGenerator {
                   type: type,
                 ));
       case Routes.myBag:
-              OwnerDataModel userData = settings.arguments as OwnerDataModel;
+        OwnerDataModel userData = settings.arguments as OwnerDataModel;
 
-        return MaterialPageRoute(builder: (_) =>  MyBagScreen(myData: userData,));
+        return MaterialPageRoute(
+            builder: (_) => MyBagScreen(
+                  myData: userData,
+                ));
       case Routes.mall:
         return MaterialPageRoute(builder: (_) => const MallScreen());
       case Routes.level:
@@ -146,10 +162,28 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const FamilyMemberScreen());
       case Routes.createLive:
         return MaterialPageRoute(builder: (_) => const CreateLiveScreen());
-        case Routes.uploadReels:
+      case Routes.uploadReels:
         return MaterialPageRoute(builder: (_) => const UploadReelsScreen());
-           case Routes.signUp:
+      case Routes.signUp:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
+
+        case Routes.instructionsScreen:
+        return MaterialPageRoute(builder: (_) =>  const InstructionsScreen());
+
+      case Routes.agencyScreen:
+        return MaterialPageRoute(builder: (_) => const AgencyScreen());
+
+
+          case Routes.joinToAgencyScreen:
+        return MaterialPageRoute(builder: (_) => const JoinToAgencyScreen());
+
+      case Routes.liveReportScreen:
+        return MaterialPageRoute(builder: (_) => const LiveReportScreen());
+
+          case Routes.exchangeForGoldScreen:
+        return MaterialPageRoute(builder: (_) =>  const ExchangeForGoldScreen());
+
+
     }
 
     return unDefinedRoute();
@@ -161,7 +195,6 @@ class RouteGenerator {
         builder: (context) => Container());
   }
 }
-
 
 class OtpScreenParameter {
   final String phone;

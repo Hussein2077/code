@@ -42,6 +42,7 @@ class AssetsPath {
       "$pathImage/create_live_background.png";
   static const String seatsImage = "$pathImage/seats_image.png";
   static const String loadingGif = "$pathImage/output-onlinegiftools.gif";
+  static const String incomeBackGroundScreen = "$pathImage/income_backgrond_screen.png";
 
   //icons
   static const String googleIcon = "$pathIcon/google_icon.png";
@@ -148,4 +149,6 @@ class AssetsPath {
   static const String hashTagIcon = "$pathIcon/hashtag_icon.png";
 
   static const String snapIcon = "$pathIcon/snap_icon.png";
+  static const String incomeIcon = "$pathIcon/income_icon.png";
+  static const String moneyBag = "$pathIcon/money-bag.png";
 }

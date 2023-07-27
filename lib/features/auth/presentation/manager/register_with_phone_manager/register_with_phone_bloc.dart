@@ -1,7 +1,7 @@
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 

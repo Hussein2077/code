@@ -4,7 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:reels_viewer/reels_viewer.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 
 
 class ReelsScreen extends StatefulWidget {

@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:persian_linear_date_picker/persian_linear_date_picker.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/date/date_dilog.dart';
 

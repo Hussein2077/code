@@ -1,9 +1,9 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/resours_manger/string_manger.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/video/video_live_box.dart';
 

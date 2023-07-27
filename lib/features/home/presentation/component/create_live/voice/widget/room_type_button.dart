@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resours_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class RoomTypeButton extends StatefulWidget {
   static   String? roomType;

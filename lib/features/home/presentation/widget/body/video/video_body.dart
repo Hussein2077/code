@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/country_icon.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/page_view.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/video/video_live_box.dart';

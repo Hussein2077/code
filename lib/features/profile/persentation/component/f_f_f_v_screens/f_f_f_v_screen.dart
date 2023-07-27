@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
-import 'package:tik_chat_v2/core/utils/config_sizee.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/user_info_row.dart';
 
