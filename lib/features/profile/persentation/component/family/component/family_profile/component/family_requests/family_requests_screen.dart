@@ -15,9 +15,12 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_event.dart';
 
 class FamilyRequestsScreen extends StatefulWidget {
-  const FamilyRequestsScreen({super.key});
+  final String familyId  ; 
+  const FamilyRequestsScreen({required this.familyId ,  super.key});
 
   @override
   State<FamilyRequestsScreen> createState() => _FamilyRequestsScreenState();
@@ -39,6 +42,7 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
         listener: (context, state) {
           if(state is FamilyTakeActionSucssesState){
                 BlocProvider.of<FamilyRequestBloc>(context).add(GetFamilyRequestEvent());
+    BlocProvider.of<ShowFamilyBloc>(context).add(ShowFamilyEvent(id: widget.familyId));
 
             sucssesToast(context: context, title: state.massage);
           }else if (state is FamilyTakeActionErrorState){
@@ -73,7 +77,7 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                                             .add(FamilyTakeActionEvent(
                                                 reqId: state.data.data[index].id
                                                     .toString(),
-                                                status: '2')),
+                                                status: '1')),
                                   ),
                                   SizedBox(
                                     width: ConfigSize.defaultSize! * 2,
@@ -85,7 +89,7 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                                             .add(FamilyTakeActionEvent(
                                                 reqId: state.data.data[index].id
                                                     .toString(),
-                                                status: '1')),
+                                                status: '2')),
                                   ),
                                 ],
                               ),

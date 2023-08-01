@@ -151,4 +151,16 @@ class AssetsPath {
   static const String snapIcon = "$pathIcon/snap_icon.png";
   static const String incomeIcon = "$pathIcon/income_icon.png";
   static const String moneyBag = "$pathIcon/money-bag.png";
+    static const String unfollowIcon = "$pathIcon/unFollowIcon.png";
+    static const String fireIcon = "$pathIcon/fire_icon.png";
+    static const String aristocracy1 = "$pathIcon/aristocracy 1.png";
+    static const String aristocracy2 = "$pathIcon/aristocracy 2.png";
+    static const String aristocracy3 = "$pathIcon/aristocracy 3.png";
+    static const String aristocracy4 = "$pathIcon/aristocracy 4.png";
+    static const String aristocracy5 = "$pathIcon/aristocracy 5.png";
+    static const String aristocracy6 = "$pathIcon/aristocracy 6.png";
+    static const String aristocracy7 = "$pathIcon/aristocracy 7.png";
+    static const String aristocracy8 = "$pathIcon/aristocracy 8.png";
+
+  
 }

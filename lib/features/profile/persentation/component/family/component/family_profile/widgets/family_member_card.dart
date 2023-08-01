@@ -33,7 +33,7 @@ class FamilyMemberCard extends StatelessWidget {
                             top: ConfigSize.defaultSize! * 1.5),
                         child: UserImage(
                           image: image,
-                          imageSize: ConfigSize.defaultSize! * 4,
+                          imageSize: ConfigSize.defaultSize! * 4.5,
                         ),
                       ),
                       Padding(

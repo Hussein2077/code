@@ -13,13 +13,13 @@ abstract class BaseAddInfoEvent extends Equatable {
 class AddInfoEvent extends BaseAddInfoEvent {
     final String? bio ; 
   final String name ;
-  final String date ;
+  final String? date ;
   final File? image ;
   final String gender ;
   final String country;
-  final String countryCode ;
+  final String? countryCode ;
 
    const AddInfoEvent({ this.bio ,  required  this.gender, required this.country
-    ,required  this.name, required this.date,required this.countryCode,
+    ,required  this.name,  this.date, this.countryCode,
     this.image});
 }

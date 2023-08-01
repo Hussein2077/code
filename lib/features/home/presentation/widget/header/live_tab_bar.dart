@@ -29,34 +29,31 @@ class _LiveTabBARState extends State<LiveTabBAR> {
       child: TabBar(
         
         indicatorColor: ColorManager.whiteColor,
-        indicatorPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*4),
+        indicatorPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*6),
         controller: widget.liveController, tabs: [
+        // Row(
+        //   children: [
+        //      Text("${StringManager.live}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7),),
+        //     widget.liveController.index == 0
+        //         ? Image.asset(
+        //             AssetsPath.videoIcon,
+        //             scale: 2,
+        //           )
+        //         : Image.asset(
+        //             AssetsPath.unslectedVideoIcon,
+        //             scale: 2,
+        //           )
+        //   ],
+        // ),
         Row(
+mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Text("${StringManager.live}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7),),
-            widget.liveController.index == 0
-                ? Image.asset(
-                    AssetsPath.videoIcon,
-                    scale: 2,
+             Text("${StringManager.appTitle} " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7)),
+                 Image.asset(
+                    AssetsPath.iconApp,
+                    scale: 12,
                   )
-                : Image.asset(
-                    AssetsPath.unslectedVideoIcon,
-                    scale: 2,
-                  )
-          ],
-        ),
-        Row(
-          children: [
-             Text("${StringManager.voice} " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7)),
-            widget.liveController.index == 1
-                ? Image.asset(
-                    AssetsPath.micIcon,
-                    scale: 2,
-                  )
-                : Image.asset(
-                    AssetsPath.unslectedMicIcon,
-                    scale: 2,
-                  )
+               
           ],
         ),
       ]),

@@ -29,6 +29,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
@@ -46,7 +47,7 @@ abstract class BaseRepositoryProfile {
 
   Future<Either<Failure, String>> unFollow({required String userId});
 
-  Future<Either<OwnerDataModel, Failure>> getUserData({required String userId , bool? sendFireBase ,});
+  Future<Either<OwnerDataModel, Failure>> getUserData({required String userId});
 
   Future<Either<List<VipCenterModel>, Failure>> getVipCenter();
 
@@ -171,6 +172,7 @@ abstract class BaseRepositoryProfile {
        Future<Either<String, Failure>> userReporet(UserReporetPramiter pramiter);
 
       Future<Either<GetConfigKeyModel,Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
+  Future<Either<String, Failure>> feedBack(FeedBackPramiter feedBackPramiter);
 
 
 }

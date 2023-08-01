@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../../../core/utils/config_size.dart';
 
 class AddScreenShot extends StatefulWidget {
+   static  XFile? image;
+
   const AddScreenShot({super.key});
 
   @override
@@ -14,9 +16,8 @@ class AddScreenShot extends StatefulWidget {
 
 class _AddScreenShotState extends State<AddScreenShot> {
   final ImagePicker picker = ImagePicker();
-  XFile? image;
   Future<void> _getImage() async {
-    image = await picker.pickImage(source: ImageSource.gallery);
+    AddScreenShot.image = await picker.pickImage(source: ImageSource.gallery);
     setState(() {});
   }
 
@@ -29,12 +30,12 @@ class _AddScreenShotState extends State<AddScreenShot> {
         child: Container(
           width: ConfigSize.defaultSize! * 11,
           height: ConfigSize.defaultSize! * 11,
-          decoration: image != null
+          decoration: AddScreenShot.image != null
               ? BoxDecoration(
                 borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*2),
                   border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                   image: DecorationImage(
-                    image: FileImage(File(image!.path)),
+                    image: FileImage(File(AddScreenShot.image!.path)),
                     fit: BoxFit.cover,
                   ),
                 )
@@ -43,7 +44,7 @@ class _AddScreenShotState extends State<AddScreenShot> {
 
                   border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                 ),
-        child:image != null? null: Center(child: Icon(Icons.add ,color: Colors.grey , size: ConfigSize.defaultSize!*4,),),        
+        child:AddScreenShot.image != null? null: Center(child: Icon(Icons.add ,color: Colors.grey , size: ConfigSize.defaultSize!*4,),),        
         ),
         
         

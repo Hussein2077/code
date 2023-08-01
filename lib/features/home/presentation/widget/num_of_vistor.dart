@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class NumVistor extends StatelessWidget {
-  const NumVistor({super.key});
+  final String numOfVistor ; 
+  const NumVistor({required this.numOfVistor ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class NumVistor extends StatelessWidget {
                         width: ConfigSize.defaultSize,
                       ),
                       Text(
-                        "44",
+                        numOfVistor,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: ConfigSize.defaultSize! * 1.5),

@@ -59,6 +59,8 @@ class OwnerDataModel {
   final bool? isGoogle;
   final bool? isPhone;
   final bool? isFamilyAdmin;
+    final int? diamonds;
+
 
   OwnerDataModel({
     this.bubbleId,
@@ -107,6 +109,7 @@ class OwnerDataModel {
     this.isGoogle,
     this.isPhone,
     this.isFamilyAdmin,
+    this.diamonds
   });
 
   Map<String, dynamic> toMap() {
@@ -198,7 +201,9 @@ class OwnerDataModel {
         myAgencyModel: map['agency'] != null
             ? MyAgencyModel.fromjson(map["agency"])
             : null,
-        isFamilyAdmin: map["is_family_admin"] ?? false);
+        isFamilyAdmin: map["is_family_admin"] ?? false,
+        diamonds: map["diamonds"]
+        );
   }
 
   String toJson() => json.encode(toMap());

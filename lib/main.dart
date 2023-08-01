@@ -11,12 +11,22 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/dark_theme.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/light_theme.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
+import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
+import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/video/create_video_live_body.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_event.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_events.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_delete_family/bloc/delete_family_bloc.dart';
@@ -26,19 +36,27 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_remove_user/bloc/family_remove_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_change_user_type/bloc/change_user_type_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_create_family/bloc/create_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_exite_family/bloc/exit_family_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_follwers_or_following_manger/bloc/get_follower_or_following_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
 
 Future<void> main() async {
@@ -146,7 +164,53 @@ class MyApp extends StatelessWidget {
                               BlocProvider(
           create: (context) => getIt<JoinFamilyBloc>(),
         ),
+                              BlocProvider(
+          create: (context) => getIt<ExitFamilyBloc>(),
+        ),
+                                 BlocProvider(
+          create: (context) => getIt<FeedBackBloc>(),
+        ),
+                                       BlocProvider(
+          create: (context) => getIt<GetFollowerOrFollowingBloc>(),
+        ),
         
+                                         BlocProvider(
+          create: (context) => getIt<VistorsBloc>(),
+        ),
+                                               BlocProvider(
+          create: (context) => getIt<GetUserBloc>(),
+        ),
+                                                 BlocProvider(
+          create: (context) => getIt<GiftHistoryBloc>(),
+        ),
+                                                 BlocProvider(
+          create: (context) => getIt<FollowBloc>(),
+        ),
+        
+                                                    BlocProvider(
+          create: (context) => getIt<AcountBloc>(),
+        ),
+
+                                                     BlocProvider(
+          create: (context) => getIt<GetFollwersRoomBloc>()..add(const GetFollwersRoomEvent(type: "5")),
+        ),
+        
+                                                     BlocProvider(
+          create: (context) => getIt<CarouselBloc>()..add(GetCarouselEvent()),
+        ),
+
+                                                         BlocProvider(
+          create: (context) => getIt<CounrtyBloc>()..add(GetAllCountryEvent()),
+        ),
+        
+                                              BlocProvider(
+          create: (context) => getIt<GetRoomsBloc>()..add(GetRoomsEvent(typeGetRooms:TypeGetRooms.popular)),
+        ),
+
+                                                        BlocProvider(
+          create: (context) => getIt<SearchBloc>(),
+        ),
+
         
       ],
       child: MaterialApp(

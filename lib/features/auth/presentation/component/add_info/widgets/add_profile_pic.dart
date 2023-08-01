@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
@@ -11,9 +13,11 @@ import 'package:path_provider/path_provider.dart';
 
 class AddProFilePic extends StatefulWidget {
  final String? gooleImageUrl ;
-  const AddProFilePic({this.gooleImageUrl, super.key});
+ final String? myImage ;
+  const AddProFilePic({this.myImage , this.gooleImageUrl, super.key});
     static XFile? image;
   static File? googleImage; 
+
 
   @override
   State<AddProFilePic> createState() => _AddProFilePicState();
@@ -59,7 +63,21 @@ class _AddProFilePicState extends State<AddProFilePic> {
               Container(
                 width: ConfigSize.defaultSize! * 11,
                 height: ConfigSize.defaultSize! * 11,
-                decoration: AddProFilePic.image != null
+
+                decoration:widget.myImage!=null?
+                BoxDecoration(
+                        border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                    
+                    ConstentApi().getImage(widget.myImage)),
+                          fit: BoxFit.fill,
+                        ),
+                      ):
+                
+                
+                 AddProFilePic.image != null
                     ? BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,

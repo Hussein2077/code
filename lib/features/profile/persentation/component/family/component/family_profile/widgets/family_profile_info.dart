@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -29,6 +30,10 @@ class FamilyProfileInfo extends StatelessWidget {
     return BlocBuilder<GetMyDataBloc, GetMyDataState>(
       builder: (context, state) {
         if (state is GetMyDataSucssesState) {
+          bool isOwner = (familyData.id == state.userData.familyId&&familyData.amIOwner!);
+          bool isAdmin = (familyData.id == state.userData.familyId&&familyData.amIAdmin!);
+          bool isMember = (familyData.id == state.userData.familyId);
+
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
             child: Column(
@@ -39,8 +44,7 @@ class FamilyProfileInfo extends StatelessWidget {
                 ),
                 HeaderWithOnlyTitle(
                     title: "",
-                    endIcon: ((familyData.id == state.userData.familyId) &&
-                            (familyData.amIOwner! || familyData.amIAdmin!))
+                    endIcon:(isOwner||isAdmin)
                         ? Stack(
                             children: [
                               IconButton(
@@ -48,8 +52,10 @@ class FamilyProfileInfo extends StatelessWidget {
                                   bottomDailog(
                                       context: context,
                                       widget: SettingsDailog(
+                                        isAdmin: isAdmin,
+                                        isMember: isMember,
                                         familyId:familyData.id.toString() ,
-                                        isOwner: familyData.amIOwner!,
+                                        isOwner:isOwner,
                                         numOfRequests:
                                             familyData.numOfRequests.toString(),
                                       ));
@@ -327,7 +333,9 @@ Widget familyRooms() {
         } else {
           style = index % 3;
         }
+        //TODO family rooms
         return AduioLiveRow(
+          room: RoomModelOfAll(),
           style: style,
         );
       });

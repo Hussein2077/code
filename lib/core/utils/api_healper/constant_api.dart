@@ -139,12 +139,10 @@ class ConstentApi {
           String? filter,
           int? page}) =>
       "$allRooms?page=$page&country_id=${countryId ?? ''}&class_id=${classId ?? ''}&type_id=${typeId ?? ''}&search=${search ?? ''}&filter=${filter ?? ''}";
-  String getUserData({required String userId, bool? sendFireBase}) {
-    if (sendFireBase == null) {
+  String getUserData({required String userId,}) {
+    
       return "$baseUrl/users/$userId";
-    } else {
-      return "$baseUrl/users/$userId?send_firebase=$sendFireBase";
-    }
+    
   }
 
   String getBackPack(String type) {

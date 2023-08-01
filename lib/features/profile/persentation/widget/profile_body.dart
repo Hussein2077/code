@@ -27,24 +27,20 @@ class ProfileBody extends StatelessWidget {
         child: Column(
           children: [
         const Spacer(flex: 2,),
-            InkWell(
-              onTap: (){
-                Navigator.pushNamed(context, Routes.userProfile);
-              },
-              child: UserInfoRow(
-                userData: myData,
-                imageSize: ConfigSize.defaultSize! * 7,
-                underName:  IdWithCopyIcon(id: myData.uuid.toString()),
-                endIcon: Container(
-                  padding: EdgeInsets.all(ConfigSize.defaultSize!),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                          colors: ColorManager.mainColorList,
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight)),
-                          child: Icon(Icons.arrow_forward_ios ,color:  Colors.white , size: ConfigSize.defaultSize!),
-                ),
+            UserInfoRow(
+              onTap: () =>   Navigator.pushNamed(context, Routes.userProfile ,),
+              userData: myData,
+              imageSize: ConfigSize.defaultSize! * 7,
+              underName:  IdWithCopyIcon(id: myData.uuid.toString()),
+              endIcon: Container(
+                padding: EdgeInsets.all(ConfigSize.defaultSize!),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                        colors: ColorManager.mainColorList,
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight)),
+                        child: Icon(Icons.arrow_forward_ios ,color:  Colors.white , size: ConfigSize.defaultSize!),
               ),
             ),
              const Spacer(flex: 1,),
@@ -64,7 +60,7 @@ class ProfileBody extends StatelessWidget {
              const Spacer(flex: 1,),
 
      
-      Card3(isDarkTheme: isDarkTheme),
+      Card3(isDarkTheme: isDarkTheme , myData: myData,),
              const Spacer(flex: 1,),
 
 

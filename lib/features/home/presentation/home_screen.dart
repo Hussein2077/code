@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController liveController;
   @override
   void initState() {
-    liveController = TabController(length: 2, vsync: this);
+    liveController = TabController(length: 1, vsync: this);
     // if((widget.isChachGift??false)){
     //   Methods().chachGiftInRoom();
     // }

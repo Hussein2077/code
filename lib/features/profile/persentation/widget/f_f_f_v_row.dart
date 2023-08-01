@@ -19,7 +19,7 @@ class FFFVRow extends StatelessWidget {
           num: userData.numberOfFriends.toString(),
           title: StringManager.friends,
           userProfile: userProfile,
-          onTap: () => Navigator.pushNamed(context, Routes.fffv,
+          onTap: () => Navigator.pushNamed(context, Routes.fff,
               arguments: StringManager.friends),
         ),
         columnInfo(
@@ -27,22 +27,22 @@ class FFFVRow extends StatelessWidget {
             num: userData.numberOfFollowings.toString(),
             title: StringManager.follwoing,
             userProfile: userProfile,
-            onTap: () => Navigator.pushNamed(context, Routes.fffv,
+            onTap: () => Navigator.pushNamed(context, Routes.fff,
                 arguments: StringManager.follwoing)),
         columnInfo(
             context: context,
             num: userData.numberOfFans.toString(),
             title: StringManager.followers,
             userProfile: userProfile,
-            onTap: () => Navigator.pushNamed(context, Routes.fffv,
+            onTap: () => Navigator.pushNamed(context, Routes.fff,
                 arguments: StringManager.followers)),
         columnInfo(
             context: context,
             num: userData.profileVisotrs.toString(),
             title: StringManager.vistors,
             userProfile: userProfile,
-            onTap: () => Navigator.pushNamed(context, Routes.fffv,
-                arguments: StringManager.vistors)),
+            onTap: () => Navigator.pushNamed(context, Routes.vistorScreen,
+                )),
       ],
     );
   }

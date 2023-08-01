@@ -30,7 +30,7 @@ class AgencyScreen extends StatelessWidget {
               },
               title: StringManager.liveReport,
             ),
-            const Spacer(),
+             const Spacer(flex: 4,),
             MainButton(
               onTap: () {
                  Navigator.pushNamed(context, Routes.instructionsScreen);
@@ -44,12 +44,7 @@ class AgencyScreen extends StatelessWidget {
               },
               title: StringManager.withdrawal,
             ),
-            SizedBox(height: ConfigSize.defaultSize! / 0.4),
-            Icon(Icons.question_mark_sharp,color: Theme.of(context).iconTheme.color),
-            Text(StringManager.whatIsAgency,
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center),
-            SizedBox(height: ConfigSize.defaultSize! / 0.4),
+           const Spacer()
 
           ],
         ));

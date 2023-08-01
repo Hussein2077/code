@@ -1,11 +1,11 @@
 class NowRoomModel {
-  bool isnInRoom;
-  int uid;
-  bool inMine;
-    bool roomstatus ; 
+  bool? isnInRoom;
+  int? uid;
+  bool? inMine;
+    bool? roomstatus ; 
 
   NowRoomModel(
-      {required this.roomstatus ,  required this.isnInRoom, required this.uid, required this.inMine});
+      { this.roomstatus ,   this.isnInRoom,  this.uid,  this.inMine});
   factory NowRoomModel.fromjson(Map<String, dynamic> json) {
     return NowRoomModel(
        roomstatus: json['password_status'],

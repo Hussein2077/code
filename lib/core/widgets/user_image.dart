@@ -22,7 +22,7 @@ class UserImage extends StatelessWidget {
           decoration:  BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                fit: boxFit??BoxFit.contain,
+                fit: boxFit??BoxFit.fill,
                   image: CachedNetworkImageProvider(
                     
                     ConstentApi().getImage(image)) )),

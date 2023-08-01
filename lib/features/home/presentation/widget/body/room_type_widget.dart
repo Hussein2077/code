@@ -6,8 +6,9 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class RoomTypeWidget extends StatelessWidget {
+  final String type ; 
   final int style ; 
-  const RoomTypeWidget({required this.style, super.key});
+  const RoomTypeWidget({required this.type,  required this.style, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class RoomTypeWidget extends StatelessWidget {
                               color: ColorManager.whiteColor,
                               animateIcon: AnimateIcons.loading3),
                           Text(
-                            "نعنشه",
+                            type,
                             style: TextStyle(
                                 color: ColorManager.whiteColor,
                                 fontSize: ConfigSize.defaultSize! * 1.2),

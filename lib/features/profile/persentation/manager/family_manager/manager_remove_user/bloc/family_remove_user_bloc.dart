@@ -13,7 +13,7 @@ class FamilyRemoveUserBloc
   RemoveUserFromFamilyUsecase removeUserFromFamilyUsecase;
   FamilyRemoveUserBloc({required this.removeUserFromFamilyUsecase})
       : super(FamilyRemoveUserInitial()) {
-    on<removerFamilyUser>((event, emit) async {
+    on<RemoverFamilyUser>((event, emit) async {
       emit(FamilyRemoveUserLoadingState());
       final result = await removeUserFromFamilyUsecase.removeUser(
           event.uId, event.familyId);

@@ -15,8 +15,7 @@ class UserCountryIcon extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-      //  Image.asset(AssetsPath.globalIcon , scale: 2.3,),
-       Text(country , style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!),)
+       Text(country , style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.3),)
       ],),
     );
   }

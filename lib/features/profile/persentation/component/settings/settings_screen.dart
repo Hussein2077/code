@@ -13,7 +13,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_state.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/settings/widget/linking_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/linking_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -36,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
             icon: AssetsPath.linkingIcon,
             title: StringManager.linkingAccount,
             onTap: () =>
-                bottomDailog(context: context, widget: const LinkingScreen()),
+                bottomDailog(context: context, widget:  LinkingScreen()),
           ),
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,

@@ -146,7 +146,7 @@ class RoomModelOfAll {
         roomId: map['room_id'],
         name: map['name'],
         visitorsCount: map['visitors_count'],
-        cover:map['cover'],
+        cover:map['cover']??"tic_logo.jpg",
         //classRoom: AllMainClassesModel.fromjson(map['class']),
         type: map['type']==null?  null:  AllMainClassesModel.fromjson(map['type']),
         isHot: map['is_hot'],

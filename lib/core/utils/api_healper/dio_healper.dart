@@ -16,7 +16,8 @@ class DioHelper {
     String token = await Methods().returnUserToken();
     log(token);
 
-    final devicedata = await initPlatformState(); // to get information device
+    final devicedata = await initPlatformState();
+    log(devicedata); // to get information device
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
       "device": devicedata,

@@ -2,10 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class ProblemType extends StatefulWidget {
-  static int? seletedProblem ; 
+  static int seletedProblem=0 ;
+ static  List<String> types = [
+    StringManager.porn,
+    StringManager.bullying,
+    StringManager.violence,
+    StringManager.other ,
+  ];
   const ProblemType({super.key});
 
   @override
@@ -13,6 +20,7 @@ class ProblemType extends StatefulWidget {
 }
 
 class _ProblemTypeState extends State<ProblemType> {
+ 
   @override
   Widget build(BuildContext context) {
     return        SizedBox(
@@ -21,7 +29,7 @@ class _ProblemTypeState extends State<ProblemType> {
         
         shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-                itemCount: 20,
+                itemCount: ProblemType.types.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
@@ -37,7 +45,7 @@ class _ProblemTypeState extends State<ProblemType> {
                             BorderRadius.circular(ConfigSize.defaultSize!*2),
                         color: ProblemType.seletedProblem==index?ColorManager.orang: Colors.grey,
                       ),
-                      child: const Center(child: Text("حموديات"),),
+                      child:  Center(child: Text(ProblemType.types[index]),),
                     ),
                   );
                 }),

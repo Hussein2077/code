@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class HeaderProfile extends StatelessWidget {
-  const HeaderProfile({super.key});
+  final OwnerDataModel userData ;
+  final bool myProfile ; 
+  const HeaderProfile({required this.userData , required this.myProfile , super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +14,8 @@ class HeaderProfile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         headerIcon(icon: Icons.arrow_back_ios ,onTap: () => Navigator.pop(context), ),
-        headerIcon(icon: Icons.more_horiz ,onTap: () => Navigator.pushNamed(context, Routes.editInfo), )],
+        myProfile?
+        headerIcon(icon: Icons.more_horiz ,onTap: () => Navigator.pushNamed(context, Routes.editInfo , arguments: userData), ):const SizedBox(width: 10,)],
     );
   }
 }

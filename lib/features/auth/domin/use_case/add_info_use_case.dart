@@ -30,15 +30,15 @@ class AddInFormationUC extends BaseUseCase<OwnerDataModel,InformationPramiter>{
 class InformationPramiter extends Equatable {
    final String? bio ; 
   final String name ;
-  final String date ;
+  final String? date ;
   final File? image ;
   final String gender ;
   final String country ;
-  final String countryCode;
+  final String? countryCode;
 
 
   const InformationPramiter({ this.bio , required this.gender,
-    required this.country,  this.image ,required this.date ,required this.countryCode,required this.name});
+    required this.country,  this.image , this.date , this.countryCode,required this.name});
 
   @override
   List<Object?> get props => [name ,date ,image,gender ,country,countryCode ];

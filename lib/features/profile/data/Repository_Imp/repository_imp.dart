@@ -35,6 +35,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
@@ -109,10 +110,10 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
 
   @override
   Future<Either<OwnerDataModel, Failure>> getUserData(
-      {required String userId , bool? sendFireBase }) async {
+      {required String userId  }) async {
     try {
       final result =
-          await baseRemotlyDataSourceProfile.getUserData(userId: userId , sendFireBase: sendFireBase );
+          await baseRemotlyDataSourceProfile.getUserData(userId: userId  );
       return left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
@@ -742,6 +743,17 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
       return Right(DioHelper.buildFailure(e));
     }
 
+  }
+
+    @override
+  Future<Either<String, Failure>> feedBack(FeedBackPramiter feedBackPramiter)async {
+    try {
+      final result =
+      await baseRemotlyDataSourceProfile.feedBack(feedBackPramiter);
+      return Left(result);
+    } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
   }
 
 }

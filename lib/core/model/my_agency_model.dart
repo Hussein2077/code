@@ -1,8 +1,8 @@
 class MyAgencyModel {
-  final String name;
-  final String notice;
-  final String img;
-  MyAgencyModel({required this.img, required this.name, required this.notice});
+  final String? name;
+  final String? notice;
+  final String? img;
+  MyAgencyModel({ this.img,  this.name,  this.notice});
 
   factory MyAgencyModel.fromjson(Map<String, dynamic> json) {
     return MyAgencyModel(

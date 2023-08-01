@@ -6,7 +6,7 @@ class MyStoreModel {
   final int? coupons;
   final int? coins;
   final int? silverCoin;
-  final dynamic  diamonds;
+  final dynamic diamonds;
   MyStoreModel(
       {this.totalCoins,
       this.coupons,

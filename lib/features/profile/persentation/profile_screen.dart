@@ -26,7 +26,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
- //   BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
     super.initState();
   }
   @override
@@ -47,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           builder: (context, state) {
          if (state is GetMyDataSucssesState){
           tempData = state.userData ;
-             return  ProfileBody(myData: state.userData,);
+             return  ProfileBody(myData: state.userData, );
          }
         else if (state is GetMyDataErrorState){
           //todo show toast here to show error

@@ -25,11 +25,11 @@ phonecontroller = TextEditingController();
     super.initState();
   }
 
-  @override
-  void dispose() {
-phonecontroller.dispose();
-    super.dispose();
-  }
+//   @override
+//   void dispose() {
+// phonecontroller.dispose();
+//     super.dispose();
+//   }
 
 
   @override

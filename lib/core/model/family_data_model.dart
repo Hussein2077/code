@@ -1,15 +1,15 @@
 
 
 class FamilyDataModel {
-  final int maxNum;
-  final String img;
-  final int memberNum;
-  final String name ;
-  final int ownerFamilyId ;
+  final int? maxNum;
+  final String? img;
+  final int? memberNum;
+  final String? name ;
+  final int? ownerFamilyId ;
 
   FamilyDataModel(
-      {required this.maxNum, required this.img,required this.name,required this.ownerFamilyId,
-        required this.memberNum});
+      { this.maxNum,  this.img, this.name, this.ownerFamilyId,
+         this.memberNum});
 
   factory FamilyDataModel.fromjosn(Map<String, dynamic> json) {
     return FamilyDataModel(

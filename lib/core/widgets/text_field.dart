@@ -10,19 +10,25 @@ class TextFieldWidget extends StatelessWidget {
   final Color? textColor; 
     final Color? hintColor; 
     final bool? readOnly;
+ final TextInputType? type ;
+ final Function(String)? onChanged ;
 
 
-  const TextFieldWidget({this.hintColor, this.textColor ,this.readOnly, this.maxLines, required this.hintText, required this.controller, super.key});
+  const TextFieldWidget({this.onChanged, this.type, this.hintColor, this.textColor ,this.readOnly, this.maxLines, required this.hintText, required this.controller, super.key});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged:onChanged ,
+    
                   style:  TextStyle(color: textColor?? Colors.grey , fontSize: ConfigSize.defaultSize!*1.7),
                   autofocus: false,
                   readOnly: readOnly ?? false,
                   controller: controller,
+                  keyboardType: type,
                   maxLines: maxLines??1,
                   decoration:  InputDecoration(
+                    
                 
                       border: InputBorder.none,
 

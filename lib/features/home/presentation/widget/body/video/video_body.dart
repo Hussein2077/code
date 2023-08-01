@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/country_icon.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/page_view.dart';
@@ -26,14 +27,14 @@ class VideoBody extends StatelessWidget {
       child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const PageViewWidget(),
+       const PageViewWidget(carouselsList: []),
       const CountryIcon(),
       GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
 
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: 10,
+          itemCount: 0,
           itemBuilder: (context, index) {
             int style = 0 ; 
             if(index==0 || index==1 ||index==2){
@@ -41,7 +42,7 @@ class VideoBody extends StatelessWidget {
             }else {
               style = index % 3 ;
             }
-        return   VideoLiveBox(style: style,);
+        return   VideoLiveBox(style: style, room:RoomModelOfAll() ,);
           })
     ],
       )),

@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/home/data/model/carousels_model.dart';
 
 class PageViewWidget extends StatefulWidget {
-  const PageViewWidget({Key? key}) : super(key: key);
+  final List<CarouselsModel> carouselsList ;
+  
+  const PageViewWidget({required this.carouselsList ,  Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -12,27 +16,29 @@ class PageViewWidget extends StatefulWidget {
 }
 
 class _PageViewWidgetState extends State<PageViewWidget> {
+ late  List<Widget> pages ; 
+  @override
+  void initState() {
+  pages = [
+    for(int i = 0 ; i < widget.carouselsList.length ;i++ )
+    Container(
+      decoration: BoxDecoration(
+          image:  DecorationImage(
+              image: CachedNetworkImageProvider(
+                
+                    
+                    ConstentApi().getImage(widget.carouselsList[i].img)),
+              fit: BoxFit.fill),
+          borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
+    ),
+ 
+  ];    super.initState();
+  }
+
   int current = 0;
-  List<Widget> pages = [
-    Container(
-      decoration: BoxDecoration(
-          image: const DecorationImage(
-              image: AssetImage(
-                AssetsPath.splashBackGround,
-              ),
-              fit: BoxFit.fill),
-          borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-    ),
-    Container(
-      decoration: BoxDecoration(
-          image: const DecorationImage(
-              image: AssetImage(
-                AssetsPath.loginBackGround,
-              ),
-              fit: BoxFit.fill),
-          borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-    ),
-  ];
+ 
+
+   
   final CarouselController controller = CarouselController();
 
   @override

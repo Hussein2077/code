@@ -1,17 +1,20 @@
 import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
-import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
+
+import 'user_top_model.dart';
+
 
 class RankingModel extends Equatable{
   final bool sussecc;
   final String  messges;
   final UserTopModel userData ;
   final List<UserTopModel> userRankModels;
-   final List<UserTopModel> userOtherModel;
+  late final List<UserTopModel> userOtherModel;
 
 
-   const RankingModel(
+   // ignore: prefer_const_constructors_in_immutables
+   RankingModel(
       { required this.sussecc,
        required  this.messges,
         required this.userData,
@@ -32,13 +35,13 @@ class RankingModel extends Equatable{
   }
 
 
-  // List<UserTopModel> get moreUserOtherModel {
-  //   return userOtherModel;
-  // }
+  List<UserTopModel> get moreUserOtherModel {
+    return userOtherModel;
+  }
 
-  // set setMoreUsers(List<UserTopModel> users) {
-  //   userOtherModel = [...userOtherModel,...users] ;
-  // }
+  set setMoreUsers(List<UserTopModel> users) {
+    userOtherModel = [...userOtherModel,...users] ;
+  }
   @override
 
   List<Object?> get props => [sussecc,messges,userOtherModel,userRankModels];

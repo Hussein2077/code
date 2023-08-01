@@ -33,7 +33,7 @@ class LiveTodayCard extends StatelessWidget {
             ),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.grey),
             ),
           ],

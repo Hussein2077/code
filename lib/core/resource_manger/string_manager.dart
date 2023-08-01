@@ -157,7 +157,6 @@ class StringManager {
   static const String explainProblem =
       "Please explain your problem in detail, so that our customer service staff can understand and deal with it";
 
-  static const String problemTime = "The time the problem occurred";
   static const String screenshot = "Screenshot";
   static const String submit = "Submit";
 
@@ -275,6 +274,23 @@ class StringManager {
   static const String today = "Today";
   static const String myFamily = "My Family";
   static const String youAreVip = "You are vip";
+    static const String exitFamily = "Exit Family";
+
+  static const String whatsappNum = "Whatsapp Number";
+
+  static const String porn = "Porn";
+  static const String other = "Other";
+  static const String bullying = "Bullying";
+    static const String violence = "Violence";
+    static const String pleaseAddDetiels =  "Please Add Detiels";
+      static const String unFollow = "UnFollow";
+      static const String sucsses = "Sucsses";
+  static const String linked = "Linked";
+
+    static const String pleaseEnterNewPhoneNum = 'Please Enter New Phone Number';
+
+    static const String pleaseEnterPassword = 'Please Enter Password';
+        static const String popular= 'Popular';
 
 
 }

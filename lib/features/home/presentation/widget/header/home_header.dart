@@ -14,11 +14,13 @@ class HomeHeader extends StatelessWidget {
     return    Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-     InkWell(onTap: (){
-      Navigator.pushNamed(context, Routes.topUsersScreen);
-     }, child: Image.asset(AssetsPath.topUserIcon , scale: 2,)),
+   
      LiveTabBAR(liveController: liveController,),
-     Image.asset(AssetsPath.searchIcon , scale: 2.5,),
+     InkWell(
+      onTap: (){
+        Navigator.pushNamed(context, Routes.searchScreen);
+      },
+      child: Image.asset(AssetsPath.searchIcon , scale: 2.5,)),
           InkWell(onTap: (){
             Navigator.pushNamed(context, Routes.createLive);
           }, child: Image.asset(AssetsPath.createLiveIcon , scale: 2.5,))

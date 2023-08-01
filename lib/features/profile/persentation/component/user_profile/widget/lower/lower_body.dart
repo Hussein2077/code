@@ -1,14 +1,21 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_event.dart';
 
 import 'profile_tab_view_body.dart';
 import 'profile_tabs.dart';
 import 'reels_tab_view_body.dart';
 
 class LowerProfileBody extends StatefulWidget {
-  const LowerProfileBody({super.key});
+    final OwnerDataModel userData ; 
+     final bool myProfile; 
+
+  const LowerProfileBody({required this.myProfile ,  required this.userData ,  super.key});
 
   @override
   State<LowerProfileBody> createState() => _LowerProfileBodyState();
@@ -18,6 +25,8 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
   late TabController profileController ; 
   @override
   void initState() {
+        BlocProvider.of<GiftHistoryBloc>(context).add(GetGiftHistory(id: widget.userData.id.toString()));
+
     profileController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -32,9 +41,9 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
         height: MediaQuery.of(context).size.height/2.4,
         child: TabBarView(
           controller: profileController,
-           children:const [
-            ProfileTabViewBody(),
-          ReelsTabView()
+           children: [
+            ProfileTabViewBody(userData: widget.userData),
+       const   ReelsTabView()
       
         ]),
       ),

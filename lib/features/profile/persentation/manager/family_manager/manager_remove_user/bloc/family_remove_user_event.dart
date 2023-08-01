@@ -8,8 +8,8 @@ abstract class BaseFamilyRemoveUserEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class removerFamilyUser extends BaseFamilyRemoveUserEvent {
+class RemoverFamilyUser extends BaseFamilyRemoveUserEvent {
   final String uId;
   final String familyId;
-  const removerFamilyUser({required this.uId, required this.familyId});
+  const RemoverFamilyUser({required this.uId, required this.familyId});
 }

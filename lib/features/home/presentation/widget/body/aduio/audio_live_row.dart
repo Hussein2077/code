@@ -1,13 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/room_type_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/num_of_vistor.dart';
 
 class AduioLiveRow extends StatelessWidget {
   final int style;
-  const AduioLiveRow({required this.style, super.key});
+  final RoomModelOfAll room ; 
+  const AduioLiveRow({required this.room , required this.style, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,43 +53,53 @@ class AduioLiveRow extends StatelessWidget {
                         spreadRadius: 1,
                         blurRadius: 20),
                   ],
-                  image: const DecorationImage(image: AssetImage(AssetsPath.splashBackGround , ) , fit: BoxFit.fill),
+                  image:  DecorationImage(image:  CachedNetworkImageProvider(
+                    
+                    ConstentApi().getImage(room.cover)) , fit: BoxFit.fill),
                   borderRadius:
                       BorderRadius.circular(ConfigSize.defaultSize! * 2)),
-              child: const Align(
+              child:  Align(
                   alignment: Alignment.bottomLeft,
-                  child: NumVistor()),
+                  child: NumVistor(numOfVistor: room.visitorsCount.toString(),)),
             ),
             SizedBox(
               width: ConfigSize.defaultSize,
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'اسمي الحمودي',
+                  room.name,
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: ConfigSize.defaultSize! * 1.8),
                 ),
-                Text(
-                  'اسمي الحمودي',
-                  style: TextStyle(
-                      color: Colors.black.withOpacity(0.5),
-                      fontSize: ConfigSize.defaultSize! * 1.2),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width-200,
+                  child: Text(
+                   room.roomIntro!,
+                    style: TextStyle(
+                        color: Colors.black.withOpacity(0.5),
+                        fontSize: ConfigSize.defaultSize! * 1.2,
+                        overflow: TextOverflow.ellipsis
+                        ),
+                  ),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Row(
                   children: [
-                 RoomTypeWidget(style: style,),
+                 RoomTypeWidget(style: style,type: room.type!.name),
                     SizedBox(
                       width: ConfigSize.defaultSize,
                     ),
-                    Image.asset(
-                      AssetsPath.globalIcon,
-                      scale: 2,
-                    ),
+                    CachedNetworkImage(
+                        imageUrl: ConstentApi().getImage(room.country!.flag),
+                        width: ConfigSize.defaultSize! * 2.4,
+                        height: ConfigSize.defaultSize! * 2.4,
+                      ),
                   ],
                 )
               ],

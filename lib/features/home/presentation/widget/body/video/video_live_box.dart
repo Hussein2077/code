@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/room_type_widget.dart';
 
 import '../../num_of_vistor.dart';
+// ignore: depend_on_referenced_packages
+import 'package:cached_network_image/cached_network_image.dart';
 
 class VideoLiveBox extends StatelessWidget {
+  final RoomModelOfAll room;
   final int style;
-  const VideoLiveBox({required this.style, super.key});
+  const VideoLiveBox({required this.room, required this.style, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +23,10 @@ class VideoLiveBox extends StatelessWidget {
             height: ConfigSize.defaultSize! * 14,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
-              image: const DecorationImage(
-                  image: AssetImage(AssetsPath.splashBackGround),
-                  fit: BoxFit.fill),
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: CachedNetworkImageProvider(
+                      ConstentApi().getImage(room.cover))),
             ),
             child: Column(
               children: [
@@ -33,15 +38,17 @@ class VideoLiveBox extends StatelessWidget {
                     SizedBox(
                       width: ConfigSize.defaultSize!,
                     ),
-                    Image.asset(
-                      AssetsPath.globalIcon,
-                      scale: 2,
+                    CachedNetworkImage(
+                      imageUrl: ConstentApi().getImage(room.country!.flag),
+                      width: ConfigSize.defaultSize!*2.4,
+                      height: ConfigSize.defaultSize!*2.4,
                     ),
                     SizedBox(
                       width: ConfigSize.defaultSize!,
                     ),
                     RoomTypeWidget(
                       style: style,
+                      type: room.type!.name,
                     ),
                     SizedBox(
                       width: ConfigSize.defaultSize,
@@ -52,15 +59,15 @@ class VideoLiveBox extends StatelessWidget {
                     padding: EdgeInsets.only(
                         top: ConfigSize.defaultSize! * 6,
                         left: ConfigSize.defaultSize! * 12),
-                    child: const NumVistor())
+                    child:  NumVistor(numOfVistor: room.visitorsCount.toString(),))
               ],
             )),
         Text(
-          "غرفة الحمود واصحابة",
+          room.name,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         Text(
-          " غرفة الحمود واصحابة",
+          room.roomIntro!,
           style: Theme.of(context).textTheme.titleSmall,
         )
       ],

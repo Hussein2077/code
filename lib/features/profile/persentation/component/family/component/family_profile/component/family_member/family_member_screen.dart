@@ -254,7 +254,7 @@ Widget familyOwnerDilog({
               Navigator.pop(context);
 
               BlocProvider.of<FamilyRemoveUserBloc>(context)
-                  .add(removerFamilyUser(familyId: familyId, uId: userId));
+                  .add(RemoverFamilyUser(familyId: familyId, uId: userId));
             }),
       ],
     ),

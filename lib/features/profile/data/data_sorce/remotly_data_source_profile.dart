@@ -41,6 +41,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
@@ -54,7 +55,7 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<String> follow({required String userId});
   Future<String> unFollow({required String userId});
   Future<OwnerDataModel> getUserData(
-      {required String userId, bool? sendFireBase});
+      {required String userId});
   Future<List<VipCenterModel>> getVipCenter();
   Future<int> getvipCount();
   Future<List<OwnerDataModel>> getVaistors({String? page});
@@ -150,6 +151,7 @@ abstract class BaseRemotlyDataSourceProfile {
     Future<String> userReporet(UserReporetPramiter userReporetPramiter);
               Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) ;
 
+  Future<String> feedBack(FeedBackPramiter feedBackPramiter);
 
 
 
@@ -277,12 +279,12 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
   @override
   Future<OwnerDataModel> getUserData(
-      {required String userId, bool? sendFireBase}) async {
+      {required String userId}) async {
 
     Map<String, String> headers = await DioHelper().header();
     try {
       final response = await Dio().get(
-          ConstentApi().getUserData(userId: userId, sendFireBase: sendFireBase),
+          ConstentApi().getUserData(userId: userId,),
           options: Options(
             headers: headers,
           ));
@@ -1438,7 +1440,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     final body = {
       'phone': boundNumberPramiter.phoneNumber,
       'vr_code': boundNumberPramiter.vrCode,
-      'password': boundNumberPramiter.password
+      'password': boundNumberPramiter.password,
+      'credential' : boundNumberPramiter.credential
     };
     try{
     final response = await Dio().post(
@@ -1627,5 +1630,51 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     
 
   }
+
+ @override
+  Future<String> feedBack(FeedBackPramiter feedBackPramiter) async {
+       Map<String, String> headers = await DioHelper().header();
+
+
+    FormData formData;
+    if (feedBackPramiter.image == null) {
+      formData = FormData.fromMap({
+        'txt': feedBackPramiter.content,
+        'contact': feedBackPramiter.phoneNumber,
+        'user_id': feedBackPramiter.userId,
+        'description' : feedBackPramiter.description,
+      });
+    } else {
+      File file = feedBackPramiter.image!;
+      String fileName = file.path.split('/').last;
+
+      formData = FormData.fromMap({
+        "img": await MultipartFile.fromFile(file.path, filename: fileName),
+        'txt': feedBackPramiter.content,
+        'contact': feedBackPramiter.phoneNumber,
+        'user_id': feedBackPramiter.userId,
+                'description' : feedBackPramiter.description,
+
+      });
+    }
+ {
+      try {
+        final response = await Dio().post(
+          ConstentApi.feedBack,
+          data: formData,
+          options: Options(
+            headers: headers,
+          ),
+        );
+        final result = response.data;
+        log(result.toString());
+
+        return result['message'];
+      } on DioError catch (e) {
+        throw DioHelper.handleDioError(e);
+      }
+    }
+  }
+  
   }
 
