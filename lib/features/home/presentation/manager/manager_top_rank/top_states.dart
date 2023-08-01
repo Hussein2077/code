@@ -6,9 +6,12 @@ import 'package:tik_chat_v2/features/home/data/model/user_rank_model.dart';
 
 
 class TopStates extends Equatable {
-  final RankingModel? usersRankDD;
+    final RankingModel? usersRankDD;
   final RequestState dDState;
   final String dDError;
+  final RankingModel? usersRankDh;
+  final RequestState dhState;
+  final String dhError;
   final RankingModel? usersRankDW;
   final RequestState dWState;
   final String dWError;
@@ -18,6 +21,9 @@ class TopStates extends Equatable {
   final RankingModel? usersRankCD;
   final RequestState cDState;
   final String cDError;
+   final RankingModel? usersRankCh;
+  final RequestState chState;
+  final String chError;
   final RankingModel? usersRankCW;
   final RequestState cWState;
   final String cWError;
@@ -32,20 +38,30 @@ class TopStates extends Equatable {
       this.usersRankDD,
       this.usersRankDM,
       this.usersRankDW,
+      this.usersRankDh,
+      this.usersRankCh,
       this.cMState = RequestState.loading,
       this.cDState = RequestState.loading,
       this.cWState = RequestState.loading,
       this.dDState = RequestState.loading,
       this.dMState = RequestState.loading,
       this.dWState = RequestState.loading,
+      this.dhState=RequestState.loading,
+      this.chState = RequestState.loading,
       this.cDError = "",
       this.cMError = "",
       this.cWError = "",
       this.dDError = "",
       this.dMError = "",
-      this.dWError = ""});
+      this.dWError = "",
+      this.chError="",
+      this.dhError=""
+      });
 
   TopStates copyWith({
+      RankingModel? usersRankDh,
+    RequestState? dhState,
+    String? dhError,
     RankingModel? usersRankDD,
     RequestState? dDState,
     String? dDError,
@@ -55,6 +71,9 @@ class TopStates extends Equatable {
     RankingModel? usersRankDM,
     RequestState? dMState,
     String? dMError,
+      RankingModel? usersRankCh,
+    RequestState? chState,
+    String? chError,
     RankingModel? usersRankCD,
     RequestState? cDState,
     String? cDError,
@@ -72,6 +91,12 @@ class TopStates extends Equatable {
         usersRankCD: usersRankCD ?? this.usersRankCD,
         usersRankCM: usersRankCM ?? this.usersRankCM,
         usersRankCW: usersRankCW ?? this.usersRankCW,
+        chError: chError??this.chError,
+        chState: chState??this.chState,
+        usersRankCh:usersRankCh??this.usersRankCh ,
+        dhError: dhError?? this.dhError,
+        dhState: dhState??this.dhState,
+        usersRankDh: usersRankDh??this.usersRankDh,
         dDState: dDState ?? this.dDState,
         dMState: dMState ?? this.dMState,
         dWState: dWState ?? this.dWState,
@@ -83,11 +108,19 @@ class TopStates extends Equatable {
         dWError: dWError ?? this.dWError,
         cDError: cDError ?? this.cDError,
         cMError: cMError ?? this.cMError,
-        cWError: cWError ?? this.cWError);
+        cWError: cWError ?? this.cWError,
+        
+        );
   }
 
   @override
   List<Object?> get props => [
+         usersRankDh,
+        dhState,
+        dhError,
+            usersRankCh,
+        chState,
+      chError,
         usersRankDD,
         dDState,
         dDError,

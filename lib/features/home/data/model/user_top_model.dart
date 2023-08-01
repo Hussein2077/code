@@ -30,7 +30,7 @@ class UserTopModel extends Equatable {
       exp: jsonData['exp']??0,
       userId: jsonData['user_id'],
       // sex: jsonData['sex'] ?? "",
-      avater: jsonData['avatar'] ?? "",
+      avater: (jsonData['avatar']==null ||jsonData['avatar']=="")? "tic_logo.jpg":jsonData['avatar'],
       name: jsonData['name'] ?? "",
       frame: jsonData['frame'] ?? "",
       frameId: jsonData['frame_id'] ??1

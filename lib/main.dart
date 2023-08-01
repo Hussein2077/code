@@ -28,6 +28,7 @@ import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/curse
 import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_event.dart';
@@ -224,8 +225,13 @@ class MyApp extends StatelessWidget {
                                                         BlocProvider(
           create: (context) => getIt<SearchBloc>(),
         ),
+                                                               BlocProvider(
+          create: (context) => getIt<TobBloc>(),
+        ),
 
         
+
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

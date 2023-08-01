@@ -19,14 +19,30 @@ class TobBloc extends Bloc<TopEvents,TopStates>
   bool isLoadMore= false ;
 
   TobBloc({required this.getTopUseCase}): super(const TopStates()){
+    on<GetDiamondsHourEvent>(getDiamondsHour);
 
     on<GetDiamondsDayEvent>(getDiamondsDay);
     on<GetDiamondsWeeklyEvent>(getDiamondsWeekly);
     on<GetDiamondsMonthlyEvent>(getDiamondsMonthly);
+
+        on<GetCoinsHourEvent>(getCoinsHour);
+
     on<GetCoinsDayEvent>(getCoinsDay);
     on<GetCoinsWeeklyEvent>(getCoinsWeekly);
     on<GetCoinsMonthlyEvent>(getCoinsMonthly);
     on<LoadMoreEvent>(loadMore);
+
+  }
+
+  FutureOr<void> getDiamondsHour(GetDiamondsHourEvent event, Emitter<TopStates> emit)async {
+
+    final result = await getTopUseCase.call(TopPramiter(
+        sendOrReceiver: event.sendOrReceiver,
+       isHome: event.isHome,
+      date: event.date
+    ));
+    result.fold((l) => emit(state.copyWith(usersRankDh: l,dhState: RequestState.loaded)),
+            (r) => emit(state.copyWith(dhError: DioHelper().getTypeOfFailure(r),  dhState: RequestState.error)));
 
   }
 
@@ -69,6 +85,19 @@ class TobBloc extends Bloc<TopEvents,TopStates>
 
     result.fold((l) => emit(state.copyWith(usersRankDM: l,dMState: RequestState.loaded)),
             (r) => emit(state.copyWith(dMError: DioHelper().getTypeOfFailure(r),  dMState: RequestState.error)));
+  }
+
+
+   FutureOr<void> getCoinsHour(GetCoinsHourEvent event, Emitter<TopStates> emit)async {
+    final result = await getTopUseCase.call(TopPramiter(
+        sendOrReceiver: event.sendOrReceiver,
+        isHome: event.isHome,
+        date: event.date
+    ));
+
+    result.fold((l) => emit(state.copyWith(usersRankCh: l,chState: RequestState.loaded)),
+            (r) => emit(state.copyWith(chError: DioHelper().getTypeOfFailure(r),  chState: RequestState.error)));
+
   }
 
 

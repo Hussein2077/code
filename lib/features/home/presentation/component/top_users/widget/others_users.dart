@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
+import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 
 class OthersUsers extends StatelessWidget {
-  const OthersUsers({super.key});
+    final List<UserTopModel> usersData ; 
+
+  const OthersUsers({required this.usersData, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,7 @@ class OthersUsers extends StatelessWidget {
     return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 10,
+        itemCount: usersData.length,
         itemBuilder: (context, index) {
           return Container(
             margin: EdgeInsets.symmetric(
@@ -39,25 +42,17 @@ class OthersUsers extends StatelessWidget {
               ),
                           const    Spacer(flex: 1,),
 
-              Container(
-                width: ConfigSize.defaultSize! * 4,
-                height: ConfigSize.defaultSize! * 4,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: AssetImage(AssetsPath.testImage),
-                        fit: BoxFit.fill)),
-              ),
+              UserImage(image: usersData[index].avater! , imageSize: ConfigSize.defaultSize!*4,),
                           const    Spacer(flex: 1,),
 
               Text(
-                "اسمينا الحمودي",
+                usersData[index].name!,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
                           const    Spacer(flex: 20,),
 
               Text(
-                "1.4 M",
+                 usersData[index].exp.toString(),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
                           const    Spacer(flex: 1,),

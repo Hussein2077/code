@@ -11,8 +11,9 @@ class UserImage extends StatelessWidget {
     final double? imageSize ; 
     final String image ;
     final BoxFit? boxFit;
+    final Widget? child ;
 
-  const UserImage({required this.image , this.boxFit ,this.imageSize, super.key});
+  const UserImage({this.child ,  required this.image , this.boxFit ,this.imageSize, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class UserImage extends StatelessWidget {
                   image: CachedNetworkImageProvider(
                     
                     ConstentApi().getImage(image)) )),
+                    child: child,
         );
   }
 }

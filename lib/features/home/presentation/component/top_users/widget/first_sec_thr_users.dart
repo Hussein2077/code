@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 
 class FirstSecThrUsers extends StatelessWidget {
   final double imageSize ; 
@@ -9,8 +10,9 @@ class FirstSecThrUsers extends StatelessWidget {
    
   final double height ; 
   final String badge ; 
+  final UserTopModel userData ; 
 
-  const FirstSecThrUsers({required this.badge , required this.imageSize , required this.height , required this.position ,   super.key});
+  const FirstSecThrUsers({required this.userData ,  required this.badge , required this.imageSize , required this.height , required this.position ,   super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +24,19 @@ class FirstSecThrUsers extends StatelessWidget {
                       top: position,
                     ),
                   height: height,
-                  child: Container(
-                    width: imageSize,
-                    height: imageSize,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage(AssetsPath.testImage),
-                            fit: BoxFit.fill)),
-                    child: Align(
+                  child:UserImage(image:userData.avater!  ,child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Image.asset(
                           badge,
                           scale: 2.5,
-                        )),
-                  ),
+                        )),  )
+                  
+                  
+             
                 ),
         
         Text(
-          "حمود",
+          userData.name!,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         Container(
@@ -50,7 +46,7 @@ class FirstSecThrUsers extends StatelessWidget {
           decoration: BoxDecoration(
               color: ColorManager.bage,
               borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-              child: Center(child: Text("1.4 M" , style:TextStyle(color: ColorManager.borwn , fontSize: ConfigSize.defaultSize!*1.2 , fontWeight: FontWeight.bold) ,)),
+              child: Center(child: Text(userData.exp.toString() , style:TextStyle(color: ColorManager.borwn , fontSize: ConfigSize.defaultSize!*1.2 , fontWeight: FontWeight.bold) ,)),
         )
       ],
     );
