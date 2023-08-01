@@ -151,4 +151,6 @@ class AssetsPath {
   static const String snapIcon = "$pathIcon/snap_icon.png";
   static const String incomeIcon = "$pathIcon/income_icon.png";
   static const String moneyBag = "$pathIcon/money-bag.png";
+  static const String gemStone = "$pathIcon/gem-stone.png";
+  static const String circleDollar = "$pathIcon/circle-dollar.png";
 }
