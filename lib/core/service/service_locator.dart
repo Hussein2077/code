@@ -27,10 +27,12 @@ import 'package:tik_chat_v2/features/home/data/repository_imp/repository_imp.dar
 import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_all_rooms_uc.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_country_usecase.dart';
+import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/getcarousels_usecase.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
@@ -199,6 +201,10 @@ class ServerLocator {
           searchUseCase: getIt()
         ));
 
+                                                              getIt.registerFactory(() => TobBloc(
+          getTopUseCase: getIt()
+        ));
+
 
         
 
@@ -284,6 +290,9 @@ class ServerLocator {
 
          getIt.registerLazySingleton(
         () => SearchUseCase(baseRepositoryProfile: getIt()));
+
+               getIt.registerLazySingleton(
+        () => GetTopUseCase(exploreExp: getIt()));
 
         
         
