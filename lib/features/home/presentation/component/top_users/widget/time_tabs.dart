@@ -38,6 +38,8 @@ class TimeTabs extends StatelessWidget {
             color:isDarkTheme?Colors.black: ColorManager.whiteColor,
           ),
           tabs: const [
+                        Text(StringManager.hours),
+
             Text(StringManager.daily),
             Text(StringManager.weekly),
                         Text(StringManager.monthly)

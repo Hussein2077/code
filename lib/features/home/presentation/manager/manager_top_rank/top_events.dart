@@ -4,6 +4,20 @@ abstract class TopEvents extends Equatable{
 
 }
 
+
+
+class GetDiamondsHourEvent extends TopEvents{
+  final String sendOrReceiver ;
+  final String date ;
+  final String isHome;
+
+  GetDiamondsHourEvent({required this.sendOrReceiver,
+    required this.date,required  this.isHome});
+
+  @override
+  List<Object?> get props => [sendOrReceiver,date,isHome];
+}
+
 class GetDiamondsDayEvent extends TopEvents{
   final String sendOrReceiver ;
   final String date ;
@@ -37,6 +51,19 @@ class GetDiamondsMonthlyEvent extends TopEvents{
   @override
   List<Object?> get props => [sendOrReceiver,date,isHome];
 }
+
+class GetCoinsHourEvent extends TopEvents{
+  final String sendOrReceiver ;
+  final String date ;
+  final String isHome;
+
+  GetCoinsHourEvent({required this.sendOrReceiver,
+    required this.date,required  this.isHome});
+
+  @override
+  List<Object?> get props => [sendOrReceiver,date,isHome];
+}
+
 class GetCoinsDayEvent extends TopEvents{
   final String sendOrReceiver ;
   final String date ;
