@@ -20,8 +20,8 @@ class CustoumServiceScreen extends StatefulWidget {
   final int myId;
   const CustoumServiceScreen({required this.myId, super.key});
 
-  @override
-  State<CustoumServiceScreen> createState() => _CustoumServiceScreenState();
+@override
+State<CustoumServiceScreen> createState() => _CustoumServiceScreenState();
 }
 
 class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
@@ -65,7 +65,7 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
                 decoration: BoxDecoration(
                     color: ColorManager.lightGray,
                     borderRadius:
-                        BorderRadius.circular(ConfigSize.defaultSize! * 2)),
+                    BorderRadius.circular(ConfigSize.defaultSize! * 2)),
                 child: TextFieldWidget(
                     maxLines: 4,
                     hintText: StringManager.explainProblem,
@@ -81,7 +81,7 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
                 decoration: BoxDecoration(
                     color: ColorManager.lightGray,
                     borderRadius:
-                        BorderRadius.circular(ConfigSize.defaultSize! * 2)),
+                    BorderRadius.circular(ConfigSize.defaultSize! * 2)),
                 child: TextFieldWidget(type: TextInputType.number, hintText: "", controller: contactController),
               ),
               Text(

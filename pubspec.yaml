@@ -70,7 +70,7 @@ dependencies:
   connectivity_plus: ^3.0.3
   m_toast: ^0.2.2
   cached_network_image: ^3.2.3
-
+  easy_localization: ^3.0.2
   # snapkit: any
 
 

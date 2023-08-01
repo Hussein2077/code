@@ -137,9 +137,9 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                       Text(StringManager.enterYourWhatsAppNumber,
                           style:Theme.of(context).textTheme.titleSmall),
                       SizedBox(
-                        height:  ConfigSize.defaultSize! * 1.0
-                        ,
+                        height:  ConfigSize.defaultSize! * 1.0,
                       ),
+
                       TextFormFieldWidget(
                         readOnly: false,
                         validator: (text) {

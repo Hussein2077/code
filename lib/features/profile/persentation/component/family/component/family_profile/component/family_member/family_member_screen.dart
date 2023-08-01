@@ -15,7 +15,6 @@ import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/widgets/family_member_card.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/widgets/settings_dailog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_state.dart';
@@ -257,6 +256,17 @@ Widget familyOwnerDilog({
                   .add(RemoverFamilyUser(familyId: familyId, uId: userId));
             }),
       ],
+    ),
+  );
+}
+
+Widget settingsTabs(
+    {required BuildContext context, required title, void Function()? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    child: Text(
+      title,
+      style: Theme.of(context).textTheme.headlineLarge,
     ),
   );
 }
