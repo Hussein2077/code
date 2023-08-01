@@ -42,7 +42,8 @@ class AssetsPath {
       "$pathImage/create_live_background.png";
   static const String seatsImage = "$pathImage/seats_image.png";
   static const String loadingGif = "$pathImage/output-onlinegiftools.gif";
-  static const String incomeBackGroundScreen = "$pathImage/income_backgrond_screen.png";
+  static const String incomeBackGroundScreen =
+      "$pathImage/income_backgrond_screen.png";
 
   //icons
   static const String googleIcon = "$pathIcon/google_icon.png";
@@ -151,16 +152,17 @@ class AssetsPath {
   static const String snapIcon = "$pathIcon/snap_icon.png";
   static const String incomeIcon = "$pathIcon/income_icon.png";
   static const String moneyBag = "$pathIcon/money-bag.png";
-    static const String unfollowIcon = "$pathIcon/unFollowIcon.png";
-    static const String fireIcon = "$pathIcon/fire_icon.png";
-    static const String aristocracy1 = "$pathIcon/aristocracy 1.png";
-    static const String aristocracy2 = "$pathIcon/aristocracy 2.png";
-    static const String aristocracy3 = "$pathIcon/aristocracy 3.png";
-    static const String aristocracy4 = "$pathIcon/aristocracy 4.png";
-    static const String aristocracy5 = "$pathIcon/aristocracy 5.png";
-    static const String aristocracy6 = "$pathIcon/aristocracy 6.png";
-    static const String aristocracy7 = "$pathIcon/aristocracy 7.png";
-    static const String aristocracy8 = "$pathIcon/aristocracy 8.png";
+  static const String unfollowIcon = "$pathIcon/unFollowIcon.png";
+  static const String fireIcon = "$pathIcon/fire_icon.png";
+  static const String aristocracy1 = "$pathIcon/aristocracy 1.png";
+  static const String aristocracy2 = "$pathIcon/aristocracy 2.png";
+  static const String aristocracy3 = "$pathIcon/aristocracy 3.png";
+  static const String aristocracy4 = "$pathIcon/aristocracy 4.png";
+  static const String aristocracy5 = "$pathIcon/aristocracy 5.png";
+  static const String aristocracy6 = "$pathIcon/aristocracy 6.png";
+  static const String aristocracy7 = "$pathIcon/aristocracy 7.png";
+  static const String aristocracy8 = "$pathIcon/aristocracy 8.png";
 
-  
+  static const String gemStone = "$pathIcon/gem-stone.png";
+  static const String circleDollar = "$pathIcon/circle-dollar.png";
 }

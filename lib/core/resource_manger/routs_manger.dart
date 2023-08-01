@@ -18,9 +18,11 @@ import 'package:tik_chat_v2/features/profile/persentation/component/family/compo
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/family_profile_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/family_ranking_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/agency_screen.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/join_agency_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/request%20_to_join%20_agency_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/instruction.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/live_report_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/tik_currency_exchange/component/details_screen..dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/tik_currency_exchange/withdrawalScreen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/exchange_for_gold.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
@@ -87,6 +89,8 @@ class Routes {
   static const String phoneBindScreen = "/phoneBind";
   static const String otpBindScreen = "/otpBindScreen";
     static const String searchScreen = "/SearchScreen";
+  static const String cashWithdrawal = "/cashWithdrawal";
+  static const String detailsWithdrawal = "/detailsWithdrawal";
 
 }
 
@@ -239,6 +243,11 @@ class RouteGenerator {
                 ));
       case Routes.searchScreen:
         return MaterialPageRoute(builder: (_) => const SearchScreen());
+      case Routes.cashWithdrawal:
+        return MaterialPageRoute(builder: (_) => CashWithdrawal());
+
+      case Routes.detailsWithdrawal:
+        return MaterialPageRoute(builder: (_) => const DetailsScreen());
 
                 
     }
