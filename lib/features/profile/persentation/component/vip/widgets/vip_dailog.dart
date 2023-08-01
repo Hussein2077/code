@@ -1,5 +1,6 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -43,7 +44,7 @@ const Spacer(flex: 1,),
 
        InkWell(
                   onTap: ()=>Navigator.pop(context),
-                  child: Text(StringManager.done , style: Theme.of(context).textTheme.bodyMedium,)
+                  child: Text(StringManager.done.tr(), style: Theme.of(context).textTheme.bodyMedium,)
                 ),
             const Spacer(flex: 1,),
 

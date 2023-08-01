@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -22,12 +23,12 @@ class Card2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const ProfileRowItem(
-              title: StringManager.agency,
+             ProfileRowItem(
+              title: StringManager.agency.tr(),
               image: AssetsPath.agencyIcon,
             ),
             ProfileRowItem(
-              title: StringManager.family,
+              title: StringManager.family.tr(),
               image: AssetsPath.familyIcon,
               onTap: () => Navigator.pushNamed(context, Routes.familyRanking),
             ),
@@ -37,12 +38,12 @@ class Card2 extends StatelessWidget {
             ),*/
 
             ProfileRowItem(
-              title: StringManager.income,
+              title: StringManager.income.tr(),
               image: AssetsPath.incomeIcon,
               onTap: () => Navigator.pushNamed(context, Routes.agencyScreen),
             ),
-            const ProfileRowItem(
-              title: StringManager.inviteFriend,
+             ProfileRowItem(
+              title: StringManager.inviteFriend.tr(),
               image: AssetsPath.inviteFriendsIcon,
             ),
           ],

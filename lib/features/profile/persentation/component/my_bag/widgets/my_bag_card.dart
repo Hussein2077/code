@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -44,7 +45,7 @@ class _MyBagCardState extends State<MyBagCard> {
     return BlocListener<UseItemBloc, UseItemState>(
       listener: (context, state) {
         if(state is UseItemLoadingState){
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         }else if (state is UseItemSuccseesState) {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           if (widget.viewIndex == 0) {

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -42,7 +43,7 @@ class CashWithdrawal extends StatelessWidget {
                           },
                           child: const Icon(Icons.arrow_back_ios)),
 
-                      Text(StringManager.cashWithdrawal,
+                      Text(StringManager.cashWithdrawal.tr(),
                           style:Theme.of(context).textTheme.bodyMedium,),
 
                       InkWell(
@@ -51,7 +52,7 @@ class CashWithdrawal extends StatelessWidget {
 
                           Navigator.pushNamed(context, Routes.detailsWithdrawal);
                         },
-                        child:Text(StringManager.details,
+                        child:Text(StringManager.details.tr(),
                           style:Theme.of(context).textTheme.bodyLarge,),
                       ),
                     ],
@@ -66,7 +67,7 @@ class CashWithdrawal extends StatelessWidget {
                   SizedBox(
                     height: ConfigSize.defaultSize!*2.0,
                   ),
-                  Text(  StringManager.userID,
+                  Text(  StringManager.userID.tr(),
                     style:Theme.of(context).textTheme.bodyMedium,),
 
 
@@ -76,10 +77,10 @@ class CashWithdrawal extends StatelessWidget {
 
                   TextFormFieldWidget(
                     textEditingController: userID,
-                    hintText: StringManager.enterUserID,
+                    hintText: StringManager.enterUserID.tr(),
                     validator: (text){
                       if (text!.isEmpty) {
-                        return StringManager.cantBeEmpty;
+                        return StringManager.cantBeEmpty.tr();
                       }
                       return null;
                     },
@@ -88,7 +89,7 @@ class CashWithdrawal extends StatelessWidget {
                   SizedBox(
                     height:  ConfigSize.defaultSize!*2.0,
                   ),
-                  Text(StringManager.withdrawal,
+                  Text(StringManager.withdrawal.tr(),
                     style:Theme.of(context).textTheme.bodyMedium,),
 
                   SizedBox(
@@ -98,11 +99,11 @@ class CashWithdrawal extends StatelessWidget {
                     textEditingController: withdrawalAmount,
                     validator: (text) {
                       if (text!.isEmpty) {
-                        return StringManager.cantBeEmpty;
+                        return StringManager.cantBeEmpty.tr();
                       }
                       return null;
                     },
-                    hintText: StringManager.enterQuantityHere,
+                    hintText: StringManager.enterQuantityHere.tr(),
                     readOnly: false,
                   ),
                   const Spacer(
@@ -126,7 +127,7 @@ class CashWithdrawal extends StatelessWidget {
                         backgroundColor: ColorManager.mainColor,
                         fixedSize:
                         Size(MediaQuery.of(context).size.width,  ConfigSize.defaultSize!*6.0)),
-                    child: Text(  StringManager.withdrawal,
+                    child: Text(  StringManager.withdrawal.tr(),
                       style:Theme.of(context).textTheme.bodyLarge,),
                   ),
                   const Spacer(),

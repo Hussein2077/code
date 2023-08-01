@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -25,13 +26,13 @@ class Card3 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ProfileRowItem(
-              title: StringManager.custoumService,
+              title: StringManager.custoumService.tr(),
               image: AssetsPath.customServiceIcon,
               onTap: () => Navigator.pushNamed(context, Routes.custoumService,
                   arguments: myData.id),
             ),
             ProfileRowItem(
-              title: StringManager.settings,
+              title: StringManager.settings.tr(),
               image: AssetsPath.settiengsIcon,
               onTap: () => Navigator.pushNamed(context, Routes.settings),
             ),

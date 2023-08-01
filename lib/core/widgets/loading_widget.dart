@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -30,7 +31,7 @@ class LoadingWidget extends StatelessWidget {
                    SizedBox(
                     height: ConfigSize.defaultSize!*1.5,
                   ),
-                  Text(StringManager.loading,style:Theme.of(context).textTheme.headlineLarge )
+                  Text(StringManager.loading.tr(),style:Theme.of(context).textTheme.headlineLarge )
 
                 ],
               ),

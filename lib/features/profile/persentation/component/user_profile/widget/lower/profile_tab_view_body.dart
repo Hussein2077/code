@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
@@ -27,17 +28,17 @@ class ProfileTabViewBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             cover(
-                title: StringManager.diamond,
+                title: StringManager.diamond.tr(),
                 num: userData.diamonds.toString(),
                 image: AssetsPath.dimondCover),
             cover(
-              title: StringManager.level,
+              title: StringManager.level.tr(),
               num: "lvl ${userData.level!.senderLevel.toString()}",
               image: AssetsPath.leveCover,
               onTap: () => Navigator.pushNamed(context, Routes.level),
             ),
             cover(
-              title: StringManager.vip,
+              title: StringManager.vip.tr(),
               num: "vip. ${userData.vip1!.level.toString()}",
               image: AssetsPath.vipCover,
               onTap: () => Navigator.pushNamed(context, Routes.vip),
@@ -57,7 +58,7 @@ class ProfileTabViewBody extends StatelessWidget {
                 flex: 1,
               ),
               Text(
-                StringManager.giftGallery,
+                StringManager.giftGallery.tr(),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const Spacer(
@@ -123,8 +124,8 @@ class ProfileTabViewBody extends StatelessWidget {
               return SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: ConfigSize.defaultSize! * 5,
-                  child: const CustoumErrorWidget(
-                    message: StringManager.unexcepectedError,
+                  child:  CustoumErrorWidget(
+                    message: StringManager.unexcepectedError.tr(),
                   ));
             }
           },

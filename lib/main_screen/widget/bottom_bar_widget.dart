@@ -1,5 +1,6 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -44,11 +45,11 @@ class BottomBarWidget extends StatelessWidget {
                                 selectedLabelStyle: const TextStyle(
                                   color: ColorManager.mainColor,
                                 ),
-                                items: const[
+                                items: [
                                   BottomNavigationBarItem(
                                       icon:  BottomIcon(icon: AssetsPath.unSelectedHomeIcon,),
                                       activeIcon:  BottomIcon(icon: AssetsPath.homeIcon,),
-                                      label:StringManager.home,
+                                      label:StringManager.home.tr(),
 
                                       
                                       ),
@@ -56,14 +57,14 @@ class BottomBarWidget extends StatelessWidget {
                                               BottomNavigationBarItem(
                                       icon:  BottomIcon(icon: AssetsPath.unSelectedReelsIcon,),
                                       activeIcon:  BottomIcon(icon: AssetsPath.reelsIcon,),
-                                      label:StringManager.reels,
+                                      label:StringManager.reels.tr(),
 
                                       
                                       ),
                                                BottomNavigationBarItem(
                                       icon:  BottomIcon(icon: AssetsPath.unSelectedFollowingIcon,),
                                       activeIcon:  BottomIcon(icon: AssetsPath.followingIcon,),
-                                      label:StringManager.follwoing,
+                                      label:StringManager.follwoing.tr(),
 
                                       
                                       ),
@@ -71,14 +72,14 @@ class BottomBarWidget extends StatelessWidget {
                                             BottomNavigationBarItem(
                                       icon:  BottomIcon(icon: AssetsPath.unSelectedChatIcon,),
                                       activeIcon:  BottomIcon(icon: AssetsPath.chatIcon,),
-                                      label:StringManager.chat,
+                                      label:StringManager.chat.tr(),
 
                                       
                                       ),
                                                     BottomNavigationBarItem(
                                       icon:  BottomIcon(icon: AssetsPath.unselectedprofileIcon,),
                                       activeIcon:  BottomIcon(icon: AssetsPath.profileIcon,),
-                                      label:StringManager.profile,
+                                      label:StringManager.profile.tr(),
 
                                       
                                       ),

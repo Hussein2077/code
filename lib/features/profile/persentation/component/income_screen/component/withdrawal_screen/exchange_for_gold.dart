@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -20,7 +21,7 @@ class ExchangeForGoldScreen extends StatelessWidget {
             assetCard: AssetsPath.moneyBag,
           ),
           Text(
-            StringManager.recharge,
+            StringManager.recharge.tr(),
             style: Theme.of(context).textTheme.headlineLarge,
           ),
           CustomHorizntalDvider(

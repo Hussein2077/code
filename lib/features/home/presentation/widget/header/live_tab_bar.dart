@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -48,7 +49,7 @@ class _LiveTabBARState extends State<LiveTabBAR> {
         Row(
 mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Text("${StringManager.appTitle} " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7)),
+             Text("${StringManager.appTitle.tr()} " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7)),
                  Image.asset(
                     AssetsPath.iconApp,
                     scale: 12,

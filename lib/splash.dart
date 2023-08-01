@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -96,8 +97,8 @@ class _SplashScreenState extends State<SplashScreen> {
             const Spacer(
               flex: 1,
             ),
-            const Text(
-              StringManager.broadcastYourMoment,
+             Text(
+              StringManager.broadcastYourMoment.tr(),
               style:  TextStyle(
       fontFamily: 'ElMessiri',
       fontSize: 12,
@@ -130,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen> {
     
     final result = await GetConfigeAppUseCase(
         homeRepo: getIt()).call(ConfigModelBody(
-        appVersion: StringManager.versionApp.toString(),
+        appVersion: StringManager.versionApp.toString().tr(),
     ));
     result.fold((l) => configModel =l,
             (r) => errorMessage = DioHelper().getTypeOfFailure(r));

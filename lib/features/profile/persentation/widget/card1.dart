@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -24,21 +25,21 @@ class Card1 extends StatelessWidget {
             card1Coulumn(
                 context: context,
                 image: AssetsPath.bagProfileIcon,
-                title: StringManager.bag, 
+                title: StringManager.bag.tr(),
                 onTap: () => Navigator.pushNamed(context, Routes.myBag , arguments:myData ),),
             card1Coulumn(
                 context: context,
                 image: AssetsPath.mallprofileIcon,
-                title: StringManager.mall,
+                title: StringManager.mall.tr(),
                 onTap: () => Navigator.pushNamed(context, Routes.mall),),
             card1Coulumn(
                 context: context,
                 image: AssetsPath.levelProfileIcon,
-                title: StringManager.level , 
+                title: StringManager.level.tr() ,
                 onTap: () => Navigator.pushNamed(context, Routes.level),),
             card1Coulumn(
                 context: context,
-                image: AssetsPath.vipProfileIcon,
+                image: AssetsPath.vipProfileIcon.tr(),
                 title: StringManager.vip
                 ,onTap: () => Navigator.pushNamed(context, Routes.vip),
                 ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -58,7 +59,7 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                             child: const Icon(
                                 Icons.arrow_back_ios_new_rounded),
                           ),
-                          Text(StringManager.agency,
+                          Text(StringManager.agency.tr(),
                               style:Theme.of(context).textTheme.headlineLarge),
 
                           const SizedBox(),
@@ -83,7 +84,7 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                           SizedBox(
                             height:  ConfigSize.defaultSize! * 1.0,
                           ),
-                          Text(StringManager.newReel,
+                          Text(StringManager.newReel.tr(),
                               style:Theme.of(context).textTheme.headlineLarge),
                           SizedBox(
                             height: ConfigSize.defaultSize! * 2.0
@@ -114,7 +115,7 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                       SizedBox(
                         height:  ConfigSize.defaultSize! * 1.0,
                       ),
-                      Text(StringManager.enterTheAgencyYouWishToJoin,
+                      Text(StringManager.enterTheAgencyYouWishToJoin.tr(),
                           style:Theme.of(context).textTheme.titleSmall),
                       SizedBox(
                         height:  ConfigSize.defaultSize! * 1.0
@@ -124,17 +125,17 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                         readOnly: false,
                         validator: (text) {
                           if (text!.isEmpty) {
-                            return  StringManager.cantBeEmpty;
+                            return  StringManager.cantBeEmpty.tr();
                           }
                           return null;
                         },
-                        hintText: StringManager.enterAgencyIDHere,
+                        hintText: StringManager.enterAgencyIDHere.tr(),
                         textEditingController: agencyId,
                       ),
                       SizedBox(
                         height:  ConfigSize.defaultSize! * 1.0,
                       ),
-                      Text(StringManager.enterYourWhatsAppNumber,
+                      Text(StringManager.enterYourWhatsAppNumber.tr(),
                           style:Theme.of(context).textTheme.titleSmall),
                       SizedBox(
                         height:  ConfigSize.defaultSize! * 1.0,
@@ -144,11 +145,11 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                         readOnly: false,
                         validator: (text) {
                           if (text!.isEmpty) {
-                            return  StringManager.cantBeEmpty;
+                            return  StringManager.cantBeEmpty.tr();
                           }
                           return null;
                         },
-                        hintText: StringManager.enterYourNumberHere,
+                        hintText: StringManager.enterYourNumberHere.tr(),
                         textEditingController: number,
                       ),
                       SizedBox(
@@ -159,7 +160,7 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                         onTap: () {
 
                         },
-                        title: StringManager.applicationToJoinAnAgency,
+                        title: StringManager.applicationToJoinAnAgency.tr(),
                       ),
                     ],
                   ),

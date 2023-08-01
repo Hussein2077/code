@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -17,7 +18,7 @@ class FFFVRow extends StatelessWidget {
         columnInfo(
           context: context,
           num: userData.numberOfFriends.toString(),
-          title: StringManager.friends,
+          title: StringManager.friends.tr(),
           userProfile: userProfile,
           onTap: () => Navigator.pushNamed(context, Routes.fff,
               arguments: StringManager.friends),
@@ -25,21 +26,21 @@ class FFFVRow extends StatelessWidget {
         columnInfo(
             context: context,
             num: userData.numberOfFollowings.toString(),
-            title: StringManager.follwoing,
+            title: StringManager.follwoing.tr(),
             userProfile: userProfile,
             onTap: () => Navigator.pushNamed(context, Routes.fff,
                 arguments: StringManager.follwoing)),
         columnInfo(
             context: context,
             num: userData.numberOfFans.toString(),
-            title: StringManager.followers,
+            title: StringManager.followers.tr(),
             userProfile: userProfile,
             onTap: () => Navigator.pushNamed(context, Routes.fff,
                 arguments: StringManager.followers)),
         columnInfo(
             context: context,
             num: userData.profileVisotrs.toString(),
-            title: StringManager.vistors,
+            title: StringManager.vistors.tr(),
             userProfile: userProfile,
             onTap: () => Navigator.pushNamed(context, Routes.vistorScreen,
                 )),

@@ -1,5 +1,6 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -76,7 +77,7 @@ phonecontroller = TextEditingController();
                                             
                                             filled: true,
                                             fillColor: ColorManager.whiteColor,
-                                            hintText: StringManager.enterPhoneNum,
+                                            hintText: StringManager.enterPhoneNum.tr(),
                                       
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(25),

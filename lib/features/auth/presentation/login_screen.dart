@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: MediaQuery.of(context).size.width - 140,
                           child: TextFieldWidget(
                               hintColor: Colors.black.withOpacity(0.6),
-                              hintText: StringManager.password,
+                              hintText: StringManager.password.tr(),
                               controller: passwordController))),
                   const Spacer(
                     flex: 2,

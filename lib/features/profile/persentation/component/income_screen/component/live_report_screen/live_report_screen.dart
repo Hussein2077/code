@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -102,25 +103,25 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                   child: Column(
 
                     children: [
-                      const InfoWithWidget(title: StringManager.today,),
+                       InfoWithWidget(title: StringManager.today.tr(),),
 
                       SizedBox(height: ConfigSize.defaultSize !*3,),
 
                       Row(
                     mainAxisAlignment:
                     MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children:  [
                       LiveTodayCard(
                         widget: Text(
                           '5',
                           style: TextStyle(
                               color: Colors.black),
                         ),
-                        title: StringManager.hours,
+                        title: StringManager.hours.tr(),
                       ),
                       LiveTodayCard(
                         widget:Icon(Icons.check),
-                        title: StringManager.today,
+                        title: StringManager.today.tr(),
                       ),
                       LiveTodayCard(
                         widget: Text(
@@ -128,13 +129,13 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                           style: TextStyle(
                               color: Colors.black),
                         ),
-                        title: StringManager.diamond,
+                        title: StringManager.diamond.tr(),
                       ),
                     ],
                   ),
                       SizedBox(height: ConfigSize.defaultSize!*2,),
 
-                      const InfoWithWidget(title:StringManager.dataInMounth),
+                       InfoWithWidget(title:StringManager.dataInMounth.tr()),
 
                       const SizedBox(height: 20,),
 
@@ -146,7 +147,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
 
                       SizedBox(height: ConfigSize.defaultSize!*2,),
 
-                      const InfoWithWidget(title: StringManager.allInformation,),
+                       InfoWithWidget(title: StringManager.allInformation.tr(),),
 
                       SizedBox(height: ConfigSize.defaultSize!*2,),
                       const CardInfoMonthOrAllInfo(

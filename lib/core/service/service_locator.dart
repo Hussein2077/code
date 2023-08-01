@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/remotly_datasource.dart';
@@ -330,5 +331,9 @@ class ServerLocator {
     getIt.registerLazySingleton(() => cacheMyData);
     FireBaseDataSource fireBaseDataSource = FireBaseDataSource();
     getIt.registerLazySingleton(() => fireBaseDataSource);
+
+    sharedPreferences.getBool(StringManager.keepLogin) == null
+        ? sharedPreferences.setBool(StringManager.keepLogin, false)
+        : null;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -18,7 +19,7 @@ class AgencyScreen extends StatelessWidget {
         body: Column(
           children: [
             SizedBox(height: ConfigSize.defaultSize! / 0.2),
-            const HeaderWithOnlyTitle(title: StringManager.income),
+             HeaderWithOnlyTitle(title: StringManager.income.tr()),
             SizedBox(height: ConfigSize.defaultSize! / 0.4),
             const CardOfDiamondEarned(
               assetCard: AssetsPath.moneyBag,
@@ -28,21 +29,29 @@ class AgencyScreen extends StatelessWidget {
               onPress: (){
                 Navigator.pushNamed(context, Routes.liveReportScreen);
               },
-              title: StringManager.liveReport,
+              title: StringManager.liveReport.tr(),
             ),
              const Spacer(flex: 4,),
             MainButton(
               onTap: () {
                  Navigator.pushNamed(context, Routes.instructionsScreen);
               },
-              title: StringManager.joinRequests,
+              title: StringManager.joinRequests.tr(),
             ),
+            SizedBox(height: ConfigSize.defaultSize! / 0.4),
+            MainButton(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.cashWithdrawal);
+              },
+              title: StringManager.withdrawal,
+            ),
+
             SizedBox(height: ConfigSize.defaultSize! / 0.4),
             MainButton(
               onTap: () {
                 Navigator.pushNamed(context, Routes.exchangeForGoldScreen);
               },
-              title: StringManager.withdrawal,
+              title: StringManager.withdrawal.tr(),
             ),
            const Spacer()
 

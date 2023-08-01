@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -19,11 +20,11 @@ class InstructionsScreen extends StatefulWidget {
 
 class _InstructionsScreenState extends State<InstructionsScreen> {
  final List<String> listOfInstructions = [
-   StringManager.firstInstructions,
-   StringManager.secondInstructions,
-   StringManager.thirdInstructions,
-   StringManager.fourthInstructions,
-   StringManager.fifthInstructions,
+   StringManager.firstInstructions.tr(),
+   StringManager.secondInstructions.tr(),
+   StringManager.thirdInstructions.tr(),
+   StringManager.fourthInstructions.tr(),
+   StringManager.fifthInstructions.tr(),
   ];
 
   @override
@@ -34,9 +35,9 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
         child: Column(
           children:  [
             SizedBox(height: ConfigSize.defaultSize!/0.25),
-            const HeaderWithOnlyTitle(title: StringManager.agency),
+             HeaderWithOnlyTitle(title: StringManager.agency.tr()),
             SizedBox(height: ConfigSize.defaultSize!*5.2),
-            Text(StringManager.instructionsForJoiningAgency,
+            Text(StringManager.instructionsForJoiningAgency.tr(),
                 textAlign: TextAlign.center,
                 style:TextStyle(
                   fontWeight: FontWeight.bold,
@@ -68,7 +69,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
             SizedBox(height: ConfigSize.defaultSize!*2.4),
             modeRow(
               context: context,
-              mode: StringManager.agreedToTheRegulations,
+              mode: StringManager.agreedToTheRegulations.tr(),
               onTap: () {
                 setState(() {
                   InstructionsScreen.selectedMode = !InstructionsScreen.selectedMode;
@@ -81,7 +82,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
               onTap: () {
                 Navigator.pushNamed(context, Routes.joinToAgencyScreen);
               },
-              title: StringManager.goToJoin,
+              title: StringManager.goToJoin.tr(),
             ),
             SizedBox(height: ConfigSize.defaultSize!*2.4),
           ],

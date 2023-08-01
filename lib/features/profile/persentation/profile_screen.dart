@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -57,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ProfileBody(myData: tempData!);
          }else {
            //todo update this ui
-          return const CustoumErrorWidget(message: StringManager.unexcepectedError,);
+          return  CustoumErrorWidget(message: StringManager.unexcepectedError.tr(),);
          }
           },
         )),

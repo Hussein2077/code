@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -49,7 +50,7 @@ const Spacer(flex: 1,),
               children: [
                 InkWell(
                   onTap: ()=>Navigator.pop(context),
-                  child: Text(StringManager.cancel , style: Theme.of(context).textTheme.bodyMedium,)
+                  child: Text(StringManager.cancel.tr() , style: Theme.of(context).textTheme.bodyMedium,)
                 ),
                 SizedBox(
                   height: ConfigSize.defaultSize!*2,
@@ -60,7 +61,7 @@ const Spacer(flex: 1,),
                 ),
                 InkWell(
                   onTap: ()=>accpetText(),
-                  child: Text(StringManager.accept , style: Theme.of(context).textTheme.bodyMedium,)
+                  child: Text(StringManager.accept.tr() , style: Theme.of(context).textTheme.bodyMedium,)
                 ),
 
               ],

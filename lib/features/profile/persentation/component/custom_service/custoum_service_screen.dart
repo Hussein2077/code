@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -49,14 +50,14 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
               SizedBox(
                 height: ConfigSize.defaultSize!,
               ),
-              const HeaderWithOnlyTitle(title: StringManager.custoumService),
+               HeaderWithOnlyTitle(title: StringManager.custoumService.tr()),
               Text(
                 StringManager.typeOfProblem,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const ProblemType(),
+               ProblemType(),
               Text(
-                StringManager.details,
+                StringManager.details.tr(),
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Container(
@@ -68,11 +69,11 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
                     BorderRadius.circular(ConfigSize.defaultSize! * 2)),
                 child: TextFieldWidget(
                     maxLines: 4,
-                    hintText: StringManager.explainProblem,
+                    hintText: StringManager.explainProblem.tr(),
                     controller: detailsController),
               ),
               Text(
-                StringManager.whatsappNum,
+                StringManager.whatsappNum.tr(),
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Container(
@@ -85,7 +86,7 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
                 child: TextFieldWidget(type: TextInputType.number, hintText: "", controller: contactController),
               ),
               Text(
-                StringManager.screenshot,
+                StringManager.screenshot.tr(),
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const AddScreenShot(),
@@ -106,11 +107,11 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
                           if (contactController.text.isEmpty) {
                             errorToast(
                                 context: context,
-                                title: StringManager.enterPhoneNum);
+                                title: StringManager.enterPhoneNum.tr());
                           } else if (detailsController.text.isEmpty) {
                             errorToast(
                                 context: context,
-                                title: StringManager.pleaseAddDetiels);
+                                title: StringManager.pleaseAddDetiels.tr());
                           } else {
                             BlocProvider.of<FeedBackBloc>(context).add(
                                 FeedBackEvent(
@@ -122,7 +123,7 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
                                     userId: widget.myId));
                           }
                         },
-                        title: StringManager.submit);
+                        title: StringManager.submit.tr());
                   }
                 },
               )

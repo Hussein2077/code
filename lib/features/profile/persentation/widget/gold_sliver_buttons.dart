@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -17,13 +18,13 @@ class GoldSilverButton extends StatelessWidget {
       children: [
         button(
             image: AssetsPath.goldButton,
-            title: StringManager.coins,
+            title: StringManager.coins.tr(),
             num: userData.myStore!.coins.toString(),
             gold: true , 
             onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "gold"),),
         button(
             image: AssetsPath.silverButton,
-            title: StringManager.silver,
+            title: StringManager.silver.tr(),
             num: userData.myStore!.silverCoin.toString(),
             gold: false
             ,onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "silver"),
