@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -67,7 +68,7 @@ class OtpScreen extends StatelessWidget {
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width - 50,
-                child: Text(StringManager.verificatiCodeWiilBeSent,
+                child: Text(StringManager.verificatiCodeWiilBeSent.tr(),
                     style: Theme.of(context).textTheme.titleMedium),
               ),
               const Spacer(

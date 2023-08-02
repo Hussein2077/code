@@ -52,7 +52,7 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
               ),
                HeaderWithOnlyTitle(title: StringManager.custoumService.tr()),
               Text(
-                StringManager.typeOfProblem,
+                StringManager.typeOfProblem.tr(),
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
                ProblemType(),

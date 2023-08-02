@@ -28,8 +28,6 @@ class TextFieldWidget extends StatelessWidget {
                   keyboardType: type,
                   maxLines: maxLines??1,
                   decoration:  InputDecoration(
-                    
-                
                       border: InputBorder.none,
 
                       focusedBorder: InputBorder.none,

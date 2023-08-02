@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
           settingsRow(
             context: context,
             icon: AssetsPath.linkingIcon,
-            title: StringManager.linkingAccount,
+            title: StringManager.linkingAccount.tr(),
             onTap: () =>
                 bottomDailog(context: context, widget:  LinkingScreen()),
           ),
@@ -44,7 +45,7 @@ class SettingsScreen extends StatelessWidget {
           settingsRow(
             context: context,
             icon: AssetsPath.languageIcon,
-            title: StringManager.language,
+            title: StringManager.language.tr(),
             onTap: () => Navigator.pushNamed(context, Routes.language),
           ),
           SizedBox(
@@ -53,7 +54,7 @@ class SettingsScreen extends StatelessWidget {
           settingsRow(
             context: context,
             icon: AssetsPath.modeIcon,
-            title: StringManager.mode,
+            title: StringManager.mode.tr(),
             onTap: () => Navigator.pushNamed(context, Routes.mode),
           ),
           const Spacer(),

@@ -1,5 +1,6 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -51,15 +52,15 @@ class _VipTabsState extends State<VipTabs> {
             ),
             color: ColorManager.whiteColor,
           ),
-          tabs: const [
-            Text(StringManager.knight),
-            Text(StringManager.baron),
-                        Text(StringManager.viscount),
-                          Text(StringManager.count),
-            Text(StringManager.marquis),
-                        Text(StringManager.duke),
-                          Text(StringManager.king),
-            Text(StringManager.superKing),
+          tabs:  [
+            Text(StringManager.knight.tr()),
+            Text(StringManager.baron.tr()),
+                        Text(StringManager.viscount.tr()),
+                          Text(StringManager.count.tr()),
+            Text(StringManager.marquis.tr()),
+                        Text(StringManager.duke.tr()),
+                          Text(StringManager.king.tr()),
+            Text(StringManager.superKing.tr()),
                         
       
             

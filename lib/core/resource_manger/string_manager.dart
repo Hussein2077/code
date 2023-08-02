@@ -236,4 +236,8 @@ class StringManager {
   static const String userID = "user ID";
   static const String enterUserID = "Enter User ID";
   static const String enterQuantityHere = "Enter Quantity Here";
+  static const String chinsSimplified = "中国人";
+  static const String chinsTraditional = "中國人";
+  static const String turkish  = "Türkiye";
+  static const String urdu  = "اردو";
 }

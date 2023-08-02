@@ -5,7 +5,7 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/widget/text_form_fild.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/tik_currency_exchange/widget/container_of_cash_withdrawal.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/widget/container_of_cash_withdrawal.dart';
 
 
 class CashWithdrawal extends StatelessWidget {

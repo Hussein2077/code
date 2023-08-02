@@ -47,38 +47,38 @@ class BottomBarWidget extends StatelessWidget {
                                 ),
                                 items: [
                                   BottomNavigationBarItem(
-                                      icon:  BottomIcon(icon: AssetsPath.unSelectedHomeIcon,),
-                                      activeIcon:  BottomIcon(icon: AssetsPath.homeIcon,),
+                                      icon:  const BottomIcon(icon: AssetsPath.unSelectedHomeIcon,),
+                                      activeIcon:  const BottomIcon(icon: AssetsPath.homeIcon,),
                                       label:StringManager.home.tr(),
 
                                       
                                       ),
                                       
                                               BottomNavigationBarItem(
-                                      icon:  BottomIcon(icon: AssetsPath.unSelectedReelsIcon,),
-                                      activeIcon:  BottomIcon(icon: AssetsPath.reelsIcon,),
+                                      icon:  const BottomIcon(icon: AssetsPath.unSelectedReelsIcon,),
+                                      activeIcon:  const BottomIcon(icon: AssetsPath.reelsIcon,),
                                       label:StringManager.reels.tr(),
 
                                       
                                       ),
                                                BottomNavigationBarItem(
-                                      icon:  BottomIcon(icon: AssetsPath.unSelectedFollowingIcon,),
-                                      activeIcon:  BottomIcon(icon: AssetsPath.followingIcon,),
+                                      icon:  const BottomIcon(icon: AssetsPath.unSelectedFollowingIcon,),
+                                      activeIcon:  const BottomIcon(icon: AssetsPath.followingIcon,),
                                       label:StringManager.follwoing.tr(),
 
                                       
                                       ),
                             
                                             BottomNavigationBarItem(
-                                      icon:  BottomIcon(icon: AssetsPath.unSelectedChatIcon,),
-                                      activeIcon:  BottomIcon(icon: AssetsPath.chatIcon,),
+                                      icon:  const BottomIcon(icon: AssetsPath.unSelectedChatIcon,),
+                                      activeIcon:  const BottomIcon(icon: AssetsPath.chatIcon,),
                                       label:StringManager.chat.tr(),
 
                                       
                                       ),
                                                     BottomNavigationBarItem(
-                                      icon:  BottomIcon(icon: AssetsPath.unselectedprofileIcon,),
-                                      activeIcon:  BottomIcon(icon: AssetsPath.profileIcon,),
+                                      icon:  const BottomIcon(icon: AssetsPath.unselectedprofileIcon,),
+                                      activeIcon:  const BottomIcon(icon: AssetsPath.profileIcon,),
                                       label:StringManager.profile.tr(),
 
                                       

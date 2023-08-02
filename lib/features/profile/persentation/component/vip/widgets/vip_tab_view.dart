@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
@@ -42,7 +43,7 @@ class VipTabView extends StatelessWidget {
             );
               }else {
                  return Text(
-              StringManager.buyToEnjoy,
+              StringManager.buyToEnjoy.tr(),
               style: TextStyle(
                   color: Colors.white.withOpacity(0.7),
                   fontSize: ConfigSize.defaultSize! * 1.7),
@@ -51,7 +52,7 @@ class VipTabView extends StatelessWidget {
  
             }else {
                 return Text(
-              StringManager.buyToEnjoy,
+              StringManager.buyToEnjoy.tr(),
               style: TextStyle(
                   color: Colors.white.withOpacity(0.7),
                   fontSize: ConfigSize.defaultSize! * 1.7),
@@ -77,7 +78,7 @@ class VipTabView extends StatelessWidget {
                   height: ConfigSize.defaultSize! * 2,
                 ),
                 Text(
-                  StringManager.advantages,
+                  StringManager.advantages.tr(),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 CustomHorizntalDvider(
