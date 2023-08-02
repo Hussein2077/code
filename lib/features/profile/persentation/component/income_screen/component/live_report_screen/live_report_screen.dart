@@ -150,7 +150,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 ),
                                 LiveTodayCard(
                                   widget: Text(
-                                   state.dataToday!.hours ,
+                                   state.dataToday!.diamonds.toString() ,
                                     style: TextStyle(color: Colors.black),
                                   ), 
                                   
@@ -169,8 +169,8 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                             ),
                              CardInfoMonthOrAllInfo(
                               infoDay: state.dataMonthly!.days.toString(),
-                              infoDiamond:  state.dataMonthly!.hours,
-                              infoHours:  state.dataMonthly!.diamonds.toString(),
+                              infoDiamond:  state.dataMonthly!.diamonds.toString(),
+                              infoHours:  state.dataMonthly!.hours.toString(),
                             ),
                             SizedBox(
                               height: ConfigSize.defaultSize! * 2,
