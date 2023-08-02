@@ -76,7 +76,7 @@ class _MyBagCardState extends State<MyBagCard> {
         } else if (state is UnusedErrorState) {
           errorToast(context: context, title: state.massage);
         }else if(state is UnusedloadingState){
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         }
       },
       child: Container(
@@ -110,7 +110,7 @@ class _MyBagCardState extends State<MyBagCard> {
                     MyBagCard.entriesUsed.toString() != widget.targetId &&
                     MyBagCard.bublesUsed.toString() != widget.targetId)
                 ? MainButton(
-                    title: StringManager.use,
+                    title: StringManager.use.tr(),
                     onTap: () {
                       BlocProvider.of<UseItemBloc>(context)
                           .add(UserItemsEvent(id: widget.id));
@@ -121,7 +121,7 @@ class _MyBagCardState extends State<MyBagCard> {
                   )
                 : MainButton(
                   buttonColor: ColorManager.bageGriedinet,
-                    title: StringManager.takeOff,
+                    title: StringManager.takeOff.tr(),
                     onTap: () {
                       if (widget.viewIndex == 0) {
                         BlocProvider.of<UseItemBloc>(context)

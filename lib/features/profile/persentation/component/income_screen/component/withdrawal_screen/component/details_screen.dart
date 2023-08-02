@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/tik_currency_exchange/component/widget/details_tab_bar.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/tik_currency_exchange/component/widget/tab_bar_view.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/widget/details_tab_bar.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/widget/tab_bar_view.dart';
 
 
 class DetailsScreen extends StatefulWidget {

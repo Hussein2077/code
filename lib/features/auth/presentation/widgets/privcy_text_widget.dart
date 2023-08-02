@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -31,7 +32,7 @@ class PrivacyAndServiceTextWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                StringManager.bySigningOrLogin,
+                StringManager.bySigningOrLogin.tr(),
                 style: style,
               ),
               const SizedBox(

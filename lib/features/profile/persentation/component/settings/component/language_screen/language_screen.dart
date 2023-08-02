@@ -11,7 +11,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
-import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
 
 class LanguageScreen extends StatefulWidget {
   static int? selectedLanguage;
@@ -21,18 +20,25 @@ class LanguageScreen extends StatefulWidget {
   State<LanguageScreen> createState() => _LanguageScreenState();
 }
 
-enum SingingCharacter { english, arabic, no }
 
 class _LanguageScreenState extends State<LanguageScreen> {
-  List <String> language = [StringManager.english.tr(), StringManager.arabic.tr()];
-  List <String> languageCode = ['en','ar'];
-  SingingCharacter languages = SingingCharacter.no;
+  List <String> language = [
+    StringManager.english,
+    StringManager.arabic,
+    StringManager.turkish,
+    StringManager.urdu,
+    StringManager.chinsSimplified,
+    StringManager.chinsTraditional,
+  ];
+  List <String> languageCode = ['en','ar','tr','ur','汉语',"漢語"];
+
+ // SingingCharacter languages = SingingCharacter.no;
 
   @override
   void initState() {
     super.initState();
 
-    intilanguage();
+   // intilanguage();
   }
 
   @override
@@ -43,7 +49,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
       SizedBox(height: ConfigSize.defaultSize!*3.5,),
       const HeaderWithOnlyTitle(title: StringManager.language),
       //  SizedBox(height: ConfigSize.defaultSize!*3.5,),
-       Expanded(child: ListView.builder(
+       Expanded(
+           child: ListView.builder(
         itemCount: language.length,
         itemExtent: 50,
         itemBuilder: (context, index){
@@ -53,8 +60,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
           setState(() {
 
           });
-            await context.setLocale(const Locale('ar'));
-            await Methods().saveLocalazitaon(language: "ar");
+
+            await context.setLocale(Locale(languageCode[index]));
+            await Methods().saveLocalazitaon(language: languageCode[index]);
           setState(() {
 
             LanguageScreen.selectedLanguage = index;
@@ -85,10 +93,10 @@ class _LanguageScreenState extends State<LanguageScreen> {
 
        },
          title: StringManager.save,)
-      
+
     ],) ,);
   }
-  Future<void> intilanguage() async {
+  /*Future<void> intilanguage() async {
     String key = await Methods().getlocalization();
     if (key == "en") {
       languages = SingingCharacter.english;
@@ -97,7 +105,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
     } else {
       languages = SingingCharacter.english;
     }
-  }
+  }*/
 }
 
 Widget languageRow({ 

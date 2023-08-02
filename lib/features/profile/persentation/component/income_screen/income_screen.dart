@@ -43,7 +43,7 @@ class AgencyScreen extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(context, Routes.cashWithdrawal);
               },
-              title: StringManager.withdrawal,
+              title: StringManager.withdrawal.tr(),
             ),
 
             SizedBox(height: ConfigSize.defaultSize! / 0.4),

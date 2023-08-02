@@ -40,7 +40,7 @@ class Card1 extends StatelessWidget {
             card1Coulumn(
                 context: context,
                 image: AssetsPath.vipProfileIcon.tr(),
-                title: StringManager.vip
+                title: StringManager.vip.tr()
                 ,onTap: () => Navigator.pushNamed(context, Routes.vip),
                 ),
           ],

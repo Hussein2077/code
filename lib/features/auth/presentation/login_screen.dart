@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 password: passwordController.text));
                       }
                     },
-                    title: StringManager.login,
+                    title: StringManager.login.tr(),
                   ),
                   const Spacer(
                     flex: 1,
@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       CustomHorizntalDvider(width: ConfigSize.defaultSize! * 10),
                       Text(
-                        StringManager.orLoginWith,
+                        StringManager.orLoginWith.tr(),
                         style: TextStyle(
                             fontSize: ConfigSize.defaultSize! + 4,
                             color: ColorManager.whiteColor),
@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        StringManager.donnotHaveAccount,
+                        StringManager.donnotHaveAccount.tr(),
                         style: TextStyle(
                             fontSize: ConfigSize.defaultSize! + 4,
                             color: ColorManager.whiteColor),
@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushNamed(context, Routes.signUp);
                         },
                         child: Text(
-                          StringManager.createAcoount,
+                          StringManager.createAcoount.tr(),
                           style: TextStyle(
                               fontSize: ConfigSize.defaultSize! + 4,
                               color: ColorManager.whiteColor),
@@ -170,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
            }  else if (state is LoginWithPhoneErrorMessageState) {
             errorToast(context: context, title: state.errorMessage);
            }else if(state is LoginWithPhoneLoadingState){
-             loadingToast(context: context, title: StringManager.loading);
+             loadingToast(context: context, title: StringManager.loading.tr());
 
            }
       },

@@ -84,6 +84,10 @@ Future<void> main() async {
     supportedLocales: const [
       Locale('en'),
       Locale('ar'),
+      Locale('tr'),
+      Locale('ur'),
+      Locale('汉语'),
+      Locale('漢語'),
     ],
     assetLoader: const CodegenLoader(),
     path: 'assets/translations/',
