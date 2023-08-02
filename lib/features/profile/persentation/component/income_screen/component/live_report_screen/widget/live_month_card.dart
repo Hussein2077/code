@@ -32,7 +32,7 @@ class CardInfoMonthOrAllInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children:  [
-                 Text(infoDay,style:  TextStyle(color: Colors.black)),
+                 Text(infoDay,style:  const TextStyle(color: Colors.black)),
                 Text(StringManager.day.tr(),style:  TextStyle(color: Colors.grey,fontSize: ConfigSize.defaultSize! +2),)
               ],
             ),

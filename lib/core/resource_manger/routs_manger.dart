@@ -24,6 +24,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/live_report_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/details_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/withdrawal_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/exchange_for_gold_screen/exchange_for_gold.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
@@ -224,7 +225,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const JoinToAgencyScreen());
 
       case Routes.liveReportScreen:
-        return MaterialPageRoute(builder: (_) => const LiveReportScreen());
+              OwnerDataModel userData = settings.arguments as OwnerDataModel;
+
+        return MaterialPageRoute(builder: (_) =>  LiveReportScreen(myData: userData,));
 
       case Routes.exchangeForGoldScreen:
         return MaterialPageRoute(builder: (_) => const ExchangeForGoldScreen());

@@ -240,4 +240,24 @@ class StringManager {
   static const String chinsTraditional = "中國人";
   static const String turkish  = "Türkiye";
   static const String urdu  = "اردو";
+  static const String exchangeDaimond = "Exchange Daimond";
+
+  static const String areYouSureYouWantToExchange = "Are You Sure You Want To Exchange";
+  static const String daimondTo = "Daimond To";
+    static const String pleaseAcceptTheRegulations = "Please accept the regulations";
+
+
+    static const String pleaseEnterAgencyID= "Please Enter Agency ID";
+
+      static const String pleaseEnterPhoneNum= "please Enter Phone Number";
+
+
+
+    static  String exchangeDaimondMethod (String coin , String diamond){
+
+      return "${StringManager.areYouSureYouWantToExchange} $diamond ${StringManager.daimondTo} $coin ${StringManager.coins}";
+
+    }
+
+
 }
