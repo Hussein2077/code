@@ -5,10 +5,10 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class ContainerWithdrawal extends StatelessWidget {
-  final String diamond,coins;
+  final String usd;
   const ContainerWithdrawal({super.key,
-    required this.diamond,
-    required this.coins});
+    required this.usd,
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -23,59 +23,62 @@ class ContainerWithdrawal extends StatelessWidget {
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Column(
-            children: [
-              Text( StringManager.diamond,
-                style:Theme.of(context).textTheme.bodyLarge,),
+          // Column(
+          //   children: [
+          //     Text( StringManager.diamond,
+          //       style:Theme.of(context).textTheme.bodyLarge,),
 
-              SizedBox(
-                height: ConfigSize.defaultSize!*2.0,
-              ),
-              Row(
-                children: [
-                  Image.asset(AssetsPath.gemStone,
-                      scale: 2.0),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Text( diamond,
-                    style:Theme.of(context).textTheme.bodyMedium,),
-                ],
-              )
-            ],
-          ),
-          VerticalDivider(
-            width: 2,
-            thickness: 3,
-            indent: 15,
-            endIndent: 15,
-            color:
-            const Color(0xffA3A4A3).withOpacity(0.72),
-          ),
-          Column(
-            children: [
-                Text(StringManager.balance,
-                style:Theme.of(context).textTheme.bodyLarge,),
-
-              SizedBox(
-                height:  ConfigSize.defaultSize!*1.0,
-              ),
-
-
-              Row(
-                children: [
-                  Image.asset(AssetsPath.circleDollar,
-                      scale: 2.0),
-                  const SizedBox(
-                    width: 10,
-                  ),
-
-                  Text(coins,
-                    style:Theme.of(context).textTheme.bodyMedium,),
-
-                ],
-              )
-            ],
+          //     SizedBox(
+          //       height: ConfigSize.defaultSize!*2.0,
+          //     ),
+          //     Row(
+          //       children: [
+          //         Image.asset(AssetsPath.gemStone,
+          //             scale: 2.0),
+          //         const SizedBox(
+          //           width: 20,
+          //         ),
+          //         Text( usd,
+          //           style:Theme.of(context).textTheme.bodyLarge,),
+          //       ],
+          //     )
+          //   ],
+          // ),
+          // VerticalDivider(
+          //   width: 2,
+          //   thickness: 3,
+          //   indent: 15,
+          //   endIndent: 15,
+          //   color:
+          //   const Color(0xffA3A4A3).withOpacity(0.72),
+          // ),
+          SizedBox(
+            width: ConfigSize.defaultSize!*15,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                  Text("${StringManager.dolars} : $usd",
+                  style:Theme.of(context).textTheme.bodyLarge,),
+          
+                SizedBox(
+                  height:  ConfigSize.defaultSize!*1.0,
+                ),
+          
+          
+                Row(
+                  children: [
+                    Image.asset(AssetsPath.circleDollar,
+                        scale: 1.0),
+                    const SizedBox(
+                      width: 10,
+                    ),
+          
+                  
+          
+                  ],
+                )
+              ],
+            ),
           ),
         ],
       ),

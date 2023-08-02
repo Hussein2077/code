@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_page_model.dart';
@@ -750,6 +751,17 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
     try {
       final result =
       await baseRemotlyDataSourceProfile.feedBack(feedBackPramiter);
+      return Left(result);
+    } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<AgencyMyStoreModel, Failure>> myStore()async {
+   try {
+      final result =
+      await baseRemotlyDataSourceProfile.myStore();
       return Left(result);
     } catch (e) {
       return right(DioHelper.buildFailure(e));

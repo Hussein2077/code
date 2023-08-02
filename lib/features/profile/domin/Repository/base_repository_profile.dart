@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_page_model.dart';
@@ -173,6 +174,8 @@ abstract class BaseRepositoryProfile {
 
       Future<Either<GetConfigKeyModel,Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
   Future<Either<String, Failure>> feedBack(FeedBackPramiter feedBackPramiter);
+        Future<Either<AgencyMyStoreModel,Failure>> myStore();
+
 
 
 }

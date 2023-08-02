@@ -251,6 +251,11 @@ class StringManager {
 
       static const String pleaseEnterPhoneNum= "please Enter Phone Number";
 
+      static const String dolars= "Dolars";
+
+          static const String pleaseEnterID= "Please Enter ID";
+          static const String pleaseEnterquantity= "Please Enter dolars Quantity";
+
 
 
     static  String exchangeDaimondMethod (String coin , String diamond){

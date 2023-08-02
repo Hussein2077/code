@@ -27,7 +27,7 @@ class AgencyScreen extends StatelessWidget {
                 SizedBox(height: ConfigSize.defaultSize! / 0.2),
                 HeaderWithOnlyTitle(title: StringManager.income.tr()),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                const CardOfDiamondEarned(
+                 CardOfDiamondEarned(
                   assetCard: AssetsPath.moneyBag,
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),

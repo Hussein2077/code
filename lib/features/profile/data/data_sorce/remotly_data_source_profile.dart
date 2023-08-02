@@ -17,6 +17,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/back_pack_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
@@ -153,6 +154,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<String> feedBack(FeedBackPramiter feedBackPramiter);
 
+  Future<AgencyMyStoreModel> myStore();
 
 
 }
@@ -1673,6 +1675,23 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       } on DioError catch (e) {
         throw DioHelper.handleDioError(e);
       }
+    }
+  }
+  
+  @override
+  Future<AgencyMyStoreModel> myStore()async {
+   Map<String, String> headers = await DioHelper().header();
+    try {
+      final response = await Dio().get(ConstentApi.myStore,
+          options: Options(
+            headers: headers,
+          ));
+       
+       final result = AgencyMyStoreModel.fromJson(response.data["data"]['my_store']);
+
+      return result ; 
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
     }
   }
   

@@ -43,6 +43,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_or_send_vip.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/change_user_type.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/delet_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/delete_account_uc.dart';
@@ -65,6 +66,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_vistors_usecase.
 import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/show_family_usecase.dart';
@@ -90,7 +92,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manag
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
@@ -227,6 +231,13 @@ class ServerLocator {
                                                             getIt.registerFactory(() => TimeDataReportBloc(
           timeDataReportUseCases: getIt()
         ));
+                                                                getIt.registerFactory(() => ChargeToBloc(
+          chargeToUseCases: getIt()
+        ));
+
+                                                                    getIt.registerFactory(() => MyStoreBloc(
+          getMyStoreUseCase: getIt()
+        ));
 
         
 
@@ -328,6 +339,15 @@ class ServerLocator {
 
                                             getIt.registerLazySingleton(
         () => TimeDataReportUseCases(getTimeDataReport: getIt()));
+
+                                               getIt.registerLazySingleton(
+        () => ChargeToUseCases(getChargeTo: getIt()));
+
+                                                       getIt.registerLazySingleton(
+        () => GetMyStoreUseCase(baseRepositoryProfile: getIt()));
+
+
+        
         
 //repo
     getIt.registerLazySingleton<BaseRepository>(
