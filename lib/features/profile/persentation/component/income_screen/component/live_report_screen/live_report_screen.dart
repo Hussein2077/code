@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
-import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -22,6 +21,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_da
 
 class LiveReportScreen extends StatefulWidget {
   final OwnerDataModel myData;
+
   const LiveReportScreen({required this.myData, super.key});
 
   @override
@@ -37,7 +37,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
         ..add(const TimeDataReportMonth(month: "month"))
         ..add(const TimeDataReportAllInformation(allInformation: '')),
       child: Scaffold(
-          backgroundColor: const Color(0xfff8f8f8),
+          backgroundColor: Theme.of(context).colorScheme.background,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -82,10 +82,13 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 children: [
                                   Text(
                                     widget.myData.name!,
-                                    style: TextStyle(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium /*TextStyle(
                                         color: Colors.white,
                                         fontSize: ConfigSize.defaultSize! * 2.2,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold)*/
+                                    ,
                                   ),
 
                                   /* Text(widget.ownerDataModel.name!,
@@ -95,8 +98,9 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                     height: ConfigSize.defaultSize! * 0.5,
                                   ),
                                   Text('ID :${widget.myData.uuid}',
-                                      style:
-                                          const TextStyle(color: Colors.white)),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium),
                                 ],
                               ),
                             ),
@@ -109,101 +113,105 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                 BlocBuilder<TimeDataReportBloc, TimeDataReportState>(
                   builder: (context, state) {
                     switch (state.dataTodayReportRequest) {
-                    
                       case RequestState.loaded:
-                    return  Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
 
-                          ///0xfff8f8f8
-                          color: Color(0xfff8f8f8),
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30),
-                            topLeft: Radius.circular(30),
-                          )),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Column(
-                          children: [
-                            InfoWithWidget(
-                              title: StringManager.today.tr(),
-                            ),
-                            SizedBox(
-                              height: ConfigSize.defaultSize! * 3,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              ///0xfff8f8f8
+                              color: Theme.of(context).colorScheme.background,
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                topLeft: Radius.circular(30),
+                              )),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: Column(
                               children: [
-                                LiveTodayCard(
-                                  widget:  Text(
-                                   state.dataToday!.hours ,
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  title: StringManager.hours.tr(),
-                                ),
-                                LiveTodayCard(
-                                  widget: state.dataToday!.today
-                                               ? const Icon(Icons.check)
-                                               : const Icon(Icons.close),
+                                InfoWithWidget(
                                   title: StringManager.today.tr(),
                                 ),
-                                LiveTodayCard(
-                                  widget: Text(
-                                   state.dataToday!.diamonds.toString() ,
-                                    style: TextStyle(color: Colors.black),
-                                  ), 
-                                  
-                                     
-                                  title: StringManager.diamond.tr(),
+                                SizedBox(
+                                  height: ConfigSize.defaultSize! * 3,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    LiveTodayCard(
+                                      widget: Text(
+                                        state.dataToday!.hours,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                      title: StringManager.hours.tr(),
+                                    ),
+                                    LiveTodayCard(
+                                      widget: state.dataToday!.today
+                                          ? const Icon(Icons.check)
+                                          : const Icon(Icons.close),
+                                      title: StringManager.today.tr(),
+                                    ),
+                                    LiveTodayCard(
+                                      widget: Text(
+                                        state.dataToday!.diamonds.toString(),
+                                        style:Theme.of(context).textTheme.bodyMedium,
+                                      ),
+                                      title: StringManager.diamond.tr(),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: ConfigSize.defaultSize! * 2,
+                                ),
+                                InfoWithWidget(
+                                    title: StringManager.dataInMounth.tr()),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CardInfoMonthOrAllInfo(
+                                  infoDay: state.dataMonthly!.days.toString(),
+                                  infoDiamond:
+                                      state.dataMonthly!.diamonds.toString(),
+                                  infoHours:
+                                      state.dataMonthly!.hours.toString(),
+                                ),
+                                SizedBox(
+                                  height: ConfigSize.defaultSize! * 2,
+                                ),
+                                InfoWithWidget(
+                                  title: StringManager.allInformation.tr(),
+                                ),
+                                SizedBox(
+                                  height: ConfigSize.defaultSize! * 2,
+                                ),
+                                CardInfoMonthOrAllInfo(
+                                  infoDay: state.allInfoData!.days.toString(),
+                                  infoDiamond:
+                                      state.allInfoData!.diamonds.toString(),
+                                  infoHours:
+                                      state.allInfoData!.hours.toString(),
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: ConfigSize.defaultSize! * 2,
-                            ),
-                            InfoWithWidget(
-                                title: StringManager.dataInMounth.tr()),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                             CardInfoMonthOrAllInfo(
-                              infoDay: state.dataMonthly!.days.toString(),
-                              infoDiamond:  state.dataMonthly!.diamonds.toString(),
-                              infoHours:  state.dataMonthly!.hours.toString(),
-                            ),
-                            SizedBox(
-                              height: ConfigSize.defaultSize! * 2,
-                            ),
-                            InfoWithWidget(
-                              title: StringManager.allInformation.tr(),
-                            ),
-                            SizedBox(
-                              height: ConfigSize.defaultSize! * 2,
-                            ),
-                             CardInfoMonthOrAllInfo(
-                              infoDay: state.allInfoData!.days.toString(),
-                              infoDiamond:state.allInfoData!.diamonds.toString(),
-                              infoHours: state.allInfoData!.hours.toString(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                          ),
+                        );
                       case RequestState.loading:
-                     return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: ConfigSize.defaultSize!*20,
-                      child: const LoadingWidget(),
-                     );
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: ConfigSize.defaultSize! * 20,
+                          child: const LoadingWidget(),
+                        );
                       case RequestState.error:
-                         return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: ConfigSize.defaultSize!*20,
-                      child:const CustoumErrorWidget(message: StringManager.unexcepectedError),
-                     );
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: ConfigSize.defaultSize! * 20,
+                          child: const CustoumErrorWidget(
+                              message: StringManager.unexcepectedError),
+                        );
                     }
-                  
                   },
                 ),
               ],

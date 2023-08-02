@@ -43,6 +43,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_or_send_vip.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/change_user_type.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/charge_history_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/delet_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/delete_account_uc.dart';
@@ -92,6 +93,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
@@ -134,101 +136,86 @@ class ServerLocator {
     getIt.registerFactory(() => FamilyRankingBloc(
           familyRankingUsecase: getIt(),
         ));
-          getIt.registerFactory(() => CreateFamilyBloc(
+    getIt.registerFactory(() => CreateFamilyBloc(
           createFamilyUC: getIt(),
         ));
 
-                 getIt.registerFactory(() => GetConfigKeysBloc(
+    getIt.registerFactory(() => GetConfigKeysBloc(
           getConfigKeyUc: getIt(),
         ));
-                     getIt.registerFactory(() => ShowFamilyBloc(
+    getIt.registerFactory(() => ShowFamilyBloc(
           showFamilymUsecase: getIt(),
         ));
-                       getIt.registerFactory(() => FamilyMemberBloc(
+    getIt.registerFactory(() => FamilyMemberBloc(
           getfamilymember: getIt(),
         ));
-                             getIt.registerFactory(() => FamilyRequestBloc(
+    getIt.registerFactory(() => FamilyRequestBloc(
           getFamilyRequestUsecase: getIt(),
         ));
-                         getIt.registerFactory(() => DeleteFamilyBloc(
+    getIt.registerFactory(() => DeleteFamilyBloc(
           deleteFamilyUseCse: getIt(),
         ));
 
-                     getIt.registerFactory(() => TakeActionBloc(
+    getIt.registerFactory(() => TakeActionBloc(
           familyTakeActionUsecase: getIt(),
         ));
-                      getIt.registerFactory(() => ChangeUserTypeBloc(
+    getIt.registerFactory(() => ChangeUserTypeBloc(
           changeUserTypeUsecase: getIt(),
         ));
-                         getIt.registerFactory(() => FamilyRemoveUserBloc(
+    getIt.registerFactory(() => FamilyRemoveUserBloc(
           removeUserFromFamilyUsecase: getIt(),
         ));
-                           getIt.registerFactory(() => JoinFamilyBloc(
+    getIt.registerFactory(() => JoinFamilyBloc(
           joinFamilymUsecase: getIt(),
         ));
-                               getIt.registerFactory(() => ExitFamilyBloc(
+    getIt.registerFactory(() => ExitFamilyBloc(
           exitFamilyUsecase: getIt(),
         ));
-                                getIt.registerFactory(() => FeedBackBloc(
+    getIt.registerFactory(() => FeedBackBloc(
           feedBackUseCase: getIt(),
         ));
-                                    getIt.registerFactory(() => GetFollowerOrFollowingBloc(
+    getIt.registerFactory(() => GetFollowerOrFollowingBloc(
           getFriendsOrFollowersUsecase: getIt(),
         ));
-                                        getIt.registerFactory(() => VistorsBloc(
+    getIt.registerFactory(() => VistorsBloc(
           getVistorUseCase: getIt(),
         ));
-                                         getIt.registerFactory(() => GetUserBloc(
+    getIt.registerFactory(() => GetUserBloc(
           getUserDataUseCase: getIt(),
         ));
-                                          getIt.registerFactory(() => GiftHistoryBloc(
+    getIt.registerFactory(() => GiftHistoryBloc(
           giftHistorykUseCase: getIt(),
         ));
-                                               getIt.registerFactory(() => FollowBloc(
+    getIt.registerFactory(() => FollowBloc(
           followOrUnFollowUsecase: getIt(),
         ));
-        
-                                              getIt.registerFactory(() => AcountBloc(
-          boundPlatformUC: getIt(),deleteAccountUC: getIt()
-        ));
 
-                                                     getIt.registerFactory(() => GetFollwersRoomBloc(
-          getFollwingRoomsUC: getIt()
-        ));
+    getIt.registerFactory(
+        () => AcountBloc(boundPlatformUC: getIt(), deleteAccountUC: getIt()));
 
-                                                           getIt.registerFactory(() => CarouselBloc(
-          getCarouselsUsecase: getIt()
-        ));
+    getIt.registerFactory(
+        () => GetFollwersRoomBloc(getFollwingRoomsUC: getIt()));
 
-                                                             getIt.registerFactory(() => CounrtyBloc(
-          getCountryUseCase: getIt()
-        ));
-                                                        getIt.registerFactory(() => GetRoomsBloc(
-          allRoomsUsecase: getIt()
-        ));
-                                                        getIt.registerFactory(() => SearchBloc(
-          searchUseCase: getIt()
-        ));
+    getIt.registerFactory(() => CarouselBloc(getCarouselsUsecase: getIt()));
 
-                                                              getIt.registerFactory(() => TobBloc(
-          getTopUseCase: getIt()
-        ));
+    getIt.registerFactory(() => CounrtyBloc(getCountryUseCase: getIt()));
+    getIt.registerFactory(() => GetRoomsBloc(allRoomsUsecase: getIt()));
+    getIt.registerFactory(() => SearchBloc(searchUseCase: getIt()));
 
-                                                                getIt.registerFactory(() => ReplaceWithGoldBloc(
-          getReplaceWithGoldUseCase: getIt()
-        ));
-                                                         getIt.registerFactory(() => ExchangeDimondBloc(
-          exchangeDimondsUseCase: getIt()
-        ));
-                                                           getIt.registerFactory(() => JoinToAgencieBloc(
-          joinToAgencieUsecase: getIt()
-        ));
+    getIt.registerFactory(() => TobBloc(getTopUseCase: getIt()));
 
-                                                            getIt.registerFactory(() => TimeDataReportBloc(
-          timeDataReportUseCases: getIt()
-        ));
+    getIt.registerFactory(
+        () => ReplaceWithGoldBloc(getReplaceWithGoldUseCase: getIt()));
+    getIt.registerFactory(
+        () => ExchangeDimondBloc(exchangeDimondsUseCase: getIt()));
+    getIt.registerFactory(
+        () => JoinToAgencieBloc(joinToAgencieUsecase: getIt()));
 
-        
+    getIt.registerFactory(
+        () => TimeDataReportBloc(timeDataReportUseCases: getIt()));
+
+    getIt.registerFactory(
+            () => ChargeHistoryBloc(chargeHistoryUseCases: getIt()));
 
 //usecase
     getIt.registerLazySingleton(
@@ -260,75 +247,71 @@ class ServerLocator {
         () => BuyOrSendVipUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(
         () => FamilyRankingUsecase(baseRepositoryProfile: getIt()));
-          getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => CreateFamilyUC(baseRepositoryProfile: getIt()));
-            getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GetConfigKeyUc(baseRepositoryProfile: getIt()));
-              getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => ShowFamilymUsecase(baseRepositoryProfile: getIt()));
-                   getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GetFamilyMemberUseCase(baseRepositoryProfile: getIt()));
-                           getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GetFamilyRequestUsecase(baseRepositoryProfile: getIt()));
-                                  getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => DeleteFamilyUseCse(baseRepositoryProfile: getIt()));
-                                     getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => FamilyTakeActionUsecase(baseRepositoryProfile: getIt()));
-                                        getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => ChangeUserTypeUsecase(baseRepositoryProfile: getIt()));
 
-                                  getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => RemoveUserFromFamilyUsecase(baseRepositoryProfile: getIt()));
-                                     getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => JoinFamilymUsecase(baseRepositoryProfile: getIt()));
-                                             getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => ExitFamilyUsecase(baseRepositoryProfile: getIt()));
 
-                                                     getIt.registerLazySingleton(
-        () => FeedBackUseCase(baseRepository: getIt()));
-                                                        getIt.registerLazySingleton(
+    getIt.registerLazySingleton(() => FeedBackUseCase(baseRepository: getIt()));
+    getIt.registerLazySingleton(
         () => GetFriendsOrFollowersUsecase(relationRepo: getIt()));
-            getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GetVistorUseCase(baseRepositoryProfile: getIt()));
-                   getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GetUserDataUseCase(baseRepositoryProfile: getIt()));
-                           getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GiftHistorykUseCase(baseRepositoryProfile: getIt()));
-                              getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => FollowOrUnFollowUsecase(relationRepo: getIt()));
-                                      getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => BoundPlatformUC(baseRepositoryProfile: getIt()));
-                                      getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => DeleteAccountUC(baseRepositoryProfile: getIt()));
-                                              getIt.registerLazySingleton(
-        () => GetFollwingRoomsUC(repoFollow: getIt()));
+    getIt.registerLazySingleton(() => GetFollwingRoomsUC(repoFollow: getIt()));
 
-                                              getIt.registerLazySingleton(
-        () => GetCarouselsUsecase(roomRepo: getIt()));
-                                                      getIt.registerLazySingleton(
-        () => GetCountryUseCase(roomRepo: getIt()));
-                                                       getIt.registerLazySingleton(
-        () => AllRoomsUsecase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => GetCarouselsUsecase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => GetCountryUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => AllRoomsUsecase(roomRepo: getIt()));
 
-         getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => SearchUseCase(baseRepositoryProfile: getIt()));
 
-               getIt.registerLazySingleton(
-        () => GetTopUseCase(exploreExp: getIt()));
+    getIt.registerLazySingleton(() => GetTopUseCase(exploreExp: getIt()));
 
-                    getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GetReplaceWithGoldUseCase(baseRepositoryProfile: getIt()));
 
-                            getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => ExchangeDimondsUseCase(baseRepositoryProfile: getIt()));
 
-
-                                    getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => JoinToAgencieUsecase(baseRepositoryProfile: getIt()));
 
-                                            getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => TimeDataReportUseCases(getTimeDataReport: getIt()));
-        
+
+    getIt.registerLazySingleton(
+            () => ChargeHistoryUseCases(chargeHistoryUc: getIt()));
+
 //repo
     getIt.registerLazySingleton<BaseRepository>(
         () => RepositoryImp(baseRemotlyDataSource: getIt()));

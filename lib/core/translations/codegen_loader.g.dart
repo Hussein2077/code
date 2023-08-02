@@ -11,7 +11,7 @@ class CodegenLoader extends AssetLoader {
     return Future.value(mapLocales[locale.toString()]);
   }
 
-  static const Map<String, dynamic> ar = {
+  static const Map<String, dynamic> ar =  {
   StringManager.appTitle : "تيك شات",
   StringManager.enterPhoneNum : "أدخل رقم هاتفك",
   StringManager.signUp : "سجل",
@@ -230,7 +230,7 @@ class CodegenLoader extends AssetLoader {
   StringManager.enterUserID : "أدخل معرف المستخدم",
   StringManager.enterQuantityHere : "أدخل الكمية هنا",
   };
-  static const Map<String, dynamic> tr = {
+  static const Map<String, dynamic> tr =  {
     StringManager.appTitle : "Tikchat",
     StringManager.enterPhoneNum : "Telefon numaranızı girin",
     StringManager.signUp : "Kayıt Ol",
@@ -450,7 +450,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.enterQuantityHere : "Miktarı Buraya Girin",
 
   };
-  static const Map<String, dynamic> ur = {
+  static const Map<String, dynamic> ur =  {
     StringManager.appTitle : "ٹیک چیٹ",
     StringManager.enterPhoneNum : "اپنا فون نمبر درج کریں",
     StringManager.signUp : "سائن اپ",
@@ -1113,7 +1113,7 @@ class CodegenLoader extends AssetLoader {
 
 
 };
-  static const Map<String, dynamic> en = {
+  static const Map<String, dynamic> en =  {
     "hello": "hello",
   };
 

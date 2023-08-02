@@ -32,7 +32,7 @@ class CardInfoMonthOrAllInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children:  [
-                 Text(infoDay,style:  const TextStyle(color: Colors.black)),
+                 Text(infoDay,style: Theme.of(context).textTheme.bodyMedium),
                 Text(StringManager.day.tr(),style:  TextStyle(color: Colors.grey,fontSize: ConfigSize.defaultSize! +2),)
               ],
             ),
@@ -40,7 +40,7 @@ class CardInfoMonthOrAllInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Text(infoHours,style: const TextStyle(color: Colors.black)),
+                 Text(infoHours,style:Theme.of(context).textTheme.bodyMedium),
                 Text(StringManager.hours.tr(),style:  TextStyle(color: Colors.grey,fontSize: ConfigSize.defaultSize! +2),)
               ],
             ),
@@ -48,7 +48,7 @@ class CardInfoMonthOrAllInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children:  [
-                 Text(infoDiamond,style: const TextStyle(color: Colors.black)),
+                 Text(infoDiamond,style: Theme.of(context).textTheme.bodyMedium),
                 Text(StringManager.diamond.tr(),style: TextStyle(color: Colors.grey,fontSize: ConfigSize.defaultSize! +2),)
               ],
             ),
