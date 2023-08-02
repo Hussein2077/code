@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 
 class InstructionsScreen extends StatefulWidget {
   static bool selectedMode = false;
@@ -59,6 +60,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: ConfigSize.defaultSize!*1.5,
+                    overflow: TextOverflow.fade
                   ),);
               },
                 itemCount: listOfInstructions.length,
@@ -80,7 +82,12 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
 
             MainButton(
               onTap: () {
-                Navigator.pushNamed(context, Routes.joinToAgencyScreen);
+                if( InstructionsScreen.selectedMode){
+                Navigator.popAndPushNamed(context, Routes.joinToAgencyScreen);
+
+                }else {
+                  errorToast(context: context, title: StringManager.pleaseAcceptTheRegulations);
+                }
               },
               title: StringManager.goToJoin.tr(),
             ),
@@ -103,7 +110,11 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
          Expanded(
            child: Text(
              mode,
-             style: Theme.of(context).textTheme.bodyMedium,
+             style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: ConfigSize.defaultSize!*1.5,
+                    overflow: TextOverflow.fade
+                  ),
            ),
          ),
          InkWell(

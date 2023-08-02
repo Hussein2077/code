@@ -11,7 +11,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
-import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
 
 class LanguageScreen extends StatefulWidget {
   static int? selectedLanguage;

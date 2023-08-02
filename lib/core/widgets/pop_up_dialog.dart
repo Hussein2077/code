@@ -4,15 +4,15 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
-
 class PopUpDialog extends StatelessWidget {
   final String headerText;
   final Widget? widget;
   final VoidCallback accpetText;
 
-  const PopUpDialog({Key? key,
+  const PopUpDialog({
+    Key? key,
     required this.headerText,
-     this.widget,
+    this.widget,
     required this.accpetText,
   }) : super(key: key);
 
@@ -23,52 +23,67 @@ class PopUpDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
       ),
       child: Container(
-        height: ConfigSize.defaultSize!*20,
+        height: ConfigSize.defaultSize! * 20,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-           colors: ColorManager.bageGriedinet
-          ),
+          gradient: const LinearGradient(colors: ColorManager.bageGriedinet),
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
         ),
         child: Column(
           children: [
-const Spacer(flex: 1,),
-            Text(headerText , style: Theme.of(context).textTheme.bodyLarge,),
-       const Spacer(flex: 1,),
-            if(widget!=null)
-            widget!,
-            const Spacer(flex: 1,),
-
+            const Spacer(
+              flex: 1,
+            ),
+            Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
+                child: Text(
+                  headerText,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: ConfigSize.defaultSize! * 1.7,
+                      overflow: TextOverflow.fade),
+                )),
+            const Spacer(
+              flex: 1,
+            ),
+            if (widget != null) widget!,
+            const Spacer(
+              flex: 1,
+            ),
             Divider(
               color: Colors.black.withOpacity(0.12),
             ),
-            const Spacer(flex: 3,),
-
+            const Spacer(
+              flex: 3,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
-                  onTap: ()=>Navigator.pop(context),
-                  child: Text(StringManager.cancel.tr() , style: Theme.of(context).textTheme.bodyMedium,)
-                ),
+                    onTap: () => Navigator.pop(context),
+                    child: Text(
+                      StringManager.cancel.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    )),
                 SizedBox(
-                  height: ConfigSize.defaultSize!*2,
+                  height: ConfigSize.defaultSize! * 2,
                   child: const VerticalDivider(
                     color: Color(0xffB5B5B5),
                     width: 2,
                   ),
                 ),
                 InkWell(
-                  onTap: ()=>accpetText(),
-                  child: Text(StringManager.accept.tr() , style: Theme.of(context).textTheme.bodyMedium,)
-                ),
-
+                    onTap: () => accpetText(),
+                    child: Text(
+                      StringManager.accept.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    )),
               ],
             ),
-            const Spacer(flex: 1,),
-
-
+            const Spacer(
+              flex: 1,
+            ),
           ],
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/tik_currency_exchange/component/widget/item_list_invoice_details.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/widget/item_list_invoice_details.dart';
 
 class TabBarViewDetailsScreen extends StatelessWidget {
   const TabBarViewDetailsScreen({Key? key,}) : super(key: key);

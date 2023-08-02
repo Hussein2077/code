@@ -6,6 +6,7 @@ class CodegenLoader extends AssetLoader {
   const CodegenLoader();
 
   @override
+  // ignore: avoid_renaming_method_parameters
   Future<Map<String, dynamic>> load(String fullPath, Locale locale) {
     return Future.value(mapLocales[locale.toString()]);
   }

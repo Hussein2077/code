@@ -55,7 +55,7 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
                 StringManager.typeOfProblem,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-               ProblemType(),
+               const ProblemType(),
               Text(
                 StringManager.details.tr(),
                 style: Theme.of(context).textTheme.headlineMedium,

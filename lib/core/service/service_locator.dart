@@ -46,6 +46,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/change_user_type.dar
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/delet_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/delete_account_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/exchange_dimonds.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/exit_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/family_ranking_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/family_take_action_usecase.dart';
@@ -57,16 +58,20 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_member_us
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_request_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_friends_or_followers.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_mydata_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_replace_with_dimond_data.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_user_data_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vip_center_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vistors_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/show_family_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/time_data_report_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/unused_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/use_item_usecase.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_delete_family/bloc/delete_family_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_bloc.dart';
@@ -90,8 +95,11 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_it
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
 
 final getIt = GetIt.instance;
@@ -206,6 +214,19 @@ class ServerLocator {
           getTopUseCase: getIt()
         ));
 
+                                                                getIt.registerFactory(() => ReplaceWithGoldBloc(
+          getReplaceWithGoldUseCase: getIt()
+        ));
+                                                         getIt.registerFactory(() => ExchangeDimondBloc(
+          exchangeDimondsUseCase: getIt()
+        ));
+                                                           getIt.registerFactory(() => JoinToAgencieBloc(
+          joinToAgencieUsecase: getIt()
+        ));
+
+                                                            getIt.registerFactory(() => TimeDataReportBloc(
+          timeDataReportUseCases: getIt()
+        ));
 
         
 
@@ -295,7 +316,18 @@ class ServerLocator {
                getIt.registerLazySingleton(
         () => GetTopUseCase(exploreExp: getIt()));
 
-        
+                    getIt.registerLazySingleton(
+        () => GetReplaceWithGoldUseCase(baseRepositoryProfile: getIt()));
+
+                            getIt.registerLazySingleton(
+        () => ExchangeDimondsUseCase(baseRepositoryProfile: getIt()));
+
+
+                                    getIt.registerLazySingleton(
+        () => JoinToAgencieUsecase(baseRepositoryProfile: getIt()));
+
+                                            getIt.registerLazySingleton(
+        () => TimeDataReportUseCases(getTimeDataReport: getIt()));
         
 //repo
     getIt.registerLazySingleton<BaseRepository>(

@@ -1,17 +1,28 @@
 import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
+import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/info_with_container_blue.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/live_month_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/live_today_card.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_state.dart';
 
 class LiveReportScreen extends StatefulWidget {
-  const LiveReportScreen({super.key});
+  final OwnerDataModel myData;
+  const LiveReportScreen({required this.myData, super.key});
 
   @override
   State<LiveReportScreen> createState() => _LiveReportScreenState();
@@ -20,184 +31,184 @@ class LiveReportScreen extends StatefulWidget {
 class _LiveReportScreenState extends State<LiveReportScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color(0xfff8f8f8),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              CustoumCachedImage(
-                height: ConfigSize.defaultSize!*30,
-                url:'https://wallpaperaccess.com/full/294788.jpg',
-                width:MediaQuery.of(context).size.width,
-                boxFit: BoxFit.cover,
-                widget: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: ConfigSize.defaultSize !*1,
-                      ),
-                      Align(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                color: Colors.white,
-                              ))),
-
-                      Column(
-                        children: [
-                          UserImage(
-                            boxFit: BoxFit.cover,
-                            image: AssetsPath.testImage,
-                            imageSize: ConfigSize.defaultSize! * 10,
-                          ),
-
-                          const SizedBox(
-                            height: 1,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.3),
-
-                                borderRadius: BorderRadius.circular(20)
+    return BlocProvider(
+      create: (context) => getIt<TimeDataReportBloc>()
+        ..add(const TimeDataReportToday(today: 'today'))
+        ..add(const TimeDataReportMonth(month: "month"))
+        ..add(const TimeDataReportAllInformation(allInformation: '')),
+      child: Scaffold(
+          backgroundColor: const Color(0xfff8f8f8),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                CustoumCachedImage(
+                  height: ConfigSize.defaultSize! * 30,
+                  url: ConstentApi().getImage(widget.myData.profile!.image),
+                  width: MediaQuery.of(context).size.width,
+                  boxFit: BoxFit.cover,
+                  widget: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: ConfigSize.defaultSize! * 1,
+                        ),
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_forward_ios_outlined,
+                                  color: Colors.white,
+                                ))),
+                        Column(
+                          children: [
+                            UserImage(
+                              boxFit: BoxFit.cover,
+                              image: widget.myData.profile!.image!,
+                              imageSize: ConfigSize.defaultSize! * 10,
                             ),
-                            child: Column(
-                              children: [
-                                Text('Ga3fr al 3omda',style:
-                                TextStyle(color: Colors.white, fontSize: ConfigSize.defaultSize! *2.2,fontWeight: FontWeight.bold),),
+                            const SizedBox(
+                              height: 1,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    widget.myData.name!,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: ConfigSize.defaultSize! * 2.2,
+                                        fontWeight: FontWeight.bold),
+                                  ),
 
-                                /* Text(widget.ownerDataModel.name!,
+                                  /* Text(widget.ownerDataModel.name!,
+                                          style:
+                                          TextStyle(color: Colors.white, fontSize: ConfigSize.defaultSize! *2.2,fontWeight: FontWeight.bold)),*/
+                                  SizedBox(
+                                    height: ConfigSize.defaultSize! * 0.5,
+                                  ),
+                                  Text('ID :${widget.myData.uuid}',
                                       style:
-                                      TextStyle(color: Colors.white, fontSize: ConfigSize.defaultSize! *2.2,fontWeight: FontWeight.bold)),*/
-                                SizedBox(
-                                  height: ConfigSize.defaultSize! *0.5,),
-                                const Text('ID :183845',
-                                    style: TextStyle(color: Colors.white)),
+                                          const TextStyle(color: Colors.white)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                BlocBuilder<TimeDataReportBloc, TimeDataReportState>(
+                  builder: (context, state) {
+                    switch (state.dataTodayReportRequest) {
+                    
+                      case RequestState.loaded:
+                    return  Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+
+                          ///0xfff8f8f8
+                          color: Color(0xfff8f8f8),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30),
+                            topLeft: Radius.circular(30),
+                          )),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        child: Column(
+                          children: [
+                            InfoWithWidget(
+                              title: StringManager.today.tr(),
+                            ),
+                            SizedBox(
+                              height: ConfigSize.defaultSize! * 3,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                LiveTodayCard(
+                                  widget:  Text(
+                                   state.dataToday!.hours ,
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  title: StringManager.hours.tr(),
+                                ),
+                                LiveTodayCard(
+                                  widget: state.dataToday!.today
+                                               ? const Icon(Icons.check)
+                                               : const Icon(Icons.close),
+                                  title: StringManager.today.tr(),
+                                ),
+                                LiveTodayCard(
+                                  widget: Text(
+                                   state.dataToday!.hours ,
+                                    style: TextStyle(color: Colors.black),
+                                  ), 
+                                  
+                                     
+                                  title: StringManager.diamond.tr(),
+                                ),
                               ],
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                decoration:  const BoxDecoration(
-
-                  ///0xfff8f8f8
-                    color: Color(0xfff8f8f8),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      topLeft: Radius.circular(30),
-                    )),
-
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                  child: Column(
-
-                    children: [
-                       InfoWithWidget(title: StringManager.today.tr(),),
-
-                      SizedBox(height: ConfigSize.defaultSize !*3,),
-
-                      Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    children:  [
-                      LiveTodayCard(
-                        widget: Text(
-                          '5',
-                          style: TextStyle(
-                              color: Colors.black),
+                            SizedBox(
+                              height: ConfigSize.defaultSize! * 2,
+                            ),
+                            InfoWithWidget(
+                                title: StringManager.dataInMounth.tr()),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                             CardInfoMonthOrAllInfo(
+                              infoDay: state.dataMonthly!.days.toString(),
+                              infoDiamond:  state.dataMonthly!.hours,
+                              infoHours:  state.dataMonthly!.diamonds.toString(),
+                            ),
+                            SizedBox(
+                              height: ConfigSize.defaultSize! * 2,
+                            ),
+                            InfoWithWidget(
+                              title: StringManager.allInformation.tr(),
+                            ),
+                            SizedBox(
+                              height: ConfigSize.defaultSize! * 2,
+                            ),
+                             CardInfoMonthOrAllInfo(
+                              infoDay: state.allInfoData!.days.toString(),
+                              infoDiamond:state.allInfoData!.diamonds.toString(),
+                              infoHours: state.allInfoData!.hours.toString(),
+                            ),
+                          ],
                         ),
-                        title: StringManager.hours.tr(),
                       ),
-                      LiveTodayCard(
-                        widget:Icon(Icons.check),
-                        title: StringManager.today.tr(),
-                      ),
-                      LiveTodayCard(
-                        widget: Text(
-                          '7',
-                          style: TextStyle(
-                              color: Colors.black),
-                        ),
-                        title: StringManager.diamond.tr(),
-                      ),
-                    ],
-                  ),
-                      SizedBox(height: ConfigSize.defaultSize!*2,),
-
-                       InfoWithWidget(title:StringManager.dataInMounth.tr()),
-
-                      const SizedBox(height: 20,),
-
-                      const CardInfoMonthOrAllInfo(
-                        infoDay: '54',
-                        infoDiamond: '44',
-                        infoHours: '48',
-                      ),
-
-                      SizedBox(height: ConfigSize.defaultSize!*2,),
-
-                       InfoWithWidget(title: StringManager.allInformation.tr(),),
-
-                      SizedBox(height: ConfigSize.defaultSize!*2,),
-                      const CardInfoMonthOrAllInfo(
-                        infoDay: '100',
-                        infoDiamond: '88',
-                        infoHours: '44',
-                      ),
-                    ],
-                  ),
+                    );
+                      case RequestState.loading:
+                     return SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: ConfigSize.defaultSize!*20,
+                      child: const LoadingWidget(),
+                     );
+                      case RequestState.error:
+                         return SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: ConfigSize.defaultSize!*20,
+                      child:const CustoumErrorWidget(message: StringManager.unexcepectedError),
+                     );
+                    }
+                  
+                  },
                 ),
-              ),
-            ],
-          ),
-        ));
+              ],
+            ),
+          )),
+    );
   }
 }
-/*: Stack(
-alignment: Alignment.center,
-children: [
-Positioned(
-
-child: CustomAvtare(
-image: widget.ownerDataModel.profile
-    ?.image,
-size: ConfigSize.defaultSize! *
-7,
-border:2,
-),
-),
-widget.ownerDataModel.frame == ""
-? SizedBox(
-width: ConfigSize
-    .defaultSize! *
-12,
-height: ConfigSize
-    .defaultSize! *
-12,
-)
-    : Positioned(
-child: SizedBox(
-width: ConfigSize
-    .defaultSize! *
-12,
-height: ConfigSize
-    .defaultSize! *
-12,
-child: ShowSVGA(
-url: widget.ownerDataModel.frame!,
-imageId: '${ widget.ownerDataModel.frameId}${cacheFrameKey}'),
-),
-),
-],
-),*/
