@@ -91,17 +91,13 @@ class Routes {
   static const String vistorScreen = "/VistorScreen";
   static const String phoneBindScreen = "/phoneBind";
   static const String otpBindScreen = "/otpBindScreen";
-    static const String searchScreen = "/SearchScreen";
+  static const String searchScreen = "/SearchScreen";
   static const String cashWithdrawal = "/cashWithdrawal";
   static const String detailsWithdrawal = "/detailsWithdrawal";
   static const String agencyScreen = "/agenceScreen";
 
   static const String agencyMemberScreen = "/AgencyMembersScreen";
-    static const String agencyRequestsScreen = "/AgencyRequestsScreen";
-
-
-  
-
+  static const String agencyRequestsScreen = "/AgencyRequestsScreen";
 }
 
 class RouteGenerator {
@@ -234,9 +230,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const JoinToAgencyScreen());
 
       case Routes.liveReportScreen:
-              OwnerDataModel userData = settings.arguments as OwnerDataModel;
+        OwnerDataModel userData = settings.arguments as OwnerDataModel;
 
-        return MaterialPageRoute(builder: (_) =>  LiveReportScreen(myData: userData,));
+        return MaterialPageRoute(
+            builder: (_) => LiveReportScreen(
+                  myData: userData,
+                ));
 
       case Routes.exchangeForGoldScreen:
         return MaterialPageRoute(builder: (_) => const ExchangeForGoldScreen());
@@ -261,16 +260,12 @@ class RouteGenerator {
       case Routes.detailsWithdrawal:
         return MaterialPageRoute(builder: (_) => const DetailsScreen());
 
-              case Routes.agencyScreen:
+      case Routes.agencyScreen:
         return MaterialPageRoute(builder: (_) => const AgenceScreen());
-               case Routes.agencyMemberScreen:
+      case Routes.agencyMemberScreen:
         return MaterialPageRoute(builder: (_) => const AgencyMembersScreen());
-                       case Routes.agencyRequestsScreen:
-        return MaterialPageRoute(builder: (_) =>  AgencyRequestsScreen());
-
-
-
-                
+      case Routes.agencyRequestsScreen:
+        return MaterialPageRoute(builder: (_) => AgencyRequestsScreen());
     }
 
     return unDefinedRoute();

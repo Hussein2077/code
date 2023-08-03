@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -65,10 +66,17 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 ))),
                         Column(
                           children: [
-                            UserImage(
-                              boxFit: BoxFit.cover,
-                              image: widget.myData.profile!.image!,
-                              imageSize: ConfigSize.defaultSize! * 10,
+                            InkWell(
+
+                              child: UserImage(
+                                boxFit: BoxFit.cover,
+                                image: widget.myData.profile!.image!,
+                                imageSize: ConfigSize.defaultSize! * 10,
+                              ),
+                              onTap: (){
+                                Navigator.pushNamed(context, Routes.userProfile , arguments: widget.myData.id.toString() );
+
+                              },
                             ),
                             const SizedBox(
                               height: 1,
@@ -168,10 +176,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                           ),
                         );
                       case RequestState.loading:
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: ConfigSize.defaultSize! * 20,
-                          child: const LoadingWidget(),
+                        return const SizedBox(
                         );
                       case RequestState.error:
                         return SizedBox(
@@ -274,11 +279,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                           ),
                         );
                       case RequestState.loading:
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: ConfigSize.defaultSize! * 20,
-                          child: const LoadingWidget(),
-                        );
+                        return const SizedBox();
                       case RequestState.error:
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
