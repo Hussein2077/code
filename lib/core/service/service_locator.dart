@@ -225,9 +225,7 @@ class ServerLocator {
 
     getIt.registerFactory(
         () => TimeDataReportBloc(timeDataReportUseCases: getIt()));
-                                                            getIt.registerFactory(() => TimeDataReportBloc(
-          timeDataReportUseCases: getIt()
-        ));
+                                                          
                                                                 getIt.registerFactory(() => ChargeToBloc(
           chargeToUseCases: getIt()
         ));
