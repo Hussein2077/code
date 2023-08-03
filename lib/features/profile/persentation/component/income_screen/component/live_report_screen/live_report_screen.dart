@@ -43,7 +43,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
               children: [
                 CustoumCachedImage(
                   height: ConfigSize.defaultSize! * 30,
-                  url: ConstentApi().getImage(widget.myData.profile!.image),
+                  url:widget.myData.profile!.image!,
                   width: MediaQuery.of(context).size.width,
                   boxFit: BoxFit.cover,
                   widget: BackdropFilter(
@@ -163,9 +163,46 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: ConfigSize.defaultSize! * 2,
-                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      case RequestState.loading:
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: ConfigSize.defaultSize! * 20,
+                          child: const LoadingWidget(),
+                        );
+                      case RequestState.error:
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: ConfigSize.defaultSize! * 20,
+                          child: const CustoumErrorWidget(
+                              message: StringManager.unexcepectedError),
+                        );
+                    }
+                  },
+                ),
+                BlocBuilder<TimeDataReportBloc, TimeDataReportState>(
+                  builder: (context, state) {
+                    switch (state.dataMonthlyReportRequest) {
+                      case RequestState.loaded:
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+
+                              ///0xfff8f8f8
+                              color: Theme.of(context).colorScheme.background,
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                topLeft: Radius.circular(30),
+                              )),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: Column(
+                              children: [
+
                                 InfoWithWidget(
                                     title: StringManager.dataInMounth.tr()),
                                 const SizedBox(
@@ -178,22 +215,60 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                   infoHours:
                                       state.dataMonthly!.hours.toString(),
                                 ),
-                                SizedBox(
-                                  height: ConfigSize.defaultSize! * 2,
-                                ),
+
+                              ],
+                            ),
+                          ),
+                        );
+                      case RequestState.loading:
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: ConfigSize.defaultSize! * 20,
+                          child: const LoadingWidget(),
+                        );
+                      case RequestState.error:
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: ConfigSize.defaultSize! * 20,
+                          child: const CustoumErrorWidget(
+                              message: StringManager.unexcepectedError),
+                        );
+                    }
+                  },
+                ),
+                BlocBuilder<TimeDataReportBloc, TimeDataReportState>(
+                  builder: (context, state) {
+                    switch (state.allInfoDataRequest) {
+                      case RequestState.loaded:
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+
+                            ///0xfff8f8f8
+                              color: Theme.of(context).colorScheme.background,
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                topLeft: Radius.circular(30),
+                              )),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: Column(
+                              children: [
+
                                 InfoWithWidget(
-                                  title: StringManager.allInformation.tr(),
-                                ),
-                                SizedBox(
-                                  height: ConfigSize.defaultSize! * 2,
+                                    title: StringManager.dataInMounth.tr()),
+                                const SizedBox(
+                                  height: 20,
                                 ),
                                 CardInfoMonthOrAllInfo(
                                   infoDay: state.allInfoData!.days.toString(),
                                   infoDiamond:
-                                      state.allInfoData!.diamonds.toString(),
+                                  state.allInfoData!.diamonds.toString(),
                                   infoHours:
-                                      state.allInfoData!.hours.toString(),
+                                  state.allInfoData!.hours.toString(),
                                 ),
+
                               ],
                             ),
                           ),

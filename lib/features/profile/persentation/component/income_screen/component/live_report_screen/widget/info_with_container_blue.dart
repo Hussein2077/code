@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class LiveTodayCard extends StatelessWidget {
@@ -8,6 +9,8 @@ class LiveTodayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Brightness currentBrightness = Theme.of(context).brightness;
+    bool isDarkTheme = currentBrightness == Brightness.dark;
     return Card(
       shape: RoundedRectangleBorder(
           borderRadius:
@@ -15,7 +18,10 @@ class LiveTodayCard extends StatelessWidget {
       elevation: 10,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          border: isDarkTheme?Border.all(
+            style: BorderStyle.solid,
+            color: ColorManager.mainColor,
+          ):null,
           borderRadius: BorderRadius.circular(10),
         ),
         padding: EdgeInsets.symmetric(
