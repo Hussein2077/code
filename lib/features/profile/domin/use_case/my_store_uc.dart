@@ -11,7 +11,6 @@ class GetMyStoreUseCase {
 
   GetMyStoreUseCase({ required this.baseRepositoryProfile});
 
-  @override
   Future<Either<AgencyMyStoreModel, Failure>> getMyStore()async {
      final result= await baseRepositoryProfile.myStore() ;
      return result ;

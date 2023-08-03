@@ -34,6 +34,7 @@ import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart'
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
@@ -138,7 +139,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<String> buyCoins(BuyCoinsParameter buyCoinsParameter);
    Future<List<GiftHistoryModel>> getGiftHistory(String id);
-     Future<TimeDataReport> getTimeDataReport(String time);
+     Future<TimeDataReport> getTimeDataReport(String time , String userId);
 
   Future<String> deleteAccount();
   Future<String> boundGmail();
@@ -155,6 +156,13 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<String> feedBack(FeedBackPramiter feedBackPramiter);
 
   Future<AgencyMyStoreModel> myStore();
+
+  Future<ShowAgencyModel> showAgency();
+
+    Future<List<OwnerDataModel>> agencyMember(int page);
+    Future<List<OwnerDataModel>> agencyRequests();
+        Future<String> agencyRequestsAction({required String userId ,required bool accept});
+
 
 
 }
@@ -1342,11 +1350,17 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 }
 
  @override
-  Future<TimeDataReport> getTimeDataReport(String time) async {
+  Future<TimeDataReport> getTimeDataReport(String time , String userId) async {
    Map<String, String> headers = await DioHelper().header();
+     final body = {
+      'user_id': userId,
+      
+    };
+
     try {
      final response = await Dio().post(
       ConstentApi.getTimes(time),
+         data: body,
       options: Options(
         headers: headers,
       ),
@@ -1690,6 +1704,88 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
        final result = AgencyMyStoreModel.fromJson(response.data["data"]['my_store']);
 
       return result ; 
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+  
+  @override
+  Future<ShowAgencyModel> showAgency()async {
+  Map<String, String> headers = await DioHelper().header();
+    try {
+      final response = await Dio().get(ConstentApi.showAgency,
+          options: Options(
+            headers: headers,
+          ));
+       
+       final result = ShowAgencyModel.fromJson(response.data["data"]);
+
+      return result ; 
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+  
+  @override
+  Future<List<OwnerDataModel>> agencyMember(int page) async{
+  Map<String, String> headers = await DioHelper().header();
+   final body = {'page': page, };
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.agencyMember,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return List<OwnerDataModel>.from(
+          resultData['data'].map((x) => OwnerDataModel.fromMap(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+  
+  @override
+  Future<List<OwnerDataModel>> agencyRequests() async{
+  Map<String, String> headers = await DioHelper().header();
+   
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.agencyRequests,
+      
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return List<OwnerDataModel>.from(
+          resultData['data'].map((x) => OwnerDataModel.fromMap(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+  
+  @override
+  Future<String> agencyRequestsAction({required String userId ,required bool accept})async {
+  Map<String, String> headers = await DioHelper().header();
+   final body = {'user_id': userId, "accept" : accept };
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.agencyRequestsAction,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return resultData["message"];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }

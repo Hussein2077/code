@@ -13,22 +13,27 @@ abstract class TimeDataReportEvent extends Equatable {
 class TimeDataReportToday extends TimeDataReportEvent {
 
  final String today;
+ final String userId ;
 
- const TimeDataReportToday({required this.today});
+ const TimeDataReportToday({required this.today , required this.userId});
 }
 
 class TimeDataReportMonth extends TimeDataReportEvent {
 
  final String month;
+  final String userId ;
 
- const TimeDataReportMonth({required this.month});
+
+ const TimeDataReportMonth({required this.month , required this.userId});
 }
 
 class TimeDataReportAllInformation extends TimeDataReportEvent {
 
  final String allInformation;
+  final String userId ;
 
- const TimeDataReportAllInformation({required this.allInformation});
+
+ const TimeDataReportAllInformation({required this.allInformation,required this.userId});
 }
 
 

@@ -38,6 +38,9 @@ import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/sea
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/agency_member_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/agency_requests_action_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/agency_requests_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/back_pack_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_or_send_vip.dart';
@@ -69,6 +72,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usec
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/show_agnecy_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/show_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/time_data_report_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/unused_item_usecase.dart';
@@ -92,9 +96,13 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manag
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_member/agnecy_member_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_requests/agency_requests_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_requests_action/agency_requests_action_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
@@ -239,6 +247,25 @@ class ServerLocator {
           getMyStoreUseCase: getIt()
         ));
 
+                                                                     getIt.registerFactory(() => ShowAgencyBloc(
+          showAgencymUsecase: getIt()
+        ));
+
+                                                                      getIt.registerFactory(() => AgnecyMemberBloc(
+          agencyMembermUsecase: getIt()
+        ));
+
+                                                                           getIt.registerFactory(() => AgencyRequestsBloc(
+          agencyRequestsUsecase: getIt()
+        ));
+
+                                                                               getIt.registerFactory(() => AgencyRequestsActionBloc(
+          agencyRequestsActionUsecase: getIt()
+        ));
+
+
+
+
         
 
 //usecase
@@ -346,8 +373,21 @@ class ServerLocator {
                                                        getIt.registerLazySingleton(
         () => GetMyStoreUseCase(baseRepositoryProfile: getIt()));
 
+                                                        getIt.registerLazySingleton(
+        () => ShowAgencymUsecase(baseRepositoryProfile: getIt()));
 
-        
+                                                  getIt.registerLazySingleton(
+        () => AgencyMembermUsecase(baseRepositoryProfile: getIt()));
+
+         getIt.registerLazySingleton(
+        () =>         AgencyRequestsUsecase
+(baseRepositoryProfile: getIt()));
+  getIt.registerLazySingleton(
+        () =>         AgencyRequestsActionUsecase
+(baseRepositoryProfile: getIt()));
+
+
+
         
 //repo
     getIt.registerLazySingleton<BaseRepository>(

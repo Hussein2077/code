@@ -20,6 +20,7 @@ import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart'
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
@@ -149,7 +150,7 @@ abstract class BaseRepositoryProfile {
 
   Future<Either<String, Failure>> buyCoins(BuyCoinsParameter buyCoinsParameter);
     Future<Either<List<GiftHistoryModel>, Failure>> getGiftHistory(String id);
-  Future<Either<TimeDataReport, Failure>> getTimeDataReport(String time);
+  Future<Either<TimeDataReport, Failure>> getTimeDataReport(String time , String userId);
   Future<Either<String, Failure>> bountFacebook();
 
   Future<Either<String, Failure>> bountGmail();
@@ -175,6 +176,10 @@ abstract class BaseRepositoryProfile {
       Future<Either<GetConfigKeyModel,Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
   Future<Either<String, Failure>> feedBack(FeedBackPramiter feedBackPramiter);
         Future<Either<AgencyMyStoreModel,Failure>> myStore();
+        Future<Either<ShowAgencyModel,Failure>> showAgency();
+        Future<Either<List<OwnerDataModel>,Failure>> agencyMember(int page);
+        Future<Either<List<OwnerDataModel>,Failure>> agencyRequests();
+  Future<Either<String, Failure>> agencyRequestsAction({required String userId ,required bool accept});
 
 
 

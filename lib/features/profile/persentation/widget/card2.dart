@@ -26,6 +26,7 @@ class Card2 extends StatelessWidget {
              ProfileRowItem(
               title: StringManager.agency.tr(),
               image: AssetsPath.agencyIcon,
+              onTap: () =>Navigator.pushNamed(context, Routes.agencyScreen) ,
             ),
             ProfileRowItem(
               title: StringManager.family.tr(),
@@ -40,7 +41,7 @@ class Card2 extends StatelessWidget {
             ProfileRowItem(
               title: StringManager.income.tr(),
               image: AssetsPath.incomeIcon,
-              onTap: () => Navigator.pushNamed(context, Routes.agencyScreen),
+              onTap: () => Navigator.pushNamed(context, Routes.incomeScreen),
             ),
              ProfileRowItem(
               title: StringManager.inviteFriend.tr(),

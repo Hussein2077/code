@@ -51,10 +51,14 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/m
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_member/agnecy_member_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_requests/agency_requests_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_requests_action/agency_requests_action_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
@@ -265,9 +269,25 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<MyStoreBloc>()..add(GetMyStoreEvent()),
         ),
         
+                                                                                 BlocProvider(
+          create: (context) => getIt<ShowAgencyBloc>(),
+        ),
+
+                                                                                         BlocProvider(
+          create: (context) => getIt<AgnecyMemberBloc>(),
+        ),
+
+                                                                                           BlocProvider(
+          create: (context) => getIt<AgencyRequestsBloc>(),
+        ),
+
+                                                                                            BlocProvider(
+          create: (context) => getIt<AgencyRequestsActionBloc>(),
+        ),
 
 
 
+                                                                    
 
       ],
       child: MaterialApp(

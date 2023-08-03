@@ -23,7 +23,7 @@ class TimeDataReportBloc extends Bloc<TimeDataReportEvent, TimeDataReportState> 
   FutureOr<void> today(TimeDataReportToday event, Emitter<TimeDataReportState> emit)async {
 
 
-    final result = await timeDataReportUseCases.call(event.today);
+    final result = await timeDataReportUseCases.call(event.today, event.userId);
 
     result.fold((l) => emit(state.copyWith(
       dataToday: l,dataTodayReportRequest: RequestState.loaded
@@ -38,7 +38,7 @@ class TimeDataReportBloc extends Bloc<TimeDataReportEvent, TimeDataReportState> 
   FutureOr<void> month(TimeDataReportMonth event, Emitter<TimeDataReportState> emit)async {
 
 
-    final result = await timeDataReportUseCases.call(event.month);
+    final result = await timeDataReportUseCases.call(event.month , event.userId);
 
     result.fold((l) => emit(state.copyWith(
         dataMonthly: l,dataMonthlyReportRequest: RequestState.loaded
@@ -52,7 +52,7 @@ class TimeDataReportBloc extends Bloc<TimeDataReportEvent, TimeDataReportState> 
   FutureOr<void> allInfo(TimeDataReportAllInformation event, Emitter<TimeDataReportState> emit)async {
 
 
-    final result = await timeDataReportUseCases.call(event.allInformation);
+    final result = await timeDataReportUseCases.call(event.allInformation , event.userId);
 
     result.fold((l) => emit(state.copyWith(
         allInfoData: l,allInfoDataRequest: RequestState.loaded

@@ -44,6 +44,10 @@ class AssetsPath {
   static const String loadingGif = "$pathImage/output-onlinegiftools.gif";
   static const String incomeBackGroundScreen =
       "$pathImage/income_backgrond_screen.png";
+        static const String agencyBackGround = "$pathImage/agency_background.jpg";
+
+
+      
 
   //icons
   static const String googleIcon = "$pathIcon/google_icon.png";
@@ -165,4 +169,6 @@ class AssetsPath {
 
   static const String gemStone = "$pathIcon/gem-stone.png";
   static const String circleDollar = "$pathIcon/circle-dollar.png";
+
+  
 }
