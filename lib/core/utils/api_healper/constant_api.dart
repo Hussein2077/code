@@ -102,6 +102,12 @@ class ConstentApi {
   static const String getConfigKey = "$baseUrl/config/keys-values";
   static const String getConfigApp = "$baseUrl/config/app-check";
   static const String logOut = "$baseUrl/auth/logout";
+    static const String myStore = "$baseUrl/my-store";
+    static const String showAgency = "$baseUrl/agencies/show";
+    static const String agencyMember = "$baseUrl/agencies/showAllusers";
+    static const String agencyRequests = "$baseUrl/agencies/show_request";
+    static const String agencyRequestsAction = "$baseUrl/agencies/actions_request";
+
 
   static String updateFamily(String familyId) =>
       "$baseUrl/families/edit/$familyId";

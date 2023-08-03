@@ -251,6 +251,24 @@ class StringManager {
 
       static const String pleaseEnterPhoneNum= "please Enter Phone Number";
 
+      static const String dolars= "Dolars";
+
+          static const String pleaseEnterID= "Please Enter ID";
+          static const String pleaseEnterquantity= "Please Enter dolars Quantity";
+
+
+          static const String agencyMembersRank = "Agency Member Rank";
+            static const String reports = "Reports";
+
+                        static const String shippingFromTheAgency = "Shipping from the agency";
+                        static const String chargingFromTheSystem = "Charging from the charging system";
+
+
+  static const String agencyOwner = "Agency Owner";
+
+    static const String members = "Members";
+
+
 
 
     static  String exchangeDaimondMethod (String coin , String diamond){

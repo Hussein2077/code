@@ -14,8 +14,9 @@ class UserInfoRow extends StatelessWidget {
   final double? imageSize ; 
   final Widget? underName ; 
   final Widget? endIcon ; 
+  final double? underNameWidth ;
  final void Function()? onTap;
-  const UserInfoRow({this.onTap, required this.userData, this.endIcon ,  this.underName ,  this.imageSize ,  super.key});
+  const UserInfoRow({this.underNameWidth, this.onTap, required this.userData, this.endIcon ,  this.underName ,  this.imageSize ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class UserInfoRow extends StatelessWidget {
             children: [
           Text(userData.name!,style: Theme.of(context).textTheme.bodyLarge,),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width-100,
+                    width: underNameWidth?? MediaQuery.of(context).size.width-100,
                     child: underName??
                       
                             Row(children:  [

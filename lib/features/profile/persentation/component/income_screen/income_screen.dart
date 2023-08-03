@@ -12,12 +12,13 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 
-class AgencyScreen extends StatelessWidget {
-  const AgencyScreen({super.key});
+class IncomeScreen extends StatelessWidget {
+  const IncomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         backgroundColor: Theme.of(context).colorScheme.background,
         body: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
@@ -27,7 +28,7 @@ class AgencyScreen extends StatelessWidget {
                 SizedBox(height: ConfigSize.defaultSize! / 0.2),
                 HeaderWithOnlyTitle(title: StringManager.income.tr()),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                const CardOfDiamondEarned(
+                 CardOfDiamondEarned(
                   assetCard: AssetsPath.moneyBag,
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),

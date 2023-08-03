@@ -33,9 +33,9 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<TimeDataReportBloc>()
-        ..add(const TimeDataReportToday(today: 'today'))
-        ..add(const TimeDataReportMonth(month: "month"))
-        ..add(const TimeDataReportAllInformation(allInformation: '')),
+        ..add( TimeDataReportToday(today: 'today' , userId: widget.myData.id.toString()))
+        ..add( TimeDataReportMonth(month: "month" , userId: widget.myData.id.toString()))
+        ..add( TimeDataReportAllInformation(allInformation: '' , userId: widget.myData.id.toString())),
       child: Scaffold(
           backgroundColor: const Color(0xfff8f8f8),
           body: SingleChildScrollView(

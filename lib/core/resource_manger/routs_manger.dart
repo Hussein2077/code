@@ -8,6 +8,9 @@ import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/create_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/upload_reels_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/search/search_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/agency_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/agency_members_screen/agency_members_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/join_requests_screen/join_requests_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/coins_scrren.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/custom_service/custoum_service_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/f_f_f_v_screens/f_f_f_screen.dart';
@@ -24,7 +27,6 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/live_report_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/details_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/withdrawal_screen.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/exchange_for_gold_screen/exchange_for_gold.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
@@ -82,7 +84,7 @@ class Routes {
   static const String deleteFamily = "/DeleteFamily";
 
   static const String instructionsScreen = "/instructionsScreen";
-  static const String agencyScreen = "/agencyScreen";
+  static const String incomeScreen = "/IncomeScreen";
   static const String joinToAgencyScreen = "/joinToAgencyScreen";
   static const String liveReportScreen = "/liveReportScreen";
   static const String exchangeForGoldScreen = "/exchangeForGoldScreen";
@@ -92,6 +94,13 @@ class Routes {
     static const String searchScreen = "/SearchScreen";
   static const String cashWithdrawal = "/cashWithdrawal";
   static const String detailsWithdrawal = "/detailsWithdrawal";
+  static const String agencyScreen = "/agenceScreen";
+
+  static const String agencyMemberScreen = "/AgencyMembersScreen";
+    static const String agencyRequestsScreen = "/AgencyRequestsScreen";
+
+
+  
 
 }
 
@@ -218,8 +227,8 @@ class RouteGenerator {
       case Routes.instructionsScreen:
         return MaterialPageRoute(builder: (_) => const InstructionsScreen());
 
-      case Routes.agencyScreen:
-        return MaterialPageRoute(builder: (_) => const AgencyScreen());
+      case Routes.incomeScreen:
+        return MaterialPageRoute(builder: (_) => const IncomeScreen());
 
       case Routes.joinToAgencyScreen:
         return MaterialPageRoute(builder: (_) => const JoinToAgencyScreen());
@@ -251,6 +260,15 @@ class RouteGenerator {
 
       case Routes.detailsWithdrawal:
         return MaterialPageRoute(builder: (_) => const DetailsScreen());
+
+              case Routes.agencyScreen:
+        return MaterialPageRoute(builder: (_) => const AgenceScreen());
+               case Routes.agencyMemberScreen:
+        return MaterialPageRoute(builder: (_) => const AgencyMembersScreen());
+                       case Routes.agencyRequestsScreen:
+        return MaterialPageRoute(builder: (_) =>  AgencyRequestsScreen());
+
+
 
                 
     }

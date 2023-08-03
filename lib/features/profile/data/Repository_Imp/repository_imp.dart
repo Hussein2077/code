@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_page_model.dart';
@@ -24,6 +25,7 @@ import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart'
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
@@ -619,10 +621,10 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
  @override
-  Future<Either<TimeDataReport, Failure>> getTimeDataReport(String time)async {
+  Future<Either<TimeDataReport, Failure>> getTimeDataReport(String time , String userId)async {
 
    try {
-      final result = await baseRemotlyDataSourceProfile.getTimeDataReport(time);
+      final result = await baseRemotlyDataSourceProfile.getTimeDataReport(time , userId);
       return left(result);
      } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
@@ -750,6 +752,62 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
     try {
       final result =
       await baseRemotlyDataSourceProfile.feedBack(feedBackPramiter);
+      return Left(result);
+    } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<AgencyMyStoreModel, Failure>> myStore()async {
+   try {
+      final result =
+      await baseRemotlyDataSourceProfile.myStore();
+      return Left(result);
+    } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<ShowAgencyModel, Failure>> showAgency()async {
+  try {
+      final result =
+      await baseRemotlyDataSourceProfile.showAgency();
+      return Left(result);
+    } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+  
+  @override
+  Future<Either<List<OwnerDataModel>, Failure>> agencyMember(int page) async{
+    try {
+      final result =
+      await baseRemotlyDataSourceProfile.agencyMember(page);
+      return Left(result);
+    } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+    
+  }
+  
+  @override
+  Future<Either<List<OwnerDataModel>, Failure>> agencyRequests() async{
+  try {
+      final result =
+      await baseRemotlyDataSourceProfile.agencyRequests();
+      return Left(result);
+    } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+  
+  @override
+  Future<Either<String, Failure>> agencyRequestsAction({required String userId, required bool accept})async {
+   try {
+      final result =
+      await baseRemotlyDataSourceProfile.agencyRequestsAction(accept:accept , userId: userId );
       return Left(result);
     } catch (e) {
       return right(DioHelper.buildFailure(e));

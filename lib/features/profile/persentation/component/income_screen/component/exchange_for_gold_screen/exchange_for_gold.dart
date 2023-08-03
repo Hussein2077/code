@@ -15,6 +15,8 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_state.dart';
 
@@ -33,7 +35,7 @@ class ExchangeForGoldScreen extends StatelessWidget {
           SizedBox(
             height: ConfigSize.defaultSize! * 2,
           ),
-          const CardOfDiamondEarned(
+           CardOfDiamondEarned(
             assetCard: AssetsPath.moneyBag,
           ),
           SizedBox(
@@ -95,7 +97,7 @@ Widget exchangeDaimondCard({
         loadingToast(context: context, title: StringManager.loading);
 
       }else if (state is ExchangeDimondSucssesState){
-        //TODO UPDATE PAGE 
+          BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
         sucssesToast(context: context, title: state.massage);
       }else if (state is ExchangeDimondErrorState){
         errorToast(context: context, title: state.error);
