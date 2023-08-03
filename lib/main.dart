@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -60,6 +61,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_sto
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
@@ -89,7 +91,6 @@ Future<void> main() async {
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await ServerLocator().init();
   await EasyLocalization.ensureInitialized();
-
 
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),
@@ -163,101 +164,95 @@ class MyApp extends StatelessWidget {
             ..add(const GetFamilyRankingWeekEvent(time: "week"))
             ..add(const GetFamilyRankingMonthEvent(time: "month")),
         ),
-            BlocProvider(
+        BlocProvider(
           create: (context) => getIt<CreateFamilyBloc>(),
         ),
-        
-       BlocProvider(
+        BlocProvider(
           create: (context) => getIt<GetConfigKeysBloc>(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ShowFamilyBloc>(),
         ),
-
-             BlocProvider(
+        BlocProvider(
           create: (context) => getIt<FamilyMemberBloc>(),
         ),
-                BlocProvider(
+        BlocProvider(
           create: (context) => getIt<FamilyRequestBloc>(),
         ),
-                     BlocProvider(
+        BlocProvider(
           create: (context) => getIt<DeleteFamilyBloc>(),
         ),
-                        BlocProvider(
+        BlocProvider(
           create: (context) => getIt<TakeActionBloc>(),
         ),
-                            BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ChangeUserTypeBloc>(),
         ),
-                             BlocProvider(
+        BlocProvider(
           create: (context) => getIt<FamilyRemoveUserBloc>(),
         ),
-                              BlocProvider(
+        BlocProvider(
           create: (context) => getIt<JoinFamilyBloc>(),
         ),
-                              BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ExitFamilyBloc>(),
         ),
-                                 BlocProvider(
+        BlocProvider(
           create: (context) => getIt<FeedBackBloc>(),
         ),
-                                       BlocProvider(
+        BlocProvider(
           create: (context) => getIt<GetFollowerOrFollowingBloc>(),
         ),
-        
-                                         BlocProvider(
+        BlocProvider(
           create: (context) => getIt<VistorsBloc>(),
         ),
-                                               BlocProvider(
+        BlocProvider(
           create: (context) => getIt<GetUserBloc>(),
         ),
-                                                 BlocProvider(
+        BlocProvider(
           create: (context) => getIt<GiftHistoryBloc>(),
         ),
-                                                 BlocProvider(
+        BlocProvider(
           create: (context) => getIt<FollowBloc>(),
         ),
-        
-                                                    BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AcountBloc>(),
         ),
-
-                                                     BlocProvider(
-          create: (context) => getIt<GetFollwersRoomBloc>()..add(const GetFollwersRoomEvent(type: "5")),
+        BlocProvider(
+          create: (context) => getIt<GetFollwersRoomBloc>()
+            ..add(const GetFollwersRoomEvent(type: "5")),
         ),
-        
-                                                     BlocProvider(
+        BlocProvider(
           create: (context) => getIt<CarouselBloc>()..add(GetCarouselEvent()),
         ),
-
-                                                         BlocProvider(
+        BlocProvider(
           create: (context) => getIt<CounrtyBloc>()..add(GetAllCountryEvent()),
         ),
-        
-                                              BlocProvider(
-          create: (context) => getIt<GetRoomsBloc>()..add(GetRoomsEvent(typeGetRooms:TypeGetRooms.popular)),
+        BlocProvider(
+          create: (context) => getIt<GetRoomsBloc>()
+            ..add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular)),
         ),
-
-                                                        BlocProvider(
+        BlocProvider(
           create: (context) => getIt<SearchBloc>(),
         ),
-                                                               BlocProvider(
+        BlocProvider(
           create: (context) => getIt<TobBloc>(),
         ),
-
-                                                                    BlocProvider(
-          create: (context) => getIt<ReplaceWithGoldBloc>()..add(ReplaceWithGoldEvent()),
+        BlocProvider(
+          create: (context) =>
+              getIt<ReplaceWithGoldBloc>()..add(ReplaceWithGoldEvent()),
         ),
-
-                                                                     BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ExchangeDimondBloc>(),
         ),
-                                                                             BlocProvider(
+        BlocProvider(
           create: (context) => getIt<JoinToAgencieBloc>(),
         ),
-
-                                                                                 BlocProvider(
+        BlocProvider(
           create: (context) => getIt<TimeDataReportBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<ChargeHistoryBloc>(),
         ),
 
 
@@ -268,7 +263,7 @@ class MyApp extends StatelessWidget {
                                                                                  BlocProvider(
           create: (context) => getIt<MyStoreBloc>()..add(GetMyStoreEvent()),
         ),
-        
+
                                                                                  BlocProvider(
           create: (context) => getIt<ShowAgencyBloc>(),
         ),
@@ -287,7 +282,7 @@ class MyApp extends StatelessWidget {
 
 
 
-                                                                    
+
 
       ],
       child: MaterialApp(

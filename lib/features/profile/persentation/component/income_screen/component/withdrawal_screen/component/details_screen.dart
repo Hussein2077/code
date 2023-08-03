@@ -63,9 +63,11 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 controller: tabController,
                 children: const [
                   TabBarViewDetailsScreen(
+                    flag:'send',
                   ),
 
                   TabBarViewDetailsScreen(
+                    flag:'received',
                   )
           ]),
            )
