@@ -29,12 +29,13 @@ class UserInfoRow extends StatelessWidget {
                 const  Spacer(flex: 1,),
     
        UserImage(imageSize: imageSize ,image: userData.profile!.image!, ),
-                        const  Spacer(flex: 1,),
+                        const  Spacer(flex: 4,),
+
     
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-          Text(userData.name!,style: Theme.of(context).textTheme.bodyLarge,),
+          Text(userData.name??"",style: Theme.of(context).textTheme.bodyLarge,),
                   SizedBox(
                     width: underNameWidth?? MediaQuery.of(context).size.width-100,
                     child: underName??

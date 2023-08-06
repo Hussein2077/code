@@ -12,10 +12,10 @@ class OwnerAgencyBody extends StatelessWidget {
     return Column(
       children: [
         agencyCard(context: context , title: StringManager.agencyMembersRank , onTap:() =>  Navigator.pushNamed(context, Routes.agencyMemberScreen)),
-        agencyCard(context: context , title: StringManager.reports),
+        agencyCard(context: context , title: StringManager.reports , onTap: () => Navigator.pushNamed(context, Routes.agencyRepoertsScreen),),
         agencyCard(context: context , title: StringManager.joinRequests ,onTap: () => Navigator.pushNamed(context, Routes.agencyRequestsScreen), ) ,  
-        agencyCard(context: context ,title: StringManager.shippingFromTheAgency),
-        agencyCard(context: context ,title:StringManager.chargingFromTheSystem ),
+        agencyCard(context: context ,title: StringManager.shippingFromTheAgency ,onTap: () => Navigator.pushNamed(context, Routes.charchingDolarsForUsers),),
+        agencyCard(context: context ,title:StringManager.chargingFromTheSystem , onTap: () => Navigator.pushNamed(context, Routes.charchingCoinsForUsers), ),
       ],
     );
   }
@@ -33,7 +33,7 @@ Widget agencyCard({required BuildContext context , required String title , void 
         width: MediaQuery.of(context).size.width - 50,
         height: ConfigSize.defaultSize! * 8,
         decoration: BoxDecoration(
-          color: ColorManager.lightGray,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
           border: Border.all(
             color: ColorManager.blue.withOpacity(0.5),

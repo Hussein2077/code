@@ -52,9 +52,13 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/m
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_history/agency_time_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_member/agnecy_member_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_requests/agency_requests_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_requests_action/agency_requests_action_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_time_history/agency_history_time_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_coin_for_user/charge_coin_for_user_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_dolars_for_user/charge_dolars_for_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
@@ -279,6 +283,25 @@ class MyApp extends StatelessWidget {
                                                                                             BlocProvider(
           create: (context) => getIt<AgencyRequestsActionBloc>(),
         ),
+
+        
+                                                                                            BlocProvider(
+          create: (context) => getIt<AgencyHistoryTimeBloc>(),
+        ),
+
+                                                                                               BlocProvider(
+          create: (context) => getIt<AgencyTimeBloc>(),
+        ),
+
+                                                                                                  BlocProvider(
+          create: (context) => getIt<ChargeCoinForUserBloc>(),
+        ),
+
+                                                                                              BlocProvider(
+          create: (context) => getIt<ChargeDolarsForUserBloc>(),
+        ),
+
+
 
 
 

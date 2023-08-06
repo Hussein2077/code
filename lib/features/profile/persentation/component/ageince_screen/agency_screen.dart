@@ -12,7 +12,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_a
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_state.dart';
 
-import 'widgets/member_agency_body.dart';
 import 'widgets/owner_agency_body.dart';
 
 class AgenceScreen extends StatelessWidget {
@@ -72,7 +71,7 @@ Widget agencyCommanWidget(
         children: [
           Text(
             "   ID : $id",
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
           ),
           const Spacer(flex: 4,),
           UserImage(
@@ -85,11 +84,11 @@ Widget agencyCommanWidget(
       ),
       Text(
         agienceName,
-        style: Theme.of(context).textTheme.headlineLarge,
+        style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
       ),
       Text(
         bio,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
       ),
     ],
   );

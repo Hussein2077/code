@@ -6,21 +6,24 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class ContainerWithdrawal extends StatelessWidget {
   final String usd;
-  const ContainerWithdrawal({super.key,
+  final Widget? icon;
+  final String? title ; 
+  const ContainerWithdrawal({
+    this.title,
+    this.icon,
+    super.key,
     required this.usd,
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       width: MediaQuery.of(context).size.width,
-
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular( ConfigSize.defaultSize!*1.5),
-          gradient:  const LinearGradient(colors: ColorManager.mainColorList
-          )),
-      padding: EdgeInsets.all( ConfigSize.defaultSize!*1.5),
-      child:Row(
+          borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5),
+          gradient: const LinearGradient(colors: ColorManager.mainColorList)),
+      padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           // Column(
@@ -53,30 +56,27 @@ class ContainerWithdrawal extends StatelessWidget {
           //   const Color(0xffA3A4A3).withOpacity(0.72),
           // ),
           SizedBox(
-            width: ConfigSize.defaultSize!*15,
+            width: ConfigSize.defaultSize! * 20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                  Text("${StringManager.dolars} : $usd",
-                  style:Theme.of(context).textTheme.bodyLarge,),
-          
-                SizedBox(
-                  height:  ConfigSize.defaultSize!*1.0,
+                Text(
+                  "${title??StringManager.dolars} : $usd",
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
-          
-          
-                Row(
-                  children: [
-                    Image.asset(AssetsPath.circleDollar,
-                        scale: 1.0),
-                    const SizedBox(
-                      width: 10,
-                    ),
-          
-                  
-          
-                  ],
-                )
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 1.0,
+                ),
+                icon == null
+                    ? Row(
+                        children: [
+                          Image.asset(AssetsPath.circleDollar, scale: 1.0),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      )
+                    : icon!
               ],
             ),
           ),
