@@ -5,7 +5,9 @@ import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_time_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_page_model.dart';
@@ -180,6 +182,10 @@ abstract class BaseRepositoryProfile {
         Future<Either<List<OwnerDataModel>,Failure>> agencyMember(int page);
         Future<Either<List<OwnerDataModel>,Failure>> agencyRequests();
   Future<Either<String, Failure>> agencyRequestsAction({required String userId ,required bool accept});
+        Future<Either<List<AgencyHistoryTime>,Failure>> agencyTimeHistory();
+        Future<Either<AgencyHistoryModle,Failure>> agencyHistory({required String month ,required String year});
+        Future<Either<String,Failure>> chargeCoinForUsers({required String id ,required String amount});
+        Future<Either<String,Failure>> chargeDolarsForUsers({required String id ,required String amount});
 
 
 

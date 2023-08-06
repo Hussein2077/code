@@ -107,6 +107,10 @@ class ConstentApi {
     static const String agencyMember = "$baseUrl/agencies/showAllusers";
     static const String agencyRequests = "$baseUrl/agencies/show_request";
     static const String agencyRequestsAction = "$baseUrl/agencies/actions_request";
+    static const String agencyHistoryTime = "$baseUrl/agencies/list_options_his";
+    static const String agencyHistory = "$baseUrl/agencies/historyAgancy";
+    static const String chargeCoinForUser = "$baseUrl/agencies/charge_co_for_users";
+    static const String chargeDolarsForUser = "$baseUrl/agencies/charge_co_for_owner";
 
 
   static String updateFamily(String familyId) =>

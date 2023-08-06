@@ -17,7 +17,9 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_time_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/back_pack_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
@@ -163,6 +165,10 @@ abstract class BaseRemotlyDataSourceProfile {
     Future<List<OwnerDataModel>> agencyRequests();
         Future<String> agencyRequestsAction({required String userId ,required bool accept});
 
+    Future<List<AgencyHistoryTime>> getAgencyHistoryTime();
+    Future<AgencyHistoryModle> getAgencyHistory({required String month,required String year});
+    Future<String> chargeCoinForUsers({required String id,required String amount});
+    Future<String> chargeDolarsForUsers({required String id,required String amount});
 
 
 }
@@ -1786,6 +1792,91 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> resultData = response.data;
 
       return resultData["message"];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+  
+  @override
+  Future<List<AgencyHistoryTime>> getAgencyHistoryTime()async {
+     Map<String, String> headers = await DioHelper().header();
+   
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.agencyHistoryTime,
+      
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return List<AgencyHistoryTime>.from(
+          resultData['data'].map((x) => AgencyHistoryTime.fromJson(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+  
+  @override
+  Future<AgencyHistoryModle> getAgencyHistory({required String month,required String year})async {
+  Map<String, String> headers = await DioHelper().header();
+   final body = {'month': month, "year" : year };
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.agencyHistory,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return  AgencyHistoryModle.fromJson(resultData["data"]);
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+  
+  @override
+  Future<String> chargeCoinForUsers({required String id, required String amount})async {
+   Map<String, String> headers = await DioHelper().header();
+   final body = {'id': id, "amount" : amount };
+ log("heer");
+    try {
+      final response = await Dio().post(
+        ConstentApi.chargeCoinForUser,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return  resultData["message"];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+  
+  @override
+  Future<String> chargeDolarsForUsers({required String id, required String amount}) async{
+  Map<String, String> headers = await DioHelper().header();
+   final body = {'id': id, "amount" : amount };
+ log("heer");
+    try {
+      final response = await Dio().post(
+        ConstentApi.chargeDolarsForUser,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return  resultData["message"];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }

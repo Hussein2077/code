@@ -10,7 +10,10 @@ import 'package:tik_chat_v2/features/home/presentation/component/create_live/ree
 import 'package:tik_chat_v2/features/home/presentation/component/search/search_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/agency_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/agency_members_screen/agency_members_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/charging_from_sysytem_screen/charging_from_sysytem_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/join_requests_screen/join_requests_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/reportes_screen/reportes_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/shipping_from_agency_screen/shipping_from_agency.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/coins_scrren.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/custom_service/custoum_service_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/f_f_f_v_screens/f_f_f_screen.dart';
@@ -21,7 +24,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/family/compo
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/family_profile_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/family_ranking_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/income_screen.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/request%20_to_join_agency_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/request_to_join_agency_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/instruction.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/exchange_for_gold_screen/exchange_for_gold.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/live_report_screen.dart';
@@ -99,8 +102,12 @@ class Routes {
   static const String agencyMemberScreen = "/AgencyMembersScreen";
     static const String agencyRequestsScreen = "/AgencyRequestsScreen";
 
+    static const String agencyRepoertsScreen = "/AgencyRepoertsScreen";
 
-  
+      static const String charchingCoinsForUsers = "/CharchingCoinsForUsers";
+
+        static const String charchingDolarsForUsers = "/CharchingDolarsForUsers";
+
 
 }
 
@@ -266,9 +273,16 @@ class RouteGenerator {
                case Routes.agencyMemberScreen:
         return MaterialPageRoute(builder: (_) => const AgencyMembersScreen());
                        case Routes.agencyRequestsScreen:
-        return MaterialPageRoute(builder: (_) =>  AgencyRequestsScreen());
+        return MaterialPageRoute(builder: (_) =>  const AgencyRequestsScreen());
+                    case Routes.agencyRepoertsScreen:
+        return MaterialPageRoute(builder: (_) =>  const ReportsScreen());
+                           case Routes.charchingCoinsForUsers:
+        return MaterialPageRoute(builder: (_) =>   CharchingCoinsForUsers());
 
-
+                            case Routes.charchingDolarsForUsers
+:
+        return MaterialPageRoute(builder: (_) =>   CharchingDolarsForUsers
+());
 
                 
     }

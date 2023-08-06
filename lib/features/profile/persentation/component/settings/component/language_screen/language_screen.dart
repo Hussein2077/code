@@ -76,9 +76,10 @@ class _LanguageScreenState extends State<LanguageScreen> {
 
            SharedPreferences sharedPreferences = getIt();
            final bool isLogin =
-               await sharedPreferences.getBool(StringManager.keepLogin) ??
+               sharedPreferences.getBool(StringManager.keepLogin) ??
                    false;
            if (isLogin) {
+             // ignore: use_build_context_synchronously
              Navigator.pop(context);
              // ignore: use_build_context_synchronously
              // Navigator.pushAndRemoveUntil(
@@ -87,6 +88,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
              //         builder: (context) => const MainView(keepInRoom: null,)),
              //     ModalRoute.withName(Routes.main));
            } else {
+             // ignore: use_build_context_synchronously
              Navigator.pushNamedAndRemoveUntil(
                  context, Routes.login, (route) => false);
            }

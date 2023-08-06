@@ -254,7 +254,7 @@ class StringManager {
       static const String dolars= "Dolars";
 
           static const String pleaseEnterID= "Please Enter ID";
-          static const String pleaseEnterquantity= "Please Enter dolars Quantity";
+          static const String pleaseEnterquantity= "Please Enter Quantity";
 
 
           static const String agencyMembersRank = "Agency Member Rank";
@@ -268,7 +268,11 @@ class StringManager {
 
     static const String members = "Members";
 
+    static const String years = "Years";
+    static const String mounths = "Mounths";
+    static const String totalDaimonds = "Total Diamonds";
 
+    static const String chargeCoins = "Charge Coins";
 
 
     static  String exchangeDaimondMethod (String coin , String diamond){

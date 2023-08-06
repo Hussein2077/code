@@ -38,6 +38,8 @@ import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/sea
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_time_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_member_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_requests_action_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_requests_uc.dart';
@@ -46,6 +48,8 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_or_send_vip.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/change_user_type.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/charge_coin_for_users_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/charge_dolars_for_users_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_history_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
@@ -97,9 +101,13 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manag
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_history/agency_time_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_member/agnecy_member_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_requests/agency_requests_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_requests_action/agency_requests_action_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_time_history/agency_history_time_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_coin_for_user/charge_coin_for_user_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_dolars_for_user/charge_dolars_for_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
@@ -225,36 +233,40 @@ class ServerLocator {
 
     getIt.registerFactory(
         () => TimeDataReportBloc(timeDataReportUseCases: getIt()));
-                                                          
-                                                                getIt.registerFactory(() => ChargeToBloc(
-          chargeToUseCases: getIt()
-        ));
 
-                                                                    getIt.registerFactory(() => MyStoreBloc(
-          getMyStoreUseCase: getIt()
-        ));
+    getIt.registerFactory(() => ChargeToBloc(chargeToUseCases: getIt()));
 
-                                                                     getIt.registerFactory(() => ShowAgencyBloc(
-          showAgencymUsecase: getIt()
-        ));
+    getIt.registerFactory(() => MyStoreBloc(getMyStoreUseCase: getIt()));
 
-                                                                      getIt.registerFactory(() => AgnecyMemberBloc(
-          agencyMembermUsecase: getIt()
-        ));
+    getIt.registerFactory(() => ShowAgencyBloc(showAgencymUsecase: getIt()));
 
-                                                                           getIt.registerFactory(() => AgencyRequestsBloc(
-          agencyRequestsUsecase: getIt()
-        ));
-
-                                                                               getIt.registerFactory(() => AgencyRequestsActionBloc(
-          agencyRequestsActionUsecase: getIt()
-        ));
-
-
-
+    getIt
+        .registerFactory(() => AgnecyMemberBloc(agencyMembermUsecase: getIt()));
 
     getIt.registerFactory(
-            () => ChargeHistoryBloc(chargeHistoryUseCases: getIt()));
+        () => AgencyRequestsBloc(agencyRequestsUsecase: getIt()));
+
+    getIt.registerFactory(
+        () => AgencyRequestsActionBloc(agencyRequestsActionUsecase: getIt()));
+
+    getIt.registerFactory(
+        () => AgencyHistoryTimeBloc(agencyHistoryTimemUsecase: getIt()));
+
+    getIt.registerFactory(
+        () => ChargeHistoryBloc(chargeHistoryUseCases: getIt()));
+
+            getIt.registerFactory(
+        () => AgencyTimeBloc(agencyHistoryUsecase: getIt()));
+
+                  getIt.registerFactory(
+        () => ChargeCoinForUserBloc(chargeCoinForUserUsecase: getIt()));
+           getIt.registerFactory(
+        () => ChargeDolarsForUserBloc(chargeDolarsForUserUsecase: getIt()));
+
+
+        
+        
+        
 
 //usecase
     getIt.registerLazySingleton(
@@ -348,31 +360,38 @@ class ServerLocator {
     getIt.registerLazySingleton(
         () => TimeDataReportUseCases(getTimeDataReport: getIt()));
 
-                                               getIt.registerLazySingleton(
-        () => ChargeToUseCases(getChargeTo: getIt()));
-
-                                                       getIt.registerLazySingleton(
-        () => GetMyStoreUseCase(baseRepositoryProfile: getIt()));
-
-                                                        getIt.registerLazySingleton(
-        () => ShowAgencymUsecase(baseRepositoryProfile: getIt()));
-
-                                                  getIt.registerLazySingleton(
-        () => AgencyMembermUsecase(baseRepositoryProfile: getIt()));
-
-         getIt.registerLazySingleton(
-        () =>         AgencyRequestsUsecase
-(baseRepositoryProfile: getIt()));
-  getIt.registerLazySingleton(
-        () =>         AgencyRequestsActionUsecase
-(baseRepositoryProfile: getIt()));
-
-
-
-
+    getIt.registerLazySingleton(() => ChargeToUseCases(getChargeTo: getIt()));
 
     getIt.registerLazySingleton(
-            () => ChargeHistoryUseCases(chargeHistoryUc: getIt()));
+        () => GetMyStoreUseCase(baseRepositoryProfile: getIt()));
+
+    getIt.registerLazySingleton(
+        () => ShowAgencymUsecase(baseRepositoryProfile: getIt()));
+
+    getIt.registerLazySingleton(
+        () => AgencyMembermUsecase(baseRepositoryProfile: getIt()));
+
+    getIt.registerLazySingleton(
+        () => AgencyRequestsUsecase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => AgencyRequestsActionUsecase(baseRepositoryProfile: getIt()));
+
+    getIt.registerLazySingleton(
+        () => ChargeHistoryUseCases(chargeHistoryUc: getIt()));
+
+    getIt.registerLazySingleton(
+        () => AgencyHistoryTimemUsecase(baseRepositoryProfile: getIt()));
+
+            getIt.registerLazySingleton(
+        () => AgencyHistoryUsecase(baseRepositoryProfile: getIt()));
+
+     getIt.registerLazySingleton(
+        () => ChargeCoinForUserUsecase(baseRepositoryProfile: getIt()));
+
+             getIt.registerLazySingleton(
+        () => ChargeDolarsForUserUsecase(baseRepositoryProfile: getIt()));
+        
+        
 
 //repo
     getIt.registerLazySingleton<BaseRepository>(
