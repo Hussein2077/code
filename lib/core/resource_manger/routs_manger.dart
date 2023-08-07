@@ -272,7 +272,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const DetailsScreen());
 
       case Routes.agencyScreen:
-        return MaterialPageRoute(builder: (_) => const AgenceScreen());
+        OwnerDataModel myData = settings.arguments as OwnerDataModel;
+
+        return MaterialPageRoute(builder: (_) =>  AgenceScreen(mydata:myData,));
       case Routes.agencyMemberScreen:
         return MaterialPageRoute(builder: (_) => const AgencyMembersScreen());
                        case Routes.agencyRequestsScreen:
