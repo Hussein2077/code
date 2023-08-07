@@ -26,29 +26,34 @@ class StringManager {
   static const String lastTimeCacheEmojie = 'last_time_cache_Emojie';
   static const String cachUserData = 'Cache_User_Key';
   static const String keepLogin = 'Keep_Login';
+
   ////
   static const String appTitle = "Tikchat";
   static const String enterPhoneNum = "Enter your phone number";
   static const String signUp = "Sign Up";
   static const String login = "Login";
   static const String orLoginWith = "Or Login with";
-  static const String bySigningOrLogin = "By Signing up/Logging in, you agree to";
+  static const String bySigningOrLogin =
+      "By Signing up/Logging in, you agree to";
   static const String privacyPolicy = "$appTitle Privacy Policy";
   static const String and = "and";
   static const String termsOfService = "Terms of Service";
   static const String enterTheVerificatiOnCode = "Enter the verification code";
-  static const String verificatiCodeWiilBeSent = "A verification code will be sent to you on this number";
+  static const String verificatiCodeWiilBeSent =
+      "A verification code will be sent to you on this number";
   static const String reSend = "Resend";
   static const String done = "Done";
   static const String completeYourAccount = "Complete your account";
   static const String postYourBestPhoto = "Post your best photo!";
-  static const String broadcastYourMoment = "Broadcast your moment with the world and spread happiness";
+  static const String broadcastYourMoment =
+      "Broadcast your moment with the world and spread happiness";
   static const String userName = "User Name";
   static const String birthdayDate = "Birthdate";
   static const String selectyourCountry = "Select your Country 🌍";
   static const String male = "Male";
   static const String female = "Female";
-  static const String youCanNotModify = "You cannot modify the date of birth and gender after selection. Please fill it in carefully";
+  static const String youCanNotModify =
+      "You cannot modify the date of birth and gender after selection. Please fill it in carefully";
   static const String home = "Home";
   static const String reels = "Reels";
   static const String follwoing = "Follwoing";
@@ -125,7 +130,8 @@ class StringManager {
   static const String member = "Member";
   static const String typeOfProblem = "Type of problem";
   static const String details = "Details";
-  static const String explainProblem = "Please explain your problem in detail, so that our customer service staff can understand and deal with it";
+  static const String explainProblem =
+      "Please explain your problem in detail, so that our customer service staff can understand and deal with it";
   static const String screenshot = "Screenshot";
   static const String submit = "Submit";
   static const String linkingAccount = "Linking Account";
@@ -159,8 +165,10 @@ class StringManager {
   static const String upload = "Upload";
   static const String newReel = "New Reel";
   static const String reelName = "reel name";
-  static const String shareYourMoment = "Share your moment with the world at reels";
-  static const String yourVideoWillPublished = "Your video will be published on the reels page";
+  static const String shareYourMoment =
+      "Share your moment with the world at reels";
+  static const String yourVideoWillPublished =
+      "Your video will be published on the reels page";
   static const String mentionYourFriends = "Mention your friends";
   static const String chooseTheTopic = "Choose the topic";
   static const String postTheVideo = "Post the video";
@@ -184,20 +192,29 @@ class StringManager {
   static const String accept = "Accept";
   static const String youWillBuy = "You Will Buy";
   static const String takeOff = "take off";
-  static const String theNumberOfPoints = "The number of points you need to upgrade";
+  static const String theNumberOfPoints =
+      "The number of points you need to upgrade";
   static const String comingSoon = "Coming Soon";
   static const String income = "Income";
 
   ///INCOME SCREEN 💲💸💰
-  static const String instructionsForJoiningAgency = "Instructions for joining an agency";
+  static const String instructionsForJoiningAgency =
+      "Instructions for joining an agency";
   static const String goToJoin = "Go to join";
-  static const String firstInstructions = "1- To apply for the agency, you need to provide us with all the information correctly, such as your phone number and name";
-  static const String secondInstructions = "2- We need to prove your identity before we start accepting you to the agency, and please ensure that all the parameters provided are completely correct.";
-  static const String thirdInstructions = "3 - After your application has been denied again, your application has been rejected again, again, again";
-  static const String fourthInstructions = "4- When you accept the agency, please avoid any login to your account from another device and prevent anyone other than you from using your account, and if this is discovered, your account will be banned from using the application";
-  static const String fifthInstructions = "5- The Live Agency room will be available to you by the management of Tik Chat, and please follow the usual rules in the room, such as not publishing inappropriate materials and messages, and if this is explored, your membership in the agency will be canceled and you will not be able to join the agency again";
-  static const String agreedToTheRegulations = "After reading the instructions means that you have agreed to the regulations";
-  static const String areYouSureDeleteFamily = "Are you sure do you want delete Family";
+  static const String firstInstructions =
+      "1- To apply for the agency, you need to provide us with all the information correctly, such as your phone number and name";
+  static const String secondInstructions =
+      "2- We need to prove your identity before we start accepting you to the agency, and please ensure that all the parameters provided are completely correct.";
+  static const String thirdInstructions =
+      "3 - After your application has been denied again, your application has been rejected again, again, again";
+  static const String fourthInstructions =
+      "4- When you accept the agency, please avoid any login to your account from another device and prevent anyone other than you from using your account, and if this is discovered, your account will be banned from using the application";
+  static const String fifthInstructions =
+      "5- The Live Agency room will be available to you by the management of Tik Chat, and please follow the usual rules in the room, such as not publishing inappropriate materials and messages, and if this is explored, your membership in the agency will be canceled and you will not be able to join the agency again";
+  static const String agreedToTheRegulations =
+      "After reading the instructions means that you have agreed to the regulations";
+  static const String areYouSureDeleteFamily =
+      "Are you sure do you want delete Family";
   static const String no = "No";
   static const String yes = "Yes";
   static const String showProfile = "Show Profile";
@@ -208,11 +225,13 @@ class StringManager {
   static const String liveReport = "live Report";
   static const String withdrawal = "Withdrawal";
   static const String whatIsAgency = "What is Agency";
-  static const String enterTheAgencyYouWishToJoin = 'Enter the agency you wish to join';
+  static const String enterTheAgencyYouWishToJoin =
+      'Enter the agency you wish to join';
   static const String enterYourWhatsAppNumber = 'Enter your WhatsApp number';
   static const String enterAgencyIDHere = 'Enter agency ID here';
   static const String enterYourNumberHere = 'Enter your number here';
-  static const String applicationToJoinAnAgency = 'Application to join an agency';
+  static const String applicationToJoinAnAgency =
+      'Application to join an agency';
   static const String cantBeEmpty = "Can't be Empty";
   static const String diamond = "Diamond";
   static const String hours = "Hours";
@@ -248,49 +267,31 @@ class StringManager {
   static const String enterQuantityHere = "Enter Quantity Here";
   static const String chinsSimplified = "中国人";
   static const String chinsTraditional = "中國人";
-  static const String turkish  = "Türkiye";
-  static const String urdu  = "اردو";
-  static const String exchangeDaimond = "Exchange Daimond";
+  static const String turkish = "Türkiye";
+  static const String urdu = "اردو";
 
+  static const String clearDataDone = 'Your Data is removed';
+  static const String clearData = "Clear your Data";
+  static const String exchangeDaimond = "Exchange Daimond";
   static const String areYouSureYouWantToExchange = "Are You Sure You Want To Exchange";
   static const String daimondTo = "Daimond To";
-    static const String pleaseAcceptTheRegulations = "Please accept the regulations";
-
- static const String clearDataDone = 'Your Data is removed';
- static const String clearData = "Clear your Data";
-    static const String pleaseEnterAgencyID= "Please Enter Agency ID";
-
-      static const String pleaseEnterPhoneNum= "please Enter Phone Number";
-
-      static const String dolars= "Dolars";
-
-          static const String pleaseEnterID= "Please Enter ID";
-          static const String pleaseEnterquantity= "Please Enter Quantity";
-
-
-          static const String agencyMembersRank = "Agency Member Rank";
-            static const String reports = "Reports";
-
-                        static const String shippingFromTheAgency = "Shipping from the agency";
-                        static const String chargingFromTheSystem = "Charging from the charging system";
-
-
+  static const String pleaseAcceptTheRegulations = "Please accept the regulations";
+  static const String pleaseEnterAgencyID = "Please Enter Agency ID";
+  static const String pleaseEnterPhoneNum = "please Enter Phone Number";
+  static const String dolars = "Dolars";
+  static const String pleaseEnterID = "Please Enter ID";
+  static const String pleaseEnterquantity = "Please Enter Quantity";
+  static const String agencyMembersRank = "Agency Member Rank";
+  static const String reports = "Reports";
+  static const String shippingFromTheAgency = "Shipping from the agency";
+  static const String chargingFromTheSystem = "Charging from the charging system";
   static const String agencyOwner = "Agency Owner";
-
-    static const String members = "Members";
-
-    static const String years = "Years";
-    static const String mounths = "Mounths";
-    static const String totalDaimonds = "Total Diamonds";
-
-    static const String chargeCoins = "Charge Coins";
-
-
-    static  String exchangeDaimondMethod (String coin , String diamond){
-
-      return "${StringManager.areYouSureYouWantToExchange} $diamond ${StringManager.daimondTo} $coin ${StringManager.coins}";
-
-    }
-
-
+  static const String members = "Members";
+  static const String years = "Years";
+  static const String mounths = "Mounths";
+  static const String totalDaimonds = "Total Diamonds";
+  static const String chargeCoins = "Charge Coins";
+  static String exchangeDaimondMethod(String coin, String diamond) {
+    return "${StringManager.areYouSureYouWantToExchange} $diamond ${StringManager.daimondTo} $coin ${StringManager.coins}";
+  }
 }

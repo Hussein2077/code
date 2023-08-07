@@ -26,6 +26,7 @@ class OwnerDataModel {
   final NowRoomModel? nowRoom;
   final LevelDataModel? level;
   final VipCenterModel? vip1;
+
   // final IncomeDataModle? income;
   final MyStoreModel? myStore;
   final String? authToken;
@@ -59,58 +60,58 @@ class OwnerDataModel {
   final bool? isGoogle;
   final bool? isPhone;
   final bool? isFamilyAdmin;
-    final int? diamonds;
+  final int? diamonds;
+  final int? type;
 
-
-  OwnerDataModel({
-    this.bubbleId,
-    this.introId,
-    this.numPobUp,
-    this.hasColorName,
-    this.onlineTime,
-    this.frameId,
-    this.isAanonymous,
-    this.isFirst,
-    this.hasRoom,
-    this.profileVisotrs,
-    this.id,
-    this.chatId,
-    this.isFollow,
-    this.name,
-    this.email,
-    this.phone,
-    this.numberOfFans,
-    this.numberOfFollowings,
-    this.numberOfFriends,
-    this.profile,
-    this.level,
-    this.visitTime,
-    this.vip1,
-    //this.income,
-    this.myStore,
-    this.authToken,
-    this.nowRoom,
-    this.intro,
-    this.frame,
-    this.myAgencyModel,
-    this.isAgencyRequest,
-    this.familyId,
-    this.familyData,
-    this.uuid,
-    this.notificationId,
-    this.isFriend,
-    this.bio,
-    this.bubble,
-    this.isHideRoom,
-    this.isCountryHiden,
-    this.groupMessage,
-    this.massageCreatedAt,
-    this.isFacebook,
-    this.isGoogle,
-    this.isPhone,
-    this.isFamilyAdmin,
-    this.diamonds
-  });
+  OwnerDataModel(
+      {this.bubbleId,
+      this.introId,
+      this.numPobUp,
+      this.hasColorName,
+      this.onlineTime,
+      this.frameId,
+      this.isAanonymous,
+      this.isFirst,
+      this.hasRoom,
+      this.profileVisotrs,
+      this.id,
+      this.chatId,
+      this.isFollow,
+      this.name,
+      this.email,
+      this.phone,
+      this.numberOfFans,
+      this.numberOfFollowings,
+      this.numberOfFriends,
+      this.profile,
+      this.level,
+      this.visitTime,
+      this.vip1,
+      //this.income,
+      this.myStore,
+      this.authToken,
+      this.nowRoom,
+      this.intro,
+      this.frame,
+      this.myAgencyModel,
+      this.isAgencyRequest,
+      this.familyId,
+      this.familyData,
+      this.uuid,
+      this.notificationId,
+      this.isFriend,
+      this.bio,
+      this.bubble,
+      this.isHideRoom,
+      this.isCountryHiden,
+      this.groupMessage,
+      this.massageCreatedAt,
+      this.isFacebook,
+      this.isGoogle,
+      this.isPhone,
+      this.isFamilyAdmin,
+      this.type,
+      this.diamonds});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -202,8 +203,9 @@ class OwnerDataModel {
             ? MyAgencyModel.fromjson(map["agency"])
             : null,
         isFamilyAdmin: map["is_family_admin"] ?? false,
-        diamonds: map["diamonds"]
-        );
+        diamonds: map["diamonds"],
+        type: map["type_user"],
+    );
   }
 
   String toJson() => json.encode(toMap());

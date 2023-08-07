@@ -10,60 +10,91 @@ import 'user_country_icon.dart';
 import 'user_image.dart';
 
 class UserInfoRow extends StatelessWidget {
-  final OwnerDataModel userData ;
-  final double? imageSize ; 
-  final Widget? underName ; 
-  final Widget? endIcon ; 
-  final double? underNameWidth ;
- final void Function()? onTap;
-  const UserInfoRow({this.underNameWidth, this.onTap, required this.userData, this.endIcon ,  this.underName ,  this.imageSize ,  super.key});
+  final OwnerDataModel userData;
+
+  final double? imageSize;
+
+  final Widget? underName;
+
+  final Widget? endIcon;
+
+  final double? underNameWidth;
+
+  final void Function()? onTap;
+
+  const UserInfoRow(
+      {this.underNameWidth,
+      this.onTap,
+      required this.userData,
+      this.endIcon,
+      this.underName,
+      this.imageSize,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:onTap?? (){
-        Navigator.pushNamed(context, Routes.userProfile , arguments: userData.id.toString() );
-      },
+      onTap: onTap ??
+          () {
+            Navigator.pushNamed(context, Routes.userProfile,
+                arguments: userData.id.toString());
+          },
       child: Row(
         children: [
-                const  Spacer(flex: 1,),
-    
-       UserImage(imageSize: imageSize ,image: userData.profile!.image!, ),
-                        const  Spacer(flex: 4,),
-
-    
+          const Spacer(
+            flex: 1,
+          ),
+          UserImage(
+            imageSize: imageSize,
+            image: userData.profile!.image!,
+          ),
+          const Spacer(
+            flex: 4,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-          Text(userData.name??"",style: Theme.of(context).textTheme.bodyLarge,),
-                  SizedBox(
-                    width: underNameWidth?? MediaQuery.of(context).size.width-100,
-                    child: underName??
-                      
-                            Row(children:  [
-                              MaleFemaleIcon(maleOrFeamle:userData.profile!.gender!,),        
-                                UserCountryIcon(country: userData.profile!.country),
-                                LevelConriner(image: userData.level!.senderImage!,),
-                                AristocracyLevel(level: 2,),
-                                const Spacer(),
-                                Text("ID ${userData.uuid.toString()}", style: Theme.of(context).textTheme.titleSmall,),
-
-                                
-                      
-                                  
-                       
-                            ],),
-                  )
-    
-          ],),
-                const  Spacer(flex: 20,),
-          endIcon??
-          Image.asset(AssetsPath.chatWithUserIcon , scale: 2.5,),
-                        const  Spacer(flex: 1,),
-                        
-    
-    
-    
+              Text(
+                userData.name ?? "",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              SizedBox(
+                width:
+                    underNameWidth ?? MediaQuery.of(context).size.width - 100,
+                child: underName ??
+                    Row(
+                      children: [
+                        MaleFemaleIcon(
+                          maleOrFeamle: userData.profile!.gender!,
+                        ),
+                        UserCountryIcon(country: userData.profile!.country),
+                        LevelConriner(
+                          image: userData.level!.senderImage!,
+                        ),
+                        AristocracyLevel(
+                          level: 2,
+                        ),
+                        const Spacer(),
+                        Text(
+                          "ID ${userData.uuid.toString()}",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+              )
+            ],
+          ),
+          const Spacer(
+            flex: 20,
+          ),
+          endIcon ??
+              Image.asset(
+                AssetsPath.chatWithUserIcon,
+                scale: 2.5,
+              ),
+          const Spacer(
+            flex: 1,
+          ),
         ],
       ),
     );

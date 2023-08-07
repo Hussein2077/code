@@ -13,31 +13,36 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_member/agnecy_member_state.dart';
 
 class MemberAgencyBody extends StatefulWidget {
-  final OwnerDataModel owner ; 
-  const MemberAgencyBody({required this.owner , super.key});
+  final OwnerDataModel owner;
+
+  const MemberAgencyBody({required this.owner, super.key});
 
   @override
   State<MemberAgencyBody> createState() => _MemberAgencyBodyState();
 }
 
 class _MemberAgencyBodyState extends State<MemberAgencyBody> {
-    int page = 1;
-      final ScrollController scrollController = ScrollController();
-
+  int page = 1;
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
-     BlocProvider.of<AgnecyMemberBloc>(context).add(const AgnecyMemberEvent(page: 1));
+    BlocProvider.of<AgnecyMemberBloc>(context)
+        .add(const AgnecyMemberEvent(page: 1));
     scrollController.addListener(scrollListener);
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ownerCard(
-            context: context, id: widget.owner.uuid!, image: widget.owner.profile!.image!, name: widget.owner.name!),
+            context: context,
+            id: widget.owner.uuid!,
+            image: widget.owner.profile!.image!,
+            name: widget.owner.name!),
         SizedBox(
           height: ConfigSize.defaultSize,
         ),
@@ -52,24 +57,35 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
           builder: (context, state) {
             if (state is AgnecyMemberSucsessState) {
               return Expanded(
-
                   child: ListView.builder(
-                    
-                    controller: scrollController,
-                    itemCount: state.data!.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!,),
-                   child: UserInfoRow(userData: state.data![index],underName: const SizedBox(), endIcon: Icon(Icons.arrow_forward_ios , color: Theme.of(context).colorScheme.primary,),)) ;
-              }));
+                      controller: scrollController,
+                      itemCount: state.data!.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: ConfigSize.defaultSize!,
+                            ),
+                            child: UserInfoRow(
+                              userData: state.data![index],
+                              underName: const SizedBox(),
+                              endIcon: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ));
+                      }));
             } else if (state is AgnecyMemberLoadingState) {
-              return SizedBox(height: MediaQuery.of(context).size.height/2.5, child: const LoadingWidget());
+              return SizedBox(
+                  height: MediaQuery.of(context).size.height / 2.5,
+                  child: const LoadingWidget());
             } else if (state is AgnecyMemberErrorState) {
-              return SizedBox(height: MediaQuery.of(context).size.height/2, child: CustoumErrorWidget(message: state.error));
+              return SizedBox(
+                  height: MediaQuery.of(context).size.height / 2,
+                  child: CustoumErrorWidget(message: state.error));
             } else {
               return SizedBox(
-                height: MediaQuery.of(context).size.height/2.4,
+                height: MediaQuery.of(context).size.height / 2.4,
                 child: const CustoumErrorWidget(
                     message: StringManager.unexcepectedError),
               );
@@ -80,13 +96,12 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
     );
   }
 
-    void scrollListener() {
+  void scrollListener() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       page++;
-           BlocProvider.of<AgnecyMemberBloc>(context).add( LoadMoreAgnecyMemberEvent(page: page));
-
-    
+      BlocProvider.of<AgnecyMemberBloc>(context)
+          .add(LoadMoreAgnecyMemberEvent(page: page));
     } else {}
   }
 }
@@ -101,38 +116,43 @@ Widget ownerCard(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2)),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
-        width: MediaQuery.of(context).size.width - 50,
-        height: ConfigSize.defaultSize! * 20,
+        padding: EdgeInsets.symmetric(
+            horizontal: ConfigSize.defaultSize!,
+          vertical:  ConfigSize.defaultSize!*2.0,
+        ),
+        width: MediaQuery.of(context).size.width/1.1,
         decoration: BoxDecoration(
-          color: ColorManager.lightGray,
+          color: ColorManager.bage,
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
-          border: Border.all(
-            color: ColorManager.blue.withOpacity(0.5),
-          ),
+
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               StringManager.agencyOwner,
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                UserImage(image: image, imageSize: ConfigSize.defaultSize! * 7),
-                const Spacer(),
+                Column(
+                  children: [
+                    UserImage(image: image, imageSize: ConfigSize.defaultSize! * 7),
+
+                    Text(
+                      "ID : $id",
+                      style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
+                    ),
+                  ],
+                ),
+
                 Text(
                   name,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
                 ),
-                                const Spacer(flex: 2,),
 
               ],
-            ),
-            Text(
-              "ID : $id",
-              style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
         ),
