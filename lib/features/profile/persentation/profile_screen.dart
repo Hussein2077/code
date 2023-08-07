@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: ColorManager.mainColor,
         showChildOpacityTransition : false,
 
-   onRefresh: ()async{
+      onRefresh: ()async{
       BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
       
               },
