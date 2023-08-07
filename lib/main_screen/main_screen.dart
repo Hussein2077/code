@@ -16,7 +16,21 @@ import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'widget/bottom_bar_widget.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final bool? isChachGift ;
+  final bool? isCachFrame ;
+  final bool? isCachExtra ;
+  final bool? isCachEntro ;
+  final bool? isCachEmojie ;
+  final bool? isUpdate ;
+
+  const MainScreen({
+  this.isCachFrame,
+  this.isUpdate,
+  this.isCachExtra,
+  this.isChachGift,
+  this.isCachEntro,
+  this.isCachEmojie,
+  super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -26,8 +40,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    Methods().KeepUserLogin(KeepInLogin: true);
 
+    Methods().KeepUserLogin(KeepInLogin: true);
     listenToInternet();
 
     super.initState();
@@ -39,7 +53,14 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: BottomNavLayout(
         pages: [
-          (_) => const HomeScreen(),
+          (_) => HomeScreen(
+            isCachExtra: widget.isCachExtra,
+            isCachFrame: widget.isCachFrame,
+            isChachGift: widget.isChachGift,
+            isUpdate: widget.isUpdate,
+            isCachEmojie: widget.isCachEmojie,
+            isCachEntro: widget.isCachEntro,
+          ),
           (_) => const ReelsScreen(),
           (_) => const FollowingLiveScreen(),
           (_) => const ChatScreen(),
@@ -51,7 +72,6 @@ class _MainScreenState extends State<MainScreen> {
         ),
         savePageState: true,
         lazyLoadPages: true,
-        // StandardPageStack, ReorderToFrontExceptFirstPageStack, NoPageStack, FirstAndLastPageStack
         pageStack: ReorderToFrontPageStack(initialPage: MainScreen.initPage),
         extendBody: false,
         resizeToAvoidBottomInset: true,

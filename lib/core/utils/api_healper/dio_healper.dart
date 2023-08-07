@@ -1,8 +1,8 @@
 import 'dart:developer';
-import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:tik_chat_v2/core/error/exceptions.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
@@ -14,84 +14,32 @@ class DioHelper {
   Future<Map<String, String>> header() async {
     String key = await Methods().getlocalization();
     String token = await Methods().returnUserToken();
-    log(token);
+    if(kDebugMode){
+      log(token);
+    }
+
 
     final devicedata = await initPlatformState();
-    log(devicedata); // to get information device
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
-      "device": devicedata,
+      "device": devicedata??'noToken',
       "X-localization": key
     };
     return headers;
   }
 
-  Future<String> initPlatformState() async {
-    AndroidDeviceInfo deviceAndroidData;
-    IosDeviceInfo deviceIosData;
-    String deviceToken = '';
-    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-
+  Future<String?> initPlatformState() async {
+    String? deviceId;
+    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      if (Platform.isAndroid) {
-        Methods().setPlatform(platForm: StringManager.android);
-        deviceAndroidData = await deviceInfoPlugin.androidInfo;
-        deviceToken = deviceAndroidData.fingerprint;
-        return deviceToken;
-      } else if (Platform.isIOS) {
-        Methods().setPlatform(platForm: StringManager.iphone);
-        deviceIosData = await deviceInfoPlugin.iosInfo;
-        deviceToken = deviceIosData.identifierForVendor ?? 'noIosDeviceToken';
-        return deviceToken;
-      } else {
-        deviceToken = 'noDeviceToken';
-        return deviceToken;
-      }
+      deviceId = await PlatformDeviceId.getDeviceId;
     } on PlatformException {
-      deviceToken = 'noDeviceToken';
-      throw ServerException();
+      deviceId = 'Failed to get deviceId';
     }
+
+    return deviceId ;
   }
 
-  Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
-    return <String, dynamic>{
-      'serialNumber': build.serialNumber,
-      'version.securityPatch': build.version.securityPatch,
-      'version.sdkInt': build.version.sdkInt,
-      'version.release': build.version.release,
-      'version.previewSdkInt': build.version.previewSdkInt,
-      'version.incremental': build.version.incremental,
-      'version.codename': build.version.codename,
-      'version.baseOS': build.version.baseOS,
-      'board': build.board,
-      'bootloader': build.bootloader,
-      'brand': build.brand,
-      'device': build.device,
-      'display': build.display,
-      'fingerprint': build.fingerprint,
-      'hardware': build.hardware,
-      'host': build.host,
-      'id': build.id,
-      'manufacturer': build.manufacturer,
-      'model': build.model,
-      'product': build.product,
-      'supported32BitAbis': build.supported32BitAbis,
-      'supported64BitAbis': build.supported64BitAbis,
-      'supportedAbis': build.supportedAbis,
-      'tags': build.tags,
-      'type': build.type,
-      'isPhysicalDevice': build.isPhysicalDevice,
-      'systemFeatures': build.systemFeatures,
-      'displaySizeInches':
-          ((build.displayMetrics.sizeInches * 10).roundToDouble() / 10),
-      'displayWidthPixels': build.displayMetrics.widthPx,
-      'displayWidthInches': build.displayMetrics.widthInches,
-      'displayHeightPixels': build.displayMetrics.heightPx,
-      'displayHeightInches': build.displayMetrics.heightInches,
-      'displayXDpi': build.displayMetrics.xDpi,
-      'displayYDpi': build.displayMetrics.yDpi,
-    };
-  }
 
   String getTypeOfFailure(Failure failure) {
     switch (failure.runtimeType) {
@@ -106,7 +54,7 @@ class DioHelper {
       case InternetFailure:
         return Strings.checkYourInternet;
       default:
-        return failure.errorMessage ?? StringManager.unexcepectedError;
+        return failure.errorMessage ?? StringManager.unexcepectedError.tr();
     }
   }
 
@@ -147,15 +95,19 @@ class DioHelper {
   }
 
   static Exception handleStatuesCodeResponse(Response? response) {
-    log(response!.data.toString());
-    log("statescode${response.statusCode}");
-    switch (response.statusCode) {
+    log("statescode${response?.statusCode}");
+    switch (response?.statusCode) {
       case 500:
         throw ServerException();
       case 401:
         throw UnauthorizedException();
       default:
-        throw ErrorModelException.fromJson(response.data);
+        if(response?.data.runtimeType == String){
+          throw ErrorModelException(errorMessage: response!.data);
+        }else{
+          throw ErrorModelException.fromJson(response!.data);
+        }
     }
   }
+
 }

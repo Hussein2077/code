@@ -1,6 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
+
+
+
+
+
+//todo pass var here
 ThemeData lightTheme = ThemeData(
     textTheme:  TextTheme(
     headlineLarge: const TextStyle(
@@ -17,8 +26,7 @@ ThemeData lightTheme = ThemeData(
 
     ),
     
-    bodyLarge: 
-    const TextStyle(
+    bodyLarge: const TextStyle(
       fontFamily: 'ElMessiri',
       fontSize:16,
       color: Colors.black,
@@ -47,7 +55,7 @@ titleMedium: TextStyle(
             overflow: TextOverflow.ellipsis
 
     ), 
-    titleSmall: TextStyle(
+ titleSmall: TextStyle(
       fontFamily: 'ElMessiri',
       fontSize: 12,
       color: Colors.black.withOpacity(0.4),

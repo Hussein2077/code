@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:tik_chat_v2/features/room/domine/use_case/upMic_usecase.dart';
+
 class ConstentApi {
   // static const String baseUrl = "https://tik-chat.com/api";
     // static const String baseUrl = "https://dragon-chat-app.com/api/v2" ;
   static const String baseUrl = "https://tik-chat.com/test/api";
-
-
   static const String getBoxes = "$baseUrl/box/list";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
@@ -134,6 +134,8 @@ class ConstentApi {
   String showFamily(String id) {
     return "$baseUrl/families/show/$id";
   }
+  String upMic({required UpMicrophonePramiter upMic}) =>
+      "$baseUrl/rooms/up_microphone?owner_id=${upMic.ownerId}&user_id=${upMic.userId}&position=${upMic.position}";
 
   String search({required String keyword}) =>
       "$baseUrl/search?keywords=$keyword";

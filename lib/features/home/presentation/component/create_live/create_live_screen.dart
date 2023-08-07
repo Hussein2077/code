@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/home/presentation/component/create_live/video/create_video_live_body.dart';
-
 import 'reels/create_reels_body.dart';
 import 'voice/create_voic_live_body.dart';
+
 
 class CreateLiveScreen extends StatefulWidget {
 
@@ -42,7 +41,7 @@ class _CreateLiveScreenState extends State<CreateLiveScreen>
               child: TabBarView(
             controller: createLiveController,
             children:const  [
-              CreateLiveVideoBody(),
+              // CreateLiveVideoBody(),
               CreateVoiceLiveBody(),
               CreateReelsBody(),
             ],
@@ -61,12 +60,12 @@ class _CreateLiveScreenState extends State<CreateLiveScreen>
                     EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 3.5),
                 controller: createLiveController,
                 tabs: [
-                  Text(
-                    "${StringManager.live}  ",
-                    style: TextStyle(
-                     
-                        fontSize: ConfigSize.defaultSize! * 1.7),
-                  ),
+                  // Text(
+                  //   "${StringManager.live}  ",
+                  //   style: TextStyle(
+                  //
+                  //       fontSize: ConfigSize.defaultSize! * 1.7),
+                  // ),
                   Text("${StringManager.voice} ",
                       style: TextStyle(
                           

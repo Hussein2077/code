@@ -118,7 +118,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
       case Routes.login:
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+        LoginPramiter? loginPramiter = settings.arguments as LoginPramiter?;
+        return MaterialPageRoute(builder: (_) =>  LoginScreen(
+          isForceUpdate: loginPramiter?.isForceUpdate,
+          isUpdate:loginPramiter?.isUpdate ,
+        ));
 
       case Routes.otp:
         OtpScreenParameter otpScreenParameter =
@@ -140,7 +144,16 @@ class RouteGenerator {
                 ));
 
       case Routes.mainScreen:
-        return MaterialPageRoute(builder: (_) => const MainScreen());
+        MainPramiter? mainPramiter = settings.arguments as MainPramiter?;
+        return MaterialPageRoute(
+            builder: (_) => MainScreen(
+              isChachGift: mainPramiter?.isChachGift,
+              isCachFrame: mainPramiter?.isCachFrame,
+              isCachExtra: mainPramiter?.isCachExtra,
+              isCachEntro: mainPramiter?.isCachEntro,
+              isCachEmojie: mainPramiter?.isCachEmojie,
+              isUpdate: mainPramiter?.isUpdate,
+            ));
       case Routes.topUsersScreen:
         return MaterialPageRoute(builder: (_) => const TopUsersScreen());
       case Routes.userProfile:
@@ -307,4 +320,30 @@ class OtpScreenParameter {
 
   const OtpScreenParameter(
       {required this.codeCountry, required this.password, required this.phone});
+}
+
+class LoginPramiter {
+  final bool? isUpdate;
+  final bool? isForceUpdate ;
+  const LoginPramiter({required this.isForceUpdate,required this.isUpdate, Key? key}) ;
+}
+
+class MainPramiter  {
+  final OwnerDataModel? userData;
+  final bool? isChachGift;
+  final bool? isCachFrame;
+  final bool? isCachExtra;
+  final bool? isCachEntro;
+  final bool? isCachEmojie;
+  final bool? isUpdate;
+
+  MainPramiter(
+      {this.isCachEmojie,
+        this.isCachEntro,
+        this.isUpdate,
+        this.userData,
+        this.isCachExtra,
+        this.isCachFrame,
+        this.isChachGift});
+
 }

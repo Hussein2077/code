@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
+import 'package:tik_chat_v2/core/widgets/update_screen.dart';
 import 'widget/body/home_body.dart';
 import 'widget/header/home_header.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final bool? isChachGift ;
+  final bool? isCachFrame ;
+  final bool? isCachExtra ;
+  final bool? isCachEntro ;
+  final bool? isCachEmojie ;
+  final bool? isUpdate ;
+  const HomeScreen({
+  this.isCachFrame,
+  this.isUpdate,
+  this.isCachExtra,
+  this.isChachGift,
+  this.isCachEntro,
+  this.isCachEmojie,
+  super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -62,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               liveController: liveController,
             ),
             
-         HomeBody(liveController: liveController),
+           HomeBody(liveController: liveController),
           ],
         ),
       ),

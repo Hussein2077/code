@@ -7,12 +7,12 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
-import 'package:tik_chat_v2/features/auth/presentation/auth_controller.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_state.dart';
@@ -37,7 +37,7 @@ class OtpScreen extends StatelessWidget {
     return BlocConsumer<RegisterWithPhoneBloc, RegisterWithPhoneState>(
       listener: (context, state) {
        if (state is RegisterPhoneSuccesMessageState) {
-                              Authcontroller().clearAuth();
+        Methods().clearAuth();
 
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.addInfo, (route) => false);

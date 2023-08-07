@@ -133,7 +133,9 @@ class _CreateLiveVideoBodyState extends State<CreateLiveVideoBody> {
             ),
             const Spacer(),
             MainButton(
-              onTap: () {},
+              onTap: () {
+
+              },
               title: StringManager.startLive,
               buttonColornotList: ColorManager.darkPink,
             ),

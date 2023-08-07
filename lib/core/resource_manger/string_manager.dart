@@ -1,6 +1,16 @@
 class StringManager {
   static const int versionApp = 2;
 
+  //updates
+  static const String updateApp ='Update TikChat APP';
+  static const String updateText =
+      "Tik Chat recommends that you update to the latest version You can keep enjoy the app while downloading the update";
+ // cach keys
+ static const String cacheFrameKey = 'Frame';
+ static const String cacheEmojieKey = 'Emojie';
+ static const String cacheEntroKey = 'Entro';
+ static const String cachExtraKey = 'Extra';
+ static const String cachExtraLevelKey = 'ExtraLevel';
 //shared
   static const String platform = "PlatForm";
   static const String android = "Android";
@@ -246,7 +256,8 @@ class StringManager {
   static const String daimondTo = "Daimond To";
     static const String pleaseAcceptTheRegulations = "Please accept the regulations";
 
-
+ static const String clearDataDone = 'Your Data is removed';
+ static const String clearData = "Clear your Data";
     static const String pleaseEnterAgencyID= "Please Enter Agency ID";
 
       static const String pleaseEnterPhoneNum= "please Enter Phone Number";

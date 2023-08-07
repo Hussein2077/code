@@ -1,7 +1,5 @@
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
-
-// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +23,7 @@ import 'package:tik_chat_v2/features/following/persentation/manager/followers_ro
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/video/create_video_live_body.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_event.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
@@ -300,6 +299,11 @@ class MyApp extends StatelessWidget {
                                                                                               BlocProvider(
           create: (context) => getIt<ChargeDolarsForUserBloc>(),
         ),
+
+        BlocProvider(
+          create: (context) => getIt<CreateRoomBloc>(),
+        ),
+
 
 
 

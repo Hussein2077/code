@@ -56,7 +56,6 @@ dependencies:
   firebase_messaging: ^14.6.2
   dio: ^4.0.6
   firebase_dynamic_links: any
-  device_info_plus: ^8.0.0
   cloud_firestore: ^4.3.1
   firebase_storage: ^11.0.10
   firebase_auth: ^4.6.2
@@ -71,6 +70,10 @@ dependencies:
   m_toast: ^0.2.2
   cached_network_image: ^3.2.3
   easy_localization: ^3.0.0
+  platform_device_id: ^1.0.1
+  url_launcher: ^6.1.11
+  flutter_vap: ^1.1.0
+  svgaplayer_flutter: ^2.2.0
   # snapkit: any
 
 

@@ -169,6 +169,7 @@ class AssetsPath {
 
   static const String gemStone = "$pathIcon/gem-stone.png";
   static const String circleDollar = "$pathIcon/circle-dollar.png";
+  static const String googlePlay = "$pathImage/google-play.png";
 
   
 }

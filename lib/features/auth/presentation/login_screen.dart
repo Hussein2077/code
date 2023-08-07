@@ -6,24 +6,25 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/auth/presentation/auth_controller.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/continer_with_icons.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_state.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
-
 import 'widgets/google_auth.dart';
 import 'widgets/phone_wtih_country.dart';
 import 'widgets/privcy_text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final bool? isUpdate;
+  final bool? isForceUpdate ;
+  const LoginScreen({required this.isForceUpdate,required this.isUpdate, Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -134,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Authcontroller().clearAuth();
+                          Methods().clearAuth();
                           Navigator.pushNamed(context, Routes.signUp);
                         },
                         child: Text(
@@ -161,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
              sucssesToast(context: context, title: state.succesMessage);
 
-             Authcontroller().clearAuth();
+             Methods().clearAuth();
 
                Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen , (route) => false,);
                       //to do getmy data
@@ -176,4 +177,5 @@ class _LoginScreenState extends State<LoginScreen> {
       },
     );
   }
+
 }

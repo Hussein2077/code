@@ -26,11 +26,13 @@ import 'package:tik_chat_v2/features/following/persentation/manager/followers_ro
 import 'package:tik_chat_v2/features/home/data/data_source/home_remote_data_source.dart';
 import 'package:tik_chat_v2/features/home/data/repository_imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
+import 'package:tik_chat_v2/features/home/domin/use_case/creat_room_usecase.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_all_rooms_uc.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_country_usecase.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/getcarousels_usecase.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
@@ -129,6 +131,9 @@ final getIt = GetIt.instance;
 class ServerLocator {
   Future<void> init() async {
     //bloc
+
+    getIt.registerFactory(
+            () => CreateRoomBloc(createRoomUsecase:getIt() ));
     getIt.registerFactory(
         () => SignInWithPlatformBloc(signInWithGoogleUC: getIt()));
     getIt.registerFactory(() => AddInfoBloc(addInFormationUC: getIt()));
@@ -269,6 +274,8 @@ class ServerLocator {
         
 
 //usecase
+    getIt.registerLazySingleton(
+            () => CreateRoomUsecase(roomRepo:getIt() ));
     getIt.registerLazySingleton(
         () => SignInWithGoogleUC(baseRepository: getIt()));
 

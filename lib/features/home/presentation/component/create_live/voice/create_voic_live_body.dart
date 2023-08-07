@@ -1,10 +1,18 @@
+import 'dart:io';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_events.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_states.dart';
 
 import 'widget/add_voice_live_pic.dart';
 import 'widget/public_privite_button.dart';
@@ -64,18 +72,42 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
                          PublicPriveteButton(),
             RoomTypeButton()
 ],),
- SizedBox(
+           SizedBox(
               height: ConfigSize.defaultSize! * 4,
             ),
 
-Image.asset(AssetsPath.seatsImage),
- SizedBox(
+           Image.asset(AssetsPath.seatsImage),
+           SizedBox(
               height: ConfigSize.defaultSize! * 10,
             ),
 
-MainButton(onTap: () {
-  
-},title: StringManager.createRoom,)
+       BlocConsumer<CreateRoomBloc,CreateRoomStates>(builder: (context,state){
+         return MainButton(onTap: () {
+
+           BlocProvider.of<CreateRoomBloc>(context)
+               .add(CreateAudioRoomEvent(
+             roomName: voicNameController.text,
+             roomCover: File(AddVoiceLivePicState.image!.path),
+             roomIntero: '',
+             roomType: '',
+
+           ));
+         },title: StringManager.createRoom,) ;
+       },
+       listener: (context,state){
+         if(state is CreateAudioRoomSuccesMessageState){
+           //TODO go roomhandle screen
+         }
+         else if(state is CreateAudioRoomErrorMessageState){
+         errorToast(context: context, title: state.errorMessage);
+
+          }
+         else if (state is CreateAudioRoomLoadingState){
+           loadingToast(context: context, title: StringManager.loading.tr());
+         }
+         }
+       ,
+       )
           ],
         ));
   }

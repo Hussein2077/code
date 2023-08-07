@@ -33,6 +33,7 @@ class _AddVideoLivePicState extends State<AddVideoLivePic> {
                 borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*2),
                   border: Border.all(color: Theme.of(context).colorScheme.primary, width: 1),
                   image: DecorationImage(
+                    filterQuality:FilterQuality.low ,
                     image: FileImage(File(image!.path)),
                     fit: BoxFit.cover,
                   ),

@@ -1,9 +1,12 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/header/live_tab_bar.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 
 class HomeHeader extends StatelessWidget {
   final TabController liveController ; 
@@ -21,9 +24,21 @@ class HomeHeader extends StatelessWidget {
         Navigator.pushNamed(context, Routes.searchScreen);
       },
       child: Image.asset(AssetsPath.searchIcon , scale: 2.5,)),
-          InkWell(onTap: (){
-            Navigator.pushNamed(context, Routes.createLive);
-          }, child: Image.asset(AssetsPath.createLiveIcon , scale: 2.5,))
+     BlocBuilder<GetMyDataBloc,GetMyDataState>(
+         builder: (context,state){
+       return    InkWell(onTap: (){
+         if(state is GetMyDataSucssesState){
+           if(state.userData.hasRoom??false){
+             //todo navegate to handler
+           }else{
+             Navigator.pushNamed(context, Routes.createLive);
+           }
+         }else{
+           Navigator.pushNamed(context, Routes.createLive);
+         }
+       }, child: Image.asset(AssetsPath.createLiveIcon , scale: 2.5,)) ;
+     })
+
 
 
    

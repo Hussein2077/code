@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -22,60 +24,110 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String errorMessage = "" ;
-  ConfigModel configModel = const ConfigModel();
+  ConfigModel? configModel ;
 
   @override
   void initState() {
     
-        loadResources();
+        loadResources().then((value)async {
+            if(configModel == null){
+              log("configModel is null ");
+            }else if((configModel!.isForce??false)){
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.login, (route) => false,
+                  arguments: LoginPramiter(
+                      isForceUpdate: configModel!.isForce,
+                      isUpdate: true));
+            }
+            else if (!(configModel!.isLastVersion??false)
+                &&(configModel!.isAuth??false)){
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.mainScreen, (route) => false ,
+                  arguments:MainPramiter(
+                      isUpdate:true,
+                      isCachEmojie: configModel!.updateEmojieCach,
+                      isCachEntro: configModel!.updateEntroCach,
+                      isCachExtra: configModel!.updateExtraCach,
+                      isCachFrame: configModel!.updateFrameCach,
+                      isChachGift: configModel!.updateGiftCache
+                  ) );
+            }
+            else if(!(configModel!.isAuth??false)){
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.login, (route) => false,
+                  arguments: const  LoginPramiter(
+                      isForceUpdate: false,
+                      isUpdate:false));
+            }
+            else if ((configModel!.isAuth??false)){
+              if(kDebugMode){
+                log("configModel1"+configModel!.updateEntroCach.toString());
+                log("configModel1"+configModel!.updateGiftCache.toString());
+                log("configModel1"+configModel!.updateFrameCach.toString());
+                log("configModel1"+configModel!.updateExtraCach.toString());
+                log("configModel1"+configModel!.updateEmojieCach.toString());
+              }
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.mainScreen, (route) => false ,
+                  arguments:MainPramiter(
+                      isUpdate:false,
+                      isCachEmojie: configModel!.updateEmojieCach,
+                      isCachEntro: configModel!.updateEntroCach,
+                      isCachExtra: configModel!.updateExtraCach,
+                      isCachFrame: configModel!.updateFrameCach,
+                      isChachGift: configModel!.updateGiftCache
+                  ) );
+            }
 
-    Timer(const Duration(seconds: 4), () {
-        if((configModel.isForce??false)){
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Routes.login, (route) => false,
-                  // arguments: LoginPramiter(
-                  //     isForceUpdate: configModel.isForce,
-                  //     isUpdate: true)
-                      );
-            }
-            else if (!(configModel.isLastVersion??false)
-                &&(configModel.isAuth??false)){
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Routes.mainScreen, (route) => false ,
-                  // arguments:MainPramiter(
-                  //     isUpdate:true,
-                  //     isCachEmojie: configModel.updateEmojieCach,
-                  //     isCachEntro: configModel.updateEntroCach,
-                  //     isCachExtra: configModel.updateExtraCach,
-                  //     isCachFrame: configModel.updateFrameCach,
-                  //     isChachGift: configModel.updateGiftCache
-                  // )
-                   );
-            }
-            else if(!(configModel.isAuth??false)){
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Routes.login, (route) => false,
-                  // arguments: const  LoginPramiter(
-                  // isForceUpdate: false,
-                  // isUpdate:false)
-                  );
-            }
-            else if ((configModel.isAuth??false)){
-        
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Routes.mainScreen, (route) => false ,
-                  // arguments:MainPramiter(
-                  //     isUpdate:false,
-                  //     isCachEmojie: configModel.updateEmojieCach,
-                  //     isCachEntro: configModel.updateEntroCach,
-                  //     isCachExtra: configModel.updateExtraCach,
-                  //     isCachFrame: configModel.updateFrameCach,
-                  //     isChachGift: configModel.updateGiftCache
-                  // )
-                   );
-            }
-      // Navigator.pushNamed(context, Routes.login);
-    });
+        });
+
+    // Timer(const Duration(seconds: 4), () {
+    //     if((configModel.isForce??false)){
+    //           Navigator.pushNamedAndRemoveUntil(
+    //               context, Routes.login, (route) => false,
+    //               // arguments: LoginPramiter(
+    //               //     isForceUpdate: configModel.isForce,
+    //               //     isUpdate: true)
+    //                   );
+    //         }
+    //         else if (!(configModel.isLastVersion??false)
+    //             &&(configModel.isAuth??false)){
+    //           Navigator.pushNamedAndRemoveUntil(
+    //               context, Routes.mainScreen, (route) => false ,
+    //               // arguments:MainPramiter(
+    //               //     isUpdate:true,
+    //               //     isCachEmojie: configModel.updateEmojieCach,
+    //               //     isCachEntro: configModel.updateEntroCach,
+    //               //     isCachExtra: configModel.updateExtraCach,
+    //               //     isCachFrame: configModel.updateFrameCach,
+    //               //     isChachGift: configModel.updateGiftCache
+    //               // )
+    //                );
+    //         }
+    //         else if(!(configModel.isAuth??false)){
+    //           Navigator.pushNamedAndRemoveUntil(
+    //               context, Routes.login, (route) => false,
+    //               // arguments: const  LoginPramiter(
+    //               // isForceUpdate: false,
+    //               // isUpdate:false)
+    //               );
+    //         }
+    //         else if ((configModel.isAuth??false)){
+    //
+    //           Navigator.pushNamedAndRemoveUntil(
+    //               context, Routes.mainScreen, (route) => false ,
+    //               // arguments:MainPramiter(
+    //               //     isUpdate:false,
+    //               //     isCachEmojie: configModel.updateEmojieCach,
+    //               //     isCachEntro: configModel.updateEntroCach,
+    //               //     isCachExtra: configModel.updateExtraCach,
+    //               //     isCachFrame: configModel.updateFrameCach,
+    //               //     isChachGift: configModel.updateGiftCache
+    //               // )
+    //                );
+    //         }
+    //   // Navigator.pushNamed(context, Routes.login);
+    // });
 
     super.initState();
   }
@@ -133,10 +185,7 @@ class _SplashScreenState extends State<SplashScreen> {
         homeRepo: getIt()).call(ConfigModelBody(
         appVersion: StringManager.versionApp.toString().tr(),
     ));
-    result.fold((l) => configModel =l,
-            (r) => errorMessage = DioHelper().getTypeOfFailure(r));
-
-
+    result.fold((l) => configModel =l,(r) => errorMessage = DioHelper().getTypeOfFailure(r));
 
   }
 

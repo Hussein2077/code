@@ -8,12 +8,12 @@ class AddVoiceLivePic extends StatefulWidget {
   const AddVoiceLivePic({super.key});
 
   @override
-  State<AddVoiceLivePic> createState() => _AddVoiceLivePicState();
+  State<AddVoiceLivePic> createState() => AddVoiceLivePicState();
 }
 
-class _AddVoiceLivePicState extends State<AddVoiceLivePic> {
+class AddVoiceLivePicState extends State<AddVoiceLivePic> {
   final ImagePicker picker = ImagePicker();
-  XFile? image;
+   static  XFile? image;
   Future<void> _getImage() async {
     image = await picker.pickImage(source: ImageSource.gallery);
     setState(() {});

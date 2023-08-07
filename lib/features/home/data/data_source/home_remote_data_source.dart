@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -8,6 +9,7 @@ import 'package:tik_chat_v2/features/home/data/model/carousels_model.dart';
 import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
 import 'package:tik_chat_v2/features/home/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_rank_model.dart';
+import 'package:tik_chat_v2/features/home/domin/use_case/creat_room_usecase.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
 
 
@@ -19,7 +21,10 @@ abstract class HomeRemoteDataSours {
         TypeGetRooms? typeGetRooms });
   Future<List<CountryModel>> getAllCountry();
   Future<List<CarouselsModel>> getCarousel();
-  Future<ConfigModel> getConfigApp(ConfigModelBody configModelBody  );
+  Future<ConfigModel> getConfigApp(ConfigModelBody configModelBody);
+  Future<String> createRoom(
+      {required CreateRoomPramiter creatRoomPramiter});
+
 
 
 }
@@ -170,5 +175,46 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
     }
   }
 
+  @override
+  Future<String> createRoom(
+      {required CreateRoomPramiter creatRoomPramiter}) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    FormData formData;
+    if (creatRoomPramiter.roomCover == null) {
+      formData = FormData.fromMap({
+        'room_name': creatRoomPramiter.roomName,
+        'room_intro': creatRoomPramiter.roomIntero,
+        'room_type': creatRoomPramiter.roomType,
+      });
+    }
+    else {
+      File file = creatRoomPramiter.roomCover!;
+      String fileName = file.path.split('/').last;
+      formData = FormData.fromMap({
+        "room_cover":
+        await MultipartFile.fromFile(file.path, filename: fileName),
+        'room_intro': creatRoomPramiter.roomIntero,
+        'room_type': creatRoomPramiter.roomType,
+        'room_name': creatRoomPramiter.roomName,
+
+      });
+    }
+    try{
+      final response = await Dio().post(ConstentApi.createRoom,
+          options: Options(
+            headers: headers,
+          ),
+          data: formData);
+      final result = response.data;
+
+
+      return result['message'];
+    } on DioError catch(e){
+      throw DioHelper.handleDioError(e);
+    }
+
+
+  }
 
 }
