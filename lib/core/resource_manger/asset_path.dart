@@ -45,6 +45,11 @@ class AssetsPath {
   static const String incomeBackGroundScreen =
       "$pathImage/income_backgrond_screen.png";
         static const String agencyBackGround = "$pathImage/agency_background.jpg";
+  static const String googlePlay = "$pathImage/google-play.png";
+
+    static const String netError = "$pathImage/net_error.gif";
+        static const String serverError = "$pathImage/serverError (1).gif";
+                static const String emptyScreen = "$pathImage/empty_screen.gif";
 
 
       
@@ -170,7 +175,8 @@ class AssetsPath {
   static const String gemStone = "$pathIcon/gem-stone.png";
   static const String circleDollar = "$pathIcon/circle-dollar.png";
   static const String rank = "$pathIcon/rank.png";
-  static const String googlePlay = "$pathImage/google-play.png";
+
+
 
   
 }

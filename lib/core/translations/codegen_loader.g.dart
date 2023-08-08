@@ -247,7 +247,7 @@ class CodegenLoader extends AssetLoader {
   StringManager.agencyOwner: "مالك الوكالة",
   StringManager.members: "أعضاء",
   StringManager.years: "سنوات",
-  StringManager.mounths: "شهور",
+  StringManager.mounth: "شهور",
   StringManager.totalDaimonds: "إجمالي الماس",
   StringManager.chargeCoins: "شحن النقود",
   };
@@ -485,7 +485,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.agencyOwner: "Ajans Sahibi",
     StringManager.members: "Üyeler",
     StringManager.years: "Yıl",
-    StringManager.mounths: "Ay",
+    StringManager.mounth: "Ay",
     StringManager.totalDaimonds: "Toplam Elmas",
     StringManager.chargeCoins: "Nakit Şarj",
 
@@ -724,7 +724,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.agencyOwner: "ایجنسی کا مالک",
     StringManager.members: "اہل",
     StringManager.years: "سال",
-    StringManager.mounths: "مہینے",
+    StringManager.mounth: "مہینے",
     StringManager.totalDaimonds: "کل الماس",
     StringManager.chargeCoins: "سکے کی چارجنگ",
 
@@ -963,7 +963,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.agencyOwner: "代理所有者",
     StringManager.members: "会员",
     StringManager.years: "年",
-    StringManager.mounths: "月",
+    StringManager.mounth: "月",
     StringManager.totalDaimonds: "总钻石",
     StringManager.chargeCoins: "充值金币",
   };
@@ -1184,7 +1184,7 @@ class CodegenLoader extends AssetLoader {
    StringManager.cashWithdrawal : "現金提現",
    StringManager.userID : "用戶ID",
    StringManager.enterUserID : "輸入用戶ID",
-   StringManager.enterQuantityHere : "在此處輸入數量", StringManager.exchangeDaimond: "兌換鑽石", StringManager.areYouSureYouWantToExchange: "確定要兌換嗎？", StringManager.daimondTo: "鑽石至", StringManager.pleaseAcceptTheRegulations: "請接受條例", StringManager.pleaseEnterAgencyID: "請輸入代理ID", StringManager.pleaseEnterPhoneNum: "請輸入手機號碼", StringManager.dolars: "美元", StringManager.pleaseEnterID: "請輸入ID", StringManager.pleaseEnterquantity: "請輸入數量", StringManager.agencyMembersRank: "代理會員排名", StringManager.reports: "報告", StringManager.shippingFromTheAgency: "從代理處發貨", StringManager.chargingFromTheSystem: "從系統充值", StringManager.agencyOwner: "代理所有者", StringManager.members: "會員", StringManager.years: "年", StringManager.mounths: "月", StringManager.totalDaimonds: "總鑽石", StringManager.chargeCoins: "充值金幣",
+   StringManager.enterQuantityHere : "在此處輸入數量", StringManager.exchangeDaimond: "兌換鑽石", StringManager.areYouSureYouWantToExchange: "確定要兌換嗎？", StringManager.daimondTo: "鑽石至", StringManager.pleaseAcceptTheRegulations: "請接受條例", StringManager.pleaseEnterAgencyID: "請輸入代理ID", StringManager.pleaseEnterPhoneNum: "請輸入手機號碼", StringManager.dolars: "美元", StringManager.pleaseEnterID: "請輸入ID", StringManager.pleaseEnterquantity: "請輸入數量", StringManager.agencyMembersRank: "代理會員排名", StringManager.reports: "報告", StringManager.shippingFromTheAgency: "從代理處發貨", StringManager.chargingFromTheSystem: "從系統充值", StringManager.agencyOwner: "代理所有者", StringManager.members: "會員", StringManager.years: "年", StringManager.mounth: "月", StringManager.totalDaimonds: "總鑽石", StringManager.chargeCoins: "充值金幣",
 
 
 };

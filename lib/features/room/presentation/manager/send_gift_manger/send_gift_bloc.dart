@@ -4,7 +4,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_useCase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_states.dart';
 

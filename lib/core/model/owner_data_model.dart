@@ -62,6 +62,7 @@ class OwnerDataModel {
   final bool? isFamilyAdmin;
   final int? diamonds;
   final int? type;
+  final int? totalUsd;
 
   OwnerDataModel(
       {this.bubbleId,
@@ -111,7 +112,9 @@ class OwnerDataModel {
       this.isPhone,
       this.isFamilyAdmin,
       this.type,
-      this.diamonds});
+      this.diamonds,
+      this.totalUsd,
+      });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -134,6 +137,7 @@ class OwnerDataModel {
     return OwnerDataModel(
         id: map['id'] != null ? map['id'] as int : null,
         chatId: map['chat_id'],
+        totalUsd: map['total_used']??0,
         notificationId: map['notification_id'],
         numPobUp: map['wapel_num'],
         onlineTime: map['online_time'],

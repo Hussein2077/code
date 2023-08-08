@@ -166,7 +166,7 @@ abstract class BaseRemotlyDataSourceProfile {
         Future<String> agencyRequestsAction({required String userId ,required bool accept});
 
     Future<List<AgencyHistoryTime>> getAgencyHistoryTime();
-    Future<AgencyHistoryModle> getAgencyHistory({required String month,required String year});
+    Future<AgencyHistoryModle> getAgencyHistory({required String month,required String year , String? page});
     Future<String> chargeCoinForUsers({required String id,required String amount});
     Future<String> chargeDolarsForUsers({required String id,required String amount});
 
@@ -1820,9 +1820,11 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
   
   @override
-  Future<AgencyHistoryModle> getAgencyHistory({required String month,required String year})async {
+  Future<AgencyHistoryModle> getAgencyHistory({required String month,required String year , String? page})async {
   Map<String, String> headers = await DioHelper().header();
-   final body = {'month': month, "year" : year };
+   final body = 
+   
+   page==null?{'month': month, "year" : year }:{'month': month, "year" : year  , "page":page};
 
     try {
       final response = await Dio().post(

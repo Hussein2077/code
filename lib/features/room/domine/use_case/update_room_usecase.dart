@@ -9,7 +9,7 @@ class UpdateRoomUsecase {
   final BaseRepositoryRoom roomRepo;
 
   UpdateRoomUsecase({required this.roomRepo});
-  Future<Either<Failure, enterRoomModel>> updateRoom( PramiterUpdate pramiterUpdate) async {
+  Future<Either<Failure, EnterRoomModel>> updateRoom( PramiterUpdate pramiterUpdate) async {
       final result = await roomRepo.updateRoom(pramiterUpdate:pramiterUpdate);
       return result ;
   }

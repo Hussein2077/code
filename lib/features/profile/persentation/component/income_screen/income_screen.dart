@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/widget/card_diamonds_earned.dart';
@@ -68,7 +69,7 @@ class IncomeScreen extends StatelessWidget {
               ],
             );
             }else {
-              return const SizedBox();
+              return const CustoumErrorWidget(message: StringManager.unexcepectedError);
             }
            
           },

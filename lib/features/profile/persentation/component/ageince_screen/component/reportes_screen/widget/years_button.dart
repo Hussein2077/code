@@ -24,7 +24,14 @@ class _YearsButtonState extends State<YearsButton> {
 @override
   void initState() {
     for(int i = 0 ; i<widget.data.length; i++){
+      if(i==0){
       global.add(widget.data[i].year.toString());
+
+      }else if(global[i-1]!=widget.data[i].year.toString()) {
+              global.add(widget.data[i].year.toString());
+
+
+      }
     }
     super.initState();
   }
@@ -34,7 +41,7 @@ class _YearsButtonState extends State<YearsButton> {
     return Container(
       width: ConfigSize.defaultSize!*17,
       height: ConfigSize.defaultSize!*5,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(ConfigSize.defaultSize!) ,color: Colors.white.withOpacity(0.2)),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(ConfigSize.defaultSize!) ,color: Colors.grey),
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
           isExpanded: true,
@@ -52,11 +59,8 @@ class _YearsButtonState extends State<YearsButton> {
                   value: item,
                   child :    Text(
                         item,
-                        style: TextStyle(
-                          fontSize: ConfigSize.defaultSize! * 1.8,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                                  style: Theme.of(context).textTheme.headlineLarge,
+
                         overflow: TextOverflow.ellipsis,
                       ),))
               .toList(),
@@ -66,7 +70,7 @@ class _YearsButtonState extends State<YearsButton> {
               YearsButton.year = value as String;
             });
               if (MounthButton.mounth!=null && YearsButton.year!=null){
-                BlocProvider.of<AgencyTimeBloc>(context).add(AgencyTimeEvent(
+                BlocProvider.of<AgencyTimeBloc>(context).add(AgencyHistoryEvent(
                   mounth: MounthButton.mounth! ,
                   year: YearsButton.year!
                 ));

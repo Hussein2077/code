@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/features/profile/data/model/room_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 
 
-class enterRoomModel extends Equatable {
+class EnterRoomModel extends Equatable {
   final int? id ;
   final String? roomIdNum ;
   final int?  ownerId ;
@@ -31,7 +31,7 @@ class enterRoomModel extends Equatable {
   final String? playNum;
   final String? freeMic;
   final String?  roomWelcome;
-  final dynamic?  giftPrice ;
+  final dynamic  giftPrice ;
   final int?  userType;
   final int?  isSound;
   final int?  ownerSound;
@@ -69,7 +69,7 @@ class enterRoomModel extends Equatable {
 
 
 
-  enterRoomModel(
+  const EnterRoomModel(
       { this.strtoTime,
         this.isUsersBaned,
         this.timePK,
@@ -133,9 +133,9 @@ class enterRoomModel extends Equatable {
       });
 
 
-  factory enterRoomModel.fromJson(Map<String,dynamic> jsonData){
+  factory EnterRoomModel.fromJson(Map<String,dynamic> jsonData){
 
-    return enterRoomModel(
+    return EnterRoomModel(
       id: jsonData['id'],
       uuidOwnerRoom:  jsonData['uuid'],
       boxes:jsonData['boxes'] ==null ? null:  List<Boxes>.from(jsonData['boxes'].map((x)=>Boxes.fromJson(x))),
@@ -193,7 +193,7 @@ class enterRoomModel extends Equatable {
      ownerFamliy: jsonData['owner_family']==null?null:ShowFamilyModel.fromJson( jsonData['owner_family']),
      isPK:  jsonData['is_pk'],
         pkModel:jsonData['pk']==null? null: PKModel.fromJson(jsonData['pk']),
-      seats:  jsonData['microphones']==null? null : jsonData['microphones'] ,
+      seats:  jsonData['microphones'] ,
       topUser:jsonData['top_user']==null ? null : OwnerDataModel.fromMap(jsonData['top_user']),
        roomFamily:jsonData['room_family'] ==null ? null: RoomFamilyModel.fromJson( jsonData['room_family']),
 
@@ -260,7 +260,7 @@ class Boxes extends Equatable {
   final int remmingTime ;
 
 
-  Boxes({required this.id,
+  const Boxes({required this.id,
     required this.ownerBoxData,
     required this.coins,
     required this.type ,
@@ -289,7 +289,7 @@ class OwnerBox extends Equatable{
   final String? uuid;
   final String? image ;
 
-  OwnerBox({
+  const OwnerBox({
      this.name,
      this.id,
      this.uuid,

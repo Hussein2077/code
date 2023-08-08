@@ -18,17 +18,17 @@ import 'package:tik_chat_v2/features/room/domine/use_case/ban_user_from_writing_
 import 'package:tik_chat_v2/features/room/domine/use_case/enter_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_useCase.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/send_pobUp_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/upMic_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_pob_up_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
 
 
 abstract class BaseRepositoryRoom {
 
-  Future<Either<Failure, enterRoomModel>> updateRoom(
+  Future<Either<Failure, EnterRoomModel>> updateRoom(
       {required PramiterUpdate pramiterUpdate});
-  Future<Either<enterRoomModel, Failure>> enterRoom(
+  Future<Either<EnterRoomModel, Failure>> enterRoom(
       EnterRoomPramiter pramiter);
   Future<Either<Unit, Failure>> exsitRoom(String ownerId);
   Future<Either<List<AllMainClassesModel>,Failure>> getAllRoomTypes();

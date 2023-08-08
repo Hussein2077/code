@@ -288,9 +288,17 @@ class StringManager {
   static const String agencyOwner = "Agency Owner";
   static const String members = "Members";
   static const String years = "Years";
-  static const String mounths = "Mounths";
+  static const String mounth = "Mounth";
   static const String totalDaimonds = "Total Diamonds";
   static const String chargeCoins = "Charge Coins";
+
+    static const String checkYourInternet = "Check Your Internet";
+        static const String noDataFoundHere = "No Data Found Here";
+        static const String totalUsd = "Total Usd";
+                static const String ownerUsd = "Owner Usd";
+
+
+
   static String exchangeDaimondMethod(String coin, String diamond) {
     return "${StringManager.areYouSureYouWantToExchange} $diamond ${StringManager.daimondTo} $coin ${StringManager.coins}";
   }

@@ -68,7 +68,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
                   TabBarViewDetailsScreen(
                     flag:'received',
-                  )
+                  ),
           ]),
            )
         ],

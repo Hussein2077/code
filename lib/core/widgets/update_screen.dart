@@ -61,6 +61,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       if (await canLaunchUrlString(appUrl)) {
                         launchUrlString(appUrl);
                       } else {
+                        // ignore: use_build_context_synchronously
                         errorToast(context: context, title: StringManager.unexcepectedError.tr());
                       }
                     },

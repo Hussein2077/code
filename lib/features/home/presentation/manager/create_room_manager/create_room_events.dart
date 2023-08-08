@@ -8,15 +8,15 @@ abstract class CreateRoomEvents extends Equatable {
 
 
 class CreateAudioRoomEvent extends CreateRoomEvents {
-  String roomIntero ;
-  String roomType ;
-  File roomCover ;
-  String  roomName ;
+ final String roomIntero ;
+  final String roomType ;
+  final File roomCover ;
+  final String  roomName ;
 
   CreateAudioRoomEvent({required this.roomName,required this.roomCover,required this.roomIntero,required this.roomType});
 
   @override
 
-  List<Object?> get props => [roomIntero,roomType,roomCover];
+  List<Object?> get props => [roomIntero,roomType,roomCover , roomName];
 
 }

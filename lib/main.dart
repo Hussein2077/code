@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
+// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

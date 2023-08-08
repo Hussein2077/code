@@ -20,7 +20,7 @@ class MyDataModel {
   final String? chatId;
   final String? name;
   final String? email;
-  final dynamic? phone;
+  final dynamic phone;
   final int? numberOfFans;
   final int? numberOfFollowings;
   final int? numberOfFriends;

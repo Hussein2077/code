@@ -8,8 +8,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
-import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
-import 'package:tik_chat_v2/core/widgets/user_image.dart';
+
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/widgets/member_agency_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_event.dart';
@@ -43,11 +42,11 @@ class AgenceScreen extends StatelessWidget {
                       bio: state.data.notice!,
                       id: state.data.owner!.uuid.toString(),
                       image: state.data.image!),
-                   if(mydata.type == 2)
+                  //  if(mydata.type == 2)
                     OwnerAgencyBody(myData: mydata),
 
-                  if(mydata.type == 1)
-                    Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
+                  // if(mydata.type == 1)
+                  //   Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
                 ],
               );
             } else if (state is ShowAgencyLoadingState) {

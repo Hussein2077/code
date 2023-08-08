@@ -7,7 +7,7 @@ class AllRoomsDataModel {
   final String? message;
   final List<RoomModelOfAll>? data;
   final Map<String, dynamic>? extraData;
-  final dynamic? paginates;
+  final dynamic paginates;
   AllRoomsDataModel({
     this.success,
     this.message,
@@ -21,7 +21,7 @@ class AllRoomsDataModel {
     String? message,
     List<RoomModelOfAll>? data,
     Map<String, dynamic>? extraData,
-    dynamic? paginates,
+    dynamic paginates,
   }) {
     return AllRoomsDataModel(
       success: success ?? this.success,
@@ -71,7 +71,7 @@ class AllRoomsDataModel {
 
 class RoomModelOfAll {
   final int? id;
-  var roomId;
+  dynamic roomId;
     final String? roomName;
 
   final dynamic name;
@@ -81,7 +81,7 @@ class RoomModelOfAll {
   final AllMainClassesModel? type;
   final int? isHot;
   final int? isPopular;
-  final dynamic? roomStatus;
+  final dynamic roomStatus;
   final String? roomIntro;
   final int? isRecommended;
   final int? ownerId;
@@ -133,7 +133,6 @@ class RoomModelOfAll {
       'lang':lang,
       'country':country,
       'password_status':passwordStatus,
-      'owner_id':ownerId,
       'have_luck_box': isBoxLucky
 
     };
@@ -180,7 +179,7 @@ class CounterRoomModel extends Equatable{
   final String lang ;
 
 
-  CounterRoomModel({required this.id, required  this.phoneCode,required this.lang,required this.name, required this.flag});
+  const CounterRoomModel({required this.id, required  this.phoneCode,required this.lang,required this.name, required this.flag});
 
   @override
   List<Object?> get props => [

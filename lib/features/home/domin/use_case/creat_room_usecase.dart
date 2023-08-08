@@ -22,7 +22,7 @@ class CreateRoomPramiter extends Equatable{
   final String? roomType;
   final String? roomName ; 
 
-  CreateRoomPramiter({this.roomName,  this.roomIntero,  this.roomCover, this.roomType});
+  const CreateRoomPramiter({this.roomName,  this.roomIntero,  this.roomCover, this.roomType});
 
   @override
   List<Object?> get props => [id,roomIntero,roomCover,roomType , roomName];

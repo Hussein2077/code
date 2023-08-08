@@ -37,12 +37,12 @@ class _MounthButtonState extends State<MounthButton> {
     return Container(
       width: ConfigSize.defaultSize!*17,
       height: ConfigSize.defaultSize!*5,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(ConfigSize.defaultSize!) ,color: Colors.white.withOpacity(0.2)),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(ConfigSize.defaultSize!) ,color:  Colors.grey),
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
           isExpanded: true,
           hint: Text(
-           StringManager.mounths,
+           StringManager.mounth,
             style: TextStyle(
               fontSize: ConfigSize.defaultSize! * 1.8,
               fontWeight: FontWeight.bold,
@@ -55,11 +55,7 @@ class _MounthButtonState extends State<MounthButton> {
                   value: item,
                   child :    Text(
                         item,
-                        style: TextStyle(
-                          fontSize: ConfigSize.defaultSize! * 1.8,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.headlineLarge,
                         overflow: TextOverflow.ellipsis,
                       ),))
               .toList(),
@@ -68,7 +64,7 @@ class _MounthButtonState extends State<MounthButton> {
             setState(() {
               MounthButton.mounth = value as String;
               if (MounthButton.mounth!=null && YearsButton.year!=null){
-                BlocProvider.of<AgencyTimeBloc>(context).add(AgencyTimeEvent(
+                BlocProvider.of<AgencyTimeBloc>(context).add(AgencyHistoryEvent(
                   mounth: MounthButton.mounth! ,
                   year: YearsButton.year!
                 ));

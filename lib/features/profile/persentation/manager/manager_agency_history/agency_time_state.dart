@@ -1,24 +1,34 @@
 
-import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
 
-abstract class AgencyTimeState extends Equatable {
-  const AgencyTimeState();
+abstract class AgencyTimeState  {
+  final AgencyHistoryModle? data ;
+
+   AgencyTimeState(this.data);
   
-  @override
-  List<Object> get props => [];
+ 
 }
 
-class AgencyTimeInitial extends AgencyTimeState {}
-class AgencyTimeLoadingState extends AgencyTimeState {}
+class AgencyTimeInitial extends AgencyTimeState {
+     AgencyTimeInitial(super.data);
+
+}
+class AgencyTimeLoadingState extends AgencyTimeState {
+     AgencyTimeLoadingState(super.data);
+
+}
 class AgencyTimeSucssesState extends AgencyTimeState {
-  final AgencyHistoryModle data ;
-  const AgencyTimeSucssesState({required this.data });
+      AgencyTimeSucssesState({required data}) : super(data);
+
+
+
   
 }
 class AgencyTimeErrorState extends AgencyTimeState {
+    final String error ; 
 
-  final String error ; 
-  const AgencyTimeErrorState({required this.error});
+   AgencyTimeErrorState( super.data, this.error);
+
+
 
 }
