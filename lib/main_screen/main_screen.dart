@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +11,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
-
 import 'widget/bottom_bar_widget.dart';
+
+
 
 class MainScreen extends StatefulWidget {
   final bool? isChachGift ;
@@ -83,7 +83,8 @@ class _MainScreenState extends State<MainScreen> {
   listenToInternet() {
     Connectivity().onConnectivityChanged.listen((event) {
       if (event == ConnectivityResult.wifi ||
-          event == ConnectivityResult.mobile) {
+          event == ConnectivityResult.mobile)
+      {
         log("Connectivity");
         //todo add all main evens here
         BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
