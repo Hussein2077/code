@@ -5,7 +5,7 @@ class UserOnMicModel extends Equatable {
   final int id ;
   final String name;
 
-  UserOnMicModel({required this.id,required  this.name});
+  const UserOnMicModel({required this.id,required  this.name});
 
 
   factory UserOnMicModel.fromJson(Map<String,dynamic>json )=>

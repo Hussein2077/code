@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
@@ -56,11 +58,15 @@ class _UserProfileState extends State<UserProfile> {
                   );
                 } else if (state is GetMyDataLoadingState) {
                   return const LoadingWidget();
-                } else if (state is GetMyDataErrorState) {
-                  return CustoumErrorWidget(message: state.errorMassage);
-                } else {
-                  return const CustoumErrorWidget(
-                      message: StringManager.unexcepectedError);
+                }else {
+                  return   Column(
+                    children: [
+                      UpperProfileBody(
+                          userData: getIt<OwnerDataModel>(), myProfile: myProfile!),
+                      LowerProfileBody(
+                          userData: getIt<OwnerDataModel>(), myProfile: myProfile!),
+                    ],
+                  );
                 }
               },
             )

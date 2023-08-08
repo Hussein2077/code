@@ -3,7 +3,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/features/room/domine/Repository/Base_Repository_Profile.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/upMic_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 
 
 class MuteUnMuteMicUC {

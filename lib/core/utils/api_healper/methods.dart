@@ -25,6 +25,7 @@ import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 
 class Methods {
@@ -221,12 +222,12 @@ class Methods {
           final cacheManager = DefaultCacheManager();
 
           if(kDebugMode){
-            log("downloading${imageId}");
+            log("downloading$imageId");
           }
 
           await cacheManager.downloadFile(svgaUrl,key:imageId,);
           if(kDebugMode){
-            log("loaded${imageId}");
+            log("loaded$imageId");
           }
 
 
@@ -521,7 +522,7 @@ class Methods {
         //set && get time of cach
         Future<void> setLastTimeCache(TypesCache typesCache )async{
           if(kDebugMode){
-            log("typesCache"+typesCache.toString());
+            log("typesCache$typesCache");
           }
           final timestamp =
               DateTime.now().toUtc().millisecondsSinceEpoch;
@@ -612,6 +613,7 @@ class Methods {
 
           final cacheManager = DefaultCacheManager();
           cacheManager.emptyCache() ;
+          // ignore: use_build_context_synchronously
           sucssesToast(context: context, title: StringManager.clearDataDone.tr());
         }
 

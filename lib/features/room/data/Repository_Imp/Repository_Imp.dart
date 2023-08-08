@@ -7,7 +7,7 @@ import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
-import 'package:tik_chat_v2/features/room/data/data_sorce/Remotly_DataSourceRoom.dart';
+import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
 import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/box_lucky_model.dart';
@@ -20,8 +20,9 @@ import 'package:tik_chat_v2/features/room/domine/use_case/ban_user_from_writing_
 import 'package:tik_chat_v2/features/room/domine/use_case/enter_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_useCase.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/upMic_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
+
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
 
 
@@ -316,7 +317,7 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
   }
 
   @override
-  Future<Either<Failure, enterRoomModel>> updateRoom(
+  Future<Either<Failure, EnterRoomModel>> updateRoom(
       {required PramiterUpdate pramiterUpdate}) async {
    try {
       final failureOrDone = await baseRemotlyDataSourceRoom.updateRoom(
@@ -328,7 +329,7 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
   }
 
   @override
-  Future<Either<enterRoomModel, Failure>> enterRoom(
+  Future<Either<EnterRoomModel, Failure>> enterRoom(
       EnterRoomPramiter pramiter) async {
     try {
       final failurOrDone = await baseRemotlyDataSourceRoom.enterRomm(

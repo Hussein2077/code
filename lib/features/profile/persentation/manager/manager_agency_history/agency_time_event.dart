@@ -8,8 +8,16 @@ abstract class BaseAgencyTimeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AgencyTimeEvent extends BaseAgencyTimeEvent{
+class AgencyHistoryEvent extends BaseAgencyTimeEvent{
   final String mounth ;
   final String year ; 
-  const  AgencyTimeEvent ({required this.mounth , required this.year});
+  const  AgencyHistoryEvent ({required this.mounth , required this.year});
+}
+
+class LoadMoreAgencyHistoryEvent extends BaseAgencyTimeEvent{
+  final String mounth ;
+  final String year ; 
+  final String page; 
+
+  const  LoadMoreAgencyHistoryEvent ({required this.page ,  required this.mounth , required this.year});
 }

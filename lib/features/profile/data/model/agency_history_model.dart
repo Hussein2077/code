@@ -1,13 +1,20 @@
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 
 class AgencyHistoryModle {
- final int? sum ; 
- final List <OwnerDataModel>? users ;
+ final int? sumAgencyDaiomd ;
+ final int? sumAgencyUsd ;
+  final int? totalOwnerUsd ;
 
- const AgencyHistoryModle({this.sum , this.users});
+
+  List <OwnerDataModel>? users ;
+
+  AgencyHistoryModle({this.sumAgencyUsd , this.totalOwnerUsd, this.sumAgencyDaiomd , this.users});
 
  factory   AgencyHistoryModle.fromJson(Map<String , dynamic> json){
-  return AgencyHistoryModle(sum : json['sum'] , 
+  return AgencyHistoryModle(sumAgencyDaiomd : json['sum']??0 , 
+  sumAgencyUsd: json['sum_usd']??0,
+  totalOwnerUsd: json['Total_owner_usd']??0,
+
   users:  List<OwnerDataModel>.from(
           json['users'].map((x) => OwnerDataModel.fromMap(x)))
   );

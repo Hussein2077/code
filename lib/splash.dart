@@ -61,11 +61,11 @@ class _SplashScreenState extends State<SplashScreen> {
             }
             else if ((configModel!.isAuth??false)){
               if(kDebugMode){
-                log("configModel1"+configModel!.updateEntroCach.toString());
-                log("configModel1"+configModel!.updateGiftCache.toString());
-                log("configModel1"+configModel!.updateFrameCach.toString());
-                log("configModel1"+configModel!.updateExtraCach.toString());
-                log("configModel1"+configModel!.updateEmojieCach.toString());
+                log("configModel1${configModel!.updateEntroCach}");
+                log("configModel1${configModel!.updateGiftCache}");
+                log("configModel1${configModel!.updateFrameCach}");
+                log("configModel1${configModel!.updateExtraCach}");
+                log("configModel1${configModel!.updateEmojieCach}");
               }
               Navigator.pushNamedAndRemoveUntil(
                   context, Routes.mainScreen, (route) => false ,

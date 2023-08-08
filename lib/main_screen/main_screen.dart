@@ -3,14 +3,25 @@ import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/chat/persentation/chat_screen.dart';
 import 'package:tik_chat_v2/features/following/persentation/following_live_screen.dart';
+import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
+import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
+import 'package:tik_chat_v2/features/home/presentation/widget/body/aduio/audio_body.dart';
+import 'package:tik_chat_v2/features/home/presentation/widget/country_dilog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
+
+import '../core/resource_manger/asset_path.dart';
 import 'widget/bottom_bar_widget.dart';
 
 
@@ -83,13 +94,21 @@ class _MainScreenState extends State<MainScreen> {
   listenToInternet() {
     Connectivity().onConnectivityChanged.listen((event) {
       if (event == ConnectivityResult.wifi ||
-          event == ConnectivityResult.mobile)
-      {
-        log("Connectivity");
-        //todo add all main evens here
+          event == ConnectivityResult.mobile) {
         BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+        BlocProvider.of<GetFollwersRoomBloc>(context)
+            .add(const GetFollwersRoomEvent(type: "5"));
+        BlocProvider.of<GetRoomsBloc>(context)
+            .add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
+        AduioBody.type = StringManager.popular;
+        AduioBody.countryId = null;
+        CountryDialog.flag = AssetsPath.fireIcon;
+        CountryDialog.name = StringManager.popular;
+        CountryDialog.selectedCountry.value =
+            !CountryDialog.selectedCountry.value;
+
       } else if (event == ConnectivityResult.none) {
-        // todo show dialog or toast here
+        errorToast(context: context, title: StringManager.checkYourInternet);
       }
     });
   }

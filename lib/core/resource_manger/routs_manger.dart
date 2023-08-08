@@ -293,7 +293,7 @@ class RouteGenerator {
                        case Routes.agencyRequestsScreen:
         return MaterialPageRoute(builder: (_) =>  const AgencyRequestsScreen());
                     case Routes.agencyRepoertsScreen:
-        return MaterialPageRoute(builder: (_) =>  const ReportsScreen());
+        return MaterialPageRoute(builder: (_) =>   ReportsScreen());
                            case Routes.charchingCoinsForUsers:
         return MaterialPageRoute(builder: (_) =>   CharchingCoinsForUsers());
 

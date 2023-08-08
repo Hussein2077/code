@@ -16,7 +16,7 @@ class GiftsStates extends Equatable {
   final RequestState countryState;
   final String countryMessage;
 
-  GiftsStates(
+  const GiftsStates(
       {this.hotMessage = "",
       this.dataNormal = const [],
       this.normalState = RequestState.loading,

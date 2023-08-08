@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/getGiftes_useCase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/getgiftes_usecase.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_states.dart';
 
@@ -14,7 +14,7 @@ class GiftBloc extends Bloc<GiftEvent,GiftsStates>
   final GiftsUseCase giftsUseCase ;
 
 
-  GiftBloc({required this.giftsUseCase}): super(GiftsStates()){
+  GiftBloc({required this.giftsUseCase}): super(const GiftsStates()){
 
     on<GiftesNormalEvent>(gethotGift);
     on<GiftesHotEvent>(getNormalGift);

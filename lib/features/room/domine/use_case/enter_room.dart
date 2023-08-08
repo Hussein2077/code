@@ -11,7 +11,7 @@ class EnterRoomUC {
 
   EnterRoomUC({required this.roomRepo});
 
-  Future<Either<enterRoomModel, Failure>> call(
+  Future<Either<EnterRoomModel, Failure>> call(
       EnterRoomPramiter parameter) async {
     final result = await roomRepo.enterRoom(parameter);
     return result;

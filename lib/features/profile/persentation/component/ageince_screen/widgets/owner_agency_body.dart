@@ -78,7 +78,7 @@ Widget agencyCard({required BuildContext context ,required Widget widget ,requir
                 style: Theme.of(context).textTheme.bodyLarge,
 
               ),
-              Spacer(),
+              const Spacer(),
               Icon(Icons.arrow_forward_ios , size: ConfigSize.defaultSize!*1.7, color: Theme.of(context).iconTheme.color)
             ],
           ),

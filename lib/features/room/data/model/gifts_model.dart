@@ -12,7 +12,7 @@ class GiftsModel extends Equatable {
   final int price;
   final int vipLevel ;
 
-  GiftsModel(
+  const GiftsModel(
       {required this.id,required  this.name,required  this.type, required  this.img,
        required   this.showImg, required this.price,required this.showImg2, required this.vipLevel});
 

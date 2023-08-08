@@ -3,7 +3,6 @@ import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dar
 
 abstract class ChargeHistoryState extends Equatable {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 

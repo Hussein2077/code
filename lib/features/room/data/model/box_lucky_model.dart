@@ -6,7 +6,7 @@ class BoxLuckyModel extends Equatable {
   final  List<TypeBox> normalBox ;
   final List<TypeBox> superBox ;
 
-  BoxLuckyModel({required this.normalBox,required this.superBox});
+  const BoxLuckyModel({required this.normalBox,required this.superBox});
   
   factory BoxLuckyModel.fromJson(Map<String,dynamic> json){
     return BoxLuckyModel(
@@ -27,7 +27,7 @@ class TypeBox extends Equatable {
   final bool? isLabel ;
 
 
-  TypeBox({required  this.id, required this.type, required this.coins,required this.userNum,
+  const TypeBox({required  this.id, required this.type, required this.coins,required this.userNum,
     required  this.isLabel});
 
   factory TypeBox.fromJson(Map<String,dynamic> json)=>

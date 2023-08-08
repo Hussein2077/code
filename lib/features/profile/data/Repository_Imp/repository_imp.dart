@@ -828,10 +828,10 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<AgencyHistoryModle, Failure>> agencyHistory({required String month, required String year})async {
+  Future<Either<AgencyHistoryModle, Failure>> agencyHistory({required String month, required String year , String? page})async {
     try {
       final result =
-      await baseRemotlyDataSourceProfile.getAgencyHistory(month: month , year: year );
+      await baseRemotlyDataSourceProfile.getAgencyHistory(month: month , year: year , page: page );
       return Left(result);
     } catch (e) {
       return right(DioHelper.buildFailure(e));
@@ -850,7 +850,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
   
   @override
-  Future<Either<String, Failure>> chargeDolarsForUsers({required String id, required String amount})async {
+  Future<Either<String, Failure>> chargeDolarsForUsers({required String id, required String amount , })async {
      try {
       final result =
       await baseRemotlyDataSourceProfile.chargeDolarsForUsers(amount: amount , id: id );
