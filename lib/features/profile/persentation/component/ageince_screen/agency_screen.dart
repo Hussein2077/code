@@ -41,7 +41,7 @@ class AgenceScreen extends StatelessWidget {
                       context: context,
                       agienceName: state.data.name!,
                       bio: state.data.notice!,
-                      id: state.data.owner!.uuid.toString(),
+                      id: state.data.id!.toString(),
                       image: state.data.image!),
                    if(mydata.type == 2)
                     OwnerAgencyBody(myData: mydata),
@@ -88,10 +88,17 @@ Widget agencyCommanWidget(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            UserImage(
+              image: image,
+              imageSize:  ConfigSize.defaultSize! * 8.75,
+              boxFit: BoxFit.cover,
+            ),
+
+            /*
              CircleAvatar(
               radius: ConfigSize.defaultSize!*3.5,
               backgroundImage: const AssetImage(AssetsPath.testImage),
-            ),
+            ),*/
             Text(
               "Name Agency :\n$agienceName",
               style:TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),

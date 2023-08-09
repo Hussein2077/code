@@ -1824,7 +1824,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Map<String, String> headers = await DioHelper().header();
    final body = {'month': month, "year" : year };
 
-    try {
+  /*  try {*/
       final response = await Dio().post(
         ConstentApi.agencyHistory,
         data: body,
@@ -1835,9 +1835,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> resultData = response.data;
 
       return  AgencyHistoryModle.fromJson(resultData["data"]);
-    } on DioError catch (e) {
+    /*} on DioError catch (e) {
       throw DioHelper.handleDioError(e);
-    }
+    }*/
   }
   
   @override
