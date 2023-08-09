@@ -17,9 +17,9 @@ class AddInFormationUC extends BaseUseCase<MyDataModel,InformationPramiter>{
   AddInFormationUC({ required this.baseRepository});
 
   @override
-  Future<Either<MyDataModel, Failure>> call(InformationPramiter informationPramiter) async {
+  Future<Either<MyDataModel, Failure>> call(InformationPramiter parameter) async {
 
-    final result = await baseRepository.addInformation(informationPramiter) ;
+    final result = await baseRepository.addInformation(parameter) ;
 
     return result ;
   }

@@ -78,12 +78,12 @@ class Methods {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool(StringManager.keepLogin, KeepInLogin);
   }
-  Future<void> saveUserData() async {
+  Future<void> saveMyData() async {
     Map<String, String> headers = await DioHelper().header();
     await DefaultCacheManager().getSingleFile(ConstentApi.getmyDataUrl,
         headers: headers,key: StringManager.cachUserData);
   }
-  Future<MyDataModel> returnUserData() async {
+  Future<MyDataModel> returnMyData() async {
     var file = await DefaultCacheManager().getFileFromCache(StringManager.cachUserData);
 
     if (file != null && await file.file.exists()){

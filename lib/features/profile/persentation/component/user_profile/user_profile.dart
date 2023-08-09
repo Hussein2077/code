@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -50,20 +52,25 @@ class _UserProfileState extends State<UserProfile> {
                   return Column(
                     children: [
                       UpperProfileBody(
-                          myDataModel: state.myDataModel, myProfile: myProfile!),
+                          myDataModel: state.myDataModel,
+                          myProfile: myProfile!),
                       LowerProfileBody(
-                          myDataModel: state.myDataModel, myProfile: myProfile!),
+                          myDataModel: state.myDataModel,
+                          myProfile: myProfile!),
                     ],
                   );
                 } else if (state is GetMyDataLoadingState) {
                   return const LoadingWidget();
-                }else {
-                  return   Column(
+                } else {
+                  return Column(
                     children: [
                       UpperProfileBody(
-                          myDataModel: getIt<MyDataModel>(), myProfile: myProfile!),
+                          myDataModel: getIt<MyDataModel>(),
+                          myProfile: myProfile!),
                       LowerProfileBody(
-                          myProfile: myProfile!, myDataModel:  getIt<MyDataModel>(),),
+                        myProfile: myProfile!,
+                        myDataModel: getIt<MyDataModel>(),
+                      ),
                     ],
                   );
                 }
@@ -73,24 +80,29 @@ class _UserProfileState extends State<UserProfile> {
           //UserProfile
           : BlocBuilder<GetUserBloc, GetUserState>(
               builder: (context, state) {
-                if (state is GetUserSucssesState){
-                   return Column(
-                  children:  [
-                    //TODO detect which values should br in convert method
-                    UpperProfileBody(myProfile: myProfile! , myDataModel: state.data.convertToMyDataObject()),
-                    LowerProfileBody(myProfile: myProfile! , myDataModel: state.data.convertToMyDataObject()),
-                     ProfileBottomBar(userData: state.data,)
-                  ],
-                );
-                }else if(state is GetUserLoddingState) {
-                                    return const LoadingWidget();
-
-                }else if (state is GetUserErorrState){
+                if (state is GetUserSucssesState) {
+                  return Column(
+                    children: [
+                      //TODO detect which values should br in convert method
+                      UpperProfileBody(
+                          myProfile: myProfile!,
+                          myDataModel: state.data.convertToMyDataObject()),
+                      LowerProfileBody(
+                          myProfile: myProfile!,
+                          myDataModel: state.data.convertToMyDataObject()),
+                      ProfileBottomBar(
+                        userData: state.data,
+                      )
+                    ],
+                  );
+                } else if (state is GetUserLoddingState) {
+                  return const LoadingWidget();
+                } else if (state is GetUserErorrState) {
                   return CustoumErrorWidget(message: state.error);
-                }else {
-                  return const CustoumErrorWidget(message: StringManager.unexcepectedError);
+                } else {
+                  return const CustoumErrorWidget(
+                      message: StringManager.unexcepectedError);
                 }
-             
               },
             ),
     );

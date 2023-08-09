@@ -1,9 +1,9 @@
 
 
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 
 abstract class AgnecyMemberState  {
-   final List<UserDataModel>? data ;
+   final List<AgencyMemberModel>? data ;
 
   const AgnecyMemberState( this.data);
   

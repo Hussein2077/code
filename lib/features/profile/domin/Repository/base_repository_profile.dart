@@ -7,6 +7,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_time_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
@@ -181,7 +182,7 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> feedBack(FeedBackPramiter feedBackPramiter);
         Future<Either<AgencyMyStoreModel,Failure>> myStore();
         Future<Either<ShowAgencyModel,Failure>> showAgency();
-        Future<Either<List<UserDataModel>,Failure>> agencyMember(int page);
+        Future<Either<List<AgencyMemberModel>,Failure>> agencyMember(int page);
         Future<Either<List<UserDataModel>,Failure>> agencyRequests();
   Future<Either<String, Failure>> agencyRequestsAction({required String userId ,required bool accept});
         Future<Either<List<AgencyHistoryTime>,Failure>> agencyTimeHistory();

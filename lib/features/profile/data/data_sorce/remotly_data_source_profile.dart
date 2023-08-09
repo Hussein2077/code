@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_time_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
@@ -162,7 +163,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<ShowAgencyModel> showAgency();
 
-    Future<List<UserDataModel>> agencyMember(int page);
+    Future<List<AgencyMemberModel>> agencyMember(int page);
     Future<List<UserDataModel>> agencyRequests();
         Future<String> agencyRequestsAction({required String userId ,required bool accept});
 
@@ -197,7 +198,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
 
-        Methods().saveUserData();
+        Methods().saveMyData();
       MyDataModel userData =
       MyDataModel.fromMap(response.data[ConstentApi.data]);
       return userData;
@@ -1697,7 +1698,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<List<UserDataModel>> agencyMember(int page) async{
+  Future<List<AgencyMemberModel>> agencyMember(int page) async{
   Map<String, String> headers = await DioHelper().header();
    final body = {'page': page, };
 
@@ -1711,8 +1712,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
       Map<String, dynamic> resultData = response.data;
 
-      return List<UserDataModel>.from(
-          resultData['data'].map((x) => UserDataModel.fromMap(x)));
+      return List<AgencyMemberModel>.from(
+          resultData['data'].map((x) => AgencyMemberModel.fromJson(x)));
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }

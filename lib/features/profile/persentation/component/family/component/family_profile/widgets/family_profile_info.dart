@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -14,6 +13,7 @@ import 'package:tik_chat_v2/core/widgets/custom_icon.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/aduio/audio_live_row.dart';
+import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/widgets/family_member_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/widgets/settings_dailog.dart';
@@ -255,10 +255,10 @@ Widget familyInfo(
 }
 //TODO create member family model
 Widget familyMemeber(
-    {required UserDataModel owner,
+    {required MemberFamilyDataModel owner,
     required String memberNum,
     required String maxMemberNum,
-    required List<UserDataModel> members,
+    required List<MemberFamilyDataModel> members,
     required BuildContext context,
     void Function()? onTap}) {
   return Column(
@@ -300,14 +300,14 @@ Widget familyMemeber(
               if (index == 0) {
                 return FamilyMemberCard(
                   id: owner.id.toString(),
-                  image: owner.profile!.image!,
+                  image: owner.image!,
                   name: owner.name!,
                   type: StringManager.owner,
                 );
               } else {
                 return FamilyMemberCard(
                   id: members[index-1].id.toString(),
-                  image: members[index-1].profile!.image!,
+                  image: members[index-1].image!,
                   name: members[index-1].name!,
                   type: members[index-1].isFamilyAdmin!
                       ? StringManager.admin

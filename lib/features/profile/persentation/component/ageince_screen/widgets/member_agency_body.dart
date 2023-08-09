@@ -67,7 +67,7 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
                               vertical: ConfigSize.defaultSize!,
                             ),
                             child: UserInfoRow(
-                              userData: state.data![index],
+                              userData: state.data![index].convertToUserDataModel(),
                               underName: const SizedBox(),
                               endIcon: Icon(
                                 Icons.arrow_forward_ios,

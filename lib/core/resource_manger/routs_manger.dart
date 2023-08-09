@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/create_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/upload_reels_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/search/search_screen.dart';
+import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/agency_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/agency_members_screen/agency_members_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/charging_from_sysytem_screen/charging_from_sysytem_screen.dart';
@@ -238,7 +239,7 @@ class RouteGenerator {
                 ));
 
       case Routes.familyMembers:
-        UserDataModel ownerData = settings.arguments as UserDataModel;
+        MemberFamilyDataModel ownerData = settings.arguments as MemberFamilyDataModel;
         return MaterialPageRoute(
             builder: (_) => FamilyMemberScreen(
                   owner: ownerData,

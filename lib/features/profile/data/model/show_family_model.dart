@@ -1,6 +1,5 @@
-// ignore_for_file: unnecessary_question_mark
 
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 
 class ShowFamilyModel {
   final int? id;
@@ -11,10 +10,10 @@ class ShowFamilyModel {
   final int? maxNumOfMembers;
   final bool? amIOwner;
   final bool? amIAdmin;
-  final List<UserDataModel>? members;
+  final List<MemberFamilyDataModel>? members;
   final int? numOfRequests;
   final FamilyLevel? familylevel;
-  final UserDataModel ownerData ;
+  final MemberFamilyDataModel ownerData ;
 
   ShowFamilyModel({
     required this.id,
@@ -41,11 +40,11 @@ class ShowFamilyModel {
       amIOwner: json['am_i_owner'],
       amImember: json['am_i_member'],
       numOfRequests: json['num_of_requests'],
-      ownerData: UserDataModel.fromMap(json["owner"]) ,
+      ownerData: MemberFamilyDataModel.fromJson(json["owner"]) ,
       members: json['members'] == null
           ? null
-          : List<UserDataModel>.from(
-              json['members'].map((x) => UserDataModel.fromMap(x))),
+          : List<MemberFamilyDataModel>.from(
+              json['members'].map((x) => MemberFamilyDataModel.fromJson(x))),
       familylevel:
           json['level'] == null ? null : FamilyLevel.fromjson(json['level']),
     );
@@ -56,12 +55,12 @@ class FamilyLevel {
   final int? levelExp;
   final String? levelName;
   final String? levelImag;
-  final dynamic? familyExp;
+  final dynamic familyExp;
   final int? overCureentLevelExp;
   final int? nextExp;
   final String? nextName;
   final String? nextImage;
-  final dynamic? per;
+  final dynamic per;
   final int? rem;
   const FamilyLevel(
       {this.levelExp,

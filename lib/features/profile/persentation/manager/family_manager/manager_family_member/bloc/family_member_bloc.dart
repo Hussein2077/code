@@ -3,8 +3,8 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
+import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_member_usecase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_state.dart';
@@ -15,7 +15,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 class FamilyMemberBloc extends Bloc<FamilyMemberEvent, FamilyMemberState> {
   GetFamilyMemberUseCase getfamilymember;
     bool isLoadingMore = false ;
-    List<UserDataModel>? tempMembers ;
+    List<MemberFamilyDataModel>? tempMembers ;
 
   FamilyMemberBloc({required this.getfamilymember})
       : super(FamilyMemberInitial(null)) {

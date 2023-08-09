@@ -21,7 +21,7 @@ import 'widget/years_button.dart';
 // ignore: must_be_immutable
 class ReportsScreen extends StatefulWidget {
     int page = 1;
-
+  
    ReportsScreen({super.key});
 
   @override
@@ -121,13 +121,13 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                     margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
                                     decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey) )),
                                     child: UserInfoRow(
-                                        userData: state.data!.users![index],
+                                        userData: state.data!.users![index].convertToUserDataModel() ,
                                         underName: const SizedBox(),
                                         endIcon: Column(children: [
                                           Row(
                                           children: [
                                               Text(
-                                                  "${state.data!.users![index].diamonds.toString()}  ",
+                                                  "${state.data!.users![index].diamond.toString()}  ",
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .bodyMedium,
