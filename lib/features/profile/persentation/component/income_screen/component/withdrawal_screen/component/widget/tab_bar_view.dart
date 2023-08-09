@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/widget/item_list_invoice_details.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_state.dart';
+
 
 class TabBarViewDetailsScreen extends StatelessWidget {
-  const TabBarViewDetailsScreen({Key? key, required this.flag})
+    final ChargeHistoryModel? data;
+    final String flag ;
+
+  const TabBarViewDetailsScreen({
+    required this.flag ,  
+    this.data ,
+
+    
+    Key? key,})
       : super(key: key);
 
-  final String? flag;
 
 
   @override
   Widget build(BuildContext context) {
-    if (flag == 'send') {
-      BlocProvider.of<ChargeHistoryBloc>(context)
-          .add(ChargeHistory(sent: 'sent'));
-    } else {
-      BlocProvider.of<ChargeHistoryBloc>(context)
-          .add(ChargeHistory(sent: 'received'));
-    }
+    
+    
+  
 
-    return BlocBuilder<ChargeHistoryBloc, ChargeHistoryState>(
-      builder: (context, state) {
-        if(state is ChargeHistorySuccessReceivedState){
-          return  Column(
+    return Column(
             children: [
               SizedBox(
                 height: ConfigSize.defaultSize! * 4.0,
@@ -35,27 +32,17 @@ class TabBarViewDetailsScreen extends StatelessWidget {
               ListView.builder(
                 itemBuilder: (context, index) {
                   return  ItemInvoiceDetails(
-                    date: state.received.data![index].time.toString(),
-                    userID: state.received.data![index].sender!.id.toString(),
-                    withdrawalAmount:state.received.data![index].value!.toString(),
+                    date: data!.data![index].time.toString(),
+                    userID: flag=="sent"? data!.data![index].receiver!.uid.toString():data!.data![index].sender!.uid.toString(),
+                    withdrawalAmount:data!.data![index].value!.toString(),
+                    type:flag=="sent"?"":data!.data![index].sender!.type.toString(), 
+
                   );
                 },
                 shrinkWrap: true,
-                itemCount: state.received.data!.length,
+                itemCount: data!.data!.length,
               ),
             ],
           );
-        }
-        else if (state is ChargeHistoryLoadingReceived) {
-          return const LoadingWidget();
-        } else if (state is ChargeHistoryErrorReceivedState) {
-          return Center(
-            child: Text(state.error),
-          );
-        } else {
-          return const Text('Something wrong');
-        }
-      },
-    );
   }
 }

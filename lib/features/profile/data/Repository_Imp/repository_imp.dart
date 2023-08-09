@@ -25,6 +25,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -856,6 +857,56 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
       await baseRemotlyDataSourceProfile.chargeDolarsForUsers(amount: amount , id: id );
       return Left(result);
     } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+  
+  @override
+  Future<Either<ChargeHistoryModel, Failure>> getChargeCoinsSystemHistory(String parameter)async {
+  try {
+      final result = await baseRemotlyDataSourceProfile.getChargeCoinsSystemHistory(parameter);
+      return left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+  
+  @override
+  Future<Either<ChargeHistoryModel, Failure>> getChargeDolarsAgencyOwnerHistory(String parameter) async{
+    try {
+      final result = await baseRemotlyDataSourceProfile.getChargeDolarsAgencyOwnerHistory(parameter);
+      return left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<List<InterstedMode>, Failure>> getAllIntersted()async {
+ try {
+      final result = await baseRemotlyDataSourceProfile.getAllIntersted();
+      return left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+  
+  @override
+  Future<Either<String, Failure>> addIntersted(List<int> ids)async {
+    try {
+      final result = await baseRemotlyDataSourceProfile.addIntersted(ids);
+      return left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+  
+  @override
+  Future<Either<List<InterstedMode>, Failure>> getUserIntersted() async{
+ try {
+      final result = await baseRemotlyDataSourceProfile.getUserIntersted();
+      return left(result);
+    } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
     }
   }

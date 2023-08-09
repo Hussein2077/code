@@ -20,6 +20,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -186,6 +187,15 @@ abstract class BaseRepositoryProfile {
         Future<Either<AgencyHistoryModle,Failure>> agencyHistory({required String month ,required String year , String? page});
         Future<Either<String,Failure>> chargeCoinForUsers({required String id ,required String amount});
         Future<Either<String,Failure>> chargeDolarsForUsers({required String id ,required String amount});
+
+          Future<Either<ChargeHistoryModel, Failure>> getChargeDolarsAgencyOwnerHistory(
+      String parameter);
+        Future<Either<ChargeHistoryModel, Failure>> getChargeCoinsSystemHistory(
+      String parameter);
+  Future<Either<List<InterstedMode>,Failure>> getAllIntersted();
+    Future<Either<String,Failure>> addIntersted(List<int> ids);
+  Future<Either<List<InterstedMode>,Failure>> getUserIntersted();
+
 
 
 

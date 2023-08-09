@@ -296,6 +296,10 @@ class StringManager {
         static const String noDataFoundHere = "No Data Found Here";
         static const String totalUsd = "Total Usd";
                 static const String ownerUsd = "Owner Usd";
+                                static const String type = "Type";
+                                                                static const String chooseTopic = "Choose the topics that are most important to you!";
+
+
 
 
 

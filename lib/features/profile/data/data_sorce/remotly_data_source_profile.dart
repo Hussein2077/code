@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: avoid_renaming_method_parameters
 
 import 'dart:developer';
@@ -34,6 +32,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -50,7 +49,6 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart'
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 
-
 abstract class BaseRemotlyDataSourceProfile {
   Future<OwnerDataModel> getmyData(Noparamiter noparamiter);
   Future<List<DataMallModel>> getDataMall(int type);
@@ -58,8 +56,7 @@ abstract class BaseRemotlyDataSourceProfile {
       {required String type, String? page});
   Future<String> follow({required String userId});
   Future<String> unFollow({required String userId});
-  Future<OwnerDataModel> getUserData(
-      {required String userId});
+  Future<OwnerDataModel> getUserData({required String userId});
   Future<List<VipCenterModel>> getVipCenter();
   Future<int> getvipCount();
   Future<List<OwnerDataModel>> getVaistors({String? page});
@@ -85,7 +82,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<String> changeUserType(String userId, String familyId, String type);
 
-  Future<FamilyMemberModel> getFamilyMember(String familyId , String? page);
+  Future<FamilyMemberModel> getFamilyMember(String familyId, String? page);
 
   Future<AllRoomsDataModel> getFamilyRoom(String familyId);
 
@@ -140,8 +137,8 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<GetVipPrevModel> getVipPrev();
 
   Future<String> buyCoins(BuyCoinsParameter buyCoinsParameter);
-   Future<List<GiftHistoryModel>> getGiftHistory(String id);
-     Future<TimeDataReport> getTimeDataReport(String time , String userId);
+  Future<List<GiftHistoryModel>> getGiftHistory(String id);
+  Future<TimeDataReport> getTimeDataReport(String time, String userId);
 
   Future<String> deleteAccount();
   Future<String> boundGmail();
@@ -150,10 +147,10 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<String> changePassword(BoundNumberPramiter boundNumberPramiter);
   Future<String> changePhone(BoundNumberPramiter boundNumberPramiter);
   Future<bool> joinToAgencie(String agencieId, String whatsAppNum);
-    Future<bool> updateFamily(UpdateFamilyPramiter updateFamilyPramiter);
+  Future<bool> updateFamily(UpdateFamilyPramiter updateFamilyPramiter);
 
-    Future<String> userReporet(UserReporetPramiter userReporetPramiter);
-              Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) ;
+  Future<String> userReporet(UserReporetPramiter userReporetPramiter);
+  Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram);
 
   Future<String> feedBack(FeedBackPramiter feedBackPramiter);
 
@@ -161,26 +158,34 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<ShowAgencyModel> showAgency();
 
-    Future<List<OwnerDataModel>> agencyMember(int page);
-    Future<List<OwnerDataModel>> agencyRequests();
-        Future<String> agencyRequestsAction({required String userId ,required bool accept});
+  Future<List<OwnerDataModel>> agencyMember(int page);
+  Future<List<OwnerDataModel>> agencyRequests();
+  Future<String> agencyRequestsAction(
+      {required String userId, required bool accept});
 
-    Future<List<AgencyHistoryTime>> getAgencyHistoryTime();
-    Future<AgencyHistoryModle> getAgencyHistory({required String month,required String year , String? page});
-    Future<String> chargeCoinForUsers({required String id,required String amount});
-    Future<String> chargeDolarsForUsers({required String id,required String amount});
+  Future<List<AgencyHistoryTime>> getAgencyHistoryTime();
+  Future<AgencyHistoryModle> getAgencyHistory(
+      {required String month, required String year, String? page});
+  Future<String> chargeCoinForUsers(
+      {required String id, required String amount});
+  Future<String> chargeDolarsForUsers(
+      {required String id, required String amount});
+
+  Future<ChargeHistoryModel> getChargeDolarsAgencyOwnerHistory(
+      String parameter);
+  Future<ChargeHistoryModel> getChargeCoinsSystemHistory(String parameter);
+  Future<List<InterstedMode>> getAllIntersted();
+    Future<String> addIntersted(List<int> ids);
+      Future<List<InterstedMode>> getUserIntersted();
 
 
 }
 
-
-
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
-
   @override
   Future<OwnerDataModel> getmyData(Noparamiter noparamiter) async {
     Map<String, String> headers = await DioHelper().header();
-   log("getmyData") ;
+    log("getmyData");
     try {
       final response = await Dio().get(
         ConstentApi.getmyDataUrl,
@@ -189,14 +194,13 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
 
-        Methods().saveUserData();
+      Methods().saveUserData();
       OwnerDataModel userData =
           OwnerDataModel.fromMap(response.data[ConstentApi.data]);
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
-    
   }
 
   @override
@@ -294,13 +298,13 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<OwnerDataModel> getUserData(
-      {required String userId}) async {
-
+  Future<OwnerDataModel> getUserData({required String userId}) async {
     Map<String, String> headers = await DioHelper().header();
     try {
       final response = await Dio().get(
-          ConstentApi().getUserData(userId: userId,),
+          ConstentApi().getUserData(
+            userId: userId,
+          ),
           options: Options(
             headers: headers,
           ));
@@ -315,7 +319,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<List<VipCenterModel>> getVipCenter() async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().get(
@@ -340,7 +343,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<int> getvipCount() async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().get(
         ConstentApi.getVipCount,
@@ -364,11 +366,11 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       final response = page == null
           ? await Dio().get(ConstentApi.getVistors,
               options: Options(
-                headers:headers,
+                headers: headers,
               ))
           : await Dio().get('${ConstentApi.getVistors}?page=$page',
               options: Options(
-                headers:headers,
+                headers: headers,
               ));
 
       List<OwnerDataModel> result = List<OwnerDataModel>.from(
@@ -387,7 +389,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     try {
       final response = await Dio().get(ConstentApi().getBackPack(type),
           options: Options(
-            headers:headers,
+            headers: headers,
           ));
       List<BackPackModel> result = List<BackPackModel>.from(
           (response.data["data"] as List)
@@ -408,18 +410,15 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           options: Options(
             headers: headers,
           ));
-      return  UesItemModel.fromJson(response.data) ;
+      return UesItemModel.fromJson(response.data);
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
   }
 
-
-
   @override
   Future<String> creatFamily(creatFamilyPramiter) async {
     Map<String, String> headers = await DioHelper().header();
-
 
     FormData formData;
     File file = creatFamilyPramiter.image;
@@ -439,7 +438,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       Map<String, dynamic> resultData = response.data;
-      
+
       return resultData["data"]["id"].toString();
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
@@ -540,7 +539,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
-
   }
 
   @override
@@ -598,7 +596,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
-
   }
 
   @override
@@ -628,7 +625,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<FamilyRequestsModel> getfamilyRequest() async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().post(
@@ -699,13 +695,11 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<FamilyMemberModel> getFamilyMember(String familyId , String? page) async {
+  Future<FamilyMemberModel> getFamilyMember(
+      String familyId, String? page) async {
     Map<String, String> headers = await DioHelper().header();
 
-    final body = {
-      'family_id': familyId,
-      "page": page ?? 1
-    };
+    final body = {'family_id': familyId, "page": page ?? 1};
 
     try {
       final response = await Dio().post(
@@ -757,7 +751,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> exitFamily() async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().post(
         ConstentApi.exiteFamily,
@@ -778,7 +771,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<BlackListModel> getBlackList() async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().get(
@@ -853,18 +845,18 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<DataWalletModel> getChargePage() async {
     Map<String, String> headers = await DioHelper().header();
 
-   try {
-    final response = await Dio().post(
-      ConstentApi.chargePage,
-      options: Options(
-        headers: headers,
-      ),
-    );
-    Map<String, dynamic> resultData = response.data;
+    try {
+      final response = await Dio().post(
+        ConstentApi.chargePage,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
 
-    DataWalletModel data = DataWalletModel.fromJson(resultData['data']);
+      DataWalletModel data = DataWalletModel.fromJson(resultData['data']);
 
-    return data;
+      return data;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
@@ -927,7 +919,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<SilverCoinsModel> getSilverCoinData() async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().get(
         ConstentApi.getSilverData,
@@ -974,7 +965,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<List<SilverCoinHistory>> getSilverHistory() async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().get(
         ConstentApi.getSilverHistory,
@@ -1019,7 +1009,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<List<GoldCoinsModel>> getGoldCoinData() async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().get(
         ConstentApi.getGoldData,
@@ -1036,13 +1025,11 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
-    
   }
 
   @override
   Future<ReplaceWithGoldModel> getReplaceWithDimondData() async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().get(
@@ -1090,7 +1077,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<SearchModel> search(String keyWord) async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().get(
         ConstentApi().search(keyword: keyWord),
@@ -1131,7 +1117,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> lastCommunicationTime(String type) async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().post(
         ConstentApi.prevsUse(type),
@@ -1150,7 +1135,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<String> hideCountry(String type) async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().post(
@@ -1171,7 +1155,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> hideVisitor(String type) async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().post(
         ConstentApi.prevsUse(type),
@@ -1190,7 +1173,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<String> activeMyseteriousMan(String type) async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().post(
@@ -1211,7 +1193,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> disposeMyseteriousMan(String type) async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().post(
         ConstentApi.prevsUnUse(type),
@@ -1230,7 +1211,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<String> dipsoseLastCommunicationTime(String type) async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().post(
@@ -1251,7 +1231,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> disposeHideCountry(String type) async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().post(
         ConstentApi.prevsUnUse(type),
@@ -1271,7 +1250,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> disposeHideVisitor(String type) async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().post(
         ConstentApi.prevsUnUse(type),
@@ -1290,7 +1268,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<GetVipPrevModel> getVipPrev() async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().get(
@@ -1312,7 +1289,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     Map<String, String> headers = await DioHelper().header();
     final body = {
       'pay_method': buyCoinsParameter.paymentMethod,
-      'coin_id': buyCoinsParameter.coinsID ,
+      'coin_id': buyCoinsParameter.coinsID,
     };
 
     try {
@@ -1331,10 +1308,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     }
   }
 
-
-      @override
-  Future<List<GiftHistoryModel>> getGiftHistory(String id)async {
-        Map<String, String> headers = await DioHelper().header();
+  @override
+  Future<List<GiftHistoryModel>> getGiftHistory(String id) async {
+    Map<String, String> headers = await DioHelper().header();
     try {
       final response = await Dio().get(
         ConstentApi.getgiftHistory(id),
@@ -1344,41 +1320,36 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
 
       Map<String, dynamic> resultData = response.data;
-        List<GiftHistoryModel> data = List<GiftHistoryModel>.from(
+      List<GiftHistoryModel> data = List<GiftHistoryModel>.from(
           resultData['data'].map((x) => GiftHistoryModel.fromjson(x)));
 
       return data;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
+  }
 
-
-}
-
- @override
-  Future<TimeDataReport> getTimeDataReport(String time , String userId) async {
-   Map<String, String> headers = await DioHelper().header();
-     final body = {
+  @override
+  Future<TimeDataReport> getTimeDataReport(String time, String userId) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = {
       'user_id': userId,
-      
     };
 
     try {
-     final response = await Dio().post(
-      ConstentApi.getTimes(time),
-         data: body,
-      options: Options(
-        headers: headers,
-      ),
-    );
-    Map<String, dynamic> resultData = response.data;
-    TimeDataReport data = TimeDataReport.fromJason(resultData["data"]);
-    return data;
+      final response = await Dio().post(
+        ConstentApi.getTimes(time),
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+      TimeDataReport data = TimeDataReport.fromJason(resultData["data"]);
+      return data;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
-
-    
   }
 
   @override
@@ -1426,7 +1397,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<String> boundFacebook() async {
     final LoginResult result =
-    await FacebookAuth.i.login(permissions: ['email']);
+        await FacebookAuth.i.login(permissions: ['email']);
     Map<String, String> headers = await DioHelper().header();
     if (result.status == LoginStatus.success) {
       final data = await FacebookAuth.i.getUserData();
@@ -1463,28 +1434,24 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       'phone': boundNumberPramiter.phoneNumber,
       'vr_code': boundNumberPramiter.vrCode,
       'password': boundNumberPramiter.password,
-      'credential' : boundNumberPramiter.credential
+      'credential': boundNumberPramiter.credential
     };
-    try{
-    final response = await Dio().post(
-      ConstentApi.boundAccount,
-      data: body,
-      options: Options(
-        headers: headers,
-      ),
-    );
+    try {
+      final response = await Dio().post(
+        ConstentApi.boundAccount,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
 
-    Map<String, dynamic> resultData = response.data;
-    
-    
+      Map<String, dynamic> resultData = response.data;
+
       return resultData['message'];
-    
-    
-    }on DioError catch (e){
+    } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
   }
-
 
   @override
   Future<String> changePassword(BoundNumberPramiter boundNumberPramiter) async {
@@ -1532,11 +1499,11 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<bool> joinToAgencie(String agencieId, String whatsAppNum) async{
- Map<String, String> headers = await DioHelper().header();
-   final body = {'agency_id': agencieId, 'whatsapp': whatsAppNum};
+  Future<bool> joinToAgencie(String agencieId, String whatsAppNum) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = {'agency_id': agencieId, 'whatsapp': whatsAppNum};
 
     try {
       final response = await Dio().post(
@@ -1553,11 +1520,14 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<bool> updateFamily(UpdateFamilyPramiter updateFamilyPramiter)async {
-  Map<String, String> headers = await DioHelper().header();
-   final body = {'name': updateFamilyPramiter.name, 'introduce': updateFamilyPramiter.introduce};
+  Future<bool> updateFamily(UpdateFamilyPramiter updateFamilyPramiter) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = {
+      'name': updateFamilyPramiter.name,
+      'introduce': updateFamilyPramiter.introduce
+    };
 
     try {
       final response = await Dio().post(
@@ -1575,10 +1545,10 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     }
   }
 
-   @override
-  Future<String> userReporet(UserReporetPramiter userReporetPramiter)async {
-   Map<String, String> headers = await DioHelper().header();
-      FormData formData;
+  @override
+  Future<String> userReporet(UserReporetPramiter userReporetPramiter) async {
+    Map<String, String> headers = await DioHelper().header();
+    FormData formData;
     if (userReporetPramiter.image == null) {
       formData = FormData.fromMap({
         'id': userReporetPramiter.id,
@@ -1602,7 +1572,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         data: formData,
         options: Options(
           headers: headers,
-          
         ),
       );
       log(response.data.toString());
@@ -1613,28 +1582,19 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     }
   }
 
-      @override
-  Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) async{
-
-     Map<String, String> headers = await DioHelper().header();
-     final Map<String, Object> body ; 
- if (getConfigKeyPram==null){
-    body = {
-      'keys': [],
-      "enable-special" : 1
-     
-      
+  @override
+  Future<GetConfigKeyModel> getConfigKey(
+      GetConfigKeyPram? getConfigKeyPram) async {
+    Map<String, String> headers = await DioHelper().header();
+    final Map<String, Object> body;
+    if (getConfigKeyPram == null) {
+      body = {'keys': [], "enable-special": 1};
+    } else {
+      body = {
+        'keys': [getConfigKeyPram.specialBar],
+        "enable-special": 1
       };
- }else {
-  body = {
-      'keys': [getConfigKeyPram.specialBar],
-      "enable-special" : 1
-     
-      
-      };
- }
-   
-
+    }
 
     try {
       final response = await Dio().post(ConstentApi.getConfigKey,
@@ -1642,21 +1602,17 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
             headers: headers,
           ),
           data: body);
-          final result =GetConfigKeyModel.fromJson(response.data['data']);
-        log(result.toString());
-      return  result ;
+      final result = GetConfigKeyModel.fromJson(response.data['data']);
+      log(result.toString());
+      return result;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
-
-    
-
   }
 
- @override
+  @override
   Future<String> feedBack(FeedBackPramiter feedBackPramiter) async {
-       Map<String, String> headers = await DioHelper().header();
-
+    Map<String, String> headers = await DioHelper().header();
 
     FormData formData;
     if (feedBackPramiter.image == null) {
@@ -1664,7 +1620,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         'txt': feedBackPramiter.content,
         'contact': feedBackPramiter.phoneNumber,
         'user_id': feedBackPramiter.userId,
-        'description' : feedBackPramiter.description,
+        'description': feedBackPramiter.description,
       });
     } else {
       File file = feedBackPramiter.image!;
@@ -1675,11 +1631,10 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         'txt': feedBackPramiter.content,
         'contact': feedBackPramiter.phoneNumber,
         'user_id': feedBackPramiter.userId,
-                'description' : feedBackPramiter.description,
-
+        'description': feedBackPramiter.description,
       });
     }
- {
+    {
       try {
         final response = await Dio().post(
           ConstentApi.feedBack,
@@ -1697,45 +1652,48 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       }
     }
   }
-  
+
   @override
-  Future<AgencyMyStoreModel> myStore()async {
-   Map<String, String> headers = await DioHelper().header();
+  Future<AgencyMyStoreModel> myStore() async {
+    Map<String, String> headers = await DioHelper().header();
     try {
       final response = await Dio().get(ConstentApi.myStore,
           options: Options(
             headers: headers,
           ));
-       
-       final result = AgencyMyStoreModel.fromJson(response.data["data"]['my_store']);
 
-      return result ; 
+      final result =
+          AgencyMyStoreModel.fromJson(response.data["data"]['my_store']);
+
+      return result;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<ShowAgencyModel> showAgency()async {
-  Map<String, String> headers = await DioHelper().header();
+  Future<ShowAgencyModel> showAgency() async {
+    Map<String, String> headers = await DioHelper().header();
     try {
       final response = await Dio().get(ConstentApi.showAgency,
           options: Options(
             headers: headers,
           ));
-       
-       final result = ShowAgencyModel.fromJson(response.data["data"]);
 
-      return result ; 
+      final result = ShowAgencyModel.fromJson(response.data["data"]);
+
+      return result;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<List<OwnerDataModel>> agencyMember(int page) async{
-  Map<String, String> headers = await DioHelper().header();
-   final body = {'page': page, };
+  Future<List<OwnerDataModel>> agencyMember(int page) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = {
+      'page': page,
+    };
 
     try {
       final response = await Dio().post(
@@ -1753,16 +1711,14 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<List<OwnerDataModel>> agencyRequests() async{
-  Map<String, String> headers = await DioHelper().header();
-   
+  Future<List<OwnerDataModel>> agencyRequests() async {
+    Map<String, String> headers = await DioHelper().header();
 
     try {
       final response = await Dio().get(
         ConstentApi.agencyRequests,
-      
         options: Options(
           headers: headers,
         ),
@@ -1775,11 +1731,12 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<String> agencyRequestsAction({required String userId ,required bool accept})async {
-  Map<String, String> headers = await DioHelper().header();
-   final body = {'user_id': userId, "accept" : accept };
+  Future<String> agencyRequestsAction(
+      {required String userId, required bool accept}) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = {'user_id': userId, "accept": accept};
 
     try {
       final response = await Dio().post(
@@ -1796,16 +1753,14 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<List<AgencyHistoryTime>> getAgencyHistoryTime()async {
-     Map<String, String> headers = await DioHelper().header();
-   
+  Future<List<AgencyHistoryTime>> getAgencyHistoryTime() async {
+    Map<String, String> headers = await DioHelper().header();
 
     try {
       final response = await Dio().get(
         ConstentApi.agencyHistoryTime,
-      
         options: Options(
           headers: headers,
         ),
@@ -1818,13 +1773,14 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<AgencyHistoryModle> getAgencyHistory({required String month,required String year , String? page})async {
-  Map<String, String> headers = await DioHelper().header();
-   final body = 
-   
-   page==null?{'month': month, "year" : year }:{'month': month, "year" : year  , "page":page};
+  Future<AgencyHistoryModle> getAgencyHistory(
+      {required String month, required String year, String? page}) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = page == null
+        ? {'month': month, "year": year}
+        : {'month': month, "year": year, "page": page};
 
     try {
       final response = await Dio().post(
@@ -1836,17 +1792,18 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
       Map<String, dynamic> resultData = response.data;
 
-      return  AgencyHistoryModle.fromJson(resultData["data"]);
+      return AgencyHistoryModle.fromJson(resultData["data"]);
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<String> chargeCoinForUsers({required String id, required String amount})async {
-   Map<String, String> headers = await DioHelper().header();
-   final body = {'id': id, "amount" : amount };
- log("heer");
+  Future<String> chargeCoinForUsers(
+      {required String id, required String amount}) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = {'id': id, "amount": amount};
+    log("heer");
     try {
       final response = await Dio().post(
         ConstentApi.chargeCoinForUser,
@@ -1857,17 +1814,18 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
       Map<String, dynamic> resultData = response.data;
 
-      return  resultData["message"];
+      return resultData["message"];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
   }
-  
+
   @override
-  Future<String> chargeDolarsForUsers({required String id, required String amount}) async{
-  Map<String, String> headers = await DioHelper().header();
-   final body = {'id': id, "amount" : amount };
- log("heer");
+  Future<String> chargeDolarsForUsers(
+      {required String id, required String amount}) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = {'id': id, "amount": amount};
+    log("heer");
     try {
       final response = await Dio().post(
         ConstentApi.chargeDolarsForUser,
@@ -1878,11 +1836,115 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
       Map<String, dynamic> resultData = response.data;
 
-      return  resultData["message"];
+      return resultData["message"];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+
+  @override
+  Future<ChargeHistoryModel> getChargeDolarsAgencyOwnerHistory(
+      String type) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi().getChargeDolarsAgencyOwnerHistory(type),
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      ChargeHistoryModel data = ChargeHistoryModel.fromJson(resultData);
+
+      return data;
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+
+  @override
+  Future<ChargeHistoryModel> getChargeCoinsSystemHistory(String type) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi().getChargeCoinsSystemHistory(type),
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      ChargeHistoryModel data = ChargeHistoryModel.fromJson(resultData);
+
+      return data;
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+
+  @override
+  Future<List<InterstedMode>> getAllIntersted() async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.getAllIntrested,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return List<InterstedMode>.from(
+          resultData['data'].map((x) => InterstedMode.fromjson(x)));
+      
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
   }
   
-  }
+  @override
+  Future<String> addIntersted(List<int> ids)async {
+     Map<String, String> headers = await DioHelper().header();
+    final body = {'id': ids,};
+    try {
+      final response = await Dio().post(
+        ConstentApi.addIntrested,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
 
+      return resultData["message"];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+  
+  @override
+  Future<List<InterstedMode>> getUserIntersted()async {
+    log("message");
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.getUseIntrested,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return List<InterstedMode>.from(
+          resultData['data'].map((x) => InterstedMode.fromjson(x)));
+      ;
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+}
