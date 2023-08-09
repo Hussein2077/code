@@ -4,7 +4,7 @@
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 
 abstract class VistorsState  {
-     final List<OwnerDataModel>? data ; 
+     final List<UserDataModel>? data ;
 
   const VistorsState(this.data);
 

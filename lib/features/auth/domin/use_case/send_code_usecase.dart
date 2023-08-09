@@ -14,10 +14,9 @@ class SendCodeUseCase extends BaseUseCase<Unit,String>{
   SendCodeUseCase({ required this.baseRepository});
 
   @override
-  // ignore: avoid_renaming_method_parameters
-  Future<Either<Unit, Failure>> call(String  phoneNumber) async {
+  Future<Either<Unit, Failure>> call(String  parameter) async {
 
-    final result = await baseRepository.sendCode(phoneNumber) ;
+    final result = await baseRepository.sendCode(parameter) ;
 
     return result ;
   }

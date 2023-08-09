@@ -15,7 +15,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 class FamilyMemberBloc extends Bloc<FamilyMemberEvent, FamilyMemberState> {
   GetFamilyMemberUseCase getfamilymember;
     bool isLoadingMore = false ;
-    List<OwnerDataModel>? tempMembers ; 
+    List<UserDataModel>? tempMembers ;
 
   FamilyMemberBloc({required this.getfamilymember})
       : super(FamilyMemberInitial(null)) {

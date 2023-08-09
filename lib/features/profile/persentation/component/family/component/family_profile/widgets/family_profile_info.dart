@@ -29,9 +29,9 @@ class FamilyProfileInfo extends StatelessWidget {
     return BlocBuilder<GetMyDataBloc, GetMyDataState>(
       builder: (context, state) {
         if (state is GetMyDataSucssesState) {
-          bool isOwner = (familyData.id == state.userData.familyId&&familyData.amIOwner!);
-          bool isAdmin = (familyData.id == state.userData.familyId&&familyData.amIAdmin!);
-          bool isMember = (familyData.id == state.userData.familyId);
+          bool isOwner = (familyData.id == state.myDataModel.familyId&&familyData.amIOwner!);
+          bool isAdmin = (familyData.id == state.myDataModel.familyId&&familyData.amIAdmin!);
+          bool isMember = (familyData.id == state.myDataModel.familyId);
 
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
@@ -255,10 +255,10 @@ Widget familyInfo(
 }
 
 Widget familyMemeber(
-    {required OwnerDataModel owner,
+    {required UserDataModel owner,
     required String memberNum,
     required String maxMemberNum,
-    required List<OwnerDataModel> members,
+    required List<UserDataModel> members,
     required BuildContext context,
     void Function()? onTap}) {
   return Column(

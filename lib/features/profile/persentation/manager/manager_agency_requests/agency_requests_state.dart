@@ -13,7 +13,7 @@ class AgencyRequestsInitial extends AgencyRequestsState {}
 
 class AgencyRequestsLoadingState extends AgencyRequestsState {}
 class AgencyRequestSucssesState extends AgencyRequestsState {
-  final List<OwnerDataModel> data ;
+  final List<UserDataModel> data ;
   const AgencyRequestSucssesState ({required this.data});
 }
 class AgencyRequestsErrorState extends AgencyRequestsState {

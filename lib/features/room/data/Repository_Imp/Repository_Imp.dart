@@ -207,7 +207,7 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
   }
 
   @override
-  Future<Either<List<OwnerDataModel>, Failure>> roomAdmins(String ownerId) async {
+  Future<Either<List<UserDataModel>, Failure>> roomAdmins(String ownerId) async {
     try {
       final result = await baseRemotlyDataSourceRoom.adminsRoom(ownerId);
       return left(result);

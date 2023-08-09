@@ -1,26 +1,39 @@
 
 
 
+import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 
 class FamilyMemberModel {
-   List<OwnerDataModel> members;
-  final List<OwnerDataModel> admin;
-  OwnerDataModel owner;
+   List<UserDataModel> members;
+  final List<UserDataModel> admin;
+  UserDataModel owner;
 
-  List<OwnerDataModel> get getMembers => members;
-     set setMembers(List<OwnerDataModel> member) => members;
+  List<UserDataModel> get getMembers => members;
+     set setMembers(List<UserDataModel> member) => members;
 
 
   FamilyMemberModel(
       {required this.admin, required this.members, required this.owner});
   factory FamilyMemberModel.fromJson(Map<String, dynamic> json) {
     return FamilyMemberModel(
-      admin: List<OwnerDataModel>.from(
-          json['admins'].map((x) => OwnerDataModel.fromMap(x))),
-      members: List<OwnerDataModel>.from(
-          json['members'].map((x) => OwnerDataModel.fromMap(x))),
-      owner: OwnerDataModel.fromMap(json['owner']),
+      admin: List<UserDataModel>.from(
+          json['admins'].map((x) => UserDataModel.fromMap(x))),
+      members: List<UserDataModel>.from(
+          json['members'].map((x) => UserDataModel.fromMap(x))),
+      owner: UserDataModel.fromMap(json['owner']),
     );
   }
 }
+ class  MemberFamilyDataModel extends Equatable {
+
+
+
+
+
+
+
+  @override
+  List<Object?> get props => throw UnimplementedError();
+
+ }

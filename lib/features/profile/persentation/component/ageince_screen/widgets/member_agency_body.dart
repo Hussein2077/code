@@ -13,7 +13,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_agency_member/agnecy_member_state.dart';
 
 class MemberAgencyBody extends StatefulWidget {
-  final OwnerDataModel owner;
+  final UserDataModel owner;
 
   const MemberAgencyBody({required this.owner, super.key});
 

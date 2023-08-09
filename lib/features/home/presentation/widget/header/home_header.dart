@@ -14,7 +14,7 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return    Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
    
@@ -28,7 +28,7 @@ class HomeHeader extends StatelessWidget {
          builder: (context,state){
        return    InkWell(onTap: (){
          if(state is GetMyDataSucssesState){
-           if(state.userData.hasRoom??false){
+           if(state.myDataModel.hasRoom??false){
              //todo navegate to handler
            }else{
              Navigator.pushNamed(context, Routes.createLive);

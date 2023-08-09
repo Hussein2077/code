@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
@@ -41,24 +42,24 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart
 
 abstract class BaseRepositoryProfile {
 
-  Future<Either<OwnerDataModel, Failure>> getmyData(Noparamiter noparamiter);
+  Future<Either<MyDataModel, Failure>> getmyData(Noparamiter noparamiter);
 
   Future<Either<List<DataMallEntities>, Failure>> getDataMall(int type);
 
-  Future<Either<Failure, List<OwnerDataModel>>> getFriendsOrFollowers(
+  Future<Either<Failure, List<UserDataModel>>> getFriendsOrFollowers(
       {required String type, String? page});
   Future<Either<Failure, String>> follow({required String userId});
 
   Future<Either<Failure, String>> unFollow({required String userId});
 
-  Future<Either<OwnerDataModel, Failure>> getUserData({required String userId});
+  Future<Either<UserDataModel, Failure>> getUserData({required String userId});
 
   Future<Either<List<VipCenterModel>, Failure>> getVipCenter();
 
   Future<Either<int,Failure>> getVipCount();
 
 
-  Future<Either<List<OwnerDataModel>, Failure>> getVistors({String?page});
+  Future<Either<List<UserDataModel>, Failure>> getVistors({String?page});
   Future<bool> checkIfFriend(String userId);
 
   Future<Either<List<BackPackEnities>, Failure>> getBckPack(String type);
@@ -179,8 +180,8 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> feedBack(FeedBackPramiter feedBackPramiter);
         Future<Either<AgencyMyStoreModel,Failure>> myStore();
         Future<Either<ShowAgencyModel,Failure>> showAgency();
-        Future<Either<List<OwnerDataModel>,Failure>> agencyMember(int page);
-        Future<Either<List<OwnerDataModel>,Failure>> agencyRequests();
+        Future<Either<List<UserDataModel>,Failure>> agencyMember(int page);
+        Future<Either<List<UserDataModel>,Failure>> agencyRequests();
   Future<Either<String, Failure>> agencyRequestsAction({required String userId ,required bool accept});
         Future<Either<List<AgencyHistoryTime>,Failure>> agencyTimeHistory();
         Future<Either<AgencyHistoryModle,Failure>> agencyHistory({required String month ,required String year , String? page});

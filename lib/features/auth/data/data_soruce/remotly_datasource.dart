@@ -4,13 +4,12 @@
 
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/error/exceptions.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -22,10 +21,10 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_use
 
 abstract class BaseRemotlyDataSource {
   Future<Unit> sendCode(String phoneNumber);
-  Future<OwnerDataModel> registerWithCodeAndPhone(AuthPramiter authPramiter);
-  Future<OwnerDataModel> loginWithPassAndPhone(AuthPramiter authPramiter);
-  Future<OwnerDataModel> addInformation(InformationPramiter informationPramiter);
-  Future<OwnerDataModel> sigInWithFacebook();
+  Future<MyDataModel> registerWithCodeAndPhone(AuthPramiter authPramiter);
+  Future<MyDataModel> loginWithPassAndPhone(AuthPramiter authPramiter);
+  Future<MyDataModel> addInformation(InformationPramiter informationPramiter);
+  Future<MyDataModel> sigInWithFacebook();
   Future<AuthWithGoogleModel> sigInWithGoogle();
   Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
@@ -52,7 +51,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   }
 
     @override
-  Future<OwnerDataModel> registerWithCodeAndPhone(
+  Future<MyDataModel> registerWithCodeAndPhone(
       AuthPramiter authPramiter) async {
 
     final devicedata = await DioHelper().initPlatformState();
@@ -71,7 +70,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       );
       Map<String, dynamic> jsonData = response.data;
 
-      OwnerDataModel userData = OwnerDataModel.fromMap(jsonData['data']);
+      MyDataModel userData = MyDataModel.fromMap(jsonData['data']);
       Methods().saveUserToken(authToken: userData.authToken);
       
       return userData;
@@ -81,7 +80,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   }
   
   @override
-  Future<OwnerDataModel> loginWithPassAndPhone(AuthPramiter authPramiter)async {
+  Future<MyDataModel> loginWithPassAndPhone(AuthPramiter authPramiter)async {
 
   final devicedata = await DioHelper().initPlatformState(); // to get information device
 
@@ -99,7 +98,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         data: body,
       );
       Map<String, dynamic> jsonData = response.data;
-      OwnerDataModel userData = OwnerDataModel.fromMap(jsonData['data']);
+      MyDataModel userData = MyDataModel.fromMap(jsonData['data']);
       Methods().saveUserToken(authToken: userData.authToken);
       return userData;
     } on DioError catch (e) {
@@ -108,7 +107,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   }
   
   @override
-  Future<OwnerDataModel> addInformation(InformationPramiter informationPramiter)async {
+  Future<MyDataModel> addInformation(InformationPramiter informationPramiter)async {
     log(informationPramiter.image.toString());
      FormData formData;
     if (informationPramiter.image == null) {
@@ -149,7 +148,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
 
 
-      OwnerDataModel userData = OwnerDataModel.fromMap(response.data[ConstentApi.data]);
+      MyDataModel userData = MyDataModel.fromMap(response.data[ConstentApi.data]);
 
       Methods().saveUserData();
       return userData;
@@ -201,7 +200,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
 
       
-        OwnerDataModel userData = OwnerDataModel.fromMap(resultData['data']);
+        MyDataModel userData = MyDataModel.fromMap(resultData['data']);
         log(userData.authToken.toString());
         // Methods().saveUserData(jsonString: resultData);
         Methods().saveUserToken(authToken: userData.authToken);
@@ -217,7 +216,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
   
   @override
-  Future<OwnerDataModel> sigInWithFacebook()async {
+  Future<MyDataModel> sigInWithFacebook()async {
     final LoginResult result =
         await FacebookAuth.i.login(permissions: ['email']);
     if (result.status == LoginStatus.success) {
@@ -247,7 +246,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       Map<String, dynamic> resultData = response.data;
       bool sussec = resultData["success"];
       if (sussec) {
-        OwnerDataModel userData = OwnerDataModel.fromMap(resultData['data']);
+        MyDataModel userData = MyDataModel.fromMap(resultData['data']);
         Methods().saveUserToken(authToken: userData.authToken);
         return userData;
       }

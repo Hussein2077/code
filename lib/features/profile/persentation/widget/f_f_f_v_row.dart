@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class FFFVRow extends StatelessWidget {
-  final OwnerDataModel userData ; 
+  final MyDataModel myDataModel ;
   final bool? userProfile;
-  const FFFVRow({required this.userData ,  this.userProfile, super.key});
+  const FFFVRow({required this.myDataModel ,  this.userProfile, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class FFFVRow extends StatelessWidget {
       children: [
         columnInfo(
           context: context,
-          num: userData.numberOfFriends.toString(),
+          num: myDataModel.numberOfFriends.toString(),
           title: StringManager.friends.tr(),
           userProfile: userProfile,
           onTap: () => Navigator.pushNamed(context, Routes.fff,
@@ -25,21 +25,21 @@ class FFFVRow extends StatelessWidget {
         ),
         columnInfo(
             context: context,
-            num: userData.numberOfFollowings.toString(),
+            num: myDataModel.numberOfFollowings.toString(),
             title: StringManager.follwoing.tr(),
             userProfile: userProfile,
             onTap: () => Navigator.pushNamed(context, Routes.fff,
                 arguments: StringManager.follwoing)),
         columnInfo(
             context: context,
-            num: userData.numberOfFans.toString(),
+            num: myDataModel.numberOfFans.toString(),
             title: StringManager.followers.tr(),
             userProfile: userProfile,
             onTap: () => Navigator.pushNamed(context, Routes.fff,
                 arguments: StringManager.followers)),
         columnInfo(
             context: context,
-            num: userData.profileVisotrs.toString(),
+            num: myDataModel.profileVisotrs.toString(),
             title: StringManager.vistors.tr(),
             userProfile: userProfile,
             onTap: () => Navigator.pushNamed(context, Routes.vistorScreen,

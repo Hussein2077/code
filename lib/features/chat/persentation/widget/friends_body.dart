@@ -51,7 +51,8 @@ class FriendsBody extends StatelessWidget {
             itemCount: 10,
             itemBuilder: (context , index){
 
-            return Padding(padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*2), child:  UserInfoRow(userData: OwnerDataModel(),));
+            return Padding(padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*2),
+                child:  UserInfoRow( userData: UserDataModel(),));
           }),
         )
       ],

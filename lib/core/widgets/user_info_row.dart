@@ -5,12 +5,12 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
-
 import 'user_country_icon.dart';
 import 'user_image.dart';
 
+
 class UserInfoRow extends StatelessWidget {
-  final OwnerDataModel userData;
+  final UserDataModel userData ;
 
   final double? imageSize;
 

@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -12,7 +11,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -84,15 +83,15 @@ class Methods {
     await DefaultCacheManager().getSingleFile(ConstentApi.getmyDataUrl,
         headers: headers,key: StringManager.cachUserData);
   }
-  Future<OwnerDataModel> returnUserData() async {
+  Future<MyDataModel> returnUserData() async {
     var file = await DefaultCacheManager().getFileFromCache(StringManager.cachUserData);
 
     if (file != null && await file.file.exists()){
       var res = await file.file.readAsString();
-      OwnerDataModel ownerDataModel = OwnerDataModel.fromMap(jsonDecode(res)['data']);
-      return ownerDataModel;
+      MyDataModel myDataModel = MyDataModel.fromMap(jsonDecode(res)['data']);
+      return myDataModel;
     }else{
-      return OwnerDataModel();
+      return MyDataModel();
     }
   }
 
@@ -147,15 +146,6 @@ class Methods {
     preferences.setString("cachMusic", encodedMap);
   }
 
-  // Future<Map<String,dynamic>> getCachingMusic() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   Map<String,MusicObject> defultMap = {} ;
-  //   String encodedMap1 = json.encode(defultMap);
-  //   String encodedMap = preferences.getString('cachMusic')?? encodedMap1;
-  //   Map<String,dynamic> decodedMap = json.decode(encodedMap);
-
-  //   return decodedMap;
-  // }
 
   Future<String> getPlatform() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -163,60 +153,7 @@ class Methods {
     return data;
   }
 
-  // Future<void> exitFromRoom(String ownerId) async{
 
-  //   ZegoUIKitPrebuiltLiveAudioRoomState.connectManager?.uninit();
-  //   await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager?.uninit();
-  //   await ZegoUIKitPrebuiltLiveAudioRoomState.plugins?.uninit();
-
-  //   await ZegoUIKit().resetSoundEffect();
-  //   await ZegoUIKit().resetBeautyEffect();
-  //   await ZegoUIKit().leaveRoom();
-  //   await ZegoUIKit().uninit();
-  //   await ZegoUIKit().uninit();
-  //   clearAll();
-  //   ZegoUIKit().logout() ;
-  //   ExistroomUC e = ExistroomUC(getIt());
-  //   await e.call(ownerId);
-  //   PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
-  //   pusher.unsubscribe(channelName: 'presence-room-${ownerId}');
-  // }
-
-  // Future<void> cheakIfInRoom({required String ownerId , bool? isInRoom}) async{
-  //   //  clearAll();
-  //   if(MainScreen.iskeepInRoom.value ||(isInRoom??false)){
-  //   MainScreen.iskeepInRoom.value =false ;
-  //     await  Methods().exitFromRoom( MainScreen.roomData?.ownerId ==null ?ownerId:MainScreen.roomData!.ownerId.toString()) ;
-  //   }
-
-  // }
-
-  // checkIfRoomHasPassword(
-  //     {required BuildContext context,
-  //     required bool hasPassword,
-  //     required String ownerId ,required OwnerDataModel myData}) async {
-  //   if (hasPassword) {
-  //     showDialog(
-  //         context: context,
-  //         builder: (BuildContext context) {
-  //           return AlertDialog(
-  //               title: Text(StringManager.enterPassword.tr()),
-  //               content: EnterPasswordRoomScreen(
-  //                 ownerId: ownerId,
-  //                 myData: myData,
-  //               ));
-  //         });
-  //   } else {
-  //     await Methods().cheakIfInRoom(ownerId: ownerId);
-
-  //     // ignore: use_build_context_synchronously
-  //     BlocProvider.of<RoomBloc>(context)
-  //         .add(EnterRoomEvent(ownerId: ownerId, roomPassword: '' , isVip: myData.vip1?.level??0));
-
-  //     // ignore: use_build_context_synchronously
-  //     Navigator.pushNamed(context, Routes.roomHandler, arguments: myData);
-  //   }
-  // }
 
         Future<void> cacheSvgaImage({required String svgaUrl,required  String imageId}) async {
           final cacheManager = DefaultCacheManager();

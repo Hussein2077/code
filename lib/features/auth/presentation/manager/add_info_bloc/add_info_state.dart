@@ -1,6 +1,7 @@
 
 import 'package:equatable/equatable.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
+
 
 abstract class AddInfoState extends Equatable {
   const AddInfoState();
@@ -23,8 +24,8 @@ class AddInfoErrorMessageState extends AddInfoState{
 }
 
 class AddInfoSuccesMessageState extends AddInfoState{
-  final OwnerDataModel userData ;
+  final MyDataModel myDataModel ;
 
-  const AddInfoSuccesMessageState({ required this.userData});
+  const AddInfoSuccesMessageState({ required this.myDataModel});
 
 }

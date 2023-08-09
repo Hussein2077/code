@@ -1,16 +1,15 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 
 
 
 
-class AddInFormationUC extends BaseUseCase<OwnerDataModel,InformationPramiter>{
+class AddInFormationUC extends BaseUseCase<MyDataModel,InformationPramiter>{
 
  BaseRepository baseRepository ;
 
@@ -18,8 +17,7 @@ class AddInFormationUC extends BaseUseCase<OwnerDataModel,InformationPramiter>{
   AddInFormationUC({ required this.baseRepository});
 
   @override
-  // ignore: avoid_renaming_method_parameters
-  Future<Either<OwnerDataModel, Failure>> call(InformationPramiter informationPramiter) async {
+  Future<Either<MyDataModel, Failure>> call(InformationPramiter informationPramiter) async {
 
     final result = await baseRepository.addInformation(informationPramiter) ;
 

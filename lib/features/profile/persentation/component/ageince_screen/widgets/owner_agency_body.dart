@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -7,7 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class OwnerAgencyBody extends StatelessWidget {
-  final OwnerDataModel myData;
+  final MyDataModel myData;
   const OwnerAgencyBody({super.key,required this.myData});
 
   @override
@@ -46,7 +47,7 @@ class OwnerAgencyBody extends StatelessWidget {
               title: StringManager.shippingFromTheAgency ,
               widget:Image.asset(AssetsPath.moneyBag,scale:6) ,
               onTap: () => Navigator.pushNamed(context, Routes.charchingDolarsForUsers),),
-            if(myData.type == 4)
+            if(myData.myType == 4)
             agencyCard(context: context ,
               title:StringManager.chargingFromTheSystem ,
               widget:Image.asset(AssetsPath.goldCoinIcon,scale: 6) ,

@@ -2,12 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
-
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -15,9 +14,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_m
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_state.dart';
 
 class ProfileTabViewBody extends StatelessWidget {
-  final OwnerDataModel userData;
+  final MyDataModel myDataModel;
 
-  const ProfileTabViewBody({required this.userData, super.key});
+  const ProfileTabViewBody({required this.myDataModel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +28,17 @@ class ProfileTabViewBody extends StatelessWidget {
           children: [
             cover(
                 title: StringManager.diamond.tr(),
-                num: userData.diamonds.toString(),
+                num: myDataModel.myStore!.diamonds.toString(),
                 image: AssetsPath.dimondCover),
             cover(
               title: StringManager.level.tr(),
-              num: "lvl ${userData.level!.senderLevel.toString()}",
+              num: "lvl ${myDataModel.level!.senderLevel.toString()}",
               image: AssetsPath.leveCover,
               onTap: () => Navigator.pushNamed(context, Routes.level),
             ),
             cover(
               title: StringManager.vip.tr(),
-              num: "vip. ${userData.vip1!.level.toString()}",
+              num: "vip. ${myDataModel.vip1!.level.toString()}",
               image: AssetsPath.vipCover,
               onTap: () => Navigator.pushNamed(context, Routes.vip),
             ),

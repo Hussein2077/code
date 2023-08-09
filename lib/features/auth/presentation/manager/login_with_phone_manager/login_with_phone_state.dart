@@ -1,6 +1,6 @@
 
 import 'package:equatable/equatable.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 
 abstract class LoginWithPhoneState extends Equatable {
   const LoginWithPhoneState();
@@ -23,8 +23,8 @@ class LoginWithPhoneErrorMessageState extends LoginWithPhoneState{
 
 class LoginWithPhoneSuccesMessageState extends LoginWithPhoneState{
   final String succesMessage ;
-  final OwnerDataModel userModel ;
+  final MyDataModel myDataModel ;
 
-  const LoginWithPhoneSuccesMessageState({ required this.userModel, required this.succesMessage});
+  const LoginWithPhoneSuccesMessageState({ required this.myDataModel, required this.succesMessage});
  
 }

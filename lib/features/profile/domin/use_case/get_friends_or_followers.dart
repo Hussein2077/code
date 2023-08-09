@@ -10,7 +10,7 @@ class GetFriendsOrFollowersUsecase{
 
   GetFriendsOrFollowersUsecase({required this.relationRepo});
 
-  Future<Either<Failure, List<OwnerDataModel>>>  getFriendsOrFollowers({required String type , String? page})async{
+  Future<Either<Failure, List<UserDataModel>>>  getFriendsOrFollowers({required String type , String? page})async{
     return await relationRepo.getFriendsOrFollowers(type: type ,page: page);
   }
 }

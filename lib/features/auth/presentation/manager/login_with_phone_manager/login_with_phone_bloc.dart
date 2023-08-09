@@ -18,7 +18,7 @@ class LoginWithPhoneBloc extends Bloc<BaseLoginWithPhoneEvent, LoginWithPhoneSta
 
     sendOrFailur.fold(
         (l) => emit( LoginWithPhoneSuccesMessageState(
-            userModel: l, succesMessage: StringManager.loginSuccesfully)),
+            myDataModel: l, succesMessage: StringManager.loginSuccesfully)),
         (r) => emit( LoginWithPhoneErrorMessageState(
             errorMessage: DioHelper().getTypeOfFailure(r))));
     });

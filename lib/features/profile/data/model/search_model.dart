@@ -3,7 +3,7 @@ import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 
 
 class SearchModel extends Equatable {
-  final List<OwnerDataModel> userModel;
+  final List<UserDataModel> userModel;
   final List<RoomModel> roomModel;
 
   const SearchModel({required this.userModel,required this.roomModel
@@ -11,8 +11,8 @@ class SearchModel extends Equatable {
 
   factory SearchModel.fromJson(Map<String, dynamic> jsonData) {
     return SearchModel(
-        userModel: List<OwnerDataModel>.from(
-            jsonData['user'].map((e) => OwnerDataModel.fromMap(e))),
+        userModel: List<UserDataModel>.from(
+            jsonData['user'].map((e) => UserDataModel.fromMap(e))),
        roomModel: List<RoomModel>.from(
            jsonData['rooms'].map((e) => RoomModel.fromJson(e)))
     );

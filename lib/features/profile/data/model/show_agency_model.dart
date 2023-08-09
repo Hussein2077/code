@@ -5,7 +5,7 @@ class ShowAgencyModel {
   final String? name ; 
   final String? notice ; 
   final String? image ; 
-  final OwnerDataModel? owner ; 
+  final UserDataModel? owner ;
 
 
   const ShowAgencyModel ({ this.id ,  this.image , this.name , this.notice , this.owner});
@@ -15,7 +15,7 @@ class ShowAgencyModel {
     image: json['img']?? "tic_logo.jpg",
     name: json['name']?? "",
     notice: json['notice']?? "",
-    owner: json["owner"]!=null? OwnerDataModel.fromMap(json["owner"]) : null
+    owner: json["owner"]!=null? UserDataModel.fromMap(json["owner"]) : null
     
     );
   } 

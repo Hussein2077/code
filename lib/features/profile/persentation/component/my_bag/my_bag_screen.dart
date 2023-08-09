@@ -13,7 +13,7 @@ import 'widgets/my_bag_tab_view.dart';
 import 'widgets/my_bag_tabs.dart';
 
 class MyBagScreen extends StatefulWidget {
- final OwnerDataModel myData ;
+ final UserDataModel myData ;
   const MyBagScreen({required this.myData ,  super.key});
 
   @override

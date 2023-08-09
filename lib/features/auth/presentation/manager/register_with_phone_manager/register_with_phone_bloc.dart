@@ -17,7 +17,7 @@ class RegisterWithPhoneBloc extends Bloc<BaseRegisterWithPhoneEvent, RegisterWit
         AuthPramiter(phone: event.phone,password: event.password,code: event.code, credential: event.credential));
     sendOrFailur.fold(
             (l) => emit( RegisterPhoneSuccesMessageState(
-            userModel: l, succesMessage: StringManager.loginSuccesfully)),
+            myDataModel: l, succesMessage: StringManager.loginSuccesfully)),
             (r) => emit( RegisterPhoneErrorMessageState(
             errorMessage: DioHelper().getTypeOfFailure(r))));
     });

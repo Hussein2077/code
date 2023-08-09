@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
@@ -15,12 +15,11 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
-
 import 'widget/user_info_widget.dart';
 
 class EditInfoScreen extends StatelessWidget {
-  final OwnerDataModel tempData;
-  const EditInfoScreen({required this.tempData, super.key});
+  final MyDataModel myDataModel;
+  const EditInfoScreen({required this.myDataModel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +46,14 @@ class EditInfoScreen extends StatelessWidget {
                   const HeaderWithOnlyTitle(title: StringManager.editProfile),
                   const CompleteProfile(),
                   title(context: context, title: StringManager.personalInfo),
-                  UserInfoWidget(userData: state.userData),
+                  UserInfoWidget(myDataModel: state.myDataModel),
                   title(context: context, title: StringManager.addImage),
                   const AddProFilePic(),
                   MainButton(
                     onTap: () {
                              BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
                               bio:UserInfoWidget.bioController!.text ,
-                        gender: tempData.profile!.gender!,
+                        gender: myDataModel.profile!.gender!,
                         country: CountryWidget.countryFlag!,
                         name: UserInfoWidget.nameController!.text,
                       ));
@@ -70,7 +69,7 @@ class EditInfoScreen extends StatelessWidget {
                   const HeaderWithOnlyTitle(title: StringManager.editProfile),
                   const CompleteProfile(),
                   title(context: context, title: StringManager.personalInfo),
-                  UserInfoWidget(userData: tempData),
+                  UserInfoWidget(myDataModel: myDataModel),
                   title(context: context, title: StringManager.addImage),
                   const AddProFilePic(),
                   MainButton(

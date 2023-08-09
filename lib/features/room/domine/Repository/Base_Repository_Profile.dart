@@ -48,7 +48,7 @@ abstract class BaseRepositoryRoom {
   Future<Either<String,Failure>> addAdmin(String ownerId,String userId);
   Future<Either<String,Failure>> removeAdmin(String ownerId,String userId);
   Future<Either<String,Failure>> hidePK(String ownerId);
-  Future<Either<List<OwnerDataModel>,Failure>> roomAdmins(String ownerId);
+  Future<Either<List<UserDataModel>,Failure>> roomAdmins(String ownerId);
   Future<Either<String,Failure>> leaveMic(UpMicrophonePramiter upMicrophonePramiter) ;
   Future<Either<String,Failure>> muteMic(UpMicrophonePramiter upMicrophonePramiter) ;
   Future<Either<String,Failure>> unMuteMic(UpMicrophonePramiter upMicrophonePramiter) ;

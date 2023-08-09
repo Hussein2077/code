@@ -4,9 +4,7 @@ class AgencyHistoryModle {
  final int? sumAgencyDaiomd ;
  final int? sumAgencyUsd ;
   final int? totalOwnerUsd ;
-
-
-  List <OwnerDataModel>? users ;
+  List <UserDataModel>? users ;
 
   AgencyHistoryModle({this.sumAgencyUsd , this.totalOwnerUsd, this.sumAgencyDaiomd , this.users});
 
@@ -15,8 +13,8 @@ class AgencyHistoryModle {
   sumAgencyUsd: json['sum_usd']??0,
   totalOwnerUsd: json['Total_owner_usd']??0,
 
-  users:  List<OwnerDataModel>.from(
-          json['users'].map((x) => OwnerDataModel.fromMap(x)))
+  users:  List<UserDataModel>.from(
+          json['users'].map((x) => UserDataModel.fromMap(x)))
   );
  }
 

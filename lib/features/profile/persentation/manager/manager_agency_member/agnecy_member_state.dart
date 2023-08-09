@@ -3,7 +3,7 @@
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 
 abstract class AgnecyMemberState  {
-   final List<OwnerDataModel>? data ;
+   final List<UserDataModel>? data ;
 
   const AgnecyMemberState( this.data);
   

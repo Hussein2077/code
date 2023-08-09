@@ -10,7 +10,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_state.dart';
 
 class ProfileBottomBar extends StatefulWidget {
-  final OwnerDataModel userData;
+  final UserDataModel userData;
   const ProfileBottomBar({required this.userData, super.key});
 
   @override

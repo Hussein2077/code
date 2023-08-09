@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -13,7 +14,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 
 // ignore: must_be_immutable
 class LinkingScreen extends StatelessWidget {
-  OwnerDataModel? tempData;
+  MyDataModel? tempMyData;
   LinkingScreen({super.key});
 
   @override
@@ -30,13 +31,13 @@ class LinkingScreen extends StatelessWidget {
       child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
         builder: (context, state) {
           if (state is GetMyDataSucssesState) {
-            tempData = state.userData;
+            tempMyData = state.myDataModel;
             return LinkingScreenBody(
-              myData: state.userData,
+              myData: state.myDataModel,
             );
           } else {
             return LinkingScreenBody(
-              myData: tempData!,
+              myData: tempMyData!,
             );
           }
         },

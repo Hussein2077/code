@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -31,7 +32,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 
 // ignore: must_be_immutable
 class FamilyMemberScreen extends StatefulWidget {
-  final OwnerDataModel owner;
+  final UserDataModel owner;
   int page = 1;
 
   FamilyMemberScreen({required this.owner, super.key});
@@ -43,8 +44,8 @@ class FamilyMemberScreen extends StatefulWidget {
 class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
   final ScrollController scrollController = ScrollController();
 
-  List<OwnerDataModel> membersData = [];
-  OwnerDataModel? mydata;
+  List<UserDataModel> membersData = [];
+  MyDataModel? mydata;
   int? removeUserIndex;
   @override
   void initState() {
@@ -96,7 +97,7 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
             child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
               builder: (context, state) {
                 if (state is GetMyDataSucssesState) {
-                  mydata = state.userData;
+                  mydata = state.myDataModel;
                   return BlocBuilder<FamilyMemberBloc, FamilyMemberState>(
                     builder: (context, state) {
                       if (state is GetFamilyMemberSucssesState) {

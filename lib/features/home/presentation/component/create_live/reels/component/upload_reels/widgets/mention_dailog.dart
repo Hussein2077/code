@@ -19,7 +19,7 @@ class MentionDailog extends StatelessWidget {
             itemCount: 10,
             itemBuilder: (context, index) {
               return UserInfoRow(
-                userData: OwnerDataModel(),
+                userData: UserDataModel(),
                 endIcon: MainButton(
                   onTap: () {},
                   title: StringManager.mention,

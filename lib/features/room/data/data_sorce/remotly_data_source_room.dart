@@ -50,7 +50,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> showPK(String ownerId);
   Future<String> hidePK(String ownerId );
   Future<String> closePK(String ownerId);
-  Future<List<OwnerDataModel>> adminsRoom(String ownerId);
+  Future<List<UserDataModel>> adminsRoom(String ownerId);
   Future<String> leaveMicrophone(UpMicrophonePramiter upMicrophonePramiter);
   Future<String> muteMicrophone(UpMicrophonePramiter upMicrophonePramiter);
   Future<String> unmMuteMicrophone(UpMicrophonePramiter upMicrophonePramiter);
@@ -579,7 +579,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
   }
 
   @override
-  Future<List<OwnerDataModel>> adminsRoom(String ownerId)  async{
+  Future<List<UserDataModel>> adminsRoom(String ownerId)  async{
         Map<String, String> headers = await DioHelper().header();
    
 
@@ -598,7 +598,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       Map<String, dynamic> jsonData = response.data;
 
 
-      return List<OwnerDataModel>.from(jsonData["data"].map((x) => OwnerDataModel.fromMap(x))) ;
+      return List<UserDataModel>.from(jsonData["data"].map((x) => UserDataModel.fromMap(x))) ;
 
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);

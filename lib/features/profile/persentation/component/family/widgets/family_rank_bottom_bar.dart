@@ -4,7 +4,6 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/create_family/create_family_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
@@ -18,8 +17,8 @@ class FamilyRankBottomBar extends StatelessWidget {
     return BlocBuilder<GetMyDataBloc, GetMyDataState>(
       builder: (context, state) {
         if(state is GetMyDataSucssesState){
-          if(state.userData.familyId==0){
-return InkWell(
+          if(state.myDataModel.familyId==0){
+         return InkWell(
           onTap: () {
             bottomDailog(context: context, widget: const CreateFamily());
           },
@@ -40,7 +39,7 @@ return InkWell(
           }else {
             return InkWell(
           onTap: () {
-            Navigator.pushNamed(context, Routes.familyProfile , arguments: state.userData.familyId.toString());
+            Navigator.pushNamed(context, Routes.familyProfile , arguments: state.myDataModel.familyId.toString());
           },
           child: Container(
             width: MediaQuery.of(context).size.width,

@@ -126,7 +126,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                         endIcon: Column(children: [
                                           Row(
                                           children: [
-                                  Text(
+                                              Text(
                                                   "${state.data!.users![index].diamonds.toString()}  ",
                                                   style: Theme.of(context)
                                                       .textTheme
@@ -143,7 +143,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                         ),
                                         Row(
                                           children: [
-                                  Text(
+                                         Text(
                                                   "${state.data!.users![index].totalUsd.toString()}  ",
                                                   style: Theme.of(context)
                                                       .textTheme

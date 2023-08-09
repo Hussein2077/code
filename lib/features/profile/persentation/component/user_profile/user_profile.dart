@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
+
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
-
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_state.dart';
-
 import 'widget/lower/lower_body.dart';
 import 'widget/profile_bottom_bar.dart';
 import 'widget/upper/upper_body.dart';
@@ -51,9 +50,9 @@ class _UserProfileState extends State<UserProfile> {
                   return Column(
                     children: [
                       UpperProfileBody(
-                          userData: state.userData, myProfile: myProfile!),
+                          myDataModel: state.myDataModel, myProfile: myProfile!),
                       LowerProfileBody(
-                          userData: state.userData, myProfile: myProfile!),
+                          myDataModel: state.myDataModel, myProfile: myProfile!),
                     ],
                   );
                 } else if (state is GetMyDataLoadingState) {
@@ -62,9 +61,9 @@ class _UserProfileState extends State<UserProfile> {
                   return   Column(
                     children: [
                       UpperProfileBody(
-                          userData: getIt<OwnerDataModel>(), myProfile: myProfile!),
+                          myDataModel: getIt<MyDataModel>(), myProfile: myProfile!),
                       LowerProfileBody(
-                          userData: getIt<OwnerDataModel>(), myProfile: myProfile!),
+                          myProfile: myProfile!, myDataModel:  getIt<MyDataModel>(),),
                     ],
                   );
                 }
@@ -75,10 +74,11 @@ class _UserProfileState extends State<UserProfile> {
           : BlocBuilder<GetUserBloc, GetUserState>(
               builder: (context, state) {
                 if (state is GetUserSucssesState){
-   return Column(
+                   return Column(
                   children:  [
-                    UpperProfileBody(myProfile: myProfile! , userData: state.data),
-                    LowerProfileBody(myProfile: myProfile! , userData: state.data),
+                    //TODO detect which values should br in convert method
+                    UpperProfileBody(myProfile: myProfile! , myDataModel: state.data.convertToMyDataObject()),
+                    LowerProfileBody(myProfile: myProfile! , myDataModel: state.data.convertToMyDataObject()),
                      ProfileBottomBar(userData: state.data,)
                   ],
                 );

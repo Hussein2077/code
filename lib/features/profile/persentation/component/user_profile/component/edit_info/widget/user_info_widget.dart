@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -9,8 +9,8 @@ import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widget
 class UserInfoWidget extends StatefulWidget {
     static TextEditingController? bioController;
   static TextEditingController? nameController;
-  final OwnerDataModel userData;
-  const UserInfoWidget({required this.userData, super.key});
+  final MyDataModel myDataModel;
+  const UserInfoWidget({required this.myDataModel, super.key});
 
   @override
   State<UserInfoWidget> createState() => _UserInfoWidgetState();
@@ -21,9 +21,9 @@ class _UserInfoWidgetState extends State<UserInfoWidget> {
 
   @override
   void initState() {
-    CountryWidget.countryFlag = widget.userData.profile!.country;
-    UserInfoWidget.bioController = TextEditingController(text: widget.userData.bio);
-    UserInfoWidget.nameController = TextEditingController(text: widget.userData.name);
+    CountryWidget.countryFlag = widget.myDataModel.profile!.country;
+    UserInfoWidget.bioController = TextEditingController(text: widget.myDataModel.bio);
+    UserInfoWidget.nameController = TextEditingController(text: widget.myDataModel.name);
      UserInfoWidget.bioController!.addListener(() {
       setState(() {
         
@@ -71,7 +71,7 @@ UserInfoWidget.nameController!.dispose();
           rowWidget(
               context: context,
               title: StringManager.interests,
-              subTitle: widget.userData.intro),
+              subTitle: widget.myDataModel.intro),
 
           rowWidget(
             context: context,

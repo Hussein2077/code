@@ -5,9 +5,9 @@ import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 
 class GetRoomUsersModel extends Equatable {
   final String rommId;
-  final OwnerDataModel owner ;
-  final List<OwnerDataModel> adminData;
- final List<OwnerDataModel> vistorsData;
+  final UserDataModel owner ;
+  final List<UserDataModel> adminData;
+ final List<UserDataModel> vistorsData;
   const GetRoomUsersModel(
       {required this.owner,
         required this.adminData,
@@ -17,13 +17,13 @@ class GetRoomUsersModel extends Equatable {
 
   factory GetRoomUsersModel.fromjson(Map<String, dynamic> json) {
     return GetRoomUsersModel(
-        owner: OwnerDataModel.fromMap( json['owner']) ,
-        adminData: List<OwnerDataModel>.from((json["admin"] as List).map(
-              (e) => OwnerDataModel.fromMap( e),
+        owner: UserDataModel.fromMap( json['owner']) ,
+        adminData: List<UserDataModel>.from((json["admin"] as List).map(
+              (e) => UserDataModel.fromMap( e),
         )),
         rommId: json["room_id"],
-        vistorsData: List<OwnerDataModel>.from((json["visitors"]).map(
-              (e) => OwnerDataModel.fromMap(e),
+        vistorsData: List<UserDataModel>.from((json["visitors"]).map(
+              (e) => UserDataModel.fromMap(e),
         )));
   }
 

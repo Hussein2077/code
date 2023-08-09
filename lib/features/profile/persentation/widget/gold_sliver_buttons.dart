@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -8,8 +8,8 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class GoldSilverButton extends StatelessWidget {
-  final OwnerDataModel userData  ;
-  const GoldSilverButton({required this.userData ,  super.key});
+  final MyDataModel myDataModel  ;
+  const GoldSilverButton({required this.myDataModel ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +19,13 @@ class GoldSilverButton extends StatelessWidget {
         button(
             image: AssetsPath.goldButton,
             title: StringManager.coins.tr(),
-            num: userData.myStore!.coins.toString(),
+            num: myDataModel.myStore!.coins.toString(),
             gold: true , 
             onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "gold"),),
         button(
             image: AssetsPath.silverButton,
             title: StringManager.silver.tr(),
-            num: userData.myStore!.silverCoin.toString(),
+            num: myDataModel.myStore!.silverCoin.toString(),
             gold: false
             ,onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "silver"),
             )

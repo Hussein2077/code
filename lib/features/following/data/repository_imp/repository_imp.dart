@@ -18,7 +18,7 @@ class FollwoingRepostoryImp implements RepoFollow{
 
 
   @override
-  Future<Either<List<OwnerDataModel>, Failure>> getFriendsOpenRoom(
+  Future<Either<List<UserDataModel>, Failure>> getFriendsOpenRoom(
       int type) async {
     try {
       final result =

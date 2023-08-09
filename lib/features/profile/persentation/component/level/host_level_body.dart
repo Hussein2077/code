@@ -5,7 +5,6 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
-
 import 'widgets/lower_body.dart';
 import 'widgets/upper_body.dart';
 
@@ -25,11 +24,11 @@ class HostLevelBody extends StatelessWidget {
               builder: (context, state) {
             if(state is GetMyDataSucssesState){
                   return LeveUpperBody(
-                    level: state.userData.level!.reciverLivel.toString(),
-nextLevel: state.userData.level!.nextReciverLevel.toString(),
-percent: state.userData.level!.reciverPer!,
-userImage: state.userData.profile!.image!,
-levelRemining: state.userData.level!.remReceiverLevel.toString(),
+                    level: state.myDataModel.level!.reciverLivel.toString(),
+                     nextLevel: state.myDataModel.level!.nextReciverLevel.toString(),
+                   percent: state.myDataModel.level!.reciverPer!,
+                  userImage: state.myDataModel.profile!.image!,
+                  levelRemining: state.myDataModel.level!.remReceiverLevel.toString(),
                   );
             }else {
               return const SizedBox();

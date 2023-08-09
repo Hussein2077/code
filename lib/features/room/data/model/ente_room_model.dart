@@ -54,7 +54,7 @@ class EnterRoomModel extends Equatable {
   final int?  isPK ;
   final PKModel? pkModel;
   final List<dynamic>? seats ;
-  final OwnerDataModel? topUser ;
+  final UserDataModel? topUser ;
   final int? mode ;
   final List<String>? admins ;
   final List<String>? banedUsers ;
@@ -194,7 +194,7 @@ class EnterRoomModel extends Equatable {
      isPK:  jsonData['is_pk'],
         pkModel:jsonData['pk']==null? null: PKModel.fromJson(jsonData['pk']),
       seats:  jsonData['microphones'] ,
-      topUser:jsonData['top_user']==null ? null : OwnerDataModel.fromMap(jsonData['top_user']),
+      topUser:jsonData['top_user']==null ? null : UserDataModel.fromMap(jsonData['top_user']),
        roomFamily:jsonData['room_family'] ==null ? null: RoomFamilyModel.fromJson( jsonData['room_family']),
 
     );

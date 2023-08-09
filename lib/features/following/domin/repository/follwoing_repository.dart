@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 
 abstract class RepoFollow{
 
-    Future<Either<List<OwnerDataModel>, Failure>> getFriendsOpenRoom(int type);
+    Future<Either<List<UserDataModel>, Failure>> getFriendsOpenRoom(int type);
         Future<Either<AllRoomsDataModel, Failure>> getFollowingRooms(String type);
 
 

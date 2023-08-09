@@ -18,7 +18,7 @@ class GetMyDataBloc extends Bloc<BaseGetMyDataEvent, GetMyDataState> {
 
       result.fold(
           (l) => emit(GetMyDataSucssesState(
-               userData: l,
+               myDataModel: l,
               )),
           (r) =>
               emit(GetMyDataErrorState(errorMassage: DioHelper().getTypeOfFailure(r))));

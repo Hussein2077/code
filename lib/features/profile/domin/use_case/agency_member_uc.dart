@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_pr
 class AgencyMembermUsecase {
   BaseRepositoryProfile baseRepositoryProfile;
   AgencyMembermUsecase({required this.baseRepositoryProfile});
-  Future<Either<List<OwnerDataModel>, Failure>> agencyMember(int page) async {
+  Future<Either<List<UserDataModel>, Failure>> agencyMember(int page) async {
     final result = await baseRepositoryProfile.agencyMember(page);
     return result;
   }

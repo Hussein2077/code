@@ -19,6 +19,6 @@ class GetUserErorrState extends GetUserState {
 }
 
 class GetUserSucssesState extends GetUserState {
- final OwnerDataModel data;
+ final UserDataModel data;
   const GetUserSucssesState({required this.data});
 }

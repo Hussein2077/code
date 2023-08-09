@@ -11,6 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/exceptions.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -52,17 +53,17 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart
 
 
 abstract class BaseRemotlyDataSourceProfile {
-  Future<OwnerDataModel> getmyData(Noparamiter noparamiter);
+  Future<MyDataModel> getmyData(Noparamiter noparamiter);
   Future<List<DataMallModel>> getDataMall(int type);
-  Future<List<OwnerDataModel>> getFriendsOrFollowers(
+  Future<List<UserDataModel>> getFriendsOrFollowers(
       {required String type, String? page});
   Future<String> follow({required String userId});
   Future<String> unFollow({required String userId});
-  Future<OwnerDataModel> getUserData(
+  Future<UserDataModel> getUserData(
       {required String userId});
   Future<List<VipCenterModel>> getVipCenter();
   Future<int> getvipCount();
-  Future<List<OwnerDataModel>> getVaistors({String? page});
+  Future<List<UserDataModel>> getVaistors({String? page});
   Future<List<BackPackModel>> getBackPack(String type);
   Future<UesItemModel> useItem(String id);
   Future<String> creatFamily(CreateFamilyPramiter creatFamilyPramiter);
@@ -161,8 +162,8 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<ShowAgencyModel> showAgency();
 
-    Future<List<OwnerDataModel>> agencyMember(int page);
-    Future<List<OwnerDataModel>> agencyRequests();
+    Future<List<UserDataModel>> agencyMember(int page);
+    Future<List<UserDataModel>> agencyRequests();
         Future<String> agencyRequestsAction({required String userId ,required bool accept});
 
     Future<List<AgencyHistoryTime>> getAgencyHistoryTime();
@@ -178,9 +179,8 @@ abstract class BaseRemotlyDataSourceProfile {
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
   @override
-  Future<OwnerDataModel> getmyData(Noparamiter noparamiter) async {
+  Future<MyDataModel> getmyData(Noparamiter noparamiter) async {
     Map<String, String> headers = await DioHelper().header();
-   log("getmyData") ;
     try {
       final response = await Dio().get(
         ConstentApi.getmyDataUrl,
@@ -190,8 +190,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
 
         Methods().saveUserData();
-      OwnerDataModel userData =
-          OwnerDataModel.fromMap(response.data[ConstentApi.data]);
+      MyDataModel userData =
+      MyDataModel.fromMap(response.data[ConstentApi.data]);
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
@@ -245,7 +245,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<List<OwnerDataModel>> getFriendsOrFollowers(
+  Future<List<UserDataModel>> getFriendsOrFollowers(
       {required String type, String? page}) async {
     Map<String, String> headers = await DioHelper().header();
 
@@ -265,9 +265,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
             );
       // log(response.toString());
 
-      List<OwnerDataModel> relation = List<OwnerDataModel>.from(
+      List<UserDataModel> relation = List<UserDataModel>.from(
           (response.data["data"] as List)
-              .map((e) => OwnerDataModel.fromMap(e)));
+              .map((e) => UserDataModel.fromMap(e)));
       return Future.value(relation);
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
@@ -294,7 +294,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<OwnerDataModel> getUserData(
+  Future<UserDataModel> getUserData(
       {required String userId}) async {
 
     Map<String, String> headers = await DioHelper().header();
@@ -305,7 +305,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
             headers: headers,
           ));
 
-      OwnerDataModel userData = OwnerDataModel.fromMap(response.data["data"]);
+      UserDataModel userData = UserDataModel.fromMap(response.data["data"]);
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
@@ -357,7 +357,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<List<OwnerDataModel>> getVaistors({String? page}) async {
+  Future<List<UserDataModel>> getVaistors({String? page}) async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -371,9 +371,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
                 headers:headers,
               ));
 
-      List<OwnerDataModel> result = List<OwnerDataModel>.from(
+      List<UserDataModel> result = List<UserDataModel>.from(
           (response.data["data"] as List)
-              .map((e) => OwnerDataModel.fromMap(e)));
+              .map((e) => UserDataModel.fromMap(e)));
 
       return result;
     } on DioError catch (e) {
@@ -1733,7 +1733,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
   
   @override
-  Future<List<OwnerDataModel>> agencyMember(int page) async{
+  Future<List<UserDataModel>> agencyMember(int page) async{
   Map<String, String> headers = await DioHelper().header();
    final body = {'page': page, };
 
@@ -1747,15 +1747,15 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
       Map<String, dynamic> resultData = response.data;
 
-      return List<OwnerDataModel>.from(
-          resultData['data'].map((x) => OwnerDataModel.fromMap(x)));
+      return List<UserDataModel>.from(
+          resultData['data'].map((x) => UserDataModel.fromMap(x)));
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
   }
   
   @override
-  Future<List<OwnerDataModel>> agencyRequests() async{
+  Future<List<UserDataModel>> agencyRequests() async{
   Map<String, String> headers = await DioHelper().header();
    
 
@@ -1769,8 +1769,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
       Map<String, dynamic> resultData = response.data;
 
-      return List<OwnerDataModel>.from(
-          resultData['data'].map((x) => OwnerDataModel.fromMap(x)));
+      return List<UserDataModel>.from(
+          resultData['data'].map((x) => UserDataModel.fromMap(x)));
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }

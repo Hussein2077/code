@@ -1,8 +1,7 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -12,9 +11,9 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/widget/f_f_f_v_row.dart';
 
 class UpperProfileBody extends StatelessWidget {
-  final OwnerDataModel userData;
+  final MyDataModel myDataModel;
   final bool myProfile; 
-  const UpperProfileBody({required this.myProfile , required this.userData, super.key});
+  const UpperProfileBody({required this.myProfile , required this.myDataModel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class UpperProfileBody extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: CachedNetworkImageProvider(
-                ConstentApi().getImage(userData.profile!.image)),
+                ConstentApi().getImage(myDataModel.profile!.image)),
             fit: BoxFit.fill,
             filterQuality: FilterQuality.low,
           ),
@@ -42,18 +41,18 @@ class UpperProfileBody extends StatelessWidget {
                   const Spacer(
                     flex: 6,
                   ),
-                   HeaderProfile(myProfile: myProfile , userData: userData),
+                   HeaderProfile(myProfile: myProfile , myDataModel: myDataModel),
                   const Spacer(
                     flex: 6,
                   ),
                   UserImage(
-                      image: userData.profile!.image!,
+                      image: myDataModel.profile!.image!,
                       imageSize: ConfigSize.defaultSize! * 8),
                   const Spacer(
                     flex: 1,
                   ),
                   Text(
-                    userData.name!,
+                    myDataModel.name!,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: ConfigSize.defaultSize! * 1.7,
@@ -68,7 +67,7 @@ class UpperProfileBody extends StatelessWidget {
                         width: ConfigSize.defaultSize!,
                       ),
                       Text(
-                        userData.profile!.country,
+                        myDataModel.profile!.country,
                         style:
                             TextStyle(fontSize: ConfigSize.defaultSize! * 1.8),
                       ),
@@ -76,15 +75,15 @@ class UpperProfileBody extends StatelessWidget {
                         width: ConfigSize.defaultSize!,
                       ),
                       itemContiner(
-                          title: userData.profile!.age.toString(),
-                          icon: userData.profile!.gender == StringManager.female
+                          title: myDataModel.profile!.age.toString(),
+                          icon: myDataModel.profile!.gender == StringManager.female
                               ? AssetsPath.whiteFemaleIcon
                               : AssetsPath.whiteMaleIcon),
                       SizedBox(
                         width: ConfigSize.defaultSize!,
                       ),
                       itemContiner(
-                        title: "ID ${userData.uuid}",
+                        title: "ID ${myDataModel.uuid}",
                       ),
                     ],
                   ),
@@ -92,7 +91,7 @@ class UpperProfileBody extends StatelessWidget {
                     flex: 1,
                   ),
                   Text(
-                  userData.bio!,
+                  myDataModel.bio!,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: ConfigSize.defaultSize! * 1.2,
@@ -102,7 +101,7 @@ class UpperProfileBody extends StatelessWidget {
                     flex: 3,
                   ),
                   if(!myProfile)
-                  FFFVRow(userProfile: true, userData:userData ),
+                  FFFVRow(userProfile: true, myDataModel:myDataModel ),
                   const Spacer(
                     flex: 2,
                   ),

@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_pr
 class GetVistorUseCase {
   BaseRepositoryProfile baseRepositoryProfile;
   GetVistorUseCase({required this.baseRepositoryProfile , });
-  Future<Either<List<OwnerDataModel>, Failure>> getVistors({String? page}) async {
+  Future<Either<List<UserDataModel>, Failure>> getVistors({String? page}) async {
     final result = await baseRepositoryProfile.getVistors(page :page );
     return result ;
   }

@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -10,7 +10,7 @@ import 'profile_row_item.dart';
 
 class Card2 extends StatelessWidget {
   final bool isDarkTheme;
-  final OwnerDataModel myData ;
+  final MyDataModel myData ;
 
   const Card2({required this.isDarkTheme,required this.myData, super.key});
 
@@ -25,7 +25,7 @@ class Card2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            if(myData.type !=0)
+            if(myData.myType !=0)
              ProfileRowItem(
               title: StringManager.agency.tr(),
               image: AssetsPath.agencyIcon,

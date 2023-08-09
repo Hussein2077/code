@@ -7,11 +7,9 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
-// ignore: depend_on_referenced_packages
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
-
 import 'vip_bottom_bar.dart';
 import 'vip_dailog.dart';
 
@@ -34,8 +32,8 @@ class VipTabView extends StatelessWidget {
         BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
             if(state is GetMyDataSucssesState){
-              if(vipData.level == state.userData.vip1!.level){
- return Text(
+              if(vipData.level == state.myDataModel.vip1!.level){
+                    return Text(
               "${StringManager.youAreVip}  ${vipData.level.toString()}",
               style: TextStyle(
                   color: Colors.white.withOpacity(0.7),

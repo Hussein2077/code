@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -22,7 +23,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  OwnerDataModel ? tempData ; 
+  MyDataModel ? tempData ;
 
 
   @override
@@ -46,12 +47,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
          if (state is GetMyDataSucssesState){
-          tempData = state.userData ;
-             return  ProfileBody(myData: state.userData, );
+          tempData = state.myDataModel ;
+             return  ProfileBody(myData: state.myDataModel, );
          }
         else if (state is GetMyDataErrorState){
           //todo show toast here to show error
-          return  ProfileBody(myData: getIt<OwnerDataModel>());
+          return  ProfileBody(myData: getIt<MyDataModel>());
           }
          else if(state is GetMyDataLoadingState){
           return tempData==null? const LoadingWidget() :

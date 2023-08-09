@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_pr
 class AgencyRequestsUsecase {
   BaseRepositoryProfile baseRepositoryProfile;
   AgencyRequestsUsecase({required this.baseRepositoryProfile});
-  Future<Either<List<OwnerDataModel>, Failure>> agencyRequsets() async {
+  Future<Either<List<UserDataModel>, Failure>> agencyRequsets() async {
     final result = await baseRepositoryProfile.agencyRequests();
     return result;
   }

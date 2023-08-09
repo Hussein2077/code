@@ -16,7 +16,7 @@ class FamilyRequestsModel {
 
 class FamilyRequest {
   final int id;
-  final OwnerDataModel user;
+  final UserDataModel user;
   final String time;
 
   FamilyRequest(
@@ -25,7 +25,7 @@ class FamilyRequest {
       required this.time});
   factory FamilyRequest.fromJson(Map<String, dynamic> json) {
     return FamilyRequest(
-        user: OwnerDataModel.fromMap(json['user']),
+        user: UserDataModel.fromMap(json['user']),
         id: json['id'],
         time: json['time']);
   }

@@ -3,7 +3,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/remotly_datasource.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
@@ -29,7 +29,7 @@ class RepositoryImp extends BaseRepository {
   }
 
   @override
-  Future<Either<OwnerDataModel, Failure>> registerWithPhone(AuthPramiter authPramiter)async {
+  Future<Either<MyDataModel, Failure>> registerWithPhone(AuthPramiter authPramiter)async {
    try {
       final result =
           await baseRemotlyDataSource.registerWithCodeAndPhone(authPramiter);
@@ -40,7 +40,7 @@ class RepositoryImp extends BaseRepository {
   }
   
   @override
-  Future<Either<OwnerDataModel, Failure>> loginWithPhone(AuthPramiter authPramiter) async{
+  Future<Either<MyDataModel, Failure>> loginWithPhone(AuthPramiter authPramiter) async{
       try {
       final result =
           await baseRemotlyDataSource.loginWithPassAndPhone(authPramiter);
@@ -51,7 +51,7 @@ class RepositoryImp extends BaseRepository {
   }
 
   @override
-  Future<Either<OwnerDataModel, Failure>> addInformation(InformationPramiter informationPramiter)async {
+  Future<Either<MyDataModel, Failure>> addInformation(InformationPramiter informationPramiter)async {
     try {
       final result = await baseRemotlyDataSource
           .addInformation(informationPramiter);
@@ -73,7 +73,7 @@ class RepositoryImp extends BaseRepository {
   }
   
   @override
-  Future<Either<OwnerDataModel, Failure>> siginWithFacebook()async {
+  Future<Either<MyDataModel, Failure>> siginWithFacebook()async {
      try {
       final result = await baseRemotlyDataSource.sigInWithFacebook();
       if (result.id == -1) {

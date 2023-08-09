@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -20,7 +20,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_da
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_state.dart';
 
 class LiveReportScreen extends StatefulWidget {
-  final OwnerDataModel myData;
+  final MyDataModel myData;
 
   const LiveReportScreen({required this.myData, super.key});
 

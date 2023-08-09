@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class HeaderProfile extends StatelessWidget {
-  final OwnerDataModel userData ;
+  final MyDataModel myDataModel ;
   final bool myProfile ; 
-  const HeaderProfile({required this.userData , required this.myProfile , super.key});
+  const HeaderProfile({required this.myDataModel , required this.myProfile , super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class HeaderProfile extends StatelessWidget {
       children: [
         headerIcon(icon: Icons.arrow_back_ios ,onTap: () => Navigator.pop(context), ),
         myProfile?
-        headerIcon(icon: Icons.more_horiz ,onTap: () => Navigator.pushNamed(context, Routes.editInfo , arguments: userData), ):const SizedBox(width: 10,)],
+        headerIcon(icon: Icons.more_horiz ,onTap: () => Navigator.pushNamed(context, Routes.editInfo , arguments: myDataModel), ):const SizedBox(width: 10,)],
     );
   }
 }

@@ -26,11 +26,11 @@ class UserLevelBody extends StatelessWidget {
               builder: (context, state) {
                 if(state is GetMyDataSucssesState){
                                return  LeveUpperBody(
-level: state.userData.level!.senderLevel.toString(),
-nextLevel: state.userData.level!.nextSenderLevel.toString(),
-percent: state.userData.level!.senderPer!,
-userImage: state.userData.profile!.image!,
-levelRemining: state.userData.level!.remSenderLevel.toString(),
+level: state.myDataModel.level!.senderLevel.toString(),
+nextLevel: state.myDataModel.level!.nextSenderLevel.toString(),
+percent: state.myDataModel.level!.senderPer!,
+userImage: state.myDataModel.profile!.image!,
+levelRemining: state.myDataModel.level!.remSenderLevel.toString(),
 
 
                                );

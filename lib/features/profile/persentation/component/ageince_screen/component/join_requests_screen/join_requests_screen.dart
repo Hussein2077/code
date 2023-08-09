@@ -25,7 +25,7 @@ class AgencyRequestsScreen extends StatefulWidget {
 }
 
 class _AgencyRequestsScreenState extends State<AgencyRequestsScreen> {
-    List<OwnerDataModel>? agenceRequests;
+    List<UserDataModel>? agenceRequests;
 
   @override
   void initState() {

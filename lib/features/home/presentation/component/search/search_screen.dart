@@ -53,14 +53,15 @@ class _SearchScreenState extends State<SearchScreen> {
           BlocBuilder<SearchBloc, SearchStates>(
             builder: (context, state) {
               if(state is SuccessSearchStates){
-  return Expanded(
+             return Expanded(
                 child: ListView.builder(
                   itemCount: state.data.userModel.length,
                   itemExtent: 70,
                   itemBuilder: (context, index) {
 
                   
-                  return UserInfoRow(userData:state.data.userModel[index] , endIcon: const Icon( Icons.arrow_forward_ios,));
+                  return UserInfoRow(userData:state.data.userModel[index] ,
+                      endIcon: const Icon( Icons.arrow_forward_ios,));
                 }),
               );
               }else {

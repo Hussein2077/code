@@ -2,18 +2,18 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 
 
-class RegisterWithPhoneUsecase extends BaseUseCase<OwnerDataModel,AuthPramiter>{
+class RegisterWithPhoneUsecase extends BaseUseCase<MyDataModel,AuthPramiter>{
   final BaseRepository baseRepository ;
 
 
   RegisterWithPhoneUsecase({required this.baseRepository});
 
   @override
-  Future<Either<OwnerDataModel, Failure>> call(AuthPramiter parameter) async {
+  Future<Either<MyDataModel, Failure>> call(AuthPramiter parameter) async {
     final result = await baseRepository.registerWithPhone(parameter);
     return result ;
 

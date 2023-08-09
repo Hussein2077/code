@@ -9,7 +9,7 @@ import 'package:tik_chat_v2/features/following/domin/repository/follwoing_reposi
 
 
 
-class GetFriendsOpenRoomUC extends BaseUseCase<List<OwnerDataModel>,int>{
+class GetFriendsOpenRoomUC extends BaseUseCase<List<UserDataModel>,int>{
 
 
   RepoFollow repoFollow ;
@@ -18,7 +18,7 @@ class GetFriendsOpenRoomUC extends BaseUseCase<List<OwnerDataModel>,int>{
   GetFriendsOpenRoomUC({required this.repoFollow});
 
   @override
-  Future<Either<List<OwnerDataModel>, Failure>> call(int parameter) async {
+  Future<Either<List<UserDataModel>, Failure>> call(int parameter) async {
     final  result = await repoFollow.getFriendsOpenRoom(parameter);
     return result ;
   }

@@ -11,7 +11,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 
 abstract class FollwoingRemoteDataSours {
 
-    Future<List<OwnerDataModel>> getFriendsOpenRoom(int type);
+    Future<List<UserDataModel>> getFriendsOpenRoom(int type);
 
  Future<AllRoomsDataModel> getFollowersRooms(
       {required String type });
@@ -26,7 +26,7 @@ class FollwingRemoteDataSoursImp implements FollwoingRemoteDataSours {
   
 
     @override
-  Future<List<OwnerDataModel>> getFriendsOpenRoom(int type) async {
+  Future<List<UserDataModel>> getFriendsOpenRoom(int type) async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -37,9 +37,9 @@ class FollwingRemoteDataSoursImp implements FollwoingRemoteDataSours {
           log(response.toString());
           
 
-      List<OwnerDataModel> relation = List<OwnerDataModel>.from((response
+      List<UserDataModel> relation = List<UserDataModel>.from((response
               .data["data"] as List)
-          .map((e) => OwnerDataModel.fromMap(e)));
+          .map((e) => UserDataModel.fromMap(e)));
           log(relation.toString());
       return Future.value(relation);
     } on DioError catch (e) {

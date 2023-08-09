@@ -10,7 +10,7 @@ class RoomAdminsUC {
      RoomAdminsUC({required this.roomRepo});
 
 
-   Future<Either<List<OwnerDataModel>, Failure>> call(String ownerId) async {
+   Future<Either<List<UserDataModel>, Failure>> call(String ownerId) async {
      return await roomRepo.roomAdmins(ownerId);
    }
 

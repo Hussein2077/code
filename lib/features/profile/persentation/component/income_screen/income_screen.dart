@@ -35,14 +35,14 @@ class IncomeScreen extends StatelessWidget {
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
                 LinearGradientContainer(
                   onPress: () {
-                    Navigator.pushNamed(context, Routes.liveReportScreen , arguments: state.userData);
+                    Navigator.pushNamed(context, Routes.liveReportScreen , arguments: state.myDataModel);
                   },
                   title: StringManager.liveReport.tr(),
                 ),
                 const Spacer(
                   flex: 4,
                 ),
-                if (state.userData.myAgencyModel==null)
+                if (state.myDataModel.myAgencyModel==null)
                 MainButton(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.instructionsScreen);
@@ -50,7 +50,7 @@ class IncomeScreen extends StatelessWidget {
                   title: StringManager.joinRequests.tr(),
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                  if (state.userData.myAgencyModel!=null)
+                  if (state.myDataModel.myAgencyModel!=null)
                 MainButton(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.cashWithdrawal);
@@ -58,7 +58,7 @@ class IncomeScreen extends StatelessWidget {
                   title: StringManager.withdrawal,
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                  if (state.userData.myAgencyModel==null)
+                  if (state.myDataModel.myAgencyModel==null)
                 MainButton(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.exchangeForGoldScreen);

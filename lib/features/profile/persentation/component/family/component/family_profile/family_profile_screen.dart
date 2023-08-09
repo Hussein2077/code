@@ -35,7 +35,7 @@ class _FamilyProfileScreenState extends State<FamilyProfileScreen> {
         body: BlocBuilder<ShowFamilyBloc, ShowFamilyState>(
           builder: (context, state) {
             if(state is ShowFamilySucssesState){
-  return Column(
+                  return Column(
               children: [
                 Expanded(
                   child: SingleChildScrollView(

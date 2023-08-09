@@ -6,6 +6,7 @@ import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -55,7 +56,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
 
 
   @override
-  Future<Either<OwnerDataModel, Failure>> getmyData(
+  Future<Either<MyDataModel, Failure>> getmyData(
       Noparamiter noparamiter) async {
     try {
       final result = await baseRemotlyDataSourceProfile.getmyData(noparamiter);
@@ -90,7 +91,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<Failure, List<OwnerDataModel>>> getFriendsOrFollowers(
+  Future<Either<Failure, List<UserDataModel>>> getFriendsOrFollowers(
       {required String type , String? page}) async {
     try {
       final failureOrDone =
@@ -113,7 +114,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<OwnerDataModel, Failure>> getUserData(
+  Future<Either<UserDataModel, Failure>> getUserData(
       {required String userId  }) async {
     try {
       final result =
@@ -148,7 +149,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<List<OwnerDataModel>, Failure>> getVistors({String?page}) async {
+  Future<Either<List<UserDataModel>, Failure>> getVistors({String?page}) async {
     try {
       final result = await baseRemotlyDataSourceProfile.getVaistors(page : page);
       return left(result);
@@ -783,7 +784,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
   
   @override
-  Future<Either<List<OwnerDataModel>, Failure>> agencyMember(int page) async{
+  Future<Either<List<UserDataModel>, Failure>> agencyMember(int page) async{
     try {
       final result =
       await baseRemotlyDataSourceProfile.agencyMember(page);
@@ -795,7 +796,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
   
   @override
-  Future<Either<List<OwnerDataModel>, Failure>> agencyRequests() async{
+  Future<Either<List<UserDataModel>, Failure>> agencyRequests() async{
   try {
       final result =
       await baseRemotlyDataSourceProfile.agencyRequests();

@@ -18,7 +18,7 @@ class AddInfoBloc extends Bloc<BaseAddInfoEvent, AddInfoState> {
           countryCode: event.countryCode,
           name: event.name));
       result.fold(
-          (l) => emit(AddInfoSuccesMessageState(userData: l)),
+          (l) => emit(AddInfoSuccesMessageState(myDataModel: l)),
           (r) => emit(AddInfoErrorMessageState(
               errorMessage: DioHelper().getTypeOfFailure(r))));
     });

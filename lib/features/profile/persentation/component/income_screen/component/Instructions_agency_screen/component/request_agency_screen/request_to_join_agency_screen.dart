@@ -104,13 +104,13 @@ setState(() {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   UserImage(
-                                    image: state.userData.profile!.image!,
+                                    image: state.myDataModel.profile!.image!,
                                     imageSize: ConfigSize.defaultSize! * 9.5,
                                   ),
                                   SizedBox(
                                     height: ConfigSize.defaultSize! * 1.0,
                                   ),
-                                  Text(state.userData.name!,
+                                  Text(state.myDataModel.name!,
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineLarge),
@@ -138,7 +138,7 @@ setState(() {
                               ),
                               TextFormFieldWidget(
                                 textEditingController: id,
-                                hintText: state.userData.uuid!,
+                                hintText: state.myDataModel.uuid!,
                                 readOnly: true,
                               ),
                               SizedBox(

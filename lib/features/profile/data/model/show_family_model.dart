@@ -11,10 +11,10 @@ class ShowFamilyModel {
   final int? maxNumOfMembers;
   final bool? amIOwner;
   final bool? amIAdmin;
-  final List<OwnerDataModel>? members;
+  final List<UserDataModel>? members;
   final int? numOfRequests;
   final FamilyLevel? familylevel;
-  final OwnerDataModel ownerData ; 
+  final UserDataModel ownerData ;
 
   ShowFamilyModel({
     required this.id,
@@ -41,11 +41,11 @@ class ShowFamilyModel {
       amIOwner: json['am_i_owner'],
       amImember: json['am_i_member'],
       numOfRequests: json['num_of_requests'],
-      ownerData: OwnerDataModel.fromMap(json["owner"]) ,
+      ownerData: UserDataModel.fromMap(json["owner"]) ,
       members: json['members'] == null
           ? null
-          : List<OwnerDataModel>.from(
-              json['members'].map((x) => OwnerDataModel.fromMap(x))),
+          : List<UserDataModel>.from(
+              json['members'].map((x) => UserDataModel.fromMap(x))),
       familylevel:
           json['level'] == null ? null : FamilyLevel.fromjson(json['level']),
     );

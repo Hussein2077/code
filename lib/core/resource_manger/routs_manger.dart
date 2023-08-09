@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
@@ -166,15 +167,14 @@ class RouteGenerator {
       case Routes.giftGallery:
         return MaterialPageRoute(builder: (_) => const GiftGallery());
       case Routes.editInfo:
-        OwnerDataModel userData = settings.arguments as OwnerDataModel;
+        MyDataModel myDataModel = settings.arguments as MyDataModel;
 
         return MaterialPageRoute(
             builder: (_) => EditInfoScreen(
-                  tempData: userData,
+                  myDataModel: myDataModel,
                 ));
       case Routes.fff:
         String title = settings.arguments as String;
-
         return MaterialPageRoute(
             builder: (_) => FFFScreen(
                   title: title,
@@ -187,7 +187,7 @@ class RouteGenerator {
                   type: type,
                 ));
       case Routes.myBag:
-        OwnerDataModel userData = settings.arguments as OwnerDataModel;
+        UserDataModel userData = settings.arguments as UserDataModel;
 
         return MaterialPageRoute(
             builder: (_) => MyBagScreen(
@@ -230,7 +230,7 @@ class RouteGenerator {
                 ));
 
       case Routes.familyMembers:
-        OwnerDataModel ownerData = settings.arguments as OwnerDataModel;
+        UserDataModel ownerData = settings.arguments as UserDataModel;
         return MaterialPageRoute(
             builder: (_) => FamilyMemberScreen(
                   owner: ownerData,
@@ -254,11 +254,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const JoinToAgencyScreen());
 
       case Routes.liveReportScreen:
-        OwnerDataModel userData = settings.arguments as OwnerDataModel;
+        MyDataModel myDataModel = settings.arguments as MyDataModel;
 
         return MaterialPageRoute(
             builder: (_) => LiveReportScreen(
-                  myData: userData,
+                  myData: myDataModel,
                 ));
 
       case Routes.exchangeForGoldScreen:
@@ -285,7 +285,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const DetailsScreen());
 
       case Routes.agencyScreen:
-        OwnerDataModel myData = settings.arguments as OwnerDataModel;
+        MyDataModel myData = settings.arguments as MyDataModel;
 
         return MaterialPageRoute(builder: (_) =>  AgenceScreen(mydata:myData,));
       case Routes.agencyMemberScreen:
@@ -331,7 +331,7 @@ class LoginPramiter {
 }
 
 class MainPramiter  {
-  final OwnerDataModel? userData;
+  final UserDataModel? userData;
   final bool? isChachGift;
   final bool? isCachFrame;
   final bool? isCachExtra;

@@ -1,19 +1,17 @@
-
-
 //todo is_gold remove
 //todo remove neck name
 //todo  delete some data from faimly
-//todo defeferce btw visit_time and online_time
-//todo deference btw 2 diamons
+//todo deference btw visit_time and online_time
+//todo deference btw 2 diamonds
 
-import 'package:tik_chat_v2/core/model/family_data_model.dart';
+
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_agency_model.dart';
 import 'package:tik_chat_v2/core/model/my_store_model.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
-
 
 class MyDataModel {
   final int? id;
@@ -26,7 +24,7 @@ class MyDataModel {
   final int? numberOfFriends;
   final int? profileVisotrs;
   final ProfileRoomModel? profile;
- // final NowRoomModel? nowRoom; //todo discussed
+  // final NowRoomModel? nowRoom; //todo discussed
   final LevelDataModel? level;
   final VipCenterModel? vip1;
   final MyStoreModel? myStore;
@@ -41,21 +39,17 @@ class MyDataModel {
   final bool? isAgencyRequest;
   final bool? isFirst;
   final int? familyId;
-  final FamilyDataModel? familyData; //todo remove some att. from response
   final String? uuid;
   final String? notificationId;
   final String? bio;
   final bool? hasRoom;
-  //final bool? hasColorName;////todo discussed
-  //final bool? isHideRoom;//todo discussed
+  final bool? hasColorName;
   final bool? isAanonymous;
-  //final int? numPobUp;//todo discussed
-  //final String? onlineTime; //todo discussed
-  //final bool? isCountryHiden; //todo discussed
+  final int? numPobUp;
   final bool? isFacebook;
   final bool? isGoogle;
   final bool? isPhone;
-  final int? diamonds;
+  final int? myType;
 
 
   MyDataModel({
@@ -84,7 +78,6 @@ class MyDataModel {
     this.myAgencyModel,
     this.isAgencyRequest,
     this.familyId,
-    this.familyData,
     this.uuid,
     this.notificationId,
     this.bio,
@@ -92,7 +85,9 @@ class MyDataModel {
     this.isFacebook,
     this.isGoogle,
     this.isPhone,
-    this.diamonds
+    this.hasColorName,
+    this.numPobUp,
+    this.myType
   });
 
   Map<String, dynamic> toMap() {
@@ -111,61 +106,86 @@ class MyDataModel {
     };
   }
 
-  factory MyDataModel.fromJson(Map<String, dynamic> map) {
+  factory MyDataModel.fromMap(Map<String, dynamic> map) {
     return MyDataModel(
-        id: map['id'] != null ? map['id'] as int : null,
-        chatId: map['chat_id'],
-        notificationId: map['notification_id'],
-        name: map['name'] != null ? map['name'] as String : null,
-        email: map['email'] != null ? map['email'] as String : null,
-        phone: map['phone'] != null ? map['phone'] as dynamic : null,
-        frame: map['frame'] != null ? map['frame'] as String : null,
-        intro: map['intro'] != null ? map['intro'] as String : null,
-        bubbleId: map['bubble_id'] != null ? map['bubble_id'] as int : 0,
-        bubble: map['bubble'],
-        frameId: map['frame_id'] != null ? map['frame_id'] as int : 0,
-        introId: map['intro_id'] != null ? map['intro_id'] as int : 0,
-        isFirst: map['is_first'],
-        isAgencyRequest: map['is_agency_request'],
-        hasRoom: map['has_room'],
-        isAanonymous: map['anonymous'],
-        isFacebook: map['facebook_bind'],
-        isGoogle: map['google_bind'],
-        isPhone: map['phone_bind'],
-        vip1: map['vip'] == null ? null : VipCenterModel.fromJson(map['vip']),
-        familyId: map['family_id'],
-        uuid: map['uuid'] != null ? map['uuid'] as String : "0",
-        bio: map['bio'] != null ? map['bio'] as String : "",
-        authToken: map[ConstentApi.authToken] != null
-            ? map[ConstentApi.authToken] as String
-            : null,
-        numberOfFans:
-        map['number_of_fans'] != null ? map['number_of_fans'] as int : null,
-        numberOfFollowings: map['number_of_followings'] != null
-            ? map['number_of_followings'] as int
-            : null,
-        numberOfFriends: map['number_of_friends'] != null
-            ? map['number_of_friends'] as int
-            : null,
-        profileVisotrs: map['profile_visitors'] != null
-            ? map['profile_visitors'] as int
-            : null,
-        profile: map['profile'] != null
-            ? ProfileRoomModel.fromMap(map['profile'] as Map<String, dynamic>)
-            : null,
-        level: map['level'] != null
-            ? LevelDataModel.fromMap(map['level'] as Map<String, dynamic>)
-            : null,
-        myStore: map['my_store'] != null
-            ? MyStoreModel.fromMap(map['my_store'] as Map<String, dynamic>)
-            : null,
-        familyData: map['family_data'] == null
-            ? null
-            : FamilyDataModel.fromjosn(map['family_data']),
-        myAgencyModel: map['agency'] != null
-            ? MyAgencyModel.fromjson(map["agency"])
-            : null,
-        diamonds: map["diamonds"]
+      id: map['id'] ,
+      chatId: map['chat_id'],
+      notificationId: map['notification_id'],
+      name: map['name'] ,
+      email: map['email'] ,
+      phone: map['phone'] ,
+      frame: map['frame'] ,
+      intro: map['intro'] ,
+      bubbleId: map['bubble_id'] ,
+      bubble: map['bubble'],
+      myType:map['type_user'],
+      hasColorName: map['has_color_name'],
+      frameId: map['frame_id'] ,
+      introId: map['intro_id'] ,
+      isFirst: map['is_first'],
+      isAgencyRequest: map['is_agency_request'],
+      hasRoom: map['has_room'],
+      isAanonymous: map['anonymous'],
+      isFacebook: map['facebook_bind'],
+      isGoogle: map['google_bind'],
+      isPhone: map['phone_bind'],
+      vip1: map['vip'] == null ? null : VipCenterModel.fromJson(map['vip']),
+      familyId: map['family_id'],
+      uuid: map['uuid'] != null ? map['uuid'] as String : "0",
+      bio: map['bio'] != null ? map['bio'] as String : "",
+      authToken: map[ConstentApi.authToken],
+      numberOfFans: map['number_of_fans'] ,
+      numberOfFollowings: map['number_of_followings'] ,
+      numberOfFriends: map['number_of_friends'],
+      profileVisotrs: map['profile_visitors'],
+      profile: map['profile'] != null
+          ? ProfileRoomModel.fromMap(map['profile'] as Map<String, dynamic>)
+          : null,
+      level: map['level'] != null
+          ? LevelDataModel.fromMap(map['level'] as Map<String, dynamic>)
+          : null,
+      myStore: map['my_store'] != null
+          ? MyStoreModel.fromMap(map['my_store'] as Map<String, dynamic>)
+          : null,
+      numPobUp: map['wapel_num'], // todo update that
+      myAgencyModel: map['agency'] != null
+          ? MyAgencyModel.fromjson(map["agency"])
+          : null,
+
+
     );
   }
+
+  UserDataModel convertToUserObject() {
+    return UserDataModel(
+      id: id,
+      bubble:bubble,
+      bubbleId:bubbleId,
+      intro:intro,
+      introId:introId,
+      frame: frame,
+      familyId: familyId,
+      frameId: familyId,
+      uuid:uuid,
+      profile: ProfileRoomModel(
+        image:profile?.image??'',
+        gender: profile?.gender??'male',
+        age: profile?.age??0,
+        country: profile?.country,
+
+
+
+      ),
+      name: name,
+      chatId: chatId,
+      hasColorName: hasColorName,
+      notificationId: notificationId,
+      level: LevelDataModel(senderImage: level?.senderImage,
+          receiverImage: level?.receiverImage),
+      vip1: VipCenterModel(level: vip1?.level),
+      userType: myType
+    );
+
+  }
+
 }
