@@ -3,7 +3,13 @@
 
 abstract class ChargeHistoryEvent {}
 
-class ChargeHistory extends ChargeHistoryEvent{
+class ChargeSentHistory extends ChargeHistoryEvent{
   final String sent ;
-  ChargeHistory({ required this.sent,});
+  ChargeSentHistory({ required this.sent,});
+}
+
+
+class ChargeRecivedHistory extends ChargeHistoryEvent{
+  final String recived ;
+  ChargeRecivedHistory({ required this.recived,});
 }

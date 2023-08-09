@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -67,11 +68,14 @@ UserInfoWidget.nameController!.dispose();
                       title: StringManager.bio));
             },
           ),
-          //TODO اضافة الاهتمامات
           rowWidget(
               context: context,
               title: StringManager.interests,
               subTitle: widget.myDataModel.intro),
+              subTitle: widget.userData.intro,
+              onTap: () => Navigator.pushNamed(context, Routes.interstedScreen),
+
+              ),
 
           rowWidget(
             context: context,

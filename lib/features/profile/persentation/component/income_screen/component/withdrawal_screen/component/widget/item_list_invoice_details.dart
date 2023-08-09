@@ -4,13 +4,14 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class ItemInvoiceDetails extends StatelessWidget {
- final String date,withdrawalAmount,userID;
+ final String date,withdrawalAmount,userID , type;
 
   const ItemInvoiceDetails({
     super.key,
     required this.date,
     required this.userID,
-    required this.withdrawalAmount
+    required this.withdrawalAmount,
+    required this.type
   });
 
   @override
@@ -81,6 +82,23 @@ class ItemInvoiceDetails extends StatelessWidget {
                 ),
                 Text(
                   userID,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+             SizedBox(
+              height:  ConfigSize.defaultSize!*2.0,
+            ),
+            if(type!="")
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  StringManager.type,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                Text(
+                  type,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],

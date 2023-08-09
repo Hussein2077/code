@@ -111,6 +111,10 @@ class ConstentApi {
     static const String agencyHistory = "$baseUrl/agencies/historyAgancy";
     static const String chargeCoinForUser = "$baseUrl/agencies/charge_co_for_users";
     static const String chargeDolarsForUser = "$baseUrl/agencies/charge_co_for_owner";
+    static const String getAllIntrested = "$baseUrl/allinterests";
+        static const String addIntrested = "$baseUrl/AddInterests";
+    static const String getUseIntrested = "$baseUrl/user_interests";
+
 
 
   static String updateFamily(String familyId) =>
@@ -163,6 +167,12 @@ class ConstentApi {
 
   String getChargeHistory(String type) {
     return "$baseUrl/charge_history?type=$type";
+  }
+    String getChargeDolarsAgencyOwnerHistory(String type) {
+    return "$baseUrl/agencies/charge_dollar_for_OwnerHistory?type=$type";
+  }
+    String getChargeCoinsSystemHistory(String type) {
+    return "$baseUrl/agencies/charge_co_for_usersHistory?type=$type";
   }
 
   String getVipCenter({required String level}) =>

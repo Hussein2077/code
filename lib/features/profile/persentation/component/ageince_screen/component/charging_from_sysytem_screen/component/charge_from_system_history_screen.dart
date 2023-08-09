@@ -8,20 +8,20 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/widget/details_tab_bar.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/widget/tab_bar_view.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_coin_system_history/charge_coin_system_history_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_coin_system_history/charge_coin_system_history_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_coin_system_history/charge_coin_system_history_state.dart';
 
-class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({
+class ChargeFromSystemHistory extends StatefulWidget {
+  const ChargeFromSystemHistory({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<DetailsScreen> createState() => _DetailsScreenState();
+  State<ChargeFromSystemHistory> createState() => _ChargeFromSystemHistoryState();
 }
 
-class _DetailsScreenState extends State<DetailsScreen>
+class _ChargeFromSystemHistoryState extends State<ChargeFromSystemHistory>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
 
@@ -62,12 +62,12 @@ class _DetailsScreenState extends State<DetailsScreen>
                 tabController: tabController,
               )),
           BlocProvider(
-              create: (context) => getIt<ChargeHistoryBloc>()
+              create: (context) => getIt<ChargeCoinSystemHistoryBloc>()
                 ..add(ChargeSentHistory(sent: "sent"))
                 ..add(ChargeRecivedHistory(recived: "received")),
               child: Expanded(
                 child: TabBarView(controller: tabController, children: [
-                  BlocBuilder<ChargeHistoryBloc, ChargeHistoryState>(
+                  BlocBuilder<ChargeCoinSystemHistoryBloc, ChargeCoinSystemHistoryState>(
                       builder: (context, state) {
                     switch (state.sentState) {
                       case RequestState.loaded:
@@ -83,7 +83,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                         return CustoumErrorWidget(message: state.sentMessage);
                     }
                   }),
-                   BlocBuilder<ChargeHistoryBloc, ChargeHistoryState>(
+                   BlocBuilder<ChargeCoinSystemHistoryBloc, ChargeCoinSystemHistoryState>(
                       builder: (context, state) {
                     switch (state.recivedState) {
                       case RequestState.loaded:

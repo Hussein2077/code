@@ -12,8 +12,10 @@ import 'package:tik_chat_v2/features/home/presentation/component/search/search_s
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/agency_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/agency_members_screen/agency_members_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/charging_from_sysytem_screen/charging_from_sysytem_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/charging_from_sysytem_screen/component/charge_from_system_history_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/join_requests_screen/join_requests_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/reportes_screen/reportes_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/shipping_from_agency_screen/component/shipping_from_agency_details.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/shipping_from_agency_screen/shipping_from_agency.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/coins_scrren.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/custom_service/custoum_service_screen.dart';
@@ -39,6 +41,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/settings/com
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/phone_number_bind_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/mode_screen/mode_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/settings_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/edit_info/component/intersted_screen/intersted_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/edit_info/edit_info_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/gift_gallery/gift_gallery_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
@@ -101,13 +104,17 @@ class Routes {
   static const String agencyScreen = "/agenceScreen";
 
   static const String agencyMemberScreen = "/AgencyMembersScreen";
-    static const String agencyRequestsScreen = "/AgencyRequestsScreen";
+  static const String agencyRequestsScreen = "/AgencyRequestsScreen";
 
-    static const String agencyRepoertsScreen = "/AgencyRepoertsScreen";
+  static const String agencyRepoertsScreen = "/AgencyRepoertsScreen";
 
-      static const String charchingCoinsForUsers = "/CharchingCoinsForUsers";
+  static const String charchingCoinsForUsers = "/CharchingCoinsForUsers";
 
-        static const String charchingDolarsForUsers = "/CharchingDolarsForUsers";
+  static const String charchingDolarsForUsers = "/CharchingDolarsForUsers";
+  static const String chargeFromSystemHistory = "/ChargeFromSystemHistory";
+
+    static const String chargeAgencyOwnerHistory = "/ChargeAgencyOwnerHistory";
+        static const String interstedScreen = "/interstedScreen";
 
 
 }
@@ -120,10 +127,11 @@ class RouteGenerator {
 
       case Routes.login:
         LoginPramiter? loginPramiter = settings.arguments as LoginPramiter?;
-        return MaterialPageRoute(builder: (_) =>  LoginScreen(
-          isForceUpdate: loginPramiter?.isForceUpdate,
-          isUpdate:loginPramiter?.isUpdate ,
-        ));
+        return MaterialPageRoute(
+            builder: (_) => LoginScreen(
+                  isForceUpdate: loginPramiter?.isForceUpdate,
+                  isUpdate: loginPramiter?.isUpdate,
+                ));
 
       case Routes.otp:
         OtpScreenParameter otpScreenParameter =
@@ -148,13 +156,13 @@ class RouteGenerator {
         MainPramiter? mainPramiter = settings.arguments as MainPramiter?;
         return MaterialPageRoute(
             builder: (_) => MainScreen(
-              isChachGift: mainPramiter?.isChachGift,
-              isCachFrame: mainPramiter?.isCachFrame,
-              isCachExtra: mainPramiter?.isCachExtra,
-              isCachEntro: mainPramiter?.isCachEntro,
-              isCachEmojie: mainPramiter?.isCachEmojie,
-              isUpdate: mainPramiter?.isUpdate,
-            ));
+                  isChachGift: mainPramiter?.isChachGift,
+                  isCachFrame: mainPramiter?.isCachFrame,
+                  isCachExtra: mainPramiter?.isCachExtra,
+                  isCachEntro: mainPramiter?.isCachEntro,
+                  isCachEmojie: mainPramiter?.isCachEmojie,
+                  isUpdate: mainPramiter?.isUpdate,
+                ));
       case Routes.topUsersScreen:
         return MaterialPageRoute(builder: (_) => const TopUsersScreen());
       case Routes.userProfile:
@@ -287,22 +295,30 @@ class RouteGenerator {
       case Routes.agencyScreen:
         MyDataModel myData = settings.arguments as MyDataModel;
 
-        return MaterialPageRoute(builder: (_) =>  AgenceScreen(mydata:myData,));
+        return MaterialPageRoute(
+            builder: (_) => AgenceScreen(
+                  mydata: myData,
+                ));
       case Routes.agencyMemberScreen:
         return MaterialPageRoute(builder: (_) => const AgencyMembersScreen());
-                       case Routes.agencyRequestsScreen:
-        return MaterialPageRoute(builder: (_) =>  const AgencyRequestsScreen());
-                    case Routes.agencyRepoertsScreen:
-        return MaterialPageRoute(builder: (_) =>   ReportsScreen());
-                           case Routes.charchingCoinsForUsers:
-        return MaterialPageRoute(builder: (_) =>   CharchingCoinsForUsers());
+      case Routes.agencyRequestsScreen:
+        return MaterialPageRoute(builder: (_) => const AgencyRequestsScreen());
+      case Routes.agencyRepoertsScreen:
+        return MaterialPageRoute(builder: (_) => ReportsScreen());
+      case Routes.charchingCoinsForUsers:
+        return MaterialPageRoute(builder: (_) => CharchingCoinsForUsers());
 
-                            case Routes.charchingDolarsForUsers
-:
-        return MaterialPageRoute(builder: (_) =>   CharchingDolarsForUsers
-());
+      case Routes.charchingDolarsForUsers:
+        return MaterialPageRoute(builder: (_) => CharchingDolarsForUsers());
+
+          case Routes.chargeFromSystemHistory:
+        return MaterialPageRoute(builder: (_) => const ChargeFromSystemHistory());
 
 
+                  case Routes.chargeAgencyOwnerHistory:
+        return MaterialPageRoute(builder: (_) => const ChargeAgencyOwnerHistory());
+                         case Routes.interstedScreen:
+        return MaterialPageRoute(builder: (_) => const InterstedScreen());
     }
 
     return unDefinedRoute();
@@ -326,8 +342,9 @@ class OtpScreenParameter {
 
 class LoginPramiter {
   final bool? isUpdate;
-  final bool? isForceUpdate ;
-  const LoginPramiter({required this.isForceUpdate,required this.isUpdate, Key? key}) ;
+  final bool? isForceUpdate;
+  const LoginPramiter(
+      {required this.isForceUpdate, required this.isUpdate, Key? key});
 }
 
 class MainPramiter  {
@@ -341,11 +358,10 @@ class MainPramiter  {
 
   MainPramiter(
       {this.isCachEmojie,
-        this.isCachEntro,
-        this.isUpdate,
-        this.userData,
-        this.isCachExtra,
-        this.isCachFrame,
-        this.isChachGift});
-
+      this.isCachEntro,
+      this.isUpdate,
+      this.userData,
+      this.isCachExtra,
+      this.isCachFrame,
+      this.isChachGift});
 }

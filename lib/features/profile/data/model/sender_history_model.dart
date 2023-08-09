@@ -4,18 +4,21 @@ import 'package:equatable/equatable.dart';
 class SenderHistory extends Equatable {
 
   int ? id ;
+  String ? uid;
   String ? name;
   String ? image;
   String ? type;
+  
 
 
-   SenderHistory({required this.id, required this.name, required this.image, required this.type});
+   SenderHistory({required this.id, required this.name, required this.image, required this.type , this.uid,});
 
   SenderHistory.fromJson(Map<String, dynamic> json) {
-   id = json['id'];
-   name = json['name'];
-   image = json['img'];
-   type = json['type'];
+   id = json['id']??0;
+   uid = json['uuid'].toString();
+   name = json['name']??"";
+   image = json['img']??"";
+   type = json['type']??"";
  }
 
   @override

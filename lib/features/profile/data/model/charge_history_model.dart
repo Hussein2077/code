@@ -29,8 +29,9 @@ class Data {
   SenderHistory? receiver;
   String? value;
   String? time;
+  String?type ; 
 
-  Data({this.id, this.sender, this.receiver, this.value, this.time});
+  Data({this.id, this.sender, this.receiver, this.value, this.time , this.type });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -41,5 +42,6 @@ class Data {
         : null;
     value = json['value'];
     time = json['time'];
+    type = json["type"];
   }
 }
