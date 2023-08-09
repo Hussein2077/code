@@ -71,12 +71,10 @@ UserInfoWidget.nameController!.dispose();
           rowWidget(
               context: context,
               title: StringManager.interests,
-              subTitle: widget.myDataModel.intro),
-              subTitle: widget.userData.intro,
+              subTitle: widget.myDataModel.intro,
               onTap: () => Navigator.pushNamed(context, Routes.interstedScreen),
 
               ),
-
           rowWidget(
             context: context,
             title: StringManager.userName,
@@ -90,6 +88,7 @@ UserInfoWidget.nameController!.dispose();
                       title: StringManager.userName));
             },
           ),
+
 
    Row(
     children:

@@ -1719,7 +1719,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<List<OwnerDataModel>> agencyRequests() async{
+  Future<List<UserDataModel>> agencyRequests() async{
   Map<String, String> headers = await DioHelper().header();
    
 
@@ -1951,7 +1951,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return List<InterstedMode>.from(
           resultData['data'].map((x) => InterstedMode.fromjson(x)));
-      ;
+
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
