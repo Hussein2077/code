@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -15,6 +14,7 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
+import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/widgets/family_member_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_member/bloc/family_member_event.dart';
@@ -32,7 +32,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 
 // ignore: must_be_immutable
 class FamilyMemberScreen extends StatefulWidget {
-  final UserDataModel owner;
+  final MemberFamilyDataModel owner;
   int page = 1;
 
   FamilyMemberScreen({required this.owner, super.key});
@@ -44,7 +44,7 @@ class FamilyMemberScreen extends StatefulWidget {
 class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
   final ScrollController scrollController = ScrollController();
 
-  List<UserDataModel> membersData = [];
+  List<MemberFamilyDataModel> membersData = [];
   MyDataModel? mydata;
   int? removeUserIndex;
   @override
@@ -162,7 +162,7 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                                                 .id
                                                 .toString(),
                                             image: membersData[index]
-                                                .profile!
+                                                
                                                 .image!,
                                             name: membersData[index].name!,
                                             type: index == 0

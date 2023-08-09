@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_time_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
@@ -785,7 +786,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
   
   @override
-  Future<Either<List<UserDataModel>, Failure>> agencyMember(int page) async{
+  Future<Either<List<AgencyMemberModel>, Failure>> agencyMember(int page) async{
     try {
       final result =
       await baseRemotlyDataSourceProfile.agencyMember(page);

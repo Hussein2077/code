@@ -150,7 +150,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       MyDataModel userData = MyDataModel.fromMap(response.data[ConstentApi.data]);
 
-      Methods().saveUserData();
+      Methods().saveMyData();
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
@@ -202,7 +202,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       
         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
         log(userData.authToken.toString());
-        // Methods().saveUserData(jsonString: resultData);
+        // Methods().saveMyData(jsonString: resultData);
         Methods().saveUserToken(authToken: userData.authToken);
 
         return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );

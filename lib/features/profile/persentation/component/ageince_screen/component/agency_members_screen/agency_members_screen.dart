@@ -57,11 +57,11 @@ class _AgencyMembersScreenState extends State<AgencyMembersScreen> {
                               ),
                               child: UserInfoRow(
                                 onTap:()=> Navigator.pushNamed(context, Routes.liveReportScreen , arguments: state.data![index]),
-                                  userData: state.data![index],
+                                  userData: state.data![index].convertToUserDataModel(),
                                   underName: const SizedBox(),
                                   endIcon:Row(children: [
                                     Text(
-                                    "${state.data![index].diamonds.toString()}  ",
+                                    "${state.data![index].diamond.toString()}  ",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium,
