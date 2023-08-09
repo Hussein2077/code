@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/error/exceptions.dart';
@@ -44,6 +45,11 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ConstentApi.sendCodeUrl,
         data: body,
       );
+      if(kDebugMode){
+        
+        ConstentApi.sendCodeUrl;
+
+      }
       return Future.value(unit);
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);

@@ -820,13 +820,13 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
 
   @override
   Future<Either<List<AgencyHistoryTime>, Failure>> agencyTimeHistory()async {
-  try {
+  /*try {*/
       final result =
       await baseRemotlyDataSourceProfile.getAgencyHistoryTime( );
       return Left(result);
-    } catch (e) {
+   /* } catch (e) {
       return right(DioHelper.buildFailure(e));
-    }
+    }*/
   }
 
   @override
