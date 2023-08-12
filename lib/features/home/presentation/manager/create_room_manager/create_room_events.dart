@@ -20,3 +20,11 @@ class CreateAudioRoomEvent extends CreateRoomEvents {
   List<Object?> get props => [roomIntero,roomType,roomCover , roomName];
 
 }
+
+class GetTypesRoomEvent extends CreateRoomEvents {
+
+
+  @override
+  List<Object?> get props => [];
+
+}

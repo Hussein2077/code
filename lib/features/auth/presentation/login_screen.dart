@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Methods().clearAuth();
+                          Methods().clearAuthData();
                           Navigator.pushNamed(context, Routes.signUp);
                         },
                         child: Text(
@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
              sucssesToast(context: context, title: state.succesMessage);
 
-             Methods().clearAuth();
+             Methods().clearAuthData();
 
                Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen , (route) => false,);
                       //to do getmy data

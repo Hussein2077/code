@@ -8,11 +8,11 @@ import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
 
 
 class CreateRoomUsecase{
-  final RepoHome roomRepo;
+  final RepoHome repoHome;
 
-  CreateRoomUsecase({required this.roomRepo});
+  CreateRoomUsecase({required this.repoHome});
   Future<Either<Failure,String>> createRoom({required CreateRoomPramiter creatRoomPramiter})async{
-    return await roomRepo.createroom(creatRoomPramiter: creatRoomPramiter);
+    return await repoHome.createroom(creatRoomPramiter: creatRoomPramiter);
   }
 }
 

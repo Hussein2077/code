@@ -8,12 +8,14 @@ class PopUpDialog extends StatelessWidget {
   final String headerText;
   final Widget? widget;
   final VoidCallback accpetText;
+  final bool? unShowCancle ;
 
   const PopUpDialog({
     Key? key,
     required this.headerText,
     this.widget,
     required this.accpetText,
+    this.unShowCancle
   }) : super(key: key);
 
   @override
@@ -60,6 +62,7 @@ class PopUpDialog extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                if(!(unShowCancle??false))
                 InkWell(
                     onTap: () => Navigator.pop(context),
                     child: Text(

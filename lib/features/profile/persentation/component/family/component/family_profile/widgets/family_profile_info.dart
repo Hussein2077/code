@@ -253,7 +253,6 @@ Widget familyInfo(
     ],
   );
 }
-//TODO create member family model
 Widget familyMemeber(
     {required MemberFamilyDataModel owner,
     required String memberNum,
@@ -261,7 +260,7 @@ Widget familyMemeber(
     required List<MemberFamilyDataModel> members,
     required BuildContext context,
     void Function()? onTap}) {
-  return Column(
+       return Column(
     children: [
       InkWell(
         onTap: onTap,

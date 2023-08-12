@@ -21,7 +21,7 @@ class _CreateLiveScreenState extends State<CreateLiveScreen>
   @override
   void initState() {
 
-    createLiveController = TabController(length: 3, vsync: this);
+    createLiveController = TabController(length:2 , vsync: this);
     
     
     

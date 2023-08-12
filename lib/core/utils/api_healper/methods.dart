@@ -7,11 +7,14 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -26,16 +29,22 @@ import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/exist_room_uc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_events.dart';
+import 'package:tik_chat_v2/features/room/presentation/room_screen_controler.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 
 class Methods {
 
-        Future<void> clearAuth()async{
-      SharedPreferences preference = getIt();
+    Future<void> clearAuth()async{
+                          SharedPreferences preference = getIt();
                               preference.remove(StringManager.userDataKey);
                               preference.remove(StringManager.userTokenKey);
                               preference.remove(StringManager.deviceToken);
    }
-
     Future<void> saveLocalazitaon({required String language}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("languagne", language);
@@ -64,7 +73,58 @@ class Methods {
 
 
 
+    Future<void> exitFromRoom(String ownerId) async{
+      ZegoUIKitPrebuiltLiveAudioRoomState.connectManager?.uninit();
+      await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager?.uninit();
+      await ZegoUIKitPrebuiltLiveAudioRoomState.plugins?.uninit();
+      // await ZegoUIKit().resetSoundEffect();
+      // await ZegoUIKit().resetBeautyEffect();
+      await ZegoUIKit().leaveRoom();
+      await ZegoUIKit().uninit();
+      await ZegoUIKit().uninit();
+      ZegoUIKit().logout() ;
+      await  clearAll();
+      ExistroomUC e = ExistroomUC(getIt());
+      await e.call(ownerId);
+      PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
+      pusher.unsubscribe(channelName: 'presence-room-${ownerId}');
+    }
 
+    Future<void> checkIfInRoom({required String ownerId }) async{
+      if(MainScreen.iskeepInRoom.value){
+        MainScreen.iskeepInRoom.value =false ;
+        await  Methods().exitFromRoom( MainScreen.roomData?.ownerId ==null ?ownerId:
+        MainScreen.roomData!.ownerId.toString()) ;
+      }
+
+    }
+
+    checkIfRoomHasPassword(
+        {required BuildContext context,
+          required bool hasPassword,
+          required String ownerId ,required MyDataModel myData}) async {
+      if (hasPassword) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: Text(StringManager.enterPassword.tr()),
+                  content: EnterPasswordRoomScreen(
+                    ownerId: ownerId,
+                    myData: myData,
+                  ));
+            });
+      } else {
+        await Methods().checkIfInRoom(ownerId: ownerId);
+
+        // ignore: use_build_context_synchronously
+        BlocProvider.of<RoomHandlerBloc>(context)
+            .add(EnterRoomEvent(ownerId: ownerId, roomPassword: '' , isVip: myData.vip1?.level??0));
+
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, Routes.roomHandler, arguments: myData);
+      }
+    }
 
 
  Future<void> clearAuthData ()async{
@@ -99,6 +159,7 @@ class Methods {
 
 
   Future<void> saveUserToken({String? authToken}) async {
+
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if(authToken!=null){
       preferences.setString(StringManager.userTokenKey, authToken);
@@ -111,7 +172,6 @@ class Methods {
 
   Future<String> returnUserToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
     String tokenPref =
         preferences.getString(StringManager.userTokenKey) ?? "noToken";
     return tokenPref;

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +50,11 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  bool isFirst = true ;
   @override
   void initState() {
 
-    Methods().KeepUserLogin(KeepInLogin: true);
+   // Methods().KeepUserLogin(KeepInLogin: true);
     listenToInternet();
 
     super.initState();
@@ -94,18 +97,20 @@ class _MainScreenState extends State<MainScreen> {
     Connectivity().onConnectivityChanged.listen((event) {
       if (event == ConnectivityResult.wifi ||
           event == ConnectivityResult.mobile) {
-        BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-        BlocProvider.of<GetFollwersRoomBloc>(context)
-            .add(const GetFollwersRoomEvent(type: "5"));
-        BlocProvider.of<GetRoomsBloc>(context)
-            .add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
-        AduioBody.type = StringManager.popular;
-        AduioBody.countryId = null;
-        CountryDialog.flag = AssetsPath.fireIcon;
-        CountryDialog.name = StringManager.popular;
-        CountryDialog.selectedCountry.value =
-            !CountryDialog.selectedCountry.value;
-
+     if(!isFirst) {
+     BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+     BlocProvider.of<GetFollwersRoomBloc>(context)
+         .add(const GetFollwersRoomEvent(type: "5"));
+     BlocProvider.of<GetRoomsBloc>(context)
+         .add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
+     AduioBody.type = StringManager.popular;
+     AduioBody.countryId = null;
+     CountryDialog.flag = AssetsPath.fireIcon;
+     CountryDialog.name = StringManager.popular;
+     CountryDialog.selectedCountry.value =
+     !CountryDialog.selectedCountry.value;
+   }
+     isFirst = false ;
       } else if (event == ConnectivityResult.none) {
         errorToast(context: context, title: StringManager.checkYourInternet);
       }

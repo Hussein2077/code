@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,13 +12,14 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_states.dart';
-
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'widget/add_voice_live_pic.dart';
 import 'widget/public_privite_button.dart';
 import 'widget/room_type_button.dart';
 
 class CreateVoiceLiveBody extends StatefulWidget {
-  
+
   const CreateVoiceLiveBody({super.key});
 
   @override
@@ -39,14 +39,14 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
         image: AssetsPath.createVoicBackGround,
         child: Column(
           children: [
-            SizedBox(
-              height: ConfigSize.defaultSize! * 4,
-            ),
-            header(context: context),
              SizedBox(
               height: ConfigSize.defaultSize! * 4,
             ),
-            Container(
+             header(context: context),
+             SizedBox(
+              height: ConfigSize.defaultSize! * 4,
+            ),
+             Container(
               width: MediaQuery.of(context).size.width - 50,
               height: ConfigSize.defaultSize! * 10,
               decoration: BoxDecoration(
@@ -57,45 +57,42 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                     const AddVoiceLivePic(),
-                    SizedBox(width: ConfigSize.defaultSize!*20, child: TextFieldWidget( textColor: Colors.white, controller:voicNameController,hintText: StringManager.roomName, )),
+                    SizedBox(width: ConfigSize.defaultSize!*20,
+                        child: TextFieldWidget( textColor: Colors.white, controller:voicNameController,hintText: StringManager.roomName, )),
                     Icon(Icons.edit, color: Colors.white, size: ConfigSize.defaultSize!*2,)
                   ],),
-            ) , 
+            ) ,
              SizedBox(
               height: ConfigSize.defaultSize! * 2,
             ),
-            
-            Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:const [ 
-              
-                         PublicPriveteButton(),
+              children:const [
+
+             PublicPriveteButton(),
             RoomTypeButton()
 ],),
-           SizedBox(
+             SizedBox(
               height: ConfigSize.defaultSize! * 4,
             ),
-
-           Image.asset(AssetsPath.seatsImage),
-           SizedBox(
+             Image.asset(AssetsPath.seatsImage),
+             SizedBox(
               height: ConfigSize.defaultSize! * 10,
             ),
 
-       BlocConsumer<CreateRoomBloc,CreateRoomStates>(builder: (context,state){
+          BlocConsumer<CreateRoomBloc,CreateRoomStates>(
+         builder: (context,state){
          return MainButton(onTap: () {
 
-           BlocProvider.of<CreateRoomBloc>(context)
-               .add(CreateAudioRoomEvent(
-             roomName: voicNameController.text,
-             roomCover: File(AddVoiceLivePicState.image!.path),
-             roomIntero: '',
-             roomType: '',
+             if(checkRoomData(roomName:voicNameController.text,context: context)){
+               createRoom(context: context,roomName: voicNameController.text);
+             }
 
-           ));
          },title: StringManager.createRoom,) ;
        },
        listener: (context,state){
          if(state is CreateAudioRoomSuccesMessageState){
+           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
            //TODO go roomhandle screen
          }
          else if(state is CreateAudioRoomErrorMessageState){
@@ -112,6 +109,7 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
         ));
   }
 }
+
 
 Widget header({required BuildContext context}) {
   return Row(
@@ -141,4 +139,40 @@ Widget header({required BuildContext context}) {
       )
     ],
   );
+}
+
+bool checkRoomData({required String roomName , required BuildContext context}){
+  if(roomName.isEmpty){
+    errorToast(context: context, title: StringManager.enterYourRoomName.tr());
+    return false ;
+  }else if (AddVoiceLivePicState.image == null){
+    errorToast(context: context, title: StringManager.enterYourRoomImage.tr());
+    return false ;
+  }else if ( RoomTypeButton.roomType == null){
+    errorToast(context: context, title: StringManager.enterYourRoomType.tr());
+    return false ;
+   }else if(roomName.isEmpty &&
+      AddVoiceLivePicState.image == null &&
+      RoomTypeButton.roomType == null  )  {
+
+     errorToast(context: context, title: StringManager.enterYourRoomData.tr());
+     return false ;
+  }else{
+
+     return true ;
+  }
+}
+
+void createRoom ({required BuildContext context ,required String roomName}){
+  if(PublicPriveteButton.lockedOrUn == StringManager.public) {
+    BlocProvider.of<CreateRoomBloc>(context)
+        .add(CreateAudioRoomEvent(
+      roomName: roomName ,
+      roomCover: File(AddVoiceLivePicState.image!.path),
+      roomIntero: '',
+      roomType: RoomTypeButton.roomType!.id.toString(),
+    ));
+  }else{
+    //todo add enter room password dialog
+  }
 }

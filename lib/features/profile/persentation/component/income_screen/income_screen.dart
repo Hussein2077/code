@@ -69,7 +69,7 @@ class IncomeScreen extends StatelessWidget {
               ],
             );
             }else {
-              return const CustoumErrorWidget(message: StringManager.unexcepectedError);
+              return const CustomErrorWidget(message: StringManager.unexcepectedError);
             }
            
           },

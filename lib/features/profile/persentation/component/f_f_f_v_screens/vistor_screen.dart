@@ -64,9 +64,9 @@ class _VistorScreenState extends State<VistorScreen> {
          }else if (state is GetVistorsLoadingState){
           return const LoadingWidget();
          }else if (state is GetVistorsErrorState){
-        return  CustoumErrorWidget(message: state.errorMassage,);
+        return  CustomErrorWidget(message: state.errorMassage,);
          } else {
-                  return  const CustoumErrorWidget(message: StringManager.unexcepectedError,);
+                  return  const CustomErrorWidget(message: StringManager.unexcepectedError,);
 
          }
             },

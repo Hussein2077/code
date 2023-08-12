@@ -37,7 +37,7 @@ class OtpScreen extends StatelessWidget {
     return BlocConsumer<RegisterWithPhoneBloc, RegisterWithPhoneState>(
       listener: (context, state) {
        if (state is RegisterPhoneSuccesMessageState) {
-        Methods().clearAuth();
+        Methods().clearAuthData();
 
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.addInfo, (route) => false);

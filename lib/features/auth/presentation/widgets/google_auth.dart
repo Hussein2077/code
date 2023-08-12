@@ -18,7 +18,7 @@ class GoogleAuth extends StatelessWidget {
     return BlocConsumer<SignInWithPlatformBloc, SignInWithPlatformState>(
       listener: (context, state) {
         if(state is SiginWithGoogleSuccesMessageState){
-                    Methods().clearAuth();
+                    Methods().clearAuthData();
 
     if(state.userData.apiUserData.isFirst!){
           Navigator.pushNamedAndRemoveUntil(context, Routes.addInfo ,arguments:state.userData.userData , (route) => false, );

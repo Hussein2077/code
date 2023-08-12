@@ -53,6 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
              return  ProfileBody(myData: state.myDataModel, );
          }
         else if (state is GetMyDataErrorState){
+
           //todo show toast here to show error
           return  ProfileBody(myData: getIt<MyDataModel>());
           }
@@ -61,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ProfileBody(myData: tempData!);
          }else {
            //todo update this ui
-          return  CustoumErrorWidget(message: StringManager.unexcepectedError.tr(),);
+          return  CustomErrorWidget(message: StringManager.unexcepectedError.tr(),);
          }
           },
         )),

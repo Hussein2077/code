@@ -182,9 +182,9 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                       } else if (state is GetFamilyMemberLoadingState) {
                         return const LoadingWidget();
                       } else if (state is GetFamilyMemberErrorState) {
-                        return CustoumErrorWidget(message: state.errorMassage);
+                        return CustomErrorWidget(message: state.errorMassage);
                       } else {
-                        return const CustoumErrorWidget(
+                        return const CustomErrorWidget(
                             message: StringManager.unexcepectedError);
                       }
                     },

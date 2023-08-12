@@ -27,6 +27,7 @@ import 'package:tik_chat_v2/features/home/data/data_source/home_remote_data_sour
 import 'package:tik_chat_v2/features/home/data/repository_imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/creat_room_usecase.dart';
+import 'package:tik_chat_v2/features/home/domin/use_case/get_all_room_types_uc.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_all_rooms_uc.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_country_usecase.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
@@ -143,7 +144,8 @@ class ServerLocator {
     //bloc
 
     getIt.registerFactory(
-            () => CreateRoomBloc(createRoomUsecase:getIt() ));
+            () => CreateRoomBloc(createRoomUsecase:getIt(),
+                getAllRoomTypesUC: getIt() ));
     getIt.registerFactory(
         () => SignInWithPlatformBloc(signInWithGoogleUC: getIt()));
     getIt.registerFactory(() => AddInfoBloc(addInFormationUC: getIt()));
@@ -295,7 +297,9 @@ class ServerLocator {
 
 //usecase
     getIt.registerLazySingleton(
-            () => CreateRoomUsecase(roomRepo:getIt() ));
+            () => GetAllRoomTypesUC(repoHome:getIt() ));
+    getIt.registerLazySingleton(
+            () => CreateRoomUsecase(repoHome:getIt() ));
     getIt.registerLazySingleton(
         () => SignInWithGoogleUC(baseRepository: getIt()));
 
@@ -366,9 +370,9 @@ class ServerLocator {
         () => DeleteAccountUC(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => GetFollwingRoomsUC(repoFollow: getIt()));
 
-    getIt.registerLazySingleton(() => GetCarouselsUsecase(roomRepo: getIt()));
-    getIt.registerLazySingleton(() => GetCountryUseCase(roomRepo: getIt()));
-    getIt.registerLazySingleton(() => AllRoomsUsecase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => GetCarouselsUsecase(repoHome: getIt()));
+    getIt.registerLazySingleton(() => GetCountryUseCase(repoHome: getIt()));
+    getIt.registerLazySingleton(() => AllRoomsUsecase(repoHome: getIt()));
 
     getIt.registerLazySingleton(
         () => SearchUseCase(baseRepositoryProfile: getIt()));

@@ -98,7 +98,7 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                 ],
               );
             } else if (state is FamilyRequestErrorState) {
-              return CustoumErrorWidget(
+              return CustomErrorWidget(
                 message: state.error,
               );
             } else if (state is FamilyRequestLoadingState) {
@@ -138,7 +138,7 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                 );
               }
             } else {
-              return const CustoumErrorWidget(
+              return const CustomErrorWidget(
                   message: StringManager.unexcepectedError);
             }
           },

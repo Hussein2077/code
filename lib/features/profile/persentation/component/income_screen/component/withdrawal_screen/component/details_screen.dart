@@ -80,7 +80,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                       case RequestState.loading:
                         return const LoadingWidget();
                       case RequestState.error:
-                        return CustoumErrorWidget(message: state.sentMessage);
+                        return CustomErrorWidget(message: state.sentMessage);
                     }
                   }),
                    BlocBuilder<ChargeHistoryBloc, ChargeHistoryState>(
@@ -95,7 +95,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                       case RequestState.loading:
                         return const LoadingWidget();
                       case RequestState.error:
-                        return CustoumErrorWidget(message: state.recivedMessage);
+                        return CustomErrorWidget(message: state.recivedMessage);
                     }
                   })
                 ]),

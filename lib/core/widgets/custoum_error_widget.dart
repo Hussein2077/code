@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
-class CustoumErrorWidget extends StatefulWidget {
+class CustomErrorWidget extends StatefulWidget {
   final String message;
-  const CustoumErrorWidget({required this.message, super.key});
+  const CustomErrorWidget({required this.message, super.key});
 
   @override
-  State<CustoumErrorWidget> createState() => _CustoumErrorWidgetState();
+  State<CustomErrorWidget> createState() => _CustomErrorWidgetState();
 }
 
-class _CustoumErrorWidgetState extends State<CustoumErrorWidget> {
+class _CustomErrorWidgetState extends State<CustomErrorWidget> {
   bool conect = false;
   @override
   void initState() {

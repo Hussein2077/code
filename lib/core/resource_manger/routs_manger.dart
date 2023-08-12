@@ -47,6 +47,9 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/gift_gallery/gift_gallery_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/vip/vip_screen.dart';
+import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/room_handler/handler_room_screen.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
 
@@ -103,12 +106,10 @@ class Routes {
   static const String cashWithdrawal = "/cashWithdrawal";
   static const String detailsWithdrawal = "/detailsWithdrawal";
   static const String agencyScreen = "/agenceScreen";
-
+  static const String roomScreen = "/roomScreen";
   static const String agencyMemberScreen = "/AgencyMembersScreen";
   static const String agencyRequestsScreen = "/AgencyRequestsScreen";
-
   static const String agencyRepoertsScreen = "/AgencyRepoertsScreen";
-
   static const String charchingCoinsForUsers = "/CharchingCoinsForUsers";
 
   static const String charchingDolarsForUsers = "/CharchingDolarsForUsers";
@@ -116,7 +117,7 @@ class Routes {
 
     static const String chargeAgencyOwnerHistory = "/ChargeAgencyOwnerHistory";
         static const String interstedScreen = "/interstedScreen";
-
+  static const String roomHandler = '/roomHandler';
 
 }
 
@@ -195,6 +196,19 @@ class RouteGenerator {
             builder: (_) => CoinsScreen(
                   type: type,
                 ));
+      case Routes.roomHandler:
+        return MaterialPageRoute(
+            builder: (_) => const SafeArea(
+                child: HandlerRoomScreen()));
+      case Routes.roomScreen:
+        RoomPramiter roomPramiter = settings.arguments as RoomPramiter;
+        return MaterialPageRoute(
+            builder: (_) => SafeArea(
+                child: RoomScreen(
+                  room: roomPramiter.roomModel,
+                  myDataModel: roomPramiter.myDataModel,
+                  isHost: roomPramiter.isHost,
+                )));
       case Routes.myBag:
         UserDataModel userData = settings.arguments as UserDataModel;
 
@@ -365,4 +379,15 @@ class MainPramiter  {
       this.isCachExtra,
       this.isCachFrame,
       this.isChachGift});
+}
+
+class RoomPramiter {
+  final EnterRoomModel roomModel;
+
+  final MyDataModel myDataModel;
+
+  final bool isHost;
+
+  const RoomPramiter(
+      {required this.roomModel, required this.myDataModel, required this.isHost});
 }

@@ -10,7 +10,6 @@ import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
-import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
@@ -34,7 +33,6 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<EnterRoomModel> enterRomm(
       {required String ownerId, String? roomPassword , bool? ignorePassword,  bool? sendToZego});
   Future<Unit> exitRoom({required String ownerId});
-  Future<List<AllMainClassesModel>> getAllRoomTypes();
   Future<GetRoomUsersModel> getRoomUser({required String ownerid});
   Future<List<BackGroundModel>> getBackGround();
   Future<List<UserTopModel>> getTopInRoom(TopPramiter topPramiter);
@@ -57,7 +55,6 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> lockMicrophone(UpMicrophonePramiter upMicrophonePramiter);
   Future<String> unLockMicrophone(UpMicrophonePramiter upMicrophonePramiter);
   Future<String> roomMode(String ownerId,String roomMode);
-  Future<Unit> removeChat(String ownerId) ;
   Future<BoxLuckyModel> getBoxes();
   Future<Unit> sendBoxe(String boxId , String ownerId,String quintity);
   Future<String> pickUpBoxe(String boxId );
@@ -139,27 +136,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
 
 
 
-  @override
-  Future<List<AllMainClassesModel>> getAllRoomTypes() async {
-    Map<String, String> headers = await DioHelper().header();
-  
-    try{
-      final response = await Dio().get(ConstentApi.getAllRoomTypes,
-          options: Options(
-            headers: headers,
-          ));
-      Map<String, dynamic> jsonData = response.data;
-      List<AllMainClassesModel> dataList = [];
-      for (int i = 0; i < jsonData['data'].length; i++) {
-        dataList.add(AllMainClassesModel.fromjson(jsonData['data'][i]));
-      }
 
-      return dataList;
-    } on DioError catch(e){
-      throw DioHelper.handleDioError(e);
-    }
-
-  }
 
   @override
   Future<GetRoomUsersModel> getRoomUser({required String ownerid}) async {
@@ -764,33 +741,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
 
   }
 
-  @override
-  Future<Unit> removeChat(String ownerId)async {
-        Map<String, String> headers = await DioHelper().header();
-   
 
-
-    final body ={
-      'owner_id': ownerId,
-      'message' :'removeChat',
-      'action':'SendCustomCommand'
-    };
-
-    try {
-      await Dio().post(ConstentApi.sentToZego,
-          options: Options(
-            headers: headers,
-          ),
-          data: body
-      );
-
-
-      return Future.value(unit);
-
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
-    }
-  }
 
   @override
   Future<BoxLuckyModel> getBoxes() async  {

@@ -100,7 +100,7 @@ class _VipScreenState extends State<VipScreen> with TickerProviderStateMixin {
                       } else if (state is VipStatesLoadingState) {
                         return const LoadingWidget();
                       } else if (state is VipStatesErrorState) {
-                        return CustoumErrorWidget(message: state.message);
+                        return CustomErrorWidget(message: state.message);
                       } else {
                         return const SizedBox();
                       }

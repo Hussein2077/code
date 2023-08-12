@@ -79,9 +79,9 @@ class _FFFScreenState extends State<FFFScreen> {
          }else if (state is GetFollowerOrFollowingLoadingState){
           return const LoadingWidget();
          }else if (state is GetFollowerOrFollowingErrorState){
-        return  CustoumErrorWidget(message: state.errorMassage,);
+        return  CustomErrorWidget(message: state.errorMassage,);
          } else {
-                  return  const CustoumErrorWidget(message: StringManager.unexcepectedError,);
+                  return  const CustomErrorWidget(message: StringManager.unexcepectedError,);
 
          }
             },

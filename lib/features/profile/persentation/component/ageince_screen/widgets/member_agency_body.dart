@@ -82,11 +82,11 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
             } else if (state is AgnecyMemberErrorState) {
               return SizedBox(
                   height: MediaQuery.of(context).size.height / 2,
-                  child: CustoumErrorWidget(message: state.error));
+                  child: CustomErrorWidget(message: state.error));
             } else {
               return SizedBox(
                 height: MediaQuery.of(context).size.height / 2.4,
-                child: const CustoumErrorWidget(
+                child: const CustomErrorWidget(
                     message: StringManager.unexcepectedError),
               );
             }

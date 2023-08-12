@@ -13,6 +13,8 @@
 #include <permission_handler_windows/permission_handler_windows_plugin.h>
 #include <platform_device_id_windows/platform_device_id_windows_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
+#include <zego_express_engine/zego_express_engine_plugin.h>
+#include <zego_zim/zego_zim_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   ConnectivityPlusWindowsPluginRegisterWithRegistrar(
@@ -29,4 +31,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("PlatformDeviceIdWindowsPlugin"));
   UrlLauncherWindowsRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("UrlLauncherWindows"));
+  ZegoExpressEnginePluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("ZegoExpressEnginePlugin"));
+  ZegoZimPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("ZegoZimPlugin"));
 }

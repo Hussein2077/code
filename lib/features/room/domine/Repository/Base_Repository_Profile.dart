@@ -31,7 +31,6 @@ abstract class BaseRepositoryRoom {
   Future<Either<EnterRoomModel, Failure>> enterRoom(
       EnterRoomPramiter pramiter);
   Future<Either<Unit, Failure>> exsitRoom(String ownerId);
-  Future<Either<List<AllMainClassesModel>,Failure>> getAllRoomTypes();
   Future<Either<GetRoomUsersModel, Failure>> getAllRoomUser(
       {required String ownerId});
   Future<Either<List<BackGroundModel>, Failure>> getAllbackGround();
@@ -55,7 +54,6 @@ abstract class BaseRepositoryRoom {
   Future<Either<String,Failure>> lockMic(UpMicrophonePramiter upMicrophonePramiter) ;
   Future<Either<String,Failure>> unLockMic(UpMicrophonePramiter upMicrophonePramiter);
   Future<Either<String,Failure>> changeRoomMode(String ownerId,String roomMode);
-  Future<Either<Unit,Failure>> removeChat(String ownerId);
   Future<Either<BoxLuckyModel,Failure>> getBoxes();
   Future<Either<Unit,Failure>> sendBox(LuckyBoxPramiter luckyBoxPramiter );
   Future<Either<String,Failure>> pickUpBox(String boxId);

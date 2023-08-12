@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/features/home/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_rank_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/creat_room_usecase.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
+import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 
 
 abstract class HomeRemoteDataSours {
@@ -24,6 +25,7 @@ abstract class HomeRemoteDataSours {
   Future<ConfigModel> getConfigApp(ConfigModelBody configModelBody);
   Future<String> createRoom(
       {required CreateRoomPramiter creatRoomPramiter});
+  Future<List<AllMainClassesModel>> getAllRoomTypes();
 
 
 
@@ -40,7 +42,6 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
       {int? countryId, int? classId, int? typeId, String? search,int? page,
         TypeGetRooms? typeGetRooms  }) async {
     Map<String, String> headers = await DioHelper().header();
-
     String? filterType;
     switch(typeGetRooms??''){
       case TypeGetRooms.festival:
@@ -214,6 +215,28 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
       throw DioHelper.handleDioError(e);
     }
 
+
+  }
+
+  @override
+  Future<List<AllMainClassesModel>> getAllRoomTypes() async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try{
+      final response = await Dio().get(ConstentApi.getAllRoomTypes,
+          options: Options(
+            headers: headers,
+          ));
+      Map<String, dynamic> jsonData = response.data;
+      List<AllMainClassesModel> dataList = [];
+      for (int i = 0; i < jsonData['data'].length; i++) {
+        dataList.add(AllMainClassesModel.fromjson(jsonData['data'][i]));
+      }
+
+      return dataList;
+    } on DioError catch(e){
+      throw DioHelper.handleDioError(e);
+    }
 
   }
 

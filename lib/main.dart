@@ -25,12 +25,14 @@ import 'package:tik_chat_v2/features/home/presentation/component/create_live/vid
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_event.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -142,7 +144,7 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<LogOutBloc>(),
         ),
         BlocProvider(
-          create: (context) => getIt<GetMyDataBloc>(),
+          create: (context) => getIt<GetMyDataBloc>()..add(GetMyDataEvent()),
         ),
         BlocProvider(
           create: (context) => getIt<MallBloc>()
@@ -331,6 +333,9 @@ class MyApp extends StatelessWidget {
 
     BlocProvider(
           create: (context) => getIt<GetUserInterstedBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<CreateRoomBloc>()..add(GetTypesRoomEvent()),
         ),
 
 

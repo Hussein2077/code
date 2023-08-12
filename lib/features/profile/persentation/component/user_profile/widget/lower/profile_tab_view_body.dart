@@ -116,14 +116,14 @@ class ProfileTabViewBody extends StatelessWidget {
               return SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: ConfigSize.defaultSize! * 5,
-                  child: CustoumErrorWidget(
+                  child: CustomErrorWidget(
                     message: state.error,
                   ));
             } else {
               return SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: ConfigSize.defaultSize! * 5,
-                  child:  CustoumErrorWidget(
+                  child:  CustomErrorWidget(
                     message: StringManager.unexcepectedError.tr(),
                   ));
             }

@@ -100,7 +100,7 @@ class _AgencyRequestsScreenState extends State<AgencyRequestsScreen> {
                 ],
               );
             } else if (state is AgencyRequestsErrorState) {
-              return CustoumErrorWidget(
+              return CustomErrorWidget(
                 message: state.error,
               );
             } else if (state is AgencyRequestsLoadingState) {
@@ -146,7 +146,7 @@ class _AgencyRequestsScreenState extends State<AgencyRequestsScreen> {
                 );
               }
             } else {
-              return const CustoumErrorWidget(
+              return const CustomErrorWidget(
                   message: StringManager.unexcepectedError);
             }
           },

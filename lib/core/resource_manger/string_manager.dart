@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class StringManager {
   static const int versionApp = 2;
 
@@ -26,8 +28,10 @@ class StringManager {
   static const String lastTimeCacheEmojie = 'last_time_cache_Emojie';
   static const String cachUserData = 'Cache_User_Key';
   static const String keepLogin = 'Keep_Login';
+  static const String roomIntro = "Room Intro";
 
-  ////
+
+ ////
   static const String appTitle = "Tikchat";
   static const String enterPhoneNum = "Enter your phone number";
   static const String signUp = "Sign Up";
@@ -59,6 +63,7 @@ class StringManager {
   static const String follwoing = "Follwoing";
   static const String followers = "Followers";
   static const String vistors = "Vistors";
+  static const String thisUserIsBaned = "this user is baned";
   static const String chat = "Chat";
   static const String profile = "Profile";
   static const String live = "Live";
@@ -196,6 +201,8 @@ class StringManager {
       "The number of points you need to upgrade";
   static const String comingSoon = "Coming Soon";
   static const String income = "Income";
+ static const String startBattle = "Start Battale";
+
 
   ///INCOME SCREEN 💲💸💰
   static const String instructionsForJoiningAgency =
@@ -291,13 +298,47 @@ class StringManager {
   static const String mounth = "Mounth";
   static const String totalDaimonds = "Total Diamonds";
   static const String chargeCoins = "Charge Coins";
+  static const String chooseTyeps ="Choose Type";
+  static const String mysteriousPerson = "Mysterious Person";
+  static const String cancle = "Cancel";
+  //create room
+  static const String enterYourRoomData ="please,Enter your room data" ;
+ static const String enterYourRoomName ="please,Enter your room name" ;
+ static const String enterYourRoomImage ="please,Enter your room image" ;
+ static const String enterYourRoomType ="please,Enter your room type" ;
+ static const String youCanEnterAfter =
+     "You have been kicked out of this ROM, you may log in yet";
+ String get({required String reming}) => "${youCanEnterAfter.tr()} $reming";
+ static const String checkYourInternet = "Check Your Internet";
+  static const String noDataFoundHere = "No Data Found Here";
+  static const String totalUsd = "Total Usd";
+  static const String ownerUsd = "Owner Usd";
+  static const String type = "Type";
+  static const String chooseTopic = "Choose the topics that are most important to you!";
+  static const String hideRoom = "Hide Your Room";
+ static const String sendToLuckyBox = "Send to Lucky box";
+ static const String quantity = "Quantity";
+ static const String superBox = "Super Box";
+ static const String luckyBox = "Lucky Box";
+ static const String bestWishes = "Best Wishes!";
+ static const String open = "OPEN";
+ static const String youCantTakeMoreOne = "You Can't Take More One";
+ static const String hardLuck = "Hard Luck";
+ static const String goodLuck = "good luck you get";
+ static const String chooseTimePK = "Choose PK time";
+ static const String start = "Start";
+//zego
+ static const String thereAreNoEmptySeats = 'There are no empty seats';
+ static const String takeSeat = "Set on seat";
+ static const String leaveSeat = "take off seat";
+ static const String areYouSureLeaveSeat = "Are you sure to leave seat";
+ static const String ok = "ok";
+ static const String unMuteMic = "UnMute mic";
+ static const String muteMic = "Mute mic";
+ static const String unLockSeat = "UnLockSeat";
+ static const String lockSeat = "LockSeat";
+ static const String showDetails = "Show details";
 
-    static const String checkYourInternet = "Check Your Internet";
-        static const String noDataFoundHere = "No Data Found Here";
-        static const String totalUsd = "Total Usd";
-                static const String ownerUsd = "Owner Usd";
-                                static const String type = "Type";
-                                                                static const String chooseTopic = "Choose the topics that are most important to you!";
 
 
 
@@ -306,4 +347,265 @@ class StringManager {
   static String exchangeDaimondMethod(String coin, String diamond) {
     return "${StringManager.areYouSureYouWantToExchange} $diamond ${StringManager.daimondTo} $coin ${StringManager.coins}";
   }
+
+ static const List<String> arabicBadWords = [
+  "👉👌",
+  "🖕",
+  "احا",
+  "احه",
+  "اير",
+  "لعين",
+  "واطي",
+  "ابن ال",
+  "ابن المرا",
+  "ابن المرة",
+  "ابن النيك",
+  "ابن عاهر",
+  "ابن كلب",
+  "ابو شخة",
+  "ابو شخه",
+  "ابو فص",
+  "اجا معي",
+  "اجري فيك",
+  "احلي كث",
+  "احيه",
+  "اخو ال",
+  "اخو القحبه",
+  "افسخك",
+  "اقلب وجهك",
+  "الخرائ",
+  "الزب",
+  "السافل",
+  "الساقط",
+  "العايب",
+  "العربان",
+  "العرص",
+  "العمى",
+  "القحبة",
+  "الكحبة",
+  "الكحبه",
+  "الكس",
+  "الكلب",
+  "الله ياخ",
+  "انت عبيط",
+  "انت غبي",
+  "انذال",
+  "انذل",
+  "انعل ابو",
+  "انكح",
+  "انيك",
+  "انيكك",
+  "اهبل",
+  "اونطة",
+  "اونطه",
+  "اونطي",
+  "ايري ب",
+  "ايري ف",
+  "ايري",
+  "ايور",
+  "بزاز",
+  "بعبص",
+  "بعص",
+  "بغاي",
+  "بندوق",
+  "بهيمة",
+  "تافه",
+  "تجليخ",
+  "ترهيط",
+  "تزغيب",
+  "تسد بوزك",
+  "تفو",
+  "جلخ",
+  "جلق",
+  "حرامي",
+  "حقير",
+  "حلبتها",
+  "حلبتو",
+  "حلمات",
+  "حمير",
+  "حيوان",
+  "خرا",
+  "خراء",
+  "خراي عل",
+  "خراي",
+  "خرة",
+  "خرى",
+  "خري",
+  "خسيس",
+  "خنيث",
+  "خوازيق",
+  "خول",
+  "داشر",
+  "داعر",
+  "دعارة",
+  "دلخ",
+  "ديوث",
+  "ديود",
+  "زامل",
+  " زب",
+  "زبار",
+  "زبالة",
+  "زباله",
+  "زبر",
+  "زبه",
+  "زبي",
+  "زراط",
+  "زق",
+  "زناة",
+  "زناطير",
+  "ساذج",
+  "سارموتا",
+  "سافل",
+  "سربوط",
+  "سرموتا",
+  "سفالة",
+  "سكس",
+  "سكسي",
+  "سيكس",
+  "سيكسي",
+  "شرمها",
+  "شرموط",
+  "شرموطة",
+  "شرموطه",
+  "شلقة",
+  "شلكة",
+  "صايع",
+  "صياعة",
+  "ضرب عشرة",
+  "طز في",
+  "طيز",
+  "عاهر",
+  "عاهرة",
+  "عايبة",
+  "عبيط",
+  "عديم الشرف",
+  "عرص",
+  "عكروت",
+  "عيال الحرام",
+  "غبي",
+  "غتصب",
+  "فاجر",
+  "فاسق",
+  "فجور",
+  "فسختها",
+  "قحاب",
+  "قحب",
+  "قحبة",
+  "قذر",
+  "قضيب كبير",
+  "قضيبي",
+  "كحبة",
+  "كذاب",
+  "كس ",
+  "كس اختك",
+  "كس امك",
+  "كس عرضك",
+  "كسا",
+  "كسمك",
+  "كسمكم",
+  "كسها",
+  "كل خرا",
+  "كل خرة",
+  "كل زق",
+  "كلاب",
+  "كلب",
+  "كلخر",
+  "كلكم اولاد",
+  "كلكم ولاد",
+  "كول خر",
+  "لحس",
+  "لعنه",
+  "لقحاب",
+  "لوطي",
+  "مأجور",
+  "مبعوص",
+  "متخوزق",
+  "متناك",
+  "مجنون",
+  "مخانيث",
+  "مخنث",
+  "مدلس",
+  "معوهر",
+  "مفسوخ",
+  "مكسكس",
+  "مكوتها",
+  "ملعون",
+  "ممحون",
+  "منايك",
+  "منيك",
+  "منيوك",
+  "ناكك",
+  "نجس",
+  "نذل",
+  "نفضك",
+  "نفظك",
+  "نكت اخته",
+  "نكت امه",
+  "نياكة",
+  "نياكه",
+  "هاذي اختك",
+  "هاذي امك",
+  "هذي اختك",
+  "هذي امك",
+  "واحد اهبل",
+  "وسخ",
+  "ولد القحبة",
+  "ولد القحبه",
+  "يا ابن ال",
+  "يا اخوات ال",
+  "يا خوات ال",
+  "يا رخيص",
+  "يا زنديق",
+  "يا غبي",
+  "يا كافر",
+  "يا هبيلة",
+  "يا ولاد ال",
+  "يتناك",
+  "يجيب ضهرو",
+  "يخلع نيعك",
+  "يسود وجه",
+  "يزغب",
+  "يفضح",
+  "يفظح",
+  "يولاد ال",
+  "يلعن",
+  "سكس",
+  "طيز",
+  "شرج",
+  "لعق",
+  "لحس",
+  "مص",
+  "تمص",
+  "بيضان",
+  "ثدي",
+  "بز",
+  "بزاز",
+  "حلمة",
+  "مفلقسة",
+  "بظر",
+  "كس",
+  "فرج",
+  "شهوة",
+  "شاذ",
+  "مبادل",
+  "عاهرة",
+  "جماع",
+  "قضيب",
+  "زب",
+  "لوطي",
+  "لواط",
+  "سحاق",
+  "سحاقية",
+  "اغتصاب",
+  "خنثي",
+  "احتلام",
+  "نيك",
+  "متناك",
+  "متناكة",
+  "شرموطة",
+  "عرص",
+  "خول",
+  "قحبة",
+  "لبوة"
+ ];
 }

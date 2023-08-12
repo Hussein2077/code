@@ -259,7 +259,9 @@ class MyDataModel {
 
   return _instance! ;
   }
-
+  static MyDataModel getInstance(){
+     return _instance?? MyDataModel() ;
+ }
 
 
   UserDataModel convertToUserObject() {

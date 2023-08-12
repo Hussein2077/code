@@ -1,0 +1,75 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+
+
+// Project imports:
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/defines.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/effects/sound_effect_sheet.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room_inner_text.dart';
+
+import '../../../../zego_uikit/zego_uikit.dart';
+
+class ZegoSoundEffectButton extends StatefulWidget {
+  final ZegoInnerText innerText;
+
+  final List<VoiceChangerType> voiceChangeEffect;
+  final List<ReverbType> reverbEffect;
+
+  final Size? iconSize;
+  final Size? buttonSize;
+  final ButtonIcon? icon;
+
+  const ZegoSoundEffectButton({
+    Key? key,
+    required this.innerText,
+    required this.voiceChangeEffect,
+    required this.reverbEffect,
+    this.iconSize,
+    this.buttonSize,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  State<ZegoSoundEffectButton> createState() => _ZegoSoundEffectButtonState();
+}
+
+class _ZegoSoundEffectButtonState extends State<ZegoSoundEffectButton> {
+  var voiceChangerSelectedIDNotifier = ValueNotifier<String>('');
+  var reverbSelectedIDNotifier = ValueNotifier<String>('');
+
+  @override
+  Widget build(BuildContext context) {
+    final containerSize = widget.buttonSize ?? Size(96.r, 96.r);
+    final sizeBoxSize = widget.iconSize ?? Size(56.r, 56.r);
+    return GestureDetector(
+      onTap: () async {
+        showSoundEffectSheet(
+          context,
+          innerText: widget.innerText,
+          voiceChangeEffect: widget.voiceChangeEffect,
+          voiceChangerSelectedIDNotifier: voiceChangerSelectedIDNotifier,
+          reverbEffect: widget.reverbEffect,
+          reverbSelectedIDNotifier: reverbSelectedIDNotifier,
+        );
+      },
+      child: Container(
+        width: containerSize.width,
+        height: containerSize.height,
+        decoration: BoxDecoration(
+          color: widget.icon?.backgroundColor ?? Colors.transparent,
+          shape: BoxShape.circle,
+        ),
+        child: SizedBox.fromSize(
+          size: sizeBoxSize,
+          child: widget.icon?.icon ??
+              PrebuiltLiveAudioRoomImage.asset(
+                  PrebuiltLiveAudioRoomIconUrls.toolbarSoundEffect),
+        ),
+      ),
+    );
+  }
+}

@@ -72,9 +72,9 @@ class ExchangeForGoldScreen extends StatelessWidget {
                     height: MediaQuery.of(context).size.height / 2.5,
                     child: const LoadingWidget());
               } else if (state is ReplaceWithGoldErrorState) {
-                return CustoumErrorWidget(message: state.error);
+                return CustomErrorWidget(message: state.error);
               } else {
-                return const CustoumErrorWidget(
+                return const CustomErrorWidget(
                     message: StringManager.unexcepectedError);
               }
             },

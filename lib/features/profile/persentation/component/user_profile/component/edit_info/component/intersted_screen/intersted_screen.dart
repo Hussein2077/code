@@ -139,9 +139,9 @@ class _InterstedScreenState extends State<InterstedScreen> {
                   } else if (state is GetAllInterstedLoadingState) {
                     return const LoadingWidget();
                   } else if (state is GetAllInterstedErrorState) {
-                    return CustoumErrorWidget(message: state.error);
+                    return CustomErrorWidget(message: state.error);
                   } else {
-                    return const CustoumErrorWidget(
+                    return const CustomErrorWidget(
                         message: StringManager.unexcepectedError);
                   }
                 },
@@ -149,9 +149,9 @@ class _InterstedScreenState extends State<InterstedScreen> {
             } else if (state is GetUserInterstedLoadingState) {
               return const LoadingWidget();
             } else if (state is GetUserInterstedErrorState) {
-              return CustoumErrorWidget(message: state.error);
+              return CustomErrorWidget(message: state.error);
             } else {
-              return const CustoumErrorWidget(
+              return const CustomErrorWidget(
                   message: StringManager.unexcepectedError);
             }
           },

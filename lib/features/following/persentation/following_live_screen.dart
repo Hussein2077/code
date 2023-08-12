@@ -73,13 +73,13 @@ class FollowingLiveScreen extends StatelessWidget {
               ],
             );
           } else if (state is GetFollwersRoomErrorState) {
-            return CustoumErrorWidget(
+            return CustomErrorWidget(
               message: state.error,
             );
           } else if (state is GetFollwersRoomLoadingState) {
             return const LoadingWidget();
           } else {
-            return const CustoumErrorWidget(
+            return const CustomErrorWidget(
                 message: StringManager.unexcepectedError);
           }
         },

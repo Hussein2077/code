@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class PublicPriveteButton extends StatefulWidget {
-  static   String? lockedOrUn;
+  static   String lockedOrUn = StringManager.public;
 
   const PublicPriveteButton({super.key});
 

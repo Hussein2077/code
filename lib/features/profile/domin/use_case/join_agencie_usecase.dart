@@ -3,7 +3,7 @@
 
 // import 'package:dartz/dartz.dart';
 // import 'package:tik_chat_v2/core/error/failures.dart';
-// import 'package:dragon_chat/features/profile/domin/Repository/base_repo_abstract.dart';
+// import 'package:tik_chat_v2/features/profile/domin/Repository/base_repo_abstract.dart';
 
 // class JoinAgencieUsecase {
 //   BaseRepositoryAgincy baseRepositoryAgincy;

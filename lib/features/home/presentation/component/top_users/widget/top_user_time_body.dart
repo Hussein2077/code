@@ -78,7 +78,7 @@ class TopUserTimeBody extends StatelessWidget {
           return const LoadingWidget();
         }
       case RequestState.error:
-        return CustoumErrorWidget(
+        return CustomErrorWidget(
           message: error,
         );
     }

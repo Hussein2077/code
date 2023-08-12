@@ -8,11 +8,11 @@ import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
 
 
 class AllRoomsUsecase{
-  final RepoHome roomRepo;
+  final RepoHome repoHome;
 
-  AllRoomsUsecase({required this.roomRepo});
+  AllRoomsUsecase({required this.repoHome});
   Future<Either<Failure, AllRoomsDataModel>> getAllRooms({ int? countryId, int? classId, int? typeId, String? search, int? page,TypeGetRooms? typeGetRooms})async{
-    return await roomRepo.getAllRooms(countryId: countryId,
+    return await repoHome.getAllRooms(countryId: countryId,
         classId: classId,typeId: typeId,
         search: search,
         page:page,

@@ -98,9 +98,9 @@ class _UserProfileState extends State<UserProfile> {
                 } else if (state is GetUserLoddingState) {
                   return const LoadingWidget();
                 } else if (state is GetUserErorrState) {
-                  return CustoumErrorWidget(message: state.error);
+                  return CustomErrorWidget(message: state.error);
                 } else {
-                  return const CustoumErrorWidget(
+                  return const CustomErrorWidget(
                       message: StringManager.unexcepectedError);
                 }
               },

@@ -7,14 +7,14 @@ import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
 
 
 class GetCountryUseCase extends BaseUseCase<List<CountryModel> , Noparamiter>{
-  RepoHome roomRepo ;
+  RepoHome repoHome ;
 
 
-  GetCountryUseCase({ required this.roomRepo});
+  GetCountryUseCase({ required this.repoHome});
   
   @override
   Future<Either<List<CountryModel>, Failure>> call(Noparamiter parameter) async{
-   final result = await roomRepo.getCountry() ;
+   final result = await repoHome.getCountry() ;
 
     return result ;
   }

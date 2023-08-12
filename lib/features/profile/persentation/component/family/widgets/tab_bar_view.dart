@@ -33,7 +33,7 @@ class RankingTabBarView extends StatelessWidget {
        case RequestState.loading:
        return const LoadingWidget();
        case RequestState.error:
-         return CustoumErrorWidget(message: message);
+         return CustomErrorWidget(message: message);
      }
             
   }

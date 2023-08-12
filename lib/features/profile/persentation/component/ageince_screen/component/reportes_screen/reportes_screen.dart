@@ -165,7 +165,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
               } else if (state is AgencyTimeErrorState) {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height / 2.7,
-                  child: CustoumErrorWidget(message: state.error),
+                  child: CustomErrorWidget(message: state.error),
                 );
               } else {
                 return const SizedBox();

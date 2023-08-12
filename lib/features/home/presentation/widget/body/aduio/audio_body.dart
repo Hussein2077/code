@@ -129,7 +129,7 @@ class _AduioBodyState extends State<AduioBody> {
                             height: MediaQuery.of(context).size.height / 2,
                             child: const LoadingWidget());
                       case RequestState.error:
-                        return CustoumErrorWidget(
+                        return CustomErrorWidget(
                           message: state.errorMessage,
                         );
                     }

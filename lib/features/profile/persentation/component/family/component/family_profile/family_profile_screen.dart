@@ -64,9 +64,9 @@ class _FamilyProfileScreenState extends State<FamilyProfileScreen> {
             }else if (state is ShowFamilyLoadingState){
               return const LoadingWidget();
             }else if (state is ShowFamilyErrorState){
-              return CustoumErrorWidget(message: state.error,);
+              return CustomErrorWidget(message: state.error,);
             }else {
-              return    const CustoumErrorWidget(message: StringManager.unexcepectedError,);
+              return    const CustomErrorWidget(message: StringManager.unexcepectedError,);
             }
           
           },

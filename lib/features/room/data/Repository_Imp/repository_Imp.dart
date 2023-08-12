@@ -8,7 +8,6 @@ import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
-import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
@@ -22,7 +21,6 @@ import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.da
 import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
-
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
 
 
@@ -36,15 +34,7 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
 
 
 
-  @override
-  Future<Either<List<AllMainClassesModel>, Failure>> getAllRoomTypes() async {
-    try {
-      final result = await baseRemotlyDataSourceRoom.getAllRoomTypes();
-      return left(result);
-    } on Exception catch (e) {
-      return Right(DioHelper.buildFailure(e));
-    }
-  }
+
 
   @override
   Future<Either<GetRoomUsersModel, Failure>> getAllRoomUser(
@@ -276,15 +266,6 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
     }
   }
 
-  @override
-  Future<Either<Unit, Failure>> removeChat(String ownerId) async{
-    try {
-      final result = await baseRemotlyDataSourceRoom.removeChat(ownerId);
-      return left(result);
-    } on Exception catch (e) {
-      return Right(DioHelper.buildFailure(e));
-    }
-  }
 
   @override
   Future<Either<BoxLuckyModel, Failure>> getBoxes() async {
@@ -443,6 +424,8 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
     }
 
   }
+
+
 
 
 

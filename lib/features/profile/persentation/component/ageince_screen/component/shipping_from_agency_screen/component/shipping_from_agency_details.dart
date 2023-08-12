@@ -81,7 +81,7 @@ class _ChargeAgencyOwnerHistoryState extends State<ChargeAgencyOwnerHistory>
                       case RequestState.loading:
                         return const LoadingWidget();
                       case RequestState.error:
-                        return CustoumErrorWidget(message: state.sentMessage);
+                        return CustomErrorWidget(message: state.sentMessage);
                     }
                   }),
                    BlocBuilder<ChargeOwnerAgencyHistoryBloc, ChargeOwnerAgencyHistoryState>(
@@ -96,7 +96,7 @@ class _ChargeAgencyOwnerHistoryState extends State<ChargeAgencyOwnerHistory>
                       case RequestState.loading:
                         return const LoadingWidget();
                       case RequestState.error:
-                        return CustoumErrorWidget(message: state.recivedMessage);
+                        return CustomErrorWidget(message: state.recivedMessage);
                     }
                   })
                 ]),

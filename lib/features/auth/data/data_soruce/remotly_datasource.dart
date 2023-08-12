@@ -207,8 +207,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       
         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
-        log(userData.authToken.toString());
-        // Methods().saveMyData(jsonString: resultData);
         Methods().saveUserToken(authToken: userData.authToken);
 
         return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );
@@ -316,23 +314,3 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
 }
 
-//////////////////////////////////////////////////////////////
-
-
-
-// Map<String, dynamic> _readIosDeviceInfo(IosDeviceInfo data) {
-//   return <String, dynamic>{
-//     'name': data.name,
-//     'systemName': data.systemName,
-//     'systemVersion': data.systemVersion,
-//     'model': data.model,
-//     'localizedModel': data.localizedModel,
-//     'identifierForVendor': data.identifierForVendor,
-//     'isPhysicalDevice': data.isPhysicalDevice,
-//     'utsname.sysname:': data.utsname.sysname,
-//     'utsname.nodename:': data.utsname.nodename,
-//     'utsname.release:': data.utsname.release,
-//     'utsname.version:': data.utsname.version,
-//     'utsname.machine:': data.utsname.machine,
-//   };
-// }

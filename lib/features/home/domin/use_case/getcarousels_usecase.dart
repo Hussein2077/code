@@ -9,14 +9,14 @@ import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
 
 class GetCarouselsUsecase extends BaseUseCase<List<CarouselsModel>,Noparamiter>{
 
-  final RepoHome roomRepo;
+  final RepoHome repoHome;
 
 
-  GetCarouselsUsecase({required this.roomRepo});
+  GetCarouselsUsecase({required this.repoHome});
 
   @override
   Future<Either<List<CarouselsModel>, Failure>> call(Noparamiter parameter) async{
-    final result = await roomRepo.getCarousels() ;
+    final result = await repoHome.getCarousels() ;
     return result ;
   }
 

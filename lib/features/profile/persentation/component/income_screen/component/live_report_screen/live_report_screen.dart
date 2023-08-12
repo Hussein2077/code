@@ -181,7 +181,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: ConfigSize.defaultSize! * 20,
-                          child: const CustoumErrorWidget(
+                          child: const CustomErrorWidget(
                               message: StringManager.unexcepectedError),
                         );
                     }
@@ -234,7 +234,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: ConfigSize.defaultSize! * 20,
-                          child: const CustoumErrorWidget(
+                          child: const CustomErrorWidget(
                               message: StringManager.unexcepectedError),
                         );
                     }
@@ -283,7 +283,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: ConfigSize.defaultSize! * 20,
-                          child: const CustoumErrorWidget(
+                          child: const CustomErrorWidget(
                               message: StringManager.unexcepectedError),
                         );
                     }

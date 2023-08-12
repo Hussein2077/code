@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
-import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/widgets/member_agency_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_event.dart';
@@ -51,9 +51,9 @@ class AgenceScreen extends StatelessWidget {
             } else if (state is ShowAgencyLoadingState) {
               return const LoadingWidget();
             } else if (state is ShowAgencyErrorState) {
-              return CustoumErrorWidget(message: state.error);
+              return CustomErrorWidget(message: state.error);
             } else {
-              return const CustoumErrorWidget(
+              return const CustomErrorWidget(
                   message: StringManager.unexcepectedError);
             }
           },

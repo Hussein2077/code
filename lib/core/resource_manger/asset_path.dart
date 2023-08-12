@@ -2,12 +2,17 @@ const String pathImage = "assets/images";
 const String pathIcon = "assets/icons";
 
 class AssetsPath {
+
   //image
+  static const String luckyBox = "$pathImage/lucky_box.png";
+  static const String goodLucky = "$pathImage/good_luck.gif";
+  static const String badLucky = "$pathImage/bad_luck.gif";
   static const String loginBackGround = "$pathImage/login_back_ground.png";
   static const String splashBackGround = "$pathImage/splash_background.png";
   static const String blueBackGround = "$pathImage/blue_voice_background.png";
   static const String yellowBackGround =
       "$pathImage/yellwo_voice_background.png";
+  static const String muteSeatGreen = "$pathImage/muteIcon.png";
 
   static const String pinkBackGround = "$pathImage/pink_voice_background.png";
   static const String topUsersBackGround = "$pathImage/top_users_back.png";
@@ -44,17 +49,21 @@ class AssetsPath {
   static const String loadingGif = "$pathImage/output-onlinegiftools.gif";
   static const String incomeBackGroundScreen =
       "$pathImage/income_backgrond_screen.png";
-        static const String agencyBackGround = "$pathImage/agency_background.jpg";
-  static const String googlePlay = "$pathImage/google-play.png";
+  static const String agencyBackGround = "$pathImage/agency_background.jpg";
+  static const String googlePlay = "$pathIcon/google-play.png";
 
-    static const String netError = "$pathImage/net_error.gif";
+  static const String netError = "$pathImage/net_error.gif";
         static const String serverError = "$pathImage/serverError (1).gif";
                 static const String emptyScreen = "$pathImage/empty_screen.gif";
-
+  static const String sendMessage = "$pathImage/send-message.png";
+  static const String pkGif = "$pathImage/pk.gif";
+  static const String roomIntroMessageIcon = "$pathImage/roomIntroMessageIcon.png";
 
       
 
   //icons
+  static const String seat = "$pathIcon/seat.png";
+  static const String lockSeat = "$pathIcon/lock_seat.png";
   static const String googleIcon = "$pathIcon/google_icon.png";
   static const String iconAppWithTitle = "$pathIcon/icon_app_with_title.png";
   static const String iconApp = "$pathIcon/icon_app.png";
@@ -142,6 +151,8 @@ class AssetsPath {
   static const String ownerIcon = "$pathIcon/ownerIcon.png";
   static const String adminIcon = "$pathIcon/adminIcon.png";
   static const String linkingIcon = "$pathIcon/linkingIcon.png";
+  static const String normalMic = "$pathIcon/toolbar_mic_normal.png";
+  static const String mute = "$pathIcon/mute.png";
 
   static const String modeIcon = "$pathIcon/modeIcon.png";
 
@@ -171,11 +182,14 @@ class AssetsPath {
   static const String aristocracy6 = "$pathIcon/aristocracy 6.png";
   static const String aristocracy7 = "$pathIcon/aristocracy 7.png";
   static const String aristocracy8 = "$pathIcon/aristocracy 8.png";
+  static const String basicTool = "$pathImage/basic_tool.png";
+
 
   static const String gemStone = "$pathIcon/gem-stone.png";
   static const String circleDollar = "$pathIcon/circle-dollar.png";
   static const String rank = "$pathIcon/rank.png";
 
+  static const String toolbarMessages = "$pathIcon/toolbar_im.png";
 
 
   

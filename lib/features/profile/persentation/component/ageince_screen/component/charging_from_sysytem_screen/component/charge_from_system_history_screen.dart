@@ -80,7 +80,7 @@ class _ChargeFromSystemHistoryState extends State<ChargeFromSystemHistory>
                       case RequestState.loading:
                         return const LoadingWidget();
                       case RequestState.error:
-                        return CustoumErrorWidget(message: state.sentMessage);
+                        return CustomErrorWidget(message: state.sentMessage);
                     }
                   }),
                    BlocBuilder<ChargeCoinSystemHistoryBloc, ChargeCoinSystemHistoryState>(
@@ -95,7 +95,7 @@ class _ChargeFromSystemHistoryState extends State<ChargeFromSystemHistory>
                       case RequestState.loading:
                         return const LoadingWidget();
                       case RequestState.error:
-                        return CustoumErrorWidget(message: state.recivedMessage);
+                        return CustomErrorWidget(message: state.recivedMessage);
                     }
                   })
                 ]),

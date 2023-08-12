@@ -95,7 +95,7 @@ class _CountryDialogState extends State<CountryDialog> {
                       })),
             );
           } else if (state is CountryErrorMessageState) {
-            return CustoumErrorWidget(
+            return CustomErrorWidget(
               message: state.errorMessage,
             );
           } else {
