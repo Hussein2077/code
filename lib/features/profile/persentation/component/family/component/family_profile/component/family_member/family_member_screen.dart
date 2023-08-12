@@ -33,6 +33,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 // ignore: must_be_immutable
 class FamilyMemberScreen extends StatefulWidget {
   final MemberFamilyDataModel owner;
+  //TODO CHECK PAGENATION
   int page = 1;
 
   FamilyMemberScreen({required this.owner, super.key});
