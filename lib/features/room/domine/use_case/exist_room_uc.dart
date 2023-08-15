@@ -9,7 +9,7 @@ import 'package:tik_chat_v2/features/room/domine/Repository/Base_Repository_Prof
 class ExistroomUC {
   BaseRepositoryRoom roomRepo ;
 
-  ExistroomUC(this.roomRepo);
+  ExistroomUC({required this.roomRepo});
 
   Future<Either<Unit, Failure>> call(String ownerId) async {
     final result = await roomRepo.exsitRoom(ownerId);

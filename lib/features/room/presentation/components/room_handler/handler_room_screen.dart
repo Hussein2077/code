@@ -74,7 +74,7 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
                 Navigator.pushReplacementNamed(context,Routes.roomScreen,
                     arguments:RoomPramiter(roomModel: state.room,
                         myDataModel: MyDataModel.getInstance() ,
-                    isHost: MyDataModel.getInstance().id.toString() == state.room.ownerId.toString()) ) ;
+                    isHost: MyDataModel.getInstance().id.toString() == state.room.ownerId.toString())) ;
               }
               PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
               await pusher.subscribe(channelName: 'presence-room-${state.room.ownerId}',

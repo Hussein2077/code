@@ -101,7 +101,7 @@ class Methods {
       await ZegoUIKit().uninit();
       ZegoUIKit().logout() ;
       await  clearAll();
-      ExistroomUC e = ExistroomUC(getIt());
+      ExistroomUC e = ExistroomUC(roomRepo: getIt());
       await e.call(ownerId);
       PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
       pusher.unsubscribe(channelName: 'presence-room-$ownerId');
