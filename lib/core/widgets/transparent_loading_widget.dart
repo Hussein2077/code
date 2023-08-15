@@ -11,11 +11,13 @@ class TransparentLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      width:width ,
-      color: Colors.transparent,
-      height: height?? double.maxFinite,
-      child: const TikTokLoadingAnimation(),
-    );
+    return  Center(
+        child: Container(
+        width:width ?? double.maxFinite,
+        color: Colors.transparent,
+        height: height?? double.maxFinite,
+        child:const TikTokLoadingAnimation(),
+      ));
+
   }
 }

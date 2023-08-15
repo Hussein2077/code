@@ -115,6 +115,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   @override
   Future<MyDataModel> addInformation(InformationPramiter informationPramiter)async {
     log(informationPramiter.image.toString());
+    log("addInformation") ;
      FormData formData;
     if (informationPramiter.image == null) {
       formData = FormData.fromMap({
@@ -157,6 +158,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       MyDataModel userData = MyDataModel.fromMap(response.data[ConstentApi.data]);
 
       Methods().saveMyData();
+      log("addInformation") ;
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);

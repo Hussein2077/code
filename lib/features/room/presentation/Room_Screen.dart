@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_vap/flutter_vap.dart';
@@ -1148,7 +1149,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     return Directionality(
             textDirection: TextDirection.ltr,
             child:ZegoUIKitPrebuiltLiveAudioRoom(
@@ -1161,7 +1161,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     userName: widget.myDataModel.name ?? widget.myDataModel.id.toString(),
                     roomID: widget.room.id.toString(),
                     config: (widget.isHost
-                        ? (ZegoUIKitPrebuiltLiveAudioRoomConfig.host())
+                        ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
                         : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience())
                       ..onLeaveConfirmation = (context) async {
                         return true;
@@ -1179,8 +1179,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                       ..layoutConfig.rowSpacing = 0
                       ..layoutConfig.rowConfigs = rowRoomSeats(layoutMode)
                       ..layoutConfig.rowSpacing = 10
-                      ..takeSeatIndexWhenJoining =-1
-                         // widget.isHost ? getHostSeatIndex(layoutMode: layoutMode,ownerId: widget.room.ownerId.toString()) : 2
+                      ..takeSeatIndexWhenJoining =widget.isHost ? getHostSeatIndex(layoutMode: layoutMode,ownerId: widget.room.ownerId.toString()) : -1
                       ..hostSeatIndexes = [0]
                       ..seatConfig = getSeatConfig()
                       ..viewbackground = viewbackground()
@@ -1250,7 +1249,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                         //  ZegoMenuBarButtonName.soundEffectButton,
                         ],
                         speakerExtendButtons: [
-                          SpeakerButton(),
+                         const SpeakerButton(),
                           GiftButton(
                               listUsers: ZegoUIKit().getAudioVideoList(),
                               listAllUsers: ZegoUIKit().getAllUsers(),
@@ -1304,7 +1303,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                               if(message.user.inRoomAttributes.value['sen']== null &&
                                   RoomScreen.usersMessagesInRoom[message.user.id]?.level?.senderImage == null){
                                 Future.delayed(const Duration(seconds: 3),(){
+                                  if(kDebugMode){
                                   log("wait 2 sec to load more in formation about user") ;
+                                  }
                                   RoomScreen.updateMessgasList.value = RoomScreen.updateMessgasList.value+1 ;
                                 });
 
@@ -1554,7 +1555,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                              width:ConfigSize.defaultSize!*40.5,
                              height: ConfigSize.defaultSize!*40.5,
                              child: popUpWidget(
-                                 ownerDataModel:pobUpSender??  widget.myDataModel.convertToUserObject(),
+                                 ownerDataModel:pobUpSender,
                                  massage: ZegoInRoomMessageInput.messagePonUp,
                                  enterRoomModel: widget.room ,
                                  vip:pobUpSender?.vip1?.level??8
@@ -1643,8 +1644,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       required String giftImage,
       required String ownerId,
       required bool isPlural ,
-        required AnimationController controllerBanner,
-        required Animation<Offset> offsetAnimationBanner
+      required AnimationController controllerBanner,
+      required Animation<Offset> offsetAnimationBanner
       })  {
     return  InkWell(
           onTap: () async {

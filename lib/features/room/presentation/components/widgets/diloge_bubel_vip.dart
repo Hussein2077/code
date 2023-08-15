@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
@@ -13,7 +12,7 @@ import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 class DilogBubbelVip extends StatelessWidget {
   final int vip;
   final String message;
-  final UserDataModel userData;
+  final UserDataModel? userData;
   final EnterRoomModel roomData;
 
  const DilogBubbelVip(
@@ -21,12 +20,12 @@ class DilogBubbelVip extends StatelessWidget {
       required this.roomData,
       required this.message,
       required this.vip,
-      required this.userData})
+      this.userData})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (1 == vip) {
+    if (1 == vip || userData == null) {
       return Container();
     }
     else if (2 == vip) {
@@ -56,7 +55,7 @@ class DilogBubbelVip extends StatelessWidget {
         Positioned(
             left: ConfigSize.defaultSize! * 6.3,
             child: UserImage(
-              image: userData.profile!.image!,
+              image: userData!.profile!.image!,
             )),
         Image.asset(
           scale: 0.1,
@@ -74,26 +73,24 @@ class DilogBubbelVip extends StatelessWidget {
                   const SizedBox(
                     width: 4,
                   ),
-                  if (userData.id == roomData.ownerId)
+                  if (userData!.id == roomData.ownerId)
                     Image.asset(
                       AssetsPath.hostMark,
                       scale: 3.5,
                     ),
                   AristocracyLevel(
-                    level: userData.vip1!.level! ,
+                    level: userData!.vip1!.level! ,
                   ),
-                  if(userData.level!.senderImage! != '')
+                  if(userData!.level!.senderImage! != '')
 
                     LevelContainer(
-                      image: ConstentApi()
-                          .getImage(userData.level!.senderImage!)),
+                      image: userData!.level!.senderImage!),
 
-                  if(userData.level!.receiverImage! != '')
+                  if(userData!.level!.receiverImage! != '')
                     LevelContainer(
-                      image: ConstentApi()
-                          .getImage(userData.level!.receiverImage!)),
+                      image: userData!.level!.receiverImage!),
                   Text(
-                    userData.name!,
+                    userData!.name!,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: AppPadding.p12,

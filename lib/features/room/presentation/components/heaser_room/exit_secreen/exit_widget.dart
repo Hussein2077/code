@@ -46,7 +46,7 @@ class ExitWidgetState extends State<ExitWidget> {
     return  Container(
         width: ConfigSize.screenWidth,
         height: ConfigSize.screenHeight,
-        color: ColorManager.mainColor.withOpacity(0.4),
+        color: Colors.black.withOpacity(0.4),
         child: Directionality(
           textDirection:ui.TextDirection.ltr,
           child:Stack(

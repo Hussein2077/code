@@ -44,10 +44,10 @@ dependencies:
   bottom_nav_layout: ^3.0.10
   carousel_slider: ^4.2.1
   animated_icon: ^0.0.4
-  reels_viewer: ^1.0.0+3
+ # reels_viewer: ^1.0.0+3
   percent_indicator: ^4.2.3
   dropdown_button2: ^1.9.2
-  camera: ^0.10.5+2
+  #camera: ^0.10.5+2
   get_it: ^7.2.0
   shared_preferences: ^2.0.15
   change_app_package_name: ^1.1.0
@@ -95,6 +95,9 @@ dependencies:
   text_scroll: ^0.2.0
   share_plus: ^6.3.4
   blurrycontainer: ^1.0.2
+  card_swiper: ^3.0.1
+  video_player: ^2.7.0
+  chewie: ^1.4.0
 
 
 

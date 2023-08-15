@@ -81,53 +81,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
         });
 
-    // Timer(const Duration(seconds: 4), () {
-    //     if((configModel.isForce??false)){
-    //           Navigator.pushNamedAndRemoveUntil(
-    //               context, Routes.login, (route) => false,
-    //               // arguments: LoginPramiter(
-    //               //     isForceUpdate: configModel.isForce,
-    //               //     isUpdate: true)
-    //                   );
-    //         }
-    //         else if (!(configModel.isLastVersion??false)
-    //             &&(configModel.isAuth??false)){
-    //           Navigator.pushNamedAndRemoveUntil(
-    //               context, Routes.mainScreen, (route) => false ,
-    //               // arguments:MainPramiter(
-    //               //     isUpdate:true,
-    //               //     isCachEmojie: configModel.updateEmojieCach,
-    //               //     isCachEntro: configModel.updateEntroCach,
-    //               //     isCachExtra: configModel.updateExtraCach,
-    //               //     isCachFrame: configModel.updateFrameCach,
-    //               //     isChachGift: configModel.updateGiftCache
-    //               // )
-    //                );
-    //         }
-    //         else if(!(configModel.isAuth??false)){
-    //           Navigator.pushNamedAndRemoveUntil(
-    //               context, Routes.login, (route) => false,
-    //               // arguments: const  LoginPramiter(
-    //               // isForceUpdate: false,
-    //               // isUpdate:false)
-    //               );
-    //         }
-    //         else if ((configModel.isAuth??false)){
-    //
-    //           Navigator.pushNamedAndRemoveUntil(
-    //               context, Routes.mainScreen, (route) => false ,
-    //               // arguments:MainPramiter(
-    //               //     isUpdate:false,
-    //               //     isCachEmojie: configModel.updateEmojieCach,
-    //               //     isCachEntro: configModel.updateEntroCach,
-    //               //     isCachExtra: configModel.updateExtraCach,
-    //               //     isCachFrame: configModel.updateFrameCach,
-    //               //     isChachGift: configModel.updateGiftCache
-    //               // )
-    //                );
-    //         }
-    //   // Navigator.pushNamed(context, Routes.login);
-    // });
 
     super.initState();
   }

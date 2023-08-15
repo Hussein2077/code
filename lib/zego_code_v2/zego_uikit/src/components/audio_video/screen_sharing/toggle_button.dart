@@ -41,7 +41,6 @@ class _ZegoScreenSharingToggleButtonState
     extends State<ZegoScreenSharingToggleButton> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

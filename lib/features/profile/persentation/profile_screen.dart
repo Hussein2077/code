@@ -1,3 +1,5 @@
+
+
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -51,8 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           tempData = state.myDataModel ;
              return  ProfileBody(myData: state.myDataModel, );
-         }
-        else if (state is GetMyDataErrorState){
+         } else if (state is GetMyDataErrorState){
 
           //todo show toast here to show error
           return  ProfileBody(myData: getIt<MyDataModel>());

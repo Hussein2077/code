@@ -17,7 +17,7 @@ class AddProFilePic extends StatefulWidget {
  final int  quality ;
   const AddProFilePic({this.myImage , this.gooleImageUrl, required this.quality, super.key});
     static XFile? image;
-  static File? googleImage; 
+  static  File? googleImage;
 
 
   @override
@@ -39,7 +39,7 @@ class _AddProFilePicState extends State<AddProFilePic> {
   }
 
   Future<void> getGoogleImage() async{
-    AddProFilePic.googleImage = await getImageFileFromNetwork(widget.gooleImageUrl!);
+    AddProFilePic.googleImage =  await  getImageFileFromNetwork(widget.gooleImageUrl!);
         setState(() {});
 
   }

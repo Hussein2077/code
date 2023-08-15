@@ -17,7 +17,6 @@ class AssetsPath {
   static const String sweetCandy = "$pathImage/sweet_candy.png";
   static const String giftbox = "$pathImage/giftbox.png";
   static const String emojie = "$pathImage/emojie.png";
-  static const String pk1 = "$pathImage/pk2.png";
   static const String soundLocal = "$pathImage/soundLocal.png";
   static const String muteLocal = "$pathImage/muteLocal.png";
   static const String more = "$pathImage/more.png";
@@ -43,7 +42,6 @@ class AssetsPath {
   static const String blueBackGround = "$pathImage/blue_voice_background.png";
   static const String yellowBackGround =
       "$pathImage/yellwo_voice_background.png";
-  static const String muteSeatGreen = "$pathImage/muteIcon.png";
 
   static const String pinkBackGround = "$pathImage/pink_voice_background.png";
   static const String topUsersBackGround = "$pathImage/top_users_back.png";
@@ -91,9 +89,11 @@ class AssetsPath {
   static const String roomIntroMessageIcon = "$pathImage/roomIntroMessageIcon.png";
   static const String kingchir = "$pathImage/kingschire.png";
 
-      
+
 
   //icons
+  static const String pk1 = "$pathIcon/pk2.png";
+  static const String muteSeatGreen = "$pathIcon/muteIcon.png";
   static const String adminMark = "$pathIcon/admin-mark.png";
   static const String iconShare = "$pathIcon/share.png";
   static const String ownerIcon2 = "$pathIcon/owner_icon.png";

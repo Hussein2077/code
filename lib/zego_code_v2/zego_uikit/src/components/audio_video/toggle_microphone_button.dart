@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 
 // Package imports:
@@ -66,8 +67,8 @@ class _ZegoToggleMicrophoneButtonState
             onTap:  onPressed,
             child:
             isMicrophoneOn ?
-            Image.asset(AssetsPath.normalMic , width: ConfigSize.defaultSize!*5, height: ConfigSize.defaultSize!*8 ,)
-            : Image.asset(AssetsPath.mute , width: ConfigSize.defaultSize!*5, height: ConfigSize.defaultSize!*8 ,),
+            Image.asset(AssetsPath.normalMic , width: 40.r, height: 40.r ,)
+            : Image.asset(AssetsPath.mute , width: 40.r, height: 40.r ,),
         );
       },
     );

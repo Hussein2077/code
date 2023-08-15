@@ -1,6 +1,5 @@
-import 'package:camera/camera.dart';
+
 import 'package:easy_localization/easy_localization.dart';
-// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,6 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_pho
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
-import 'package:tik_chat_v2/features/home/presentation/component/create_live/video/create_video_live_body.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_event.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
@@ -76,6 +74,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_it
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
@@ -86,14 +85,18 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  CreateLiveVideoBody.cameras = await availableCameras();
+ // CreateLiveVideoBody.cameras = await availableCameras();
   await Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
@@ -346,10 +349,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<SendGiftBloc>(),
         ),
-
-        BlocProvider(
-          create: (context) => getIt<OnRoomBloc>(),
-        ),
+        BlocProvider(create: (_) => getIt<MangerGetVipPrevBloc>()),
+        BlocProvider(create: (_) => getIt<GetMyBackgroundBloc>()),
+        BlocProvider(create: (_) => getIt<AddRoomBackgroundBloc>()),
+        BlocProvider(create: (_) => getIt<GiftBloc>()),
+        BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
 
 
 

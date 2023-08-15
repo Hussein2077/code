@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -13,7 +15,7 @@ class EmojieWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+log("yyyyyyyyyyyy");
     return Container(
         height: ConfigSize.defaultSize! * 29,
         decoration: BoxDecoration(
