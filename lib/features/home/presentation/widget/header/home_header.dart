@@ -27,11 +27,13 @@ class HomeHeader extends StatelessWidget {
       child: Image.asset(AssetsPath.searchIcon , scale: 2.5,)),
      BlocBuilder<GetMyDataBloc,GetMyDataState>(
          builder: (context,state){
-       return    InkWell(
+       return  InkWell(
            onTap: (){
              Navigator.pushNamed(context, Routes.createLive);
            if(MyDataModel.getInstance().hasRoom??false){
-             //todo navegate to handler
+             Navigator.pushNamed(context,Routes.roomHandler,arguments:
+             RoomHandlerPramiter(ownerRoomId: MyDataModel.getInstance().id.toString(),
+                 myDataModel:  MyDataModel.getInstance()) );
            }else{
              Navigator.pushNamed(context, Routes.createLive);
            }

@@ -86,6 +86,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
 
 Future<void> main() async {
@@ -337,6 +340,19 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<CreateRoomBloc>()..add(GetTypesRoomEvent()),
         ),
+        BlocProvider(
+          create: (context) => getIt<RoomHandlerBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<SendGiftBloc>(),
+        ),
+
+        BlocProvider(
+          create: (context) => getIt<OnRoomBloc>(),
+        ),
+
+
+
 
 
 

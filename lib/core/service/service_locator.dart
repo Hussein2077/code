@@ -136,6 +136,30 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_cen
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
+import 'package:tik_chat_v2/features/room/data/Repository_Imp/repository_Imp.dart';
+import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
+import 'package:tik_chat_v2/features/room/domine/Repository/Base_Repository_Profile.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/background_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/ban_user_from_writing_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/change_room_mode.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/dispose_hide_room_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/emojie_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/enter_room.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/exist_room_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/getGiftes_useCase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/hide_room_use_case.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/leave_mic_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/lock_unLock_mic_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/mute_unmute_mic_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/remove_pass_room_UC.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_pob_up_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -143,6 +167,27 @@ class ServerLocator {
   Future<void> init() async {
     //bloc
 
+    getIt.registerFactory(
+            () => OnRoomBloc(
+              banUserFromWritingUC:getIt() ,
+                backGroundUseCase:getIt() ,
+                sendPobUpUC:getIt() ,
+                changeRoomModeUC: getIt(),
+                lockUnLockMicUC:getIt() ,
+                muteUnMuteMicUC: getIt(),
+                leaveMicUC: getIt(),
+                upMicUsecase: getIt(),
+                emojieUseCase:getIt() ,
+                existroomUC: getIt() ,
+                getAllRoomUserUseCase:getIt()  ,
+                removePassRoomUC: getIt() ,
+                updateRoomUsecase: getIt() ,
+                disposeHideRoomUseCase: getIt(),
+                hideRoomUseCase: getIt()));
+    getIt.registerFactory(
+            () => SendGiftBloc(giftUseCase: getIt()));
+    getIt.registerFactory(
+            () => RoomHandlerBloc(enterRoomUC: getIt() ));
     getIt.registerFactory(
             () => CreateRoomBloc(createRoomUsecase:getIt(),
                 getAllRoomTypesUC: getIt() ));
@@ -296,6 +341,45 @@ class ServerLocator {
         
 
 //usecase
+
+
+    getIt.registerLazySingleton(
+            () => SendGiftUseCase(roomRepo:getIt() ));
+    getIt.registerLazySingleton(
+            () => ExistroomUC(roomRepo:getIt() ));
+    getIt.registerLazySingleton(
+            () => GetAllRoomUserUseCase(roomRepo:getIt() ));
+    getIt.registerLazySingleton(
+            () => BackGroundUseCase(roomRepo:getIt() ));
+    getIt.registerLazySingleton(
+            () => UpdateRoomUsecase(roomRepo:getIt() ));
+    getIt.registerLazySingleton(
+            () => EmojieUseCase(roomRepo:getIt() ));
+    getIt.registerLazySingleton(
+            () => RemovePassRoomUC(roomRepo:getIt() ));
+    getIt.registerLazySingleton(
+            () => UpMicUsecase(roomRepo:getIt()));
+    getIt.registerLazySingleton(
+            () => LeaveMicUC(roomRepo:getIt()));
+    getIt.registerLazySingleton(
+            () => MuteUnMuteMicUC(roomRepo:getIt()));
+    getIt.registerLazySingleton(
+            () => LockUnLockMicUC(roomRepo:getIt()));
+    getIt.registerLazySingleton(
+            () => ChangeRoomModeUC(roomRepo:getIt()));
+    getIt.registerLazySingleton(
+            () => BanUserFromWritingUC(roomRepo:getIt()));
+    getIt.registerLazySingleton(
+            () => SendPobUpUC(roomRepo:getIt()));
+    getIt.registerLazySingleton(
+            () => HideRoomUseCase(roomRepo:getIt()));
+    getIt.registerLazySingleton(
+            () => DisposeHideRoomUseCase(roomRepo:getIt()));
+
+    getIt.registerLazySingleton(
+            () => GiftsUseCase(roomRepo:getIt() ));
+    getIt.registerLazySingleton(
+            () => EnterRoomUC(roomRepo:getIt() ));
     getIt.registerLazySingleton(
             () => GetAllRoomTypesUC(repoHome:getIt() ));
     getIt.registerLazySingleton(
@@ -442,14 +526,16 @@ class ServerLocator {
         () => RepositoryImp(baseRemotlyDataSource: getIt()));
     getIt.registerLazySingleton<BaseRepositoryProfile>(
         () => RepositoryImpProfile(baseRemotlyDataSourceProfile: getIt()));
-
+    getIt.registerLazySingleton<BaseRepositoryRoom>(
+            () => RepositoryImpRoom(baseRemotlyDataSourceRoom: getIt()));
     getIt.registerLazySingleton<RepoHome>(
         () => HomeRepostoryImp(homeRemoteDataSours: getIt()));
     getIt.registerLazySingleton<RepoFollow>(
         () => FollwoingRepostoryImp(follwoingRemoteDataSours: getIt()));
 
 //data source
-
+    getIt.registerLazySingleton<BaseRemotlyDataSourceRoom>(
+            () => RemotlyDataSourceRoom());
     getIt.registerLazySingleton<BaseRemotlyDataSource>(
         () => RemotlyDataSource());
     getIt.registerLazySingleton<BaseRemotlyDataSourceProfile>(
