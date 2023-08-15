@@ -16,7 +16,7 @@ class UpdateRoomUsecase {
 }
 
 class PramiterUpdate extends Equatable {
-  final int roomId;
+  final String ownerId;
   final String? roomName;
   final String? freeMic;
   final File? roomCover;
@@ -28,7 +28,7 @@ class PramiterUpdate extends Equatable {
   final String? change ; 
 
 const  PramiterUpdate(
-      {required this.roomId,
+      {required this.ownerId,
       this.roomName,
       this.freeMic,
       this.roomCover,
@@ -41,7 +41,7 @@ const  PramiterUpdate(
    });
  @override
   List<Object?> get props => [
-   roomId,
+   ownerId,
    roomName,
    freeMic,
    roomCover,

@@ -48,12 +48,12 @@ class EditInfoScreen extends StatelessWidget {
                   title(context: context, title: StringManager.personalInfo),
                   UserInfoWidget(myDataModel: state.myDataModel),
                   title(context: context, title: StringManager.addImage),
-                  const AddProFilePic(),
+                  const AddProFilePic(quality: 40,),
                   MainButton(
                     onTap: () {
                              BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
                               bio:UserInfoWidget.bioController!.text ,
-                        gender: myDataModel.profile!.gender!,
+                        gender: myDataModel.profile!.gender!.toString(),
                         country: CountryWidget.countryFlag!,
                         name: UserInfoWidget.nameController!.text,
                       ));
@@ -71,7 +71,7 @@ class EditInfoScreen extends StatelessWidget {
                   title(context: context, title: StringManager.personalInfo),
                   UserInfoWidget(myDataModel: myDataModel),
                   title(context: context, title: StringManager.addImage),
-                  const AddProFilePic(),
+                  const AddProFilePic(quality: 40,),
                   MainButton(
                     onTap: () {
                

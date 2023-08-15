@@ -11,8 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_OnRoom/OnRoom_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_OnRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 
 
 
@@ -140,12 +140,15 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
           case PopupItemValue.showUserDetails:
             return dialogRoom(
                 context: context,
-                widget: GenralProfileDialog(
-                  myData: widget.myDataModel,
-                  userId:popupItem.data ,
-                  roomData: widget.roomData,
-                  layoutMode:widget.layoutMode ,
-                ));
+                widget: const SizedBox()
+                // GenralProfileDialog(
+                //   myData: widget.myDataModel,
+                //   userId:popupItem.data ,
+                //   roomData: widget.roomData,
+                //   layoutMode:widget.layoutMode ,
+                // )
+
+            );
           case  PopupItemValue.lockSeat :
             BlocProvider.of<OnRoomBloc>(context)
                 .add(LockMicEvent(ownerId: widget.roomData.ownerId.toString(),

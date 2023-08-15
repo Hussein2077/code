@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/lucky_box.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/pk_widget.dart';
@@ -16,6 +17,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_box
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_events.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
+import 'package:share_plus/share_plus.dart';
 
 class BasicToolDialog extends StatefulWidget {
   final Function() notifyRoom;
@@ -24,7 +26,7 @@ class BasicToolDialog extends StatefulWidget {
   final String userId ;
   final bool isOnMic ;
   final EnterRoomModel roomData ;
-   BasicToolDialog({Key? key,required this.roomData, required this.notifyRoom, required this.isParty, required this.ownerId, required this.userId, required this.isOnMic}) : super(key: key);
+  const  BasicToolDialog({Key? key,required this.roomData, required this.notifyRoom, required this.isParty, required this.ownerId, required this.userId, required this.isOnMic}) : super(key: key);
 
   @override
   State<BasicToolDialog> createState() => _BasicToolDialogState();
@@ -107,7 +109,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                             barrierDismissible: false,
                             context: context,
                             builder: (_) {
-                              return const ShowDialogLoading();
+                              return const LoadingWidget();
                             });
                         await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
                             .takeOffAllSeat(isPK: true );
@@ -124,8 +126,8 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                             height: ConfigSize.defaultSize! * 6,
                             image:const AssetImage(AssetsPath.pk1)),
 
-                        Text(StringManager.pk.tr(),
-                            style: const TextStyle(
+                      const  Text(StringManager.pk,
+                            style:  TextStyle(
                                 color: Colors.black,
                                 fontStyle: FontStyle.italic,
                                 fontWeight: FontWeight.w600))

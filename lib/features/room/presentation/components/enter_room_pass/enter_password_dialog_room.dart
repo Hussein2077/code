@@ -1,7 +1,6 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -9,8 +8,6 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_events.dart';
 import 'dart:ui' as ui;
 import '../../../../../../core/model/my_data_model.dart';
 import '../../../../../../core/utils/config_size.dart';
@@ -102,18 +99,17 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
                 await Methods().checkIfInRoom(ownerId: widget.ownerId);
 
                 // ignore: use_build_context_synchronously
-                BlocProvider.of<RoomHandlerBloc>(context).add(EnterRoomEvent(
-                    isVip: widget.myData.vip1?.level ?? 0,
-                    ownerId: widget.ownerId,
-                    roomPassword: password));
-                // ignore: use_build_context_synchronously
                 Navigator.pop(context);
                 // ignore: use_build_context_synchronously
                 Navigator.pop(context);
                 // ignore: use_build_context_synchronously
                 Navigator.pushNamed(
                     context, Routes.roomHandler,
-                    arguments: widget.myData);
+                    arguments: RoomHandlerPramiter(
+                      passwordRoom: password,
+                        myDataModel:widget.myData,
+                      ownerRoomId: '',
+                        ));
               },
               child: Container(
                 height: ConfigSize.defaultSize! * 6.0,

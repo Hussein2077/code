@@ -14,7 +14,8 @@ import 'package:path_provider/path_provider.dart';
 class AddProFilePic extends StatefulWidget {
  final String? gooleImageUrl ;
  final String? myImage ;
-  const AddProFilePic({this.myImage , this.gooleImageUrl, super.key});
+ final int  quality ;
+  const AddProFilePic({this.myImage , this.gooleImageUrl, required this.quality, super.key});
     static XFile? image;
   static File? googleImage; 
 
@@ -43,9 +44,9 @@ class _AddProFilePicState extends State<AddProFilePic> {
 
   }
 
-  Future<void> _getImage() async {
+  Future<void> _getImage(int quality  ) async {
     
-    AddProFilePic.image = await picker.pickImage(source: ImageSource.gallery);
+    AddProFilePic.image = await picker.pickImage(source: ImageSource.gallery , imageQuality:quality );
     setState(() {});
   }
 
@@ -53,7 +54,7 @@ class _AddProFilePicState extends State<AddProFilePic> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          _getImage();
+          _getImage(widget.quality);
         },
         child: SizedBox(
           width: ConfigSize.defaultSize! * 11.4,

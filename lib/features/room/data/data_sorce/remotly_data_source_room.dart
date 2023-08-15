@@ -212,7 +212,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
     }
     try{
       final response = await Dio()
-          .post(ConstentApi().getRoomUpdate(roomId: pramiterUpdate.roomId),
+          .post(ConstentApi().getRoomUpdate(roomId: pramiterUpdate.ownerId),
           options: Options(
             headers: headers,
           ),

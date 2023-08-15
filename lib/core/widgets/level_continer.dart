@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
-class LevelConriner extends StatelessWidget {
+class LevelContainer extends StatelessWidget {
   final String image ; 
-  const LevelConriner({required this.image ,  super.key});
+  const LevelContainer({required this.image ,  super.key});
 
   @override
   Widget build(BuildContext context) {

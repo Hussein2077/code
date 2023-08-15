@@ -1,7 +1,4 @@
-//todo is_gold remove
-//todo remove neck name
-//todo  delete some data from faimly
-//todo deference btw visit_time and online_time
+
 
 
 
@@ -10,7 +7,6 @@ import 'package:tik_chat_v2/core/model/my_agency_model.dart';
 import 'package:tik_chat_v2/core/model/my_store_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
-
 import 'profile_room_model.dart';
 import 'vip_center_model.dart';
 
@@ -48,7 +44,8 @@ class MyDataModel {
    bool? isFacebook;
    bool? isGoogle;
    bool? isPhone;
-   int? myType ; 
+   int? myType ;
+   bool? isHideRoom ;
 
 
   static  MyDataModel? _instance ;
@@ -89,7 +86,8 @@ class MyDataModel {
     this.isGoogle,
     this.isPhone,
     this.hasColorName,
-    this.myType
+    this.myType,
+    this.isHideRoom
   });
 
   
@@ -109,43 +107,44 @@ class MyDataModel {
      String? notificationId,String? bio,bool? hasRoom,
      bool? hasColorName,bool? isAanonymous,bool? isFacebook,
      bool? isGoogle, VipCenterModel? vip1, bool? isPhone,
-     int? myType , 
+     int? myType , bool? isHideRoom
 
 
    }) {
-     this.id = id;
-     this.chatId = chatId;
-     this.name = name;
-     this.email =email;
-     this.phone = phone;
-     this.numberOfFans = numberOfFans;
-     this.numberOfFollowings = numberOfFollowings;
-     this.numberOfFriends = numberOfFriends;
-     this.profileVisotrs = profileVisotrs;
-     this.profile = profile;
-     this.level = level;
-     this.myStore = myStore;
-     this.authToken = authToken;
-     this.frame =frame ;
-     this.intro =intro ;
-     this.frameId =frameId ;
-     this.introId =introId ;
-     this.bubble =bubble ;
-     this.bubbleId = bubbleId ;
-     this.myAgencyModel= myAgencyModel ;
-     this.isAgencyRequest = isAgencyRequest ;
-     this.isFirst = isFirst ;
-     this.uuid = uuid ;
-     this.hasColorName = hasColorName ;
-     this.vip1 = vip1 ;
-     this.isFacebook = isFacebook ;
-     this.isGoogle = isGoogle ;
-     this.isAanonymous =isAanonymous ;
-     this.hasRoom = hasRoom ;
-     this.notificationId = notificationId ;
-     this.bio = bio ;
-     this.frameId = frameId ;
-     this.myType = myType ;
+     this.id = id??this.id;
+     this.chatId = chatId?? this.chatId;
+     this.name = name?? this.name;
+     this.email =email?? this.email;
+     this.phone = phone?? this.phone;
+     this.numberOfFans = numberOfFans?? this.numberOfFans;
+     this.numberOfFollowings = numberOfFollowings ?? this.numberOfFollowings;
+     this.numberOfFriends = numberOfFriends ?? this.numberOfFans;
+     this.profileVisotrs = profileVisotrs ?? this.profileVisotrs;
+     this.profile = profile ?? this.profile;
+     this.level = level ?? this.level;
+     this.myStore = myStore?? this.myStore;
+     this.authToken = authToken ?? this.authToken;
+     this.frame =frame ?? this.frame;
+     this.intro =intro  ?? this.intro;
+     this.frameId =frameId ?? this.frameId;
+     this.introId =introId ?? this.introId;
+     this.bubble =bubble ?? this.bubble ;
+     this.bubbleId = bubbleId ?? this.bubbleId;
+     this.myAgencyModel= myAgencyModel ?? this.myAgencyModel;
+     this.isAgencyRequest = isAgencyRequest  ?? this.isAgencyRequest;
+     this.isFirst = isFirst ?? this.isFirst;
+     this.uuid = uuid ?? this.uuid;
+     this.hasColorName = hasColorName  ?? this.hasColorName;
+     this.vip1 = vip1 ?? this.vip1;
+     this.isFacebook = isFacebook  ?? this.isFacebook;
+     this.isGoogle = isGoogle  ?? this.isGoogle;
+     this.isAanonymous =isAanonymous ?? this.isAanonymous;
+     this.hasRoom = hasRoom ?? this.hasRoom;
+     this.notificationId = notificationId ?? this.notificationId;
+     this.bio = bio ?? this.bio;
+     this.frameId = frameId ?? this.frameId;
+     this.myType = myType ?? this.myType;
+     this.isHideRoom = isHideRoom ?? this.isHideRoom;
 
 
 
@@ -184,6 +183,7 @@ class MyDataModel {
         isFacebook: map['facebook_bind'],
         isGoogle: map['google_bind'],
         isPhone: map['phone_bind'],
+        isHideRoom: map['room_hidden'] ,
         vip1: map['vip'] == null ? null : VipCenterModel.fromJson(map['vip']),
         familyId: map['family_id'],
         uuid: map['uuid'] != null ? map['uuid'] as String : "0",
@@ -277,7 +277,7 @@ class MyDataModel {
       uuid:uuid,
       profile: ProfileRoomModel(
         image:profile?.image??'',
-        gender: profile?.gender??'male',
+        gender: profile?.gender??1,
         age: profile?.age??0,
 
 

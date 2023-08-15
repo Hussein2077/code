@@ -30,6 +30,9 @@ import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/exist_room_uc.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/buttons/gifts/widgets/gift_view_biger.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/room_screen_controler.dart';
@@ -54,7 +57,21 @@ class Methods {
     String language = preferences.getString("languagne") ?? "en";
     return language;
   }
+    Future<void>  setCachingMusic({required Map<String,dynamic> cachingMusic}) async{
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String encodedMap = jsonEncode(cachingMusic);
+      preferences.setString("cachMusic", encodedMap);
+    }
 
+    Future<Map<String,dynamic>> getCachingMusic() async {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      Map<String,MusicObject> defultMap = {} ;
+      String encodedMap1 = json.encode(defultMap);
+      String encodedMap = preferences.getString('cachMusic')?? encodedMap1;
+      Map<String,dynamic> decodedMap = json.decode(encodedMap);
+
+      return decodedMap;
+    }
   Future<void> setCachingGifts({required Map<String,dynamic> cachingGifts}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String encodedMap = json.encode(cachingGifts);
@@ -87,14 +104,14 @@ class Methods {
       ExistroomUC e = ExistroomUC(getIt());
       await e.call(ownerId);
       PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
-      pusher.unsubscribe(channelName: 'presence-room-${ownerId}');
+      pusher.unsubscribe(channelName: 'presence-room-$ownerId');
     }
 
     Future<void> checkIfInRoom({required String ownerId }) async{
       if(MainScreen.iskeepInRoom.value){
         MainScreen.iskeepInRoom.value =false ;
-        await  Methods().exitFromRoom( MainScreen.roomData?.ownerId ==null ?ownerId:
-        MainScreen.roomData!.ownerId.toString()) ;
+        await  Methods().exitFromRoom(MainScreen.roomData?.ownerId ==null ?ownerId:
+        MainScreen.roomData!.ownerId.toString());
       }
 
     }
@@ -109,7 +126,7 @@ class Methods {
             builder: (BuildContext context) {
               return AlertDialog(
                   title: Text(StringManager.enterPassword.tr()),
-                  content: EnterPasswordRoomScreen(
+                  content: EnterPasswordRoomDialog(
                     ownerId: ownerId,
                     myData: myData,
                   ));
@@ -183,12 +200,12 @@ class Methods {
     preferences.setString(StringManager.platform, platForm);
   }
 
-        Future<void> setDeviceToken({required String deviceToken}) async {
+  Future<void> setDeviceToken({required String deviceToken}) async {
           SharedPreferences preferences = await SharedPreferences.getInstance();
           preferences.setString(StringManager.deviceToken, deviceToken);
         }
 
-        Future<String> getDeviceToken() async {
+  Future<String> getDeviceToken() async {
           SharedPreferences preferences = await SharedPreferences.getInstance();
           String? data = preferences.getString(StringManager.deviceToken);
           if(data == null){
@@ -200,11 +217,7 @@ class Methods {
           }
         }
 
-  Future<void>  setCachingMusic({required Map<String,dynamic> cachingMusic}) async{
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String encodedMap = jsonEncode(cachingMusic);
-    preferences.setString("cachMusic", encodedMap);
-  }
+
 
 
   Future<String> getPlatform() async {
@@ -215,7 +228,7 @@ class Methods {
 
 
 
-        Future<void> cacheSvgaImage({required String svgaUrl,required  String imageId}) async {
+   Future<void> cacheSvgaImage({required String svgaUrl,required  String imageId}) async {
           final cacheManager = DefaultCacheManager();
 
           if(kDebugMode){
@@ -232,7 +245,7 @@ class Methods {
         }
 
         //cache extraf
-        Future<SvgaDataModel> getExtraData() async {
+    Future<SvgaDataModel> getExtraData() async {
           String token = await Methods().returnUserToken();
           Map<String, String> headers = {
             "Authorization": "Bearer $token",
@@ -472,24 +485,27 @@ class Methods {
           Map<String,dynamic> chachedMp4Gifts = await Methods().getCachingGifts() ;
 
 
-        //  PageViewGeftWidget.chachedGiftMp4 =chachedMp4Gifts;
+          PageViewGeftWidget.chachedGiftMp4 =chachedMp4Gifts;
 
 
 
           if(!chachedMp4Gifts.containsKey(giftId.toString())){
+            if(kDebugMode){
             log('downloading$giftId');
+            }
             await  Dio().download(ConstentApi().getImage(img), path);
+            if(kDebugMode){
             log('loaded$giftId');
-        //todo remove this comment
-           // PageViewGeftWidget.chachedGiftMp4.putIfAbsent(giftId.toString(), () => path) ;
+            }
+            PageViewGeftWidget.chachedGiftMp4.putIfAbsent(giftId.toString(), () => path) ;
             chachedMp4Gifts.putIfAbsent(giftId.toString(), () => path) ;
             if(kDebugMode) {
-             // log(PageViewGeftWidget.chachedGiftMp4.toString());
+              log(PageViewGeftWidget.chachedGiftMp4.toString());
             }
           }
 
 
-       //   await setCachingGifts(cachingGifts:PageViewGeftWidget.chachedGiftMp4) ;
+          await setCachingGifts(cachingGifts:PageViewGeftWidget.chachedGiftMp4) ;
           setLastTimeCache(TypesCache.gift);
         }
 

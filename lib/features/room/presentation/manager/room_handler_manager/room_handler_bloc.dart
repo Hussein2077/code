@@ -25,7 +25,7 @@ class RoomHandlerBloc extends Bloc<RoomHandlerEvents,RoomHandlerStates>{
         .call(EnterRoomPramiter(ownerId: event.ownerId, roomPassword:event.roomPassword,isVip: event.isVip));
 
     result.fold(
-            (l) => emit(EnterRoomSuccesMessageState( room: l )),
+            (l) => emit(EnterRoomSuccesMessageState(room: l )),
             (r) => emit(EnterRoomErrorMessageState(errorMessage: DioHelper().getTypeOfFailure(r)),
         ));
   }

@@ -6,42 +6,43 @@ import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_states.dart';
-
 import '../../../../../core/resource_manger/routs_manger.dart';
 
 
 
 
 class HandlerRoomScreen extends StatefulWidget {
-  const HandlerRoomScreen({ Key? key}) : super(key: key);
+  final RoomHandlerPramiter roomPramiter ;
+  const HandlerRoomScreen({required this.roomPramiter, Key? key}) : super(key: key);
 
   @override
-  _HandlerRoomScreenState createState() => _HandlerRoomScreenState();
+  HandlerRoomScreenState createState() => HandlerRoomScreenState();
 }
 
-class _HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTickerProviderStateMixin{
-
-
-
-
-
-
+class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTickerProviderStateMixin{
 
   @override
   void initState() {
+
+
+    BlocProvider.of<RoomHandlerBloc>(context)
+        .add(EnterRoomEvent(
+      isVip:widget.roomPramiter.myDataModel.vip1?.level??0,
+      ownerId: widget.roomPramiter.ownerRoomId,
+        roomPassword: widget.roomPramiter.passwordRoom),
+    );
     super.initState();
 
 
 
   }
 
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,7 @@ class _HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicke
         },
         listener: (context,state )async{
           if (state is EnterRoomSuccesMessageState){
+          await  Methods().checkIfInRoom(ownerId:state.room.ownerId.toString());
             if(state.room.remainingTime==null){
 
               if(MyDataModel.getInstance().isAanonymous??false){
@@ -98,8 +100,6 @@ class _HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicke
                   }
               );
             }
-
-
           }
           else if (state is EnterRoomErrorMessageState ){
             //show dialog here

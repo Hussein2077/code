@@ -14,8 +14,8 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_OnRoom/OnRoom_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_OnRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 
 
 // Project imports:
@@ -277,8 +277,9 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
       );
       return;
     }
-    if(ZegoInRoomMessageInput.activePobUp.value && (numPobUp == null?false:numPobUp>0)){
-      BlocProvider.of<OnRoomBloc>(context).add(SendPobUpEvent(ownerId: widget.roomData.ownerId.toString(),
+    if(ZegoInRoomMessageInput.activePobUp.value && numPobUp>0){
+      BlocProvider.of<OnRoomBloc>(context).add(
+          SendPobUpEvent(ownerId: widget.roomData.ownerId.toString(),
           message: textController.text)) ;
     }
 

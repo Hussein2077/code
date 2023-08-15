@@ -88,8 +88,18 @@ dependencies:
   flutter_social_textfield: ^0.1.2
   profanity_filter: ^2.0.0
   flutter_animate: ^2.2.0
+  simple_gradient_text: ^1.2.4
+  awesome_ripple_animation: ^0.6.0
+  draggable_float_widget: ^0.0.2
+  on_audio_query: any
+  text_scroll: ^0.2.0
+  share_plus: ^6.3.4
+  blurrycontainer: ^1.0.2
 
-  # snapkit: any
+
+
+
+
 
 
 

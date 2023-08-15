@@ -65,10 +65,10 @@ class UserInfoRow extends StatelessWidget {
                     Row(
                       children: [
                         MaleFemaleIcon(
-                          maleOrFeamle: userData.profile!.gender!,
+                          maleOrFeamle: userData.profile!.gender, age: userData.profile!.gender,
                         ),
                         UserCountryIcon(country: userData.profile!.country),
-                        LevelConriner(
+                        LevelContainer(
                           image: userData.level!.senderImage!,
                         ),
                         AristocracyLevel(

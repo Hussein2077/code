@@ -1,6 +1,8 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -12,6 +14,7 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/core/widgets/update_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/continer_with_icons.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_event.dart';
@@ -34,6 +37,23 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController passwordController;
   @override
   void initState() {
+    if((widget.isUpdate??false)){
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+            barrierDismissible:widget.isForceUpdate??false,
+            context: context,
+            builder: (BuildContext context) {
+              return WillPopScope(child:Material(
+                  color: Colors.transparent,
+                  child: UpdateScreen(isForceUpdate: (widget.isForceUpdate??false),)),
+                  onWillPop: () async {
+                    SystemNavigator.pop();
+                    return false;
+                  });
+            });
+
+      });
+    }
     passwordController = TextEditingController();
     super.initState();
   }

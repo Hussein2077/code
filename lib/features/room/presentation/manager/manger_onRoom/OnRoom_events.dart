@@ -12,14 +12,10 @@ class InitEvent extends OnRoomEvents{
 
 }
 
-class emitShowEmojieSuccessEvent extends OnRoomEvents{
-  @override
-  List<Object?> get props => [];
 
-}
 class GetAllRoomUserEvents extends OnRoomEvents {
   final String ownerId;
-  GetAllRoomUserEvents({required this.ownerId});
+  const GetAllRoomUserEvents({required this.ownerId});
 
   @override
   List<Object?> get props => [ownerId];
@@ -34,13 +30,13 @@ class GetBackGroundEvent extends OnRoomEvents {
 class ExitRoomEvent extends OnRoomEvents {
   final String ownerId;
 
-  ExitRoomEvent({required this.ownerId});
+  const ExitRoomEvent({required this.ownerId});
 
   @override
   List<Object?> get props => [ownerId];
 }
 class UpdateRoom extends OnRoomEvents{
-  final int roomId;
+  final String  roomId;
   final String? roomName;
   final String? freeMic;
   final File? roomCover;
@@ -51,7 +47,7 @@ class UpdateRoom extends OnRoomEvents{
   final String? roomClass;
   final String? change;
 
-  UpdateRoom(
+  const UpdateRoom(
       {required this.roomId,
         this.roomName,
         this.freeMic,
@@ -63,7 +59,7 @@ class UpdateRoom extends OnRoomEvents{
         this.roomClass,
         this.change , 
       });
-
+@override
   List<Object?> get props => [
     roomId,
     roomName,
@@ -83,29 +79,19 @@ class EmojieEvent extends OnRoomEvents {
   List<Object?> get props => [];
 }
 class GiftesEvent extends OnRoomEvents {
-  int type ;
+  final int type ;
 
-  GiftesEvent({required this.type});
+  const GiftesEvent({required this.type});
 
   @override
   List<Object?> get props => [type];
 }
 
-class ShowEmojieEvent extends OnRoomEvents {
-  String id;
-  String roomId ;
-  String userId ;
-  String toZego ;
-  ShowEmojieEvent({required this.toZego , required this.id,required this.userId,required this.roomId});
 
-  @override
-  List<Object?> get props => [id,roomId,userId];
-
-}
 class RemovePassRoomEvent extends OnRoomEvents {
-  String ownerId ;
+ final String ownerId ;
 
-  RemovePassRoomEvent({required  this.ownerId});
+ const RemovePassRoomEvent({required  this.ownerId});
 
   @override
   List<Object?> get props => [ownerId];
@@ -116,7 +102,7 @@ class UpMicEvent extends OnRoomEvents {
   final String userId ;
   final String position ;
 
-  UpMicEvent({required this.ownerId, required this.userId, required this.position});
+ const UpMicEvent({required this.ownerId, required this.userId, required this.position});
 
   @override
   List<Object?> get props =>[ownerId,userId,position];
@@ -127,7 +113,7 @@ class LeaveMicEvent extends OnRoomEvents {
   final String userId ;
 
 
-  LeaveMicEvent({required this.ownerId, required this.userId});
+const  LeaveMicEvent({required this.ownerId, required this.userId});
 
   @override
   List<Object?> get props =>[ownerId,userId];
@@ -137,7 +123,7 @@ class MuteMicEvent extends OnRoomEvents {
   final String ownerId;
   final String position ;
 
-  MuteMicEvent({required this.ownerId, required this.position});
+const  MuteMicEvent({required this.ownerId, required this.position});
 
   @override
   List<Object?> get props =>[ownerId,position];
@@ -147,7 +133,7 @@ class UnMuteMicEvent extends OnRoomEvents {
   final String ownerId;
   final String position ;
 
-  UnMuteMicEvent({required this.ownerId, required this.position});
+ const UnMuteMicEvent({required this.ownerId, required this.position});
 
   @override
   List<Object?> get props =>[ownerId,position];
@@ -156,7 +142,7 @@ class LockMicEvent extends OnRoomEvents {
   final String ownerId;
   final String position ;
 
-  LockMicEvent({required this.ownerId, required this.position});
+const LockMicEvent({required this.ownerId, required this.position});
 
   @override
   List<Object?> get props =>[ownerId,position];
@@ -166,7 +152,7 @@ class UnLockMicEvent extends OnRoomEvents {
   final String ownerId;
   final String position ;
 
-  UnLockMicEvent({required this.ownerId, required this.position});
+  const UnLockMicEvent({required this.ownerId, required this.position});
 
   @override
   List<Object?> get props =>[ownerId,position];
@@ -176,7 +162,7 @@ class ChangeModeRoomEvent extends OnRoomEvents {
   final String ownerId;
   final String roomMode ;
 
-  ChangeModeRoomEvent({required this.ownerId, required this.roomMode});
+ const ChangeModeRoomEvent({required this.ownerId, required this.roomMode});
 
   @override
   List<Object?> get props =>[ownerId,roomMode];
@@ -186,7 +172,7 @@ class RemoveChatRoomEvent extends OnRoomEvents {
   final String ownerId;
 
 
-  RemoveChatRoomEvent({required this.ownerId});
+ const RemoveChatRoomEvent({required this.ownerId});
 
   @override
   List<Object?> get props =>[ownerId];
@@ -197,7 +183,7 @@ class BanUserFromWritingEvent extends OnRoomEvents{
   final String? time ;
   final String type ; 
 
-  BanUserFromWritingEvent({required this.type ,  required this.ownerId,  this.userId, this.time});
+ const BanUserFromWritingEvent({required this.type ,  required this.ownerId,  this.userId, this.time});
 
   @override
   List<Object?> get props => [ownerId,userId,time,type];
@@ -208,7 +194,7 @@ class  SendPobUpEvent extends OnRoomEvents{
 
   final String ownerId ;
   final String message ;
-  SendPobUpEvent({required this.ownerId, required this.message});
+ const SendPobUpEvent({required this.ownerId, required this.message});
 
   @override
   List<Object?> get props => [ownerId,message];

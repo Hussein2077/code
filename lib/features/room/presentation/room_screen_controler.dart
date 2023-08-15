@@ -1,28 +1,53 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:awesome_ripple_animation/awesome_ripple_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
+import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
+import 'package:tik_chat_v2/core/widgets/cilcular_asset_image.dart';
+import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
+import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/show_svga.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/lucky_box.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/error_luck_widget.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/pk/pk_widget.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/view_music/dialog_widget.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/view_music/view_music_screen.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/widgets/ban_from_writing_dilog.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/widgets/diloge_bubel_vip.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/widgets/invitation_to_mic.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_states.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_events.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/message_defines.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 
 import '../../../core/utils/config_size.dart';
 
@@ -59,75 +84,75 @@ class LuckyBoxData {
 const String messageContent = "messageContent";
 const String message = "message";
 const String changeBackground = "changeBackground";
-const String img_background = "imgbackground";
-const String room_Img = "roomImg";
-const String room_Intro = "roomIntro";
-const String room_name = "room_name";
+const String imgBackgroundKey = "imgbackground";
+const String roomImgKey = "roomImg";
+const String roomIntroKey = "roomIntro";
+const String roomNameKey = "room_name";
 const String userEntro = "userEntro";
-const String entro_Img_Id = "entroImgId";
+const String entroImgIdKey = "entroImgId";
 const String userName = "userName";
 const String userImge = "userImge";
-const String show_Banner = "showBanner";
-const String send_Id = "send_id";
-const String receiver_Id = "receiver_id";
-const String gift_Img = "giftImg";
+const String showBannerKey = "showBanner";
+const String sendIdKey = "send_id";
+const String receiverIdKey = "receiver_id";
+const String giftImgKey = "giftImg";
 const String isPassword = "is_password";
 const String ownerId = "owner_id";
 const String showEmojie = "showEmojie";
 const String idUser = "id_user";
 const String id = "id";
 const String showGifts = "showGifts";
-const String show_Gift = "showGift";
+const String showGiftKey = "showGift";
 const String isExpensive = "isExpensive";
 const String plural = "plural";
 const String numGift = "num_gift";
-const String room_Gifts_Price = "gift_price";
-const String kic_kout = "kickout";
+const String roomGiftsPriceKey = "gift_price";
+const String kicKoutKey = "kickout";
 const String duration = "duration";
-const String show_pk = "showPK";
-const String hide_pk = "hidePK";
-const String start_pk = "startPK";
-const String update_pk = "updatePk";
-const String close_pk = "closePk";
-const String leave_mic = "leaveMic";
-const String up_mic = "upMic";
-const String time_pk = "PkTime";
-const String mute_mic = "muteMic";
-const String unMute_mic = "unmuteMic";
-const String lock_mic = "lockMic";
-const String unLock_mic = "unLockMic";
-const String top_user = "topSendGifts";
-const String room_Mode = "roomMode";
+const String showPkKey = "showPK";
+const String hidePkKey = "hidePK";
+const String startPkKey = "startPK";
+const String updatePkKey = "updatePk";
+const String closePkKey = "closePk";
+const String leaveMicKey = "leaveMic";
+const String upMicKey = "upMic";
+const String timePkKey = "PkTime";
+const String muteMicKey = "muteMic";
+const String unMuteMicKey = "unmuteMic";
+const String lockMicKey = "lockMic";
+const String unLockMicKey = "unLockMic";
+const String topUserKey = "topSendGifts";
+const String roomModeKey = "roomMode";
 const String loseImg = "https://yai.rstar-soft.com/public/storage/";
 const String winImg = "https://yai.rstar-soft.com/public/storage/";
-const String update_Admins = "updateAdmins";
-const String remove_chat = "removeChat";
-const String show_luckyBox = "showluckybox";
-const String hide_luckyBox = "hideluckybox";
-const String banner_super_box = 'bannerSuperBox';
-const String owner_room_Id = "ownerRoomId";
-const String box_id = "boxId";
-const String box_type = "boxType";
-const String box_coins = "boxCoins";
-const String owner_box_name = "ownerBoxName";
-const String owner_box_id = "ownerBoxId";
+const String updateAdminsKey = "updateAdmins";
+const String removeChatKey = "removeChat";
+const String showLuckyBoxKey = "showluckybox";
+const String hideLuckyBoxKey = "hideluckybox";
+const String bannerSuperBoxKey = 'bannerSuperBox';
+const String ownerRoomIdKey = "ownerRoomId";
+const String boxIDKey = "boxId";
+const String boxTypeKey = "boxType";
+const String boxCoinsKey = "boxCoins";
+const String ownerBoxNameKey = "ownerBoxName";
+const String ownerBoxIdKey = "ownerBoxId";
 const String cacheFrameKey = 'Frame';
 const String cacheEmojieKey = 'Emojie';
 const String cacheEntroKey = 'Entro';
 const String cachExtraKey = 'Extra';
 const String cachExtraLevelKey = 'ExtraLevel';
-const String show_pobUp = "PobUp";
-const String ban_from_writing = "banFromWriting";
-const String unban_from_writing = "removeBanFromWriting";
-const String ban_divice = "banDevice";
-const String invite_to_seat ="inviteToSeat";
-const String mute_user='muteUser';
+const String showPobUpKey = "PobUp";
+const String banFromWritingKey = "banFromWriting";
+const String unbanFromWritingKey = "removeBanFromWriting";
+const String banDiviceKey = "banDevice";
+const String inviteToSeatKey ="inviteToSeat";
+const String muteUserKey='muteUser';
 const String mute = 'mute';
 
-const String AppSign =
+const String appSign =
     "21b5388b3a703f485e46fa3102c1b83ced85fae4c8a3ca4337ad2c020feef566";
 
-const int AppID = 1992574259;
+const int appID = 1992574259;
 
 class GiftData {
   final String giftId;
@@ -206,11 +231,16 @@ try{
   UserDataModel ownerDataModel =
   await RemotlyDataSourceProfile().getUserData(userId: userId);
   RoomScreen.usersInRoom.putIfAbsent(userId, () {
-    log("i will get user ${userId} ");
+    if(kDebugMode){
+      log("i will get user $userId ");
+    }
     return ownerDataModel;
   });
 }on DioError catch(e){
-  log(e.toString()) ;
+  if(kDebugMode){
+    log(e.toString()) ;
+  }
+
 }
 
 }
@@ -349,8 +379,9 @@ void chooseSeatToInvatation(LayoutMode layoutMode,BuildContext context ,String o
     }else{
       for(int i=1 ; i<9;i++){
         if(RoomScreen.userOnMics.value.containsKey(i) ||
-            RoomScreen.listOfLoskSeats.value.containsKey(i))
+            RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue ;
+        }
 
         BlocProvider.of<UsersInRoomBloc>(context)
             .add(InviteUserInRoom(ownerId: ownerId,
@@ -384,8 +415,9 @@ void chooseSeatToInvatation(LayoutMode layoutMode,BuildContext context ,String o
     }else{
       for(int i=0 ; i<12;i++){
         if(RoomScreen.userOnMics.value.containsKey(i)||
-            RoomScreen.listOfLoskSeats.value.containsKey(i))
+            RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue ;
+        }
 
         BlocProvider.of<UsersInRoomBloc>(context)
             .add(InviteUserInRoom(ownerId: ownerId,
@@ -448,19 +480,16 @@ Widget showLuckyBannerBodyWidget(
       gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF4EF54E),
-            Color(0xFF00FFB9),
-          ]),
+          colors: ColorManager.mainColorList),
       borderRadius: BorderRadius.circular(AppPadding.p22),
     ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CustomAvtare(
-            image: ConstentApi().getImage(sendDataUser.profile!.image),
-            size: AppPadding.p30),
+        UserImage(image: ConstentApi().getImage(sendDataUser.profile!.image),
+        imageSize: AppPadding.p30 ,
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -484,24 +513,18 @@ Widget showLuckyBannerBodyWidget(
                           )),
                     overflow: TextOverflow.ellipsis),
                 if(sendDataUser.level!.receiverImage! != '')
-                  HostLevelContainer(
-                    height: ConfigSize.defaultSize! * 2.2,
-                    width: ConfigSize.defaultSize! * 4.1,
+                  LevelContainer(
                   image: ConstentApi()
                       .getImage(sendDataUser.level!.receiverImage!),
                 ),
                 if(sendDataUser.level!.senderImage! != '')
-                  UserLevelContainer(
-                    height: ConfigSize.defaultSize! * 2.2,
-                    width: ConfigSize.defaultSize! * 4.1,
+                  LevelContainer(
                   image:
                       ConstentApi().getImage(sendDataUser.level!.senderImage!),
                 ),
                 if (sendDataUser.vip1 != null)
-                  VipContainer(
-                    vip: sendDataUser.vip1!.level!,
-                    width: ConfigSize.defaultSize! * 2.5,
-                    hight: ConfigSize.defaultSize! * 2,
+                  AristocracyLevel(
+                   level: sendDataUser.vip1!.level!,
                   )
               ],
             ),
@@ -516,7 +539,7 @@ Widget showLuckyBannerBodyWidget(
                 ),
                 SizedBox(
                   width: ConfigSize.defaultSize! * 5.8,
-                  child: Text("${coins}",
+                  child: Text(coins,
                       style: TextStyle(
                           fontSize: AppPadding.p12,
                           fontWeight: FontWeight.w600,
@@ -537,13 +560,14 @@ Widget showLuckyBannerBodyWidget(
             )
           ],
         ),
-        CustomAvtareAsset(image: AssetsPath.luckybox2, size: AppPadding.p36)
+
+        CilcularAssetImage(image: AssetsPath.luckybox2, size: AppPadding.p36)
       ],
     ),
   );
 }
 
-InvitationDialog(BuildContext context, String owerId,int index) {
+invitationDialog(BuildContext context, String owerId,int index) {
   return showDialog<String>(
     context: context,
     builder: (BuildContext context) =>  InvitationToMicDialog(
@@ -555,7 +579,7 @@ InvitationDialog(BuildContext context, String owerId,int index) {
   );
 }
 
-ShowInFormationDilog(BuildContext context) {
+showInFormationDilog(BuildContext context) {
   return showDialog<String>(
     context: context,
     builder: (BuildContext context) => BanFromWritingDilog(
@@ -588,10 +612,7 @@ Widget luckyBox(
                                gradient: const LinearGradient(
                                begin: Alignment.topCenter,
                                end: Alignment.bottomCenter,
-                               colors: [
-                               Color(0xFF4EF54E),
-                      Color(0xFF00FFB9),
-                      ]),
+                               colors:ColorManager.mainColorList),
                       borderRadius: BorderRadius.circular(AppPadding.p20)
 
                       ),
@@ -654,7 +675,7 @@ Widget luckyBox(
       listener: (context, state) {});
 }
 
-Widget TeamRed() {
+Widget teamRed() {
   return Padding(
     padding: EdgeInsets.only(top: 20.h, left: 10.w),
     child: Container(
@@ -669,7 +690,7 @@ Widget TeamRed() {
   );
 }
 
-Widget TeamBlue() {
+Widget teamBlue() {
   return Padding(
       padding: EdgeInsets.only(top: 25.h, right: 0.w, left: 25.w, bottom: 15.h),
       child: Container(
@@ -683,7 +704,7 @@ Widget TeamBlue() {
       ));
 }
 
-Widget NoneUserOnSeat({required Map<dynamic, dynamic> extraInfo}) {
+Widget noneUserOnSeat({required Map<dynamic, dynamic> extraInfo}) {
   return Container(
     padding: EdgeInsets.only(
         top: ConfigSize.defaultSize! * 8.5,
@@ -711,7 +732,7 @@ Widget userForgroundCach({ZegoUIKitUser? user}) {
   return Stack(children: [
     if (user!.inRoomAttributes.value['frm'].toString() != "0")
       ShowSVGA(
-        imageId: '${user.inRoomAttributes.value['frm']}${cacheFrameKey}',
+        imageId: '${user.inRoomAttributes.value['frm']}$cacheFrameKey',
         url: user.inRoomAttributes.value['f2'] ?? "",
       ),
 
@@ -722,7 +743,7 @@ Widget userForgroundCach({ZegoUIKitUser? user}) {
             if(RoomScreen.listOfEmojie.value.containsKey(user.id)){
               return ShowSVGA(
                 imageId:
-                '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}${cacheEmojieKey}',
+                '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}$cacheEmojieKey',
                 url: RoomScreen.listOfEmojie.value[user.id]!.emojie,
               );
             }else{
@@ -753,16 +774,7 @@ Widget userForgroundCach({ZegoUIKitUser? user}) {
           ),
           textAlign: TextAlign.center,
         ),
-        /* Text(
-              user.name,
-              style: TextStyle(
-                  fontSize: AppPadding.p10,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  fontStyle: FontStyle.italic,
-                  overflow: TextOverflow.ellipsis),
-              textAlign: TextAlign.center,
-            ),*/
+
       ),
     )
   ]);
@@ -773,7 +785,7 @@ Widget userForgroundCachParty({ZegoUIKitUser? user}) {
   return Stack(children: [
     if (user!.inRoomAttributes.value['frm'].toString() != "0")
       ShowSVGA(
-        imageId: '${user.inRoomAttributes.value['frm']}${cacheFrameKey}',
+        imageId: '${user.inRoomAttributes.value['frm']}$cacheFrameKey',
         url: user.inRoomAttributes.value['f2'] ?? "",
       ),
     //todo use bloc
@@ -783,7 +795,7 @@ Widget userForgroundCachParty({ZegoUIKitUser? user}) {
           if(mapEmoji.containsKey(user.id)){
             return ShowSVGA(
               imageId:
-              '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}${cacheEmojieKey}',
+              '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}$cacheEmojieKey',
               url: RoomScreen.listOfEmojie.value[user.id]!.emojie,
             ) ;
           }else{
@@ -818,7 +830,7 @@ Widget userForgroundCachParty({ZegoUIKitUser? user}) {
   ]);
 }
 
-Widget NoneUserOnSeatParty({required Map<dynamic, dynamic> extraInfo}) {
+Widget noneUserOnSeatParty({required Map<dynamic, dynamic> extraInfo}) {
   return Container(
     padding: EdgeInsets.only(
         top: ConfigSize.defaultSize! * 8, left: ConfigSize.defaultSize! * 3.8),
@@ -834,7 +846,7 @@ Widget userForgroundCachMidParty({ZegoUIKitUser? user}) {
   return Stack(children: [
     if (user!.inRoomAttributes.value['frm'].toString() != "0")
       ShowSVGA(
-        imageId: '${user.inRoomAttributes.value['frm']}${cacheFrameKey}',
+        imageId: '${user.inRoomAttributes.value['frm']}$cacheFrameKey',
         url: user.inRoomAttributes.value['f2'] ?? "",
       ),
     ValueListenableBuilder<Map<String,EmojieData>>(
@@ -843,7 +855,7 @@ Widget userForgroundCachMidParty({ZegoUIKitUser? user}) {
           if(mapEmoji.containsKey(user.id)){
             return ShowSVGA(
               imageId:
-              '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}${cacheEmojieKey}',
+              '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}$cacheEmojieKey',
               url: RoomScreen.listOfEmojie.value[user.id]!.emojie,
             ) ;
           }else{
@@ -878,7 +890,7 @@ Widget userForgroundCachMidParty({ZegoUIKitUser? user}) {
   ]);
 }
 
-Widget NoneUserOnSeatMidParty({required Map<dynamic, dynamic> extraInfo}) {
+Widget noneUserOnSeatMidParty({required Map<dynamic, dynamic> extraInfo}) {
   return Container(
     padding: EdgeInsets.only(
         top: ConfigSize.defaultSize! * 8, left: ConfigSize.defaultSize! * 3.8),
@@ -890,7 +902,7 @@ Widget NoneUserOnSeatMidParty({required Map<dynamic, dynamic> extraInfo}) {
   );
 }
 
-Widget MessagesChached(
+Widget messagesChached(
     {required ZegoInRoomMessage message,
     required String vip,
     required String sender,
@@ -907,20 +919,20 @@ Widget MessagesChached(
 
   for (String word in words) {
     if (word.startsWith("@")) {
-      spans.add(TextSpan(text: word + " ", style: TextStyle(color: Colors.yellow)));
+      spans.add(TextSpan(text: "$word ", style:const TextStyle(color: Colors.yellow)));
     } else {
-      spans.add(TextSpan(text: word + " ", style: TextStyle(color: Colors.white)));
+      spans.add(TextSpan(text: "$word ", style:const TextStyle(color: Colors.white)));
     }
   }
   return InkWell(
     onTap: () {
-      dialogRoom(
-          context: context,
-          widget: MessagesProfileDialog(
-            myData: myDataModel,
-            userId: message.user.id.toString(),
-            roomData: room, layoutMode: layoutMode,
-          ));
+      // dialogRoom(
+      //     context: context,
+      //     widget: MessagesProfileDialog(
+      //       myData: myDataModel,
+      //       userId: message.user.id.toString(),
+      //       roomData: room, layoutMode: layoutMode,
+      //     ));
     },
     child: Padding(
       padding: EdgeInsets.symmetric(
@@ -932,9 +944,7 @@ Widget MessagesChached(
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2),
-                child: CachedNetworkImgeCircular(
-                    hight: AppPadding.p36,
-                    width: AppPadding.p36,
+                child: UserImage(
                     image: message.user.inRoomAttributes.value['img'] ??
                         RoomScreen.usersMessagesInRoom[message.user.id]?.profile
                             ?.image ??
@@ -969,21 +979,9 @@ Widget MessagesChached(
                               height: 20,
                               child: Image.asset(AssetsPath.hostMark))
                           : const SizedBox(),
-                      (vip == "" &&
-                              RoomScreen.usersMessagesInRoom[message.user.id]
-                                      ?.vip1?.level ==
-                                  null)
-                          ? const SizedBox()
-                          : VipContainer(
-                              width: ConfigSize.defaultSize! * 3,
-                              hight: ConfigSize.defaultSize! * 1.5,
-                              vip: vip == ""
-                                  ? RoomScreen
-                                          .usersMessagesInRoom[message.user.id]
-                                          ?.vip1
-                                          ?.level ??
-                                      0
-                                  : int.parse(vip),
+
+                           AristocracyLevel(
+                            level: vip == ""? RoomScreen.usersMessagesInRoom[message.user.id]?.vip1?.level ??0 :0
                             ),
                       const SizedBox(
                         width: 1,
@@ -992,9 +990,7 @@ Widget MessagesChached(
                           .usersMessagesInRoom[message.user.id]
                           ?.level
                           ?.senderImage??'') != '' )
-                        UserLevelContainer(
-                          height: ConfigSize.defaultSize! * 2.2,
-                          width: ConfigSize.defaultSize! * 4.1,
+                        LevelContainer(
                         image: sender == ""
                             ? ConstentApi().getImage(RoomScreen
                                     .usersMessagesInRoom[message.user.id]
@@ -1010,9 +1006,7 @@ Widget MessagesChached(
                           .usersMessagesInRoom[message.user.id]
                       ?.level
                       ?.receiverImage??'') != '' )
-                      HostLevelContainer(
-                        height: ConfigSize.defaultSize! * 2.2,
-                        width: ConfigSize.defaultSize! * 4.1,
+                     LevelContainer(
                         image: receiver == ""
                             ? ConstentApi().getImage(RoomScreen
                                     .usersMessagesInRoom[message.user.id]
@@ -1037,7 +1031,7 @@ Widget MessagesChached(
                   child: Container(
                     // width: ConfigSize.defaultSize!*33,
                     decoration: BoxDecoration(
-                        color: ColorManager.grayColor2.withOpacity(0.2)),
+                        color: ColorManager.lightGray.withOpacity(0.2)),
 
                     padding:
                         const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
@@ -1090,7 +1084,7 @@ Widget MessagesChached(
 
 }
 
-Widget GiftBannerWidget(
+Widget giftBannerWidget(
     {required UserDataModel sendDataUser,
     required UserDataModel receiverDataUser,
     required String giftImage,
@@ -1120,7 +1114,7 @@ Widget GiftBannerWidget(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomAvtare(image: sendDataUser.profile!.image, size: AppPadding.p26),
+        UserImage(image: sendDataUser.profile!.image!, imageSize: AppPadding.p26),
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -1148,26 +1142,20 @@ Widget GiftBannerWidget(
                 ),
                 if(sendDataUser.level!.receiverImage! != '')
 
-                  HostLevelContainer(
-                    height: ConfigSize.defaultSize! * 2.2,
-                    width: ConfigSize.defaultSize! * 4.1,
+                  LevelContainer(
                   image: ConstentApi()
                       .getImage(sendDataUser.level!.receiverImage!),
                 ),
                 if(sendDataUser.level!.senderImage! != '')
 
-                  UserLevelContainer(
-                    height: ConfigSize.defaultSize! * 2.2,
-                    width: ConfigSize.defaultSize! * 4.1,
+                  LevelContainer(
                   image:
                       ConstentApi().getImage(sendDataUser.level!.senderImage!),
                 ),
 
                 if (sendDataUser.vip1 != null)
-                  VipContainer(
-                    vip: sendDataUser.vip1!.level!,
-                    width: ConfigSize.defaultSize! * 2.2,
-                    hight: ConfigSize.defaultSize! * 1,
+                  AristocracyLevel(
+                    level: sendDataUser.vip1!.level!,
                   )
               ],
             ),
@@ -1186,8 +1174,8 @@ Widget GiftBannerWidget(
                   width: ConfigSize.defaultSize! * 10,
                   child: Text(
                       isPlural
-                          ? "ألي الغرفة${roomIntro}"
-                          : "${receiverDataUser.name!}",
+                          ? "ألي الغرفة$roomIntro"
+                          : receiverDataUser.name!,
                       style: TextStyle(
                           fontSize: AppPadding.p12,
                           fontWeight: FontWeight.w600,
@@ -1208,8 +1196,8 @@ Widget GiftBannerWidget(
             )
           ],
         ),
-        CustomAvtare(
-            image: receiverDataUser.profile!.image, size: AppPadding.p26),
+        UserImage(
+            image: receiverDataUser.profile!.image!, imageSize: AppPadding.p26),
       ],
     ),
   )
@@ -1217,7 +1205,7 @@ Widget GiftBannerWidget(
   ;
 }
 
-Widget PopUpWidget(
+Widget popUpWidget(
     {required UserDataModel ownerDataModel,
     required EnterRoomModel enterRoomModel,
     required int vip,
@@ -1226,7 +1214,7 @@ Widget PopUpWidget(
     roomData: enterRoomModel,
     message: massage,
     vip: vip,
-    user_data: ownerDataModel,
+    userData: ownerDataModel,
   );
 }
 
@@ -1282,19 +1270,19 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
               alignment: Alignment.center,
               children: [
                 InkWell(
-                  onTap: () => dailogRoom(
+                  onTap: () => dialogRoom(
                     context: context,
-                    widget: TopProfileDialog(
-                      myData: myDataModel,
-                      roomData: room,
-                      userId: topUser.id.toString(),
-                      layoutMode: layoutMode,
-                    ),
+                    widget: const SizedBox()
+                    // TopProfileDialog(
+                    //   myData: myDataModel,
+                    //   roomData: room,
+                    //   userId: topUser.id.toString(),
+                    //   layoutMode: layoutMode,
+                    // ),
                   ),
-                  child: CustomAvtare(
-                    image: topUser!.profile!.image,
-                    size: ConfigSize.defaultSize! * 4,
-                    border: 1,
+                  child: UserImage(
+                    image: topUser!.profile!.image!,
+                    imageSize: ConfigSize.defaultSize! * 4,
                   ),
                 ),
                 topUser.frame == ""
@@ -1307,7 +1295,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                             width: ConfigSize.defaultSize! * 6,
                             height: ConfigSize.defaultSize! * 6,
                             child: ShowSVGA(
-                              imageId: '${topUser.frameId}${cacheFrameKey}',
+                              imageId: '${topUser.frameId}$cacheFrameKey',
                               url: topUser.frame ?? '',
                             )),
                       ),
@@ -1335,14 +1323,6 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                           fontSize: 20.sp,
                           color: Colors.white),
                     )),
-                /*Text(
-                              topUser!.name!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.sp,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),*/
               ),
             )
         ],
@@ -1360,7 +1340,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                     
                 
                         // ignore: use_build_context_synchronously
-                        Navigator.pushNamed(context, Routes.myfamily,
+                        Navigator.pushNamed(context, Routes.familyProfile,
                             arguments:room.roomFamily!.id);
                       },
                       child: Container(
@@ -1405,15 +1385,14 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                borderTopContainTopBar: true,
                borderBottom: 30,
              ),
-             onTap: () async {
+             onTap: ()  {
                //  int totalDuration = await RoomScreen.zegoMediaPlayer!.getTotalDuration();
-               int totalDuration = await ZegoUIKit().getMediaTotalDuration();
-               log(totalDuration.toString());
+               int totalDuration =  ZegoUIKit().getMediaTotalDuration();
                showDialog(
                    context: context,
                    builder: (context) {
                      return Dialog(
-                         backgroundColor: ColorManager.giftback,
+                         backgroundColor: ColorManager.mainColor,
                          child: MusicDialog(
                            refreshRoom: refrashRoom,
                            ownerId: room.ownerId.toString(),
@@ -1427,7 +1406,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                    borderRadius: BorderRadius.circular(30),
                    child: RippleAnimation(
                        repeat: true,
-                       color: ColorManager.secondColor,
+                       color: ColorManager.mainColor,
                        minRadius: 30,
                        ripplesCount: 6,
                        child: RotationTransition(
@@ -1447,7 +1426,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                    onTap: destroyMusic,
                    child: Container(
                        decoration: BoxDecoration(
-                           color: ColorManager.giftback.withOpacity(0.5),
+                           color: ColorManager.mainColor.withOpacity(0.5),
                            borderRadius: BorderRadius.circular(20)),
                        padding: const EdgeInsets.all(4),
                        child: Icon(
@@ -1466,7 +1445,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
  }) ;
 }
 
- ShowBanFromWritingDilog(BuildContext context) {
+ showBanFromWritingDilog(BuildContext context) {
   return showDialog<String>(
     context: context,
     builder: (BuildContext context) =>
@@ -1475,15 +1454,6 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
           greenText: StringManager.ok,
           headerText:StringManager.youBanFromWriting,
         ),
-        /*AlertDialog(
-      title: Text(StringManager.youBanFromWriting.tr()),
-      content: Text(StringManager.youBanFromWriting.tr()),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(StringManager.ok.tr()),
-        ),
-      ],
-    ),*/
+
   );
 }

@@ -140,7 +140,7 @@ class UserDataModel {
       uuid:uuid,
       profile: ProfileRoomModel(
         image:profile?.image??'',
-        gender: profile?.gender??'male',
+        gender: profile?.gender??1,
         age: profile?.age??0,
         country: profile?.country
 

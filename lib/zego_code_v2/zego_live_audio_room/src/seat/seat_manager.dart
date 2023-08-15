@@ -6,8 +6,9 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_OnRoom/OnRoom_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_OnRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/view_music/view_music_screen.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 
 
 
@@ -1108,11 +1109,11 @@ class ZegoLiveSeatManager {
     BlocProvider.of<OnRoomBloc>(contextQuery()).add(LeaveMicEvent(
         ownerId: ownerId,
         userId:localUserID));
-    //TODO remove this comment
-     // if(MusicScreen.isPlaying.value){
-     //   ZegoUIKit().stopMedia();
-     //   MusicScreen.isPlaying.value= false ;
-     // }
+
+     if(MusicScreen.isPlaying.value){
+       ZegoUIKit().stopMedia();
+       MusicScreen.isPlaying.value= false ;
+     }
     return true;
   }
 

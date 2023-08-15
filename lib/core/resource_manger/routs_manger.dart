@@ -50,6 +50,8 @@ import 'package:tik_chat_v2/features/profile/persentation/component/vip/vip_scre
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/room_handler/handler_room_screen.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/view_music/music_list.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
 
@@ -61,6 +63,7 @@ class Routes {
   static const String otp = "/Otp";
   static const String addInfo = "/AddInfo";
   static const String mainScreen = "/MainScreen";
+  static const String music = "/music";
 
   static const String topUsersScreen = "/TopUsersScreen";
   static const String userProfile = "/UserProfile";
@@ -91,7 +94,7 @@ class Routes {
   static const String createLive = "/CreateLive";
   static const String uploadReels = "/UploadReels";
   static const String signUp = "/SignUp";
-
+  static const String musicList = "/musicList";
   static const String deleteFamily = "/DeleteFamily";
 
   static const String instructionsScreen = "/instructionsScreen";
@@ -197,9 +200,10 @@ class RouteGenerator {
                   type: type,
                 ));
       case Routes.roomHandler:
+        RoomHandlerPramiter roomHandlerPramiter = settings.arguments as RoomHandlerPramiter;
         return MaterialPageRoute(
-            builder: (_) => const SafeArea(
-                child: HandlerRoomScreen()));
+            builder: (_) =>  SafeArea(
+                child: HandlerRoomScreen(roomPramiter: roomHandlerPramiter,)));
       case Routes.roomScreen:
         RoomPramiter roomPramiter = settings.arguments as RoomPramiter;
         return MaterialPageRoute(
@@ -322,6 +326,21 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ReportsScreen());
       case Routes.charchingCoinsForUsers:
         return MaterialPageRoute(builder: (_) => CharchingCoinsForUsers());
+      case Routes.musicList:
+        MusicPramiter pramiter = settings.arguments as MusicPramiter;
+        return MaterialPageRoute(
+            builder: (_) => SafeArea(
+                child: MusicListWidget(
+                    ownerId: pramiter.ownerId,
+                    refreshMusicScreen: pramiter.refresh)));
+      case Routes.music:
+        MusicPramiter pramiter = settings.arguments as MusicPramiter;
+        return MaterialPageRoute(
+            builder: (_) => SafeArea(
+                child: MusicScreen(
+                  ownerId: pramiter.ownerId,
+                  refrashRoom: pramiter.refresh,
+                )));
 
       case Routes.charchingDolarsForUsers:
         return MaterialPageRoute(builder: (_) => CharchingDolarsForUsers());
@@ -390,4 +409,18 @@ class RoomPramiter {
 
   const RoomPramiter(
       {required this.roomModel, required this.myDataModel, required this.isHost});
+}
+class RoomHandlerPramiter {
+  final String ownerRoomId ;
+  final String passwordRoom ;
+  final MyDataModel myDataModel ;
+
+  RoomHandlerPramiter({required this.ownerRoomId, this.passwordRoom='',required this.myDataModel});
+}
+
+class MusicPramiter {
+  final void Function() refresh;
+  final String ownerId;
+
+ const  MusicPramiter({required this.refresh, required this.ownerId});
 }

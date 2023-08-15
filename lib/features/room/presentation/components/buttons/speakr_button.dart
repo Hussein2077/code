@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 
 
 class SpeakerButton extends StatefulWidget {
-  SpeakerButton({super.key});
+  const SpeakerButton({super.key});
   @override
   State<SpeakerButton> createState() => _SpeakerButtonState();
 }

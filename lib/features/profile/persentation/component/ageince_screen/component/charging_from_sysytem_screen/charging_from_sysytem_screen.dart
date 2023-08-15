@@ -24,7 +24,7 @@ class CharchingCoinsForUsers extends StatelessWidget {
   final TextEditingController userID = TextEditingController();
   final TextEditingController withdrawalAmount = TextEditingController();
   final formGlobalKey = GlobalKey<FormState>();
-                        String coins = " " ; 
+  String coins = " " ;
 
   @override
   Widget build(BuildContext context) {

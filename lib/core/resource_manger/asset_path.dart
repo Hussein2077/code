@@ -4,6 +4,37 @@ const String pathIcon = "assets/icons";
 class AssetsPath {
 
   //image
+  static const String chairIcon = "$pathImage/chair.png";
+  static const String midPartyMode = "$pathImage/mid_party_mode.jpg";
+  static const String partyImg = "$pathImage/party.jpg";
+  static const String topCenterImg = "$pathImage/topCenter.jpg";
+  static const String paintTheme = "$pathImage/paint_theme.png";
+  static const String unLockRoom = "$pathImage/un_locked.png";
+  static const String roomlocked = "$pathImage/lockedRoom.png";
+  static const String broom = "$pathImage/broom.png";
+  static const String daimons = "$pathImage/diamon.png";
+  static const String messages = "$pathImage/messages.png";
+  static const String sweetCandy = "$pathImage/sweet_candy.png";
+  static const String giftbox = "$pathImage/giftbox.png";
+  static const String emojie = "$pathImage/emojie.png";
+  static const String pk1 = "$pathImage/pk2.png";
+  static const String soundLocal = "$pathImage/soundLocal.png";
+  static const String muteLocal = "$pathImage/muteLocal.png";
+  static const String more = "$pathImage/more.png";
+  static const String exitRoom = "$pathImage/exit_room.png";
+  static const String saveRoom = "$pathImage/save_room.png";
+  static const String bVIP3 = "$pathImage/B VIP3.png";
+  static const String bVIP4 = "$pathImage/B VIP4.png";
+  static const String bVIP5 = "$pathImage/B VIP5.png";
+  static const String bVIP6 = "$pathImage/B VIP6.png";
+  static const String bVIP7 = "$pathImage/B VIP7.png";
+  static const String bVIP8 = "$pathImage/B VIP8.png";
+  static const String bannerRoom = "$pathImage/banner_room.png";
+  static const String music = "$pathImage/music.png";
+  static const String purbleBackGround = "$pathImage/purble_background.jpg";
+  static const String team1 = "$pathImage/team1.png";
+  static const String team2 = "$pathImage/team2.png";
+  static const String luckybox2 = "$pathImage/lucky_box2.png";
   static const String luckyBox = "$pathImage/lucky_box.png";
   static const String goodLucky = "$pathImage/good_luck.gif";
   static const String badLucky = "$pathImage/bad_luck.gif";
@@ -53,15 +84,20 @@ class AssetsPath {
   static const String googlePlay = "$pathIcon/google-play.png";
 
   static const String netError = "$pathImage/net_error.gif";
-        static const String serverError = "$pathImage/serverError (1).gif";
-                static const String emptyScreen = "$pathImage/empty_screen.gif";
+  static const String serverError = "$pathImage/serverError (1).gif";
+  static const String emptyScreen = "$pathImage/empty_screen.gif";
   static const String sendMessage = "$pathImage/send-message.png";
   static const String pkGif = "$pathImage/pk.gif";
   static const String roomIntroMessageIcon = "$pathImage/roomIntroMessageIcon.png";
+  static const String kingchir = "$pathImage/kingschire.png";
 
       
 
   //icons
+  static const String adminMark = "$pathIcon/admin-mark.png";
+  static const String iconShare = "$pathIcon/share.png";
+  static const String ownerIcon2 = "$pathIcon/owner_icon.png";
+  static const String hostMark = "$pathIcon/host_mark.png";
   static const String seat = "$pathIcon/seat.png";
   static const String lockSeat = "$pathIcon/lock_seat.png";
   static const String googleIcon = "$pathIcon/google_icon.png";

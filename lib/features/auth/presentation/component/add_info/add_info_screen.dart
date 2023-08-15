@@ -62,7 +62,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 1,
               ),
-              AddProFilePic(gooleImageUrl: widget.googleData?.photoUrl),
+              AddProFilePic(gooleImageUrl: widget.googleData?.photoUrl,quality: 40,),
               const Spacer(
                 flex: 1,
               ),

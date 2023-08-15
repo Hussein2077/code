@@ -79,6 +79,7 @@ class DioHelper {
 
   static dynamic handleDioError(DioError dioError) {
     log('handleDioError: ${dioError.type}');
+    log("response"+dioError.response!.statusMessage!);
     switch (dioError.type) {
       case DioErrorType.response:
         throw handleStatuesCodeResponse(dioError.response);
@@ -96,6 +97,7 @@ class DioHelper {
 
   static Exception handleStatuesCodeResponse(Response? response) {
     log("statescode${response?.statusCode}");
+    log("errore respomse ${response?.data}");
     switch (response?.statusCode) {
       case 500:
         throw ServerException();

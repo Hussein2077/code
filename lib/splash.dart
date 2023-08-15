@@ -183,7 +183,7 @@ class _SplashScreenState extends State<SplashScreen> {
     
     final result = await GetConfigeAppUseCase(
         homeRepo: getIt()).call(ConfigModelBody(
-        appVersion: StringManager.versionApp.toString().tr(),
+        appVersion: StringManager.versionApp.toString(),
     ));
     result.fold((l) => configModel =l,(r) => errorMessage = DioHelper().getTypeOfFailure(r));
 

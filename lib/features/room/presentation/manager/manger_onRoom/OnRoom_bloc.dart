@@ -19,8 +19,8 @@ import 'package:tik_chat_v2/features/room/domine/use_case/remove_pass_room_UC.da
 import 'package:tik_chat_v2/features/room/domine/use_case/send_pob_up_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_OnRoom/OnRoom_events.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_OnRoom/OnRoom_states.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_states.dart';
 
 
 
@@ -66,7 +66,7 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
     on<UpdateRoom>((event, emit) async {
       emit(const OnRoomLoadingState());
       final result = await updateRoomUsecase.updateRoom(PramiterUpdate(
-        roomId: event.roomId,
+        ownerId: event.roomId,
         roomCover: event.roomCover,
         roomType: event.roomType,
         roomName: event.roomName,

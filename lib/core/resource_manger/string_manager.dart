@@ -14,6 +14,8 @@ class StringManager {
  static const String cachExtraKey = 'Extra';
  static const String cachExtraLevelKey = 'ExtraLevel';
 //shared
+ static const String appGift = "App Gift";
+ static const String spicalGift = "Spical Gift";
   static const String platform = "PlatForm";
   static const String android = "Android";
   static const String iphone = "IOS";
@@ -32,6 +34,38 @@ class StringManager {
 
 
  ////
+ static const String adminOfRoom = "Admin of room";
+ static const String modeChairs = "Mic mode";
+ static const String midePartyMode = "Mide Party Mode";
+ static const String partyMode = "Party Mode";
+ static const String hostMode = "Host mode";
+ static const String roomMode = "Room mode";
+ static const String theme = "Theme";
+ static const String lock = "lock";
+ static const String music = "music";
+ static const String clearChat = "Clear Chat";
+ static const String areYouSure = "Are you sure you want to delete chat?";
+ static const String noDaimonsNow = "No daimons Now";
+ static const String diamondsContribution = "Diamonds contribution";
+ static const String giftbar =
+     "When you send this kind of this of gift , it will be shown in other rooms";
+ static const String pk = "PK";
+ static const String share = "Share";
+ static const String pepoleOnline = "people in room";
+ static const String exit = "Exit";
+ static const String advice = "Advice";
+ static const String update = "update";
+ static const String roomType = "Room Type";
+ static const String updateYourIntro = "updateYourIntro";
+ static const String enterPassword = "Enter password";
+ static const String youHaveInvitiontoMic = "Invite to Mic";
+ static const String invitation = 'invitation';
+ static const String delete = "delete";
+ static const String songs = "Songs";
+ static const String added = "added";
+ static const String add = "add";
+ static const String chooseYourMusic = "Choose your musics";
+  static const String youBanFromWriting = "You have been banned From Writing";
   static const String appTitle = "Tikchat";
   static const String enterPhoneNum = "Enter your phone number";
   static const String signUp = "Sign Up";
@@ -276,7 +310,8 @@ class StringManager {
   static const String chinsTraditional = "中國人";
   static const String turkish = "Türkiye";
   static const String urdu = "اردو";
-
+  static const String hours24 = '24 hours';
+  static const String total = "Total";
   static const String clearDataDone = 'Your Data is removed';
   static const String clearData = "Clear your Data";
   static const String exchangeDaimond = "Exchange Daimond";
@@ -339,10 +374,18 @@ class StringManager {
  static const String lockSeat = "LockSeat";
  static const String showDetails = "Show details";
 
+ static const String privilegeVip6 =
+     "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
+ static const String active = "Active";
+ static const String updateScssfuly = "update Sucessfully";
+ static const String youblockedFromRoom = 'you have a bloc from this room ' ;
+ static const String minute = "munit";
+ static const String thisGiftForbiden = "this Gift for vip";
 
+ String vipLevelGift({required int level}) => "${thisGiftForbiden.tr()}$level";
 
-
-
+ String bloc({required String durationKickout}) =>
+     "${youblockedFromRoom.tr()} $durationKickout ${minute.tr()}";
 
   static String exchangeDaimondMethod(String coin, String diamond) {
     return "${StringManager.areYouSureYouWantToExchange} $diamond ${StringManager.daimondTo} $coin ${StringManager.coins}";

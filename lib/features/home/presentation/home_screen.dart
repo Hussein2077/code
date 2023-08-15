@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/service/pusher_service.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
+import 'package:tik_chat_v2/core/widgets/update_screen.dart';
 import 'widget/body/home_body.dart';
 import 'widget/header/home_header.dart';
 
@@ -20,7 +24,7 @@ class HomeScreen extends StatefulWidget {
   this.isCachEntro,
   this.isCachEmojie,
   super.key});
-
+   static  PusherService pusherService =  PusherService();
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -30,35 +34,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     liveController = TabController(length: 1, vsync: this);
-    //TODO remove this comment
-    // if((widget.isChachGift??false)){
-    //   Methods().chachGiftInRoom();
-    // }
-    // if((widget.isCachExtra??false)){
-    //   Methods().getAndLoadExtraData();
-    // }
-    // if((widget.isCachFrame??false)){
-    //   Methods().getAndLoadFrames();
-    // }
-    // if((widget.isCachEntro??false)){
-    //   Methods().getAndLoadEntro();
-    // }
-    // if((widget.isCachEmojie??false)){
-    //   Methods().getAndLoadEmojie();
-    // }
-    // if((widget.isUpdate??false)){
-    //   SchedulerBinding.instance.addPostFrameCallback((_) {
-    //     showDialog(
-    //         barrierDismissible:true,
-    //         context: context,
-    //         builder: (BuildContext context) {
-    //           return const  Material(
-    //               color: Colors.transparent,
-    //               child: UpdateScreen(isForceUpdate: false));
-    //         });
-    //
-    //   });
-    // }
+    if((widget.isChachGift??false)){
+      Methods().chachGiftInRoom();
+    }
+    if((widget.isCachExtra??false)){
+      Methods().getAndLoadExtraData();
+    }
+    if((widget.isCachFrame??false)){
+      Methods().getAndLoadFrames();
+    }
+    if((widget.isCachEntro??false)){
+      Methods().getAndLoadEntro();
+    }
+    if((widget.isCachEmojie??false)){
+      Methods().getAndLoadEmojie();
+    }
+    if((widget.isUpdate??false)){
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+            barrierDismissible:true,
+            context: context,
+            builder: (BuildContext context) {
+              return const  Material(
+                  color: Colors.transparent,
+                  child: UpdateScreen(isForceUpdate: false));
+            });
+
+      });
+    }
     super.initState();
   }
 
@@ -83,4 +86,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
+  void initPusher()async {
+    HomeScreen.pusherService.initPusher(
+        "9bfa0b56e375267a8f59","dragon-chat-app.com", 6001, "eu");
+
+
+  }
 }
