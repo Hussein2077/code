@@ -20,8 +20,8 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/cilcular_asset_image.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
@@ -926,7 +926,7 @@ Widget messagesChached(
   }
   return InkWell(
     onTap: () {
-      // dialogRoom(
+      // bottomDailog(
       //     context: context,
       //     widget: MessagesProfileDialog(
       //       myData: myDataModel,
@@ -1270,7 +1270,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
               alignment: Alignment.center,
               children: [
                 InkWell(
-                  onTap: () => dialogRoom(
+                  onTap: () => bottomDailog(
                     context: context,
                     widget: const SizedBox()
                     // TopProfileDialog(

@@ -7,7 +7,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/lucky_box.dart';
@@ -70,7 +70,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
 
 
 
-            dialogRoom(
+            bottomDailog(
                 context: context,
                 widget:  LuckyBox(roomData: widget.roomData,));
           },

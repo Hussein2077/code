@@ -39,4 +39,15 @@ class ColorManager {
   static const Color deepPurble = Color(0xFF6A26E6);
   static const Color textRoomComment = Color(0xFF9BCCF9);
   static const Color textRoomComment2 = Color(0xFF3FC5FF);
+  static const Color gray = Color(0xff807E72);
+  static const Color darkBlack = Color(0xFF000000);
+
+  static const Color orange = Color(0xFFFF831A);
+  static const Color orange2 = Color(0xFFFE5019);
+  static const Color lightBlueInPofile = Color(0xFFA1D2EE);
+  static const Color yellowVipContanier = Color(0xFFFFF09E);
+  static const Color yellowVipContanierText = Color(0xFFE79800);
+  static const Color blueContributeContanierText = Color(0xFF0091E3);
+  static const Color giftColors = Color(0x1FFFB800);
+
 }

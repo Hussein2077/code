@@ -7,7 +7,8 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+ 
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
@@ -54,7 +55,7 @@ class TopInRoomScreenBody extends StatelessWidget {
                                   return InkWell(
                                     onTap: () {
                                   Navigator.pop(context) ;
-                                  dialogRoom(
+                                  bottomDailog(
                                       context: context,
                                       widget: const  SizedBox()
                                      //  GenralProfileDialog(
@@ -117,7 +118,7 @@ class TopInRoomScreenBody extends StatelessWidget {
                                   return InkWell(
                                       onTap: () {
                                         Navigator.pop(context);
-                                        dialogRoom(
+                                        bottomDailog(
                                             context: context,
                                             widget:const SizedBox()
                                             // GenralProfileDialog(

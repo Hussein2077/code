@@ -19,7 +19,7 @@ import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
@@ -1382,7 +1382,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
         }
         else if (state is OnRoomLoadingState) {
-          dialogRoom(
+          bottomDailog(
               context: context,
               widget: const DialogLoadingWidget());
         }
@@ -1391,7 +1391,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           errorToast(context: context, title: state.errorMassage);
         }
         else if (state is BanUserFromWritingLoadingState){
-          dialogRoom(
+          bottomDailog(
               context: context,
               widget: const DialogLoadingWidget());
         }

@@ -382,6 +382,8 @@ class StringManager {
  static const String youblockedFromRoom = 'you have a bloc from this room ' ;
  static const String minute = "munit";
  static const String thisGiftForbiden = "this Gift for vip";
+ static const String levelOfThe = "level of the VIP";
+ static const String contribute = "Contribute";
 
  String vipLevelGift({required int level}) => "${thisGiftForbiden.tr()}$level";
 

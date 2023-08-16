@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+ 
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/number_of_visitor/visitors_room_screen/Visitors_Room_Screen.dart';
@@ -33,7 +34,7 @@ class NumberOfVisitorState extends State<NumberOfVisitor> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        dialogRoom(
+        bottomDailog(
           context: context,
           widget: VisitorsRoomScreen(
             numberOfVistor: int.parse(widget.numberOfVistor),

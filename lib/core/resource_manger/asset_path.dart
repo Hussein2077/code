@@ -226,7 +226,10 @@ class AssetsPath {
   static const String rank = "$pathIcon/rank.png";
 
   static const String toolbarMessages = "$pathIcon/toolbar_im.png";
-
+  static const String warning = "$pathIcon/warning.png";
+  static const String mention = "$pathIcon/mention.png";
+  static const String admin = "$pathIcon/admin.png";
+  static const String contribute = "$pathIcon/contribute.png";
 
   
 }
