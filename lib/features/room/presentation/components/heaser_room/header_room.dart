@@ -5,7 +5,8 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+ 
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
@@ -70,7 +71,7 @@ class HeaderRoom extends StatelessWidget {
               InkWell(
                   onTap: () {
                     if (room.ownerId == myDataModel.id) {
-                      dialogRoom(
+                      bottomDailog(
                           context: context,
                           widget: BlocBuilder<CreateRoomBloc,CreateRoomStates>(
                             builder: (context, state) {
@@ -113,7 +114,7 @@ class HeaderRoom extends StatelessWidget {
                             },
                           ));
                     } else {
-                      dialogRoom(
+                      bottomDailog(
                           context: context,
                           widget: ShowDitailsScreen(roomData: room, roomImg: roomImg,
                             introRoom:introRoom , roomtype: roomType,));
@@ -154,7 +155,7 @@ class HeaderRoom extends StatelessWidget {
                                   .containsKey(myDataModel.id.toString())),
                           child: IconButton(
                               onPressed: () {
-                                dialogRoom(
+                                bottomDailog(
                                     context: context,
                                     widget: MoreDailogWidget(
                                       roomId: room.id!,
@@ -173,7 +174,7 @@ class HeaderRoom extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () async {
-                          dialogRoom(
+                          bottomDailog(
                               context: context,
                               widget: GestureDetector(
                                 onTap: (){

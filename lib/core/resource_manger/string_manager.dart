@@ -81,6 +81,7 @@ class StringManager {
       "A verification code will be sent to you on this number";
   static const String reSend = "Resend";
   static const String done = "Done";
+  static const String updatTikChatApp = "Update TikChat App";
   static const String completeYourAccount = "Complete your account";
   static const String postYourBestPhoto = "Post your best photo!";
   static const String broadcastYourMoment =
@@ -381,6 +382,8 @@ class StringManager {
  static const String youblockedFromRoom = 'you have a bloc from this room ' ;
  static const String minute = "munit";
  static const String thisGiftForbiden = "this Gift for vip";
+ static const String levelOfThe = "level of the VIP";
+ static const String contribute = "Contribute";
 
  String vipLevelGift({required int level}) => "${thisGiftForbiden.tr()}$level";
 

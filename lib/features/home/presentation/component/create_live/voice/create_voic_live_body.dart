@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/home/presentation/component/create_live/voice/widget/creat_password_diloge.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_states.dart';
@@ -21,6 +22,7 @@ import 'widget/public_privite_button.dart';
 import 'widget/room_type_button.dart';
 
 class CreateVoiceLiveBody extends StatefulWidget {
+
 
   const CreateVoiceLiveBody({super.key});
 
@@ -35,6 +37,8 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
     voicNameController = TextEditingController();
     super.initState();
   }
+
+
   @override
   Widget build(BuildContext context) {
     return ScreenBackGround(
@@ -177,6 +181,19 @@ void createRoom ({required BuildContext context ,required String roomName}){
       roomType: RoomTypeButton.roomType!.id.toString(),
     ));
   }else{
-    //todo add enter room password dialog
+    showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: ConfigSize.defaultSize!*0.8
+            ),
+            backgroundColor: Colors.transparent,
+            content:  EnterPasswordCreatRoom(
+             name: roomName ,
+            ),
+          );
+        }
+    );
   }
 }

@@ -9,7 +9,7 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/enter_room_pass/save_password_room_screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/admins_room/admins_room_widget.dart';
@@ -328,7 +328,7 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
-                          dialogRoom(
+                          bottomDailog(
                               context: context,
                               widget: BackGround(ownerId:widget.ownerId , ));
                         },
@@ -365,7 +365,7 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
-                          dialogRoom(
+                          bottomDailog(
                               context: context,
                               widget:
                               ValueListenableBuilder(valueListenable: RoomScreen.isPK,
@@ -405,7 +405,7 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
-                          dialogRoom(
+                          bottomDailog(
                               context: context,
                               widget: AdminsRoomWidget(
                                 userId: widget.userId,

@@ -13,8 +13,11 @@ class MaleFemaleIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: ConfigSize.defaultSize!*3,
-      height: ConfigSize.defaultSize!*1.5,
+
+      padding: EdgeInsets.symmetric(
+        horizontal: ConfigSize.defaultSize!*0.6,
+        vertical: ConfigSize.defaultSize!*0.1
+      ),
       decoration: BoxDecoration(color: maleOrFeamle==1? ColorManager.blue:ColorManager.pink , borderRadius: BorderRadius.circular(ConfigSize.defaultSize!) ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
