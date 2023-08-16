@@ -141,28 +141,41 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manage
 import 'package:tik_chat_v2/features/room/data/Repository_Imp/repository_Imp.dart';
 import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
 import 'package:tik_chat_v2/features/room/domine/Repository/Base_Repository_Profile.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/add_admin_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/add_room_back_ground_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/background_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/ban_user_from_writing_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/change_room_mode.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/close_pk_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/dispose_hide_room_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/emojie_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/enter_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/exist_room_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/getGiftes_useCase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/get_boxex_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_mybackground_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/hide_pk_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/hide_room_use_case.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/leave_mic_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/lock_unLock_mic_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/mute_unmute_mic_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/pickup_box_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/remove_admin_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/remove_pass_room_UC.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/room_admins_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_pob_up_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/show_pk_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/start_pk_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
@@ -174,7 +187,14 @@ class ServerLocator {
   Future<void> init() async {
     //bloc
 
-    
+
+
+    getIt.registerFactory(
+            () => AdminRoomBloc(removeAdminUC: getIt(),roomAdminsUC: getIt(),addAdminUC:getIt()));
+    getIt.registerFactory(
+            () => PKBloc(showPKUC: getIt(), hidePKUC:getIt(),startPKUC: getIt(), closePKUC: getIt()));
+    getIt.registerFactory(
+            () => LuckyBoxesBloc(getBoxexUC: getIt(), sendBoxUC: getIt(), pickupBoxUC: getIt(),));
     getIt.registerFactory(
             () => GiftBloc(giftsUseCase: getIt()));
     getIt.registerFactory(
@@ -359,6 +379,35 @@ class ServerLocator {
 //usecase
 
 
+
+
+
+    getIt.registerLazySingleton(
+            () => RemoveAdminUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(
+            () => AddAdminUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(
+            () => RoomAdminsUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(
+            () => ShowPKUC(roomRepo: getIt()));
+
+    getIt.registerLazySingleton(
+            () => StartPKUC(roomRepo: getIt()));
+
+    getIt.registerLazySingleton(
+            () => ClosePKUC(roomRepo: getIt()));
+
+
+    getIt.registerLazySingleton(
+            () => HidePKUC(roomRepo: getIt()));
+       
+
+    getIt.registerLazySingleton(
+            () => PickupBoxUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(
+            () => SendBoxUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(
+            () => GetBoxexUC(roomRepo: getIt()));
     getIt.registerLazySingleton(
             () => AddRoomBackGroundUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(
@@ -538,12 +587,14 @@ class ServerLocator {
                                         getIt.registerLazySingleton(
         () => AddInterstedUsecase(baseRepositoryProfile: getIt()));
 
-                                        getIt.registerLazySingleton(
+        getIt.registerLazySingleton(
         () => GetUserIntrestedUseCase(baseRepositoryProfile: getIt()));
         
         
 
 //repo
+
+
     getIt.registerLazySingleton<BaseRepository>(
         () => RepositoryImp(baseRemotlyDataSource: getIt()));
     getIt.registerLazySingleton<BaseRepositoryProfile>(
