@@ -16,10 +16,7 @@ class GetRoomsBloc extends Bloc<GetRoomEvents,GetRoomsStates>{
   bool isLoadMore= false ;
 
   GetRoomsBloc({required this.allRoomsUsecase}):super(const GetRoomsStates()){
-   // scrollController.addListener(() {
-   //   log("hhhhhhhhhhhhhhhhhhhhhhhhhhhin pagination ");
-   // //  add(LoadMoreRoomsEvent());
-   // });
+
     on<GetRoomsEvent>(getRooms);
     on<LoadMoreRoomsEvent>(loadMoreRooms) ;
 

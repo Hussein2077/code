@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'reels/create_reels_body.dart';
 import 'voice/create_voic_live_body.dart';
 
 
@@ -21,7 +20,7 @@ class _CreateLiveScreenState extends State<CreateLiveScreen>
   @override
   void initState() {
 
-    createLiveController = TabController(length:2 , vsync: this);
+    createLiveController = TabController(length:1 , vsync: this);
     
     
     
@@ -43,7 +42,7 @@ class _CreateLiveScreenState extends State<CreateLiveScreen>
             children:const  [
               // CreateLiveVideoBody(),
               CreateVoiceLiveBody(),
-              CreateReelsBody(),
+            //  CreateReelsBody(),
             ],
           )),
           Container(

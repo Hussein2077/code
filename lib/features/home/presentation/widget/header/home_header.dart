@@ -29,7 +29,6 @@ class HomeHeader extends StatelessWidget {
          builder: (context,state){
        return  InkWell(
            onTap: (){
-             Navigator.pushNamed(context, Routes.createLive);
            if(MyDataModel.getInstance().hasRoom??false){
              Navigator.pushNamed(context,Routes.roomHandler,arguments:
              RoomHandlerPramiter(ownerRoomId: MyDataModel.getInstance().id.toString(),

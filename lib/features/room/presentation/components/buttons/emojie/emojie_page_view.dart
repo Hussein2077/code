@@ -1,12 +1,15 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/show_svga.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_states.dart';
 import 'package:tik_chat_v2/features/room/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
@@ -35,8 +38,9 @@ class _EmojiePageViewState extends State<EmojiePageView> {
 
   @override
   Widget build(BuildContext context) {
-
-    return     BlocBuilder<OnRoomBloc, OnRoomStates>(
+    return  BlocProvider(
+        create: (BuildContext context) => getIt<OnRoomBloc>()..add(EmojieEvent()),
+    child: BlocBuilder<OnRoomBloc, OnRoomStates>(
         builder: (context, state) {
           if (state is GetEmojieErrorState) {
             return Text(state.errorMassage);
@@ -46,52 +50,52 @@ class _EmojiePageViewState extends State<EmojiePageView> {
             return Column(
                 children: [
                   Container(
-                      decoration: const BoxDecoration(color: ColorManager.darkPink),
+                      decoration:  BoxDecoration(color: Colors.black.withOpacity(0.5)),
                       child: CarouselSlider(
                         items: [
                           for (int index = 0; index < 1; index++)
-                             GridView.count(
-                                    crossAxisCount: 3,
-                                    scrollDirection: Axis.vertical,
-                                    children: List.generate(
-                                      state.data.length,
-                                          (index) {
-                                        return InkWell(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                            showingEmojie(
-                                                userId:widget.userId,
-                                                emojieData: EmojieData(
-                                                  emojie: state.data[index].emoji,
-                                                  emojieId: state.data[index].id,
-                                                  length: state.data[index].tLength,
-                                                ),
-                                                timeEmojie:state.data[index].tLength) ;
+                            GridView.count(
+                                crossAxisCount: 3,
+                                scrollDirection: Axis.vertical,
+                                children: List.generate(
+                                  state.data.length,
+                                      (index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                        showingEmojie(
+                                            userId:widget.userId,
+                                            emojieData: EmojieData(
+                                              emojie: state.data[index].emoji,
+                                              emojieId: state.data[index].id,
+                                              length: state.data[index].tLength,
+                                            ),
+                                            timeEmojie:state.data[index].tLength) ;
 
-                                            ZegoUIKit().sendInRoomCommand(getMessagaRealTime(
-                                                state.data[index].id,
-                                                state.data[index].emoji,
-                                                state.data[index].tLength,
-                                                widget.userId
-                                            ) ,[]);
+                                        ZegoUIKit().sendInRoomCommand(getMessagaRealTime(
+                                            state.data[index].id,
+                                            state.data[index].emoji,
+                                            state.data[index].tLength,
+                                            widget.userId
+                                        ) ,[]);
 
-                                          },
-                                          child: Column(
-                                            children: [
-                                              ShowSVGA(
-                                                width: ConfigSize.defaultSize!*7,
-                                                hieght:ConfigSize.defaultSize!*7 ,
-                                                imageId:'${state.data[index].id}$cacheEmojieKey', url: state.data[index].emoji,),
-                                              Text(
-                                                state.data[index].name,
-                                                style: const TextStyle(
-                                                    color: ColorManager.whiteColor),
-                                              ),
-                                            ],
-                                          ),
-                                        );
                                       },
-                                    ))
+                                      child: Column(
+                                        children: [
+                                          ShowSVGA(
+                                            width: ConfigSize.defaultSize!*7,
+                                            hieght:ConfigSize.defaultSize!*7 ,
+                                            imageId:'${state.data[index].id}$cacheEmojieKey', url: state.data[index].emoji,),
+                                          Text(
+                                            state.data[index].name,
+                                            style: const TextStyle(
+                                                color: ColorManager.whiteColor),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ))
 
                         ],
                         carouselController: _controller,
@@ -116,10 +120,8 @@ class _EmojiePageViewState extends State<EmojiePageView> {
             return const SizedBox();
           }
         }
+    ),
     );
-
-
-
   }
 
   String getMessagaRealTime( int idEmojie, String emojie, int lenght, String  userId ){

@@ -473,6 +473,7 @@ Widget showLuckyBannerBodyWidget(
     {required UserDataModel sendDataUser,
     required String ownerId,
     required String coins}) {
+  log("showLuckyBannerBodyWidget");
   return Container(
     width: ConfigSize.defaultSize! * 28.9,
     height: ConfigSize.defaultSize! * 5.8,
@@ -1206,7 +1207,7 @@ Widget giftBannerWidget(
 }
 
 Widget popUpWidget(
-    {required UserDataModel ownerDataModel,
+    {UserDataModel? ownerDataModel,
     required EnterRoomModel enterRoomModel,
     required int vip,
     required String massage}) {
@@ -1250,6 +1251,7 @@ Widget roomBackground(
 
 Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
     UserDataModel? topUser, MyDataModel myDataModel, EnterRoomModel room) {
+  log("hostTopCenterWidget");
   return Padding(
     padding: EdgeInsets.only(
         top: ConfigSize.defaultSize! * 10, right: ConfigSize.defaultSize! * 6),
@@ -1265,7 +1267,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
               image: AssetImage(AssetsPath.kingchir),
             ),
           ),
-          if (layoutMode == LayoutMode.hostTopCenter && topUser?.id != null)
+          if (topUser?.id != null)
             Stack(
               alignment: Alignment.center,
               children: [
@@ -1301,7 +1303,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                       ),
               ],
             ),
-          if (layoutMode == LayoutMode.hostTopCenter && topUser?.id != null)
+          if (topUser?.id != null)
             Positioned(
               top: ConfigSize.defaultSize! * 9,
               //  bottom: ConfigSize.screenWidth! * 0.08,

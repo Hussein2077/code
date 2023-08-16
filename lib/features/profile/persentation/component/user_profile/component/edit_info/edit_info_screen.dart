@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -56,6 +58,7 @@ class EditInfoScreen extends StatelessWidget {
                         gender: myDataModel.profile!.gender!.toString(),
                         country: CountryWidget.countryFlag!,
                         name: UserInfoWidget.nameController!.text,
+                               image: File( AddProFilePic.image!.path)
                       ));
                     },
                     title: StringManager.save,

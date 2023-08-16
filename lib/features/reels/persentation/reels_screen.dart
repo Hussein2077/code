@@ -1,10 +1,12 @@
 
 
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:reels_viewer/reels_viewer.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
+import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
+
 
 
 class ReelsScreen extends StatefulWidget {
@@ -72,8 +74,6 @@ class _ReelsScreenState extends State<ReelsScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
         body: ReelsViewer(
-        
-        
       reelsList: reelsList,
       appbarTitle: StringManager.reels,
       onShare: (url) {

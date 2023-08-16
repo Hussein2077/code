@@ -120,7 +120,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                       BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
                           image: AddProFilePic.image == null
                               ? AddProFilePic.googleImage
-                              : File(AddProFilePic.image!.path),
+                              :File( AddProFilePic.image!.path),
                           gender: MaleFemaleButtons.selectedGender,
                           country: CountryWidget.countryFlag!,
                           name: nameController.text,

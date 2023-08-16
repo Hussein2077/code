@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -8,7 +10,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 
 class UserImage extends StatelessWidget {
-    final double? imageSize ; 
+    final double? imageSize ;
     final String image ;
     final BoxFit? boxFit;
     final Widget? child ;
@@ -25,7 +27,7 @@ class UserImage extends StatelessWidget {
               image: DecorationImage(
                 fit: boxFit??BoxFit.fill,
                   image: CachedNetworkImageProvider(
-                    
+
                     ConstentApi().getImage(image)) )),
                     child: child,
         );

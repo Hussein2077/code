@@ -180,7 +180,7 @@ class ConstentApi {
 
   // String getImage(imageUrl) => "https://dragon-chat-app.com/storage/$imageUrl";
   String getImage(imageUrl) =>
-      "https://tik-chat.com/storage/$imageUrl";
+      "https://tic-chat.saree3-app.com/storage/$imageUrl";
 
   String getDataMallUrl(int type) => "$baseUrl/mall/wares?type=$type";
   String getGifts(int type) {
