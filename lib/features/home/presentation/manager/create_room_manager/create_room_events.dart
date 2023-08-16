@@ -12,8 +12,9 @@ class CreateAudioRoomEvent extends CreateRoomEvents {
   final String roomType ;
   final File roomCover ;
   final String  roomName ;
+  final String  password ;
 
-  CreateAudioRoomEvent({required this.roomName,required this.roomCover,required this.roomIntero,required this.roomType});
+  CreateAudioRoomEvent({required this.roomName,required this.roomCover,required this.password,required this.roomIntero,required this.roomType});
 
   @override
 

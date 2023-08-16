@@ -20,6 +20,7 @@ import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
@@ -125,6 +126,10 @@ class Methods {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
+                  backgroundColor: Colors.transparent,
+                  insetPadding: EdgeInsets.symmetric(
+                      horizontal: ConfigSize.defaultSize!*0.8
+                  ),
                   title: Text(StringManager.enterPassword.tr()),
                   content: EnterPasswordRoomDialog(
                     ownerId: ownerId,

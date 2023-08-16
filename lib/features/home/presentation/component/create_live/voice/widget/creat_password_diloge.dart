@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manag
 class EnterPasswordCreatRoom extends StatefulWidget {
 
   final String name;
+
   const EnterPasswordCreatRoom({ Key? key,required this.name}) : super(key: key);
 
   @override
@@ -28,7 +29,7 @@ class EnterPasswordCreatRoom extends StatefulWidget {
 class _EnterPasswordRoomDilogeState extends State<EnterPasswordCreatRoom> {
   TextEditingController passwordcontroler = TextEditingController();
   final int _otpPasswordLength = 6;
-
+  final String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordCreatRoom> {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   image: AssetImage(AssetsPath.iconApp),
                 ),
               ),
@@ -72,7 +73,7 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordCreatRoom> {
                   defaultBoxSize: ConfigSize.defaultSize! * 3.80,
                   margin: ConfigSize.defaultSize! * 0.44,
                   selectedBoxSize: ConfigSize.defaultSize! * 3.90,
-                  textStyle: TextStyle(fontSize: ConfigSize.defaultSize!*2.18),
+                  textStyle: TextStyle(fontSize: ConfigSize.defaultSize!*2.18,color: Colors.black),
                   defaultDecoration: BoxDecoration(
                     border: Border.all(
                         width: 2,
@@ -85,9 +86,11 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordCreatRoom> {
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   onChange: (value) {
-                 //   setState(() {
 
-               //     });
+
+                   setState(() {
+                     value  = password;
+                   });
                   }),
             ),
             SizedBox(
@@ -105,6 +108,7 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordCreatRoom> {
 
                 BlocProvider.of<CreateRoomBloc>(context)
                     .add(CreateAudioRoomEvent(
+                  password: passwordcontroler.text,
                   roomName: widget.name ,
                   roomCover: File(AddVoiceLivePicState.image!.path),
                   roomIntero: '',

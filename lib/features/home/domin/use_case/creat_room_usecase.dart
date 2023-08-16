@@ -20,11 +20,11 @@ class CreateRoomPramiter extends Equatable{
   final String? roomIntero;
   final File? roomCover;
   final String? roomType;
-  final String? roomName ; 
-
-  const CreateRoomPramiter({this.roomName,  this.roomIntero,  this.roomCover, this.roomType});
+  final String? roomName ;
+  final String? roomPassword ;
+  const CreateRoomPramiter({this.roomName,  this.roomIntero,  this.roomCover,this.roomPassword ,this.roomType});
 
   @override
-  List<Object?> get props => [id,roomIntero,roomCover,roomType , roomName];
+  List<Object?> get props => [id,roomIntero,roomCover,roomType , roomPassword,roomName];
 
 }

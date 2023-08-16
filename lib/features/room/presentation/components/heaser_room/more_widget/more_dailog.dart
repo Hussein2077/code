@@ -201,6 +201,11 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
+                                  insetPadding: EdgeInsets.symmetric(
+                                      horizontal: ConfigSize.defaultSize!*2.9
+                                  ),
+
+                                  backgroundColor: Colors.transparent,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   contentPadding: const EdgeInsets.all(12),

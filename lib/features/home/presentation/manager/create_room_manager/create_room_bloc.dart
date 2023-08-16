@@ -26,6 +26,7 @@ class CreateRoomBloc extends Bloc<CreateRoomEvents,CreateRoomStates>{
     final result = await createRoomUsecase.createRoom(creatRoomPramiter: CreateRoomPramiter(
         roomCover: event.roomCover,
         roomType:event.roomType,
+        roomPassword: event.password,
         roomIntero:event.roomIntero,
         roomName: event.roomName
     ));

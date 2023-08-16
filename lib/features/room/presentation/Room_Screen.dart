@@ -1656,6 +1656,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
+                            insetPadding: EdgeInsets.symmetric(
+                                horizontal: ConfigSize.defaultSize!*0.8
+                            ),
+                            backgroundColor: Colors.transparent,
                             title: const Text(StringManager.enterPassword),
                             content: EnterPasswordRoomDialog(
                               ownerId: ownerId,
@@ -1705,6 +1709,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
+                          backgroundColor: Colors.transparent,
+                          insetPadding: EdgeInsets.symmetric(
+                              horizontal: ConfigSize.defaultSize!*0.8
+                          ),
+
                           title:const Text(StringManager.enterPassword),
                           content: EnterPasswordRoomDialog(
                             ownerId: ownerId,

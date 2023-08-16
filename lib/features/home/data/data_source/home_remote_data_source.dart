@@ -180,13 +180,14 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
   Future<String> createRoom(
       {required CreateRoomPramiter creatRoomPramiter}) async {
     Map<String, String> headers = await DioHelper().header();
-
+    log(creatRoomPramiter.roomPassword.toString());
     FormData formData;
     if (creatRoomPramiter.roomCover == null) {
       formData = FormData.fromMap({
         'room_name': creatRoomPramiter.roomName,
         'room_intro': creatRoomPramiter.roomIntero,
         'room_type': creatRoomPramiter.roomType,
+        'room_pass': creatRoomPramiter.roomPassword,
       });
     }
     else {
@@ -197,6 +198,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
         await MultipartFile.fromFile(file.path, filename: fileName),
         'room_intro': creatRoomPramiter.roomIntero,
         'room_type': creatRoomPramiter.roomType,
+        'room_pass': creatRoomPramiter.roomPassword,
         'room_name': creatRoomPramiter.roomName,
 
       });

@@ -175,6 +175,7 @@ void createRoom ({required BuildContext context ,required String roomName}){
   if(PublicPriveteButton.lockedOrUn == StringManager.public) {
     BlocProvider.of<CreateRoomBloc>(context)
         .add(CreateAudioRoomEvent(
+      password: '',
       roomName: roomName ,
       roomCover: File(AddVoiceLivePicState.image!.path),
       roomIntero: '',
