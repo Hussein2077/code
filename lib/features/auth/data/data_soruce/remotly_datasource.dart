@@ -71,7 +71,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       };// to get information device
     try {
       final response = await Dio().post(
-        'https://dragon-chat-app.com/api/v2/auth/register',
+        ConstentApi.registerUrl,
         data: body,
       );
       Map<String, dynamic> jsonData = response.data;
