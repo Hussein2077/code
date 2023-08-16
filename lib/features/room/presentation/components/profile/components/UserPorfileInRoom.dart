@@ -4,6 +4,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/admin_or_owner_container.dart';
+import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
@@ -42,6 +43,7 @@ class UserProfileInRoom extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,7 +53,6 @@ class UserProfileInRoom extends StatelessWidget {
                       icon: AssetsPath.mention,
                       size: ConfigSize.defaultSize! * 0.3,
                     ),
-
                     Container(
                       height: ConfigSize.defaultSize! * 8.8,
                       width: ConfigSize.defaultSize! * 8.8,
@@ -60,11 +61,10 @@ class UserProfileInRoom extends StatelessWidget {
                         color: Colors.blue,
                       ),
                     ),
-
                     MentionOrReportContainer(
                       text: StringManager.reports,
                       icon: AssetsPath.warning,
-                      size: ConfigSize.defaultSize! * 0.2,
+                      size: ConfigSize.defaultSize! * 0.25,
                     ),
                   ],
                 ),
@@ -76,19 +76,8 @@ class UserProfileInRoom extends StatelessWidget {
                         fontSize: ConfigSize.defaultSize! * 1.6,
                         color: ColorManager.darkBlack,
                         fontWeight: FontWeight.w400)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('ID:123456',
-                        style: TextStyle(
-                            fontSize: ConfigSize.defaultSize! * 1.2,
-                            color: ColorManager.orange,
-                            fontWeight: FontWeight.w400)),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Icon(Icons.copy, size: 12,color: ColorManager.orang),
-                  ],
+                const IdWithCopyIcon(
+                  id: '154554',
                 ),
                 SizedBox(
                   height: ConfigSize.defaultSize! * 0.5,
@@ -99,7 +88,8 @@ class UserProfileInRoom extends StatelessWidget {
                     UserCountryIcon(country: 'Egypt 🏁'),
                     SizedBox(width: 5),
                     MaleFemaleIcon(
-                      maleOrFeamle: 1, age: 26,
+                      maleOrFeamle: 1,
+                      age: 26,
                     ),
                     SizedBox(width: 5),
                     AdminOrOwnerContainer(
@@ -107,48 +97,42 @@ class UserProfileInRoom extends StatelessWidget {
                       userId: 5,
                     ),
                     SizedBox(width: 5),
-
                   ],
                 ),
                 const SizedBox(height: 20),
                 Row(
-
-                  children:  [
-                     const Expanded(
-                      child: ContainerVipOrContribute(
-                        colors: ColorManager.yellowVipContanier,
-                        icons: AssetsPath.vipProfileIcon,
-                        level: '${StringManager.vip} 0',
-                        colorText: ColorManager.yellowVipContanierText,
-                        vipOrContribute: StringManager.levelOfThe,
-                      )
-                    ),
+                  children: [
+                    const Expanded(
+                        child: ContainerVipOrContribute(
+                      colors: ColorManager.yellowVipContanier,
+                      icons: AssetsPath.vipProfileIcon,
+                      level: '${StringManager.vip} 0',
+                      colorText: ColorManager.yellowVipContanierText,
+                      vipOrContribute: StringManager.levelOfThe,
+                    )),
                     const SizedBox(width: 20),
                     Expanded(
-                      child: ContainerVipOrContribute(
+                        child: ContainerVipOrContribute(
                       colors: ColorManager.lightBlueInPofile,
                       icons: AssetsPath.contribute,
                       level: "5",
-                      sizeOfIcon: ConfigSize.defaultSize!*0.18,
+                      sizeOfIcon: ConfigSize.defaultSize! * 0.18,
                       colorText: ColorManager.blueContributeContanierText,
                       vipOrContribute: StringManager.contribute,
-                    )
-                    ),
+                    )),
                   ],
                 ),
                 const SizedBox(height: 10),
                 const GiftGalleryContainer(),
                 const SizedBox(height: 15),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children:  [
-
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
                     //FOLLOW ICON
                     const IconWithText(
                       image: AssetsPath.followIcon,
                       text: StringManager.follow,
                     ),
-
                     //Friend REQUEST ICON
                     const IconWithText(
                       image: AssetsPath.friendRequestIconProfile,
@@ -160,10 +144,25 @@ class UserProfileInRoom extends StatelessWidget {
                       text: StringManager.sendGift,
                     ),
 
-                    Image.asset(AssetsPath.chatIconProfile,scale: ConfigSize.defaultSize!*0.25,),
-
+                    Container(
+                        // alignment: Alignment.centerRight,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: ConfigSize.defaultSize! * 4.2,
+                          vertical: ConfigSize.defaultSize! * 1.5,
+                        ),
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.contain,
+                                image: AssetImage(
+                                  AssetsPath.chatIconProfile,
+                                ))),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: ConfigSize.defaultSize! * 2.5,),
+                          child: const Text(StringManager.talk, textAlign: TextAlign.right),
+                        )),
                   ],
-                )
+                ),
+
               ],
             ),
           ),
