@@ -137,7 +137,10 @@ class AdminsRoomWidget extends StatelessWidget {
                           );
                         }));
               } else if (state is LoadingAdminsRoomState) {
-                return   TransparentLoadingWidget(width: ConfigSize.defaultSize!*11.6,height: ConfigSize.defaultSize!*11.6,);
+                return    TransparentLoadingWidget(
+                  height: ConfigSize.defaultSize!*2,
+                  width: ConfigSize.defaultSize!*7.2,
+                );
               } else if (state is ErrorAdminsRoomState) {
                 return CustomErrorWidget(message: state.errorMessage);
               } else {

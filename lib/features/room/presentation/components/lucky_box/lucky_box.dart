@@ -46,7 +46,10 @@ class LuckyBoxState extends State<LuckyBox> {
     return    BlocConsumer<LuckyBoxesBloc,LuckyBoxesStates>(
         builder: (context,state){
           if(state is LoadingLuckyBoxesState){
-             return const TransparentLoadingWidget();
+             return  TransparentLoadingWidget(
+               height: ConfigSize.defaultSize!*2,
+               width: ConfigSize.defaultSize!*7.2,
+             );
           }else if (state is SuccessLuckyBoxesState){
              return  Directionality(
                  textDirection: ui.TextDirection.ltr,

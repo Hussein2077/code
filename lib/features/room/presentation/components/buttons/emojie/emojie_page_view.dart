@@ -45,7 +45,10 @@ class _EmojiePageViewState extends State<EmojiePageView> {
           if (state is GetEmojieErrorState) {
             return Text(state.errorMassage);
           } else if (state is GetEmojieLoadingState) {
-            return const  TransparentLoadingWidget();
+            return   TransparentLoadingWidget(
+              height: ConfigSize.defaultSize!*2,
+              width: ConfigSize.defaultSize!*7.2,
+            );
           } else if (state is GetEmojieSucssesState) {
             return Column(
                 children: [
