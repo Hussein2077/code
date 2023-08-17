@@ -382,7 +382,6 @@ class LoginPramiter {
 }
 
 class MainPramiter  {
-  final UserDataModel? userData;
   final bool? isChachGift;
   final bool? isCachFrame;
   final bool? isCachExtra;
@@ -394,7 +393,6 @@ class MainPramiter  {
       {this.isCachEmojie,
       this.isCachEntro,
       this.isUpdate,
-      this.userData,
       this.isCachExtra,
       this.isCachFrame,
       this.isChachGift});

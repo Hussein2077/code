@@ -67,12 +67,11 @@ class _CreateLiveScreenState extends State<CreateLiveScreen>
                   // ),
                   Text("${StringManager.voice} ",
                       style: TextStyle(
-                          
                           fontSize: ConfigSize.defaultSize! * 1.7)),
-                  Text("${StringManager.reels} ",
-                      style: TextStyle(
-                         
-                          fontSize: ConfigSize.defaultSize! * 1.7)),
+                  // Text("${StringManager.reels} ",
+                  //     style: TextStyle(
+                  //
+                  //         fontSize: ConfigSize.defaultSize! * 1.7)),
                 ]),
           ),
         ],

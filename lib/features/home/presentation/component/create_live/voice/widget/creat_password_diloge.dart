@@ -86,8 +86,6 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordCreatRoom> {
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   onChange: (value) {
-
-
                    setState(() {
                      value  = password;
                    });
@@ -98,9 +96,6 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordCreatRoom> {
             ),
             InkWell(
               onTap: () async {
-
-
-
                 // ignore: use_build_context_synchronously
 
                 // ignore: use_build_context_synchronously

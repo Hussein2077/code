@@ -168,7 +168,6 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
       log(jsonData.toString());
       ConfigModel data = ConfigModel.fromJson(jsonData);
       log(data.toString());
-
       return data;
 
     } on DioError  catch (e) {

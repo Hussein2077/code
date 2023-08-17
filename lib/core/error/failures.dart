@@ -10,11 +10,9 @@ class ErrorMessageFailure extends Failure {
   ErrorMessageFailure({required String message}):super(errorMessage: message);
 }
 
-
-
-
-
 class SiginGoogleFailure extends Failure {}
+
+
 class SiginFacebookFailure extends Failure {}
 
 
