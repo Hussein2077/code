@@ -289,7 +289,11 @@ class MyDataModel {
       level: LevelDataModel(senderImage: level?.senderImage,
           receiverImage: level?.receiverImage),
       vip1: VipCenterModel(level: vip1?.level),
-      userType: myType
+      userType: myType,
+      numberOfFans: numberOfFans,
+      numberOfFollowings: numberOfFollowings,
+      numberOfFriends: numberOfFriends,
+      profileVisotrs: profileVisotrs
     );
 
   }

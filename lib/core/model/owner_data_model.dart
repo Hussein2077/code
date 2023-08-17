@@ -14,7 +14,6 @@ class UserDataModel {
   final String? chatId ;
   final String? name;
   final bool? isFollow;
-  final int? numberOfFans;
   final ProfileRoomModel? profile;
   final NowRoomModel? nowRoom;
   final LevelDataModel? level;
@@ -40,6 +39,10 @@ class UserDataModel {
   final String? onlineTime;
   final bool? isCountryHiden ;
   final int? userType ;
+  int? numberOfFans;
+  int? numberOfFollowings;
+  int? numberOfFriends;
+  int? profileVisotrs;
 
 
 
@@ -57,6 +60,9 @@ class UserDataModel {
         this.isFollow,
         this.name,
         this.numberOfFans,
+        this.numberOfFollowings,
+        this.numberOfFriends,
+        this.profileVisotrs,
         this.profile,
         this.level,
         this.vip1,
@@ -101,8 +107,10 @@ class UserDataModel {
         uuid: map['uuid'],
         isFollow: map['is_follow'] != null ? map['is_follow'] as bool : false,
         bio: map['bio'] != null ?map['bio'] as String :"",
-        numberOfFans:
-        map['number_of_fans'] ,
+        numberOfFans: map['number_of_fans'] ,
+        numberOfFollowings: map['number_of_followings'] ,
+        numberOfFriends: map['number_of_friends'],
+        profileVisotrs: map['profile_visitors'],
         profile: map['profile'] != null
             ? ProfileRoomModel.fromMap(map['profile'] as Map<String, dynamic>)
             : null,
