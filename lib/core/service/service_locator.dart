@@ -171,6 +171,7 @@ import 'package:tik_chat_v2/features/room/domine/use_case/show_pk_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/start_pk_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
@@ -623,6 +624,12 @@ class ServerLocator {
 
     SetTimerPK setTimerPK = SetTimerPK();
     getIt.registerLazySingleton(() => setTimerPK);
+
+    TimeData timeData = TimeData() ;
+    getIt.registerLazySingleton(() => timeData);
+
+    SetTimerLuckyBox setTimer = SetTimerLuckyBox();
+    getIt.registerLazySingleton(() => setTimer);
 
     //extarnal
 

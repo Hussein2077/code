@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -38,37 +37,37 @@ class FollowingLiveScreen extends StatelessWidget {
                   color: ColorManager.orang,
                 ),
                 LiquidPullToRefresh(
-
-                    color: ColorManager.bage,
-        backgroundColor: ColorManager.mainColor,
-        showChildOpacityTransition : false,
-
-   onRefresh: ()async{
-                BlocProvider.of<GetFollwersRoomBloc>(context).add(const GetFollwersRoomEvent(type: "5"));
-      
-              },
-                  child:state.rooms.data!.isEmpty?
-                   const SingleChildScrollView(child: EmptyWidget(message: StringManager.noDataFoundHere,)):
-                  
-                   Expanded(
-                    child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2),
-                        itemCount: state.rooms.data!.length,
-                        itemBuilder: (context, index) {
-                          int style = 0;
-                          if (index == 0 || index == 1 || index == 2) {
-                            style = index;
-                          } else {
-                            style = index % 3;
-                          }
-                          return VideoLiveBox(
-                            room: state.rooms.data![index],
-                            style: style,
-                          );
-                        }),
-                  ),
+                  color: ColorManager.bage,
+                  backgroundColor: ColorManager.mainColor,
+                  showChildOpacityTransition: false,
+                  onRefresh: () async {
+                    BlocProvider.of<GetFollwersRoomBloc>(context)
+                        .add(const GetFollwersRoomEvent(type: "5"));
+                  },
+                  child: state.rooms.data!.isEmpty
+                      ? const SingleChildScrollView(
+                          child: EmptyWidget(
+                          message: StringManager.noDataFoundHere,
+                        ))
+                      : Expanded(
+                          child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2),
+                              itemCount: state.rooms.data!.length,
+                              itemBuilder: (context, index) {
+                                int style = 0;
+                                if (index == 0 || index == 1 || index == 2) {
+                                  style = index;
+                                } else {
+                                  style = index % 3;
+                                }
+                                return VideoLiveBox(
+                                  room: state.rooms.data![index],
+                                  style: style,
+                                );
+                              }),
+                        ),
                 )
               ],
             );
