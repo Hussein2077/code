@@ -385,6 +385,7 @@ class StringManager {
  static const String levelOfThe = "level of the VIP";
  static const String contribute = "Contribute";
  static const String talk = "Talk";
+ static const String youshould = 'you should close pk frist';
 
  String vipLevelGift({required int level}) => "${thisGiftForbiden.tr()}$level";
 

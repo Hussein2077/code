@@ -11,6 +11,8 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnR
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
 
+import '../../../../../../../core/widgets/dialog.dart';
+
 class ChooseModeRoom extends StatefulWidget {
   final String ownerId;
   final int modeRoom;
@@ -162,9 +164,15 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                         selectMidParty =false ;
                       });
                     }
+
                     Navigator.pop(context);
                   }else{
-                    //todo make dialog write yiu should close pk frist
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return  DialogScreen(buildContext: context, text: StringManager.youshould.tr(),);
+
+                        });
                   }
 
                 },
@@ -190,6 +198,8 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                                   : Colors.transparent, // red as border color
                             ),
                           )),
+
+
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -228,7 +238,14 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                     }
                     Navigator.pop(context);
                   }else{
-                    //todo creat project you should close pk
+                    //todo creat dialog you should close pk
+
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return  DialogScreen(buildContext: context, text: StringManager.youshould.tr(),);
+
+                        });
                     // QuickAlert.show(
                     //   barrierDismissible: true,
                     //   width: 20,
