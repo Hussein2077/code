@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/warning_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/lucky_box.dart';
@@ -100,9 +101,17 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                   return InkWell(
                     onTap: () async{
                       if (widget.isParty) {
-                     //TODO SHOW Dialog here to (ممنوع فتح في هذا الوضع  )
+                        showDialog(context: context,
+                            builder: (context) {
+                             return WarningDialog(buildContext: context,
+                                  text: StringManager.cantopen.tr());
+                            },);
                       } else if (isStartPK) {
-                        //TODO SHOW Dialog here to (ممنوع غلق الpk)
+                        showDialog(context: context,
+                          builder: (context) {
+                            return WarningDialog(buildContext: context,
+                                text: StringManager.cantclosepk.tr());
+                          },);
                       } else {
                         Navigator.pop(context);
                         showDialog(

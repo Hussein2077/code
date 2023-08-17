@@ -11,7 +11,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnR
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
 
-import '../../../../../../../core/widgets/dialog.dart';
+import '../../../../../../../core/widgets/warning_dialog.dart';
 
 class ChooseModeRoom extends StatefulWidget {
   final String ownerId;
@@ -170,7 +170,7 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return  DialogScreen(buildContext: context, text: StringManager.youshould.tr(),);
+                          return  WarningDialog(buildContext: context, text: StringManager.youshould.tr(),);
 
                         });
                   }
@@ -243,7 +243,7 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return  DialogScreen(buildContext: context, text: StringManager.youshould.tr(),);
+                          return  WarningDialog(buildContext: context, text: StringManager.youshould.tr(),);
 
                         });
                     // QuickAlert.show(
