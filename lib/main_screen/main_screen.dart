@@ -162,7 +162,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                 widget: InkWell(
                                     onTap: () {},
                                     child:
-                                    const TransparentLoadingWidget()));
+                                     TransparentLoadingWidget(
+                                      height: ConfigSize.defaultSize!*2,
+                                      width: ConfigSize.defaultSize!*6.8,
+                                    )));
 
                             await Methods()
                                 .exitFromRoom(
