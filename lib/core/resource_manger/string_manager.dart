@@ -386,6 +386,9 @@ class StringManager {
  static const String contribute = "Contribute";
  static const String talk = "Talk";
  static const String youshould = 'you should close pk frist';
+ static const String cantopen = 'can\'t open in this mood';
+ static const String cantclosepk = 'can\'t close the pk';
+
 
  String vipLevelGift({required int level}) => "${thisGiftForbiden.tr()}$level";
 
