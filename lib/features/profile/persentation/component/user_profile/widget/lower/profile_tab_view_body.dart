@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -14,9 +14,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_m
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_state.dart';
 
 class ProfileTabViewBody extends StatelessWidget {
-  final MyDataModel myDataModel;
+  final UserDataModel userDataModel;
 
-  const ProfileTabViewBody({required this.myDataModel, super.key});
+  const ProfileTabViewBody({required this.userDataModel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +28,17 @@ class ProfileTabViewBody extends StatelessWidget {
           children: [
             cover(
                 title: StringManager.diamond.tr(),
-                num: myDataModel.myStore!.diamonds.toString(),
+                num: userDataModel.myStore!.diamonds.toString(),
                 image: AssetsPath.dimondCover),
             cover(
               title: StringManager.level.tr(),
-              num: "lvl ${myDataModel.level!.senderLevel.toString()}",
+              num: "lvl ${userDataModel.level!.senderLevel.toString()}",
               image: AssetsPath.leveCover,
               onTap: () => Navigator.pushNamed(context, Routes.level),
             ),
             cover(
               title: StringManager.vip.tr(),
-              num: "vip. ${myDataModel.vip1!.level.toString()}",
+              num: "vip. ${userDataModel.vip1!.level.toString()}",
               image: AssetsPath.vipCover,
               onTap: () => Navigator.pushNamed(context, Routes.vip),
             ),

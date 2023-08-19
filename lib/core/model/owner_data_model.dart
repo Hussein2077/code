@@ -145,6 +145,7 @@ class UserDataModel {
       frame: frame,
       familyId: familyId,
       frameId: familyId,
+        bio: bio,
       uuid:uuid,
       profile: ProfileRoomModel(
         image:profile?.image??'',
@@ -153,6 +154,13 @@ class UserDataModel {
         country: profile?.country
 
       ),
+        myStore: MyStoreModel(
+            totalCoins: myStore?.totalCoins,
+            coins: myStore?.coins,
+            coupons: myStore?.coupons,
+            silverCoin: myStore?.silverCoin,
+            diamonds: myStore?.diamonds
+        ),
       name: name,
       chatId: chatId,
       hasColorName: hasColorName,

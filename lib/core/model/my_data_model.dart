@@ -2,6 +2,8 @@
 
 
 
+import 'dart:developer';
+
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_agency_model.dart';
 import 'package:tik_chat_v2/core/model/my_store_model.dart';
@@ -265,6 +267,7 @@ class MyDataModel {
 
 
   UserDataModel convertToUserObject() {
+     log('_instance'+_instance.toString());
     return UserDataModel(
       id: id,
       bubble:bubble,
@@ -274,7 +277,15 @@ class MyDataModel {
       frame: frame,
       familyId: familyId,
       frameId: familyId,
+      bio: bio,
       uuid:uuid,
+      myStore: MyStoreModel(
+        totalCoins: myStore?.totalCoins,
+        coins: myStore?.coins,
+        coupons: myStore?.coupons,
+        silverCoin: myStore?.silverCoin,
+        diamonds: myStore?.diamonds
+      ),
       profile: ProfileRoomModel(
         image:profile?.image??'',
         gender: profile?.gender??1,
