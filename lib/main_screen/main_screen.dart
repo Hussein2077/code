@@ -1,6 +1,7 @@
 import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -236,7 +237,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         isFirst = false ;
       }
       else if (event == ConnectivityResult.none) {
-        errorToast(context: context, title: StringManager.checkYourInternet);
+        errorToast(context: context, title: StringManager.checkYourInternet.tr());
       }
     });
   }

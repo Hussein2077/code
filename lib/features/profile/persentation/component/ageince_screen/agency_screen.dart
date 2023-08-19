@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -33,7 +34,7 @@ class AgenceScreen extends StatelessWidget {
                   SizedBox(
                     height: ConfigSize.defaultSize! * 3.5,
                   ),
-                  const HeaderWithOnlyTitle(title: StringManager.agency),
+                   HeaderWithOnlyTitle(title: StringManager.agency.tr()),
 
                   agencyCommanWidget(
                       context: context,
@@ -53,8 +54,8 @@ class AgenceScreen extends StatelessWidget {
             } else if (state is ShowAgencyErrorState) {
               return CustomErrorWidget(message: state.error);
             } else {
-              return const CustomErrorWidget(
-                  message: StringManager.unexcepectedError);
+              return  CustomErrorWidget(
+                  message: StringManager.unexcepectedError.tr());
             }
           },
         ));

@@ -346,12 +346,12 @@ class StringManager {
      "You have been kicked out of this ROM, you may log in yet";
  String get({required String reming}) => "${youCanEnterAfter.tr()} $reming";
  static const String checkYourInternet = "Check Your Internet";
-  static const String noDataFoundHere = "No Data Found Here";
-  static const String totalUsd = "Total Usd";
-  static const String ownerUsd = "Owner Usd";
-  static const String type = "Type";
-  static const String chooseTopic = "Choose the topics that are most important to you!";
-  static const String hideRoom = "Hide Your Room";
+ static const String noDataFoundHere = "No Data Found Here";
+ static const String totalUsd = "Total Usd";
+ static const String ownerUsd = "Owner Usd";
+ static const String type = "Type";
+ static const String chooseTopic = "Choose the topics that are most important to you!";
+ static const String hideRoom = "Hide Your Room";
  static const String sendToLuckyBox = "Send to Lucky box";
  static const String quantity = "Quantity";
  static const String superBox = "Super Box";
@@ -374,9 +374,7 @@ class StringManager {
  static const String unLockSeat = "UnLockSeat";
  static const String lockSeat = "LockSeat";
  static const String showDetails = "Show details";
-
- static const String privilegeVip6 =
-     "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
+ static const String privilegeVip6 = "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
  static const String active = "Active";
  static const String updateScssfuly = "update Sucessfully";
  static const String youblockedFromRoom = 'you have a bloc from this room ' ;
