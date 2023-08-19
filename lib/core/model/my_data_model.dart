@@ -102,13 +102,11 @@ class MyDataModel {
      int? frameId,int? introId,
      int? bubbleId,String? bubble,
      MyAgencyModel? myAgencyModel,bool? isAgencyRequest,
-     bool? isFirst,int? familyId,String? uuid,
+     bool? isFirst,int? familyId,String? familyName , String? uuid,
      String? notificationId,String? bio,bool? hasRoom,
      bool? hasColorName,bool? isAanonymous,bool? isFacebook,
      bool? isGoogle, VipCenterModel? vip1, bool? isPhone,
      int? myType , bool? isHideRoom
-
-
    }) {
      this.id = id??this.id;
      this.chatId = chatId?? this.chatId;
@@ -141,13 +139,9 @@ class MyDataModel {
      this.hasRoom = hasRoom ?? this.hasRoom;
      this.notificationId = notificationId ?? this.notificationId;
      this.bio = bio ?? this.bio;
-     this.frameId = frameId ?? this.frameId;
      this.myType = myType ?? this.myType;
      this.isHideRoom = isHideRoom ?? this.isHideRoom;
-
-
-
-
+     this.familyId = familyId ?? this.familyId ;
    }
 
 
@@ -251,7 +245,7 @@ class MyDataModel {
      myAgencyModel: map['agency'] != null
          ? MyAgencyModel.fromjson(map["agency"])
          : null,
-                     myType: map['type_user']??0
+       myType: map['type_user']??0
 
    );
     }

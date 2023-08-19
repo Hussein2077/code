@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
@@ -214,11 +213,11 @@ class RouteGenerator {
                   isHost: roomPramiter.isHost,
                 )));
       case Routes.myBag:
-        UserDataModel userData = settings.arguments as UserDataModel;
+        MyDataModel myDataModel = settings.arguments as MyDataModel;
 
         return MaterialPageRoute(
             builder: (_) => MyBagScreen(
-                  myData: userData,
+              myDataModel: myDataModel,
                 ));
       case Routes.mall:
         return MaterialPageRoute(builder: (_) => const MallScreen());

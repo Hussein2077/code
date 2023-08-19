@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
@@ -13,8 +13,8 @@ import 'widgets/my_bag_tab_view.dart';
 import 'widgets/my_bag_tabs.dart';
 
 class MyBagScreen extends StatefulWidget {
- final UserDataModel myData ;
-  const MyBagScreen({required this.myData ,  super.key});
+ final MyDataModel myDataModel ;
+  const MyBagScreen({required this.myDataModel ,  super.key});
 
   @override
   State<MyBagScreen> createState() => _MyBagScreenState();
@@ -27,10 +27,10 @@ class _MyBagScreenState extends State<MyBagScreen>
   late TabController bagController;
   @override
   void initState() {
-MyBagCard.frameUsed = widget.myData.frameId;
-MyBagCard.entriesUsed = widget.myData.introId;
+MyBagCard.frameUsed = widget.myDataModel.frameId;
+MyBagCard.entriesUsed = widget.myDataModel.introId;
 
-MyBagCard.bublesUsed = widget.myData.bubbleId;
+MyBagCard.bublesUsed = widget.myDataModel.bubbleId;
 
     bagController = TabController(length: 3, vsync: this);
     super.initState();
