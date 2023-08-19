@@ -24,7 +24,7 @@ class UpperProfileBody extends StatelessWidget {
           image: DecorationImage(
             image: CachedNetworkImageProvider(
                 ConstentApi().getImage(myDataModel.profile!.image)),
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
             filterQuality: FilterQuality.low,
           ),
         ),
@@ -47,6 +47,7 @@ class UpperProfileBody extends StatelessWidget {
                   ),
                   UserImage(
                       image: myDataModel.profile!.image!,
+                      boxFit: BoxFit.cover,
                       imageSize: ConfigSize.defaultSize! * 8),
                   const Spacer(
                     flex: 1,
