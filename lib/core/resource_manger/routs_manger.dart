@@ -177,7 +177,9 @@ class RouteGenerator {
                   userId: userId,
                 ));
       case Routes.giftGallery:
-        return MaterialPageRoute(builder: (_) => const GiftGallery());
+              int? userId = settings.arguments as int?;
+
+        return MaterialPageRoute(builder: (_) =>  GiftGallery(userId:userId ,));
       case Routes.editInfo:
         MyDataModel myDataModel = settings.arguments as MyDataModel;
 

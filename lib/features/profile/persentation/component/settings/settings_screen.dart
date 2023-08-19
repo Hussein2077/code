@@ -57,6 +57,12 @@ class SettingsScreen extends StatelessWidget {
             title: StringManager.mode.tr(),
             onTap: () => Navigator.pushNamed(context, Routes.mode),
           ),
+             settingsRow(
+            context: context,
+            icon: AssetsPath.warning,
+            title: StringManager.privacyPolicy.tr(),
+            onTap: () => Navigator.pushNamed(context, Routes.mode),
+          ),
           const Spacer(),
           BlocConsumer<LogOutBloc, LogOutState>(
             listener: (context, state) async{

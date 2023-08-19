@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/profile/general_room_profile.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 
@@ -141,13 +142,13 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
           case PopupItemValue.showUserDetails:
             return bottomDailog(
                 context: context,
-                widget: const SizedBox()
-                // GenralProfileDialog(
-                //   myData: widget.myDataModel,
-                //   userId:popupItem.data ,
-                //   roomData: widget.roomData,
-                //   layoutMode:widget.layoutMode ,
-                // )
+                widget: 
+                GeneralRoomProfile(
+                  myData: widget.myDataModel,
+                  userId:popupItem.data ,
+                  roomData: widget.roomData,
+                  layoutMode:widget.layoutMode ,
+                )
 
             );
           case  PopupItemValue.lockSeat :

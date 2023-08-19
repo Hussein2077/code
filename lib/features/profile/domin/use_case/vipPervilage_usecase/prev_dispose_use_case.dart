@@ -3,11 +3,13 @@ import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
 
 
-
-class HideVisitorUseCase {
+class PrevDisposeUseCases {
   BaseRepositoryProfile baseRepositoryProfile;
-  HideVisitorUseCase({required this.baseRepositoryProfile});
-  Future<Either<String, Failure>> hideVisitorUseCase(String type) async {
-    return await baseRepositoryProfile.hideVisitor(type);
+
+  PrevDisposeUseCases({required this.baseRepositoryProfile});
+
+  Future<Either<String, Failure>> prevDispose(
+      String type) async {
+    return await baseRepositoryProfile.prevDispose(type);
   }
 }

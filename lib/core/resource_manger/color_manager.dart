@@ -49,5 +49,7 @@ class ColorManager {
   static const Color yellowVipContanierText = Color(0xFFE79800);
   static const Color blueContributeContanierText = Color(0xFF0091E3);
   static const Color giftColors = Color(0x1FFFB800);
+    static const Color giftback = Color(0xFF110B15);
+
 
 }

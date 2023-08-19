@@ -91,6 +91,8 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/time_data_report_uc.
 import 'package:tik_chat_v2/features/profile/domin/use_case/unused_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/use_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/get_vip_prev_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_active_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -136,6 +138,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
 import 'package:tik_chat_v2/features/room/data/Repository_Imp/repository_Imp.dart';
@@ -375,6 +378,8 @@ class ServerLocator {
         () => AddInterstedBloc(addInterstedUsecase: getIt()));
                             getIt.registerFactory(
         () => GetUserInterstedBloc(getUserIntrestedUseCase: getIt()));
+                              getIt.registerFactory(
+        () => PrivacyBloc(prevActiveUseCases: getIt() , prevDisposeUseCases: getIt()));
 
         
 
@@ -591,6 +596,10 @@ class ServerLocator {
 
         getIt.registerLazySingleton(
         () => GetUserIntrestedUseCase(baseRepositoryProfile: getIt()));
+               getIt.registerLazySingleton(
+        () => PrevActiveUseCases(baseRepositoryProfile: getIt()));
+               getIt.registerLazySingleton(
+        () => PrevDisposeUseCases(baseRepositoryProfile: getIt()));
         
         
 

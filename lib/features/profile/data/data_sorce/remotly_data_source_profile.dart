@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
+import 'package:tik_chat_v2/features/home/presentation/component/create_live/voice/create_voic_live_body.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
@@ -139,7 +140,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<String> disposeHideVisitor(String type);
 
-  Future<GetVipPrevModel> getVipPrev();
+  Future<List<GetVipPrevModel>> getVipPrev();
 
   Future<String> buyCoins(BuyCoinsParameter buyCoinsParameter);
   Future<List<GiftHistoryModel>> getGiftHistory(String id);
@@ -181,6 +182,12 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<InterstedMode>> getAllIntersted();
     Future<String> addIntersted(List<int> ids);
       Future<List<InterstedMode>> getUserIntersted();
+        Future<String> prevActive(String type);
+
+
+
+
+  Future<String> prevDispose(String type);
 
 
 }
@@ -1275,7 +1282,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<GetVipPrevModel> getVipPrev() async {
+  Future<List<GetVipPrevModel>> getVipPrev() async {
     Map<String, String> headers = await DioHelper().header();
 
 
@@ -1287,8 +1294,10 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       log(response.data.toString());
+        List<GetVipPrevModel> result = List<GetVipPrevModel>.from(
+          response.data['data'].map((e) => GetVipPrevModel.fromjosn(e)));
 
-      return GetVipPrevModel.fromjosn(response.data['data']);
+      return result ; 
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
@@ -1975,6 +1984,49 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return List<InterstedMode>.from(
           resultData['data'].map((x) => InterstedMode.fromjson(x)));
 
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+
+    @override
+  Future<String> prevActive(String type) async {
+    Map<String, String> headers = await DioHelper().header();
+    try {
+      final response = await Dio().post(
+        ConstentApi.prevsUse(type),
+        options: Options(
+          headers: headers,
+        ),
+      );
+      log(response.data.toString());
+
+      return response.data['message'];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(e);
+    }
+  }
+
+
+
+ 
+
+  
+
+  @override
+  Future<String> prevDispose(String type) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.prevsUnUse(type),
+        options: Options(
+          headers: headers,
+        ),
+      );
+      log(response.data.toString());
+
+      return response.data['message'];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }

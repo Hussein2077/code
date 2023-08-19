@@ -595,7 +595,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
   
   @override
-  Future<Either<GetVipPrevModel, Failure>> getVipPerv()async {
+  Future<Either<List<GetVipPrevModel>, Failure>> getVipPerv()async {
         try {
       final result = await baseRemotlyDataSourceProfile.getVipPrev() ;
       return left(result);
@@ -917,6 +917,31 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
       return left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
+    }
+  }
+  @override
+  Future<Either<String, Failure>> prevActive(String type) async {
+    try {
+      final result = await baseRemotlyDataSourceProfile.prevActive(type) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  
+
+
+
+
+
+  @override
+  Future<Either<String, Failure>> prevDispose(String type) async {
+    try {
+      final result = await baseRemotlyDataSourceProfile.prevDispose(type) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
     }
   }
 
