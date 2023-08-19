@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -58,7 +59,7 @@ mallController.dispose();    super.dispose();
                   SizedBox(
                     height: ConfigSize.defaultSize! * 3,
                   ),
-                  const HeaderWithOnlyTitle(title: StringManager.mall),
+                   HeaderWithOnlyTitle(title: StringManager.mall.tr()),
                   SizedBox(
                     height: ConfigSize.defaultSize!,
                   ),

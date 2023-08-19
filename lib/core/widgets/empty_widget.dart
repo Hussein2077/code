@@ -13,30 +13,21 @@ class EmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: InkWell(
-          onTap: (){
-            bottomDailog(
-
-              context: context,
-              widget:const UserProfileInRoom()
-            );
-          },
-          child: Stack(
+        child: Stack(
       alignment: Alignment.center,
       children: [
-          SizedBox(
-            child: Image.asset(AssetsPath.emptyScreen),
+        SizedBox(
+          child: Image.asset(AssetsPath.emptyScreen),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 20),
+          child: Text(
+            message,
+            style: TextStyle(
+                color: Colors.black, fontSize: ConfigSize.defaultSize! * 2),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 20),
-            child: Text(
-              message,
-              style: TextStyle(
-                  color: Colors.black, fontSize: ConfigSize.defaultSize! * 2),
-            ),
-          ),
+        ),
       ],
-    ),
-        ));
+    ));
   }
 }

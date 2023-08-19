@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
@@ -47,7 +48,7 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
           height: ConfigSize.defaultSize,
         ),
         Text(
-          StringManager.members,
+          StringManager.members.tr(),
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         SizedBox(
@@ -86,8 +87,8 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
             } else {
               return SizedBox(
                 height: MediaQuery.of(context).size.height / 2.4,
-                child: const CustomErrorWidget(
-                    message: StringManager.unexcepectedError),
+                child:  CustomErrorWidget(
+                    message: StringManager.unexcepectedError.tr()),
               );
             }
           },
@@ -130,7 +131,7 @@ Widget ownerCard(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              StringManager.agencyOwner,
+              StringManager.agencyOwner.tr(),
               style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
             ),
             Row(

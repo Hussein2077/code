@@ -31,7 +31,7 @@ class CharchingCoinsForUsers extends StatelessWidget {
     return BlocListener<ChargeCoinForUserBloc, ChargeCoinForUserState>(
       listener: (context, state) {
         if (state is ChargeCoinForUserLoadingState) {
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         } else if (state is ChargeCoinForUserSucssesState) {
           sucssesToast(context: context, title: state.message);
           BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
@@ -63,7 +63,7 @@ class CharchingCoinsForUsers extends StatelessWidget {
                             },
                             child: const Icon(Icons.arrow_back_ios)),
                         Text(
-                          StringManager.chargeCoins,
+                          StringManager.chargeCoins.tr(),
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         InkWell(
@@ -88,13 +88,13 @@ class CharchingCoinsForUsers extends StatelessWidget {
       return  ContainerWithdrawal(
                           usd:state.myStore.coins.toString(),
                           icon:  Image.asset(AssetsPath.goldCoinIcon, scale: 8),
-                          title: StringManager.coins,
+                          title: StringManager.coins.tr(),
                         );
                         }else {
                      return  ContainerWithdrawal(
                           usd:coins,
                           icon:  Image.asset(AssetsPath.goldCoinIcon, scale: 8),
-                          title: StringManager.coins,
+                          title: StringManager.coins.tr(),
                         );
                         }
                   
@@ -164,11 +164,11 @@ class CharchingCoinsForUsers extends StatelessWidget {
                         if (userID.text.isEmpty) {
                           errorToast(
                               context: context,
-                              title: StringManager.pleaseEnterID);
+                              title: StringManager.pleaseEnterID.tr());
                         } else if (withdrawalAmount.text.isEmpty) {
                           errorToast(
                               context: context,
-                              title: StringManager.pleaseEnterquantity);
+                              title: StringManager.pleaseEnterquantity.tr());
                         } else {
                           BlocProvider.of<ChargeCoinForUserBloc>(context).add(ChargeCoinForUserEvent(
                               id: userID.text, amount: withdrawalAmount.text));
