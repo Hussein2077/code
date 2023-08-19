@@ -8,7 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+ 
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -138,7 +139,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
             await widget.seatManager.leaveSeat(showDialog: true);
             break;
           case PopupItemValue.showUserDetails:
-            return dialogRoom(
+            return bottomDailog(
                 context: context,
                 widget: const SizedBox()
                 // GenralProfileDialog(

@@ -67,12 +67,12 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
         return GridView.builder(
           gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
           itemCount: widget.data.length,
-          
-          
+
+
           shrinkWrap: true,
           // itemExtent: 3,
           itemBuilder: (context , index) {
-          
+
           return InkWell(
                           onTap: () {
                             if( checkPermissionGift(myLevel:  widget.myData.vip1?.level==null?0 : widget.myData.vip1!.level! ,
@@ -207,7 +207,7 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(
                                               AppPadding.p12),
-        
+
                                           child:
                                           Image.asset(AssetsPath.goldCoinIcon,
                                             width: AppPadding.p12,height: AppPadding.p12,),
@@ -236,7 +236,7 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                   child: const  Icon(Icons.download_outlined,
                                     color: ColorManager.mainColor,size: 20,) ,
                                 ),
-        
+
                                   if( !checkPermissionGift(myLevel:  widget.myData.vip1?.level==null?0 : widget.myData.vip1!.level! ,
                                       giftLevel: widget.data[index].vipLevel
                                   ))
@@ -264,13 +264,16 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                     )
                                 ],
                               )
-        
-        
+
+
                             ),
                         );
         });
       case RequestState.loading:
-        return const TransparentLoadingWidget();
+        return   TransparentLoadingWidget(
+          height: ConfigSize.defaultSize!*2,
+          width: ConfigSize.defaultSize!*7.2,
+        );
       case RequestState.error:
         return CustomErrorWidget(message: widget.message);
     }

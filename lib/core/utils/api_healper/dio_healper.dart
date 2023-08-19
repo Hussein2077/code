@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 
 class DioHelper {
+
   Future<Map<String, String>> header() async {
     String key = await Methods().getlocalization();
     String token = await Methods().returnUserToken();
@@ -79,7 +80,6 @@ class DioHelper {
 
   static dynamic handleDioError(DioError dioError) {
     log('handleDioError: ${dioError.type}');
-    // log("response"+dioError.response!.statusMessage!);
     switch (dioError.type) {
       case DioErrorType.response:
         throw handleStatuesCodeResponse(dioError.response);
@@ -103,6 +103,7 @@ class DioHelper {
         throw ServerException();
       case 401:
         throw UnauthorizedException();
+
       default:
         if(response?.data.runtimeType == String){
           throw ErrorModelException(errorMessage: response!.data);

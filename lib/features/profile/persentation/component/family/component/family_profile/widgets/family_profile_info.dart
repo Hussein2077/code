@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -270,14 +271,14 @@ Widget familyMemeber(
               flex: 1,
             ),
             Text(
-              '${StringManager.familyMember} $memberNum/$maxMemberNum',
+              '${StringManager.familyMember.tr()} $memberNum/$maxMemberNum',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const Spacer(
               flex: 15,
             ),
             Text(
-              "${StringManager.more} >",
+              "${StringManager.more.tr()} >",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const Spacer(
@@ -301,7 +302,7 @@ Widget familyMemeber(
                   id: owner.id.toString(),
                   image: owner.image!,
                   name: owner.name!,
-                  type: StringManager.owner,
+                  type: StringManager.owner.tr(),
                 );
               } else {
                 return FamilyMemberCard(
@@ -309,8 +310,8 @@ Widget familyMemeber(
                   image: members[index-1].image!,
                   name: members[index-1].name!,
                   type: members[index-1].isFamilyAdmin!
-                      ? StringManager.admin
-                      : StringManager.member,
+                      ? StringManager.admin.tr()
+                      : StringManager.member.tr(),
                 );
               }
             }),

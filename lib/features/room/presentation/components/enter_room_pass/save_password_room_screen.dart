@@ -29,15 +29,17 @@ class SaveRoomPasswordRoomScreen extends StatefulWidget {
 class _EnterPasswordRoomScreenState extends State<SaveRoomPasswordRoomScreen> {
   TextEditingController passwordcontroler = TextEditingController();
   final  int _passwordength = 6;
-
+  final  String password = "";
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(ConfigSize.defaultSize!*1.5),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(ConfigSize.defaultSize!*0.2),
-              topRight: Radius.circular(ConfigSize.defaultSize!*0.2)),
+
+          borderRadius: BorderRadius.circular(
+              25
+          ),
           color: Colors.white),
       child: SingleChildScrollView(
         child: Column(
@@ -53,7 +55,7 @@ class _EnterPasswordRoomScreenState extends State<SaveRoomPasswordRoomScreen> {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   image: AssetImage(AssetsPath.iconApp),
                 ),
               ),
@@ -71,7 +73,7 @@ class _EnterPasswordRoomScreenState extends State<SaveRoomPasswordRoomScreen> {
                   defaultBoxSize: ConfigSize.defaultSize! * 3.80,
                   margin: ConfigSize.defaultSize! * 0.44,
                   selectedBoxSize: ConfigSize.defaultSize! * 3.90,
-                  textStyle: TextStyle(fontSize: ConfigSize.defaultSize!*2.18),
+                  textStyle: TextStyle(fontSize: ConfigSize.defaultSize!*2.18,color: Colors.black),
                   defaultDecoration: BoxDecoration(
                     border: Border.all(
                         width: 2,
@@ -83,7 +85,11 @@ class _EnterPasswordRoomScreenState extends State<SaveRoomPasswordRoomScreen> {
                         Border.all(width: 2, color: ColorManager.mainColor),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  onChange: (value) {}),
+                  onChange: (value) {
+                    setState(() {
+                      value = password;
+                    });
+                  }),
             ),
             SizedBox(
               height: ConfigSize.defaultSize!*0.14,

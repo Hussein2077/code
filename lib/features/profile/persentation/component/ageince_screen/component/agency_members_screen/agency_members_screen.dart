@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -40,7 +41,7 @@ class _AgencyMembersScreenState extends State<AgencyMembersScreen> {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-          const HeaderWithOnlyTitle(title: StringManager.members),
+           HeaderWithOnlyTitle(title: StringManager.members.tr()),
           //
           BlocBuilder<AgnecyMemberBloc, AgnecyMemberState>(
             builder: (context, state) {

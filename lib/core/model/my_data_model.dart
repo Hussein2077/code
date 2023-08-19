@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_agency_model.dart';
 import 'package:tik_chat_v2/core/model/my_store_model.dart';
@@ -9,6 +5,9 @@ import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'profile_room_model.dart';
 import 'vip_center_model.dart';
+
+
+
 
 class MyDataModel {
    int? id;
@@ -103,13 +102,11 @@ class MyDataModel {
      int? frameId,int? introId,
      int? bubbleId,String? bubble,
      MyAgencyModel? myAgencyModel,bool? isAgencyRequest,
-     bool? isFirst,int? familyId,String? uuid,
+     bool? isFirst,int? familyId,String? familyName , String? uuid,
      String? notificationId,String? bio,bool? hasRoom,
      bool? hasColorName,bool? isAanonymous,bool? isFacebook,
      bool? isGoogle, VipCenterModel? vip1, bool? isPhone,
      int? myType , bool? isHideRoom
-
-
    }) {
      this.id = id??this.id;
      this.chatId = chatId?? this.chatId;
@@ -142,13 +139,9 @@ class MyDataModel {
      this.hasRoom = hasRoom ?? this.hasRoom;
      this.notificationId = notificationId ?? this.notificationId;
      this.bio = bio ?? this.bio;
-     this.frameId = frameId ?? this.frameId;
      this.myType = myType ?? this.myType;
      this.isHideRoom = isHideRoom ?? this.isHideRoom;
-
-
-
-
+     this.familyId = familyId ?? this.familyId ;
    }
 
 
@@ -252,7 +245,7 @@ class MyDataModel {
      myAgencyModel: map['agency'] != null
          ? MyAgencyModel.fromjson(map["agency"])
          : null,
-                     myType: map['type_user']??0
+       myType: map['type_user']??0
 
    );
     }
@@ -274,7 +267,15 @@ class MyDataModel {
       frame: frame,
       familyId: familyId,
       frameId: familyId,
+      bio: bio,
       uuid:uuid,
+      myStore: MyStoreModel(
+        totalCoins: myStore?.totalCoins,
+        coins: myStore?.coins,
+        coupons: myStore?.coupons,
+        silverCoin: myStore?.silverCoin,
+        diamonds: myStore?.diamonds
+      ),
       profile: ProfileRoomModel(
         image:profile?.image??'',
         gender: profile?.gender??1,
@@ -289,7 +290,11 @@ class MyDataModel {
       level: LevelDataModel(senderImage: level?.senderImage,
           receiverImage: level?.receiverImage),
       vip1: VipCenterModel(level: vip1?.level),
-      userType: myType
+      userType: myType,
+      numberOfFans: numberOfFans,
+      numberOfFollowings: numberOfFollowings,
+      numberOfFriends: numberOfFriends,
+      profileVisotrs: profileVisotrs
     );
 
   }

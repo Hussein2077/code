@@ -15,7 +15,8 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+ 
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
@@ -231,7 +232,7 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
                                 flex: 1,
                                 child: InkWell(
                                   onTap: () {
-                                    dialogRoom(context: context ,widget:sendDialog(context) );
+                                    bottomDailog(context: context ,widget:sendDialog(context) );
 
 
                                   },

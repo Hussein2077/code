@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -49,7 +50,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-          const HeaderWithOnlyTitle(title: StringManager.reports),
+           HeaderWithOnlyTitle(title: StringManager.reports.tr()),
           BlocBuilder<AgencyHistoryTimeBloc, AgencyHistoryTimeState>(
             builder: (context, state) {
               if (state is AgencyHistoryTimeSucssesState) {
@@ -70,7 +71,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 return Text(state.error,
                     style: Theme.of(context).textTheme.headlineMedium);
               } else {
-                return Text(StringManager.unexcepectedError,
+                return Text(StringManager.unexcepectedError.tr(),
                     style: Theme.of(context).textTheme.headlineMedium);
               }
             },

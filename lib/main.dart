@@ -86,7 +86,11 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_g
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
@@ -352,8 +356,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<MangerGetVipPrevBloc>()),
         BlocProvider(create: (_) => getIt<GetMyBackgroundBloc>()),
         BlocProvider(create: (_) => getIt<AddRoomBackgroundBloc>()),
-        BlocProvider(create: (_) => getIt<GiftBloc>()),
+        BlocProvider(create: (_) => getIt<GiftBloc>()
+    ..add(GiftesNormalEvent(type: 1))
+    ..add(GiftesHotEvent(type: 2))
+    ..add(GiftesCountryEvent(type: 3))),
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
+        BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),
+        BlocProvider(create: (_) => getIt<PKBloc>()),
+        BlocProvider(create: (_) => getIt<AdminRoomBloc>())
 
 
 

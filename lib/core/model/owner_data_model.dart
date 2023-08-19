@@ -14,7 +14,6 @@ class UserDataModel {
   final String? chatId ;
   final String? name;
   final bool? isFollow;
-  final int? numberOfFans;
   final ProfileRoomModel? profile;
   final NowRoomModel? nowRoom;
   final LevelDataModel? level;
@@ -40,6 +39,10 @@ class UserDataModel {
   final String? onlineTime;
   final bool? isCountryHiden ;
   final int? userType ;
+  int? numberOfFans;
+  int? numberOfFollowings;
+  int? numberOfFriends;
+  int? profileVisotrs;
 
 
 
@@ -57,6 +60,9 @@ class UserDataModel {
         this.isFollow,
         this.name,
         this.numberOfFans,
+        this.numberOfFollowings,
+        this.numberOfFriends,
+        this.profileVisotrs,
         this.profile,
         this.level,
         this.vip1,
@@ -101,8 +107,10 @@ class UserDataModel {
         uuid: map['uuid'],
         isFollow: map['is_follow'] != null ? map['is_follow'] as bool : false,
         bio: map['bio'] != null ?map['bio'] as String :"",
-        numberOfFans:
-        map['number_of_fans'] ,
+        numberOfFans: map['number_of_fans'] ,
+        numberOfFollowings: map['number_of_followings'] ,
+        numberOfFriends: map['number_of_friends'],
+        profileVisotrs: map['profile_visitors'],
         profile: map['profile'] != null
             ? ProfileRoomModel.fromMap(map['profile'] as Map<String, dynamic>)
             : null,
@@ -137,6 +145,7 @@ class UserDataModel {
       frame: frame,
       familyId: familyId,
       frameId: familyId,
+        bio: bio,
       uuid:uuid,
       profile: ProfileRoomModel(
         image:profile?.image??'',
@@ -145,8 +154,19 @@ class UserDataModel {
         country: profile?.country
 
       ),
+      myStore: MyStoreModel(
+            totalCoins: myStore?.totalCoins,
+            coins: myStore?.coins,
+            coupons: myStore?.coupons,
+            silverCoin: myStore?.silverCoin,
+            diamonds: myStore?.diamonds
+        ),
       name: name,
       chatId: chatId,
+        numberOfFans :numberOfFans,
+        numberOfFollowings: numberOfFollowings ,
+        numberOfFriends: numberOfFriends,
+        profileVisotrs:profileVisotrs,
       hasColorName: hasColorName,
       notificationId: notificationId,
       level: LevelDataModel(senderImage: level?.senderImage,
@@ -154,7 +174,6 @@ class UserDataModel {
       vip1: VipCenterModel(level: vip1?.level),
       myType: userType
     );
-
   }
 
 

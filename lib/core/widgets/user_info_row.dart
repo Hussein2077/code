@@ -46,6 +46,7 @@ class UserInfoRow extends StatelessWidget {
           ),
           UserImage(
             imageSize: imageSize,
+            boxFit: BoxFit.cover,
             image: userData.profile!.image!,
           ),
           const Spacer(

@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,7 +55,7 @@ class _UserProfileState extends State<UserProfile> {
                           myDataModel: state.myDataModel,
                           myProfile: myProfile!),
                       LowerProfileBody(
-                          myDataModel: state.myDataModel,
+                          userDataModel: state.myDataModel.convertToUserObject(),
                           myProfile: myProfile!),
                     ],
                   );
@@ -69,7 +69,7 @@ class _UserProfileState extends State<UserProfile> {
                           myProfile: myProfile!),
                       LowerProfileBody(
                         myProfile: myProfile!,
-                        myDataModel: getIt<MyDataModel>(),
+                        userDataModel: getIt<MyDataModel>().convertToUserObject(),
                       ),
                     ],
                   );
@@ -83,13 +83,13 @@ class _UserProfileState extends State<UserProfile> {
                 if (state is GetUserSucssesState) {
                   return Column(
                     children: [
-                      //TODO detect which values should br in convert method
+                      //TODO you should remove this function
                       UpperProfileBody(
                           myProfile: myProfile!,
                           myDataModel: state.data.convertToMyDataObject()),
                       LowerProfileBody(
                           myProfile: myProfile!,
-                          myDataModel: state.data.convertToMyDataObject()),
+                          userDataModel: state.data),
                       ProfileBottomBar(
                         userData: state.data,
                       )

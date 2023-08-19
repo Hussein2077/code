@@ -20,7 +20,7 @@ import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
@@ -882,6 +882,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
            loadAnimationBlueTeam("files/ce611dcb83b465805d552565d0705be4.svga");
            loadAnimationRedTeam("files/091e42c561800ca052493228e2165d70.svga");
          }
+         getIt<SetTimerPK>().timer.cancel() ;
 
      }
      else if (result[messageContent][message] == leaveMicKey) {
@@ -1016,7 +1017,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
          pobUpSender = await RemotlyDataSourceProfile().getUserData(userId:  result[messageContent]['uId'].toString()) ;
          RoomScreen.usersInRoom.putIfAbsent(result[messageContent]['uId'].toString(),
                  () => pobUpSender!) ;
-       }else{
+       }
+       else{
          pobUpSender  =RoomScreen.usersInRoom[result[messageContent]['uId'].toString()] ;
        }
        ZegoInRoomMessageInput.messagePonUp = result[messageContent]['my_msg'];
@@ -1217,7 +1219,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             myDataModel: widget.myDataModel,
                             roomId: widget.room.id.toString(),
                             notifyRoom: activePK,
-                            isParty: layoutMode == LayoutMode.party,
+                            layoutMode: layoutMode ,
                             ownerId: widget.room.ownerId.toString(), isOnMic: true,
                             roomData: widget.room,
 
@@ -1236,7 +1238,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             myDataModel: widget.myDataModel,
                             roomId: widget.room.id.toString(),
                             notifyRoom: activePK,
-                            isParty: layoutMode == LayoutMode.party,
+                            layoutMode:  LayoutMode.party,
                             ownerId: widget.room.ownerId.toString(),
                             isOnMic: false,
                             roomData: widget.room,
@@ -1264,7 +1266,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             myDataModel: widget.myDataModel,
                             roomId: widget.room.id.toString(),
                             notifyRoom: activePK,
-                            isParty: layoutMode == LayoutMode.party,
+                            layoutMode: layoutMode,
                             ownerId: widget.room.ownerId.toString(), isOnMic: true,
                             roomData: widget.room,
 
@@ -1383,7 +1385,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
         }
         else if (state is OnRoomLoadingState) {
-          dialogRoom(
+          bottomDailog(
               context: context,
               widget: const DialogLoadingWidget());
         }
@@ -1392,7 +1394,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           errorToast(context: context, title: state.errorMassage);
         }
         else if (state is BanUserFromWritingLoadingState){
-          dialogRoom(
+          bottomDailog(
               context: context,
               widget: const DialogLoadingWidget());
         }
@@ -1656,6 +1658,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
+                            insetPadding: EdgeInsets.symmetric(
+                                horizontal: ConfigSize.defaultSize!*0.8
+                            ),
+                            backgroundColor: Colors.transparent,
                             title: const Text(StringManager.enterPassword),
                             content: EnterPasswordRoomDialog(
                               ownerId: ownerId,
@@ -1705,6 +1711,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
+                          backgroundColor: Colors.transparent,
+                          insetPadding: EdgeInsets.symmetric(
+                              horizontal: ConfigSize.defaultSize!*0.8
+                          ),
+
                           title:const Text(StringManager.enterPassword),
                           content: EnterPasswordRoomDialog(
                             ownerId: ownerId,

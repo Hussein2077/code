@@ -9,7 +9,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 
 
 
@@ -22,7 +22,7 @@ class MassageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          dialogRoom(
+          bottomDailog(
               context: context,
               widget: Container(
                   decoration: const BoxDecoration(

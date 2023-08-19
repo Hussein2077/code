@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+ 
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/user_info_row.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/get_room_users_model.dart';
@@ -40,7 +41,7 @@ class VisitorsScreenRoomBody extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
 
-                  dialogRoom(
+                  bottomDailog(
                       context: context,
                       widget: const  SizedBox()
                       // GenralProfileDialog(
@@ -71,7 +72,7 @@ class VisitorsScreenRoomBody extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   Navigator.pop(context);
-                  dialogRoom(
+                  bottomDailog(
                       context: context,
                       widget: const SizedBox()
 

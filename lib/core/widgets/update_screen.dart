@@ -29,7 +29,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
         height: ConfigSize.screenHeight! / 2.6,
         child: Padding(
           padding: EdgeInsets.only(
-              top: ConfigSize.defaultSize! * 4.0,
+              top: ConfigSize.defaultSize! * 1.5,
               left: ConfigSize.defaultSize! * 4.0,
               right: ConfigSize.defaultSize! * 4.0
           ),
@@ -37,10 +37,15 @@ class _UpdateScreenState extends State<UpdateScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text( StringManager.updateApp.tr() ,style: Theme.of(context).textTheme.bodyLarge,),
-              SizedBox(height: ConfigSize.defaultSize! * 2.1),
+              Text( StringManager.updatTikChatApp.tr() ,style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: ConfigSize.defaultSize!*2.0
+              ),),
+              SizedBox(height: ConfigSize.defaultSize! * 1.1),
               Text( StringManager.updateText.tr() ,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color:Colors.grey.shade600,fontSize: ConfigSize.defaultSize! * 1.6 ),),
+                overflow: TextOverflow.clip,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color:Colors.grey.shade600,fontSize: ConfigSize.defaultSize! * 1.5 ),),
 
               SizedBox(height: ConfigSize.defaultSize! * 2.1),
               Row(
@@ -68,7 +73,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child:  Text( StringManager.updateText.tr() ,
+                    child:  Text( StringManager.update.tr() ,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(color:Colors.white,fontSize: ConfigSize.defaultSize! * 1.4 ),),
                   ),
                   SizedBox(width: ConfigSize.defaultSize! * 1.8),
@@ -88,10 +93,12 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 ],
               ),
               SizedBox(height: ConfigSize.defaultSize! * 1.1),
-              const Divider(
+               Divider(
                 thickness: 1,
+                color: Colors.grey.shade300,
               ),
-              SizedBox(height: ConfigSize.defaultSize! * 1.3),
+              SizedBox(height: ConfigSize.defaultSize! * 0.7),
+
               Row(
                 children: [
                   Image.asset(

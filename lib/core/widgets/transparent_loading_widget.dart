@@ -13,6 +13,7 @@ class TransparentLoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Center(
         child: Container(
+
         width:width ?? double.maxFinite,
         color: Colors.transparent,
         height: height?? double.maxFinite,

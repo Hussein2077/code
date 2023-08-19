@@ -168,7 +168,6 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
       log(jsonData.toString());
       ConfigModel data = ConfigModel.fromJson(jsonData);
       log(data.toString());
-
       return data;
 
     } on DioError  catch (e) {
@@ -180,13 +179,14 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
   Future<String> createRoom(
       {required CreateRoomPramiter creatRoomPramiter}) async {
     Map<String, String> headers = await DioHelper().header();
-
+    log("PASSSOERD ${creatRoomPramiter.roomPassword}");
     FormData formData;
     if (creatRoomPramiter.roomCover == null) {
       formData = FormData.fromMap({
         'room_name': creatRoomPramiter.roomName,
         'room_intro': creatRoomPramiter.roomIntero,
         'room_type': creatRoomPramiter.roomType,
+        'room_pass': creatRoomPramiter.roomPassword,
       });
     }
     else {
@@ -197,6 +197,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
         await MultipartFile.fromFile(file.path, filename: fileName),
         'room_intro': creatRoomPramiter.roomIntero,
         'room_type': creatRoomPramiter.roomType,
+        'room_pass': creatRoomPramiter.roomPassword,
         'room_name': creatRoomPramiter.roomName,
 
       });

@@ -81,6 +81,7 @@ class StringManager {
       "A verification code will be sent to you on this number";
   static const String reSend = "Resend";
   static const String done = "Done";
+  static const String updatTikChatApp = "Update TikChat App";
   static const String completeYourAccount = "Complete your account";
   static const String postYourBestPhoto = "Post your best photo!";
   static const String broadcastYourMoment =
@@ -336,6 +337,7 @@ class StringManager {
   static const String chooseTyeps ="Choose Type";
   static const String mysteriousPerson = "Mysterious Person";
   static const String cancle = "Cancel";
+  static const String nameAgency = "Name Agency ";
   //create room
   static const String enterYourRoomData ="please,Enter your room data" ;
  static const String enterYourRoomName ="please,Enter your room name" ;
@@ -345,12 +347,12 @@ class StringManager {
      "You have been kicked out of this ROM, you may log in yet";
  String get({required String reming}) => "${youCanEnterAfter.tr()} $reming";
  static const String checkYourInternet = "Check Your Internet";
-  static const String noDataFoundHere = "No Data Found Here";
-  static const String totalUsd = "Total Usd";
-  static const String ownerUsd = "Owner Usd";
-  static const String type = "Type";
-  static const String chooseTopic = "Choose the topics that are most important to you!";
-  static const String hideRoom = "Hide Your Room";
+ static const String noDataFoundHere = "No Data Found Here";
+ static const String totalUsd = "Total Usd";
+ static const String ownerUsd = "Owner Usd";
+ static const String type = "Type";
+ static const String chooseTopic = "Choose the topics that are most important to you!";
+ static const String hideRoom = "Hide Your Room";
  static const String sendToLuckyBox = "Send to Lucky box";
  static const String quantity = "Quantity";
  static const String superBox = "Super Box";
@@ -373,14 +375,19 @@ class StringManager {
  static const String unLockSeat = "UnLockSeat";
  static const String lockSeat = "LockSeat";
  static const String showDetails = "Show details";
-
- static const String privilegeVip6 =
-     "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
+ static const String privilegeVip6 = "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
  static const String active = "Active";
  static const String updateScssfuly = "update Sucessfully";
  static const String youblockedFromRoom = 'you have a bloc from this room ' ;
  static const String minute = "munit";
  static const String thisGiftForbiden = "this Gift for vip";
+ static const String levelOfThe = "level of the VIP";
+ static const String contribute = "Contribute";
+ static const String talk = "Talk";
+ static const String youshould = 'you should close pk frist';
+ static const String cantopen = 'can\'t open in this mood';
+ static const String cantclosepk = 'can\'t close the pk';
+
 
  String vipLevelGift({required int level}) => "${thisGiftForbiden.tr()}$level";
 

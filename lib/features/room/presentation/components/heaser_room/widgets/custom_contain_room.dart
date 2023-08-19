@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+ 
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/widgets/top_in_room_screen/top_in_room_screen.dart';
@@ -31,7 +32,7 @@ class CustomContainRoom extends StatelessWidget {
       onTap: (){
         BlocProvider.of<TobinRoomBloc>(context)..add(getTopIn24HoursRoomEvent(classId: '3',typeDate: '1',ownerId:ownerId ))
           ..add(getTopInTotalRoomEvent(classId: '3' ,typeDate: '4',ownerId: ownerId)) ;
-        dialogRoom(
+        bottomDailog(
             context: context,
             widget:  TopInRoomScreen(id: id, roomData: roomData, myData: myData, layoutMode:layoutMode ,) );
       },

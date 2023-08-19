@@ -7,9 +7,11 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/warning_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/lucky_box.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
@@ -21,12 +23,12 @@ import 'package:share_plus/share_plus.dart';
 
 class BasicToolDialog extends StatefulWidget {
   final Function() notifyRoom;
-  final bool isParty;
+  final LayoutMode layoutMode;
   final String ownerId;
   final String userId ;
   final bool isOnMic ;
   final EnterRoomModel roomData ;
-  const  BasicToolDialog({Key? key,required this.roomData, required this.notifyRoom, required this.isParty, required this.ownerId, required this.userId, required this.isOnMic}) : super(key: key);
+  const  BasicToolDialog({Key? key,required this.roomData, required this.notifyRoom, required this.layoutMode, required this.ownerId, required this.userId, required this.isOnMic}) : super(key: key);
 
   @override
   State<BasicToolDialog> createState() => _BasicToolDialogState();
@@ -70,7 +72,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
 
 
 
-            dialogRoom(
+            bottomDailog(
                 context: context,
                 widget:  LuckyBox(roomData: widget.roomData,));
           },
@@ -99,10 +101,19 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
               builder: (context,isStartPK,_){
                   return InkWell(
                     onTap: () async{
-                      if (widget.isParty) {
-                     //TODO SHOW Dialog here to (ممنوع فتح في هذا الوضع  )
-                      } else if (isStartPK) {
-                        //TODO SHOW Dialog here to (ممنوع غلق الpk)
+                      if (widget.layoutMode == LayoutMode.party || widget.layoutMode == LayoutMode.seats12) {
+                        showDialog(context: context,
+                            builder: (context) {
+                             return WarningDialog(buildContext: context,
+                                  text: StringManager.cantopen.tr());
+                            },);
+                      }
+                      else if (isStartPK) {
+                        showDialog(context: context,
+                          builder: (context) {
+                            return WarningDialog(buildContext: context,
+                                text: StringManager.cantclosepk.tr());
+                          },);
                       } else {
                         Navigator.pop(context);
                         showDialog(
@@ -140,10 +151,10 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
         if(widget.ownerId == widget.userId)
         InkWell(
           onTap: () async{
-            DynamicLinkProvider().creatLink(
+            DynamicLinkProvider().createInvetionRoomLink(
                 refCod: widget.roomData.ownerId!,
                 password:widget.roomData.roomPassStatus??false,
-                ownerImage: widget.roomData.roomCover! )
+                ownerImage: widget.roomData.roomCover!)
                 .then((value) {
                   Share.share(value);
             });

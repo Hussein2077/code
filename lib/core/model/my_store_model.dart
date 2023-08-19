@@ -24,13 +24,11 @@ class MyStoreModel {
 
   factory MyStoreModel.fromMap(Map<String, dynamic> map) {
     return MyStoreModel(
-        totalCoins:
-            map['total_coins'] != null ? map['total_coins'] as String : null,
+        totalCoins: map['total_coins'] != null ? map['total_coins'] as String : null,
         coupons: map['coupons'] != null ? map['coupons'] as int : null,
         coins: map['coins'] != null ? map['coins'] as int : 0,
         diamonds: map['diamonds'] != null ? map['diamonds'] as dynamic : 0,
-        silverCoin:
-            map['silver_coins'] != null ? map['silver_coins'] as int : 0);
+        silverCoin: map['silver_coins'] != null ? map['silver_coins'] as int : 0);
   }
 
   String toJson() => json.encode(toMap());

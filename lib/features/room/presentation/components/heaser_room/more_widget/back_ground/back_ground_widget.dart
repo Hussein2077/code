@@ -70,7 +70,10 @@ class _BackGroundState extends State<BackGround> {
         return BlocBuilder<OnRoomBloc, OnRoomStates>(
           builder: (context, state) {
             if (state is GetBackGroundloadingState) {
-              return const TransparentLoadingWidget();
+              return  TransparentLoadingWidget(
+                height: ConfigSize.defaultSize!*2,
+                width: ConfigSize.defaultSize!*7.2,
+              );
             } else if (state is GetBackGroundSucsseState) {
               count = state.data.length;
               backGround=state.data;

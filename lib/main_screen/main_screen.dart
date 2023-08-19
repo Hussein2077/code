@@ -1,6 +1,7 @@
 import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,7 @@ import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
@@ -157,12 +158,15 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             )),
                         GestureDetector(
                           onTap: () async {
-                            dialogRoom(
+                            bottomDailog(
                                 context: context,
                                 widget: InkWell(
                                     onTap: () {},
                                     child:
-                                    const TransparentLoadingWidget()));
+                                     TransparentLoadingWidget(
+                                      height: ConfigSize.defaultSize!*2,
+                                      width: ConfigSize.defaultSize!*6.8,
+                                    )));
 
                             await Methods()
                                 .exitFromRoom(
@@ -233,7 +237,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         isFirst = false ;
       }
       else if (event == ConnectivityResult.none) {
-        errorToast(context: context, title: StringManager.checkYourInternet);
+        errorToast(context: context, title: StringManager.checkYourInternet.tr());
       }
     });
   }
