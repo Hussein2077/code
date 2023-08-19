@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -17,10 +18,10 @@ class ChatTabs extends StatelessWidget {
           controller: chatController,
           tabs: [
             Text(
-              StringManager.messages,
+              StringManager.messages.tr(),
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            Text(StringManager.friends,
+            Text(StringManager.friends.tr(),
                 style: Theme.of(context).textTheme.headlineLarge),
           ]),
     );
