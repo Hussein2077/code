@@ -154,7 +154,7 @@ class UserDataModel {
         country: profile?.country
 
       ),
-        myStore: MyStoreModel(
+      myStore: MyStoreModel(
             totalCoins: myStore?.totalCoins,
             coins: myStore?.coins,
             coupons: myStore?.coupons,
