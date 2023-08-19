@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -42,7 +43,7 @@ class VipBottomBar extends StatelessWidget {
                         fontSize: ConfigSize.defaultSize! * 1.6)),
                 TextSpan(
                     text:
-                        ' ${StringManager.coins} / $expire ${StringManager.day}',
+                        ' ${StringManager.coins.tr()} / $expire ${StringManager.day.tr()}',
                     style: Theme.of(context).textTheme.bodyLarge),
               ],
             ),
@@ -53,7 +54,7 @@ class VipBottomBar extends StatelessWidget {
             onTap: () {
               // bottomDailog(context: context, widget: widget)
             },
-            title: StringManager.send,
+            title: StringManager.send.tr(),
             buttonColor: ColorManager.bageGriedinet,
           ),
           MainButton(
@@ -79,7 +80,7 @@ class VipBottomBar extends StatelessWidget {
                         ));
                   });
             },
-            title: StringManager.buy,
+            title: StringManager.buy.tr(),
           )
         ],
       ),

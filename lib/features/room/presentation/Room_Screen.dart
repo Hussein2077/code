@@ -882,6 +882,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
            loadAnimationBlueTeam("files/ce611dcb83b465805d552565d0705be4.svga");
            loadAnimationRedTeam("files/091e42c561800ca052493228e2165d70.svga");
          }
+         getIt<SetTimerPK>().timer.cancel() ;
 
      }
      else if (result[messageContent][message] == leaveMicKey) {
@@ -1016,7 +1017,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
          pobUpSender = await RemotlyDataSourceProfile().getUserData(userId:  result[messageContent]['uId'].toString()) ;
          RoomScreen.usersInRoom.putIfAbsent(result[messageContent]['uId'].toString(),
                  () => pobUpSender!) ;
-       }else{
+       }
+       else{
          pobUpSender  =RoomScreen.usersInRoom[result[messageContent]['uId'].toString()] ;
        }
        ZegoInRoomMessageInput.messagePonUp = result[messageContent]['my_msg'];
@@ -1217,7 +1219,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             myDataModel: widget.myDataModel,
                             roomId: widget.room.id.toString(),
                             notifyRoom: activePK,
-                            isParty: layoutMode == LayoutMode.party,
+                            layoutMode: layoutMode ,
                             ownerId: widget.room.ownerId.toString(), isOnMic: true,
                             roomData: widget.room,
 
@@ -1236,7 +1238,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             myDataModel: widget.myDataModel,
                             roomId: widget.room.id.toString(),
                             notifyRoom: activePK,
-                            isParty: layoutMode == LayoutMode.party,
+                            layoutMode:  LayoutMode.party,
                             ownerId: widget.room.ownerId.toString(),
                             isOnMic: false,
                             roomData: widget.room,
@@ -1264,7 +1266,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             myDataModel: widget.myDataModel,
                             roomId: widget.room.id.toString(),
                             notifyRoom: activePK,
-                            isParty: layoutMode == LayoutMode.party,
+                            layoutMode: layoutMode,
                             ownerId: widget.room.ownerId.toString(), isOnMic: true,
                             roomData: widget.room,
 

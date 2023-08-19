@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_event.dart';
@@ -12,10 +12,10 @@ import 'reels_tab_view_body.dart';
 
 
 class LowerProfileBody extends StatefulWidget {
-    final MyDataModel myDataModel ;
+    final UserDataModel userDataModel ;
      final bool myProfile; 
 
-  const LowerProfileBody({required this.myProfile ,  required this.myDataModel ,  super.key});
+  const LowerProfileBody({required this.myProfile ,  required this.userDataModel ,  super.key});
 
   @override
   State<LowerProfileBody> createState() => _LowerProfileBodyState();
@@ -25,7 +25,7 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
   late TabController profileController ; 
   @override
   void initState() {
-        BlocProvider.of<GiftHistoryBloc>(context).add(GetGiftHistory(id: widget.myDataModel.id.toString()));
+        BlocProvider.of<GiftHistoryBloc>(context).add(GetGiftHistory(id: widget.userDataModel.id.toString()));
 
     profileController = TabController(length: 2, vsync: this);
     super.initState();
@@ -42,8 +42,8 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
         child: TabBarView(
           controller: profileController,
            children: [
-            ProfileTabViewBody(myDataModel: widget.myDataModel),
-       const   ReelsTabView()
+            ProfileTabViewBody(userDataModel:widget.userDataModel),
+            const ReelsTabView()
       
         ]),
       ),

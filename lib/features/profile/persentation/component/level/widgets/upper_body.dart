@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -54,9 +55,9 @@ class LeveUpperBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "${StringManager.level} $level",
+              "${StringManager.level.tr()} $level",
               style: TextStyle(
-                  color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.6),
+                  color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.2),
             ),
             LinearPercentIndicator(
               barRadius: Radius.circular(ConfigSize.defaultSize!),
@@ -67,16 +68,16 @@ class LeveUpperBody extends StatelessWidget {
               progressColor: ColorManager.whiteColor,
             ),
             Text(
-              "${StringManager.level} $nextLevel",
+              "${StringManager.level.tr()} $nextLevel",
               style: TextStyle(
-                  color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.6),
+                  color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.2),
             ),
           ],
         ),
                 SizedBox(height: ConfigSize.defaultSize!*3,),
 
         Text(
-          "${StringManager.theNumberOfPoints}: $levelRemining",
+          "${StringManager.theNumberOfPoints.tr()}: $levelRemining",
           style: TextStyle(
               color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.2),
         ),

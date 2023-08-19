@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
@@ -69,9 +70,10 @@ class SetTimerPK {
   }
 
   void _updateSeconds(BuildContext context,String ownerId) {
-    if(RoomScreen.timeMinutePK<1 && RoomScreen.timeSecondPK<1){
+    if(RoomScreen.timeMinutePK<1 && RoomScreen.timeSecondPK<1 &&
+        MyDataModel.getInstance().id.toString() == ownerId){
       BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId));
-      _timer!.cancel();
+    //  _timer!.cancel();
 
     }
     else if ( RoomScreen.timeSecondPK < 1){

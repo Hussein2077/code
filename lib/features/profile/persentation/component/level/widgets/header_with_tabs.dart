@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -33,8 +34,8 @@ class _HeaderWithTabsState extends State<HeaderWithTabs> {
             SizedBox(
               height: ConfigSize.defaultSize! * 3.5,
             ),
-            const HeaderWithOnlyTitle(
-                title: StringManager.level, titleColor: Colors.white),
+             HeaderWithOnlyTitle(
+                title: StringManager.level.tr(), titleColor: Colors.white),
             TabBar(
                 labelStyle: TextStyle(fontSize: ConfigSize.defaultSize!*2),
                 unselectedLabelStyle: TextStyle(fontSize: ConfigSize.defaultSize!*1.7),
@@ -44,9 +45,9 @@ class _HeaderWithTabsState extends State<HeaderWithTabs> {
                     horizontal: ConfigSize.defaultSize! * 8),
                 indicatorColor: Colors.white,
                 controller: widget.levelController,
-                tabs:const [
-                  Text(StringManager.user ),
-                  Text(StringManager.host),
+                tabs: [
+                  Text(StringManager.user.tr()),
+                  Text(StringManager.host.tr()),
                 ]),
           ],
         ));
