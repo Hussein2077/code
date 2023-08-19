@@ -40,6 +40,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/settings/com
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/otp_bind_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/phone_number_bind_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/mode_screen/mode_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/privacy_setting/privacy_setting.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/settings_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/edit_info/component/intersted_screen/intersted_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/edit_info/edit_info_screen.dart';
@@ -120,6 +121,8 @@ class Routes {
     static const String chargeAgencyOwnerHistory = "/ChargeAgencyOwnerHistory";
         static const String interstedScreen = "/interstedScreen";
   static const String roomHandler = '/roomHandler';
+    static const String privacySettings = "/privicySettening";
+
 
 }
 
@@ -354,6 +357,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ChargeAgencyOwnerHistory());
                          case Routes.interstedScreen:
         return MaterialPageRoute(builder: (_) => const InterstedScreen());
+          case Routes.privacySettings:
+        MyDataModel userData = settings.arguments as MyDataModel;
+
+        return MaterialPageRoute(
+            builder: (_) =>  SafeArea(child: PrivacySetting(myData:userData ,)));
     }
 
     return unDefinedRoute();
