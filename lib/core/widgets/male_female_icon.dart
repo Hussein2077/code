@@ -22,9 +22,17 @@ class MaleFemaleIcon extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-       maleOrFeamle==1?  Image.asset(AssetsPath.whiteMaleIcon , scale: 1.5,):  Image.asset(AssetsPath.whiteFemaleIcon , scale: 1.5,),
-       Text(age.toString(), style: TextStyle(color: Colors.white , fontSize: ConfigSize.defaultSize!),)
-      ],),
+          SizedBox(
+            width: ConfigSize.screenWidth!*0.03,
+            child: maleOrFeamle == 1 ? Image.asset(
+              AssetsPath.whiteMaleIcon, ) : Image.asset(
+              AssetsPath.whiteFemaleIcon, ),
+
+          ),
+
+          Text(age.toString(), style: TextStyle(
+              color: Colors.white, fontSize: ConfigSize.defaultSize!),)
+        ],),
     );
   }
 }

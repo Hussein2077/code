@@ -54,15 +54,18 @@ class _SearchScreenState extends State<SearchScreen> {
             builder: (context, state) {
               if(state is SuccessSearchStates){
              return Expanded(
-                child: ListView.builder(
-                  itemCount: state.data.userModel.length,
-                  itemExtent: 70,
-                  itemBuilder: (context, index) {
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 1.0,horizontal: 12),
+                  child: ListView.builder(
+                    itemCount: state.data.userModel.length,
+                    itemExtent: 70,
+                    itemBuilder: (context, index) {
 
-                  
-                  return UserInfoRow(userData:state.data.userModel[index] ,
-                      endIcon: const Icon( Icons.arrow_forward_ios,));
-                }),
+
+                    return UserInfoRow(userData:state.data.userModel[index] ,
+                        endIcon: const Icon( Icons.arrow_forward_ios,));
+                  }),
+                ),
               );
               }else {
                 return const SizedBox();

@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
+
 import 'user_country_icon.dart';
 import 'user_image.dart';
 
@@ -33,6 +37,7 @@ class UserInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
       onTap: onTap ??
           () {
@@ -50,7 +55,7 @@ class UserInfoRow extends StatelessWidget {
             image: userData.profile!.image!,
           ),
           const Spacer(
-            flex: 4,
+            flex: 8,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,16 +71,30 @@ class UserInfoRow extends StatelessWidget {
                     Row(
                       children: [
                         MaleFemaleIcon(
-                          maleOrFeamle: userData.profile!.gender, age: userData.profile!.gender,
+                          maleOrFeamle: userData.profile!.gender,
+                          age: userData.profile!.gender,
+                        ),
+
+                        SizedBox(
+                          width: ConfigSize.screenWidth! * 0.02,
                         ),
                         UserCountryIcon(country: userData.profile!.country),
+                        (userData.profile!.country == "لم يتم العثور على بلد")
+                            ? const Spacer(
+                                flex: 2,
+                              )
+                            : const Spacer(
+                                flex: 6,
+                              ),
+
                         LevelContainer(
                           image: userData.level!.senderImage!,
                         ),
+
                         AristocracyLevel(
                           level: 2,
                         ),
-                        const Spacer(),
+                        const Spacer(flex: 1,),
                         Text(
                           "ID ${userData.uuid.toString()}",
                           style: Theme.of(context).textTheme.titleSmall,
@@ -86,7 +105,7 @@ class UserInfoRow extends StatelessWidget {
             ],
           ),
           const Spacer(
-            flex: 20,
+            flex: 10,
           ),
           endIcon ??
               Image.asset(
