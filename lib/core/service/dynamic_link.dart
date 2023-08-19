@@ -18,23 +18,23 @@ class DynamicLinkProvider {
     if(password){
       isPass = 1 ;
     }
-    final String url = "https://com.dragonchat.app?owner_id=$refCod&&password=$isPass";
+    final String url = "https://com.tikkchat.app?owner_id=$refCod&&password=$isPass";
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(
         link: Uri.parse(url),
         socialMetaTagParameters: SocialMetaTagParameters(
-          description: 'I\'am playing Dragon,come and let\'s have some fun',
-          title: 'Dragon Chat',
+          description: 'I\'am playing Tik,come and let\'s have some fun',
+          title: 'Tik Chat',
             imageUrl: Uri.parse(ConstentApi().getImage(ownerImage))
         ),
         androidParameters: const AndroidParameters(
-            packageName: 'com.dragonchat.app',
+            packageName: 'com.tikkchat.app',
             minimumVersion: 0,
         ),
         iosParameters: const IOSParameters(
-          bundleId: 'com.dragonchat.app'
+          bundleId: 'com.tikkchat.app'
         ),
-        uriPrefix: "https://dragonchatlive.page.link",
+        uriPrefix: "https://tikchatlive.page.link",
     );
 
     final FirebaseDynamicLinks links =  FirebaseDynamicLinks.instance;
