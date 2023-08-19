@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -10,6 +11,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/time_pk_widget.dart';
@@ -224,39 +226,53 @@ class _PKWidgetState extends State<PKWidget> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(StringManager.chooseTimePK.tr()),
-          content: const TimePKWidget(),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                StringManager.cancle.tr(),
-                style: const TextStyle(color: Colors.black),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: AlertDialog(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            title: Text(
+              StringManager.chooseTimePK.tr(),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
-            TextButton(
-              child: Text(StringManager.startBattle.tr(),
-                  style: const TextStyle(color: Colors.black)),
-              onPressed: () async {
-                widget.notifyRoom();
-                  BlocProvider.of<PKBloc>(context).add(
-                      StartPKEvent(time: RoomScreen.timeMinutePK.toString(),
+            content: const TimePKWidget(),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  MainButton(onTap: () { Navigator.of(context).pop(); }, title:  StringManager.cancle.tr(),
+                    width: ConfigSize.screenWidth!*0.2,
+                    height: ConfigSize.screenHeight!*0.04,
+                      buttonColornotList: ColorManager.mainColor
+                  ),
+
+                  MainButton(
+                    onTap: () async {
+                      widget.notifyRoom();
+                      BlocProvider.of<PKBloc>(context).add(StartPKEvent(
+                          time: RoomScreen.timeMinutePK.toString(),
                           ownerId: widget.ownerId));
 
-                  RoomScreen.scoreTeam2=0;
-                  RoomScreen.precantgeTeam1=0.5;
-                  RoomScreen.precantgeTeam2=0.5;
-                 RoomScreen.scoreTeam1=0;
-                  PKWidget.isStartPK.value=true ;
-                  RoomScreen.updatePKNotifier.value =RoomScreen.updatePKNotifier.value +1 ;
+                      RoomScreen.scoreTeam2 = 0;
+                      RoomScreen.precantgeTeam1 = 0.5;
+                      RoomScreen.precantgeTeam2 = 0.5;
+                      RoomScreen.scoreTeam1 = 0;
+                      PKWidget.isStartPK.value = true;
+                      RoomScreen.updatePKNotifier.value =
+                          RoomScreen.updatePKNotifier.value + 1;
 
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+                      Navigator.of(context).pop();
+                    },
+                    title: StringManager.startBattle.tr(),
+                    width: ConfigSize.screenWidth!*0.3,
+                    height: ConfigSize.screenHeight!*0.04,
+                  ),
+                ],
+              ),
+
+            ],
+          ),
         );
       },
     );
