@@ -107,7 +107,8 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                              return WarningDialog(buildContext: context,
                                   text: StringManager.cantopen.tr());
                             },);
-                      } else if (isStartPK) {
+                      }
+                      else if (isStartPK) {
                         showDialog(context: context,
                           builder: (context) {
                             return WarningDialog(buildContext: context,
@@ -150,10 +151,10 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
         if(widget.ownerId == widget.userId)
         InkWell(
           onTap: () async{
-            DynamicLinkProvider().creatLink(
+            DynamicLinkProvider().createInvetionRoomLink(
                 refCod: widget.roomData.ownerId!,
                 password:widget.roomData.roomPassStatus??false,
-                ownerImage: widget.roomData.roomCover! )
+                ownerImage: widget.roomData.roomCover!)
                 .then((value) {
                   Share.share(value);
             });
