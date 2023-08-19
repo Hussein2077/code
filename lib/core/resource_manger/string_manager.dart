@@ -337,6 +337,7 @@ class StringManager {
   static const String chooseTyeps ="Choose Type";
   static const String mysteriousPerson = "Mysterious Person";
   static const String cancle = "Cancel";
+  static const String nameAgency = "Name Agency ";
   //create room
   static const String enterYourRoomData ="please,Enter your room data" ;
  static const String enterYourRoomName ="please,Enter your room name" ;

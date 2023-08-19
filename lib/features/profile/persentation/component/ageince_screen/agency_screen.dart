@@ -99,7 +99,7 @@ Widget agencyCommanWidget(
               backgroundImage: const AssetImage(AssetsPath.testImage),
             ),*/
             Text(
-              "Name Agency :\n$agienceName",
+              "${StringManager.nameAgency.tr()}:\n$agienceName",
               style:TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
             ),
 
