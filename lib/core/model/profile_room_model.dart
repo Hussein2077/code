@@ -59,9 +59,9 @@ class ProfileRoomModel {
     return ProfileRoomModel(
       image: map['image'],
       imageId: map['image_id'],
-      gender: map['gender'],
+      gender: 0,
       birthday: map['birthday'],
-      province: map['province'] !,
+      province: map['province']??"",
       city: map['city'],
       country: map['country'],
       age: map['age'],

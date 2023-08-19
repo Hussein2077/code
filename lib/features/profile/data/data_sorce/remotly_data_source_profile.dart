@@ -1683,7 +1683,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<ShowAgencyModel> showAgency() async {
     Map<String, String> headers = await DioHelper().header();
-    try {
+
       final response = await Dio().get(ConstentApi.showAgency,
           options: Options(
             headers: headers,
@@ -1692,9 +1692,18 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       final result = ShowAgencyModel.fromJson(response.data["data"]);
 
       return result;
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
-    }
+    // try {
+    //   final response = await Dio().get(ConstentApi.showAgency,
+    //       options: Options(
+    //         headers: headers,
+    //       ));
+
+    //   final result = ShowAgencyModel.fromJson(response.data["data"]);
+
+    //   return result;
+    // } on DioError catch (e) {
+    //   throw DioHelper.handleDioError(e);
+    // }
   }
 
   @override
@@ -1812,10 +1821,23 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> chargeCoinForUsers(
       {required String id, required String amount}) async {
     Map<String, String> headers = await DioHelper().header();
-    final body = {'id': id, "amount": amount};
+    final body = {'user_id': id, "amount": amount};
     log("heer");
-    try {
-      final response = await Dio().post(
+    // try {
+    //   final response = await Dio().post(
+    //     ConstentApi.chargeCoinForUser,
+    //     data: body,
+    //     options: Options(
+    //       headers: headers,
+    //     ),
+    //   );
+    //   Map<String, dynamic> resultData = response.data;
+
+    //   return resultData["message"];
+    // } on DioError catch (e) {
+    //   throw DioHelper.handleDioError(e);
+    // }
+     final response = await Dio().post(
         ConstentApi.chargeCoinForUser,
         data: body,
         options: Options(
@@ -1825,9 +1847,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> resultData = response.data;
 
       return resultData["message"];
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
-    }
   }
 
   @override
@@ -1893,6 +1912,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
+
+    
   }
 
   @override

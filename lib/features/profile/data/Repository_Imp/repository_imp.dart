@@ -776,13 +776,16 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
 
   @override
   Future<Either<ShowAgencyModel, Failure>> showAgency()async {
-  try {
-      final result =
+  // try {
+  //     final result =
+  //     await baseRemotlyDataSourceProfile.showAgency();
+  //     return Left(result);
+  //   } catch (e) {
+  //     return right(DioHelper.buildFailure(e));
+  //   }
+   final result =
       await baseRemotlyDataSourceProfile.showAgency();
       return Left(result);
-    } catch (e) {
-      return right(DioHelper.buildFailure(e));
-    }
   }
   
   @override
@@ -843,13 +846,16 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   
   @override
   Future<Either<String, Failure>> chargeCoinForUsers({required String id, required String amount})async {
-   try {
-      final result =
+  //  try {
+  //     final result =
+  //     await baseRemotlyDataSourceProfile.chargeCoinForUsers(amount: amount , id: id );
+  //     return Left(result);
+  //   } catch (e) {
+  //     return right(DioHelper.buildFailure(e));
+  //   }
+     final result =
       await baseRemotlyDataSourceProfile.chargeCoinForUsers(amount: amount , id: id );
       return Left(result);
-    } catch (e) {
-      return right(DioHelper.buildFailure(e));
-    }
   }
   
   @override
@@ -871,6 +877,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
     }
+    
   }
   
   @override

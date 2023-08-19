@@ -25,7 +25,7 @@ class Card2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            if(myData.myType !=0)
+            // if(myData.myType !=0)
              ProfileRowItem(
               title: StringManager.agency.tr(),
               image: AssetsPath.agencyIcon,
