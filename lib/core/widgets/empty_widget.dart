@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/profile/components/UserPorfileInRoom.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/profile/UserPorfileInRoom.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 
 class EmptyWidget extends StatelessWidget {

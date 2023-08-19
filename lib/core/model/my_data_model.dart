@@ -1,9 +1,3 @@
-
-
-
-
-import 'dart:developer';
-
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_agency_model.dart';
 import 'package:tik_chat_v2/core/model/my_store_model.dart';
@@ -11,6 +5,9 @@ import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'profile_room_model.dart';
 import 'vip_center_model.dart';
+
+
+
 
 class MyDataModel {
    int? id;
@@ -267,7 +264,6 @@ class MyDataModel {
 
 
   UserDataModel convertToUserObject() {
-     log('_instance'+_instance.toString());
     return UserDataModel(
       id: id,
       bubble:bubble,
