@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
@@ -35,9 +36,14 @@ class OtherTopWidget extends StatelessWidget {
             itemExtent: 100,
             itemCount: otherRanking.length,
             itemBuilder: (context , index){
-            return  FamilyInfoRow(image: otherRanking[index].img!, 
-            intro: otherRanking[index].introduce!,
-            name: otherRanking[index].name!,);
+            return  InkWell(
+              onTap: (){
+                Navigator.pushNamed(context, Routes.familyProfile,arguments:otherRanking[index].id.toString() );
+              },
+              child: FamilyInfoRow(image: otherRanking[index].img!,
+              intro: otherRanking[index].introduce!,
+              name: otherRanking[index].name!,),
+            );
           }))
         ],
       ),
