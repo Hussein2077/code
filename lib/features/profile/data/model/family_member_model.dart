@@ -29,7 +29,7 @@ class FamilyMemberModel {
   String? name ; 
   String? image ;
   int? age ; 
-  String? gender ; 
+  int? gender ;
   int? frameId ; 
   String? frame ; 
   bool ? isFamilyAdmin ; 
@@ -42,7 +42,7 @@ factory MemberFamilyDataModel.fromJson(Map<String , dynamic> json){
   return MemberFamilyDataModel(
     id:json['id']??0,
     age: json['profile']['age']??0,
-    gender:  json['profile']['gender']??"", 
+    gender:  json['profile']['gender']??0,
     image:  json['profile']['image']??"tic_logo.jpg",
     frame: json['frame']??"",
     frameId: json['frame_id']??0,

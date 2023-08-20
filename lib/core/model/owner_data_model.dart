@@ -165,7 +165,8 @@ class UserDataModel {
       chatId: chatId,
       hasColorName: hasColorName,
       notificationId: notificationId,
-      level: LevelDataModel(senderImage: level?.senderImage,
+      level: LevelDataModel(
+          senderImage: level?.senderImage,
           receiverImage: level?.receiverImage),
       vip1: VipCenterModel(level: vip1?.level),
       myType: userType

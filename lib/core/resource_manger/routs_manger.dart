@@ -214,7 +214,7 @@ class RouteGenerator {
                   isHost: roomPramiter.isHost,
                 )));
       case Routes.myBag:
-        UserDataModel userData = settings.arguments as UserDataModel;
+        MyDataModel userData = settings.arguments as MyDataModel;
 
         return MaterialPageRoute(
             builder: (_) => MyBagScreen(

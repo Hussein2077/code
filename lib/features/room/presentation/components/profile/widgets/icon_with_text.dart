@@ -3,19 +3,29 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class IconWithText extends StatelessWidget {
- final String text;
- final String image;
-  const IconWithText({super.key,required this.image,required this.text});
+  final String text;
+  final IconData icon;
+  final Function onTap;
+  const IconWithText({super.key,required this.icon,required this.text,required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(image,scale: ConfigSize.defaultSize!*0.25,),
-        Text(text,style: const TextStyle(
-          color: ColorManager.darkBlack,
-        ),)
-      ],
+    return InkWell(
+      onTap: ()=>onTap,
+      child: Row(
+        children: [
+          Text(text,style: const TextStyle(
+
+            color: ColorManager.gray,
+          ),),
+          SizedBox(
+            width: ConfigSize.defaultSize! * 0.5,
+          ),
+          Icon(icon,color: ColorManager.gray,size: ConfigSize.defaultSize! * 1.8),
+
+
+        ],
+      ),
     );
   }
 }

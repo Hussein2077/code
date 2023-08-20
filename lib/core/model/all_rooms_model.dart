@@ -9,6 +9,7 @@ class AllRoomsDataModel {
   final List<RoomModelOfAll>? data;
   final Map<String, dynamic>? extraData;
   final dynamic? paginates;
+
   AllRoomsDataModel({
     this.success,
     this.message,
@@ -49,14 +50,14 @@ class AllRoomsDataModel {
       message: map['message'] != null ? map['message'] as String : null,
       data: map['data'] != null
           ? List<RoomModelOfAll>.from(
-        ( map['data']).map<RoomModelOfAll?>(
-              (x) => RoomModelOfAll.fromMap(x as Map<String, dynamic>),
-        ),
-      )
+              (map['data']).map<RoomModelOfAll?>(
+                (x) => RoomModelOfAll.fromMap(x as Map<String, dynamic>),
+              ),
+            )
           : null,
       extraData: map['extra_data'] != null
           ? Map<String, dynamic>.from(
-          (map['extra_data'] as Map<String, dynamic>))
+              (map['extra_data'] as Map<String, dynamic>))
           : null,
       paginates: map['paginates'] != null ? map['paginates'] as dynamic : null,
     );
@@ -66,14 +67,12 @@ class AllRoomsDataModel {
 
   factory AllRoomsDataModel.fromJson(String source) =>
       AllRoomsDataModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-
 }
 
 class RoomModelOfAll {
   final int? id;
   var roomId;
-    final String? roomName;
+  final String? roomName;
 
   final dynamic name;
   final int? visitorsCount;
@@ -87,34 +86,33 @@ class RoomModelOfAll {
   final int? isRecommended;
   final int? ownerId;
   final String? lang;
-  final CounterRoomModel? country ;
+  final CounterRoomModel? country;
+
   final bool? passwordStatus;
-  final bool?  isPK ;
-  final bool? isBoxLucky ;
+  final bool? isPK;
+
+  final bool? isBoxLucky;
+
   RoomModelOfAll(
-      {
-        this.roomName,
-        this.id,
-        this.roomId,
-        this.name,
-        this.visitorsCount,
-        this.cover,
-        this.isBoxLucky,
-        this.classRoom,
-        this.type,
-        this.isHot,
-        this.isPK,
-        this.isPopular,
-        this.roomStatus,
-        this.roomIntro,
-        this.isRecommended,
-        this.ownerId,
-        this.country,
-        this.lang,
-        this.passwordStatus
-      });
-
-
+      {this.roomName,
+      this.id,
+      this.roomId,
+      this.name,
+      this.visitorsCount,
+      this.cover,
+      this.isBoxLucky,
+      this.classRoom,
+      this.type,
+      this.isHot,
+      this.isPK,
+      this.isPopular,
+      this.roomStatus,
+      this.roomIntro,
+      this.isRecommended,
+      this.ownerId,
+      this.country,
+      this.lang,
+      this.passwordStatus});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -131,24 +129,25 @@ class RoomModelOfAll {
       'room_intro': roomIntro,
       'is_recommended': isRecommended,
       'owner_id': ownerId,
-      'lang':lang,
-      'country':country,
-      'password_status':passwordStatus,
+      'lang': lang,
+      'country': country,
+      'password_status': passwordStatus,
       'have_luck_box': isBoxLucky
-
     };
   }
 
   factory RoomModelOfAll.fromMap(Map<String, dynamic> map) {
-    return   RoomModelOfAll(
-    roomName:map['name'] ,  
+    return RoomModelOfAll(
+        roomName: map['name']??"",
         id: map['id'],
         roomId: map['room_id'],
         name: map['name'],
         visitorsCount: map['visitors_count'],
-        cover:map['cover']??"tic_logo.jpg",
+        cover: map['cover'] ?? "tic_logo.jpg",
         //classRoom: AllMainClassesModel.fromjson(map['class']),
-        type: map['type']==null?  null:  AllMainClassesModel.fromjson(map['type']),
+        type: map['type'] == null
+            ? null
+            : AllMainClassesModel.fromjson(map['type']),
         isHot: map['is_hot'],
         isPopular: map['is_popular'],
         roomStatus: map['room_status'],
@@ -156,53 +155,46 @@ class RoomModelOfAll {
         roomIntro: map['room_intro'],
         isRecommended: map['is_recommended'],
         lang: map['lang'],
-        country: map['country']==null ? null : CounterRoomModel.fromJson(map['country']) ,
+        country: map['country'] == null
+            ? null
+            : CounterRoomModel.fromJson(map['country']),
         ownerId: map['owner_id'],
-        isPK:  map['is_pk'],
-        isBoxLucky: map['have_luck_box']
-    ) ;
+        isPK: map['is_pk'],
+        isBoxLucky: map['have_luck_box']);
   }
 
   String toJson() => json.encode(toMap());
 
   factory RoomModelOfAll.fromJson(String source) =>
       RoomModelOfAll.fromMap(json.decode(source) as Map<String, dynamic>);
-
-
 }
 
-class CounterRoomModel extends Equatable{
+class CounterRoomModel extends Equatable {
+  final int id;
 
-  final int id ;
-  final   String name ;
-  final String flag ;
+  final String name;
+
+  final String flag;
+
   final String phoneCode;
-  final String lang ;
+  final String lang;
 
-
-  const CounterRoomModel({required this.id, required  this.phoneCode,required this.lang,required this.name, required this.flag});
+  const CounterRoomModel(
+      {required this.id,
+      required this.phoneCode,
+      required this.lang,
+      required this.name,
+      required this.flag});
 
   @override
-  List<Object?> get props => [
-    id ,
-    name ,
-    flag ,
-    phoneCode,
-    lang
-  ];
+  List<Object?> get props => [id, name, flag, phoneCode, lang];
 
-  factory CounterRoomModel.fromJson(Map<String,dynamic> jsonData){
-
+  factory CounterRoomModel.fromJson(Map<String, dynamic> jsonData) {
     return CounterRoomModel(
         id: jsonData['id'],
-        name:  jsonData['name'],
+        name: jsonData['name'],
         flag: jsonData['flag'],
         phoneCode: jsonData['phone_code'],
-        lang:  jsonData['lang']
-    );
+        lang: jsonData['lang']);
   }
-
-
-
-
 }
