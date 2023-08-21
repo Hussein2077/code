@@ -8,6 +8,8 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family_room/bloc/family_room_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family_room/bloc/family_room_event.dart';
 
 import 'widgets/family_profile_bottom_bar.dart';
 import 'widgets/family_profile_info.dart';
@@ -23,7 +25,8 @@ class FamilyProfileScreen extends StatefulWidget {
 class _FamilyProfileScreenState extends State<FamilyProfileScreen> {
   @override
   void initState() {
-    BlocProvider.of<ShowFamilyBloc>(context).add(ShowFamilyEvent(id: widget.familyId));
+    BlocProvider.of<ShowFamilyBloc>(context).add(ShowFamilyEvent(id: widget.familyId.toString()));
+    BlocProvider.of<FamilyRoomBloc>(context).add(GetFamilyRoomevent(familyId:widget.familyId));
     super.initState();
   }
   @override

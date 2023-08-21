@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -11,11 +12,14 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/room_type_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/num_of_vistor.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
 
 class AduioLiveRow extends StatelessWidget {
   final int style;
   final RoomModelOfAll room ; 
   const AduioLiveRow({required this.room , required this.style, super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
