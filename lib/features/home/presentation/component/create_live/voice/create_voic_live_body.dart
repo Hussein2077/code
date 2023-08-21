@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
@@ -87,29 +88,35 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
             ),
 
           BlocConsumer<CreateRoomBloc,CreateRoomStates>(
-         builder: (context,state){
-         return MainButton(onTap: () {
-
+              builder: (context,state){
+         return MainButton(
+           onTap: () {
              if(checkRoomData(roomName:voicNameController.text,context: context)){
                createRoom(context: context,roomName: voicNameController.text);
              }
-
          },title: StringManager.createRoom,) ;
        },
        listener: (context,state){
-         if(state is CreateAudioRoomSuccesMessageState){
-           Navigator.pop(context);
-           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-             Navigator.pushNamed(context, Routes.roomHandler,
-                 arguments:RoomHandlerPramiter(ownerRoomId: state.roomData,
-                     myDataModel: MyDataModel.getInstance()));
-         }
-         else if(state is CreateAudioRoomErrorMessageState){
-         errorToast(context: context, title: state.errorMessage);
-          }
-         else if (state is CreateAudioRoomLoadingState){
-           loadingToast(context: context, title: StringManager.loading.tr());
-         }
+                switch(state.createRoomState){
+                  case RequestState.loaded:
+                    Navigator.pop(context);
+                    BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+                    Navigator.pushNamed(context,Routes.roomHandler,
+                        arguments:RoomHandlerPramiter(
+                            ownerRoomId: MyDataModel.getInstance().id.toString(),
+                            myDataModel: MyDataModel.getInstance()));
+                    break;
+                  case RequestState.loading:
+                    loadingToast(context: context, title: StringManager.loading.tr());
+                    break;
+                  case RequestState.error:
+                    errorToast(context: context, title: state.createRoomErrorMessage);
+                    break;
+                }
+
+
+
+
          }
        ,
        )

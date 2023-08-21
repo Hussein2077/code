@@ -1,62 +1,45 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 
-abstract class CreateRoomStates extends Equatable {
-
-}
-
-class InitialRoomStates extends CreateRoomStates{
-  @override
-  List<Object?> get props =>[];
-}
-
-class CreateAudioRoomLoadingState extends CreateRoomStates{
-  @override
-  List<Object?> get props =>[];
-}
-
-class CreateAudioRoomErrorMessageState extends CreateRoomStates{
-  final String errorMessage ;
-
-  CreateAudioRoomErrorMessageState({required this.errorMessage});
-
-  @override
-
-  List<Object?> get props => [errorMessage];
-
-}
-
-class GetTypesRoomSuccesMessageState extends CreateRoomStates{
+class CreateRoomStates extends Equatable {
   final List<AllMainClassesModel> typesRoom ;
+  final String typesErrorMessage ;
+  final RequestState typesRoomState ;
+  final String createSuccecRoom ;
+  final String createRoomErrorMessage ;
+  final RequestState createRoomState ;
 
-  GetTypesRoomSuccesMessageState({required this.typesRoom});
+  const CreateRoomStates(
+      {
+      this.typesRoom =const [],
+      this.typesErrorMessage='',
+      this.typesRoomState=RequestState.loading,
+      this.createSuccecRoom='',
+      this.createRoomErrorMessage='',
+      this.createRoomState=RequestState.loading
+      });
+
+
+  CreateRoomStates copyWith({
+    List<AllMainClassesModel>? typesRoom,
+    RequestState? typesRoomState,
+    String? typesErrorMessage,
+    String? createSuccecRoom,
+    RequestState? createRoomState,
+    String? createRoomErrorMessage,
+  }) {
+    return CreateRoomStates(
+        typesRoom: typesRoom ?? this.typesRoom,
+        typesRoomState: typesRoomState ?? this.typesRoomState,
+        typesErrorMessage: typesErrorMessage ?? this.typesErrorMessage,
+      createSuccecRoom: createSuccecRoom ?? this.createSuccecRoom,
+      createRoomState: createRoomState ?? this.createRoomState,
+      createRoomErrorMessage: createRoomErrorMessage ?? this.createRoomErrorMessage,
+    );
+  }
 
   @override
-  List<Object?> get props => [typesRoom];
-}
-
-class GetTypesRoomLoadingState extends CreateRoomStates{
-  @override
-  List<Object?> get props =>[];
-}
-
-class GetTypesRoomErrorMessageState extends CreateRoomStates{
-  final String errorMessage ;
-
-  GetTypesRoomErrorMessageState({required this.errorMessage});
-
-  @override
-
-  List<Object?> get props => [errorMessage];
-
-}
-
-class CreateAudioRoomSuccesMessageState extends CreateRoomStates{
-  final String roomData ;
-
-  CreateAudioRoomSuccesMessageState({required this.roomData});
-
-  @override
-  List<Object?> get props => [roomData];
+  List<Object?> get props => [typesRoom,typesErrorMessage,typesRoomState,createRoomErrorMessage,createRoomState,createSuccecRoom];
 }

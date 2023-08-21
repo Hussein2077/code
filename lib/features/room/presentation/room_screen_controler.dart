@@ -150,9 +150,9 @@ const String muteUserKey='muteUser';
 const String mute = 'mute';
 
 const String appSign =
-    "21b5388b3a703f485e46fa3102c1b83ced85fae4c8a3ca4337ad2c020feef566";
+    "bb61a6e81736c136dac6e2afc46e71642e8eaf35cdbe713d0ced6aa139ac3faa";
 
-const int appID = 1992574259;
+const int appID = 1442956895;
 
 class GiftData {
   final String giftId;

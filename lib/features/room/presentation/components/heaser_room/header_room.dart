@@ -4,10 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
- 
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
-import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_states.dart';
@@ -75,42 +74,44 @@ class HeaderRoom extends StatelessWidget {
                           context: context,
                           widget: BlocBuilder<CreateRoomBloc,CreateRoomStates>(
                             builder: (context, state) {
-                              if (state is GetTypesRoomLoadingState) {
-                                return Container(
-                                  color: Colors.transparent,
-                                  height: double.maxFinite,
-                                  child: const Center(
-                                      child: CircularProgressIndicator(
-                                    backgroundColor: Colors.white,
-                                    color: ColorManager.mainColor,
-                                  )),
-                                );
-                              } else if (state is GetTypesRoomSuccesMessageState) {
-                                datatype = state.typesRoom;
-                                return BlocBuilder<OnRoomBloc, OnRoomStates>(
-                                  builder: (context, state) {
-                                    if(state is UpdateRoomSucsseState){
-                                      return UpdateRoomScreen(
-                                      data: datatype,
-                                      roomDate: state.data,
-                                        myDataModel:myDataModel ,
-                                    );
+                              switch( state.typesRoomState){
 
-                                    }else{
-                                      return UpdateRoomScreen(
-                                             data: datatype,
-                                      roomDate:room,
-                                        myDataModel:myDataModel ,
-                                      );
-                                    }
-                                    
-                                  },
-                                );
-                              } else if (state is GetTypesRoomErrorMessageState) {
-                                return CustomErrorWidget(  message: state.errorMessage,);
-                              } else {
-                                return  UpdateRoomScreen(myDataModel:myDataModel ,);
+                                case RequestState.loaded:
+                                  datatype = state.typesRoom;
+                                  return BlocBuilder<OnRoomBloc, OnRoomStates>(
+                                    builder: (context, state) {
+                                      if(state is UpdateRoomSucsseState){
+                                        return UpdateRoomScreen(
+                                          data: datatype,
+                                          roomDate: state.data,
+                                          myDataModel:myDataModel ,
+                                        );
+
+                                      }else{
+                                        return UpdateRoomScreen(
+                                          data: datatype,
+                                          roomDate:room,
+                                          myDataModel:myDataModel ,
+                                        );
+                                      }
+
+                                    },
+                                  );
+                                case RequestState.loading:
+                                  return Container(
+                                    color: Colors.transparent,
+                                    height: double.maxFinite,
+                                    child: const Center(
+                                        child: CircularProgressIndicator(
+                                          backgroundColor: Colors.white,
+                                          color: ColorManager.mainColor,
+                                        )),
+                                  );
+                                case RequestState.error:
+                                  return   UpdateRoomScreen(myDataModel:myDataModel ,);
+
                               }
+
                             },
                           ));
                     } else {

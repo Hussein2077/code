@@ -35,12 +35,8 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
         .add(EnterRoomEvent(
       isVip:widget.roomPramiter.myDataModel.vip1?.level??0,
       ownerId: widget.roomPramiter.ownerRoomId,
-        roomPassword: widget.roomPramiter.passwordRoom),
-    );
+        roomPassword: widget.roomPramiter.passwordRoom));
     super.initState();
-
-
-
   }
 
 
