@@ -152,8 +152,9 @@ class UserProfileInRoom extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     //FOLLOW ICON
-                    const IconWithText(
-                      image: AssetsPath.followIcon,
+                     IconWithText(
+                    onTap: (){}
+                      icon: AssetsPath.followIcon,
                       text: StringManager.follow,
                     ),
                     // //Friend REQUEST ICON
@@ -173,8 +174,9 @@ class UserProfileInRoom extends StatelessWidget {
             myDataModel: myData,
           ));
     },
-                       child: const IconWithText(
-                        image: AssetsPath.sendGiftIconProfile,
+                       child:  IconWithText(
+                        onTap:(){} ,
+                        icon: AssetsPath.sendGiftIconProfile,
                         text: StringManager.sendGift,
                                          ),
                      ),

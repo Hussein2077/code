@@ -12,23 +12,18 @@ class MentionOrReportContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: ConfigSize.defaultSize! * 5.4,
-      ),
-      child: Row(
-        children: [
-          Text(text,
-              style: TextStyle(
-                  fontSize: ConfigSize.defaultSize! * 1.4,
-                  color: ColorManager.gray,
-                  fontWeight: FontWeight.w400)),
-          SizedBox(
-            width: ConfigSize.defaultSize! * 0.7,
-          ),
-          Image.asset(icon, scale:size?? ConfigSize.defaultSize! * 0.3)
-        ],
-      ),
+    return Row(
+      children: [
+        Text(text,
+            style: TextStyle(
+                fontSize: ConfigSize.defaultSize! * 1.4,
+                color: ColorManager.gray,
+                fontWeight: FontWeight.w400)),
+        SizedBox(
+          width: ConfigSize.defaultSize! * 0.7,
+        ),
+        Image.asset(icon, scale:size?? ConfigSize.defaultSize! * 0.3)
+      ],
     );
   }
 }

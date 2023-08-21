@@ -48,6 +48,7 @@ class Methods {
                               preference.remove(StringManager.userDataKey);
                               preference.remove(StringManager.userTokenKey);
                               preference.remove(StringManager.deviceToken);
+
    }
     Future<void> saveLocalazitaon({required String language}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

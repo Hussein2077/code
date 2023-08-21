@@ -110,7 +110,7 @@ class ConstentApi {
     static const String agencyHistoryTime = "$baseUrl/agencies/list_options_his";
     static const String agencyHistory = "$baseUrl/agencies/historyAgancy";
     static const String chargeCoinForUser = "$baseUrl/agencies/charge_co_for_users";
-    static const String chargeDolarsForUser = "$baseUrl/agencies/charge_co_for_owner";
+    static const String chargeDolarsForUser = "$baseUrl/agencies/charge_dollar_for_owner";
     static const String getAllIntrested = "$baseUrl/allinterests";
         static const String addIntrested = "$baseUrl/AddInterests";
     static const String getUseIntrested = "$baseUrl/user_interests";
