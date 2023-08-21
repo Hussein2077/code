@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/room_type_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/num_of_vistor.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
 
 class AduioLiveRow extends StatelessWidget {
   final int style;
@@ -25,9 +28,29 @@ class AduioLiveRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-       Navigator.pushNamed(context, Routes.roomHandler,
+        log("passsord room"+room.passwordStatus.toString());
+        if(room.passwordStatus??false){
+          showDialog(context: context,
+              builder:(context){
+            return Dialog(
+              insetPadding: EdgeInsets.symmetric(
+                horizontal:  ConfigSize.defaultSize! * 5
+              ),
+
+              backgroundColor: Colors.transparent,
+              child: EnterPasswordRoomDialog(
+                myData: MyDataModel.getInstance(),
+                ownerId: room.ownerId.toString(),
+              ),
+            );
+
+          });
+
+        }else {
+          Navigator.pushNamed(context, Routes.roomHandler,
            arguments: RoomHandlerPramiter(ownerRoomId: room.ownerId.toString(),
                myDataModel:MyDataModel.getInstance() ))  ;
+        }
       },
       child:Stack(
         children: [
