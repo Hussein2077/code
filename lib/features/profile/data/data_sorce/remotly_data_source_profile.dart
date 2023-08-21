@@ -1857,7 +1857,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<ChargeHistoryModel> getChargeDolarsAgencyOwnerHistory(
       String type) async {
     Map<String, String> headers = await DioHelper().header();
-
     try {
       final response = await Dio().get(
         ConstentApi().getChargeDolarsAgencyOwnerHistory(type),

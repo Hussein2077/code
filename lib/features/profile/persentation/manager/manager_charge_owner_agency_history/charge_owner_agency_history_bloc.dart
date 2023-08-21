@@ -14,6 +14,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge
 
 
 
+
+
 class ChargeOwnerAgencyHistoryBloc extends Bloc<ChargeOwnerAgencyHistoryEvent, ChargeOwnerAgencyHistoryState> {
   GetChargeDolarsAgencyOwnerHistoryUseCase chargeHistoryUseCases;
 

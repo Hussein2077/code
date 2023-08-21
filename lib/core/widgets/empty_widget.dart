@@ -7,27 +7,25 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 
 class EmptyWidget extends StatelessWidget {
   final String message;
-
-  const EmptyWidget({required this.message, super.key});
+final double? height;
+  const EmptyWidget({required this.message, super.key, this.height,  });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Stack(
-      alignment: Alignment.center,
-      children: [
-        SizedBox(
-          child: Image.asset(AssetsPath.emptyScreen),
+    return
+    Center(
+      child: Container(
+        height: ConfigSize.screenHeight!*0.825,
+        alignment: Alignment.center,
+        color: Colors.white,
+        child: Text(
+          message,
+          style: TextStyle(
+              color: Colors.black, fontSize: ConfigSize.defaultSize! * 2),
         ),
-        Padding(
-          padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 20),
-          child: Text(
-            message,
-            style: TextStyle(
-                color: Colors.black, fontSize: ConfigSize.defaultSize! * 2),
-          ),
-        ),
-      ],
-    ));
+      ),
+    )
+
+      ;
   }
 }

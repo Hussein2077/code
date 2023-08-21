@@ -44,12 +44,15 @@ class FollowingLiveScreen extends StatelessWidget {
                     BlocProvider.of<GetFollwersRoomBloc>(context)
                         .add(const GetFollwersRoomEvent(type: "5"));
                   },
-                  child: state.rooms.data!.isEmpty
+                  child:
+
+
+                  state.rooms.data!.isEmpty
                       ? const SingleChildScrollView(
                           child: EmptyWidget(
                           message: StringManager.noDataFoundHere,
                         ))
-                      : Expanded(
+                      : Expanded (
                           child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
