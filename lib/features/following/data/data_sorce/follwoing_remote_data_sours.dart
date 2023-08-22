@@ -43,7 +43,7 @@ class FollwingRemoteDataSoursImp implements FollwoingRemoteDataSours {
           log(relation.toString());
       return Future.value(relation);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getFriendsOpenRoom');
     }
   
   }
@@ -65,7 +65,7 @@ class FollwingRemoteDataSoursImp implements FollwoingRemoteDataSours {
       AllRoomsDataModel rooms = AllRoomsDataModel.fromMap(response.data);
       return rooms ; 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'FollwingRemoteDataSoursImp');
     }
   }
 

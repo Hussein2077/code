@@ -211,7 +211,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return userData;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getmyData' );
     }
   }
 
@@ -237,7 +237,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       }
       return listDataMall;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getDataMall');
     }
   }
 
@@ -256,7 +256,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'follow');
     }
   }
 
@@ -286,7 +286,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
               .map((e) => UserDataModel.fromMap(e)));
       return Future.value(relation);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getFriendsOrFollowers' );
     }
   }
 
@@ -305,7 +305,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'unFollow');
     }
   }
 
@@ -326,7 +326,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       UserDataModel userData = UserDataModel.fromMap(response.data["data"]);
       return userData;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getUserData' );
     }
   }
 
@@ -349,7 +349,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       }
       return dataVip;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getVipCenter' );
     }
   }
 
@@ -368,7 +368,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> data = response.data;
       return data['data']['vip_count'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getvipCount' );
     }
   }
 
@@ -393,7 +393,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return result;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getVaistors');
     }
   }
 
@@ -411,7 +411,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return result;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getBackPack');
     }
   }
 
@@ -426,7 +426,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           ));
       return UesItemModel.fromJson(response.data);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'useItem' );
     }
   }
 
@@ -455,7 +455,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData["data"]["id"].toString();
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'creatFamily' );
     }
   }
 
@@ -477,7 +477,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'buy');
     }
   }
 
@@ -499,7 +499,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(resultData.toString());
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'sendPack');
     }
   }
 
@@ -523,7 +523,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'unUsedPack' );
     }
   }
 
@@ -551,7 +551,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'familyRanking');
     }
   }
 
@@ -567,7 +567,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return resultData['message'];
     } on DioError catch (e) {
       log(e.toString());
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'deletFamily' );
     }
   }
 
@@ -590,7 +590,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return resultData['message'];
     } on DioError catch (e) {
       log(e.toString());
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'removeUserFromFamily' );
     }
   }
 
@@ -608,7 +608,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(data.toString());
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'showFamily');
     }
   }
 
@@ -632,7 +632,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'joinFamily' );
     }
   }
 
@@ -654,7 +654,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       // log(data.toString());
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getfamilyRequest');
     }
   }
 
@@ -678,7 +678,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'familyTakeAction');
     }
   }
 
@@ -704,7 +704,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'changeUserType' );
     }
   }
 
@@ -730,7 +730,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getFamilyMember');
     }
   }
 
@@ -757,7 +757,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getFamilyRoom' );
     }
   }
 
@@ -778,7 +778,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'exitFamily' );
     }
   }
 
@@ -799,7 +799,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getBlackList' );
     }
   }
 
@@ -825,7 +825,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'removeBlock' );
     }
   }
 
@@ -851,7 +851,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'addBlock' );
     }
   }
 
@@ -872,7 +872,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getChargePage' );
     }
   }
 
@@ -899,7 +899,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'chargeTo' );
     }
   }
 
@@ -925,7 +925,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getChargeHistory');
     }
   }
 
@@ -946,7 +946,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getSilverCoinData');
     }
   }
 
@@ -971,7 +971,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'buySilverCoin');
     }
   }
 
@@ -992,7 +992,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           resultData['data'].map((x) => SilverCoinHistory.fromjson(x)));
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getSilverHistory' );
     }
   }
 
@@ -1015,7 +1015,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(response.toString());
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'buyOrSendVip');
     }
   }
 
@@ -1037,7 +1037,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getGoldCoinData');
     }
   }
 
@@ -1058,7 +1058,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getReplaceWithDimondData');
     }
   }
 
@@ -1083,7 +1083,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'].toString();
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'exchangeDimond');
     }
   }
 
@@ -1102,7 +1102,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       SearchModel searchModel = SearchModel.fromJson(result['data']);
       return searchModel;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'search' );
     }
   }
 
@@ -1123,7 +1123,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       bool succes = jsonData['data'];
       return succes;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'checkIfFriend');
     }
   }
 
@@ -1142,7 +1142,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'lastCommunicationTime');
     }
   }
 
@@ -1161,7 +1161,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'hideCountry');
     }
   }
 
@@ -1180,7 +1180,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'hideVisitor' );
     }
   }
 
@@ -1199,7 +1199,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'activeMyseteriousMan');
     }
   }
 
@@ -1218,7 +1218,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'disposeMyseteriousMan' );
     }
   }
 
@@ -1237,7 +1237,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'dipsoseLastCommunicationTime');
     }
   }
 
@@ -1257,7 +1257,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'disposeHideCountry' );
     }
   }
 
@@ -1277,7 +1277,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'disposeHideVisitor');
     }
   }
 
@@ -1299,7 +1299,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return result ; 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getVipPrev' );
     }
   }
 
@@ -1323,7 +1323,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(resultData.toString());
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'buyCoins');
     }
   }
 
@@ -1344,7 +1344,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getGiftHistory');
     }
   }
 
@@ -1367,7 +1367,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       TimeDataReport data = TimeDataReport.fromJason(resultData["data"]);
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getTimeDataReport');
     }
   }
 
@@ -1381,7 +1381,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           ));
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'deleteAccount');
     }
   }
 
@@ -1468,7 +1468,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'boundNumber');
     }
   }
 
@@ -1492,7 +1492,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'changePassword');
     }
   }
 
@@ -1515,7 +1515,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> resultData = response.data;
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'changePhone');
     }
   }
 
@@ -1536,7 +1536,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(resultData.toString());
       return resultData['success'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'joinToAgencie');
     }
   }
 
@@ -1560,7 +1560,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(resultData.toString());
       return resultData['success'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'updateFamily' );
     }
   }
 
@@ -1597,7 +1597,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'userReporet');
     }
   }
 
@@ -1625,7 +1625,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(result.toString());
       return result;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getConfigKey');
     }
   }
 
@@ -1667,7 +1667,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
         return result['message'];
       } on DioError catch (e) {
-        throw DioHelper.handleDioError(e);
+        throw DioHelper.handleDioError(dioError: e,endpointName: 'feedBack');
       }
     }
   }
@@ -1686,7 +1686,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return result ; 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'myStore' );
     }
   }
 
@@ -1734,7 +1734,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return List<AgencyMemberModel>.from(
           resultData['data'].map((x) => AgencyMemberModel.fromJson(x)));
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'agencyMember');
     }
   }
 
@@ -1756,7 +1756,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return List<UserDataModel>.from(
           resultData['data'].map((x) => UserDataModel.fromMap(x)));
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'agencyRequests');
     }
   }
 
@@ -1778,7 +1778,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData["message"];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'agencyRequestsAction');
     }
   }
 
@@ -1799,7 +1799,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return List<AgencyHistoryTime>.from(
           resultData['data'].map((x) => AgencyHistoryTime.fromJson(x)));
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getAgencyHistoryTime' );
     }
   }
 
@@ -1823,7 +1823,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return AgencyHistoryModle.fromJson(resultData["data"]);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getAgencyHistory' );
     }
   }
 
@@ -1877,7 +1877,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData["message"];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'chargeDolarsForUsers' );
     }
   }
 
@@ -1898,7 +1898,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getChargeDolarsAgencyOwnerHistory');
     }
   }
 
@@ -1919,7 +1919,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getChargeCoinsSystemHistory');
     }
 
     
@@ -1942,7 +1942,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           resultData['data'].map((x) => InterstedMode.fromjson(x)));
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getAllIntersted');
     }
   }
 
@@ -1962,7 +1962,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData["message"];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'addIntersted');
     }
   }
 
@@ -1984,7 +1984,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           resultData['data'].map((x) => InterstedMode.fromjson(x)));
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getUserIntersted' );
     }
   }
 
@@ -2002,7 +2002,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'prevActive' );
     }
   }
 
@@ -2027,7 +2027,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'prevDispose');
     }
   }
 }

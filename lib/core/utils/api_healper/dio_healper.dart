@@ -78,15 +78,15 @@ class DioHelper {
     }
   }
 
-  static dynamic handleDioError(DioError dioError) {
-    log('handleDioError: ${dioError.type}');
-    switch (dioError.type) {
+  static dynamic handleDioError( {DioError? dioError, String? endpointName}) {
+    log('handleDioError: ${dioError!.type}');
+    switch (dioError!.type) {
       case DioErrorType.response:
-        throw handleStatuesCodeResponse(dioError.response);
+        throw handleStatuesCodeResponse(response:dioError.response,endpointName:endpointName);
       case DioErrorType.other:
         throw InternetException();
       case DioErrorType.cancel:
-        throw handleStatuesCodeResponse(dioError.response);
+        throw handleStatuesCodeResponse(response:dioError.response,endpointName:endpointName );
 
       case DioErrorType.receiveTimeout:
       case DioErrorType.sendTimeout:
@@ -95,10 +95,12 @@ class DioHelper {
     }
   }
 
-  static Exception handleStatuesCodeResponse(Response? response) {
-    //todo add endpoint name
-    log("statescode${response?.statusCode}");
-    log("errore respomse${response?.data}");
+  static Exception handleStatuesCodeResponse( {Response? response,String? endpointName}) {
+    if(kDebugMode) {
+      log("statescode${response?.statusCode}");
+      log("errore respomse${response?.data}");
+      log("endpointName =$endpointName");
+    }
     switch (response?.statusCode) {
       case 500:
         throw ServerException();

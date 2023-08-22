@@ -72,7 +72,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
   
       return Future.value(rooms);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getAllRooms' );
     }
   }
 
@@ -90,7 +90,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
             (e) => CountryModel.fromJson(e),
       ));
     }on DioError catch(e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getAllCountry');
     }
 
   }
@@ -115,7 +115,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
       return carouselList;
     }on DioError catch (e) {
 
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getCarousel');
     }
   }
 
@@ -144,7 +144,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
         return data;
 
     } on DioError  catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getTop');
     }
   }
 
@@ -171,7 +171,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
       return data;
 
     } on DioError  catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getConfigApp');
     }
   }
 
@@ -213,7 +213,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
 
       return result['message'];
     } on DioError catch(e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'createRoom');
     }
 
 
@@ -236,7 +236,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
 
       return dataList;
     } on DioError catch(e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getAllRoomTypes');
     }
 
   }

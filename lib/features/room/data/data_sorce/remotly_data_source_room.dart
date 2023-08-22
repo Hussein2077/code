@@ -107,7 +107,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       }
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
 
@@ -127,7 +127,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
           data: body);
       return Future.value(unit);
     } on DioError catch(e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
 
@@ -152,7 +152,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       );
       return GetRoomUsersModel.fromjson(response.data["data"]);
     }on DioError catch (e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
 
@@ -170,7 +170,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return List<BackGroundModel>.from((response.data["data"] as List)
           .map((e) => BackGroundModel.fromjson(e)));
     }on DioError catch(e){
-      throw  DioHelper.handleDioError(e);
+      throw  DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
   }
@@ -221,7 +221,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       EnterRoomModel roomData = EnterRoomModel.fromJson(result['data']);
       return roomData;
     } on DioError catch(e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
   }
@@ -239,7 +239,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
           (response.data["data"] as List).map((e) => EmojieModel.fromjson(e)));
 
     } on DioError catch(e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -261,7 +261,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       }
       return giftsModelList;
     } on DioError catch(e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
   }
@@ -296,7 +296,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
 
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -316,7 +316,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       Map<String, dynamic> jsonData = response.data;
       return jsonData['message'];
     }on DioError catch (e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -345,7 +345,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return listTopUserModel;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
 
@@ -373,7 +373,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -394,7 +394,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
   }
@@ -421,7 +421,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
   }
@@ -448,7 +448,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -473,7 +473,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -498,7 +498,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
   }
@@ -524,7 +524,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
   }
@@ -551,7 +551,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -578,7 +578,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return List<UserDataModel>.from(jsonData["data"].map((x) => UserDataModel.fromMap(x))) ;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -603,7 +603,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
 
     } on DioError catch (e) {
 
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -630,7 +630,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -657,7 +657,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -683,7 +683,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -709,7 +709,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -736,7 +736,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
 
   }
@@ -762,7 +762,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return boxLuckyModel ;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -789,7 +789,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return Future.value(unit);
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: );
     }
   }
 
@@ -815,7 +815,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return 'succec';
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'pickUpBoxe' );
     }
   }
 
@@ -848,7 +848,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return  response.data['message'] ;
 
     }on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'banUserFromWriting');
     }
   }
 
@@ -875,7 +875,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return  response.data['data']['message'] ;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'sendPopUp');
     }
   }
 
@@ -897,7 +897,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return  response.data['message'] ;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'hideRoom' );
     }
   }
 
@@ -919,7 +919,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return  response.data['message'] ;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'disposeHideRoom');
     }
   }
   
@@ -946,7 +946,7 @@ FormData formData;
       log(result.toString());
       return result['message'];
     } on DioError catch(e){
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'addRoomBackGround' );
     }
   }
 
@@ -962,7 +962,7 @@ FormData formData;
       return List<BackGroundModel>.from((response.data["data"] as List)
           .map((e) => BackGroundModel.fromjson(e)));
     }on DioError catch(e){
-      throw  DioHelper.handleDioError(e);
+      throw  DioHelper.handleDioError(dioError: e,endpointName:'getMyBackGround' );
     }
 
   }
@@ -997,7 +997,7 @@ FormData formData;
       return Future.value(unit);
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'muteUser' );
     }
   }
 
@@ -1031,7 +1031,7 @@ FormData formData;
       return Future.value(unit);
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'inviteUser' );
     }
   }
 
@@ -1068,7 +1068,7 @@ FormData formData;
         log(result.toString());
       return  result ;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'getConfigKey');
     }
 
     

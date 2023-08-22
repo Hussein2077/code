@@ -52,7 +52,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       }
       return Future.value(unit);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:"sendCode");
     }
   }
 
@@ -81,7 +81,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       
       return userData;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:"registerWithCodeAndPhone");
     }
   }
   
@@ -108,7 +108,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       Methods().saveUserToken(authToken: userData.authToken);
       return userData;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:"loginWithPassAndPhone");
     }
   }
   
@@ -161,7 +161,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       log("addInformation") ;
       return userData;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:"addInformation");
     }
   }
   
@@ -213,7 +213,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );
       }on DioError catch (e){
 
-         throw DioHelper.handleDioError(e);
+         throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithGoogle");
       }
       } 
   }
@@ -284,7 +284,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       return jsonData[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'forgetPassword');
     }
   }
   
@@ -308,7 +308,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       return jsonData[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'logOut');
     }
   }
 
