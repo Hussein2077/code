@@ -107,7 +107,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       }
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'Enter Room');
     }
 
 
@@ -127,7 +127,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
           data: body);
       return Future.value(unit);
     } on DioError catch(e){
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:'Exit Room' );
     }
 
 
@@ -152,7 +152,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       );
       return GetRoomUsersModel.fromjson(response.data["data"]);
     }on DioError catch (e){
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:'Get Room User' );
     }
 
 
@@ -170,7 +170,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return List<BackGroundModel>.from((response.data["data"] as List)
           .map((e) => BackGroundModel.fromjson(e)));
     }on DioError catch(e){
-      throw  DioHelper.handleDioError(dioError: e,endpointName: );
+      throw  DioHelper.handleDioError(dioError: e,endpointName:'Get BackGround');
     }
 
   }
@@ -221,7 +221,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       EnterRoomModel roomData = EnterRoomModel.fromJson(result['data']);
       return roomData;
     } on DioError catch(e){
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:'Update Room' );
     }
 
   }
@@ -239,7 +239,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
           (response.data["data"] as List).map((e) => EmojieModel.fromjson(e)));
 
     } on DioError catch(e){
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:'Get Emoji' );
     }
   }
 
@@ -261,7 +261,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       }
       return giftsModelList;
     } on DioError catch(e){
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'Get Gifts');
     }
 
   }
@@ -296,7 +296,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
 
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"Send Gifts" );
     }
   }
 
@@ -316,7 +316,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       Map<String, dynamic> jsonData = response.data;
       return jsonData['message'];
     }on DioError catch (e){
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: "Remove Pass Room");
     }
   }
 
@@ -345,7 +345,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return listTopUserModel;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: "Get TopIn Room");
     }
 
 
@@ -373,7 +373,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"kick Out User");
     }
   }
 
@@ -394,7 +394,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: "up Microphone");
     }
 
   }
@@ -421,7 +421,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"add Admin Room");
     }
 
   }
@@ -448,7 +448,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: "Remove Admin");
     }
   }
 
@@ -473,7 +473,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: "show PK");
     }
   }
 
@@ -498,7 +498,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"start PK" );
     }
 
   }
@@ -524,7 +524,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: "close PK");
     }
 
   }
@@ -551,7 +551,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: "hide PK");
     }
   }
 
@@ -578,7 +578,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return List<UserDataModel>.from(jsonData["data"].map((x) => UserDataModel.fromMap(x))) ;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"Admins Room");
     }
   }
 
@@ -603,7 +603,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
 
     } on DioError catch (e) {
 
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: "Leave Microphone");
     }
   }
 
@@ -630,7 +630,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName: "Mute Microphone");
     }
   }
 
@@ -657,7 +657,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"unMute Microphone");
     }
   }
 
@@ -683,7 +683,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"Lock Microphone");
     }
   }
 
@@ -709,7 +709,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"unLock Microphone" );
     }
   }
 
@@ -736,7 +736,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return jsonData['message'];
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"Room Mode");
     }
 
   }
@@ -762,7 +762,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return boxLuckyModel ;
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"Get Box Lucky");
     }
   }
 
@@ -789,7 +789,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return Future.value(unit);
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: );
+      throw DioHelper.handleDioError(dioError: e,endpointName:"send Box" );
     }
   }
 
@@ -815,7 +815,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       return 'succec';
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'pickUpBoxe' );
+      throw DioHelper.handleDioError(dioError: e,endpointName:'pick Up Box' );
     }
   }
 

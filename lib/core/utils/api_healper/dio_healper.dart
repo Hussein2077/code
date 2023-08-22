@@ -97,9 +97,10 @@ class DioHelper {
 
   static Exception handleStatuesCodeResponse( {Response? response,String? endpointName}) {
     if(kDebugMode) {
+      log("endpointName =$endpointName");
       log("statescode${response?.statusCode}");
       log("errore respomse${response?.data}");
-      log("endpointName =$endpointName");
+
     }
     switch (response?.statusCode) {
       case 500:
