@@ -6,24 +6,28 @@ class MentionOrReportContainer extends StatelessWidget {
   final String text;
   final String icon;
   final double? size;
+ final void Function() onTap ; 
 
   const MentionOrReportContainer(
-      {super.key, required this.text, required this.icon, this.size});
+      {super.key, required this.text, required this.icon, this.size , required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(text,
-            style: TextStyle(
-                fontSize: ConfigSize.defaultSize! * 1.4,
-                color: ColorManager.gray,
-                fontWeight: FontWeight.w400)),
-        SizedBox(
-          width: ConfigSize.defaultSize! * 0.7,
-        ),
-        Image.asset(icon, scale:size?? ConfigSize.defaultSize! * 0.3)
-      ],
+    return InkWell(
+      onTap:onTap ,
+      child: Row(
+        children: [
+          Text(text,
+              style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.4,
+                  color: ColorManager.gray,
+                  fontWeight: FontWeight.w400)),
+          SizedBox(
+            width: ConfigSize.defaultSize! * 0.7,
+          ),
+          Image.asset(icon, scale:size?? ConfigSize.defaultSize! * 0.3)
+        ],
+      ),
     );
   }
 }

@@ -91,6 +91,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/show_family_usecase.
 import 'package:tik_chat_v2/features/profile/domin/use_case/time_data_report_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/unused_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/use_item_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/get_vip_prev_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_active_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
@@ -131,6 +132,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_us
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_user_repoert/user_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
@@ -169,9 +171,12 @@ import 'package:tik_chat_v2/features/room/domine/use_case/get_boxex_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_mybackground_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/hide_pk_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/hide_room_use_case.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/invite_user_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/leave_mic_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/lock_unLock_mic_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/mute_unmute_mic_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/mute_unmute_use_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/pickup_box_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/remove_admin_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/remove_pass_room_UC.dart';
@@ -186,10 +191,12 @@ import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.da
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/kickout_manger/kickout_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
@@ -397,13 +404,28 @@ class ServerLocator {
                                  getIt.registerFactory(
         () => GetReelsBloc(getReelUseCase: getIt()));
 
+    
+  getIt.registerFactory(
+        () => KickoutBloc(kickoutUC: getIt()));
+
+        getIt.registerFactory(
+        () => UserReportBloc(userReporetUseCase: getIt()));
+
+             getIt.registerFactory(
+        () => UsersInRoomBloc(inviteUserUC: getIt() , muteUnMuteUserInRoomUC: getIt()));
+
 
 
 //usecase
 
 
 
+getIt.registerLazySingleton(
+            () => InviteUserUC(roomRepo: getIt()));getIt.registerLazySingleton(
+            () => MuteUnMuteUserInRoomUC(roomRepo: getIt()));
 
+    getIt.registerLazySingleton(
+            () => KickoutUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(
             () => RemoveAdminUC(roomRepo: getIt()));
@@ -624,7 +646,8 @@ class ServerLocator {
         () => UploadReelUseCase(baseRepositoryReel: getIt()));
                 getIt.registerLazySingleton(
         () => GetReelUseCase(baseRepositoryReel: getIt()));
-
+               getIt.registerLazySingleton(
+        () => UserReporetUseCase(baseRepository: getIt()));
 
 
 
