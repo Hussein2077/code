@@ -322,6 +322,10 @@ class CodegenLoader extends AssetLoader {
     StringManager.chargeCoins: "شحن النقود",
     StringManager.cantopen: "ممنوع فتح في هذا الوضع",
     StringManager.cantclosepk: "ممنوع غلق الpk",
+        StringManager.beComeAdmin: "كن مشرف",
+        StringManager.privacy : "الخصوصيه",
+        
+
   };
   static const Map<String, dynamic> tr = {
     StringManager.appTitle: "Tikchat",
@@ -837,6 +841,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.mounth: "مہینے",
     StringManager.totalDaimonds: "کل الماس",
     StringManager.chargeCoins: "سکے کی چارجنگ",
+
   };
   static const Map<String, dynamic> chs = {
     StringManager.appTitle: "Tik Chat",

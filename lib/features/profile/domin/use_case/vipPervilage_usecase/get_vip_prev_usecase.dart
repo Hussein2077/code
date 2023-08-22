@@ -9,7 +9,7 @@ import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_pr
 class GetVipPrevUseCase {
   BaseRepositoryProfile baseRepositoryProfile;
   GetVipPrevUseCase({required this.baseRepositoryProfile});
-  Future<Either<GetVipPrevModel, Failure>> getVipPrevUseCase() async {
+  Future<Either<List<GetVipPrevModel>, Failure>> getVipPrevUseCase() async {
     return await baseRepositoryProfile.getVipPerv();
   }
 }

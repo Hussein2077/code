@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/widgets/top_in_room_screen/Widgets/item_rank_inRoom.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/profile/general_room_profile.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_top_inroom/topin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_top_inroom/topin_room_states.dart';
 
@@ -57,13 +58,14 @@ class TopInRoomScreenBody extends StatelessWidget {
                                   Navigator.pop(context) ;
                                   bottomDailog(
                                       context: context,
-                                      widget: const  SizedBox()
-                                     //  GenralProfileDialog(
-                                     //  userId:state.todayUserTopModel[index].userId.toString() ,
-                                     //  myData:myData,
-                                     //  roomData:roomData,
-                                     // layoutMode:layoutMode
-                                     //  )
+                                      widget: 
+                                      GeneralRoomProfile(
+                                      
+                                      userId:state.todayUserTopModel[index].userId.toString() ,
+                                      myData:myData,
+                                      roomData:roomData,
+                                     layoutMode:layoutMode
+                                      )
 
                                   );
 

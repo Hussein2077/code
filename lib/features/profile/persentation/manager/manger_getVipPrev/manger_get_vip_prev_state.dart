@@ -20,7 +20,7 @@ class GetVipPrevErrorState extends MangerGetVipPrevState{
 }
 
 class GetVipPrevSucssesState extends MangerGetVipPrevState{
-  final GetVipPrevModel data ; 
+  final List<GetVipPrevModel> data ; 
 
  const GetVipPrevSucssesState({required this.data });
 

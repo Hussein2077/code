@@ -190,24 +190,22 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                     BlocBuilder<MangerGetVipPrevBloc, MangerGetVipPrevState>(
                       builder: (context, state) {
                         if (state is GetVipPrevSucssesState) {
+                                             var element = state.data.firstWhere((item) => item.key == 'room');
+
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(StringManager.hideRoom.tr()),
                               Switch(
                                   activeColor: ColorManager.mainColor,
-                                  value: state.data.roomHidden!,
+                                  value:element.isActive!,
                                   onChanged: (value) {
-                                    if (state.data.roomHidden == false) {
+                                    if (element.isActive == false) {
                                       showDialog(
                                           context: context,
                                           builder: (context) {
                                             return DialogForPrivecyScreen(
-                                              flag: widget.myDataModel.vip1!
-                                                          .level! >=
-                                                      6
-                                                  ? true
-                                                  : false,
+                                              flag: element.isAllowToUser!,
                                               buildContext: context,
                                               confirm: () {
                                                 Navigator.pop(context);

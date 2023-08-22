@@ -595,7 +595,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
   
   @override
-  Future<Either<GetVipPrevModel, Failure>> getVipPerv()async {
+  Future<Either<List<GetVipPrevModel>, Failure>> getVipPerv()async {
         try {
       final result = await baseRemotlyDataSourceProfile.getVipPrev() ;
       return left(result);
@@ -776,13 +776,16 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
 
   @override
   Future<Either<ShowAgencyModel, Failure>> showAgency()async {
-  try {
-      final result =
+  // try {
+  //     final result =
+  //     await baseRemotlyDataSourceProfile.showAgency();
+  //     return Left(result);
+  //   } catch (e) {
+  //     return right(DioHelper.buildFailure(e));
+  //   }
+   final result =
       await baseRemotlyDataSourceProfile.showAgency();
       return Left(result);
-    } catch (e) {
-      return right(DioHelper.buildFailure(e));
-    }
   }
   
   @override
@@ -843,13 +846,16 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   
   @override
   Future<Either<String, Failure>> chargeCoinForUsers({required String id, required String amount})async {
-   try {
-      final result =
+  //  try {
+  //     final result =
+  //     await baseRemotlyDataSourceProfile.chargeCoinForUsers(amount: amount , id: id );
+  //     return Left(result);
+  //   } catch (e) {
+  //     return right(DioHelper.buildFailure(e));
+  //   }
+     final result =
       await baseRemotlyDataSourceProfile.chargeCoinForUsers(amount: amount , id: id );
       return Left(result);
-    } catch (e) {
-      return right(DioHelper.buildFailure(e));
-    }
   }
   
   @override
@@ -871,6 +877,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
     }
+    
   }
   
   @override
@@ -910,6 +917,31 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
       return left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
+    }
+  }
+  @override
+  Future<Either<String, Failure>> prevActive(String type) async {
+    try {
+      final result = await baseRemotlyDataSourceProfile.prevActive(type) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  
+
+
+
+
+
+  @override
+  Future<Either<String, Failure>> prevDispose(String type) async {
+    try {
+      final result = await baseRemotlyDataSourceProfile.prevDispose(type) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
     }
   }
 

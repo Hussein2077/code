@@ -82,6 +82,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_cen
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
@@ -363,8 +364,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
         BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),
         BlocProvider(create: (_) => getIt<PKBloc>()),
-        BlocProvider(create: (_) => getIt<AdminRoomBloc>())
+        BlocProvider(create: (_) => getIt<AdminRoomBloc>()),
 
+        BlocProvider(create: (_) => getIt<PrivacyBloc>())
 
 
 

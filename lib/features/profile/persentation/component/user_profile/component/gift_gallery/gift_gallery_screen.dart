@@ -5,12 +5,27 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
+import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_state.dart';
 
-class GiftGallery extends StatelessWidget {
-  const GiftGallery({super.key});
+class GiftGallery extends StatefulWidget {
+  int? userId ; 
+   GiftGallery({ this.userId ,  super.key});
 
+  @override
+  State<GiftGallery> createState() => _GiftGalleryState();
+}
+
+class _GiftGalleryState extends State<GiftGallery> {
+  @override
+  void initState() {
+    if (widget.userId!=null){
+      BlocProvider.of<GiftHistoryBloc>(context).add(GetGiftHistory(id:widget.userId.toString() ));
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GiftHistoryBloc, BaseGiftHistoryState>(
@@ -78,7 +93,7 @@ class GiftGallery extends StatelessWidget {
           ),
         );
         }else {
-          return const SizedBox();
+          return const LoadingWidget();
         }
        
       },
