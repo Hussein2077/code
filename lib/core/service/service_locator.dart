@@ -64,6 +64,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/delete_account_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/exchange_dimonds.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/exit_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/family_ranking_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/family_room_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/family_take_action_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/follow_unfollow_usecase.dart';
@@ -123,6 +124,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_dolars_for_user/charge_dolars_for_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_owner_agency_history/charge_owner_agency_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family_room/bloc/family_room_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_all_intersted/get_all_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_intersed/get_user_intersted_bloc.dart';
@@ -381,7 +383,8 @@ class ServerLocator {
                               getIt.registerFactory(
         () => PrivacyBloc(prevActiveUseCases: getIt() , prevDisposeUseCases: getIt()));
 
-        
+    getIt.registerFactory(() => FamilyRoomBloc(getFamilyRoomUsecase: getIt()));
+
 
 //usecase
 
@@ -596,11 +599,14 @@ class ServerLocator {
 
         getIt.registerLazySingleton(
         () => GetUserIntrestedUseCase(baseRepositoryProfile: getIt()));
+
+    getIt.registerLazySingleton(
+            () => GetFamilyRoomUsecase(baseRepositoryProfile: getIt()));
                getIt.registerLazySingleton(
         () => PrevActiveUseCases(baseRepositoryProfile: getIt()));
                getIt.registerLazySingleton(
         () => PrevDisposeUseCases(baseRepositoryProfile: getIt()));
-        
+
         
 
 //repo

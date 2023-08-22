@@ -83,7 +83,7 @@ class FamilyLevel {
         overCureentLevelExp: json['over_current_level_exp'],
         nextExp: json['next_exp'],
         nextImage: json['next_img'],
-        nextName: json['next_name']??"",
+        nextName: json['next_name']??' ',
         per: json['per'],
         rem: json['rem']);
   }

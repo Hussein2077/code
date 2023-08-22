@@ -35,96 +35,97 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height:  ConfigSize.defaultSize! *40,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(ConfigSize.defaultSize!*0.2),
-              topRight: Radius.circular(ConfigSize.defaultSize!*0.2)),
+          borderRadius: BorderRadius.circular(20),
           color: Colors.white),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: ConfigSize.defaultSize!*0.8,
+      child: Column(
+        children: [
+          SizedBox(
+            height: ConfigSize.defaultSize!*0.8,
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*3.5
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*3.5
+            width: ConfigSize.defaultSize!*10.18,
+            height: ConfigSize.defaultSize!*10.18,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage(AssetsPath.iconApp),
               ),
-              width: ConfigSize.defaultSize!*10.18,
-              height: ConfigSize.defaultSize!*10.18,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage(AssetsPath.iconApp),
+            ),
+          ),
+          SizedBox(
+            height: AppPadding.p14,
+          ),
+          Directionality(
+            textDirection: ui.TextDirection.ltr,
+            child: TextFieldPin(
+                textController: passwordcontroler,
+                autoFocus: true,
+                codeLength: _otpPasswordLength,
+                alignment: MainAxisAlignment.center,
+                defaultBoxSize: ConfigSize.defaultSize! * 3.80,
+                margin: ConfigSize.defaultSize! * 0.44,
+                selectedBoxSize: ConfigSize.defaultSize! * 3.90,
+                textStyle: TextStyle(fontSize: ConfigSize.defaultSize!*2.18,color: Colors.black),
+                defaultDecoration: BoxDecoration(
+                  border: Border.all(
+                      width: 2,
+                      color: ColorManager.mainColor.withOpacity(0.5)),
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: AppPadding.p14,
-            ),
-            Directionality(
-              textDirection: ui.TextDirection.ltr,
-              child: TextFieldPin(
-                  textController: passwordcontroler,
-                  autoFocus: true,
-                  codeLength: _otpPasswordLength,
-                  alignment: MainAxisAlignment.center,
-                  defaultBoxSize: ConfigSize.defaultSize! * 3.80,
-                  margin: ConfigSize.defaultSize! * 0.44,
-                  selectedBoxSize: ConfigSize.defaultSize! * 3.90,
-                  textStyle: TextStyle(fontSize: ConfigSize.defaultSize!*2.18),
-                  defaultDecoration: BoxDecoration(
-                    border: Border.all(
-                        width: 2,
-                        color: ColorManager.mainColor.withOpacity(0.5)),
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  selectedDecoration: BoxDecoration(
-                    border:
-                        Border.all(width: 2, color: ColorManager.mainColor),
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  onChange: (value) {
-                    setState(() {
-                      password = value;
-                    });
-                  }),
-            ),
-            SizedBox(
-              height: ConfigSize.defaultSize!*0.14,
-            ),
-            InkWell(
-              onTap: () async {
+                selectedDecoration: BoxDecoration(
+                  border:
+                      Border.all(width: 2, color: ColorManager.mainColor),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                onChange: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                }),
+          ),
+          SizedBox(
+            height: ConfigSize.defaultSize!*0.14,
+          ),
+          InkWell(
+            onTap: () async {
 
-                await Methods().checkIfInRoom(ownerId: widget.ownerId);
+              await Methods().checkIfInRoom(ownerId: widget.ownerId);
 
-                // ignore: use_build_context_synchronously
-                Navigator.pop(context);
-                // ignore: use_build_context_synchronously
-                Navigator.pop(context);
-                // ignore: use_build_context_synchronously
-                Navigator.pushNamed(
-                    context, Routes.roomHandler,
-                    arguments: RoomHandlerPramiter(
-                      passwordRoom: password,
-                        myDataModel:widget.myData,
-                      ownerRoomId: '',
-                        ));
-              },
-              child: Container(
-                height: ConfigSize.defaultSize! * 6.0,
-                decoration: (BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: ColorManager.mainColor,
-                )),
-                child: Center(child: Text(StringManager.done.tr())),
+              // ignore: use_build_context_synchronously
+              Navigator.pop(context);
+              // ignore: use_build_context_synchronously
+              Navigator.pop(context);
+              // ignore: use_build_context_synchronously
+              Navigator.pushNamed(
+                  context, Routes.roomHandler,
+                  arguments: RoomHandlerPramiter(
+                    passwordRoom: password,
+                      myDataModel:widget.myData,
+                    ownerRoomId: widget.ownerId,
+                      ));
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                horizontal:  ConfigSize.defaultSize! * 2.0,
               ),
+              height: ConfigSize.defaultSize! * 5.0,
+              decoration: (BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: ColorManager.mainColor,
+              )),
+              child: Center(child: Text(StringManager.done.tr())),
             ),
-            SizedBox(
-              height: ConfigSize.defaultSize! * 0.18,
-            ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: ConfigSize.defaultSize! * 0.18,
+          ),
+        ],
       ),
     );
   }
