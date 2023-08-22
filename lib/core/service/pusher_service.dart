@@ -14,10 +14,9 @@ class PusherService {
  initPusher(String appKey, String host, int port, String cluster) async {
    try {
      await pusher.init(
-
          cluster: cluster,
-         apiKey: appKey,
-         onConnectionStateChange: onConnectionStateChange,
+         apiKey: '9bfa0b56e375267a8f59',
+         onConnectionStateChange:onConnectionStateChange,
          onError: onError,
          onSubscriptionSucceeded: onSubscriptionSucceeded,
          onEvent: onEvent,
@@ -26,7 +25,7 @@ class PusherService {
          onMemberAdded: onMemberAdded,
          onMemberRemoved: onMemberRemoved,
          onSubscriptionCount: onSubscriptionCount,
-         authEndpoint:'https://dragon-chat-app.com/api/broadcasting/auth',
+         authEndpoint:'https://dragon-chat.co/api/broadcasting/auth',
          onAuthorizer: onAuthorizer
      );
    } catch (e) {
@@ -71,10 +70,11 @@ class PusherService {
  void onSubscriptionCount(String channelName, int subscriptionCount) {
    log("onSubscriptionCount: $channelName subscriptionCount: $subscriptionCount");
  }
+
  dynamic onAuthorizer(
      String channelName, String socketId, dynamic options) async {
    String token = await Methods().returnUserToken();
-   var authUrl = "https://dragon-chat-app.com/api/broadcasting/auth";
+   var authUrl = 'https://dragon-chat.co/api/broadcasting/auth';
    var result = await http.post(
      Uri.parse(authUrl),
      headers: {

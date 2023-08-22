@@ -96,8 +96,9 @@ class DioHelper {
   }
 
   static Exception handleStatuesCodeResponse(Response? response) {
+    //todo add endpoint name
     log("statescode${response?.statusCode}");
-    log("errore respomse ${response?.data}");
+    log("errore respomse${response?.data}");
     switch (response?.statusCode) {
       case 500:
         throw ServerException();

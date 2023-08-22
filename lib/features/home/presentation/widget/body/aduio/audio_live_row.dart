@@ -80,7 +80,7 @@ class AduioLiveRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    room.name,
+                    room.name??"",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: ConfigSize.defaultSize! * 1.8),
@@ -88,7 +88,7 @@ class AduioLiveRow extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width-200,
                     child: Text(
-                      room.roomIntro!,
+                      room.roomIntro??"",
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.5),
                           fontSize: ConfigSize.defaultSize! * 1.2,
@@ -101,7 +101,7 @@ class AduioLiveRow extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      RoomTypeWidget(style: style,type: room.type!.name),
+                      RoomTypeWidget(style: style,type: room.type!.name??""),
                       SizedBox(
                         width: ConfigSize.defaultSize,
                       ),

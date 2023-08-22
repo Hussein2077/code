@@ -197,12 +197,12 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           headers: headers,
         ),
       );
-
         Methods().saveMyData();
       MyDataModel userData =
       MyDataModel.fromMap(response.data[ConstentApi.data]);
-
+      log("122");
       return userData;
+
     } on DioError catch (e) {
       throw DioHelper.handleDioError(e);
     }
