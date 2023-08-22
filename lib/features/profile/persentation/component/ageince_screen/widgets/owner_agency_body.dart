@@ -25,29 +25,34 @@ class OwnerAgencyBody extends StatelessWidget {
         ),
         child: Column(
           children: [
-            agencyCard(
-                context: context,
-                widget:Image.asset(AssetsPath.rank,scale: 2),
-                title: StringManager.agencyMembersRank.tr(),
-                onTap:() =>  Navigator.pushNamed(context, Routes.agencyMemberScreen)),
+            if(myData.myType!=3)
+            Column(
+              children: [
+                agencyCard(
+                    context: context,
+                    widget:Image.asset(AssetsPath.rank,scale: 2),
+                    title: StringManager.agencyMembersRank.tr(),
+                    onTap:() =>  Navigator.pushNamed(context, Routes.agencyMemberScreen)),
 
-            agencyCard(
-              context: context ,
-              title: StringManager.reports.tr() ,
-              widget: const Icon(Icons.report,color: Colors.amber),
-              onTap: () => Navigator.pushNamed(context, Routes.agencyRepoertsScreen),),
+                agencyCard(
+                  context: context ,
+                  title: StringManager.reports.tr() ,
+                  widget: const Icon(Icons.report,color: Colors.amber),
+                  onTap: () => Navigator.pushNamed(context, Routes.agencyRepoertsScreen),),
 
-            agencyCard(
-              context: context ,
-              title: StringManager.joinRequests.tr() ,
-              widget: const Icon(Icons.person_add_alt_1_rounded,color: Colors.amber),
-              onTap: () => Navigator.pushNamed(context, Routes.agencyRequestsScreen), ) ,
+                agencyCard(
+                  context: context ,
+                  title: StringManager.joinRequests.tr() ,
+                  widget: const Icon(Icons.person_add_alt_1_rounded,color: Colors.amber),
+                  onTap: () => Navigator.pushNamed(context, Routes.agencyRequestsScreen), ) ,
 
-            agencyCard(context: context ,
-              title: StringManager.shippingFromTheAgency.tr() ,
-              widget:Image.asset(AssetsPath.moneyBag,scale:6) ,
-              onTap: () => Navigator.pushNamed(context, Routes.charchingDolarsForUsers),),
-            // if(myData.myType == 4)
+                agencyCard(context: context ,
+                  title: StringManager.shippingFromTheAgency.tr() ,
+                  widget:Image.asset(AssetsPath.moneyBag,scale:6) ,
+                  onTap: () => Navigator.pushNamed(context, Routes.charchingDolarsForUsers),),
+              ],
+            ),
+            if(myData.myType == 4 || myData.myType==3)
             agencyCard(context: context ,
               title:StringManager.chargingFromTheSystem.tr() ,
               widget:Image.asset(AssetsPath.goldCoinIcon,scale: 6) ,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,13 +97,14 @@ class VipTabView extends StatelessWidget {
                             showDialog(
                                 context: context,
                                 builder: (context) {
+
                                   return VipDailog(
                                     title: vipData
-                                        .privilgesData![index].item!.title!,
+                                        .privilgesData![index].title,
                                     headerText: vipData
-                                        .privilgesData![index].item!.name!,
+                                        .privilgesData![index].name,
                                     image: vipData
-                                        .privilgesData![index].item!.image!,
+                                        .privilgesData![index].img1,
                                   );
                                 });
                           },
