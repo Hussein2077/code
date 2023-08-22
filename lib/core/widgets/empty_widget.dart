@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/profile/user_porfile_in_room_body.dart';
-import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+
 
 class EmptyWidget extends StatelessWidget {
   final String message;
@@ -15,10 +14,10 @@ class EmptyWidget extends StatelessWidget {
     return Expanded(
         child: InkWell(
           onTap: (){
-            bottomDailog(
-                context: context,
-                widget: const UserProfileInRoom()
-            );
+            // bottomDailog(
+            //     context: context,
+            //     widget:  UserProfileInRoom()
+            // );
           },
           child: Stack(
       alignment: Alignment.center,

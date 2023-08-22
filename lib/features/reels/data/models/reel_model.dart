@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 
 class ReelModel {
@@ -14,5 +10,16 @@ class ReelModel {
   final String? reelDescription;
   final String? musicName;
   final List<ReelCommentModel>? commentList;
-  ReelModel(this.url,this.userName,{this.id,this.isLiked =false,this.likeCount=0,this.profileUrl,this.reelDescription,this.musicName,this.commentList});
+  ReelModel(this.url, this.userName,
+      {this.id,
+      this.isLiked = false,
+      this.likeCount = 0,
+      this.profileUrl,
+      this.reelDescription,
+      this.musicName,
+      this.commentList});
+
+      // factory ReelModel.fromJson (Map<String , dynamic> json){
+      //   return ReelModel();
+      // }
 }
