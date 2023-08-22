@@ -6,22 +6,22 @@ class EmptyWidget extends StatelessWidget {
   final double? height;
   const EmptyWidget({required this.message, super.key, this.height,  });
 
-@override
-Widget build(BuildContext context) {
-  return
-    Center(
-      child: Container(
-        height: ConfigSize.screenHeight!*0.825,
-        alignment: Alignment.center,
-        color: Colors.white,
-        child: Text(
-          message,
-          style: TextStyle(
-              color: Colors.black, fontSize: ConfigSize.defaultSize! * 2),
+  @override
+  Widget build(BuildContext context) {
+    return
+      Center(
+        child: Container(
+          height: ConfigSize.screenHeight!*0.825,
+          alignment: Alignment.center,
+          color: Colors.white,
+          child: Text(
+            message,
+            style: TextStyle(
+                color: Colors.black, fontSize: ConfigSize.defaultSize! * 2),
+          ),
         ),
-      ),
-    )
+      )
 
-  ;
-}
+    ;
+  }
 }

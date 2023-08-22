@@ -25,18 +25,18 @@ class UserInfoRow extends StatelessWidget {
 
   const UserInfoRow(
       {this.underNameWidth,
-      this.onTap,
-      required this.userData,
-      this.endIcon,
-      this.underName,
-      this.imageSize,
-      super.key});
+        this.onTap,
+        required this.userData,
+        this.endIcon,
+        this.underName,
+        this.imageSize,
+        super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap ??
-          () {
+              () {
             Navigator.pushNamed(context, Routes.userProfile,
                 arguments: userData.id.toString());
           },
@@ -70,7 +70,7 @@ class UserInfoRow extends StatelessWidget {
                 ),
                 SizedBox(
                   width:
-                      underNameWidth ?? MediaQuery.of(context).size.width - 140,
+                  underNameWidth ?? MediaQuery.of(context).size.width - 140,
                   child: underName ??
                       Row(
 

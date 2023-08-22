@@ -270,7 +270,7 @@ class Methods {
 
             return svgaDataModel;
           } on DioError catch (e) {
-            throw DioHelper.handleDioError(e);
+            throw DioHelper.handleDioError(dioError: e,endpointName: "getExtraData");
           }
 
         }
@@ -333,7 +333,7 @@ class Methods {
 
             return listDataMall;
           } on DioError catch (e) {
-            throw DioHelper.handleDioError(e);
+            throw DioHelper.handleDioError(dioError: e,endpointName:"getUsersEntro");
           }
         }
         Future<void> getAndLoadEntro() async {
@@ -382,7 +382,7 @@ class Methods {
 
             return listDataMall;
           } on DioError catch (e) {
-            throw DioHelper.handleDioError(e);
+            throw DioHelper.handleDioError(dioError: e,endpointName:"getFrames");
           }
         }
         Future<void> getAndLoadFrames() async {
@@ -422,7 +422,7 @@ class Methods {
             return List<EmojieModel>.from(
                 (response.data["data"] as List).map((e) => EmojieModel.fromjson(e)));
           } on DioError catch(e){
-            throw DioHelper.handleDioError(e);
+            throw DioHelper.handleDioError(dioError: e,endpointName:"getEmojie");
           }
         }
         Future<void> cacheSvgaEmojie({required  List<EmojieModel> emojieModel}) async {
