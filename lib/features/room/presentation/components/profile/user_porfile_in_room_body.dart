@@ -15,7 +15,6 @@ import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/gift_gallery_profile.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/icon_with_text.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/mention_or_report_container.dart';
 
 import 'profile_room_body_controler.dart';

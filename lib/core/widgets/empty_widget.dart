@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
+
 class EmptyWidget extends StatelessWidget {
   final String message;
   final double? height;
