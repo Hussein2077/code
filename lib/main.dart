@@ -365,7 +365,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
         BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),
         BlocProvider(create: (_) => getIt<PKBloc>()),
-        BlocProvider(create: (_) => getIt<AdminRoomBloc>())
+        BlocProvider(create: (_) => getIt<AdminRoomBloc>()),
         BlocProvider(
           create: (context) => getIt<FamilyRoomBloc>(),
         ),
