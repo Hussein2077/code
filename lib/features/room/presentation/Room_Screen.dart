@@ -272,7 +272,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
    )
      ..repeat();
 
-   roomBackgroundChached = widget.room.roomBackground!;
+   roomBackgroundChached = widget.room.roomBackground??'';
    RoomScreen.roomGiftsPrice.value = widget.room.giftPrice.toString();
    RoomScreen.topUserInRoom.value = widget.room.topUser??UserDataModel();
 

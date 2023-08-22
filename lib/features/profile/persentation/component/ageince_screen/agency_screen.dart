@@ -42,11 +42,11 @@ class AgenceScreen extends StatelessWidget {
                       bio: state.data.notice!,
                       id: state.data.id!.toString(),
                       image: state.data.image!),
-                   if(mydata.myType == 2)
+                  //  if(mydata.myType == 2)
                     OwnerAgencyBody(myData: mydata),
 
-                  if(mydata.myType == 1)
-                    Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
+                  // if(mydata.myType == 1)
+                  //   Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
                 ],
               );
             } else if (state is ShowAgencyLoadingState) {

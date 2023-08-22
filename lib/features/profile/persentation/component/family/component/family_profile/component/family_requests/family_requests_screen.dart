@@ -42,7 +42,6 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
         listener: (context, state) {
           if(state is FamilyTakeActionSucssesState){
                 BlocProvider.of<FamilyRequestBloc>(context).add(GetFamilyRequestEvent());
-    BlocProvider.of<ShowFamilyBloc>(context).add(ShowFamilyEvent(id: widget.familyId));
 
             sucssesToast(context: context, title: state.massage);
           }else if (state is FamilyTakeActionErrorState){
@@ -68,6 +67,7 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                           itemBuilder: (context, index) {
                             return UserInfoRow(
                               userData: state.data.data[index].user,
+                              underNameWidth:  MediaQuery.of(context).size.width - 180,
                               endIcon: Row(
                                 children: [
                                   reqIcon(

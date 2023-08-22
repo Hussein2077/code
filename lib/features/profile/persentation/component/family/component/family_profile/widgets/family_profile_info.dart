@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/core/widgets/custom_icon.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
+import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/aduio/audio_live_row.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
@@ -20,6 +21,9 @@ import 'package:tik_chat_v2/features/profile/persentation/component/family/compo
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/widgets/settings_dailog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family_room/bloc/family_room_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family_room/bloc/family_room_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family_room/bloc/family_room_state.dart';
 
 class FamilyProfileInfo extends StatelessWidget {
   final ShowFamilyModel familyData;
@@ -126,7 +130,10 @@ class FamilyProfileInfo extends StatelessWidget {
                       arguments: familyData.ownerData),
                 ),
 
-                familyRooms()
+                familyRooms(
+                  context,
+                  state.myDataModel.familyId.toString()
+                )
               ],
             ),
           );
@@ -207,8 +214,8 @@ Widget familyLevelCard(
   );
 }
 
-Widget familyInfo(
-    {required BuildContext context,
+Widget familyInfo({
+  required BuildContext context,
     required String image,
     required String familyName,
     required String familyId,
@@ -320,22 +327,38 @@ Widget familyMemeber(
   );
 }
 
-Widget familyRooms() {
-  return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        int style = 0;
-        if (index == 0 || index == 1 || index == 2) {
-          style = index;
-        } else {
-          style = index % 3;
-        }
-        //TODO family rooms
-        return AduioLiveRow(
-          room: RoomModelOfAll(),
-          style: style,
-        );
-      });
+Widget familyRooms(BuildContext context,String familyId ) {
+  BlocProvider.of<FamilyRoomBloc>(context)
+      .add(GetFamilyRoomevent(familyId: familyId.toString()));
+  return BlocBuilder<FamilyRoomBloc, FamilyRoomState>(
+  builder: (context, state) {
+    if(state is FamilyRoomLoadingState){
+      return const LoadingWidget();
+    }else if(state is FamilyRoomSucssesState){
+      return ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: state.data.data!.length,
+          itemBuilder: (context, index) {
+            int style = 0;
+            if (index == 0 || index == 1 || index == 2) {
+              style = index;
+            } else {
+              style = index % 3;
+            }
+            //TODO family rooms
+            return AduioLiveRow(
+              room: state.data.data![index],
+              style: style,
+            );
+          });
+    }else if(state is FamilyRoomLErrorState){
+      return Center(
+        child: Text(state.error),
+      );
+    }else{
+      return const Text("Something Error");
+    }
+  },
+);
 }

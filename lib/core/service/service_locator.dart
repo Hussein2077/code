@@ -64,6 +64,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/delete_account_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/exchange_dimonds.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/exit_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/family_ranking_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/family_room_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/family_take_action_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/follow_unfollow_usecase.dart';
@@ -91,6 +92,8 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/time_data_report_uc.
 import 'package:tik_chat_v2/features/profile/domin/use_case/unused_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/use_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/get_vip_prev_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_active_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -121,6 +124,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_dolars_for_user/charge_dolars_for_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_owner_agency_history/charge_owner_agency_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family_room/bloc/family_room_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_all_intersted/get_all_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_intersed/get_user_intersted_bloc.dart';
@@ -136,6 +140,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
 import 'package:tik_chat_v2/features/room/data/Repository_Imp/repository_Imp.dart';
@@ -375,8 +380,11 @@ class ServerLocator {
         () => AddInterstedBloc(addInterstedUsecase: getIt()));
                             getIt.registerFactory(
         () => GetUserInterstedBloc(getUserIntrestedUseCase: getIt()));
+                              getIt.registerFactory(
+        () => PrivacyBloc(prevActiveUseCases: getIt() , prevDisposeUseCases: getIt()));
 
-        
+    getIt.registerFactory(() => FamilyRoomBloc(getFamilyRoomUsecase: getIt()));
+
 
 //usecase
 
@@ -591,7 +599,14 @@ class ServerLocator {
 
         getIt.registerLazySingleton(
         () => GetUserIntrestedUseCase(baseRepositoryProfile: getIt()));
-        
+
+    getIt.registerLazySingleton(
+            () => GetFamilyRoomUsecase(baseRepositoryProfile: getIt()));
+               getIt.registerLazySingleton(
+        () => PrevActiveUseCases(baseRepositoryProfile: getIt()));
+               getIt.registerLazySingleton(
+        () => PrevDisposeUseCases(baseRepositoryProfile: getIt()));
+
         
 
 //repo

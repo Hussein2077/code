@@ -1,49 +1,38 @@
-
-
-
-
 class GetVipPrevModel {
-  final bool? hasColorName;
-    final bool? anonymous;
-    final bool? countryHidden ;
-    final bool?  lastActiveHidden;
-        final bool?  visitHidden;
-            final bool?  roomHidden;
 
+  final String? key ; 
+  final String? title ; 
+  final String? description ; 
+  final bool? isActive ; 
+  final bool? isAllowToUser ;
 
+  
+ 
 
   GetVipPrevModel({
-    this.hasColorName,   
-    this.anonymous,
-    this.countryHidden , 
-    this.lastActiveHidden,
-    this.roomHidden,
-    this.visitHidden,
+    this.key,
+    this.title,
+    this.description,
+    this.isActive,
+    this.isAllowToUser,
+
   });
-
-
-
-
 
   factory GetVipPrevModel.fromjosn(Map<String, dynamic> map) {
     return GetVipPrevModel(
-      hasColorName: map['has_color_name'] != null ? map['has_color_name'] as bool : null,    
-       anonymous: map['anonymous']  != null ? map['anonymous'] as bool : null,
-      roomHidden: map['room_hidden'],
-            countryHidden: map['country_hidden'] != null ? map['country_hidden'] as bool : null,    
-
-      lastActiveHidden: map['last_active_hidden'] != null ? map['last_active_hidden'] as bool : null,    
-
-      visitHidden: map['visit_hidden'] != null ? map['visit_hidden'] as bool : null,    
-
+      key:
+          map['key'] != null ? map['key'] as String : "",
+      title: map['title'] != null ? map['title'] as String : "",
+      description: map['description'] ?? "",
+      isActive:
+          map['is_active'] != null ? map['is_active'] as bool : false,
+      isAllowToUser: map['is_allow_to_user'] != null
+          ? map['is_allow_to_user'] as bool
+          : false,
+   
     );
   }
-
-
-
-
-
-
-
- 
 }
+
+
+

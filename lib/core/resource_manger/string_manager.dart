@@ -384,9 +384,16 @@ class StringManager {
  static const String levelOfThe = "level of the VIP";
  static const String contribute = "Contribute";
  static const String talk = "Talk";
+ static const String ban = "Ban";
  static const String youshould = 'you should close pk frist';
  static const String cantopen = 'can\'t open in this mood';
  static const String cantclosepk = 'can\'t close the pk';
+   static const String beComeAdmin = "Be come admin";
+     static const String privacy = "Privacy";
+       static const String useTheFeatureAndEnjoyit = "Use The Feature And Enjoy it";
+    static const String thisFeatureisNotAvailableForYou = "ThisFeatureisNotAvailableForYou";
+
+
 
 
  String vipLevelGift({required int level}) => "${thisGiftForbiden.tr()}$level";

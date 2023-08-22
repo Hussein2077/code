@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_confige_uc.dart';
 
@@ -31,8 +32,9 @@ class _SplashScreenState extends State<SplashScreen> {
     
         loadResources().then((value)async {
             if(configModel == null){
-              log("configModel is null ");
-            }else if((configModel!.isForce??false)){
+              errorToast(context: context, title: StringManager.unexcepectedError.tr());
+            }
+            else if((configModel!.isForce??false)){
               Navigator.pushNamedAndRemoveUntil(
                   context, Routes.login, (route) => false,
                   arguments: LoginPramiter(
@@ -78,7 +80,6 @@ class _SplashScreenState extends State<SplashScreen> {
                       isChachGift: configModel!.updateGiftCache
                   ) );
             }
-
         });
 
 

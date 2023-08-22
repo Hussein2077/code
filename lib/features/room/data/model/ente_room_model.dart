@@ -158,7 +158,7 @@ class EnterRoomModel extends Equatable {
       roomPass:jsonData['room_pass'],
       roomType:jsonData['room_type'],
       hot :jsonData['hot'],
-      roomBackground:jsonData['room_background'],
+      roomBackground:jsonData['room_background']??'',
       roomAdmin:jsonData['room_admin'],
       roomSpeak:jsonData['room_speak'],
       roomSound:jsonData['room_sound'],

@@ -151,7 +151,7 @@ abstract class BaseRepositoryProfile {
 
   Future<Either<String, Failure>> dipsoseLastCommunicationTime(String type);
 
-  Future<Either<GetVipPrevModel, Failure>> getVipPerv();
+  Future<Either<List<GetVipPrevModel>, Failure>> getVipPerv();
 
   Future<Either<String, Failure>> buyCoins(BuyCoinsParameter buyCoinsParameter);
     Future<Either<List<GiftHistoryModel>, Failure>> getGiftHistory(String id);
@@ -197,6 +197,12 @@ abstract class BaseRepositoryProfile {
   Future<Either<List<InterstedMode>,Failure>> getAllIntersted();
     Future<Either<String,Failure>> addIntersted(List<int> ids);
   Future<Either<List<InterstedMode>,Failure>> getUserIntersted();
+    Future<Either<String, Failure>> prevActive(String type);
+
+
+
+
+  Future<Either<String, Failure>> prevDispose(String type);
 
 
 

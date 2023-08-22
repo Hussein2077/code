@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -57,17 +58,22 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     onPressed: () async {
                       String? appUrl = 'https://google.com';
                       if (Platform.isAndroid) {
-                        //todo change this url
-                        appUrl =
-                            'https://play.google.com/store/apps/details?id=com.tikkchat.app';
+                        AndroidIntent intent = const AndroidIntent(
+                          action: 'action_view',
+                          data: 'https://play.google.com/store/apps/details?'
+                              'id=com.tikkchat.app',
+                          //   arguments: {'authAccount': currentUserEmail},
+                        );
+                        await intent.launch();
                       } else if (Platform.isIOS) {
                         appUrl = '';
-                      }
+
                       if (await canLaunchUrlString(appUrl)) {
                         launchUrlString(appUrl);
                       } else {
                         // ignore: use_build_context_synchronously
                         errorToast(context: context, title: StringManager.unexcepectedError.tr());
+                      }
                       }
                     },
                     shape: RoundedRectangleBorder(

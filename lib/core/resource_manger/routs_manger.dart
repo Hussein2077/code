@@ -40,6 +40,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/settings/com
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/otp_bind_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/phone_number_bind_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/mode_screen/mode_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/privacy_setting/privacy_setting.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/settings_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/edit_info/component/intersted_screen/intersted_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/edit_info/edit_info_screen.dart';
@@ -120,6 +121,8 @@ class Routes {
     static const String chargeAgencyOwnerHistory = "/ChargeAgencyOwnerHistory";
         static const String interstedScreen = "/interstedScreen";
   static const String roomHandler = '/roomHandler';
+    static const String privacySettings = "/privicySettening";
+
 
 }
 
@@ -128,7 +131,6 @@ class RouteGenerator {
     switch (settings.name) {
       case Routes.splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
-
       case Routes.login:
         LoginPramiter? loginPramiter = settings.arguments as LoginPramiter?;
         return MaterialPageRoute(
@@ -136,7 +138,6 @@ class RouteGenerator {
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
                 ));
-
       case Routes.otp:
         OtpScreenParameter otpScreenParameter =
             settings.arguments as OtpScreenParameter;
@@ -146,16 +147,13 @@ class RouteGenerator {
                   phone: otpScreenParameter.phone,
                   password: otpScreenParameter.password,
                 ));
-
       case Routes.addInfo:
-        GoogleSignInAccount googleData =
-            settings.arguments as GoogleSignInAccount;
-
+        GoogleSignInAccount? googleData =
+            settings.arguments as GoogleSignInAccount?;
         return MaterialPageRoute(
             builder: (_) => AddInfoScreen(
                   googleData: googleData,
                 ));
-
       case Routes.mainScreen:
         MainPramiter? mainPramiter = settings.arguments as MainPramiter?;
         return MaterialPageRoute(
@@ -171,16 +169,16 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const TopUsersScreen());
       case Routes.userProfile:
         String? userId = settings.arguments as String?;
-
         return MaterialPageRoute(
             builder: (_) => UserProfile(
                   userId: userId,
                 ));
       case Routes.giftGallery:
-        return MaterialPageRoute(builder: (_) => const GiftGallery());
+              int? userId = settings.arguments as int?;
+
+        return MaterialPageRoute(builder: (_) =>  GiftGallery(userId:userId ,));
       case Routes.editInfo:
         MyDataModel myDataModel = settings.arguments as MyDataModel;
-
         return MaterialPageRoute(
             builder: (_) => EditInfoScreen(
                   myDataModel: myDataModel,
@@ -193,7 +191,6 @@ class RouteGenerator {
                 ));
       case Routes.coins:
         String type = settings.arguments as String;
-
         return MaterialPageRoute(
             builder: (_) => CoinsScreen(
                   type: type,
@@ -202,7 +199,7 @@ class RouteGenerator {
         RoomHandlerPramiter roomHandlerPramiter = settings.arguments as RoomHandlerPramiter;
         return MaterialPageRoute(
             builder: (_) =>  SafeArea(
-                child: HandlerRoomScreen(roomPramiter: roomHandlerPramiter,)));
+                child: HandlerRoomScreen(roomPramiter: roomHandlerPramiter)));
       case Routes.roomScreen:
         RoomPramiter roomPramiter = settings.arguments as RoomPramiter;
         return MaterialPageRoute(
@@ -214,7 +211,6 @@ class RouteGenerator {
                 )));
       case Routes.myBag:
         MyDataModel myDataModel = settings.arguments as MyDataModel;
-
         return MaterialPageRoute(
             builder: (_) => MyBagScreen(
               myDataModel: myDataModel,
@@ -352,6 +348,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ChargeAgencyOwnerHistory());
                          case Routes.interstedScreen:
         return MaterialPageRoute(builder: (_) => const InterstedScreen());
+          case Routes.privacySettings:
+        MyDataModel userData = settings.arguments as MyDataModel;
+
+        return MaterialPageRoute(
+            builder: (_) =>  SafeArea(child: PrivacySetting(myData:userData ,)));
     }
 
     return unDefinedRoute();

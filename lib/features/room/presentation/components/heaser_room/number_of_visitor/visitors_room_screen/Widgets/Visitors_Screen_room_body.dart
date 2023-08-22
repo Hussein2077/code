@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/get_room_users_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/number_of_visitor/visitors_room_screen/Widgets/owner_room_row_widget.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/profile/general_room_profile.dart';
 
 class VisitorsScreenRoomBody extends StatelessWidget {
   const VisitorsScreenRoomBody(
@@ -43,13 +44,13 @@ class VisitorsScreenRoomBody extends StatelessWidget {
 
                   bottomDailog(
                       context: context,
-                      widget: const  SizedBox()
-                      // GenralProfileDialog(
-                      //   roomData: roomData,
-                      //   myData: myDataModel,
-                      //   userId: data!.adminData[i].id.toString(),
-                      //     layoutMode:layoutMode
-                      // )
+                      widget: 
+                      GeneralRoomProfile(
+                        roomData: roomData,
+                        myData: myDataModel,
+                        userId: data!.adminData[i].id.toString(),
+                          layoutMode:layoutMode
+                      )
 
                   );
                 },

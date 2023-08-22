@@ -17,9 +17,7 @@ class CoinsTabView extends StatelessWidget {
     return Column(
       children: [
         CoinCard(
-          card: type == "gold"
-              ? AssetsPath.goldCoinCard
-              : AssetsPath.silverCoinCard,
+          type: type,
         ),
         Text(
           StringManager.recharge.tr(),

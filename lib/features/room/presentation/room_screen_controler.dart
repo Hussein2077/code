@@ -35,6 +35,8 @@ import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/luck
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/error_luck_widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/pk_widget.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/profile/message_room_profile.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/profile/top_room_profile.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/view_music/dialog_widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/widgets/ban_from_writing_dilog.dart';
@@ -150,9 +152,9 @@ const String muteUserKey='muteUser';
 const String mute = 'mute';
 
 const String appSign =
-    "21b5388b3a703f485e46fa3102c1b83ced85fae4c8a3ca4337ad2c020feef566";
+    "bb61a6e81736c136dac6e2afc46e71642e8eaf35cdbe713d0ced6aa139ac3faa";
 
-const int appID = 1992574259;
+const int appID = 1442956895;
 
 class GiftData {
   final String giftId;
@@ -927,13 +929,13 @@ Widget messagesChached(
   }
   return InkWell(
     onTap: () {
-      // bottomDailog(
-      //     context: context,
-      //     widget: MessagesProfileDialog(
-      //       myData: myDataModel,
-      //       userId: message.user.id.toString(),
-      //       roomData: room, layoutMode: layoutMode,
-      //     ));
+      bottomDailog(
+          context: context,
+          widget: MessageRoomProfile(
+            myData: myDataModel,
+            userId: message.user.id.toString(),
+            roomData: room, layoutMode: layoutMode,
+          ));
     },
     child: Padding(
       padding: EdgeInsets.symmetric(
@@ -1274,13 +1276,13 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                 InkWell(
                   onTap: () => bottomDailog(
                     context: context,
-                    widget: const SizedBox()
-                    // TopProfileDialog(
-                    //   myData: myDataModel,
-                    //   roomData: room,
-                    //   userId: topUser.id.toString(),
-                    //   layoutMode: layoutMode,
-                    // ),
+                    widget: 
+                    TopRoomProfile(
+                      myData: myDataModel,
+                      roomData: room,
+                      userId: topUser.id.toString(),
+                      layoutMode: layoutMode,
+                    ),
                   ),
                   child: UserImage(
                     image: topUser!.profile!.image!,

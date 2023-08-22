@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -17,6 +18,7 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/l
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/linking_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
+
   const SettingsScreen({super.key});
 
   @override
@@ -56,6 +58,14 @@ class SettingsScreen extends StatelessWidget {
             icon: AssetsPath.modeIcon,
             title: StringManager.mode.tr(),
             onTap: () => Navigator.pushNamed(context, Routes.mode),
+          ),
+             settingsRow(
+            context: context,
+            icon: AssetsPath.warning,
+            title: StringManager.privacyPolicy.tr(),
+            onTap: () => Navigator.pushNamed(
+                    context, Routes.privacySettings,
+                    arguments: MyDataModel.getInstance()),
           ),
           const Spacer(),
           BlocConsumer<LogOutBloc, LogOutState>(

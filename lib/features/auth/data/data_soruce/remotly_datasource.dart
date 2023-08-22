@@ -171,11 +171,10 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   
     // ignore: no_leading_underscores_for_local_identifiers
     final _googleSignIn = GoogleSignIn(scopes: ['email']);
-
     Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
 
-    // ignore: unused_element
-    Future logout() => _googleSignIn.disconnect();
+    // // ignore: unused_element
+    // Future logout() => _googleSignIn.disconnect();
     final userModel = await login();
 
 
