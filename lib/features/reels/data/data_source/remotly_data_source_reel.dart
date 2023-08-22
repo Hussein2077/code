@@ -29,7 +29,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
 
       return response.data[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e ,endpointName: 'uploadReel');
     }
   }
   
@@ -48,7 +48,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
 
       return response.data[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(e);
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getReels' );
     }
   }
 

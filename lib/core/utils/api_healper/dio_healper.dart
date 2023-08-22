@@ -78,7 +78,7 @@ class DioHelper {
     }
   }
 
-  static dynamic handleDioError( {DioError? dioError, String? endpointName}) {
+  static dynamic handleDioError({DioError? dioError, String? endpointName}) {
     log('handleDioError: ${dioError!.type}');
     switch (dioError!.type) {
       case DioErrorType.response:
