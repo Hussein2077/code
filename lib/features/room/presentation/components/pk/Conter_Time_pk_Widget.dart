@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_events.dart';
 
@@ -70,11 +71,15 @@ class SetTimerPK {
   }
 
   void _updateSeconds(BuildContext context,String ownerId) {
-    if(RoomScreen.timeMinutePK<1 && RoomScreen.timeSecondPK<1 &&
-        MyDataModel.getInstance().id.toString() == ownerId){
-      BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId));
-    //  _timer!.cancel();
-
+    if(RoomScreen.timeMinutePK<1 && RoomScreen.timeSecondPK<1 ){
+      if(MyDataModel.getInstance().id.toString() == ownerId){
+        BlocProvider.of<PKBloc>(context).add(
+            ClosePKEvent(ownerId: ownerId,
+            pkId: PKWidget.pkId));
+      }
+      getIt<SetTimerPK>().timer.cancel() ;
+      // _timer!.cancel();
+      // streamController.done;
     }
     else if ( RoomScreen.timeSecondPK < 1){
       RoomScreen.timeSecondPK= 59;
@@ -82,7 +87,8 @@ class SetTimerPK {
       getIt<TimeData>().setMinute = RoomScreen.timeMinutePK ;
       getIt<TimeData>().setSecond = RoomScreen.timeSecondPK ;
       streamController.sink.add(getIt<TimeData>()) ;
-    }else{
+    }
+    else{
       RoomScreen.timeSecondPK -- ;
       getIt<TimeData>().setSecond = RoomScreen.timeSecondPK ;
       streamController.sink.add(getIt<TimeData>());

@@ -7,7 +7,6 @@ import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
-import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
@@ -43,7 +42,7 @@ abstract class BaseRepositoryRoom {
   Future<Either<String,Failure>> upMic(UpMicrophonePramiter upMicrophonePramiter) ;
   Future<Either<String,Failure>> showPK(String ownerId);
   Future<Either<String,Failure>> startPK(String ownerId,String time);
-  Future<Either<String,Failure>> closePK(String ownerId);
+  Future<Either<String,Failure>> closePK(String ownerId,String pkId);
   Future<Either<String,Failure>> addAdmin(String ownerId,String userId);
   Future<Either<String,Failure>> removeAdmin(String ownerId,String userId);
   Future<Either<String,Failure>> hidePK(String ownerId);

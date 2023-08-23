@@ -20,6 +20,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.bySigningOrLogin: "بالتسجيل/تسجيل الدخول، فإنك توافق على",
     StringManager.privacyPolicy: "سياسة الخصوصية لـ ${StringManager.appTitle}",
     StringManager.and: "و",
+    StringManager.selectTimeFirst :'اختر الوقت اولا',
     StringManager.enterYourRoomData: "أرجوك,ادخل بيانات غرفتك كاملة",
     StringManager.enterYourRoomName: "أرجوك,ادخل أسم غرفتك",
     StringManager.enterYourRoomImage: "أرجوك,ادخل صورة غرفتك",

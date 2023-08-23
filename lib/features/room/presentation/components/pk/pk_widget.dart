@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/time_pk_widget.dart';
@@ -27,6 +28,7 @@ class PKWidget extends StatefulWidget {
   final String ownerId ;
   static ValueNotifier<bool>isStartPK =ValueNotifier<bool>(false);
   final Function() notifyRoom;
+ static String  pkId = '';
   const PKWidget(
       {required this.scoreBlueTeam,required this.isHost
         ,required this.ownerId,required this.notifyRoom,  required this.scoreRedTem, Key? key})
@@ -203,7 +205,9 @@ class _PKWidgetState extends State<PKWidget> {
                         child: InkWell(
                           onTap: (){
                       //   restorePKData();
-                            BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: widget.ownerId));
+                            BlocProvider.of<PKBloc>(context)
+                                .add(ClosePKEvent(ownerId: widget.ownerId,
+                                pkId: PKWidget.pkId));
                             BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: widget.ownerId));
                           },
                           child: Icon(Icons.cancel , size: AppPadding.p20, color: Colors.red,),
@@ -250,19 +254,22 @@ class _PKWidgetState extends State<PKWidget> {
                   MainButton(
                     onTap: () async {
                       widget.notifyRoom();
-                      BlocProvider.of<PKBloc>(context).add(StartPKEvent(
-                          time: RoomScreen.timeMinutePK.toString(),
-                          ownerId: widget.ownerId));
+                      if(RoomScreen.timeMinutePK !=0){
+                        BlocProvider.of<PKBloc>(context).add(StartPKEvent(
+                            time: RoomScreen.timeMinutePK.toString(),
+                            ownerId: widget.ownerId));
+                        RoomScreen.scoreTeam2 = 0;
+                        RoomScreen.precantgeTeam1 = 0.5;
+                        RoomScreen.precantgeTeam2 = 0.5;
+                        RoomScreen.scoreTeam1 = 0;
+                        PKWidget.isStartPK.value = true;
+                        RoomScreen.updatePKNotifier.value =
+                         RoomScreen.updatePKNotifier.value + 1;
 
-                      RoomScreen.scoreTeam2 = 0;
-                      RoomScreen.precantgeTeam1 = 0.5;
-                      RoomScreen.precantgeTeam2 = 0.5;
-                      RoomScreen.scoreTeam1 = 0;
-                      PKWidget.isStartPK.value = true;
-                      RoomScreen.updatePKNotifier.value =
-                          RoomScreen.updatePKNotifier.value + 1;
-
-                      Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      }else{
+                        errorToast(context: context, title: StringManager.selectTimeFirst.tr()) ;
+                      }
                     },
                     title: StringManager.startBattle.tr(),
                     width: ConfigSize.screenWidth!*0.3,

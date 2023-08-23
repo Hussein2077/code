@@ -29,12 +29,13 @@ class StartPKEvent extends PKEvents {
 
 class ClosePKEvent extends PKEvents {
   final String ownerId ;
+  final String pkId ;
 
-  ClosePKEvent( {required this.ownerId});
+  ClosePKEvent( {required this.ownerId,required this.pkId});
 
 
   @override
-  List<Object?> get props => [ownerId];
+  List<Object?> get props => [ownerId,pkId];
 
 }
 

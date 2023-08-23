@@ -10,8 +10,8 @@ class ClosePKUC {
   ClosePKUC({required this.roomRepo});
 
 
-  Future<Either<String, Failure>> call(String ownerId) async {
-    return await roomRepo.closePK(ownerId);
+  Future<Either<String, Failure>> call(String ownerId,String pkId) async {
+    return await roomRepo.closePK(ownerId,pkId);
   }
 
 }

@@ -104,6 +104,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnR
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -116,6 +117,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await ServerLocator().init();

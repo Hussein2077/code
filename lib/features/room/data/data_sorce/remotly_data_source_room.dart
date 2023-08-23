@@ -47,7 +47,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> startPK(String ownerId, String time);
   Future<String> showPK(String ownerId);
   Future<String> hidePK(String ownerId );
-  Future<String> closePK(String ownerId);
+  Future<String> closePK(String ownerId,String pkId);
   Future<List<UserDataModel>> adminsRoom(String ownerId);
   Future<String> leaveMicrophone(UpMicrophonePramiter upMicrophonePramiter);
   Future<String> muteMicrophone(UpMicrophonePramiter upMicrophonePramiter);
@@ -504,12 +504,13 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
   }
 
   @override
-  Future<String> closePK(String ownerId) async {
+  Future<String> closePK(String ownerId ,String pkId) async {
         Map<String, String> headers = await DioHelper().header();
  
 
     final body ={
       'owner_id': ownerId,
+      'pk_id':pkId
     };
 
     try {

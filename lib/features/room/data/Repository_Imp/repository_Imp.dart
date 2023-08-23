@@ -157,9 +157,9 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
   }
 
   @override
-  Future<Either<String, Failure>> closePK(String ownerId) async {
+  Future<Either<String, Failure>> closePK(String ownerId,String pkId) async {
     try {
-      final result = await baseRemotlyDataSourceRoom.closePK(ownerId);
+      final result = await baseRemotlyDataSourceRoom.closePK(ownerId,pkId);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));

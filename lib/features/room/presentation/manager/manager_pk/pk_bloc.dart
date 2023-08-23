@@ -46,7 +46,7 @@ class PKBloc extends Bloc<PKEvents,PKStates>{
 
   FutureOr<void> closePK(ClosePKEvent event, Emitter<PKStates> emit) async {
     emit(ClosePKStateLoading());
-    final result = await closePKUC.call(event.ownerId) ;
+    final result = await closePKUC.call(event.ownerId,event.pkId) ;
 
     result.fold((l) => emit(ClosePKStateSuccess()),
             (r) => emit(ClosePKStateError(errorMessage: DioHelper().getTypeOfFailure(r))));
