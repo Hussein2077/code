@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/admin_or_owner_container.dart';
@@ -18,6 +19,7 @@ import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'package:tik_chat_v2/core/widgets/report_dailog_for_users.dart';
 import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
@@ -35,7 +37,6 @@ import 'widgets/gift_user_screen.dart';
 import 'widgets/icon_with_text.dart';
 import 'widgets/text_with_text.dart';
 import '../../../../../../zego_code_v2/zego_uikit/zego_uikit.dart';
-
 
 // ignore: must_be_immutable
 class UserProfileInRoom extends StatefulWidget {
@@ -62,12 +63,10 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
 
   bool myProfile = false;
 
-
   @override
   Widget build(BuildContext context) {
     isOnMic = checkIsUserOnMic(widget.userData);
-    isAdminOrHost =
-        cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
+    isAdminOrHost = cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
     myProfile = myProfileOrNot(widget.userData, widget.myData);
     return Stack(
       alignment: Alignment.bottomCenter,
@@ -96,152 +95,172 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: ConfigSize.defaultSize!*3),
+                  padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 3),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    !myProfile?
-                    SizedBox(width: ConfigSize.defaultSize!*8):
+                      myProfile
+                          ? SizedBox(width: ConfigSize.defaultSize! * 8)
+                          : Column(
+                              children: [
+                                MentionOrReportContainer(
+                                  onTap: () {
+                                    String name = widget.userData.name!
+                                        .replaceAll(" ", "_");
+                                    Navigator.pop(context);
+                                    Navigator.of(context).push(
+                                        ZegoInRoomMessageInputBoard(
+                                            roomData: widget.roomData,
+                                            myDataModel: widget.userData
+                                                .convertToMyDataObject(),
+                                            mention: "@$name"));
+                                  },
+                                  text: StringManager.mention,
+                                  icon: AssetsPath.mention,
+                                  size: ConfigSize.defaultSize! * 0.3,
+                                ),
+                                if (isAdminOrHost)
+                                  BlockButton(
+                                    roomData: widget.roomData,
+                                    userData: widget.userData,
+                                  ),
+                                if (isAdminOrHost)
+                                  IconWithText(
+                                    onTap: () {
+                                      log("message");
+                                      BlocProvider.of<AdminRoomBloc>(context)
+                                          .add(AddAdminEvent(
+                                              ownerId: widget.roomData.ownerId
+                                                  .toString(),
+                                              userId: widget.userData.id
+                                                  .toString()));
+                                    },
+                                    icon: Icons.admin_panel_settings_sharp,
+                                    text: StringManager.admin.tr(),
+                                  ),
+                              ],
+                            ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: ConfigSize.defaultSize! * 1.5,
+                          ),
+                          Text(widget.userData.name!,
+                              style: TextStyle(
+                                  fontSize: ConfigSize.defaultSize! * 1.6,
+                                  color: ColorManager.darkBlack,
+                                  fontWeight: FontWeight.w400)),
+                          IdWithCopyIcon(
+                            id: widget.userData.uuid!,
+                          ),
+                          SizedBox(
+                            height: ConfigSize.defaultSize! * 0.5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              UserCountryIcon(
+                                  country: widget.userData.profile!.country),
+                              const SizedBox(width: 5),
+                              MaleFemaleIcon(
+                                maleOrFeamle: widget.userData.profile!.gender,
+                                age: widget.userData.profile!.age,
+                              ),
+                              const SizedBox(width: 5),
+                              AdminOrOwnerContainer(
+                                roomOwnerId: widget.roomData.ownerId,
+                                userId: widget.userData.id,
+                              ),
+                              const SizedBox(width: 5),
+                            ],
+                          ),
+                          SizedBox(height: ConfigSize.defaultSize! * 2),
+                        ],
+                      ),
 
                       Column(
-                        
                         children: [
-                        
-                              MentionOrReportContainer(
-                                onTap: () {
-                                   String name = widget.userData.name!.replaceAll(" ", "_");
-                      Navigator.pop(context);
-                      Navigator.of(context).push(ZegoInRoomMessageInputBoard(
-                          roomData: widget.roomData,
-                          myDataModel: widget.userData.convertToMyDataObject(),
-                          mention: "@$name"
-                      ));
-                                },
-                          text: StringManager.mention,
-                          icon: AssetsPath.mention,
-                          size: ConfigSize.defaultSize! * 0.3,
-                        ),
-                      if(isAdminOrHost)
-                        BlockButton(roomData: widget.roomData, userData: widget.userData,),
-                if(isAdminOrHost)
-                         IconWithText(
-                        onTap: () {
-                          log("message");
-                           BlocProvider.of<AdminRoomBloc>(
-                                                  context)
-                                              .add(AddAdminEvent(
-                                                  ownerId: widget.roomData.ownerId
-                                                      .toString(),
-                                                  userId:
-                                                      widget.userData.id.toString()));
-                        },
-                        icon: Icons.admin_panel_settings_sharp,
-                        text: StringManager.admin.tr(),
+                          MentionOrReportContainer(
+                            onTap: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20),
+                                  )),
+                                  builder: (context) {
+                                    return ReportDialogForUsers(
+                                      userID: widget.userData.id.toString(),
+                                    );
+                                  });
+                            },
+                            text: StringManager.reports,
+                            icon: AssetsPath.warning,
+                            size: ConfigSize.defaultSize! * 0.25,
+                          ),
+                          if (isAdminOrHost)
+                            BanFromWrite(
+                              roomData: widget.roomData,
+                              userData: widget.userData,
+                            ),
+                          if (isAdminOrHost&&!isOnMic)
+                            IconWithText(
+                              onTap: () {
+                                chooseSeatToInvatation(
+                                    widget.layoutMode,
+                                    context,
+                                    widget.roomData.ownerId.toString(),
+                                    widget.userData.id.toString());
+                              },
+                              icon: Icons.share_rounded,
+                              text: StringManager.inviteFriend,
+                            ),
+                          if (isAdminOrHost && isOnMic)
+                            ValueListenableBuilder<int>(
+                                valueListenable: RoomScreen.updatebuttomBar,
+                                builder: (context, mute, _) {
+                                  return IconButton(
+                                      onPressed: () {
+                                        if (RoomScreen.usersHasMute.contains(
+                                            widget.userData.id.toString())) {
+                                          sendMuteUserMessage(
+                                              mute: false,
+                                              userId: widget.userData.id
+                                                  .toString());
+                                        } else {
+                                          if (!(widget.roomData.ownerId !=
+                                                  widget.myData.id &&
+                                              RoomScreen.adminsInRoom
+                                                  .containsKey(widget
+                                                      .userData.id
+                                                      .toString()))) {
+                                            //admin can't make mute to admin
+                                            sendMuteUserMessage(
+                                                mute: true,
+                                                userId: widget.userData.id
+                                                    .toString());
+                                          }
+                                        }
+                                      },
+                                      icon: Icon(
+                                        RoomScreen.usersHasMute.contains(
+                                                widget.userData.id.toString())
+                                            ? Icons.mic_off
+                                            : Icons.mic_rounded,
+                                        color: Colors.black,
+                                      ));
+                                })
+                        ],
                       ),
-                      ],),
-                
-                  Column(children: [
-                                SizedBox(
-                  height: ConfigSize.defaultSize! * 1.5,
-                ),
-                Text(widget.userData.name!,
-                    style: TextStyle(
-                        fontSize: ConfigSize.defaultSize! * 1.6,
-                        color: ColorManager.darkBlack,
-                        fontWeight: FontWeight.w400)),
-                IdWithCopyIcon(
-                  id: widget.userData.uuid!,
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! * 0.5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                
-                 
-                    UserCountryIcon(country: widget.userData.profile!.country),
-                    const SizedBox(width: 5),
-                    MaleFemaleIcon(
-                      maleOrFeamle: widget.userData.profile!.gender,
-                      age: widget.userData.profile!.age,
-                    ),
-                    const SizedBox(width: 5),
-                    AdminOrOwnerContainer(
-                      roomOwnerId: widget.roomData.ownerId,
-                      userId: widget.userData.id,
-                    ),
-                    const SizedBox(width: 5),
-                  ],
-                ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                  ],),
-                   
-                  Column(
-                    children: [    MentionOrReportContainer(
-                      onTap: () {
-                               showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                )
-            ),
-            builder: (context){
-              return  ReportDialogForUsers(userID: widget.userData.id.toString(),);
-            }
-        );
-                      },
-                        text: StringManager.reports,
-                        icon: AssetsPath.warning,
-                        size: ConfigSize.defaultSize! * 0.25,
-                      ),
-                      if(isAdminOrHost)
-                      BanFromWrite(roomData: widget.roomData, userData: widget.userData,),
-                   if(isAdminOrHost)
-                      IconWithText(
-                        onTap: () {
-                                 chooseSeatToInvatation(widget.layoutMode, context,
-                    widget.roomData.ownerId.toString(), widget.userData.id.toString());
-                        },
-                        icon: Icons.share_rounded,
-                        text: StringManager.inviteFriend,
-                      ),
-                     if (isAdminOrHost&&
-              isOnMic)
-         ValueListenableBuilder<int>(
-             valueListenable:RoomScreen.updatebuttomBar,
-             builder: (context,mute,_){
-               return IconButton(
-                 onPressed: () {
-                   if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())){
-                     sendMuteUserMessage(mute: false,userId: widget.userData.id.toString() );
-                   }
-                   else {
-                     if(!(widget.roomData.ownerId != widget.myData.id && RoomScreen.adminsInRoom.containsKey(widget.userData.id.toString()))){
-                       //admin can't make mute to admin
-                       sendMuteUserMessage(mute: true,userId: widget.userData.id.toString() );
-                     }
-
-                   }
-                 },
-                 icon: Icon(
-                           RoomScreen.usersHasMute.contains(widget.userData.id.toString())
-                               ? Icons.mic_off
-                               : Icons.mic_rounded , color: Colors.black,)
-
-               );
-
-             })
-                      
-                      ],),
                     ],
                   ),
                 ),
-             const SizedBox(height: 50,),
+                const SizedBox(
+                  height: 50,
+                ),
                 Row(
                   children: [
                     Expanded(
@@ -326,35 +345,44 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
             ),
           ),
         ),
-
-           Align(
-            alignment: Alignment.center,
-             child: UserImage(
-                        image: widget.userData.profile!.image!,
-                      ),
-           ),
+        Align(
+          alignment: Alignment.center,
+          child: Padding(
+            padding:  EdgeInsets.only(
+              bottom: ConfigSize.defaultSize! * 4.5,
+            ),
+            child: InkWell(
+              onTap: (){
+                Navigator.pushNamed(
+                    context, Routes.userProfile,
+                    arguments:widget.userData.id.toString());
+              },
+              child: UserImage(
+                imageSize: ConfigSize.defaultSize! * 7.5,
+                image: widget.userData.profile!.image!,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
 
+  Future<void> sendMuteUserMessage(
+      {required bool mute, required String userId}) async {
+    if (mute) {
+      ZegoUIKit().turnMicrophoneOn(false, userID: userId);
+      RoomScreen.usersHasMute.add(userId);
+      RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value + 1;
+    } else {
+      RoomScreen.usersHasMute.remove(userId);
+      RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value + 1;
+    }
 
-  Future<void> sendMuteUserMessage({required bool mute, required String userId})async{
-  if(mute){
-    ZegoUIKit()
-        .turnMicrophoneOn(false, userID:userId);
-    RoomScreen.usersHasMute.add(userId);
-    RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value+1 ;
-  }else{
-    RoomScreen.usersHasMute.remove(userId);
-    RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value+1 ;
+    var mapInformation = {
+      "messageContent": {"message": "muteUser", 'mute': mute, 'id_user': userId}
+    };
+    String map = jsonEncode(mapInformation);
+    ZegoUIKit().sendInRoomCommand(map, []);
   }
-
-  var mapInformation = {"messageContent":{
-    "message":"muteUser",
-    'mute' :mute ,
-    'id_user':userId
-  }};
-  String map = jsonEncode(mapInformation);
-  ZegoUIKit().sendInRoomCommand(map ,[]);
-}
 }
