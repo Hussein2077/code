@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -9,28 +15,34 @@ import 'package:tik_chat_v2/core/widgets/admin_or_owner_container.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
+import 'package:tik_chat_v2/core/widgets/report_dailog_for_users.dart';
 import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/gift_gallery_profile.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/icon_with_text.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/mention_or_report_container.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_events.dart';
+import 'package:tik_chat_v2/features/room/presentation/room_screen_controler.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/message/in_room_message_input_board.dart';
 
 import 'profile_room_body_controler.dart';
+import 'widgets/ban_from_write.dart';
+import 'widgets/block_button.dart';
 import 'widgets/gift_user_screen.dart';
+import 'widgets/icon_with_text.dart';
+import 'widgets/text_with_text.dart';
+import '../../../../../../zego_code_v2/zego_uikit/zego_uikit.dart';
+
 
 // ignore: must_be_immutable
-class UserProfileInRoom extends StatelessWidget {
+class UserProfileInRoom extends StatefulWidget {
   final UserDataModel userData;
   final MyDataModel myData;
   final EnterRoomModel roomData;
   final LayoutMode layoutMode;
-
-  bool isOnMic = false;
-  bool isAdminOrHost = false;
-  bool myProfile = false;
 
   UserProfileInRoom(
       {required this.roomData,
@@ -40,15 +52,28 @@ class UserProfileInRoom extends StatelessWidget {
       super.key});
 
   @override
+  State<UserProfileInRoom> createState() => _UserProfileInRoomState();
+}
+
+class _UserProfileInRoomState extends State<UserProfileInRoom> {
+  bool isOnMic = false;
+
+  bool isAdminOrHost = false;
+
+  bool myProfile = false;
+
+
+  @override
   Widget build(BuildContext context) {
-    isOnMic = checkIsUserOnMic(userData);
-    isAdminOrHost = cheakisAdminOrHost(userData, myData, roomData);
-    myProfile = myProfileOrNot(userData, myData);
+    isOnMic = checkIsUserOnMic(widget.userData);
+    isAdminOrHost =
+        cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
+    myProfile = myProfileOrNot(widget.userData, widget.myData);
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          height: ConfigSize.defaultSize! * 38.4,
+          height: ConfigSize.defaultSize! * 45.4,
           decoration: BoxDecoration(
               color: const Color(0xFFFFFCE4),
               borderRadius: BorderRadius.only(
@@ -64,42 +89,69 @@ class UserProfileInRoom extends StatelessWidget {
             horizontal: ConfigSize.defaultSize! * 1.9,
           ),
           child: SizedBox(
-            height: ConfigSize.defaultSize! * 42.4,
+            height: ConfigSize.defaultSize! * 50.4,
             width: MediaQuery.of(context).size.width,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (!myProfile)
-                      MentionOrReportContainer(
-                        text: StringManager.mention,
-                        icon: AssetsPath.mention,
-                        size: ConfigSize.defaultSize! * 0.3,
+                Padding(
+                  padding: EdgeInsets.only(top: ConfigSize.defaultSize!*3),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    !myProfile?
+                    SizedBox(width: ConfigSize.defaultSize!*8):
+
+                      Column(
+                        
+                        children: [
+                        
+                              MentionOrReportContainer(
+                                onTap: () {
+                                   String name = widget.userData.name!.replaceAll(" ", "_");
+                      Navigator.pop(context);
+                      Navigator.of(context).push(ZegoInRoomMessageInputBoard(
+                          roomData: widget.roomData,
+                          myDataModel: widget.userData.convertToMyDataObject(),
+                          mention: "@$name"
+                      ));
+                                },
+                          text: StringManager.mention,
+                          icon: AssetsPath.mention,
+                          size: ConfigSize.defaultSize! * 0.3,
+                        ),
+                      if(isAdminOrHost)
+                        BlockButton(roomData: widget.roomData, userData: widget.userData,),
+                if(isAdminOrHost)
+                         IconWithText(
+                        onTap: () {
+                          log("message");
+                           BlocProvider.of<AdminRoomBloc>(
+                                                  context)
+                                              .add(AddAdminEvent(
+                                                  ownerId: widget.roomData.ownerId
+                                                      .toString(),
+                                                  userId:
+                                                      widget.userData.id.toString()));
+                        },
+                        icon: Icons.admin_panel_settings_sharp,
+                        text: StringManager.admin.tr(),
                       ),
-                    UserImage(
-                      image: userData.profile!.image!,
-                    ),
-                    MentionOrReportContainer(
-                      text: StringManager.reports,
-                      icon: AssetsPath.warning,
-                      size: ConfigSize.defaultSize! * 0.25,
-                    ),
-                  ],
-                ),
-                SizedBox(
+                      ],),
+                
+                  Column(children: [
+                                SizedBox(
                   height: ConfigSize.defaultSize! * 1.5,
                 ),
-                Text(userData.name!,
+                Text(widget.userData.name!,
                     style: TextStyle(
                         fontSize: ConfigSize.defaultSize! * 1.6,
                         color: ColorManager.darkBlack,
                         fontWeight: FontWeight.w400)),
                 IdWithCopyIcon(
-                  id: userData.uuid!,
+                  id: widget.userData.uuid!,
                 ),
                 SizedBox(
                   height: ConfigSize.defaultSize! * 0.5,
@@ -107,28 +159,97 @@ class UserProfileInRoom extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    UserCountryIcon(country: userData.profile!.country),
+                
+                 
+                    UserCountryIcon(country: widget.userData.profile!.country),
                     const SizedBox(width: 5),
                     MaleFemaleIcon(
-                      maleOrFeamle: userData.profile!.gender,
-                      age: userData.profile!.age,
+                      maleOrFeamle: widget.userData.profile!.gender,
+                      age: widget.userData.profile!.age,
                     ),
                     const SizedBox(width: 5),
                     AdminOrOwnerContainer(
-                      roomOwnerId: roomData.ownerId,
-                      userId: userData.id,
+                      roomOwnerId: widget.roomData.ownerId,
+                      userId: widget.userData.id,
                     ),
                     const SizedBox(width: 5),
                   ],
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
+                  ],),
+                   
+                  Column(
+                    children: [    MentionOrReportContainer(
+                      onTap: () {
+                               showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                )
+            ),
+            builder: (context){
+              return  ReportDialogForUsers(userID: widget.userData.id.toString(),);
+            }
+        );
+                      },
+                        text: StringManager.reports,
+                        icon: AssetsPath.warning,
+                        size: ConfigSize.defaultSize! * 0.25,
+                      ),
+                      if(isAdminOrHost)
+                      BanFromWrite(roomData: widget.roomData, userData: widget.userData,),
+                   if(isAdminOrHost)
+                      IconWithText(
+                        onTap: () {
+                                 chooseSeatToInvatation(widget.layoutMode, context,
+                    widget.roomData.ownerId.toString(), widget.userData.id.toString());
+                        },
+                        icon: Icons.share_rounded,
+                        text: StringManager.inviteFriend,
+                      ),
+                     if (isAdminOrHost&&
+              isOnMic)
+         ValueListenableBuilder<int>(
+             valueListenable:RoomScreen.updatebuttomBar,
+             builder: (context,mute,_){
+               return IconButton(
+                 onPressed: () {
+                   if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())){
+                     sendMuteUserMessage(mute: false,userId: widget.userData.id.toString() );
+                   }
+                   else {
+                     if(!(widget.roomData.ownerId != widget.myData.id && RoomScreen.adminsInRoom.containsKey(widget.userData.id.toString()))){
+                       //admin can't make mute to admin
+                       sendMuteUserMessage(mute: true,userId: widget.userData.id.toString() );
+                     }
+
+                   }
+                 },
+                 icon: Icon(
+                           RoomScreen.usersHasMute.contains(widget.userData.id.toString())
+                               ? Icons.mic_off
+                               : Icons.mic_rounded , color: Colors.black,)
+
+               );
+
+             })
+                      
+                      ],),
+                    ],
+                  ),
+                ),
+             const SizedBox(height: 50,),
                 Row(
                   children: [
                     Expanded(
                         child: ContainerVipOrContribute(
                       colors: ColorManager.yellowVipContanier,
                       icons: AssetsPath.vipProfileIcon,
-                      level: '${StringManager.vip} ${userData.vip1!.level}',
+                      level:
+                          '${StringManager.vip} ${widget.userData.vip1!.level}',
                       colorText: ColorManager.yellowVipContanierText,
                       vipOrContribute: StringManager.levelOfThe,
                     )),
@@ -137,7 +258,7 @@ class UserProfileInRoom extends StatelessWidget {
                         child: ContainerVipOrContribute(
                       colors: ColorManager.lightBlueInPofile,
                       icons: AssetsPath.contribute,
-                      level: userData.level!.senderLevel,
+                      level: widget.userData.level!.senderLevel.toString(),
                       sizeOfIcon: ConfigSize.defaultSize! * 0.18,
                       colorText: ColorManager.blueContributeContanierText,
                       vipOrContribute: StringManager.contribute,
@@ -145,7 +266,7 @@ class UserProfileInRoom extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: ConfigSize.defaultSize!),
-                GiftGalleryContainer(userId: userData.id!),
+                GiftGalleryContainer(userId: widget.userData.id!),
                 SizedBox(height: ConfigSize.defaultSize! + 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -164,27 +285,21 @@ class UserProfileInRoom extends StatelessWidget {
                     // ),
                     //SEND GIFT ICON
                     InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                          bottomDailog(
-                              context: context,
-                              widget: GiftUserScreen(
-                                roomData: roomData,
-                                userId: userData.id.toString(),
-                                myDataModel: myData,
-                              ));
-                        },
-                        child: SizedBox()
-                        //todo i did comment here
-                        /*
-                       IconWithText(
-                        onTap:(){} ,
-                        icon: AssetsPath.sendGiftIconProfile,
+                      onTap: () {
+                        Navigator.pop(context);
+                        bottomDailog(
+                            context: context,
+                            widget: GiftUserScreen(
+                              roomData: widget.roomData,
+                              userId: widget.userData.id.toString(),
+                              myDataModel: widget.myData,
+                            ));
+                      },
+                      child: const ImageWithText(
+                        image: AssetsPath.sendGiftIconProfile,
                         text: StringManager.sendGift,
-                                         ),
-
-                        */
-                        ),
+                      ),
+                    ),
 
                     Container(
                         // alignment: Alignment.centerRight,
@@ -211,7 +326,35 @@ class UserProfileInRoom extends StatelessWidget {
             ),
           ),
         ),
+
+           Align(
+            alignment: Alignment.center,
+             child: UserImage(
+                        image: widget.userData.profile!.image!,
+                      ),
+           ),
       ],
     );
   }
+
+
+  Future<void> sendMuteUserMessage({required bool mute, required String userId})async{
+  if(mute){
+    ZegoUIKit()
+        .turnMicrophoneOn(false, userID:userId);
+    RoomScreen.usersHasMute.add(userId);
+    RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value+1 ;
+  }else{
+    RoomScreen.usersHasMute.remove(userId);
+    RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value+1 ;
+  }
+
+  var mapInformation = {"messageContent":{
+    "message":"muteUser",
+    'mute' :mute ,
+    'id_user':userId
+  }};
+  String map = jsonEncode(mapInformation);
+  ZegoUIKit().sendInRoomCommand(map ,[]);
+}
 }

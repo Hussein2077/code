@@ -114,6 +114,8 @@ class ConstentApi {
     static const String getAllIntrested = "$baseUrl/allinterests";
         static const String addIntrested = "$baseUrl/AddInterests";
     static const String getUseIntrested = "$baseUrl/user_interests";
+        static const String uploadReel = "$baseUrl/reals";
+        static const String getReels = "$baseUrl/reals";
 
 
 

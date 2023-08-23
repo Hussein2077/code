@@ -1,6 +1,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
@@ -16,14 +17,11 @@ class InvitationToMicDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*1.25),
       ),
       child: Container(
-        height: ConfigSize.defaultSize!*15.50,
+        height: ConfigSize.defaultSize!*18.50,
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-              colors: [
-                Color(0xffEFFFDB),
-                Color(0xffFFF1CC),
-              ]
+              colors: ColorManager.bageGriedinet
           ),
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*1.25),
         ),

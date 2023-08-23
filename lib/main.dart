@@ -72,6 +72,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_sto
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_user_repoert/user_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
@@ -87,12 +88,16 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_events.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/kickout_manger/kickout_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
@@ -369,10 +374,16 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<FamilyRoomBloc>(),
         ),
-        BlocProvider(create: (_) => getIt<PrivacyBloc>())
+        BlocProvider(create: (_) => getIt<PrivacyBloc>()),
+        BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
+
+        BlocProvider(create: (_) => getIt<GetReelsBloc>()),
 
 
+        BlocProvider(create: (_) => getIt<KickoutBloc>()),
+                BlocProvider(create: (_) => getIt<UserReportBloc>()),
 
+                BlocProvider(create: (_) => getIt<UsersInRoomBloc>())
 
 
 

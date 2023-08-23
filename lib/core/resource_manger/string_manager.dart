@@ -394,6 +394,25 @@ class StringManager {
     static const String thisFeatureisNotAvailableForYou = "ThisFeatureisNotAvailableForYou";
 
 
+    //وضع جميع اللغات
+      static const String report = "Report";
+        static const String whatProblem = "What problem is worth reporting?";
+          static const String description = "Description";
+  static const String mustNotBeEmpty = "must not be empty";
+  static const String submission = "Submission";
+ static const String pleaseExplain =
+      'Please explain your problem in detail so that our customer service staff can understand and deal with it';
+  static const String fiveMin = '5 minute ';
+  static const String fiftyMin = '15 minute';
+  static const String thirtyMin = '30 minute';
+  static const String sixtyMin = '60 minute';
+  static const String twenyFourMin = '24 hour';
+    static const String writeUnBan = "write Unban";
+  static const String writeBan = "write ban";
+
+
+
+
 
 
  String vipLevelGift({required int level}) => "${thisGiftForbiden.tr()}$level";

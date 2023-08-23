@@ -5,13 +5,13 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 class IconWithText extends StatelessWidget {
   final String text;
   final IconData icon;
-  final Function onTap;
-  const IconWithText({super.key,required this.icon,required this.text,required this.onTap});
+  void Function()? onTap;
+   IconWithText({super.key,required this.icon,required this.text, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>onTap,
+      onTap: onTap,
       child: Row(
         children: [
           Text(text,style: const TextStyle(
