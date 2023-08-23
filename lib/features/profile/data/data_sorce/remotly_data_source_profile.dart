@@ -18,7 +18,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
-import 'package:tik_chat_v2/features/home/presentation/component/create_live/voice/create_voic_live_body.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
@@ -1833,21 +1832,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     Map<String, String> headers = await DioHelper().header();
     final body = {'user_id': id, "amount": amount};
     log("heer");
-    // try {
-    //   final response = await Dio().post(
-    //     ConstentApi.chargeCoinForUser,
-    //     data: body,
-    //     options: Options(
-    //       headers: headers,
-    //     ),
-    //   );
-    //   Map<String, dynamic> resultData = response.data;
 
-    //   return resultData["message"];
-    // } on DioError catch (e) {
-    //   throw DioHelper.handleDioError(e);
-    // }
-     final response = await Dio().post(
+    try{
+      final response = await Dio().post(
         ConstentApi.chargeCoinForUser,
         data: body,
         options: Options(
@@ -1857,6 +1844,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> resultData = response.data;
 
       return resultData["message"];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName:'chargeCoinForUsers' );
+    }
   }
 
   @override

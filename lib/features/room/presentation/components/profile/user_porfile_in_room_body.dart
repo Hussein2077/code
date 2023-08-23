@@ -23,29 +23,27 @@ import 'widgets/gift_user_screen.dart';
 
 // ignore: must_be_immutable
 class UserProfileInRoom extends StatelessWidget {
-    final UserDataModel userData;
+  final UserDataModel userData;
   final MyDataModel myData;
   final EnterRoomModel roomData;
   final LayoutMode layoutMode;
 
   bool isOnMic = false;
   bool isAdminOrHost = false;
-    bool myProfile = false;
+  bool myProfile = false;
 
-   UserProfileInRoom({
-
-    required this.roomData,
+  UserProfileInRoom(
+      {required this.roomData,
       required this.myData,
       required this.userData,
       required this.layoutMode,
-    super.key});
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-
     isOnMic = checkIsUserOnMic(userData);
     isAdminOrHost = cheakisAdminOrHost(userData, myData, roomData);
-    myProfile     = myProfileOrNot(userData, myData);
+    myProfile = myProfileOrNot(userData, myData);
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -72,18 +70,19 @@ class UserProfileInRoom extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if(!myProfile)
-                    MentionOrReportContainer(
-                      text: StringManager.mention,
-                      icon: AssetsPath.mention,
-                      size: ConfigSize.defaultSize! * 0.3,
+                    if (!myProfile)
+                      MentionOrReportContainer(
+                        text: StringManager.mention,
+                        icon: AssetsPath.mention,
+                        size: ConfigSize.defaultSize! * 0.3,
+                      ),
+                    UserImage(
+                      image: userData.profile!.image!,
                     ),
-                    UserImage(image: userData.profile!.image!,),                
                     MentionOrReportContainer(
                       text: StringManager.reports,
                       icon: AssetsPath.warning,
@@ -99,7 +98,7 @@ class UserProfileInRoom extends StatelessWidget {
                         fontSize: ConfigSize.defaultSize! * 1.6,
                         color: ColorManager.darkBlack,
                         fontWeight: FontWeight.w400)),
-                 IdWithCopyIcon(
+                IdWithCopyIcon(
                   id: userData.uuid!,
                 ),
                 SizedBox(
@@ -107,7 +106,7 @@ class UserProfileInRoom extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children:  [
+                  children: [
                     UserCountryIcon(country: userData.profile!.country),
                     const SizedBox(width: 5),
                     MaleFemaleIcon(
@@ -122,10 +121,10 @@ class UserProfileInRoom extends StatelessWidget {
                     const SizedBox(width: 5),
                   ],
                 ),
-                 SizedBox(height: ConfigSize.defaultSize!*2),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
                 Row(
                   children: [
-                     Expanded(
+                    Expanded(
                         child: ContainerVipOrContribute(
                       colors: ColorManager.yellowVipContanier,
                       icons: AssetsPath.vipProfileIcon,
@@ -138,16 +137,16 @@ class UserProfileInRoom extends StatelessWidget {
                         child: ContainerVipOrContribute(
                       colors: ColorManager.lightBlueInPofile,
                       icons: AssetsPath.contribute,
-                      level:userData.level!.senderLevel ,
+                      level: userData.level!.senderLevel,
                       sizeOfIcon: ConfigSize.defaultSize! * 0.18,
                       colorText: ColorManager.blueContributeContanierText,
                       vipOrContribute: StringManager.contribute,
                     )),
                   ],
                 ),
-                 SizedBox(height: ConfigSize.defaultSize!),
-                 GiftGalleryContainer(userId: userData.id!),
-                 SizedBox(height: ConfigSize.defaultSize!+5),
+                SizedBox(height: ConfigSize.defaultSize!),
+                GiftGalleryContainer(userId: userData.id!),
+                SizedBox(height: ConfigSize.defaultSize! + 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -164,20 +163,20 @@ class UserProfileInRoom extends StatelessWidget {
                     //   text: StringManager.addFriend,
                     // ),
                     //SEND GIFT ICON
-                     InkWell(
-                       onTap: () {
-      Navigator.pop(context);
-      bottomDailog(
-          context: context,
-          widget: GiftUserScreen(
-              roomData:roomData,
-            userId: userData.id.toString(),
-            myDataModel: myData,
-          ));
-    },
-                       child:SizedBox()
-                       //todo i did comment here
-                       /*
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          bottomDailog(
+                              context: context,
+                              widget: GiftUserScreen(
+                                roomData: roomData,
+                                userId: userData.id.toString(),
+                                myDataModel: myData,
+                              ));
+                        },
+                        child: SizedBox()
+                        //todo i did comment here
+                        /*
                        IconWithText(
                         onTap:(){} ,
                         icon: AssetsPath.sendGiftIconProfile,
@@ -185,7 +184,7 @@ class UserProfileInRoom extends StatelessWidget {
                                          ),
 
                         */
-                     ),
+                        ),
 
                     Container(
                         // alignment: Alignment.centerRight,
@@ -200,12 +199,14 @@ class UserProfileInRoom extends StatelessWidget {
                                   AssetsPath.chatIconProfile,
                                 ))),
                         child: Padding(
-                          padding: EdgeInsets.only(left: ConfigSize.defaultSize! * 2.5,),
-                          child: const Text(StringManager.talk, textAlign: TextAlign.right),
+                          padding: EdgeInsets.only(
+                            left: ConfigSize.defaultSize! * 2.5,
+                          ),
+                          child: const Text(StringManager.talk,
+                              textAlign: TextAlign.right),
                         )),
                   ],
                 ),
-
               ],
             ),
           ),
