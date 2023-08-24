@@ -1066,10 +1066,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
      }
      else if (result[messageContent][message] == unbanFromWritingKey){
+         RoomScreen.banedUsers.remove(result[messageContent]['userId']);
 
        if(widget.myDataModel.id.toString() == result[messageContent]['userId']){
          RoomScreen.showMessageButton.value =true ;
-         RoomScreen.banedUsers.remove(result[messageContent]['userId']);
        }else if(result[messageContent]['userId'] ==""){
          RoomScreen.banFromWriteIcon.value=false;
          RoomScreen.showMessageButton.value =true ;

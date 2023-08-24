@@ -35,6 +35,7 @@ import 'widgets/ban_from_write.dart';
 import 'widgets/block_button.dart';
 import 'widgets/gift_user_screen.dart';
 import 'widgets/icon_with_text.dart';
+import 'widgets/settings_Button.dart';
 import 'widgets/text_with_text.dart';
 import '../../../../../../zego_code_v2/zego_uikit/zego_uikit.dart';
 
@@ -45,7 +46,7 @@ class UserProfileInRoom extends StatefulWidget {
   final EnterRoomModel roomData;
   final LayoutMode layoutMode;
 
-  UserProfileInRoom(
+  const UserProfileInRoom(
       {required this.roomData,
       required this.myData,
       required this.userData,
@@ -66,10 +67,10 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
   @override
   Widget build(BuildContext context) {
     isOnMic = checkIsUserOnMic(widget.userData);
-    isAdminOrHost = cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
+    isAdminOrHost =
+        cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
     myProfile = myProfileOrNot(widget.userData, widget.myData);
-             log(RoomScreen.banedUsers.toString());
-            log('unBan'+widget.userData.id.toString());
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -106,40 +107,10 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                           ? SizedBox(width: ConfigSize.defaultSize! * 8)
                           : Column(
                               children: [
-                                MentionOrReportContainer(
-                                  onTap: () {
-                                    String name = widget.userData.name!
-                                        .replaceAll(" ", "_");
-                                    Navigator.pop(context);
-                                    Navigator.of(context).push(
-                                        ZegoInRoomMessageInputBoard(
-                                            roomData: widget.roomData,
-                                            myDataModel: widget.userData
-                                                .convertToMyDataObject(),
-                                            mention: "@$name"));
-                                  },
-                                  text: StringManager.mention,
-                                  icon: AssetsPath.mention,
-                                  size: ConfigSize.defaultSize! * 0.3,
-                                ),
                                 if (isAdminOrHost)
                                   BlockButton(
                                     roomData: widget.roomData,
                                     userData: widget.userData,
-                                  ),
-                                if (isAdminOrHost)
-                                  IconWithText(
-                                    onTap: () {
-                                      log("message");
-                                      BlocProvider.of<AdminRoomBloc>(context)
-                                          .add(AddAdminEvent(
-                                              ownerId: widget.roomData.ownerId
-                                                  .toString(),
-                                              userId: widget.userData.id
-                                                  .toString()));
-                                    },
-                                    icon: Icons.admin_panel_settings_sharp,
-                                    text: StringManager.admin.tr(),
                                   ),
                               ],
                             ),
@@ -180,46 +151,15 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                           SizedBox(height: ConfigSize.defaultSize! * 2),
                         ],
                       ),
-
                       Column(
                         children: [
-                          MentionOrReportContainer(
-                            onTap: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(20),
-                                    topLeft: Radius.circular(20),
-                                  )),
-                                  builder: (context) {
-                                    return ReportDialogForUsers(
-                                      userID: widget.userData.id.toString(),
-                                    );
-                                  });
-                            },
-                            text: StringManager.reports,
-                            icon: AssetsPath.warning,
-                            size: ConfigSize.defaultSize! * 0.25,
-                          ),
-                          if (isAdminOrHost)
-                            BanFromWrite(
+                          SettingsButton(
                               roomData: widget.roomData,
                               userData: widget.userData,
-                            ),
-                          if (isAdminOrHost&&!isOnMic)
-                            IconWithText(
-                              onTap: () {
-                                chooseSeatToInvatation(
-                                    widget.layoutMode,
-                                    context,
-                                    widget.roomData.ownerId.toString(),
-                                    widget.userData.id.toString());
-                              },
-                              icon: Icons.share_rounded,
-                              text: StringManager.inviteFriend,
-                            ),
+                              layoutMode: widget.layoutMode,
+                              isAdminOrHost: isAdminOrHost,
+                              isOnMic: isOnMic,
+                              myProfrile: myProfile),
                           if (isAdminOrHost && isOnMic)
                             ValueListenableBuilder<int>(
                                 valueListenable: RoomScreen.updatebuttomBar,
@@ -350,14 +290,13 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
         Align(
           alignment: Alignment.center,
           child: Padding(
-            padding:  EdgeInsets.only(
+            padding: EdgeInsets.only(
               bottom: ConfigSize.defaultSize! * 4.5,
             ),
             child: InkWell(
-              onTap: (){
-                Navigator.pushNamed(
-                    context, Routes.userProfile,
-                    arguments:widget.userData.id.toString());
+              onTap: () {
+                Navigator.pushNamed(context, Routes.userProfile,
+                    arguments: widget.userData.id.toString());
               },
               child: UserImage(
                 imageSize: ConfigSize.defaultSize! * 7.5,
