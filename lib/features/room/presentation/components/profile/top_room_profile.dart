@@ -37,13 +37,7 @@ class TopRoomProfile extends StatefulWidget {
 }
 
 class _TopRoomProfileState extends State<TopRoomProfile> {
-  // List dropdownItemList = [
-  //   {'label': StringManager.fiveMin.tr(), 'value': '5m'},
-  //   {'label': StringManager.fiftyMin.tr(), 'value': '15m'},
-  //   {'label': StringManager.thirtyMin.tr(), 'value': '30m'},
-  //   {'label': StringManager.sixtyMin.tr(), 'value': '60m'},
-  //   {'label': StringManager.twenyFourMin.tr(), 'value': '24h'}
-  // ];
+
 
   String? selectedValue;
   UserDataModel? tempData;

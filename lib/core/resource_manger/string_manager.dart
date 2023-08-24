@@ -410,6 +410,7 @@ class StringManager {
   static const String twenyFourMin = '24 hour';
     static const String writeUnBan = "write Unban";
   static const String writeBan = "write ban";
+  static const String block = "Block";
 
 
 

@@ -37,7 +37,7 @@ class _BlockButtonState extends State<BlockButton> {
   @override
   Widget build(BuildContext context) {
     return     Container(
-                        width: ConfigSize.defaultSize! * 5.0,
+                        width: ConfigSize.defaultSize! * 6.0,
                         height: ConfigSize.defaultSize! * 2.7,
                         decoration: BoxDecoration(
                             borderRadius:
@@ -47,13 +47,13 @@ class _BlockButtonState extends State<BlockButton> {
                           child: DropdownButton2(
                             isExpanded: true,
                             hint: Text(
-                              'Bloc',
+                              StringManager.block.tr(),
                               style: TextStyle(
                                 fontSize: ConfigSize.defaultSize! * 1.5,
                                 fontWeight: FontWeight.w500,
                                 color: ColorManager.gray,
                               ),
-                              overflow: TextOverflow.ellipsis,
+                              overflow: TextOverflow.fade,
                             ),
                 
                             items: items
@@ -155,7 +155,7 @@ class _BlockButtonState extends State<BlockButton> {
                             dropdownWidth: ConfigSize.defaultSize! * 10,
                             dropdownDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
-                              color: ColorManager.lightGray.withOpacity(0.5),
+                              color: ColorManager.giftColors.withOpacity(0.3),
                             ),
                             scrollbarRadius: const Radius.circular(40),
                             scrollbarThickness: 6,

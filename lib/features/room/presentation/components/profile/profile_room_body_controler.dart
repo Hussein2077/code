@@ -1,9 +1,15 @@
 
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/widgets/report_dailog_for_users.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/message/in_room_message_input_board.dart';
 
 bool checkIsUserOnMic (UserDataModel userData){
  bool isOnMic = false ; 
@@ -39,5 +45,57 @@ bool myProfileOrNot (UserDataModel userData , MyDataModel myData , ){
   }
 
 }
+
+
+ void mentionAction ({required UserDataModel userData ,required EnterRoomModel roomData , required BuildContext context  }){
+     String name = userData.name!
+                                        .replaceAll(" ", "_");
+                                    Navigator.pop(context);
+                                    Navigator.of(context).push(
+                                        ZegoInRoomMessageInputBoard(
+                                            roomData: roomData,
+                                            myDataModel: userData
+                                                .convertToMyDataObject(),
+                                            mention: "@$name"));
+
+  }
+
+ void repoertsAction ({required UserDataModel userData , required BuildContext context  }){
+         showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20),
+                                  )),
+                                  builder: (context) {
+                                    return ReportDialogForUsers(
+                                      userID: userData.id.toString(),
+                                    );
+                                  });
+
+  }
+
+
+ void banFromWriteAction ({required UserDataModel userData , required BuildContext context , required EnterRoomModel roomData }){
+     if (RoomScreen.banedUsers.containsKey(userData.id.toString())){
+     BlocProvider.of<OnRoomBloc>(context)
+                        .add(BanUserFromWritingEvent(
+                      type: "unBan",
+                      ownerId: roomData.ownerId.toString(),
+                      userId: userData.id.toString(),
+                    ));
+     }else {
+          BlocProvider.of<OnRoomBloc>(context)
+                        .add(BanUserFromWritingEvent(
+                      type: "ban",
+                      ownerId: roomData.ownerId.toString(),
+                      userId: userData.id.toString(),
+                    ));
+
+     }
+
+  }
 
 
