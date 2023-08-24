@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/upper/header.dart';
 import 'package:tik_chat_v2/features/profile/persentation/widget/f_f_f_v_row.dart';
@@ -52,13 +53,22 @@ class UpperProfileBody extends StatelessWidget {
                   const Spacer(
                     flex: 1,
                   ),
-                  Text(
+                  GradientTextVip(
+                    text: myDataModel.name!,
+                    textStyle:TextStyle(
+                        color: Colors.white,
+                        fontSize: ConfigSize.defaultSize! * 1.7,
+                        fontWeight: FontWeight.bold),
+
+                    isVip: myDataModel.hasColorName!,
+                  ),
+               /*   Text(
                     myDataModel.name!,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: ConfigSize.defaultSize! * 1.7,
                         fontWeight: FontWeight.bold),
-                  ),
+                  ),*/
                   const Spacer(
                     flex: 1,
                   ),

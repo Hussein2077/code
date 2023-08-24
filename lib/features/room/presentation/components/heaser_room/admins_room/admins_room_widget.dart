@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
@@ -69,12 +70,15 @@ class AdminsRoomWidget extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        state.admins[index].name.toString(),
-                                        style: TextStyle(
+
+                                      GradientTextVip(
+                                        text:state.admins[index].name.toString(),
+                                        textStyle:TextStyle(
                                             fontSize: ConfigSize.defaultSize! * 1.5,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black),
+
+                                        isVip:state.admins[index].hasColorName!,
                                       ),
                                       SizedBox(
                                         height: ConfigSize.defaultSize! * 0.8,

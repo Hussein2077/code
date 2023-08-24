@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';

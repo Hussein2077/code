@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
+import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'user_country_icon.dart';
@@ -64,9 +65,11 @@ class UserInfoRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  userData.name ?? "",
-                  style: Theme.of(context).textTheme.bodyLarge,
+                GradientTextVip(
+                  text: userData.name ?? "",
+                  textStyle: Theme.of(context).textTheme.bodyLarge!,
+
+                  isVip:  userData.hasColorName! ,
                 ),
                 SizedBox(
                   width:

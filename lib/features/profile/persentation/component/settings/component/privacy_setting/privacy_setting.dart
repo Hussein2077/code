@@ -157,4 +157,3 @@ class PrivacySettingState extends State<PrivacySetting> {
     );
   }
 }
-

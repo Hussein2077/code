@@ -6,7 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/admin_or_owner_container.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
@@ -111,11 +112,15 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                           SizedBox(
                             height: ConfigSize.defaultSize! * 1.5,
                           ),
-                          Text(widget.userData.name!,
-                              style: TextStyle(
-                                  fontSize: ConfigSize.defaultSize! * 1.6,
-                                  color: ColorManager.darkBlack,
-                                  fontWeight: FontWeight.w400)),
+                          GradientTextVip(
+                            text:widget.userData.name!,
+                            textStyle: TextStyle(
+                                fontSize: ConfigSize.defaultSize! * 1.6,
+                                color: ColorManager.darkBlack,
+                                fontWeight: FontWeight.w400),
+
+                            isVip:widget.userData.hasColorName!,
+                          ),
                           IdWithCopyIcon(
                             id: widget.userData.uuid!,
                           ),
