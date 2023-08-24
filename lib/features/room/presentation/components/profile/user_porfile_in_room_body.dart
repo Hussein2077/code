@@ -35,7 +35,7 @@ import 'widgets/ban_from_write.dart';
 import 'widgets/block_button.dart';
 import 'widgets/gift_user_screen.dart';
 import 'widgets/icon_with_text.dart';
-import 'widgets/text_with_text.dart';
+import 'widgets/image_with_text.dart';
 import '../../../../../../zego_code_v2/zego_uikit/zego_uikit.dart';
 
 // ignore: must_be_immutable
