@@ -16,27 +16,19 @@ import 'package:tik_chat_v2/core/widgets/admin_or_owner_container.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
-import 'package:tik_chat_v2/core/widgets/report_dailog_for_users.dart';
 import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/gift_gallery_profile.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/mention_or_report_container.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_events.dart';
-import 'package:tik_chat_v2/features/room/presentation/room_screen_controler.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/message/in_room_message_input_board.dart';
+
 
 import 'profile_room_body_controler.dart';
-import 'widgets/ban_from_write.dart';
 import 'widgets/block_button.dart';
 import 'widgets/gift_user_screen.dart';
-import 'widgets/icon_with_text.dart';
+import 'widgets/image_with_text.dart';
 import 'widgets/settings_Button.dart';
-import 'widgets/text_with_text.dart';
 import '../../../../../../zego_code_v2/zego_uikit/zego_uikit.dart';
 
 // ignore: must_be_immutable
