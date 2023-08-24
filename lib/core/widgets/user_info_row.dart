@@ -38,7 +38,7 @@ class UserInfoRow extends StatelessWidget {
       onTap: onTap ??
               () {
             Navigator.pushNamed(context, Routes.userProfile,
-                arguments: userData.id.toString());
+                arguments: UserProfilePreamiter(null, userData.id.toString()));
           },
       child: Padding(
         padding:  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.5),

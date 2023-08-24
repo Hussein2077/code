@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/owner_data_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
@@ -168,10 +169,16 @@ class RouteGenerator {
       case Routes.topUsersScreen:
         return MaterialPageRoute(builder: (_) => const TopUsersScreen());
       case Routes.userProfile:
-        String? userId = settings.arguments as String?;
+      
+        // String? userId = settings.arguments as String?;
+        //         UserDataModel? userData = settings.arguments as UserDataModel?;
+                                UserProfilePreamiter? pram = settings.arguments as UserProfilePreamiter?;
+
+
         return MaterialPageRoute(
             builder: (_) => UserProfile(
-                  userId: userId,
+                  userId: pram?.userId,
+                  userData: pram?.userData,
                 ));
       case Routes.giftGallery:
               int? userId = settings.arguments as int?;
@@ -421,4 +428,11 @@ class MusicPramiter {
   final String ownerId;
 
  const  MusicPramiter({required this.refresh, required this.ownerId});
+}
+
+class UserProfilePreamiter {
+  String ? userId ; 
+  UserDataModel ? userData ; 
+  UserProfilePreamiter (this.userData , this.userId);
+
 }

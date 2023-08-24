@@ -61,17 +61,12 @@ class _FFFScreenState extends State<FFFScreen> {
                       itemCount: state.data!.length,
                       itemExtent: 80,
                       itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () => Navigator.pushNamed(
-                              context, Routes.userProfile,
-                              arguments: state.data![index].id.toString()),
-                          child: UserInfoRow(
-                            userData: state.data![index],
-                            endIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Theme.of(context).colorScheme.primary,
-                              size: ConfigSize.defaultSize! * 2,
-                            ),
+                        return UserInfoRow(
+                          userData: state.data![index],
+                          endIcon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: ConfigSize.defaultSize! * 2,
                           ),
                         );
                       }),
