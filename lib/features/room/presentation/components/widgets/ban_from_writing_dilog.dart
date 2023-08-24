@@ -37,7 +37,9 @@ class BanFromWritingDilog extends StatelessWidget {
           children: [
             const Spacer(),
             SizedBox(height: 20.w,),
-            Text(headerText,style: Theme.of(context).textTheme.bodyMedium,),
+            Text(headerText,style: TextStyle(
+              color: Colors.black
+            ),),
             const Spacer(),
             Divider(
               color: Colors.black.withOpacity(0.12),

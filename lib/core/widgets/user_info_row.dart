@@ -83,7 +83,7 @@ class UserInfoRow extends StatelessWidget {
                             image: userData.level!.senderImage!,
                           ),
                           AristocracyLevel(
-                            level: 2,
+                            level: userData.vip1!.level!,
                           ),
                           const Spacer(),
                           Text(
