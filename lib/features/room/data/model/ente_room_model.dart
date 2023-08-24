@@ -1,6 +1,6 @@
 
 import 'package:equatable/equatable.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/pk_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/room_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';

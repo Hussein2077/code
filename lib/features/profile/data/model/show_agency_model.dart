@@ -1,4 +1,4 @@
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 
 class ShowAgencyModel {
   final int? id ; 

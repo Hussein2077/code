@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/core/widgets/user_info_row.dart';
@@ -42,6 +43,7 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
         ownerCard(
             context: context,
             id: widget.owner.uuid!,
+            iVip: widget.owner.hasColorName!,
             image: widget.owner.profile!.image!,
             name: widget.owner.name!),
         SizedBox(
@@ -110,6 +112,7 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
 Widget ownerCard(
     {required BuildContext context,
     required String image,
+    required bool iVip,
     required String name,
     required String id}) {
   return Card(
@@ -148,6 +151,12 @@ Widget ownerCard(
                   ],
                 ),
 
+                GradientTextVip(
+                  text:name,
+                  textStyle:TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
+
+                  isVip: iVip,
+                ),
                 Text(
                   name,
                   style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),

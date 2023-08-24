@@ -59,9 +59,13 @@ class SettingsScreen extends StatelessWidget {
             title: StringManager.mode.tr(),
             onTap: () => Navigator.pushNamed(context, Routes.mode),
           ),
+          SizedBox(
+            height: ConfigSize.defaultSize! * 3.5,
+          ),
              settingsRow(
             context: context,
-            icon: AssetsPath.warning,
+            icon: AssetsPath.roomlocked,
+            size: 3.3,
             title: StringManager.privacyPolicy.tr(),
             onTap: () => Navigator.pushNamed(
                     context, Routes.privacySettings,
@@ -97,6 +101,7 @@ Widget settingsRow(
     {required BuildContext context,
     required String icon,
     required String title,
+     double? size,
     void Function()? onTap}) {
   return InkWell(
     onTap: onTap,
@@ -107,7 +112,7 @@ Widget settingsRow(
         ),
         Image.asset(
           icon,
-          scale: 2,
+          scale:size?? 2,
         ),
         const Spacer(
           flex: 1,

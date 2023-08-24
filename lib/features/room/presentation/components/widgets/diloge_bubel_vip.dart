@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/owner_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
+import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
@@ -89,13 +90,15 @@ class DilogBubbelVip extends StatelessWidget {
                   if(userData!.level!.receiverImage! != '')
                     LevelContainer(
                       image: userData!.level!.receiverImage!),
-                  Text(
-                    userData!.name!,
-                    style: TextStyle(
+                  GradientTextVip(
+                    text:userData!.name!,
+                    textStyle:TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: AppPadding.p12,
                         color: Colors.white),
-                  )
+
+                    isVip: userData!.hasColorName!,
+                  ),
                 ],
               ),
               SizedBox(

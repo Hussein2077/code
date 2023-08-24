@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/info_with_container_blue.dart';
@@ -87,17 +88,14 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                   borderRadius: BorderRadius.circular(20)),
                               child: Column(
                                 children: [
-                                  Text(
-                                    widget.myData.name!,
-                                    style: Theme.of(context)
+                                  GradientTextVip(
+                                    text: widget.myData.name!,
+                                    textStyle: Theme.of(context)
                                         .textTheme
-                                        .bodyMedium /*TextStyle(
-                                        color: Colors.white,
-                                        fontSize: ConfigSize.defaultSize! * 2.2,
-                                        fontWeight: FontWeight.bold)*/
-                                    ,
-                                  ),
+                                        .bodyMedium!,
 
+                                    isVip:  widget.myData.hasColorName!,
+                                  ),
                                   /* Text(widget.ownerDataModel.name!,
                                           style:
                                           TextStyle(color: Colors.white, fontSize: ConfigSize.defaultSize! *2.2,fontWeight: FontWeight.bold)),*/

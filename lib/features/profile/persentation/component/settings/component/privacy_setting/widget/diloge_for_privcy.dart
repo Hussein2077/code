@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class DilogForPrivecyScreen extends StatelessWidget {
-   final BuildContext buildContext;
+  final BuildContext buildContext;
   final bool flag;
 
   final void Function() confirm;
@@ -32,7 +32,7 @@ class DilogForPrivecyScreen extends StatelessWidget {
       child: Container(
         height: ConfigSize.defaultSize! *14.5,
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *1.0)),
+            color: Theme.of(context).colorScheme.background, borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *1.0)),
         width: ConfigSize.screenWidth,
         child: Padding(
           padding: EdgeInsets.all(ConfigSize.defaultSize! *1.5,),
@@ -40,8 +40,7 @@ class DilogForPrivecyScreen extends StatelessWidget {
             children: [
               Text(
                 StringManager.advice.tr(),
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: ConfigSize.defaultSize! *1.8,),
-              ),
+                style: Theme.of(context).textTheme.bodyMedium,),
               SizedBox(
                 height: ConfigSize.defaultSize! *1.0,
               ),
@@ -75,7 +74,7 @@ class DilogForPrivecyScreen extends StatelessWidget {
                           StringManager.active.tr(),
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
-                              color: Colors.white,
+                              color: Colors.green,
                               fontSize: ConfigSize.defaultSize! *1.5,),
                         ),
                       ),
@@ -87,7 +86,7 @@ class DilogForPrivecyScreen extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *0.8,),
-                            color: Colors.white,
+                            color: ColorManager.mainColor,
                             border: Border.all(
                               color: Colors.grey,
                               width: 1,
@@ -98,8 +97,8 @@ class DilogForPrivecyScreen extends StatelessWidget {
                         ),
                         child: Text(
                           StringManager.cancle.tr(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: ConfigSize.defaultSize! *1.4,),
+                          style: const TextStyle(
+                            color: Colors.white),
                         ),
                       ),
                     ),
