@@ -287,8 +287,11 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
             ),
             child: InkWell(
               onTap: () {
+                myProfile?
+                 Navigator.pushNamed(context, Routes.userProfile,
+                    ):
                 Navigator.pushNamed(context, Routes.userProfile,
-                    arguments: widget.userData.id.toString());
+                    arguments:UserProfilePreamiter(widget.userData, null));
               },
               child: UserImage(
                 imageSize: ConfigSize.defaultSize! * 7.5,

@@ -73,7 +73,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 imageSize: ConfigSize.defaultSize! * 10,
                               ),
                               onTap: (){
-                                Navigator.pushNamed(context, Routes.userProfile , arguments: widget.myData.id.toString() );
+                                Navigator.pushNamed(context, Routes.userProfile ,);
 
                               },
                             ),
