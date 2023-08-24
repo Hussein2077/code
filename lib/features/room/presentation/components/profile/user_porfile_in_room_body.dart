@@ -68,6 +68,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
     isOnMic = checkIsUserOnMic(widget.userData);
     isAdminOrHost = cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
     myProfile = myProfileOrNot(widget.userData, widget.myData);
+             log(RoomScreen.banedUsers.toString());
+            log('unBan'+widget.userData.id.toString());
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [

@@ -1029,12 +1029,13 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
      }
      else if (result[messageContent][message] == banFromWritingKey){
-
+      log(result[messageContent]['userId'].toString());
+       RoomScreen.banedUsers.putIfAbsent(result[messageContent]['userId'],
+                 () => result[messageContent]['userId']);
        if(widget.myDataModel.id.toString() == result[messageContent]['userId']){
          RoomScreen.showMessageButton.value =false ;
          showBanFromWritingDilog(context);
-         RoomScreen.banedUsers.putIfAbsent(result[messageContent]['userId'],
-                 () => result[messageContent]['userId']);
+  
 
        }
        else if(result[messageContent]['userId'] ==""){

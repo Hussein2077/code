@@ -25,9 +25,9 @@ class BanFromWrite extends StatelessWidget {
     return BlocBuilder<OnRoomBloc, OnRoomStates>(
       builder: (context, state) {
         if (state is BanUserFromWritingSuccessState) {
+ 
 
           if (RoomScreen.banedUsers.containsKey(userData.id.toString())) {
-            log('unBan'+userData.id.toString());
             return Column(
               children: [
                 InkWell(
