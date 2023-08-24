@@ -588,7 +588,7 @@ showInFormationDilog(BuildContext context) {
     builder: (BuildContext context) => BanFromWritingDilog(
       accpetText:  () => Navigator.pop(context),
       greenText: StringManager.ok,
-      headerText:StringManager.youBanFromWriting,
+      headerText:StringManager.youBanFromWriting.tr(),
     ),
   );
 }
