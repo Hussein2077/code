@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -77,6 +78,7 @@ class UpperProfileBody extends StatelessWidget {
                       SizedBox(
                         width: ConfigSize.defaultSize!,
                       ),
+                      if(!myDataModel.isCountryHiden!)
                       Text(
                         myDataModel.profile!.country,
                         style:
@@ -96,6 +98,16 @@ class UpperProfileBody extends StatelessWidget {
                       itemContiner(
                         title: "ID ${myDataModel.uuid}",
                       ),
+
+                      SizedBox(
+                        width: ConfigSize.defaultSize!,
+                      ),
+
+                      if(!myDataModel.lastActiveHidden!)
+                      itemContiner(
+                        title: "${StringManager.lastActive.tr()}${myDataModel.onlineTime!.substring(0,16)}",
+                      ),
+
                     ],
                   ),
                   const Spacer(

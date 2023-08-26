@@ -81,6 +81,8 @@ class UserInfoRow extends StatelessWidget {
                           MaleFemaleIcon(
                             maleOrFeamle: userData.profile!.gender, age: userData.profile!.gender,
                           ),
+                          SizedBox(width: ConfigSize.defaultSize!*0.8),
+                          if(!userData.isCountryHiden!)
                           UserCountryIcon(country: userData.profile!.country),
                           LevelContainer(
                             image: userData.level!.senderImage!,

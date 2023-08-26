@@ -34,17 +34,20 @@ class UserDataModel {
   final String? uuid;
   final String? notificationId;
   final String? bio ;
-  final bool? hasColorName ;
-  final bool? isAanonymous ;
-  final String? onlineTime;
-  final bool? isCountryHiden ;
+
   final int? userType ;
   int? numberOfFans;
   int? numberOfFollowings;
   int? numberOfFriends;
   int? profileVisotrs;
 
-
+  final bool? lastActiveHidden;
+  final bool? visitHidden;
+  final bool? roomHidden;
+  final bool? hasColorName ;
+  final bool? isAanonymous ;
+  final String? onlineTime;
+  final bool? isCountryHiden ;
 
 
   UserDataModel(
@@ -79,7 +82,10 @@ class UserDataModel {
         this.isFriend,this.bio,
         this.bubble,
         this.isCountryHiden ,
-        this.userType
+        this.userType,
+        this.visitHidden,
+        this.roomHidden,
+        this.lastActiveHidden
       });
 
 
@@ -90,7 +96,6 @@ class UserDataModel {
         id: map['id'] ,
         chatId: map['chat_id'] ,
         notificationId: map['notification_id'],
-        onlineTime: map['online_time'],
         name: map['name'] ,
         frame: map['frame'] ,
         intro: map['intro'] ,
@@ -101,7 +106,7 @@ class UserDataModel {
         introId: map['intro_id'] ,
         isFirst: map['is_first'],
         isAgencyRequest: map['is_agency_request'],
-        isAanonymous :map['anonymous'],
+
         vip1:map['vip']==null?null: VipCenterModel.fromJson(map['vip']),
         familyId: map['family_id'],
         uuid: map['uuid'],
@@ -124,8 +129,15 @@ class UserDataModel {
             ? NowRoomModel.fromjson(map["now_room"] as Map<String, dynamic>)
             : null,
         userType: map['type_user'],
-        hasColorName: map['has_color_name'],
-        isCountryHiden: map['country_hidden'],
+
+        onlineTime: map['online_time']??'',
+        hasColorName: map['has_color_name']??false,
+        isAanonymous :map['anonymous']??false,
+        isCountryHiden: map['country_hidden']??false,
+        lastActiveHidden :map['anonymous']??false,
+        visitHidden:map['visit_hidden']??false,
+        roomHidden: map['room_hidden']??false,
+
         familyData: map['family_data']==null? null:  FamilyDataModel.fromjosn(
             map['family_data']),
         myAgencyModel: map['agency'] != null
@@ -167,13 +179,23 @@ class UserDataModel {
         numberOfFollowings: numberOfFollowings ,
         numberOfFriends: numberOfFriends,
         profileVisotrs:profileVisotrs,
-      hasColorName: hasColorName,
+
       notificationId: notificationId,
       level: LevelDataModel(
           senderImage: level?.senderImage,
           receiverImage: level?.receiverImage),
       vip1: VipCenterModel(level: vip1?.level),
-      myType: userType
+      myType: userType,
+
+      isHideRoom: roomHidden,
+      visitHidden: visitHidden,
+      onlineTime: onlineTime,
+      isAanonymous: isAanonymous,
+      hasColorName: hasColorName,
+      lastActiveHidden: lastActiveHidden,
+      isCountryHiden: isCountryHiden
+
+
     );
   }
 
