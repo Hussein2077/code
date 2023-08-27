@@ -417,6 +417,7 @@ class StringManager {
   static const String lastActive = "Last Active: ";
   static const String spitialMassege = "رسالة مميزة";
   static const String theTextHasBeenCopied = "The text has been copied";
+  static const String roomSetting = "Room Setting";
 
 
 

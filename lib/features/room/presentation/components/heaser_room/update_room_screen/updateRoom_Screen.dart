@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipP
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/update_room_screen/update_room_screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_states.dart';
@@ -69,7 +70,9 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<OnRoomBloc, OnRoomStates>(
       builder: (context, state) {
-        return SingleChildScrollView(
+        return
+
+          SingleChildScrollView(
           child: Container(
             height: ConfigSize.defaultSize! * 70,
             decoration: BoxDecoration(
@@ -87,29 +90,94 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(Icons.clear)),
-                        AddProFilePic(
-                          myImage: widget.roomDate!.roomCover!,
-                          quality: 70,
-                        )
-                      ],
+                    // Stack(
+                    //   children: [
+                    //     IconButton(
+                    //         onPressed: () {
+                    //           Navigator.pop(context);
+                    //         },
+                    //         icon: const Icon(Icons.clear,)),
+                    //     AddProFilePic(
+                    //       myImage: widget.roomDate!.roomCover!,
+                    //       quality: 70,
+                    //     )
+                    //   ],
+                    // ),
+
+                    Text(
+                      StringManager.roomSetting.tr(),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
                     ),
                     const Spacer(
                       flex: 1,
                     ),
+                    Text(
+                      StringManager.roomName.tr(),
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                    ),
+
                     Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: ConfigSize.defaultSize! * 2.11),
                       decoration: BoxDecoration(
                           color: ColorManager.lightGray,
                           borderRadius: BorderRadius.circular(AppPadding.p10)),
-                      child: TextField(
+                      child: TextFormField(
+                        onChanged: (value) {
+                            setState(() {});
+                          },
+                          controller: roomNameControler,
+                        cursorColor: ColorManager.mainColor,
+                          decoration: InputDecoration(
+                                hintText: StringManager.updateYourIntro.tr(),
+                                hintStyle:
+                                    const TextStyle(color: ColorManager.darkBlack),
+                                border: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+
+                      ),
+
+                      // TextField(
+                      //   onChanged: (value) {
+                      //     setState(() {});
+                      //   },
+                      //   controller: roomNameControler,
+                      //   cursorColor: ColorManager.mainColor,
+                      //   decoration: InputDecoration(
+                      //     hintText: StringManager.updateYourIntro.tr(),
+                      //     hintStyle:
+                      //         const TextStyle(color: ColorManager.lightGray),
+                      //     border: InputBorder.none,
+                      //     disabledBorder: InputBorder.none,
+                      //     focusedBorder: InputBorder.none,
+                      //   ),
+                      // ),
+                    ),
+                    ),
+                    const Spacer(
+                      flex: 1,
+                    ),
+                    Text(
+                      StringManager.roomIntro.tr(),
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                    ),
+
+                    //live title
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ConfigSize.defaultSize! * 2.11),
+                      decoration: BoxDecoration(
+                          color: ColorManager.lightGray,
+                          borderRadius: BorderRadius.circular(AppPadding.p10)),
+                      child: TextFormField(
                         onChanged: (value) {
                           setState(() {});
                         },
@@ -118,38 +186,46 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                         decoration: InputDecoration(
                           hintText: StringManager.updateYourIntro.tr(),
                           hintStyle:
-                              const TextStyle(color: ColorManager.lightGray),
+                          const TextStyle(color: ColorManager.darkBlack),
                           border: InputBorder.none,
                           disabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
+
                         ),
+
+                        // TextField(
+                        //   onChanged: (value) {
+                        //     setState(() {});
+                        //   },
+                        //   controller: roomNameControler,
+                        //   cursorColor: ColorManager.mainColor,
+                        //   decoration: InputDecoration(
+                        //     hintText: StringManager.updateYourIntro.tr(),
+                        //     hintStyle:
+                        //         const TextStyle(color: ColorManager.lightGray),
+                        //     border: InputBorder.none,
+                        //     disabledBorder: InputBorder.none,
+                        //     focusedBorder: InputBorder.none,
+                        //   ),
+                        // ),
                       ),
-                    ),
-                    const Spacer(
-                      flex: 1,
-                    ),
-                    //live title
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ConfigSize.defaultSize! * 2.11),
-                      decoration: BoxDecoration(
-                          color: ColorManager.lightGray,
-                          borderRadius: BorderRadius.circular(AppPadding.p10)),
-                      child: TextField(
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                        controller: roomIntroControler,
-                        cursorColor: ColorManager.mainColor,
-                        decoration: InputDecoration(
-                          hintText: StringManager.updateYourIntro.tr(),
-                          hintStyle:
-                              const TextStyle(color: ColorManager.lightGray),
-                          border: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                        ),
-                      ),
+
+
+                      // TextField(
+                      //   onChanged: (value) {
+                      //     setState(() {});
+                      //   },
+                      //   controller: roomIntroControler,
+                      //   cursorColor: ColorManager.mainColor,
+                      //   decoration: InputDecoration(
+                      //     hintText: StringManager.updateYourIntro.tr(),
+                      //     hintStyle:
+                      //         const TextStyle(color: ColorManager.lightGray),
+                      //     border: InputBorder.none,
+                      //     disabledBorder: InputBorder.none,
+                      //     focusedBorder: InputBorder.none,
+                      //   ),
+                      // ),
                     ),
                     const Spacer(
                       flex: 1,
@@ -157,7 +233,7 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                     //live catagory
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 0),
-                      child: Text(StringManager.roomType.tr()),
+                      child: Text(StringManager.roomType.tr(),style: TextStyle(color: Colors.black),),
                     ),
                     SizedBox(
                       height: ConfigSize.defaultSize! * 22.5,
@@ -287,13 +363,14 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                     ),
                     const Spacer(
                       flex: 1,
-                    ),
-                  ],
+                    ),               ],
                 ),
               ),
             ),
           ),
         );
+
+
       },
       listener: (context, state) {
         if (state is UpdateRoomSucsseState) {
