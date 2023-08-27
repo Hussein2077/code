@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/widgets/web_view_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
@@ -123,7 +124,7 @@ class Routes {
         static const String interstedScreen = "/interstedScreen";
   static const String roomHandler = '/roomHandler';
     static const String privacySettings = "/privicySettening";
-
+  static const String webView = "/webView";
 
 }
 
@@ -360,6 +361,14 @@ class RouteGenerator {
 
         return MaterialPageRoute(
             builder: (_) =>  SafeArea(child: PrivacySetting(myData:userData ,)));
+      case Routes.webView:
+        WebViewPramiter webViewPramiter = settings.arguments as WebViewPramiter ;
+        return MaterialPageRoute(
+            builder: (_) => WebView(
+              url: webViewPramiter.url,
+              title:  webViewPramiter.title,
+              titleColor: webViewPramiter.titleColor,
+            ));
     }
 
     return unDefinedRoute();
@@ -435,4 +444,12 @@ class UserProfilePreamiter {
   UserDataModel ? userData ; 
   UserProfilePreamiter (this.userData , this.userId);
 
+}
+
+class WebViewPramiter {
+  final String url ;
+  final String title ;
+  final Color titleColor ;
+
+  WebViewPramiter({required this.url,required this.title,required this.titleColor});
 }

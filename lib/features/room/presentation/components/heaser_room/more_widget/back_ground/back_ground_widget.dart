@@ -123,7 +123,7 @@ class _BackGroundState extends State<BackGround> {
                                             BlocProvider.of<OnRoomBloc>(context)
                                                 .add(UpdateRoom(
                                                   change: index<count?"app":"me",
-                                                    roomId: widget.ownerId,
+                                                    ownerId: widget.ownerId,
                                                     roomBackgroundId:backGround[index].id
                                                         .toString()));
                                             Navigator.pop(context);

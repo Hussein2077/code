@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_state.dart';
 
@@ -62,29 +65,41 @@ class CoinsTabView extends StatelessWidget {
                                BorderRadius.circular(ConfigSize.defaultSize!),
                                color: Theme.of(context).colorScheme.secondary),
                            child: type == "gold"
-                               ? InkWell(
-                             onTap: (){
+                               ?BlocListener<BuyCoinsBloc,BuyCoinsState>(
+                               child:InkWell(
+                                 onTap: (){
 
-BlocProvider.of<BuyCoinsBloc>(context).add(
-    BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID: '', paymentMethod: 'opay')));
-                             },
-                             child:Column(
-                               children: [
-                                 Image.asset(
-                                   AssetsPath.goldCoinIcon,
-                                   scale: 4,
-                                 ),
-                                 Text(
-                                   "${state.data[index].coin}",
-                                   style: TextStyle(
-                                       color: ColorManager.yellow,
-                                       fontSize: ConfigSize.defaultSize! * 1.7),
-                                 ),
-                                 Text("${state.data[index].usd}",
-                                     style: Theme.of(context).textTheme.bodyMedium)
-                               ],
-                             ) ,
-                           )
+                                   BlocProvider.of<BuyCoinsBloc>(context).add(
+                                       BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID:state.data[index].id.toString() , paymentMethod: 'opay')));
+                                 },
+                                 child:Column(
+                                   children: [
+                                     Image.asset(
+                                       AssetsPath.goldCoinIcon,
+                                       scale: 4,
+                                     ),
+                                     Text(
+                                       "${state.data[index].coin}",
+                                       style: TextStyle(
+                                           color: ColorManager.yellow,
+                                           fontSize: ConfigSize.defaultSize! * 1.7),
+                                     ),
+                                     Text("${state.data[index].usd}",
+                                         style: Theme.of(context).textTheme.bodyMedium)
+                                   ],
+                                 ) ,
+                               ) ,
+                               listener: (context,state){
+                                 if(state is  BuyCoinsLoadingState){
+                                   loadingToast(context: context, title: '');
+                                 }else if (state is  BuyCoinsSuccessState){
+                                   Navigator.pushNamed(context,Routes.webView ,
+                                       arguments: WebViewPramiter(url: state.urlWeb,
+                                           title: StringManager.payment.tr(), titleColor: Colors.green));
+                                 }else if (state is  BuyCoinsErrorState){
+                                   errorToast(context: context, title: state.error);
+                                 }
+                               })
                                : Column(
                              children: [
                                Image.asset(

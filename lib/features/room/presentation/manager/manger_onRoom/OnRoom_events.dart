@@ -36,7 +36,7 @@ class ExitRoomEvent extends OnRoomEvents {
   List<Object?> get props => [ownerId];
 }
 class UpdateRoom extends OnRoomEvents{
-  final String  roomId;
+  final String ownerId;
   final String? roomName;
   final String? freeMic;
   final File? roomCover;
@@ -48,7 +48,8 @@ class UpdateRoom extends OnRoomEvents{
   final String? change;
 
   const UpdateRoom(
-      {required this.roomId,
+      {
+        required this.ownerId,
         this.roomName,
         this.freeMic,
         this.roomCover,
@@ -61,7 +62,7 @@ class UpdateRoom extends OnRoomEvents{
       });
 @override
   List<Object?> get props => [
-    roomId,
+   ownerId,
     roomName,
     freeMic,
     roomCover,

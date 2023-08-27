@@ -36,6 +36,7 @@ class StringManager {
 
 
  ////
+ static const String payment = "Payment";
  static const String adminOfRoom = "Admin of room";
  static const String modeChairs = "Mic mode";
  static const String midePartyMode = "Mide Party Mode";

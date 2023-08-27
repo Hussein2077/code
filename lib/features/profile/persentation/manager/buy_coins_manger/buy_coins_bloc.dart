@@ -17,7 +17,7 @@ class BuyCoinsBloc extends Bloc<BuyCoinsEvent, BuyCoinsState> {
     final result = await buyCoinsUseCase.buyCoins(BuyCoinsParameter(
         coinsID: event.buyCoinsParameter.coinsID,
         paymentMethod: event.buyCoinsParameter.paymentMethod));
-    result.fold((l) => emit(BuyCoinsSuccessState(susses: l)),
+    result.fold((l) => emit(BuyCoinsSuccessState(urlWeb: l)),
             (r) => emit(BuyCoinsErrorState(error: DioHelper().getTypeOfFailure(r))));
 
   }

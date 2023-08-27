@@ -1319,7 +1319,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       Map<String, dynamic> resultData = response.data;
-      log(resultData.toString());
       return resultData['message'];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'buyCoins');

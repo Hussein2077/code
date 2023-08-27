@@ -66,7 +66,7 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
     on<UpdateRoom>((event, emit) async {
       emit(const OnRoomLoadingState());
       final result = await updateRoomUsecase.updateRoom(PramiterUpdate(
-        ownerId: event.roomId,
+        ownerId: event.ownerId,
         roomCover: event.roomCover,
         roomType: event.roomType,
         roomName: event.roomName,

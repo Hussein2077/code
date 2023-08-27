@@ -12,7 +12,7 @@ class BuyCoinsErrorState extends BuyCoinsState {
 }
 
 class BuyCoinsSuccessState extends BuyCoinsState {
-  final String susses;
-   BuyCoinsSuccessState({required this.susses});
+  final String urlWeb;
+   BuyCoinsSuccessState({required this.urlWeb});
 }
 

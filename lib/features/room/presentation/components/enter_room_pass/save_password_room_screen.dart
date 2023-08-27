@@ -97,7 +97,7 @@ class _EnterPasswordRoomScreenState extends State<SaveRoomPasswordRoomScreen> {
             InkWell(
               onTap: () async {
                 Navigator.pop(context);
-                BlocProvider.of<OnRoomBloc>(context).add(UpdateRoom(roomId:widget.ownerId ,roomPass: passwordcontroler.text)) ;
+                BlocProvider.of<OnRoomBloc>(context).add(UpdateRoom(ownerId:widget.ownerId ,roomPass: passwordcontroler.text)) ;
 
 
               },
