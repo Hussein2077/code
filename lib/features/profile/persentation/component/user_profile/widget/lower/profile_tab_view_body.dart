@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_state.dart';
+import 'dart:ui' as ui;
 
 class ProfileTabViewBody extends StatelessWidget {
   final UserDataModel userDataModel;
@@ -149,24 +150,27 @@ Widget cover(
       decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: ConfigSize.defaultSize! * 1.4,
-                fontWeight: FontWeight.bold),
-          ),
-          Text(
-            num,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: ConfigSize.defaultSize! * 1.4,
-                fontWeight: FontWeight.bold),
-          )
-        ],
+      child: Directionality(
+        textDirection:ui.TextDirection.ltr,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: ConfigSize.defaultSize! * 1.4,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              num,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: ConfigSize.defaultSize! * 1.4,
+                  fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
       ),
     ),
   );

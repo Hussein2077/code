@@ -27,7 +27,6 @@ class UpperProfileBody extends StatelessWidget {
             image: CachedNetworkImageProvider(
                 ConstentApi().getImage(myDataModel.profile!.image)),
             fit: BoxFit.cover,
-            filterQuality: FilterQuality.low,
           ),
         ),
         child: BackdropFilter(

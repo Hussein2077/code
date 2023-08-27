@@ -15,7 +15,7 @@ class HeaderProfile extends StatelessWidget {
       children: [
         headerIcon(icon: Icons.arrow_back_ios ,onTap: () => Navigator.pop(context), ),
         myProfile?
-        headerIcon(icon: Icons.more_horiz ,onTap: () => Navigator.pushNamed(context, Routes.editInfo , arguments: myDataModel), ):const SizedBox(width: 10,)],
+        headerIcon(icon: Icons.edit ,onTap: () => Navigator.pushNamed(context, Routes.editInfo , arguments: myDataModel), ):const SizedBox(width: 10,)],
     );
   }
 }
