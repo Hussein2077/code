@@ -179,9 +179,9 @@ class ConstentApi {
   String getVipCenter({required String level}) =>
       "$baseUrl/vip_center?level=$level";
 
-  // String getImage(imageUrl) => "https://dragon-chat-app.com/storage/$imageUrl";
+  // String getImage(imageUrl) => "https://dragon-chat-app.com/storage/$imageUrl";https://storage.googleapis.com/tik-chat/
   String getImage(imageUrl) =>
-      "https://tik-chat.com/storage/$imageUrl";
+      "https://storage.googleapis.com/tik-chat/$imageUrl";
 
   String getDataMallUrl(int type) => "$baseUrl/mall/wares?type=$type";
   String getGifts(int type) {

@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -70,7 +73,9 @@ class _AduioBodyState extends State<AduioBody> {
                 BlocBuilder<CarouselBloc, CarouselStates>(
                   builder: (context, state) {
                     if (state is GetCarouselSuccesState) {
-                      return PageViewWidget(
+
+
+                    return PageViewWidget(
                         carouselsList: state.carouselsList,
                       );
                     } else {

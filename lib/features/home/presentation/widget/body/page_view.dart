@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +21,11 @@ class _PageViewWidgetState extends State<PageViewWidget> {
  late  List<Widget> pages ; 
   @override
   void initState() {
-  pages = [
+    log("Imageeeeeeeeee" +ConstentApi().getImage(widget.carouselsList[0].img));
+
+    pages = [
     for(int i = 0 ; i < widget.carouselsList.length ;i++ )
+
     Container(
       decoration: BoxDecoration(
           image:  DecorationImage(
@@ -31,7 +36,8 @@ class _PageViewWidgetState extends State<PageViewWidget> {
               fit: BoxFit.fill),
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
     ),
- 
+
+
   ];    super.initState();
   }
 

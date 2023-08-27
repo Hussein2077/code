@@ -188,7 +188,7 @@ class MyDataModel {
           isFacebook: map['facebook_bind'],
           isGoogle: map['google_bind'],
           isPhone: map['phone_bind'],
-          isHideRoom: map['room_hidden'],
+          isHideRoom: map['room_hidden']??false,
           vip1: map['vip'] == null ? null : VipCenterModel.fromJson(map['vip']),
           familyId: map['family_id'],
           uuid: map['uuid'] != null ? map['uuid'] as String : "0",

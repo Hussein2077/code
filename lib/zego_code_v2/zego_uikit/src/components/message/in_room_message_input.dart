@@ -1,6 +1,7 @@
 // Flutter imports:
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_social_textfield/flutter_social_textfield.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
@@ -226,8 +228,11 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                           });
                         }
                       },
-                      child:Icon(Icons.animation,color: ZegoInRoomMessageInput.activePobUp.value?
-                      ColorManager.mainColor :ColorManager.deepPurble,),
+                      child:Text(StringManager.spitialMassege.tr(),
+                      style: TextStyle(color: ZegoInRoomMessageInput.activePobUp.value?
+                      ColorManager.mainColor :ColorManager.deepPurble,
+
+                      )),
                     ),
                     contentPadding: EdgeInsets.only(
                       left: 20.r,

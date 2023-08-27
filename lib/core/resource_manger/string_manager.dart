@@ -412,6 +412,8 @@ class StringManager {
   static const String writeBan = "write ban";
   static const String block = "Block";
   static const String lastActive = "Last Active: ";
+  static const String spitialMassege = "رسالة مميزة";
+  static const String theTextHasBeenCopied = "The text has been copied";
 
 
 
