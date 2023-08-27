@@ -26,7 +26,7 @@ class GoldSilverButton extends StatelessWidget {
             image: AssetsPath.silverButton,
             title: StringManager.silver.tr(),
             num: myDataModel.myStore!.silverCoin.toString(),
-            gold: false
+             gold: false
             ,onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "silver"),
             )
       ],

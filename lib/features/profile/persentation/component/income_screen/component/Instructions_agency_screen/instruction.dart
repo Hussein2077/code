@@ -58,6 +58,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                   itemBuilder: (context,index){
                 return  Text(listOfInstructions[index],
                   style: TextStyle(
+                    color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: ConfigSize.defaultSize!*1.5,
                     overflow: TextOverflow.fade
