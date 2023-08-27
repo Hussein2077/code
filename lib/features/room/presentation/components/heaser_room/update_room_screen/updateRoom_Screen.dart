@@ -300,9 +300,11 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
           Navigator.pop(context);
           sucssesToast(
               context: context, title: StringManager.updateScssfuly.tr());
-        } else if (state is HideRoomSuccessState) {
+        }
+        else if (state is HideRoomSuccessState) {
           BlocProvider.of<MangerGetVipPrevBloc>(context).add(getVipPrevEvent());
-        } else if (state is DisposeHideRoomSuccessState) {
+        }
+        else if (state is DisposeHideRoomSuccessState) {
           BlocProvider.of<MangerGetVipPrevBloc>(context).add(getVipPrevEvent());
         } else if (state is HideRoomErrorState) {
           errorToast(context: context, title: state.errorMassage);

@@ -182,7 +182,6 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
   Future<EnterRoomModel> updateRoom(
       {required PramiterUpdate pramiterUpdate}) async {
     Map<String, String> headers = await DioHelper().header();
-
     FormData formData;
     if (pramiterUpdate.roomCover == null) {
       formData = FormData.fromMap({
