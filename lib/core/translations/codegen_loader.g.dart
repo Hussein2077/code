@@ -325,7 +325,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.cantclosepk: "ممنوع غلق الpk",
         StringManager.beComeAdmin: "كن مشرف",
         StringManager.privacy : "الخصوصيه",
-        
+        StringManager.note : "الملاحظات",
+
 
   };
   static const Map<String, dynamic> tr = {
