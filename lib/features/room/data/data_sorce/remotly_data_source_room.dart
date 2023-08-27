@@ -190,7 +190,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
         'room_background': pramiterUpdate.roomBackgroundId,
         'room_intro': pramiterUpdate.roomIntro,
         'room_pass': pramiterUpdate.roomPass,
-        'room_type': pramiterUpdate.roomType,
+        'room_type': null,
         'room_class': pramiterUpdate.roomClass,
         'change': pramiterUpdate.change,
       });
@@ -205,10 +205,11 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
         'room_background': pramiterUpdate.roomBackgroundId,
         'room_intro': pramiterUpdate.roomIntro,
         'room_pass': pramiterUpdate.roomPass,
-        'room_type': pramiterUpdate.roomType,
+        'room_type': null,
         'room_class': pramiterUpdate.roomClass
       });
     }
+    log("pramiterUpdate"+pramiterUpdate.roomType.toString());
     try{
       final response = await Dio()
           .post(ConstentApi().getRoomUpdate(roomId: pramiterUpdate.ownerId),
