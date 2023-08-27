@@ -230,7 +230,7 @@ class AssetsPath {
   static const String mention = "$pathIcon/mention.png";
   static const String admin = "$pathIcon/admin.png";
   static const String contribute = "$pathIcon/contribute.png";
-
+  static const String comingSoon = "$pathImage/coming_soon.jpg";
 
 
   

@@ -2,7 +2,9 @@
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
@@ -72,37 +74,46 @@ class _ReelsScreenState extends State<ReelsScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        body: ReelsViewer(
-      reelsList: reelsList,
-      appbarTitle: StringManager.reels,
-      onShare: (url) {
-        log('Shared reel url ==> $url');
-      },
-      onLike: (url) {
-        log('Liked reel url ==> $url');
-      },
-      onFollow: () {
-        log('======> Clicked on follow <======');
-      },
-      onComment: (comment) {
-        log('Comment on reel ==> $comment');
-      },
-      onClickMoreBtn: () {
-        log('======> Clicked on more option <======');
-      },
-      onClickBackArrow: () {
-        log('======> Clicked on back arrow <======');
-      },
-      onIndexChanged: (index){
-        log('======> Current Index ======> $index <========');
-      },
-      showProgressIndicator: false,
-      showVerifiedTick: false,
-      showAppbar: true,
-    )
+    return  SafeArea(
+      child: Scaffold(
+          body: SizedBox(
+              width: ConfigSize.defaultSize!*41,
+              height: ConfigSize.defaultSize!*85,
+              child: Image.asset(AssetsPath.comingSoon,fit: BoxFit.fitHeight,)),
 
 
-      );
+
+      //     ReelsViewer(
+      //   reelsList: reelsList,
+      //   appbarTitle: StringManager.reels,
+      //   onShare: (url) {
+      //     log('Shared reel url ==> $url');
+      //   },
+      //   onLike: (url) {
+      //     log('Liked reel url ==> $url');
+      //   },
+      //   onFollow: () {
+      //     log('======> Clicked on follow <======');
+      //   },
+      //   onComment: (comment) {
+      //     log('Comment on reel ==> $comment');
+      //   },
+      //   onClickMoreBtn: () {
+      //     log('======> Clicked on more option <======');
+      //   },
+      //   onClickBackArrow: () {
+      //     log('======> Clicked on back arrow <======');
+      //   },
+      //   onIndexChanged: (index){
+      //     log('======> Current Index ======> $index <========');
+      //   },
+      //   showProgressIndicator: false,
+      //   showVerifiedTick: false,
+      //   showAppbar: true,
+      // )
+
+
+        ),
+    );
   }
 }

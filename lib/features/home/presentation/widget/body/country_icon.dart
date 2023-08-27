@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -45,7 +46,7 @@ class CountryIcon extends StatelessWidget {
                         height: ConfigSize.defaultSize! * 2.4,
                       ),
             Text(
-              name ?? StringManager.countries,
+              name ?? StringManager.countries.tr(),
               style: TextStyle(
                   color: ColorManager.whiteColor,
                   fontSize: ConfigSize.defaultSize! * 1.4),

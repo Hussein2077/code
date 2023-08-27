@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -174,7 +175,7 @@ Widget topRankIcon({
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-          Text(StringManager.rank ,style: Theme.of(context).textTheme.headlineMedium,),
+          Text(StringManager.rank.tr(),style: Theme.of(context).textTheme.headlineMedium,),
           Image.asset(
           AssetsPath.topUserIcon,
           scale: 2,
