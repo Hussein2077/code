@@ -9,6 +9,8 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 
 class GoogleAuth extends StatelessWidget {
   const GoogleAuth({super.key});
@@ -19,7 +21,8 @@ class GoogleAuth extends StatelessWidget {
       listener: (context, state) {
         if(state is SiginWithGoogleSuccesMessageState){
                     Methods().clearAuthData();
-
+                    //todo check this event if still here or not
+                    BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
     if(state.userData.apiUserData.isFirst!){
           Navigator.pushNamedAndRemoveUntil(context, Routes.addInfo ,arguments:state.userData.userData , (route) => false, );
 

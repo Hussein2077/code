@@ -20,6 +20,8 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_state.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'widgets/google_auth.dart';
 import 'widgets/phone_wtih_country.dart';
 import 'widgets/privcy_text_widget.dart';
@@ -183,7 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
              sucssesToast(context: context, title: state.succesMessage);
 
              Methods().clearAuthData();
-
+             //todo check this event if still here or not
+             BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
                Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen , (route) => false,);
                       //to do getmy data
                       

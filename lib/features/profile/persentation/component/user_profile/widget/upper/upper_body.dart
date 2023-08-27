@@ -105,7 +105,7 @@ class UpperProfileBody extends StatelessWidget {
 
                       if(!myDataModel.lastActiveHidden!)
                       itemContiner(
-                        title: "${StringManager.lastActive.tr()}${myDataModel.onlineTime!.substring(0,16)}",
+                        title: "${StringManager.lastActive.tr()}${myDataModel.onlineTime!}",
                       ),
 
                     ],

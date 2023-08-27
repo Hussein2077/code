@@ -78,6 +78,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_sen
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
@@ -385,7 +387,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<KickoutBloc>()),
                 BlocProvider(create: (_) => getIt<UserReportBloc>()),
 
-                BlocProvider(create: (_) => getIt<UsersInRoomBloc>())
+                BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
+        BlocProvider(
+          create: (context) =>
+          getIt<GoldCoinBloc>()..add(GetGoldCoinDataEvent()),
+        ),
 
 
 

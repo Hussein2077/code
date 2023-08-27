@@ -49,6 +49,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/agency_requests_acti
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_requests_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/back_pack_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_or_send_vip.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/change_user_type.dart';
@@ -74,6 +75,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_data_use_case.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_member_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_request_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_friends_or_followers.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_gold_coin_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_mydata_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_replace_with_dimond_data.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_user_data_usecase.dart';
@@ -95,6 +97,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/get_vip_prev_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_active_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -138,6 +141,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_sen
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_feed_back/bloc/feed_back_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
@@ -209,7 +213,7 @@ class ServerLocator {
     //bloc
 
 
-
+    getIt.registerFactory(() => GoldCoinBloc(getGoldCoinDataUseCase: getIt()));
     getIt.registerFactory(
             () => AdminRoomBloc(removeAdminUC: getIt(),roomAdminsUC: getIt(),addAdminUC:getIt()));
     getIt.registerFactory(
@@ -414,11 +418,12 @@ class ServerLocator {
              getIt.registerFactory(
         () => UsersInRoomBloc(inviteUserUC: getIt() , muteUnMuteUserInRoomUC: getIt()));
 
-
+    getIt.registerFactory(() => BuyCoinsBloc(buyCoinsUseCase: getIt()));
 
 //usecase
-
-
+    getIt.registerLazySingleton(() => BuyCoinsUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+            () => GetGoldCoinDataUseCase(baseRepositoryProfile: getIt()));
 
 getIt.registerLazySingleton(
             () => InviteUserUC(roomRepo: getIt()));getIt.registerLazySingleton(
