@@ -187,7 +187,7 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                       ),
                     ),
 
-                    BlocBuilder<MangerGetVipPrevBloc, MangerGetVipPrevState>(
+                  /*  BlocBuilder<MangerGetVipPrevBloc, MangerGetVipPrevState>(
                       builder: (context, state) {
                         if (state is GetVipPrevSucssesState) {
                                              var element = state.data.firstWhere((item) => item.key == 'room');
@@ -241,7 +241,7 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                           );
                         }
                       },
-                    ),
+                    ),*/
 
                     /// save button
                     InkWell(
