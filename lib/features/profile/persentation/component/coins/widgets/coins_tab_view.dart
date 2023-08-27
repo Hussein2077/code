@@ -66,7 +66,7 @@ class CoinsTabView extends StatelessWidget {
                              onTap: (){
 
 BlocProvider.of<BuyCoinsBloc>(context).add(
-    BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID: '', paymentMethod: '')));
+    BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID: '', paymentMethod: 'opay')));
                              },
                              child:Column(
                                children: [
