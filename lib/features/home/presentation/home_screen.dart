@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     initDynamicLinks();
     // initPusher();
     liveController = TabController(length: 1, vsync: this);
+    //todo remove this comment
     // if((widget.isChachGift??false)){
     //   Methods().chachGiftInRoom();
     // }

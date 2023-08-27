@@ -2,7 +2,10 @@
 
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 
@@ -61,48 +64,21 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
 
     return WillPopScope(
         onWillPop: () async {
-//todo update that by jako
-//           showDialog<void>(
-//             context: context,
-//             barrierDismissible: true, // user must tap button!
-//             builder: (BuildContext context) {
-//               return AlertDialog(
-//                 title: Text(StringManager.note.tr()),
-//                 content: Text(StringManager.areYouSureExitGame.tr()),
-//                 actions: <Widget>[
-//                   TextButton(
-//                     child: Text(StringManager.cancle.tr(),
-//                         style: const TextStyle(
-//                           color: ColorManager.blackColor,
-//                         )),
-//                     onPressed: () {
-//                       Navigator.of(context).pop();
-//                     },
-//                   ),
-//                   TextButton(
-//                     child: Text(
-//                       StringManager.ok.tr(),
-//                       style: const TextStyle(
-//                         color: ColorManager.blackColor,
-//                       ),
-//                     ),
-//                     onPressed: () async {
-//                       controller!.clearCache(); // Clear the WebView cache.
-//                       controller!.clearLocalStorage();
-//
-//                       controller = null;
-//                      // controller!.goBack();
-//                    //   String token = await Methods().returnUserToken() ;
-//                       Navigator.pop(context);
-//                       Navigator.pop(context);
-//                    //   Navigator.pushReplacementNamed(context, Routes.games,arguments: token) ;
-//
-//                     },
-//                   ),
-//                 ],
-//               );
-//             },
-//           );
+          showDialog(context: context,
+              builder: (context)
+          {
+            return PopUpDialog(
+              headerText: StringManager.note.tr(),
+              accpetText: () async {
+                controller!.clearCache(); // Clear the WebView cache.
+                controller!.clearLocalStorage();
+                controller = null;
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+
+            );
+          });
           return false ;
 
     },

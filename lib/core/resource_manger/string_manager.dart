@@ -384,26 +384,27 @@ class StringManager {
  static const String youblockedFromRoom = 'you have a bloc from this room ' ;
  static const String minute = "munit";
  static const String thisGiftForbiden = "this Gift for vip";
- static const String levelOfThe = "level of the VIP";
- static const String contribute = "Contribute";
- static const String talk = "Talk";
- static const String ban = "Ban";
- static const String youshould = 'you should close pk frist';
- static const String cantopen = 'can\'t open in this mood';
- static const String cantclosepk = 'can\'t close the pk';
-   static const String beComeAdmin = "Be come admin";
-     static const String privacy = "Privacy";
-       static const String useTheFeatureAndEnjoyit = "Use The Feature And Enjoy it";
-    static const String thisFeatureisNotAvailableForYou = "ThisFeatureisNotAvailableForYou";
+  static const String levelOfThe = "level of the VIP";
+  static const String contribute = "Contribute";
+  static const String talk = "Talk";
+  static const String ban = "Ban";
+  static const String youshould = 'you should close pk frist';
+  static const String cantopen = 'can\'t open in this mood';
+  static const String cantclosepk = 'can\'t close the pk';
+  static const String beComeAdmin = "Be come admin";
+  static const String privacy = "Privacy";
+  static const String useTheFeatureAndEnjoyit = "Use The Feature And Enjoy it";
+  static const String thisFeatureisNotAvailableForYou =
+      "ThisFeatureisNotAvailableForYou";
+  static const String note = "notes";
 
-
-    //وضع جميع اللغات
-      static const String report = "Report";
-        static const String whatProblem = "What problem is worth reporting?";
-          static const String description = "Description";
+  //وضع جميع اللغات
+  static const String report = "Report";
+  static const String whatProblem = "What problem is worth reporting?";
+  static const String description = "Description";
   static const String mustNotBeEmpty = "must not be empty";
   static const String submission = "Submission";
- static const String pleaseExplain =
+  static const String pleaseExplain =
       'Please explain your problem in detail so that our customer service staff can understand and deal with it';
   static const String fiveMin = '5 minute ';
   static const String fiftyMin = '15 minute';
