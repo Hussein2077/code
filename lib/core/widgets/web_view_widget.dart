@@ -64,21 +64,21 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
 
     return WillPopScope(
         onWillPop: () async {
-          showDialog(context: context, builder: (context) {
+          showDialog(context: context,
+              builder: (context)
+          {
             return PopUpDialog(
               headerText: StringManager.note.tr(),
-              accpetText:  () async {
-                      controller!.clearCache(); // Clear the WebView cache.
-                      controller!.clearLocalStorage();
-                      controller = null;
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-
-
-                    },
+              accpetText: () async {
+                controller!.clearCache(); // Clear the WebView cache.
+                controller!.clearLocalStorage();
+                controller = null;
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
 
             );
-
+          });
           return false ;
 
     },
