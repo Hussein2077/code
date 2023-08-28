@@ -58,7 +58,7 @@ class EditInfoScreen extends StatelessWidget {
                         gender: myDataModel.profile!.gender!.toString(),
                         country: CountryWidget.countryFlag!,
                         name: UserInfoWidget.nameController!.text,
-                               image: File( AddProFilePic.image!.path)
+                               image:AddProFilePic.image ==null ? null : File( AddProFilePic.image!.path)
                       ));
                     },
                     title: StringManager.save,

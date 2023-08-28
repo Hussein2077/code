@@ -1305,21 +1305,17 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<String> buyCoins(BuyCoinsParameter buyCoinsParameter) async {
     Map<String, String> headers = await DioHelper().header();
-    final body = {
-      'pay_method': buyCoinsParameter.paymentMethod,
-      'coin_id': buyCoinsParameter.coinsID,
-    };
+
 
     try {
-      final response = await Dio().post(
-        ConstentApi.addBloc,
-        data: body,
+      final response = await Dio().get(
+        ConstentApi().payment(idPackageCoin:buyCoinsParameter.coinsID ),
         options: Options(
           headers: headers,
         ),
       );
       Map<String, dynamic> resultData = response.data;
-      return resultData['message'];
+      return resultData['redirect_url'];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'buyCoins');
     }

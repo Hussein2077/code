@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -65,14 +66,14 @@ class _AddProFilePicState extends State<AddProFilePic> {
                 width: ConfigSize.defaultSize! * 11,
                 height: ConfigSize.defaultSize! * 11,
 
-                decoration:widget.myImage!=null?
+                decoration:MyDataModel.getInstance().profile?.image!=null?
                 BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           image: CachedNetworkImageProvider(
                     
-                    ConstentApi().getImage(widget.myImage)),
+                    ConstentApi().getImage(MyDataModel.getInstance().profile!.image)),
                           fit: BoxFit.fill,
                         ),
                       ):

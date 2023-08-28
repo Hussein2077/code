@@ -245,6 +245,7 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);
+
                         if (roomIntroControler.text.isEmpty) {
                           BlocProvider.of<OnRoomBloc>(context).add(UpdateRoom(
                               roomName: roomNameControler.text,
@@ -306,11 +307,13 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
         }
         else if (state is DisposeHideRoomSuccessState) {
           BlocProvider.of<MangerGetVipPrevBloc>(context).add(getVipPrevEvent());
-        } else if (state is HideRoomErrorState) {
+        }
+        else if (state is HideRoomErrorState) {
           errorToast(context: context, title: state.errorMassage);
         } else if (state is DisposeHideRoomErrorState) {
           errorToast(context: context, title: state.errorMassage);
-        } else if (state is HideRoomLoadingState) {
+        }
+        else if (state is HideRoomLoadingState) {
           loadingToast(context: context, title: '');
         }
       },

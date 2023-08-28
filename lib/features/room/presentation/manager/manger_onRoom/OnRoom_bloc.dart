@@ -65,7 +65,8 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
       : super(const OnRoomInitialState()) {
     on<UpdateRoom>((event, emit) async {
       emit(const OnRoomLoadingState());
-      final result = await updateRoomUsecase.updateRoom(PramiterUpdate(
+      final result = await updateRoomUsecase.updateRoom(
+          PramiterUpdate(
         ownerId: event.ownerId,
         roomCover: event.roomCover,
         roomType: event.roomType,
@@ -76,7 +77,8 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
         roomClass: event.roomClass,
         roomPass: event.roomPass,
         change: event.change,
-      ));
+      )
+      );
       result.fold(
           (l) => emit(UpdateRoomErrorState(
               errorMassage: DioHelper().getTypeOfFailure(l))),

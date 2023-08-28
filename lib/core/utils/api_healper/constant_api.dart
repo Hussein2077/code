@@ -254,4 +254,9 @@ class ConstentApi {
   //rooms
   static const String roomPass = "room_pass";
   static const String ownerId = 'owner_id';
+
+  //payment
+  String payment({required String idPackageCoin}) {
+    return "$baseUrl/payment-create?coins_id=${idPackageCoin}";
+  }
 }
