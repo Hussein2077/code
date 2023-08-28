@@ -526,8 +526,11 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
     //  log("GiftUserOnly.userSelected" + GiftUserOnly.userSelected);
       log("GiftUser.userSelected${GiftUser.userSelected}");
       log("GiftBottomBar.numberOfGift${ GiftBottomBar.numberOfGift.toString()}");
+      log("Owner ID"+ widget.roomData.ownerId.toString(),);
+      log("ID Gift"+ GiftScreen.giftId.toString(),);
+      log("ID Gift"+ GiftScreen.giftId.toString(),);
+      log("u id"+toUid.substring(0, toUid.length - 1));
     }
-
 
   }
 }

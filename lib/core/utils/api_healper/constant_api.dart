@@ -29,7 +29,7 @@ class ConstentApi {
   static const String getBcakground = "$baseUrl/backgrounds";
   static const String getOfficialMsgs = "$baseUrl/community/official_messages";
   static const String getTopUrl = "$baseUrl/ranking";
-  static const String sendGift = "$baseUrl/gifts/send2";
+  static const String sendGift = "$baseUrl/gifts/send";
   static const String getVistors = "$baseUrl/profile/visitors";
   static const String checkRoom = "$baseUrl/rooms/check_if_i_have_room";
   static const String getHistory = "$baseUrl/search/history";
