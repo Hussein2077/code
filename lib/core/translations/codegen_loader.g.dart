@@ -326,6 +326,16 @@ class CodegenLoader extends AssetLoader {
         StringManager.beComeAdmin: "كن مشرف",
         StringManager.privacy : "الخصوصيه",
         StringManager.note : "الملاحظات",
+        StringManager.roomType : "نوع الغرفة",
+        StringManager.updateRoomName : "تحديث اسم الغرفة هنا",
+        StringManager.entertainment : "تسلية",
+        StringManager.lockChat : "غلق المحادثة",
+        StringManager.lockRoom : "غلق الغرفة",
+        // StringManager.music2 : "الموسيقي",
+        // StringManager.addAdmin2 : "تعيين مشرف",
+        StringManager.roomCover : "صورة الغرفة",
+        StringManager.blockList : "قائمة المحظورين",
+        StringManager.confirm : "تاكيد",
 
 
   };

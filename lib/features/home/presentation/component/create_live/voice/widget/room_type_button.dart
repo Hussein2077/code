@@ -12,8 +12,8 @@ import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart
 
 class RoomTypeButton extends StatefulWidget {
   static   AllMainClassesModel?  roomType  ;
-
-  const RoomTypeButton({super.key});
+final String? roomTypeName;
+  const RoomTypeButton({ this.roomTypeName,super.key});
 
   @override
   State<RoomTypeButton> createState() => _RoomTypeButtonState();
@@ -30,20 +30,21 @@ class _RoomTypeButtonState extends State<RoomTypeButton> {
           case RequestState.loaded:
             global = state.typesRoom;
             return Container(
-              width: ConfigSize.defaultSize!*17,
-              height: ConfigSize.defaultSize!*5,
+              width: ConfigSize.defaultSize! * 17,
+              height: ConfigSize.defaultSize! * 5,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(ConfigSize.defaultSize!) ,color: Colors.white.withOpacity(0.2)),
+                  borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+                  color: Theme.of(context).colorScheme!.secondary),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton2(
                   isExpanded: true,
                   hint: Text(
-                    RoomTypeButton.roomType?.name??  StringManager.chooseTyeps.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.8,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  ( RoomTypeButton.roomType?.name ==null)?
+                   widget.roomTypeName?? StringManager.chooseTyeps.tr():RoomTypeButton.roomType!.name,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: ConfigSize.defaultSize! * 1.8,
+                          fontWeight: FontWeight.bold,
+                        ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   items: global
@@ -51,10 +52,13 @@ class _RoomTypeButtonState extends State<RoomTypeButton> {
                     value: item,
                     child :Text(
                       item.name,
-                      style: TextStyle(
+                      style:
+
+
+
+                      Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: ConfigSize.defaultSize! * 1.8,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),)).toList(),
@@ -69,7 +73,8 @@ class _RoomTypeButtonState extends State<RoomTypeButton> {
                     Icons.keyboard_arrow_down,
                   ),
                   iconSize: ConfigSize.defaultSize! * 1.8,
-                  iconEnabledColor: Colors.white,
+                  iconEnabledColor:
+                  Theme.of(context).colorScheme.primary,
                   iconDisabledColor: Colors.grey,
                   buttonHeight: ConfigSize.defaultSize! * 1.8,
                   buttonWidth: ConfigSize.defaultSize! * 170,

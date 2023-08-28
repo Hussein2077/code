@@ -59,7 +59,7 @@ class StringManager {
  static const String advice = "Advice";
  static const String update = "update";
  static const String roomType = "Room Type";
- static const String updateYourIntro = "updateYourIntro";
+ static const String updateYourIntro = "update your intro here";
  static const String enterPassword = "Enter password";
  static const String youHaveInvitiontoMic = "Invite to Mic";
  static const String invitation = 'invitation';
@@ -397,6 +397,7 @@ class StringManager {
   static const String thisFeatureisNotAvailableForYou =
       "ThisFeatureisNotAvailableForYou";
   static const String note = "notes";
+  static const String updateRoomName = "update your room name here";
 
   //وضع جميع اللغات
   static const String report = "Report";
@@ -418,6 +419,14 @@ class StringManager {
   static const String spitialMassege = "رسالة مميزة";
   static const String theTextHasBeenCopied = "The text has been copied";
   static const String roomSetting = "Room Setting";
+  static const String entertainment = "entertainment";
+  static const String lockChat = "lock chat";
+  static const String lockRoom = "lock room";
+  static const String music2 = "music";
+  static const String addAmin2 = "add admin";
+  static const String roomCover = "room cover";
+  static const String blockList = "blocklist";
+  static const String confirm = "confirm";
 
 
 
