@@ -281,16 +281,19 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       'id': giftPramiter.id,
       'toUid': giftPramiter.toUid,
       'num': giftPramiter.num,
-      'to_zego': giftPramiter.toZego
     };
     try {
-
+      log("Owner ID Data Sorurs"+ giftPramiter.ownerId,);
+      log("id Gift Data Sorurs"+ giftPramiter.id,);
+      log("to user id Data Sorurs"+ giftPramiter.toUid,);
+      log("number gift Data Sorurs"+ giftPramiter.num,);
       final response = await Dio().post(ConstentApi.sendGift,
           options: Options(
             headers: headers,
           ),
           data: body);
        log(response.data.toString());
+
 
         return response.data['message'] ;
 

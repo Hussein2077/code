@@ -58,7 +58,7 @@ abstract class BaseRepositoryProfile {
 
   Future<Either<List<VipCenterModel>, Failure>> getVipCenter();
 
-  Future<Either<int,Failure>> getVipCount();
+
 
 
   Future<Either<List<UserDataModel>, Failure>> getVistors({String?page});

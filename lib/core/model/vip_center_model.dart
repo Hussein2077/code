@@ -78,6 +78,8 @@ class Privilegs extends Equatable {
 
   final bool active;
 
+  final Item? item ;
+
 
   const Privilegs({
     required this.img2,
@@ -86,6 +88,7 @@ class Privilegs extends Equatable {
     required this.title,
     required this.img1,
     required this.active,
+    required this.item,
   });
 
   factory Privilegs.fromJson(Map<String, dynamic> json) {
@@ -96,7 +99,7 @@ class Privilegs extends Equatable {
         title: json['title'] ?? "",
         img1: json['img1'],
         active: json['active'] ?? false,
-
+        item:json['item']==null? null:Item.fromJson(json['item'])
     );
   }
 

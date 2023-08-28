@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -94,17 +94,15 @@ class VipTabView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
+
                             showDialog(
                                 context: context,
                                 builder: (context) {
 
                                   return VipDailog(
-                                    title: vipData
-                                        .privilgesData![index].title,
-                                    headerText: vipData
-                                        .privilgesData![index].name,
-                                    image: vipData
-                                        .privilgesData![index].img1,
+                                    title: vipData.privilgesData![index].item!.name!,
+                                    headerText: vipData.privilgesData![index].item!.name!,
+                                    image: vipData.privilgesData![index].item!.image!,
                                   );
                                 });
                           },

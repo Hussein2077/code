@@ -44,6 +44,7 @@ class VipDailog extends StatelessWidget {
             ),
             CustoumCachedImage(
                 url: image,
+                boxFit: BoxFit.contain,
                 height: ConfigSize.defaultSize! * 12,
                 width: ConfigSize.defaultSize! * 12),
             const Spacer(
