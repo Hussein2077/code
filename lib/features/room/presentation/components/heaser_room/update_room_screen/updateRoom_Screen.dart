@@ -8,10 +8,12 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/dialoge_for_privcy.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/add_profile_pic.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_state.dart';
 import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -185,7 +187,7 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                       ),
                     ),
 
-                  /*  BlocBuilder<MangerGetVipPrevBloc, MangerGetVipPrevState>(
+                    BlocBuilder<MangerGetVipPrevBloc, MangerGetVipPrevState>(
                       builder: (context, state) {
                         if (state is GetVipPrevSucssesState) {
                                              var element = state.data.firstWhere((item) => item.key == 'room');
@@ -239,7 +241,7 @@ class _CreatRoomScreenState extends State<UpdateRoomScreen> {
                           );
                         }
                       },
-                    ),*/
+                    ),
 
                     /// save button
                     InkWell(

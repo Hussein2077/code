@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,10 +57,11 @@ class _LanguageScreenState extends State<LanguageScreen> {
                       index: index,
                       language: language[index],
                       onTap: () async {
-                      
-
                         setState(() {
+
                           LanguageScreen.selectedLanguage = index;
+                          log("Lang ${LanguageScreen.selectedLanguage!}");
+
                         });
                       },
                     );
@@ -73,24 +76,10 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 await Methods().saveLocalazitaon(
                     language: languageCode[LanguageScreen.selectedLanguage!]);
               }
-              SharedPreferences sharedPreferences = getIt();
-              final bool isLogin = await sharedPreferences.getBool(StringManager.keepLogin) ?? false;
-              if (isLogin) {
-                Navigator.pop(context);
-                // ignore: use_build_context_synchronously
-                // Navigator.pushAndRemoveUntil(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const MainView(keepInRoom: null,)),
-                //     ModalRoute.withName(Routes.main));
-              } else {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                         const SafeArea(child: SplashScreen())),
-                    ModalRoute.withName(Routes.login));
-              }
+
+
+                Navigator.pop(context
+                );
             },
             title: StringManager.save,
           )

@@ -24,6 +24,7 @@ class CustoumCachedImage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
+    log("Imge VIP  "+url);
     return CachedNetworkImage(
       
       width: width,

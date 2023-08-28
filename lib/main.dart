@@ -110,6 +110,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
  // CreateLiveVideoBody.cameras = await availableCameras();
   await Permission.notification.isDenied.then((value) {
     if (value) {
@@ -123,7 +124,7 @@ Future<void> main() async {
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await ServerLocator().init();
-  await EasyLocalization.ensureInitialized();
+
 
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),
@@ -136,7 +137,7 @@ Future<void> main() async {
       Locale('漢語'),
     ],
     assetLoader: const CodegenLoader(),
-    path: 'assets/translations/',
+    path: 'lib/core/translations/',
     saveLocale: true,
     child: const MyApp(),
   ));
@@ -405,6 +406,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         localizationsDelegates: context.localizationDelegates,
         onGenerateRoute: RouteGenerator.getRoute,
+        locale: context.locale,
         initialRoute: Routes.splash,
       ),
     );
