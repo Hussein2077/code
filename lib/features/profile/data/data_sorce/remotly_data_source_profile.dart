@@ -1306,7 +1306,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> buyCoins(BuyCoinsParameter buyCoinsParameter) async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().get(
         ConstentApi().payment(idPackageCoin:buyCoinsParameter.coinsID ),
