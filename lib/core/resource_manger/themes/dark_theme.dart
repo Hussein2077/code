@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 
 ThemeData darkTheme = ThemeData(
-  textTheme:  TextTheme(
+  textTheme:
+
+  TextTheme(
     headlineLarge: const TextStyle(
       fontFamily: 'ElMessiri',
       fontSize:20,
@@ -61,7 +63,7 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark ,
   colorScheme:  const ColorScheme.dark(
     background: Colors.black , 
-    primary: ColorManager.whiteColor,
+    primary:Colors.white,
     secondary: Color(0xFF242424),
     
     

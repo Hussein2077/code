@@ -231,6 +231,12 @@ class AssetsPath {
   static const String admin = "$pathIcon/admin.png";
   static const String contribute = "$pathIcon/contribute.png";
   static const String comingSoon = "$pathImage/coming_soon.jpg";
+  static const String door = "$pathIcon/door.png";
+  static const String addAdmin = "$pathIcon/addadmin.png";
+  static const String blockedUsers = "$pathIcon/blockedusers.png";
+  static const String chatLock = "$pathIcon/chatlock.png";
+  static const String lockRoom = "$pathIcon/lockroom.png";
+  static const String music2 = "$pathIcon/music.png";
 
 
   
