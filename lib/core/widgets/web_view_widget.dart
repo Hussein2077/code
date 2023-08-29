@@ -2,6 +2,8 @@
 
 
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -36,12 +38,17 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
             onProgress: (int progress) {
               // Update loading bar.
             },
-            onPageStarted: (String url) {},
+            onPageStarted: (String url) {
+
+              log("url showing${url}");
+            },
             onPageFinished: (String url) {
+              log("onPageFinished $url");
               // Do something when page finished loading.
             },
             onWebResourceError: (WebResourceError error) {},
             onNavigationRequest: (NavigationRequest request) {
+              log("NavigationRequest${request.url}");
               //todo handle that
               if (request.url.startsWith('https://www.youtube.com/')) {
                 return NavigationDecision.prevent;
@@ -59,6 +66,7 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
      controller = null;
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
 

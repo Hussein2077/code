@@ -1,45 +1,37 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/add_profile_pic.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/voice/widget/room_type_button.dart';
-import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/update_room_screen/widget/add_room_live_pic.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/update_room_screen/widget/edit_textfield.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
-
 import '../../../../../../core/resource_manger/string_manager.dart';
 
-class UpdateRoomScreen2 extends StatefulWidget {
-  final List<AllMainClassesModel>? data;
-  final EnterRoomModel? roomDate;
+class UpdateRoomScreen extends StatefulWidget {
+  final EnterRoomModel roomDate;
 
-  final MyDataModel myDataModel;
 
-  const UpdateRoomScreen2(
+  const UpdateRoomScreen(
       {
-      this.roomDate,
-      this.data,
-      required this.myDataModel,
+      required this.roomDate,
       Key? key})
       : super(key: key);
 
   // static   AllMainClassesModel?  roomType  ;
   @override
-  State<UpdateRoomScreen2> createState() => _UpdateRoomScreen2State();
+  State<UpdateRoomScreen> createState() => _UpdateRoomScreenState();
 }
 
-class _UpdateRoomScreen2State extends State<UpdateRoomScreen2> {
+class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
   TextEditingController roomNameControler = TextEditingController();
   List<String> roomFeaturesTitles = [
     StringManager.lockChat.tr(),
@@ -83,7 +75,7 @@ class _UpdateRoomScreen2State extends State<UpdateRoomScreen2> {
                   fontWeight: FontWeight.w600,
                 ),
           ),
-          Spacer(flex: 5,),
+          const  Spacer(flex: 5,),
 
           SizedBox(
             height: ConfigSize.defaultSize! * 70,
@@ -92,14 +84,14 @@ class _UpdateRoomScreen2State extends State<UpdateRoomScreen2> {
                mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AddRoomLivePic(roomCover:widget.roomDate?.roomCover ,),
+                AddRoomLivePic(roomCover:widget.roomDate.roomCover ,),
                 const Spacer(
                   flex: 1,
                 ),
                 EditTextField(
                   textFieldControler: roomNameControler,
                   title: StringManager.roomName.tr(),
-                  hint: widget.roomDate?.roomName?? StringManager.updateRoomName.tr(),
+                  hint: widget.roomDate.roomName?? StringManager.updateRoomName.tr(),
                 ),
                 const Spacer(
                   flex: 1,
@@ -107,7 +99,7 @@ class _UpdateRoomScreen2State extends State<UpdateRoomScreen2> {
                 EditTextField(
                   textFieldControler: roomIntroControler,
                   title: StringManager.roomIntro.tr(),
-                  hint: widget.roomDate?.roomIntro?? StringManager.updateYourIntro.tr(),
+                  hint: widget.roomDate.roomIntro?? StringManager.updateYourIntro.tr(),
                 ),
                 const Spacer(
                   flex: 2,
@@ -158,33 +150,17 @@ class _UpdateRoomScreen2State extends State<UpdateRoomScreen2> {
                     MainButton(
                         onTap: () {
                           Navigator.pop(context);
-                          if (roomIntroControler.text.isEmpty) {
-                            BlocProvider.of<OnRoomBloc>(context).add(UpdateRoom(
-                                roomName: roomNameControler.text,
-                                ownerId: widget.roomDate!.ownerId.toString(),
-                                roomCover: File(AddProFilePic.image!.path),
-                                roomType: roomTypeId.toString()));
-                          } else {
-                            if (roomTypeId == null) {
-                              BlocProvider.of<OnRoomBloc>(context)
-                                  .add(UpdateRoom(
-                                roomName: roomNameControler.text,
-                                ownerId: widget.roomDate!.id.toString(),
-                                roomIntro: roomIntroControler.text,
-                                roomCover: File(AddProFilePic.image!.path),
-                                //   roomType: roomTypeId.toString()
-                              ));
-                            } else {
+
                               BlocProvider.of<OnRoomBloc>(context).add(
                                   UpdateRoom(
                                       roomName: roomNameControler.text,
-                                      ownerId: widget.roomDate!.id.toString(),
+                                      ownerId: widget.roomDate.ownerId.toString(),
                                       roomIntro: roomIntroControler.text,
-                                      roomCover:
-                                          File(AddProFilePic.image!.path),
+                                      roomCover:AddProFilePic.image !=null?
+                                          File(AddProFilePic.image!.path) : null,
                                       roomType: roomTypeId.toString()));
-                            }
-                          }
+
+
                         },
                         title: StringManager.save.tr(),
                         buttonColor: ColorManager.mainColorList,

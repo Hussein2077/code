@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -209,8 +210,18 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
         'room_class': pramiterUpdate.roomClass
       });
     }
-    log("pramiterUpdate"+pramiterUpdate.roomType.toString());
     try{
+      if(kDebugMode){
+        log("""
+        'owner_id' :${pramiterUpdate.ownerId}
+        'room_name': ${pramiterUpdate.roomName},
+        'free_mic': ${pramiterUpdate.freeMic},
+        'room_background': ${pramiterUpdate.roomBackgroundId},
+        'room_intro': ${pramiterUpdate.roomIntro},
+        'room_pass': ${pramiterUpdate.roomPass},
+        'room_type': ${pramiterUpdate.roomType},
+        'room_class': ${pramiterUpdate.roomClass}""");
+      }
       final response = await Dio()
           .post(ConstentApi().getRoomUpdate(roomId: pramiterUpdate.ownerId),
           options: Options(
@@ -283,10 +294,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       'num': giftPramiter.num,
     };
     try {
-      log("Owner ID Data Sorurs"+ giftPramiter.ownerId,);
-      log("id Gift Data Sorurs"+ giftPramiter.id,);
-      log("to user id Data Sorurs"+ giftPramiter.toUid,);
-      log("number gift Data Sorurs"+ giftPramiter.num,);
+
       final response = await Dio().post(ConstentApi.sendGift,
           options: Options(
             headers: headers,

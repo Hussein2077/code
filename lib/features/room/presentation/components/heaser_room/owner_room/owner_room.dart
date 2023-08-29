@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -30,6 +32,7 @@ class OwnerOfRoom extends StatefulWidget {
 class OwnerOfRoomState extends State<OwnerOfRoom> {
   @override
   Widget build(BuildContext context) {
+    log("widget.roomImg"+widget.roomImg);
     return  Padding(
       padding: EdgeInsets.only(left: AppPadding.p16,top: AppPadding.p10),
       child: Container(
@@ -99,7 +102,6 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
                 ],
               ),
             ),
-
           ],
         ),
       )
