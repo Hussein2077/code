@@ -74,7 +74,8 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
               if(pageBody['status'] == 'SUCCESS'){
                 BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
                 Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
-              }else if (pageBody['status'] =='FAIL'){
+              }
+              else if (pageBody['status'] =='FAIL'){
                 errorToast(context: context, title: StringManager.errorInPayment.tr());
                 Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
 
