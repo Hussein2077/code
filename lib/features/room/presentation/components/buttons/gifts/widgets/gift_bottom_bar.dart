@@ -111,7 +111,8 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
                   //    String currentUserCoins = await getUserCoinsString();
                       //TODO make this screen if does not exists and pass this value
 
-                      Navigator.pushNamed(context, Routes.charchingCoinsForUsers);
+                    // Navigator.pushNamed(context, Routes.charchingCoinsForUsers);
+                      Navigator.pushNamed(context, Routes.coins,arguments: widget.myDataModel.uuid  );
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -196,6 +197,7 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
                                     height: ConfigSize.defaultSize! * 7.8,
                                     decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
+
                                         image: DecorationImage(
                                             image: AssetImage(
                                               AssetsPath.sweetCandy,

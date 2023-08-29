@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -33,7 +34,7 @@ class _LinkingScreenBodyState extends State<LinkingScreenBody> {
         }else if(state is GoogleAccountErrorState) {
 errorToast(context: context, title: state.errorMessage);
         }else if (state is GoogleAccountLoading){
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         }
       },
       child: SizedBox(
@@ -59,11 +60,11 @@ errorToast(context: context, title: state.errorMessage);
                   TextSpan(
                     children: [
                       TextSpan(
-                          text: "${StringManager.protectionLevel} : ",
+                          text: "${StringManager.protectionLevel.tr()} : ",
                           style: Theme.of(context).textTheme.bodyLarge),
                       TextSpan(
                           text:
-                              (isHigh) ? StringManager.high : StringManager.low,
+                              (isHigh) ? StringManager.high : StringManager.low.tr(),
                           style: TextStyle(
                               color: (isHigh) ? Colors.green : Colors.red,
                               fontSize: ConfigSize.defaultSize! * 1.8)),
@@ -76,7 +77,7 @@ errorToast(context: context, title: state.errorMessage);
                 linkingRow(
                   context: context,
                   icon: AssetsPath.phoneIcon,
-                  title: StringManager.phoneNum,
+                  title: StringManager.phoneNum.tr(),
                   isBind: widget.myData.isPhone!,
                   type: "phone",
                 ),
@@ -86,7 +87,7 @@ errorToast(context: context, title: state.errorMessage);
                 linkingRow(
                     context: context,
                     icon: AssetsPath.googleIcon,
-                    title: StringManager.google,
+                    title: StringManager.google.tr(),
                     isBind: widget.myData.isGoogle!,
                     type: "google"),
               ],
@@ -128,7 +129,7 @@ Widget linkingRow({
       isBind
           ? MainButton(
               onTap: () {},
-              title: StringManager.linked,
+              title: StringManager.linked.tr(),
               width: ConfigSize.defaultSize! * 7,
               height: ConfigSize.defaultSize! * 3,
               titleSize: ConfigSize.defaultSize! * 1.6,
@@ -144,7 +145,7 @@ Widget linkingRow({
                       Navigator.pop(context);
                       Navigator.pushNamed(context, Routes.phoneBindScreen);
                     },
-              title: StringManager.link,
+              title: StringManager.link.tr(),
               width: ConfigSize.defaultSize! * 7,
               height: ConfigSize.defaultSize! * 3,
               titleSize: ConfigSize.defaultSize! * 1.6,

@@ -57,7 +57,7 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(14), topRight: Radius.circular(14)),
         child: Container(
-            color: Colors.transparent,
+            color: Colors.black,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

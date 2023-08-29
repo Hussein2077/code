@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -59,7 +60,7 @@ class _TopUsersScreenState extends State<TopUsersScreen>
                     SizedBox(
                       height: ConfigSize.defaultSize! * 3,
                     ),
-                    const HeaderWithOnlyTitle(title: StringManager.rank),
+                     HeaderWithOnlyTitle(title: StringManager.rank.tr()),
                     TypeTabs(
                       typeController: typeController,
                     ),

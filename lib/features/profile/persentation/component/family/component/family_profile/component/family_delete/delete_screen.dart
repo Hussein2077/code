@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -56,7 +57,7 @@ class DeleteScreen extends StatelessWidget {
               SizedBox(
                 width: ConfigSize.defaultSize! * 26.9,
                 child: Text(
-                  StringManager.areYouSureDeleteFamily,
+                  StringManager.areYouSureDeleteFamily.tr(),
                   style: TextStyle(
                       color: Colors.red,
                       fontSize: ConfigSize.defaultSize! * 2.5,
@@ -79,9 +80,9 @@ class DeleteScreen extends StatelessWidget {
                         BlocProvider.of<DeleteFamilyBloc>(context)
                             .add(const DeleteFamilyEvent(id: "1"));
                       },
-                      child: const Text(
-                        StringManager.yes,
-                        style: TextStyle(
+                      child:  Text(
+                        StringManager.yes.tr(),
+                        style: const TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       )),
                   OutlinedButton(
@@ -93,8 +94,8 @@ class DeleteScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text(
-                        StringManager.no,
+                      child:  Text(
+                        StringManager.no.tr(),
                         style: TextStyle(color: ColorManager.bage),
                       )),
                 ],

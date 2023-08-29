@@ -30,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-          const HeaderWithOnlyTitle(title: StringManager.settings),
+           HeaderWithOnlyTitle(title: StringManager.settings.tr()),
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
@@ -88,7 +88,7 @@ class SettingsScreen extends StatelessWidget {
             builder: (context, state) {
               return MainButton(onTap: () {
                 BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
-              }, title: StringManager.logOut);
+              }, title: StringManager.logOut.tr());
             },
           )
         ],

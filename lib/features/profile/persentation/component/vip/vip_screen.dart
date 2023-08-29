@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -58,7 +59,7 @@ class _VipScreenState extends State<VipScreen> with TickerProviderStateMixin {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           sucssesToast(context: context, title: state.massage);
         }else if (state is BuyOrSendVipLoadingState){
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         }else if (state is BuyOrSendVipErrorState){
           errorToast(context: context, title: state.error);
         }
@@ -73,8 +74,8 @@ class _VipScreenState extends State<VipScreen> with TickerProviderStateMixin {
                 SizedBox(
                   height: ConfigSize.defaultSize! * 3.5,
                 ),
-                const HeaderWithOnlyTitle(
-                  title: StringManager.vip,
+                 HeaderWithOnlyTitle(
+                  title: StringManager.vip.tr(),
                   titleColor: Colors.white,
                 ),
                 SizedBox(

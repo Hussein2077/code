@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -65,7 +66,7 @@ class _CreateLiveScreenState extends State<CreateLiveScreen>
                   //
                   //       fontSize: ConfigSize.defaultSize! * 1.7),
                   // ),
-                  Text("${StringManager.voice} ",
+                  Text("${StringManager.voice.tr()} ",
                       style: TextStyle(
                           fontSize: ConfigSize.defaultSize! * 1.7)),
                   // Text("${StringManager.reels} ",

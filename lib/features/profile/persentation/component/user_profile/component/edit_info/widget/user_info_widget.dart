@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -57,7 +58,7 @@ UserInfoWidget.nameController!.dispose();
         children: [
           rowWidget(
             context: context,
-            title: StringManager.bio,
+            title: StringManager.bio.tr(),
             subTitle:UserInfoWidget.bioController!.text,
             onTap: () {
               bottomDailog(
@@ -65,19 +66,19 @@ UserInfoWidget.nameController!.dispose();
                   widget: editDailog(
                       context: context,
                       controller: UserInfoWidget.bioController!,
-                      title: StringManager.bio));
+                      title: StringManager.bio.tr()));
             },
           ),
           rowWidget(
               context: context,
-              title: StringManager.interests,
+              title: StringManager.interests.tr(),
               subTitle: widget.myDataModel.intro,
               onTap: () => Navigator.pushNamed(context, Routes.interstedScreen),
 
               ),
           rowWidget(
             context: context,
-            title: StringManager.userName,
+            title: StringManager.userName.tr(),
             subTitle: UserInfoWidget.nameController!.text,
             onTap: () {
               bottomDailog(
@@ -85,7 +86,7 @@ UserInfoWidget.nameController!.dispose();
                   widget: editDailog(
                       context: context,
                       controller: UserInfoWidget.nameController!,
-                      title: StringManager.userName));
+                      title: StringManager.userName.tr()));
             },
           ),
 

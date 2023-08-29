@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -51,8 +52,8 @@ class _FamilyRankingScreenState extends State<FamilyRankingScreen>
                         SizedBox(
                           height: ConfigSize.defaultSize! * 3.5,
                         ),
-                        const HeaderWithOnlyTitle(
-                          title: StringManager.family,
+                         HeaderWithOnlyTitle(
+                          title: StringManager.family.tr(),
                           titleColor: Colors.white,
                         ),
                         FamilyRankTabs(

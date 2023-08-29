@@ -1,5 +1,6 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -35,9 +36,9 @@ class TypeTabs extends StatelessWidget {
             ),
             color: isDarkTheme?Colors.black: ColorManager.whiteColor,
           ),
-          tabs: const [
-            Text(StringManager.sendGift),
-            Text(StringManager.recevGift),
+          tabs:  [
+            Text(StringManager.sendGift.tr()),
+            Text(StringManager.recevGift.tr()),
           ]),
     );
   }

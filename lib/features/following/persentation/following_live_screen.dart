@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -29,7 +30,7 @@ class FollowingLiveScreen extends StatelessWidget {
                   height: ConfigSize.defaultSize! * 5,
                 ),
                 Text(
-                  StringManager.followingLive,
+                  StringManager.followingLive.tr(),
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 CustomHorizntalDvider(

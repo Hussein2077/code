@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -28,13 +29,13 @@ class EditInfoScreen extends StatelessWidget {
     return BlocListener<AddInfoBloc, AddInfoState>(
       listener: (context, state) {
         if(state is AddInfoSuccesMessageState){
-          sucssesToast(context: context, title: StringManager.sucsses);
+          sucssesToast(context: context, title: StringManager.sucsses.tr());
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
         }else if (state is AddInfoErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
 
         }else if (state is AddInfoLoadingState){
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         }
       },
       child: Scaffold(
@@ -45,11 +46,11 @@ class EditInfoScreen extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const HeaderWithOnlyTitle(title: StringManager.editProfile),
+                   HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
                   const CompleteProfile(),
-                  title(context: context, title: StringManager.personalInfo),
+                  title(context: context, title: StringManager.personalInfo.tr()),
                   UserInfoWidget(myDataModel: state.myDataModel),
-                  title(context: context, title: StringManager.addImage),
+                  title(context: context, title: StringManager.addImage.tr()),
                   const AddProFilePic(quality: 40,),
                   MainButton(
                     onTap: () {
@@ -61,7 +62,7 @@ class EditInfoScreen extends StatelessWidget {
                                image:AddProFilePic.image ==null ? null : File( AddProFilePic.image!.path)
                       ));
                     },
-                    title: StringManager.save,
+                    title: StringManager.save.tr(),
                   )
                 ],
               );
@@ -69,17 +70,17 @@ class EditInfoScreen extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const HeaderWithOnlyTitle(title: StringManager.editProfile),
+                   HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
                   const CompleteProfile(),
-                  title(context: context, title: StringManager.personalInfo),
+                  title(context: context, title: StringManager.personalInfo.tr()),
                   UserInfoWidget(myDataModel: myDataModel),
-                  title(context: context, title: StringManager.addImage),
+                  title(context: context, title: StringManager.addImage.tr()),
                   const AddProFilePic(quality: 40,),
                   MainButton(
                     onTap: () {
                
                     },
-                    title: StringManager.save,
+                    title: StringManager.save.tr(),
                   )
                 ],
               );

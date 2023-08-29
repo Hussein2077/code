@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -25,7 +26,7 @@ class OtherTopWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            StringManager.familys,
+            StringManager.familys.tr(),
             style: Theme.of(context).textTheme.headlineLarge,
           ),
           CustomHorizntalDvider(

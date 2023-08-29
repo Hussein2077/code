@@ -65,7 +65,7 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
                     children: [
                     const AddVoiceLivePic(),
                     SizedBox(width: ConfigSize.defaultSize!*20,
-                        child: TextFieldWidget( textColor: Colors.white, controller:voicNameController,hintText: StringManager.roomName, )),
+                        child: TextFieldWidget( textColor: Colors.white, controller:voicNameController,hintText: StringManager.roomName.tr(), )),
                     Icon(Icons.edit, color: Colors.white, size: ConfigSize.defaultSize!*2,)
                   ],),
             ) ,
@@ -94,7 +94,7 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
              if(checkRoomData(roomName:voicNameController.text,context: context)){
                createRoom(context: context,roomName: voicNameController.text);
              }
-         },title: StringManager.createRoom,) ;
+         },title: StringManager.createRoom.tr(),) ;
        },
        listener: (context,state){
                 switch(state.createRoomState){
@@ -148,7 +148,7 @@ Widget header({required BuildContext context}) {
         width: ConfigSize.defaultSize!,
       ),
       Text(
-        StringManager.createVoice,
+        StringManager.createVoice.tr(),
         style: TextStyle(
             color: Colors.white, fontSize: ConfigSize.defaultSize! * 2),
       )
@@ -179,7 +179,7 @@ bool checkRoomData({required String roomName , required BuildContext context}){
 }
 
 void createRoom ({required BuildContext context ,required String roomName}){
-  if(PublicPriveteButton.lockedOrUn == StringManager.public) {
+  if(PublicPriveteButton.lockedOrUn == StringManager.public.tr()) {
     BlocProvider.of<CreateRoomBloc>(context)
         .add(CreateAudioRoomEvent(
       password: '',

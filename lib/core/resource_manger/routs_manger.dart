@@ -28,13 +28,13 @@ import 'package:tik_chat_v2/features/profile/persentation/component/family/compo
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_requests/family_requests_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/family_profile_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/family_ranking_screen.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/income_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/request_to_join_agency_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/instruction.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/exchange_for_gold_screen/exchange_for_gold.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/live_report_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/details_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/withdrawal_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/income_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
@@ -66,25 +66,18 @@ class Routes {
   static const String addInfo = "/AddInfo";
   static const String mainScreen = "/MainScreen";
   static const String music = "/music";
-
   static const String topUsersScreen = "/TopUsersScreen";
   static const String userProfile = "/UserProfile";
   static const String giftGallery = "/GiftGallery";
   static const String editInfo = "/EditInfo";
-
   static const String fff = "/fff";
-
   static const String coins = "/Coins";
-
   static const String myBag = "/MyBag";
-
   static const String mall = "/Mall";
   static const String level = "/level";
   static const String vip = "/Vip";
-
   static const String familyRanking = "/FamilyRanking";
   static const String familyProfile = "/familyProfile";
-
   static const String custoumService = "/CustoumService";
   static const String settings = "/Settings";
   static const String language = "/Language";
@@ -232,7 +225,7 @@ class RouteGenerator {
       case Routes.familyRanking:
         return MaterialPageRoute(builder: (_) => const FamilyRankingScreen());
       case Routes.familyProfile:
-        String familyId = settings.arguments as String;
+        int familyId = settings.arguments as int;
         return MaterialPageRoute(
             builder: (_) => FamilyProfileScreen(
                   familyId: familyId,

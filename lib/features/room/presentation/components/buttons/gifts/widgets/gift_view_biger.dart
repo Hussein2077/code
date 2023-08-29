@@ -119,10 +119,12 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                 horizontal: ConfigSize.defaultSize! ,
                                 vertical: ConfigSize.defaultSize!),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color:(GiftScreen.numOfGift == index
-                                  )?
-                                  Colors.transparent : Colors.black87),
+                                  borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+                                  border: Border.all(
+                                    color: (GiftScreen.numOfGift == index)?
+                                    ColorManager.orangeRed:Colors.transparent,
+                                  ),
+                                 ),
                               child: Stack(
                                 children: [
                                   Column(
@@ -133,11 +135,11 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                      //  && currentPageView == i
                                        ) ?
                                       Container(
+                                          color: Colors.black87,
                                         padding: EdgeInsets.only(
-                                            top: ConfigSize.defaultSize! *
-                                                2),
+                                            top: ConfigSize.defaultSize! * 2),
                                         height:
-                                        ConfigSize.defaultSize! * 6,
+                                        ConfigSize.defaultSize! * 9,
                                         child: ClipRRect(
                                             borderRadius: BorderRadius.circular(
                                                 AppPadding.p6),
@@ -166,11 +168,12 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                             )),
                                       )
                                           :Container(
+                                  color: Colors.black87,
                                         padding: EdgeInsets.only(
                                             top: ConfigSize.defaultSize! *
                                                 2),
                                         height:
-                                        ConfigSize.defaultSize! * 6,
+                                        ConfigSize.defaultSize! * 9,
                                         child: ClipRRect(
                                             borderRadius: BorderRadius.circular(
                                                 AppPadding.p6),
@@ -185,8 +188,8 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                                     baseColor: Colors.grey[850]!,
                                                     highlightColor: Colors.grey[800]!,
                                                     child: Container(
-                                                      height: 170.0,
-                                                      width: 120.0,
+                                                      height: ConfigSize.defaultSize!*17,
+                                                      width:ConfigSize.defaultSize!* 12,
                                                       decoration: BoxDecoration(
                                                         color: Colors.black,
                                                         borderRadius:
@@ -199,7 +202,7 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                             )),
                                       ) ,
                                       SizedBox(
-                                        height: ConfigSize.defaultSize! * 0.4,
+                                        height: ConfigSize.defaultSize! * 0.55,
                                       ),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,

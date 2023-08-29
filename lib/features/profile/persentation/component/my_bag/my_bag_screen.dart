@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -55,7 +56,7 @@ bagController.dispose();    super.dispose();
               SizedBox(
                 height: ConfigSize.defaultSize! * 3,
               ),
-              const HeaderWithOnlyTitle(title: StringManager.myBag),
+               HeaderWithOnlyTitle(title: StringManager.myBag.tr()),
               SizedBox(
                 height: ConfigSize.defaultSize!,
               ),

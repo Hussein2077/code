@@ -99,7 +99,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.home: "الصفحة الرئيسية",
     StringManager.reels: "ريـلز",
     StringManager.follwoing: "متابعيني",
-    StringManager.followers: "اتبعوهم",
+    StringManager.followers: "اتابع",
     StringManager.vistors: "زوّار",
     StringManager.chat: "المحادثات",
     StringManager.profile: "الملف الشخصي",
@@ -124,7 +124,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.bag: "الحقيبة",
     StringManager.mall: "المتجر",
     StringManager.level: "المستوى",
-    StringManager.vip: "المميز",
+    StringManager.vip: "الأرستقراطية",
     StringManager.agency: "الوكالة",
     StringManager.family: "العائلة",
     StringManager.familys: "العائلات",
@@ -333,11 +333,13 @@ class CodegenLoader extends AssetLoader {
         StringManager.entertainment : "تسلية",
         StringManager.lockChat : "غلق المحادثة",
         StringManager.lockRoom : "غلق الغرفة",
-        // StringManager.music2 : "الموسيقي",
-        // StringManager.addAdmin2 : "تعيين مشرف",
         StringManager.roomCover : "صورة الغرفة",
         StringManager.blockList : "قائمة المحظورين",
         StringManager.confirm : "تاكيد",
+        StringManager.lastActive : "نشط منذ:",
+        StringManager.roomIntro : "مقدمة الغرفة",
+        StringManager.roomSetting : "اعدادات الغرفة",
+        StringManager.noDataFoundHere : "لا يوجد",
 
 
   };

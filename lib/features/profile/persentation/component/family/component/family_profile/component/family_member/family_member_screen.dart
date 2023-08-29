@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -114,8 +115,8 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                                 SizedBox(
                                   height: ConfigSize.defaultSize! * 3.5,
                                 ),
-                                const HeaderWithOnlyTitle(
-                                    title: StringManager.familyMember),
+                                 HeaderWithOnlyTitle(
+                                    title: StringManager.familyMember.tr()),
                                 Expanded(
                                   child: GridView.builder(
                                       controller: scrollController,
@@ -167,13 +168,13 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                                                 .image!,
                                             name: membersData[index].name!,
                                             type: index == 0
-                                                ? StringManager.owner
+                                                ? StringManager.owner.tr()
                                                 : index <
                                                         state.data!.admin
                                                                 .length +
                                                             1
-                                                    ? StringManager.admin
-                                                    : StringManager.member,
+                                                    ? StringManager.admin.tr()
+                                                    : StringManager.member.tr(),
                                           ),
                                         );
                                       }),
@@ -185,8 +186,8 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                       } else if (state is GetFamilyMemberErrorState) {
                         return CustomErrorWidget(message: state.errorMassage);
                       } else {
-                        return const CustomErrorWidget(
-                            message: StringManager.unexcepectedError);
+                        return CustomErrorWidget(
+                            message: StringManager.unexcepectedError.tr());
                       }
                     },
                   );
@@ -228,13 +229,13 @@ Widget familyOwnerDilog({
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         settingsTabs(
-            context: context, title: StringManager.showProfile, onTap: () {}),
+            context: context, title: StringManager.showProfile.tr(), onTap: () {}),
         CustomHorizntalDvider(width: MediaQuery.of(context).size.width),
         settingsTabs(
             context: context,
             title: type == "member"
-                ? StringManager.addAdmin
-                : StringManager.removeAdmin,
+                ? StringManager.addAdmin.tr()
+                : StringManager.removeAdmin.tr(),
             onTap: () {
               Navigator.pop(context);
               if (type == "member") {
@@ -250,7 +251,7 @@ Widget familyOwnerDilog({
         CustomHorizntalDvider(width: MediaQuery.of(context).size.width),
         settingsTabs(
             context: context,
-            title: StringManager.deleteMember,
+            title: StringManager.deleteMember.tr(),
             onTap: () {
               Navigator.pop(context);
 
