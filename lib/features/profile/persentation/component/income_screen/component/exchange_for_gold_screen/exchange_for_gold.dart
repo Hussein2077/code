@@ -31,7 +31,7 @@ class ExchangeForGoldScreen extends StatelessWidget {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-          const HeaderWithOnlyTitle(title: StringManager.exchangeDaimond),
+           HeaderWithOnlyTitle(title: StringManager.exchangeDaimond.tr()),
           SizedBox(
             height: ConfigSize.defaultSize! * 2,
           ),
@@ -74,8 +74,8 @@ class ExchangeForGoldScreen extends StatelessWidget {
               } else if (state is ReplaceWithGoldErrorState) {
                 return CustomErrorWidget(message: state.error);
               } else {
-                return const CustomErrorWidget(
-                    message: StringManager.unexcepectedError);
+                return  CustomErrorWidget(
+                    message: StringManager.unexcepectedError.tr());
               }
             },
           )
@@ -94,7 +94,7 @@ Widget exchangeDaimondCard({
   return BlocListener<ExchangeDimondBloc, ExchangeDimondState>(
     listener: (context, state) {
       if (state is ExchangeDimondLoadingState){
-        loadingToast(context: context, title: StringManager.loading);
+        loadingToast(context: context, title: StringManager.loading.tr());
 
       }else if (state is ExchangeDimondSucssesState){
           BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
@@ -129,21 +129,25 @@ Widget exchangeDaimondCard({
             color: Theme.of(context).colorScheme.secondary),
         child: Column(
           children: [
-            Image.asset(
-              AssetsPath.goldCoinIcon,
-              scale: 4,
+            Icon(Icons.diamond_rounded, color: Colors.blue.shade900,size: ConfigSize.defaultSize!*5.5,),
+            Text(daimond, style:Theme.of(context).textTheme.bodyMedium,
+      
             ),
-            Text(
-              gold,
-              style: TextStyle(
-                  color: ColorManager.yellow,
-                  fontSize: ConfigSize.defaultSize! * 1.7),
-            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(daimond, style: Theme.of(context).textTheme.bodyMedium),
-                Icon(Icons.diamond_rounded, color: Colors.blue.shade900),
+                Text(
+                  gold,
+                  style:   TextStyle(
+                      color: ColorManager.yellow,
+                      fontSize: ConfigSize.defaultSize! * 1.7)),
+                SizedBox(width: ConfigSize.defaultSize!*0.6,),
+
+                Image.asset(
+                  AssetsPath.goldCoinIcon,
+                 scale: 11,
+                ),
               ],
             )
           ],

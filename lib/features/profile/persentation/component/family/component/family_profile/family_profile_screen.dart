@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -15,7 +16,7 @@ import 'widgets/family_profile_bottom_bar.dart';
 import 'widgets/family_profile_info.dart';
 
 class FamilyProfileScreen extends StatefulWidget {
-  final String familyId;
+  final int familyId;
   const FamilyProfileScreen({required this.familyId, super.key});
 
   @override
@@ -26,7 +27,7 @@ class _FamilyProfileScreenState extends State<FamilyProfileScreen> {
   @override
   void initState() {
     BlocProvider.of<ShowFamilyBloc>(context).add(ShowFamilyEvent(id: widget.familyId.toString()));
-    BlocProvider.of<FamilyRoomBloc>(context).add(GetFamilyRoomevent(familyId:widget.familyId));
+    BlocProvider.of<FamilyRoomBloc>(context).add(GetFamilyRoomevent(familyId:widget.familyId.toString()));
     super.initState();
   }
   @override
@@ -69,7 +70,7 @@ class _FamilyProfileScreenState extends State<FamilyProfileScreen> {
             }else if (state is ShowFamilyErrorState){
               return CustomErrorWidget(message: state.error,);
             }else {
-              return    const CustomErrorWidget(message: StringManager.unexcepectedError,);
+              return     CustomErrorWidget(message: StringManager.unexcepectedError.tr(),);
             }
           
           },

@@ -68,7 +68,7 @@ class LowerBody extends StatelessWidget {
             //   }),
             // )
 const Spacer(),
-            Center(child: Text(StringManager.comingSoon , style: Theme.of(context).textTheme.headlineLarge),),
+            Center(child: Text(StringManager.comingSoon.tr() , style: Theme.of(context).textTheme.headlineLarge),),
             const Spacer()
           ],
         ),

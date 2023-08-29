@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -57,7 +58,7 @@ class _CreateFamilyState extends State<CreateFamily> {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           Navigator.pushNamed(context, Routes.familyProfile , arguments: state.id.toString());
         } else if (state is CreateFamilyLoadingState) {
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         } else if (state is CreateFamilyErrorState) {
           errorToast(context: context, title: state.massage);
         }
@@ -80,7 +81,7 @@ class _CreateFamilyState extends State<CreateFamily> {
                         height: ConfigSize.defaultSize!,
                       ),
                       Text(
-                        StringManager.createFamily,
+                        StringManager.createFamily.tr(),
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),
                       SizedBox(
@@ -90,7 +91,7 @@ class _CreateFamilyState extends State<CreateFamily> {
                       SizedBox(
                         height: ConfigSize.defaultSize!,
                       ),
-                      Text(StringManager.addImage,
+                      Text(StringManager.addImage.tr(),
                           style: Theme.of(context).textTheme.bodyMedium),
                       SizedBox(
                         height: ConfigSize.defaultSize!,
@@ -99,7 +100,7 @@ class _CreateFamilyState extends State<CreateFamily> {
                   ),
                 ),
                 Text(
-                  StringManager.familyName,
+                  StringManager.familyName.tr(),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(
@@ -116,14 +117,14 @@ class _CreateFamilyState extends State<CreateFamily> {
                           BorderRadius.circular(ConfigSize.defaultSize! * 2)),
                   child: TextFieldWidget(
                     controller: familyNameController,
-                    hintText: StringManager.familyName,
+                    hintText: StringManager.familyName.tr(),
                   ),
                 ),
                 SizedBox(
                   height: ConfigSize.defaultSize!,
                 ),
                 Text(
-                  StringManager.familyBio,
+                  StringManager.familyBio.tr(),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(
@@ -140,7 +141,7 @@ class _CreateFamilyState extends State<CreateFamily> {
                           BorderRadius.circular(ConfigSize.defaultSize! * 2)),
                   child: TextFieldWidget(
                     controller: familyBioController,
-                    hintText: StringManager.familyBio,
+                    hintText: StringManager.familyBio.tr(),
                   ),
                 ),
                 SizedBox(
@@ -156,15 +157,15 @@ class _CreateFamilyState extends State<CreateFamily> {
                           if (AddFamilyPic.image == null) {
                             errorToast(
                                 context: context,
-                                title: StringManager.pleaseAddPhoto);
+                                title: StringManager.pleaseAddPhoto.tr());
                           } else if (familyNameController.text.isEmpty) {
                             errorToast(
                                 context: context,
-                                title: StringManager.pleaseEnterFamilyName);
+                                title: StringManager.pleaseEnterFamilyName.tr());
                           } else if (familyBioController.text.isEmpty) {
                             errorToast(
                                 context: context,
-                                title: StringManager.pleaseEnterFamilyBio);
+                                title: StringManager.pleaseEnterFamilyBio.tr());
                           } else {
                             BlocProvider.of<CreateFamilyBloc>(context).add(
                                 CreateFamilyEvent(
@@ -209,7 +210,7 @@ Widget createButton(
               flex: 5,
             ),
             Text(
-              StringManager.createFamily,
+              StringManager.createFamily.tr(),
               style: TextStyle(
                   color: ColorManager.whiteColor,
                   fontSize: ConfigSize.defaultSize! * 1.8,

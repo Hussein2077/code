@@ -1,5 +1,6 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -22,9 +23,9 @@ class ProfileTabs extends StatelessWidget {
         labelStyle:TextStyle(fontSize: ConfigSize.defaultSize!*1.8 , fontWeight: FontWeight.bold) ,
         unselectedLabelStyle:TextStyle(fontSize: ConfigSize.defaultSize!*1.6) ,
     
-        tabs:const [
-        Text(StringManager.profile , ),
-              Text(StringManager.reels,)
+        tabs: [
+        Text(StringManager.profile.tr(), ),
+              Text(StringManager.reels.tr(),)
     
     
       ]),

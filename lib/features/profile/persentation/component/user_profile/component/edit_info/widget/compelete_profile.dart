@@ -1,5 +1,6 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -25,7 +26,7 @@ class CompleteProfile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                 " ${StringManager.profileCompleted} 20%",
+                 " ${StringManager.profileCompleted.tr()} 20%",
                   style: TextStyle(
                       color: ColorManager.deeporang,
                       fontSize: ConfigSize.defaultSize! * 2),

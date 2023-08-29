@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -17,7 +18,7 @@ class ModeScreen extends StatefulWidget {
 }
 
 class _ModeScreenState extends State<ModeScreen> {
-  List<String> mode = [StringManager.lightMode, StringManager.darkMode];
+  List<String> mode = [StringManager.lightMode.tr(), StringManager.darkMode.tr()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,7 @@ class _ModeScreenState extends State<ModeScreen> {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-          const HeaderWithOnlyTitle(title: StringManager.mode),
+           HeaderWithOnlyTitle(title: StringManager.mode.tr()),
           Expanded(
               child: ListView.builder(
                   itemCount: mode.length,
@@ -56,7 +57,7 @@ class _ModeScreenState extends State<ModeScreen> {
 
              
             },
-            title: StringManager.save,
+            title: StringManager.save.tr(),
           )
         ],
       ),

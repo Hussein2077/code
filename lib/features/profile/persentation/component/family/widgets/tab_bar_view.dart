@@ -5,7 +5,6 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/widgets/other_top_widget.dart';
-
 import 'top_three_widget.dart';
 
 class RankingTabBarView extends StatelessWidget {

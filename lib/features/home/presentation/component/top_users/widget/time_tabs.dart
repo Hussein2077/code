@@ -1,5 +1,6 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -37,12 +38,12 @@ class TimeTabs extends StatelessWidget {
             ),
             color:isDarkTheme?Colors.black: ColorManager.whiteColor,
           ),
-          tabs: const [
-                        Text(StringManager.hours),
+          tabs:  [
+                        Text(StringManager.hours.tr()),
 
-            Text(StringManager.daily),
-            Text(StringManager.weekly),
-                        Text(StringManager.monthly)
+            Text(StringManager.daily.tr()),
+            Text(StringManager.weekly.tr()),
+                        Text(StringManager.monthly.tr())
 
             ,
           ]),

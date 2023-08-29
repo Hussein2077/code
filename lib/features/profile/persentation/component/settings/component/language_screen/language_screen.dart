@@ -46,7 +46,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-          const HeaderWithOnlyTitle(title: StringManager.language),
+           HeaderWithOnlyTitle(title: StringManager.language.tr()),
           Expanded(
               child: ListView.builder(
                   itemCount: language.length,
@@ -81,7 +81,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 Navigator.pop(context
                 );
             },
-            title: StringManager.save,
+            title: StringManager.save.tr(),
           )
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
@@ -15,8 +16,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_requests/bloc/family_request_state.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_event.dart';
 
 class FamilyRequestsScreen extends StatefulWidget {
   final String familyId  ; 
@@ -59,7 +58,7 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                   SizedBox(
                     height: ConfigSize.defaultSize! * 3,
                   ),
-                  const HeaderWithOnlyTitle(title: StringManager.joinRequests),
+                   HeaderWithOnlyTitle(title: StringManager.joinRequests.tr()),
                   Expanded(
                       child: ListView.builder(
                           itemCount: state.data.data.length,
@@ -110,8 +109,8 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                     SizedBox(
                       height: ConfigSize.defaultSize! * 3,
                     ),
-                    const HeaderWithOnlyTitle(
-                        title: StringManager.joinRequests),
+                     HeaderWithOnlyTitle(
+                        title: StringManager.joinRequests.tr()),
                     Expanded(
                         child: ListView.builder(
                             itemCount: familyRequests!.length,
@@ -138,8 +137,8 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                 );
               }
             } else {
-              return const CustomErrorWidget(
-                  message: StringManager.unexcepectedError);
+              return  CustomErrorWidget(
+                  message: StringManager.unexcepectedError.tr());
             }
           },
         ),

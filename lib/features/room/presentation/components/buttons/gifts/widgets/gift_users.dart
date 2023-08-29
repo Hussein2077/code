@@ -85,13 +85,15 @@ class GiftUserState extends State<GiftUser> {
                               width: ConfigSize.defaultSize! * 4,
                               height: ConfigSize.defaultSize! *4,
                               decoration:  BoxDecoration(
+                              //  borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*1.5),
                                 border: Border.all(
                                   color: GiftUser.userSelected.containsKey(index) ?
                                   ColorManager.mainColor: Colors.transparent,  // red as border color
                                 ),
-                                shape: BoxShape.circle,
+                              //  shape: BoxShape.circle,
                               ),
                               child: CustoumCachedImage(
+                                radius: ConfigSize.defaultSize!*2,
                                 width: ConfigSize.defaultSize! *3,
                                 url: widget.listUsers[index].inRoomAttributes.value['img']??"",
                                 height: ConfigSize.defaultSize! *3,)
