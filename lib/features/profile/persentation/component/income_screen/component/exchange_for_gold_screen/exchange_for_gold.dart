@@ -129,21 +129,26 @@ Widget exchangeDaimondCard({
             color: Theme.of(context).colorScheme.secondary),
         child: Column(
           children: [
-            Image.asset(
-              AssetsPath.goldCoinIcon,
-              scale: 4,
-            ),
-            Text(
-              gold,
-              style: TextStyle(
-                  color: ColorManager.yellow,
-                  fontSize: ConfigSize.defaultSize! * 1.7),
-            ),
+              Icon(Icons.diamond_rounded, color: Colors.blue.shade900,size: ConfigSize.defaultSize!*3.9),
+
+            Text(daimond, style: Theme.of(context).textTheme.bodyMedium),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(daimond, style: Theme.of(context).textTheme.bodyMedium),
-                Icon(Icons.diamond_rounded, color: Colors.blue.shade900),
+                Text(
+                  gold,
+                  style: TextStyle(
+                      color: ColorManager.yellow,
+                      fontSize: ConfigSize.defaultSize! * 1.7),
+                ),
+                SizedBox(
+                  width: ConfigSize.defaultSize! * 0.5 ,
+                ),
+                Image.asset(
+                  AssetsPath.goldCoinIcon,
+                  scale: 12,
+                ),
               ],
             )
           ],
