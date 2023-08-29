@@ -197,6 +197,7 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
                                     height: ConfigSize.defaultSize! * 7.8,
                                     decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
+
                                         image: DecorationImage(
                                             image: AssetImage(
                                               AssetsPath.sweetCandy,

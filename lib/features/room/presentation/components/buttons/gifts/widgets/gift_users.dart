@@ -85,8 +85,9 @@ class GiftUserState extends State<GiftUser> {
                               width: ConfigSize.defaultSize! * 4,
                               height: ConfigSize.defaultSize! *4,
                               decoration:  BoxDecoration(
-                              //  borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*1.5),
+                               borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*1.5),
                                 border: Border.all(
+                                  width: GiftUser.userSelected.containsKey(index) ?1.5:0,
                                   color: GiftUser.userSelected.containsKey(index) ?
                                   ColorManager.mainColor: Colors.transparent,  // red as border color
                                 ),

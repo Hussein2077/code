@@ -17,9 +17,9 @@ class GiftBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10)),
+        borderRadius:  BorderRadius.only(
+            topLeft: Radius.circular(ConfigSize.defaultSize!),
+            topRight: Radius.circular(ConfigSize.defaultSize!)),
         color: Colors.black.withOpacity(0.4),
       ),
       width: ConfigSize.screenWidth,
