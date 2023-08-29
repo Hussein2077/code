@@ -36,6 +36,8 @@ class StringManager {
 
 
  ////
+ static const String errorInPayment ='Error in your payment';
+ static const String pendingInPayment ='your payment is pending';
  static const String payment = "Payment";
  static const String adminOfRoom = "Admin of room";
  static const String modeChairs = "Mic mode";

@@ -79,7 +79,10 @@ class DioHelper {
   }
 
   static dynamic handleDioError({DioError? dioError, String? endpointName}) {
-    log('handleDioError: ${dioError!.type}');
+    if(kDebugMode){
+      log("dioError${dioError?.message}");
+      log('endpointName$endpointName');
+    }
     switch (dioError!.type) {
       case DioErrorType.response:
         throw handleStatuesCodeResponse(response:dioError.response,endpointName:endpointName);

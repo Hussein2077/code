@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/home/data/model/carousels_model.dart';
 import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
 import 'package:tik_chat_v2/features/home/data/model/country_model.dart';
@@ -154,7 +155,11 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
 
     final body = {
       'version': configModelBody.appVersion,
-      'time_gift' :configModelBody.lastTimeGift,
+      'gift_time' :await Methods().getsLastTimeCache(TypesCache.gift),
+      'intro_time':await Methods().getsLastTimeCache(TypesCache.intro),
+      'frame_time':await Methods().getsLastTimeCache(TypesCache.frame),
+      'emoji_time':await Methods().getsLastTimeCache(TypesCache.emojie),
+      'extra_time':await Methods().getsLastTimeCache(TypesCache.extra)
 
     };
     try {

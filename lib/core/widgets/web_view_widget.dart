@@ -2,12 +2,18 @@
 
 
 
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 
@@ -35,20 +41,26 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
         ..setBackgroundColor(const Color(0x00000000))
         ..setNavigationDelegate(
           NavigationDelegate(
+        
             onProgress: (int progress) {
               // Update loading bar.
             },
             onPageStarted: (String url) {
 
-              log("url showing${url}");
             },
             onPageFinished: (String url) {
+              if (url.contains('reference_id')) {
+                controller!.
+                runJavaScriptReturningResult("(function(){Flutter.postMessage(window.document.body.innerText)})();");
+              }
               log("onPageFinished $url");
               // Do something when page finished loading.
             },
             onWebResourceError: (WebResourceError error) {},
+            onUrlChange: (UrlChange){
+              UrlChange.url;
+            },
             onNavigationRequest: (NavigationRequest request) {
-              log("NavigationRequest${request.url}");
               //todo handle that
               if (request.url.startsWith('https://www.youtube.com/')) {
                 return NavigationDecision.prevent;
@@ -56,7 +68,24 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
               return NavigationDecision.navigate;
             },
           ),
-        )
+        )..addJavaScriptChannel('Flutter',
+            onMessageReceived: (JavaScriptMessage message) {
+              final pageBody = jsonDecode(message.message);
+              if(pageBody['status'] == 'SUCCESS'){
+                BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+                Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
+              }else if (pageBody['status'] =='FAIL'){
+                errorToast(context: context, title: StringManager.errorInPayment.tr());
+                Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
+
+              }else{
+                errorToast(context: context, title: StringManager.errorInPayment.tr());
+                Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
+
+              }
+
+              print('page body: $pageBody');
+            })
         ..loadRequest(Uri.parse(widget.url));
   }
 
@@ -100,4 +129,6 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
       body: WebViewWidget(controller: controller!),
     ) );
   }
+
+
 }

@@ -79,6 +79,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.advice: "نصائح",
     StringManager.privilegeVip6: "قم بتفعيل VIP6 للاستمتاع بامتيازات VIP6",
     StringManager.active: "نشيط",
+    StringManager.errorInPayment :'خطاء في طريقة الدفع',
+    StringManager.pendingInPayment :'طلبك تحت المراجعة',
     StringManager.updateScssfuly: "تم التحديث بنجاح",
     StringManager.open: "فتح",
     StringManager.youCantTakeMoreOne: "لا يمكنك أن تأخذ أكثر من واحد",
