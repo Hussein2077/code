@@ -49,16 +49,19 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
 
             },
             onPageFinished: (String url) {
-              if (url.contains('reference_id')) {
-                controller!.
-                runJavaScriptReturningResult("(function(){Flutter.postMessage(window.document.body.innerText)})();");
-              }
-              log("onPageFinished $url");
+              // if (url.contains('reference_id')) {
+              //   controller!.
+              //   runJavaScriptReturningResult("(function(){Flutter.postMessage(window.document.body.innerText)})();");
+              // }
+              // log("onPageFinished $url");
               // Do something when page finished loading.
             },
             onWebResourceError: (WebResourceError error) {},
             onUrlChange: (UrlChange){
-              UrlChange.url;
+              if (UrlChange.url!.contains('reference_id')) {
+                controller!.
+                runJavaScriptReturningResult("(function(){Flutter.postMessage(window.document.body.innerText)})();");
+              }
             },
             onNavigationRequest: (NavigationRequest request) {
               //todo handle that
