@@ -16,7 +16,7 @@ class FamilyDataModel {
         maxNum: json['max_num'] ?? 0,
         img: json['img'] ?? "",
         ownerFamilyId:json['owner_id'] ??0,
-        name:json['family_name']??'',
+        name:json['family_name']??"",
         memberNum: json['members_num'] ?? 0);
   }
 }

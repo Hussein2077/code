@@ -313,7 +313,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       {required String userId}) async {
 
     Map<String, String> headers = await DioHelper().header();
+
     try {
+      // log("Family Name");
       final response = await Dio().get(
           ConstentApi().getUserData(
             userId: userId,
@@ -323,6 +325,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           ));
 
       UserDataModel userData = UserDataModel.fromMap(response.data["data"]);
+      // log("Family Name  ${userData.familyData!.name!}");
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getUserData' );

@@ -1,3 +1,4 @@
+import 'package:tik_chat_v2/core/model/family_data_model.dart';
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_agency_model.dart';
 import 'package:tik_chat_v2/core/model/my_store_model.dart';
@@ -19,6 +20,7 @@ class MyDataModel {
   ProfileRoomModel? profile;
   LevelDataModel? level;
   VipCenterModel? vip1;
+  FamilyDataModel? familyDataModel;
   MyStoreModel? myStore;
   String? authToken;
   String? frame;
@@ -90,6 +92,7 @@ class MyDataModel {
       this.isCountryHiden,
       this.lastActiveHidden,
       this.onlineTime,
+        this.familyDataModel,
       this.visitHidden});
 
   setNewMyData(
@@ -104,6 +107,7 @@ class MyDataModel {
       int? profileVisotrs,
       ProfileRoomModel? profile,
       LevelDataModel? level,
+      FamilyDataModel? familyDataModel,
       MyStoreModel? myStore,
       String? authToken,
       String? frame,
@@ -163,6 +167,7 @@ class MyDataModel {
     this.myType = myType ?? this.myType;
     this.isHideRoom = isHideRoom ?? this.isHideRoom;
     this.familyId = familyId ?? this.familyId;
+    this.familyDataModel = familyDataModel ?? this.familyDataModel;
   }
 
   factory MyDataModel.fromMap(Map<String, dynamic> map) {
@@ -218,6 +223,9 @@ class MyDataModel {
           myAgencyModel: map['agency'] != null
               ? MyAgencyModel.fromjson(map["agency"])
               : null,
+          familyDataModel: map['family_data'] != null
+              ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
+              : null,
           myType: map['type_user'] ?? 0);
     } else {
       _instance?.setNewMyData(
@@ -264,6 +272,9 @@ class MyDataModel {
           myAgencyModel: map['agency'] != null
               ? MyAgencyModel.fromjson(map["agency"])
               : null,
+          familyDataModel: map['family_data'] != null
+              ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
+              : null,
           myType: map['type_user'] ?? 0);
 
     }
@@ -284,9 +295,16 @@ class MyDataModel {
         introId: introId,
         frame: frame,
         familyId: familyId,
-        frameId: familyId,
+        frameId: frameId,
         bio: bio,
         uuid: uuid,
+        familyData: FamilyDataModel(
+          img: familyDataModel!.img,
+          maxNum: familyDataModel!.maxNum,
+          memberNum: familyDataModel!.memberNum,
+          name: familyDataModel!.name,
+          ownerFamilyId: familyDataModel!.ownerFamilyId,
+        ),
         myStore: MyStoreModel(
             totalCoins: myStore?.totalCoins,
             coins: myStore?.coins,

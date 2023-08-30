@@ -156,7 +156,7 @@ class UserDataModel {
       introId:introId,
       frame: frame,
       familyId: familyId,
-      frameId: familyId,
+      frameId: frameId,
         bio: bio,
       uuid:uuid,
       profile: ProfileRoomModel(
