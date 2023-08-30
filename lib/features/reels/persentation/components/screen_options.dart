@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
@@ -194,24 +195,24 @@ class ScreenOptions extends StatelessWidget {
                   Text(NumbersToShort.convertNumToShort(item.commentNum!),
                       style: const TextStyle(color: Colors.white)),
                   const SizedBox(height: 20),
-                  if (onShare != null)
-                    InkWell(
-                      onTap: () => onShare!(item.url!),
-                      child: Transform(
-                        transform: Matrix4.rotationZ(5.8),
-                        child: const Icon(
-                          Icons.send,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 20),
-                  if (onClickMoreBtn != null)
-                    IconButton(
-                      icon: const Icon(Icons.more_vert),
-                      onPressed: onClickMoreBtn!,
-                      color: Colors.white,
-                    ),
+                  // if (onShare != null)
+                  //   InkWell(
+                  //     onTap: () => onShare!(item.url!),
+                  //     child: Transform(
+                  //       transform: Matrix4.rotationZ(5.8),
+                  //       child: const Icon(
+                  //         Icons.send,
+                  //         color: Colors.white,
+                  //       ),
+                  //     ),
+                  //   ),
+                   SizedBox(height: ConfigSize.defaultSize!*15),
+                  // if (onClickMoreBtn != null)
+                  //   IconButton(
+                  //     icon: const Icon(Icons.more_vert),
+                  //     onPressed: onClickMoreBtn!,
+                  //     color: Colors.white,
+                  //   ),
                 ],
               )
             ],
