@@ -292,6 +292,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       'id': giftPramiter.id,
       'toUid': giftPramiter.toUid,
       'num': giftPramiter.num,
+      // 'to_zego': giftPramiter.toZego,
     };
     try {
 

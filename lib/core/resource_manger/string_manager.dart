@@ -242,6 +242,8 @@ class StringManager {
   static const String comingSoon = "Coming Soon";
   static const String income = "Income";
  static const String startBattle = "Start Battale";
+ static const String senderLevel = "Sender Level";
+ static const String receiverLevel = "Receiver Level";
 
 
   ///INCOME SCREEN 💲💸💰
@@ -286,7 +288,7 @@ class StringManager {
   static const String allInformation = "All Information";
   static const String today = "Today";
   static const String myFamily = "My Family";
-  static const String youAreVip = "You are vip";
+  static const String youAreVip = "You are";
   static const String exitFamily = "Exit Family";
   static const String whatsappNum = "Whatsapp Number";
   static const String porn = "Porn";
@@ -407,14 +409,13 @@ class StringManager {
   static const String description = "Description";
   static const String mustNotBeEmpty = "must not be empty";
   static const String submission = "Submission";
-  static const String pleaseExplain =
-      'Please explain your problem in detail so that our customer service staff can understand and deal with it';
+  static const String pleaseExplain = 'Please explain your problem in detail so that our customer service staff can understand and deal with it';
   static const String fiveMin = '5 minute ';
   static const String fiftyMin = '15 minute';
   static const String thirtyMin = '30 minute';
   static const String sixtyMin = '60 minute';
   static const String twenyFourMin = '24 hour';
-    static const String writeUnBan = "write Unban";
+  static const String writeUnBan = "write Unban";
   static const String writeBan = "write ban";
   static const String block = "Block";
   static const String lastActive = "Last Active: ";

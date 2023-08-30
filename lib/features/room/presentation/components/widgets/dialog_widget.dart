@@ -13,7 +13,10 @@ class DialogLoadingWidget extends StatelessWidget {
       child: SizedBox(
         width: ConfigSize.defaultSize!*6,
         height: ConfigSize.defaultSize!*6,
-        child: const  TikTokLoadingAnimation(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical:ConfigSize.defaultSize!*2, ),
+          child: const  TikTokLoadingAnimation(),
+        ),
       ),
     );
   }

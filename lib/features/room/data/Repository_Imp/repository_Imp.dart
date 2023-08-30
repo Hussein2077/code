@@ -300,13 +300,13 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
   @override
   Future<Either<Failure, EnterRoomModel>> updateRoom(
       {required PramiterUpdate pramiterUpdate}) async {
-   try {
+   /*try {*/
       final failureOrDone = await baseRemotlyDataSourceRoom.updateRoom(
           pramiterUpdate: pramiterUpdate);
       return Right(failureOrDone);
-    } on Exception catch (e) {
+   /* } on Exception catch (e) {
       return Left(DioHelper.buildFailure(e));
-    }
+    }*/
   }
 
   @override

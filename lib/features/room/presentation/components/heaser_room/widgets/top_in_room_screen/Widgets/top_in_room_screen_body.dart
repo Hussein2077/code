@@ -84,7 +84,9 @@ class TopInRoomScreenBody extends StatelessWidget {
                         ),
                 );
               case RequestState.loading:
-                return const LoadingWidget();
+                return const LoadingWidget(
+
+                );
               case RequestState.error:
                 return Center(
                     child: SizedBox(

@@ -40,7 +40,7 @@ class FamilyRankBottomBar extends StatelessWidget {
           }else {
             return InkWell(
           onTap: () {
-            Navigator.pushNamed(context, Routes.familyProfile , arguments: state.myDataModel.familyId.toString());
+            Navigator.pushNamed(context, Routes.familyProfile , arguments: state.myDataModel.familyId);
           },
           child: Container(
             width: MediaQuery.of(context).size.width,

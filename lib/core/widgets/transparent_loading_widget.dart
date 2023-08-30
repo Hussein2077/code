@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/tik_tok_animition.dart';
 
 
@@ -14,9 +15,9 @@ class TransparentLoadingWidget extends StatelessWidget {
     return  Center(
         child: Container(
 
-        width:width ?? double.maxFinite,
+        width:width ?? ConfigSize.defaultSize!*6.2,
         color: Colors.transparent,
-        height: height?? double.maxFinite,
+        height: height?? ConfigSize.defaultSize!*2,
         child:const TikTokLoadingAnimation(),
       ));
 
