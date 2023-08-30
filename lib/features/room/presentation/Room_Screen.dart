@@ -1445,8 +1445,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               refreshRoom: refrashRoom, roomType: roomType, layoutMode: layoutMode,
             ) ;
              })       ,
-                if (widget.room.roomFamily!.id!= null)
-                familyRoomIcon(context ,widget.room),
+              /*  if (widget.room.roomFamily!.id!= null)
+                familyRoomIcon(context ,widget.room),*/
 
 
 

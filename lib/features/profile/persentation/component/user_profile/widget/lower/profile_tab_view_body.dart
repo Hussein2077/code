@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -47,6 +48,34 @@ class ProfileTabViewBody extends StatelessWidget {
         ),
         SizedBox(
           height: ConfigSize.defaultSize! * 2,
+        ),
+        if(userDataModel.familyData!=null)
+        Container(
+          margin: EdgeInsets.only(
+            right: ConfigSize.defaultSize!*1.3,
+            left:  ConfigSize.defaultSize!*1.3,
+          ),
+          padding: EdgeInsets.symmetric(
+            vertical: ConfigSize.defaultSize!*0.2,
+            horizontal: ConfigSize.defaultSize!*1
+          ),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: ColorManager.mainColorList
+            ),
+            borderRadius: BorderRadius.circular(10)
+
+          ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("${StringManager.familyName.tr()} :"),
+
+                Text(userDataModel.familyData!.name!.toString()),
+              ],
+            )),
+        SizedBox(
+          height: ConfigSize.defaultSize! * 1,
         ),
         InkWell(
           onTap: () {

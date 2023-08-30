@@ -93,7 +93,8 @@ class _UserProfileState extends State<UserProfile> {
                       //TODO you should remove this function
                       UpperProfileBody(
                           myProfile: myProfile!,
-                          myDataModel:widget.userData!=null?widget.userData!.convertToMyDataObject(): state.data.convertToMyDataObject()),
+                          myDataModel:widget.userData!=null?widget.userData!.convertToMyDataObject():
+                          state.data.convertToMyDataObject()),
                       LowerProfileBody(
                           myProfile: myProfile!,
                           userDataModel:widget.userData!=null?widget.userData!: state.data),

@@ -1335,7 +1335,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
   );
 }
  
- Widget familyRoomIcon (BuildContext context ,EnterRoomModel room ){
+ /*Widget familyRoomIcon (BuildContext context ,EnterRoomModel room ){
       return  Positioned(
                     right: 0,
                     top: ConfigSize.defaultSize! * 7,
@@ -1369,7 +1369,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                       ),
                     ),
                   );
- }
+ }*/
 
  Widget musicWidget (
      BuildContext context ,

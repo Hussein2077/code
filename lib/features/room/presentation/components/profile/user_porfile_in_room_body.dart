@@ -142,10 +142,39 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                                 roomOwnerId: widget.roomData.ownerId,
                                 userId: widget.userData.id,
                               ),
+
                               const SizedBox(width: 5),
                             ],
                           ),
                           SizedBox(height: ConfigSize.defaultSize! * 2),
+                          if(widget.userData.familyData!=null)
+                            InkWell(
+                              onTap: (){
+                                Navigator.pushNamed(context, Routes.familyProfile,
+                                    arguments:widget.roomData.roomFamily!.id);
+                              },
+                              child: Container(
+
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: ConfigSize.defaultSize!*0.2,
+                                      horizontal: ConfigSize.defaultSize!*1
+                                  ),
+                                  decoration: BoxDecoration(
+                                      gradient:  const LinearGradient(
+                                          colors: ColorManager.mainColorList
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)
+
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text("${StringManager.familyName.tr()} :"),
+
+                                      Text(widget.userData.familyData!.name!.toString()),
+                                    ],
+                                  )),
+                            ),
                         ],
                       ),
                       Column(
