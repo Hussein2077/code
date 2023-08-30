@@ -1,5 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 
@@ -14,7 +16,7 @@ class ReelsViewer extends StatefulWidget {
   final Function(String)? onShare;
 
   /// function invoke when user click on like btn and return reel url
-  final Function(String)? onLike;
+  final Function(int)? onLike;
 
   /// function invoke when user click on comment btn and return reel comment
   final Function(String)? onComment;
@@ -114,7 +116,11 @@ class _ReelsViewerState extends State<ReelsViewer> {
                         color: Colors.white
                       ),
                     ),
-                    const SizedBox(),
+
+                    
+                  IconButton(onPressed: (){
+                     Navigator.pushNamed(context, Routes.uploadReels);
+                  }, icon: Icon(Icons.add , color: Colors.white, size: ConfigSize.defaultSize!*3,))
                   ],
                 ),
               ),

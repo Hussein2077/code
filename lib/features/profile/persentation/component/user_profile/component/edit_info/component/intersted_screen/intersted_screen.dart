@@ -141,8 +141,8 @@ class _InterstedScreenState extends State<InterstedScreen> {
                   } else if (state is GetAllInterstedErrorState) {
                     return CustomErrorWidget(message: state.error);
                   } else {
-                    return const CustomErrorWidget(
-                        message: StringManager.unexcepectedError);
+                    return  CustomErrorWidget(
+                        message: StringManager.unexcepectedError.tr());
                   }
                 },
               );

@@ -13,5 +13,6 @@ abstract class BaseUploadReelsEvent extends Equatable {
 class UploadReelsEvent extends BaseUploadReelsEvent {
   final File reel ; 
   final String description ; 
-  const UploadReelsEvent ({required this.description , required this.reel });
+  final List<int> categories ; 
+  const UploadReelsEvent ({required this.description , required this.reel , required this.categories });
 }

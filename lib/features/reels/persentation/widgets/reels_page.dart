@@ -11,7 +11,7 @@ class ReelsPage extends StatefulWidget {
   final ReelModel item;
   final bool showVerifiedTick;
   final Function(String)? onShare;
-  final Function(String)? onLike;
+  final Function(int)? onLike;
   final Function(String)? onComment;
   final Function()? onClickMoreBtn;
   final Function()? onFollow;
@@ -41,14 +41,14 @@ class _ReelsPageState extends State<ReelsPage> {
   @override
   void initState() {
     super.initState();
-    if (!UrlChecker.isImageUrl(widget.item.url) &&
-        UrlChecker.isValid(widget.item.url)) {
+    if (!UrlChecker.isImageUrl(widget.item.url!) &&
+        UrlChecker.isValid(widget.item.url!)) {
       initializePlayer();
     }
   }
 
   Future initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url));
+    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
     await Future.wait([_videoPlayerController.initialize()]);
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
@@ -92,10 +92,10 @@ class _ReelsPageState extends State<ReelsPage> {
                   height: MediaQuery.of(context).size.height,
                   child: GestureDetector(
                     onDoubleTap: () {
-                      if (!widget.item.isLiked) {
+                      if (!widget.item.likeExists!) {
                         _liked = true;
                         if (widget.onLike != null) {
-                          widget.onLike!(widget.item.url);
+                          widget.onLike!(widget.item.id!);
                         }
                         setState(() {});
                       }

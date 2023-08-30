@@ -429,6 +429,10 @@ class StringManager {
   static const String roomCover = "room cover";
   static const String blockList = "blocklist";
   static const String confirm = "confirm";
+    static const String pleaseChosseVideo = "Please Choose Video";
+
+
+
 
 
 

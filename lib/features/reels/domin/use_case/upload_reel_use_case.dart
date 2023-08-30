@@ -21,8 +21,9 @@ class UploadReelParamiter extends Equatable {
   final File reel;
 
   final String description;
+  final List<int> categories ; 
 
-  const UploadReelParamiter({required this.reel, required this.description,});
+  const UploadReelParamiter({required this.reel, required this.description, required this.categories});
 
   @override
   List<Object> get props => [reel, description];

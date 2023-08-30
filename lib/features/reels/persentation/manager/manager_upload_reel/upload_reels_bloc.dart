@@ -12,7 +12,7 @@ class UploadReelsBloc extends Bloc<BaseUploadReelsEvent, UploadReelsState> {
   UploadReelsBloc({required this.uploadReelUseCase ,}) : super(UploadReelsInitial()) {
     on<UploadReelsEvent>((event, emit)async {
       emit (UploadReelsLoadingState());
-      final result = await uploadReelUseCase.uploadReel(UploadReelParamiter(reel: event.reel, description: event.description));
+      final result = await uploadReelUseCase.uploadReel(UploadReelParamiter(reel: event.reel, description: event.description , categories: event.categories));
       result.fold((l) => emit(UploadReelsSucssesState(message: l)), (r) => emit(UploadReelsErrorState(error: DioHelper().getTypeOfFailure(r))));
 
     });

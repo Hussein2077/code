@@ -341,6 +341,8 @@ class CodegenLoader extends AssetLoader {
         StringManager.roomSetting : "اعدادات الغرفة",
         StringManager.noDataFoundHere : "لا يوجد",
 
+        StringManager.pleaseChosseVideo : 'الرجاء اختيار الفيديو',
+
 
   };
   static const Map<String, dynamic> tr = {
