@@ -1,108 +1,88 @@
-
-
 import 'dart:developer';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
-import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_state.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 
-
-
 class ReelsScreen extends StatefulWidget {
+  
   const ReelsScreen({super.key});
 
   @override
-  State<ReelsScreen> createState() => _ReelsScreenState();
+  State<ReelsScreen> createState() => ReelsScreenState();
 }
 
-class _ReelsScreenState extends State<ReelsScreen> {
- List<ReelModel> reelsList = [
-    ReelModel(
-        'https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4',
-        'Darshan Patil',
-        likeCount: 2000,
-        isLiked: true,
-        musicName: 'In the name of Love',
-        reelDescription: "Life is better when you're laughing.",
-        profileUrl:
-            'https://opt.toiimg.com/recuperator/img/toi/m-69257289/69257289.jpg',
-        commentList: [
-          ReelCommentModel(
-            comment: 'Nice...',
-            userProfilePic:
-                'https://opt.toiimg.com/recuperator/img/toi/m-69257289/69257289.jpg',
-            userName: 'Darshan',
-            commentTime: DateTime.now(),
-          ),
-          ReelCommentModel(
-            comment: 'Superr...',
-            userProfilePic:
-                'https://opt.toiimg.com/recuperator/img/toi/m-69257289/69257289.jpg',
-            userName: 'Darshan',
-            commentTime: DateTime.now(),
-          ),
-          ReelCommentModel(
-            comment: 'Great...',
-            userProfilePic:
-                'https://opt.toiimg.com/recuperator/img/toi/m-69257289/69257289.jpg',
-            userName: 'Darshan',
-            commentTime: DateTime.now(),
-          ),
-        ]),
-    ReelModel(
-      'https://assets.mixkit.co/videos/preview/mixkit-father-and-his-little-daughter-eating-marshmallows-in-nature-39765-large.mp4',
-      'Rahul',
-      musicName: 'In the name of Love',
-      reelDescription: "Life is better when you're laughing.",
-      profileUrl:
-          'https://opt.toiimg.com/recuperator/img/toi/m-69257289/69257289.jpg',
-    ),
-    ReelModel(
-      'https://assets.mixkit.co/videos/preview/mixkit-mother-with-her-little-daughter-eating-a-marshmallow-in-nature-39764-large.mp4',
-      'Rahul',
-    ),
-  ];
+class ReelsScreenState extends State<ReelsScreen> {
+ static List<int> likedVideos = [];
+ 
 
   @override
   void initState() {
+    likedVideos = [];
+    BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
     super.initState();
-    
-      
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        body: ReelsViewer(
-      reelsList: reelsList,
-      appbarTitle: StringManager.reels,
-      onShare: (url) {
-        log('Shared reel url ==> $url');
-      },
-      onLike: (url) {
-        log('Liked reel url ==> $url');
-      },
-      onFollow: () {
-        log('======> Clicked on follow <======');
-      },
-      onComment: (comment) {
-        log('Comment on reel ==> $comment');
-      },
-      onClickMoreBtn: () {
-        log('======> Clicked on more option <======');
-      },
-      onClickBackArrow: () {
-        log('======> Clicked on back arrow <======');
-      },
-      onIndexChanged: (index){
-        log('======> Current Index ======> $index <========');
-      },
-      showProgressIndicator: false,
-      showVerifiedTick: false,
-      showAppbar: true,
-    )
+    return Scaffold(body: BlocBuilder<GetReelsBloc, GetReelsState>(
+      builder: (context, state) {
+        if(state is GetReelsSucssesState){
+     return ReelsViewer(
+          reelsList: state.data!,
+          appbarTitle: StringManager.reels,
+          onShare: (url) {
+            log('Shared reel url ==> $url');
+          },
+          onLike: (id) {
+                        BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
 
-
-      );
+            setState(() {
+              likedVideos.add(id);
+            });
+           
+          },
+          onFollow: () {
+            log('======> Clicked on follow <======');
+          },
+          onComment: (comment) {
+            log('Comment on reel ==> $comment');
+          },
+          onClickMoreBtn: () {
+            log('======> Clicked on more option <======');
+          },
+          onClickBackArrow: () {
+            log('======> Clicked on back arrow <======');
+          },
+          onIndexChanged: (index) {
+          if(state.data!.length-index<5){
+            BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
+          }
+          log(state.data!.length.toString());
+            log('======> Current Index ======> $index <========');
+          },
+          showProgressIndicator: false,
+          showVerifiedTick: false,
+          showAppbar: true,
+        );
+        }else if (state is GetReelsLoadingState){
+          return const LoadingWidget();
+        }else if (state is GetReelsErrorState){
+          return CustomErrorWidget(message: state.errorMassage);
+        }else {
+      return    CustomErrorWidget(message: StringManager.unexcepectedError.tr());
+        }
+   
+      },
+    ));
   }
 }

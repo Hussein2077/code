@@ -117,6 +117,26 @@ class ConstentApi {
         static const String getReels = "$baseUrl/reals";
 
 
+static String getReelComments(String reelId , String?page) {
+
+     return "$baseUrl/reals/$reelId/comment?page=$page";
+ 
+
+}
+static String makeReelComments(String reelId ) {
+
+     return "$baseUrl/reals/$reelId/comment";
+ 
+
+}
+
+static String makeReelLike(String reelId ) {
+
+     return "$baseUrl/reals/$reelId/like";
+ 
+
+}
+      
 
   static String updateFamily(String familyId) =>
       "$baseUrl/families/edit/$familyId";

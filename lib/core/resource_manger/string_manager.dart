@@ -411,6 +411,10 @@ class StringManager {
     static const String writeUnBan = "write Unban";
   static const String writeBan = "write ban";
   static const String block = "Block";
+    static const String pleaseChosseVideo = "Please Choose Video";
+
+
+  
 
 
 

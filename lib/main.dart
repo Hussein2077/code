@@ -88,7 +88,10 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_events.dart';
@@ -385,9 +388,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<KickoutBloc>()),
                 BlocProvider(create: (_) => getIt<UserReportBloc>()),
 
-                BlocProvider(create: (_) => getIt<UsersInRoomBloc>())
+                BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
+                BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
 
+                BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
 
+                BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
 
 
 

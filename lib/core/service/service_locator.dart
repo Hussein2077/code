@@ -148,9 +148,15 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manage
 import 'package:tik_chat_v2/features/reels/data/data_source/remotly_data_source_reel.dart';
 import 'package:tik_chat_v2/features/reels/data/repository_imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/reels/domin/repository/base_repository_reels.dart';
+import 'package:tik_chat_v2/features/reels/domin/use_case/get_reel_comments_uc.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/get_reels_use_case.dart';
+import 'package:tik_chat_v2/features/reels/domin/use_case/make_reel_comment.dart';
+import 'package:tik_chat_v2/features/reels/domin/use_case/make_reel_like_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room/data/Repository_Imp/repository_Imp.dart';
 import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
@@ -413,12 +419,28 @@ class ServerLocator {
 
              getIt.registerFactory(
         () => UsersInRoomBloc(inviteUserUC: getIt() , muteUnMuteUserInRoomUC: getIt()));
-
+                getIt.registerFactory(
+        () => GetReelCommentsBloc(getReelCommentUseCase: getIt()));
+                getIt.registerFactory(
+        () => MakeReelCommentBloc(makeReelCommentUseCase: getIt()));
+               getIt.registerFactory(
+        () => MakeReelLikeBloc(makeReelLikeUseCase: getIt()));
 
 
 //usecase
 
 
+
+ getIt.registerLazySingleton(
+            () => MakeReelLikeUseCase(baseRepositoryReel: getIt()));
+
+ getIt.registerLazySingleton(
+            () => MakeReelCommentUseCase(baseRepositoryReel: getIt()));
+
+
+
+ getIt.registerLazySingleton(
+            () => GetReelCommentUseCase(baseRepositoryReel: getIt()));
 
 getIt.registerLazySingleton(
             () => InviteUserUC(roomRepo: getIt()));getIt.registerLazySingleton(

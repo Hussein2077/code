@@ -74,11 +74,8 @@ class CommentItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 44),
               child: Text(
-                DateFormatter.getTimeAgo(commentItem.commentTime),
-                style: const TextStyle(
-                  fontSize: 9,
-                  color: Color.fromARGB(255, 41, 35, 35),
-                ),
+               commentItem.commentTime.substring(0,10),
+                style: Theme.of(context).textTheme.bodySmall
               ),
             ),
           ],

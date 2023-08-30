@@ -1,4 +1,9 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -7,85 +12,110 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/mention_dailog.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 
 import 'widgets/chose_topic_dailog.dart';
+import 'widgets/upload_video.dart';
 
 class UploadReelsScreen extends StatefulWidget {
   const UploadReelsScreen({super.key});
 
   @override
-  State<UploadReelsScreen> createState() => _UploadReelsScreenState();
+  State<UploadReelsScreen> createState() => UploadReelsScreenState();
 }
 
-class _UploadReelsScreenState extends State<UploadReelsScreen> {
+class UploadReelsScreenState extends State<UploadReelsScreen> {
   late TextEditingController reelsNameController;
+  static List<int> selectedIntrest = [];
   @override
   void initState() {
+    selectedIntrest = [];
     reelsNameController = TextEditingController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          SizedBox(
-            height: ConfigSize.defaultSize!,
-          ),
-          const HeaderWithOnlyTitle(title: StringManager.newReel),
-          videoPic(context: context),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
-            decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                border: Border.all(color: ColorManager.lightGray)),
-            width: MediaQuery.of(context).size.width - 50,
-            child: TextFieldWidget(
-                textColor: Theme.of(context).colorScheme.primary,
-                controller: reelsNameController,
-                hintText: StringManager.reelName),
-          ),
-          CustomHorizntalDvider(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.grey,
-          ),
-          shareYourMoment(context: context),
-          reelRowWidget(
-              context: context,
-              icon: AssetsPath.mentionIcon,
-              title: StringManager.mentionYourFriends,
-              widget: const MentionDailog()),
-          reelRowWidget(
-              context: context,
-              icon: AssetsPath.hashTagIcon,
-              title: StringManager.chooseTheTopic,
-              widget: const ChooseTopicDailog()),
-          MainButton(onTap: () {}, title: StringManager.postTheVideo)
-        ],
+    return BlocListener<UploadReelsBloc, UploadReelsState>(
+      listener: (context, state) {
+      if (state is UploadReelsLoadingState){
+        loadingToast(context: context, title: StringManager.loading.tr());
+      }else if (state is UploadReelsErrorState){
+        errorToast(context: context, title: state.error);
+      }else if (state is UploadReelsSucssesState){
+            BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+
+        sucssesToast(context: context, title: state.message);
+      }
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              height: ConfigSize.defaultSize!,
+            ),
+            const HeaderWithOnlyTitle(title: StringManager.newReel),
+            const UploadVideo(),
+            Container(
+              padding:
+                  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
+              decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                  border: Border.all(color: ColorManager.lightGray)),
+              width: MediaQuery.of(context).size.width - 50,
+              child: TextFieldWidget(
+                  textColor: Theme.of(context).colorScheme.primary,
+                  controller: reelsNameController,
+                  hintText: StringManager.reelName),
+            ),
+            CustomHorizntalDvider(
+              width: MediaQuery.of(context).size.width,
+              color: Colors.grey,
+            ),
+            shareYourMoment(context: context),
+            // reelRowWidget(
+            //     context: context,
+            //     icon: AssetsPath.mentionIcon,
+            //     title: StringManager.mentionYourFriends,
+            //     widget: const MentionDailog()),
+            reelRowWidget(
+                context: context,
+                icon: AssetsPath.hashTagIcon,
+                title: StringManager.chooseTheTopic,
+                widget: const ChooseTopicDailog()),
+            MainButton(
+                onTap: () {
+                                      log(selectedIntrest.toString());
+
+                  if (UploadVideoState.video != null) {
+                    BlocProvider.of<UploadReelsBloc>(context).add(
+                        UploadReelsEvent(
+                            categories: selectedIntrest,
+                            description: reelsNameController.text,
+                            reel: File(UploadVideoState.video!)));
+                  } else {
+                    errorToast(
+                        context: context,
+                        title: StringManager.pleaseChosseVideo.tr());
+                  }
+                },
+                title: StringManager.postTheVideo)
+          ],
+        ),
       ),
     );
   }
-}
-
-Widget videoPic({required BuildContext context}) {
-  return Container(
-    width: MediaQuery.of(context).size.width / 2,
-    height: ConfigSize.defaultSize! * 30,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
-        image: const DecorationImage(
-            image: AssetImage(
-              AssetsPath.testImage,
-            ),
-            fit: BoxFit.fill)),
-  );
 }
 
 Widget shareYourMoment({required BuildContext context}) {
@@ -93,6 +123,9 @@ Widget shareYourMoment({required BuildContext context}) {
     children: [
       Row(
         children: [
+          SizedBox(
+            width: ConfigSize.defaultSize,
+          ),
           Image.asset(
             AssetsPath.reelVideoIcon,
             scale: 2,
