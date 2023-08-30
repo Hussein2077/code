@@ -37,11 +37,9 @@ class UploadVideoState extends State<UploadVideo> {
         video = filePath ; 
     _generateThumbnail(filePath);
       } else {
-      log("error");
       }
     } else {
       // User canceled the file picking
-         log("cancel");
 
     }
   } catch (error) {

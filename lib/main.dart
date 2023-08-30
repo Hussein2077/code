@@ -397,7 +397,7 @@ class MyApp extends StatelessWidget {
           create: (context) =>
           getIt<GoldCoinBloc>()..add(GetGoldCoinDataEvent()),
         ),
-        BlocProvider(create: (_)=>getIt<BuyCoinsBloc>())
+        BlocProvider(create: (_)=>getIt<BuyCoinsBloc>()),
                 BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
                 BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
 
