@@ -160,56 +160,61 @@ Widget familyLevelCard(
     decoration: BoxDecoration(
         color: ColorManager.deepPurble,
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2)),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          currentLevel,
-          style: TextStyle(
-              color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.8),
-        ),
-        Row(
-          children: [
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                      text: '$currentlevelPoint / ',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: ConfigSize.defaultSize! * 1.6)),
-                  TextSpan(
-                      text: endLevelPoint,
-                      style: TextStyle(
-                          color: Colors.white.withOpacity(0.5),
-                          fontSize: ConfigSize.defaultSize! * 1.6)),
-                ],
+    child: Padding(
+      padding:  EdgeInsets.symmetric(
+        horizontal: ConfigSize.defaultSize!*1.5
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            currentLevel,
+            style: TextStyle(
+                color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.8),
+          ),
+          Row(
+            children: [
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                        text: '$currentlevelPoint / ',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: ConfigSize.defaultSize! * 1.6)),
+                    TextSpan(
+                        text: endLevelPoint,
+                        style: TextStyle(
+                            color: Colors.white.withOpacity(0.5),
+                            fontSize: ConfigSize.defaultSize! * 1.6)),
+                  ],
+                ),
               ),
-            ),
-            const Spacer(),
-            Text(
-              nextLevel,
-              style: TextStyle(
-                  color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.6),
-            ),
-            SizedBox(
-              width: ConfigSize.defaultSize! * 4,
-            )
-          ],
-        ),
-        LinearPercentIndicator(
-          barRadius: Radius.circular(ConfigSize.defaultSize!),
-          width: MediaQuery.of(context).size.width - 100,
-          lineHeight: ConfigSize.defaultSize!,
-          percent: percent,
-          backgroundColor: Colors.white.withOpacity(0.4),
-          progressColor: ColorManager.whiteColor,
-        ),
-        SizedBox(
-          height: ConfigSize.defaultSize! * 2,
-        )
-      ],
+              const Spacer(),
+              Text(
+                nextLevel,
+                style: TextStyle(
+                    color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.6),
+              ),
+              SizedBox(
+                width: ConfigSize.defaultSize! * 4,
+              )
+            ],
+          ),
+          LinearPercentIndicator(
+            barRadius: Radius.circular(ConfigSize.defaultSize!),
+            width: MediaQuery.of(context).size.width - 100,
+            lineHeight: ConfigSize.defaultSize!,
+            percent: percent,
+            backgroundColor: Colors.white.withOpacity(0.4),
+            progressColor: ColorManager.whiteColor,
+          ),
+          SizedBox(
+            height: ConfigSize.defaultSize! * 2,
+          )
+        ],
+      ),
     ),
   );
 }

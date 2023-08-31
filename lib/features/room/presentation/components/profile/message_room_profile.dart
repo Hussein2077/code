@@ -75,7 +75,8 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
           builder: (context, state) {
             if (state is GetUserLoddingState) {
               return TransparentLoadingWidget(
-                height: ConfigSize.screenHeight! / 2,
+                height: ConfigSize.defaultSize!*2,
+                width: ConfigSize.defaultSize!*7.2,
               );
             } else if (state is GetUserSucssesState) {
               RoomScreen.usersInRoom
@@ -96,7 +97,8 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
             } else {
               return RoomScreen.usersInRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
-                      height: ConfigSize.screenHeight! / 2,
+                height: ConfigSize.defaultSize!*2,
+                width: ConfigSize.defaultSize!*7.2,
                     )
                   :UserProfileInRoom(
                            myData: widget.myData,

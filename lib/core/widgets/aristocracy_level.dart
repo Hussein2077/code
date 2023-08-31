@@ -8,7 +8,8 @@ class AristocracyLevel extends StatelessWidget {
  final int level ; 
    AristocracyLevel({required this.level ,  super.key});
 
-  List<String> levels = [AssetsPath.aristocracy1,
+  List<String> levels = [
+    AssetsPath.aristocracy1,
   AssetsPath.aristocracy2,
   AssetsPath.aristocracy3,
   AssetsPath.aristocracy4,

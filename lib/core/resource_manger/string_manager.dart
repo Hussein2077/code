@@ -79,7 +79,7 @@ class StringManager {
   static const String bySigningOrLogin =
       "By Signing up/Logging in, you agree to";
   static const String privacyPolicy = "$appTitle Privacy Policy";
-  
+
   static const String and = "and";
   static const String termsOfService = "Terms of Service";
   static const String enterTheVerificatiOnCode = "Enter the verification code";
@@ -243,6 +243,8 @@ class StringManager {
   static const String comingSoon = "Coming Soon";
   static const String income = "Income";
  static const String startBattle = "Start Battale";
+ static const String senderLevel = "Sender Level";
+ static const String receiverLevel = "Receiver Level";
 
 
   ///INCOME SCREEN 💲💸💰
@@ -408,14 +410,13 @@ class StringManager {
   static const String description = "Description";
   static const String mustNotBeEmpty = "must not be empty";
   static const String submission = "Submission";
-  static const String pleaseExplain =
-      'Please explain your problem in detail so that our customer service staff can understand and deal with it';
+  static const String pleaseExplain = 'Please explain your problem in detail so that our customer service staff can understand and deal with it';
   static const String fiveMin = '5 minute ';
   static const String fiftyMin = '15 minute';
   static const String thirtyMin = '30 minute';
   static const String sixtyMin = '60 minute';
   static const String twenyFourMin = '24 hour';
-    static const String writeUnBan = "write Unban";
+  static const String writeUnBan = "write Unban";
   static const String writeBan = "write ban";
   static const String block = "Block";
   static const String lastActive = "Last Active: ";
