@@ -7,6 +7,7 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
@@ -74,7 +75,8 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 imageSize: ConfigSize.defaultSize! * 10,
                               ),
                               onTap: (){
-                                Navigator.pushNamed(context, Routes.userProfile ,);
+                                                                      Methods().userProfileNvgator(context: context);
+
 
                               },
                             ),

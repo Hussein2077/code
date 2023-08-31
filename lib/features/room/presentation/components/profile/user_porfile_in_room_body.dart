@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/admin_or_owner_container.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
@@ -326,11 +327,9 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
             ),
             child: InkWell(
               onTap: () {
-                myProfile?
-                 Navigator.pushNamed(context, Routes.userProfile,
-                    ):
-                Navigator.pushNamed(context, Routes.userProfile,
-                    arguments:UserProfilePreamiter(widget.userData, null));
+                                                                                                                        Methods().userProfileNvgator(context: context ,userData: widget.userData );
+
+        
               },
               child: UserImage(
                 boxFit: BoxFit.cover,

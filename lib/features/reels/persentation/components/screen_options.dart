@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -64,16 +65,10 @@ class ScreenOptions extends StatelessWidget {
                         if (item.userImage != null)
                           InkWell(
                               onTap: () {
-                                if (item.userId ==
-                                    MyDataModel.getInstance().id) {
-                                  Navigator.pushNamed(
-                                      context, Routes.userProfile);
-                                } else {
-                                  Navigator.pushNamed(
-                                      context, Routes.userProfile,
-                                      arguments: UserProfilePreamiter(
-                                          null, item.userId.toString()));
-                                }
+
+                                                                                                                                        Methods().userProfileNvgator(context: context , userId:item.userId.toString());
+
+                            
                               },
                               child: UserImage(image: item.userImage!)),
                         if (item.userImage == null)

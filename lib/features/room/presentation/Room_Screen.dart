@@ -267,11 +267,13 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       if(controllerBanner.isCompleted){
         controllerBanner.stop() ;
         Future.delayed(const Duration(seconds: 3),()async{
-          controllerBanner.reverse().then((value) {
-            if(RoomScreen.showBanner.value){
-              RoomScreen.showBanner.value =false ;
-            }
-          });
+          // controllerBanner.reverse().then((value) {
+          //   if(RoomScreen.showBanner.value){
+          //     RoomScreen.showBanner.value =false ;
+          //   }
+          // }
+          
+          // );
         });
 
       }
@@ -609,7 +611,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     animationControllerGift.forward().whenComplete(() {
       RoomScreen.isGiftEntroAnimating = false;
       if(giftData.showBanner&&RoomScreen.showBanner.value){
-        RoomScreen.showBanner.value = false;
+        // RoomScreen.showBanner.value = false;
 
       }
        loadMoreAnimationGifts();

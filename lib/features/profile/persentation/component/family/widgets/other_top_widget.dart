@@ -39,7 +39,7 @@ class OtherTopWidget extends StatelessWidget {
             itemBuilder: (context , index){
             return  InkWell(
               onTap: (){
-                Navigator.pushNamed(context, Routes.familyProfile,arguments:otherRanking[index].id.toString() );
+                Navigator.pushNamed(context, Routes.familyProfile,arguments:otherRanking[index].id );
               },
               child: FamilyInfoRow(image: otherRanking[index].img!,
               intro: otherRanking[index].introduce!,

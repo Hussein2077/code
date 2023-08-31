@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
  
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -68,10 +69,10 @@ class TopInRoomScreenBody extends StatelessWidget {
                                       )
 
                                   );
+                                                                                                        Methods().userProfileNvgator(context: context , userId:state.todayUserTopModel[index].userId.toString());
 
-                                      Navigator.pushNamed(context,
-                                          Routes.userProfile,
-                                     );
+
+                                   
                           
                                     },
                                     child: ItemRankInRoom(

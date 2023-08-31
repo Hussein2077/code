@@ -17,7 +17,7 @@ class BackPackModel extends BackPackEnities {
   factory BackPackModel.fromjson(Map<String, dynamic> json) {
     log(json['expire'].runtimeType.toString());
     return BackPackModel(
-      name: json["name"],
+      name: json["name"]??"",
       isDress:json['is_dress'] ,
       firstUsed: json['is_used'],
         targetId: json['target_id'],

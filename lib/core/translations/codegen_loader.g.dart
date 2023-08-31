@@ -367,6 +367,7 @@ class CodegenLoader extends AssetLoader {
         StringManager.pleaseChosseVideo : 'الرجاء اختيار الفيديو',
 StringManager.specialBar : "الشريط المميز",
 
+StringManager.chooseTimePK : "اختار وقت التحدي",
 
 
 
