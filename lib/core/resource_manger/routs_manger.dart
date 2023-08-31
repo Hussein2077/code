@@ -164,8 +164,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const TopUsersScreen());
       case Routes.userProfile:
       
-        // String? userId = settings.arguments as String?;
-        //         UserDataModel? userData = settings.arguments as UserDataModel?;
+      
                                 UserProfilePreamiter? pram = settings.arguments as UserProfilePreamiter?;
 
 

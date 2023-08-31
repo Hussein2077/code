@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
@@ -44,8 +45,8 @@ class UserInfoRow extends StatelessWidget {
     return InkWell(
       onTap: onTap ??
               () {
-            Navigator.pushNamed(context, Routes.userProfile,
-                arguments: UserProfilePreamiter(null, userData.id.toString()));
+                Methods().userProfileNvgator(context: context ,userId: userData.id.toString()  );
+            
           },
       child: Padding(
         padding:  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.5),

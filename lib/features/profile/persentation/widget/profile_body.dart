@@ -29,10 +29,7 @@ class ProfileBody extends StatelessWidget {
             flex: 2,
           ),
           UserInfoRow(
-            onTap: () => Navigator.pushNamed(
-              context,
-              Routes.userProfile,
-            ),
+         
             imageSize: ConfigSize.defaultSize! * 7,
             underName: IdWithCopyIcon(id: myData.uuid.toString()),
             endIcon: Container(

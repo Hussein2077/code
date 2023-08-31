@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -103,6 +102,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_top_inroom/topin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -117,7 +117,7 @@ import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_p
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
- // CreateLiveVideoBody.cameras = await availableCameras();
+  // CreateLiveVideoBody.cameras = await availableCameras();
   await Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
@@ -130,7 +130,6 @@ Future<void> main() async {
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await ServerLocator().init();
-
 
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),
@@ -294,76 +293,58 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<ChargeHistoryBloc>(),
         ),
-
-
-                                                                                       BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ChargeToBloc>(),
         ),
-
-                                                                                 BlocProvider(
+        BlocProvider(
           create: (context) => getIt<MyStoreBloc>()..add(GetMyStoreEvent()),
         ),
-
-                                                                                 BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ShowAgencyBloc>(),
         ),
-
-                                                                                         BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AgnecyMemberBloc>(),
         ),
-
-                                                                                           BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AgencyRequestsBloc>(),
         ),
-
-                                                                                            BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AgencyRequestsActionBloc>(),
         ),
-
-        
-                                                                                            BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AgencyHistoryTimeBloc>(),
         ),
-
-                                                                                               BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AgencyTimeBloc>(),
         ),
-
-                                                                                                  BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ChargeCoinForUserBloc>(),
         ),
-
-                                                                                              BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ChargeDolarsForUserBloc>(),
         ),
-
         BlocProvider(
           create: (context) => getIt<CreateRoomBloc>(),
         ),
-
-          BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ChargeOwnerAgencyHistoryBloc>(),
         ),
-
-        
-          BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ChargeCoinSystemHistoryBloc>(),
         ),
-
-            BlocProvider(
-          create: (context) => getIt<GetAllInterstedBloc>()..add(GetAllInterstedEvent()),
+        BlocProvider(
+          create: (context) =>
+              getIt<GetAllInterstedBloc>()..add(GetAllInterstedEvent()),
         ),
-
-
-    BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AddInterstedBloc>(),
         ),
-
-    BlocProvider(
+        BlocProvider(
           create: (context) => getIt<GetUserInterstedBloc>(),
         ),
         BlocProvider(
-          create: (context) => getIt<CreateRoomBloc>()..add(GetTypesRoomEvent()),
+          create: (context) =>
+              getIt<CreateRoomBloc>()..add(GetTypesRoomEvent()),
         ),
         BlocProvider(
           create: (context) => getIt<RoomHandlerBloc>(),
@@ -374,10 +355,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<MangerGetVipPrevBloc>()..add(getVipPrevEvent())),
         BlocProvider(create: (_) => getIt<GetMyBackgroundBloc>()),
         BlocProvider(create: (_) => getIt<AddRoomBackgroundBloc>()),
-        BlocProvider(create: (_) => getIt<GiftBloc>()
-    ..add(GiftesNormalEvent(type: 1))
-    ..add(GiftesHotEvent(type: 2))
-    ..add(GiftesCountryEvent(type: 3))),
+        BlocProvider(
+            create: (_) => getIt<GiftBloc>()
+              ..add(GiftesNormalEvent(type: 1))
+              ..add(GiftesHotEvent(type: 2))
+              ..add(GiftesCountryEvent(type: 3))),
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
         BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),
         BlocProvider(create: (_) => getIt<PKBloc>()),
@@ -387,28 +369,22 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (_) => getIt<PrivacyBloc>()),
         BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
-
         BlocProvider(create: (_) => getIt<GetReelsBloc>()),
-
-
         BlocProvider(create: (_) => getIt<KickoutBloc>()),
-                BlocProvider(create: (_) => getIt<UserReportBloc>()),
-
-                BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
+        BlocProvider(create: (_) => getIt<UserReportBloc>()),
+        BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
         BlocProvider(
           create: (context) =>
-          getIt<GoldCoinBloc>()..add(GetGoldCoinDataEvent()),
+              getIt<GoldCoinBloc>()..add(GetGoldCoinDataEvent()),
         ),
-        BlocProvider(create: (_)=>getIt<BuyCoinsBloc>()),
-                BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
-                BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
+        BlocProvider(create: (_) => getIt<BuyCoinsBloc>()),
+        BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
+        BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
+        BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
+        BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
+                BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
 
-                BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
-
-                BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
-
-
-
+        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

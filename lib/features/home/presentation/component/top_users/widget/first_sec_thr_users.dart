@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
@@ -20,12 +21,9 @@ class FirstSecThrUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        if(userData.userId==MyDataModel.getInstance().id){
-          Navigator.pushNamed(context, Routes.userProfile);
-        }else {
-                    Navigator.pushNamed(context, Routes.userProfile , arguments: UserProfilePreamiter(null, userData.userId.toString()));
+                        Methods().userProfileNvgator(context: context ,userId: userData.userId.toString()  );
 
-        }
+     
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,8 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 
 //todo hana
@@ -35,7 +37,7 @@ class TimePKWidgetState extends State<TimePKWidget> {
               ),
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
               child: Text(
-                "5 min",
+                StringManager.fiveMin.tr(),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
@@ -55,7 +57,7 @@ class TimePKWidgetState extends State<TimePKWidget> {
               ),
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
               child: Text(
-                "15 min",
+                StringManager.fiftyMin.tr(),
                 style:   Theme.of(context).textTheme.bodyMedium,
               ),
             ),
@@ -81,7 +83,7 @@ class TimePKWidgetState extends State<TimePKWidget> {
               ),
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
               child: Text(
-                "30 min",
+               StringManager.thirtyMin.tr(),
                 style:    Theme.of(context).textTheme.bodyMedium,
               ),
             ),

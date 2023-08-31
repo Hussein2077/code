@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/Base_Use_Case/Base_Use_Case.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -645,10 +646,36 @@ class Methods {
         }
 
 
-    void navigatorScreen(BuildContext context,Noparamiter? noparamiter,String page) {
-      Navigator.pushNamed(context, page, arguments: noparamiter);
+   void userProfileNvgator ({required BuildContext context ,    String ? userId ,
+  UserDataModel ? userData , }){
+    if(userId==null && userData==null){
+      Navigator.pushNamed(context, Routes.userProfile,
+               );
+    }else if (userId !=null){
+      if(userId !=MyDataModel.getInstance().id.toString()){
+  Navigator.pushNamed(context, Routes.userProfile,
+                arguments: UserProfilePreamiter(null, userId));
+      }else {
+          Navigator.pushNamed(context, Routes.userProfile,
+               );
+      }
+
+    }else if (userData !=null){
+
+      if(userData.id.toString() !=MyDataModel.getInstance().id.toString()){
+   Navigator.pushNamed(context, Routes.userProfile,
+                arguments: UserProfilePreamiter(null, userData.id.toString()));
+      }else {
+          Navigator.pushNamed(context, Routes.userProfile,
+               );
+      }
 
     }
+
+
+
+
+   }
 
 
 }

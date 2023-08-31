@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
@@ -23,12 +24,9 @@ class OthersUsers extends StatelessWidget {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: (){
-               if(usersData[index].userId==MyDataModel.getInstance().id){
-          Navigator.pushNamed(context, Routes.userProfile);
-        }else {
-                    Navigator.pushNamed(context, Routes.userProfile , arguments: UserProfilePreamiter(null, usersData[index].userId.toString()));
+                                      Methods().userProfileNvgator(context: context ,userId: usersData[index].userId.toString()  );
 
-        }
+  
             },
             child: Container(
               margin: EdgeInsets.symmetric(

@@ -16,7 +16,6 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -48,11 +47,8 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_box
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_states.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_events.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/message_defines.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
+
 
 
 import '../../../core/utils/config_size.dart';
@@ -928,6 +924,8 @@ Widget messagesChached(
 
   List<TextSpan> spans = [];
 
+
+
   for (String word in words) {
     if (word.startsWith("@")) {
       spans.add(TextSpan(text: "$word ", style:const TextStyle(color: Colors.yellow)));
@@ -937,6 +935,7 @@ Widget messagesChached(
   }
   return InkWell(
     onTap: () {
+      
       bottomDailog(
           context: context,
           widget: MessageRoomProfile(
@@ -1003,12 +1002,12 @@ Widget messagesChached(
                           ?.senderImage??'') != '' )
                         LevelContainer(
                         image: sender == ""
-                            ? ConstentApi().getImage(RoomScreen
+                            ? RoomScreen
                                     .usersMessagesInRoom[message.user.id]
                                     ?.level
                                     ?.senderImage ??
-                                '')
-                            : ConstentApi().getImage(sender),
+                                ''
+                            : sender,
                       ),
                       const SizedBox(
                         width: 1,
@@ -1019,12 +1018,12 @@ Widget messagesChached(
                       ?.receiverImage??'') != '' )
                      LevelContainer(
                         image: receiver == ""
-                            ? ConstentApi().getImage(RoomScreen
+                            ? RoomScreen
                                     .usersMessagesInRoom[message.user.id]
                                     ?.level
                                     ?.receiverImage ??
-                                '')
-                            : ConstentApi().getImage(receiver),
+                                ''
+                            : receiver,
                       ),
                     ],
                   ),
@@ -1154,14 +1153,14 @@ Widget giftBannerWidget(
                 if(sendDataUser.level!.receiverImage! != '')
 
                   LevelContainer(
-                  image: ConstentApi()
-                      .getImage(sendDataUser.level!.receiverImage!),
+                  image: sendDataUser.level!.receiverImage!
                 ),
+                
                 if(sendDataUser.level!.senderImage! != '')
 
                   LevelContainer(
                   image:
-                      ConstentApi().getImage(sendDataUser.level!.senderImage!),
+                      sendDataUser.level!.senderImage!
                 ),
 
                 if (sendDataUser.vip1 != null)
@@ -1542,7 +1541,7 @@ showYallowBannerWidget(
                                   // textAlign: TextAlign.left,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         
   
                         Container(
@@ -1551,7 +1550,7 @@ showYallowBannerWidget(
                           child: IconButton(onPressed: (){
                            controllerYallowBanner.reset();
                         
-                          }, icon: Icon(Icons.close , color: Colors.black, size: 15,)),
+                          }, icon: const Icon(Icons.close , color: Colors.black, size: 15,)),
                         )
                         
                       ],

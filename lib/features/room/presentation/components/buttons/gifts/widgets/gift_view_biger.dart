@@ -117,7 +117,7 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                           child: Container(
                             margin: EdgeInsets.symmetric(
                                 horizontal: ConfigSize.defaultSize! ,
-                                vertical: ConfigSize.defaultSize!),
+                                vertical: ConfigSize.defaultSize!-4),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
                                   border: Border.all(

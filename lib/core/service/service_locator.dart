@@ -179,6 +179,7 @@ import 'package:tik_chat_v2/features/room/domine/use_case/getGiftes_useCase.dart
 import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_boxex_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_mybackground_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/get_top_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/hide_pk_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/hide_room_use_case.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/invite_user_uc.dart';
@@ -207,6 +208,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_top_inroom/topin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -435,8 +437,16 @@ class ServerLocator {
 
     getIt.registerFactory(() => BuyCoinsBloc(buyCoinsUseCase: getIt()));
 
+        getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
+
+
+    
+
 //usecase
 
+
+
+    getIt.registerLazySingleton(() => GetTopRoomUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(() => SendYallowBannerUC(roomRepo: getIt()));
 
