@@ -1,5 +1,8 @@
 
 
+
+import 'dart:developer';
+
 import 'package:tik_chat_v2/core/model/family_data_model.dart';
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_agency_model.dart';
@@ -44,11 +47,11 @@ class UserDataModel {
   final bool? lastActiveHidden;
   final bool? visitHidden;
   final bool? roomHidden;
-  final bool? hasColorName ;
-  final bool? isAanonymous ;
+  final bool? hasColorName;
+  final bool? isAanonymous;
   final String? onlineTime;
-  final bool? isCountryHiden ;
-    final String? visitTime ;
+  final bool? isCountryHiden;
+  final String? visitTime;
 
 
 
@@ -137,7 +140,7 @@ class UserDataModel {
         hasColorName: map['has_color_name']??false,
         isAanonymous :map['anonymous']??false,
         isCountryHiden: map['country_hidden']??false,
-        lastActiveHidden :map['anonymous']??false,
+        lastActiveHidden :map['last_active_hidden']??false,
         visitHidden:map['visit_hidden']??false,
         roomHidden: map['room_hidden']??false,
 
@@ -153,6 +156,7 @@ class UserDataModel {
 
 
   MyDataModel convertToMyDataObject() {
+    log("last active$lastActiveHidden");
     return MyDataModel(
       id: id,
       bubble:bubble,

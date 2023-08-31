@@ -112,6 +112,8 @@ import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/
 import 'package:tik_chat_v2/firebase_options.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
+import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -369,7 +371,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<SendGiftBloc>(),
         ),
-        BlocProvider(create: (_) => getIt<MangerGetVipPrevBloc>()),
+        BlocProvider(create: (_) => getIt<MangerGetVipPrevBloc>()..add(getVipPrevEvent())),
         BlocProvider(create: (_) => getIt<GetMyBackgroundBloc>()),
         BlocProvider(create: (_) => getIt<AddRoomBackgroundBloc>()),
         BlocProvider(create: (_) => getIt<GiftBloc>()

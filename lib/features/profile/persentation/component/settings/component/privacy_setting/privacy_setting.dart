@@ -70,7 +70,10 @@ class PrivacySettingState extends State<PrivacySetting> {
                     Expanded(
                       child: ListView.builder(
                           itemBuilder: (BuildContext context, int index) {
-                        return Padding(
+                            return  state.data[index].key=='room'?const SizedBox():
+
+
+                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*2),
                           child: MainPravelagePrivecyColumn(
                             prevalageName: state.data[index].title!,

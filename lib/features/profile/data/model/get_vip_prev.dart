@@ -1,3 +1,4 @@
+
 class GetVipPrevModel {
   final String? key;
 

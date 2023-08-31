@@ -13,6 +13,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
+import 'package:tik_chat_v2/core/Base_Use_Case/Base_Use_Case.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -642,4 +643,12 @@ class Methods {
             cacheManager.removeFile(key);
           }
         }
+
+
+    void navigatorScreen(BuildContext context,Noparamiter? noparamiter,String page) {
+      Navigator.pushNamed(context, page, arguments: noparamiter);
+
+    }
+
+
 }

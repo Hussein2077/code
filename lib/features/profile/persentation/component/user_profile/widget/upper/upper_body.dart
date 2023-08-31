@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,6 +21,9 @@ class UpperProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("Online Time ${myDataModel.onlineTime}");
+    log("last activ hiden ${myDataModel.lastActiveHidden}");
+
     return InkWell(
       onTap: (){
   showImageViewer(context, CachedNetworkImageProvider(ConstentApi().getImage(myDataModel.profile!.image)),
@@ -128,7 +132,7 @@ class UpperProfileBody extends StatelessWidget {
                     const Spacer(
                       flex: 3,
                     ),
-                      if(!myDataModel.lastActiveHidden!)
+                      if(!myDataModel.lastActiveHidden!&&myDataModel.onlineTime!="")
                         SizedBox(
                           width: ConfigSize.defaultSize!*15,
                           child: itemContiner(
