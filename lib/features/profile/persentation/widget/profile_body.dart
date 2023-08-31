@@ -28,26 +28,26 @@ class ProfileBody extends StatelessWidget {
           const Spacer(
             flex: 2,
           ),
-          // UserInfoRow(
-          //   onTap: () => Navigator.pushNamed(
-          //     context,
-          //     Routes.userProfile,
-          //   ),
-          //   imageSize: ConfigSize.defaultSize! * 7,
-          //   underName: IdWithCopyIcon(id: myData.uuid.toString()),
-          //   endIcon: Container(
-          //     padding: EdgeInsets.all(ConfigSize.defaultSize!),
-          //     decoration: const BoxDecoration(
-          //         shape: BoxShape.circle,
-          //         gradient: LinearGradient(
-          //             colors: ColorManager.mainColorList,
-          //             begin: Alignment.topLeft,
-          //             end: Alignment.bottomRight)),
-          //     child: Icon(Icons.arrow_forward_ios,
-          //         color: Colors.white, size: ConfigSize.defaultSize!),
-          //   ),
-          //   userData: myData.convertToUserObject(),
-          // ),
+          UserInfoRow(
+            onTap: () => Navigator.pushNamed(
+              context,
+              Routes.userProfile,
+            ),
+            imageSize: ConfigSize.defaultSize! * 7,
+            underName: IdWithCopyIcon(id: myData.uuid.toString()),
+            endIcon: Container(
+              padding: EdgeInsets.all(ConfigSize.defaultSize!),
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                      colors: ColorManager.mainColorList,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight)),
+              child: Icon(Icons.arrow_forward_ios,
+                  color: Colors.white, size: ConfigSize.defaultSize!),
+            ),
+            userData: myData.convertToUserObject(),
+          ),
           const Spacer(
             flex: 1,
           ),

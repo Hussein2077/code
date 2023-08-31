@@ -84,17 +84,18 @@ class _MainPravelagePrivecyColumnState
                 })
           ],
         ),
-        const Divider(),
+
         SizedBox(
-          height: ConfigSize.defaultSize! * 0.5,
+          height: ConfigSize.defaultSize! * 1,
         ),
         Text(
           widget.prevalageDescription,
           style: Theme.of(context).textTheme.titleMedium,
           overflow: TextOverflow.clip,
         ),
+        const Divider(),
         SizedBox(
-          height: ConfigSize.defaultSize! * 0.5,
+          height: ConfigSize.defaultSize! * 1,
         ),
       ],
     );

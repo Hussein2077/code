@@ -36,7 +36,7 @@ class VipTabView extends StatelessWidget {
             if(state is GetMyDataSucssesState){
               if(vipData.level == state.myDataModel.vip1!.level){
                     return Text(
-              "${StringManager.youAreAristocracy.tr()}${vipData.name.toString()}",
+              "${StringManager.youAreAristocracy.tr()} ${vipData.name.toString()}",
               style: TextStyle(
                   color: Colors.white.withOpacity(0.7),
                   fontSize: ConfigSize.defaultSize! * 1.7),
