@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -62,14 +63,15 @@ class MallCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "$price / $time ${StringManager.day} ",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              Image.asset(
+                   Image.asset(
                 AssetsPath.goldCoinIcon,
                 scale: 10,
-              )
+              ),
+              Text(
+                " $price / $time ${StringManager.day.tr()} ",
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+         
             ],
           ),
           SizedBox(
@@ -85,11 +87,12 @@ class MallCard extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return PopUpDialog(
+                          accpettitle: StringManager.buy.tr(),
                             accpetText: () {
                               BlocProvider.of<MallBuyBloc>(context).add(BuyItemEvent(idItem: id, quantity: "1"));
                               Navigator.pop(context);
                             },
-                            headerText: StringManager.youWillBuy,
+                            headerText: StringManager.youWillBuy.tr(),
                             widget: CustoumCachedImage(
                               height: ConfigSize.defaultSize! * 7,
                               width: ConfigSize.defaultSize! * 7,

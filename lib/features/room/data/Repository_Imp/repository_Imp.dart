@@ -20,6 +20,7 @@ import 'package:tik_chat_v2/features/room/domine/use_case/enter_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_pob_up_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
 
@@ -423,6 +424,17 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
       return Right(DioHelper.buildFailure(e));
     }
 
+  }
+
+  @override
+  Future<Either<String, Failure>> sendYallowBanner(SendPobUpPram sendPobUpPram)async {
+    try {
+      final result = await baseRemotlyDataSourceRoom.sendYallowBanner(sendPobUpPram.ownerId,sendPobUpPram.message);
+      return left(result);
+    } catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+    
   }
 
 

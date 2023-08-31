@@ -140,6 +140,7 @@ setState(() {
                                 height: ConfigSize.defaultSize! * 1.0,
                               ),
                               TextFormFieldWidget(
+                                
                                 textEditingController: id,
                                 hintText: state.myDataModel.uuid!,
                                 readOnly: true,
@@ -166,6 +167,7 @@ setState(() {
                                       ConfigSize.defaultSize! * 2),
                                 ),
                                 child: TextFieldWidget(
+                                  textColor: Theme.of(context).colorScheme.primary,
                                                                     type: TextInputType.number,
 
                                   controller: agencyId,

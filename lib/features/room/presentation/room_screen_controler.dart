@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:text_scroll/text_scroll.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -20,6 +21,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/cilcular_asset_image.dart';
@@ -47,11 +49,15 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_box
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/message_defines.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 
+
 import '../../../core/utils/config_size.dart';
+import 'dart:ui' as ui;
+
 
 class EmojieData {
   final String emojie;
@@ -150,6 +156,8 @@ const String banDiviceKey = "banDevice";
 const String inviteToSeatKey ="inviteToSeat";
 const String muteUserKey='muteUser';
 const String mute = 'mute';
+const String showYallowBanner = "yellowBanner";
+
 
 const String appSign =
     "bb61a6e81736c136dac6e2afc46e71642e8eaf35cdbe713d0ced6aa139ac3faa";
@@ -1460,4 +1468,107 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
         ),
 
   );
+}
+class YallowBannerData {
+  final int senderId;
+  final String message;
+  final bool yallowBannerhasPasswoedRoom;
+  final String yallowBannerOwnerRoom;
+
+  YallowBannerData(
+      {required this.senderId,
+      required this.message,
+      required this.yallowBannerhasPasswoedRoom,
+      required this.yallowBannerOwnerRoom});
+}
+
+showYallowBannerWidget(
+    {required AnimationController controllerYallowBanner,
+    required Animation<Offset> offsetAnimationYallowBanner,
+    UserDataModel? senderYallowBanner,
+    required hasPassword,
+    required myData,
+    required int ownerId , required int cureentRoomId}) {
+  return Directionality(
+    textDirection: ui.TextDirection.rtl,
+    child: AnimatedBuilder(
+        animation: controllerYallowBanner,
+        builder: (context, child) {
+          return Transform.translate(
+              offset: offsetAnimationYallowBanner.value,
+              child: InkWell(
+                onTap: () {
+                                  if(ownerId != cureentRoomId){
+                                        Methods().checkIfRoomHasPassword(
+                      context: context,
+                      hasPassword: hasPassword,
+                      ownerId: ownerId.toString(),
+                      myData: myData);
+                                  }
+
+              
+                },
+                child: Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ConfigSize.defaultSize! - 4,
+                        horizontal: ConfigSize.defaultSize!-3),
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            colors: ColorManager.yellowGrident),
+                        borderRadius: BorderRadius.circular(20)),
+                    margin: EdgeInsets.only(top: ConfigSize.defaultSize! * 10),
+                    width: ConfigSize.defaultSize! * 35,
+                    height: ConfigSize.defaultSize! * 4,
+                    child: Row(
+                      children: [
+                        UserImage(
+                            imageSize: ConfigSize.defaultSize! * 4,
+                          
+                            image:senderYallowBanner!.isAanonymous!?StringManager.imageAnanyomus:  senderYallowBanner.profile!.image!),
+                            SizedBox(width: ConfigSize.defaultSize,),
+  
+                         SizedBox(
+                          width: ConfigSize.defaultSize!*23.5,
+                          child: TextScroll(
+                            textDirection:  ui.TextDirection.rtl,
+  
+                  senderYallowBanner.isAanonymous!?"${StringManager.nameAnayoums} : ${ZegoInRoomMessageInput.messageYallowBanner}":"${ senderYallowBanner.name} : ${ZegoInRoomMessageInput.messageYallowBanner}",
+                            mode: TextScrollMode.endless,
+                                  velocity: const Velocity(pixelsPerSecond: Offset(70, 0)),
+                                  delayBefore: const Duration(milliseconds: 500),
+                                  pauseBetween: const Duration(seconds: 1),
+                                  style: const TextStyle(color: Colors.black),
+  
+                                  // textAlign: TextAlign.left,
+                          ),
+                        ),
+                        Spacer(),
+                        
+  
+                        Container(
+                          decoration: BoxDecoration(shape: BoxShape.circle , color: ColorManager.gray.withOpacity(0.6))
+                          ,
+                          child: IconButton(onPressed: (){
+                           controllerYallowBanner.reset();
+                        
+                          }, icon: Icon(Icons.close , color: Colors.black, size: 15,)),
+                        )
+                        
+                      ],
+                    )),
+              ));
+        }),
+  );
+
+  // AnimatedBuilder(
+  //
+  //   animation: yellowBannercontroller,
+  //   builder: (context, child) {
+  //     return Positioned(
+  //       left: -ConfigSize.defaultSize!*40+ yellowBannercontroller.value * (MediaQuery.of(context).size.width ),
+  //       child: child!,
+  //     );
+  //   },
+  //   child: ,
+  // ) ;
 }

@@ -259,7 +259,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                               children: [
 
                                 InfoWithWidget(
-                                    title: StringManager.dataInMounth.tr()),
+                                    title: StringManager.total.tr()),
                                 const SizedBox(
                                   height: 20,
                                 ),

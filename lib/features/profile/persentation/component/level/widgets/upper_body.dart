@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:ui' as ui;
 
 class LeveUpperBody extends StatelessWidget {
   final String userImage ;
@@ -36,43 +37,46 @@ class LeveUpperBody extends StatelessWidget {
                 ),
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: Stack(children: [
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
                 Image.asset(AssetsPath.levelBannerIcon),
-                Padding(
-                    padding: EdgeInsets.only(left: ConfigSize.defaultSize! * 2),
-                    child: Text(
-                      "lv. $level",
-                      style: TextStyle(
-                          color: Colors.purple,
-                          fontSize: ConfigSize.defaultSize! * 1.4),
-                    ))
+                Text(
+                  "lv. $level",
+                  style: TextStyle(
+                      color: Colors.purple,
+                      fontSize: ConfigSize.defaultSize! * 1.4),
+                )
               ]),
             ),
           ),
         ),
         SizedBox(height: ConfigSize.defaultSize!*3,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "${StringManager.level.tr()} $level",
-              style: TextStyle(
-                  color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.2),
-            ),
-            LinearPercentIndicator(
-              barRadius: Radius.circular(ConfigSize.defaultSize!),
-              width: MediaQuery.of(context).size.width - 130,
-              lineHeight: ConfigSize.defaultSize! * 1.2,
-              percent: percent,
-              backgroundColor: Colors.white.withOpacity(0.4),
-              progressColor: ColorManager.whiteColor,
-            ),
-            Text(
-              "${StringManager.level.tr()} $nextLevel",
-              style: TextStyle(
-                  color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.2),
-            ),
-          ],
+        Directionality(
+          textDirection: ui.TextDirection.ltr,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "${StringManager.level.tr()} $level",
+                style: TextStyle(
+                    color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.2),
+              ),
+              LinearPercentIndicator(
+                barRadius: Radius.circular(ConfigSize.defaultSize!),
+                width: MediaQuery.of(context).size.width - 230,
+                lineHeight: ConfigSize.defaultSize! * 1.2,
+                percent: percent,
+                backgroundColor: Colors.white.withOpacity(0.4),
+                progressColor: ColorManager.whiteColor,
+              ),
+              Text(
+                "${StringManager.level.tr()} $nextLevel",
+                style: TextStyle(
+                    color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.2),
+              ),
+            ],
+          ),
         ),
                 SizedBox(height: ConfigSize.defaultSize!*3,),
 

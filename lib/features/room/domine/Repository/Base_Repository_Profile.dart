@@ -65,6 +65,7 @@ abstract class BaseRepositoryRoom {
   Future<Either<Unit,Failure>> muteUser(String ownerId, String userId,bool mute);
   Future<Either<Unit,Failure>> inviteUser(String ownerId, String userId,int  indexSeat);
   Future<Either<GetConfigKeyModel, Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
+  Future<Either<String,Failure>> sendYallowBanner(SendPobUpPram sendPobUpPram );
 
 
 }

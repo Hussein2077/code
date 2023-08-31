@@ -280,3 +280,17 @@ class  DisposeHideRoomSuccessState extends OnRoomStates {
   final String successMassage;
   const DisposeHideRoomSuccessState({required this.successMassage});
 }
+
+class SendYallowBannerLoadingState extends OnRoomStates{
+
+}
+
+class SendYallowBannerErrorState extends OnRoomStates {
+  final String errorMassage;
+  const SendYallowBannerErrorState({required this.errorMassage});
+}
+
+class SendYallowBannerSuccessState extends OnRoomStates {
+  final String successMassage;
+  const SendYallowBannerSuccessState({required this.successMassage});
+}

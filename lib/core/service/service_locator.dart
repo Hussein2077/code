@@ -194,6 +194,7 @@ import 'package:tik_chat_v2/features/room/domine/use_case/room_admins_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_pob_up_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_yallow_banner_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/show_pk_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/start_pk_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
@@ -250,7 +251,8 @@ class ServerLocator {
                 removePassRoomUC: getIt() ,
                 updateRoomUsecase: getIt() ,
                 disposeHideRoomUseCase: getIt(),
-                hideRoomUseCase: getIt()));
+                hideRoomUseCase: getIt() , 
+                sendYallowBannerUC: getIt()));
     getIt.registerFactory(
             () => SendGiftBloc(giftUseCase: getIt()));
     getIt.registerFactory(
@@ -434,6 +436,10 @@ class ServerLocator {
     getIt.registerFactory(() => BuyCoinsBloc(buyCoinsUseCase: getIt()));
 
 //usecase
+
+
+    getIt.registerLazySingleton(() => SendYallowBannerUC(roomRepo: getIt()));
+
     getIt.registerLazySingleton(() => BuyCoinsUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(
             () => GetGoldCoinDataUseCase(baseRepositoryProfile: getIt()));

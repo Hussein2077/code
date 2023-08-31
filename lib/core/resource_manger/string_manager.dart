@@ -79,6 +79,7 @@ class StringManager {
   static const String bySigningOrLogin =
       "By Signing up/Logging in, you agree to";
   static const String privacyPolicy = "$appTitle Privacy Policy";
+  
   static const String and = "and";
   static const String termsOfService = "Terms of Service";
   static const String enterTheVerificatiOnCode = "Enter the verification code";
@@ -125,7 +126,7 @@ class StringManager {
   static const String bag = "Bag";
   static const String mall = "Mall";
   static const String level = "Level";
-  static const String vip = "Vip";
+  static const String aristocracy = "Aristocracy";
   static const String agency = "Agency";
   static const String family = "Family";
   static const String familys = "Familys";
@@ -255,9 +256,9 @@ class StringManager {
   static const String thirdInstructions =
       "3 - After your application has been denied again, your application has been rejected again, again, again";
   static const String fourthInstructions =
-      "4- When you accept the agency, please avoid any login to your account from another device and prevent anyone other than you from using your account, and if this is discovered, your account will be banned from using the application";
+      "3- When you accept the agency, please avoid any login to your account from another device and prevent anyone other than you from using your account, and if this is discovered, your account will be banned from using the application";
   static const String fifthInstructions =
-      "5- The Live Agency room will be available to you by the management of Tik Chat, and please follow the usual rules in the room, such as not publishing inappropriate materials and messages, and if this is explored, your membership in the agency will be canceled and you will not be able to join the agency again";
+      "4- The Live Agency room will be available to you by the management of Tik Chat, and please follow the usual rules in the room, such as not publishing inappropriate materials and messages, and if this is explored, your membership in the agency will be canceled and you will not be able to join the agency again";
   static const String agreedToTheRegulations =
       "After reading the instructions means that you have agreed to the regulations";
   static const String areYouSureDeleteFamily =
@@ -286,7 +287,7 @@ class StringManager {
   static const String allInformation = "All Information";
   static const String today = "Today";
   static const String myFamily = "My Family";
-  static const String youAreVip = "You are vip";
+  static const String youAreAristocracy = "You are aristocracy";
   static const String exitFamily = "Exit Family";
   static const String whatsappNum = "Whatsapp Number";
   static const String porn = "Porn";
@@ -430,6 +431,12 @@ class StringManager {
   static const String blockList = "blocklist";
   static const String confirm = "confirm";
     static const String pleaseChosseVideo = "Please Choose Video";
+      static const String specialBar = 'Special Bar';
+
+          static const String imageAnanyomus = 'anonymous_icon.jpg';
+
+    static const String nameAnayoums = 'Mysterious Person';
+
 
 
 
@@ -445,7 +452,7 @@ class StringManager {
      "${youblockedFromRoom.tr()} $durationKickout ${minute.tr()}";
 
   static String exchangeDaimondMethod(String coin, String diamond) {
-    return "${StringManager.areYouSureYouWantToExchange} $diamond ${StringManager.daimondTo} $coin ${StringManager.coins}";
+    return "${StringManager.areYouSureYouWantToExchange.tr()} $diamond ${StringManager.daimondTo.tr()} $coin ${StringManager.coins.tr()}";
   }
 
  static const List<String> arabicBadWords = [

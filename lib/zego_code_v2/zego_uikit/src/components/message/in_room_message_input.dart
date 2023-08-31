@@ -1,5 +1,7 @@
 // Flutter imports:
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_social_textfield/flutter_social_textfield.dart';
@@ -14,6 +16,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -30,10 +33,14 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 
 class ZegoInRoomMessageInput extends StatefulWidget {
   static ValueNotifier<bool> activePobUp = ValueNotifier<bool>(false);
+    static ValueNotifier<bool> activeYallowBanner = ValueNotifier<bool>(false);
+
   static int    senderPobUpId = -1 ;
   static String messagePonUp='';
   final EnterRoomModel roomData ;
   final MyDataModel myData ;
+    static int senderYallowBannerId = -1;
+  static String messageYallowBanner = '';
    ZegoInRoomMessageInput({
     this.mention,
     Key? key,
@@ -116,52 +123,141 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
 
   @override
   Widget build(BuildContext context) {
-    return  FutureBuilder<int>(
-        future: getUserPopUp(widget.myData.id.toString()),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if(snapshot.hasData){
-            return Container (
-            padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 15.r),
-            color: widget.backgroundColor ?? const Color(0xff222222).withOpacity(0.8),
-            child: ConstrainedBox(
+    return  Container(
+        padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 15.r),
+      color: widget.backgroundColor ?? const Color(0xff222222).withOpacity(0.8),
+      child: ConstrainedBox(
             constraints: BoxConstraints(
-            minHeight: 90.r,
+          minHeight: 90.r,
+        ),
+        child: Column(
+          children: [
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        if (ZegoInRoomMessageInput.activePobUp.value) {
+                          setState(() {
+                            ZegoInRoomMessageInput.activePobUp.value = false;
+                          });
+                        } else {
+                          setState(() {
+                                                    ZegoInRoomMessageInput.activeYallowBanner.value = false;
+          
+                            ZegoInRoomMessageInput.activePobUp.value = true;
+                          });
+                        }
+                      },
+                      child: Container(
+                        width: ConfigSize.defaultSize! * 8,
+                        height: ConfigSize.defaultSize! * 3,
+                        decoration: BoxDecoration(
+                          color: ZegoInRoomMessageInput.activePobUp.value
+                              ? ColorManager.mainColor
+                              : ColorManager.gray,
+                          borderRadius:
+                              BorderRadius.circular(ConfigSize.defaultSize!),
+                        ),
+                        child: Center(
+                          child: Text(StringManager.spitialMassege.tr()),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: ConfigSize.defaultSize,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        if (
+                          
+                          ZegoInRoomMessageInput.activeYallowBanner.value
+                        ) {
+                          setState(() {
+                            ZegoInRoomMessageInput.activeYallowBanner.value = false;
+                          });
+                        } else {
+                          setState(() {
+                                                    ZegoInRoomMessageInput.activePobUp.value = false;
+          
+                            ZegoInRoomMessageInput.activeYallowBanner.value = true;
+                          });
+                        }
+                      },
+                      child: Container(
+                        width: ConfigSize.defaultSize! * 10,
+                        height: ConfigSize.defaultSize! * 3,
+                        decoration: BoxDecoration(
+                          color: ZegoInRoomMessageInput.activeYallowBanner.value
+                              ? ColorManager.gold
+                              : ColorManager.gray,
+                          borderRadius:
+                              BorderRadius.circular(ConfigSize.defaultSize!),
+                        ),
+                        child: Center(
+                          child: Text(
+                            
+                            StringManager.specialBar.tr()
+                            
+                            ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize,
+                ),
+            FutureBuilder<int>(
+                future: getUserPopUp(widget.myData.id.toString()),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if(snapshot.hasData){
+                    return Container (
+                    padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 15.r),
+                    color: widget.backgroundColor ?? const Color(0xff222222).withOpacity(0.8),
+                    child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                    minHeight: 90.r,
+                    ),
+                    child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                    SizedBox(width: 10.r),
+                    messageInput(numPobUp: snapshot.data),
+                    SizedBox(width: 10.r),
+                    sendButton(numPobUp: snapshot.data),
+                    SizedBox(width: 10.r),
+            ],
             ),
-            child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-            SizedBox(width: 10.r),
-            messageInput(numPobUp: snapshot.data),
-            SizedBox(width: 10.r),
-            sendButton(numPobUp: snapshot.data),
-            SizedBox(width: 10.r),
-    ],
-    ),
-    ),
-    );
-                  }else{
-            return  Container(
-            padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 15.r),
-            color: widget.backgroundColor ?? const Color(0xff222222).withOpacity(0.8),
-            child: ConstrainedBox(
-            constraints: BoxConstraints(
-            minHeight: 90.r,
             ),
-            child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-            SizedBox(width: 10.r),
-            messageInput(numPobUp: 0),
-            SizedBox(width: 10.r),
-            sendButton(numPobUp: 0),
-            SizedBox(width: 10.r),
-    ],
-    ),
-    ),
+            );
+                          }else{
+                    return  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 15.r),
+                    color: widget.backgroundColor ?? const Color(0xff222222).withOpacity(0.8),
+                    child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                    minHeight: 90.r,
+                    ),
+                    child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                    SizedBox(width: 10.r),
+                    messageInput(numPobUp: 0),
+                    SizedBox(width: 10.r),
+                    sendButton(numPobUp: 0),
+                    SizedBox(width: 10.r),
+            ],
+            ),
+            ),
+            );
+            }
+          
+            }),
+          ],
+        ),
+      ),
     );
-    }
-
-    });
   }
 
   Widget messageInput({required int numPobUp}) {
@@ -216,24 +312,24 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                     hintText:ZegoInRoomMessageInput.activePobUp.value ?
                     numPobUp.toString(): widget.placeHolder,
                     hintStyle: messageSendHintStyle,
-                    suffixIcon: InkWell(
-                      onTap: (){
-                        if(ZegoInRoomMessageInput.activePobUp.value){
-                          setState(() {
-                            ZegoInRoomMessageInput.activePobUp.value= false ;
-                          });
-                        }else{
-                          setState(() {
-                            ZegoInRoomMessageInput.activePobUp.value=true ;
-                          });
-                        }
-                      },
-                      child:Text(StringManager.spitialMassege.tr(),
-                      style: TextStyle(color: ZegoInRoomMessageInput.activePobUp.value?
-                      ColorManager.mainColor :ColorManager.deepPurble,
+                    // suffixIcon: InkWell(
+                    //   onTap: (){
+                    //     if(ZegoInRoomMessageInput.activePobUp.value){
+                    //       setState(() {
+                    //         ZegoInRoomMessageInput.activePobUp.value= false ;
+                    //       });
+                    //     }else{
+                    //       setState(() {
+                    //         ZegoInRoomMessageInput.activePobUp.value=true ;
+                    //       });
+                    //     }
+                    //   },
+                    //   child:Text(StringManager.spitialMassege.tr(),
+                    //   style: TextStyle(color: ZegoInRoomMessageInput.activePobUp.value?
+                    //   ColorManager.mainColor :ColorManager.deepPurble,
 
-                      )),
-                    ),
+                    //   )),
+                    // ),
                     contentPadding: EdgeInsets.only(
                       left: 20.r,
                       top: -5.r,
@@ -286,6 +382,13 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
       BlocProvider.of<OnRoomBloc>(context).add(
           SendPobUpEvent(ownerId: widget.roomData.ownerId.toString(),
           message: textController.text)) ;
+    }
+
+    
+    if (ZegoInRoomMessageInput.activeYallowBanner.value) {
+      BlocProvider.of<OnRoomBloc>(context).add(SendYallowBannerEvent(
+          ownerId: widget.roomData.id.toString(),
+          message: textController.text));
     }
 
 

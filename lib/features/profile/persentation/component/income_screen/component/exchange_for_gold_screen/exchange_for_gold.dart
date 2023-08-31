@@ -31,7 +31,7 @@ class ExchangeForGoldScreen extends StatelessWidget {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-          const HeaderWithOnlyTitle(title: StringManager.exchangeDaimond),
+           HeaderWithOnlyTitle(title: StringManager.exchangeDaimond.tr()),
           SizedBox(
             height: ConfigSize.defaultSize! * 2,
           ),
@@ -110,6 +110,7 @@ Widget exchangeDaimondCard({
             context: context,
             builder: (context) {
               return PopUpDialog(
+                accpettitle: StringManager.buy.tr(),
                   headerText:
                       StringManager.exchangeDaimondMethod(gold, daimond),
                   accpetText: () {

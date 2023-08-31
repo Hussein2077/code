@@ -9,13 +9,16 @@ class PopUpDialog extends StatelessWidget {
   final Widget? widget;
   final VoidCallback accpetText;
   final bool? unShowCancle ;
+    final String? accpettitle;
+
 
   const PopUpDialog({
     Key? key,
     required this.headerText,
     this.widget,
     required this.accpetText,
-    this.unShowCancle
+    this.unShowCancle,
+    this.accpettitle
   }) : super(key: key);
 
   @override
@@ -79,7 +82,7 @@ class PopUpDialog extends StatelessWidget {
                 InkWell(
                     onTap: () => accpetText(),
                     child: Text(
-                      StringManager.accept.tr(),
+                     accpettitle?? StringManager.accept.tr(),
                       style: Theme.of(context).textTheme.bodyMedium,
                     )),
               ],

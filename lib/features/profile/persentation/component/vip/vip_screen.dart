@@ -75,7 +75,7 @@ class _VipScreenState extends State<VipScreen> with TickerProviderStateMixin {
                   height: ConfigSize.defaultSize! * 3.5,
                 ),
                  HeaderWithOnlyTitle(
-                  title: StringManager.vip.tr(),
+                  title: StringManager.aristocracy.tr(),
                   titleColor: Colors.white,
                 ),
                 SizedBox(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
@@ -16,39 +18,52 @@ class FirstSecThrUsers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      
-      children: [
-        Container(
-                  margin: EdgeInsets.only(
-                      top: position,
-                    ),
-                  height: height,
-                  child:UserImage(image:userData.avater!  ,child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Image.asset(
-                          badge,
-                          scale: 2.5,
-                        )),  )
-                  
-                  
-             
-                ),
-        
-        Text(
-          userData.name!,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        Container(
-          width: ConfigSize.
-          defaultSize! * 5.6,
-          height: ConfigSize.defaultSize! * 1.7,
-          decoration: BoxDecoration(
-              color: ColorManager.bage,
-              borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-              child: Center(child: Text(userData.exp.toString() , style:TextStyle(color: ColorManager.borwn , fontSize: ConfigSize.defaultSize!*1.2 , fontWeight: FontWeight.bold) ,)),
-        )
-      ],
+    return InkWell(
+      onTap: (){
+        if(userData.userId==MyDataModel.getInstance().id){
+          Navigator.pushNamed(context, Routes.userProfile);
+        }else {
+                    Navigator.pushNamed(context, Routes.userProfile , arguments: UserProfilePreamiter(null, userData.userId.toString()));
+
+        }
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+                    margin: EdgeInsets.only(
+                        top: position,
+                      ),
+                    height: height,
+                    child:UserImage(image:userData.avater!  ,child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Image.asset(
+                            badge,
+                            scale: 2.5,
+                          )),  )
+                    
+                    
+               
+                  ),
+          
+          SizedBox(
+            width: ConfigSize.defaultSize!*6,
+            child: Text(
+              userData.name!,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+          Container(
+            width: ConfigSize.
+            defaultSize! * 5.6,
+            height: ConfigSize.defaultSize! * 1.7,
+            decoration: BoxDecoration(
+                color: ColorManager.bage,
+                borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
+                child: Center(child: Text(userData.exp.toString() , style:TextStyle(color: ColorManager.borwn , fontSize: ConfigSize.defaultSize!*1.2 , fontWeight: FontWeight.bold) ,)),
+          )
+        ],
+      ),
     );
   }
 }

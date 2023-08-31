@@ -42,7 +42,7 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: ConfigSize.defaultSize! * 6,
+        height: ConfigSize.defaultSize! * 5.5,
         decoration:
             BoxDecoration(color: Theme.of(context).colorScheme.background),
         child: Row(

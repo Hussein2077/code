@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/upper/upper_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_state.dart';
 import 'dart:ui' as ui;
@@ -39,8 +40,8 @@ class ProfileTabViewBody extends StatelessWidget {
               onTap: () => Navigator.pushNamed(context, Routes.level),
             ),
             cover(
-              title: StringManager.vip.tr(),
-              num: "vip. ${userDataModel.vip1!.level.toString()}",
+              title: StringManager.aristocracy.tr(),
+              num: " ${userDataModel.vip1!.level.toString()}",
               image: AssetsPath.vipCover,
               onTap: () => Navigator.pushNamed(context, Routes.vip),
             ),
@@ -50,31 +51,43 @@ class ProfileTabViewBody extends StatelessWidget {
           height: ConfigSize.defaultSize! * 2,
         ),
         if(userDataModel.familyData!=null)
-        Container(
-          margin: EdgeInsets.only(
-            right: ConfigSize.defaultSize!*1.3,
-            left:  ConfigSize.defaultSize!*1.3,
-          ),
-          padding: EdgeInsets.symmetric(
-            vertical: ConfigSize.defaultSize!*0.2,
-            horizontal: ConfigSize.defaultSize!*1
-          ),
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: ColorManager.mainColorList
+        InkWell(
+          onTap: (){
+            Navigator.pushNamed(context, Routes.familyProfile , arguments:userDataModel.familyData!.ownerFamilyId );
+          },
+          child: Container(
+            margin: EdgeInsets.only(
+              right: ConfigSize.defaultSize!*1.3,
+              left:  ConfigSize.defaultSize!*1.3,
             ),
-            borderRadius: BorderRadius.circular(10)
-
-          ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("${StringManager.familyName.tr()} :"),
-
-                Text(userDataModel.familyData!.name!.toString()),
-              ],
-            )),
+            padding: EdgeInsets.symmetric(
+              vertical: ConfigSize.defaultSize!*0.2,
+              horizontal: ConfigSize.defaultSize!*1
+            ),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: ColorManager.mainColorList
+              ),
+              borderRadius: BorderRadius.circular(10)
+        
+            ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("${StringManager.familyName.tr()} :"),
+        
+                  Text(userDataModel.familyData!.name!.toString()),
+                ],
+              )),
+        ),
         SizedBox(
+          height: ConfigSize.defaultSize! * 1,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*2),
+          child: Text("${StringManager.followers.tr()} : ${userDataModel.numberOfFans!} " , style: Theme.of(context).textTheme.bodyMedium,))
+        ,
+            SizedBox(
           height: ConfigSize.defaultSize! * 1,
         ),
         InkWell(

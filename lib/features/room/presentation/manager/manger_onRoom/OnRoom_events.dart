@@ -216,3 +216,12 @@ class  DisposeHideRoomEvent extends OnRoomEvents{
   @override
   List<Object?> get props => [];
 }
+
+class SendYallowBannerEvent extends OnRoomEvents{
+  final String ownerId ;
+  final String message ;
+  const SendYallowBannerEvent({required this.ownerId, required this.message});
+
+  @override
+  List<Object?> get props => [ownerId,message];
+}

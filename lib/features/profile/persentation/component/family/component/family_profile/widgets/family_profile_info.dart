@@ -108,7 +108,7 @@ class FamilyProfileInfo extends StatelessWidget {
                 ),
                 //bioooooooooooooo
                 Text(
-                  StringManager.familyBio,
+                  StringManager.familyBio.tr(),
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 Text(

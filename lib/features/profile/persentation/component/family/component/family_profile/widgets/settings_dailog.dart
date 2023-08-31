@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -61,7 +62,7 @@ class SettingsDailog extends StatelessWidget {
                 if (isAdmin || isOwner)
                   settingsTabs(
                     context: context,
-                    title: "${StringManager.joinRequests} ( $numOfRequests )",
+                    title: "${StringManager.joinRequests.tr()} ( $numOfRequests )",
                     onTap: () => Navigator.pushNamed(
                         context, Routes.familyRequests,
                         arguments: familyId),
@@ -70,12 +71,12 @@ class SettingsDailog extends StatelessWidget {
                 if (isOwner)
                   settingsTabs(
                     context: context,
-                    title: StringManager.deleteFamily,
+                    title: StringManager.deleteFamily.tr(),
                     onTap: () => showDialog(
                         context: context,
                         builder: (context) {
                           return PopUpDialog(
-                            headerText: StringManager.areYouSureDeleteFamily,
+                            headerText: StringManager.areYouSureDeleteFamily.tr(),
                             accpetText: (){ Navigator.pop(context);
                                 BlocProvider.of<DeleteFamilyBloc>(context)
                                     .add(DeleteFamilyEvent(id: familyId));},
@@ -85,12 +86,12 @@ class SettingsDailog extends StatelessWidget {
                 if ((isAdmin || isMember)&&!isOwner)
                   settingsTabs(
                     context: context,
-                    title: StringManager.exitFamily,
+                    title: StringManager.exitFamily.tr(),
                     onTap: () => showDialog(
                         context: context,
                         builder: (context) {
                           return PopUpDialog(
-                            headerText: StringManager.exitFamily,
+                            headerText: StringManager.exitFamily.tr(),
                             accpetText: () =>
                                 BlocProvider.of<DeleteFamilyBloc>(context)
                                     .add(DeleteFamilyEvent(id: familyId)),
@@ -103,7 +104,7 @@ class SettingsDailog extends StatelessWidget {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    title: StringManager.cancel)
+                    title: StringManager.cancel.tr())
               ],
             ),
           ),

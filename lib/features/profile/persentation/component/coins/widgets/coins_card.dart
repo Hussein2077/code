@@ -4,6 +4,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'dart:ui' as ui;
 
 class CoinCard extends StatelessWidget {
   final String type;
@@ -20,7 +21,7 @@ class CoinCard extends StatelessWidget {
               ? AssetsPath.goldCoinCard
               : AssetsPath.silverCoinCard))),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
@@ -31,10 +32,12 @@ class CoinCard extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
           Text(
+            
           type == "gold"
           ? '${MyDataModel.getInstance().myStore?.coins}':
              '${MyDataModel.getInstance().myStore?.silverCoin}',
             style: TextStyle(
+              
                 color: Colors.white,
                 fontSize: ConfigSize.defaultSize! * 1.8,
                 fontWeight: FontWeight.bold),

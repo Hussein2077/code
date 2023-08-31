@@ -24,6 +24,8 @@ class UserInfoRow extends StatelessWidget {
   final Widget? endIcon;
 
   final double? underNameWidth;
+    final Widget? idOrNot;
+
 
   final void Function()? onTap;
 
@@ -34,6 +36,7 @@ class UserInfoRow extends StatelessWidget {
         this.endIcon,
         this.underName,
         this.imageSize,
+        this.idOrNot,
         super.key});
 
   @override
@@ -95,6 +98,7 @@ class UserInfoRow extends StatelessWidget {
                           ),
 
                           const Spacer(),
+                          idOrNot??
                           Text(
                             "ID ${userData.uuid.toString()}",
                             style: Theme.of(context).textTheme.titleSmall,

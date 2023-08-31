@@ -115,6 +115,8 @@ class ConstentApi {
     static const String getUseIntrested = "$baseUrl/user_interests";
         static const String uploadReel = "$baseUrl/reals";
         static const String getReels = "$baseUrl/reals";
+          static const String yallowBanner = "$baseUrl/rooms/yellow-banner";
+
 
 
 static String getReelComments(String reelId , String?page) {

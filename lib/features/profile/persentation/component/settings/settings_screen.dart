@@ -66,7 +66,7 @@ class SettingsScreen extends StatelessWidget {
             context: context,
             icon: AssetsPath.roomlocked,
             size: 3.3,
-            title: StringManager.privacyPolicy.tr(),
+            title: StringManager.privacy.tr(),
             onTap: () => Navigator.pushNamed(
                     context, Routes.privacySettings,
                     arguments: MyDataModel.getInstance()),

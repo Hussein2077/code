@@ -65,6 +65,7 @@ class VipBottomBar extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return PopUpDialog(
+                      accpettitle: StringManager.buy.tr(),
                         accpetText: () {
                           BlocProvider.of<BuyOrSendVipBloc>(context).add(BuyOrSendVipEvent(
                             type: "0", 

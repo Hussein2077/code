@@ -116,6 +116,8 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<int>  updateMessgasList = ValueNotifier<int>(0);
   static ValueNotifier<int> updatebuttomBar = ValueNotifier<int>(0);
   static ValueNotifier<String> imgbackground = ValueNotifier<String>("");
+    static List<YallowBannerData> listofAnimationYallowBanner =[];
+
 
 
 
@@ -179,6 +181,13 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   String? superCoins ;
   String? ownerIdRoomLuckyBanner ;
   UserDataModel? pobUpSender ;
+   late AnimationController yellowBannercontroller ;
+     late Animation<Offset> offsetAnimationYellowBanner;
+       UserDataModel? yallowBannerSender ;
+  bool? yallowBannerhasPasswoedRoom ;
+  int? yallowBannerOwnerRoom ;
+    bool showYellowBanner = false;
+
 
 
   @override
@@ -232,6 +241,24 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
    animationControllerEntro = SVGAAnimationController(vsync: this);
    animationControllerRedTeam = SVGAAnimationController(vsync: this);
    animationControllerBlueTeam = SVGAAnimationController(vsync: this);
+ yellowBannercontroller = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+    );
+    yellowBannercontroller.addListener(() {
+      if(controllerBanner.isCompleted){
+        controllerBanner.stop() ;
+        Future.delayed(const Duration(seconds: 3),()async{
+          controllerBanner.reverse();
+        });
+        //  controllerBanner.reverse();
+      }
+    });
+    offsetAnimationYellowBanner = Tween(begin:const Offset(-400, 0), end:  Offset(ConfigSize.defaultSize!*1.5, 0)).animate(CurvedAnimation(
+      parent: yellowBannercontroller,
+      curve: Curves.easeInOut,
+    ));
+
     controllerBanner = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -497,6 +524,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     controllerMusice.dispose();
     luckyBoxAddecontroller.close() ;
     RoomScreen.isGiftEntroAnimating = false;
+        yellowBannercontroller.dispose();
+
     super.dispose();
   }
 
@@ -665,6 +694,47 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       return animationControllerBlueTeam.videoItem = null;
     });
   }
+
+    Future<void> showYallowBannerAnimation({ required int senderId ,
+    required String message , required bool hasPasswoedRoom, required int ownerId}) async{
+    ZegoInRoomMessageInput.senderYallowBannerId = senderId;
+    if(RoomScreen.usersInRoom[senderId.toString()] == null ){
+      yallowBannerSender = await RemotlyDataSourceProfile().getUserData(userId: senderId.toString()) ;
+      RoomScreen.usersInRoom.putIfAbsent(senderId.toString(),
+              () => yallowBannerSender!) ;
+    }else{
+      yallowBannerSender  =RoomScreen.usersInRoom[senderId.toString()] ;
+    }
+    ZegoInRoomMessageInput.messageYallowBanner = message;
+    yallowBannerhasPasswoedRoom = hasPasswoedRoom ;
+
+
+      if(yellowBannercontroller.animationBehavior.name=="normal"){
+              yellowBannercontroller.reset();
+      }
+
+      setState(() {
+        yellowBannercontroller.forward();
+        showYellowBanner=true;
+        yallowBannerOwnerRoom = ownerId ;
+      });
+  //  }
+
+
+    Future.delayed(const Duration(minutes: 7),(){
+      //ckeck if there are other banner ;
+      yellowBannercontroller.reverse().then((value) =>
+          // loadMoreYallowBannerAnimation(
+          //     YallowBannerData(senderId: senderId,
+          //         message: message,
+          //         yallowBannerhasPasswoedRoom: hasPasswoedRoom,
+          //         yallowBannerOwnerRoom: ownerId))
+        log("don")
+      );
+
+
+    });
+ }
 
 
 
@@ -1146,6 +1216,17 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
              });
        }
      }
+         else if(result[messageContent]['msg'] == showYallowBanner){
+
+      showYallowBannerAnimation(
+        senderId: result[messageContent]['uId'],
+        message: result[messageContent]['umsg'],
+        hasPasswoedRoom: result[messageContent]['ps'],
+        ownerId: result[messageContent]['oid'],) ;
+
+
+
+    }
    }
 
   }
@@ -1409,6 +1490,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         else if (state is SendPobUpSuccessState){
           sucssesToast(context: context, title: state.successMassage) ;
 
+        }  else if (state is SendYallowBannerErrorState){
+          errorToast(context: context, title: state.errorMassage);
+        
         }
       },
     );
@@ -1504,6 +1588,21 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                          return const SizedBox();
                        }
                      } ) ,
+                          if(showYellowBanner)
+                    Positioned(
+                        top: -30,
+                        left: AppPadding.p30,
+                        child:
+                    showYallowBannerWidget(
+                      cureentRoomId: widget.room.ownerId!,
+                      controllerYallowBanner: yellowBannercontroller ,
+                        offsetAnimationYallowBanner:offsetAnimationYellowBanner ,
+                        senderYallowBanner:yallowBannerSender,
+                        hasPassword: yallowBannerhasPasswoedRoom! ,
+                        myData: widget.myDataModel ,
+                        ownerId:yallowBannerOwnerRoom! )),
+
+
                   ValueListenableBuilder<bool>(
                   valueListenable:RoomScreen.showBanner,
                   builder:(context, isShow, _) {

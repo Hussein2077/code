@@ -45,8 +45,9 @@ class TextFormFieldWidget extends StatelessWidget {
           border: InputBorder.none,
           hintText: hintText,
           hintStyle:  TextStyle(
+          
               fontWeight: FontWeight.normal,
-              color: const Color(0xffAEAEAE),
+              color: Theme.of(context).colorScheme.primary,
               fontSize:  ConfigSize.defaultSize! * 1.5)),
       onChanged: (value) {},
       controller: textEditingController,

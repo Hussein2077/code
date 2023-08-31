@@ -236,7 +236,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                       colors: ColorManager.yellowVipContanier,
                       icons: AssetsPath.vipProfileIcon,
                       level:
-                          '${StringManager.vip} ${widget.userData.vip1!.level}',
+                          '${StringManager.aristocracy} ${widget.userData.vip1!.level}',
                       colorText: ColorManager.yellowVipContanierText,
                       vipOrContribute: StringManager.levelOfThe,
                     )),

@@ -23,7 +23,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
  final List<String> listOfInstructions = [
    StringManager.firstInstructions.tr(),
    StringManager.secondInstructions.tr(),
-   StringManager.thirdInstructions.tr(),
+  //  StringManager.thirdInstructions.tr(),
    StringManager.fourthInstructions.tr(),
    StringManager.fifthInstructions.tr(),
   ];

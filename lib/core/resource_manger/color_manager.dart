@@ -51,5 +51,8 @@ class ColorManager {
   static const Color giftColors = Color(0x1FFFB800);
     static const Color giftback = Color(0xFF110B15);
 
-
+   static const List<Color> yellowGrident = [
+    Color(0xFFEEB609),
+    Color(0xFFDBA514),
+  ];
 }

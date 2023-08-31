@@ -48,6 +48,8 @@ class UserDataModel {
   final bool? isAanonymous ;
   final String? onlineTime;
   final bool? isCountryHiden ;
+    final String? visitTime ;
+
 
 
   UserDataModel(
@@ -85,7 +87,8 @@ class UserDataModel {
         this.userType,
         this.visitHidden,
         this.roomHidden,
-        this.lastActiveHidden
+        this.lastActiveHidden,
+        this.visitTime ,
       });
 
 
@@ -142,7 +145,9 @@ class UserDataModel {
             map['family_data']),
         myAgencyModel: map['agency'] != null
             ? MyAgencyModel.fromjson(map["agency"])
-            : null);
+            : null,
+            visitTime:  map['visit_time']??""
+            );
 
   }
 

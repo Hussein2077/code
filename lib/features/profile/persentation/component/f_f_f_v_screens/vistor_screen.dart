@@ -53,6 +53,10 @@ class _VistorScreenState extends State<VistorScreen> {
                     itemExtent: 80,
                     itemBuilder: (context, index) {
                       return UserInfoRow(
+                        idOrNot:    Text(
+                            " ${state.data![index].visitTime.toString()}",
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
                         userData: state.data![index],
                         endIcon: Icon(
                           Icons.arrow_forward_ios,

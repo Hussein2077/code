@@ -17,6 +17,7 @@ import 'package:tik_chat_v2/features/room/domine/use_case/lock_unLock_mic_uc.dar
 import 'package:tik_chat_v2/features/room/domine/use_case/mute_unmute_mic_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/remove_pass_room_UC.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_pob_up_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/send_yallow_banner_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
@@ -40,6 +41,8 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
   final SendPobUpUC sendPobUpUC ;
   final HideRoomUseCase hideRoomUseCase ;
   final DisposeHideRoomUseCase disposeHideRoomUseCase ;
+    final SendYallowBannerUC sendYallowBannerUC ;
+
 
 
 
@@ -61,7 +64,8 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
       required this.removePassRoomUC,
       required this.leaveMicUC,
       required this.muteUnMuteMicUC,
-      required this.lockUnLockMicUC})
+      required this.lockUnLockMicUC ,
+      required this.sendYallowBannerUC})
       : super(const OnRoomInitialState()) {
     on<UpdateRoom>((event, emit) async {
       emit(const OnRoomLoadingState());
@@ -242,6 +246,15 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
       result.fold(
               (l) => emit(DisposeHideRoomSuccessState(successMassage: StringManager.hideRoom.tr())),
               (r) => emit(DisposeHideRoomErrorState(
+              errorMassage: DioHelper().getTypeOfFailure(r))));
+    }));
+
+    on<SendYallowBannerEvent>(((event, emit) async {
+      emit(SendYallowBannerLoadingState());
+      final result = await sendYallowBannerUC.call(SendPobUpPram(ownerId: event.ownerId,message: event.message));
+      result.fold(
+              (l) => emit(SendYallowBannerSuccessState(successMassage: StringManager.successfulOperation.tr())),
+              (r) => emit(SendYallowBannerErrorState(
               errorMassage: DioHelper().getTypeOfFailure(r))));
     }));
   }

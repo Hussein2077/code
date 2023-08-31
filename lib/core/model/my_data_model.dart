@@ -328,6 +328,10 @@ class MyDataModel {
         numberOfFans: numberOfFans,
         numberOfFollowings: numberOfFollowings,
         numberOfFriends: numberOfFriends,
-        profileVisotrs: profileVisotrs);
+        profileVisotrs: profileVisotrs,
+        
+        
+        
+        );
   }
 }

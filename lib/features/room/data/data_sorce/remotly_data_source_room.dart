@@ -69,6 +69,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<Unit> inviteUser(String ownerId,String  userId ,int indexSeat) ;
    Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) ;
 
+  Future<String> sendYallowBanner(String ownerId, String message);
 
 
 }
@@ -884,7 +885,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
       );
 
 
-      return  response.data['data']['message'] ;
+      return  response.data['message'] ;
 
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'sendPopUp');
@@ -1085,6 +1086,29 @@ FormData formData;
 
     
 
+  }
+  
+  @override
+  Future<String> sendYallowBanner(String ownerId, String message)async {
+    Map<String, String> headers = await DioHelper().header();
+
+    final body = {
+      'room_id': ownerId,
+      'message': message};
+
+
+   try {
+      final response = await Dio().post(ConstentApi.yallowBanner,
+          options: Options(
+            headers: headers,
+          ),
+          data: body);
+          log("sucsses");
+
+      return response.data['message'];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'yellowBanner');
+    }
   }
 
 }
