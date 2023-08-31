@@ -71,7 +71,9 @@ class SettingsScreen extends StatelessWidget {
                     context, Routes.privacySettings,
                     arguments: MyDataModel.getInstance()),
           ),
-          const Spacer(),
+          const Spacer(
+            flex: 5,
+          ),
           BlocConsumer<LogOutBloc, LogOutState>(
             listener: (context, state) async{
               if(state is LogOutSucssesState) {
@@ -90,7 +92,10 @@ class SettingsScreen extends StatelessWidget {
                 BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
               }, title: StringManager.logOut.tr());
             },
-          )
+          ),
+          const Spacer(
+
+          ),
         ],
       ),
     );
