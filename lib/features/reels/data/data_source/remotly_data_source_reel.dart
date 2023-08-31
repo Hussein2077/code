@@ -32,7 +32,8 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
                 'description' : uploadReelParamiter.description,
 
         "video": await MultipartFile.fromFile(file.path, filename: fileName),
-        "categories": uploadReelParamiter.categories,
+        for(int i = 0 ; i < uploadReelParamiter.categories.length ; i++)
+        "categories[$i]": uploadReelParamiter.categories[i],
       
       });
     
