@@ -21,8 +21,6 @@ class UpperProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("Online Time ${myDataModel.onlineTime}");
-    log("last activ hiden ${myDataModel.lastActiveHidden}");
 
     return InkWell(
       onTap: (){
