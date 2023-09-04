@@ -1,10 +1,9 @@
-import 'dart:developer';
 
 import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,7 +74,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    initDynamicLinks();
     listenToInternet();
+    initPusher();
     animationController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
@@ -188,7 +189,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   listenToInternet() {
     Connectivity().onConnectivityChanged.listen((event) {
-      log("dio number cach "+ Dio().interceptors.length.toString());
+
       if (event == ConnectivityResult.wifi ||
           event == ConnectivityResult.mobile) {
         if (!isFirst) {
@@ -210,5 +211,60 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             context: context, title: StringManager.checkYourInternet.tr());
       }
     });
+  }
+
+  initDynamicLinks() async {
+    final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks
+        .instance.getInitialLink();
+
+    if(initialLink != null){
+      handleDeepLink(initialLink);
+    }
+    FirebaseDynamicLinks.instance.onLink;
+  }
+
+  void handleDeepLink(PendingDynamicLinkData data) async {
+    final Uri deepLink = data.link;
+    final String? action = deepLink.queryParameters['action'];
+    final String? ownerId = deepLink.queryParameters['owner_id'];
+    final String? password = deepLink.queryParameters['password'];
+    final String? userId = deepLink.queryParameters['owner_id'];
+    final String? reelId = deepLink.queryParameters['reel_id'];
+    if(action =='enter_room'){
+      enterRoomDynamicLink(password: password, ownerId:ownerId );
+    }else if (action =='visit_user'){
+      visitUserProfileDynamicLink(userId: userId) ;
+    }else if (action =='show_reel'){
+      showReelDynamicLink(reelId:reelId);
+    }
+
+  }
+  void enterRoomDynamicLink({ String? password, String? ownerId })async {
+    if(password=='1'){
+      await  Methods().checkIfRoomHasPassword(
+          myData :MyDataModel.getInstance() ,
+          context: context,
+          hasPassword: password=='1' ,
+          ownerId: ownerId!);
+    }else{
+      Navigator.pushNamed(context, Routes.roomHandler,
+          arguments: RoomHandlerPramiter(ownerRoomId: ownerId!,
+              myDataModel: MyDataModel.getInstance())) ;
+
+    }
+  }
+
+  void visitUserProfileDynamicLink ({String? userId }){
+    Methods().userProfileNvgator(context: context,userId:userId );
+
+  }
+  void showReelDynamicLink({String? reelId}){
+    MainScreen.initPage =1 ;
+
+  }
+
+  void initPusher()async {
+    HomeScreen.pusherService.initPusher(
+        "9bfa0b56e375267a8f59","dragon-chat-app.com", 6001, "mt1");
   }
 }

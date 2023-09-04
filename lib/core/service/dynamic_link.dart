@@ -18,7 +18,7 @@ class DynamicLinkProvider {
     if(password){
       isPass = 1 ;
     }
-    final String url = "https://com.tikkchat.app?owner_id=$refCod&&password=$isPass";
+    final String url = "https://com.tikkchat.app?action=enter_room&&owner_id=$refCod&&password=$isPass";
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(
         link: Uri.parse(url),
@@ -49,11 +49,12 @@ class DynamicLinkProvider {
 
 
   Future <String> creatInvetaionUserLink({
-    required String  userImage
+    required String  userImage,
+    required int userId
 
   }) async{
 
-    final String url = "https://com.tikkchat.app";
+    final String url = "https://com.tikkchat.app?action=visit_user&&user_id=$userId";
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       link: Uri.parse(url),

@@ -8,5 +8,9 @@ abstract class BaseGetReelsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetReelsEvent extends BaseGetReelsEvent{}
+class GetReelsEvent extends BaseGetReelsEvent{
+  final String? reelId ;
+
+  GetReelsEvent({this.reelId});
+}
 class LoadMoreReelsEvent extends BaseGetReelsEvent{}

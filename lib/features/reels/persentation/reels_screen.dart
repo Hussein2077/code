@@ -7,13 +7,13 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class ReelsScreen extends StatefulWidget {
   
@@ -30,11 +30,18 @@ class ReelsScreenState extends State<ReelsScreen> {
   @override
   void initState() {
     likedVideos = [];
-    log("heeeeeeeee");
+    if(MainScreen.initPage ==1){
+
+    }
     BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
     initCachingReels();
-
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    log("dispose in ReelsScreen ") ;
+    super.dispose();
   }
 
   @override
@@ -46,10 +53,17 @@ class ReelsScreenState extends State<ReelsScreen> {
           reelsList: state.data!,
           appbarTitle: StringManager.reels,
           onShare: (url) {
+            // DynamicLinkProvider().createInvetionRoomLink(
+            //     refCod: widget.roomData.ownerId!,
+            //     password:widget.roomData.roomPassStatus??false,
+            //     ownerImage: widget.roomData.roomCover!)
+            //     .then((value) {
+            //   Share.share(value);
+            // });
             log('Shared reel url ==> $url');
           },
           onLike: (id) {
-     BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
+       BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
 
             setState(() {
               likedVideos.add(id);

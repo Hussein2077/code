@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ class Card2 extends StatelessWidget {
                onTap: (){
 
                  DynamicLinkProvider().creatInvetaionUserLink(
-
+                    userId: myData.id!,
                      userImage: myData.profile!.image!)
                      .then((value) {
                    Share.share(value);

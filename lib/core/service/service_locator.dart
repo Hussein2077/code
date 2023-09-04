@@ -742,8 +742,7 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton(() => setTimer);
 
     //extarnal
-    Dio dio = Dio();
-    getIt.registerLazySingleton(() => dio);
+
     final sharedPreferences = await SharedPreferences.getInstance();
     getIt.registerLazySingleton(() => sharedPreferences);
 

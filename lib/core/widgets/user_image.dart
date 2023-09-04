@@ -1,6 +1,6 @@
 
 
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -15,6 +15,7 @@ class UserImage extends StatelessWidget {
     final BoxFit? boxFit;
     final Widget? child ;
 
+
   const UserImage({this.child ,  required this.image , this.boxFit ,this.imageSize, super.key});
 
   @override
@@ -24,6 +25,7 @@ class UserImage extends StatelessWidget {
           height:imageSize?? ConfigSize.defaultSize! * 5,
           decoration:  BoxDecoration(
               shape: BoxShape.circle,
+
               image: DecorationImage(
                 fit: boxFit??BoxFit.fill,
                   image: CachedNetworkImageProvider(

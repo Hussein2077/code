@@ -16,9 +16,9 @@ class BottomBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-                            decoration:  BoxDecoration(
+    decoration:  BoxDecoration(
                               
-                                boxShadow: const[
+         boxShadow: const[
                                   BoxShadow(
                                       color: ColorManager.orang,
                                       spreadRadius: 0,

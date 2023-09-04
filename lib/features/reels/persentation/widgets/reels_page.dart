@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:chewie/chewie.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
@@ -45,7 +46,7 @@ class _ReelsPageState extends State<ReelsPage> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _liked = false;
-  bool _onTouch = true;
+  bool _isVideoPause = false;
   @override
   void initState() {
     super.initState();
@@ -106,11 +107,13 @@ class _ReelsPageState extends State<ReelsPage> {
           _videoPlayerController.value.isPlaying ?
           _videoPlayerController.pause() :
           _videoPlayerController.play();
+          _isVideoPause = !_isVideoPause;
         });
       },
       child:Stack(
         fit: StackFit.expand,
         children: [
+
           (_chewieController != null &&
               _chewieController!.videoPlayerController.value.isInitialized)
               ? FittedBox(
@@ -160,44 +163,26 @@ class _ReelsPageState extends State<ReelsPage> {
                 ),
               ),
             ),
-          ScreenOptions(
-            onClickMoreBtn: widget.onClickMoreBtn,
-            onComment: widget.onComment,
-            onFollow: widget.onFollow,
-            onLike: widget.onLike,
-            onShare: widget.onShare,
-            showVerifiedTick: widget.showVerifiedTick,
-            item: widget.item,
+
+         Positioned(
+           right: 10,
+             bottom: 0,
+             child: ScreenOptions(
+           onClickMoreBtn: widget.onClickMoreBtn,
+           onComment: widget.onComment,
+           onFollow: widget.onFollow,
+           onLike: widget.onLike,
+           onShare: widget.onShare,
+           showVerifiedTick: widget.showVerifiedTick,
+           item: widget.item,
+         )) ,
+          if(_isVideoPause)
+          Container(
+            color: Colors.grey.withOpacity(0.2),
+            alignment: Alignment.center,
+            child:  Icon(CupertinoIcons.play_fill,size: ConfigSize.defaultSize!*11.5,color: Colors.white.withOpacity(0.7),),
           ),
-          (_chewieController != null && _chewieController!.videoPlayerController.value.isInitialized&& false) ?
-          Visibility(
-              visible: _onTouch,
-              child: Container(
-                color: Colors.grey.withOpacity(0.5),
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  //  shape: CircleBorder(side: BorderSide(color: Colors.white)),
-                  child: Icon(_videoPlayerController.value.isPlaying ? Icons.pause : Icons.play_arrow, color: Colors.white,),
-                  onPressed: () {
-                    // _timer?.cancel();
 
-                    // pause while video is playing, play while video is pausing
-                    setState(() {
-                      _videoPlayerController.value.isPlaying ?
-                      _videoPlayerController.pause() :
-                      _videoPlayerController.play();
-                    });
-
-                    // Auto dismiss overlay after 1 second
-                    // _timer = Timer.periodic(Duration(milliseconds: 1000), (_) {
-                    setState(() {
-                      _onTouch = false;
-                    });
-                    // });
-                  },
-                ),
-              )) :
-          const SizedBox()
         ],
       ) ,
     )  ;
