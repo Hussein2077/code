@@ -118,6 +118,18 @@ class ConstentApi {
           static const String yallowBanner = "$baseUrl/rooms/yellow-banner";
 
 
+static String getReelUser(String? userID , String?page) {
+  if (userID==null){
+     return "$baseUrl/reals/user?page=$page";
+
+  }else{
+   return "$baseUrl/reals/user/$userID?page=$page";
+
+  }
+
+ 
+
+}
 
 static String getReelComments(String reelId , String?page) {
 

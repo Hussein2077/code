@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -11,6 +13,8 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_state.dart';
@@ -35,13 +39,19 @@ class _UserProfileState extends State<UserProfile> {
       myProfile = false;
       BlocProvider.of<GetUserBloc>(context)
           .add(GetuserEvent(userId: widget.userId!));
+               BlocProvider.of<GetUserReelsBloc>(context)
+          .add(GetUserReelEvent(id:  widget.userId!));
+
     }else if (widget.userData!=null){
             myProfile = false;
 
     }
     
      else {
+      log("heeeeeeeeeeeeer");
       myProfile = true;
+                    BlocProvider.of<GetUserReelsBloc>(context)
+          .add(const GetUserReelEvent(id: null));
     }
     super.initState();
   }

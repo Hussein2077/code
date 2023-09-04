@@ -81,6 +81,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_mydata_usecase.d
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_replace_with_dimond_data.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_user_data_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_user_intersted_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_user_reels_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vip_center_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vistors_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase.dart';
@@ -133,6 +134,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_all_intersted/get_all_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_intersed/get_user_intersted_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
@@ -439,6 +441,7 @@ class ServerLocator {
     getIt.registerFactory(() => BuyCoinsBloc(buyCoinsUseCase: getIt()));
 
         getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
+        getIt.registerFactory(() => GetUserReelsBloc(getUserReelUseCase: getIt()));
 
 
     
@@ -446,7 +449,7 @@ class ServerLocator {
 //usecase
 
 
-
+   getIt.registerLazySingleton(() => GetUserReelsUsecase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => GetTopRoomUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(() => SendYallowBannerUC(roomRepo: getIt()));

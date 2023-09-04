@@ -40,6 +40,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
+import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 
 
 abstract class BaseRepositoryProfile {
@@ -203,6 +204,8 @@ abstract class BaseRepositoryProfile {
 
 
   Future<Either<String, Failure>> prevDispose(String type);
+    Future<Either<List<ReelModel>, Failure>> getUserReels(String? id , String page );
+
 
 
 
