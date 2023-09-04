@@ -158,7 +158,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       MyDataModel userData = MyDataModel.fromMap(response.data[ConstentApi.data]);
 
       Methods().saveMyData();
-      log("addInformation") ;
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:"addInformation");

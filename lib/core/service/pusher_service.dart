@@ -15,7 +15,7 @@ class PusherService {
    try {
      await pusher.init(
          cluster: cluster,
-         apiKey: '9bfa0b56e375267a8f59',
+         apiKey: 'd0344cbe6b1489f567f0',
          onConnectionStateChange:onConnectionStateChange,
          onError: onError,
          onSubscriptionSucceeded: onSubscriptionSucceeded,
@@ -25,7 +25,7 @@ class PusherService {
          onMemberAdded: onMemberAdded,
          onMemberRemoved: onMemberRemoved,
          onSubscriptionCount: onSubscriptionCount,
-         authEndpoint:'https://dragon-chat.co/api/broadcasting/auth',
+         authEndpoint:'https://tik-chat.com/api/broadcasting/auth',
          onAuthorizer: onAuthorizer
      );
    } catch (e) {
@@ -74,7 +74,7 @@ class PusherService {
  dynamic onAuthorizer(
      String channelName, String socketId, dynamic options) async {
    String token = await Methods().returnUserToken();
-   var authUrl = 'https://dragon-chat.co/api/broadcasting/auth';
+   var authUrl = 'https://tik-chat.com/api/broadcasting/auth';
    var result = await http.post(
      Uri.parse(authUrl),
      headers: {

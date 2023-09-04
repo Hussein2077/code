@@ -3,8 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
@@ -23,12 +25,15 @@ class ReelsScreen extends StatefulWidget {
 
 class ReelsScreenState extends State<ReelsScreen> {
  static List<int> likedVideos = [];
- 
+ static List<int> cachedIdsReels  = [];
 
   @override
   void initState() {
     likedVideos = [];
+    log("heeeeeeeee");
     BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+    initCachingReels();
+
     super.initState();
   }
 
@@ -37,14 +42,14 @@ class ReelsScreenState extends State<ReelsScreen> {
     return Scaffold(body: BlocBuilder<GetReelsBloc, GetReelsState>(
       builder: (context, state) {
         if(state is GetReelsSucssesState){
-     return ReelsViewer(
+       return ReelsViewer(
           reelsList: state.data!,
           appbarTitle: StringManager.reels,
           onShare: (url) {
             log('Shared reel url ==> $url');
           },
           onLike: (id) {
-                        BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
+     BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
 
             setState(() {
               likedVideos.add(id);
@@ -85,4 +90,12 @@ class ReelsScreenState extends State<ReelsScreen> {
       },
     ));
   }
+
+Future<void>  initCachingReels() async{
+
+  List<ReelModel> cachedReels = await Methods().getCachingReels() ;
+  cachedReels.forEach((element) {
+    cachedIdsReels.add(element.id!);
+  });
+}
 }

@@ -13,7 +13,6 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
-import 'package:tik_chat_v2/core/Base_Use_Case/Base_Use_Case.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -28,6 +27,7 @@ import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
 import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
+import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
 // ignore: depend_on_referenced_packages
@@ -76,23 +76,41 @@ class Methods {
 
       return decodedMap;
     }
-  Future<void> setCachingGifts({required Map<String,dynamic> cachingGifts}) async {
+  Future<void> setCachingVideo({required Map<String,dynamic> cachingVideos, required String  key }) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String encodedMap = json.encode(cachingGifts);
-    preferences.setString("chachGifts", encodedMap);
+    String encodedMap = json.encode(cachingVideos);
+    preferences.setString(key, encodedMap);
   }
 
-  Future<Map<String,dynamic>> getCachingGifts() async {
+  Future<Map<String,dynamic>> getCachingVideo({required String key} ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String,dynamic> defultMap = {} ;
     String encodedMap1 = json.encode(defultMap);
-    String encodedMap = preferences.getString('chachGifts')?? encodedMap1;
+    String encodedMap = preferences.getString(key)?? encodedMap1;
     Map<String,dynamic> decodedMap = json.decode(encodedMap);
 
     return decodedMap;
   }
 
 
+  Future<void> cachingReels(List<ReelModel> reels , Map<String,dynamic> mapReels ) async{
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+      for(int i =0;i<reels.length;i++){
+        String rootPath  = '${appDocDir.path}/${reels[i].id}${StringManager.cachReelsKey}';
+        log("ConstentApi().getImage(reels[i].url)"+reels[i].url!);
+        Dio().download(reels[i].url!, rootPath);
+      }
+      setCachingVideo(cachingVideos: mapReels, key: StringManager.cachReelsKey);
+    }
+
+  Future<List<ReelModel>> getCachingReels()async{
+    Map<String,dynamic> mapReels = await  getCachingVideo(key: StringManager.cachReelsKey);
+    List<ReelModel> reels = List<ReelModel>.from(
+        (mapReels["data"] as List)
+            .map((e) => ReelModel.fromJson(e)));
+
+   return reels ;
+  }
 
     Future<void> exitFromRoom(String ownerId) async{
       ZegoUIKitPrebuiltLiveAudioRoomState.connectManager?.uninit();
@@ -152,13 +170,12 @@ class Methods {
     }
 
 
- Future<void> clearAuthData ()async{
+  Future<void> clearAuthData ()async{
 
           PhoneWithCountry.number=PhoneNumber();
           OtpContiners.code="";
 
         }
-
   void KeepUserLogin({required bool KeepInLogin}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool(StringManager.keepLogin, KeepInLogin);
@@ -490,7 +507,7 @@ class Methods {
         }
 
         _download({required String img, required  int giftId  ,required String path}) async {
-          Map<String,dynamic> chachedMp4Gifts = await Methods().getCachingGifts() ;
+          Map<String,dynamic> chachedMp4Gifts = await Methods().getCachingVideo(key: StringManager.cachGiftKey) ;
 
 
           PageViewGeftWidget.chachedGiftMp4 =chachedMp4Gifts;
@@ -513,7 +530,7 @@ class Methods {
           }
 
 
-          await setCachingGifts(cachingGifts:PageViewGeftWidget.chachedGiftMp4) ;
+          await setCachingVideo(cachingVideos:PageViewGeftWidget.chachedGiftMp4,key: StringManager.cachGiftKey) ;
           setLastTimeCache(TypesCache.gift);
         }
 

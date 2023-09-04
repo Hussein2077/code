@@ -128,6 +128,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
   void initPusher()async {
     HomeScreen.pusherService.initPusher(
-        "9bfa0b56e375267a8f59","dragon-chat-app.com", 6001, "eu");
+        "9bfa0b56e375267a8f59","dragon-chat-app.com", 6001, "mt1");
   }
 }

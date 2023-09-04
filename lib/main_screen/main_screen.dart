@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -185,6 +188,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   listenToInternet() {
     Connectivity().onConnectivityChanged.listen((event) {
+      log("dio number cach "+ Dio().interceptors.length.toString());
       if (event == ConnectivityResult.wifi ||
           event == ConnectivityResult.mobile) {
         if (!isFirst) {

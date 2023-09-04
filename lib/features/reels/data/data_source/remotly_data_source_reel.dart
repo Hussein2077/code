@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.dart';
@@ -60,15 +62,16 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
     try {
       final response = await Dio().get(
         ConstentApi.getReels,
-   
         options: Options(
           headers: headers,
         ),
       );
+      log("response.data[ata]" +response.data["data"].runtimeType.toString());
           List<ReelModel> reels = List<ReelModel>.from(
           (response.data["data"] as List)
               .map((e) => ReelModel.fromJson(e)));
 
+      Methods().cachingReels(reels,response.data);
       return reels;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getReels' );

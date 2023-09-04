@@ -853,7 +853,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
        }
        Map<String, dynamic> cachedGifts ={} ;
        if(result[messageContent]['showGift'].contains("mp4")){
-         cachedGifts = await Methods().getCachingGifts();
+         cachedGifts = await Methods().getCachingVideo(key: StringManager.cachGiftKey);
        }
 
        GiftData giftData = GiftData(

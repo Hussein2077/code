@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -741,12 +742,12 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton(() => setTimer);
 
     //extarnal
-
+    Dio dio = Dio();
+    getIt.registerLazySingleton(() => dio);
     final sharedPreferences = await SharedPreferences.getInstance();
     getIt.registerLazySingleton(() => sharedPreferences);
 
     final MyDataModel cacheMyData = await Methods().returnMyData();
-    log('cacheMyData${cacheMyData.id}');
     getIt.registerLazySingleton(() => cacheMyData);
     FireBaseDataSource fireBaseDataSource = FireBaseDataSource();
     getIt.registerLazySingleton(() => fireBaseDataSource);
