@@ -24,6 +24,7 @@ class DioHelper {
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
       "device": devicedata??'noToken',
+      "Accept": 'application/json',
       "X-localization": key
     };
     return headers;
