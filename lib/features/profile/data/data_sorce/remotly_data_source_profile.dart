@@ -52,6 +52,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
+import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 
 abstract class BaseRemotlyDataSourceProfile {
   Future<MyDataModel> getmyData(Noparamiter noparamiter);
@@ -187,6 +188,9 @@ abstract class BaseRemotlyDataSourceProfile {
 
 
   Future<String> prevDispose(String type);
+    Future<List<ReelModel>> getUserReel(String? id , String page);
+
+  
 
 
 }
@@ -2015,6 +2019,27 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return response.data['message'];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'prevDispose');
+    }
+  }
+  
+  @override
+  Future<List<ReelModel>> getUserReel(String? id , String page) async{
+  Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.getReelUser(id , page),
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return List<ReelModel>.from(
+          resultData['data'].map((x) => ReelModel.fromJson(x)));
+
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getUserIntersted' );
     }
   }
 }

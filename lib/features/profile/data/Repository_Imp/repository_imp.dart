@@ -46,6 +46,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
+import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 
 
 
@@ -939,6 +940,16 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   Future<Either<String, Failure>> prevDispose(String type) async {
     try {
       final result = await baseRemotlyDataSourceProfile.prevDispose(type) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<List<ReelModel>, Failure>> getUserReels(String? id , String page)async {
+   try {
+      final result = await baseRemotlyDataSourceProfile.getUserReel(id , page) ;
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));

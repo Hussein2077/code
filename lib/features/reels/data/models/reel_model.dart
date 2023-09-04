@@ -26,8 +26,8 @@ class ReelModel {
       commentNum: json['comments_count']??0,
       likeNum: json['likes_count']??0,
       likeExists: json['likes_exists']??false,
-      userName: json["user"]['name']??"",
-      userImage: json["user"]['image']
+      userName: json["user"]==null? "" :json["user"]['name']??"",
+      userImage: json["user"]==null?"": json["user"]['image']??""
     );
   }
 

@@ -43,7 +43,7 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
           controller: profileController,
            children: [
             ProfileTabViewBody(userDataModel:widget.userDataModel),
-            const ReelsTabView()
+             ReelsTabView(userDataModel: widget.userDataModel,)
       
         ]),
       ),
