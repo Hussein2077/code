@@ -67,6 +67,7 @@ class _AduioBodyState extends State<AduioBody> {
               countryId: AduioBody.countryId));
         },
         child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             controller: scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
