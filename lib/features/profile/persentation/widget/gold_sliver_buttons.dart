@@ -34,26 +34,29 @@ class GoldSilverButton extends StatelessWidget {
             width: ConfigSize.defaultSize! * 1,
           ),
           Expanded(
-            child: Container(
-              height: ConfigSize.defaultSize! * 7,
+            child: Directionality(
+              textDirection: ui.TextDirection.ltr,
+              child: Container(
+                height: ConfigSize.defaultSize! * 7,
 
-              padding: EdgeInsets.only(
-                  right: ConfigSize.defaultSize!-6, top: ConfigSize.defaultSize!*2.5),
+                padding: EdgeInsets.only(
+                    right: ConfigSize.defaultSize!-6, top: ConfigSize.defaultSize!*2.5),
 
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(image: AssetImage(AssetsPath.myVideos), fit: BoxFit.cover)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    StringManager.myVideos.tr(),
-                    style: TextStyle(
-                        color:  Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: ConfigSize.defaultSize! * 1.55),
-                  ),
-                ],
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: const DecorationImage(image: AssetImage(AssetsPath.myVideos), fit: BoxFit.cover)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      StringManager.myVideos.tr(),
+                      style: TextStyle(
+                          color:  Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: ConfigSize.defaultSize! * 1.55),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
