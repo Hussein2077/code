@@ -11,10 +11,8 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
-import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_delete_reel/delete_reel_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_delete_reel/delete_reel_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_delete_reel/delete_reel_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
@@ -100,20 +98,16 @@ class UserReelViewState extends State<UserReelView> {
                 }
               });
             },
-            onFollow: () {
-              log('======> Clicked on follow <======');
+            onFollow: (userId,isFollow) {
+              BlocProvider.of<FollowBloc>(context).add(FollowEvent(userId: userId));
             },
             onComment: (comment) {
               log('Comment on reel ==> $comment');
             },
-            onClickMoreBtn: () {
+            onClickMoreBtn: (id) {
               // bottomDailog(
               //     context: context,
-              //     widget: moreDilog(
-              //         context: context,
-              //         yourReels: widget.userDataModel.id ==
-              //             MyDataModel.getInstance().id,
-              //         reelId: id));
+              //     widget: moreDilog(context: context ,yourReels: widget.userDataModel.id==MyDataModel.getInstance().id ));
 
               log('======> Clicked on more option <======');
             },
@@ -139,9 +133,11 @@ class UserReelViewState extends State<UserReelView> {
             showVerifiedTick: false,
             showAppbar: true,
           );
-        } else if (state is GetUserReelsLoadingState) {
+        }
+        else if (state is GetUserReelsLoadingState) {
           return const LoadingWidget();
-        } else if (state is GetReelUsersErrorState) {
+        }
+        else if (state is GetReelUsersErrorState) {
           return CustomErrorWidget(
             message: state.errorMassage,
           );
@@ -155,59 +151,38 @@ class UserReelViewState extends State<UserReelView> {
   }
 }
 
-Widget moreDilog(
-    {required BuildContext context,
-    required bool yourReels,
-    required int reelId}) {
+Widget moreDilog({required BuildContext context , required bool yourReels}) {
   return Container(
-    padding: EdgeInsets.symmetric(
-        vertical: ConfigSize.defaultSize!, horizontal: ConfigSize.defaultSize!),
+    padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! , horizontal: ConfigSize.defaultSize!),
     width: MediaQuery.of(context).size.width,
     height: ConfigSize.defaultSize! * 12,
     decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-    child: Row(children: [
-      if (yourReels)
-        moreDilogIcon(
-            context: context,
-            widget: Icon(
-              Icons.delete,
-              color: Theme.of(context).colorScheme.background,
-            ),
-            title: StringManager.delete.tr(),
-            onTap: () {
-              BlocProvider.of<DeleteReelBloc>(context)
-                  .add(DeleteReelEvent(id: reelId.toString()));
-            })
-    ]),
+        child: Row(children: [
+          if(yourReels)
+         moreDilogIcon(context: context , widget: Icon(Icons.delete , color: Theme.of(context).colorScheme.background,) , title: StringManager.delete.tr())
+        ]),
   );
 }
 
-Widget moreDilogIcon(
-    {required BuildContext context,
-    required Widget widget,
-    required String title,
-    void Function()? onTap}) {
-  return InkWell(
-    onTap: onTap,
-    child: Column(
-      children: [
-        Container(
-          width: ConfigSize.defaultSize! * 4,
-          height: ConfigSize.defaultSize! * 4,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              shape: BoxShape.circle),
-          child: Center(
-            child: widget,
-          ),
+
+Widget moreDilogIcon ({required BuildContext context ,required Widget widget , required String title }){
+
+  return Column(
+    children: [
+      Container(
+        width: ConfigSize.defaultSize!*4,
+        height: ConfigSize.defaultSize!*4,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          shape: BoxShape.circle
         ),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.bodyMedium,
-        )
-      ],
-    ),
+        child: Center(
+          child: widget ,
+        ),
+      ),
+      Text(title , style:  Theme.of(context).textTheme.bodyMedium,)
+    ],
   );
 }

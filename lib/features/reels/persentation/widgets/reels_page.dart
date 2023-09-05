@@ -21,8 +21,8 @@ class ReelsPage extends StatefulWidget {
   final Function(ReelModel)? onShare;
   final Function(int)? onLike;
   final Function(String)? onComment;
-  final Function()? onClickMoreBtn;
-  final Function()? onFollow;
+  final Function(int)? onClickMoreBtn;
+  final Function(String,bool)? onFollow;
   final SwiperController swiperController;
   final bool showProgressIndicator;
     final bool? userView; 
@@ -33,7 +33,7 @@ class ReelsPage extends StatefulWidget {
     this.showVerifiedTick = true,
     this.onClickMoreBtn,
     this.onComment,
-    this.onFollow,
+   this.onFollow,
     this.onLike,
     this.onShare,
     this.showProgressIndicator = true,
@@ -71,6 +71,9 @@ class _ReelsPageState extends State<ReelsPage> {
                log("in cache reels");
              }
            }else{
+             if(kDebugMode){
+               log("in network reels");
+             }
              _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
 
            }
@@ -124,21 +127,8 @@ class _ReelsPageState extends State<ReelsPage> {
   }
 
   Widget getVideoView() {
-    return  InkWell(
-      onTap: (){
-        setState(() {
-
-         if (_videoPlayerController.value.isPlaying){
-           _videoPlayerController.pause() ;
-           _isVideoPause = true ;
-         }  else{
-           _isVideoPause = false ;
-           _videoPlayerController.play() ;
-         }
-        });
-      },
-      child:Stack(
-        fit: StackFit.expand,
+    return  Stack(
+       // fit: StackFit.expand,
         children: [
 
           (_chewieController != null &&
@@ -203,16 +193,36 @@ class _ReelsPageState extends State<ReelsPage> {
            onShare: widget.onShare,
            showVerifiedTick: widget.showVerifiedTick,
            item: widget.item,
+           isFollowed:widget.item.isFollow,
          )) ,
           if(_isVideoPause)
-          Container(
-            color: Colors.grey.withOpacity(0.2),
-            alignment: Alignment.center,
-            child:  Icon(CupertinoIcons.play_fill,size: ConfigSize.defaultSize!*11.5,color: Colors.white.withOpacity(0.7),),
-          ),
+        Container(
+             color: Colors.grey.withOpacity(0.2),
+             alignment: Alignment.center,
+             child:  Icon(CupertinoIcons.play_fill,size: ConfigSize.defaultSize!*11.5,color: Colors.white.withOpacity(0.7),),
+           ) ,
+         Align(
+           alignment: Alignment.center,
+           child: InkWell(
 
+    onTap: (){
+    setState(() {
+    if (_videoPlayerController.value.isPlaying){
+    _videoPlayerController.pause() ;
+    _isVideoPause = true ;
+    }else{
+    _isVideoPause = false ;
+    _videoPlayerController.play() ;
+    }
+    });
+    },
+    child:SizedBox(
+      width: ConfigSize.screenWidth!*0.6,
+      height: ConfigSize.screenHeight!*0.6,
+    ) ,
+    ) ,
+         )
         ],
-      ) ,
-    )  ;
+      ) ;
   }
 }

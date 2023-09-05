@@ -20,7 +20,6 @@ class ReelModel {
   factory ReelModel.fromJson (Map <String, dynamic> json){
     return ReelModel(
       id: json['id']??0,
-      isFollow: json['isFollow'],
       userId: json['user_id']??0,
       description: json['description']??"",
       url: "https://storage.googleapis.com/tik-chat/${json['url']}",
@@ -29,7 +28,9 @@ class ReelModel {
       likeNum: json['likes_count']??0,
       likeExists: json['likes_exists']??false,
       userName: json["user"]==null? "" :json["user"]['name']??"",
-      userImage: json["user"]==null?"": json["user"]['image']??""
+      userImage: json["user"]==null?"": json["user"]['image']??"",
+      isFollow: json["user"]==null?"": json["user"]['is_follow']??false
+
     );
   }
 

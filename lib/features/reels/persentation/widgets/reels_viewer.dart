@@ -28,10 +28,10 @@ class ReelsViewer extends StatefulWidget {
   final Function(int)? onIndexChanged;
 
   /// function invoke when user click on more options btn
-  final Function()? onClickMoreBtn;
+  final Function(int)? onClickMoreBtn;
 
   /// function invoke when user click on follow btn
-  final Function()? onFollow;
+  final Function(String,bool)? onFollow;
 
   /// for change appbar title
   final String? appbarTitle;
@@ -91,7 +91,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
   }
   @override
   Widget build(BuildContext context) {
-    log("1111111111111");
     return Scaffold(
       backgroundColor: Colors.black26,
       body: SafeArea(

@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
@@ -93,7 +95,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
+    return Stack(
+        children: [
       Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: BottomNavLayout(
@@ -217,8 +220,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   initDynamicLinks() async {
     final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks
         .instance.getInitialLink();
-
+    log('actio');
     if(initialLink != null){
+      log('actio2');
       handleDeepLink(initialLink);
     }
     FirebaseDynamicLinks.instance.onLink;
@@ -231,6 +235,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     final String? password = deepLink.queryParameters['password'];
     final String? userId = deepLink.queryParameters['owner_id'];
     final String? reelId = deepLink.queryParameters['reel_id'];
+    log('action$action');
     if(action =='enter_room'){
       enterRoomDynamicLink(password: password, ownerId:ownerId );
     }else if (action =='visit_user'){
@@ -240,6 +245,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     }
 
   }
+
   void enterRoomDynamicLink({ String? password, String? ownerId })async {
     if(password=='1'){
       await  Methods().checkIfRoomHasPassword(
@@ -259,6 +265,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     Methods().userProfileNvgator(context: context,userId:userId );
 
   }
+
   void showReelDynamicLink({String? reelId}){
     MainScreen.initPage =1 ;
     MainScreen.reelId = reelId??'' ;
