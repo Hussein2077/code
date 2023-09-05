@@ -15,23 +15,57 @@ class GoldSilverButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        button(
+    return Padding(
+      padding:  EdgeInsets.symmetric(
+        horizontal: ConfigSize.defaultSize! * 1.5
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: button(
+              image: AssetsPath.goldButton,
+              title: StringManager.coins.tr(),
+              num: myDataModel.myStore!.coins.toString(),
+              gold: true ,
+              onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "My Videos"),),
+          ),
+          SizedBox(
+            width: ConfigSize.defaultSize! * 1,
+          ),
+          Expanded(
+            child: Container(
+              height: ConfigSize.defaultSize! * 7,
+
+              padding: EdgeInsets.only(
+                  right: ConfigSize.defaultSize!-6, top: ConfigSize.defaultSize!*2.5),
+
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: const DecorationImage(image: AssetImage(AssetsPath.myVideos), fit: BoxFit.cover)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    StringManager.myVideos.tr(),
+                    style: TextStyle(
+                        color:  Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: ConfigSize.defaultSize! * 1.55),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          /*button(
             image: AssetsPath.goldButton,
             title: StringManager.coins.tr(),
             num: myDataModel.myStore!.coins.toString(),
             gold: true ,
-            onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "gold"),),
-      /*  button(
-            image: AssetsPath.silverButton,
-            title: StringManager.silver.tr(),
-            num: myDataModel.myStore!.silverCoin.toString(),
-             gold: false
-            ,onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "silver"),
-            )*/
-      ],
+            onTap: () => Navigator.pushNamed(context, Routes.coins , arguments: "My Videos"),),*/
+        ],
+      ),
     );
   }
 }
@@ -39,8 +73,9 @@ class GoldSilverButton extends StatelessWidget {
 Widget button(
     {required String image,
     required String title,
+      BoxFit? boxFit,
     required String num,
-    required bool gold , 
+    required bool gold ,
     void Function()? onTap}) {
   return InkWell(
     onTap:onTap ,
@@ -49,18 +84,21 @@ Widget button(
       child: Container(
         padding: EdgeInsets.only(
             right: ConfigSize.defaultSize!, top: ConfigSize.defaultSize!),
-        width: ConfigSize.defaultSize! * 18,
         height: ConfigSize.defaultSize! * 7,
         decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill)),
+          borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(image: AssetImage(image), fit: boxFit?? BoxFit.fill)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                  color: gold ? ColorManager.borwn : Colors.grey,
-                  fontSize: ConfigSize.defaultSize! * 1.6),
+            Padding(
+              padding: EdgeInsets.only(top:gold?0:ConfigSize.defaultSize! * 1),
+              child: Text(
+                title,
+                style: TextStyle(
+                    color: gold ? ColorManager.borwn : Colors.black,
+                    fontSize: ConfigSize.defaultSize! * 1.6),
+              ),
             ),
             Padding(
                 padding: EdgeInsets.only(right: ConfigSize.defaultSize! * 3),

@@ -237,6 +237,7 @@ class AssetsPath {
   static const String chatLock = "$pathIcon/chatlock.png";
   static const String lockRoom = "$pathIcon/lockroom.png";
   static const String music2 = "$pathIcon/music.png";
+  static const String myVideos = "$pathImage/my_videos.jpg";
 
 
   
