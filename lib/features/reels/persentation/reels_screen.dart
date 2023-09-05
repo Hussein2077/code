@@ -8,7 +8,6 @@ import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
-import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_state.dart';
@@ -27,7 +26,7 @@ class ReelsScreen extends StatefulWidget {
 
 class ReelsScreenState extends State<ReelsScreen> {
  static List<int> likedVideos = [];
- static List<int> cachedIdsReels  = [];
+ static Map<String,dynamic> mapCachedReels  = {};
 
   @override
   void initState() {
@@ -109,9 +108,8 @@ class ReelsScreenState extends State<ReelsScreen> {
 
 Future<void>  initCachingReels() async{
 
-  List<ReelModel> cachedReels = await Methods().getCachingReels() ;
-  cachedReels.forEach((element) {
-    cachedIdsReels.add(element.id!);
-  });
+  Map<String,dynamic> cachedReels = await Methods().getCachingReels();
+  mapCachedReels =cachedReels ;
+
 }
 }

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 
@@ -73,7 +74,7 @@ class ShowSVGAState extends State<ShowSVGA> with TickerProviderStateMixin {
 
   Future<void> _getSvgaImage(
       {required String giftId}) async {
-    final cacheManager = DefaultCacheManager();
+    final cacheManager =  getIt<DefaultCacheManager>() ;
     final file = await cacheManager.getFileFromCache(giftId);
     final bytes = await file?.file.readAsBytes();
 

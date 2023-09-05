@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/cach_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/remotly_datasource.dart';
@@ -748,7 +750,10 @@ getIt.registerLazySingleton(
 
     final sharedPreferences = await SharedPreferences.getInstance();
     getIt.registerLazySingleton(() => sharedPreferences);
-
+    final cacheManager =  DefaultCacheManager();
+    getIt.registerLazySingleton(() => cacheManager);
+   final VideoCacheManager videoCacheManager = VideoCacheManager() ;
+    getIt.registerLazySingleton(() => videoCacheManager);
     final MyDataModel cacheMyData = await Methods().returnMyData();
     getIt.registerLazySingleton(() => cacheMyData);
     FireBaseDataSource fireBaseDataSource = FireBaseDataSource();

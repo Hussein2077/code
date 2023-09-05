@@ -11,14 +11,16 @@ class ReelModel {
   int? likeNum ; 
   bool? likeExists ; 
   String? userName ; 
-  String? userImage ; 
+  String? userImage ;
+  bool? isFollow ;
 
 
-  ReelModel ({this.userName , this.userImage ,  this.id , this.userId , this.description ,this.url ,this.shareNum , this.commentNum ,this.likeNum , this.likeExists});
+  ReelModel ({this.isFollow,this.userName , this.userImage ,  this.id , this.userId , this.description ,this.url ,this.shareNum , this.commentNum ,this.likeNum , this.likeExists});
 
   factory ReelModel.fromJson (Map <String, dynamic> json){
     return ReelModel(
       id: json['id']??0,
+      isFollow: json['isFollow'],
       userId: json['user_id']??0,
       description: json['description']??"",
       url: "https://storage.googleapis.com/tik-chat/${json['url']}",

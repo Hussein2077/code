@@ -1,7 +1,8 @@
-import 'dart:developer';
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -12,11 +13,10 @@ import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.d
 abstract class BaseRemotlyDataSourceReels {
 
     Future<String> uploadReel(UploadReelParamiter uploadReelParamiter);
-        Future<List<ReelModel>> getReels(String? page,String? reelId);
-                Future<List<ReelCommentModel>> getComments(String? page , String reelId);
-
-                Future<String> makeComments( String reelId , String comment);
-                Future<String> makeLike( String reelId , );
+    Future<List<ReelModel>> getReels(String? page,String? reelId);
+    Future<List<ReelCommentModel>> getComments(String? page , String reelId);
+    Future<String> makeComments( String reelId , String comment);
+    Future<String> makeLike( String reelId , );
 
 
 }
@@ -61,16 +61,32 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
 
     try {
 
+      List<ReelModel> reels = [];
+      if(reelId != null){
+
+        final responseSpasficReel = await Dio().get(
+          ConstentApi.getReel(reelId: reelId),
+          options: Options(
+            headers: headers,
+          ),
+        );
+        ReelModel   spasficReel =ReelModel.fromJson(responseSpasficReel.data["data"]) ;
+        reels.add(spasficReel);
+       await Methods().cachingReels(reels,responseSpasficReel.data);
+      }
       final response = await Dio().get(
-        ConstentApi.getReel(reelId),
+        ConstentApi.getReel(),
         options: Options(
           headers: headers,
         ),
       );
-          List<ReelModel> reels = List<ReelModel>.from(
+          List<ReelModel> normalReels = List<ReelModel>.from(
           (response.data["data"] as List)
               .map((e) => ReelModel.fromJson(e)));
-
+      reels.addAll(normalReels);
+      if(page == '1'){
+       await Methods().removeCachReels();
+      }
       Methods().cachingReels(reels,response.data);
       return reels;
     } on DioError catch (e) {

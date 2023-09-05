@@ -17,6 +17,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/cach_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -94,22 +95,28 @@ class Methods {
 
 
   Future<void> cachingReels(List<ReelModel> reels , Map<String,dynamic> mapReels ) async{
-    Directory appDocDir = await getApplicationDocumentsDirectory();
+    await getIt<VideoCacheManager>().init() ;
       for(int i =0;i<reels.length;i++){
-        String rootPath  = '${appDocDir.path}/${reels[i].id}${StringManager.cachReelsKey}';
-        log("ConstentApi().getImage(reels[i].url)"+reels[i].url!);
-        Dio().download(reels[i].url!, rootPath);
+        if(kDebugMode){
+          log("ConstentApi().getImage(reels[i].url)${reels[i].url!}");
+        }
+        getIt<VideoCacheManager>().cacheVideo(reels[i].url!,StringManager.cachReelsKey);
       }
-      setCachingVideo(cachingVideos: mapReels, key: StringManager.cachReelsKey);
+
     }
 
-  Future<List<ReelModel>> getCachingReels()async{
-    Map<String,dynamic> mapReels = await  getCachingVideo(key: StringManager.cachReelsKey);
-    List<ReelModel> reels = List<ReelModel>.from(
-        (mapReels["data"] as List)
-            .map((e) => ReelModel.fromJson(e)));
+  Future<Map<String,dynamic>> getCachingReels()async{
+   await getIt<VideoCacheManager>().init();
 
-   return reels ;
+    Map<String,dynamic> mapReels =   getIt<VideoCacheManager>().cacheMap ;
+
+
+   return mapReels ;
+  }
+
+  Future<void> removeCachReels()async {
+    await getIt<VideoCacheManager>().init() ;
+    getIt<VideoCacheManager>().removeVideosByCacheKey(StringManager.cachReelsKey);
   }
 
     Future<void> exitFromRoom(String ownerId) async{
@@ -176,17 +183,20 @@ class Methods {
           OtpContiners.code="";
 
         }
+
   void KeepUserLogin({required bool KeepInLogin}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool(StringManager.keepLogin, KeepInLogin);
   }
+
   Future<void> saveMyData() async {
     Map<String, String> headers = await DioHelper().header();
-    await DefaultCacheManager().getSingleFile(ConstentApi.getmyDataUrl,
+    await  getIt<DefaultCacheManager>().getSingleFile(ConstentApi.getmyDataUrl,
         headers: headers,key: StringManager.cachUserData);
   }
+
   Future<MyDataModel> returnMyData() async {
-    var file = await DefaultCacheManager().getFileFromCache(StringManager.cachUserData);
+    var file = await  getIt<DefaultCacheManager>().getFileFromCache(StringManager.cachUserData);
 
     if (file != null && await file.file.exists()){
       var res = await file.file.readAsString();
@@ -254,7 +264,7 @@ class Methods {
 
 
    Future<void> cacheSvgaImage({required String svgaUrl,required  String imageId}) async {
-          final cacheManager = DefaultCacheManager();
+          final cacheManager =  getIt<DefaultCacheManager>() ;
 
           if(kDebugMode){
             log("downloading$imageId");
@@ -536,7 +546,7 @@ class Methods {
 
         Future<MovieEntity> getCachedSvgaImage( String giftId, String url) async {
 
-          final cacheManager = DefaultCacheManager();
+          final cacheManager =  getIt<DefaultCacheManager>() ;
           final file = await cacheManager.getFileFromCache(giftId);
           final bytes = await file?.file.readAsBytes() ;
           if(bytes != null){
@@ -649,14 +659,14 @@ class Methods {
           await sharedPreferences.remove(StringManager.lastTimeCacheEmojie);
 
 
-          final cacheManager = DefaultCacheManager();
+          final cacheManager =  getIt<DefaultCacheManager>() ;
           cacheManager.emptyCache() ;
           // ignore: use_build_context_synchronously
           sucssesToast(context: context, title: StringManager.clearDataDone.tr());
         }
 
         Future<void> removeFileFromChach({required String key})async{
-          final cacheManager = DefaultCacheManager();
+          final cacheManager =  getIt<DefaultCacheManager>() ;
           if(await cacheManager.getFileFromCache(key) != null){
             cacheManager.removeFile(key);
           }
@@ -664,7 +674,7 @@ class Methods {
 
 
    void userProfileNvgator ({required BuildContext context ,    String ? userId ,
-  UserDataModel ? userData , }){
+            UserDataModel ? userData , }){
     if(userId==null && userData==null){
       Navigator.pushNamed(context, Routes.userProfile,
                );
