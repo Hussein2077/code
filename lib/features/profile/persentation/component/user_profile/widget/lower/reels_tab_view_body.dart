@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
@@ -43,39 +44,44 @@ class _ReelsTabViewState extends State<ReelsTabView> {
                 childAspectRatio: 0.9,
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5),
-                color: Colors.grey,
-              /*  decoration: BoxDecoration(
-                  image: Ch
-                ),*/
-                child:Padding(
-                  padding:  EdgeInsets.symmetric(
-                    horizontal: ConfigSize.defaultSize!-5
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.favorite,color: Colors.red,size: ConfigSize.defaultSize! * 2),
-                      SizedBox(
-                        width: ConfigSize.defaultSize!/10 ,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.black.withOpacity(0.3),
+              return InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, Routes.userReelView , arguments: ReelsUserPramiter(startIndex: index, userDataModel: widget.userDataModel));
+                },
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  color: Colors.grey,
+                /*  decoration: BoxDecoration(
+                    image: Ch
+                  ),*/
+                  child:Padding(
+                    padding:  EdgeInsets.symmetric(
+                      horizontal: ConfigSize.defaultSize!-5
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.favorite,color: Colors.red,size: ConfigSize.defaultSize! * 2),
+                        SizedBox(
+                          width: ConfigSize.defaultSize!/10 ,
                         ),
-                        margin: EdgeInsets.only(
-                          bottom: ConfigSize.defaultSize! -8
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          vertical: 1,
-                          horizontal: ConfigSize.defaultSize!
-                        ),
-                          child: Text(state.data![index].likeNum.toString(),style: const TextStyle(fontSize: 10))),
-                    ],
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.black.withOpacity(0.3),
+                          ),
+                          margin: EdgeInsets.only(
+                            bottom: ConfigSize.defaultSize! -8
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 1,
+                            horizontal: ConfigSize.defaultSize!
+                          ),
+                            child: Text(state.data![index].likeNum.toString(),style: const TextStyle(fontSize: 10))),
+                      ],
+                    ),
                   ),
                 ),
               );

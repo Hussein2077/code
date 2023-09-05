@@ -25,6 +25,8 @@ class ReelsPage extends StatefulWidget {
   final Function()? onFollow;
   final SwiperController swiperController;
   final bool showProgressIndicator;
+    final bool? userView; 
+
   const ReelsPage({
     Key? key,
     required this.item,
@@ -36,6 +38,7 @@ class ReelsPage extends StatefulWidget {
     this.onShare,
     this.showProgressIndicator = true,
     required this.swiperController,
+    this.userView
   }) : super(key: key);
 
   @override
@@ -172,6 +175,7 @@ class _ReelsPageState extends State<ReelsPage> {
            right: 10,
              bottom: 0,
              child: ScreenOptions(
+              userView: widget.userView,
            onClickMoreBtn: widget.onClickMoreBtn,
            onComment: widget.onComment,
            onFollow: widget.onFollow,

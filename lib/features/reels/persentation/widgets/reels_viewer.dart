@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -43,7 +45,14 @@ class ReelsViewer extends StatefulWidget {
   /// function invoke when user click on back btn
   final Function()? onClickBackArrow;
 
-  const ReelsViewer({
+  // StartIndex 
+  final int? startIndex ; 
+
+
+   // to know iam in user view or not
+  final bool? userView; 
+
+   const ReelsViewer({
     Key? key,
     required this.reelsList,
     this.showVerifiedTick = true,
@@ -57,6 +66,8 @@ class ReelsViewer extends StatefulWidget {
     this.onClickBackArrow,
     this.onIndexChanged,
     this.showProgressIndicator =true,
+    this.startIndex ,
+    this.userView,
   }) : super(key: key);
 
   @override
@@ -67,12 +78,20 @@ class _ReelsViewerState extends State<ReelsViewer> {
   SwiperController controller = SwiperController();
 
   @override
+  void initState() {
+   controller.index = widget.startIndex??0;
+    super.initState();
+  }
+
+
+  @override
   void dispose() {
     controller.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
+    log("1111111111111");
     return Scaffold(
       backgroundColor: Colors.black26,
       body: SafeArea(
@@ -81,7 +100,10 @@ class _ReelsViewerState extends State<ReelsViewer> {
             //We need swiper for every content
             Swiper(
               itemBuilder: (BuildContext context, int index) {
+             
+
                 return ReelsPage(
+                  userView: widget.userView,
                   item: widget.reelsList[index],
                   onClickMoreBtn: widget.onClickMoreBtn,
                   onComment: widget.onComment,

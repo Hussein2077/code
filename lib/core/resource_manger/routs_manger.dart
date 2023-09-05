@@ -47,8 +47,10 @@ import 'package:tik_chat_v2/features/profile/persentation/component/settings/set
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/edit_info/component/intersted_screen/intersted_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/edit_info/edit_info_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/gift_gallery/gift_gallery_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/vip/vip_screen.dart';
+import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/room_handler/handler_room_screen.dart';
@@ -118,6 +120,10 @@ class Routes {
   static const String roomHandler = '/roomHandler';
     static const String privacySettings = "/privicySettening";
   static const String webView = "/webView";
+
+  static const String userReelView = "/userReelView";
+
+
 
 }
 
@@ -361,6 +367,12 @@ class RouteGenerator {
               title:  webViewPramiter.title,
               titleColor: webViewPramiter.titleColor,
             ));
+
+                 case Routes.userReelView:
+        ReelsUserPramiter pram = settings.arguments as ReelsUserPramiter;
+
+        return MaterialPageRoute(
+            builder: (_) =>  SafeArea(child: UserReelView(userDataModel: pram.userDataModel, startIndex: pram.startIndex,)));
     }
 
     return unDefinedRoute();
@@ -444,4 +456,14 @@ class WebViewPramiter {
   final Color titleColor ;
 
   WebViewPramiter({required this.url,required this.title,required this.titleColor});
+}
+
+
+class ReelsUserPramiter {
+final int startIndex ;     
+
+      final UserDataModel userDataModel ;
+
+  const ReelsUserPramiter(
+      {required this.startIndex, required this.userDataModel, Key? key});
 }
