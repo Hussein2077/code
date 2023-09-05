@@ -56,7 +56,7 @@ class _CreateFamilyState extends State<CreateFamily> {
       listener: (context, state) {
         if (state is CreateFamilySucssesState) {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-          Navigator.pushNamed(context, Routes.familyProfile , arguments: state.id);
+          Navigator.pushNamed(context, Routes.familyProfile , arguments: int.parse(state.id));
         } else if (state is CreateFamilyLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
         } else if (state is CreateFamilyErrorState) {

@@ -190,7 +190,8 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<String> prevDispose(String type);
     Future<List<ReelModel>> getUserReel(String? id , String page);
 
-  
+      Future<String> deleteMessage(String id);
+
 
 
 }
@@ -2039,7 +2040,28 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           resultData['data'].map((x) => ReelModel.fromJson(x)));
 
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getUserIntersted' );
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getUserReel' );
     }
+  }
+  
+  @override
+  Future<String> deleteMessage(String id)async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().delete(
+        ConstentApi.deleteReel(id),
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return resultData['message'];
+
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName:'deleteReel' );
+    }
+ 
   }
 }

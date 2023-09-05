@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -25,8 +24,9 @@ class ScreenOptions extends StatelessWidget {
   final Function(int)? onLike;
   final Function(String)? onComment;
   final Function()? onClickMoreBtn;
-  final Function()? onFollow;
+  final Function(String,bool)? onFollow;
   final bool? userView;
+  final bool isFollowed ;
 
   const ScreenOptions({
     Key? key,
@@ -38,6 +38,7 @@ class ScreenOptions extends StatelessWidget {
     this.onLike,
     this.onShare,
     this.userView,
+  required  this.isFollowed
   }) : super(key: key);
 
   @override
@@ -48,44 +49,75 @@ class ScreenOptions extends StatelessWidget {
         child: Column(
           children: [
             if (item.userImage != null)
-              InkWell(
-                  onTap: () {
-                    Methods().userProfileNvgator(
-                        context: context, userId: item.userId.toString());
-                  },
-                  child:
-                      UserImageReel(image: item.userImage!, isFollowed: true)),
+              UserImageReel(image: item.userImage!,isFollowed: isFollowed, userId:item.userId! ,onFollow: onFollow, ),
             if (item.userImage == null)
               const CircleAvatar(
                 radius: 16,
                 child: Icon(Icons.person, size: 18),
               ),
             SizedBox(height: ConfigSize.defaultSize),
-            if (onLike != null &&
-                (!item.likeExists! &&
-                    !ReelsScreenState.likedVideos.contains(item.id)))
-              IconButton(
-                icon: Icon(
-                  CupertinoIcons.heart_solid,
-                  color: Colors.white,
-                  size: ConfigSize.defaultSize! * 4,
+            if (userView == null)
+              if (onLike != null &&
+                  (!item.likeExists! &&
+                      !ReelsScreenState.likedVideos.contains(item.id)))
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.heart_solid,
+                    color: Colors.white,
+                    size: ConfigSize.defaultSize! * 4,
+                  ),
+                  onPressed: () => onLike!(item.id!),
                 ),
-                onPressed: () => onLike!(item.id!),
-              ),
+            if (userView == true)
+              if (onLike != null &&
+                  (!UserReelViewState.likedVideos.contains(item.id)))
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.heart_solid,
+                    color: Colors.white,
+                    size: ConfigSize.defaultSize! * 4,
+                  ),
+                  onPressed: () => onLike!(item.id!),
+                ),
             if (userView == null)
               if (item.likeExists! ||
                   ReelsScreenState.likedVideos.contains(item.id))
-                const Icon(CupertinoIcons.heart_solid, color: Colors.red),
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.heart_solid,
+                    color: Colors.red,
+                    size: ConfigSize.defaultSize! * 4,
+                  ),
+                  onPressed: () => onLike!(item.id!),
+                ),
             if (userView == true)
-              if (item.likeExists! ||
-                  UserReelViewState.likedVideos.contains(item.id))
-                const Icon(CupertinoIcons.heart_solid, color: Colors.red),
-            Text(
-                (!item.likeExists! &&
-                        ReelsScreenState.likedVideos.contains(item.id))
-                    ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
-                    : NumbersToShort.convertNumToShort(item.likeNum!),
-                style: const TextStyle(color: Colors.white)),
+              if (UserReelViewState.likedVideos.contains(item.id))
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.heart_solid,
+                    color: Colors.red,
+                    size: ConfigSize.defaultSize! * 4,
+                  ),
+                  onPressed: () => onLike!(item.id!),
+                ),
+            userView == null
+                ? Text(
+                    (!item.likeExists! &&
+                            ReelsScreenState.likedVideos.contains(item.id))
+                        ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
+                        : NumbersToShort.convertNumToShort(item.likeNum!),
+                    style: const TextStyle(color: Colors.white))
+                : Text(
+                    (!item.likeExists! &&
+                            UserReelViewState.likedVideos.contains(item.id))
+                        ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
+                        : (item.likeExists! &&
+                                !UserReelViewState.likedVideos
+                                    .contains(item.id))
+                            ? NumbersToShort.convertNumToShort(
+                                item.likeNum! - 1)
+                            : NumbersToShort.convertNumToShort(item.likeNum!),
+                    style: const TextStyle(color: Colors.white)),
             SizedBox(height: ConfigSize.defaultSize),
             IconButton(
               icon: const Icon(CupertinoIcons.chat_bubble_text_fill,
@@ -146,12 +178,12 @@ class ScreenOptions extends StatelessWidget {
               ),
             ),
             SizedBox(height: ConfigSize.defaultSize),
-            // if (onClickMoreBtn != null)
-            //   IconButton(
-            //     icon: const Icon(Icons.more_vert),
-            //     onPressed: onClickMoreBtn!,
-            //     color: Colors.white,
-            //   ),
+            if (onClickMoreBtn != null)
+              IconButton(
+                icon: const Icon(Icons.more_vert),
+                onPressed: onClickMoreBtn!,
+                color: Colors.white,
+              ),
           ],
         ));
   }
