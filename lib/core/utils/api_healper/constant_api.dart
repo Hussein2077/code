@@ -139,6 +139,13 @@ static String getReelUser(String? userID , String?page) {
 
 }
 
+static String deleteReel(String reelId ,) {
+
+     return "$baseUrl/reals/$reelId";
+ 
+
+}
+
 static String getReelComments(String reelId , String?page) {
 
      return "$baseUrl/reals/$reelId/comment?page=$page";

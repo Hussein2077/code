@@ -206,6 +206,7 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> prevDispose(String type);
     Future<Either<List<ReelModel>, Failure>> getUserReels(String? id , String page );
 
+  Future<Either<String, Failure>> deleteReel(String id);
 
 
 
