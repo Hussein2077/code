@@ -181,7 +181,7 @@ class ScreenOptions extends StatelessWidget {
             if (onClickMoreBtn != null)
               IconButton(
                 icon: const Icon(Icons.more_vert),
-                onPressed: onClickMoreBtn!(item.id!),
+                onPressed:  () => onClickMoreBtn!(item.id!),
                 color: Colors.white,
               ),
           ],
