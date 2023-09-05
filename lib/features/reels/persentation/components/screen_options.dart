@@ -80,7 +80,7 @@ class ScreenOptions extends StatelessWidget {
                   onPressed: () => onLike!(item.id!),
                 ),
             if (userView == null)
-              if (item.likeExists! ||
+              if (
                   ReelsScreenState.likedVideos.contains(item.id))
                 IconButton(
                   icon: Icon(
@@ -100,12 +100,17 @@ class ScreenOptions extends StatelessWidget {
                   ),
                   onPressed: () => onLike!(item.id!),
                 ),
-            userView == null
+            userView == null  
                 ? Text(
                     (!item.likeExists! &&
                             ReelsScreenState.likedVideos.contains(item.id))
                         ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
-                        : NumbersToShort.convertNumToShort(item.likeNum!),
+                        : (item.likeExists! &&
+                                !ReelsScreenState.likedVideos
+                                    .contains(item.id))
+                            ? NumbersToShort.convertNumToShort(
+                                item.likeNum! - 1)
+                            : NumbersToShort.convertNumToShort(item.likeNum!),
                     style: const TextStyle(color: Colors.white))
                 : Text(
                     (!item.likeExists! &&

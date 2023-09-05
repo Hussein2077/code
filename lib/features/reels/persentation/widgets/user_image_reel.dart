@@ -4,13 +4,17 @@
 
 
 
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 
 
 class UserImageReel extends StatelessWidget {
@@ -30,6 +34,8 @@ class UserImageReel extends StatelessWidget {
 
 @override
 Widget build(BuildContext context) {
+     
+  log(isFollowed!.toString());
   return  Stack(
     children: [
       SizedBox(
@@ -53,7 +59,11 @@ Widget build(BuildContext context) {
           child: child,
         ),
       ),
-      (isFollowed??false)?Positioned(
+      ValueListenableBuilder<bool>(
+                  valueListenable:ReelsScreenState.follow,
+                  builder:(context, isShow, _) {
+                        if((!ReelsScreenState.followList.contains(userId.toString())||isFollowed!)&&(userId!=MyDataModel.getInstance().id)) {
+                          return  Positioned(
           bottom: 0,
           right: 10,
           child: InkWell(
@@ -64,25 +74,30 @@ Widget build(BuildContext context) {
                 color: Colors.red,
               ),
               padding:const  EdgeInsets.all(4) ,
-              child:  Icon(CupertinoIcons.checkmark_alt,size: ConfigSize.defaultSize!+4,),
+              child:  Icon(CupertinoIcons.add,size: ConfigSize.defaultSize!+4,),
             ) ,
           )
-      ) :
-      Positioned(
-          bottom: 0,
-          right: 10,
-          child: InkWell(
-       onTap: () => onFollow!(userId.toString(),isFollowed??false),
-     child: Container(
-    decoration:const BoxDecoration(
-      shape:  BoxShape.circle,
-      color: Colors.red,
-    ),
-    padding:const  EdgeInsets.all(4) ,
-    child:  Icon(CupertinoIcons.add,size: ConfigSize.defaultSize!+4,),
-  ) ,
-  )
- ) ,
+      );
+                        }else return const SizedBox();
+                
+          }),
+  
+//        :
+//       Positioned(
+//           bottom: 0,
+//           right: 10,
+//           child: InkWell(
+//        onTap: () => onFollow!(userId.toString(),isFollowed??false),
+//      child: Container(
+//     decoration:const BoxDecoration(
+//       shape:  BoxShape.circle,
+//       color: Colors.red,
+//     ),
+//     padding:const  EdgeInsets.all(4) ,
+//     child:  Icon(CupertinoIcons.add,size: ConfigSize.defaultSize!+4,),
+//   ) ,
+//   )
+//  ) ,
 
 
     ],

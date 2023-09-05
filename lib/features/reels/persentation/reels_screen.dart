@@ -29,10 +29,18 @@ class ReelsScreen extends StatefulWidget {
 class ReelsScreenState extends State<ReelsScreen> {
  static List<int> likedVideos = [];
  static Map<String,dynamic> mapCachedReels  = {};
+   static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
+
+   List<int> unLikedVideo = [];
+       static List<String> followList = [];
+
+
 
   @override
   void initState() {
     likedVideos = [];
+    unLikedVideo=[];
+    followList=[];
     if(MainScreen.initPage ==1){
       BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId:MainScreen.reelId));
     }else{
@@ -50,9 +58,18 @@ class ReelsScreenState extends State<ReelsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log(ReelsScreenState.followList.toString());
     return Scaffold(body: BlocBuilder<GetReelsBloc, GetReelsState>(
       builder: (context, state) {
         if(state is GetReelsSucssesState){
+               for (int i = 0; i < state.data!.length; i++) {
+              
+              
+              if (state.data![i].likeExists == true &&
+                  !unLikedVideo.contains(state.data![i].id)) {
+                likedVideos.add(state.data![i].id!);
+              }
+            }
        return ReelsViewer(
           reelsList: state.data!,
           appbarTitle: StringManager.reels,
@@ -66,20 +83,36 @@ class ReelsScreenState extends State<ReelsScreen> {
             log('Shared reel url ==> ${reel.id}');
           },
           onLike: (id) {
-       BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
+            BlocProvider.of<MakeReelLikeBloc>(context)
+                    .add(MakeReelLikeEvent(reelId: id.toString()));
+                setState(() {
+                  if (ReelsScreenState.likedVideos.contains(id)) {
+                    log("1111zzzzz11");
+                    likedVideos.remove(id);
+                    unLikedVideo.add(id);
+                  } else {
+                    log("122222");
 
-            setState(() {
-              likedVideos.add(id);
-            });
+                    likedVideos.add(id);
+                  }
+                });
+
+      //  BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
+
+      //       setState(() {
+      //         likedVideos.add(id);
+      //       });
            
           },
           onFollow: (userId, isFollow) {
 
-            if(isFollow){
-              BlocProvider.of<FollowBloc>(context).add(UnFollowEvent(userId: userId));
-            }else{
+           setState(() {
+                           ReelsScreenState.followList.add(userId);
+
+           });
               BlocProvider.of<FollowBloc>(context).add(FollowEvent(userId: userId));
-            }
+
+            
 
           },
           onComment: (comment) {

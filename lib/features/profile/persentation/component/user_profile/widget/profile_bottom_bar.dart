@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_state.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 
 class ProfileBottomBar extends StatefulWidget {
   final UserDataModel userData;
@@ -34,6 +35,8 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
           isFollow = !isFollow;
           setState(() {});
         } else if (state is UnFollowSucssesState) {
+          ReelsScreenState.follow.value = !ReelsScreenState.follow.value;
+          ReelsScreenState.followList.remove(widget.userData.id.toString());
           isFollow = !isFollow;
           setState(() {});
         }else if (state is  FollowLoadingState){

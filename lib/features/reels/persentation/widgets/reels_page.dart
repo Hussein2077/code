@@ -128,7 +128,7 @@ class _ReelsPageState extends State<ReelsPage> {
 
   Widget getVideoView() {
     return  Stack(
-       // fit: StackFit.expand,
+       fit: StackFit.expand,
         children: [
 
           (_chewieController != null &&
