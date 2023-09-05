@@ -384,6 +384,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
                 BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
+                                BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
+
 
         
       ],
