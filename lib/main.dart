@@ -63,6 +63,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_dolars_for_user/charge_dolars_for_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_owner_agency_history/charge_owner_agency_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_delete_reel/delete_reel_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family_room/bloc/family_room_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_all_intersted/get_all_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_all_intersted/get_all_intersted_event.dart';
@@ -385,6 +386,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
                 BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
                                 BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
+                                                                BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
+
 
 
         

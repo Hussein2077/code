@@ -183,12 +183,12 @@ class ScreenOptions extends StatelessWidget {
               ),
             ),
             SizedBox(height: ConfigSize.defaultSize),
-            if (onClickMoreBtn != null)
-              IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: onClickMoreBtn!,
-                color: Colors.white,
-              ),
+            // if (onClickMoreBtn != null)
+            //   IconButton(
+            //     icon: const Icon(Icons.more_vert),
+            //     onPressed: onClickMoreBtn!(item.id!),
+            //     color: Colors.white,
+            //   ),
           ],
         ));
   }

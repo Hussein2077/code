@@ -65,6 +65,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/charge_history_uc.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/delet_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/delete_account_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/delete_reel_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/exchange_dimonds.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/exit_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/family_ranking_usecase.dart';
@@ -132,6 +133,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_dolars_for_user/charge_dolars_for_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_owner_agency_history/charge_owner_agency_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_delete_reel/delete_reel_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_family_room/bloc/family_room_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_all_intersted/get_all_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
@@ -444,12 +446,15 @@ class ServerLocator {
 
         getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
         getIt.registerFactory(() => GetUserReelsBloc(getUserReelUseCase: getIt()));
+                getIt.registerFactory(() => DeleteReelBloc(deleteReelUseCse: getIt()));
+
 
 
     
 
 //usecase
 
+   getIt.registerLazySingleton(() => DeleteReelUseCse(baseRepositoryProfile: getIt()));
 
    getIt.registerLazySingleton(() => GetUserReelsUsecase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => GetTopRoomUC(roomRepo: getIt()));

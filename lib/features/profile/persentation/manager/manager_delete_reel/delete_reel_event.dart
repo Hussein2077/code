@@ -9,6 +9,7 @@ abstract class BasseDeleteReelEvent extends Equatable {
 }
 
 class DeleteReelEvent extends BasseDeleteReelEvent {
+  
   final String id ; 
   const DeleteReelEvent ({required this.id});
 
