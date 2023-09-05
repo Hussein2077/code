@@ -18,14 +18,14 @@ class UserImageReel extends StatelessWidget {
   final String image ;
   final BoxFit? boxFit;
   final Widget? child ;
-  final bool isFollowed ;
+  final bool? isFollowed ;
  final int userId ;
  final Function(String,bool)? onFollow;
   const UserImageReel({this.child ,
   required this.image ,
    this.onFollow,
   required this.userId,
-  required this.isFollowed,
+   this.isFollowed,
   this.boxFit ,this.imageSize, super.key});
 
 @override
@@ -53,11 +53,11 @@ Widget build(BuildContext context) {
           child: child,
         ),
       ),
-      isFollowed ?Positioned(
+      (isFollowed??false)?Positioned(
           bottom: 0,
           right: 10,
           child: InkWell(
-            onTap: () => onFollow!(userId.toString(),isFollowed),
+            onTap: () => onFollow!(userId.toString(),isFollowed??false),
             child: Container(
               decoration:const BoxDecoration(
                 shape:  BoxShape.circle,
@@ -67,11 +67,12 @@ Widget build(BuildContext context) {
               child:  Icon(CupertinoIcons.checkmark_alt,size: ConfigSize.defaultSize!+4,),
             ) ,
           )
-      ) :   Positioned(
+      ) :
+      Positioned(
           bottom: 0,
           right: 10,
           child: InkWell(
-       onTap: () => onFollow!(userId.toString(),isFollowed),
+       onTap: () => onFollow!(userId.toString(),isFollowed??false),
      child: Container(
     decoration:const BoxDecoration(
       shape:  BoxShape.circle,

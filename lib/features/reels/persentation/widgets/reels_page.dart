@@ -193,7 +193,7 @@ class _ReelsPageState extends State<ReelsPage> {
            onShare: widget.onShare,
            showVerifiedTick: widget.showVerifiedTick,
            item: widget.item,
-           isFollowed:widget.item.isFollow!,
+           isFollowed:widget.item.isFollow,
          )) ,
           if(_isVideoPause)
         Container(

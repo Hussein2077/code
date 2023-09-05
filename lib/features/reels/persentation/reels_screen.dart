@@ -74,7 +74,7 @@ class ReelsScreenState extends State<ReelsScreen> {
            
           },
           onFollow: (userId, isFollow) {
-            log("tttttttttttttttt");
+
             if(isFollow){
               BlocProvider.of<FollowBloc>(context).add(UnFollowEvent(userId: userId));
             }else{

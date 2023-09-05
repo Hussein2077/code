@@ -26,7 +26,7 @@ class ScreenOptions extends StatelessWidget {
   final Function()? onClickMoreBtn;
   final Function(String,bool)? onFollow;
   final bool? userView;
-  final bool isFollowed ;
+  final bool? isFollowed ;
 
   const ScreenOptions({
     Key? key,
@@ -38,7 +38,7 @@ class ScreenOptions extends StatelessWidget {
     this.onLike,
     this.onShare,
     this.userView,
-  required  this.isFollowed
+    this.isFollowed
   }) : super(key: key);
 
   @override
