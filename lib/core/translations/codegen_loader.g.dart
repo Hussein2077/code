@@ -358,6 +358,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.theTextHasBeenCopied : "تم نسخ النص",
     StringManager.senderLevel : "مستوى المرسل",
     StringManager.receiverLevel : "مستوى المستقبال",
+    StringManager.myVideos : "فيديوهاتي",
 
 
 

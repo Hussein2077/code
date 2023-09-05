@@ -92,16 +92,18 @@ class UserInfoRow extends StatelessWidget {
                           if(!userData.isCountryHiden!)
                           UserCountryIcon(country: userData.profile!.country),
                           LevelContainer(
-                            image: userData.level!.senderImage!,
+                            image: userData.level!.receiverImage!,
+
                           ),
                           AristocracyLevel(
+
                             level: userData.vip1!.level!,
                           ),
 
                           const Spacer(),
                           idOrNot??
                           Text(
-                            "ID ${userData.uuid.toString()}",
+                            "ID ${userData.id.toString()}",
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],

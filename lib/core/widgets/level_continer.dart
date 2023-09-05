@@ -18,7 +18,7 @@ class LevelContainer extends StatelessWidget {
       height: ConfigSize.defaultSize!*1.5,
 decoration: BoxDecoration(image: DecorationImage(image:CachedNetworkImageProvider(
 
-                    ConstentApi().getImage(image)) ,fit: BoxFit.fill )),
+                    ConstentApi().getImage(image)) ,fit: BoxFit.contain )),
 
     );
   }
