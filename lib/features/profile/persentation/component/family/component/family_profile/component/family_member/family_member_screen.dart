@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -156,7 +157,7 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                                                           .id
                                                           .toString()));
                                             } else {
-                                              //TODO NAVGAT TO USER PROFILE
+                                              Methods().userProfileNvgator(context: context ,userId: membersData[index].id.toString());
                                             }
                                           },
                                           child: FamilyMemberCard(
@@ -229,7 +230,10 @@ Widget familyOwnerDilog({
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         settingsTabs(
-            context: context, title: StringManager.showProfile.tr(), onTap: () {}),
+            context: context, title: StringManager.showProfile.tr(),
+            onTap: () {
+              Methods().userProfileNvgator(context: context ,userId: userId);
+            }),
         CustomHorizntalDvider(width: MediaQuery.of(context).size.width),
         settingsTabs(
             context: context,
