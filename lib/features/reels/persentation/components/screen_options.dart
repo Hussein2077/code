@@ -56,31 +56,68 @@ class ScreenOptions extends StatelessWidget {
                 child: Icon(Icons.person, size: 18),
               ),
             SizedBox(height: ConfigSize.defaultSize),
-            if (onLike != null &&
-                (!item.likeExists! &&
-                    !ReelsScreenState.likedVideos.contains(item.id)))
-              IconButton(
-                icon: Icon(
-                  CupertinoIcons.heart_solid,
-                  color: Colors.white,
-                  size: ConfigSize.defaultSize! * 4,
+            if (userView == null)
+              if (onLike != null &&
+                  (!item.likeExists! &&
+                      !ReelsScreenState.likedVideos.contains(item.id)))
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.heart_solid,
+                    color: Colors.white,
+                    size: ConfigSize.defaultSize! * 4,
+                  ),
+                  onPressed: () => onLike!(item.id!),
                 ),
-                onPressed: () => onLike!(item.id!),
-              ),
+            if (userView == true)
+              if (onLike != null &&
+                  (!UserReelViewState.likedVideos.contains(item.id)))
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.heart_solid,
+                    color: Colors.white,
+                    size: ConfigSize.defaultSize! * 4,
+                  ),
+                  onPressed: () => onLike!(item.id!),
+                ),
             if (userView == null)
               if (item.likeExists! ||
                   ReelsScreenState.likedVideos.contains(item.id))
-                const Icon(CupertinoIcons.heart_solid, color: Colors.red),
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.heart_solid,
+                    color: Colors.red,
+                    size: ConfigSize.defaultSize! * 4,
+                  ),
+                  onPressed: () => onLike!(item.id!),
+                ),
             if (userView == true)
-              if (item.likeExists! ||
-                  UserReelViewState.likedVideos.contains(item.id))
-                const Icon(CupertinoIcons.heart_solid, color: Colors.red),
-            Text(
-                (!item.likeExists! &&
-                        ReelsScreenState.likedVideos.contains(item.id))
-                    ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
-                    : NumbersToShort.convertNumToShort(item.likeNum!),
-                style: const TextStyle(color: Colors.white)),
+              if (UserReelViewState.likedVideos.contains(item.id))
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.heart_solid,
+                    color: Colors.red,
+                    size: ConfigSize.defaultSize! * 4,
+                  ),
+                  onPressed: () => onLike!(item.id!),
+                ),
+            userView == null
+                ? Text(
+                    (!item.likeExists! &&
+                            ReelsScreenState.likedVideos.contains(item.id))
+                        ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
+                        : NumbersToShort.convertNumToShort(item.likeNum!),
+                    style: const TextStyle(color: Colors.white))
+                : Text(
+                    (!item.likeExists! &&
+                            UserReelViewState.likedVideos.contains(item.id))
+                        ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
+                        : (item.likeExists! &&
+                                !UserReelViewState.likedVideos
+                                    .contains(item.id))
+                            ? NumbersToShort.convertNumToShort(
+                                item.likeNum! - 1)
+                            : NumbersToShort.convertNumToShort(item.likeNum!),
+                    style: const TextStyle(color: Colors.white)),
             SizedBox(height: ConfigSize.defaultSize),
             IconButton(
               icon: const Icon(CupertinoIcons.chat_bubble_text_fill,
@@ -141,12 +178,12 @@ class ScreenOptions extends StatelessWidget {
               ),
             ),
             SizedBox(height: ConfigSize.defaultSize),
-            // if (onClickMoreBtn != null)
-            //   IconButton(
-            //     icon: const Icon(Icons.more_vert),
-            //     onPressed: onClickMoreBtn!,
-            //     color: Colors.white,
-            //   ),
+            if (onClickMoreBtn != null)
+              IconButton(
+                icon: const Icon(Icons.more_vert),
+                onPressed: onClickMoreBtn!,
+                color: Colors.white,
+              ),
           ],
         ));
   }

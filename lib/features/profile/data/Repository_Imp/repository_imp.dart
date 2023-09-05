@@ -955,5 +955,15 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
       return Right(DioHelper.buildFailure(e));
     }
   }
+  
+  @override
+  Future<Either<String, Failure>> deleteReel(String id)async {
+    try {
+      final result = await baseRemotlyDataSourceProfile.deleteMessage(id ) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
 
 }
