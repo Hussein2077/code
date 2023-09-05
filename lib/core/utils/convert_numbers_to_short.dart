@@ -6,7 +6,7 @@ class NumbersToShort{
       return '0';
     }
     return NumberFormat.compactCurrency(
-      decimalDigits: 2,
+      decimalDigits: 0,
       symbol: '',
     ).format(number);
   }

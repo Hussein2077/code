@@ -82,5 +82,41 @@ class DynamicLinkProvider {
     return refLink.shortUrl.toString();
 
   }
+
+
+  Future <String> showReelLink({
+    required int reelId,
+    required String reelImage
+
+  }) async{
+
+    final String url = "https://com.tikkchat.app?action=show_reel&&reel_id=$reelId&&reel_image=$reelImage";
+
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      link: Uri.parse(url),
+      socialMetaTagParameters: SocialMetaTagParameters(
+          description: 'I\'am playing Tik,come and let\'s have some fun',
+          title: 'Tik Chat',
+          imageUrl: Uri.parse(ConstentApi().getImage(reelImage))
+      ),
+      androidParameters: const AndroidParameters(
+        packageName: 'com.tikkchat.app',
+        minimumVersion: 0,
+      ),
+      iosParameters: const IOSParameters(
+          bundleId: 'com.tikkchat.app'
+      ),
+      uriPrefix: "https://tikchatlive.page.link",
+    );
+
+    final FirebaseDynamicLinks links =  FirebaseDynamicLinks.instance;
+
+    final refLink = await links.buildShortLink(parameters);
+
+
+
+    return refLink.shortUrl.toString();
+
+  }
 }
 

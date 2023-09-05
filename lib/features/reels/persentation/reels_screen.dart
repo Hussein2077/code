@@ -2,7 +2,9 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -31,16 +33,17 @@ class ReelsScreenState extends State<ReelsScreen> {
   void initState() {
     likedVideos = [];
     if(MainScreen.initPage ==1){
-
+      BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId:MainScreen.reelId));
+    }else{
+      BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
     }
-    BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+
     initCachingReels();
     super.initState();
   }
 
   @override
   void dispose() {
-    log("dispose in ReelsScreen ") ;
     super.dispose();
   }
 
@@ -52,15 +55,14 @@ class ReelsScreenState extends State<ReelsScreen> {
        return ReelsViewer(
           reelsList: state.data!,
           appbarTitle: StringManager.reels,
-          onShare: (url) {
-            // DynamicLinkProvider().createInvetionRoomLink(
-            //     refCod: widget.roomData.ownerId!,
-            //     password:widget.roomData.roomPassStatus??false,
-            //     ownerImage: widget.roomData.roomCover!)
-            //     .then((value) {
-            //   Share.share(value);
-            // });
-            log('Shared reel url ==> $url');
+          onShare: (reel) {
+            DynamicLinkProvider().showReelLink(
+                reelId: reel.id!,
+              reelImage: reel.userImage!,
+            ).then((value) {
+              Share.share(value);
+            });
+            log('Shared reel url ==> ${reel.id}');
           },
           onLike: (id) {
        BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));

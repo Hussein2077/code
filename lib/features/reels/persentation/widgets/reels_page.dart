@@ -18,7 +18,7 @@ import 'package:path_provider/path_provider.dart';
 class ReelsPage extends StatefulWidget {
   final ReelModel item;
   final bool showVerifiedTick;
-  final Function(String)? onShare;
+  final Function(ReelModel)? onShare;
   final Function(int)? onLike;
   final Function(String)? onComment;
   final Function()? onClickMoreBtn;
@@ -104,10 +104,14 @@ class _ReelsPageState extends State<ReelsPage> {
     return  InkWell(
       onTap: (){
         setState(() {
-          _videoPlayerController.value.isPlaying ?
-          _videoPlayerController.pause() :
-          _videoPlayerController.play();
-          _isVideoPause = !_isVideoPause;
+
+         if (_videoPlayerController.value.isPlaying){
+           _videoPlayerController.pause() ;
+           _isVideoPause = true ;
+         }  else{
+           _isVideoPause = false ;
+           _videoPlayerController.play() ;
+         }
         });
       },
       child:Stack(

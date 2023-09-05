@@ -24,9 +24,9 @@ class RepositoryReels extends BaseRepositoryReels {
   }
 
   @override
-  Future<Either<List<ReelModel>, Failure>> getReels(String? page)async {
+  Future<Either<List<ReelModel>, Failure>> getReels(String? page,String? reelId)async {
     try {
-      final result = await baseRemotlyDataSourceReels.getReels(page);
+      final result = await baseRemotlyDataSourceReels.getReels(page,reelId);
       return Left(result);
     } on Exception catch (e) {
      return Right(DioHelper.buildFailure(e));

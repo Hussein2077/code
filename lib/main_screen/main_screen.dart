@@ -53,6 +53,7 @@ class MainScreen extends StatefulWidget {
   static ValueNotifier<bool> iskeepInRoom = ValueNotifier<bool>(false);
   static int initPage = 0;
   static EnterRoomModel? roomData;
+  static String reelId = '' ;
 
   const MainScreen(
       {this.isCachFrame,
@@ -260,6 +261,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   }
   void showReelDynamicLink({String? reelId}){
     MainScreen.initPage =1 ;
+    MainScreen.reelId = reelId??'' ;
 
   }
 

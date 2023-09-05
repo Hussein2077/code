@@ -14,14 +14,14 @@ class GetReelsBloc extends Bloc<BaseGetReelsEvent, GetReelsState> {
     on<GetReelsEvent>((event, emit)async {
       page = 1 ; 
     emit(GetReelsLoadingState(null));
-    final result = await getReelUseCase.getReel("1");
+    final result = await getReelUseCase.getReel(page: "1",reelId: event.reelId);
     result.fold((l) => emit(GetReelsSucssesState(data: l)), (r) => emit(GetReelsErrorState(null, DioHelper().getTypeOfFailure(r))));
     });
 
 
         on<LoadMoreReelsEvent>((event, emit)async {
           page++ ; 
-    final result = await getReelUseCase.getReel(page.toString());
+    final result = await getReelUseCase.getReel(page: page.toString());
     result.fold((l) {  if (l != []) {
           emit(
               GetReelsSucssesState(data: [...state.data!, ...l]));

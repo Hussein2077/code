@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.d
 
 abstract class BaseRepositoryReels {
   Future<Either<String, Failure>> uploadReel(UploadReelParamiter uploadReelParamiter);
-  Future<Either<List<ReelModel>, Failure>> getReels(String? page);
+  Future<Either<List<ReelModel>, Failure>> getReels(String? page,String? reelId);
   Future<Either<List<ReelCommentModel>, Failure>> getReelComments(String? page , String reelId);
   Future<Either<String, Failure>> makeReelComment( String reelId ,  String comment);
 

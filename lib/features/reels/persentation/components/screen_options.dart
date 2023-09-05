@@ -20,7 +20,7 @@ import 'package:tik_chat_v2/features/reels/persentation/widgets/user_image_reel.
 class ScreenOptions extends StatelessWidget {
   final ReelModel item;
   final bool showVerifiedTick;
-  final Function(String)? onShare;
+  final Function(ReelModel)? onShare;
   final Function(int)? onLike;
   final Function(String)? onComment;
   final Function()? onClickMoreBtn;
@@ -123,7 +123,7 @@ class ScreenOptions extends StatelessWidget {
                       style: const TextStyle(color: Colors.white)),
                   SizedBox(height:ConfigSize.defaultSize!*2 ),
                   InkWell(
-                      onTap: () => onShare!(item.url!),
+                      onTap: () => onShare!(item),
                       child: Transform(
                         transform: Matrix4.rotationZ(5.8),
                         child: const Icon(

@@ -12,7 +12,7 @@ import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.d
 abstract class BaseRemotlyDataSourceReels {
 
     Future<String> uploadReel(UploadReelParamiter uploadReelParamiter);
-        Future<List<ReelModel>> getReels(String? page);
+        Future<List<ReelModel>> getReels(String? page,String? reelId);
                 Future<List<ReelCommentModel>> getComments(String? page , String reelId);
 
                 Future<String> makeComments( String reelId , String comment);
@@ -56,17 +56,17 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
   }
   
   @override
-  Future<List<ReelModel>> getReels(String? page) async{
+  Future<List<ReelModel>> getReels(String? page,String? reelId) async{
      Map<String, String> headers = await DioHelper().header();
 
     try {
+
       final response = await Dio().get(
-        ConstentApi.getReels,
+        ConstentApi.getReel(reelId),
         options: Options(
           headers: headers,
         ),
       );
-      log("response.data[ata]" +response.data["data"].runtimeType.toString());
           List<ReelModel> reels = List<ReelModel>.from(
           (response.data["data"] as List)
               .map((e) => ReelModel.fromJson(e)));

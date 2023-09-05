@@ -8,8 +8,9 @@ class GetReelUseCase {
 
   GetReelUseCase({required this.baseRepositoryReel});
 
-  Future<Either<List<ReelModel>, Failure>> getReel(String? page ) async {
-    final result = await baseRepositoryReel.getReels(page );
+  Future<Either<List<ReelModel>, Failure>> getReel(
+      {String? page, String? reelId}) async {
+    final result = await baseRepositoryReel.getReels(page,reelId);
     return result;
   }
 }
