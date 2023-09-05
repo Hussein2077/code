@@ -104,9 +104,10 @@ class UserReelViewState extends State<UserReelView> {
             onComment: (comment) {
               log('Comment on reel ==> $comment');
             },
-            onClickMoreBtn: () {
-              bottomDailog(
-                  context: context, widget: moreDilog(context: context ,yourReels: widget.userDataModel.id==MyDataModel.getInstance().id ));
+            onClickMoreBtn: (id) {
+              // bottomDailog(
+              //     context: context,
+              //     widget: moreDilog(context: context ,yourReels: widget.userDataModel.id==MyDataModel.getInstance().id ));
 
               log('======> Clicked on more option <======');
             },
@@ -132,9 +133,11 @@ class UserReelViewState extends State<UserReelView> {
             showVerifiedTick: false,
             showAppbar: true,
           );
-        } else if (state is GetUserReelsLoadingState) {
+        }
+        else if (state is GetUserReelsLoadingState) {
           return const LoadingWidget();
-        } else if (state is GetReelUsersErrorState) {
+        }
+        else if (state is GetReelUsersErrorState) {
           return CustomErrorWidget(
             message: state.errorMassage,
           );

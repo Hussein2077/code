@@ -28,7 +28,7 @@ class ReelsViewer extends StatefulWidget {
   final Function(int)? onIndexChanged;
 
   /// function invoke when user click on more options btn
-  final Function()? onClickMoreBtn;
+  final Function(int)? onClickMoreBtn;
 
   /// function invoke when user click on follow btn
   final Function(String,bool)? onFollow;

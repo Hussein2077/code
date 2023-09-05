@@ -23,7 +23,7 @@ class ScreenOptions extends StatelessWidget {
   final Function(ReelModel)? onShare;
   final Function(int)? onLike;
   final Function(String)? onComment;
-  final Function()? onClickMoreBtn;
+  final Function(int)? onClickMoreBtn;
   final Function(String,bool)? onFollow;
   final bool? userView;
   final bool? isFollowed ;
@@ -181,7 +181,7 @@ class ScreenOptions extends StatelessWidget {
             if (onClickMoreBtn != null)
               IconButton(
                 icon: const Icon(Icons.more_vert),
-                onPressed: onClickMoreBtn!,
+                onPressed: onClickMoreBtn!(item.id!),
                 color: Colors.white,
               ),
           ],

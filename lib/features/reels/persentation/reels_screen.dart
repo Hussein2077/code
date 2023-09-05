@@ -85,7 +85,7 @@ class ReelsScreenState extends State<ReelsScreen> {
           onComment: (comment) {
             log('Comment on reel ==> $comment');
           },
-          onClickMoreBtn: () {
+          onClickMoreBtn: (id) {
             log('======> Clicked on more option <======');
           },
           onClickBackArrow: () {

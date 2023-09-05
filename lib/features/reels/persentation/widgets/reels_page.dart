@@ -21,7 +21,7 @@ class ReelsPage extends StatefulWidget {
   final Function(ReelModel)? onShare;
   final Function(int)? onLike;
   final Function(String)? onComment;
-  final Function()? onClickMoreBtn;
+  final Function(int)? onClickMoreBtn;
   final Function(String,bool)? onFollow;
   final SwiperController swiperController;
   final bool showProgressIndicator;
