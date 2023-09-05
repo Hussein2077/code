@@ -39,13 +39,45 @@ class _ReelsTabViewState extends State<ReelsTabView> {
   return GridView.builder(
             itemCount: state.data!.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisSpacing: 0.5,
+                childAspectRatio: 0.9,
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
               return Container(
-                margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                width: MediaQuery.of(context).size.width / 3,
-                height: ConfigSize.defaultSize! * 15,
+                margin: const EdgeInsets.symmetric(horizontal: 5),
                 color: Colors.grey,
+              /*  decoration: BoxDecoration(
+                  image: Ch
+                ),*/
+                child:Padding(
+                  padding:  EdgeInsets.symmetric(
+                    horizontal: ConfigSize.defaultSize!-5
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.favorite,color: Colors.red,size: ConfigSize.defaultSize! * 2),
+                      SizedBox(
+                        width: ConfigSize.defaultSize!/10 ,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.black.withOpacity(0.3),
+                        ),
+                        margin: EdgeInsets.only(
+                          bottom: ConfigSize.defaultSize! -8
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 1,
+                          horizontal: ConfigSize.defaultSize!
+                        ),
+                          child: Text(state.data![index].likeNum.toString(),style: const TextStyle(fontSize: 10))),
+                    ],
+                  ),
+                ),
               );
             });
         }else if (state is GetUserReelsLoadingState){
