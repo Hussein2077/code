@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -25,8 +24,9 @@ class ScreenOptions extends StatelessWidget {
   final Function(int)? onLike;
   final Function(String)? onComment;
   final Function()? onClickMoreBtn;
-  final Function()? onFollow;
+  final Function(String,bool)? onFollow;
   final bool? userView;
+  final bool isFollowed ;
 
   const ScreenOptions({
     Key? key,
@@ -38,6 +38,7 @@ class ScreenOptions extends StatelessWidget {
     this.onLike,
     this.onShare,
     this.userView,
+  required  this.isFollowed
   }) : super(key: key);
 
   @override
@@ -48,13 +49,7 @@ class ScreenOptions extends StatelessWidget {
         child: Column(
           children: [
             if (item.userImage != null)
-              InkWell(
-                  onTap: () {
-                    Methods().userProfileNvgator(
-                        context: context, userId: item.userId.toString());
-                  },
-                  child:
-                      UserImageReel(image: item.userImage!, isFollowed: true)),
+              UserImageReel(image: item.userImage!,isFollowed: isFollowed, userId:item.userId! ,onFollow: onFollow, ),
             if (item.userImage == null)
               const CircleAvatar(
                 radius: 16,

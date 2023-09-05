@@ -8,6 +8,8 @@ import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_state.dart';
@@ -71,8 +73,14 @@ class ReelsScreenState extends State<ReelsScreen> {
             });
            
           },
-          onFollow: () {
-            log('======> Clicked on follow <======');
+          onFollow: (userId, isFollow) {
+            log("tttttttttttttttt");
+            if(isFollow){
+              BlocProvider.of<FollowBloc>(context).add(UnFollowEvent(userId: userId));
+            }else{
+              BlocProvider.of<FollowBloc>(context).add(FollowEvent(userId: userId));
+            }
+
           },
           onComment: (comment) {
             log('Comment on reel ==> $comment');
@@ -112,4 +120,5 @@ Future<void>  initCachingReels() async{
   mapCachedReels =cachedReels ;
 
 }
+
 }

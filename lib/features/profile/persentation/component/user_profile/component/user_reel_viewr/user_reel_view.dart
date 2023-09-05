@@ -9,6 +9,8 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
@@ -88,8 +90,8 @@ class UserReelViewState extends State<UserReelView> {
                }
               });
             },
-            onFollow: () {
-              log('======> Clicked on follow <======');
+            onFollow: (userId,isFollow) {
+              BlocProvider.of<FollowBloc>(context).add(FollowEvent(userId: userId));
             },
             onComment: (comment) {
               log('Comment on reel ==> $comment');
