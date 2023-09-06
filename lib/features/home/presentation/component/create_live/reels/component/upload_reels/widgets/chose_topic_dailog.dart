@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/upload_reels_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_all_intersted/get_all_intersted_bloc.dart';
@@ -77,6 +78,12 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
               },
             ),
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
+            child: MainButton(onTap: (){
+              Navigator.pop(context);
+            }, title: StringManager.done.tr()),
+          )
         ],
       )),
     );
