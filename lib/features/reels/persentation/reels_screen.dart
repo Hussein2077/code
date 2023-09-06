@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
@@ -28,7 +27,6 @@ class ReelsScreen extends StatefulWidget {
 
 class ReelsScreenState extends State<ReelsScreen> {
  static List<int> likedVideos = [];
- static Map<String,dynamic> mapCachedReels  = {};
    static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
 
    List<int> unLikedVideo = [];
@@ -47,7 +45,6 @@ class ReelsScreenState extends State<ReelsScreen> {
       BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
     }
 
-    initCachingReels();
     super.initState();
   }
 
@@ -87,21 +84,12 @@ class ReelsScreenState extends State<ReelsScreen> {
                     .add(MakeReelLikeEvent(reelId: id.toString()));
                 setState(() {
                   if (ReelsScreenState.likedVideos.contains(id)) {
-                    log("1111zzzzz11");
                     likedVideos.remove(id);
                     unLikedVideo.add(id);
                   } else {
-                    log("122222");
-
                     likedVideos.add(id);
                   }
                 });
-
-      //  BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
-
-      //       setState(() {
-      //         likedVideos.add(id);
-      //       });
            
           },
           onFollow: (userId, isFollow) {
@@ -122,6 +110,7 @@ class ReelsScreenState extends State<ReelsScreen> {
             log('======> Clicked on more option <======');
           },
           onClickBackArrow: () {
+            Navigator.pop(context);
             log('======> Clicked on back arrow <======');
           },
           onIndexChanged: (index) {
@@ -147,11 +136,5 @@ class ReelsScreenState extends State<ReelsScreen> {
     ));
   }
 
-Future<void>  initCachingReels() async{
-
-  Map<String,dynamic> cachedReels = await Methods().getCachingReels();
-  mapCachedReels =cachedReels ;
-
-}
 
 }

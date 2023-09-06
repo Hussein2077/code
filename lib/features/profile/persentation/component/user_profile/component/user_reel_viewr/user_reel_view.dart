@@ -105,12 +105,9 @@ class UserReelViewState extends State<UserReelView> {
                     .add(MakeReelLikeEvent(reelId: id.toString()));
                 setState(() {
                   if (UserReelViewState.likedVideos.contains(id)) {
-                    log("1111zzzzz11");
                     likedVideos.remove(id);
                     unLikedVideo.add(id);
                   } else {
-                    log("122222");
-
                     likedVideos.add(id);
                   }
                 });
@@ -138,7 +135,6 @@ class UserReelViewState extends State<UserReelView> {
                 log('======> Clicked on back arrow <======');
               },
               onIndexChanged: (index) {
-                log("heeer");
                 if (state.data!.length - index < 5) {
                   if (widget.userDataModel.id == MyDataModel.getInstance().id) {
                     BlocProvider.of<GetUserReelsBloc>(context)
