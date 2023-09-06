@@ -48,7 +48,6 @@ class _UserProfileState extends State<UserProfile> {
     }
     
      else {
-      log("heeeeeeeeeeeeer");
       myProfile = true;
                     BlocProvider.of<GetUserReelsBloc>(context)
           .add(const GetUserReelEvent(id: null));

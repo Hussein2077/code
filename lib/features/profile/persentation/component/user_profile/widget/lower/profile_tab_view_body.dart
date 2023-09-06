@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,6 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_state.dart';
-import 'dart:ui' as ui;
 
 class ProfileTabViewBody extends StatelessWidget {
   final UserDataModel userDataModel;
@@ -49,44 +50,63 @@ class ProfileTabViewBody extends StatelessWidget {
         SizedBox(
           height: ConfigSize.defaultSize! * 2,
         ),
-        if(userDataModel.familyData!=null)
-        InkWell(
-          onTap: (){
-            Navigator.pushNamed(context, Routes.familyProfile , arguments:userDataModel.familyData!.ownerFamilyId );
-          },
-          child: Container(
+        (userDataModel.familyId != 0)
+            ? InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.familyProfile,
+                      arguments: userDataModel.familyData!.ownerFamilyId);
+                },
+                child: Container(
+                    margin: EdgeInsets.only(
+                      right: ConfigSize.defaultSize! * 1.3,
+                      left: ConfigSize.defaultSize! * 1.3,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                        vertical: ConfigSize.defaultSize! * 0.2,
+                  horizontal: ConfigSize.defaultSize! * 1
+              ),
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                      colors: ColorManager.mainColorList
+                  ),
+                  borderRadius: BorderRadius.circular(10)
+
+              ),
+              child: Center(child: Text(
+                  "${StringManager.familyName.tr()} : ${userDataModel
+                      .familyData!.name!.toString()}",style: Theme.of(context).textTheme.bodyMedium,))),
+        ) :
+        Container(
             margin: EdgeInsets.only(
-              right: ConfigSize.defaultSize!*1.3,
-              left:  ConfigSize.defaultSize!*1.3,
+              right: ConfigSize.defaultSize! * 1.3,
+              left: ConfigSize.defaultSize! * 1.3,
             ),
             padding: EdgeInsets.symmetric(
-              vertical: ConfigSize.defaultSize!*0.2,
-              horizontal: ConfigSize.defaultSize!*1
+                vertical: ConfigSize.defaultSize! * 0.2,
+                horizontal: ConfigSize.defaultSize! * 1
             ),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: ColorManager.mainColorList
-              ),
-              borderRadius: BorderRadius.circular(10)
-        
+                gradient: const LinearGradient(
+                    colors: ColorManager.mainColorList
+                ),
+                borderRadius: BorderRadius.circular(10)
+
             ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("${StringManager.familyName.tr()} :"),
-        
-                  Text(userDataModel.familyData!.name!.toString()),
-                ],
-              )),
-        ),
+
+            child: Text(StringManager.noFamily,style: Theme.of(context).textTheme.bodyMedium,)),
         SizedBox(
           height: ConfigSize.defaultSize! * 1,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*2),
-          child: Text("${StringManager.followers.tr()} : ${userDataModel.numberOfFans!} " , style: Theme.of(context).textTheme.bodyMedium,))
+            padding: EdgeInsets.symmetric(
+                horizontal: ConfigSize.defaultSize! * 2),
+            child: Text("${StringManager.followers.tr()} : ${userDataModel
+                .numberOfFans!} ", style: Theme
+                .of(context)
+                .textTheme
+                .bodyMedium,))
         ,
-            SizedBox(
+        SizedBox(
           height: ConfigSize.defaultSize! * 1,
         ),
         InkWell(
@@ -176,11 +196,10 @@ class ProfileTabViewBody extends StatelessWidget {
   }
 }
 
-Widget cover(
-    {required String title,
-    required String num,
-    required String image,
-    void Function()? onTap}) {
+Widget cover({required String title,
+  required String num,
+  required String image,
+  void Function()? onTap}) {
   return InkWell(
     onTap: onTap,
     child: Container(

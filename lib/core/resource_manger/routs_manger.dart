@@ -50,6 +50,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/vip/vip_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/widget/my_videos_screen.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
@@ -120,6 +121,7 @@ class Routes {
   static const String roomHandler = '/roomHandler';
     static const String privacySettings = "/privicySettening";
   static const String webView = "/webView";
+  static const String myVideosScreen = "/MyVideosScreen";
 
   static const String userReelView = "/userReelView";
 
@@ -373,6 +375,11 @@ class RouteGenerator {
 
         return MaterialPageRoute(
             builder: (_) =>  SafeArea(child: UserReelView(userDataModel: pram.userDataModel, startIndex: pram.startIndex,)));
+      case Routes.myVideosScreen:
+        UserDataModel pram = settings.arguments as UserDataModel;
+
+
+        return MaterialPageRoute(builder: (_) => SafeArea(child:  MyVideosScreen(userDataModel:pram ,)));
     }
 
     return unDefinedRoute();
