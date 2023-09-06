@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -29,9 +28,8 @@ class ReelsScreen extends StatefulWidget {
 }
 
 class ReelsScreenState extends State<ReelsScreen> {
-  static List<int> likedVideos = [];
-  static Map<String, dynamic> mapCachedReels = {};
-  static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
+ static List<int> likedVideos = [];
+   static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
 
   List<int> unLikedVideo = [];
   static List<String> followList = [];
@@ -48,7 +46,6 @@ class ReelsScreenState extends State<ReelsScreen> {
       BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
     }
 
-    initCachingReels();
     super.initState();
   }
 
@@ -99,65 +96,60 @@ class ReelsScreenState extends State<ReelsScreen> {
                     .add(MakeReelLikeEvent(reelId: id.toString()));
                 setState(() {
                   if (ReelsScreenState.likedVideos.contains(id)) {
-                    log("1111zzzzz11");
                     likedVideos.remove(id);
                     unLikedVideo.add(id);
                   } else {
-                    log("122222");
-
                     likedVideos.add(id);
                   }
                 });
 
-                //  BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
 
-                //       setState(() {
-                //         likedVideos.add(id);
-                //       });
-              },
-              onFollow: (userId, isFollow) {
-                setState(() {
-                  ReelsScreenState.followList.add(userId);
-                });
-                BlocProvider.of<FollowBloc>(context)
-                    .add(FollowEvent(userId: userId));
-              },
-              onComment: (comment) {
-                log('Comment on reel ==> $comment');
-              },
-              onClickMoreBtn: (id) {
-                log('======> Clicked on more option <======');
-              },
-              onClickBackArrow: () {
-                log('======> Clicked on back arrow <======');
-              },
-              onIndexChanged: (index) {
-                if (state.data!.length - index < 5) {
-                  BlocProvider.of<GetReelsBloc>(context)
-                      .add(LoadMoreReelsEvent());
-                }
-                log(state.data!.length.toString());
-                log('======> Current Index ======> $index <========');
-              },
-              showProgressIndicator: false,
-              showVerifiedTick: false,
-              showAppbar: true,
-            );
-          } else if (state is GetReelsLoadingState) {
-            return const LoadingWidget();
-          } else if (state is GetReelsErrorState) {
-            return CustomErrorWidget(message: state.errorMassage);
-          } else {
-            return CustomErrorWidget(
-                message: StringManager.unexcepectedError.tr());
+           
+          },
+          onFollow: (userId, isFollow) {
+
+           setState(() {
+                           ReelsScreenState.followList.add(userId);
+
+           });
+              BlocProvider.of<FollowBloc>(context).add(FollowEvent(userId: userId));
+
+            
+
+          },
+          onComment: (comment) {
+            log('Comment on reel ==> $comment');
+          },
+          onClickMoreBtn: (id) {
+            log('======> Clicked on more option <======');
+          },
+          onClickBackArrow: () {
+            Navigator.pop(context);
+            log('======> Clicked on back arrow <======');
+          },
+          onIndexChanged: (index) {
+          if(state.data!.length-index<5){
+            BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
           }
-        },
-      )),
-    );
+          log(state.data!.length.toString());
+            log('======> Current Index ======> $index <========');
+          },
+          showProgressIndicator: false,
+          showVerifiedTick: false,
+          showAppbar: true,
+        );
+        }else if (state is GetReelsLoadingState){
+          return const LoadingWidget();
+        }else if (state is GetReelsErrorState){
+          return CustomErrorWidget(message: state.errorMassage);
+        }else {
+      return    CustomErrorWidget(message: StringManager.unexcepectedError.tr());
+        }
+   
+      },
+    )));
   }
 
-  Future<void> initCachingReels() async {
-    Map<String, dynamic> cachedReels = await Methods().getCachingReels();
-    mapCachedReels = cachedReels;
-  }
+
+
 }
