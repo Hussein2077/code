@@ -7,6 +7,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
@@ -14,11 +15,12 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class ReelsScreen extends StatefulWidget {
-  
   const ReelsScreen({super.key});
 
   @override
@@ -29,19 +31,18 @@ class ReelsScreenState extends State<ReelsScreen> {
  static List<int> likedVideos = [];
    static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
 
-   List<int> unLikedVideo = [];
-       static List<String> followList = [];
-
-
+  List<int> unLikedVideo = [];
+  static List<String> followList = [];
 
   @override
   void initState() {
     likedVideos = [];
-    unLikedVideo=[];
-    followList=[];
-    if(MainScreen.initPage ==1){
-      BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId:MainScreen.reelId));
-    }else{
+    unLikedVideo = [];
+    followList = [];
+    if (MainScreen.initPage == 1) {
+      BlocProvider.of<GetReelsBloc>(context)
+          .add(GetReelsEvent(reelId: MainScreen.reelId));
+    } else {
       BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
     }
 
@@ -56,31 +57,42 @@ class ReelsScreenState extends State<ReelsScreen> {
   @override
   Widget build(BuildContext context) {
     log(ReelsScreenState.followList.toString());
-    return Scaffold(body: BlocBuilder<GetReelsBloc, GetReelsState>(
-      builder: (context, state) {
-        if(state is GetReelsSucssesState){
-               for (int i = 0; i < state.data!.length; i++) {
-              
-              
+    return BlocListener<UploadReelsBloc, UploadReelsState>(
+      listener: (context, state) {
+        if (state is UploadReelsLoadingState) {
+          loadingToast(context: context, title: StringManager.loading.tr());
+        } else if (state is UploadReelsErrorState) {
+          errorToast(context: context, title: state.error);
+        } else if (state is UploadReelsSucssesState) {
+
+          sucssesToast(context: context, title: state.message);
+        }
+      },
+      child: Scaffold(body: BlocBuilder<GetReelsBloc, GetReelsState>(
+        builder: (context, state) {
+          if (state is GetReelsSucssesState) {
+            for (int i = 0; i < state.data!.length; i++) {
               if (state.data![i].likeExists == true &&
                   !unLikedVideo.contains(state.data![i].id)) {
                 likedVideos.add(state.data![i].id!);
               }
             }
-       return ReelsViewer(
-          reelsList: state.data!,
-          appbarTitle: StringManager.reels,
-          onShare: (reel) {
-            DynamicLinkProvider().showReelLink(
-                reelId: reel.id!,
-              reelImage: reel.userImage!,
-            ).then((value) {
-              Share.share(value);
-            });
-            log('Shared reel url ==> ${reel.id}');
-          },
-          onLike: (id) {
-            BlocProvider.of<MakeReelLikeBloc>(context)
+            return ReelsViewer(
+              reelsList: state.data!,
+              appbarTitle: StringManager.reels,
+              onShare: (reel) {
+                DynamicLinkProvider()
+                    .showReelLink(
+                  reelId: reel.id!,
+                  reelImage: reel.userImage!,
+                )
+                    .then((value) {
+                  Share.share(value);
+                });
+                log('Shared reel url ==> ${reel.id}');
+              },
+              onLike: (id) {
+                BlocProvider.of<MakeReelLikeBloc>(context)
                     .add(MakeReelLikeEvent(reelId: id.toString()));
                 setState(() {
                   if (ReelsScreenState.likedVideos.contains(id)) {
@@ -90,6 +102,8 @@ class ReelsScreenState extends State<ReelsScreen> {
                     likedVideos.add(id);
                   }
                 });
+
+
            
           },
           onFollow: (userId, isFollow) {
@@ -135,6 +149,7 @@ class ReelsScreenState extends State<ReelsScreen> {
       },
     ));
   }
+
 
 
 }

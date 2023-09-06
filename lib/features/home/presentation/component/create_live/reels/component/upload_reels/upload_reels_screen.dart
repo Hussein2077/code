@@ -14,7 +14,6 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
-import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/mention_dailog.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
@@ -43,76 +42,78 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UploadReelsBloc, UploadReelsState>(
-      listener: (context, state) {
-      if (state is UploadReelsLoadingState){
-        loadingToast(context: context, title: StringManager.loading.tr());
-      }else if (state is UploadReelsErrorState){
-        errorToast(context: context, title: state.error);
-      }else if (state is UploadReelsSucssesState){
-            BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          SizedBox(
+            height: ConfigSize.defaultSize!,
+          ),
+          const HeaderWithOnlyTitle(title: StringManager.newReel),
+          shareYourMoment(context: context),
+          const UploadVideo(),
+          Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
+            decoration: BoxDecoration(
+                borderRadius:
+                    BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                border: Border.all(color: ColorManager.lightGray)),
+            width: MediaQuery.of(context).size.width - 50,
+            child: TextFieldWidget(
+                textColor: Theme.of(context).colorScheme.primary,
+                controller: reelsNameController,
+                hintText: StringManager.reelName),
+          ),
+          CustomHorizntalDvider(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.grey,
+          ),
 
-        sucssesToast(context: context, title: state.message);
-      }
-      },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SizedBox(
-              height: ConfigSize.defaultSize!,
-            ),
-            const HeaderWithOnlyTitle(title: StringManager.newReel),
-            const UploadVideo(),
-            Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
-              decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                  border: Border.all(color: ColorManager.lightGray)),
-              width: MediaQuery.of(context).size.width - 50,
-              child: TextFieldWidget(
-                  textColor: Theme.of(context).colorScheme.primary,
-                  controller: reelsNameController,
-                  hintText: StringManager.reelName),
-            ),
-            CustomHorizntalDvider(
-              width: MediaQuery.of(context).size.width,
-              color: Colors.grey,
-            ),
-            shareYourMoment(context: context),
-            // reelRowWidget(
-            //     context: context,
-            //     icon: AssetsPath.mentionIcon,
-            //     title: StringManager.mentionYourFriends,
-            //     widget: const MentionDailog()),
-            reelRowWidget(
-                context: context,
-                icon: AssetsPath.hashTagIcon,
-                title: StringManager.chooseTheTopic,
-                widget: const ChooseTopicDailog()),
-            MainButton(
-                onTap: () {
-                                      log(selectedIntrest.toString());
+          // reelRowWidget(
+          //     context: context,
+          //     icon: AssetsPath.mentionIcon,
+          //     title: StringManager.mentionYourFriends,
+          //     widget: const MentionDailog()),
+          reelRowWidget(
+              context: context,
+              icon: AssetsPath.hashTagIcon,
+              title: StringManager.chooseTheTopic,
+              widget: const ChooseTopicDailog()),
+          BlocBuilder<UploadReelsBloc, UploadReelsState>(
+            builder: (context, state) {
+              if (state is UploadReelsLoadingState){
+          return MainButton(
+                  onTap: () {
 
-                  if (UploadVideoState.video != null) {
-                    BlocProvider.of<UploadReelsBloc>(context).add(
-                        UploadReelsEvent(
-                            categories: selectedIntrest,
-                            description: reelsNameController.text,
-                            reel: File(UploadVideoState.video!)));
-                  } else {
-                    errorToast(
-                        context: context,
-                        title: StringManager.pleaseChosseVideo.tr());
-                  }
-                },
-                title: StringManager.postTheVideo)
-          ],
-        ),
+              errorToast(context: context, title: StringManager.pleaseWaitReel.tr());
+                  },
+                  title: StringManager.loading.tr());
+              }else {
+                  return MainButton(
+                  onTap: () {
+
+                    if (UploadVideoState.video != null) {
+                      BlocProvider.of<UploadReelsBloc>(context).add(
+                          UploadReelsEvent(
+                              categories: selectedIntrest,
+                              description: reelsNameController.text,
+                              reel: File(UploadVideoState.video!)));
+                              Navigator.pop(context);
+                    } else {
+                      errorToast(
+                          context: context,
+                          title: StringManager.pleaseChosseVideo.tr());
+                    }
+                  },
+                  title: StringManager.postTheVideo);
+              }
+            
+            },
+          )
+        ],
       ),
     );
   }
