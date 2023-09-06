@@ -299,11 +299,11 @@ class MyDataModel {
         bio: bio,
         uuid: uuid,
         familyData: FamilyDataModel(
-          img: familyDataModel!.img,
-          maxNum: familyDataModel!.maxNum,
-          memberNum: familyDataModel!.memberNum,
-          name: familyDataModel!.name,
-          ownerFamilyId: familyDataModel!.ownerFamilyId,
+          img: familyDataModel?.img,
+          maxNum: familyDataModel?.maxNum,
+          memberNum: familyDataModel?.memberNum,
+          name: familyDataModel?.name,
+          ownerFamilyId: familyDataModel?.ownerFamilyId,
         ),
         myStore: MyStoreModel(
             totalCoins: myStore?.totalCoins,
