@@ -45,7 +45,7 @@ class ReelsPage extends StatefulWidget {
   State<ReelsPage> createState() => _ReelsPageState();
 }
 
-class _ReelsPageState extends State<ReelsPage> {
+class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _liked = false;
@@ -53,6 +53,7 @@ class _ReelsPageState extends State<ReelsPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
       initializePlayer();
@@ -108,23 +109,66 @@ class _ReelsPageState extends State<ReelsPage> {
 
   @override
   void dispose() {
-   log("hhhhhhhhhhhhhhhhhh1");
+   log("dispose VideoPlayerController ");
     _videoPlayerController.dispose();
     if (_chewieController != null) {
       _chewieController!.dispose();
     }
+   WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
-@override
-  void deactivate() {
-  log("hhhhhhhhhhhhhhhhhh2");
-  _videoPlayerController.dispose();
-  if (_chewieController != null) {
-    _chewieController!.dispose();
+  @override
+  void didChangeDependencies() {
+     log("rrrrrrrrrrrrrrrrrrr");
+    super.didChangeDependencies();
   }
-    super.deactivate();
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state)async {
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.resumed:
+        log("resumed");
+      // plugins?.tryReLogin();
+      // RoomScreen.userOnMics.value.putIfAbsent(int.parse( widget.userID),
+      //         () => ZegoUIKitUser(id: widget.userID, name: widget.userName)) ;
+      // if(!RoomScreen.outRoom){
+      //   BlocProvider.of<RoomBloc>(context).add(EnterRoomEvent(ownerId: widget.roomData.ownerId.toString()
+      //       , roomPassword: '',sendTpZego: false,ignorPassword: false , isVip:widget.userData.vip1?.level??0  ));
+      //   for(var e in  RoomScreen.userOnMics.value.entries){
+      //     if(e.value.id == widget.userData.id){
+      //       BlocProvider.of<OnRoomBloc>(context).add(UpMicEvent(ownerId: widget.roomData.ownerId.toString(),
+      //           userId:widget.userData.id.toString() , position:e.key.toString()));
+      //     }
+      //   }
+      // }
+        break;
+      case AppLifecycleState.inactive:
+        log("inactive");
+        // _videoPlayerController.dispose();
+        // if (_chewieController != null) {
+        //   _chewieController!.dispose();
+        // }
+        break ;
+      case AppLifecycleState.paused:
+        log("pause");
+        break ;
+      case AppLifecycleState.detached:
+        log("detached");
+        break;
+
+    }
   }
+
+// @override
+//   void deactivate() {
+//   log("hhhhhhhhhhhhhhhhhh2");
+//   _videoPlayerController.dispose();
+//
+//     super.deactivate();
+//   }
 
   @override
   Widget build(BuildContext context) {
