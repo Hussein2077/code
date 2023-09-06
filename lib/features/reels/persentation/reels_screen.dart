@@ -147,7 +147,7 @@ class ReelsScreenState extends State<ReelsScreen> {
         }
    
       },
-    ));
+    )));
   }
 
 
