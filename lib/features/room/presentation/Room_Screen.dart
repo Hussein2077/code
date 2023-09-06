@@ -487,7 +487,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
            widget.room.pkModel!.percentageTeam1!.toDouble();
        RoomScreen.precantgeTeam2 =
            widget.room.pkModel!.percentageTeam2!.toDouble();
-
+       PKWidget.pkId = widget.room.pkModel!.pkId.toString() ;
        PKWidget.isStartPK.value = true;
        RoomScreen.updatePKNotifier.value =RoomScreen.updatePKNotifier.value+1 ;
        getIt<SetTimerPK>().start(context,widget.room.ownerId.toString());
