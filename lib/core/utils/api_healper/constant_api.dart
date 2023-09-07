@@ -118,9 +118,22 @@ class ConstentApi {
           static const String yallowBanner = "$baseUrl/rooms/yellow-banner";
                     static const String addMoment = "$baseUrl/moment";
 
+
+
                     static String getMoments(String userId ,) {
 
      return "$baseUrl/moment?user_id=$userId";
+
+
+ 
+
+}
+
+                static String addMomentComment(String momentId ,) {
+
+     return "$baseUrl/moment/$momentId/comment";
+
+
  
 
 }

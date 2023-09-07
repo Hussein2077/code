@@ -51,6 +51,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
@@ -198,7 +199,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
             Future<String> deleteMoment(String momentId);
             Future<List<MomentModel>> getMoments(String userId);
-            Future<String> addMomentCooment(String momentId);
+            Future<String> addMomentCooment(AddMomentCommentPrameter momentId);
 
 
 
@@ -2141,8 +2142,26 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
   
   @override
-  Future<String> addMomentCooment(String momentId) {
-    // TODO: implement addMomentCooment
-    throw UnimplementedError();
+  Future<String> addMomentCooment(AddMomentCommentPrameter prameter) async{
+    Map<String, String> headers = await DioHelper().header();
+   Map body = {
+    "comment" : prameter.comment ,
+ 
+   } ; 
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.addMomentComment(prameter.momentId),
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      log(response.data.toString());
+
+      return response.data['message'];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'addMomentComment');
+    }
   }
 }

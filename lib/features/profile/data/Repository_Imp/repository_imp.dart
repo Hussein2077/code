@@ -45,6 +45,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
@@ -63,14 +64,13 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   @override
   Future<Either<MyDataModel, Failure>> getmyData(
       Noparamiter noparamiter) async {
-    // try {
-    //   final result = await baseRemotlyDataSourceProfile.getmyData(noparamiter);
-    //   return Left(result);
-    // } on Exception catch (e) {
-    //  return Right(DioHelper.buildFailure(e));
-    // }
-  final result = await baseRemotlyDataSourceProfile.getmyData(noparamiter);
+    try {
+      final result = await baseRemotlyDataSourceProfile.getmyData(noparamiter);
       return Left(result);
+    } on Exception catch (e) {
+     return Right(DioHelper.buildFailure(e));
+    }
+
     
     
   }
@@ -993,6 +993,16 @@ try {
   Future<Either<List<MomentModel>, Failure>> getMoment(String userId)async {
    try {
       final result = await baseRemotlyDataSourceProfile.getMoments(userId ) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> addMomentComment(AddMomentCommentPrameter addMomentCommentPrameter) async{
+   try {
+      final result = await baseRemotlyDataSourceProfile.addMomentCooment( addMomentCommentPrameter) ;
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));
