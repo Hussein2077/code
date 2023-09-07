@@ -15,15 +15,16 @@ class DioHelper {
   Future<Map<String, String>> header() async {
     String key = await Methods().getlocalization();
     String token = await Methods().returnUserToken();
-    if(kDebugMode){
-      log(token);
-    }
+    // if(kDebugMode){
+    //   log(token);
+    // }
 
 
     final devicedata = await initPlatformState();
+    log(devicedata.toString());
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
-      "device": devicedata??'noToken',
+      // "device": devicedata??'noToken',
       "Accept": 'application/json',
       "X-localization": key
     };

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 
 class UserProfileImage extends StatelessWidget {
   final String profileUrl;
@@ -8,7 +9,7 @@ class UserProfileImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: profileUrl,
+      imageUrl: ConstentApi().getImage(profileUrl),
       alignment: Alignment.centerLeft,
       imageBuilder: (context, imageProvider) => Container(
         height: 32,

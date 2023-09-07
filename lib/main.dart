@@ -70,6 +70,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_al
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_intersed/get_user_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
@@ -86,6 +87,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_add_moment/add_moment_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_moment/delete_moment_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
@@ -384,9 +388,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
-                BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
+                BlocProvider(create: (_) => getIt<GetUserReelsBloc>()..add(const GetUserReelEvent())),
                                 BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
                                                                 BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
+                                                                BlocProvider(create: (_) => getIt<AddMomentBloc>()),
+                                                                BlocProvider(create: (_) => getIt<DeleteMomentBloc>()),
+                                                                BlocProvider(create: (_) => getIt<GetMomentBloc>()),
 
 
 

@@ -10,11 +10,12 @@ class TextFieldWidget extends StatelessWidget {
   final Color? textColor; 
     final Color? hintColor; 
     final bool? readOnly;
+    final bool? obscureText ;
  final TextInputType? type ;
  final Function(String)? onChanged ;
 
 
-  const TextFieldWidget({this.onChanged, this.type, this.hintColor, this.textColor ,this.readOnly, this.maxLines, required this.hintText, required this.controller, super.key});
+  const TextFieldWidget({this.obscureText ,  this.onChanged, this.type, this.hintColor, this.textColor ,this.readOnly, this.maxLines, required this.hintText, required this.controller, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class TextFieldWidget extends StatelessWidget {
                   controller: controller,
                   keyboardType: type,
                   maxLines: maxLines??1,
+                  obscureText:obscureText??false ,
                   decoration:  InputDecoration(
                       border: InputBorder.none,
 

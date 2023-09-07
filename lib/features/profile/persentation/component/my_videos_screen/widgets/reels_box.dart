@@ -11,18 +11,21 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_us
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
 
 class ReelsBox extends StatelessWidget {
+    final ScrollController scrollController ; 
   final UserDataModel userDataModel;
-  const ReelsBox({super.key, required this.userDataModel,});
+  const ReelsBox({super.key, required this.userDataModel, required this.scrollController});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetUserReelsBloc, GetUserReelsState>(
       builder: (context, state) {
         if (state is GetUserReelsSucssesState) {
           return GridView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            controller:scrollController ,
               itemCount: state.data!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisSpacing: 0.5,
-                  childAspectRatio: 0.9,
+                  mainAxisSpacing: 20,
+                  childAspectRatio: 0.7,
                   crossAxisCount: 3),
               itemBuilder: (context, index) {
                 return InkWell(

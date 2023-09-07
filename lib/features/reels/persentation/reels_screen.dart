@@ -10,6 +10,8 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_state.dart';
@@ -64,7 +66,8 @@ class ReelsScreenState extends State<ReelsScreen> {
         } else if (state is UploadReelsErrorState) {
           errorToast(context: context, title: state.error);
         } else if (state is UploadReelsSucssesState) {
-
+             BlocProvider.of<GetUserReelsBloc>(context)
+          .add(const GetUserReelEvent(id: null));
           sucssesToast(context: context, title: state.message);
         }
       },
