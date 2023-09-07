@@ -60,14 +60,14 @@ Widget build(BuildContext context) {
                   fit: boxFit??BoxFit.fill,
                   image: CachedNetworkImageProvider(
 
-                      ConstentApi().getImage(image)) )),
+                      ConstentApi().getImage(image)))),
           child: child,
         ),
       ),
       ValueListenableBuilder<bool>(
                   valueListenable:ReelsScreenState.follow,
                   builder:(context, isShow, _) {
-                        if((!ReelsScreenState.followList.contains(userId.toString())||isFollowed!)&&(userId!=MyDataModel.getInstance().id)) {
+                        if((!ReelsScreenState.followList.contains(userId.toString())||!isFollowed!)&&(userId!=MyDataModel.getInstance().id)) {
                           return  Positioned(
           bottom: 0,
           right: 10,

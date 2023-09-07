@@ -139,9 +139,9 @@ class ConstentApi {
 }
 
 
-static String getReel({String? reelId}) {
+static String getReel({String? reelId ,String? page}) {
   if(reelId == null){
-    return "$baseUrl/reals";
+    return "$baseUrl/reals?page=$page";
   }else{
     return "$baseUrl/reals/$reelId";
   }

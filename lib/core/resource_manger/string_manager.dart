@@ -445,6 +445,7 @@ static const String cachReelsKey ='cachReelsKey';
 
     static const String pleaseWaitReel = 'Please wait for the previous video to be uploaded';
 
+    static const String coinToUpload = 'Coin to upload image';
 
 
 

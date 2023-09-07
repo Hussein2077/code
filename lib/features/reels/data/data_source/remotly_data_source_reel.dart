@@ -1,4 +1,5 @@
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -56,6 +57,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
   
   @override
   Future<List<ReelModel>> getReels(String? page,String? reelId) async{
+    log(page.toString()+"zzzzzzzzzzzzzzzzz");
      Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -64,7 +66,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
       if(reelId != null){
 
         final responseSpasficReel = await Dio().get(
-          ConstentApi.getReel(reelId: reelId),
+          ConstentApi.getReel(reelId: reelId , ),
           options: Options(
             headers: headers,
           ),
@@ -74,7 +76,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
        await Methods().cachingReels(reels,responseSpasficReel.data);
       }
       final response = await Dio().get(
-        ConstentApi.getReel(),
+        ConstentApi.getReel(page: page),
         options: Options(
           headers: headers,
         ),
