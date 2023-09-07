@@ -116,6 +116,28 @@ class ConstentApi {
         static const String uploadReel = "$baseUrl/reals";
         static const String getReels = "$baseUrl/reals";
           static const String yallowBanner = "$baseUrl/rooms/yellow-banner";
+                    static const String addMoment = "$baseUrl/moment";
+
+
+
+                    static String getMoments(String userId ,) {
+
+     return "$baseUrl/moment?user_id=$userId";
+
+
+ 
+
+}
+
+                static String addMomentComment(String momentId ,) {
+
+     return "$baseUrl/moment/$momentId/comment";
+
+
+ 
+
+}
+
 
 static String getReel({String? reelId}) {
   if(reelId == null){
@@ -145,6 +167,12 @@ static String deleteReel(String reelId ,) {
  
 
 }
+static String deleteMoment(String momentId ,) {
+
+     return "$baseUrl/moment/$momentId";
+ 
+
+}
 
 static String getReelComments(String reelId , String?page) {
 
@@ -165,6 +193,8 @@ static String makeReelLike(String reelId ) {
  
 
 }
+
+
       
 
   static String updateFamily(String familyId) =>

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
-  static const int versionApp = 23;
+  static const int versionApp = 24;
 
   //updates
   static const String updateApp ='Update TikChat APP';
@@ -442,6 +442,7 @@ static const String cachReelsKey ='cachReelsKey';
     static const String myVideos = 'My Videos';
     static const String noFamily = 'this person doesn\'t belong to any family';
 
+    static const String pleaseWaitReel = 'Please wait for the previous video to be uploaded';
 
 
 

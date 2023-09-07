@@ -487,7 +487,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
            widget.room.pkModel!.percentageTeam1!.toDouble();
        RoomScreen.precantgeTeam2 =
            widget.room.pkModel!.percentageTeam2!.toDouble();
-
+       PKWidget.pkId = widget.room.pkModel!.pkId.toString() ;
        PKWidget.isStartPK.value = true;
        RoomScreen.updatePKNotifier.value =RoomScreen.updatePKNotifier.value+1 ;
        getIt<SetTimerPK>().start(context,widget.room.ownerId.toString());
@@ -1490,7 +1490,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           errorToast(context: context, title: state.errorMassage) ;
         }
         else if (state is SendPobUpSuccessState){
-          sucssesToast(context: context, title: state.successMassage) ;
+          // sucssesToast(context: context, title: state.successMassage) ;
 
         }  else if (state is SendYallowBannerErrorState){
           errorToast(context: context, title: state.errorMassage);
@@ -1642,31 +1642,37 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                        return const SizedBox();
                      }
                    }),
-                  ValueListenableBuilder<bool>(
-                     valueListenable:showPopUp ,
-                     builder: (context,isShow,_){
-                       return AnimatedPositioned(
-                         duration:const  Duration(seconds: 10),
-                         curve: Curves.linear,
-                         onEnd: (){
+                  // ValueListenableBuilder<bool>(
+                  //    valueListenable:showPopUp ,
+                  //    builder: (context,isShow,_){
+                  //      return AnimatedPositioned(
+                  //        duration:const  Duration(seconds: 10),
+                  //        curve: Curves.linear,
+                  //        onEnd: (){
 
-                           showPopUp.value = false;
+                  //          showPopUp.value = false;
 
-                         },
-                         top:  ConfigSize.defaultSize!*30 ,
-                         left:   isShow ?  -ConfigSize.defaultSize!*40  : ConfigSize.defaultSize!*40,
-                         child: SizedBox(
-                             width:ConfigSize.defaultSize!*40.5,
-                             height: ConfigSize.defaultSize!*40.5,
-                             child: popUpWidget(
+                  //        },
+                  //        top:  ConfigSize.defaultSize!*30 ,
+                  //        left:   isShow ?  -ConfigSize.defaultSize!*40  : ConfigSize.defaultSize!*40,
+                  //        child: SizedBox(
+                  //            width:ConfigSize.defaultSize!*40.5,
+                  //            height: ConfigSize.defaultSize!*40.5,
+                  //            child: popUpWidget(
+                  //                ownerDataModel:pobUpSender,
+                  //                massage: ZegoInRoomMessageInput.messagePonUp,
+                  //                enterRoomModel: widget.room ,
+                  //                vip:pobUpSender?.vip1?.level??8
+                  //            )
+                  //        ),
+                  //      ) ;
+                  //    }),
+                     popUpWidget(
                                  ownerDataModel:pobUpSender,
                                  massage: ZegoInRoomMessageInput.messagePonUp,
                                  enterRoomModel: widget.room ,
                                  vip:pobUpSender?.vip1?.level??8
-                             )
-                         ),
-                       ) ;
-                     }),
+                             ),
                   ValueListenableBuilder<bool>(
                     valueListenable: RoomScreen.isKick,
                     builder: (context,isKicked,_){

@@ -40,7 +40,10 @@ class TopThreeWidget extends StatelessWidget {
             children: [
               InkWell(
                 onTap: (){
+                  if(topRanking[1].id !=0){
                   Navigator.pushNamed(context, Routes.familyProfile,arguments:topRanking[1].id );
+
+                  }
                 },
                 child: rankColumn(
                     familyName: topRanking[1].name!,
@@ -50,7 +53,10 @@ class TopThreeWidget extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
+                    if(topRanking[0].id !=0){
              Navigator.pushNamed(context, Routes.familyProfile,arguments:topRanking[0].id);
+
+                    }
 
 
                 },
@@ -62,7 +68,10 @@ class TopThreeWidget extends StatelessWidget {
               ),
               InkWell(
                 onTap: (){
-                  Navigator.pushNamed(context, Routes.familyProfile,arguments:topRanking[2].id );
+                                      if(topRanking[2].id !=0){
+                                                          Navigator.pushNamed(context, Routes.familyProfile,arguments:topRanking[2].id );
+
+                                      }
                 },
                 child: rankColumn(
                     familyName: topRanking[2].name!,

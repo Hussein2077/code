@@ -134,10 +134,13 @@ class Methods {
       await e.call(ownerId);
       PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
       pusher.unsubscribe(channelName: 'presence-room-$ownerId');
+      log("log2");
     }
 
     Future<void> checkIfInRoom({required String ownerId }) async{
+      log("log0");
       if(MainScreen.iskeepInRoom.value){
+        log("log1");
         MainScreen.iskeepInRoom.value =false ;
         await  Methods().exitFromRoom(MainScreen.roomData?.ownerId ==null ?ownerId:
         MainScreen.roomData!.ownerId.toString());
@@ -169,7 +172,7 @@ class Methods {
 
         // ignore: use_build_context_synchronously
         BlocProvider.of<RoomHandlerBloc>(context)
-            .add(EnterRoomEvent(ownerId: ownerId, roomPassword: '' , isVip: myData.vip1?.level??0));
+            .add(EnterRoomEvent(ownerId: ownerId,roomPassword: '',isVip: myData.vip1?.level??0));
 
         // ignore: use_build_context_synchronously
         Navigator.pushNamed(context, Routes.roomHandler, arguments: myData);

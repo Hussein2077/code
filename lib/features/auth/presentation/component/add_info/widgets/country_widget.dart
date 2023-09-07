@@ -46,15 +46,17 @@ String? countryName ;
                           ),
                           onTap: () {
                             showCountryPicker(
-                              showSearch: false,
+                              
+                              showSearch: true,
                               showPhoneCode: false,
                               showWorldWide: false,
                               context: context,
                               countryListTheme: CountryListThemeData(
+                                
                                 flagSize: ConfigSize.defaultSize!*3,
                                 backgroundColor:Theme.of(context).colorScheme.background,
                                 textStyle: Theme.of(context).textTheme.headlineLarge,
-                                bottomSheetHeight:ConfigSize.defaultSize!*35,
+                                bottomSheetHeight:MediaQuery.of(context).size.height-200,
                                 // Optional. Country list modal height
                                 //Optional. Sets the border radius for the bottomsheet.
                                 borderRadius: BorderRadius.only(

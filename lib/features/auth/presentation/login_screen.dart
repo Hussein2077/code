@@ -101,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       widget: SizedBox(
                           width: MediaQuery.of(context).size.width - 140,
                           child: TextFieldWidget(
+                            obscureText: true,
                               hintColor: Colors.black.withOpacity(0.6),
                               hintText: StringManager.password.tr(),
                               controller: passwordController))),
@@ -182,7 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
            if (state is LoginWithPhoneSuccesMessageState) {
 
-             sucssesToast(context: context, title: state.succesMessage);
 
              Methods().clearAuthData();
              //todo check this event if still here or not

@@ -90,6 +90,9 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_vistors_usecase.
 import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
@@ -152,6 +155,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_co
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_add_moment/add_moment_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_moment/delete_moment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
@@ -228,7 +234,7 @@ class ServerLocator {
   Future<void> init() async {
     //bloc
 
-
+    
     getIt.registerFactory(() => GoldCoinBloc(getGoldCoinDataUseCase: getIt()));
     getIt.registerFactory(
             () => AdminRoomBloc(removeAdminUC: getIt(),roomAdminsUC: getIt(),addAdminUC:getIt()));
@@ -447,12 +453,20 @@ class ServerLocator {
         getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
         getIt.registerFactory(() => GetUserReelsBloc(getUserReelUseCase: getIt()));
                 getIt.registerFactory(() => DeleteReelBloc(deleteReelUseCse: getIt()));
+                getIt.registerFactory(() => AddMomentBloc(addMomentUseCase: getIt()));
+                getIt.registerFactory(() => DeleteMomentBloc(deleteMomentUseCase: getIt()));
 
+                getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
 
 
     
 
 //usecase
+   getIt.registerLazySingleton(() => GetMomentUseCase(baseRepositoryProfile: getIt()));
+
+   getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRepositoryProfile: getIt()));
+
+   getIt.registerLazySingleton(() => AddMomentUseCase(baseRepositoryProfile: getIt()));
 
    getIt.registerLazySingleton(() => DeleteReelUseCse(baseRepositoryProfile: getIt()));
 

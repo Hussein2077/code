@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,7 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
-import 'package:tik_chat_v2/features/profile/persentation/widget/reels_box.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
 
 class ReelsTabView extends StatefulWidget {
       final UserDataModel userDataModel ;
@@ -36,10 +38,11 @@ class _ReelsTabViewState extends State<ReelsTabView> {
 
   @override
   Widget build(BuildContext context) {
-    return ReelsBox(userDataModel: widget.userDataModel,);
+    return ReelsBox(userDataModel: widget.userDataModel,scrollController: scrollController, );
 
   }
    void scrollListener() {
+    log("heeeeeeeeeeer");
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
           if(widget.userDataModel.id == MyDataModel.getInstance().id ){

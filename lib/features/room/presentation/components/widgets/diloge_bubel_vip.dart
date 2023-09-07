@@ -32,29 +32,29 @@ class DilogBubbelVip extends StatelessWidget {
     else if (2 == vip) {
       return Container();
     } else if (3 == vip) {
-      return dilogVip(vip:AssetsPath.bVIP3);
+      return dilogVip(vip:AssetsPath.bVIP3 , level: 3);
     } else if (4 == vip) {
-      return dilogVip(vip:AssetsPath.bVIP4);
+      return dilogVip(vip:AssetsPath.bVIP4 ,level: 4);
     } else if (5 == vip) {
-      return dilogVip(vip:AssetsPath.bVIP5);
+      return dilogVip(vip:AssetsPath.bVIP5 , level: 5);
     } else if (6 == vip) {
-      return dilogVip(vip:AssetsPath.bVIP6);
+      return dilogVip(vip:AssetsPath.bVIP6 , level: 6);
     } else if (7 == vip) {
-      return dilogVip(vip:AssetsPath.bVIP7);
+      return dilogVip(vip:AssetsPath.bVIP7 ,level: 7);
     } else if (8 == vip) {
-      return dilogVip(vip:AssetsPath.bVIP8);
+      return dilogVip(vip:AssetsPath.bVIP8 , level: 8);
     } else {
       return Container();
     }
   }
 
-  Widget dilogVip ({required String vip}){
+  Widget dilogVip ({required String vip , required int level }){
     return Stack(
       fit: StackFit.passthrough,
       alignment: Alignment.centerLeft,
       children: [
         Positioned(
-            left: ConfigSize.defaultSize! * 6.3,
+            left:level==6?ConfigSize.defaultSize! * 4.7 :(level==5||level==4||level==3)?ConfigSize.defaultSize! * 6.3: ConfigSize.defaultSize! * 5.3,
             child: UserImage(
               image: userData!.profile!.image!,
             )),
@@ -70,15 +70,12 @@ class DilogBubbelVip extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                textDirection: TextDirection.rtl,
                 children: [
                   const SizedBox(
                     width: 4,
                   ),
-                  if (userData!.id == roomData.ownerId)
-                    Image.asset(
-                      AssetsPath.hostMark,
-                      scale: 3.5,
-                    ),
+              
                   AristocracyLevel(
                     level: userData!.vip1!.level! ,
                   ),
@@ -86,10 +83,15 @@ class DilogBubbelVip extends StatelessWidget {
 
                     LevelContainer(
                       image: userData!.level!.senderImage!),
+                          if (userData!.id == roomData.ownerId)
+                    Image.asset(
+                      AssetsPath.hostMark,
+                      scale: 3.5,
+                    ),
 
-                  if(userData!.level!.receiverImage! != '')
-                    LevelContainer(
-                      image: userData!.level!.receiverImage!),
+                  // if(userData!.level!.receiverImage! != '')
+                  //   LevelContainer(
+                  //     image: userData!.level!.receiverImage!),
                   GradientTextVip(
                     text:userData!.name!,
                     textStyle:TextStyle(
@@ -101,6 +103,7 @@ class DilogBubbelVip extends StatelessWidget {
                   ),
                 ],
               ),
+              
               SizedBox(
                 width: ConfigSize.defaultSize! * 23.1,
                 child: Padding(

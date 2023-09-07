@@ -5,12 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
+
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
 import '../components/screen_options.dart';
@@ -25,7 +25,9 @@ class ReelsPage extends StatefulWidget {
   final Function(String,bool)? onFollow;
   final SwiperController swiperController;
   final bool showProgressIndicator;
-    final bool? userView; 
+  final bool? userView;
+  static VideoPlayerController?  videoPlayerController  ;
+  static ValueNotifier<bool>  isVideoPause =ValueNotifier<bool>(false)  ;
 
   const ReelsPage({
     Key? key,
@@ -45,23 +47,24 @@ class ReelsPage extends StatefulWidget {
   State<ReelsPage> createState() => _ReelsPageState();
 }
 
-class _ReelsPageState extends State<ReelsPage> {
+class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _liked = false;
-  bool _isVideoPause = false;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
-      initializePlayer();
+      initializePlayer().then((value) => ReelsPage.videoPlayerController = _videoPlayerController);
     }
   }
 
   Future initializePlayer() async {
 
-       if(ReelsScreenState.mapCachedReels.containsKey(StringManager.cachReelsKey)){
+
 
          try{
            final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
@@ -87,12 +90,7 @@ class _ReelsPageState extends State<ReelsPage> {
          }
 
 
-       }else{
-         if(kDebugMode){
-           log("in network reels");
-         }
-         _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
-       }
+
        _videoPlayerController.setLooping(true);
     await Future.wait([_videoPlayerController.initialize()]);
     _chewieController = ChewieController(
@@ -113,13 +111,16 @@ class _ReelsPageState extends State<ReelsPage> {
 
   @override
   void dispose() {
-
     _videoPlayerController.dispose();
     if (_chewieController != null) {
       _chewieController!.dispose();
     }
+   WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +149,40 @@ class _ReelsPageState extends State<ReelsPage> {
                     setState(() {});
                   }
                 },
+                onTap: (){
+                  setState(() {
+                    if (_videoPlayerController.value.isPlaying){
+                      _videoPlayerController.pause() ;
+                      ReelsPage.isVideoPause.value = true ;
+                    }
+                    else{
+                      ReelsPage.isVideoPause.value = false ;
+                      _videoPlayerController.play() ;
+                    }
+                  });
+                },
+               onHorizontalDragEnd: (DragEndDetails details) {
+                    if (details.primaryVelocity! < 0) {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) =>
+                              SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(1.0, 0.0),
+                                  end: Offset.zero,
+                                ).animate(animation),
+                                child: UserProfile(
+                                  userId: widget.item.userId.toString(),
+                                ),
+                              ),
+                        ),
+                      );
+                      if(ReelsPage.videoPlayerController != null){
+                        ReelsPage.videoPlayerController!.pause();
+                        ReelsPage.isVideoPause.value= true;
+                      }
+                     }},
                 child: Chewie(
                   controller: _chewieController!,
                 ),
@@ -195,33 +230,20 @@ class _ReelsPageState extends State<ReelsPage> {
            item: widget.item,
            isFollowed:widget.item.isFollow,
          )) ,
-          if(_isVideoPause)
-        Container(
+        ValueListenableBuilder(
+         valueListenable: ReelsPage.isVideoPause,
+         builder: (context,ispause,_){
+           if(ispause){
+             return IgnorePointer(
+             child:Container(
              color: Colors.grey.withOpacity(0.2),
-             alignment: Alignment.center,
-             child:  Icon(CupertinoIcons.play_fill,size: ConfigSize.defaultSize!*11.5,color: Colors.white.withOpacity(0.7),),
-           ) ,
-         Align(
-           alignment: Alignment.center,
-           child: InkWell(
-
-    onTap: (){
-    setState(() {
-    if (_videoPlayerController.value.isPlaying){
-    _videoPlayerController.pause() ;
-    _isVideoPause = true ;
+    alignment: Alignment.center,
+    child:  Icon(CupertinoIcons.play_fill,size: ConfigSize.defaultSize!*11.5,color: Colors.white.withOpacity(0.7),),
+    )) ;
     }else{
-    _isVideoPause = false ;
-    _videoPlayerController.play() ;
+        return const SizedBox();
     }
-    });
-    },
-    child:SizedBox(
-      width: ConfigSize.screenWidth!*0.6,
-      height: ConfigSize.screenHeight!*0.6,
-    ) ,
-    ) ,
-         )
+         }),
         ],
       ) ;
   }

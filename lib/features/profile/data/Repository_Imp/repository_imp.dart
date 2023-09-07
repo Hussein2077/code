@@ -28,6 +28,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -44,6 +45,8 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_comment_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -960,6 +963,46 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   Future<Either<String, Failure>> deleteReel(String id)async {
     try {
       final result = await baseRemotlyDataSourceProfile.deleteMessage(id ) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> addMoment(AddMomentPrameter addMomentPrameter)async {
+ try {
+      final result = await baseRemotlyDataSourceProfile.addMomnet(addMomentPrameter ) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+  
+  @override
+  Future<Either<String, Failure>> deleteMoment(String momentId)async {
+try {
+      final result = await baseRemotlyDataSourceProfile.deleteMoment(momentId ) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<List<MomentModel>, Failure>> getMoment(String userId)async {
+   try {
+      final result = await baseRemotlyDataSourceProfile.getMoments(userId ) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> addMomentComment(AddMomentCommentPrameter addMomentCommentPrameter) async{
+   try {
+      final result = await baseRemotlyDataSourceProfile.addMomentCooment( addMomentCommentPrameter) ;
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));

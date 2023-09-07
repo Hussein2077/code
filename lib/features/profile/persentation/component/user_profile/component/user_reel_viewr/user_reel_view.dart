@@ -23,6 +23,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_us
 
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 
 class UserReelView extends StatefulWidget {
@@ -43,7 +45,6 @@ class UserReelViewState extends State<UserReelView> {
   static List<int> likedVideos = [];
   List<int> unLikedVideo = [];
 
-
   @override
   void initState() {
     likedVideos = [];
@@ -59,116 +60,124 @@ class UserReelViewState extends State<UserReelView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DeleteReelBloc, DeleteReelState>(
+    return BlocListener<UploadReelsBloc, UploadReelsState>(
       listener: (context, state) {
-        if (state is DeleteReelSucssesState) {
-          BlocProvider.of<GetUserReelsBloc>(context)
-              .add(const GetUserReelEvent(id: null));
-          Navigator.pop(context);
-        } else if (state is DeleteReelLodingState) {
+         if (state is UploadReelsLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
-        } else if (state is DeleteReelErrorState) {
+        } else if (state is UploadReelsErrorState) {
           errorToast(context: context, title: state.error);
+        } else if (state is UploadReelsSucssesState) {
+
+          sucssesToast(context: context, title: state.message);
         }
       },
-      child: Scaffold(body: BlocBuilder<GetUserReelsBloc, GetUserReelsState>(
-        builder: (context, state) {
-          if (state is GetUserReelsSucssesState) {
-            for (int i = 0; i < state.data!.length; i++) {
-              state.data![i].userId = widget.userDataModel.id;
-              state.data![i].userImage = widget.userDataModel.profile!.image;
-              state.data![i].userName = widget.userDataModel.name;
-              if (state.data![i].likeExists == true &&
-                  !unLikedVideo.contains(state.data![i].id)) {
-                likedVideos.add(state.data![i].id!);
-              }
-            }
-
-            return ReelsViewer(
-              userView: true,
-              startIndex: widget.startIndex,
-              reelsList: state.data!,
-              appbarTitle: StringManager.reels,
-              onShare: (reel) {
-                DynamicLinkProvider()
-                    .showReelLink(
-                  reelId: reel.id!,
-                  reelImage: reel.userImage!,
-                )
-                    .then((value) {
-                  Share.share(value);
-                });
-                log('Shared reel url ==> ${reel.id}');
-              },
-              onLike: (id) {
-                BlocProvider.of<MakeReelLikeBloc>(context)
-                    .add(MakeReelLikeEvent(reelId: id.toString()));
-                setState(() {
-                  if (UserReelViewState.likedVideos.contains(id)) {
-                    log("1111zzzzz11");
-                    likedVideos.remove(id);
-                    unLikedVideo.add(id);
-                  } else {
-                    log("122222");
-
-                    likedVideos.add(id);
-                  }
-                });
-              },
-              onFollow: (userId, isFollow) {
-                
-                BlocProvider.of<FollowBloc>(context)
-                    .add(FollowEvent(userId: userId));
-              },
-              onComment: (comment) {
-                log('Comment on reel ==> $comment');
-              },
-              onClickMoreBtn: (id) {
-                bottomDailog(
-                    context: context,
-                    widget: moreDilog(
-                        context: context,
-                        yourReels: widget.userDataModel.id ==
-                            MyDataModel.getInstance().id,
-                        id: id.toString()));
-
-                log('======> Clicked on more option <======');
-              },
-              onClickBackArrow: () {
-                log('======> Clicked on back arrow <======');
-              },
-              onIndexChanged: (index) {
-                log("heeer");
-                if (state.data!.length - index < 5) {
-                  if (widget.userDataModel.id == MyDataModel.getInstance().id) {
-                    BlocProvider.of<GetUserReelsBloc>(context)
-                        .add(const LoadMoreUserReelsEvent(id: null));
-                  } else {
-                    BlocProvider.of<GetUserReelsBloc>(context).add(
-                        LoadMoreUserReelsEvent(
-                            id: widget.userDataModel.id.toString()));
-                  }
-                }
-                log(state.data!.length.toString());
-                log('======> Current Index ======> $index <========');
-              },
-              showProgressIndicator: false,
-              showVerifiedTick: false,
-              showAppbar: true,
-            );
-          } else if (state is GetUserReelsLoadingState) {
-            return const LoadingWidget();
-          } else if (state is GetReelUsersErrorState) {
-            return CustomErrorWidget(
-              message: state.errorMassage,
-            );
-          } else {
-            return CustomErrorWidget(
-              message: StringManager.unexcepectedError.tr(),
-            );
+      child: BlocListener<DeleteReelBloc, DeleteReelState>(
+        listener: (context, state) {
+          if (state is DeleteReelSucssesState) {
+            BlocProvider.of<GetUserReelsBloc>(context)
+                .add(const GetUserReelEvent(id: null));
+            Navigator.pop(context);
+          } else if (state is DeleteReelLodingState) {
+            loadingToast(context: context, title: StringManager.loading.tr());
+          } else if (state is DeleteReelErrorState) {
+            errorToast(context: context, title: state.error);
           }
         },
-      )),
+        child: Scaffold(body: BlocBuilder<GetUserReelsBloc, GetUserReelsState>(
+          builder: (context, state) {
+            if (state is GetUserReelsSucssesState) {
+              for (int i = 0; i < state.data!.length; i++) {
+                state.data![i].userId = widget.userDataModel.id;
+                state.data![i].userImage = widget.userDataModel.profile!.image;
+                state.data![i].userName = widget.userDataModel.name;
+                if (state.data![i].likeExists == true &&
+                    !unLikedVideo.contains(state.data![i].id)) {
+                  likedVideos.add(state.data![i].id!);
+                }
+              }
+
+              return ReelsViewer(
+                userView: true,
+                startIndex: widget.startIndex,
+                reelsList: state.data!,
+                appbarTitle: StringManager.reels,
+                onShare: (reel) {
+                  DynamicLinkProvider()
+                      .showReelLink(
+                    reelId: reel.id!,
+                    reelImage: reel.userImage!,
+                  )
+                      .then((value) {
+                    Share.share(value);
+                  });
+                  log('Shared reel url ==> ${reel.id}');
+                },
+                onLike: (id) {
+                  BlocProvider.of<MakeReelLikeBloc>(context)
+                      .add(MakeReelLikeEvent(reelId: id.toString()));
+                  setState(() {
+                    if (UserReelViewState.likedVideos.contains(id)) {
+                      likedVideos.remove(id);
+                      unLikedVideo.add(id);
+                    } else {
+                      likedVideos.add(id);
+                    }
+                  });
+                },
+                onFollow: (userId, isFollow) {
+                  BlocProvider.of<FollowBloc>(context)
+                      .add(FollowEvent(userId: userId));
+                },
+                onComment: (comment) {
+                  log('Comment on reel ==> $comment');
+                },
+                onClickMoreBtn: (id) {
+                  bottomDailog(
+                      context: context,
+                      widget: moreDilog(
+                          context: context,
+                          yourReels: widget.userDataModel.id ==
+                              MyDataModel.getInstance().id,
+                          id: id.toString()));
+
+                  log('======> Clicked on more option <======');
+                },
+                onClickBackArrow: () {
+                  log('======> Clicked on back arrow <======');
+                },
+                onIndexChanged: (index) {
+                  if (state.data!.length - index < 5) {
+                    if (widget.userDataModel.id ==
+                        MyDataModel.getInstance().id) {
+                      BlocProvider.of<GetUserReelsBloc>(context)
+                          .add(const LoadMoreUserReelsEvent(id: null));
+                    } else {
+                      BlocProvider.of<GetUserReelsBloc>(context).add(
+                          LoadMoreUserReelsEvent(
+                              id: widget.userDataModel.id.toString()));
+                    }
+                  }
+                  log(state.data!.length.toString());
+                  log('======> Current Index ======> $index <========');
+                },
+                showProgressIndicator: false,
+                showVerifiedTick: false,
+                showAppbar: true,
+              );
+            } else if (state is GetUserReelsLoadingState) {
+              return const LoadingWidget();
+            } else if (state is GetReelUsersErrorState) {
+              return CustomErrorWidget(
+                message: state.errorMassage,
+              );
+            } else {
+              return CustomErrorWidget(
+                message: StringManager.unexcepectedError.tr(),
+              );
+            }
+          },
+        )),
+      ),
     );
   }
 }

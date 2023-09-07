@@ -1497,13 +1497,16 @@ showYallowBannerWidget(
               offset: offsetAnimationYallowBanner.value,
               child: InkWell(
                 onTap: () {
-                                  if(ownerId != cureentRoomId){
-                                        Methods().checkIfRoomHasPassword(
+                  log("ownerId:$ownerId");
+                  log("ownerId:$cureentRoomId");
+
+             if(ownerId != cureentRoomId){
+                    Methods().checkIfRoomHasPassword(
                       context: context,
                       hasPassword: hasPassword,
                       ownerId: ownerId.toString(),
                       myData: myData);
-                                  }
+     }
 
               
                 },
