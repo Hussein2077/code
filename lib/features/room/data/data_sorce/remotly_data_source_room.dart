@@ -79,6 +79,7 @@ abstract class BaseRemotlyDataSourceRoom {
 
 class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
 
+static String uploadImagePrice = "" ; 
 
   @override
   Future<EnterRoomModel> enterRomm(
@@ -169,6 +170,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
           options: Options(
             headers: headers
           ));
+          RemotlyDataSourceRoom.uploadImagePrice = response.data['message'];
       return List<BackGroundModel>.from((response.data["data"] as List)
           .map((e) => BackGroundModel.fromjson(e)));
     }on DioError catch(e){
@@ -235,6 +237,7 @@ class RemotlyDataSourceRoom extends BaseRemotlyDataSourceRoom {
     } on DioError catch(e){
       throw DioHelper.handleDioError(dioError: e,endpointName:'Update Room' );
     }
+    
 
   }
 

@@ -33,7 +33,7 @@ class ShowDitailsScreen extends StatelessWidget {
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(AppPadding.p8),
               topLeft: Radius.circular(AppPadding.p8)),
-          color: Colors.white),
+          color: Theme.of(context).colorScheme.background),
       padding: EdgeInsets.symmetric(vertical: AppPadding.p12),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -48,8 +48,8 @@ class ShowDitailsScreen extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: CustoumCachedImage(
-                      url: roomImg == ""?ConstentApi().getImage(roomData.roomCover) :
-                      ConstentApi().getImage(roomImg),
+                      url: roomImg == ""?roomData.roomCover!  :roomImg
+                    ,
                       width: ConfigSize.defaultSize! * 15,
                       height: ConfigSize.defaultSize! * 15,
                     ),
@@ -69,8 +69,8 @@ class ShowDitailsScreen extends StatelessWidget {
                   enabled: false,
                   cursorColor: ColorManager.mainColor,
                   decoration: InputDecoration(
-                    hintText: introRoom == ""? roomData.roomIntro:introRoom,
-                    hintStyle: const  TextStyle(color: ColorManager.lightGray),
+                    hintText: introRoom == ""? roomData.roomName:introRoom,
+                    hintStyle: const  TextStyle(color: ColorManager.darkBlack),
                     border: InputBorder.none,
                     disabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,

@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -9,6 +11,7 @@ import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
+import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
 import 'package:tik_chat_v2/features/room/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_event.dart';
@@ -109,8 +112,9 @@ class _BackGroundState extends State<BackGround> {
                               ),
                             ],
                           ),
+                          Text("${RemotlyDataSourceRoom.uploadImagePrice} ${StringManager.coinToUpload.tr()}"   , style:TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.8) ,),
                           SizedBox(
-                            height: ConfigSize.defaultSize! * 45,
+                            height: ConfigSize.defaultSize! * 40,
                             child: GridView.count(
                               // physics: NeverScrollableScrollPhysics(),
                               crossAxisCount: 3,
@@ -140,8 +144,8 @@ class _BackGroundState extends State<BackGround> {
                                                   width:
                                                       ConfigSize.defaultSize! *
                                                           28,
-                                                  url: ConstentApi().getImage(
-                                                      backGround[index].img))),
+                                                  url: 
+                                                      backGround[index].img)),
                                         ),
                                       )),
                             ),
