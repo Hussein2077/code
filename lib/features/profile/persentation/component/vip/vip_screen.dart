@@ -59,7 +59,7 @@ class _VipScreenState extends State<VipScreen> with TickerProviderStateMixin {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           sucssesToast(context: context, title: state.massage);
         }else if (state is BuyOrSendVipLoadingState){
-          loadingToast(context: context, title: StringManager.loading.tr());
+        //  loadingToast(context: context, title: StringManager.loading.tr());
         }else if (state is BuyOrSendVipErrorState){
           errorToast(context: context, title: state.error);
         }

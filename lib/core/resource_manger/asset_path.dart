@@ -96,7 +96,6 @@ class AssetsPath {
   static const String muteSeatGreen = "$pathIcon/muteIcon.png";
   static const String adminMark = "$pathIcon/admin-mark.png";
   static const String iconShare = "$pathIcon/share.png";
-  static const String ownerIcon2 = "$pathIcon/owner_icon.png";
   static const String hostMark = "$pathIcon/host_mark.png";
   static const String seat = "$pathIcon/seat.png";
   static const String lockSeat = "$pathIcon/lock_seat.png";

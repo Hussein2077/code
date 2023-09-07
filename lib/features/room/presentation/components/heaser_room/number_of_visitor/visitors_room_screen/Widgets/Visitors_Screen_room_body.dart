@@ -65,7 +65,7 @@ class VisitorsScreenRoomBody extends StatelessWidget {
             endIndent: 50,
             thickness: 1,
             height: ConfigSize.defaultSize! * 2,
-            color: ColorManager.lightGray.withOpacity(0.2),
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
           ),
           for (int i = 0; i < data!.vistorsData.length; i++)
             Padding(

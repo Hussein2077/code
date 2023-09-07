@@ -10,6 +10,10 @@ class ColorManager {
     Color(0xFF9d50bb),
     Color(0xFF6e48aa),
   ];
+  static const List<Color> goldList = [
+    gold,
+    whiteColor
+  ];
 
   static const Color mainColor = Color(0xFFFF382C);
   static const Color lightGray = Color(0xFFF5F5F5);
