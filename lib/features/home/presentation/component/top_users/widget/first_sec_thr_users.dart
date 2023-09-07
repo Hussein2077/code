@@ -59,8 +59,8 @@ class FirstSecThrUsers extends StatelessWidget {
             children: [
               //todo add what shemi done
 
-              AristocracyLevel(level: ),
-              LevelContainer(image: ),
+              // AristocracyLevel(level: ),
+              // LevelContainer(image: ),
             ],
           ),
           Container(
