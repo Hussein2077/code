@@ -70,7 +70,8 @@ class ReelsScreenState extends State<ReelsScreen> {
           sucssesToast(context: context, title: state.message);
         }
       },
-      child: Scaffold(body: BlocBuilder<GetReelsBloc, GetReelsState>(
+      child: Scaffold(body:
+      BlocBuilder<GetReelsBloc, GetReelsState>(
         builder: (context, state) {
           if (state is GetReelsSucssesState) {
             for (int i = 0; i < state.data!.length; i++) {

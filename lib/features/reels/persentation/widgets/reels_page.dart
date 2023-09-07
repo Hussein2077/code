@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
 import '../components/screen_options.dart';
@@ -25,6 +26,8 @@ class ReelsPage extends StatefulWidget {
   final SwiperController swiperController;
   final bool showProgressIndicator;
   final bool? userView;
+  static VideoPlayerController?  videoPlayerController  ;
+  static ValueNotifier<bool>  isVideoPause =ValueNotifier<bool>(false)  ;
 
   const ReelsPage({
     Key? key,
@@ -41,21 +44,21 @@ class ReelsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ReelsPage> createState() => ReelsPageState();
+  State<ReelsPage> createState() => _ReelsPageState();
 }
 
-class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
-  static  late  VideoPlayerController videoPlayerController;
+class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
+  late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _liked = false;
-  bool _isVideoPause = false;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
-      initializePlayer();
+      initializePlayer().then((value) => ReelsPage.videoPlayerController = _videoPlayerController);
     }
   }
 
@@ -66,7 +69,7 @@ class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
          try{
            final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
            if(file?.file !=null){
-             videoPlayerController = VideoPlayerController.file(file!.file);
+             _videoPlayerController = VideoPlayerController.file(file!.file);
              if(kDebugMode){
                log("in cache reels");
              }
@@ -74,7 +77,7 @@ class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
              if(kDebugMode){
                log("in network reels");
              }
-             videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
+             _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
 
            }
 
@@ -82,24 +85,24 @@ class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
            if(kDebugMode){
              log("error in found cach video and paly in network reels");
            }
-           videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
+           _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
 
          }
 
 
 
-       videoPlayerController.setLooping(true);
-    await Future.wait([videoPlayerController.initialize()]);
+       _videoPlayerController.setLooping(true);
+    await Future.wait([_videoPlayerController.initialize()]);
     _chewieController = ChewieController(
-      videoPlayerController: videoPlayerController,
+      videoPlayerController: _videoPlayerController,
       autoPlay: true,
       showControls: false,
       looping: true,
     );
     setState(() {});
-    videoPlayerController.addListener(() {
-      if (videoPlayerController.value.position ==
-          videoPlayerController.value.duration) {
+    _videoPlayerController.addListener(() {
+      if (_videoPlayerController.value.position ==
+          _videoPlayerController.value.duration) {
         //TODO add auto scroll as feature
        // widget.swiperController.next();
       }
@@ -108,15 +111,13 @@ class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
 
   @override
   void dispose() {
-
-    videoPlayerController.dispose();
+    _videoPlayerController.dispose();
     if (_chewieController != null) {
       _chewieController!.dispose();
     }
    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-
 
 
 
@@ -150,13 +151,13 @@ class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
                 },
                 onTap: (){
                   setState(() {
-                    if (videoPlayerController.value.isPlaying){
-                      videoPlayerController.pause() ;
-                      _isVideoPause = true ;
+                    if (_videoPlayerController.value.isPlaying){
+                      _videoPlayerController.pause() ;
+                      ReelsPage.isVideoPause.value = true ;
                     }
                     else{
-                      _isVideoPause = false ;
-                      videoPlayerController.play() ;
+                      ReelsPage.isVideoPause.value = false ;
+                      _videoPlayerController.play() ;
                     }
                   });
                 },
@@ -177,7 +178,10 @@ class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
                               ),
                         ),
                       );
-
+                      if(ReelsPage.videoPlayerController != null){
+                        ReelsPage.videoPlayerController!.pause();
+                        ReelsPage.isVideoPause.value= true;
+                      }
                      }},
                 child: Chewie(
                   controller: _chewieController!,
@@ -202,7 +206,7 @@ class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
               bottom: 0,
               width: MediaQuery.of(context).size.width,
               child: VideoProgressIndicator(
-                videoPlayerController,
+                _videoPlayerController,
                 allowScrubbing: false,
                 colors: const VideoProgressColors(
                   backgroundColor: Colors.blueGrey,
@@ -226,13 +230,20 @@ class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
            item: widget.item,
            isFollowed:widget.item.isFollow,
          )) ,
-          if(_isVideoPause)
-        IgnorePointer(
-          child:Container(
+        ValueListenableBuilder(
+         valueListenable: ReelsPage.isVideoPause,
+         builder: (context,ispause,_){
+           if(ispause){
+             return IgnorePointer(
+             child:Container(
              color: Colors.grey.withOpacity(0.2),
-             alignment: Alignment.center,
-             child:  Icon(CupertinoIcons.play_fill,size: ConfigSize.defaultSize!*11.5,color: Colors.white.withOpacity(0.7),),
-           )) ,
+    alignment: Alignment.center,
+    child:  Icon(CupertinoIcons.play_fill,size: ConfigSize.defaultSize!*11.5,color: Colors.white.withOpacity(0.7),),
+    )) ;
+    }else{
+        return const SizedBox();
+    }
+         }),
         ],
       ) ;
   }

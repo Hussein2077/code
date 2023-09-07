@@ -15,6 +15,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 
 
 class UserImageReel extends StatelessWidget {
@@ -44,6 +45,10 @@ Widget build(BuildContext context) {
       ),
       InkWell(
         onTap: (){
+          if(ReelsPage.videoPlayerController != null){
+            ReelsPage.videoPlayerController!.pause();
+            ReelsPage.isVideoPause.value= true;
+          }
          Methods().userProfileNvgator(context: context,userId:userId.toString() );
         },
         child: Container(
@@ -78,26 +83,12 @@ Widget build(BuildContext context) {
             ) ,
           )
       );
-                        }else return const SizedBox();
+                        }else{
+                          return const SizedBox();
+                        }
                 
           }),
-  
-//        :
-//       Positioned(
-//           bottom: 0,
-//           right: 10,
-//           child: InkWell(
-//        onTap: () => onFollow!(userId.toString(),isFollowed??false),
-//      child: Container(
-//     decoration:const BoxDecoration(
-//       shape:  BoxShape.circle,
-//       color: Colors.red,
-//     ),
-//     padding:const  EdgeInsets.all(4) ,
-//     child:  Icon(CupertinoIcons.add,size: ConfigSize.defaultSize!+4,),
-//   ) ,
-//   )
-//  ) ,
+
 
 
     ],
