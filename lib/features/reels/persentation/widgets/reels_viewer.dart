@@ -99,8 +99,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
             //We need swiper for every content
             Swiper(
               itemBuilder: (BuildContext context, int index) {
-             
-
                 return ReelsPage(
                   userView: widget.userView,
                   item: widget.reelsList[index],
@@ -125,10 +123,12 @@ class _ReelsViewerState extends State<ReelsViewer> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                        onPressed: widget.onClickBackArrow ??
-                            () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back,color: Colors.white,)),
+
+                    SizedBox(
+                      width: ConfigSize.defaultSize!*2.4,
+                    ),
+
+
                     Text(
                       widget.appbarTitle ?? 'Reels View',
                       style: const TextStyle(
@@ -138,7 +138,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
                       ),
                     ),
 
-                    
+
                   IconButton(onPressed: (){
                      Navigator.pushNamed(context, Routes.uploadReels);
                   }, icon: Icon(Icons.add , color: Colors.white, size: ConfigSize.defaultSize!*3,))

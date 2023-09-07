@@ -50,9 +50,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
          if (state is GetMyDataSucssesState){
-
-          tempData = state.myDataModel ;
-             return  ProfileBody(myData: state.myDataModel, );
+            tempData = state.myDataModel ;
+             return  ProfileBody(myData: state.myDataModel);
          } else if (state is GetMyDataErrorState){
 
           //todo show toast here to show error

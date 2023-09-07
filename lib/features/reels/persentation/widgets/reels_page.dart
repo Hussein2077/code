@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
@@ -42,11 +41,11 @@ class ReelsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ReelsPage> createState() => _ReelsPageState();
+  State<ReelsPage> createState() => ReelsPageState();
 }
 
-class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
-  late VideoPlayerController _videoPlayerController;
+class ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
+  static  late  VideoPlayerController videoPlayerController;
   ChewieController? _chewieController;
   bool _liked = false;
   bool _isVideoPause = false;
@@ -67,7 +66,7 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
          try{
            final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
            if(file?.file !=null){
-             _videoPlayerController = VideoPlayerController.file(file!.file);
+             videoPlayerController = VideoPlayerController.file(file!.file);
              if(kDebugMode){
                log("in cache reels");
              }
@@ -75,7 +74,7 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
              if(kDebugMode){
                log("in network reels");
              }
-             _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
+             videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
 
            }
 
@@ -83,24 +82,24 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
            if(kDebugMode){
              log("error in found cach video and paly in network reels");
            }
-           _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
+           videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
 
          }
 
 
 
-       _videoPlayerController.setLooping(true);
-    await Future.wait([_videoPlayerController.initialize()]);
+       videoPlayerController.setLooping(true);
+    await Future.wait([videoPlayerController.initialize()]);
     _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController,
+      videoPlayerController: videoPlayerController,
       autoPlay: true,
       showControls: false,
       looping: true,
     );
     setState(() {});
-    _videoPlayerController.addListener(() {
-      if (_videoPlayerController.value.position ==
-          _videoPlayerController.value.duration) {
+    videoPlayerController.addListener(() {
+      if (videoPlayerController.value.position ==
+          videoPlayerController.value.duration) {
         //TODO add auto scroll as feature
        // widget.swiperController.next();
       }
@@ -109,8 +108,8 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
 
   @override
   void dispose() {
-   log("dispose VideoPlayerController ");
-    _videoPlayerController.dispose();
+
+    videoPlayerController.dispose();
     if (_chewieController != null) {
       _chewieController!.dispose();
     }
@@ -118,57 +117,9 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
     super.dispose();
   }
 
-  @override
-  void didChangeDependencies() {
-     log("rrrrrrrrrrrrrrrrrrr");
-    super.didChangeDependencies();
-  }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state)async {
-    super.didChangeAppLifecycleState(state);
 
-    switch (state) {
-      case AppLifecycleState.resumed:
-        log("resumed");
-      // plugins?.tryReLogin();
-      // RoomScreen.userOnMics.value.putIfAbsent(int.parse( widget.userID),
-      //         () => ZegoUIKitUser(id: widget.userID, name: widget.userName)) ;
-      // if(!RoomScreen.outRoom){
-      //   BlocProvider.of<RoomBloc>(context).add(EnterRoomEvent(ownerId: widget.roomData.ownerId.toString()
-      //       , roomPassword: '',sendTpZego: false,ignorPassword: false , isVip:widget.userData.vip1?.level??0  ));
-      //   for(var e in  RoomScreen.userOnMics.value.entries){
-      //     if(e.value.id == widget.userData.id){
-      //       BlocProvider.of<OnRoomBloc>(context).add(UpMicEvent(ownerId: widget.roomData.ownerId.toString(),
-      //           userId:widget.userData.id.toString() , position:e.key.toString()));
-      //     }
-      //   }
-      // }
-        break;
-      case AppLifecycleState.inactive:
-        log("inactive");
-        // _videoPlayerController.dispose();
-        // if (_chewieController != null) {
-        //   _chewieController!.dispose();
-        // }
-        break ;
-      case AppLifecycleState.paused:
-        log("pause");
-        break ;
-      case AppLifecycleState.detached:
-        log("detached");
-        break;
 
-    }
-  }
-
-// @override
-//   void deactivate() {
-//   log("hhhhhhhhhhhhhhhhhh2");
-//   _videoPlayerController.dispose();
-//
-//     super.deactivate();
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -199,13 +150,13 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
                 },
                 onTap: (){
                   setState(() {
-                    if (_videoPlayerController.value.isPlaying){
-                      _videoPlayerController.pause() ;
+                    if (videoPlayerController.value.isPlaying){
+                      videoPlayerController.pause() ;
                       _isVideoPause = true ;
                     }
                     else{
                       _isVideoPause = false ;
-                      _videoPlayerController.play() ;
+                      videoPlayerController.play() ;
                     }
                   });
                 },
@@ -251,7 +202,7 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
               bottom: 0,
               width: MediaQuery.of(context).size.width,
               child: VideoProgressIndicator(
-                _videoPlayerController,
+                videoPlayerController,
                 allowScrubbing: false,
                 colors: const VideoProgressColors(
                   backgroundColor: Colors.blueGrey,

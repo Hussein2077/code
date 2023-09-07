@@ -56,7 +56,6 @@ class ReelsScreenState extends State<ReelsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log(ReelsScreenState.followList.toString());
     return BlocListener<UploadReelsBloc, UploadReelsState>(
       listener: (context, state) {
         if (state is UploadReelsLoadingState) {
