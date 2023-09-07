@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'dart:ui' as ui;
 import '../../../../../../core/model/my_data_model.dart';
 import '../../../../../../core/utils/config_size.dart';
@@ -15,9 +16,10 @@ import '../../../../../../core/utils/config_size.dart';
 class EnterPasswordRoomDialog extends StatefulWidget {
   final String ownerId;
   final MyDataModel myData;
+  final bool? isInRoom ;
 
   const EnterPasswordRoomDialog(
-      {required this.ownerId, required this.myData, Key? key})
+      {required this.ownerId, required this.myData,this.isInRoom, Key? key})
       : super(key: key);
 
   @override
@@ -94,11 +96,10 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
           ),
           InkWell(
             onTap: () async {
-
-              await Methods().checkIfInRoom(ownerId: widget.ownerId);
-
-              // ignore: use_build_context_synchronously
-              Navigator.pop(context);
+              if(widget.isInRoom??false){
+                Navigator.pop(context);
+                MainScreen.iskeepInRoom.value=true;
+              }
               // ignore: use_build_context_synchronously
               Navigator.pushNamed(
                   context, Routes.roomHandler,

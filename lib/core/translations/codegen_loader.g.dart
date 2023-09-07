@@ -25,6 +25,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.enterYourRoomName: "أرجوك,ادخل أسم غرفتك",
     StringManager.enterYourRoomImage: "أرجوك,ادخل صورة غرفتك",
     StringManager.enterYourRoomType: "أرجوك,ادخل نوع غرفتك",
+    StringManager.youWillSpend:'سوف تدفع',
     StringManager.termsOfService: "شروط الخدمة",
     StringManager.chooseTyeps: 'أختر نوع',
     StringManager.hideRoom: "اخفي غرفتك",

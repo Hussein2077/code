@@ -251,7 +251,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         Future.delayed(const Duration(seconds: 3),()async{
           controllerBanner.reverse();
         });
-        //  controllerBanner.reverse();
+         controllerBanner.reverse();
       }
     });
     offsetAnimationYellowBanner = Tween(begin:const Offset(-400, 0), end:  Offset(ConfigSize.defaultSize!*1.5, 0)).animate(CurvedAnimation(
@@ -267,13 +267,13 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       if(controllerBanner.isCompleted){
         controllerBanner.stop() ;
         Future.delayed(const Duration(seconds: 3),()async{
-          // controllerBanner.reverse().then((value) {
-          //   if(RoomScreen.showBanner.value){
-          //     RoomScreen.showBanner.value =false ;
-          //   }
-          // }
+          controllerBanner.reverse().then((value) {
+            if(RoomScreen.showBanner.value){
+              RoomScreen.showBanner.value =false ;
+            }
+          }
           
-          // );
+          );
         });
 
       }
@@ -1492,7 +1492,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         else if (state is SendPobUpSuccessState){
           // sucssesToast(context: context, title: state.successMassage) ;
 
-        }  else if (state is SendYallowBannerErrorState){
+        }
+        else if (state is SendYallowBannerErrorState){
           errorToast(context: context, title: state.errorMassage);
         
         }
@@ -1510,13 +1511,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                   width: ConfigSize.defaultSize! * 92.5,
                   height: ConfigSize.defaultSize! * 92.5,
                 ),
-  // TODO when integrate with games
-                // Align(
-                //     alignment: Alignment.bottomLeft,
-                //     child: Padding(
-                //         padding: EdgeInsets.only(right: 0,bottom: ConfigSize.defaultSize!*2),
-                //         child: const PageViewGames())),
-                ValueListenableBuilder(
+
+                 ValueListenableBuilder(
                     valueListenable: RoomScreen.editRoom,
              builder: (context,editValue,_){
             return HeaderRoom(
@@ -1531,10 +1527,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               refreshRoom: refrashRoom, roomType: roomType, layoutMode: layoutMode,
             ) ;
              })       ,
-              /*  if (widget.room.roomFamily!.id!= null)
-                familyRoomIcon(context ,widget.room),*/
-
-
 
                   ValueListenableBuilder(
                       valueListenable: RoomScreen.updateLuckyBox,
@@ -1774,17 +1766,15 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             content: EnterPasswordRoomDialog(
                               ownerId: ownerId,
                               myData: widget.myDataModel,
+                              isInRoom: true,
                             ));
                       });
                 } else {
-                  await Methods().exitFromRoom(widget.room.ownerId.toString());
+
                   Navigator.pop(context);
-                  BlocProvider.of<RoomHandlerBloc>(context).add(EnterRoomEvent(
-                    isVip: widget.myDataModel.vip1?.level??0,
-                    ownerId: ownerId.toString(),
-                    roomPassword: '',
-                  ));
-                  Navigator.pushNamed(context, Routes.roomHandler,arguments: widget.myDataModel);
+                  MainScreen.iskeepInRoom.value =true ;
+                  Navigator.pushNamed(context, Routes.roomHandler,
+                      arguments:  RoomHandlerPramiter(ownerRoomId: ownerId, myDataModel: widget.myDataModel )  );
                 }
               }
             }

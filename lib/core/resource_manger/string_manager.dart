@@ -37,6 +37,7 @@ static const String cachReelsKey ='cachReelsKey';
 
 
  ////
+ static const String youWillSpend = 'You will Spend';
  static const String errorInPayment ='Error in your payment';
  static const String pendingInPayment ='your payment is pending';
  static const String payment = "Payment";
@@ -432,8 +433,8 @@ static const String cachReelsKey ='cachReelsKey';
   static const String roomCover = "room cover";
   static const String blockList = "blocklist";
   static const String confirm = "confirm";
-    static const String pleaseChosseVideo = "Please Choose Video";
-      static const String specialBar = 'Special Bar';
+  static const String pleaseChosseVideo = "Please Choose Video";
+  static const String specialBar = 'Special Bar';
 
           static const String imageAnanyomus = 'anonymous_icon.jpg';
 

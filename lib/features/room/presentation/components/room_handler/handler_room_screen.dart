@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_states.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import '../../../../../core/resource_manger/routs_manger.dart';
 
 
@@ -78,7 +79,6 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
 
                   });
               await pusher.connect();
-
             }
             else{
               showDialog(

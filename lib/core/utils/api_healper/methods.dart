@@ -151,7 +151,9 @@ class Methods {
     checkIfRoomHasPassword(
         {required BuildContext context,
           required bool hasPassword,
-          required String ownerId ,required MyDataModel myData}) async {
+          bool? isInRoom,
+          required String ownerId ,
+          required MyDataModel myData}) async {
       if (hasPassword) {
         showDialog(
             context: context,
@@ -165,17 +167,17 @@ class Methods {
                   content: EnterPasswordRoomDialog(
                     ownerId: ownerId,
                     myData: myData,
+                    isInRoom: isInRoom,
                   ));
             });
       } else {
-        await Methods().checkIfInRoom(ownerId: ownerId);
 
         // ignore: use_build_context_synchronously
-        BlocProvider.of<RoomHandlerBloc>(context)
-            .add(EnterRoomEvent(ownerId: ownerId,roomPassword: '',isVip: myData.vip1?.level??0));
 
-        // ignore: use_build_context_synchronously
-        Navigator.pushNamed(context, Routes.roomHandler, arguments: myData);
+        Navigator.pop(context);
+        MainScreen.iskeepInRoom.value=true ;
+        Navigator.pushNamed(context, Routes.roomHandler, arguments: RoomHandlerPramiter(ownerRoomId: ownerId,
+            myDataModel: MyDataModel.getInstance()));
       }
     }
 

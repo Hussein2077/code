@@ -1,6 +1,6 @@
 // Flutter imports:
 
-import 'dart:developer';
+
 
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -143,9 +143,8 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                           });
                         } else {
                           setState(() {
-                                                    ZegoInRoomMessageInput.activeYallowBanner.value = false;
-          
-                            ZegoInRoomMessageInput.activePobUp.value = true;
+                          ZegoInRoomMessageInput.activeYallowBanner.value = false;
+                          ZegoInRoomMessageInput.activePobUp.value = true;
                           });
                         }
                       },
@@ -178,7 +177,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                           });
                         } else {
                           setState(() {
-                                                    ZegoInRoomMessageInput.activePobUp.value = false;
+                       ZegoInRoomMessageInput.activePobUp.value = false;
           
                             ZegoInRoomMessageInput.activeYallowBanner.value = true;
                           });
@@ -208,7 +207,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                 SizedBox(
                   height: ConfigSize.defaultSize,
                 ),
-            FutureBuilder<int>(
+            FutureBuilder<String>(
                 future: getUserPopUp(widget.myData.id.toString()),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if(snapshot.hasData){
@@ -223,7 +222,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                     SizedBox(width: 10.r),
-                    messageInput(numPobUp: snapshot.data),
+                    messageInput(numPobUp:  snapshot.data),
                     SizedBox(width: 10.r),
                     sendButton(numPobUp: snapshot.data),
                     SizedBox(width: 10.r),
@@ -231,7 +230,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
             ),
             ),
             );
-                          }else{
+           }else{
                     return  Container(
                     padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 15.r),
                     color: widget.backgroundColor ?? const Color(0xff222222).withOpacity(0.8),
@@ -243,16 +242,16 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                     SizedBox(width: 10.r),
-                    messageInput(numPobUp: 0),
+                    messageInput(numPobUp: '0'),
                     SizedBox(width: 10.r),
-                    sendButton(numPobUp: 0),
+                    sendButton(numPobUp: '0'),
                     SizedBox(width: 10.r),
             ],
             ),
             ),
             );
             }
-          
+
             }),
           ],
         ),
@@ -260,7 +259,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
     );
   }
 
-  Widget messageInput({required int numPobUp}) {
+  Widget messageInput({required String numPobUp}) {
     final messageSendBgColor = widget.buttonColor ?? const Color(0xff3e3e3d);
     final messageSendCursorColor =
         widget.cursorColor ?? const Color(0xffA653ff);
@@ -274,7 +273,6 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
       fontSize: 28.r,
       fontWeight: FontWeight.w400,
     );
-
    
             return  Expanded(
               child: Container(
@@ -309,8 +307,8 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                   cursorWidth: 3.r,
                   style: messageSendInputStyle,
                   decoration: InputDecoration(
-                    hintText:ZegoInRoomMessageInput.activePobUp.value ?
-                    numPobUp.toString(): widget.placeHolder,
+                    hintText:(ZegoInRoomMessageInput.activeYallowBanner.value||ZegoInRoomMessageInput.activePobUp.value) ?
+                    getHint(numPobUp) : widget.placeHolder,
                     hintStyle: messageSendHintStyle,
                     // suffixIcon: InkWell(
                     //   onTap: (){
@@ -347,8 +345,14 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
         
 
   }
-
-  Widget sendButton({required int numPobUp} ) {
+ String getHint(String num){
+    if(ZegoInRoomMessageInput.activeYallowBanner.value){
+      return  '${StringManager.youWillSpend.tr()}:$num' ;
+    }else {
+      return num ;
+    }
+ }
+  Widget sendButton({required String numPobUp} ) {
     return ValueListenableBuilder<bool>(
       valueListenable: isEmptyNotifier,
       builder: (context, bool isEmpty, Widget? child) {
@@ -369,7 +373,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
     );
   }
 
-  void send({required int numPobUp} ) {
+  void send({required String numPobUp} ) {
     if (textController.text.isEmpty) {
       ZegoLoggerService.logInfo(
         'message is empty',
@@ -378,7 +382,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
       );
       return;
     }
-    if(ZegoInRoomMessageInput.activePobUp.value && numPobUp>0){
+    if(ZegoInRoomMessageInput.activePobUp.value && int.parse(numPobUp)>0){
       BlocProvider.of<OnRoomBloc>(context).add(
           SendPobUpEvent(ownerId: widget.roomData.ownerId.toString(),
           message: textController.text)) ;
@@ -401,26 +405,45 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
   }
 
 
-  Future<int> getUserPopUp(String userId) async {
-    if(ZegoInRoomMessageInput.activePobUp.value){
+  Future<String> getUserPopUp(String userId) async {
+    if(ZegoInRoomMessageInput.activePobUp.value ||ZegoInRoomMessageInput.activeYallowBanner.value){
     Map<String, String> headers = await DioHelper().header();
- final   body = {
-   'keys': [],
-   "enable-special" : 1
+    var body ={};
+    if(ZegoInRoomMessageInput.activePobUp.value ){
+      body = {
+        'keys': [],
+        "enable-special" : 1
 
 
- };
+      };
+    }else if (ZegoInRoomMessageInput.activeYallowBanner.value){
+
+      body = {
+        'keys': ['special_bar_coin'],
+        "enable-special" : 1
+
+
+      };
+    }
+
     final response = await Dio().post(ConstentApi.getConfigKey,
         options: Options(
           headers: headers,
         ),
         data: body);
-
     final result =GetConfigKeyModel.fromJson(response.data['data']);
-   return result.wapelNum??0 ;
+
+    if(ZegoInRoomMessageInput.activePobUp.value ){
+      return result.wapelNum.toString() ;
+    }else if (ZegoInRoomMessageInput.activeYallowBanner.value){
+      return result.specialBar??'0' ;
+    }else{
+      return '0' ;
+    }
+
 
   }else{
-      return 0 ;
+      return '0' ;
     }
   }
 
