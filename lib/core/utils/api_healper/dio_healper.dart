@@ -15,9 +15,9 @@ class DioHelper {
   Future<Map<String, String>> header() async {
     String key = await Methods().getlocalization();
     String token = await Methods().returnUserToken();
-    // if(kDebugMode){
-    //   log(token);
-    // }
+    if(kDebugMode){
+      log(token);
+    }
 
 
     final devicedata = await initPlatformState();

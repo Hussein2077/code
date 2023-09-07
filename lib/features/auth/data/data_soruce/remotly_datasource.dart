@@ -105,7 +105,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       );
       Map<String, dynamic> jsonData = response.data;
       MyDataModel userData = MyDataModel.fromMap(jsonData['data']);
-      log(userData.authToken.toString()+"heeeeeeeeeeeeeeeeeeeeeer");
       Methods().saveUserToken(authToken: userData.authToken);
       return userData;
     } on DioError catch (e) {

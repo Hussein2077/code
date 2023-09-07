@@ -225,18 +225,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getmyData' );
     }
-    final response = await Dio().get(
-        ConstentApi.getmyDataUrl,
-        options: Options(
-          headers: headers,
-        ),
-      );
-        Methods().saveMyData();
-      MyDataModel userData =
-      MyDataModel.fromMap(response.data[ConstentApi.data]);
-
-      return userData;
-
+    
   }
 
   @override

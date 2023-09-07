@@ -3,8 +3,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_use_case.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment/get_moment_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment/get_moment_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/bloc/get_moment_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/bloc/get_moment_state.dart';
+
 
 class GetMomentBloc extends Bloc<BaseGetMomentEvent, GetMomentState> {
   final GetMomentUseCase getMomentUseCase ; 
