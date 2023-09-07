@@ -33,7 +33,7 @@ class VisitorsRoomScreen extends StatelessWidget {
    if (state is GetAllRoomUsersuccessState){
          return Container(
       height: ConfigSize.screenHeight! / 1.5,
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.background,
       child: Column(children: [
         HeaderofVisitorRoom( numberOfVistor:numberOfVistor),
         Expanded(
@@ -68,7 +68,7 @@ class VisitorsRoomScreen extends StatelessWidget {
             vistorsData: usersInRoom) ;
         return Container(
           height: ConfigSize.screenHeight! / 1.5,
-          color: Colors.white,
+          color:Theme.of(context).colorScheme.background,
           child: Column(children: [
             HeaderofVisitorRoom( numberOfVistor:numberOfVistor),
            Expanded(child:

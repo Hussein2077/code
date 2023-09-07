@@ -4,6 +4,8 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
+import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 
@@ -29,6 +31,7 @@ class FirstSecThrUsers extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
+
                     margin: EdgeInsets.only(
                         top: position,
                       ),
@@ -50,6 +53,15 @@ class FirstSecThrUsers extends StatelessWidget {
               userData.name!,
               style: Theme.of(context).textTheme.bodySmall,
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              //todo add what shemi done
+
+              AristocracyLevel(level: ),
+              LevelContainer(image: ),
+            ],
           ),
           Container(
             width: ConfigSize.

@@ -63,13 +63,14 @@ class OwnerRoomRowWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                          userName,
+                        userData!.name??''
+                          ,
                           style:  Theme.of(context).textTheme.bodyMedium,
                         ),
                         SizedBox(width: ConfigSize.defaultSize!,),
                         SizedBox(width: ConfigSize.defaultSize!*2.5,
                             height:  ConfigSize.defaultSize!*2.5,
-                            child: const Image(image: AssetImage(AssetsPath.ownerIcon2))),
+                            child: const Image(image: AssetImage(AssetsPath.hostMark))),
                         
  //TODO create find me
                     //   if((userData.nowRoom!.isnInRoom??false) && !isInVisitor)
@@ -135,7 +136,7 @@ class OwnerRoomRowWidget extends StatelessWidget {
     endIndent: 0,
     thickness: 1,
     height: ConfigSize.defaultSize! * 2,
-    color: ColorManager.lightGray.withOpacity(0.2),
+    color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
     )
       ],
     );

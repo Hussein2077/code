@@ -1,7 +1,10 @@
 
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -39,9 +42,10 @@ class ItemRankInRoom extends StatelessWidget {
                   left: ConfigSize.defaultSize,
                   bottom: AppPadding.p8,
                   child: UserInfoRow(
-                    userData:
-                    UserDataModel(frameId:userTopMode.frameId ,
-                        frame:userTopMode.frame , profile:ProfileRoomModel(image: userTopMode.avater!) ),),
+                    userData: UserDataModel(
+                        frameId: userTopMode.frameId,
+                        frame: userTopMode.frame,
+                        profile: ProfileRoomModel(image: userTopMode.avater!)),),
                 ),
 
               ],

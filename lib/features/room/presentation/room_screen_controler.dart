@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ui' as ui;
+
 import 'package:awesome_ripple_animation/awesome_ripple_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
@@ -49,10 +51,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_r
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
 
-
-
 import '../../../core/utils/config_size.dart';
-import 'dart:ui' as ui;
 
 
 class EmojieData {
@@ -925,7 +924,6 @@ Widget messagesChached(
   List<TextSpan> spans = [];
 
 
-
   for (String word in words) {
     if (word.startsWith("@")) {
       spans.add(TextSpan(text: "$word ", style:const TextStyle(color: Colors.yellow)));
@@ -989,42 +987,52 @@ Widget messagesChached(
                               height: 20,
                               child: Image.asset(AssetsPath.hostMark))
                           : const SizedBox(),
-
-                           AristocracyLevel(
-                            level: vip == ""? RoomScreen.usersMessagesInRoom[message.user.id]?.vip1?.level ??0 :0
-                            ),
+                      AristocracyLevel(
+                          level: vip == ""
+                              ? RoomScreen.usersMessagesInRoom[message.user.id]
+                                      ?.vip1?.level ??
+                                  0
+                              : int.parse(vip)),
                       const SizedBox(
                         width: 1,
                       ),
-                      if((RoomScreen
-                          .usersMessagesInRoom[message.user.id]
-                          ?.level
-                          ?.senderImage??'') != '' )
-                        LevelContainer(
-                        image: sender == ""
-                            ? RoomScreen
-                                    .usersMessagesInRoom[message.user.id]
-                                    ?.level
-                                    ?.senderImage ??
-                                ''
-                            : sender,
-                      ),
+                      if ((RoomScreen.usersMessagesInRoom[message.user.id]
+                                  ?.level?.senderImage ??
+                              '') !=
+                          '')
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * 4,
+                          height: ConfigSize.defaultSize! * 2,
+                          child: LevelContainer(
+                            image: sender == ""
+                                ? RoomScreen
+                                        .usersMessagesInRoom[message.user.id]
+                                        ?.level
+                                        ?.senderImage ??
+                                    ''
+                                : sender,
+                          ),
+                        ),
                       const SizedBox(
                         width: 1,
                       ),
-                      if((RoomScreen
-                          .usersMessagesInRoom[message.user.id]
-                      ?.level
-                      ?.receiverImage??'') != '' )
-                     LevelContainer(
-                        image: receiver == ""
-                            ? RoomScreen
-                                    .usersMessagesInRoom[message.user.id]
-                                    ?.level
-                                    ?.receiverImage ??
-                                ''
-                            : receiver,
-                      ),
+                      if ((RoomScreen.usersMessagesInRoom[message.user.id]
+                                  ?.level?.receiverImage ??
+                              '') !=
+                          '')
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * 4,
+                          height: ConfigSize.defaultSize! * 2,
+                          child: LevelContainer(
+                            image: receiver == ""
+                                ? RoomScreen
+                                        .usersMessagesInRoom[message.user.id]
+                                        ?.level
+                                        ?.receiverImage ??
+                                    ''
+                                : receiver,
+                          ),
+                        ),
                     ],
                   ),
                 ],
