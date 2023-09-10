@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
- 
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
@@ -25,7 +23,8 @@ class TopInRoomScreenBody extends StatelessWidget {
   final EnterRoomModel roomData ;
   final MyDataModel myData ;
   final LayoutMode layoutMode ;
-  const TopInRoomScreenBody({required this.id,required this.layoutMode, required this.myData, required this.roomData, required this.dateController, Key? key})
+  const TopInRoomScreenBody({required this.id,required this.layoutMode, required this.myData, required this.roomData,
+    required this.dateController, Key? key})
       : super(key: key);
 
   @override
@@ -59,15 +58,13 @@ class TopInRoomScreenBody extends StatelessWidget {
                                   Navigator.pop(context) ;
                                   bottomDailog(
                                       context: context,
-                                      widget: 
-                                      GeneralRoomProfile(
+                                      widget: GeneralRoomProfile(
                                       
                                       userId:state.todayUserTopModel[index].userId.toString() ,
                                       myData:myData,
                                       roomData:roomData,
                                      layoutMode:layoutMode
                                       )
-
                                   );
                                                                                                         Methods().userProfileNvgator(context: context , userId:state.todayUserTopModel[index].userId.toString());
 
