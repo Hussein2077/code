@@ -18,10 +18,12 @@ class GoogleAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInWithPlatformBloc, SignInWithPlatformState>(
-      listener: (context, state) {
+      listener: (context, state) async{
         if(state is SiginWithGoogleSuccesMessageState){
                     Methods().clearAuthData();
                     //todo check this event if still here or not
+                             await    Methods().addFireBaseNotifcationId();
+
                     BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
     if(state.userData.apiUserData.isFirst!){
           Navigator.pushNamedAndRemoveUntil(context, Routes.addInfo ,arguments:state.userData.userData , (route) => false, );
