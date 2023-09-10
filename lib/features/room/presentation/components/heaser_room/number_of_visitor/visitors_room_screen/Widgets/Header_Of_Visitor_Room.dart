@@ -6,7 +6,8 @@ import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 
 
 class HeaderofVisitorRoom extends StatelessWidget {
-  HeaderofVisitorRoom({required this.numberOfVistor, Key? key}) : super(key: key);
+  const HeaderofVisitorRoom({required this.numberOfVistor, Key? key})
+      : super(key: key);
   final int numberOfVistor;
 
   @override
@@ -15,26 +16,29 @@ class HeaderofVisitorRoom extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: AppPadding.p10),
         child: Row(
           children: [
-             const Spacer(
-              flex:4,
+            const Spacer(
+              flex: 8,
             ),
             Text(
-              "$numberOfVistor ${StringManager.pepoleOnline.tr()}",
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16),
+              '$numberOfVistor',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
             ),
-             const Spacer(
-              flex: 3,
+            const Spacer(
+              flex: 1,
+            ),
+            Text(StringManager.pepoleOnline.tr(),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w700,
+                    )),
+            const Spacer(
+              flex: 8,
             ),
             // const Icon(
             //   CupertinoIcons.search,
             //   color: Colors.black,
             // ),
-             const Spacer(
-              flex: 1,
-            ),
           ],
         ));
   }

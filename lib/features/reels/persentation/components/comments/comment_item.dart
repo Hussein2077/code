@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/components/user_profile_image.dart';
-import '../../../../../core/utils/date_formatter.dart';
 
 class CommentItem extends StatelessWidget {
   final ReelCommentModel commentItem;
@@ -10,7 +10,7 @@ class CommentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 15.0),
+        padding:  EdgeInsets.only(bottom: ConfigSize.defaultSize!*1.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -20,22 +20,22 @@ class CommentItem extends StatelessWidget {
               children: [
                 //TODO repleace  this widget with yours
                 UserProfileImage(profileUrl: commentItem.userProfilePic),
-                const SizedBox(width: 7),
+                 SizedBox(width: ConfigSize.defaultSize!*0.7),
                 Flexible(
                   child: Container(
                     padding:
-                        const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
-                    decoration: const BoxDecoration(
+                         EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*0.7, horizontal: ConfigSize.defaultSize!),
+                    decoration:  BoxDecoration(
                       color: Color.fromARGB(225, 239, 239, 239),
                       borderRadius: BorderRadius.all(
-                        Radius.circular(15),
+                        Radius.circular(ConfigSize.defaultSize!*1.5),
                       ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(width: 5),
+                         SizedBox(width: ConfigSize.defaultSize!*0.5),
                         Flexible(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,8 +45,8 @@ class CommentItem extends StatelessWidget {
                                 children: [
                                   Text(
                                     commentItem.userName,
-                                    style: const TextStyle(
-                                      fontSize: 14,
+                                    style:  TextStyle(
+                                      fontSize: ConfigSize.defaultSize!*1.4,
                                       color:
                                           Color.fromARGB(255, 41, 35, 35),
                                     ),
@@ -55,8 +55,8 @@ class CommentItem extends StatelessWidget {
                               ),
                               Text(
                                 commentItem.comment,
-                                style:  const TextStyle(
-                                  fontSize: 12,
+                                style:   TextStyle(
+                                  fontSize: ConfigSize.defaultSize!*1.2,
                                   color: Color.fromARGB(255, 69, 67, 67),
                                 ),
                               ),
@@ -70,9 +70,9 @@ class CommentItem extends StatelessWidget {
                 // ),
               ],
             ),
-            const SizedBox(height: 3),
+             SizedBox(height: ConfigSize.defaultSize!*0.3),
             Padding(
-              padding: const EdgeInsets.only(left: 44),
+              padding:  EdgeInsets.only(left: ConfigSize.defaultSize!*4.4),
               child: Text(
                commentItem.commentTime.substring(0,10),
                 style: Theme.of(context).textTheme.bodySmall

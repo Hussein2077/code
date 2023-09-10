@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -11,10 +9,13 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_ree
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_state.dart';
 
+import '../../../../../core/utils/config_size.dart';
+
 class CommentBottomSheet extends StatefulWidget {
   final List<ReelCommentModel> commentList;
   final String reelId;
   final Function(String)? onComment;
+
   const CommentBottomSheet(
       {Key? key,
       required this.commentList,
@@ -49,10 +50,10 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
         }
       },
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
+            topLeft: Radius.circular(ConfigSize.defaultSize! * 1.6),
+            topRight: Radius.circular(ConfigSize.defaultSize! * 1.6),
           ),
           color: Colors.transparent,
         ),
@@ -60,19 +61,22 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: ConfigSize.defaultSize! * 1.6,
+                  right: ConfigSize.defaultSize! * 1.6,
+                  top: ConfigSize.defaultSize!*1.6),
               child: Text(
                 'Comments',
-                style: TextStyle(color: Colors.black, fontSize: 18),
+                style: TextStyle(color: Colors.black, fontSize: ConfigSize.defaultSize!*1.8),
               ),
             ),
-            const SizedBox(height: 20),
+             SizedBox(height: ConfigSize.defaultSize!*2),
             if (widget.commentList.isNotEmpty)
               Expanded(
                 child: ListView.builder(
                   controller: scrollController,
-                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  padding:  EdgeInsets.only(left: ConfigSize.defaultSize!*1.6, right: ConfigSize.defaultSize!*1.6),
                   itemCount: widget.commentList.length,
                   itemBuilder: (ctx, i) =>
                       CommentItem(commentItem: widget.commentList[i]),
@@ -92,7 +96,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                 decoration: InputDecoration(
                   hintText: 'Add a comment...',
                   hintStyle: const TextStyle(color: Colors.grey),
-                  contentPadding: const EdgeInsets.all(10),
+                  contentPadding:  EdgeInsets.all(ConfigSize.defaultSize!),
                   border: const UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.white)),
                   suffixIcon: InkWell(

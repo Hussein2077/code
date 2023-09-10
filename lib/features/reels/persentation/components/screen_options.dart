@@ -45,15 +45,15 @@ class ScreenOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ReelCommentModel>? commentListtemp;
     return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding:  EdgeInsets.all(ConfigSize.defaultSize!*0.8),
         child: Column(
           children: [
             if (item.userImage != null)
               UserImageReel(image: item.userImage!,isFollowed: isFollowed, userId:item.userId! ,onFollow: onFollow, ),
             if (item.userImage == null)
-              const CircleAvatar(
+               CircleAvatar(
                 radius: 16,
-                child: Icon(Icons.person, size: 18),
+                child: Icon(Icons.person, size: ConfigSize.defaultSize!*1.8),
               ),
             SizedBox(height: ConfigSize.defaultSize),
             if (userView == null)

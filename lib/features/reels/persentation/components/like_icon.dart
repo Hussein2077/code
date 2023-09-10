@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/config_size.dart';
+
 class LikeIcon extends StatelessWidget {
   const LikeIcon({Key? key}) : super(key: key);
 
@@ -14,7 +16,7 @@ class LikeIcon extends StatelessWidget {
         future: tempFuture(),
         builder: (context, snapshot) =>
             snapshot.connectionState != ConnectionState.done
-                ? const Icon(Icons.favorite, size: 50,color: Colors.red)
+                ?  Icon(Icons.favorite, size: ConfigSize.defaultSize!*5,color: Colors.red)
                 : const SizedBox(),
       ),
     );
