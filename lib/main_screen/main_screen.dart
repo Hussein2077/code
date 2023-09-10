@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -33,6 +32,7 @@ import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dart';
 
 import '../core/resource_manger/asset_path.dart';
 import 'widget/bottom_bar_widget.dart';
@@ -156,12 +156,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       onTap: () async {
                         bottomDailog(
                             context: context,
-                            widget: InkWell(
-                                onTap: () {},
-                                child: TransparentLoadingWidget(
+                            widget:  TransparentLoadingWidget(
                                   height: ConfigSize.defaultSize!*2,
                                   width: ConfigSize.defaultSize!*7.2,
-                                )));
+                                ));
 
                         await Methods().exitFromRoom(
                             MainScreen.roomData!.ownerId.toString());
