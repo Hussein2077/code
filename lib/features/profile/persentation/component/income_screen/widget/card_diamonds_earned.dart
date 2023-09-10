@@ -5,13 +5,24 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_state.dart';
 
 // ignore: must_be_immutable
-class CardOfDiamondEarned extends StatelessWidget {
+class CardOfDiamondEarned extends StatefulWidget {
   final String assetCard;
    CardOfDiamondEarned({super.key, required this.assetCard});
-   String diamond = "" ; 
+
+  @override
+  State<CardOfDiamondEarned> createState() => _CardOfDiamondEarnedState();
+}
+
+class _CardOfDiamondEarnedState extends State<CardOfDiamondEarned> {
+  void initState() {
+    BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
+    super.initState();
+  }
+   String diamond = "" ;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +40,7 @@ class CardOfDiamondEarned extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(assetCard, scale: 3),
+          Image.asset(widget.assetCard, scale: 3),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.center,

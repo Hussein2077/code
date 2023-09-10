@@ -70,7 +70,7 @@ Widget build(BuildContext context) {
                         if((!ReelsScreenState.followList.contains(userId.toString())||!isFollowed!)&&(userId!=MyDataModel.getInstance().id)) {
                           return  Positioned(
           bottom: 0,
-          right: 10,
+          right: ConfigSize.defaultSize!,
           child: InkWell(
             onTap: () => onFollow!(userId.toString(),isFollowed??false),
             child: Container(
@@ -78,7 +78,7 @@ Widget build(BuildContext context) {
                 shape:  BoxShape.circle,
                 color: Colors.red,
               ),
-              padding:const  EdgeInsets.all(4) ,
+              padding:  EdgeInsets.all(ConfigSize.defaultSize!*0.4) ,
               child:  Icon(CupertinoIcons.add,size: ConfigSize.defaultSize!+4,),
             ) ,
           )

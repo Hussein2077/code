@@ -1009,4 +1009,14 @@ try {
     }
   }
 
+  @override
+  Future<Either<String, Failure>> getMomentLikes(String momentId) async{
+    try{
+      final result = await baseRemotlyDataSourceProfile.getMomentLikes(momentId);
+      return left(result);
+    }on Exception catch (e){
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
 }

@@ -60,7 +60,7 @@ class FirstSecThrUsers extends StatelessWidget {
               //todo add what shemi done
 
               AristocracyLevel(level: userData.vipLevel!),
-              LevelContainer(image: userData.senderImage!),
+             LevelContainer(image: userData.senderImage!),
             ],
           ),
           Container(

@@ -49,7 +49,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       },
                         hintColor: Colors.black.withOpacity(0.6),
                         hintText: StringManager.search.tr(),
-                        controller: searchController))),
+                        controller: searchController)
+                )
+            ),
           ),
           BlocBuilder<SearchBloc, SearchStates>(
             builder: (context, state) {

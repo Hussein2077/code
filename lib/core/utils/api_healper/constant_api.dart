@@ -119,6 +119,7 @@ class ConstentApi {
         static const String getReels = "$baseUrl/reals";
           static const String yallowBanner = "$baseUrl/rooms/yellow-banner";
                     static const String addMoment = "$baseUrl/moment";
+                    static const String momentLikes = "$baseUrl/moment/2/like";
 
 
 

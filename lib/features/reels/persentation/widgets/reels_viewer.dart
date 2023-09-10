@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:card_swiper/card_swiper.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
@@ -130,7 +132,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
 
 
                     Text(
-                      widget.appbarTitle ?? 'Reels View',
+                      widget.appbarTitle ?? StringManager.reelsView.tr(),
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,

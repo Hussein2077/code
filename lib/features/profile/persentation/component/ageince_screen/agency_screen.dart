@@ -9,17 +9,28 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/widgets/member_agency_body.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_state.dart';
 
 import 'widgets/owner_agency_body.dart';
 
-class AgenceScreen extends StatelessWidget {
+class AgenceScreen extends StatefulWidget {
  final MyDataModel mydata;
   const AgenceScreen({super.key,required this.mydata});
 
+  @override
+  State<AgenceScreen> createState() => _AgenceScreenState();
+}
+
+class _AgenceScreenState extends State<AgenceScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<ShowAgencyBloc>(context).add(ShowAgencyEvent());
@@ -43,7 +54,7 @@ class AgenceScreen extends StatelessWidget {
                       id: state.data.id!.toString(),
                       image: state.data.image!),
                   //  if(mydata.myType == 2)
-                    OwnerAgencyBody(myData: mydata),
+                    OwnerAgencyBody(myData: widget.mydata),
 
                   // if(mydata.myType == 1)
                   //   Expanded(child: MemberAgencyBody(owner: state.data.owner!,))

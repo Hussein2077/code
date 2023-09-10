@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/components/comments/comment_item.dart';
@@ -67,7 +69,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                   right: ConfigSize.defaultSize! * 1.6,
                   top: ConfigSize.defaultSize!*1.6),
               child: Text(
-                'Comments',
+                StringManager.comments.tr(),
                 style: TextStyle(color: Colors.black, fontSize: ConfigSize.defaultSize!*1.8),
               ),
             ),
@@ -83,9 +85,9 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                 ),
               ),
             if (widget.commentList.isEmpty)
-              const Expanded(
+               Expanded(
                   child: Center(
-                child: Text('No Comments yet.'),
+                child: Text(StringManager.noCommentsYet.tr()),
               )),
             const Divider(),
             Padding(
@@ -94,7 +96,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
               child: TextField(
                 controller: commentController,
                 decoration: InputDecoration(
-                  hintText: 'Add a comment...',
+                  hintText:  StringManager.addAComment.tr(),//noCommentsYet
                   hintStyle: const TextStyle(color: Colors.grey),
                   contentPadding:  EdgeInsets.all(ConfigSize.defaultSize!),
                   border: const UnderlineInputBorder(

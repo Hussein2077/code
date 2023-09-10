@@ -216,6 +216,6 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> deleteMoment(String momentId);
   Future<Either<List<MomentModel>, Failure>> getMoment(String userId);
   Future<Either<String, Failure>> addMomentComment(AddMomentCommentPrameter addMomentCommentPrameter );
-
+Future<Either<String,Failure>>getMomentLikes(String momentId);
 
 }

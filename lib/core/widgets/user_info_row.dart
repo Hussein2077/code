@@ -1,13 +1,7 @@
 import 'dart:developer';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
@@ -55,7 +49,7 @@ class UserInfoRow extends StatelessWidget {
       child: Padding(
         padding:  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.5),
         child: Row(
-          
+
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -108,7 +102,7 @@ class UserInfoRow extends StatelessWidget {
                           const Spacer(),
                           idOrNot??
                           Text(
-                            "ID ${userData.id.toString()}",
+                            "ID ${userData.uuid.toString()}",
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],

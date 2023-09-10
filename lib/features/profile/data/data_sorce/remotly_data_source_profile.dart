@@ -22,12 +22,12 @@ import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dar
 import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_time_history_model.dart';
-import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/back_pack_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_page_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_to_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
@@ -187,22 +187,21 @@ abstract class BaseRemotlyDataSourceProfile {
       Future<List<InterstedMode>> getUserIntersted();
         Future<String> prevActive(String type);
 
-
-
-
   Future<String> prevDispose(String type);
-    Future<List<ReelModel>> getUserReel(String? id , String page);
 
-      Future<String> deleteMessage(String id);
+  Future<List<ReelModel>> getUserReel(String? id, String page);
 
-      Future<String> addMomnet(AddMomentPrameter prameter);
+  Future<String> deleteMessage(String id);
 
-            Future<String> deleteMoment(String momentId);
-            Future<List<MomentModel>> getMoments(String userId);
-            Future<String> addMomentCooment(AddMomentCommentPrameter momentId);
+  Future<String> addMomnet(AddMomentPrameter prameter);
 
+  Future<String> deleteMoment(String momentId);
 
+  Future<List<MomentModel>> getMoments(String userId);
 
+  Future<String> addMomentCooment(AddMomentCommentPrameter momentId);
+
+  Future<String> getMomentLikes(String momentId);
 }
 
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
@@ -2161,7 +2160,19 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'addMomentComment');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'addMomentComment');
+    }
+  }
+
+  @override
+  Future<String> getMomentLikes(String momentId) async {
+    try {
+      final response = await Dio().post(ConstentApi.momentLikes);
+      return response.data['message'];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getMomentLikes');
     }
   }
 }

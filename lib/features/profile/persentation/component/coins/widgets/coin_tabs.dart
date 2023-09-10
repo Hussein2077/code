@@ -29,7 +29,7 @@ class CoinTabs extends StatelessWidget {
         unselectedLabelStyle:TextStyle(fontSize: ConfigSize.defaultSize!*1.6) ,
           tabs:  [
               Text(StringManager.coins.tr() , ),
-              Text(StringManager.silver.tr(),)
+           //   Text(StringManager.silver.tr(),)
           
           
         ]),

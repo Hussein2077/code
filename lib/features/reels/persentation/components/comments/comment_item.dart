@@ -26,7 +26,7 @@ class CommentItem extends StatelessWidget {
                     padding:
                          EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*0.7, horizontal: ConfigSize.defaultSize!),
                     decoration:  BoxDecoration(
-                      color: Color.fromARGB(225, 239, 239, 239),
+                      color: const Color.fromARGB(225, 239, 239, 239),
                       borderRadius: BorderRadius.all(
                         Radius.circular(ConfigSize.defaultSize!*1.5),
                       ),
