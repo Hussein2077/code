@@ -12,6 +12,8 @@ class UserTopModel extends Equatable {
   final String? name;
   final String? frame;
   final dynamic? frameId;
+  final String? senderImage;
+  final int? vipLevel;
 
 
   const UserTopModel(
@@ -22,7 +24,8 @@ class UserTopModel extends Equatable {
       this.name,
       this.frame,
       this.frameId,
-     
+     this.vipLevel,
+        this.senderImage,
      });
 
   factory UserTopModel.fromJson(Map<String, dynamic> jsonData) {
@@ -33,8 +36,9 @@ class UserTopModel extends Equatable {
       avater: (jsonData['avatar']==null ||jsonData['avatar']=="")? "tic_logo.jpg":jsonData['avatar'],
       name: jsonData['name'] ?? "",
       frame: jsonData['frame'] ?? "",
-      frameId: jsonData['frame_id'] ??1
-   
+      frameId: jsonData['frame_id'] ??1,
+        vipLevel:jsonData['vip_level']??0,
+        senderImage:jsonData['sender_img']??'',
     );
   }
 

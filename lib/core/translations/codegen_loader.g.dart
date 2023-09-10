@@ -373,6 +373,7 @@ StringManager.chooseTimePK : "اختار وقت التحدي",
 StringManager.pleaseWaitReel : "برجاء الانتظار حتي يتم رفع الفيديو السابق",
 
 StringManager.coinToUpload : "عمله لرفع صوره",
+StringManager.pepoleOnline : "الاشخاص بالغرفة",
 
 
 
