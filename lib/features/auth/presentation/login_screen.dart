@@ -180,11 +180,12 @@ class _LoginScreenState extends State<LoginScreen> {
               )),
         );
       },
-        listener: (context, state) {
+        listener: (context, state) async{
            if (state is LoginWithPhoneSuccesMessageState) {
 
 
              Methods().clearAuthData();
+         await    Methods().addFireBaseNotifcationId();
              //todo check this event if still here or not
              BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
                Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen , (route) => false,);
