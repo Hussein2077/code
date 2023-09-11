@@ -139,6 +139,23 @@ class ConstentApi {
  
 
 }
+          static String deleteMomentComment(String momentId , String comment) {
+
+     return "$baseUrl/moment/$momentId/comment/$comment";
+
+
+ 
+
+}
+
+    static String getMomentComment(String momentId , String page) {
+
+     return "$baseUrl/moment/$momentId/comment?page=$page";
+
+
+ 
+
+}
 
 
 static String getReel({String? reelId ,String? page}) {

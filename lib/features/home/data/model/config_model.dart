@@ -9,6 +9,8 @@ class ConfigModel extends Equatable {
   final bool? updateExtraCach ;
   final bool? updateEntroCach ;
   final bool? updateEmojieCach ;
+  final String? appSign;
+  final int? appId; 
 
   const ConfigModel(
       {this.isForce,
@@ -18,7 +20,11 @@ class ConfigModel extends Equatable {
       this.isLastVersion,
       this.updateGiftCache,
       this.updateFrameCach,
-      this.updateExtraCach});
+      this.updateExtraCach,
+      this.appId,
+      this.appSign,
+      
+      });
 
 
   factory ConfigModel.fromJson(Map<String,dynamic> json)=>
@@ -30,7 +36,9 @@ class ConfigModel extends Equatable {
        updateFrameCach:  json['cache_update']['frames'],
           updateGiftCache: json['cache_update']['gifts'],
         updateEmojieCach:json['cache_update']['emoji'] ,
-        updateEntroCach: json['cache_update']['intro']
+        updateEntroCach: json['cache_update']['intro'],
+        appId: json['app_id'],
+        appSign: json['app_sign'],
       ) ;
 
   @override

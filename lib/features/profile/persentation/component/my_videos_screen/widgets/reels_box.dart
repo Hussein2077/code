@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -36,10 +38,15 @@ class ReelsBox extends StatelessWidget {
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),
-                    color: Colors.grey,
-                    /*  decoration: BoxDecoration(
-                    image: Ch
-                  ),*/
+                      decoration: BoxDecoration(
+                                            color: Colors.grey,
+
+                      image:state.data![index].subVideo==""?null: DecorationImage(
+                fit: BoxFit.fill,
+                  image: CachedNetworkImageProvider(
+
+                    ConstentApi().getImage(state.data![index].subVideo)) )
+                  ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: ConfigSize.defaultSize! - 5

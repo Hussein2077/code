@@ -18,6 +18,8 @@ import 'package:tik_chat_v2/features/home/domin/use_case/get_confige_uc.dart';
 class SplashScreen extends StatefulWidget {
   static bool isDark = false ; 
   const SplashScreen({super.key});
+  static String? appSign ; 
+  static int? appId ; 
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -139,7 +141,12 @@ class _SplashScreenState extends State<SplashScreen> {
         homeRepo: getIt()).call(ConfigModelBody(
         appVersion: StringManager.versionApp.toString(),
     ));
-    result.fold((l) => configModel =l,(r) => errorMessage = DioHelper().getTypeOfFailure(r));
+    result.fold((l){
+      SplashScreen.appId = l.appId ; 
+      SplashScreen.appSign = l.appSign ; 
+      configModel =l;
+    
+    },(r) => errorMessage = DioHelper().getTypeOfFailure(r));
 
   }
 

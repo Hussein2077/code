@@ -131,11 +131,10 @@ class ReelsScreenState extends State<ReelsScreen> {
             log('======> Clicked on back arrow <======');
           },
           onIndexChanged: (index) {
-            log("heeer");
-          if(index%10==0){
+          if(index%10==0&&(state.data!.length-index==5)){
             BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
           }
-          log(state.data![index].id.toString()+"testtt");
+          log(state.data!.length.toString()+"zzzzz");
             log('======> Current Index ======> $index <========');
           },
           showProgressIndicator: false,
