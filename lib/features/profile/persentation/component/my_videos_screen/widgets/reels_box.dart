@@ -37,9 +37,6 @@ class ReelsBox extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     color: Colors.grey,
-                    /*  decoration: BoxDecoration(
-                    image: Ch
-                  ),*/
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: ConfigSize.defaultSize! - 5

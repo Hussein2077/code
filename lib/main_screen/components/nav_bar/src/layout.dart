@@ -81,10 +81,10 @@ class BottomNavLayout extends StatefulWidget {
   final PageTransitionData? pageTransitionData;
 
   @override
-  State<StatefulWidget> createState() => _BottomNavLayoutState();
+  State<StatefulWidget> createState() => BottomNavLayoutState();
 }
 
-class _BottomNavLayoutState extends State<BottomNavLayout> {
+class BottomNavLayoutState extends State<BottomNavLayout> {
   /// The main content of the layout.
   /// Respective widget in this list is shown above the bottom navbar.
   ///

@@ -21,7 +21,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
  late  List<Widget> pages ; 
   @override
   void initState() {
-    log("Imageeeeeeeeee" +ConstentApi().getImage(widget.carouselsList[0].img));
+
 
     pages = [
     for(int i = 0 ; i < widget.carouselsList.length ;i++ )

@@ -166,6 +166,7 @@ class RouteGenerator {
                   isCachEntro: mainPramiter?.isCachEntro,
                   isCachEmojie: mainPramiter?.isCachEmojie,
                   isUpdate: mainPramiter?.isUpdate,
+                actionDynamicLink: mainPramiter?.actionDynamicLink,
                 ));
       case Routes.topUsersScreen:
         return MaterialPageRoute(builder: (_) => const TopUsersScreen());
@@ -414,6 +415,8 @@ class MainPramiter  {
   final bool? isCachEntro;
   final bool? isCachEmojie;
   final bool? isUpdate;
+  final Uri?  actionDynamicLink ;
+
 
   MainPramiter(
       {this.isCachEmojie,
@@ -421,7 +424,9 @@ class MainPramiter  {
       this.isUpdate,
       this.isCachExtra,
       this.isCachFrame,
-      this.isChachGift});
+      this.isChachGift,
+      this.actionDynamicLink
+      });
 }
 
 class RoomPramiter {

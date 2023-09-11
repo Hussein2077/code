@@ -21,6 +21,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_r
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
+import 'package:tik_chat_v2/splash.dart';
 
 class ReelsScreen extends StatefulWidget {
   const ReelsScreen({super.key});
@@ -41,7 +42,7 @@ class ReelsScreenState extends State<ReelsScreen> {
     likedVideos = [];
     unLikedVideo = [];
     followList = [];
-    if (MainScreen.initPage == 1) {
+    if (SplashScreen.initPage == 1) {
       BlocProvider.of<GetReelsBloc>(context)
           .add(GetReelsEvent(reelId: MainScreen.reelId));
     } else {

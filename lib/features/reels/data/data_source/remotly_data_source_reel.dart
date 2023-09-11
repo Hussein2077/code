@@ -1,7 +1,4 @@
-
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -57,14 +54,12 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
   
   @override
   Future<List<ReelModel>> getReels(String? page,String? reelId) async{
-    log(page.toString()+"zzzzzzzzzzzzzzzzz");
      Map<String, String> headers = await DioHelper().header();
 
     try {
 
       List<ReelModel> reels = [];
       if(reelId != null){
-
         final responseSpasficReel = await Dio().get(
           ConstentApi.getReel(reelId: reelId , ),
           options: Options(
