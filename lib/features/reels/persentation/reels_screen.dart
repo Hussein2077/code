@@ -123,41 +123,38 @@ class ReelsScreenState extends State<ReelsScreen> {
 
 
 
-                    },
-                    onComment: (comment) {
-                      log('Comment on reel ==> $comment');
-                    },
-                    onClickMoreBtn: (id) {
-                      log('======> Clicked on more option <======');
-                    },
-                    onClickBackArrow: () {
-                      Navigator.pop(context);
-                      log('======> Clicked on back arrow <======');
-                    },
-                    onIndexChanged: (index) {
-                      if(index%10==0){
-                        BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
-                      }
-                      log('======> Current Index ======> $index <========');
-                    },
-                    showProgressIndicator: false,
-                    showVerifiedTick: false,
-                    showAppbar: true,
-                  );
-                }
-                else if (state is GetReelsLoadingState){
-                  return const LoadingWidget();
-                }else if (state is GetReelsErrorState){
-                  return CustomErrorWidget(message: state.errorMassage);
-                }else {
-                  return  CustomErrorWidget(message: StringManager.unexcepectedError.tr());
-                }
-
-              },
-            ),
-          ),
-        backgroundColor: Colors.transparent,
-      ));
+          },
+          onComment: (comment) {
+            log('Comment on reel ==> $comment');
+          },
+          onClickMoreBtn: (id) {
+            log('======> Clicked on more option <======');
+          },
+          onClickBackArrow: () {
+            Navigator.pop(context);
+            log('======> Clicked on back arrow <======');
+          },
+          onIndexChanged: (index) {
+          if(index%10==0&&(state.data!.length-index==5)){
+            BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
+          }
+          log(state.data!.length.toString()+"zzzzz");
+            log('======> Current Index ======> $index <========');
+          },
+          showProgressIndicator: false,
+          showVerifiedTick: false,
+          showAppbar: true,
+        );
+        }else if (state is GetReelsLoadingState){
+          return const LoadingWidget();
+        }else if (state is GetReelsErrorState){
+          return CustomErrorWidget(message: state.errorMassage);
+        }else {
+      return    CustomErrorWidget(message: StringManager.unexcepectedError.tr());
+        }
+   
+      },
+    )));
   }
 
 

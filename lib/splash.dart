@@ -23,6 +23,8 @@ class SplashScreen extends StatefulWidget {
   static int initPage = 0;
   static Uri? dynamicLink ;
   const SplashScreen({super.key});
+  static String? appSign ; 
+  static int? appId ; 
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -199,7 +201,12 @@ class _SplashScreenState extends State<SplashScreen> {
         homeRepo: getIt()).call(ConfigModelBody(
         appVersion: StringManager.versionApp.toString(),
     ));
-    result.fold((l) => configModel =l,(r) => errorMessage = DioHelper().getTypeOfFailure(r));
+    result.fold((l){
+      SplashScreen.appId = l.appId ; 
+      SplashScreen.appSign = l.appSign ; 
+      configModel =l;
+    
+    },(r) => errorMessage = DioHelper().getTypeOfFailure(r));
 
   }
 
