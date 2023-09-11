@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/upper/header.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 
 
 class UpperProfileBody extends StatelessWidget {
@@ -24,7 +25,11 @@ class UpperProfileBody extends StatelessWidget {
 
     return InkWell(
       onTap: (){
-  showImageViewer(context, CachedNetworkImageProvider(ConstentApi().getImage(myDataModel.profile!.image)),
+        if(ReelsPage.videoPlayerController != null){
+          ReelsPage.videoPlayerController!.pause();
+          ReelsPage.isVideoPause.value= true ;
+        }
+    showImageViewer(context, CachedNetworkImageProvider(ConstentApi().getImage(myDataModel.profile!.image)),
              swipeDismissible: false);
       },
       child: Container(

@@ -58,6 +58,7 @@ class _ReelsPageState extends State<ReelsPage>{
 
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
+
       initializePlayer().then((value) => ReelsPage.videoPlayerController = _videoPlayerController);
     }
   }
@@ -165,6 +166,10 @@ class _ReelsPageState extends State<ReelsPage>{
                 },
                onHorizontalDragEnd: (DragEndDetails details) {
                     if (details.primaryVelocity! < 0) {
+                      if(ReelsPage.videoPlayerController != null){
+                        ReelsPage.videoPlayerController!.pause();
+                        ReelsPage.isVideoPause.value= true;
+                      }
                       Navigator.push(
                         context,
                         PageRouteBuilder(
@@ -180,10 +185,7 @@ class _ReelsPageState extends State<ReelsPage>{
                               ),
                         ),
                       );
-                      if(ReelsPage.videoPlayerController != null){
-                        ReelsPage.videoPlayerController!.pause();
-                        ReelsPage.isVideoPause.value= true;
-                      }
+
                      }},
                 child: Chewie(
                   controller: _chewieController!,
