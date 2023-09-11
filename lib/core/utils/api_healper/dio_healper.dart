@@ -76,7 +76,7 @@ class DioHelper {
       case ErrorModelException:
         return ErrorMessageFailure(message: e.errorMessage);
       default:
-        return ErrorMessageFailure(message: e.message);
+        return ErrorMessageFailure(message: e.errorMessage);
     }
   }
 

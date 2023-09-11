@@ -76,25 +76,25 @@ class ProfileTabViewBody extends StatelessWidget {
               child: Center(child: Text(
                   "${StringManager.familyName.tr()} : ${userDataModel
                       .familyData!.name!.toString()}",style: Theme.of(context).textTheme.bodyMedium,))),
-        ) :
-        Container(
-            margin: EdgeInsets.only(
-              right: ConfigSize.defaultSize! * 1.3,
-              left: ConfigSize.defaultSize! * 1.3,
-            ),
-            padding: EdgeInsets.symmetric(
-                vertical: ConfigSize.defaultSize! * 0.2,
-                horizontal: ConfigSize.defaultSize! * 1
-            ),
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: ColorManager.mainColorList
-                ),
-                borderRadius: BorderRadius.circular(10)
-
-            ),
-
-            child: Text(StringManager.noFamily,style: Theme.of(context).textTheme.bodyMedium,)),
+        ) :SizedBox(),
+        // Container(
+        //     margin: EdgeInsets.only(
+        //       right: ConfigSize.defaultSize! * 1.3,
+        //       left: ConfigSize.defaultSize! * 1.3,
+        //     ),
+        //     padding: EdgeInsets.symmetric(
+        //         vertical: ConfigSize.defaultSize! * 0.2,
+        //         horizontal: ConfigSize.defaultSize! * 1
+        //     ),
+        //     decoration: BoxDecoration(
+        //         gradient: const LinearGradient(
+        //             colors: ColorManager.mainColorList
+        //         ),
+        //         borderRadius: BorderRadius.circular(10)
+        //
+        //     ),
+        //
+        //     child: Text(StringManager.noFamily,style: Theme.of(context).textTheme.bodyMedium,)),
         SizedBox(
           height: ConfigSize.defaultSize! * 1,
         ),

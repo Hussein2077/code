@@ -201,7 +201,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<String> addMomentCooment(AddMomentCommentPrameter momentId);
 
-  Future<String> getMomentLikes(String momentId);
+  Future<String> makeMomentLike(String momentId);
 }
 
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
@@ -2166,7 +2166,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<String> getMomentLikes(String momentId) async {
+  Future<String> makeMomentLike(String momentId) async {
     try {
       final response = await Dio().post(ConstentApi.momentLikes);
       return response.data['message'];
