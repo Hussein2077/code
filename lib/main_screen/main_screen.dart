@@ -1,8 +1,8 @@
 import 'dart:developer';
+import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,6 +82,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     )..repeat();
+    Future.delayed(const  Duration(seconds:2),(){
+      initDynamicLinks();
+    }) ;
+
     super.initState();
   }
 
@@ -214,18 +218,18 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   }
 
   initDynamicLinks() async {
-    final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks
-        .instance.getInitialLink();
-    log('actio');
-    if(initialLink != null){
-      log('actio2');
-      handleDeepLink(initialLink);
+    final _appLinks = AppLinks();
+
+    final uri = await _appLinks.getLatestAppLink();
+
+    if(uri != null){
+      handleDeepLink(uri);
     }
-    FirebaseDynamicLinks.instance.onLink;
+
   }
 
-  void handleDeepLink(PendingDynamicLinkData data) async {
-    final Uri deepLink = data.link;
+  void handleDeepLink(Uri  data) async {
+    final Uri deepLink = data;
     final String? action = deepLink.queryParameters['action'];
     final String? ownerId = deepLink.queryParameters['owner_id'];
     final String? password = deepLink.queryParameters['password'];

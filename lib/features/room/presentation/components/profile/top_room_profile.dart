@@ -80,13 +80,14 @@ class _TopRoomProfileState extends State<TopRoomProfile> {
                 width: ConfigSize.defaultSize!*7.2,
               );
             } else if (state is GetUserSucssesState) {
+              RoomScreen.usersInRoom.removeWhere((key, value) => key == state.data.id.toString());
               RoomScreen.usersInRoom
                   .putIfAbsent(state.data.id.toString(), () => state.data);
 
               return UserProfileInRoom(
                        myData: widget.myData,
                   roomData: widget.roomData,
-                  userData: tempData ?? state.data,
+                  userData:  state.data,
                   layoutMode: widget.layoutMode
 
               );

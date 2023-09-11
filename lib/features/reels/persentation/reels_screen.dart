@@ -95,7 +95,7 @@ class ReelsScreenState extends State<ReelsScreen> {
                           .then((value) {
                         Share.share(value);
                       });
-                      log('Shared reel url ==> ${reel.id}');
+
                     },
                     onLike: (id) {
                       BlocProvider.of<MakeReelLikeBloc>(context)
@@ -134,11 +134,9 @@ class ReelsScreenState extends State<ReelsScreen> {
                       log('======> Clicked on back arrow <======');
                     },
                     onIndexChanged: (index) {
-                      log("heeer");
                       if(index%10==0){
                         BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
                       }
-                      log(state.data![index].id.toString()+"testtt");
                       log('======> Current Index ======> $index <========');
                     },
                     showProgressIndicator: false,
