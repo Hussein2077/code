@@ -9,7 +9,8 @@ class AgencyMemberModel {
   String? name ; 
   String? image ;
   int? totalUsd ; 
-AgencyMemberModel({this.diamond , this.id , this.image ,this.name , this.totalUsd , this.uuid});
+  bool? hasColorName ;
+AgencyMemberModel({this.diamond , this.id , this.hasColorName,this.image ,this.name , this.totalUsd , this.uuid});
 
 factory AgencyMemberModel.fromJson(Map <String, dynamic> json){
   return AgencyMemberModel(diamond: json["diamonds"]??0,
@@ -18,7 +19,8 @@ factory AgencyMemberModel.fromJson(Map <String, dynamic> json){
   name: json["name"]??"",
   totalUsd: json["total_used"]??0,
   uuid: json['uuid']??"",
-  
+  hasColorName: json['has_color_name']??false,
+
   
   );
 }
@@ -29,6 +31,7 @@ factory AgencyMemberModel.fromJson(Map <String, dynamic> json){
     name: name , 
     id :id,
     uuid:  uuid ,
+    hasColorName: hasColorName,
     myStore:MyStoreModel(diamonds: diamond)  ,
     profile: ProfileRoomModel(image: image),
 
