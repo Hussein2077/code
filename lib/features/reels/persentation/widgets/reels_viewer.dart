@@ -1,10 +1,8 @@
-import 'dart:developer';
+
 
 import 'package:card_swiper/card_swiper.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
@@ -96,58 +94,65 @@ class _ReelsViewerState extends State<ReelsViewer> {
     return Scaffold(
       backgroundColor: Colors.black26,
       body: SafeArea(
-        child: Stack(
-          children: [
-            //We need swiper for every content
-            Swiper(
-              itemBuilder: (BuildContext context, int index) {
-                return ReelsPage(
-                  userView: widget.userView,
-                  item: widget.reelsList[index],
-                  onClickMoreBtn: widget.onClickMoreBtn,
-                  onComment: widget.onComment,
-                  onFollow: widget.onFollow,
-                  onLike: widget.onLike,
-                  onShare: widget.onShare,
-                  showVerifiedTick: widget.showVerifiedTick,
-                  swiperController: controller,
-                  showProgressIndicator: widget.showProgressIndicator,
-                );
-              },
-              controller: controller,
-              itemCount: widget.reelsList.length,
-              scrollDirection: Axis.vertical,
-              onIndexChanged: widget.onIndexChanged,
-            ),
-            if (widget.showAppbar)
-              Container(
-                color: Colors.black26,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-
-                    SizedBox(
-                      width: ConfigSize.defaultSize!*2.4,
-                    ),
-
-
-                    Text(
-                      widget.appbarTitle ?? StringManager.reelsView.tr(),
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white
-                      ),
-                    ),
-
-
-                  IconButton(onPressed: (){
-                     Navigator.pushNamed(context, Routes.uploadReels);
-                  }, icon: Icon(Icons.add , color: Colors.white, size: ConfigSize.defaultSize!*3,))
-                  ],
+        child: SizedBox(
+          
+          child: Stack(
+            children: [
+              //We need swiper for every content
+              Padding(
+                padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
+                child: Swiper(
+                  itemBuilder: (BuildContext context, int index) {
+                    return ReelsPage(
+                      userView: widget.userView,
+                      item: widget.reelsList[index],
+                      onClickMoreBtn: widget.onClickMoreBtn,
+                      onComment: widget.onComment,
+                      onFollow: widget.onFollow,
+                      onLike: widget.onLike,
+                      onShare: widget.onShare,
+                      showVerifiedTick: widget.showVerifiedTick,
+                      swiperController: controller,
+                      showProgressIndicator: widget.showProgressIndicator,
+                    );
+                  },
+                  controller: controller,
+                  itemCount: widget.reelsList.length,
+                  scrollDirection: Axis.vertical,
+                  onIndexChanged: widget.onIndexChanged,
                 ),
               ),
-          ],
+              if (widget.showAppbar)
+                Container(
+                  height: ConfigSize.defaultSize!*6.4,
+                  color: Colors.black26,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+        
+                      SizedBox(
+                        width: ConfigSize.defaultSize!*2.4,
+                      ),
+        
+        
+                      Text(
+                        widget.appbarTitle ?? 'Reels View',
+                        style:  TextStyle(
+                          fontSize: ConfigSize.defaultSize!*2.2,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white
+                        ),
+                      ),
+        
+        
+                    IconButton(onPressed: (){
+                       Navigator.pushNamed(context, Routes.uploadReels);
+                    }, icon: Icon(Icons.add , color: Colors.white, size: ConfigSize.defaultSize!*3,))
+                    ],
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

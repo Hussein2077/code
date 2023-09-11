@@ -6,8 +6,7 @@ import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 
 class ConstentApi {
   static const String baseUrl = "https://test.tik-chat.com/api";
-    // static const String baseUrl = "https://tik-chat.com/api";
-
+ // static const String baseUrl = "https://tik-chat.com/api";
   static const String getBoxes = "$baseUrl/box/list";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
@@ -140,12 +139,31 @@ class ConstentApi {
  
 
 }
+          static String deleteMomentComment(String momentId , String comment) {
+
+     return "$baseUrl/moment/$momentId/comment/$comment";
+
+
+ 
+
+}
+
+    static String getMomentComment(String momentId , String page) {
+
+     return "$baseUrl/moment/$momentId/comment?page=$page";
+
+
+ 
+
+}
 
 
 static String getReel({String? reelId ,String? page}) {
   if(reelId == null){
     return "$baseUrl/reals?page=$page";
   }else{
+
+
     return "$baseUrl/reals/$reelId";
   }
 
@@ -261,7 +279,8 @@ static String makeReelLike(String reelId ) {
   String getVipCenter({required String level}) =>
       "$baseUrl/vip_center?level=$level";
 
-  // String getImage(imageUrl) => "https://dragon-chat-app.com/storage/$imageUrl";https://storage.googleapis.com/tik-chat/
+  // String getImage(imageUrl) => "https://dragon-chat-app.com/storage/$imageUrl";
+
   String getImage(imageUrl) =>
       "https://storage.googleapis.com/tik-chat/$imageUrl";
 

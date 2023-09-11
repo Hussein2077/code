@@ -1,9 +1,7 @@
-import 'dart:developer';
-import 'package:bottom_nav_layout/bottom_nav_layout.dart';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +31,8 @@ import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dart';
+import 'package:tik_chat_v2/splash.dart';
 
 import '../core/resource_manger/asset_path.dart';
 import 'widget/bottom_bar_widget.dart';
@@ -50,8 +50,10 @@ class MainScreen extends StatefulWidget {
 
   final bool? isUpdate;
 
+  final Uri?  actionDynamicLink ;
+
   static ValueNotifier<bool> iskeepInRoom = ValueNotifier<bool>(false);
-  static int initPage = 0;
+
   static EnterRoomModel? roomData;
   static String reelId = '' ;
 
@@ -62,6 +64,7 @@ class MainScreen extends StatefulWidget {
       this.isChachGift,
       this.isCachEntro,
       this.isCachEmojie,
+      this.actionDynamicLink,
       super.key});
 
   @override
@@ -75,13 +78,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    initDynamicLinks();
+
     listenToInternet();
     initPusher();
     animationController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     )..repeat();
+
+
+
     super.initState();
   }
 
@@ -106,6 +112,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   isUpdate: widget.isUpdate,
                   isCachEmojie: widget.isCachEmojie,
                   isCachEntro: widget.isCachEntro,
+                  actionDynamicLink: widget.actionDynamicLink,
+
                 ),
             (_) => const ReelsScreen(),
             (_) => const FollowingLiveScreen(),
@@ -118,7 +126,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           ),
           savePageState: true,
           lazyLoadPages: true,
-          pageStack: ReorderToFrontPageStack(initialPage: MainScreen.initPage),
+          pageStack: ReorderToFrontPageStack(initialPage: SplashScreen.initPage),
           extendBody: false,
           resizeToAvoidBottomInset: true,
           pageTransitionData: null,
@@ -156,12 +164,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       onTap: () async {
                         bottomDailog(
                             context: context,
-                            widget: InkWell(
-                                onTap: () {},
-                                child: TransparentLoadingWidget(
+                            widget:  TransparentLoadingWidget(
                                   height: ConfigSize.defaultSize!*2,
                                   width: ConfigSize.defaultSize!*7.2,
-                                )));
+                                ));
 
                         await Methods().exitFromRoom(
                             MainScreen.roomData!.ownerId.toString());
@@ -215,60 +221,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     });
   }
 
-  initDynamicLinks() async {
-    final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks
-        .instance.getInitialLink();
-    log('actio');
-    if(initialLink != null){
-      log('actio2');
-      handleDeepLink(initialLink);
-    }
-    FirebaseDynamicLinks.instance.onLink;
-  }
 
-  void handleDeepLink(PendingDynamicLinkData data) async {
-    final Uri deepLink = data.link;
-    final String? action = deepLink.queryParameters['action'];
-    final String? ownerId = deepLink.queryParameters['owner_id'];
-    final String? password = deepLink.queryParameters['password'];
-    final String? userId = deepLink.queryParameters['owner_id'];
-    final String? reelId = deepLink.queryParameters['reel_id'];
-    log('action$action');
-    if(action =='enter_room'){
-      enterRoomDynamicLink(password: password, ownerId:ownerId );
-    }else if (action =='visit_user'){
-      visitUserProfileDynamicLink(userId: userId) ;
-    }else if (action =='show_reel'){
-      showReelDynamicLink(reelId:reelId);
-    }
 
-  }
-
-  void enterRoomDynamicLink({ String? password, String? ownerId })async {
-    if(password=='1'){
-      await  Methods().checkIfRoomHasPassword(
-          myData :MyDataModel.getInstance() ,
-          context: context,
-          hasPassword: password=='1' ,
-          ownerId: ownerId!);
-    }else{
-      Navigator.pushNamed(context, Routes.roomHandler,
-          arguments: RoomHandlerPramiter(ownerRoomId: ownerId!,
-              myDataModel: MyDataModel.getInstance())) ;
-
-    }
-  }
-
-  void visitUserProfileDynamicLink ({String? userId }){
-    Methods().userProfileNvgator(context: context,userId:userId );
-
-  }
-
-  void showReelDynamicLink({String? reelId}){
-    MainScreen.initPage =1 ;
-    MainScreen.reelId = reelId??'' ;
-
-  }
 
   void initPusher()async {
     HomeScreen.pusherService.initPusher(

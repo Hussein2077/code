@@ -80,9 +80,9 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
                 width: ConfigSize.defaultSize!*7.2,
               );
             } else if (state is GetUserSucssesState) {
+              RoomScreen.usersInRoom.removeWhere((key, value) => key == state.data.id.toString());
               RoomScreen.usersInRoom
                   .putIfAbsent(state.data.id.toString(), () => state.data);
-
               return UserProfileInRoom(
                        myData: widget.myData,
                   roomData: widget.roomData,
@@ -90,8 +90,6 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
                   layoutMode: widget.layoutMode
 
               );
-              
-     
             } else if (state is GetUserErorrState) {
               //todo update this show
               return Text(state.error);

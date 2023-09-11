@@ -91,7 +91,9 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_comment_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
@@ -155,9 +157,11 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_co
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_add_moment/add_moment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_moment/delete_moment_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment_comment/get_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
@@ -457,11 +461,18 @@ class ServerLocator {
                 getIt.registerFactory(() => DeleteMomentBloc(deleteMomentUseCase: getIt()));
 
                 getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
+                getIt.registerFactory(() => DeleteMomentCommentBloc(deleteMomentCommentUseCase: getIt()));
+                getIt.registerFactory(() => GetMomentCommentBloc(getMomentCommentUseCase: getIt()));
 
 
     
 
 //usecase
+
+   getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRepositoryProfile: getIt()));
+
+   getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRepositoryProfile: getIt()));
+
    getIt.registerLazySingleton(() => GetMomentUseCase(baseRepositoryProfile: getIt()));
 
    getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRepositoryProfile: getIt()));

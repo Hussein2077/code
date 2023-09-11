@@ -87,9 +87,11 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_add_moment/add_moment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_moment/delete_moment_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment_comment/get_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
@@ -394,6 +396,8 @@ class MyApp extends StatelessWidget {
                                                                 BlocProvider(create: (_) => getIt<AddMomentBloc>()),
                                                                 BlocProvider(create: (_) => getIt<DeleteMomentBloc>()),
                                                                 BlocProvider(create: (_) => getIt<GetMomentBloc>()),
+                                                                BlocProvider(create: (_) => getIt<DeleteMomentCommentBloc>()),
+                                                                BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
 
 
 

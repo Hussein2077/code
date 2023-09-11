@@ -121,6 +121,7 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
 
                                 "${widget.room.roomRule}",
                                 style: TextStyle(color: ColorManager.textRoomComment ,fontSize: 24.sp),
+                                overflow: TextOverflow.fade,
                               ),
 
                             ),

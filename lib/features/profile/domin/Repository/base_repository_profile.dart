@@ -23,7 +23,8 @@ import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
-import 'package:tik_chat_v2/features/profile/data/model/moment_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/moment/moment_comment_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/moment/moment_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -41,6 +42,8 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.da
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_comment_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_comment_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -216,6 +219,8 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> deleteMoment(String momentId);
   Future<Either<List<MomentModel>, Failure>> getMoment(String userId);
   Future<Either<String, Failure>> addMomentComment(AddMomentCommentPrameter addMomentCommentPrameter );
-Future<Either<String,Failure>>makeMomentLike(String momentId);
+  Future<Either<String, Failure>> deleteMomentComment(DeleteMomentCommentPrameter deleteMomentCommentPrameter );
+  Future<Either<List<MomentCommentModel>,Failure>> getMomentComment(GetMomentCommentPrameter getMomentCommentPrameter);
+
 
 }

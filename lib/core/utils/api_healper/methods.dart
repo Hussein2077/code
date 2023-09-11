@@ -8,7 +8,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
@@ -38,8 +37,6 @@ import 'package:tik_chat_v2/features/room/domine/use_case/exist_room_uc.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/buttons/gifts/widgets/gift_view_biger.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/view_music/music_list.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
@@ -679,18 +676,16 @@ class Methods {
         }
 
 
-   void userProfileNvgator ({required BuildContext context ,    String ? userId ,
+   void userProfileNvgator ({required BuildContext context , String ? userId ,
             UserDataModel ? userData , }){
     if(userId==null && userData==null){
-      Navigator.pushNamed(context, Routes.userProfile,
-               );
+      Navigator.pushNamed(context,Routes.userProfile);
     }else if (userId !=null){
       if(userId !=MyDataModel.getInstance().id.toString()){
-  Navigator.pushNamed(context, Routes.userProfile,
+    Navigator.pushNamed(context, Routes.userProfile,
                 arguments: UserProfilePreamiter(null, userId));
       }else {
-          Navigator.pushNamed(context, Routes.userProfile,
-               );
+          Navigator.pushNamed(context, Routes.userProfile,);
       }
 
     }else if (userData !=null){

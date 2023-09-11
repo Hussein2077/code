@@ -49,6 +49,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_box
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_states.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_events.dart';
+import 'package:tik_chat_v2/splash.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
 
 import '../../../core/utils/config_size.dart';
@@ -154,10 +155,10 @@ const String mute = 'mute';
 const String showYallowBanner = "yellowBanner";
 
 
-const String appSign =
+ String appSign =SplashScreen.appSign??
     "bb61a6e81736c136dac6e2afc46e71642e8eaf35cdbe713d0ced6aa139ac3faa";
 
-const int appID = 1442956895;
+ int appID =SplashScreen.appId?? 1442956895;
 
 class GiftData {
   final String giftId;

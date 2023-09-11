@@ -1,23 +1,30 @@
 import 'dart:async';
 import 'dart:developer';
-
+import 'package:app_links/app_links.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_confige_uc.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  static bool isDark = false ; 
+  static bool isDark = false ;
+  static int initPage = 0;
+  static Uri? dynamicLink ;
   const SplashScreen({super.key});
+  static String? appSign ; 
+  static int? appId ; 
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -29,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    
+
         loadResources().then((value)async {
             if(configModel == null){
               errorToast(context: context, title: StringManager.unexcepectedError.tr());
@@ -43,6 +50,8 @@ class _SplashScreenState extends State<SplashScreen> {
             }
             else if (!(configModel!.isLastVersion??false)
                 &&(configModel!.isAuth??false)){
+              await      initDynamicLinks() ;
+               log("SplashScreen.dynamicLink"+SplashScreen.dynamicLink.toString());
               Navigator.pushNamedAndRemoveUntil(
                   context, Routes.mainScreen, (route) => false ,
                   arguments:MainPramiter(
@@ -51,7 +60,9 @@ class _SplashScreenState extends State<SplashScreen> {
                       isCachEntro: configModel!.updateEntroCach,
                       isCachExtra: configModel!.updateExtraCach,
                       isCachFrame: configModel!.updateFrameCach,
-                      isChachGift: configModel!.updateGiftCache
+                      isChachGift: configModel!.updateGiftCache,
+                    actionDynamicLink: SplashScreen.dynamicLink
+
                   ) );
             }
             else if(!(configModel!.isAuth??false)){
@@ -62,6 +73,8 @@ class _SplashScreenState extends State<SplashScreen> {
                       isUpdate:false));
             }
             else if ((configModel!.isAuth??false)){
+              await      initDynamicLinks();
+              log("SplashScreen.dynamicLink"+SplashScreen.dynamicLink.toString());
               if(kDebugMode){
                 log("configModel1${configModel!.updateEntroCach}");
                 log("configModel1${configModel!.updateGiftCache}");
@@ -77,11 +90,12 @@ class _SplashScreenState extends State<SplashScreen> {
                       isCachEntro: configModel!.updateEntroCach,
                       isCachExtra: configModel!.updateExtraCach,
                       isCachFrame: configModel!.updateFrameCach,
-                      isChachGift: configModel!.updateGiftCache
+                      isChachGift: configModel!.updateGiftCache,
+                      actionDynamicLink: SplashScreen.dynamicLink
+
                   ) );
             }
         });
-
 
     super.initState();
   }
@@ -128,10 +142,58 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
 
+  initDynamicLinks() async {
+
+    final _appLinks = AppLinks();
+
+    SplashScreen.dynamicLink = await _appLinks.getLatestAppLink();
+
+    if(SplashScreen.dynamicLink != null){
+      await handleDeepLink(SplashScreen.dynamicLink);
+    }
+
+
+  }
+
+
+  Future<void> handleDeepLink(Uri?  data) async {
+    final Uri? deepLink = data;
+    final String? action = deepLink?.queryParameters['action'];
+    final String? reelId = deepLink?.queryParameters['reel_id'];
 
 
 
+    log('action$action');
+    if(action =='show_reel'){
+      log("handleDeepLink reelId $reelId");
+      showReelDynamicLink(reelId: reelId);
+    }
+  }
 
+  void enterRoomDynamicLink({ String? password, String? ownerId })async {
+    if(password=='1'){
+      await  Methods().checkIfRoomHasPassword(
+          myData :MyDataModel.getInstance() ,
+          context: context,
+          hasPassword: password=='1' ,
+          ownerId: ownerId!);
+    }else{
+      Navigator.pushNamed(context, Routes.roomHandler,
+          arguments: RoomHandlerPramiter(ownerRoomId: ownerId!,
+              myDataModel: MyDataModel.getInstance())) ;
+    }
+  }
+
+  void visitUserProfileDynamicLink ({String? userId }){
+    Methods().userProfileNvgator(context: context,userId:userId );
+  }
+
+  void showReelDynamicLink({String? reelId}){
+    MainScreen.reelId = reelId??'';
+    SplashScreen.initPage =1;
+    log("in show reel2");
+
+  }
 
   Future<void> loadResources() async {
     
@@ -139,7 +201,12 @@ class _SplashScreenState extends State<SplashScreen> {
         homeRepo: getIt()).call(ConfigModelBody(
         appVersion: StringManager.versionApp.toString(),
     ));
-    result.fold((l) => configModel =l,(r) => errorMessage = DioHelper().getTypeOfFailure(r));
+    result.fold((l){
+      SplashScreen.appId = l.appId ; 
+      SplashScreen.appSign = l.appSign ; 
+      configModel =l;
+    
+    },(r) => errorMessage = DioHelper().getTypeOfFailure(r));
 
   }
 

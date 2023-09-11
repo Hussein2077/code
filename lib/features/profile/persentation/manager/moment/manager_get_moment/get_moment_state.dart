@@ -1,6 +1,6 @@
 
 import 'package:equatable/equatable.dart';
-import 'package:tik_chat_v2/features/profile/data/model/moment_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/moment/moment_model.dart';
 
 abstract class GetMomentState extends Equatable {
   const GetMomentState();

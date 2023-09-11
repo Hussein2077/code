@@ -49,7 +49,7 @@ class ReelsPage extends StatefulWidget {
   State<ReelsPage> createState() => _ReelsPageState();
 }
 
-class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
+class _ReelsPageState extends State<ReelsPage>{
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _liked = false;
@@ -57,7 +57,7 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
       initializePlayer().then((value) => ReelsPage.videoPlayerController = _videoPlayerController);
@@ -71,6 +71,7 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
          try{
            final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
            if(file?.file !=null){
+             ReelsPage.isVideoPause.value = false ;
              _videoPlayerController = VideoPlayerController.file(file!.file);
              if(kDebugMode){
                log("in cache reels");
@@ -117,7 +118,8 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
     if (_chewieController != null) {
       _chewieController!.dispose();
     }
-   WidgetsBinding.instance.removeObserver(this);
+
+
     super.dispose();
   }
 
@@ -239,8 +241,8 @@ class _ReelsPageState extends State<ReelsPage>  with WidgetsBindingObserver  {
              return IgnorePointer(
              child:Container(
              color: Colors.grey.withOpacity(0.2),
-    alignment: Alignment.center,
-    child:  Icon(CupertinoIcons.play_fill,size: ConfigSize.defaultSize!*11.5,color: Colors.white.withOpacity(0.7),),
+           alignment: Alignment.center,
+          child:  Icon(CupertinoIcons.play_fill,size: ConfigSize.defaultSize!*11.5,color: Colors.white.withOpacity(0.7),),
     )) ;
     }else{
         return const SizedBox();
