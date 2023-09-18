@@ -115,17 +115,14 @@ class Routes {
   static const String charchingDolarsForUsers = "/CharchingDolarsForUsers";
   static const String chargeFromSystemHistory = "/ChargeFromSystemHistory";
 
-    static const String chargeAgencyOwnerHistory = "/ChargeAgencyOwnerHistory";
-        static const String interstedScreen = "/interstedScreen";
+  static const String chargeAgencyOwnerHistory = "/ChargeAgencyOwnerHistory";
+  static const String interstedScreen = "/interstedScreen";
   static const String roomHandler = '/roomHandler';
-    static const String privacySettings = "/privicySettening";
+  static const String privacySettings = "/privicySettening";
   static const String webView = "/webView";
   static const String myVideosScreen = "/MyVideosScreen";
 
   static const String userReelView = "/userReelView";
-
-
-
 }
 
 class RouteGenerator {
@@ -166,15 +163,13 @@ class RouteGenerator {
                   isCachEntro: mainPramiter?.isCachEntro,
                   isCachEmojie: mainPramiter?.isCachEmojie,
                   isUpdate: mainPramiter?.isUpdate,
-                actionDynamicLink: mainPramiter?.actionDynamicLink,
+                  actionDynamicLink: mainPramiter?.actionDynamicLink,
                 ));
       case Routes.topUsersScreen:
         return MaterialPageRoute(builder: (_) => const TopUsersScreen());
       case Routes.userProfile:
-      
-      
-                                UserProfilePreamiter? pram = settings.arguments as UserProfilePreamiter?;
-
+        UserProfilePreamiter? pram =
+            settings.arguments as UserProfilePreamiter?;
 
         return MaterialPageRoute(
             builder: (_) => UserProfile(
@@ -182,9 +177,12 @@ class RouteGenerator {
                   userData: pram?.userData,
                 ));
       case Routes.giftGallery:
-              int? userId = settings.arguments as int?;
+        int? userId = settings.arguments as int?;
 
-        return MaterialPageRoute(builder: (_) =>  GiftGallery(userId:userId ,));
+        return MaterialPageRoute(
+            builder: (_) => GiftGallery(
+                  userId: userId,
+                ));
       case Routes.editInfo:
         MyDataModel myDataModel = settings.arguments as MyDataModel;
         return MaterialPageRoute(
@@ -204,15 +202,16 @@ class RouteGenerator {
                   type: type,
                 ));
       case Routes.roomHandler:
-        RoomHandlerPramiter roomHandlerPramiter = settings.arguments as RoomHandlerPramiter;
+        RoomHandlerPramiter roomHandlerPramiter =
+            settings.arguments as RoomHandlerPramiter;
         return MaterialPageRoute(
-            builder: (_) =>  SafeArea(
+            builder: (_) => SafeArea(
                 child: HandlerRoomScreen(roomPramiter: roomHandlerPramiter)));
       case Routes.roomScreen:
         RoomPramiter roomPramiter = settings.arguments as RoomPramiter;
         return MaterialPageRoute(
             builder: (_) => SafeArea(
-                child: RoomScreen(
+                    child: RoomScreen(
                   room: roomPramiter.roomModel,
                   myDataModel: roomPramiter.myDataModel,
                   isHost: roomPramiter.isHost,
@@ -221,7 +220,7 @@ class RouteGenerator {
         MyDataModel myDataModel = settings.arguments as MyDataModel;
         return MaterialPageRoute(
             builder: (_) => MyBagScreen(
-              myDataModel: myDataModel,
+                  myDataModel: myDataModel,
                 ));
       case Routes.mall:
         return MaterialPageRoute(builder: (_) => const MallScreen());
@@ -260,7 +259,8 @@ class RouteGenerator {
                 ));
 
       case Routes.familyMembers:
-        MemberFamilyDataModel ownerData = settings.arguments as MemberFamilyDataModel;
+        MemberFamilyDataModel ownerData =
+            settings.arguments as MemberFamilyDataModel;
         return MaterialPageRoute(
             builder: (_) => FamilyMemberScreen(
                   owner: ownerData,
@@ -340,7 +340,7 @@ class RouteGenerator {
         MusicPramiter pramiter = settings.arguments as MusicPramiter;
         return MaterialPageRoute(
             builder: (_) => SafeArea(
-                child: MusicScreen(
+                    child: MusicScreen(
                   ownerId: pramiter.ownerId,
                   refrashRoom: pramiter.refresh,
                 )));
@@ -348,38 +348,49 @@ class RouteGenerator {
       case Routes.charchingDolarsForUsers:
         return MaterialPageRoute(builder: (_) => CharchingDolarsForUsers());
 
-          case Routes.chargeFromSystemHistory:
-        return MaterialPageRoute(builder: (_) => const ChargeFromSystemHistory());
+      case Routes.chargeFromSystemHistory:
+        return MaterialPageRoute(
+            builder: (_) => const ChargeFromSystemHistory());
 
-
-                  case Routes.chargeAgencyOwnerHistory:
-        return MaterialPageRoute(builder: (_) => const ChargeAgencyOwnerHistory());
-                         case Routes.interstedScreen:
+      case Routes.chargeAgencyOwnerHistory:
+        return MaterialPageRoute(
+            builder: (_) => const ChargeAgencyOwnerHistory());
+      case Routes.interstedScreen:
         return MaterialPageRoute(builder: (_) => const InterstedScreen());
-          case Routes.privacySettings:
+      case Routes.privacySettings:
         MyDataModel userData = settings.arguments as MyDataModel;
 
         return MaterialPageRoute(
-            builder: (_) =>  SafeArea(child: PrivacySetting(myData:userData ,)));
+            builder: (_) => SafeArea(
+                    child: PrivacySetting(
+                  myData: userData,
+                )));
       case Routes.webView:
-        WebViewPramiter webViewPramiter = settings.arguments as WebViewPramiter ;
+        WebViewPramiter webViewPramiter = settings.arguments as WebViewPramiter;
         return MaterialPageRoute(
             builder: (_) => WebView(
-              url: webViewPramiter.url,
-              title:  webViewPramiter.title,
-              titleColor: webViewPramiter.titleColor,
-            ));
+                  url: webViewPramiter.url,
+                  title: webViewPramiter.title,
+                  titleColor: webViewPramiter.titleColor,
+                ));
 
-                 case Routes.userReelView:
+      case Routes.userReelView:
         ReelsUserPramiter pram = settings.arguments as ReelsUserPramiter;
 
         return MaterialPageRoute(
-            builder: (_) =>  SafeArea(child: UserReelView(userDataModel: pram.userDataModel, startIndex: pram.startIndex,)));
+            builder: (_) => SafeArea(
+                    child: UserReelView(
+                  userDataModel: pram.userDataModel,
+                  startIndex: pram.startIndex,
+                )));
       case Routes.myVideosScreen:
         UserDataModel pram = settings.arguments as UserDataModel;
 
-
-        return MaterialPageRoute(builder: (_) => SafeArea(child:  MyVideosScreen(userDataModel:pram ,)));
+        return MaterialPageRoute(
+            builder: (_) => SafeArea(
+                    child: MyVideosScreen(
+                  userDataModel: pram,
+                )));
     }
 
     return unDefinedRoute();
@@ -404,19 +415,19 @@ class OtpScreenParameter {
 class LoginPramiter {
   final bool? isUpdate;
   final bool? isForceUpdate;
+
   const LoginPramiter(
       {required this.isForceUpdate, required this.isUpdate, Key? key});
 }
 
-class MainPramiter  {
+class MainPramiter {
   final bool? isChachGift;
   final bool? isCachFrame;
   final bool? isCachExtra;
   final bool? isCachEntro;
   final bool? isCachEmojie;
   final bool? isUpdate;
-  final Uri?  actionDynamicLink ;
-
+  final Uri? actionDynamicLink;
 
   MainPramiter(
       {this.isCachEmojie,
@@ -425,8 +436,7 @@ class MainPramiter  {
       this.isCachExtra,
       this.isCachFrame,
       this.isChachGift,
-      this.actionDynamicLink
-      });
+      this.actionDynamicLink});
 }
 
 class RoomPramiter {
@@ -437,43 +447,54 @@ class RoomPramiter {
   final bool isHost;
 
   const RoomPramiter(
-      {required this.roomModel, required this.myDataModel, required this.isHost});
+      {required this.roomModel,
+      required this.myDataModel,
+      required this.isHost});
 }
-class RoomHandlerPramiter {
-  final String ownerRoomId ;
-  final String passwordRoom ;
-  final MyDataModel myDataModel ;
 
-  RoomHandlerPramiter({required this.ownerRoomId, this.passwordRoom='',required this.myDataModel});
+class RoomHandlerPramiter {
+  final String ownerRoomId;
+
+  final String passwordRoom;
+
+  final MyDataModel myDataModel;
+
+  RoomHandlerPramiter(
+      {required this.ownerRoomId,
+      this.passwordRoom = '',
+      required this.myDataModel});
 }
 
 class MusicPramiter {
   final void Function() refresh;
   final String ownerId;
 
- const  MusicPramiter({required this.refresh, required this.ownerId});
+  const MusicPramiter({required this.refresh, required this.ownerId});
 }
 
 class UserProfilePreamiter {
-  String ? userId ; 
-  UserDataModel ? userData ; 
-  UserProfilePreamiter (this.userData , this.userId);
+  String? userId;
 
+  UserDataModel? userData;
+
+  UserProfilePreamiter(this.userData, this.userId);
 }
 
 class WebViewPramiter {
-  final String url ;
-  final String title ;
-  final Color titleColor ;
+  final String url;
 
-  WebViewPramiter({required this.url,required this.title,required this.titleColor});
+  final String title;
+
+  final Color titleColor;
+
+  WebViewPramiter(
+      {required this.url, required this.title, required this.titleColor});
 }
 
-
 class ReelsUserPramiter {
-final int startIndex ;     
+  final int startIndex;
 
-      final UserDataModel userDataModel ;
+  final UserDataModel userDataModel;
 
   const ReelsUserPramiter(
       {required this.startIndex, required this.userDataModel, Key? key});
