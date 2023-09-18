@@ -752,14 +752,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_vap:
-    dependency: "direct main"
-    description:
-      name: flutter_vap
-      sha256: "7c647ca319187776692b4ef94a49b7c84ad69412e580b0607a1bcd98c0d3a3b2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter

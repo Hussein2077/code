@@ -32,3 +32,21 @@ class GiftesCountryEvent extends GiftEvent {
   @override
   List<Object?> get props => [type];
 }
+
+class GiftesFamousEvent extends GiftEvent {
+ int type ;
+
+ GiftesFamousEvent({required this.type});
+
+ @override
+ List<Object?> get props => [type];
+}
+
+class GiftesLuckyEvent extends GiftEvent {
+ int type ;
+
+ GiftesLuckyEvent({required this.type});
+
+ @override
+ List<Object?> get props => [type];
+}

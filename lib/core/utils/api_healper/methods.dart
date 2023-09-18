@@ -558,7 +558,14 @@ class Methods {
           await setCachingVideo(cachingVideos:PageViewGeftWidget.chachedGiftMp4,key: StringManager.cachGiftKey) ;
 
         }
+        Future<void> cacheMp4({required int vedioId,required String vedioUrl})async {
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String rootPath = appDocDir.path ;
+      String path = "$rootPath/$vedioId.mp4";
 
+      await _download(img: vedioUrl, giftId: vedioId,path: path) ;
+
+    }
         Future<MovieEntity> getCachedSvgaImage( String giftId, String url) async {
 
           final cacheManager =  getIt<DefaultCacheManager>() ;
@@ -679,7 +686,6 @@ class Methods {
           // ignore: use_build_context_synchronously
           sucssesToast(context: context, title: StringManager.clearDataDone.tr());
         }
-
         Future<void> removeFileFromChach({required String key})async{
           final cacheManager =  getIt<DefaultCacheManager>() ;
           if(await cacheManager.getFileFromCache(key) != null){

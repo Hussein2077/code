@@ -69,7 +69,6 @@ dependencies:
   easy_localization: ^3.0.0
   platform_device_id: ^1.0.1
   url_launcher: ^6.1.11
-  flutter_vap: ^1.1.0
   svgaplayer_flutter: ^2.2.0
   flutter_screenutil: ^5.6.0
   flutter_styled_toast: ^2.1.3

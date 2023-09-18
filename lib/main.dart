@@ -368,7 +368,11 @@ class MyApp extends StatelessWidget {
             create: (_) => getIt<GiftBloc>()
               ..add(GiftesNormalEvent(type: 1))
               ..add(GiftesHotEvent(type: 2))
-              ..add(GiftesCountryEvent(type: 3))),
+              ..add(GiftesCountryEvent(type: 3))
+              ..add(GiftesFamousEvent(type: 5))
+              ..add(GiftesLuckyEvent(type: 6))
+
+        ),
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
         BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),
         BlocProvider(create: (_) => getIt<PKBloc>()),

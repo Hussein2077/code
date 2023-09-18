@@ -143,6 +143,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.bio: "نبذة",
     StringManager.interests: "الاهتمامات",
     StringManager.country: "البلد",
+    StringManager.famousGifts : "هدايا المشاهير",
+    StringManager.luckyGifts:'هدايا الحظ',
     StringManager.addImage: "إضافة صورة",
     StringManager.balance: "الرصيد",
     StringManager.recharge: "شحن",

@@ -4,7 +4,6 @@ import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
 
 
 
-
 class GiftsStates extends Equatable {
   final List<GiftsModel> dataNormal;
   final RequestState normalState;
@@ -15,17 +14,32 @@ class GiftsStates extends Equatable {
   final List<GiftsModel> dataCountry;
   final RequestState countryState;
   final String countryMessage;
+  final List<GiftsModel> dataFamous;
+  final RequestState famousState;
+  final String famousMessage;
+  final List<GiftsModel> dataLucky;
+  final RequestState luckyState;
+  final String luckyMessage;
 
-  const GiftsStates(
+ const GiftsStates(
       {this.hotMessage = "",
-      this.dataNormal = const [],
-      this.normalState = RequestState.loading,
-      this.normalMessage = "",
-      this.dataHot = const [],
-      this.hotState = RequestState.loading,
-      this.countryMessage = "",
-      this.countryState = RequestState.loading,
-      this.dataCountry = const []});
+        this.dataNormal = const [],
+        this.normalState = RequestState.loading,
+        this.normalMessage = "",
+        this.dataHot = const [],
+        this.hotState = RequestState.loading,
+        this.countryMessage = "",
+        this.countryState = RequestState.loading,
+        this.dataCountry = const [],
+        this.dataFamous = const [],
+        this.famousState = RequestState.loading,
+        this.famousMessage = "",
+        this.dataLucky = const [],
+        this.luckyMessage = '',
+        this.luckyState = RequestState.loading
+
+
+      });
 
   GiftsStates copyWith({
     List<GiftsModel>? dataNormal,
@@ -37,6 +51,13 @@ class GiftsStates extends Equatable {
     List<GiftsModel>? dataCountry,
     RequestState? countryState,
     String? countryMessage,
+    List<GiftsModel>? dataFamous,
+    RequestState? famousState,
+    String? famousMessage,
+    List<GiftsModel>? dataLucky,
+    RequestState? luckyState,
+    String? luckyMessage,
+
   }) {
     return GiftsStates(
         dataHot: dataHot ?? this.dataHot,
@@ -47,19 +68,34 @@ class GiftsStates extends Equatable {
         hotState: hotState ?? this.hotState,
         dataCountry: dataCountry ?? this.dataCountry,
         countryMessage: countryMessage ?? this.countryMessage,
-        countryState: countryState ?? this.countryState);
+        countryState: countryState ?? this.countryState,
+        dataFamous: dataFamous ?? this.dataFamous,
+        famousMessage: famousMessage?? this.famousMessage ,
+        famousState: famousState ?? this.famousState ,
+        dataLucky: dataLucky ?? this.dataLucky ,
+        luckyMessage: luckyMessage ?? this.luckyMessage ,
+        luckyState:  luckyState ?? this.luckyState
+
+
+    );
   }
 
   @override
   List<Object?> get props => [
-        dataNormal,
-        normalState,
-        normalMessage,
-        dataHot,
-        hotState,
-        hotMessage,
-        countryState,
-        countryMessage,
-        dataCountry
-      ];
+    dataNormal,
+    normalState,
+    normalMessage,
+    dataHot,
+    hotState,
+    hotMessage,
+    countryState,
+    countryMessage,
+    dataCountry,
+    famousMessage ,
+    famousState ,
+    dataFamous,
+    dataLucky,
+    luckyState,
+    luckyMessage
+  ];
 }

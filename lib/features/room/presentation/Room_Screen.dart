@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_vap/flutter_vap.dart';
 import 'package:svgaplayer_flutter/parser.dart';
 import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,6 +59,8 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/command
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:video_player/video_player.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 
@@ -116,7 +118,8 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<int>  updateMessgasList = ValueNotifier<int>(0);
   static ValueNotifier<int> updatebuttomBar = ValueNotifier<int>(0);
   static ValueNotifier<String> imgbackground = ValueNotifier<String>("");
-    static List<YallowBannerData> listofAnimationYallowBanner =[];
+  static List<YallowBannerData> listofAnimationYallowBanner =[];
+  static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
 
 
 
@@ -145,7 +148,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   late AnimationController controllerEntro; // entro animation
   late Animation<Offset> offsetAnimationEntro;
   late final AnimationController controllerMusice;
-  late VapController vapViewController;
+  VideoPlayerController? mp4Controller;
   late LayoutMode layoutMode;
   StreamController<List<LuckyBoxData>> luckyBoxAddecontroller = StreamController.broadcast();
   StreamController<List<LuckyBoxData>> luckyBoxRemovecontroller = StreamController.broadcast();
@@ -558,30 +561,54 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Future<void> loadMp4Gift({required GiftData giftData}) async {
 
     RoomScreen.isGiftEntroAnimating = true;
-    if (giftData.showBanner)
-    {
-        sendDataUser = giftData.senderData;
-        receiverDataUser = giftData.reciverData;
-        giftBanner = giftData.giftBanner;
-        giftImg = giftData.giftImg;
-        RoomScreen.showBanner.value = giftData.showBanner;
-        isPlural = giftData.isPlural;
-        numberOfGift = giftData.numberOfGift;
-        RoomScreen.roomGiftsPrice.value = giftData.roomGiftsPrice;
-
+    if (giftData.showBanner) {
+      sendDataUser = giftData.senderData;
+      receiverDataUser = giftData.reciverData;
+      giftBanner = giftData.giftBanner;
+      giftImg = giftData.giftImg;
+      RoomScreen.showBanner.value = giftData.showBanner;
+      isPlural = giftData.isPlural;
+      numberOfGift = giftData.numberOfGift;
+      RoomScreen.roomGiftsPrice.value = giftData.roomGiftsPrice;
     } else {
       RoomScreen.roomGiftsPrice.value = giftData.roomGiftsPrice;
     }
 
-    await VapController.playPath(giftData.localPath!).whenComplete(() {
-      if(giftData.showBanner&&RoomScreen.showBanner.value){
-        RoomScreen.showBanner.value = false;
-        controllerBanner.reverse();
+    if(giftData.localPath == null){
+      await  Methods().cacheMp4(vedioId:int.parse(giftData.giftId),
+          vedioUrl: giftData.giftImg).then((value) async{
+        Directory appDocDir = await getApplicationDocumentsDirectory();
+        String rootPath = appDocDir.path ;
+        String path = "$rootPath/${giftData.giftId}.mp4";
+        mp4Controller =   VideoPlayerController.file(File(path))..initialize();
+      });
+    }else{
+      mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
+        ..initialize();
+    }
+
+
+
+    mp4Controller!.addListener(() {
+      if (mp4Controller!.value.position >= mp4Controller!.value.duration) {
+        if (giftData.showBanner && RoomScreen.showBanner.value) {
+          RoomScreen.showBanner.value = false;
+          controllerBanner.reverse();
+        }
+
+        RoomScreen.isVideoVisible.value = false;
+
+        mp4Controller!.pause();
+        RoomScreen.isGiftEntroAnimating = false;
+        loadMoreAnimationMp4Gifts();
+
+        // mp4Controller!.dispose();
+      } else {
+        RoomScreen.isVideoVisible.value = true;
+        mp4Controller!.play();
       }
-      loadMoreAnimationMp4Gifts();
-    }).onError((error, stackTrace) {
-      RoomScreen.isGiftEntroAnimating= false ;
     });
+
   }
 
   Future<void> loadAnimationGift(GiftData giftData) async {
@@ -1561,14 +1588,22 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     left: ConfigSize.defaultSize! * 14,
                     child: SVGAImage(animationControllerBlueTeam,)),
                  Positioned(child: SVGAImage(animationControllerGift)),
-                 IgnorePointer(
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: ConfigSize.screenHeight,
-                    child: VapView(),
-                  ),
-                ),
-                 Positioned(
+                IgnorePointer(
+                  child: ValueListenableBuilder<bool>(
+                      valueListenable: RoomScreen.isVideoVisible,
+                      builder: (context, isShow, _) {
+                        if (isShow) {
+                          return AspectRatio(
+                            aspectRatio: mp4Controller!.value.aspectRatio,
+                            child: VideoPlayer(mp4Controller!),
+                          );
+                        } else {
+                          return   Container();
+                        }
+                      }) ,
+                )   ,
+
+                Positioned(
                     top: ConfigSize.defaultSize! * 35,
                     bottom: ConfigSize.defaultSize! * 7,
                     right: ConfigSize.defaultSize! * 7,

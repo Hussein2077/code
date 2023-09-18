@@ -19,6 +19,8 @@ class GiftBloc extends Bloc<GiftEvent,GiftsStates>
     on<GiftesNormalEvent>(gethotGift);
     on<GiftesHotEvent>(getNormalGift);
     on<GiftesCountryEvent>(getCountryGift);
+    on<GiftesFamousEvent>(getFamousGift);
+    on<GiftesLuckyEvent>(getLuckyGift) ;
   }
 
   FutureOr<void> gethotGift(GiftesNormalEvent event, Emitter<GiftsStates> emit)async {
@@ -47,4 +49,16 @@ class GiftBloc extends Bloc<GiftEvent,GiftsStates>
     result.fold((l) => emit(state.copyWith(dataCountry: l,countryState: RequestState.loaded)),
             (r) => emit(state.copyWith(countryMessage: DioHelper().getTypeOfFailure(r),countryState: RequestState.error)));
   }
+
+  FutureOr<void> getFamousGift(GiftesFamousEvent event, Emitter<GiftsStates> emit)async {
+    final result = await giftsUseCase.call(event.type);
+    result.fold((l) => emit(state.copyWith(dataFamous: l,famousState: RequestState.loaded)),
+            (r) => emit(state.copyWith(famousMessage: DioHelper().getTypeOfFailure(r),famousState: RequestState.error)));
+  }
+  FutureOr<void> getLuckyGift(GiftesLuckyEvent event, Emitter<GiftsStates> emit)async {
+    final result = await giftsUseCase.call(event.type);
+    result.fold((l) => emit(state.copyWith(dataLucky: l,luckyState: RequestState.loaded)),
+            (r) => emit(state.copyWith(luckyMessage: DioHelper().getTypeOfFailure(r),luckyState: RequestState.error)));
+  }
+
 }

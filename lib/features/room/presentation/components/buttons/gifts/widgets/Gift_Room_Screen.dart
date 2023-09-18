@@ -41,7 +41,7 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    giftControler = TabController(length: 3, vsync: this);
+    giftControler = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -93,7 +93,17 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
                                     fontWeight: FontWeight.w600)),
                             Text(StringManager.country.tr(),
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.w600))
+                                    fontWeight: FontWeight.w600)),
+                            Text(StringManager.famousGifts.tr(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600)
+                            ),
+                            Text(StringManager.luckyGifts.tr(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600)
+
+                            )
+
                           ]),
                     ),
                 Expanded(
@@ -122,6 +132,22 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
                       userCoins:
                           widget.myDataModel.myStore?.coins.toString()??'',
                          myData:widget.myDataModel
+                    ),
+                    PageViewGeftWidget(
+                        data: state.dataFamous,
+                        state: state.famousState,
+                        message: state.famousMessage,
+                        userCoins:
+                        widget.myDataModel.myStore?.coins.toString()??'',
+                        myData:widget.myDataModel
+                    ),
+                    PageViewGeftWidget(
+                        data: state.dataLucky,
+                        state: state.luckyState,
+                        message: state.luckyMessage,
+                        userCoins:
+                        widget.myDataModel.myStore?.coins.toString()??'',
+                        myData:widget.myDataModel
                     )
                   ]),
                 ),
