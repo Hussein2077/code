@@ -12,7 +12,7 @@ class EmptyWidget extends StatelessWidget {
     return
       Center(
         child: Container(
-          height: ConfigSize.screenHeight!*0.825,
+          height: ConfigSize.screenHeight!*0.7,
           alignment: Alignment.center,
           color: Colors.white,
           child: Text(

@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
 import 'package:tik_chat_v2/core/notifcation/firebase_messaging_background.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -30,6 +31,7 @@ import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/mode_screen/mode_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -122,6 +124,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/
 import 'package:tik_chat_v2/firebase_options.dart';
 
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
+import 'features/profile/persentation/manager/theme_bloc/theme_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -139,7 +142,9 @@ Future<void> main() async {
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await ServerLocator().init();
-
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('mode', ModeScreen.selectedMode);
+  final int? mode = prefs.getInt('mode');
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),
     supportedLocales: const [
@@ -361,7 +366,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<SendGiftBloc>(),
         ),
-        BlocProvider(create: (_) => getIt<MangerGetVipPrevBloc>()..add(getVipPrevEvent())),
+        BlocProvider(
+            create: (_) =>
+                getIt<MangerGetVipPrevBloc>()..add(getVipPrevEvent())),
         BlocProvider(create: (_) => getIt<GetMyBackgroundBloc>()),
         BlocProvider(create: (_) => getIt<AddRoomBackgroundBloc>()),
         BlocProvider(
@@ -401,16 +408,23 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
         BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
+        BlocProvider(create: (context) => ThemeCubit()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        supportedLocales: context.supportedLocales,
-        localizationsDelegates: context.localizationDelegates,
-        onGenerateRoute: RouteGenerator.getRoute,
-        locale: context.locale,
-        initialRoute: Routes.splash,
+      child:  BlocBuilder<ThemeCubit, ThemeToggle>(
+        builder: (context, themeToggle) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: themeToggle == ThemeToggle.light
+                ? lightTheme
+                : darkTheme,
+
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            onGenerateRoute: RouteGenerator.getRoute,
+            locale: context.locale,
+            initialRoute: Routes.splash,
+          );
+        }
       ),
     );
   }

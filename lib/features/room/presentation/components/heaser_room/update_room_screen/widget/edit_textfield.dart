@@ -9,14 +9,14 @@ class EditTextField extends StatefulWidget{
   String title;
   String hint;
   String? roomName;
-  EditTextField({required this.textFieldControler,required this.title,required this.hint, this.roomName});
+  EditTextField({super.key, required this.textFieldControler,required this.title,required this.hint, this.roomName});
 
   @override
   State<EditTextField> createState() => _EditTextFieldState();
 }
 
 class _EditTextFieldState extends State<EditTextField> {
-  late final TextEditingController textFieldControler=TextEditingController();
+  late  TextEditingController textFieldControler;
   late String title;
   late String hint;
   late String roomName;
@@ -26,6 +26,7 @@ class _EditTextFieldState extends State<EditTextField> {
     super.initState();
     title = widget.title;
     hint = widget.hint;
+    textFieldControler=TextEditingController();
     //roomName = widget.roomName;
   }
 
@@ -53,13 +54,12 @@ class _EditTextFieldState extends State<EditTextField> {
              setState(() {});
            },
            style: const TextStyle(color: ColorManager.mainColor),
-           controller: textFieldControler!,
+           controller: textFieldControler,
            cursorColor: ColorManager.mainColor,
            decoration: InputDecoration(
              hintText: hint!,
-
              //StringManager.updateRoomName.tr(),
-             hintStyle: const TextStyle(color: ColorManager.darkBlack),
+             hintStyle: const TextStyle(color: ColorManager.gray),
              border: InputBorder.none,
              disabledBorder: InputBorder.none,
              focusedBorder: InputBorder.none,
