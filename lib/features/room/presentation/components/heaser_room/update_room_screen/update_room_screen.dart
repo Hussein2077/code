@@ -257,15 +257,15 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
                 const Spacer(
                   flex: 1,
                 ),
-                const Divider(
-                  height: 1,
-                  thickness: 1,
-                  color: Colors.grey,
-                ),
+                // const Divider(
+                //   height: 1,
+                //   thickness: 1,
+                //   color: Colors.grey,
+                // ),
                 // EditFeaturesContainer(),
-                const Spacer(
-                  flex: 2,
-                ),
+                // const Spacer(
+                //   flex: 2,
+                // ),
               ],
             ),
           ),
