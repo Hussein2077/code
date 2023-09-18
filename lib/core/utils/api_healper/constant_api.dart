@@ -242,8 +242,7 @@ static String makeReelLike(String reelId ) {
 
   String search({required String keyword}) =>
       "$baseUrl/search?keywords=$keyword";
-  String getRoomUpdate({required String roomId}) =>
-      "$baseUrl/rooms/$roomId/edit";
+  String getRoomUpdate({required String roomId}) => "$baseUrl/rooms/$roomId/edit";
   static const String getEmojie = "$baseUrl/emojis";
   static const String getCarousel = "$baseUrl/home_carousels";
   String getDataRooms(

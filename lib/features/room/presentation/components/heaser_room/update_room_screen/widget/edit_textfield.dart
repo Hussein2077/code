@@ -5,7 +5,7 @@ import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class EditTextField extends StatefulWidget{
-  final TextEditingController textFieldControler;
+  late TextEditingController textFieldControler;
   String title;
   String hint;
   String? roomName;
@@ -16,19 +16,7 @@ class EditTextField extends StatefulWidget{
 }
 
 class _EditTextFieldState extends State<EditTextField> {
-  late  TextEditingController textFieldControler;
-  late String title;
-  late String hint;
-  late String roomName;
 
-  @override
-  void initState() {
-    super.initState();
-    title = widget.title;
-    hint = widget.hint;
-    textFieldControler=TextEditingController();
-    //roomName = widget.roomName;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +24,8 @@ class _EditTextFieldState extends State<EditTextField> {
      crossAxisAlignment: CrossAxisAlignment.start,
      children: [
 
-       Text(title!,
+       Text(widget.title,
 
-           //StringManager.roomIntro.tr(),
            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
              fontSize: ConfigSize.defaultSize! * 2,
              fontWeight: FontWeight.w600,
@@ -54,12 +41,13 @@ class _EditTextFieldState extends State<EditTextField> {
              setState(() {});
            },
            style: const TextStyle(color: ColorManager.mainColor),
-           controller: textFieldControler,
+           controller: widget.textFieldControler,
            cursorColor: ColorManager.mainColor,
            decoration: InputDecoration(
-             hintText: hint!,
+             hintText: widget.hint,
+
              //StringManager.updateRoomName.tr(),
-             hintStyle: const TextStyle(color: ColorManager.gray),
+             hintStyle: const TextStyle(color: ColorManager.darkBlack),
              border: InputBorder.none,
              disabledBorder: InputBorder.none,
              focusedBorder: InputBorder.none,

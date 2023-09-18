@@ -22,7 +22,7 @@ class Card2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width - 30,
-        height: ConfigSize.defaultSize! * 23,
+        height: ConfigSize.defaultSize! * 15,
         decoration: BoxDecoration(
             color: isDarkTheme ? Colors.grey.withOpacity(0.3) : Colors.white,
             borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
@@ -50,19 +50,19 @@ class Card2 extends StatelessWidget {
               image: AssetsPath.incomeIcon,
               onTap: () => Navigator.pushNamed(context, Routes.incomeScreen),
             ),
-             ProfileRowItem(
-              title: StringManager.inviteFriend.tr(),
-              image: AssetsPath.inviteFriendsIcon,
-               onTap: (){
-
-                 DynamicLinkProvider().creatInvetaionUserLink(
-                    userId: myData.id!,
-                     userImage: myData.profile!.image!)
-                     .then((value) {
-                   Share.share(value);
-                 });
-               },
-            ),
+            //  ProfileRowItem(
+            //   title: StringManager.inviteFriend.tr(),
+            //   image: AssetsPath.inviteFriendsIcon,
+            //    onTap: (){
+            //
+            //      DynamicLinkProvider().creatInvetaionUserLink(
+            //         userId: myData.id!,
+            //          userImage: myData.profile!.image!)
+            //          .then((value) {
+            //        Share.share(value);
+            //      });
+            //    },
+            // ),
           ],
         ));
   }

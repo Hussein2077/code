@@ -9,7 +9,6 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/add_profile_pic.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/voice/widget/room_type_button.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/privacy_setting/widget/diloge_for_privcy.dart';
@@ -19,6 +18,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipP
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_state.dart';
+import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/update_room_screen/widget/add_room_live_pic.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
@@ -32,14 +32,15 @@ class UpdateRoomScreen extends StatefulWidget {
 
   const UpdateRoomScreen({required this.roomDate, Key? key}) : super(key: key);
 
-  // static   AllMainClassesModel?  roomType  ;
+   //static   AllMainClassesModel?  roomType  ;
   @override
   State<UpdateRoomScreen> createState() => _UpdateRoomScreenState();
 }
 
 class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
-  late TextEditingController roomNameControler ;
-  late TextEditingController roomIntroControler ;
+  TextEditingController roomNameControler = TextEditingController();
+  TextEditingController roomIntroControler = TextEditingController();
+
   List<String> roomFeaturesTitles = [
     StringManager.lockChat.tr(),
     StringManager.lockRoom.tr(),
@@ -54,25 +55,12 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
     AssetsPath.addAdmin,
     AssetsPath.blockedUsers,
   ];
-
   bool isEnable = false;
   bool isVisible = true;
-  int? roomTypeId;
-  @override
-  void initState() { super.initState();
-    roomNameControler = TextEditingController();
-    roomIntroControler = TextEditingController();
+  String? roomType;
 
-  }
-  @override
-  void dispose() {
-roomNameControler.dispose();
-roomIntroControler.dispose();
-super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
-
     return Container(
       height: ConfigSize.defaultSize! * 75,
       width: ConfigSize.screenWidth,
@@ -111,7 +99,6 @@ super.dispose();
                   flex: 1,
                 ),
                 EditTextField(
-
                   textFieldControler: roomNameControler,
                   title: StringManager.roomName.tr(),
                   hint: widget.roomDate.roomName ??
@@ -143,7 +130,7 @@ super.dispose();
                         borderRadius:
                             BorderRadius.circular(ConfigSize.defaultSize! * 2),
                       ),
-                      child: const RoomTypeButton(),
+                      child: RoomTypeButton(),
                     ),
                   ],
                 ),
@@ -229,18 +216,6 @@ super.dispose();
                     );
                   },
                 ),
-                const Spacer(
-                  flex: 1,
-                ),
-                const Divider(
-                  height: 1,
-                  thickness: 1,
-                  color: Colors.grey,
-                ),
-                EditFeaturesContainer(),
-                const Spacer(
-                  flex: 2,
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -254,21 +229,23 @@ super.dispose();
                         width: ConfigSize.defaultSize! * 12),
                     MainButton(
                       onTap: () {
+
+                       // log("jakol ${roomIntroControler.text.toString()}");
+                        log("jakol ${roomNameControler.text.toString()}");
+                        //log("jakosss ${AddRoomLivePicState.image!.path.toString()}");
+                        log("jakosss ${roomType.toString()}");
+
                         Navigator.pop(context);
-
-
                         BlocProvider.of<OnRoomBloc>(context).add(UpdateRoom(
-                            roomName: roomNameControler.text ,
+                            roomName: roomNameControler.text,
                             ownerId: widget.roomDate.ownerId.toString(),
                             roomIntro: roomIntroControler.text,
-                            roomCover: AddProFilePic.image != null
-                                ? File(AddProFilePic.image!.path)
+                            roomCover: AddRoomLivePicState.image != null
+                                ? File(AddRoomLivePicState.image!.path)
                                 : null,
-                            roomType: roomTypeId.toString()));
+                            roomType: roomType.toString())
+                        );
 
-                        log("${roomIntroControler.text.toString()} room Intro");
-                         log("${roomNameControler.text} hussein" );
-                         log("${roomIntroControler.text} itro" );
                       },
                       title: StringManager.save.tr(),
                       buttonColor: ColorManager.mainColorList,
@@ -277,6 +254,18 @@ super.dispose();
                     ),
                   ],
                 ),
+                const Spacer(
+                  flex: 1,
+                ),
+                // const Divider(
+                //   height: 1,
+                //   thickness: 1,
+                //   color: Colors.grey,
+                // ),
+                // EditFeaturesContainer(),
+                // const Spacer(
+                //   flex: 2,
+                // ),
               ],
             ),
           ),
