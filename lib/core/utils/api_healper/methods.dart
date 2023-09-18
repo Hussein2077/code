@@ -133,7 +133,6 @@ class Methods {
       await e.call(ownerId);
       PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
       pusher.unsubscribe(channelName: 'presence-room-$ownerId');
-      log("log2");
     }
 
     Future<void> checkIfInRoom({required String ownerId }) async{
@@ -272,7 +271,13 @@ class Methods {
             log("downloading$imageId");
           }
 
-          await cacheManager.downloadFile(svgaUrl,key:imageId,);
+          try{
+            await cacheManager.downloadFile(svgaUrl,key:imageId,);
+          }on HttpException catch (e){
+            if(kDebugMode){
+              log("there is error in cache this url $svgaUrl ");
+            }
+          }
           if(kDebugMode){
             log("loaded$imageId");
           }
@@ -417,7 +422,7 @@ class Methods {
           }
         }
         Future<void> getAndLoadFrames() async {
-          log("getAndLoadFrames") ;
+
           List<DataMallModel> emojieModel = await getFrames();
           //  removeCacheSvgaFrames(dataMallModel: emojieModel);
           await  cacheSvgaFrame(dataMallModel: emojieModel);
@@ -457,7 +462,6 @@ class Methods {
           }
         }
         Future<void> cacheSvgaEmojie({required  List<EmojieModel> emojieModel}) async {
-          log("cacheSvgaEmojie") ;
           for(int i=0;i< emojieModel.length;i++){
 
             await cacheSvgaImage(svgaUrl:ConstentApi().getImage(emojieModel[i].emoji),
@@ -475,11 +479,14 @@ class Methods {
           List<GiftsModel>  normalGift =  await getGifts(1) ;
           List<GiftsModel>  hotGift =  await getGifts(2) ;
           List<GiftsModel>  ciuntryGift =  await getGifts(3) ;
+          List<GiftsModel> luckyGift = await getGifts(6);
 
 
           await  initDownloadPath(normalGift);
-          await   initDownloadPath(hotGift);
+          await  initDownloadPath(hotGift);
           await  initDownloadPath(ciuntryGift);
+          await  initDownloadPath(luckyGift);
+          setLastTimeCache(TypesCache.gift);
         }
 
         Future<List<GiftsModel>> getGifts(int  type) async{
@@ -498,7 +505,6 @@ class Methods {
         }
 
         Future<void> initDownloadPath(List<GiftsModel> data) async {
-          log('initDownloadPath');
           Directory appDocDir = await getApplicationDocumentsDirectory();
           String rootPath = appDocDir.path ;
 
@@ -510,7 +516,7 @@ class Methods {
             }
 
             String path = "$rootPath/${data[i].id}.mp4";
-            _download(path: path, img: data[i].showImg, giftId: data[i].id);
+          await  _download(path: path, img: data[i].showImg, giftId: data[i].id);
 
 
 
@@ -530,7 +536,14 @@ class Methods {
             if(kDebugMode){
             log('downloading$giftId');
             }
-            await  Dio().download(ConstentApi().getImage(img), path);
+            try{
+              await  Dio().download(ConstentApi().getImage(img), path);
+            }on HttpException catch (e){
+              if(kDebugMode){
+                log("there is error in cache this url ${ConstentApi().getImage(img)} ");
+              }
+            }
+
             if(kDebugMode){
             log('loaded$giftId');
             }
@@ -543,7 +556,7 @@ class Methods {
 
 
           await setCachingVideo(cachingVideos:PageViewGeftWidget.chachedGiftMp4,key: StringManager.cachGiftKey) ;
-          setLastTimeCache(TypesCache.gift);
+
         }
 
         Future<MovieEntity> getCachedSvgaImage( String giftId, String url) async {
