@@ -31,7 +31,6 @@ class PrivacySetting extends StatefulWidget {
 class PrivacySettingState extends State<PrivacySetting> {
   List<GetVipPrevModel>? tempData;
 
-  int? index;
   int isFirst = 0;
 
   @override
