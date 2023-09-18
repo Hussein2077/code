@@ -23,6 +23,7 @@ class _OtpContinersState extends State<OtpContiners> {
       textDirection: TextDirection.ltr,
       child: TextFieldPin(
           textController: textEditingController,
+          
           autoFocus: false,
           codeLength: _otpCodeLength,
           alignment: MainAxisAlignment.center,
