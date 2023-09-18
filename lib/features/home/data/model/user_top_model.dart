@@ -11,7 +11,7 @@ class UserTopModel extends Equatable {
   final String? avater;
   final String? name;
   final String? frame;
-  final dynamic? frameId;
+  final dynamic? frameId; 
   final String? senderImage;
   final int? vipLevel;
 

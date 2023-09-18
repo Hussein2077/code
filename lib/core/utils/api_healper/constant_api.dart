@@ -6,8 +6,8 @@ import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 
 
 class ConstentApi {
- // static const String baseUrl = "https://test.tik-chat.com/api";
-  static const String baseUrl = "https://tik-chat.com/api";
+  static const String baseUrl = "https://test.tik-chat.com/api";
+ // static const String baseUrl = "https://tik-chat.com/api";
   static const String getBoxes = "$baseUrl/box/list";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
@@ -242,8 +242,7 @@ static String makeReelLike(String reelId ) {
 
   String search({required String keyword}) =>
       "$baseUrl/search?keywords=$keyword";
-  String getRoomUpdate({required String roomId}) =>
-      "$baseUrl/rooms/$roomId/edit";
+  String getRoomUpdate({required String roomId}) => "$baseUrl/rooms/$roomId/edit";
   static const String getEmojie = "$baseUrl/emojis";
   static const String getCarousel = "$baseUrl/home_carousels";
   String getDataRooms(

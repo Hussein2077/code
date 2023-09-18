@@ -11,7 +11,7 @@ import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manag
 import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 
 class RoomTypeButton extends StatefulWidget {
-  static   AllMainClassesModel?  roomType  ;
+  static AllMainClassesModel?  roomType  ;
 final String? roomTypeName;
   const RoomTypeButton({ this.roomTypeName,super.key});
 

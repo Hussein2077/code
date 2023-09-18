@@ -95,7 +95,7 @@ Widget exchangeDaimondCard({
     BlocListener<ExchangeDimondBloc, ExchangeDimondState>(
     listener: (context, state) {
       if (state is ExchangeDimondLoadingState){
-        loadingToast(context: context, title: StringManager.loading);
+       // loadingToast(context: context, title: StringManager.loading);
       }else if (state is ExchangeDimondSucssesState){
           BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
         sucssesToast(context: context, title: state.massage);

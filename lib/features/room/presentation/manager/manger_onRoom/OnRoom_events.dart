@@ -35,6 +35,8 @@ class ExitRoomEvent extends OnRoomEvents {
   @override
   List<Object?> get props => [ownerId];
 }
+
+
 class UpdateRoom extends OnRoomEvents{
   final String ownerId;
   final String? roomName;

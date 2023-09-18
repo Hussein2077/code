@@ -41,15 +41,12 @@ class _TopUsersScreenState extends State<TopUsersScreen>
       create: (context) => getIt<TobBloc>()
         ..add(GetDiamondsDayEvent(sendOrReceiver: '1', date: '1', isHome: '0'))
         ..add(GetDiamondsHourEvent(sendOrReceiver: "1", date: "0", isHome: "0"))
-        ..add(
-            GetDiamondsWeeklyEvent(sendOrReceiver: '1', date: '2', isHome: '0'))
-        ..add(GetDiamondsMonthlyEvent(
-            sendOrReceiver: '1', date: '3', isHome: '0'))
+        ..add(GetDiamondsWeeklyEvent(sendOrReceiver: '1', date: '2', isHome: '0'))
+        ..add(GetDiamondsMonthlyEvent(sendOrReceiver: '1', date: '3', isHome: '0'))
         ..add(GetCoinsHourEvent(sendOrReceiver: '2', date: '0', isHome: '0'))
         ..add(GetCoinsDayEvent(sendOrReceiver: '2', date: '1', isHome: '0'))
         ..add(GetCoinsWeeklyEvent(sendOrReceiver: '2', date: '2', isHome: '0'))
-        ..add(
-            GetCoinsMonthlyEvent(sendOrReceiver: '2', date: '3', isHome: '0')),
+        ..add(GetCoinsMonthlyEvent(sendOrReceiver: '2', date: '3', isHome: '0')),
       child: BlocBuilder<TobBloc, TopStates>(
         builder: (context, state) {
           return Scaffold(
