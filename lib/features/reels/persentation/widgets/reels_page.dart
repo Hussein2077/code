@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/main.dart';
 
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
@@ -110,6 +111,11 @@ class _ReelsPageState extends State<ReelsPage>{
         //TODO add auto scroll as feature
        // widget.swiperController.next();
       }
+
+      log("hrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+      log(" navigatorKey.currentState.toString()1 "+ globalNavigatorKey.currentState.toString());
+      bool isSame = globalNavigatorKey.currentContext!.widget == context.widget;
+      log("isSame${isSame}");
     });
   }
 
@@ -129,6 +135,9 @@ class _ReelsPageState extends State<ReelsPage>{
 
   @override
   Widget build(BuildContext context) {
+    log(globalNavigatorKey.currentContext .toString());
+    bool isSame = globalNavigatorKey.currentContext == context ;
+    log("isSame${isSame}");
     return getVideoView();
   }
 
