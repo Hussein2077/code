@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
+import '../../../../core/utils/config_size.dart';
 
 class UserProfileImage extends StatelessWidget {
   final String profileUrl;
@@ -12,27 +13,27 @@ class UserProfileImage extends StatelessWidget {
       imageUrl: ConstentApi().getImage(profileUrl),
       alignment: Alignment.centerLeft,
       imageBuilder: (context, imageProvider) => Container(
-        height: 32,
-        width: 32,
+        height: ConfigSize.defaultSize!*3.2,
+        width: ConfigSize.defaultSize!*3.2,
         padding: EdgeInsets.zero,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*1.6),
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.cover,
           ),
         ),
       ),
-      placeholder: (context, url) => const SizedBox(
-        height: 20,
-        width: 20,
-        child: CircularProgressIndicator(),
+      placeholder: (context, url) =>  SizedBox(
+        height: ConfigSize.defaultSize!*2,
+        width: ConfigSize.defaultSize!*2,
+        child: const CircularProgressIndicator(),
       ),
       errorWidget: (context, url, error) =>
-      const SizedBox(
-        height: 20,
-        width: 20,
-        child: Icon(Icons.error),
+       SizedBox(
+        height: ConfigSize.defaultSize!*2,
+        width: ConfigSize.defaultSize!*2,
+        child: const Icon(Icons.error),
       ),
     );
   }

@@ -101,9 +101,8 @@ class UpperProfileBody extends StatelessWidget {
                         ),
                         itemContiner(
                             title: myDataModel.profile!.age.toString(),
-                            icon: myDataModel.profile!.gender == 0
-                                ? AssetsPath.whiteFemaleIcon
-                                : AssetsPath.whiteMaleIcon),
+                            gender: myDataModel.profile!.gender
+                        ),
                         SizedBox(
                           width: ConfigSize.defaultSize!,
                         ),
@@ -156,12 +155,14 @@ class UpperProfileBody extends StatelessWidget {
   }
 }
 
-Widget itemContiner({String? icon, required String title}) {
+Widget itemContiner({int? gender, required String title}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-      color: Colors.white.withOpacity(0.5),
+      color: (gender==null)?Colors.white.withOpacity(0.5): (gender==0)? Colors.pink[200]: Colors.blue[300],
+
+      //
     ),
     child: Row(children: [
       Text(
@@ -169,11 +170,16 @@ Widget itemContiner({String? icon, required String title}) {
         style: TextStyle(
             color: Colors.white, fontSize: ConfigSize.defaultSize! * 1),
       ),
-      if (icon != null)
+      if (gender != null)
+
         Image.asset(
-          icon,
+          (gender==0)?
+          AssetsPath.whiteFemaleIcon:           AssetsPath.whiteMaleIcon,
+
           scale: 2,
         )
+
+
     ]),
   );
 }

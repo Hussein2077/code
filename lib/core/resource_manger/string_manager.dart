@@ -436,7 +436,7 @@ static const String cachReelsKey ='cachReelsKey';
   static const String pleaseChosseVideo = "Please Choose Video";
   static const String specialBar = 'Special Bar';
 
-          static const String imageAnanyomus = 'anonymous_icon.jpg';
+    static const String imageAnanyomus = 'anonymous_icon.jpg';
 
     static const String nameAnayoums = 'Mysterious Person';
 
@@ -444,8 +444,11 @@ static const String cachReelsKey ='cachReelsKey';
     static const String noFamily = 'this person doesn\'t belong to any family';
 
     static const String pleaseWaitReel = 'Please wait for the previous video to be uploaded';
-
     static const String coinToUpload = 'Coin to upload image';
+    static const String comments = 'Comments';
+    static const String noCommentsYet = 'No Comments yet.';
+    static const String addAComment = 'Add a comment...';
+    static const String reelsView = 'Reels View';
 
 
 

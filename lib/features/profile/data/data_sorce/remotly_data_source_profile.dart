@@ -22,12 +22,12 @@ import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dar
 import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_time_history_model.dart';
-import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/back_pack_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_page_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_to_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
@@ -56,6 +56,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_mo
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_comment_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/moment_send_gift.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -190,24 +191,29 @@ abstract class BaseRemotlyDataSourceProfile {
       Future<List<InterstedMode>> getUserIntersted();
         Future<String> prevActive(String type);
 
-
-
-
   Future<String> prevDispose(String type);
-    Future<List<ReelModel>> getUserReel(String? id , String page);
 
-      Future<String> deleteMessage(String id);
+  Future<List<ReelModel>> getUserReel(String? id, String page);
 
-      Future<String> addMomnet(AddMomentPrameter prameter);
+  Future<String> deleteMessage(String id);
 
-            Future<String> deleteMoment(String momentId);
-            Future<List<MomentModel>> getMoments(String userId);
-            Future<String> addMomentCooment(AddMomentCommentPrameter momentId);
+  Future<String> addMomnet(AddMomentPrameter prameter);
 
-            Future<String> deleteMomentComment( DeleteMomentCommentPrameter deleteMomentCommentPrameter);
+  Future<String> deleteMoment(String momentId);
 
-    Future<List<MomentCommentModel>> getMomentComment(GetMomentCommentPrameter getMomentCommentPrameter);
+  Future<List<MomentModel>> getMoments(String userId);
 
+  Future<String> addMomentCooment(AddMomentCommentPrameter momentId);
+
+  Future<String> deleteMomentComment(
+      DeleteMomentCommentPrameter deleteMomentCommentPrameter);
+
+  Future<List<MomentCommentModel>> getMomentComment(
+      GetMomentCommentPrameter getMomentCommentPrameter);
+
+  Future<String> makeMomentLike(String userId);
+
+  Future<String> momentSendGift(MomentSendGiftPrameter momentSEndGiftPrameter);
 }
 
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
@@ -2197,18 +2203,47 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
     try {
       final response = await Dio().get(
-        ConstentApi.getMomentComment(getMomentCommentPrameter.momentId , getMomentCommentPrameter.page),
+        ConstentApi.getMomentComment(
+            getMomentCommentPrameter.momentId, getMomentCommentPrameter.page),
         options: Options(
           headers: headers,
         ),
       );
       log(response.data.toString());
-     
 
-      return  List<MomentCommentModel>.from(
+      return List<MomentCommentModel>.from(
           response.data['data'].map((x) => MomentCommentModel.fromJson(x)));
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getMomentComment');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getMomentComment');
+    }
+  }
+
+  @override
+  Future<String> makeMomentLike(String userId) async {
+    try {
+      final response = await Dio().get(
+        ConstentApi.makeMomentLikes,
+      );
+
+      return response.data;
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'makeMomentLike');
+    }
+  }
+
+  @override
+  Future<String> momentSendGift(MomentSendGiftPrameter momentSEndGiftPrameter) async{
+    try{
+      final response = await Dio().get(
+        ConstentApi.makeMomentLikes,
+      );
+
+      return response.data;
+    }on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'makeMomentLike');
     }
   }
 }

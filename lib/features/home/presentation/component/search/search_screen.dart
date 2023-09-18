@@ -49,7 +49,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       },
                         hintColor: Colors.black.withOpacity(0.6),
                         hintText: StringManager.search.tr(),
-                        controller: searchController))),
+                        controller: searchController)
+                )
+            ),
           ),
           BlocBuilder<SearchBloc, SearchStates>(
             builder: (context, state) {
@@ -64,7 +66,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
 
                     return UserInfoRow(userData:state.data.userModel[index] ,
-                        endIcon: const Icon( Icons.arrow_forward_ios,));
+                        endIcon: const Icon( Icons.arrow_forward_ios,)
+                    );
                   }),
                 ),
               );

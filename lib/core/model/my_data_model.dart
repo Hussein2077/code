@@ -321,6 +321,7 @@ class MyDataModel {
         hasColorName: hasColorName,
         notificationId: notificationId,
         level: LevelDataModel(
+            senderLevel:level!.senderLevel,
             senderImage: level?.senderImage,
             receiverImage: level?.receiverImage),
         vip1: VipCenterModel(level: vip1?.level),

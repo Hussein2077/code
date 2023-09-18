@@ -12,23 +12,35 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/widget/linear_gradient_contaner.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 
-class IncomeScreen extends StatelessWidget {
+class IncomeScreen extends StatefulWidget {
   const IncomeScreen({super.key});
 
   @override
+  State<IncomeScreen> createState() => _IncomeScreenState();
+}
+
+class _IncomeScreenState extends State<IncomeScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      
         backgroundColor: Theme.of(context).colorScheme.background,
         body: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
-            if (state is GetMyDataSucssesState){
- return Column(
-              children: [
-                SizedBox(height: ConfigSize.defaultSize! / 0.2),
-                HeaderWithOnlyTitle(title: StringManager.income.tr()),
-                SizedBox(height: ConfigSize.defaultSize! / 0.4),
+            if (state is GetMyDataSucssesState) {
+              return Column(
+                children: [
+                  SizedBox(height: ConfigSize.defaultSize! / 0.2),
+                  HeaderWithOnlyTitle(title: StringManager.income.tr()),
+                  SizedBox(height: ConfigSize.defaultSize! / 0.4),
                  CardOfDiamondEarned(
                   assetCard: AssetsPath.moneyBag,
                 ),
@@ -71,7 +83,7 @@ class IncomeScreen extends StatelessWidget {
             }else {
               return const CustomErrorWidget(message: StringManager.unexcepectedError);
             }
-           
+
           },
         ));
   }

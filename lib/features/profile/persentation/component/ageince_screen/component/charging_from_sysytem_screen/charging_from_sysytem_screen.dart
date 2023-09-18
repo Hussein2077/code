@@ -18,12 +18,24 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_sto
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_state.dart';
 
 // ignore: must_be_immutable
-class CharchingCoinsForUsers extends StatelessWidget {
+class CharchingCoinsForUsers extends StatefulWidget {
   CharchingCoinsForUsers({Key? key}) : super(key: key);
 
+  @override
+  State<CharchingCoinsForUsers> createState() => _CharchingCoinsForUsersState();
+}
+
+class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
+  void initState() {
+    BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
+    super.initState();
+  }
   final TextEditingController userID = TextEditingController();
+
   final TextEditingController withdrawalAmount = TextEditingController();
+
   final formGlobalKey = GlobalKey<FormState>();
+
   String coins = " " ;
 
   @override
@@ -84,7 +96,7 @@ class CharchingCoinsForUsers extends StatelessWidget {
                      BlocBuilder<MyStoreBloc, MyStoreState>(
                       builder: (context, state) {
                         if(state is MyStoreSucssesState){
-                          coins = state.myStore.coins.toString() ; 
+                          coins = state.myStore.coins.toString() ;
       return  ContainerWithdrawal(
                           usd:state.myStore.coins.toString(),
                           icon:  Image.asset(AssetsPath.goldCoinIcon, scale: 8),
@@ -97,7 +109,7 @@ class CharchingCoinsForUsers extends StatelessWidget {
                           title: StringManager.coins.tr(),
                         );
                         }
-                  
+
                       },
                     ),
                     SizedBox(

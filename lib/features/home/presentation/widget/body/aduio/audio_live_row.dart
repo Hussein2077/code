@@ -66,7 +66,8 @@ class AduioLiveRow extends StatelessWidget {
                     borderRadius:
                         BorderRadius.circular(ConfigSize.defaultSize! * 2)),
                 margin: EdgeInsets.only(
-                    bottom: 20, left: ConfigSize.defaultSize! * 2.5),
+                    bottom: ConfigSize.defaultSize! * 2,
+                    left: ConfigSize.defaultSize! * 2.5),
                 width: MediaQuery.of(context).size.width - 90,
                 height: ConfigSize.defaultSize! * 10,
               )),
@@ -95,11 +96,6 @@ class AduioLiveRow extends StatelessWidget {
                             fit: BoxFit.fill),
                         borderRadius:
                             BorderRadius.circular(ConfigSize.defaultSize! * 2)),
-                    child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: NumVistor(
-                          numOfVistor: room.visitorsCount.toString(),
-                        )),
                   ),
                   SizedBox(
                     width: ConfigSize.defaultSize,
@@ -115,7 +111,7 @@ class AduioLiveRow extends StatelessWidget {
                             fontSize: ConfigSize.defaultSize! * 1.8),
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width - 200,
+                        width: ConfigSize.defaultSize! * 21,
                         child: Text(
                           room.roomIntro ?? "",
                           style: TextStyle(
@@ -124,8 +120,8 @@ class AduioLiveRow extends StatelessWidget {
                               overflow: TextOverflow.ellipsis),
                         ),
                       ),
-                      const SizedBox(
-                        height: 5,
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 0.5,
                       ),
                       Row(
                         children: [
@@ -144,6 +140,14 @@ class AduioLiveRow extends StatelessWidget {
                       )
                     ],
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: ConfigSize.defaultSize! * 5,
+                        right: ConfigSize.defaultSize! * 2),
+                    child: NumVistor(
+                      numOfVistor: room.visitorsCount.toString(),
+                    ),
+                  )
                 ],
               )
             ],

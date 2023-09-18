@@ -360,6 +360,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.senderLevel : "مستوى المرسل",
     StringManager.receiverLevel : "مستوى المستقبال",
     StringManager.myVideos : "فيديوهاتي",
+    StringManager.comments : "التعليقات",
+    StringManager.noCommentsYet : "لا يوجد تعليقات",
+    StringManager.addAComment : "اضف تعليق",
 
 
 
@@ -374,6 +377,7 @@ StringManager.pleaseWaitReel : "برجاء الانتظار حتي يتم رفع
 
 StringManager.coinToUpload : "عمله لرفع صوره",
 StringManager.pepoleOnline : "الاشخاص بالغرفة",
+StringManager.reelsView : "الريلز",
 
 
 

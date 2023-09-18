@@ -33,7 +33,7 @@ class LeveUpperBody extends StatelessWidget {
                 border: Border.all(color: Colors.white, width: 2),
                 image: DecorationImage(image:   CachedNetworkImageProvider(
                     
-                    ConstentApi().getImage(userImage)))
+                    ConstentApi().getImage(userImage))),
                 ),
             child: Align(
               alignment: Alignment.bottomCenter,

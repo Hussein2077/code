@@ -38,11 +38,11 @@ class UserTopModel extends Equatable {
       frame: jsonData['frame'] ?? "",
       frameId: jsonData['frame_id'] ??1,
         vipLevel:jsonData['vip_level']??0,
-        senderImage:jsonData['sender_img']??'',
+       senderImage:jsonData['sender_img']??'',
     );
   }
 
   @override
   List<Object?> get props =>
-      [exp, userId,  avater, name, frame, frameId, ];
+      [exp, userId,  avater, name, frame, frameId,vipLevel,senderImage ];
 }

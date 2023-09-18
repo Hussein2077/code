@@ -49,7 +49,7 @@ class UserInfoRow extends StatelessWidget {
       child: Padding(
         padding:  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.5),
         child: Row(
-          
+
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
