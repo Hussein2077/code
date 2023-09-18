@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 
 
@@ -108,28 +109,26 @@ class ConstentApi {
     static const String agencyRequests = "$baseUrl/agencies/show_request";
     static const String agencyRequestsAction = "$baseUrl/agencies/actions_request";
     static const String agencyHistoryTime = "$baseUrl/agencies/list_options_his";
-    static const String agencyHistory = "$baseUrl/agencies/historyAgancy";
-    static const String chargeCoinForUser = "$baseUrl/agencies/charge_co_for_users";
-    static const String chargeDolarsForUser = "$baseUrl/agencies/charge_dollar_for_owner";
-    static const String getAllIntrested = "$baseUrl/allinterests";
-        static const String addIntrested = "$baseUrl/AddInterests";
-    static const String getUseIntrested = "$baseUrl/user_interests";
-        static const String uploadReel = "$baseUrl/reals";
-        static const String getReels = "$baseUrl/reals";
-          static const String yallowBanner = "$baseUrl/rooms/yellow-banner";
-                    static const String addMoment = "$baseUrl/moment";
-                    static const String momentLikes = "$baseUrl/moment/2/like";
+  static const String agencyHistory = "$baseUrl/agencies/historyAgancy";
+  static const String chargeCoinForUser =
+      "$baseUrl/agencies/charge_co_for_users";
+  static const String chargeDolarsForUser =
+      "$baseUrl/agencies/charge_dollar_for_owner";
+  static const String getAllIntrested = "$baseUrl/allinterests";
+  static const String addIntrested = "$baseUrl/AddInterests";
+  static const String getUseIntrested = "$baseUrl/user_interests";
+  static const String uploadReel = "$baseUrl/reals";
+  static const String getReels = "$baseUrl/reals";
+  static const String yallowBanner = "$baseUrl/rooms/yellow-banner";
+  static const String addMoment = "$baseUrl/moment";
+  static const String makeMomentLikes = "$baseUrl/moment/2/like";
+  static const String momentSendGift = "$baseUrl/moment/2/gift";
 
-
-
-                    static String getMoments(String userId ,) {
-
-     return "$baseUrl/moment?user_id=$userId";
-
-
- 
-
-}
+  static String getMoments(
+    String userId,
+  ) {
+    return "$baseUrl/moment?user_id=$userId";
+  }
 
                 static String addMomentComment(String momentId ,) {
 

@@ -95,6 +95,8 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_comment_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/make_moment_like.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/moment_send_gift.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
@@ -162,6 +164,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_add_moment/add_moment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_moment/delete_moment_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment_comment/get_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_make_moment_like/make_moment_like_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_moment_send_gift/moment_send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
@@ -463,13 +467,20 @@ class ServerLocator {
                 getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
                 getIt.registerFactory(() => DeleteMomentCommentBloc(deleteMomentCommentUseCase: getIt()));
                 getIt.registerFactory(() => GetMomentCommentBloc(getMomentCommentUseCase: getIt()));
+                getIt.registerFactory(() => MomentSendGiftBloc(momentSendGiftUseCase:  getIt()));
+                getIt.registerFactory(() => MakeMomentLikeBloc(makeMomentLikeUseCase:  getIt()));
+
 
 
     
 
 //usecase
 
-   getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRepositoryProfile: getIt()));
+
+
+    getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRepositoryProfile: getIt()));
 
    getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRepositoryProfile: getIt()));
 

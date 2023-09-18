@@ -112,7 +112,8 @@ class _UserProfileState extends State<UserProfile> {
                       )
                     ],
                   );
-                } else if (state is GetUserLoddingState) {
+                }
+                else if (state is GetUserLoddingState) {
                   return const LoadingWidget();
                 } else if (state is GetUserErorrState) {
                   return CustomErrorWidget(message: state.error);

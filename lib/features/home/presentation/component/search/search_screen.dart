@@ -66,7 +66,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
 
                     return UserInfoRow(userData:state.data.userModel[index] ,
-                        endIcon: const Icon( Icons.arrow_forward_ios,));
+                        endIcon: const Icon( Icons.arrow_forward_ios,)
+                    );
                   }),
                 ),
               );

@@ -44,6 +44,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_mo
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_comment_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/moment_send_gift.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -221,6 +222,8 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> addMomentComment(AddMomentCommentPrameter addMomentCommentPrameter );
   Future<Either<String, Failure>> deleteMomentComment(DeleteMomentCommentPrameter deleteMomentCommentPrameter );
   Future<Either<List<MomentCommentModel>,Failure>> getMomentComment(GetMomentCommentPrameter getMomentCommentPrameter);
+  Future<Either<String, Failure>> makeMomentLike(String momentId);
+  Future<Either<String, Failure>> momentSendGift(MomentSendGiftPrameter momentSEndGiftPrameter);
 
 
 }

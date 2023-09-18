@@ -9,13 +9,13 @@ class MakeMomentLikeUseCase extends BaseUseCase<String,String>{
   MakeMomentLikeUseCase({required this.baseRepositoryProfile});
 
   @override
-  Future<Either<String, Failure>> call(String parameter)async {
+  Future<Either<String, Failure>> call(String userId)async {
 
 
-final result = await baseRepositoryProfile.makeMomentLike(parameter);
+final result = await baseRepositoryProfile.makeMomentLike(userId);
 return result;
   }
 
 
 
-} 
+}

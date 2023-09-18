@@ -9,8 +9,8 @@ class MakeMomentLikeBloc
     extends Bloc<BaseMakeMomentLikeEvent, MakeMomentLikeStates> {
   final MakeMomentLikeUseCase makeMomentLikeUseCase;
 
-  MakeMomentLikeBloc(super.initialState,
-      {required this.makeMomentLikeUseCase}) {
+  MakeMomentLikeBloc(
+      {required this.makeMomentLikeUseCase}) :super(MakeMomentLikeInitial()){
     on<MakeMomentLikeEvent>((event, emit) async {
       emit(MakeMomentLikeLoadingState());
       final result = await makeMomentLikeUseCase.call(event.userId);
