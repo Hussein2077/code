@@ -38,8 +38,8 @@ class UpdateRoomScreen extends StatefulWidget {
 }
 
 class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
-  TextEditingController roomNameControler = TextEditingController();
-
+  late TextEditingController roomNameControler ;
+  late TextEditingController roomIntroControler ;
   List<String> roomFeaturesTitles = [
     StringManager.lockChat.tr(),
     StringManager.lockRoom.tr(),
@@ -54,13 +54,25 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
     AssetsPath.addAdmin,
     AssetsPath.blockedUsers,
   ];
-  TextEditingController roomIntroControler = TextEditingController();
+
   bool isEnable = false;
   bool isVisible = true;
   int? roomTypeId;
+  @override
+  void initState() { super.initState();
+    roomNameControler = TextEditingController();
+    roomIntroControler = TextEditingController();
 
+  }
+  @override
+  void dispose() {
+roomNameControler.dispose();
+roomIntroControler.dispose();
+super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
+
     return Container(
       height: ConfigSize.defaultSize! * 75,
       width: ConfigSize.screenWidth,
@@ -99,6 +111,7 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
                   flex: 1,
                 ),
                 EditTextField(
+
                   textFieldControler: roomNameControler,
                   title: StringManager.roomName.tr(),
                   hint: widget.roomDate.roomName ??
@@ -243,8 +256,9 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
                       onTap: () {
                         Navigator.pop(context);
 
+
                         BlocProvider.of<OnRoomBloc>(context).add(UpdateRoom(
-                            roomName: roomNameControler.text,
+                            roomName: roomNameControler.text ,
                             ownerId: widget.roomDate.ownerId.toString(),
                             roomIntro: roomIntroControler.text,
                             roomCover: AddProFilePic.image != null
@@ -253,6 +267,8 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
                             roomType: roomTypeId.toString()));
 
                         log("${roomIntroControler.text.toString()} room Intro");
+                         log("${roomNameControler.text} hussein" );
+                         log("${roomIntroControler.text} itro" );
                       },
                       title: StringManager.save.tr(),
                       buttonColor: ColorManager.mainColorList,

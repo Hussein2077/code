@@ -1,6 +1,8 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -9,8 +11,10 @@ import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/splash.dart';
 
+import '../../../../manager/theme_bloc/theme_bloc.dart';
+
 class ModeScreen extends StatefulWidget {
-  static int? selectedMode;
+  static int selectedMode=0;
   const ModeScreen({super.key});
 
   @override
@@ -39,23 +43,33 @@ class _ModeScreenState extends State<ModeScreen> {
                       index: index,
                       mode: mode[index],
                       onTap: () {
-                        setState(() {
-                          ModeScreen.selectedMode = index;
-                        });
+                        if (ModeScreen.selectedMode!=index)
+                     {
+                       setState(() {
+                         final themeCubit = BlocProvider.of<ThemeCubit>(context);
+
+                         ModeScreen.selectedMode = index;
+                         themeCubit.toggleTheme(ModeScreen.selectedMode);
+
+                       });
+                     }
                       },
                     );
                   })),
           MainButton(
-            onTap: () {
-              if(ModeScreen.selectedMode==0){
-                SplashScreen.isDark = false ; 
+            onTap: ()async {
+
+              final SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.setInt('mode', ModeScreen.selectedMode);
+              int? mode = prefs.getInt('mode');
+              if(mode==0){
+                SplashScreen.isDark = false ;
               }else {
-                                SplashScreen.isDark = true ; 
+                SplashScreen.isDark = true ;
 
               }
-               Navigator.pushNamedAndRemoveUntil(context, Routes.splash, (route) => false);
+               // Navigator.pushNamedAndRemoveUntil(context, Routes.splash, (route) => false);
 
-             
             },
             title: StringManager.save.tr(),
           )

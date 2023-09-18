@@ -136,7 +136,8 @@ class UpperProfileBody extends StatelessWidget {
                     ),
                       if(!myDataModel.lastActiveHidden!&&myDataModel.onlineTime!="")
                         SizedBox(
-                          width: ConfigSize.defaultSize!*15,
+                          height: ConfigSize.defaultSize!*2 ,
+                          width: ConfigSize.defaultSize!*18,
                           child: itemContiner(
                             title: "${StringManager.lastActive.tr()}${myDataModel.onlineTime!}",
                           ),
@@ -156,30 +157,36 @@ class UpperProfileBody extends StatelessWidget {
 }
 
 Widget itemContiner({int? gender, required String title}) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-      color: (gender==null)?Colors.white.withOpacity(0.5): (gender==0)? Colors.pink[200]: Colors.blue[300],
+  return Material(
+    color: Colors.transparent,
+    elevation: 5,
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+        color: (gender==null)?Colors.white.withOpacity(0.5): (gender==0)? Colors.pink[200]: Colors.blue[300],
 
-      //
-    ),
-    child: Row(children: [
-      Text(
-        "$title ",
-        style: TextStyle(
-            color: Colors.white, fontSize: ConfigSize.defaultSize! * 1),
+        //
       ),
-      if (gender != null)
+      child: Center(
+        child: Row(children: [
+          Text(
+            "$title ",
+            style: TextStyle(
+                color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.2,fontWeight: FontWeight.w700),
+          ),
+          if (gender != null)
 
-        Image.asset(
-          (gender==0)?
-          AssetsPath.whiteFemaleIcon:           AssetsPath.whiteMaleIcon,
+            Image.asset(
+              (gender==0)?
+              AssetsPath.whiteFemaleIcon:           AssetsPath.whiteMaleIcon,
 
-          scale: 2,
-        )
+              scale: 2,
+            )
 
 
-    ]),
+        ]),
+      ),
+    ),
   );
 }
