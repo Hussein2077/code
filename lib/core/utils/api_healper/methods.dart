@@ -75,6 +75,7 @@ class Methods {
 
       return decodedMap;
     }
+
   Future<void> setCachingVideo({required Map<String,dynamic> cachingVideos, required String  key }) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String encodedMap = json.encode(cachingVideos);
@@ -136,9 +137,7 @@ class Methods {
     }
 
     Future<void> checkIfInRoom({required String ownerId }) async{
-      log("log0");
       if(MainScreen.iskeepInRoom.value){
-        log("log1");
         MainScreen.iskeepInRoom.value =false ;
         await  Methods().exitFromRoom(MainScreen.roomData?.ownerId ==null ?ownerId:
         MainScreen.roomData!.ownerId.toString());

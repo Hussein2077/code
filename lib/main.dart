@@ -105,7 +105,6 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_ree
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_events.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/kickout_manger/kickout_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
@@ -378,15 +377,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<PrivacyBloc>()),
         BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
         BlocProvider(create: (_) => getIt<GetReelsBloc>()),
-        BlocProvider(create: (_) => getIt<KickoutBloc>()),
-        BlocProvider(create: (_) => getIt<UserReportBloc>()),
         BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
+        BlocProvider(create: (_) => getIt<UserReportBloc>()),
         BlocProvider(
           create: (context) =>
               getIt<GoldCoinBloc>()..add(GetGoldCoinDataEvent()),
         ),
         BlocProvider(create: (_) => getIt<BuyCoinsBloc>()),
-        BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
         BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),

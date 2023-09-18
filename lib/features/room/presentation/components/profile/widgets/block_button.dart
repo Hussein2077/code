@@ -9,8 +9,9 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/kickout_manger/kickout_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/kickout_manger/kickout_events.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_events.dart';
+
 
 class BlockButton extends StatefulWidget {
 final UserDataModel userData;
@@ -76,7 +77,7 @@ class _BlockButtonState extends State<BlockButton> {
                                                 if (value ==
                                                     StringManager.fiveMin
                                                         .tr()) {
-                                                  BlocProvider.of<KickoutBloc>(
+                                                  BlocProvider.of<UsersInRoomBloc>(
                                                           context)
                                                       .add(kickoutUser(
                                                           ownerId: widget.roomData
@@ -88,7 +89,7 @@ class _BlockButtonState extends State<BlockButton> {
                                                 } else if (value ==
                                                     StringManager.fiftyMin
                                                         .tr()) {
-                                                  BlocProvider.of<KickoutBloc>(
+                                                  BlocProvider.of<UsersInRoomBloc>(
                                                           context)
                                                       .add(kickoutUser(
                                                           ownerId: widget.roomData
@@ -100,7 +101,7 @@ class _BlockButtonState extends State<BlockButton> {
                                                 } else if (value ==
                                                     StringManager.thirtyMin
                                                         .tr()) {
-                                                  BlocProvider.of<KickoutBloc>(
+                                                  BlocProvider.of<UsersInRoomBloc>(
                                                           context)
                                                       .add(kickoutUser(
                                                           ownerId: widget.roomData
@@ -112,7 +113,7 @@ class _BlockButtonState extends State<BlockButton> {
                                                 } else if (value ==
                                                     StringManager.sixtyMin
                                                         .tr()) {
-                                                  BlocProvider.of<KickoutBloc>(
+                                                  BlocProvider.of<UsersInRoomBloc>(
                                                           context)
                                                       .add(kickoutUser(
                                                           ownerId: widget.roomData
@@ -124,7 +125,7 @@ class _BlockButtonState extends State<BlockButton> {
                                                 } else if (value ==
                                                     StringManager.twenyFourMin
                                                         .tr()) {
-                                                  BlocProvider.of<KickoutBloc>(
+                                                  BlocProvider.of<UsersInRoomBloc>(
                                                           context)
                                                       .add(kickoutUser(
                                                           ownerId: widget.roomData

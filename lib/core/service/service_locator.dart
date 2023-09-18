@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'package:dio/dio.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -220,7 +218,6 @@ import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.da
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/kickout_manger/kickout_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
@@ -436,14 +433,16 @@ class ServerLocator {
         () => GetReelsBloc(getReelUseCase: getIt()));
 
     
-  getIt.registerFactory(
-        () => KickoutBloc(kickoutUC: getIt()));
+
 
         getIt.registerFactory(
         () => UserReportBloc(userReporetUseCase: getIt()));
 
              getIt.registerFactory(
-        () => UsersInRoomBloc(inviteUserUC: getIt() , muteUnMuteUserInRoomUC: getIt()));
+        () => UsersInRoomBloc(
+
+            inviteUserUC: getIt() ,
+            muteUnMuteUserInRoomUC: getIt(), kickoutUC: getIt()));
                 getIt.registerFactory(
         () => GetReelCommentsBloc(getReelCommentUseCase: getIt()));
                 getIt.registerFactory(

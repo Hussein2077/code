@@ -58,3 +58,17 @@ class InviteRoomSuccesState extends OnUserInRoomStates {
 
   const InviteRoomSuccesState({required this.succesMessage});
 }
+
+class LoadingKickoutState extends OnUserInRoomStates {}
+
+class SuccessKickoutState extends OnUserInRoomStates {
+  final String successMessage;
+
+  SuccessKickoutState({required this.successMessage});
+}
+
+class ErrorKickoutState extends OnUserInRoomStates {
+  final String errorMessage;
+
+  ErrorKickoutState({required this.errorMessage});
+}

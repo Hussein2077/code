@@ -44,3 +44,14 @@ class InviteUserInRoom extends UsersInRoomEvents{
   @override
   List<Object?> get props => [ownerId,userId,indexSeate];
 }
+class kickoutUser extends UsersInRoomEvents{
+  final String ownerId ;
+  final String userId ;
+  final String minutes ;
+
+  kickoutUser({required this.ownerId,required this.userId, required this.minutes});
+
+  @override
+  List<Object?> get props => [ownerId,userId,minutes];
+
+}

@@ -11,7 +11,7 @@ class PusherService {
   PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
 
   /// Init Pusher Listener
- initPusher(String appKey, String host, int port, String cluster) async {
+ initPusher(String appKey, String cluster) async {
    try {
      await pusher.init(
          cluster: cluster,

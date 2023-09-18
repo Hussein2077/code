@@ -16,7 +16,8 @@ class IdWithCopyIcon extends StatelessWidget {
     return InkWell(
       onTap: () {
         Clipboard.setData(ClipboardData(text: id));
-        sucssesToast(context: context, title: StringManager.theTextHasBeenCopied.tr());
+        sucssesToast(context: context, title: StringManager.theTextHasBeenCopied.tr()
+        );
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

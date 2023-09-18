@@ -12,10 +12,10 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_state.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/kickout_manger/kickout_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/kickout_manger/kickout_states.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_states.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_states.dart';
 
 import 'user_porfile_in_room_body.dart';
 
@@ -61,7 +61,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
    
     }
     },
-      child: BlocListener<KickoutBloc, KickoutStates>(
+      child: BlocListener<UsersInRoomBloc, OnUserInRoomStates>(
         listener: (context, state) {
     if (state is SuccessKickoutState) {
       sucssesToast(context: context, title: state.successMessage);

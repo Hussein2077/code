@@ -943,10 +943,10 @@ static String uploadImagePrice = "" ;
   @override
   Future<String> addRoomBackGround(File roomBackGround)async {
          Map<String, String> headers = await DioHelper().header();
-FormData formData;
+     FormData formData;
       File file =roomBackGround;
       String fileName = file.path.split('/').last;
- formData = FormData.fromMap({
+       formData = FormData.fromMap({
         "image":
         await MultipartFile.fromFile(file.path, filename: fileName),
        

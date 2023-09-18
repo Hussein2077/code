@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/invite_user_uc.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/mute_unmute_use_uc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_states.dart';
@@ -16,12 +17,14 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_r
 class UsersInRoomBloc extends Bloc<UsersInRoomEvents, OnUserInRoomStates> {
  final MuteUnMuteUserInRoomUC muteUnMuteUserInRoomUC ;
  final InviteUserUC inviteUserUC ;
+ final KickoutUC kickoutUC ;
 
 
 
 
  UsersInRoomBloc(
       {
+        required this.kickoutUC,
         required this.inviteUserUC,
         required this.muteUnMuteUserInRoomUC,
       })
@@ -60,6 +63,17 @@ class UsersInRoomBloc extends Bloc<UsersInRoomEvents, OnUserInRoomStates> {
               (r) =>
               emit(InviteUserInRoomErrorState(
                       errorMessage: DioHelper().getTypeOfFailure(r))));
+    }));
+
+    on<kickoutUser>(((event,emit)async{
+      emit(LoadingKickoutState());
+
+      final result = await kickoutUC.call(
+          KickoutPramiterUc(ownerId: event.ownerId, userId: event.userId, minutes:event.minutes));
+
+      result.fold((l) => emit(SuccessKickoutState(successMessage: l)),
+              (r) => emit(ErrorKickoutState(errorMessage: DioHelper().getTypeOfFailure(r))));
+
     }));
   }
 }

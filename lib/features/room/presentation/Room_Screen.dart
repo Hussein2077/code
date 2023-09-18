@@ -1818,14 +1818,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     });
               }
               else {
-                await Methods().exitFromRoom(widget.room.ownerId.toString());
-               Navigator.pop(context);
-                BlocProvider.of<RoomHandlerBloc>(context).add(EnterRoomEvent(
-                  isVip:widget.myDataModel.vip1?.level??0  ,
-                  ownerId: ownerId.toString(),
-                  roomPassword: '',
-                ));
-                Navigator.pushNamed(context, Routes.roomHandler,arguments: widget.myDataModel);
+
+                Navigator.pop(context);
+                MainScreen.iskeepInRoom.value =true ;
+                Navigator.pushNamed(context, Routes.roomHandler,
+                    arguments:  RoomHandlerPramiter(ownerRoomId: ownerId, myDataModel: widget.myDataModel )  );
               }
 
           }

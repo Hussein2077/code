@@ -225,8 +225,7 @@ static String makeReelLike(String reelId ) {
   static String getTimes(String time) =>
       "$baseUrl/user_info/getTimes?time=$time";
 
-  // String upMic({required UpMicrophonePramiter upMic}) =>
-  //     "$baseUrl/rooms/up_microphone?owner_id=${upMic.ownerId}&user_id=${upMic.userId}&position=${upMic.position}";
+
   String deleteFamily(String id) {
     return "$baseUrl/families/delete/$id";
   }

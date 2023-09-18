@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -41,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
 
-    // initPusher();
     liveController = TabController(length: 1, vsync: this);
     if((widget.isChachGift??false)){
       Methods().chachGiftInRoom();
