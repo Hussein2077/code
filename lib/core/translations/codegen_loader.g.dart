@@ -380,6 +380,7 @@ StringManager.pleaseWaitReel : "برجاء الانتظار حتي يتم رفع
 StringManager.coinToUpload : "عمله لرفع صوره",
 StringManager.pepoleOnline : "الاشخاص بالغرفة",
 StringManager.reelsView : "الريلز",
+StringManager.empty : "فارغ",
 
 
 
@@ -672,6 +673,7 @@ StringManager.reelsView : "الريلز",
     StringManager.block : "Engelle",
     StringManager.spitialMassege : "Özel Mesaj",
     StringManager.theTextHasBeenCopied : "Metin kopyalandı",
+    StringManager.empty:'boş',
   };
   static const Map<String, dynamic> ur = {
     StringManager.appTitle: "ٹیک چیٹ",
@@ -929,7 +931,7 @@ StringManager.reelsView : "الريلز",
     StringManager.mounth: "مہینے",
     StringManager.totalDaimonds: "کل الماس",
     StringManager.chargeCoins: "سکے کی چارجنگ",
-
+    StringManager.empty:'خالی',
   };
   static const Map<String, dynamic> chs = {
     StringManager.appTitle: "Tik Chat",
@@ -1170,6 +1172,7 @@ StringManager.reelsView : "الريلز",
     StringManager.mounth: "月",
     StringManager.totalDaimonds: "总钻石",
     StringManager.chargeCoins: "充值金币",
+    StringManager.empty:'空的',
   };
   static const Map<String, dynamic> cht = {
     StringManager.appTitle: "Tikchat",
@@ -1411,6 +1414,7 @@ StringManager.reelsView : "الريلز",
     StringManager.mounth: "月",
     StringManager.totalDaimonds: "總鑽石",
     StringManager.chargeCoins: "充值金幣",
+    StringManager.empty: "空的",
   };
   static const Map<String, dynamic> en = {
     "hello": "hello",

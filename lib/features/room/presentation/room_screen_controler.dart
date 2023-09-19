@@ -748,15 +748,13 @@ Widget noneUserOnSeat({required Map<dynamic, dynamic> extraInfo,}) {
 
             CircleAvatar(
       backgroundColor: colors[1],
-radius: ConfigSize.defaultSize!,
-      child: Center(
-        child: Text(
-              "${extraInfo['index']}",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: AppPadding.p14,
-                  fontWeight: FontWeight.w700),
-        ),
+radius: ConfigSize.defaultSize!*.9,
+      child: Text(
+            "${extraInfo['index']}",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: AppPadding.p12,
+                fontWeight: FontWeight.w700),
       ),
     ),const SizedBox(width: 3,),
             Text(
@@ -848,7 +846,7 @@ Widget userForgroundCachParty({ZegoUIKitUser? user}) {
     Positioned(
       bottom: 0,
       top: ConfigSize.defaultSize! * 8.8,
-      left: ConfigSize.defaultSize! * 2.2,
+      left: ConfigSize.defaultSize! * 1.0,
       right: 0,
       child: SizedBox(
         width: ConfigSize.defaultSize! * 24,
@@ -876,11 +874,27 @@ Widget userForgroundCachParty({ZegoUIKitUser? user}) {
 Widget noneUserOnSeatParty({required Map<dynamic, dynamic> extraInfo}) {
   return Container(
     padding: EdgeInsets.only(
-        top: ConfigSize.defaultSize! * 8, left: ConfigSize.defaultSize! * 3.8),
-    child: Text(
-      "${extraInfo['index'] + 1}",
-      style: const TextStyle(
-          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+        top: ConfigSize.defaultSize! * 8, left: ConfigSize.defaultSize! * 2.2),
+    child: Row(
+      children: [
+        CircleAvatar(
+          backgroundColor: colors[1],
+          radius: ConfigSize.defaultSize!*.9,
+          child: Text(
+            "${extraInfo['index'] + 1}",
+            style: const TextStyle(
+                color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700),
+          ),
+        ),
+        const SizedBox(width: 3,),
+        Text(
+          StringManager.empty.tr(),
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: AppPadding.p10,
+              fontWeight: FontWeight.w700),),
+
+      ],
     ),
   );
 }
@@ -908,7 +922,7 @@ Widget userForgroundCachMidParty({ZegoUIKitUser? user}) {
     Positioned(
       bottom: 0,
       top: ConfigSize.defaultSize! * 8.8,
-      left: ConfigSize.defaultSize! * 2.2,
+      left: ConfigSize.defaultSize! * 2.5,
       right: 0,
       child: SizedBox(
         width: ConfigSize.defaultSize! * 24,
@@ -936,17 +950,33 @@ Widget userForgroundCachMidParty({ZegoUIKitUser? user}) {
 Widget noneUserOnSeatMidParty({required Map<dynamic, dynamic> extraInfo}) {
   return Container(
     padding: EdgeInsets.only(
-        top: ConfigSize.defaultSize! * 8, left: ConfigSize.defaultSize! * 3.8),
-    child: Text(
-      "${extraInfo['index'] + 1}",
-      style: const TextStyle(
-          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+        top: ConfigSize.defaultSize! * 8.4, left: ConfigSize.defaultSize! * 2.2),
+    child: Row(
+      children: [
+        CircleAvatar(
+          backgroundColor: colors[1],
+          radius: ConfigSize.defaultSize!*.9,
+          child: Text(
+            "${extraInfo['index'] + 1}",
+            style: const TextStyle(
+                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+          ),
+        ),
+        const SizedBox(width: 3,),
+        Text(
+          StringManager.empty.tr(),
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: AppPadding.p10,
+              fontWeight: FontWeight.w700),),
+      ],
     ),
   );
 }
 
 Widget messagesChached(
-    {required ZegoInRoomMessage message,
+    {
+      required ZegoInRoomMessage message,
       required String vip,
       required String sender,
       required String receiver,
@@ -955,7 +985,8 @@ Widget messagesChached(
       required MyDataModel myDataModel,
       required BuildContext context,
       required LayoutMode layoutMode,
-      required EnterRoomModel room}){
+      required EnterRoomModel room}
+    ){
   List<String> words = message.message.split(" ");
 
   List<TextSpan> spans = [];
