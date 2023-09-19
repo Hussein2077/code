@@ -1883,7 +1883,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             }
           }
           else if (user?.id == null && !RoomScreen.showPK.value) {
-            return noneUserOnSeat(extraInfo: extraInfo);
+            return noneUserOnSeat(extraInfo: extraInfo,);
           }
           else {
             return  userForgroundCach(user: user);
