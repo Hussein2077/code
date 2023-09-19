@@ -2,6 +2,7 @@
 
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -28,7 +29,7 @@ class ReelsViewer extends StatefulWidget {
   final Function(int)? onIndexChanged;
 
   /// function invoke when user click on more options btn
-  final Function(int)? onClickMoreBtn;
+  final Function(int,int)? onClickMoreBtn;
 
   /// function invoke when user click on follow btn
   final Function(String,bool)? onFollow;

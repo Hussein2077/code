@@ -115,7 +115,7 @@ class HeaderRoom extends StatelessWidget {
                                         roomtype: roomType,
                                       ));
                                 }
-                                /*  bottomDailog(
+                                  bottomDailog(
                                     context: context,
                                     widget: MoreDailogWidget(
                                       roomId: room.id!,
@@ -125,7 +125,7 @@ class HeaderRoom extends StatelessWidget {
                                       modeRoom: roomMode,
                                       refreshRoom: refreshRoom,
                                       userId: myDataModel.id.toString(),
-                                    ));*/
+                                    ));
                               },
                               icon: Image.asset(AssetsPath.settingRoom))),
                       const SizedBox(

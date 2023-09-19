@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -24,7 +25,7 @@ class ReelsPage extends StatefulWidget {
   final Function(ReelModel)? onShare;
   final Function(int)? onLike;
   final Function(String)? onComment;
-  final Function(int)? onClickMoreBtn;
+  final Function(int,int)? onClickMoreBtn;
   final Function(String,bool)? onFollow;
   final SwiperController swiperController;
   final bool showProgressIndicator;

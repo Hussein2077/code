@@ -107,6 +107,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_events.dart';
@@ -418,6 +419,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
         BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
+        BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
         BlocProvider(create: (context) => ThemeCubit()),
       ],
       child:  BlocBuilder<ThemeCubit, ThemeToggle>(
