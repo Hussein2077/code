@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
- 
+
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
@@ -36,24 +36,34 @@ class CustomContainRoom extends StatelessWidget {
             context: context,
             widget:  TopInRoomScreen(id: id, roomData: roomData, myData: myData, layoutMode:layoutMode ,) );
       },
-      child: Padding(
-        padding: EdgeInsets.only(left: ConfigSize.defaultSize!+4),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(15)),
-          padding:const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+      child: Container(
+
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+
+            image: AssetImage(AssetsPath.contanerDiamodn)
+          ),
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: ConfigSize.defaultSize!,
+
+        ),
+        child: Padding(
+          padding:  EdgeInsets.only(
+            right: ConfigSize.defaultSize!,
+            top: ConfigSize.defaultSize!,
+            bottom: ConfigSize.defaultSize!,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 width:ConfigSize.defaultSize!*2,
                 height:ConfigSize.defaultSize!*2 ,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: const DecorationImage(
-                      image: AssetImage(AssetsPath.daimons),
+                decoration: const BoxDecoration(
 
+                    image: DecorationImage(
+                      image: AssetImage(AssetsPath.cup),
 
                     )
                 ),
@@ -61,10 +71,14 @@ class CustomContainRoom extends StatelessWidget {
               Text(
                 text,
                 style:  TextStyle(color: Colors.white, fontSize:ConfigSize.defaultSize!+2),
-              )
+              ),
+              SizedBox(
+                width: ConfigSize.defaultSize!-5,
+              ),
+              Icon(Icons.arrow_forward_ios_outlined,color: Color(0xffFFDC84),size: ConfigSize.defaultSize!),
             ],
           ),
-        ) ,
+        ),
       )
        ,
     );

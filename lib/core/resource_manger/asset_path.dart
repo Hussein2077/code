@@ -103,7 +103,6 @@ class AssetsPath {
   static const String iconAppWithTitle = "$pathIcon/icon_app_with_title.png";
   static const String iconApp = "$pathIcon/icon_app.png";
   static const String maleIcon = "$pathIcon/male_icon.png";
-
   static const String femaleIcon = "$pathIcon/female_icon.png";
   static const String unSelectedMaleIcon = "$pathIcon/unselected_male.png";
 
@@ -218,11 +217,14 @@ class AssetsPath {
   static const String aristocracy7 = "$pathIcon/aristocracy 7.png";
   static const String aristocracy8 = "$pathIcon/aristocracy 8.png";
   static const String basicTool = "$pathImage/basic_tool.png";
+  static const String settingRoom = "$pathIcon/settings_room.png";
+  static const String contanerDiamodn = "$pathImage/contaner_diamodn.png";
 
 
   static const String gemStone = "$pathIcon/gem-stone.png";
   static const String circleDollar = "$pathIcon/circle-dollar.png";
   static const String rank = "$pathIcon/rank.png";
+  static const String cup = "$pathIcon/cup.png";
 
   static const String toolbarMessages = "$pathIcon/toolbar_im.png";
   static const String warning = "$pathIcon/warning.png";
