@@ -510,6 +510,13 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           .listen(onInRoomCommandReceived));
     });
 
+        Future.delayed(const Duration(seconds: 3),()async{
+           ZegoUIKit().sendInRoomMessage("انضم للغرفة");
+        });
+
+         
+
+
 
   }
 

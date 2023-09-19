@@ -27,7 +27,6 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnR
 
 class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
   final ExistroomUC existroomUC;
-  final GetAllRoomUserUseCase getAllRoomUserUseCase;
   final BackGroundUseCase backGroundUseCase;
   final UpdateRoomUsecase updateRoomUsecase;
   final EmojieUseCase emojieUseCase;
@@ -58,7 +57,6 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
       required this.upMicUsecase,
       required this.backGroundUseCase,
       required this.updateRoomUsecase,
-      required this.getAllRoomUserUseCase,
       required this.changeRoomModeUC,
       required this.emojieUseCase,
       required this.removePassRoomUC,
@@ -110,14 +108,6 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
               errorMassage: DioHelper().getTypeOfFailure(r))));
     });
 
-    on<GetAllRoomUserEvents>(((event, emit) async {
-      emit(const GetAllRoomUserLoadingState());
-      final result = await getAllRoomUserUseCase.getAllRoomUser(event.ownerId);
-      result.fold(
-          (l) => emit(GetAllRoomUsersuccessState(getRoomUsersEntite: l)),
-          (r) => emit(GetAllRoomUserErrorState(
-              errorMassage: DioHelper().getTypeOfFailure(r))));
-    }));
     on<GetBackGroundEvent>(((event, emit) async {
       emit(GetBackGroundloadingState());
       final result = await backGroundUseCase.getBackGround();

@@ -226,6 +226,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_top_inroom/topin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
@@ -267,7 +268,7 @@ class ServerLocator {
                 upMicUsecase: getIt(),
                 emojieUseCase:getIt() ,
                 existroomUC: getIt() ,
-                getAllRoomUserUseCase:getIt()  ,
+             
                 removePassRoomUC: getIt() ,
                 updateRoomUsecase: getIt() ,
                 disposeHideRoomUseCase: getIt(),
@@ -360,6 +361,8 @@ class ServerLocator {
     getIt.registerFactory(() => FollowBloc(
           followOrUnFollowUsecase: getIt(),
         ));
+
+        
 
     getIt.registerFactory(
         () => AcountBloc(boundPlatformUC: getIt(), deleteAccountUC: getIt()));
@@ -469,6 +472,7 @@ class ServerLocator {
                 getIt.registerFactory(() => MomentSendGiftBloc(momentSendGiftUseCase:  getIt()));
                 getIt.registerFactory(() => MakeMomentLikeBloc(makeMomentLikeUseCase:  getIt()));
 
+                getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
 
 
     

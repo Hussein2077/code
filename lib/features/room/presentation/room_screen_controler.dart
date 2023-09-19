@@ -215,6 +215,15 @@ Future<void> showingEmojie({required String userId,required EmojieData emojieDat
   });
 }
 
+List<String>  splitUsersInRoom({required List<ZegoUIKitUser> orginalList}){
+
+   List<String> listIds = [];
+    orginalList.forEach((element) {
+      listIds.add(element.id);
+    });
+    return listIds ;
+  
+ }
 getUserDataInMessages(String userId) async {
   if (RoomScreen.usersInRoom.containsKey(userId)) {
     RoomScreen.usersMessagesInRoom

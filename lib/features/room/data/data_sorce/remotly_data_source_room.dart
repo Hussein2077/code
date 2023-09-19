@@ -17,6 +17,8 @@ import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/get_room_users_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
+import 'package:tik_chat_v2/features/room/data/model/room_vistor_model.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
@@ -34,7 +36,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<EnterRoomModel> enterRomm(
       {required String ownerId, String? roomPassword , bool? ignorePassword,  bool? sendToZego});
   Future<Unit> exitRoom({required String ownerId});
-  Future<GetRoomUsersModel> getRoomUser({required String ownerid});
+  Future<List<RoomVistorModel>> getRoomUser({required GetAlluserPram pram});
   Future<List<BackGroundModel>> getBackGround();
   Future<List<UserTopModel>> getTopInRoom(TopPramiter topPramiter);
   Future<List<EmojieModel>> getEmojie();
@@ -140,25 +142,43 @@ static String uploadImagePrice = "" ;
 
 
 
+@override
+  Future<List<RoomVistorModel>> getRoomUser({required GetAlluserPram pram}) async {
+    
 
-  @override
-  Future<GetRoomUsersModel> getRoomUser({required String ownerid}) async {
     Map<String, String> headers = await DioHelper().header();
+    String? users;
+    final body;
+    log(pram.ownerId);
+    if (pram.usersId != null) {
+      users = pram.usersId!.join(',');
+    }
+    if (pram.usersId != null) {
+      body = {'page': pram.page, 'owner_id': pram.ownerId, "users": users};
+    } else {
+      body = {
+        'page': pram.page,
+        'owner_id': pram.ownerId,
 
-    try{
-      final response = await Dio().post(
-        ConstentApi.getRoomUsers,
-        data: {"owner_id": ownerid},
-        options: Options(
-          headers:headers ,
-        ),
-      );
-      return GetRoomUsersModel.fromjson(response.data["data"]);
-    }on DioError catch (e){
-      throw DioHelper.handleDioError(dioError: e,endpointName:'Get Room User' );
+      };
     }
 
-
+    try {
+      final response = await Dio().post(
+        ConstentApi.getRoomUsers,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+      log( response.data.toString());
+      
+      return List<RoomVistorModel>.from(
+          resultData['data'].map((x) => RoomVistorModel.fromJson(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getRoomVistors');
+    }
   }
 
   @override
