@@ -58,17 +58,20 @@ class _ReelsPageState extends State<ReelsPage>{
   @override
   void initState() {
     super.initState();
-
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
 
-      initializePlayer().then((value) => ReelsPage.videoPlayerController = _videoPlayerController);
+
+          initializePlayer().then((value) => ReelsPage.videoPlayerController = _videoPlayerController);
+
+
     }
   }
 
+
+
+
   Future initializePlayer() async {
-
-
 
          try{
            final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
@@ -85,7 +88,6 @@ class _ReelsPageState extends State<ReelsPage>{
              _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
 
            }
-
          }catch(e){
            if(kDebugMode){
              log("error in found cach video and paly in network reels");
@@ -111,11 +113,13 @@ class _ReelsPageState extends State<ReelsPage>{
         //TODO add auto scroll as feature
        // widget.swiperController.next();
       }
+      if(!ModalRoute.of(context)!.isCurrent){
+        _videoPlayerController.pause();
+        ReelsPage.isVideoPause.value = true ;
+      }
+      log("ModalRoute.of(context).isCurrent${ModalRoute.of(context)!.isCurrent}");
 
-      log("hrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-      log(" navigatorKey.currentState.toString()1 "+ globalNavigatorKey.currentState.toString());
-      bool isSame = globalNavigatorKey.currentContext!.widget == context.widget;
-      log("isSame${isSame}");
+
     });
   }
 
@@ -135,9 +139,7 @@ class _ReelsPageState extends State<ReelsPage>{
 
   @override
   Widget build(BuildContext context) {
-    log(globalNavigatorKey.currentContext .toString());
-    bool isSame = globalNavigatorKey.currentContext == context ;
-    log("isSame${isSame}");
+
     return getVideoView();
   }
 
@@ -177,10 +179,7 @@ class _ReelsPageState extends State<ReelsPage>{
                 },
                onHorizontalDragEnd: (DragEndDetails details) {
                     if (details.primaryVelocity! < 0) {
-                      if(ReelsPage.videoPlayerController != null){
-                        ReelsPage.videoPlayerController!.pause();
-                        ReelsPage.isVideoPause.value= true;
-                      }
+
                       Navigator.push(
                         context,
                         PageRouteBuilder(
