@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/core/resource_manger/themes/light_theme.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
@@ -77,6 +78,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_us
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_theme/theme_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_theme/theme_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_user_repoert/user_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_bloc.dart';
@@ -148,9 +151,7 @@ Future<void> main() async {
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await ServerLocator().init();
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setInt('mode', ModeScreen.selectedMode);
-  final int? mode = prefs.getInt('mode');
+String theme = await Methods().returnThemeStatus();  
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),
     supportedLocales: const [
@@ -164,12 +165,13 @@ Future<void> main() async {
     assetLoader: const CodegenLoader(),
     path: 'lib/core/translations/',
     saveLocale: true,
-    child: const MyApp(),
+    child:  MyApp(theme: theme),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+final  String theme ; 
+  const MyApp({required this.theme ,   super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -418,15 +420,15 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
         BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
-        BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => ThemeBloc()),
       ],
-      child:  BlocBuilder<ThemeCubit, ThemeToggle>(
-        builder: (context, themeToggle) {
-          return MaterialApp(
+      child:  BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          if (state is LightThemeState )  {
+   return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: themeToggle == ThemeToggle.light
-                ? lightTheme
-                : darkTheme,
+            theme: lightTheme ,
+              
             navigatorKey: globalNavigatorKey ,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
@@ -434,6 +436,33 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             initialRoute: Routes.splash,
           );
+          }else if (state is DarkThemeState){
+            return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: darkTheme ,
+              
+            navigatorKey: globalNavigatorKey ,
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            onGenerateRoute: RouteGenerator.getRoute,
+            locale: context.locale,
+            initialRoute: Routes.splash,
+          );
+          }
+       else {
+        return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: theme=="dark"?darkTheme: lightTheme ,
+              
+            navigatorKey: globalNavigatorKey ,
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            onGenerateRoute: RouteGenerator.getRoute,
+            locale: context.locale,
+            initialRoute: Routes.splash,
+          );
+
+       }
         }
       ),
     );

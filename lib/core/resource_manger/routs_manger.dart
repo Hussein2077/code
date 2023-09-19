@@ -249,7 +249,7 @@ class RouteGenerator {
       case Routes.language:
         return MaterialPageRoute(builder: (_) => const LanguageScreen());
       case Routes.mode:
-        return MaterialPageRoute(builder: (_) => const ModeScreen());
+        return MaterialPageRoute(builder: (_) =>  ModeScreen());
       case Routes.familyRequests:
         String familyId = settings.arguments as String;
 
