@@ -137,9 +137,12 @@ class UpperProfileBody extends StatelessWidget {
                       if(!myDataModel.lastActiveHidden!&&myDataModel.onlineTime!="")
                         SizedBox(
                           height: ConfigSize.defaultSize!*2 ,
-                          width: ConfigSize.defaultSize!*18,
-                          child: itemContiner(
-                            title: "${StringManager.lastActive.tr()}${myDataModel.onlineTime!}",
+                          child: Row(
+                            children: [
+                              itemContiner(
+                                title: "${StringManager.lastActive.tr()}${myDataModel.onlineTime!}",
+                              ),
+                            ],
                           ),
                         ),
                    
