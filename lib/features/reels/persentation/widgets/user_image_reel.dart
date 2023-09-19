@@ -45,10 +45,6 @@ Widget build(BuildContext context) {
       ),
       InkWell(
         onTap: (){
-          if(ReelsPage.videoPlayerController != null){
-            ReelsPage.videoPlayerController!.pause();
-            ReelsPage.isVideoPause.value= true;
-          }
          Methods().userProfileNvgator(context: context,userId:userId.toString() );
         },
         child: Container(

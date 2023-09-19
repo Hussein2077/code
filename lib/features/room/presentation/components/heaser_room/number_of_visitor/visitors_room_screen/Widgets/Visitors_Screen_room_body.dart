@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
  
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -56,6 +55,7 @@ class VisitorsScreenRoomBody extends StatelessWidget {
                 },
                 child: UserInfoRow(
                     userData: data!.adminData[i],
+                    endIcon: const SizedBox(),
                    ),
               ),
             ),
@@ -75,18 +75,19 @@ class VisitorsScreenRoomBody extends StatelessWidget {
                   Navigator.pop(context);
                   bottomDailog(
                       context: context,
-                      widget: const SizedBox()
+                      widget:
 
-                      // GenralProfileDialog(
-                      //   roomData: roomData,
-                      //   myData: myDataModel,
-                      //   userId: data!.vistorsData[i].id.toString(),
-                      //   layoutMode:layoutMode
-                      // )
+                      GeneralRoomProfile(
+                        roomData: roomData,
+                        myData: myDataModel,
+                        userId: data!.vistorsData[i].id.toString(),
+                        layoutMode:layoutMode
+                      )
                   );
                 },
                 child: UserInfoRow(
                     userData: data!.vistorsData[i],
+                    endIcon: SizedBox(),
                 ),
               ),
             ),

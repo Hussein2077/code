@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/main.dart';
 
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
@@ -57,17 +58,20 @@ class _ReelsPageState extends State<ReelsPage>{
   @override
   void initState() {
     super.initState();
-
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
 
-      initializePlayer().then((value) => ReelsPage.videoPlayerController = _videoPlayerController);
+
+          initializePlayer().then((value) => ReelsPage.videoPlayerController = _videoPlayerController);
+
+
     }
   }
 
+
+
+
   Future initializePlayer() async {
-
-
 
          try{
            final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
@@ -84,7 +88,6 @@ class _ReelsPageState extends State<ReelsPage>{
              _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
 
            }
-
          }catch(e){
            if(kDebugMode){
              log("error in found cach video and paly in network reels");
@@ -110,6 +113,13 @@ class _ReelsPageState extends State<ReelsPage>{
         //TODO add auto scroll as feature
        // widget.swiperController.next();
       }
+      if(!ModalRoute.of(context)!.isCurrent){
+        _videoPlayerController.pause();
+        ReelsPage.isVideoPause.value = true ;
+      }
+      log("ModalRoute.of(context).isCurrent${ModalRoute.of(context)!.isCurrent}");
+
+
     });
   }
 
@@ -129,6 +139,7 @@ class _ReelsPageState extends State<ReelsPage>{
 
   @override
   Widget build(BuildContext context) {
+
     return getVideoView();
   }
 
@@ -168,10 +179,7 @@ class _ReelsPageState extends State<ReelsPage>{
                 },
                onHorizontalDragEnd: (DragEndDetails details) {
                     if (details.primaryVelocity! < 0) {
-                      if(ReelsPage.videoPlayerController != null){
-                        ReelsPage.videoPlayerController!.pause();
-                        ReelsPage.isVideoPause.value= true;
-                      }
+
                       Navigator.push(
                         context,
                         PageRouteBuilder(

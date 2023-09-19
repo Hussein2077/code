@@ -25,10 +25,10 @@ class UpperProfileBody extends StatelessWidget {
 
     return InkWell(
       onTap: (){
-        if(ReelsPage.videoPlayerController != null){
-          ReelsPage.videoPlayerController!.pause();
-          ReelsPage.isVideoPause.value= true ;
-        }
+        // if(ReelsPage.videoPlayerController != null){
+        //   ReelsPage.videoPlayerController!.pause();
+        //   ReelsPage.isVideoPause.value= true ;
+        // }
     showImageViewer(context, CachedNetworkImageProvider(ConstentApi().getImage(myDataModel.profile!.image)),
              swipeDismissible: false);
       },

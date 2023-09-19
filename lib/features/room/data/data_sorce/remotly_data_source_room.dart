@@ -187,6 +187,7 @@ static String uploadImagePrice = "" ;
       {required PramiterUpdate pramiterUpdate}) async {
     Map<String, String> headers = await DioHelper().header();
     FormData formData;
+    log(pramiterUpdate.roomType.toString());
     if (pramiterUpdate.roomCover == null) {
       formData = FormData.fromMap({
         'room_name': pramiterUpdate.roomName,
@@ -194,7 +195,7 @@ static String uploadImagePrice = "" ;
         'room_background': pramiterUpdate.roomBackgroundId,
         'room_intro': pramiterUpdate.roomIntro,
         'room_pass': pramiterUpdate.roomPass,
-        'room_type': null,
+        'room_type': pramiterUpdate.roomType,
         'room_class': pramiterUpdate.roomClass,
         'change': pramiterUpdate.change,
       });
@@ -209,7 +210,7 @@ static String uploadImagePrice = "" ;
         'room_background': pramiterUpdate.roomBackgroundId,
         'room_intro': pramiterUpdate.roomIntro,
         'room_pass': pramiterUpdate.roomPass,
-        'room_type': null,
+        'room_type': pramiterUpdate.roomType,
         'room_class': pramiterUpdate.roomClass
       });
     }

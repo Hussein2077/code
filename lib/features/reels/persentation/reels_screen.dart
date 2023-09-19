@@ -86,7 +86,7 @@ class ReelsScreenState extends State<ReelsScreen> {
                   }
                   return ReelsViewer(
                     reelsList: state.data!,
-                    appbarTitle: StringManager.reels,
+                    appbarTitle: StringManager.reels.tr(),
                     onShare: (reel) {
                       DynamicLinkProvider()
                           .showReelLink(
