@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/number_of_visitor/visitors_room_screen/Widgets/Header_Of_Visitor_Room.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/number_of_visitor/visitors_room_screen/Widgets/user_row.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_room_vistor/room_vistor_event.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_room_vistor/room_vistor_state.dart';
@@ -54,6 +55,17 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
       color: Theme.of(context).colorScheme.background,
       child: Column(children: [
         HeaderofVisitorRoom( numberOfVistor:widget.numberOfVistor),
+
+        Expanded(
+          child: ListView.builder(
+            itemCount: state.data!.length,
+              itemBuilder: (context,index){
+            return UserRow(
+              roomVistorModel: state.data![index],
+            );
+          }),
+        )
+
         // Expanded(
         //     child: SingleChildScrollView(
         //       controller: scrollController,

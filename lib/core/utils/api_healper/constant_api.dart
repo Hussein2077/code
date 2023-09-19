@@ -123,6 +123,7 @@ class ConstentApi {
   static const String addMoment = "$baseUrl/moment";
   static const String makeMomentLikes = "$baseUrl/moment/2/like";
   static const String momentSendGift = "$baseUrl/moment/2/gift";
+  static const String reportReals = "$baseUrl/report";
 
   static String getMoments(
     String userId,
@@ -306,6 +307,8 @@ static String makeReelLike(String reelId ) {
   static const String relations = "$baseUrl/relations";
   static const String follow = "$relations/follow";
   static const String unFollow = "$relations/un-follow";
+
+
   //User
   static const String data = "data";
   static const String id = "id";

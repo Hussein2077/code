@@ -32,7 +32,7 @@ class RoomVistorModel {
         id: json['id'],
         image: json['profile_image']??"",
         name: json['name'],
-        revicerLevelImg: json['level']['receiver_img']??'',
+        revicerLevelImg: json['level']['receiver_img']??"",
         senderLevelImg: json['level']['sender_img']??"",
         type: json['type'],
         uuid: json['uuid'],
