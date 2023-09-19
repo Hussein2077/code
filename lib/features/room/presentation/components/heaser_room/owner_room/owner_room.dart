@@ -34,11 +34,18 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
   Widget build(BuildContext context) {
     log("widget.roomImg"+widget.roomImg);
     return  Padding(
-      padding: EdgeInsets.only(left: AppPadding.p16,top: AppPadding.p10),
+      padding: EdgeInsets.only(top: AppPadding.p20),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppPadding.p10),
-          color: Colors.white.withOpacity(0.2),
+          gradient: const LinearGradient(
+            colors:
+              ColorManager.mainColorList
+          ),
+          borderRadius: BorderRadius.only(
+            topRight:Radius.circular(ConfigSize.defaultSize!*10),
+            bottomRight:Radius.circular(ConfigSize.defaultSize!*10),
+          ),
+
         ),
         padding: EdgeInsets.all(AppPadding.p2),
         child: Row(

@@ -22,22 +22,25 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnR
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 
-
 class HeaderRoom extends StatelessWidget {
   final EnterRoomModel room;
   final MyDataModel myDataModel;
   final String introRoom;
-  final String roomName ; 
+  final String roomName;
+
   final String roomImg;
   final Function() notifyRoom;
   final Function() refreshRoom;
   final int roomMode;
-  final String roomType ;
-  final  StreamController<List<ZegoUIKitUser>> userInRoomController ;
-  final LayoutMode layoutMode ;
-   List<AllMainClassesModel>? datatype = [];
+  final String roomType;
 
-   HeaderRoom({
+  final StreamController<List<ZegoUIKitUser>> userInRoomController;
+
+  final LayoutMode layoutMode;
+
+  List<AllMainClassesModel>? datatype = [];
+
+  HeaderRoom({
     required this.roomName,
     required this.introRoom,
     required this.notifyRoom,
@@ -47,14 +50,13 @@ class HeaderRoom extends StatelessWidget {
     required this.roomMode,
     required this.refreshRoom,
     required this.userInRoomController,
-     required this.layoutMode,
+    required this.layoutMode,
     Key? key,
-     required this.roomType,
+    required this.roomType,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return BlocConsumer<OnRoomBloc, OnRoomStates>(builder: (context, state) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,29 +65,12 @@ class HeaderRoom extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              InkWell(
-                  onTap: () {
-                    if (room.ownerId == myDataModel.id) {
-                      bottomDailog(
-                          context:context,
-                          widget:UpdateRoomScreen(
-                                          roomDate: room,
-                                        )
-                          );
-                    } else {
-                      bottomDailog(
-                          context: context,
-                          widget: ShowDitailsScreen(roomData: room, roomImg: roomImg,
-                            introRoom:introRoom , roomtype: roomType,));
-                    }
-                  },
-                  child: OwnerOfRoom(
-                    roomName: roomName,
-                    roomData: room,
-                    introRoom: introRoom,
-                    roomImg: roomImg,
-
-                  )),
+              OwnerOfRoom(
+                roomName: roomName,
+                roomData: room,
+                introRoom: introRoom,
+                roomImg: roomImg,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -98,15 +83,15 @@ class HeaderRoom extends StatelessWidget {
                       StreamBuilder<List<ZegoUIKitUser>>(
                           stream: ZegoUIKit().getUserListStream(),
                           builder: (context, snapshot) {
-                              userInRoomController.add(ZegoUIKit().getAllUsers());
+                            userInRoomController.add(ZegoUIKit().getAllUsers());
                             return NumberOfVisitor(
-                                myDataModel: myDataModel,
-                                roomData: room,
-                                ownerId: room.ownerId.toString(),
-                                numberOfVistor: ZegoUIKit()
-                                    .getAllUsers()
-                                    .length
-                                    .toString(), layoutMode: layoutMode,);
+                              myDataModel: myDataModel,
+                              roomData: room,
+                              ownerId: room.ownerId.toString(),
+                              numberOfVistor:
+                                  ZegoUIKit().getAllUsers().length.toString(),
+                              layoutMode: layoutMode,
+                            );
                           }),
                       Visibility(
                           visible: (room.ownerId == myDataModel.id) ||
@@ -114,7 +99,23 @@ class HeaderRoom extends StatelessWidget {
                                   .containsKey(myDataModel.id.toString())),
                           child: IconButton(
                               onPressed: () {
-                                bottomDailog(
+                                if (room.ownerId == myDataModel.id) {
+                                  bottomDailog(
+                                      context: context,
+                                      widget: UpdateRoomScreen(
+                                        roomDate: room,
+                                      ));
+                                } else {
+                                  bottomDailog(
+                                      context: context,
+                                      widget: ShowDitailsScreen(
+                                        roomData: room,
+                                        roomImg: roomImg,
+                                        introRoom: introRoom,
+                                        roomtype: roomType,
+                                      ));
+                                }
+                                /*  bottomDailog(
                                     context: context,
                                     widget: MoreDailogWidget(
                                       roomId: room.id!,
@@ -124,10 +125,9 @@ class HeaderRoom extends StatelessWidget {
                                       modeRoom: roomMode,
                                       refreshRoom: refreshRoom,
                                       userId: myDataModel.id.toString(),
-                                    ));
+                                    ));*/
                               },
-                              icon: Image.asset(AssetsPath.more)
-                              )),
+                              icon: Image.asset(AssetsPath.settingRoom))),
                       const SizedBox(
                         width: 5,
                       ),
@@ -136,20 +136,22 @@ class HeaderRoom extends StatelessWidget {
                           bottomDailog(
                               context: context,
                               widget: GestureDetector(
-                                onTap: (){
+                                onTap: () {
                                   Navigator.pop(context);
-
-},
+                                },
                                 child: ExitWidget(
-                                    roomData: room, myDataModel: myDataModel,  ),
+                                  roomData: room,
+                                  myDataModel: myDataModel,
+                                ),
                               ));
                         },
                         child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal:ConfigSize.defaultSize!-3),
-                          child: SizedBox(width: ConfigSize.defaultSize!*3,height: ConfigSize.defaultSize!*3,
-                              child: Image.asset(AssetsPath.exitRoom))
-                        ),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: ConfigSize.defaultSize! - 3),
+                            child: SizedBox(
+                                width: ConfigSize.defaultSize! * 3,
+                                height: ConfigSize.defaultSize! * 3,
+                                child: Image.asset(AssetsPath.exitRoom))),
                       )
                     ],
                   ),
@@ -157,44 +159,36 @@ class HeaderRoom extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: ConfigSize.defaultSize!-3
-          ),
+          SizedBox(height: ConfigSize.defaultSize! - 3),
           Row(
-
-  children: [
-    ValueListenableBuilder<String>(
-        valueListenable: RoomScreen.roomGiftsPrice,
-        builder: (context,price,_){
-          return CustomContainRoom(
-            id: myDataModel.id!,
-            icon: Icons.diamond,
-            text: price,
-            ownerId: room.ownerId.toString(),
-            roomData: room,
-            myData: myDataModel,
-            layoutMode:layoutMode ,
-          ) ;
-        })
-  ],
-)
-          ,
-
+            children: [
+              ValueListenableBuilder<String>(
+                  valueListenable: RoomScreen.roomGiftsPrice,
+                  builder: (context, price, _) {
+                    return CustomContainRoom(
+                      id: myDataModel.id!,
+                      icon: Icons.diamond,
+                      text: price,
+                      ownerId: room.ownerId.toString(),
+                      roomData: room,
+                      myData: myDataModel,
+                      layoutMode: layoutMode,
+                    );
+                  })
+            ],
+          ),
         ],
       );
     }, listener: (context, state) {
       if (state is ExitRoomSuccesMessageState) {
         Navigator.pop(context);
-        errorToast(context: context, title:  state.succesMessage) ;
+        errorToast(context: context, title: state.succesMessage);
         BlocProvider.of<OnRoomBloc>(context).add(InitEvent());
-      }
-      else if (state is ExitRoomErrorMessageState) {
-        errorToast(context: context, title:   state.errorMessage) ;
-      }
-      else if (state is RemovePassRoomSucssesState) {
-        sucssesToast(context: context, title:  state.succecMassage) ;
+      } else if (state is ExitRoomErrorMessageState) {
+        errorToast(context: context, title: state.errorMessage);
+      } else if (state is RemovePassRoomSucssesState) {
+        sucssesToast(context: context, title: state.succecMassage);
       }
     });
-
   }
 }
