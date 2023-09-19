@@ -175,11 +175,13 @@ import 'package:tik_chat_v2/features/reels/domin/use_case/get_reel_comments_uc.d
 import 'package:tik_chat_v2/features/reels/domin/use_case/get_reels_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/make_reel_comment.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/make_reel_like_use_case.dart';
+import 'package:tik_chat_v2/features/reels/domin/use_case/report_reals_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room/data/Repository_Imp/repository_Imp.dart';
 import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
@@ -444,6 +446,9 @@ class ServerLocator {
 
         getIt.registerFactory(
         () => UserReportBloc(userReporetUseCase: getIt()));
+
+        getIt.registerFactory(
+        () => ReportRealsBloc(reportRealsUseCases: getIt()));
 
              getIt.registerFactory(
         () => UsersInRoomBloc(
@@ -743,6 +748,9 @@ getIt.registerLazySingleton(
         () => GetReelUseCase(baseRepositoryReel: getIt()));
                getIt.registerLazySingleton(
         () => UserReporetUseCase(baseRepository: getIt()));
+
+         getIt.registerLazySingleton(
+        () => ReportRealsUseCases(baseRepositoryReel: getIt()));
 
 
 

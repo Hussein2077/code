@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/features/reels/data/data_source/remotly_data_source_
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/domin/repository/base_repository_reels.dart';
+import 'package:tik_chat_v2/features/reels/domin/use_case/report_reals_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.dart';
 
 class RepositoryReels extends BaseRepositoryReels {
@@ -60,6 +61,16 @@ class RepositoryReels extends BaseRepositoryReels {
       return Left(result);
     } on Exception catch (e) {
      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> reportReals(ReportRealsParameter reportRealsParameter)async {
+    try {
+      final result = await baseRemotlyDataSourceReels.reportReals(reportRealsParameter);
+      return Left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
     }
   }
 

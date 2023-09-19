@@ -110,6 +110,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_events.dart';
@@ -152,7 +153,7 @@ Future<void> main() async {
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await ServerLocator().init();
-String theme = await Methods().returnThemeStatus();  
+String theme = await Methods().returnThemeStatus();
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),
     supportedLocales: const [
@@ -171,7 +172,7 @@ String theme = await Methods().returnThemeStatus();
 }
 
 class MyApp extends StatelessWidget {
-final  String theme ; 
+final  String theme ;
   const MyApp({required this.theme ,   super.key});
 
   @override
@@ -425,7 +426,8 @@ final  String theme ;
                 BlocProvider(create: (_) => getIt<RoomVistorBloc>()),
 
 
-        
+
+        BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
       ],
       child:  BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
@@ -433,7 +435,7 @@ final  String theme ;
    return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: lightTheme ,
-              
+
             navigatorKey: globalNavigatorKey ,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
@@ -445,7 +447,7 @@ final  String theme ;
             return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: darkTheme ,
-              
+
             navigatorKey: globalNavigatorKey ,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
@@ -458,7 +460,7 @@ final  String theme ;
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: theme=="dark"?darkTheme: lightTheme ,
-              
+
             navigatorKey: globalNavigatorKey ,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,

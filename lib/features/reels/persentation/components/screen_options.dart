@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
@@ -23,7 +24,7 @@ class ScreenOptions extends StatelessWidget {
   final Function(ReelModel)? onShare;
   final Function(int)? onLike;
   final Function(String)? onComment;
-  final Function(int)? onClickMoreBtn;
+  final Function(int,int)? onClickMoreBtn;
   final Function(String,bool)? onFollow;
   final bool? userView;
   final bool? isFollowed ;
@@ -186,7 +187,7 @@ class ScreenOptions extends StatelessWidget {
             if (onClickMoreBtn != null)
               IconButton(
                 icon: const Icon(Icons.more_vert),
-                onPressed:  () => onClickMoreBtn!(item.id!),
+                onPressed:  () => onClickMoreBtn!(item.id!,item.userId!),
                 color: Colors.white,
               ),
           ],

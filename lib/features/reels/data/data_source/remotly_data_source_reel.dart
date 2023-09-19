@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/features/reels/domin/use_case/report_reals_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.dart';
 
 abstract class BaseRemotlyDataSourceReels {
@@ -14,6 +15,7 @@ abstract class BaseRemotlyDataSourceReels {
     Future<List<ReelCommentModel>> getComments(String? page , String reelId);
     Future<String> makeComments( String reelId , String comment);
     Future<String> makeLike( String reelId , );
+    Future<String> reportReals(ReportRealsParameter reportRealsParameter);
 
 
 }
@@ -97,7 +99,6 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
     try {
       final response = await Dio().get(
        ConstentApi.getReelComments(reelId,page),
-   
         options: Options(
           headers: headers,
         ),
@@ -151,6 +152,35 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e ,endpointName: 'makeReelLike');
     }
+  }
+
+  @override
+  Future<String> reportReals(ReportRealsParameter reportRealsParameter) async {
+
+    Map<String, String> headers = await DioHelper().header();
+
+    Map body = {
+      'Reported_id':reportRealsParameter.reportedId,
+      'description':reportRealsParameter.description,
+      'real_id':reportRealsParameter.realId,
+    };
+
+
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.reportReals,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+
+      return response.data[ConstentApi.message];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e ,endpointName: 'Report Reals');
+    }
+
   }
 
 
