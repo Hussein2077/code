@@ -104,6 +104,8 @@ class HeaderRoom extends StatelessWidget {
                                       context: context,
                                       widget: UpdateRoomScreen(
                                         roomDate: room,
+                                        room: room,
+                                        myDataModel: myDataModel,
                                       ));
                                 } else {
                                   bottomDailog(
@@ -115,17 +117,17 @@ class HeaderRoom extends StatelessWidget {
                                         roomtype: roomType,
                                       ));
                                 }
-                                /*  bottomDailog(
-                                    context: context,
-                                    widget: MoreDailogWidget(
-                                      roomId: room.id!,
-                                      ownerId: room.ownerId.toString(),
-                                      passwordStatus: room.roomPassStatus!,
-                                      notifyRoom: notifyRoom,
-                                      modeRoom: roomMode,
-                                      refreshRoom: refreshRoom,
-                                      userId: myDataModel.id.toString(),
-                                    ));*/
+                                // bottomDailog(
+                                //     context: context,
+                                //     widget: MoreDailogWidget(
+                                //       roomId: room.id!,
+                                //       ownerId: room.ownerId.toString(),
+                                //       passwordStatus: room.roomPassStatus!,
+                                //       notifyRoom: notifyRoom,
+                                //       modeRoom: roomMode,
+                                //       refreshRoom: refreshRoom,
+                                //       userId: myDataModel.id.toString(),
+                                //     ));
                               },
                               icon: Image.asset(AssetsPath.settingRoom))),
                       const SizedBox(

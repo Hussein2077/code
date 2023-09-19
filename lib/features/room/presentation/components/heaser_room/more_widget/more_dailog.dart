@@ -57,7 +57,9 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<OnRoomBloc, OnRoomStates>(builder: (context, state) {
+    return BlocConsumer<OnRoomBloc, OnRoomStates>(
+
+        builder: (context, state) {
       return Container(
         width: ConfigSize.screenWidth,
         height: ConfigSize.defaultSize! * ConfigSize.defaultSize! * 3,
@@ -471,13 +473,15 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
                 ],
               ),
       );
-    }, listener: (context, state) {
+    },
+        listener: (context, state) {
       if (state is UpdateRoomSucsseState) {
         setState(() {
           RoomScreen.roomIsLoked = true;
         });
       }
-    });
+    }
+    );
   }
 
   Future<void> stopPK() async {

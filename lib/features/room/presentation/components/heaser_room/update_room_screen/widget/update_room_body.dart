@@ -25,15 +25,22 @@ import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/up
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
 
+import 'edit_features_container.dart';
+
 class UpdateRoomBody extends StatefulWidget {
   final EnterRoomModel roomDate;
   final String nameHint;
   final String introHint;
+  final EnterRoomModel room;
+  final MyDataModel myDataModel;
+  final Function() notifyRoom;
+  final int roomMode;
 
+  final Function() refreshRoom;
   const UpdateRoomBody({required this.roomDate,
     required this.nameHint,
     required this.introHint,
-    Key? key}) : super(key: key);
+    Key? key, required this.room, required this.myDataModel, required this.notifyRoom, required this.refreshRoom, required this.roomMode}) : super(key: key);
 
   //static   AllMainClassesModel?  roomType  ;
   @override
@@ -264,15 +271,24 @@ class _UpdateRoomBodyState extends State<UpdateRoomBody> {
                 const Spacer(
                   flex: 1,
                 ),
-                // const Divider(
-                //   height: 1,
-                //   thickness: 1,
-                //   color: Colors.grey,
-                // ),
-                // EditFeaturesContainer(),
-                // const Spacer(
-                //   flex: 2,
-                // ),
+
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                EditFeaturesContainer(
+                  roomId: widget.room.id!,
+                  ownerId: widget.room.ownerId.toString(),
+                  passwordStatus: widget.room.roomPassStatus!,
+                  notifyRoom: widget.notifyRoom,
+                  modeRoom:widget. roomMode,
+                  refreshRoom: widget.refreshRoom,
+                  userId: widget.myDataModel.id.toString(),
+                ),
+                const Spacer(
+                  flex: 2,
+                ),
               ],
             ),
           ),
