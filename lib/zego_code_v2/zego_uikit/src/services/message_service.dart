@@ -20,8 +20,8 @@ mixin ZegoMessageService {
   }
 
   /// send in-room message
-  void sendInRoomMessage(String message) {
-    return ZegoUIKitCore.shared.coreMessage.sendBroadcastMessage(message);
+  void sendInRoomMessage(String message , bool? changeTheme) {
+    return ZegoUIKitCore.shared.coreMessage.sendBroadcastMessage(message , changeTheme);
   }
 
   /// re-send in-room message

@@ -21,6 +21,8 @@ class ZegoInRoomMessage {
   ZegoUIKitUser user;
   String message;
   int timestamp;
+    bool? changeTheme;
+
   var state =
       ValueNotifier<ZegoInRoomMessageState>(ZegoInRoomMessageState.success);
 
@@ -29,6 +31,7 @@ class ZegoInRoomMessage {
     required this.message,
     required this.timestamp,
     required this.messageID,
+     this.changeTheme , 
   });
 
   ZegoInRoomMessage.fromBroadcastMessage(ZegoBroadcastMessageInfo message)
