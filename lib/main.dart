@@ -5,7 +5,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
 import 'package:tik_chat_v2/core/notifcation/firebase_messaging_background.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -32,7 +31,6 @@ import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/mode_screen/mode_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -129,7 +127,6 @@ import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/
 import 'package:tik_chat_v2/firebase_options.dart';
 
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
-import 'features/profile/persentation/manager/theme_bloc/theme_bloc.dart';
 
 
 
