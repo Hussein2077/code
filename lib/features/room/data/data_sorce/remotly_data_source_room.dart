@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -1135,6 +1136,29 @@ static String uploadImagePrice = "" ;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'yellowBanner');
     }
+  }
+
+
+   @override
+  Future<List<RoomUserMesseagesModel>> getUsersInRoon(List<String> userIds) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    final body = {'users_ids': userIds};
+    try {
+      final response = await Dio().post(ConstentApi.getUsersInRoom,
+          options: Options(
+            headers: headers,
+          ),
+          data: body);
+      Map<String, dynamic> resultData = response.data;
+      log(resultData.toString());
+      return List<RoomUserMesseagesModel>.from(
+          resultData['data'].map((x) => RoomUserMesseagesModel.fromJson(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getUsersInRoon');
+    }
+      
   }
 
 }
