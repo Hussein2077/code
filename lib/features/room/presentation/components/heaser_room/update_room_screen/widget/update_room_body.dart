@@ -249,8 +249,6 @@ class _UpdateRoomBodyState extends State<UpdateRoomBody> {
                         width: ConfigSize.defaultSize! * 12),
                     MainButton(
                       onTap: () {
-                        log('${RoomTypeButton.roomType!.id.toString()}mmmmmmmmmmmm');
-                        log('${RoomTypeButton.roomType!.name.toString()}lll');
                         Navigator.pop(context);
                         BlocProvider.of<OnRoomBloc>(context).add(UpdateRoom(
                             roomName: roomNameControler.text,
@@ -259,7 +257,7 @@ class _UpdateRoomBodyState extends State<UpdateRoomBody> {
                             roomCover: AddRoomLivePicState.image != null
                                 ? File(AddRoomLivePicState.image!.path)
                                 : null,
-                            roomType: RoomTypeButton.roomType!.id.toString()));
+                            roomType: RoomTypeButton.roomType?.id.toString()));
                       },
                       title: StringManager.save.tr(),
                       buttonColor: ColorManager.mainColorList,

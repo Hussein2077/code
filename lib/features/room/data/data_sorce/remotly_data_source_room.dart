@@ -192,6 +192,8 @@ static String uploadImagePrice = "" ;
             headers: headers
           ));
       log('${response.data["data"].toString() }response');
+      log('response.data[message]'+response.data['message'].toString());
+
           RemotlyDataSourceRoom.uploadImagePrice = response.data['message'];
       return List<BackGroundModel>.from((response.data["data"] as List)
           .map((e) => BackGroundModel.fromjson(e)));

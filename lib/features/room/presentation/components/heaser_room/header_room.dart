@@ -10,7 +10,6 @@ import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/exit_secreen/exit_widget.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/more_widget/more_dailog.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/number_of_visitor/number_visitor.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/owner_room/owner_room.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/show_ditails_screen/ShowDitailsScreen.dart';
@@ -71,9 +70,7 @@ class HeaderRoom extends StatelessWidget {
                 introRoom: introRoom,
                 roomImg: roomImg,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -117,17 +114,6 @@ class HeaderRoom extends StatelessWidget {
                                         roomtype: roomType,
                                       ));
                                 }
-                                // bottomDailog(
-                                //     context: context,
-                                //     widget: MoreDailogWidget(
-                                //       roomId: room.id!,
-                                //       ownerId: room.ownerId.toString(),
-                                //       passwordStatus: room.roomPassStatus!,
-                                //       notifyRoom: notifyRoom,
-                                //       modeRoom: roomMode,
-                                //       refreshRoom: refreshRoom,
-                                //       userId: myDataModel.id.toString(),
-                                //     ));
                               },
                               icon: Image.asset(AssetsPath.settingRoom))),
                       const SizedBox(
@@ -157,8 +143,7 @@ class HeaderRoom extends StatelessWidget {
                       )
                     ],
                   ),
-                ],
-              ),
+
             ],
           ),
           SizedBox(height: ConfigSize.defaultSize! - 3),
