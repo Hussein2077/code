@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 
 
 class ConstentApi {
- // static const String baseUrl = "https://test.tik-chat.com/api";
+ // static const String baseUrl = "https://tik-chat.com/api";
   static const String baseUrl = "https://test.tik-chat.com/api";
   static const String getBoxes = "$baseUrl/box/list";
   static const String sendBox = "$baseUrl/box/send";
@@ -83,6 +83,7 @@ class ConstentApi {
   static const String getGoldData = "$baseUrl/coins/list";
   static const String sentToZego = "$baseUrl/send_to_zego";
   static const String getExtraData = "$baseUrl/images";
+  static const  String getUsersInRoom ="$baseUrl/rooms/users";
   static const String banUserFromWriting =
       "$baseUrl/rooms/ban_user_from_writing";
   static const String unBanUserFromWriting =
@@ -123,6 +124,7 @@ class ConstentApi {
   static const String addMoment = "$baseUrl/moment";
   static const String makeMomentLikes = "$baseUrl/moment/2/like";
   static const String momentSendGift = "$baseUrl/moment/2/gift";
+  static const String reportReals = "$baseUrl/report";
 
   static String getMoments(
     String userId,

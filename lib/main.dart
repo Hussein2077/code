@@ -5,7 +5,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
 import 'package:tik_chat_v2/core/notifcation/firebase_messaging_background.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -14,6 +13,7 @@ import 'package:tik_chat_v2/core/resource_manger/themes/light_theme.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
@@ -31,7 +31,6 @@ import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/mode_screen/mode_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -77,6 +76,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_us
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_theme/theme_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_theme/theme_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_use_item/use_item_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_user_repoert/user_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_wallet_history/charge_history_bloc.dart';
@@ -107,6 +108,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_events.dart';
@@ -114,6 +116,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_top_inroom/topin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
@@ -124,7 +127,6 @@ import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/
 import 'package:tik_chat_v2/firebase_options.dart';
 
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
-import 'features/profile/persentation/manager/theme_bloc/theme_bloc.dart';
 
 
 
@@ -148,9 +150,7 @@ Future<void> main() async {
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await ServerLocator().init();
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setInt('mode', ModeScreen.selectedMode);
-  final int? mode = prefs.getInt('mode');
+String theme = await Methods().returnThemeStatus();
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),
     supportedLocales: const [
@@ -164,12 +164,13 @@ Future<void> main() async {
     assetLoader: const CodegenLoader(),
     path: 'lib/core/translations/',
     saveLocale: true,
-    child: const MyApp(),
+    child:  MyApp(theme: theme),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+final  String theme ;
+  const MyApp({required this.theme ,   super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -418,15 +419,20 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
         BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
-        BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => ThemeBloc()),
+                BlocProvider(create: (_) => getIt<RoomVistorBloc>()),
+
+
+
+        BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
       ],
-      child:  BlocBuilder<ThemeCubit, ThemeToggle>(
-        builder: (context, themeToggle) {
-          return MaterialApp(
+      child:  BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          if (state is LightThemeState )  {
+   return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: themeToggle == ThemeToggle.light
-                ? lightTheme
-                : darkTheme,
+            theme: lightTheme ,
+
             navigatorKey: globalNavigatorKey ,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
@@ -434,6 +440,33 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             initialRoute: Routes.splash,
           );
+          }else if (state is DarkThemeState){
+            return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: darkTheme ,
+
+            navigatorKey: globalNavigatorKey ,
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            onGenerateRoute: RouteGenerator.getRoute,
+            locale: context.locale,
+            initialRoute: Routes.splash,
+          );
+          }
+       else {
+        return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: theme=="dark"?darkTheme: lightTheme ,
+
+            navigatorKey: globalNavigatorKey ,
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            onGenerateRoute: RouteGenerator.getRoute,
+            locale: context.locale,
+            initialRoute: Routes.splash,
+          );
+
+       }
         }
       ),
     );

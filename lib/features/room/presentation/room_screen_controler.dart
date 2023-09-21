@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -32,6 +33,7 @@ import 'package:tik_chat_v2/core/widgets/show_svga.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
+import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/lucky_box.dart';
@@ -54,7 +56,6 @@ import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/zego_uikit_prebuil
 
 import '../../../core/utils/config_size.dart';
 
-
 class EmojieData {
   final String emojie;
   final int emojieId;
@@ -76,13 +77,13 @@ class LuckyBoxData {
 
   LuckyBoxData(
       {required this.boxId,
-        required this.uId,
-        required this.ownerImage,
-        required this.coinns,
-        required this.ownerName,
-        required this.ownerBoxId,
-        required this.typeLuckyBox,
-        required this.remTime});
+      required this.uId,
+      required this.ownerImage,
+      required this.coinns,
+      required this.ownerName,
+      required this.ownerBoxId,
+      required this.typeLuckyBox,
+      required this.remTime});
 }
 
 const String messageContent = "messageContent";
@@ -149,16 +150,15 @@ const String showPobUpKey = "PobUp";
 const String banFromWritingKey = "banFromWriting";
 const String unbanFromWritingKey = "removeBanFromWriting";
 const String banDiviceKey = "banDevice";
-const String inviteToSeatKey ="inviteToSeat";
-const String muteUserKey='muteUser';
+const String inviteToSeatKey = "inviteToSeat";
+const String muteUserKey = 'muteUser';
 const String mute = 'mute';
 const String showYallowBanner = "yellowBanner";
 
-
-String appSign =SplashScreen.appSign??
+String appSign = SplashScreen.appSign ??
     "bb61a6e81736c136dac6e2afc46e71642e8eaf35cdbe713d0ced6aa139ac3faa";
 
-int appID =SplashScreen.appId?? 1442956895;
+int appID = SplashScreen.appId ?? 1442956895;
 
 class GiftData {
   final String giftId;
@@ -175,105 +175,81 @@ class GiftData {
 
   GiftData(
       {required this.img,
-        required this.senderData,
-        required this.reciverData,
-        required this.giftBanner,
-        required this.giftImg,
-        required this.numberOfGift,
-        required this.roomGiftsPrice,
-        required this.isPlural,
-        required this.giftId,
-        required this.showBanner,
-        this.localPath});
+      required this.senderData,
+      required this.reciverData,
+      required this.giftBanner,
+      required this.giftImg,
+      required this.numberOfGift,
+      required this.roomGiftsPrice,
+      required this.isPlural,
+      required this.giftId,
+      required this.showBanner,
+      this.localPath});
 }
 
 class EntroData {
   final String imgId;
-  final String imgUrl ;
+  final String imgUrl;
 
   EntroData({required this.imgId, required this.imgUrl});
-
 }
-
-
 
 // functions in room
 
-Future<void> showingEmojie({required String userId,required EmojieData emojieData , required int timeEmojie })async{
-  RoomScreen.listOfEmojie.value
-      .remove(userId);
-  RoomScreen.listOfEmojie.value.putIfAbsent(
-      userId,
-          () => emojieData);
+Future<void> showingEmojie(
+    {required String userId,
+    required EmojieData emojieData,
+    required int timeEmojie}) async {
+  RoomScreen.listOfEmojie.value.remove(userId);
+  RoomScreen.listOfEmojie.value.putIfAbsent(userId, () => emojieData);
 
-  RoomScreen.updateEmojie.value = DateTime.now().millisecondsSinceEpoch.toInt() +MyDataModel.getInstance().id! ;
+  RoomScreen.updateEmojie.value =
+      DateTime.now().millisecondsSinceEpoch.toInt() +
+          MyDataModel.getInstance().id!;
 
   Future.delayed(Duration(seconds: timeEmojie), () {
-    RoomScreen.listOfEmojie.value
-        .remove(userId);
-    RoomScreen.updateEmojie.value = DateTime.now().millisecondsSinceEpoch.toInt() +MyDataModel.getInstance().id! ;
+    RoomScreen.listOfEmojie.value.remove(userId);
+    RoomScreen.updateEmojie.value =
+        DateTime.now().millisecondsSinceEpoch.toInt() +
+            MyDataModel.getInstance().id!;
   });
 }
 
+List<String> splitUsersInRoom({required List<ZegoUIKitUser> orginalList}) {
+  List<String> listIds = [];
+  orginalList.forEach((element) {
+    listIds.add(element.id);
+  });
+  return listIds;
+}
+
 getUserDataInMessages(String userId) async {
-  if (RoomScreen.usersInRoom.containsKey(userId)) {
-    RoomScreen.usersMessagesInRoom
-        .putIfAbsent(userId, () => RoomScreen.usersInRoom[userId]!);
-  } else {
-    try{
-      UserDataModel ownerDataModel =
-      await RemotlyDataSourceProfile().getUserData(userId: userId);
-      RoomScreen.usersMessagesInRoom
-          .putIfAbsent(userId, () => ownerDataModel);
-
-    }catch(e){
-      log(e.toString()) ;
-    }
+  try {
+    List<RoomUserMesseagesModel> user =
+        await RemotlyDataSourceRoom().getUsersInRoon([userId]);
+    log(user.toString() + "zzzzzzzzzzzzzzz");
+    RoomScreen.usersMessagesRoom.putIfAbsent(userId, () => user[0]);
+  } catch (e) {
+    log(e.toString());
   }
 }
 
-getUserDataInRoom(String userId) async {
-  try{
-    UserDataModel ownerDataModel =
-    await RemotlyDataSourceProfile().getUserData(userId: userId);
-    RoomScreen.usersInRoom.putIfAbsent(userId, () {
-      if(kDebugMode){
-        log("i will get user $userId ");
-      }
-      return ownerDataModel;
-    });
-  }on DioError catch(e){
-    if(kDebugMode){
-      log(e.toString()) ;
-    }
-
-  }
-
-}
-
-getUsersDataInRoomNew(List<ZegoUIKitUser> userList) async {
-  for (int i = 0; i < userList.length; i++) {
-    if (RoomScreen.usersInRoom.containsKey(userList[i].id.toString())) {
-      if(kDebugMode){
-        log("i will get user in formation but i found it before ");
-      }
-      continue;
-    }
-    try{
-      UserDataModel ownerDataModel =
-      await RemotlyDataSourceProfile().getUserData(userId: userList[i].id);
-
-      RoomScreen.usersInRoom.putIfAbsent(userList[i].id.toString(), () {
-        if(kDebugMode) {
-          log("i will add use ${userList[i].id} to cache list");
-        }
-        return ownerDataModel;
-      });
-    }catch(e){
-      log(e.toString()) ;
-    }
-  }
-}
+// getUserDataInRoom(String userId) async {
+//   try {
+//     UserDataModel ownerDataModel =
+//         await RemotlyDataSourceProfile().getUserData(userId: userId);
+//     RoomScreen.usersInRoom.putIfAbsent(userId, () {
+//       if (kDebugMode) {
+//         log("i will get user $userId ");
+//       }
+//       return ownerDataModel;
+//     });
+//   } on DioError catch (e) {
+//     if (kDebugMode) {
+//       log(e.toString());
+//     }
+//   }
+// }
 
 List<int> getLockSeatIndex({required LayoutMode layoutMode}) {
   if (layoutMode == LayoutMode.hostTopCenter) {
@@ -284,13 +260,13 @@ List<int> getLockSeatIndex({required LayoutMode layoutMode}) {
     return [0];
   }
 }
-List<Color>colors=const[
+
+List<Color> colors = const [
   Color(0xFF9EFF00),
   Color(0xFFFF8E8E),
   Color(0xFF005570),
   Color(0xFFD5A5FC),
   Color(0xFFD9D9D9),
-
   Color(0xFF9EFF00),
   Color(0xFF9EFF00),
   Color(0xFF9EFF00),
@@ -301,13 +277,12 @@ List<Color>colors=const[
   Color(0xFF9EFF00),
   Color(0xFF9EFF00),
   Color(0xFF9EFF00),
-
 ];
 int getHostSeatIndex(
     {required LayoutMode layoutMode, required String ownerId}) {
   if (layoutMode == LayoutMode.hostTopCenter) {
     ZegoUIKitPrebuiltLiveAudioRoomState.seatManager
-        ?.takeOnSeat(0,owerId: ownerId);
+        ?.takeOnSeat(0, owerId: ownerId);
     return 0;
   } else if (layoutMode == LayoutMode.party) {
     return 0;
@@ -318,7 +293,7 @@ int getHostSeatIndex(
 Future<void> loadMusice({required String path}) async {
   // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
 
-  await ZegoUIKit().playMedia(filePathOrURL: path,enableRepeat: true);
+  await ZegoUIKit().playMedia(filePathOrURL: path, enableRepeat: true);
 
   // await RoomScreen.zegoMediaPlayer?.loadResource(path);
 
@@ -333,7 +308,7 @@ Future<void> loadMusice({required String path}) async {
 
 Future<void> distroyMusic() async {
   //if (RoomScreen.zegoMediaPlayer != null) {
-  await ZegoUIKit().stopMedia() ;
+  await ZegoUIKit().stopMedia();
 
   //  RoomScreen.zegoMediaPlayer = null;
   MusicScreen.isPlaying.value = false;
@@ -347,7 +322,7 @@ void restorePKData() {
   RoomScreen.scoreTeam1 = 0;
 }
 
-Future<void> clearAll()async{
+Future<void> clearAll() async {
   RoomScreen.listOfLoskSeats.value = {0: 0};
   RoomScreen.listOfMuteSeats.clear();
   RoomScreen.clearTimeNotifier = ValueNotifier(0);
@@ -375,6 +350,8 @@ Future<void> clearAll()async{
   RoomScreen.usersInRoom.clear();
   RoomScreen.luckyBoxes.clear();
   RoomScreen.usersMessagesInRoom.clear();
+  RoomScreen.usersMessagesRoom.clear();
+
   LuckyBox.currentBox = 1;
   SetTimerLuckyBox.remTimeSuperBox = 0;
   DialogLuckyBox.startTime = false;
@@ -384,68 +361,63 @@ Future<void> clearAll()async{
   RoomScreen.usersHasMute.clear();
   RoomScreen.banedUsers.clear();
   RoomScreen.isInviteToMic = false;
-  RoomScreen.updatePKNotifier.value = 0 ;
-  RoomScreen.editRoom.value =0;
-  RoomScreen.updateEmojie.value =0 ;
-  RoomScreen.updatebuttomBar.value=0;
-  RoomScreen.imgbackground.value ="" ;
-  RoomScreen.isKick.value =false ;
-  RoomScreen.showBanner.value =false ;
-  RoomScreen.myCoins.value ="";
+  RoomScreen.updatePKNotifier.value = 0;
+  RoomScreen.editRoom.value = 0;
+  RoomScreen.updateEmojie.value = 0;
+  RoomScreen.updatebuttomBar.value = 0;
+  RoomScreen.imgbackground.value = "";
+  RoomScreen.isKick.value = false;
+  RoomScreen.showBanner.value = false;
+  RoomScreen.myCoins.value = "";
   await distroyMusic();
 }
 
-void chooseSeatToInvatation(LayoutMode layoutMode,BuildContext context ,String ownerId,String userId ){
-  if(layoutMode ==LayoutMode.hostTopCenter){
-    if(RoomScreen.userOnMics.value.length == 9){
-      errorToast(context: context, title: StringManager.thereAreNoEmptySeats.tr()) ;
-
-    }else{
-      for(int i=1 ; i<9;i++){
-        if(RoomScreen.userOnMics.value.containsKey(i) ||
+void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context,
+    String ownerId, String userId) {
+  if (layoutMode == LayoutMode.hostTopCenter) {
+    if (RoomScreen.userOnMics.value.length == 9) {
+      errorToast(
+          context: context, title: StringManager.thereAreNoEmptySeats.tr());
+    } else {
+      for (int i = 1; i < 9; i++) {
+        if (RoomScreen.userOnMics.value.containsKey(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
-          continue ;
+          continue;
         }
 
-        BlocProvider.of<UsersInRoomBloc>(context)
-            .add(InviteUserInRoom(ownerId: ownerId,
-            userId: userId, indexSeate: i));
+        BlocProvider.of<UsersInRoomBloc>(context).add(
+            InviteUserInRoom(ownerId: ownerId, userId: userId, indexSeate: i));
         break;
       }
     }
-
-  }else if (layoutMode ==LayoutMode.party)
-  {
-
-    if(RoomScreen.userOnMics.value.length == 16){
-      errorToast(context: context, title: StringManager.thereAreNoEmptySeats.tr()) ;
-
-    }else{
-      for(int i=0 ; i<16;i++){
-        if(RoomScreen.userOnMics.value.containsKey(i)||
+  } else if (layoutMode == LayoutMode.party) {
+    if (RoomScreen.userOnMics.value.length == 16) {
+      errorToast(
+          context: context, title: StringManager.thereAreNoEmptySeats.tr());
+    } else {
+      for (int i = 0; i < 16; i++) {
+        if (RoomScreen.userOnMics.value.containsKey(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
-          continue ;
+          continue;
         }
 
-        BlocProvider.of<UsersInRoomBloc>(context)
-            .add(InviteUserInRoom(ownerId: ownerId,
-            userId: userId, indexSeate: i));
+        BlocProvider.of<UsersInRoomBloc>(context).add(
+            InviteUserInRoom(ownerId: ownerId, userId: userId, indexSeate: i));
       }
     }
-  }else if (layoutMode ==LayoutMode.seats12){
-
-    if(RoomScreen.userOnMics.value.length == 12){
-      errorToast(context: context, title: StringManager.thereAreNoEmptySeats.tr());
-    }else{
-      for(int i=0 ; i<12;i++){
-        if(RoomScreen.userOnMics.value.containsKey(i)||
+  } else if (layoutMode == LayoutMode.seats12) {
+    if (RoomScreen.userOnMics.value.length == 12) {
+      errorToast(
+          context: context, title: StringManager.thereAreNoEmptySeats.tr());
+    } else {
+      for (int i = 0; i < 12; i++) {
+        if (RoomScreen.userOnMics.value.containsKey(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
-          continue ;
+          continue;
         }
 
-        BlocProvider.of<UsersInRoomBloc>(context)
-            .add(InviteUserInRoom(ownerId: ownerId,
-            userId: userId, indexSeate: i));
+        BlocProvider.of<UsersInRoomBloc>(context).add(
+            InviteUserInRoom(ownerId: ownerId, userId: userId, indexSeate: i));
       }
     }
   }
@@ -495,8 +467,8 @@ Widget userAvatar({required String image, required bool isMicrophoneEnabled}) {
 
 Widget showLuckyBannerBodyWidget(
     {required UserDataModel sendDataUser,
-      required String ownerId,
-      required String coins}) {
+    required String ownerId,
+    required String coins}) {
   log("showLuckyBannerBodyWidget");
   return Container(
     width: ConfigSize.defaultSize! * 28.9,
@@ -512,8 +484,9 @@ Widget showLuckyBannerBodyWidget(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        UserImage(image: ConstentApi().getImage(sendDataUser.profile!.image),
-          imageSize: AppPadding.p30 ,
+        UserImage(
+          image: ConstentApi().getImage(sendDataUser.profile!.image),
+          imageSize: AppPadding.p30,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -537,15 +510,15 @@ Widget showLuckyBannerBodyWidget(
                             const Rect.fromLTWH(0.0, 0.0, 200.0, 100.0),
                           )),
                     overflow: TextOverflow.ellipsis),
-                if(sendDataUser.level!.receiverImage! != '')
+                if (sendDataUser.level!.receiverImage! != '')
                   LevelContainer(
                     image: ConstentApi()
                         .getImage(sendDataUser.level!.receiverImage!),
                   ),
-                if(sendDataUser.level!.senderImage! != '')
+                if (sendDataUser.level!.senderImage! != '')
                   LevelContainer(
-                    image:
-                    ConstentApi().getImage(sendDataUser.level!.senderImage!),
+                    image: ConstentApi()
+                        .getImage(sendDataUser.level!.senderImage!),
                   ),
                 if (sendDataUser.vip1 != null)
                   AristocracyLevel(
@@ -585,20 +558,20 @@ Widget showLuckyBannerBodyWidget(
             )
           ],
         ),
-
         CilcularAssetImage(image: AssetsPath.luckybox2, size: AppPadding.p36)
       ],
     ),
   );
 }
 
-invitationDialog(BuildContext context, String owerId,int index) {
+invitationDialog(BuildContext context, String owerId, int index) {
   return showDialog<String>(
     context: context,
-    builder: (BuildContext context) =>  InvitationToMicDialog(
-      onClick:() async{
+    builder: (BuildContext context) => InvitationToMicDialog(
+      onClick: () async {
         Navigator.pop(context);
-        await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!.takeOnSeat(index, owerId: owerId) ;
+        await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
+            .takeOnSeat(index, owerId: owerId);
       },
     ),
   );
@@ -608,9 +581,9 @@ showInFormationDilog(BuildContext context) {
   return showDialog<String>(
     context: context,
     builder: (BuildContext context) => BanFromWritingDilog(
-      accpetText:  () => Navigator.pop(context),
+      accpetText: () => Navigator.pop(context),
       greenText: StringManager.ok,
-      headerText:StringManager.youBanFromWriting.tr(),
+      headerText: StringManager.youBanFromWriting.tr(),
     ),
   );
 }
@@ -627,24 +600,27 @@ Widget luckyBox(
                     barrierDismissible: true,
                     context: context,
                     builder: (BuildContext context) {
-                      if(RoomScreen.luckyBoxes.isEmpty){
-                        RoomScreen.updateLuckyBox.value =  RoomScreen.updateLuckyBox.value+1 ;
+                      if (RoomScreen.luckyBoxes.isEmpty) {
+                        RoomScreen.updateLuckyBox.value =
+                            RoomScreen.updateLuckyBox.value + 1;
                         return Center(
                             child: Container(
-                              height: ConfigSize.defaultSize!*46.2,
-                              width:  ConfigSize.defaultSize!*23,
-                              decoration:  BoxDecoration(
-                                  gradient: const LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors:ColorManager.mainColorList),
-                                  borderRadius: BorderRadius.circular(AppPadding.p20)
-
-                              ),
-                              padding:  EdgeInsets.symmetric(horizontal:0,vertical: AppPadding.p8),
-                              child: const  ErrorLuckWidget(isNotLucky: true,),
-                            ));
-                      }else{
+                          height: ConfigSize.defaultSize! * 46.2,
+                          width: ConfigSize.defaultSize! * 23,
+                          decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: ColorManager.mainColorList),
+                              borderRadius:
+                                  BorderRadius.circular(AppPadding.p20)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 0, vertical: AppPadding.p8),
+                          child: const ErrorLuckWidget(
+                            isNotLucky: true,
+                          ),
+                        ));
+                      } else {
                         return AlertDialog(
                           backgroundColor: Colors.transparent,
                           contentPadding: EdgeInsets.zero,
@@ -670,11 +646,11 @@ Widget luckyBox(
                                 .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
                                 .ownerImage,
                             uid: RoomScreen
-                                .luckyBoxes[RoomScreen.luckyBoxes.length - 1].uId,
+                                .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                                .uId,
                           ),
                         );
                       }
-
                     });
                 // BlocProvider.of<LuckyBoxesBloc>(context)
                 //     .add(PickupBoxesEvent(boxId: boxId)) ;
@@ -709,8 +685,8 @@ Widget teamRed() {
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                AssetsPath.team1,
-              ))),
+        AssetsPath.team1,
+      ))),
     ),
   );
 }
@@ -724,12 +700,14 @@ Widget teamBlue() {
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
-                  AssetsPath.team2,
-                ))),
+          AssetsPath.team2,
+        ))),
       ));
 }
 
-Widget noneUserOnSeat({required Map<dynamic, dynamic> extraInfo,}) {
+Widget noneUserOnSeat({
+  required Map<dynamic, dynamic> extraInfo,
+}) {
   return Container(
     padding: EdgeInsets.only(
         top: ConfigSize.defaultSize! * 8.5,
@@ -738,56 +716,56 @@ Widget noneUserOnSeat({required Map<dynamic, dynamic> extraInfo,}) {
             : ConfigSize.defaultSize! * 0.0),
     child: extraInfo['index'] == 0
         ? Image.asset(
-      AssetsPath.hostMark,
-      width: AppPadding.p20,
-      height: AppPadding.p20,
-    )
-        : Row(mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-
-
-            CircleAvatar(
-      backgroundColor: colors[1],
-radius: ConfigSize.defaultSize!*.9,
-      child: Text(
-            "${extraInfo['index']}",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: AppPadding.p12,
-                fontWeight: FontWeight.w700),
-      ),
-    ),const SizedBox(width: 3,),
-            Text(
-              "empty",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: AppPadding.p10,
-                  fontWeight: FontWeight.w700),),
-          ],
-        ),
+            AssetsPath.hostMark,
+            width: AppPadding.p20,
+            height: AppPadding.p20,
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundColor: colors[1],
+                radius: ConfigSize.defaultSize! * .9,
+                child: Text(
+                  "${extraInfo['index']}",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: AppPadding.p12,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              const SizedBox(
+                width: 3,
+              ),
+              Text(
+                "empty",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: AppPadding.p10,
+                    fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
   );
 }
 
 Widget userForgroundCach({ZegoUIKitUser? user}) {
-
   return Stack(children: [
     if (user!.inRoomAttributes.value['frm'].toString() != "0")
       ShowSVGA(
         imageId: '${user.inRoomAttributes.value['frm']}$cacheFrameKey',
         url: user.inRoomAttributes.value['f2'] ?? "",
       ),
-
     ValueListenableBuilder<int>(
-        valueListenable:RoomScreen.updateEmojie,
-        builder: (context,mapEmoji,_){
-
-          if(RoomScreen.listOfEmojie.value.containsKey(user.id)){
+        valueListenable: RoomScreen.updateEmojie,
+        builder: (context, mapEmoji, _) {
+          if (RoomScreen.listOfEmojie.value.containsKey(user.id)) {
             return ShowSVGA(
               imageId:
-              '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}$cacheEmojieKey',
+                  '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}$cacheEmojieKey',
               url: RoomScreen.listOfEmojie.value[user.id]!.emojie,
             );
-          }else{
+          } else {
             return Container();
           }
         }),
@@ -804,8 +782,8 @@ Widget userForgroundCach({ZegoUIKitUser? user}) {
           isVip: user.inRoomAttributes.value['vip'] == ''
               ? false
               : user.inRoomAttributes.value['vip'] == '8'
-              ? true
-              : false,
+                  ? true
+                  : false,
           textStyle: TextStyle(
             fontSize: AppPadding.p10,
             fontWeight: FontWeight.w600,
@@ -815,14 +793,12 @@ Widget userForgroundCach({ZegoUIKitUser? user}) {
           ),
           textAlign: TextAlign.center,
         ),
-
       ),
     )
   ]);
 }
 
 Widget userForgroundCachParty({ZegoUIKitUser? user}) {
-
   return Stack(children: [
     if (user!.inRoomAttributes.value['frm'].toString() != "0")
       ShowSVGA(
@@ -830,17 +806,17 @@ Widget userForgroundCachParty({ZegoUIKitUser? user}) {
         url: user.inRoomAttributes.value['f2'] ?? "",
       ),
     //todo use bloc
-    ValueListenableBuilder<Map<String,EmojieData>>(
-        valueListenable:RoomScreen.listOfEmojie,
-        builder: (context,mapEmoji,_){
-          if(mapEmoji.containsKey(user.id)){
+    ValueListenableBuilder<Map<String, EmojieData>>(
+        valueListenable: RoomScreen.listOfEmojie,
+        builder: (context, mapEmoji, _) {
+          if (mapEmoji.containsKey(user.id)) {
             return ShowSVGA(
               imageId:
-              '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}$cacheEmojieKey',
+                  '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}$cacheEmojieKey',
               url: RoomScreen.listOfEmojie.value[user.id]!.emojie,
-            ) ;
-          }else{
-            return  Container() ;
+            );
+          } else {
+            return Container();
           }
         }),
     Positioned(
@@ -856,8 +832,8 @@ Widget userForgroundCachParty({ZegoUIKitUser? user}) {
           isVip: user.inRoomAttributes.value['vip'] == ''
               ? false
               : user.inRoomAttributes.value['vip'] == '8'
-              ? true
-              : false,
+                  ? true
+                  : false,
           textStyle: TextStyle(
               fontSize: AppPadding.p10,
               fontWeight: FontWeight.w600,
@@ -879,21 +855,23 @@ Widget noneUserOnSeatParty({required Map<dynamic, dynamic> extraInfo}) {
       children: [
         CircleAvatar(
           backgroundColor: colors[1],
-          radius: ConfigSize.defaultSize!*.9,
+          radius: ConfigSize.defaultSize! * .9,
           child: Text(
             "${extraInfo['index'] + 1}",
             style: const TextStyle(
                 color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700),
           ),
         ),
-        const SizedBox(width: 3,),
+        const SizedBox(
+          width: 3,
+        ),
         Text(
           StringManager.empty.tr(),
           style: TextStyle(
               color: Colors.white,
               fontSize: AppPadding.p10,
-              fontWeight: FontWeight.w700),),
-
+              fontWeight: FontWeight.w700),
+        ),
       ],
     ),
   );
@@ -906,17 +884,17 @@ Widget userForgroundCachMidParty({ZegoUIKitUser? user}) {
         imageId: '${user.inRoomAttributes.value['frm']}$cacheFrameKey',
         url: user.inRoomAttributes.value['f2'] ?? "",
       ),
-    ValueListenableBuilder<Map<String,EmojieData>>(
-        valueListenable:RoomScreen.listOfEmojie,
-        builder: (context,mapEmoji,_){
-          if(mapEmoji.containsKey(user.id)){
+    ValueListenableBuilder<Map<String, EmojieData>>(
+        valueListenable: RoomScreen.listOfEmojie,
+        builder: (context, mapEmoji, _) {
+          if (mapEmoji.containsKey(user.id)) {
             return ShowSVGA(
               imageId:
-              '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}$cacheEmojieKey',
+                  '${RoomScreen.listOfEmojie.value[user.id]!.emojieId.toString()}$cacheEmojieKey',
               url: RoomScreen.listOfEmojie.value[user.id]!.emojie,
-            ) ;
-          }else{
-            return  Container() ;
+            );
+          } else {
+            return Container();
           }
         }),
     Positioned(
@@ -932,8 +910,8 @@ Widget userForgroundCachMidParty({ZegoUIKitUser? user}) {
           isVip: user.inRoomAttributes.value['vip'] == ''
               ? false
               : user.inRoomAttributes.value['vip'] == '8'
-              ? true
-              : false,
+                  ? true
+                  : false,
           textStyle: TextStyle(
               fontSize: AppPadding.p10,
               fontWeight: FontWeight.w600,
@@ -950,64 +928,69 @@ Widget userForgroundCachMidParty({ZegoUIKitUser? user}) {
 Widget noneUserOnSeatMidParty({required Map<dynamic, dynamic> extraInfo}) {
   return Container(
     padding: EdgeInsets.only(
-        top: ConfigSize.defaultSize! * 8.4, left: ConfigSize.defaultSize! * 2.2),
+        top: ConfigSize.defaultSize! * 8.4,
+        left: ConfigSize.defaultSize! * 2.2),
     child: Row(
       children: [
         CircleAvatar(
           backgroundColor: colors[1],
-          radius: ConfigSize.defaultSize!*.9,
+          radius: ConfigSize.defaultSize! * .9,
           child: Text(
             "${extraInfo['index'] + 1}",
             style: const TextStyle(
                 color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
           ),
         ),
-        const SizedBox(width: 3,),
+        const SizedBox(
+          width: 3,
+        ),
         Text(
           StringManager.empty.tr(),
           style: TextStyle(
               color: Colors.white,
               fontSize: AppPadding.p10,
-              fontWeight: FontWeight.w700),),
+              fontWeight: FontWeight.w700),
+        ),
       ],
     ),
   );
 }
 
 Widget messagesChached(
-    {
-      required ZegoInRoomMessage message,
-      required String vip,
-      required String sender,
-      required String receiver,
-      required String bubble,
-      required String frame,
-      required MyDataModel myDataModel,
-      required BuildContext context,
-      required LayoutMode layoutMode,
-      required EnterRoomModel room}
-    ){
+    {required ZegoInRoomMessage message,
+    required String vip,
+    required String sender,
+    required String receiver,
+    required String bubble,
+    required String frame,
+    required MyDataModel myDataModel,
+    required BuildContext context,
+    required LayoutMode layoutMode,
+    required EnterRoomModel room}) {
+  bool changeTheme = message.changeTheme ?? false;
   List<String> words = message.message.split(" ");
 
   List<TextSpan> spans = [];
 
-
   for (String word in words) {
     if (word.startsWith("@")) {
-      spans.add(TextSpan(text: "$word ", style:const TextStyle(color: Colors.yellow)));
+      spans.add(TextSpan(
+          text: "$word ", style: const TextStyle(color: Colors.yellow)));
     } else {
-      spans.add(TextSpan(text: "$word ", style:const TextStyle(color: Colors.white)));
+      spans.add(TextSpan(
+          text: "$word ", style: const TextStyle(color: Colors.white)));
     }
   }
+  log(RoomScreen.usersMessagesRoom.toString());
   return InkWell(
     onTap: () {
-
       bottomDailog(
           context: context,
           widget: MessageRoomProfile(
             myData: myDataModel,
             userId: message.user.id.toString(),
-            roomData: room, layoutMode: layoutMode,
+            roomData: room,
+            layoutMode: layoutMode,
           ));
     },
     child: Padding(
@@ -1022,8 +1005,7 @@ Widget messagesChached(
                 padding: const EdgeInsets.symmetric(horizontal: 2),
                 child: UserImage(
                     image: message.user.inRoomAttributes.value['img'] ??
-                        RoomScreen.usersMessagesInRoom[message.user.id]?.profile
-                            ?.image ??
+                        RoomScreen.usersMessagesRoom[message.user.id]?.image ??
                         ""),
               ),
               Column(
@@ -1035,8 +1017,8 @@ Widget messagesChached(
                     isVip: message.user.inRoomAttributes.value['vip'] == ''
                         ? false
                         : message.user.inRoomAttributes.value['vip'] == '8'
-                        ? true
-                        : false,
+                            ? true
+                            : false,
                     textStyle: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w900,
@@ -1051,53 +1033,49 @@ Widget messagesChached(
                     children: [
                       room.ownerId.toString() == message.user.id
                           ? SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: Image.asset(AssetsPath.hostMark))
+                              width: 20,
+                              height: 20,
+                              child: Image.asset(AssetsPath.hostMark))
                           : const SizedBox(),
                       AristocracyLevel(
                           level: vip == ""
-                              ? RoomScreen.usersMessagesInRoom[message.user.id]
-                              ?.vip1?.level ??
-                              0
+                              ? RoomScreen.usersMessagesRoom[message.user.id]
+                                      ?.vipLevel ??
+                                  0
                               : int.parse(vip)),
                       const SizedBox(
                         width: 1,
                       ),
-                      if ((RoomScreen.usersMessagesInRoom[message.user.id]
-                          ?.level?.senderImage ??
-                          '') !=
+                      if ((RoomScreen.usersMessagesRoom[message.user.id]
+                                  ?.senderLevelImg ??
+                              '') !=
                           '')
                         SizedBox(
                           width: ConfigSize.defaultSize! * 4,
                           height: ConfigSize.defaultSize! * 2,
                           child: LevelContainer(
                             image: sender == ""
-                                ? RoomScreen
-                                .usersMessagesInRoom[message.user.id]
-                                ?.level
-                                ?.senderImage ??
-                                ''
+                                ? RoomScreen.usersMessagesRoom[message.user.id]
+                                        ?.senderLevelImg ??
+                                    ''
                                 : sender,
                           ),
                         ),
                       const SizedBox(
                         width: 1,
                       ),
-                      if ((RoomScreen.usersMessagesInRoom[message.user.id]
-                          ?.level?.receiverImage ??
-                          '') !=
+                      if ((RoomScreen.usersMessagesRoom[message.user.id]
+                                  ?.revicerLevelImg ??
+                              '') !=
                           '')
                         SizedBox(
                           width: ConfigSize.defaultSize! * 4,
                           height: ConfigSize.defaultSize! * 2,
                           child: LevelContainer(
                             image: receiver == ""
-                                ? RoomScreen
-                                .usersMessagesInRoom[message.user.id]
-                                ?.level
-                                ?.receiverImage ??
-                                ''
+                                ? RoomScreen.usersMessagesRoom[message.user.id]
+                                        ?.revicerLevelImg ??
+                                    ''
                                 : receiver,
                           ),
                         ),
@@ -1107,195 +1085,212 @@ Widget messagesChached(
               ),
             ],
           ),
-          bubble == ""
+          (bubble == "" && changeTheme == false)
               ? Padding(
-            padding: EdgeInsets.only(
-                left: AppPadding.p24,
-                top: AppPadding.p2,
-                bottom: AppPadding.p2,
-                right: AppPadding.p2),
-            child: Container(
-              // width: ConfigSize.defaultSize!*33,
-              decoration: BoxDecoration(
-                  color: ColorManager.lightGray.withOpacity(0.2)),
-
-              padding:
-              const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-              child:
-              SelectableText.rich(
-                TextSpan(children: spans),),
-            ),
-          )
-              : Padding(
-            padding: EdgeInsets.only(
-                left: AppPadding.p24,
-                top: AppPadding.p2,
-                bottom: AppPadding.p2,
-                right: AppPadding.p2),
-            child: CachedNetworkImage(
-                imageUrl: ConstentApi().getImage(bubble == ""
-                    ? RoomScreen
-                    .usersMessagesInRoom[message.user.id]?.bubble
-                    : bubble),
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.fill),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ConfigSize.defaultSize! + 15,
-                      vertical: ConfigSize.defaultSize!),
-                  child:SelectableText.rich(TextSpan(children: spans),),
-                ),
-                placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: Colors.grey[850]!,
-                  highlightColor: Colors.grey[800]!,
+                  padding: EdgeInsets.only(
+                      left: AppPadding.p24,
+                      top: AppPadding.p2,
+                      bottom: AppPadding.p2,
+                      right: AppPadding.p2),
                   child: Container(
-                    width: ConfigSize.defaultSize! * 5.7,
-                    height: ConfigSize.defaultSize! * 5.7,
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
+                    // width: ConfigSize.defaultSize!*33,
+                    decoration: BoxDecoration(
+                        color: ColorManager.lightGray.withOpacity(0.2)),
+
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    child: SelectableText.rich(
+                      TextSpan(children: spans),
                     ),
                   ),
-                ),
-                errorWidget: (context, url, error) => const Center(
-                  child: Icon(Icons.error),
-                )),
-          ),
+                )
+              : changeTheme
+                  ? Padding(
+                      padding: EdgeInsets.only(
+                          left: ConfigSize.defaultSize! * 3,
+                          top: ConfigSize.defaultSize! - 4,
+                          bottom: ConfigSize.defaultSize! - 4,
+                          right: ConfigSize.defaultSize! - 4),
+                      child: Container(
+                        // width: ConfigSize.defaultSize!*33,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(ConfigSize.defaultSize!),
+                            color: ColorManager.deepBlue),
+
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 4),
+                        child: SelectableText.rich(
+                          TextSpan(children: spans),
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.only(
+                          left: AppPadding.p24,
+                          top: AppPadding.p2,
+                          bottom: AppPadding.p2,
+                          right: AppPadding.p2),
+                      child: CachedNetworkImage(
+                          imageUrl: ConstentApi().getImage(bubble == ""
+                              ? RoomScreen
+                                  .usersMessagesRoom[message.user.id]?.bubble
+                              : bubble),
+                          imageBuilder: (context, imageProvider) => Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.fill),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: ConfigSize.defaultSize! + 15,
+                                    vertical: ConfigSize.defaultSize!),
+                                child: SelectableText.rich(
+                                  TextSpan(children: spans),
+                                ),
+                              ),
+                          placeholder: (context, url) => Shimmer.fromColors(
+                                baseColor: Colors.grey[850]!,
+                                highlightColor: Colors.grey[800]!,
+                                child: Container(
+                                  width: ConfigSize.defaultSize! * 5.7,
+                                  height: ConfigSize.defaultSize! * 5.7,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.black,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                          errorWidget: (context, url, error) => const Center(
+                                child: Icon(Icons.error),
+                              )),
+                    ),
         ],
       ),
     ),
   );
-
 }
 
 Widget giftBannerWidget(
     {required UserDataModel sendDataUser,
-      required UserDataModel receiverDataUser,
-      required String giftImage,
-      required AnimationController controllerBanner,
-      required Animation<Offset> offsetAnimationBanner,
-      required bool isPlural,
-      required String roomIntro}) {
+    required UserDataModel receiverDataUser,
+    required String giftImage,
+    required AnimationController controllerBanner,
+    required Animation<Offset> offsetAnimationBanner,
+    required bool isPlural,
+    required String roomIntro}) {
   return AnimatedBuilder(
       animation: controllerBanner,
       builder: (context, child) {
-        return
-          Transform.translate(
-              offset:offsetAnimationBanner.value ,
-              child:
-              Container(
-                width: ConfigSize.defaultSize! * 34,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(AssetsPath.bannerRoom),
+        return Transform.translate(
+            offset: offsetAnimationBanner.value,
+            child: Container(
+              width: ConfigSize.defaultSize! * 34,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(AssetsPath.bannerRoom),
+                ),
+              ),
+              padding: EdgeInsets.only(
+                  top: ConfigSize.defaultSize! * 3,
+                  bottom: ConfigSize.defaultSize!,
+                  left: ConfigSize.defaultSize! * 1.5,
+                  right: ConfigSize.defaultSize! * 1.5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  UserImage(
+                      image: sendDataUser.profile!.image!,
+                      imageSize: AppPadding.p26),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: ConfigSize.defaultSize! * 8,
+                            child: Text(sendDataUser.name!,
+                                style: TextStyle(
+                                    fontSize: AppPadding.p12,
+                                    fontWeight: FontWeight.w600,
+                                    foreground: Paint()
+                                      ..shader = const LinearGradient(
+                                        colors: <Color>[
+                                          Colors.red,
+                                          Colors.deepPurpleAccent,
+
+                                          //add more color here.
+                                        ],
+                                      ).createShader(
+                                        const Rect.fromLTWH(
+                                            0.0, 0.0, 200.0, 100.0),
+                                      )),
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                          if (sendDataUser.level!.receiverImage! != '')
+                            LevelContainer(
+                                image: sendDataUser.level!.receiverImage!),
+                          if (sendDataUser.level!.senderImage! != '')
+                            LevelContainer(
+                                image: sendDataUser.level!.senderImage!),
+                          if (sendDataUser.vip1 != null)
+                            AristocracyLevel(
+                              level: sendDataUser.vip1!.level!,
+                            )
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "أرسل ألي",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: AppPadding.p12),
+                          ),
+                          SizedBox(
+                            width: ConfigSize.defaultSize! * 10,
+                            child: Text(
+                                isPlural
+                                    ? "ألي الغرفة$roomIntro"
+                                    : receiverDataUser.name!,
+                                style: TextStyle(
+                                    fontSize: AppPadding.p12,
+                                    fontWeight: FontWeight.w600,
+                                    foreground: Paint()
+                                      ..shader = const LinearGradient(
+                                        colors: <Color>[
+                                          Colors.pinkAccent,
+                                          Colors.deepPurpleAccent,
+                                          Colors.red
+                                          //add more color here.
+                                        ],
+                                      ).createShader(
+                                        const Rect.fromLTWH(
+                                            0.0, 0.0, 200.0, 100.0),
+                                      )),
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                ),
-                padding: EdgeInsets.only(
-                    top: ConfigSize.defaultSize! * 3,
-                    bottom: ConfigSize.defaultSize!,
-                    left: ConfigSize.defaultSize! * 1.5,
-                    right: ConfigSize.defaultSize! * 1.5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    UserImage(image: sendDataUser.profile!.image!, imageSize: AppPadding.p26),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: ConfigSize.defaultSize! * 8,
-                              child: Text(sendDataUser.name!,
-                                  style: TextStyle(
-                                      fontSize: AppPadding.p12,
-                                      fontWeight: FontWeight.w600,
-                                      foreground: Paint()
-                                        ..shader = const LinearGradient(
-                                          colors: <Color>[
-                                            Colors.red,
-                                            Colors.deepPurpleAccent,
-
-                                            //add more color here.
-                                          ],
-                                        ).createShader(
-                                          const Rect.fromLTWH(0.0, 0.0, 200.0, 100.0),
-                                        )),
-                                  overflow: TextOverflow.ellipsis),
-                            ),
-                            if(sendDataUser.level!.receiverImage! != '')
-
-                              LevelContainer(
-                                  image: sendDataUser.level!.receiverImage!
-                              ),
-
-                            if(sendDataUser.level!.senderImage! != '')
-
-                              LevelContainer(
-                                  image:
-                                  sendDataUser.level!.senderImage!
-                              ),
-
-                            if (sendDataUser.vip1 != null)
-                              AristocracyLevel(
-                                level: sendDataUser.vip1!.level!,
-                              )
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "أرسل ألي",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: AppPadding.p12),
-                            ),
-                            SizedBox(
-                              width: ConfigSize.defaultSize! * 10,
-                              child: Text(
-                                  isPlural
-                                      ? "ألي الغرفة$roomIntro"
-                                      : receiverDataUser.name!,
-                                  style: TextStyle(
-                                      fontSize: AppPadding.p12,
-                                      fontWeight: FontWeight.w600,
-                                      foreground: Paint()
-                                        ..shader = const LinearGradient(
-                                          colors: <Color>[
-                                            Colors.pinkAccent,
-                                            Colors.deepPurpleAccent,
-                                            Colors.red
-                                            //add more color here.
-                                          ],
-                                        ).createShader(
-                                          const Rect.fromLTWH(0.0, 0.0, 200.0, 100.0),
-                                        )),
-                                  overflow: TextOverflow.ellipsis),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    UserImage(
-                        image: receiverDataUser.profile!.image!, imageSize: AppPadding.p26),
-                  ],
-                ),
-              )
-          );})
-  ;
+                  UserImage(
+                      image: receiverDataUser.profile!.image!,
+                      imageSize: AppPadding.p26),
+                ],
+              ),
+            ));
+      });
 }
 
 Widget popUpWidget(
     {UserDataModel? ownerDataModel,
-      required EnterRoomModel enterRoomModel,
-      required int vip,
-      required String massage}) {
+    required EnterRoomModel enterRoomModel,
+    required int vip,
+    required String massage}) {
   return DilogBubbelVip(
     roomData: enterRoomModel,
     message: massage,
@@ -1305,19 +1300,19 @@ Widget popUpWidget(
 }
 
 Widget roomBackground(
-    BuildContext context,
-    EnterRoomModel room,
-    ) {
-  return  ValueListenableBuilder<String>(
+  BuildContext context,
+  EnterRoomModel room,
+) {
+  return ValueListenableBuilder<String>(
     valueListenable: RoomScreen.imgbackground,
-    builder: (context,edit,_){
+    builder: (context, edit, _) {
       return CachedNetworkImage(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         fit: BoxFit.cover,
-        imageUrl: (ConstentApi()
-            .getImage(RoomScreen.imgbackground.value == "" ?
-        room.roomBackground :RoomScreen.imgbackground.value)),
+        imageUrl: (ConstentApi().getImage(RoomScreen.imgbackground.value == ""
+            ? room.roomBackground
+            : RoomScreen.imgbackground.value)),
         placeholder: (context, url) => Shimmer.fromColors(
           baseColor: Colors.grey[850]!,
           highlightColor: Colors.grey[800]!,
@@ -1329,9 +1324,9 @@ Widget roomBackground(
           ),
         ),
         errorWidget: (context, url, error) => const Icon(Icons.error),
-      ) ;
+      );
     },
-  ) ;
+  );
 }
 
 Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
@@ -1359,8 +1354,7 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                 InkWell(
                   onTap: () => bottomDailog(
                     context: context,
-                    widget:
-                    TopRoomProfile(
+                    widget: TopRoomProfile(
                       myData: myDataModel,
                       roomData: room,
                       userId: topUser.id.toString(),
@@ -1374,18 +1368,18 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                 ),
                 topUser.frame == ""
                     ? SizedBox(
-                  width: ConfigSize.defaultSize! * 6,
-                  height: ConfigSize.defaultSize! * 6,
-                )
+                        width: ConfigSize.defaultSize! * 6,
+                        height: ConfigSize.defaultSize! * 6,
+                      )
                     : Positioned(
-                  child: SizedBox(
-                      width: ConfigSize.defaultSize! * 6,
-                      height: ConfigSize.defaultSize! * 6,
-                      child: ShowSVGA(
-                        imageId: '${topUser.frameId}$cacheFrameKey',
-                        url: topUser.frame ?? '',
-                      )),
-                ),
+                        child: SizedBox(
+                            width: ConfigSize.defaultSize! * 6,
+                            height: ConfigSize.defaultSize! * 6,
+                            child: ShowSVGA(
+                              imageId: '${topUser.frameId}$cacheFrameKey',
+                              url: topUser.frame ?? '',
+                            )),
+                      ),
               ],
             ),
           if (topUser?.id != null)
@@ -1454,27 +1448,26 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                   );
  }*/
 
-Widget musicWidget (
-    BuildContext context ,
-    final void Function() refrashRoom ,
-    EnterRoomModel room ,
-    AnimationController controllerMusice ,
-    final void Function() destroyMusic
-    ){
-  return  ValueListenableBuilder<bool>(
-      valueListenable:MusicScreen.isPlaying ,
+Widget musicWidget(
+    BuildContext context,
+    final void Function() refrashRoom,
+    EnterRoomModel room,
+    AnimationController controllerMusice,
+    final void Function() destroyMusic) {
+  return ValueListenableBuilder<bool>(
+      valueListenable: MusicScreen.isPlaying,
       builder: (context, isPlay, _) {
-        if(isPlay){
-          return  DraggableFloatWidget(
+        if (isPlay) {
+          return DraggableFloatWidget(
             config: DraggableFloatWidgetBaseConfig(
               initPositionYInTop: false,
               initPositionYMarginBorder: ConfigSize.screenHeight! - 300,
               borderTopContainTopBar: true,
               borderBottom: 30,
             ),
-            onTap: ()  {
+            onTap: () {
               //  int totalDuration = await RoomScreen.zegoMediaPlayer!.getTotalDuration();
-              int totalDuration =  ZegoUIKit().getMediaTotalDuration();
+              int totalDuration = ZegoUIKit().getMediaTotalDuration();
               showDialog(
                   context: context,
                   builder: (context) {
@@ -1525,25 +1518,23 @@ Widget musicWidget (
               ],
             ),
           );
-        }else{
+        } else {
           return const SizedBox();
         }
-
-      }) ;
+      });
 }
 
 showBanFromWritingDilog(BuildContext context) {
   return showDialog<String>(
     context: context,
-    builder: (BuildContext context) =>
-        BanFromWritingDilog(
-          accpetText:  () => Navigator.pop(context),
-          greenText: StringManager.ok,
-          headerText:StringManager.youBanFromWriting,
-        ),
-
+    builder: (BuildContext context) => BanFromWritingDilog(
+      accpetText: () => Navigator.pop(context),
+      greenText: StringManager.ok,
+      headerText: StringManager.youBanFromWriting,
+    ),
   );
 }
+
 class YallowBannerData {
   final int senderId;
   final String message;
@@ -1552,18 +1543,19 @@ class YallowBannerData {
 
   YallowBannerData(
       {required this.senderId,
-        required this.message,
-        required this.yallowBannerhasPasswoedRoom,
-        required this.yallowBannerOwnerRoom});
+      required this.message,
+      required this.yallowBannerhasPasswoedRoom,
+      required this.yallowBannerOwnerRoom});
 }
 
 showYallowBannerWidget(
     {required AnimationController controllerYallowBanner,
-      required Animation<Offset> offsetAnimationYallowBanner,
-      UserDataModel? senderYallowBanner,
-      required hasPassword,
-      required myData,
-      required int ownerId , required int cureentRoomId}) {
+    required Animation<Offset> offsetAnimationYallowBanner,
+    UserDataModel? senderYallowBanner,
+    required hasPassword,
+    required myData,
+    required int ownerId,
+    required int cureentRoomId}) {
   return Directionality(
     textDirection: ui.TextDirection.rtl,
     child: AnimatedBuilder(
@@ -1573,8 +1565,7 @@ showYallowBannerWidget(
               offset: offsetAnimationYallowBanner.value,
               child: InkWell(
                 onTap: () {
-
-                  if(ownerId != cureentRoomId){
+                  if (ownerId != cureentRoomId) {
                     Methods().checkIfRoomHasPassword(
                         context: context,
                         isInRoom: true,
@@ -1582,13 +1573,11 @@ showYallowBannerWidget(
                         ownerId: ownerId.toString(),
                         myData: myData);
                   }
-
-
                 },
                 child: Container(
                     padding: EdgeInsets.symmetric(
                         vertical: ConfigSize.defaultSize! - 4,
-                        horizontal: ConfigSize.defaultSize!-3),
+                        horizontal: ConfigSize.defaultSize! - 3),
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
                             colors: ColorManager.yellowGrident),
@@ -1600,18 +1589,23 @@ showYallowBannerWidget(
                       children: [
                         UserImage(
                             imageSize: ConfigSize.defaultSize! * 4,
-
-                            image:senderYallowBanner!.isAanonymous!?StringManager.imageAnanyomus:  senderYallowBanner.profile!.image!),
-                        SizedBox(width: ConfigSize.defaultSize,),
-
+                            image: senderYallowBanner!.isAanonymous!
+                                ? StringManager.imageAnanyomus
+                                : senderYallowBanner.profile!.image!),
                         SizedBox(
-                          width: ConfigSize.defaultSize!*23.5,
+                          width: ConfigSize.defaultSize,
+                        ),
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * 23.5,
                           child: TextScroll(
-                            textDirection:  ui.TextDirection.rtl,
+                            textDirection: ui.TextDirection.rtl,
 
-                            senderYallowBanner.isAanonymous!?"${StringManager.nameAnayoums} : ${ZegoInRoomMessageInput.messageYallowBanner}":"${ senderYallowBanner.name} : ${ZegoInRoomMessageInput.messageYallowBanner}",
+                            senderYallowBanner.isAanonymous!
+                                ? "${StringManager.nameAnayoums} : ${ZegoInRoomMessageInput.messageYallowBanner}"
+                                : "${senderYallowBanner.name} : ${ZegoInRoomMessageInput.messageYallowBanner}",
                             mode: TextScrollMode.endless,
-                            velocity: const Velocity(pixelsPerSecond: Offset(70, 0)),
+                            velocity:
+                                const Velocity(pixelsPerSecond: Offset(70, 0)),
                             delayBefore: const Duration(milliseconds: 500),
                             pauseBetween: const Duration(seconds: 1),
                             style: const TextStyle(color: Colors.black),
@@ -1620,17 +1614,20 @@ showYallowBannerWidget(
                           ),
                         ),
                         const Spacer(),
-
-
                         Container(
-                          decoration: BoxDecoration(shape: BoxShape.circle , color: ColorManager.gray.withOpacity(0.6))
-                          ,
-                          child: IconButton(onPressed: (){
-                            controllerYallowBanner.reset();
-
-                          }, icon: const Icon(Icons.close , color: Colors.black, size: 15,)),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorManager.gray.withOpacity(0.6)),
+                          child: IconButton(
+                              onPressed: () {
+                                controllerYallowBanner.reset();
+                              },
+                              icon: const Icon(
+                                Icons.close,
+                                color: Colors.black,
+                                size: 15,
+                              )),
                         )
-
                       ],
                     )),
               ));

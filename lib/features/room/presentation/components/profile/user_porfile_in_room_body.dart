@@ -95,32 +95,33 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                       myProfile
                           ? SizedBox(width: ConfigSize.defaultSize! * 8)
                           : Padding(
-                            padding:  EdgeInsets.only(
-                              left: ConfigSize.defaultSize!*1.5,
-                            ),
-                            child: Column(
+                              padding: EdgeInsets.only(
+                                left: ConfigSize.defaultSize! * 1.5,
+                              ),
+                              child: Column(
                                 children: [
-                                   isAdminOrHost?
-                                    BlockButton(
-                                      roomData: widget.roomData,
-                                      userData: widget.userData,
-                                    ):SizedBox(width: ConfigSize.defaultSize! * 8)
+                                  isAdminOrHost
+                                      ? BlockButton(
+                                          roomData: widget.roomData,
+                                          userData: widget.userData,
+                                        )
+                                      : SizedBox(
+                                          width: ConfigSize.defaultSize! * 8)
                                 ],
                               ),
-                          ),
+                            ),
                       Column(
                         children: [
                           SizedBox(
                             height: ConfigSize.defaultSize! * 1.5,
                           ),
                           GradientTextVip(
-                            text:widget.userData.name!,
+                            text: widget.userData.name!,
                             textStyle: TextStyle(
                                 fontSize: ConfigSize.defaultSize! * 1.6,
                                 color: ColorManager.darkBlack,
                                 fontWeight: FontWeight.w400),
-
-                            isVip:widget.userData.hasColorName!,
+                            isVip: widget.userData.hasColorName!,
                           ),
                           IdWithCopyIcon(
                             id: widget.userData.uuid!,
@@ -143,42 +144,37 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                                 roomOwnerId: widget.roomData.ownerId,
                                 userId: widget.userData.id,
                               ),
-                               SizedBox(width: ConfigSize.defaultSize!*2),
-
-                              if(widget.userData.vip1!.img1 != null)
+                              SizedBox(width: ConfigSize.defaultSize! * 2),
+                              if (widget.userData.vip1!.img1 != null)
                                 AristocracyLevel(
                                   level: widget.userData.vip1!.level!,
                                 ),
-
                               const SizedBox(width: 5),
                             ],
                           ),
                           SizedBox(height: ConfigSize.defaultSize! * 2),
-                          if(widget.userData.familyData!=null)
+                          if (widget.userData.familyData != null)
                             InkWell(
-                              onTap: (){
-                                Navigator.pushNamed(context, Routes.familyProfile,
-                                    arguments:widget.roomData.roomFamily!.id);
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, Routes.familyProfile,
+                                    arguments: widget.roomData.roomFamily!.id);
                               },
                               child: Container(
-
                                   padding: EdgeInsets.symmetric(
-                                      vertical: ConfigSize.defaultSize!*0.2,
-                                      horizontal: ConfigSize.defaultSize!*1
-                                  ),
+                                      vertical: ConfigSize.defaultSize! * 0.2,
+                                      horizontal: ConfigSize.defaultSize! * 1),
                                   decoration: BoxDecoration(
-                                      gradient:  const LinearGradient(
-                                          colors: ColorManager.mainColorList
-                                      ),
-                                      borderRadius: BorderRadius.circular(10)
-
-                                  ),
+                                      gradient: const LinearGradient(
+                                          colors: ColorManager.mainColorList),
+                                      borderRadius: BorderRadius.circular(10)),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text("${StringManager.familyName.tr()} :"),
-
-                                      Text(widget.userData.familyData!.name!.toString()),
+                                      Text(
+                                          "${StringManager.familyName.tr()} :"),
+                                      Text(widget.userData.familyData!.name!
+                                          .toString()),
                                     ],
                                   )),
                             ),
@@ -322,14 +318,11 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
         Align(
           alignment: Alignment.center,
           child: Padding(
-            padding:  EdgeInsets.only(
-              top: ConfigSize.defaultSize!*5.2
-            ),
+            padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 5.2),
             child: InkWell(
               onTap: () {
-                                                                                                                        Methods().userProfileNvgator(context: context ,userData: widget.userData );
-
-        
+                Methods().userProfileNvgator(
+                    context: context, userData: widget.userData);
               },
               child: UserImage(
                 boxFit: BoxFit.cover,

@@ -249,7 +249,9 @@ class RouteGenerator {
       case Routes.language:
         return MaterialPageRoute(builder: (_) => const LanguageScreen());
       case Routes.mode:
-        return MaterialPageRoute(builder: (_) => const ModeScreen());
+        String select =
+        settings.arguments as String;
+        return MaterialPageRoute(builder: (_) =>  ModeScreen(select: select,));
       case Routes.familyRequests:
         String familyId = settings.arguments as String;
 

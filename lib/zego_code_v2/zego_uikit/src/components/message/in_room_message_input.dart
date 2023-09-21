@@ -396,7 +396,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
     }
 
 
-    ZegoUIKit().sendInRoomMessage(textController.text);
+    ZegoUIKit().sendInRoomMessage(textController.text , false);
     textController.clear();
 
     widget.valueNotifier?.value = '';

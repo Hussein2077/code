@@ -57,7 +57,13 @@ class SettingsScreen extends StatelessWidget {
             context: context,
             icon: AssetsPath.modeIcon,
             title: StringManager.mode.tr(),
-            onTap: () => Navigator.pushNamed(context, Routes.mode),
+            onTap: () async{
+
+              String theme = await Methods().returnThemeStatus();
+
+
+              Navigator.pushNamed(context, Routes.mode,arguments:theme );
+            },
           ),
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,

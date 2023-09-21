@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
@@ -44,12 +45,10 @@ class _TopRoomProfileState extends State<TopRoomProfile> {
 
   @override
   Widget build(BuildContext context) {
-    if (RoomScreen.usersInRoom[widget.userId] == null) {
+   
       BlocProvider.of<GetUserBloc>(context)
           .add(GetuserEvent(userId: widget.userId));
-    } else {
-      tempData = RoomScreen.usersInRoom[widget.userId];
-    }
+ 
 
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
      listener: (context, state) {
@@ -97,18 +96,7 @@ class _TopRoomProfileState extends State<TopRoomProfile> {
               //todo update this show
               return Text(state.error);
             } else {
-              return RoomScreen.usersInRoom[widget.userId] == null
-                  ? TransparentLoadingWidget(
-                height: ConfigSize.defaultSize!*2,
-                width: ConfigSize.defaultSize!*7.2,
-                    )
-                  :UserProfileInRoom(
-                           myData: widget.myData,
-                      roomData: widget.roomData,
-                      userData: RoomScreen.usersInRoom[widget.userId]!,
-                      layoutMode: widget.layoutMode,
-                    
-                  );
+              return CustomErrorWidget(message: StringManager.unexcepectedError.tr(),);
            
             }
           },

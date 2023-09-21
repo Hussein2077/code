@@ -39,17 +39,14 @@ class GeneralRoomProfile extends StatefulWidget {
 class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
 
 
-  String? selectedValue;
-  UserDataModel? tempData;
+
 
   @override
   Widget build(BuildContext context) {
-    if (RoomScreen.usersInRoom[widget.userId] == null) {
+    
       BlocProvider.of<GetUserBloc>(context)
           .add(GetuserEvent(userId: widget.userId));
-    } else {
-      tempData = RoomScreen.usersInRoom[widget.userId];
-    }
+  
 
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
      listener: (context, state) {
@@ -75,9 +72,16 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
         child: BlocBuilder<GetUserBloc, GetUserState>(
           builder: (context, state) {
             if (state is GetUserLoddingState) {
-              return TransparentLoadingWidget(
-                height: ConfigSize.defaultSize!*2,
-                width: ConfigSize.defaultSize!*7.2,
+              return  RoomScreen.usersInRoom[widget.userId] == null
+                  ? TransparentLoadingWidget(
+                      height: ConfigSize.screenHeight! / 2,
+                    )
+                  : UserProfileInRoom(
+                       myData: widget.myData,
+                  roomData: widget.roomData,
+                  userData: RoomScreen.usersInRoom[widget.userId]!,
+                  layoutMode: widget.layoutMode
+
               );
             } else if (state is GetUserSucssesState) {
               RoomScreen.usersInRoom.removeWhere((key, value) => key == state.data.id.toString());
@@ -86,7 +90,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
               return UserProfileInRoom(
                        myData: widget.myData,
                   roomData: widget.roomData,
-                  userData: tempData ?? state.data,
+                  userData: state.data,
                   layoutMode: widget.layoutMode
 
               );
@@ -94,7 +98,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
               //todo update this show
               return Text(state.error);
             } else {
-              return RoomScreen.usersInRoom[widget.userId] == null
+             return RoomScreen.usersInRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
                 height: ConfigSize.defaultSize!*2,
                 width: ConfigSize.defaultSize!*7.2,

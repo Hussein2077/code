@@ -222,6 +222,24 @@ class Methods {
 
 
   }
+    Future<void> saveThemeStatus({required String theme}) async {
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    
+      preferences.setString(StringManager.theme, theme);
+   
+   
+
+
+  }
+    Future<String> returnThemeStatus() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String theme =
+        preferences.getString(StringManager.theme) ?? "noTheme";
+    return theme;
+  }
+
+
 
   Future<String> returnUserToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

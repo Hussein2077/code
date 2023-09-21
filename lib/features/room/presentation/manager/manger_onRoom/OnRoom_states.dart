@@ -31,19 +31,7 @@ class ExitRoomSuccesMessageState extends OnRoomStates {
 
   const ExitRoomSuccesMessageState({required this.succesMessage});
 }
-class GetAllRoomUserLoadingState extends OnRoomStates {
-  const GetAllRoomUserLoadingState();
-}
 
-class GetAllRoomUsersuccessState extends OnRoomStates {
-  final GetRoomUsersModel getRoomUsersEntite;
- const GetAllRoomUsersuccessState({required this.getRoomUsersEntite});
-}
-
-class GetAllRoomUserErrorState extends OnRoomStates {
-final  String errorMassage;
- const GetAllRoomUserErrorState({required this.errorMassage});
-}
 
 class GetBackGroundloadingState extends OnRoomStates {}
 

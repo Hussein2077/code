@@ -14,9 +14,11 @@ import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/get_room_users_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
+import 'package:tik_chat_v2/features/room/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room/domine/Repository/Base_Repository_Profile.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/ban_user_from_writing_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/enter_room.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
@@ -36,18 +38,21 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
 
 
 
+ @override
+  Future<Either<List<RoomVistorModel>, Failure>> getAllRoomUser({required GetAlluserPram pram}) async{
 
-  @override
-  Future<Either<GetRoomUsersModel, Failure>> getAllRoomUser(
-      {required String ownerId}) async {
-    try {
-      final result = await baseRemotlyDataSourceRoom.getRoomUser(ownerid: ownerId);
-      return left(result);
-    } on Exception catch (e) {
-      return Right(DioHelper.buildFailure(e));
-    }
+      try {
+        final result = await baseRemotlyDataSourceRoom.getRoomUser(pram: pram);
+        return left(result);
+      } on Exception catch (e) {
+        return Right(DioHelper.buildFailure(e));
+      }
 
-  }
+
+
+
+
+}
 
   @override
   Future<Either<List<BackGroundModel>, Failure>> getAllbackGround() async {

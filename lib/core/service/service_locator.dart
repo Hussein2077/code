@@ -176,11 +176,13 @@ import 'package:tik_chat_v2/features/reels/domin/use_case/get_reel_comments_uc.d
 import 'package:tik_chat_v2/features/reels/domin/use_case/get_reels_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/make_reel_comment.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/make_reel_like_use_case.dart';
+import 'package:tik_chat_v2/features/reels/domin/use_case/report_reals_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room/data/Repository_Imp/repository_Imp.dart';
 import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
@@ -227,6 +229,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
+import 'package:tik_chat_v2/features/room/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_top_inroom/topin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
@@ -268,7 +271,7 @@ class ServerLocator {
                 upMicUsecase: getIt(),
                 emojieUseCase:getIt() ,
                 existroomUC: getIt() ,
-                getAllRoomUserUseCase:getIt()  ,
+             
                 removePassRoomUC: getIt() ,
                 updateRoomUsecase: getIt() ,
                 disposeHideRoomUseCase: getIt(),
@@ -362,6 +365,8 @@ class ServerLocator {
           followOrUnFollowUsecase: getIt(),
         ));
 
+        
+
     getIt.registerFactory(
         () => AcountBloc(boundPlatformUC: getIt(), deleteAccountUC: getIt()));
 
@@ -443,6 +448,9 @@ class ServerLocator {
         getIt.registerFactory(
         () => UserReportBloc(userReporetUseCase: getIt()));
 
+        getIt.registerFactory(
+        () => ReportRealsBloc(reportRealsUseCases: getIt()));
+
              getIt.registerFactory(
         () => UsersInRoomBloc(
 
@@ -470,6 +478,7 @@ class ServerLocator {
                 getIt.registerFactory(() => MomentSendGiftBloc(momentSendGiftUseCase:  getIt()));
                 getIt.registerFactory(() => MakeMomentLikeBloc(makeMomentLikeUseCase:  getIt()));
 
+                getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
 
 
     
@@ -741,6 +750,9 @@ getIt.registerLazySingleton(
         () => GetReelUseCase(baseRepositoryReel: getIt()));
                getIt.registerLazySingleton(
         () => UserReporetUseCase(baseRepository: getIt()));
+
+         getIt.registerLazySingleton(
+        () => ReportRealsUseCases(baseRepositoryReel: getIt()));
 
 
 

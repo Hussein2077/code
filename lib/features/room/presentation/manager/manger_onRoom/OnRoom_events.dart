@@ -13,13 +13,7 @@ class InitEvent extends OnRoomEvents{
 }
 
 
-class GetAllRoomUserEvents extends OnRoomEvents {
-  final String ownerId;
-  const GetAllRoomUserEvents({required this.ownerId});
 
-  @override
-  List<Object?> get props => [ownerId];
-}
 
 
 class GetBackGroundEvent extends OnRoomEvents {

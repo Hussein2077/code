@@ -11,7 +11,9 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/problem_customers_services.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_delete_reel/delete_reel_bloc.dart';
@@ -23,6 +25,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_us
 
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
@@ -41,6 +46,9 @@ class UserReelView extends StatefulWidget {
   State<UserReelView> createState() => UserReelViewState();
 }
 
+late TextEditingController report ;
+
+
 class UserReelViewState extends State<UserReelView> {
   static List<int> likedVideos = [];
   List<int> unLikedVideo = [];
@@ -49,12 +57,15 @@ class UserReelViewState extends State<UserReelView> {
   void initState() {
     likedVideos = [];
     unLikedVideo = [];
+    report = TextEditingController();
 
     super.initState();
   }
 
   @override
   void dispose() {
+    report.dispose();
+
     super.dispose();
   }
 
@@ -131,12 +142,14 @@ class UserReelViewState extends State<UserReelView> {
                 onComment: (comment) {
                   log('Comment on reel ==> $comment');
                 },
-                onClickMoreBtn: (id) {
+                onClickMoreBtn: (id,userId) {
+
                   bottomDailog(
                       context: context,
                       widget: moreDilog(
+                        userId:userId.toString(),
                           context: context,
-                          yourReels: widget.userDataModel.id ==
+                          yourReels: userId ==
                               MyDataModel.getInstance().id,
                           id: id.toString()));
 
@@ -185,28 +198,33 @@ class UserReelViewState extends State<UserReelView> {
 Widget moreDilog(
     {required BuildContext context,
     required bool yourReels,
-    required String id}) {
+    required String id,
+    required String userId,
+    }) {
   return Container(
     padding: EdgeInsets.symmetric(
         vertical: ConfigSize.defaultSize!, horizontal: ConfigSize.defaultSize!),
     width: MediaQuery.of(context).size.width,
-    height: ConfigSize.defaultSize! * 12,
+    height:yourReels ? ConfigSize.defaultSize! * 12:ConfigSize.defaultSize! * 35,
     decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-    child: Row(children: [
-      if (yourReels)
-        moreDilogIcon(
-          context: context,
-          widget: Icon(
-            Icons.delete,
-            color: Theme.of(context).colorScheme.background,
-          ),
-          title: StringManager.delete.tr(),
-          onTap: () => BlocProvider.of<DeleteReelBloc>(context)
-              .add(DeleteReelEvent(id: id)),
-        )
-    ]),
+    child: yourReels?
+      moreDilogIcon(
+        context: context,
+        widget: Icon(
+          Icons.delete,
+          color: Theme.of(context).colorScheme.background,
+        ),
+        title: StringManager.delete.tr(),
+        onTap: () => BlocProvider.of<DeleteReelBloc>(context)
+            .add(DeleteReelEvent(id: id)),
+      ): moreReportDialogIcon(
+      context: context,
+      title:  StringManager.report.tr(),
+      onTap: () => BlocProvider.of<ReportRealsBloc>(context)
+          .add(ReportReals(reportedId: userId,realId: id,description: report.text)),
+    ),
   );
 }
 
@@ -236,4 +254,42 @@ Widget moreDilogIcon(
       ],
     ),
   );
+}
+Widget moreReportDialogIcon(
+    {required BuildContext context,
+    required String title,
+    void Function()? onTap}) {
+  return BlocListener<ReportRealsBloc, ReportRealsState>(
+  listener: (context, state) {
+    if(state is ReportReelsLoadingState){
+      loadingToast(context: context, title: StringManager.loading.tr());
+    }else if(state is ReportReelsSucssesState){
+      sucssesToast(context: context, title: state.message);
+    }else if(state is ReportReelsErrorState){
+      sucssesToast(context: context, title: state.error);
+    }
+  },
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+       title,
+        style: Theme.of(context).textTheme.bodyMedium,
+      ),
+
+       ProblemTextFormField(
+        textEditingController:report ,
+      ),
+
+      MainButton(
+        onTap: onTap!,
+        title: StringManager.report.tr(),
+        width: MediaQuery.of(context).size.width,
+
+      )
+
+    ],
+  ),
+);
 }
