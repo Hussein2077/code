@@ -102,6 +102,7 @@ dependencies:
   easy_image_viewer: ^1.2.1
   app_links: ^3.4.3
   flutter_gif: ^0.0.4
+  sign_in_with_apple:
 
 
 

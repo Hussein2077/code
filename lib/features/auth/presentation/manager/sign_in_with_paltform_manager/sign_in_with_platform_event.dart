@@ -13,3 +13,7 @@ class SiginGoogleEvent extends BaseSignInWithPlatformEvent{
 
 
 }
+
+class SiginAppleEvent extends BaseSignInWithPlatformEvent{
+
+}

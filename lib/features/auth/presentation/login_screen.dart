@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -19,6 +21,8 @@ import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widget
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_state.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
@@ -139,11 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Spacer(
                     flex: 1,
                   ),
-             Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:const [
-                    GoogleAuth(),
-             ],),
+             const GoogleAndAppleAuth(),
                   const Spacer(
                     flex: 1,
                   ),
