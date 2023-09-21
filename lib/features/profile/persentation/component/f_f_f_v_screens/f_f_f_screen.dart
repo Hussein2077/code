@@ -50,7 +50,7 @@ class _FFFScreenState extends State<FFFScreen> {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.2,
           ),
-          HeaderWithOnlyTitle(title: widget.title),
+          HeaderWithOnlyTitle(title: widget.title,titleColor: Colors.black,),
           BlocBuilder<GetFollowerOrFollowingBloc, GetFollowerOrFollowingState>(
             builder: (context, state) {
               if (state is GetFollowerOrFollowingSucssesState) {

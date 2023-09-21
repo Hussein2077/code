@@ -31,5 +31,6 @@ class ConnectionTimeoutException implements Exception {}
 class SiginFacebookException implements Exception {}
 
 class SiginGoogleException implements Exception {}
+class SiginAppleException implements Exception {}
 
 class InternetException implements Exception {}

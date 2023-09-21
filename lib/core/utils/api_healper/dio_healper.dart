@@ -54,6 +54,8 @@ class DioHelper {
         return Strings.signinGoogleFailureMessage;
       case SiginFacebookFailure:
         return Strings.signinFacebookFailureMessage;
+      case SiginAppleFailure:
+        return Strings.signinAppleFailureMessage;
       case InternetFailure:
         return Strings.checkYourInternet;
       default:
@@ -71,6 +73,8 @@ class DioHelper {
         return SiginFacebookFailure();
       case SiginGoogleException:
         return SiginGoogleFailure();
+      case SiginAppleException:
+        return SiginAppleFailure();
       case InternetException:
         return InternetFailure();
       case ErrorModelException:

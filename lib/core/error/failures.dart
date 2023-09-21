@@ -11,6 +11,7 @@ class ErrorMessageFailure extends Failure {
 }
 
 class SiginGoogleFailure extends Failure {}
+class SiginAppleFailure extends Failure {}
 
 
 class SiginFacebookFailure extends Failure {}

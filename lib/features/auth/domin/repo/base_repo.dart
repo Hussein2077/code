@@ -21,6 +21,7 @@ abstract class BaseRepository {
       InformationPramiter informationPramiter);
 
   Future<Either<AuthWithGoogleModel, Failure>> siginWithGoogle();
+  Future<Either<MyDataModel, Failure>> siginWithApple();
 
   Future<Either<MyDataModel, Failure>> siginWithFacebook();
 
