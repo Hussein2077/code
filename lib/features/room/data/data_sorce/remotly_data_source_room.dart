@@ -16,7 +16,6 @@ import 'package:tik_chat_v2/features/room/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room/data/model/get_room_users_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
@@ -191,8 +190,7 @@ static String uploadImagePrice = "" ;
           options: Options(
             headers: headers
           ));
-      log('${response.data["data"].toString() }response');
-      log('response.data[message]'+response.data['message'].toString());
+
 
           RemotlyDataSourceRoom.uploadImagePrice = response.data['message'];
       return List<BackGroundModel>.from((response.data["data"] as List)

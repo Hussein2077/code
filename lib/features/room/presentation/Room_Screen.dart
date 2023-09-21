@@ -735,8 +735,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         roomIntro = result[messageContent][roomIntroKey];
         roomName = result[messageContent][roomNameKey];
         roomType = result[messageContent]['room_type'] ?? "";
+        RoomScreen.roomIsLoked = result[messageContent]['is_locked'];
         RoomScreen.editRoom.value = RoomScreen.editRoom.value + 1;
-      } else if (result[messageContent][message] == userEntro) {
+      }
+      else if (result[messageContent][message] == userEntro) {
         if (result[messageContent]['uid'] != widget.myDataModel.id) {
           if (result[messageContent][entroImgIdKey] == "") {
             if (result[messageContent]['vip'] == null
