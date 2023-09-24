@@ -123,6 +123,8 @@ class ConstentApi {
   static const String addMoment = "$baseUrl/moment";
   static const String makeMomentLikes = "$baseUrl/moment/2/like";
   static const String momentSendGift = "$baseUrl/moment/2/gift";
+  static const  String privacyPolicy ="https://test.dragon-chat.co/page/privacy-policy";
+
 
   static String getMoments(
     String userId,

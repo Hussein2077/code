@@ -25,6 +25,16 @@ class BoundPlatformUC {
     return result ;
   }
 
+  Future<Either<String,Failure>> changePassword(BoundNumberPramiter boundNumberPramiter) async{
+    final result = await baseRepositoryProfile.ChangePassword(boundNumberPramiter);
+    return result ;
+  }
+  Future<Either<String,Failure>> changePhone(BoundNumberPramiter boundNumberPramiter) async{
+    final result = await baseRepositoryProfile.ChangePhone(boundNumberPramiter);
+    return result ;
+  }
+
+
   Future<Either<String,Failure>> boundNumber(BoundNumberPramiter boundNumberPramiter) async{
     final result = await baseRepositoryProfile.bountNumber(boundNumberPramiter);
     return result ;
@@ -40,14 +50,13 @@ class BoundPlatformUC {
 
 class  BoundNumberPramiter extends Equatable{
 
-  final String phoneNumber ;
+  final String? phoneNumber ;
   final String? password ;
-  final String vrCode ;
+  final String? vrCode ;
   final String? currentPhone ;
-   final String credential ;
 
 
-  const BoundNumberPramiter({required this.credential , required this.phoneNumber, this.currentPhone, this.password,required this.vrCode});
+  const BoundNumberPramiter({  this.phoneNumber, this.currentPhone, this.password, this.vrCode});
 
   @override
   List<Object?> get props => [  phoneNumber,password,vrCode];

@@ -80,6 +80,7 @@ class _TopUsersScreenState extends State<TopUsersScreen>
                           hError: state.dhError,
                           hState: state.dhState,
                           usersRankH: state.usersRankDh,
+                          type: 'sender',
                         ),
                         TopUsersTypeBody(
                           dError: state.dDError,
@@ -95,6 +96,7 @@ class _TopUsersScreenState extends State<TopUsersScreen>
                                     hError: state.chError,
                           hState: state.chState,
                           usersRankH: state.usersRankCh,
+                          type: 'reciver',
                         )
                       ]),
                     )

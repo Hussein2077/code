@@ -86,6 +86,54 @@ class NumberAccountLoading extends AccountStates {
 }
 
 
+class ChangeNumberSuccessState extends AccountStates{
+  final String successMessage ;
+
+  ChangeNumberSuccessState({ required this.successMessage});
+
+  @override
+  List<Object?> get props => [successMessage];
+
+}
+class ChangeNumberErrorState extends AccountStates{
+  final String errorMessage ;
+
+  ChangeNumberErrorState({ required this.errorMessage});
+
+  @override
+  List<Object?> get props => [errorMessage];
+
+}
+class ChangeNumberLoading extends AccountStates {
+  @override
+  List<Object?> get props => [];
+
+}
+
+
+class ChangePasswordSuccessState extends AccountStates{
+  final String successMessage ;
+
+  ChangePasswordSuccessState({ required this.successMessage});
+
+  @override
+  List<Object?> get props => [successMessage];
+
+}
+class ChangePasswordErrorState extends AccountStates{
+  final String errorMessage ;
+
+  ChangePasswordErrorState({ required this.errorMessage});
+
+  @override
+  List<Object?> get props => [errorMessage];
+
+}
+class ChangePasswordLoading extends AccountStates {
+  @override
+  List<Object?> get props => [];
+
+}
 
 
 

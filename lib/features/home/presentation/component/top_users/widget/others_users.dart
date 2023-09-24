@@ -1,17 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 
-class OthersUsers extends StatelessWidget {
-    final List<UserTopModel> usersData ; 
 
-  const OthersUsers({required this.usersData, super.key});
+class OthersUsers extends StatelessWidget {
+    final List<UserTopModel> usersData ;
+   final String type ;
+
+  const OthersUsers({required this.usersData,
+    required this.type ,
+    super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +59,28 @@ class OthersUsers extends StatelessWidget {
                 UserImage(image: usersData[index].avater! , imageSize: ConfigSize.defaultSize!*4,),
                             const    Spacer(flex: 1,),
           
-                Text(
-                  usersData[index].name!,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                Column(
+                  children: [
+                    Text(
+                      usersData[index].name!,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    type=='sender'?
+                      Center(
+                        child: SizedBox(
+                            width: ConfigSize.defaultSize! * 4,
+                            height: ConfigSize.defaultSize! * 2,
+                            child: LevelContainer(image: usersData[index].senderImage!)),
+                      ):
+                      Center(
+                        child: SizedBox(
+                            width: ConfigSize.defaultSize! * 4,
+                            height: ConfigSize.defaultSize! * 2,
+                            child: LevelContainer(image: usersData[index].receverImage!)),
+                      )
+
+
+                  ],
                 ),
                             const    Spacer(flex: 20,),
           

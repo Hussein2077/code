@@ -1,24 +1,25 @@
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
+import 'package:tik_chat_v2/features/home/presentation/component/top_users/top_user_screen.dart';
 
 class FirstSecThrUsers extends StatelessWidget {
-  final double imageSize ; 
-    final double position ; 
-   
-  final double height ; 
+    final double position ;
+  final double height ;
   final String badge ; 
-  final UserTopModel userData ; 
+  final String type ;
+  final UserTopModel userData ;
 
-  const FirstSecThrUsers({required this.userData ,  required this.badge , required this.imageSize , required this.height , required this.position ,   super.key});
+  const FirstSecThrUsers({
+    required this.userData ,
+     required this.badge  ,
+     required this.type  ,
+    required this.height , required this.position ,   super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,18 +56,18 @@ class FirstSecThrUsers extends StatelessWidget {
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              //todo add what shemi done
-
-              AristocracyLevel(level: userData.vipLevel!),
-             SizedBox(
-                 width: ConfigSize.defaultSize!*4,
-                 height: ConfigSize.defaultSize!*2,
-                 child: LevelContainer(image: userData.senderImage!)
-             ),
-            ],
+type=='sender'?
+          Center(
+            child: SizedBox(
+                width: ConfigSize.defaultSize! * 4,
+                height: ConfigSize.defaultSize! * 2,
+                child: LevelContainer(image: userData.senderImage!)),
+          ):
+          Center(
+            child: SizedBox(
+                width: ConfigSize.defaultSize! * 4,
+                height: ConfigSize.defaultSize! * 2,
+                child: LevelContainer(image: userData.receverImage!)),
           ),
           Container(
             width: ConfigSize.

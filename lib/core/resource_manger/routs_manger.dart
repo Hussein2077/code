@@ -1,8 +1,13 @@
+
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/widgets/web_view_widget.dart';
+import 'package:tik_chat_v2/features/auth/presentation/component/Privacy_Policy/privacy_policy_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
@@ -39,6 +44,9 @@ import 'package:tik_chat_v2/features/profile/persentation/component/level/level_
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/language_screen/language_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_number_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_pass_or_number.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_pass_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/otp_bind_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/phone_number_bind_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/mode_screen/mode_screen.dart';
@@ -123,6 +131,10 @@ class Routes {
   static const String myVideosScreen = "/MyVideosScreen";
 
   static const String userReelView = "/userReelView";
+  static const String changeNumberScreen = "/ChangeNumberScreen";
+  static const String changePassOrNumberScreen = "/ChangePassOrNumberScreen";
+  static const String changePassScreen = "/ChangePassScreen";
+  static const String privacyPolicyScreen = "/PrivacyPolicyScreen";
 }
 
 class RouteGenerator {
@@ -138,13 +150,13 @@ class RouteGenerator {
                   isUpdate: loginPramiter?.isUpdate,
                 ));
       case Routes.otp:
-        OtpScreenParameter otpScreenParameter =
-            settings.arguments as OtpScreenParameter;
+        OtbScreenParm otbScreenParm =
+            settings.arguments as OtbScreenParm;
         return MaterialPageRoute(
             builder: (_) => OtpScreen(
-                  codeCountry: otpScreenParameter.codeCountry,
-                  phone: otpScreenParameter.phone,
-                  password: otpScreenParameter.password,
+                  codeCountry: otbScreenParm.codeCountry,
+                  phone: otbScreenParm.phone,
+                  password: otbScreenParm.password,
                 ));
       case Routes.addInfo:
         GoogleSignInAccount? googleData =
@@ -297,15 +309,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => VistorScreen());
       case Routes.phoneBindScreen:
         return MaterialPageRoute(builder: (_) => const PhoneNumberBindScreen());
-      case Routes.otpBindScreen:
-        OtpScreenParameter otpScreenParameter =
-            settings.arguments as OtpScreenParameter;
-        return MaterialPageRoute(
-            builder: (_) => OtpBindScreen(
-                  codeCountry: otpScreenParameter.codeCountry,
-                  phone: otpScreenParameter.phone,
-                  password: otpScreenParameter.password,
-                ));
       case Routes.searchScreen:
         return MaterialPageRoute(builder: (_) => const SearchScreen());
       case Routes.cashWithdrawal:
@@ -391,6 +394,41 @@ class RouteGenerator {
                     child: MyVideosScreen(
                   userDataModel: pram,
                 )));
+
+
+
+      case Routes.otpBindScreen:
+        OtbScreenParm otbScreenParm =settings.arguments as OtbScreenParm;
+        return MaterialPageRoute(
+            builder: (_) =>  OtpBindScreen(
+              type: otbScreenParm.type,
+              phone: otbScreenParm.phone,
+              password: otbScreenParm.password,
+              codePhone: otbScreenParm.codeCountry,
+
+            ));
+
+      case Routes.changeNumberScreen:
+        return MaterialPageRoute(
+            builder: (_) => const ChangeNumberScreen());
+      case Routes.changePassOrNumberScreen:
+        return MaterialPageRoute(
+            builder: (_) => const ChangePassOrNumberScreen());
+
+      case Routes.changePassScreen:
+        return MaterialPageRoute(
+            builder: (_) => const ChangePassScreen());
+      case Routes.privacyPolicyScreen:
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => const SafeArea(child: PrivacyPolicyScreen()));
+        } else {
+          return MaterialPageRoute(
+              builder: (_) => const SafeArea(child: PrivacyPolicyScreen()));
+        }
+
+
     }
 
     return unDefinedRoute();
@@ -403,13 +441,19 @@ class RouteGenerator {
   }
 }
 
-class OtpScreenParameter {
-  final String phone;
-  final String password;
-  final String codeCountry;
+class OtbScreenParm {
+  final String? phone;
+  final String? password;
+  final String? codeCountry;
+  final String? type;
 
-  const OtpScreenParameter(
-      {required this.codeCountry, required this.password, required this.phone});
+  OtbScreenParm(
+      { this.codeCountry,
+        this.phone,
+        this.password,
+        this.type,
+
+      });
 }
 
 class LoginPramiter {

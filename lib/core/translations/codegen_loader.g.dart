@@ -167,7 +167,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.buyToEnjoy: "شراء للاستمتاع بالعديد من المزايا",
     StringManager.advantages: "المزايا",
     StringManager.createFamily: "إنشاء عائلة",
-    StringManager.familyName: "اسم العائلة",
+    StringManager.familyName: " العائلة",
     StringManager.familyBio: "نبذة عن العائلة",
     StringManager.requestToJoin: "طلب الانضمام",
     StringManager.familyMember: "عضو في العائلة",
