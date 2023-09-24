@@ -202,7 +202,14 @@ class UserDataModel {
       isAanonymous: isAanonymous,
       hasColorName: hasColorName,
       lastActiveHidden: lastActiveHidden,
-      isCountryHiden: isCountryHiden
+      isCountryHiden: isCountryHiden,
+
+      nowRoom: NowRoomModel(
+        isnInRoom: nowRoom?.isnInRoom??false,
+        uid: nowRoom?.uid??0,
+        roomstatus: nowRoom?.roomstatus??false,
+
+      )
 
 
     );

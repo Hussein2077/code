@@ -84,7 +84,7 @@ class CoinsTabView extends StatelessWidget {
                                            color: ColorManager.yellow,
                                            fontSize: ConfigSize.defaultSize! * 1.7),
                                      ),
-                                     Text("${state.data[index].usd}",
+                                     Text("\$ ${state.data[index].usd}",
                                          style: Theme.of(context).textTheme.bodyMedium)
                                    ],
                                  ) ,

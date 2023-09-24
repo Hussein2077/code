@@ -3,8 +3,6 @@ import 'dart:developer';
 
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 
-
-
 class ConstentApi {
 //  static const String baseUrl = "https://tik-chat.com/api";
   static const String baseUrl = "https://test.tik-chat.com/api";
@@ -103,12 +101,13 @@ class ConstentApi {
   static const String getConfigKey = "$baseUrl/config/keys-values";
   static const String getConfigApp = "$baseUrl/config/app-check";
   static const String logOut = "$baseUrl/auth/logout";
-    static const String myStore = "$baseUrl/my-store";
-    static const String showAgency = "$baseUrl/agencies/show";
-    static const String agencyMember = "$baseUrl/agencies/showAllusers";
-    static const String agencyRequests = "$baseUrl/agencies/show_request";
-    static const String agencyRequestsAction = "$baseUrl/agencies/actions_request";
-    static const String agencyHistoryTime = "$baseUrl/agencies/list_options_his";
+  static const String myStore = "$baseUrl/my-store";
+  static const String showAgency = "$baseUrl/agencies/show";
+  static const String agencyMember = "$baseUrl/agencies/showAllusers";
+  static const String agencyRequests = "$baseUrl/agencies/show_request";
+  static const String agencyRequestsAction =
+      "$baseUrl/agencies/actions_request";
+  static const String agencyHistoryTime = "$baseUrl/agencies/list_options_his";
   static const String agencyHistory = "$baseUrl/agencies/historyAgancy";
   static const String chargeCoinForUser =
       "$baseUrl/agencies/charge_co_for_users";
@@ -123,8 +122,7 @@ class ConstentApi {
   static const String addMoment = "$baseUrl/moment";
   static const String makeMomentLikes = "$baseUrl/moment/2/like";
   static const String momentSendGift = "$baseUrl/moment/2/gift";
-   static const  String getUsersInRoom ="$baseUrl/rooms/users";
-
+  static const String getUsersInRoom = "$baseUrl/rooms/users";
 
   static String getMoments(
     String userId,
@@ -132,92 +130,59 @@ class ConstentApi {
     return "$baseUrl/moment?user_id=$userId";
   }
 
-                static String addMomentComment(String momentId ,) {
+  static String addMomentComment(
+    String momentId,
+  ) {
+    return "$baseUrl/moment/$momentId/comment";
+  }
 
-     return "$baseUrl/moment/$momentId/comment";
+  static String deleteMomentComment(String momentId, String comment) {
+    return "$baseUrl/moment/$momentId/comment/$comment";
+  }
 
+  static String getMomentComment(String momentId, String page) {
+    return "$baseUrl/moment/$momentId/comment?page=$page";
+  }
 
- 
+  static String getReel({String? reelId, String? page}) {
+    if (reelId == null) {
+      return "$baseUrl/reals?page=$page";
+    } else {
+      return "$baseUrl/reals/$reelId";
+    }
+  }
 
-}
-          static String deleteMomentComment(String momentId , String comment) {
+  static String getReelUser(String? userID, String? page) {
+    if (userID == null) {
+      return "$baseUrl/reals/user?page=$page";
+    } else {
+      return "$baseUrl/reals/user/$userID?page=$page";
+    }
+  }
 
-     return "$baseUrl/moment/$momentId/comment/$comment";
-
-
- 
-
-}
-
-    static String getMomentComment(String momentId , String page) {
-
-     return "$baseUrl/moment/$momentId/comment?page=$page";
-
-
- 
-
-}
-
-
-static String getReel({String? reelId ,String? page}) {
-  if(reelId == null){
-    return "$baseUrl/reals?page=$page";
-  }else{
-
-
+  static String deleteReel(
+    String reelId,
+  ) {
     return "$baseUrl/reals/$reelId";
   }
 
-}
-
-static String getReelUser(String? userID , String?page) {
-  if (userID==null){
-     return "$baseUrl/reals/user?page=$page";
-
-  }else{
-   return "$baseUrl/reals/user/$userID?page=$page";
-
+  static String deleteMoment(
+    String momentId,
+  ) {
+    return "$baseUrl/moment/$momentId";
   }
 
- 
+  static String getReelComments(String reelId, String? page) {
+    return "$baseUrl/reals/$reelId/comment?page=$page";
+  }
 
-}
+  static String makeReelComments(String reelId) {
+    return "$baseUrl/reals/$reelId/comment";
+  }
 
-static String deleteReel(String reelId ,) {
-
-     return "$baseUrl/reals/$reelId";
- 
-
-}
-static String deleteMoment(String momentId ,) {
-
-     return "$baseUrl/moment/$momentId";
- 
-
-}
-
-static String getReelComments(String reelId , String?page) {
-
-     return "$baseUrl/reals/$reelId/comment?page=$page";
- 
-
-}
-static String makeReelComments(String reelId ) {
-
-     return "$baseUrl/reals/$reelId/comment";
- 
-
-}
-
-static String makeReelLike(String reelId ) {
-
-     return "$baseUrl/reals/$reelId/like";
- 
-
-}
-
-
-      
+  static String makeReelLike(String reelId) {
+    return "$baseUrl/reals/$reelId/like";
+  }
 
   static String updateFamily(String familyId) =>
       "$baseUrl/families/edit/$familyId";
@@ -226,7 +191,6 @@ static String makeReelLike(String reelId ) {
 
   static String getTimes(String time) =>
       "$baseUrl/user_info/getTimes?time=$time";
-
 
   String deleteFamily(String id) {
     return "$baseUrl/families/delete/$id";
@@ -239,12 +203,14 @@ static String makeReelLike(String reelId ) {
   String showFamily(String id) {
     return "$baseUrl/families/show/$id";
   }
+
   String upMic({required UpMicrophonePramiter upMic}) =>
       "$baseUrl/rooms/up_microphone?owner_id=${upMic.ownerId}&user_id=${upMic.userId}&position=${upMic.position}";
 
   String search({required String keyword}) =>
       "$baseUrl/search?keywords=$keyword";
-  String getRoomUpdate({required String roomId}) => "$baseUrl/rooms/$roomId/edit";
+  String getRoomUpdate({required String roomId}) =>
+      "$baseUrl/rooms/$roomId/edit";
   static const String getEmojie = "$baseUrl/emojis";
   static const String getCarousel = "$baseUrl/home_carousels";
   String getDataRooms(
@@ -255,10 +221,10 @@ static String makeReelLike(String reelId ) {
           String? filter,
           int? page}) =>
       "$allRooms?page=$page&country_id=${countryId ?? ''}&class_id=${classId ?? ''}&type_id=${typeId ?? ''}&search=${search ?? ''}&filter=${filter ?? ''}";
-  String getUserData({required String userId,}) {
-    
-      return "$baseUrl/users/$userId";
-    
+  String getUserData({
+    required String userId,
+  }) {
+    return "$baseUrl/users/$userId";
   }
 
   String getBackPack(String type) {
@@ -268,10 +234,12 @@ static String makeReelLike(String reelId ) {
   String getChargeHistory(String type) {
     return "$baseUrl/charge_history?type=$type";
   }
-    String getChargeDolarsAgencyOwnerHistory(String type) {
+
+  String getChargeDolarsAgencyOwnerHistory(String type) {
     return "$baseUrl/agencies/charge_dollar_for_OwnerHistory?type=$type";
   }
-    String getChargeCoinsSystemHistory(String type) {
+
+  String getChargeCoinsSystemHistory(String type) {
     return "$baseUrl/agencies/charge_co_for_usersHistory?type=$type";
   }
 

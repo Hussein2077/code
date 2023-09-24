@@ -227,7 +227,6 @@ getUserDataInMessages(String userId) async {
   try {
     List<RoomUserMesseagesModel> user =
         await RemotlyDataSourceRoom().getUsersInRoon([userId]);
-    log(user.toString() + "zzzzzzzzzzzzzzz");
     RoomScreen.usersMessagesRoom.putIfAbsent(userId, () => user[0]);
   } catch (e) {
     log(e.toString());
@@ -981,7 +980,6 @@ Widget messagesChached(
           text: "$word ", style: const TextStyle(color: Colors.white)));
     }
   }
-  log(RoomScreen.usersMessagesRoom.toString());
   return InkWell(
     onTap: () {
       bottomDailog(

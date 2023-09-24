@@ -452,6 +452,8 @@ static const String cachReelsKey ='cachReelsKey';
     static const String addAComment = 'Add a comment...';
     static const String reelsView = 'Reels View';
     static const String empty = 'Empty';
+      static const String nowInRoom = "Now In Room";
+
 
 
 

@@ -317,7 +317,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.pleaseEnterID: "الرجاء إدخال الرقم التعريفي",
     StringManager.pleaseEnterquantity: "الرجاء إدخال الكمية",
     StringManager.agencyMembersRank: "ترتيب أعضاء الوكالة",
-    StringManager.reports: "التقارير",
+    StringManager.reports: "ابلاغ",
     StringManager.shippingFromTheAgency: "الشحن من الوكالة",
     StringManager.chargingFromTheSystem: "الشحن من النظام",
     StringManager.agencyOwner: "مالك الوكالة",
