@@ -49,6 +49,7 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
         decoration:
             BoxDecoration(color: Theme.of(context).colorScheme.background),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             bottomBarColumn(context: context, icon: AssetsPath.chatIconProfile),

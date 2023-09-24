@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/admin_more_dailog/admin_more_dailog.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/exit_secreen/exit_widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/number_of_visitor/number_visitor.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/owner_room/owner_room.dart';
@@ -104,7 +105,18 @@ class HeaderRoom extends StatelessWidget {
                                         room: room,
                                         myDataModel: myDataModel,
                                       ));
-                                } else {
+                                } else if(RoomScreen.adminsInRoom.containsKey(myDataModel.id.toString()) ){
+ bottomDailog(
+                                      context: context,
+                                      widget: AdminMoreDailog(
+                                        ownerId:room.ownerId.toString() ,
+                                        refreshRoom: refreshRoom,
+                                    
+                                      ));
+                                } else
+                                
+                                
+                                {
                                   bottomDailog(
                                       context: context,
                                       widget: ShowDitailsScreen(

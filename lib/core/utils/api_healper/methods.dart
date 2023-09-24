@@ -171,7 +171,7 @@ class Methods {
         // ignore: use_build_context_synchronously
 
         Navigator.pop(context);
-        MainScreen.iskeepInRoom.value=true ;
+        // MainScreen.iskeepInRoom.value=true ;
         Navigator.pushNamed(context, Routes.roomHandler, arguments: RoomHandlerPramiter(ownerRoomId: ownerId,
             myDataModel: MyDataModel.getInstance()));
       }

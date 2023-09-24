@@ -2,6 +2,7 @@ import 'package:tik_chat_v2/core/model/family_data_model.dart';
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_agency_model.dart';
 import 'package:tik_chat_v2/core/model/my_store_model.dart';
+import 'package:tik_chat_v2/core/model/now_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'profile_room_model.dart';
@@ -50,6 +51,8 @@ class MyDataModel {
   final bool? visitHidden;
   bool? hasColorName;
   bool? isAanonymous;
+     NowRoomModel? nowRoom;
+
 
   static MyDataModel? _instance;
 
@@ -93,7 +96,10 @@ class MyDataModel {
       this.lastActiveHidden,
       this.onlineTime,
         this.familyDataModel,
-      this.visitHidden});
+      this.visitHidden,
+              this.nowRoom,
+
+      });
 
   setNewMyData(
       {int? id,
@@ -132,7 +138,11 @@ class MyDataModel {
       VipCenterModel? vip1,
       bool? isPhone,
       int? myType,
-      bool? isHideRoom}) {
+      bool? isHideRoom,
+           NowRoomModel? nowRoom,
+
+      
+      }) {
     this.id = id ?? this.id;
     this.chatId = chatId ?? this.chatId;
     this.name = name ?? this.name;
@@ -168,6 +178,7 @@ class MyDataModel {
     this.isHideRoom = isHideRoom ?? this.isHideRoom;
     this.familyId = familyId ?? this.familyId;
     this.familyDataModel = familyDataModel ?? this.familyDataModel;
+    this.nowRoom = nowRoom ?? this.nowRoom;
   }
 
   factory MyDataModel.fromMap(Map<String, dynamic> map) {
@@ -226,7 +237,13 @@ class MyDataModel {
           familyDataModel: map['family_data'] != null
               ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
               : null,
-          myType: map['type_user'] ?? 0);
+          myType: map['type_user'] ?? 0, 
+          nowRoom:   map['now_room'] != null
+              ? NowRoomModel.fromjson(map['now_room'] as Map<String, dynamic>)
+              : null,
+          
+          
+          );
     } else {
       _instance?.setNewMyData(
           id: map['id'],
@@ -258,6 +275,8 @@ class MyDataModel {
           numberOfFollowings: map['number_of_followings'],
           numberOfFriends: map['number_of_friends'],
           profileVisotrs: map['profile_visitors'],
+                    nowRoom: map['now_room'] == null ? null : NowRoomModel.fromjson(map['vip']),
+
 
 
           profile: map['profile'] != null
@@ -331,6 +350,7 @@ class MyDataModel {
         numberOfFriends: numberOfFriends,
         profileVisotrs: profileVisotrs,
         
+     
         
         
         );
