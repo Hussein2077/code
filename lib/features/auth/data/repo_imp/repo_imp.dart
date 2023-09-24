@@ -116,4 +116,14 @@ class RepositoryImp extends BaseRepository {
       return right(DioHelper.buildFailure(e));
     }
   }
+
+  @override
+  Future<Either<String, Failure>> privacyPolicy()async {
+    try {
+      final result = await baseRemotlyDataSource.privacyPolicy();
+      return Left(result);
+    } on Exception catch(e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
 }

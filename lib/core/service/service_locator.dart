@@ -13,12 +13,16 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart'
 import 'package:tik_chat_v2/features/auth/domin/use_case/google_sign_in_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/log_out_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/login_with_phone_usecase.dart';
+import 'package:tik_chat_v2/features/auth/domin/use_case/privacy_policy_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_apple_us.dart';
+import 'package:tik_chat_v2/features/auth/domin/use_case/send_code_usecase.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_policy/privacy_policy_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/following/data/data_sorce/follwoing_remote_data_sours.dart';
 import 'package:tik_chat_v2/features/following/data/repository_imp/repository_imp.dart';
@@ -271,7 +275,7 @@ class ServerLocator {
                 upMicUsecase: getIt(),
                 emojieUseCase:getIt() ,
                 existroomUC: getIt() ,
-             
+
                 removePassRoomUC: getIt() ,
                 updateRoomUsecase: getIt() ,
                 disposeHideRoomUseCase: getIt(),
@@ -365,7 +369,7 @@ class ServerLocator {
           followOrUnFollowUsecase: getIt(),
         ));
 
-        
+
 
     getIt.registerFactory(
         () => AcountBloc(boundPlatformUC: getIt(), deleteAccountUC: getIt()));
@@ -477,6 +481,8 @@ class ServerLocator {
                 getIt.registerFactory(() => GetMomentCommentBloc(getMomentCommentUseCase: getIt()));
                 getIt.registerFactory(() => MomentSendGiftBloc(momentSendGiftUseCase:  getIt()));
                 getIt.registerFactory(() => MakeMomentLikeBloc(makeMomentLikeUseCase:  getIt()));
+                getIt.registerFactory(() => SendCodeBloc(sendCodeUseCase:  getIt()));
+                getIt.registerFactory(() => PrivacyPolicyBloc(privacyPolicyUseCase:  getIt()));
 
                 getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
 
@@ -486,6 +492,8 @@ class ServerLocator {
 //usecase
 
     getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));
+    getIt.registerLazySingleton(() => SendCodeUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRepositoryProfile: getIt()));
 
 
@@ -546,6 +554,7 @@ getIt.registerLazySingleton(
 
     getIt.registerLazySingleton(
             () => HidePKUC(roomRepo: getIt()));
+       
 
     getIt.registerLazySingleton(
             () => SignInWithAppleUC(baseRepository: getIt()));

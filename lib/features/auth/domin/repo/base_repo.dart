@@ -29,4 +29,6 @@ abstract class BaseRepository {
       ForgetPasswordPramiter forgetPasswordPramiter);
         Future<Either<String, Failure>> logOut(
        );
+  Future<Either<String, Failure>> privacyPolicy();
+
 }

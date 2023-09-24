@@ -19,6 +19,8 @@ class AcountBloc extends Bloc<AccountEvents,AccountStates>{
     on<BindFacebookAccountEvent> (bountFacebook);
     on<BindNumberAccountEvent> (boundNubmer);
    on <BindGoolgeAccountEvent>(boundGoogle);
+    on <ChangePasswordAccountEvent>(changePassword);
+    on <ChangeNumberAccountEvent>(changeNubmer);
   }
 
   FutureOr<void> deleteAccount(DeleteAccountEvent event, Emitter<AccountStates> emit) async{
@@ -41,15 +43,38 @@ class AcountBloc extends Bloc<AccountEvents,AccountStates>{
      emit(NumberAccountLoading());
      final result = await boundPlatformUC.boundNumber(
          BoundNumberPramiter(phoneNumber: event.phoneNumber,
-             password: event.password, vrCode:event.vrCode , credential: event.credential));
+             password: event.password, vrCode:event.vrCode , ));
 
      result.fold((l) => emit(NumberAccountSuccessState(successMessage: l)),
              (r) => emit(NumberAccountErrorState(errorMessage: DioHelper().getTypeOfFailure(r))));
 
   }
 
+ FutureOr<void> changeNubmer(ChangeNumberAccountEvent event, Emitter<AccountStates> emit)  async{
+   emit(ChangeNumberLoading());
+   final result = await boundPlatformUC.changePhone(
+       BoundNumberPramiter(currentPhone: event.currentPhoneNumber,
+         phoneNumber: event.newtPhoneNumber,
+         vrCode:event.vrCode , ));
+   result.fold((l) => emit(ChangeNumberSuccessState(successMessage: l)),
+           (r) => emit(ChangeNumberErrorState(errorMessage: DioHelper().getTypeOfFailure(r))));
 
-  FutureOr<void> boundGoogle(BindGoolgeAccountEvent event, Emitter<AccountStates> emit)async {
+ }
+
+ FutureOr<void> changePassword(ChangePasswordAccountEvent event, Emitter<AccountStates> emit)  async{
+   emit(ChangePasswordLoading());
+   final result = await boundPlatformUC.changePassword(
+       BoundNumberPramiter(
+         password: event.password,
+         phoneNumber: event.phone,
+       ));
+
+   result.fold((l) => emit(ChangePasswordSuccessState(successMessage: l)),
+           (r) => emit(ChangePasswordErrorState(errorMessage: DioHelper().getTypeOfFailure(r))));
+
+ }
+
+ FutureOr<void> boundGoogle(BindGoolgeAccountEvent event, Emitter<AccountStates> emit)async {
 
 
      emit(GoogleAccountLoading());

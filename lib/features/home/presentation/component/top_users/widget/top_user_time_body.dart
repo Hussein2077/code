@@ -13,10 +13,12 @@ class TopUserTimeBody extends StatelessWidget {
   final RankingModel? usersRank;
   final RequestState state;
   final String error;
+ final String type;
   const TopUserTimeBody(
       {required this.usersRank,
       required this.error,
       required this.state,
+      required this.type,
       super.key});
 
   @override
@@ -47,8 +49,8 @@ class TopUserTimeBody extends StatelessWidget {
                         userData:usersRank!.userRankModels[1] ,
                         badge: AssetsPath.secBadge,
                         height: ConfigSize.defaultSize! * 9,
-                        imageSize: ConfigSize.defaultSize! * 7,
                         position: ConfigSize.defaultSize! * 11,
+                        type: type,
                       ),
 
                       // first
@@ -56,20 +58,22 @@ class TopUserTimeBody extends StatelessWidget {
                         userData:usersRank!.userRankModels[0]  ,
                         badge: AssetsPath.firstBadge,
                         height: ConfigSize.defaultSize! * 10,
-                        imageSize: ConfigSize.defaultSize! * 9,
                         position: ConfigSize.defaultSize! * 6,
+                        type: type,
                       ),
                       //third
                       FirstSecThrUsers(
                         userData: usersRank!.userRankModels[2] ,
                         badge: AssetsPath.thrBadge,
                         height: ConfigSize.defaultSize! * 9,
-                        imageSize: ConfigSize.defaultSize! * 7,
                         position: ConfigSize.defaultSize! * 11,
+                        type: type,
                       ),
                     ]),
               ),
-               OthersUsers(usersData:usersRank!.userOtherModel ),
+               OthersUsers(usersData:usersRank!.userOtherModel,
+                 type: type,
+    ),
             ],
           ),
         );

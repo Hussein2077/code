@@ -31,6 +31,8 @@ abstract class BaseRemotlyDataSource {
   Future<AuthWithGoogleModel> sigInWithGoogle();
   Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
+  Future<String> privacyPolicy();
+
 
 }
 
@@ -360,6 +362,19 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     }
   }
 
+  @override
+  Future<String> privacyPolicy()async {
+    try{
+      final response = await Dio().get(
+        ConstentApi.privacyPolicy,);
+
+      return response.data;
+
+    }on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName:'privacyPolicy' );
+    }
+
+  }
 
 }
 

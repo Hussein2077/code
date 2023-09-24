@@ -24,17 +24,24 @@ class GoogleAndAppleAuth extends StatelessWidget {
       listener: (context, state) async{
         if(state is SiginWithGoogleSuccesMessageState){
                     Methods().clearAuthData();
-                    //todo check this event if still here or not
-                             await    Methods().addFireBaseNotifcationId();
+          //todo check this event if still here or not
+          await Methods().addFireBaseNotifcationId();
 
-                    BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-    if(state.userData.apiUserData.isFirst!){
-          Navigator.pushNamedAndRemoveUntil(context, Routes.addInfo ,arguments:state.userData.userData , (route) => false, );
-
-    }else {
-          Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen  , (route) => false, );
-
-    }
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+          if (state.userData.apiUserData.isFirst!) {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.addInfo,
+              arguments: state.userData.userData,
+              (route) => false,
+            );
+          } else {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.mainScreen,
+              (route) => false,
+            );
+          }
         }else if (state is SiginWithGoogleErrorMessageState){
           errorToast(context: context, title: state.errorMessage);
         }else {

@@ -1,6 +1,8 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:m_toast/m_toast.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 
 ShowMToast toast = ShowMToast();
 
@@ -36,9 +38,9 @@ dynamic errorToast ({required BuildContext context , required String title , Str
 	);
 }
 
-dynamic loadingToast ({required BuildContext context , required String title , String? subTitle , } ){
+dynamic loadingToast ({required BuildContext context ,  String? title , String? subTitle , } ){
   return toast.loadingToast(
-       message:title,
+       message:title??StringManager.loading.tr(),
 			textColor:Colors.green,
 			widget: const SizedBox(
 				width: 30,
