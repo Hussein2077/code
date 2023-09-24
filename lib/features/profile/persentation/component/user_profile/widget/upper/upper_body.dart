@@ -34,7 +34,7 @@ class UpperProfileBody extends StatelessWidget {
       },
       child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 2.3,
+          height: MediaQuery.of(context).size.height * .4,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: CachedNetworkImageProvider(

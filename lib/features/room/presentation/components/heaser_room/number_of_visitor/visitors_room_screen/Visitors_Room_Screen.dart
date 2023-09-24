@@ -62,6 +62,8 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
               itemBuilder: (context,index){
             return UserRow(
               roomVistorModel: state.data![index],
+              layoutMode: widget.layoutMode,
+              roomData:widget.roomData ,
             );
           }),
         )

@@ -60,6 +60,7 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
             color: Colors.black,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
                 ValueListenableBuilder<Map<int, ZegoUIKitUser>>(
                     valueListenable: RoomScreen.userOnMics,
@@ -79,6 +80,7 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
                           indicatorSize: TabBarIndicatorSize.label,
                           labelColor: Colors.white,
                           indicatorColor: Colors.transparent,
+                          isScrollable: true,
                           controller: giftControler,
                           padding: EdgeInsets.zero,
                           automaticIndicatorColorAdjustment: false,
