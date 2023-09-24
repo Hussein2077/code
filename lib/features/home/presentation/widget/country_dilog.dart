@@ -4,6 +4,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/arrow_back.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
@@ -28,81 +29,92 @@ class CountryDialog extends StatefulWidget {
 class _CountryDialogState extends State<CountryDialog> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).colorScheme.background,
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: BlocBuilder<CounrtyBloc, CountryStates>(
-        builder: (context, state) {
-          if (state is CountryLoadingState) {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: const LoadingWidget(),
-            );
-          } else if (state is CountrySuccesMessageState) {
-            return SizedBox(
-              width: ConfigSize.defaultSize! * 10,
-              height: ConfigSize.defaultSize! * 14,
-              child: Padding(
-                  padding: EdgeInsets.all(ConfigSize.defaultSize!),
-                  child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 5,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 10),
-                      itemCount: state.countrys.length + 1,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return InkWell(
-                          onTap: () {
-                            if (index == 0) {
-                              AduioBody.type = StringManager.popular;
-                              AduioBody.countryId = null;
-                              CountryDialog.flag = AssetsPath.fireIcon;
-                              CountryDialog.name = StringManager.popular;
-                              BlocProvider.of<GetRoomsBloc>(context).add(
-                                  GetRoomsEvent(
-                                      typeGetRooms: TypeGetRooms.popular));
-                            } else {
-                              AduioBody.type = "country_id";
-                              AduioBody.countryId =
-                                  state.countrys[index - 1].id;
-                              CountryDialog.flag =
-                                  state.countrys[index - 1].flag;
-                              CountryDialog.name =
-                                  state.countrys[index - 1].name;
-                              BlocProvider.of<GetRoomsBloc>(context).add(
-                                  GetRoomsEvent(
-                                      countryId: state.countrys[index - 1].id));
-                            }
+    return Column(
+      children: [
 
-                            CountryDialog.selectedCountry.value =
-                                !CountryDialog.selectedCountry.value;
-                            Navigator.pop(context);
-                          },
-                          child: index == 0
-                              ?  CountryIcon(
-                                 color: Colors.grey.withOpacity(0.6),
-                                  flag: AssetsPath.fireIcon,
-                                  name: StringManager.popular)
-                              : CountryIcon(
-                                 color: Colors.grey.withOpacity(0.6),
-                                  flag: state.countrys[index - 1].flag,
-                                  name: state.countrys[index - 1].name),
-                        );
-                      })),
-            );
-          } else if (state is CountryErrorMessageState) {
-            return CustomErrorWidget(
-              message: state.errorMessage,
-            );
-          } else {
-            return const SizedBox();
-          }
-        },
-      ),
+
+Spacer(),
+        Container(
+         
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height*.7,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular( ConfigSize.defaultSize! * 1.5),topRight:Radius.circular( ConfigSize.defaultSize! * 1.5) )
+          ),
+          child: BlocBuilder<CounrtyBloc, CountryStates>(
+            builder: (context, state) {
+              if (state is CountryLoadingState) {
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: const LoadingWidget(),
+                );
+              } else if (state is CountrySuccesMessageState) {
+                return SizedBox(
+                  width: ConfigSize.defaultSize! * 10,
+                  height: ConfigSize.defaultSize! * 14,
+                  child: Padding(
+                      padding: EdgeInsets.all(ConfigSize.defaultSize!),
+                      child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 5,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 10),
+                          itemCount: state.countrys.length + 1,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return InkWell(
+                              onTap: () {
+                                if (index == 0) {
+                                  AduioBody.type = StringManager.popular;
+                                  AduioBody.countryId = null;
+                                  CountryDialog.flag = AssetsPath.fireIcon;
+                                  CountryDialog.name = StringManager.popular;
+                                  BlocProvider.of<GetRoomsBloc>(context).add(
+                                      GetRoomsEvent(
+                                          typeGetRooms: TypeGetRooms.popular));
+                                } else {
+                                  AduioBody.type = "country_id";
+                                  AduioBody.countryId =
+                                      state.countrys[index - 1].id;
+                                  CountryDialog.flag =
+                                      state.countrys[index - 1].flag;
+                                  CountryDialog.name =
+                                      state.countrys[index - 1].name;
+                                  BlocProvider.of<GetRoomsBloc>(context).add(
+                                      GetRoomsEvent(
+                                          countryId: state.countrys[index - 1].id));
+                                }
+
+                                CountryDialog.selectedCountry.value =
+                                    !CountryDialog.selectedCountry.value;
+                                Navigator.pop(context);
+                              },
+                              child: index == 0
+                                  ?  CountryIcon(
+                                     color: Colors.grey.withOpacity(0.6),
+                                      flag: AssetsPath.fireIcon,
+                                      name: StringManager.popular)
+                                  : CountryIcon(
+                                     color: Colors.grey.withOpacity(0.6),
+                                      flag: state.countrys[index - 1].flag,
+                                      name: state.countrys[index - 1].name),
+                            );
+                          })),
+                );
+              } else if (state is CountryErrorMessageState) {
+                return CustomErrorWidget(
+                  message: state.errorMessage,
+                );
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 }

@@ -41,7 +41,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
     BlocProvider.of<RoomVistorBloc>(context).add(GetAllRoomUserEvents(
         ownerId: widget.roomData.ownerId.toString(),
         usersIds: splitUsersInRoom(orginalList: ZegoUIKit().getAllUsers())));
-   
+
     super.initState();
   }
   @override
@@ -62,6 +62,8 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
               itemBuilder: (context,index){
             return UserRow(
               roomVistorModel: state.data![index],
+              layoutMode: widget.layoutMode,
+              roomData:widget.roomData ,
             );
           }),
         )
@@ -83,7 +85,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
       return const TransparentLoadingWidget();
 
     }
-    
+
     else if (state is GetRoomVistorErrorState){
       return CustomErrorWidget(message: state.errorMassage,);
    }else{
@@ -92,7 +94,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
       }
     });
   }
-  
+
   void scrollListener() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
