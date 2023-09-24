@@ -403,8 +403,7 @@ static const String cachReelsKey ='cachReelsKey';
   static const String beComeAdmin = "Be come admin";
   static const String privacy = "Privacy";
   static const String useTheFeatureAndEnjoyit = "Use The Feature And Enjoy it";
-  static const String thisFeatureisNotAvailableForYou =
-      "ThisFeatureisNotAvailableForYou";
+  static const String thisFeatureisNotAvailableForYou = "ThisFeatureisNotAvailableForYou";
   static const String note = "notes";
   static const String updateRoomName = "update your room name here";
 
