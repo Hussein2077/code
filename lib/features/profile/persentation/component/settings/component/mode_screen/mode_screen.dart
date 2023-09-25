@@ -14,8 +14,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_theme/
 
 class ModeScreen extends StatefulWidget {
    int selectedMode=2;
-   ModeScreen({ super.key});
-   int selectedMode=2;
+
    ModeScreen({ super.key, required this.select});
   String select;
 
