@@ -21,6 +21,7 @@ abstract class BaseRepository {
       InformationPramiter informationPramiter);
 
   Future<Either<AuthWithGoogleModel, Failure>> siginWithGoogle();
+  Future<Either<MyDataModel, Failure>> siginWithApple();
 
   Future<Either<MyDataModel, Failure>> siginWithFacebook();
 
@@ -28,4 +29,6 @@ abstract class BaseRepository {
       ForgetPasswordPramiter forgetPasswordPramiter);
         Future<Either<String, Failure>> logOut(
        );
+  Future<Either<String, Failure>> privacyPolicy();
+
 }

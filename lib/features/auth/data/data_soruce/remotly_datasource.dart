@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 abstract class BaseRemotlyDataSource {
   Future<Unit> sendCode(String phoneNumber);
@@ -26,9 +27,12 @@ abstract class BaseRemotlyDataSource {
   Future<MyDataModel> loginWithPassAndPhone(AuthPramiter authPramiter);
   Future<MyDataModel> addInformation(InformationPramiter informationPramiter);
   Future<MyDataModel> sigInWithFacebook();
+  Future<MyDataModel> sigInWithApple();
   Future<AuthWithGoogleModel> sigInWithGoogle();
   Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
+  Future<String> privacyPolicy();
+
 
 }
 
@@ -216,7 +220,54 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       }
       } 
   }
-    
+
+  @override
+  Future<MyDataModel> sigInWithApple() async{
+    final AuthorizationCredentialAppleID? credential ;
+    try {
+      credential = await SignInWithApple
+          .getAppleIDCredential(scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      );
+    } catch(e){
+      log(e.toString());
+      throw SiginAppleException();
+    }
+    final devicedata = await DioHelper().initPlatformState(); // to get information device
+    Map<String, String> headers = await DioHelper().header();
+
+    log("credential.authorizationCode,"+credential.authorizationCode);
+
+    final body =    {
+      ConstentApi.type: "apple",
+      ConstentApi.name: credential.givenName,
+      "apple_id":  credential.authorizationCode,
+      'device_token':devicedata
+    };
+    try{
+      //todo change url
+      final response = await Dio().post(
+        ConstentApi.loginUrl,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+
+
+      Map<String, dynamic> resultData = response.data;
+
+
+
+      MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+      Methods().saveUserToken(authToken: userData.authToken);
+      return userData;
+    }on DioError catch (e){
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'sigInWithApple');
+    }
+  }
 
   
   @override
@@ -311,6 +362,19 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     }
   }
 
+  @override
+  Future<String> privacyPolicy()async {
+    try{
+      final response = await Dio().get(
+        ConstentApi.privacyPolicy,);
+
+      return response.data;
+
+    }on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName:'privacyPolicy' );
+    }
+
+  }
 
 }
 

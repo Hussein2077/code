@@ -60,7 +60,16 @@ class RepositoryImp extends BaseRepository {
       return Right(DioHelper.buildFailure(e));
     }
   }
-  
+  @override
+  Future<Either<MyDataModel, Failure>> siginWithApple()async {
+    try {
+      final result = await baseRemotlyDataSource.sigInWithApple();
+      return Left(result);
+    } on Exception catch(e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
   @override
   Future<Either<AuthWithGoogleModel, Failure>> siginWithGoogle() async{
       try {
@@ -105,6 +114,16 @@ class RepositoryImp extends BaseRepository {
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> privacyPolicy()async {
+    try {
+      final result = await baseRemotlyDataSource.privacyPolicy();
+      return Left(result);
+    } on Exception catch(e) {
+      return Right(DioHelper.buildFailure(e));
     }
   }
 }

@@ -1475,7 +1475,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       'phone': boundNumberPramiter.phoneNumber,
       'vr_code': boundNumberPramiter.vrCode,
       'password': boundNumberPramiter.password,
-      'credential': boundNumberPramiter.credential
     };
     try {
       final response = await Dio().post(

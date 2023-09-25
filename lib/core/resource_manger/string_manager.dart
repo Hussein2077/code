@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
-  static const int versionApp = 26;
+  static const int versionApp = 28;
 
   //updates
   static const String updateApp ='Update TikChat APP';
@@ -423,7 +423,7 @@ static const String cachReelsKey ='cachReelsKey';
   static const String writeBan = "write ban";
   static const String block = "Block";
   static const String lastActive = "Last Active: ";
-  static const String spitialMassege = "رسالة مميزة";
+  static const String spitialMassege = "spitial messege";
   static const String theTextHasBeenCopied = "The text has been copied";
   static const String roomSetting = "Room Setting";
   static const String entertainment = "entertainment";
@@ -451,6 +451,22 @@ static const String cachReelsKey ='cachReelsKey';
     static const String addAComment = 'Add a comment...';
     static const String reelsView = 'Reels View';
     static const String empty = 'Empty';
+      static const String nowInRoom = "Now In Room";
+
+    static const String theOtp = 'the otp you have entered is wrong';
+ static const String inputPhonenum = "Input your phone number";
+ static const String pleaseEnterYourPassword = "Please Enter your Password";
+ static const String enterNewPassword = "Enter New Password";
+ static const String changePhone = "Change Phone";
+ static const String changePassword = "Change Password";
+ static const String pleaseEnterYourPhone = "Please Enter your phone";
+ static const String enterYourPhone = "Enter your phone";
+ static const String pleaseAddYourCountry = "Please Add Your Country";
+ static const String thePrivecyPolicy = "the Privacy Policy";
+
+
+
+
 
 
 

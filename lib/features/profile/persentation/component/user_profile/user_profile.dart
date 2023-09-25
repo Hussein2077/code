@@ -129,7 +129,7 @@ class _UserProfileState extends State<UserProfile> {
                           userDataModel: widget.userData!),
                       ProfileBottomBar(
                         userData: widget.userData!,
-                      )
+                      ),
                     ],
                   ) :
                   const CustomErrorWidget(

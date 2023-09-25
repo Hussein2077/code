@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -15,7 +16,6 @@ import 'package:tik_chat_v2/features/room/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room/data/model/get_room_users_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
@@ -190,7 +190,8 @@ static String uploadImagePrice = "" ;
           options: Options(
             headers: headers
           ));
-      log('${response.data["data"].toString() }response');
+
+
           RemotlyDataSourceRoom.uploadImagePrice = response.data['message'];
       return List<BackGroundModel>.from((response.data["data"] as List)
           .map((e) => BackGroundModel.fromjson(e)));
@@ -1135,6 +1136,29 @@ static String uploadImagePrice = "" ;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'yellowBanner');
     }
+  }
+
+
+   @override
+  Future<List<RoomUserMesseagesModel>> getUsersInRoon(List<String> userIds) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    final body = {'users_ids': userIds};
+    try {
+      final response = await Dio().post(ConstentApi.getUsersInRoom,
+          options: Options(
+            headers: headers,
+          ),
+          data: body);
+      Map<String, dynamic> resultData = response.data;
+      log(resultData.toString());
+      return List<RoomUserMesseagesModel>.from(
+          resultData['data'].map((x) => RoomUserMesseagesModel.fromJson(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getUsersInRoon');
+    }
+      
   }
 
 }

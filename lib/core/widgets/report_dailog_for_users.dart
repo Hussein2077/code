@@ -66,7 +66,6 @@ textEditingController.dispose();
         }else if (state is UserReportSucsses){
           sucssesToast(context: context, title: StringManager.sucsses.tr());
         
-              Navigator.pop(context);
         }else if (state is UserReportError){
           errorToast(context: context, title: state.error);
          

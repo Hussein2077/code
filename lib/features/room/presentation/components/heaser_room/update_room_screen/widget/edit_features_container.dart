@@ -301,7 +301,7 @@ lockChatDialog();
                 borderRadius: BorderRadius.circular(10)),
             contentPadding: const EdgeInsets.all(12),
             content: SaveRoomPasswordRoomScreen(
-              ownerId: widget.roomId.toString(),
+              ownerId: widget.ownerId,
               myData: MyDataModel.getInstance(),
             )),
       );

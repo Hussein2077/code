@@ -102,8 +102,18 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
                           fontSize: AppPadding.p10,
                         ),
                       ),
-                      if( RoomScreen.roomIsLoked)
-                        Icon(Icons.lock_outline ,size:AppPadding.p14 ,color: ColorManager.mainColor)
+
+                        ValueListenableBuilder(
+                            valueListenable: RoomScreen.editRoom,
+                            builder: (context,_, Widget? widget){
+                              if( RoomScreen.roomIsLoked){
+                                return  Icon(Icons.lock_outline ,size:AppPadding.p14 ,color: ColorManager.mainColor) ;
+                              }else{
+                                return const SizedBox();
+                              }
+
+                            })
+
                     ],
                   )
                 ],

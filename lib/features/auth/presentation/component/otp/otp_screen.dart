@@ -21,15 +21,15 @@ import 'widget/otp_continers.dart';
 import 'widget/resend_code_widget.dart';
 
 class OtpScreen extends StatelessWidget {
-  final String phone;
+  final String? phone;
 
-  final String password;
+  final String? password;
 
-  final String codeCountry;
+  final String? codeCountry;
   const OtpScreen(
-      {required this.codeCountry,
-      required this.password,
-      required this.phone,
+      { this.codeCountry,
+       this.password,
+       this.phone,
       super.key});
 
   @override
@@ -76,7 +76,7 @@ class OtpScreen extends StatelessWidget {
                 flex: 1,
               ),
               Text(
-                phone,
+                phone??'',
                 style: TextStyle(
                     fontFamily: "Inter",
                     fontWeight: FontWeight.bold,
@@ -103,8 +103,8 @@ class OtpScreen extends StatelessWidget {
                       BlocProvider.of<RegisterWithPhoneBloc>(context).add(
                           RegisterWithPhoneEvent(
                               code: OtpContiners.code,
-                              password: password,
-                              phone: phone,
+                              password: password??'',
+                              phone: phone??'',
                               credential: token ?? ""));
                     }
                     

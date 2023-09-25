@@ -60,6 +60,7 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
             color: Colors.black,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
                 ValueListenableBuilder<Map<int, ZegoUIKitUser>>(
                     valueListenable: RoomScreen.userOnMics,
@@ -73,39 +74,37 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
                         ownerId: widget.roomData.ownerId.toString(),
                       );
                     }),
-                SizedBox(
-                  height: ConfigSize.defaultSize!*3,
-                      child: TabBar(
-                          indicatorSize: TabBarIndicatorSize.label,
-                          labelColor: Colors.white,
-                          indicatorColor: Colors.transparent,
-                          controller: giftControler,
-                          padding: EdgeInsets.zero,
-                          automaticIndicatorColorAdjustment: false,
-                          tabs: [
-                            Text(
-                              StringManager.appGift.tr(),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                            Text(StringManager.spicalGift.tr(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600)),
-                            Text(StringManager.country.tr(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600)),
-                            Text(StringManager.famousGifts.tr(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600)
-                            ),
-                            Text(StringManager.luckyGifts.tr(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600)
+                TabBar(
+                  isScrollable: true,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    labelColor: Colors.white,
+                    indicatorColor: Colors.transparent,
+                    controller: giftControler,
+                    padding: EdgeInsets.zero,
+                    automaticIndicatorColorAdjustment: false,
+                    tabs: [
+                        Text(
+                        StringManager.appGift.tr(),
+                        style:
+                            const TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      Text(StringManager.spicalGift.tr(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600)),
+                      Text(StringManager.country.tr(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600)),
+                      Text(StringManager.famousGifts.tr(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600)
+                      ),
+                      Text(StringManager.luckyGifts.tr(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600)
 
-                            )
+                      )
 
-                          ]),
-                    ),
+                    ]),
                 Expanded(
                   child: TabBarView(
                     

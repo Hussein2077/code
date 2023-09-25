@@ -14,7 +14,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_theme/
 
 class ModeScreen extends StatefulWidget {
    int selectedMode=2;
-   ModeScreen({ super.key});
+
+   ModeScreen({ super.key, required this.select});
+  String select;
 
   @override
   State<ModeScreen> createState() => _ModeScreenState();
@@ -22,8 +24,25 @@ class ModeScreen extends StatefulWidget {
 
 class _ModeScreenState extends State<ModeScreen> {
   List<String> mode = [StringManager.lightMode.tr(), StringManager.darkMode.tr()];
+
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    if (widget.select=='dark'){
+
+        widget.selectedMode=1;
+
+    }if (widget.select=='light'){
+
+      widget.selectedMode=0;
+
+    }
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
@@ -42,6 +61,7 @@ class _ModeScreenState extends State<ModeScreen> {
                       index: index,
                       mode: mode[index],
                       onTap: () {
+
                         if (widget.selectedMode!=index)
                      {
                        setState(() {
@@ -73,7 +93,7 @@ class _ModeScreenState extends State<ModeScreen> {
 
 
 
-           
+
 
             },
             title: StringManager.save.tr(),

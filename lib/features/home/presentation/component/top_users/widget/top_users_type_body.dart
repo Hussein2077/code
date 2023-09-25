@@ -20,6 +20,7 @@ class TopUsersTypeBody extends StatelessWidget {
   final RequestState mState;
   final String mError;
   final TabController timeController;
+  final String type;
   const TopUsersTypeBody(
       {required this.usersRankD,
       required this.dState,
@@ -34,6 +35,7 @@ class TopUsersTypeBody extends StatelessWidget {
       required this.hError,
       required this.hState,
       required this.usersRankH,
+      required this.type,
       super.key});
 
   @override
@@ -52,21 +54,25 @@ class TopUsersTypeBody extends StatelessWidget {
               error: hError,
               state: hState,
               usersRank: usersRankH,
+              type: type,
             ),
             TopUserTimeBody(
               error: dError,
               state: dState,
               usersRank: usersRankD,
+              type: type,
             ),
             TopUserTimeBody(
               error: wError,
               state: wState,
               usersRank: usersRankW,
+              type: type,
             ),
             TopUserTimeBody(
               error: mError,
               state: mState,
               usersRank: usersRankM,
+              type: type,
             ),
           ]),
         )

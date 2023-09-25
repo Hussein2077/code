@@ -37,10 +37,12 @@ class ZegoUIKitCoreMessage {
     streamControllerMessageList.add(List<ZegoInRoomMessage>.from(messageList));
   }
 
-  void sendBroadcastMessage(String message) {
+  void sendBroadcastMessage(String message ,  bool? changeTheme) {
     localMessageId = localMessageId - 1;
 
     final messageItem = ZegoInRoomMessage(
+            changeTheme:changeTheme ,
+
       messageID: localMessageId,
       user: ZegoUIKitCore.shared.coreData.localUser.toZegoUikitUser(),
       message: message,
@@ -74,6 +76,6 @@ class ZegoUIKitCoreMessage {
   void resendInRoomMessage(ZegoInRoomMessage message) {
     messageList
         .removeWhere((element) => element.messageID == message.messageID);
-    sendBroadcastMessage(message.message);
+    sendBroadcastMessage(message.message , null);
   }
 }

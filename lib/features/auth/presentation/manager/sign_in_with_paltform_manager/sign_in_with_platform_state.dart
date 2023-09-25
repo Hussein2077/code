@@ -1,5 +1,6 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
 
@@ -22,6 +23,19 @@ class SiginWithGoogleErrorMessageState extends SignInWithPlatformState{
 
 }
 
+class SiginWithFacebookSuccesMessageState extends SignInWithPlatformState{
+  final String succesMessage ;
+  final MyDataModel userModel ;
+
+  const SiginWithFacebookSuccesMessageState({ required this.userModel, required this.succesMessage});
+
+}
+class SiginWithFacebookErrorMessageState extends SignInWithPlatformState{
+  final String errorMessage ;
+
+  const SiginWithFacebookErrorMessageState({required this.errorMessage});
+
+}
 class SiginWithGoogleSuccesMessageState extends SignInWithPlatformState{
 final AuthWithGoogleModel userData ; 
 
