@@ -39,7 +39,6 @@ class UserInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(userData.profile!.image!);
     return InkWell(
       onTap: onTap ??
               () {
@@ -57,6 +56,8 @@ class UserInfoRow extends StatelessWidget {
               flex: 1,
             ),
             UserImage(
+              frame: userData.frame,
+              frameId: userData.familyId,
               imageSize: imageSize,
               boxFit: BoxFit.cover,
               image: userData.profile!.image!,

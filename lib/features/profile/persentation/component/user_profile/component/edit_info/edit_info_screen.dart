@@ -26,15 +26,18 @@ class EditInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double percent = completeProfile(myDataModel: myDataModel);
+
     return BlocListener<AddInfoBloc, AddInfoState>(
       listener: (context, state) {
-        if(state is AddInfoSuccesMessageState){
+        if (state is AddInfoSuccesMessageState) {
           sucssesToast(context: context, title: StringManager.sucsses.tr());
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-        }else if (state is AddInfoErrorMessageState) {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        } else if (state is AddInfoErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
-
-        }else if (state is AddInfoLoadingState){
+        } else if (state is AddInfoLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
         }
       },
@@ -46,21 +49,25 @@ class EditInfoScreen extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                   HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
-                  const CompleteProfile(),
-                  title(context: context, title: StringManager.personalInfo.tr()),
+                  HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
+                  CompleteProfile(percent: percent),
+                  title(
+                      context: context, title: StringManager.personalInfo.tr()),
                   UserInfoWidget(myDataModel: state.myDataModel),
                   title(context: context, title: StringManager.addImage.tr()),
-                  const AddProFilePic(quality: 40,),
+                  const AddProFilePic(
+                    quality: 40,
+                  ),
                   MainButton(
                     onTap: () {
-                             BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
-                              bio:UserInfoWidget.bioController!.text ,
-                        gender: myDataModel.profile!.gender!.toString(),
-                        country: CountryWidget.countryFlag!,
-                        name: UserInfoWidget.nameController!.text,
-                               image:AddProFilePic.image ==null ? null : File( AddProFilePic.image!.path)
-                      ));
+                      BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
+                          bio: UserInfoWidget.bioController!.text,
+                          gender: myDataModel.profile!.gender!.toString(),
+                          country: CountryWidget.countryFlag!,
+                          name: UserInfoWidget.nameController!.text,
+                          image: AddProFilePic.image == null
+                              ? null
+                              : File(AddProFilePic.image!.path)));
                     },
                     title: StringManager.save.tr(),
                   )
@@ -70,16 +77,17 @@ class EditInfoScreen extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                   HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
-                  const CompleteProfile(),
-                  title(context: context, title: StringManager.personalInfo.tr()),
+                  HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
+                  CompleteProfile(percent: percent),
+                  title(
+                      context: context, title: StringManager.personalInfo.tr()),
                   UserInfoWidget(myDataModel: myDataModel),
                   title(context: context, title: StringManager.addImage.tr()),
-                  const AddProFilePic(quality: 40,),
+                  const AddProFilePic(
+                    quality: 40,
+                  ),
                   MainButton(
-                    onTap: () {
-               
-                    },
+                    onTap: () {},
                     title: StringManager.save.tr(),
                   )
                 ],
@@ -103,4 +111,18 @@ Widget title({required BuildContext context, required String title}) {
       style: Theme.of(context).textTheme.bodyLarge,
     ),
   );
+}
+
+double completeProfile({required MyDataModel myDataModel}) {
+  double name = (myDataModel.name == "" || myDataModel.name == null) ? 0 : 0.2;
+  double bio = (myDataModel.bio == "" || myDataModel.bio == null) ? 0 : 0.2;
+  double country = (myDataModel.profile!.country == "" ||
+          myDataModel.profile!.country == null)
+      ? 0
+      : 0.2;
+  double image =
+      (myDataModel.profile!.image == "" || myDataModel.profile!.image == null)
+          ? 0
+          : 0.2;
+  return 0.2 + name + bio + country + image;
 }

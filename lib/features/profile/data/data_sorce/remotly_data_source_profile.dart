@@ -437,6 +437,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           (response.data["data"] as List)
               .map((e) => BackPackModel.fromjson(e)));
 
+              log(result.toString());
+
       return result;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'getBackPack');

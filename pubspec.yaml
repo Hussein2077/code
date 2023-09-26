@@ -102,7 +102,9 @@ dependencies:
   easy_image_viewer: ^1.2.1
   app_links: ^3.4.3
   flutter_gif: ^0.0.4
-  sign_in_with_apple:
+  sign_in_with_apple: any
+  video_trimmer: ^2.0.1
+
 
 
 
