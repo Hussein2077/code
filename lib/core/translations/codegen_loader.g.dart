@@ -20,12 +20,12 @@ class CodegenLoader extends AssetLoader {
     StringManager.bySigningOrLogin: "بالتسجيل/تسجيل الدخول، فإنك توافق على",
     StringManager.privacyPolicy: "سياسة الخصوصية لـ ${StringManager.appTitle}",
     StringManager.and: "و",
-    StringManager.selectTimeFirst :'اختر الوقت اولا',
+    StringManager.selectTimeFirst: 'اختر الوقت اولا',
     StringManager.enterYourRoomData: "أرجوك,ادخل بيانات غرفتك كاملة",
     StringManager.enterYourRoomName: "أرجوك,ادخل أسم غرفتك",
     StringManager.enterYourRoomImage: "أرجوك,ادخل صورة غرفتك",
     StringManager.enterYourRoomType: "أرجوك,ادخل نوع غرفتك",
-    StringManager.youWillSpend:'سوف تدفع',
+    StringManager.youWillSpend: 'سوف تدفع',
     StringManager.termsOfService: "شروط الخدمة",
     StringManager.chooseTyeps: 'أختر نوع',
     StringManager.hideRoom: "اخفي غرفتك",
@@ -50,7 +50,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.exit: "خروج",
     StringManager.share: "مشاركة",
     StringManager.giftbar:
-    "عند إرسال هذا النوع من الهدايا ، سيتم عرضه في الغرف الأخرى",
+        "عند إرسال هذا النوع من الهدايا ، سيتم عرضه في الغرف الأخرى",
     StringManager.appGift: "هدية التطبيق",
     StringManager.spicalGift: "هدية خاصة",
     StringManager.thisGiftForbiden: "هذة الهديا متاجة ل",
@@ -72,7 +72,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.luckyBox: "صندوق الحظ",
     StringManager.bestWishes: "أطيب التمنيات!",
     StringManager.delete: "مسح",
-    StringManager.invitation:'دعوة علي المايك',
+    StringManager.invitation: 'دعوة علي المايك',
     StringManager.youHaveInvitiontoMic: "دعوة إلى الميك",
     StringManager.enterPassword: 'أدخل كلمة المرور',
     StringManager.updateYourIntro: "تحديث المقدمة الخاصة بك",
@@ -80,8 +80,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.advice: "نصائح",
     StringManager.privilegeVip6: "قم بتفعيل VIP6 للاستمتاع بامتيازات VIP6",
     StringManager.active: "نشيط",
-    StringManager.errorInPayment :'خطاء في طريقة الدفع',
-    StringManager.pendingInPayment :'طلبك تحت المراجعة',
+    StringManager.errorInPayment: 'خطاء في طريقة الدفع',
+    StringManager.pendingInPayment: 'طلبك تحت المراجعة',
     StringManager.updateScssfuly: "تم التحديث بنجاح",
     StringManager.open: "فتح",
     StringManager.youCantTakeMoreOne: "لا يمكنك أن تأخذ أكثر من واحد",
@@ -143,8 +143,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.bio: "نبذة",
     StringManager.interests: "الاهتمامات",
     StringManager.country: "البلد",
-    StringManager.famousGifts : "هدايا المشاهير",
-    StringManager.luckyGifts:'هدايا الحظ',
+    StringManager.famousGifts: "هدايا المشاهير",
+    StringManager.luckyGifts: 'هدايا الحظ',
     StringManager.addImage: "إضافة صورة",
     StringManager.balance: "الرصيد",
     StringManager.recharge: "شحن",
@@ -365,18 +365,26 @@ class CodegenLoader extends AssetLoader {
     StringManager.comments : "التعليقات",
     StringManager.noCommentsYet : "لا يوجد تعليقات",
     StringManager.addAComment : "اضف تعليق",
+
     StringManager.chooseTopic : "اختر المواضيع التي تعتبرها الأكثر أهمية بالنسبة لك!",
-    StringManager.pleaseChosseVideo : 'الرجاء اختيار الفيديو',
+
+
+
+
+
+        StringManager.pleaseChosseVideo : 'الرجاء اختيار الفيديو',
 StringManager.specialBar : "الشريط المميز",
 
-StringManager.chooseTimePK : "اختار وقت التحدي",
-StringManager.pleaseWaitReel : "برجاء الانتظار حتي يتم رفع الفيديو السابق",
+    StringManager.chooseTimePK: "اختار وقت التحدي",
+    StringManager.pleaseWaitReel: "برجاء الانتظار حتي يتم رفع الفيديو السابق",
 
 StringManager.coinToUpload : "عمله لرفع صوره",
 StringManager.pepoleOnline : "الاشخاص بالغرفة",
 StringManager.reelsView : "الريلز",
 StringManager.empty : "فارغ",
-StringManager.nowInRoom : "دخول الغرفة",
+    StringManager.nowInRoom : "دخول الغرفة",
+
+
 
 };
   static const Map<String, dynamic> tr = {
