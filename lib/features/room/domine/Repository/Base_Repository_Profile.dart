@@ -17,6 +17,7 @@ import 'package:tik_chat_v2/features/room/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/ban_user_from_writing_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/enter_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/get_top_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
@@ -39,7 +40,7 @@ abstract class BaseRepositoryRoom {
   Future<Either<List<GiftsModel>,Failure>> getGifts(int type);
   Future<Either<String,Failure>> sendGifts(GiftPramiter giftPramiter);
   Future<Either<String, Failure>> removePassRoom (String ownerId);
-  Future<Either<List<UserTopModel>,Failure>> getTopRankInRoom(TopPramiter topPramiter);
+  Future<Either<List<UserTopModel>,Failure>> getTopRankInRoom(TopPramiterInRoom topPramiter);
   Future<Either<String,Failure>> kickoutUser(KickoutPramiterUc kickoutPramiterUc) ;
   Future<Either<String,Failure>> upMic(UpMicrophonePramiter upMicrophonePramiter) ;
   Future<Either<String,Failure>> showPK(String ownerId);

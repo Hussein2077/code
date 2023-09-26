@@ -226,6 +226,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   void initPusher()async {
     HomeScreen.pusherService.initPusher(
-        "9bfa0b56e375267a8f59","mt1");
+        "3c3748161654c5c362dc","mt1");
   }
 }

@@ -365,13 +365,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.comments : "التعليقات",
     StringManager.noCommentsYet : "لا يوجد تعليقات",
     StringManager.addAComment : "اضف تعليق",
-
-
-
-
-
-
-        StringManager.pleaseChosseVideo : 'الرجاء اختيار الفيديو',
+    StringManager.chooseTopic : "اختر المواضيع التي تعتبرها الأكثر أهمية بالنسبة لك!",
+    StringManager.pleaseChosseVideo : 'الرجاء اختيار الفيديو',
 StringManager.specialBar : "الشريط المميز",
 
 StringManager.chooseTimePK : "اختار وقت التحدي",
@@ -381,8 +376,7 @@ StringManager.coinToUpload : "عمله لرفع صوره",
 StringManager.pepoleOnline : "الاشخاص بالغرفة",
 StringManager.reelsView : "الريلز",
 StringManager.empty : "فارغ",
-
-
+StringManager.nowInRoom : "دخول الغرفة",
 
 };
   static const Map<String, dynamic> tr = {
@@ -674,6 +668,8 @@ StringManager.empty : "فارغ",
     StringManager.spitialMassege : "Özel Mesaj",
     StringManager.theTextHasBeenCopied : "Metin kopyalandı",
     StringManager.empty:'boş',
+    StringManager.chooseTopic:'Sizin için en önemli olan konuları seçin!',
+    StringManager.nowInRoom: 'Odaya giriş'
   };
   static const Map<String, dynamic> ur = {
     StringManager.appTitle: "ٹیک چیٹ",
@@ -932,6 +928,8 @@ StringManager.empty : "فارغ",
     StringManager.totalDaimonds: "کل الماس",
     StringManager.chargeCoins: "سکے کی چارجنگ",
     StringManager.empty:'خالی',
+    StringManager.chooseTopic: 'آپ کے لئے سب سے اہم موضوعات منتخب کریں',
+    StringManager.nowInRoom: 'کمرے میں داخل ہو رہے ہیں'
   };
   static const Map<String, dynamic> chs = {
     StringManager.appTitle: "Tik Chat",
@@ -1173,6 +1171,8 @@ StringManager.empty : "فارغ",
     StringManager.totalDaimonds: "总钻石",
     StringManager.chargeCoins: "充值金币",
     StringManager.empty:'空的',
+    StringManager.chooseTopic: '选择对你最重要的主题!',
+    StringManager.nowInRoom: '进入房间'
   };
   static const Map<String, dynamic> cht = {
     StringManager.appTitle: "Tikchat",
@@ -1415,6 +1415,8 @@ StringManager.empty : "فارغ",
     StringManager.totalDaimonds: "總鑽石",
     StringManager.chargeCoins: "充值金幣",
     StringManager.empty: "空的",
+    StringManager.chooseTopic: '選擇對你最重要的主題',
+    StringManager.nowInRoom: '進入房間'
   };
   static const Map<String, dynamic> en = {
     "hello": "hello",

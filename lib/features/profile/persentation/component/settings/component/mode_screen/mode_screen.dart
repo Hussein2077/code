@@ -97,7 +97,10 @@ class _ModeScreenState extends State<ModeScreen> {
 
             },
             title: StringManager.save.tr(),
-          )
+          ),
+          SizedBox(
+            height: ConfigSize.defaultSize! * 5.5,
+          ),
         ],
       ),
     );
