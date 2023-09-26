@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -56,6 +58,7 @@ import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/room_handler/handler_room_screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/view_music/view_music_screen.dart';
+import 'package:tik_chat_v2/features/view.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
 
@@ -123,6 +126,10 @@ class Routes {
   static const String myVideosScreen = "/MyVideosScreen";
 
   static const String userReelView = "/userReelView";
+
+  static const String trimmerView = "/trimmerView";
+
+  
 }
 
 class RouteGenerator {
@@ -390,6 +397,16 @@ class RouteGenerator {
             builder: (_) => SafeArea(
                     child: MyVideosScreen(
                   userDataModel: pram,
+                )));
+
+                     case Routes.trimmerView:
+        File pram = settings.arguments as File;
+
+        return MaterialPageRoute(
+            builder: (_) => SafeArea(
+                    child: TrimmerView(
+                      pram
+             
                 )));
     }
 

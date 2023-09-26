@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,16 +75,19 @@ class _MyBagScreenState extends State<MyBagScreen>
                   controller: bagController,
                   children: [
                     MyBagTabView(
+                      message: state.framesBackPackMassage,
                       viewIndex: 0,
                       myBagData: state.framesBackPack,
                       stateRequest: state.framesBackPackRequest,
                     ),
                     MyBagTabView(
+                      message: state.enteringBackPackMassage,
                       viewIndex: 1,
                       myBagData: state.entering,
                       stateRequest: state.enteringBackPackRequest,
                     ),
                     MyBagTabView(
+                      message: state.bubblesPackBackMassage,
                       viewIndex: 2,
                       myBagData: state.bubblesPackBack,
                       stateRequest: state.bubblesPackBackRequest,
