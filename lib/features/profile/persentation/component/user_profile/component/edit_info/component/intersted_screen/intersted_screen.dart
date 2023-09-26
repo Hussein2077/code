@@ -79,7 +79,7 @@ class _InterstedScreenState extends State<InterstedScreen> {
                           height: ConfigSize.defaultSize! * 3.5,
                         ),
                         Text(
-                          StringManager.chooseTopic,
+                          StringManager.chooseTopic.tr(),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Expanded(
@@ -120,7 +120,7 @@ class _InterstedScreenState extends State<InterstedScreen> {
                               }),
                         ),
                         MainButton(
-                          title: StringManager.done,
+                          title: StringManager.done.tr(),
                           onTap: () {
                             List<int> inrestedid = [];
                             InterstedScreen.intrestedIds.forEach((key, value) {
@@ -132,7 +132,7 @@ class _InterstedScreenState extends State<InterstedScreen> {
                           },
                         ),
                         SizedBox(
-                          height: ConfigSize.defaultSize! * 3,
+                          height: ConfigSize.defaultSize! * 5,
                         )
                       ],
                     );
@@ -171,6 +171,7 @@ Widget intrestedBox({
   return GestureDetector(
     onTap: onTap,
     child: Container(
+      alignment: Alignment.center,
       margin: EdgeInsets.all(ConfigSize.defaultSize!),
       decoration: BoxDecoration(
           gradient: InterstedScreen.intrestedIds.containsKey(index)
@@ -180,17 +181,9 @@ Widget intrestedBox({
           color: InterstedScreen.intrestedIds.containsKey(index)
               ? null
               : Theme.of(context).colorScheme.secondary),
-      child: Row(
-        children: [
-          UserImage(
-            image: image,
-            imageSize: ConfigSize.defaultSize! * 2,
-          ),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.bodyLarge,
-          )
-        ],
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     ),
   );

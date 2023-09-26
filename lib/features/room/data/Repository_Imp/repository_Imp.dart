@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/features/room/domine/Repository/Base_Repository_Prof
 import 'package:tik_chat_v2/features/room/domine/use_case/ban_user_from_writing_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/enter_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/get_top_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
@@ -192,7 +193,7 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
 
   @override
   Future<Either<List<UserTopModel>, Failure>> getTopRankInRoom(
-      TopPramiter topPramiter) async {
+      TopPramiterInRoom topPramiter) async {
     try {
       final result = await baseRemotlyDataSourceRoom.getTopInRoom(topPramiter);
       return left(result);

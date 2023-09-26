@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
 import 'package:tik_chat_v2/features/room/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
+import 'package:tik_chat_v2/features/room/domine/use_case/get_top_room.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
@@ -38,7 +39,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<Unit> exitRoom({required String ownerId});
   Future<List<RoomVistorModel>> getRoomUser({required GetAlluserPram pram});
   Future<List<BackGroundModel>> getBackGround();
-  Future<List<UserTopModel>> getTopInRoom(TopPramiter topPramiter);
+  Future<List<UserTopModel>> getTopInRoom(TopPramiterInRoom topPramiter);
   Future<List<EmojieModel>> getEmojie();
   Future<List<GiftsModel>> getGifts(int type);
   Future<String> sendGifts(GiftPramiter giftPramiter);
@@ -360,18 +361,17 @@ static String uploadImagePrice = "" ;
   }
 
   @override
-  Future<List<UserTopModel>> getTopInRoom(TopPramiter topPramiter) async {
+  Future<List<UserTopModel>> getTopInRoom(TopPramiterInRoom topPramiter) async {
         Map<String, String> headers = await DioHelper().header();
   
 
     final body = {
-      'class': topPramiter.sendOrReceiver,
+
       'type': topPramiter.date,
       'room_uid': topPramiter.roomId,
-      'is_home': '0'
     };
     try {
-      final response = await Dio().post(ConstentApi.getTopUrl,
+      final response = await Dio().post(ConstentApi.getTopUrlInRoom,
           options: Options(
             headers: headers,
           ),

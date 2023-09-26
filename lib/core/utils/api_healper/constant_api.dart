@@ -6,8 +6,8 @@ import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
 
 
 class ConstentApi {
- static const String baseUrl = "https://tik-chat.com/api";
-  // static const String baseUrl = "https://test.tik-chat.com/api";
+ // static const String baseUrl = "https://tik-chat.com/api";
+  static const String baseUrl = "https://test.tik-chat.com/api";
   static const String getBoxes = "$baseUrl/box/list";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
@@ -31,6 +31,7 @@ class ConstentApi {
   static const String getBcakground = "$baseUrl/backgrounds";
   static const String getOfficialMsgs = "$baseUrl/community/official_messages";
   static const String getTopUrl = "$baseUrl/ranking";
+  static const String getTopUrlInRoom = "$baseUrl/ranking/room";
   static const String sendGift = "$baseUrl/gifts/send";
   static const String getVistors = "$baseUrl/profile/visitors";
   static const String checkRoom = "$baseUrl/rooms/check_if_i_have_room";
