@@ -111,15 +111,18 @@ class _TrimmerViewState extends State<TrimmerView> {
                     child: VideoViewer(trimmer: _trimmer),
                   ),
                   Center(
-                    child: TrimViewer(
-                      trimmer: _trimmer,
-                      viewerHeight: 50.0,
-                      viewerWidth: MediaQuery.of(context).size.width,
-                      maxVideoLength: const Duration(seconds: 10),
-                      onChangeStart: (value) => _startValue = value,
-                      onChangeEnd: (value) => _endValue = value,
-                      onChangePlaybackState: (value) =>
-                          setState(() => _isPlaying = value),
+                    child: Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: TrimViewer(
+                        trimmer: _trimmer,
+                        viewerHeight: 50.0,
+                        viewerWidth: MediaQuery.of(context).size.width,
+                        maxVideoLength: const Duration(seconds: 30),
+                        onChangeStart: (value) => _startValue = value,
+                        onChangeEnd: (value) => _endValue = value,
+                        onChangePlaybackState: (value) =>
+                            setState(() => _isPlaying = value),
+                      ),
                     ),
                   ),
                   TextButton(
