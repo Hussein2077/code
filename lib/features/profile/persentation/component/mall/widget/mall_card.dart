@@ -69,7 +69,9 @@ class MallCard extends StatelessWidget {
               ),
               Text(
                 " $price / $time ${StringManager.day.tr()} ",
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: ConfigSize.defaultSize! * 1.2,
+                ),
               ),
          
             ],

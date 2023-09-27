@@ -60,7 +60,9 @@ Widget card1Coulumn(
         Image.asset(image , scale: 2.5,),
         Text(
           title,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontSize: ConfigSize.defaultSize! * 1.6,
+          ),
         )
       ],
     ),

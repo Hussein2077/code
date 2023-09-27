@@ -176,7 +176,9 @@ Widget topRankIcon({
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-          Text(StringManager.rank.tr(),style: Theme.of(context).textTheme.headlineMedium,),
+          Text(StringManager.rank.tr(),style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+            fontSize: ConfigSize.defaultSize! * 1.8,
+          )),
           Image.asset(
           AssetsPath.topUserIcon,
           scale: 2,

@@ -74,13 +74,15 @@ class UserInfoRow extends StatelessWidget {
               children: [
                 GradientTextVip(
                   text: userData.name ?? "",
-                  textStyle: Theme.of(context).textTheme.bodyLarge!,
+                  textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                  ),
 
                   isVip:  userData.hasColorName! ,
                 ),
                 SizedBox(
                   width:
-                  underNameWidth ?? MediaQuery.of(context).size.width - 140,
+                  underNameWidth ?? ConfigSize.screenWidth!-200,
                   child: underName ??
                       Row(
 

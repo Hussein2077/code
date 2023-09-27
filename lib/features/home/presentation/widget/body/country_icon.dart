@@ -49,7 +49,7 @@ class CountryIcon extends StatelessWidget {
               name ?? StringManager.countries.tr(),
               style: TextStyle(
                   color: ColorManager.whiteColor,
-                  fontSize: ConfigSize.defaultSize! * 1.4),
+                  fontSize: ConfigSize.defaultSize! * 1.6),
             ),
             // const Icon(Icons.keyboard_arrow_down , color: Colors.white,),
           ],
