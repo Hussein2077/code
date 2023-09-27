@@ -980,6 +980,8 @@ Widget messagesChached(
           text: "$word ", style: const TextStyle(color: Colors.white)));
     }
   }
+
+  log(bubble.toString()+"zzzzzzzzzzzzzzzz");
   return InkWell(
     onTap: () {
       bottomDailog(
