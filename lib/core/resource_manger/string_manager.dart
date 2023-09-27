@@ -461,6 +461,16 @@ static const String cachReelsKey ='cachReelsKey';
  static const String enterYourPhone = "Enter your phone";
  static const String pleaseAddYourCountry = "Please Add Your Country";
  static const String thePrivecyPolicy = "the Privacy Policy";
+ static const String moments = "Moments";
+ static const String giftBox = "GiftBox";
+ static const String addComment = "Add comment";
+ static const String addMoment = "Add Moment";
+ static const String addMoment1 = "Add moment ...";
+
+ static const String followingtab = "Following";
+ static const String likedTab = "Liked";
+ static const String momentsTab = "Moments";
+
 
 
 

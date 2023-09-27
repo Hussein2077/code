@@ -359,4 +359,9 @@ static String makeReelLike(String reelId ) {
   String payment({required String idPackageCoin}) {
     return "$baseUrl/payment-create?coins_id=${idPackageCoin}";
   }
+
+  static String getMomentLike(String momentId, String page) {
+    return "$baseUrl/moment/$momentId/like?page=$page";
+  }
+
 }

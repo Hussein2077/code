@@ -37,8 +37,6 @@ import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
-import 'package:tik_chat_v2/features/profile/data/model/moment/moment_comment_model.dart';
-import 'package:tik_chat_v2/features/profile/data/model/moment/moment_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -52,11 +50,9 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_comment_use_case.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_comment_use_case.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_comment_usecase.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/moment_send_gift.dart';
+
+
+
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -197,23 +193,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<String> deleteMessage(String id);
 
-  Future<String> addMomnet(AddMomentPrameter prameter);
 
-  Future<String> deleteMoment(String momentId);
-
-  Future<List<MomentModel>> getMoments(String userId);
-
-  Future<String> addMomentCooment(AddMomentCommentPrameter momentId);
-
-  Future<String> deleteMomentComment(
-      DeleteMomentCommentPrameter deleteMomentCommentPrameter);
-
-  Future<List<MomentCommentModel>> getMomentComment(
-      GetMomentCommentPrameter getMomentCommentPrameter);
-
-  Future<String> makeMomentLike(String userId);
-
-  Future<String> momentSendGift(MomentSendGiftPrameter momentSEndGiftPrameter);
 }
 
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
@@ -2084,165 +2064,5 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     }
  
   }
-  
-  @override
-  Future<String> addMomnet(AddMomentPrameter prameter) async{
-   Map<String, String> headers = await DioHelper().header();
-   Map body = {
-    "contacts" : prameter.moment ,
-    "user_id" : prameter.userId ,
-   } ; 
 
-    try {
-      final response = await Dio().post(
-        ConstentApi.addMoment,
-        data: body,
-        options: Options(
-          headers: headers,
-        ),
-      );
-      log(response.data.toString());
-
-      return response.data['message'];
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'addMoment');
-    }
-  }
-  
-  @override
-  Future<String> deleteMoment(String momentId)async {
-   Map<String, String> headers = await DioHelper().header();
-
-    try {
-      final response = await Dio().delete(
-        ConstentApi.deleteMoment(momentId),
-        options: Options(
-          headers: headers,
-        ),
-      );
-      Map<String, dynamic> resultData = response.data;
-
-      return resultData['message'];
-
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'deleteMoment' );
-    }
-  }
-  
-  @override
-  Future<List<MomentModel>> getMoments(String userId)async {
-  Map<String, String> headers = await DioHelper().header();
-
-    try {
-      final response = await Dio().get(
-        ConstentApi.getMoments(userId),
-        options: Options(
-          headers: headers,
-        ),
-      );
-      Map<String, dynamic> resultData = response.data;
-      
-
-      return List<MomentModel>.from(
-          resultData['data'].map((x) => MomentModel.fromJson(x)));
-
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getMoment');
-    }
-  }
-  
-  @override
-  Future<String> addMomentCooment(AddMomentCommentPrameter prameter) async{
-    Map<String, String> headers = await DioHelper().header();
-   Map body = {
-    "comment" : prameter.comment ,
- 
-   } ; 
-
-    try {
-      final response = await Dio().post(
-        ConstentApi.addMomentComment(prameter.momentId),
-        data: body,
-        options: Options(
-          headers: headers,
-        ),
-      );
-      log(response.data.toString());
-
-      return response.data['message'];
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'addMomentComment');
-    }
-  }
-  
-  @override
-  Future<String> deleteMomentComment(DeleteMomentCommentPrameter deleteMomentCommentPrameter)async {
-     Map<String, String> headers = await DioHelper().header();
-
-
-    try {
-      final response = await Dio().delete(
-        ConstentApi.deleteMomentComment(deleteMomentCommentPrameter.momentId , deleteMomentCommentPrameter.commentId),
-        options: Options(
-          headers: headers,
-        ),
-      );
-      log(response.data.toString());
-
-      return response.data['message'];
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'deleteMomentComment');
-    }
-  }
-  
-  @override
-  Future<List<MomentCommentModel>> getMomentComment(GetMomentCommentPrameter getMomentCommentPrameter)async {
-  Map<String, String> headers = await DioHelper().header();
-
-
-    try {
-      final response = await Dio().get(
-        ConstentApi.getMomentComment(
-            getMomentCommentPrameter.momentId, getMomentCommentPrameter.page),
-        options: Options(
-          headers: headers,
-        ),
-      );
-      log(response.data.toString());
-
-      return List<MomentCommentModel>.from(
-          response.data['data'].map((x) => MomentCommentModel.fromJson(x)));
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(
-          dioError: e, endpointName: 'getMomentComment');
-    }
-  }
-
-  @override
-  Future<String> makeMomentLike(String userId) async {
-    try {
-      final response = await Dio().get(
-        ConstentApi.makeMomentLikes,
-      );
-
-      return response.data;
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(
-          dioError: e, endpointName: 'makeMomentLike');
-    }
-  }
-
-  @override
-  Future<String> momentSendGift(MomentSendGiftPrameter momentSEndGiftPrameter) async{
-    try{
-      final response = await Dio().get(
-        ConstentApi.makeMomentLikes,
-      );
-
-      return response.data;
-    }on DioError catch (e) {
-      throw DioHelper.handleDioError(
-          dioError: e, endpointName: 'makeMomentLike');
-    }
-  }
 }
