@@ -44,6 +44,23 @@ import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/curse
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
+import 'package:tik_chat_v2/features/moment/data/data_source/remotly_data_source.dart';
+import 'package:tik_chat_v2/features/moment/data/repoitory_imp/repository_imp_moment.dart';
+import 'package:tik_chat_v2/features/moment/domain/repostoriy/base_repository_moment.dart';
+import 'package:tik_chat_v2/features/moment/domain/use_case/add_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/use_case/delete_moment_comment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/use_case/delete_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_comment_usecase.dart';
+import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/use_case/make_moment_like.dart';
+import 'package:tik_chat_v2/features/moment/domain/use_case/moment_send_gift.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
@@ -93,13 +110,11 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_vistors_usecase.
 import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/add_moment_use_case.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_comment_use_case.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/delete_moment_use_case.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_comment_usecase.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/get_moment_use_case.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/make_moment_like.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/moment_usecse/moment_send_gift.dart';
+
+
+
+
+
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
@@ -161,14 +176,11 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
+
+
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_comment/delete_moment_comment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment/get_moment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_add_moment/add_moment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_moment/delete_moment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment_comment/get_moment_comment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_make_moment_like/make_moment_like_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_moment_send_gift/moment_send_gift_bloc.dart';
+
+
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
@@ -491,21 +503,21 @@ class ServerLocator {
 
 //usecase
 
-    getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRespositryMoment: getIt()));
     getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => SendCodeUseCase(baseRepository: getIt()));
-    getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRespositryMoment: getIt()));
 
 
-    getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRespositryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRepositoryProfile: getIt()));
+   getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRespositryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => GetMomentUseCase(baseRepositoryProfile: getIt()));
+   getIt.registerLazySingleton(() => GetMomentUseCase(baseRespositryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRepositoryProfile: getIt()));
+   getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRespositryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => AddMomentUseCase(baseRepositoryProfile: getIt()));
+   getIt.registerLazySingleton(() => AddMomentUseCase(baseRespositryMoment: getIt()));
 
    getIt.registerLazySingleton(() => DeleteReelUseCse(baseRepositoryProfile: getIt()));
 
@@ -770,6 +782,10 @@ getIt.registerLazySingleton(
 
     getIt.registerLazySingleton<BaseRepository>(
         () => RepositoryImp(baseRemotlyDataSource: getIt()));
+
+    getIt.registerLazySingleton<BaseRespositryMoment>(
+        () => RepositoryImpMoment(baseRemotlyDataSourceMoment: getIt()));
+
     getIt.registerLazySingleton<BaseRepositoryProfile>(
         () => RepositoryImpProfile(baseRemotlyDataSourceProfile: getIt()));
     getIt.registerLazySingleton<BaseRepositoryRoom>(
@@ -782,6 +798,8 @@ getIt.registerLazySingleton(
         () => RepositoryReels(baseRemotlyDataSourceReels: getIt()));
 
 //data source
+    getIt.registerLazySingleton<BaseRemotlyDataSourceMoment>(
+            () => RemotlyDataSourceMoment());
     getIt.registerLazySingleton<BaseRemotlyDataSourceRoom>(
             () => RemotlyDataSourceRoom());
     getIt.registerLazySingleton<BaseRemotlyDataSource>(
