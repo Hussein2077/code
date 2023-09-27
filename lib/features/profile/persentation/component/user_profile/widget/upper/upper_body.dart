@@ -67,6 +67,8 @@ class UpperProfileBody extends StatelessWidget {
                       flex: 6,
                     ),
                     UserImage(
+                      frame: myDataModel.frame,
+                      frameId: myDataModel.familyId,
                         image: myDataModel.profile!.image!,
                         boxFit: BoxFit.cover,
                         imageSize: ConfigSize.defaultSize! * 8),
