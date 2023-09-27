@@ -34,24 +34,21 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
   }
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: ConfigSize.screenHeight!*.5,
-      child: Column(children: [
-        SizedBox(height: ConfigSize.defaultSize!*2,),
-        ProfileTabs(profileController: profileController,),
-              SizedBox(height: ConfigSize.defaultSize!*2,),
+    return Column(children: [
+      SizedBox(height: ConfigSize.defaultSize!*2,),
+      ProfileTabs(profileController: profileController,),
+            SizedBox(height: ConfigSize.defaultSize!*2,),
 
-        SizedBox(
-          height: MediaQuery.of(context).size.height/2.4,
-          child: TabBarView(
-            controller: profileController,
-             children: [
-              ProfileTabViewBody(userDataModel:widget.userDataModel),
-               ReelsTabView(userDataModel: widget.userDataModel,)
+      SizedBox(
+        height: MediaQuery.of(context).size.height/2.4,
+        child: TabBarView(
+          controller: profileController,
+           children: [
+            ProfileTabViewBody(userDataModel:widget.userDataModel),
+             ReelsTabView(userDataModel: widget.userDataModel,)
 
-          ]),
-        ),
-      ],),
-    );
+        ]),
+      ),
+    ],);
   }
 }

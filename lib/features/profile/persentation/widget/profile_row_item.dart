@@ -29,7 +29,9 @@ class ProfileRowItem extends StatelessWidget {
           ),
           Text(
             title,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: ConfigSize.defaultSize! * 1.6,
+            ),
           ),
           const Spacer(
             flex: 20,
