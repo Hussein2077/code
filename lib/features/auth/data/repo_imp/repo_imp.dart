@@ -126,4 +126,15 @@ class RepositoryImp extends BaseRepository {
       return Right(DioHelper.buildFailure(e));
     }
   }
+
+  @override
+  Future<Either<String, Failure>> deleteAccount() async{
+    try {
+      final result =
+      await baseRemotlyDataSource.deleteAccount();
+      return Left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
 }

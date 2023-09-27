@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/log_out_usecase.dart';
@@ -18,6 +12,11 @@ class LogOutBloc extends Bloc<BaseLogOutEvent, LogOutState> {
       final result = await logOutUseCase.call();
 
       result.fold((l) => emit(LogOutSucssesState()), (r) => emit(LogOutErrorState(error: DioHelper().getTypeOfFailure(r))));
+    });
+    on<DeleteAccountEvent>((event, emit) async{
+      emit (DeleteAccountLoadingState());
+      final result = await logOutUseCase.deleteAccount();
+      result.fold((l) => emit(DeleteAccountSucssesState()), (r) => emit(DeleteAccountErrorState(error: DioHelper().getTypeOfFailure(r))));
     });
   }
 }

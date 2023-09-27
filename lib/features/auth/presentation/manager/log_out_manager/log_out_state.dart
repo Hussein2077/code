@@ -18,4 +18,13 @@ class LogOutErrorState extends LogOutState {
   const LogOutErrorState ({required this.error}); 
 }
 
+class DeleteAccountLoadingState extends LogOutState {}
+
+class DeleteAccountSucssesState extends LogOutState {}
+
+class DeleteAccountErrorState extends LogOutState {
+  final String error ;
+  const DeleteAccountErrorState ({required this.error});
+}
+
 

@@ -32,6 +32,7 @@ abstract class BaseRemotlyDataSource {
   Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
   Future<String> privacyPolicy();
+  Future<String> deleteAccount();
 
 
 }
@@ -374,6 +375,25 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       throw DioHelper.handleDioError(dioError: e,endpointName:'privacyPolicy' );
     }
 
+  }
+
+  @override
+  Future<String> deleteAccount()async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.deleteAccount,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> jsonData = response.data;
+
+      return jsonData[ConstentApi.message];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'delete account');
+    }
   }
 
 }
