@@ -134,9 +134,6 @@ import 'package:tik_chat_v2/firebase_options.dart';
 
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
-
-
-
 final globalNavigatorKey = GlobalKey<NavigatorState>();
 
 
