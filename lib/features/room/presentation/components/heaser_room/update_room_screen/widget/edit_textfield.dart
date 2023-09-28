@@ -47,7 +47,7 @@ class _EditTextFieldState extends State<EditTextField> {
              hintText: widget.hint,
 
              //StringManager.updateRoomName.tr(),
-             hintStyle: const TextStyle(color: ColorManager.darkBlack),
+             hintStyle:   TextStyle(color: ColorManager.gray.withOpacity(.7)),
              border: InputBorder.none,
              disabledBorder: InputBorder.none,
              focusedBorder: InputBorder.none,

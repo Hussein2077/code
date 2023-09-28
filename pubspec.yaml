@@ -28,7 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  pusher_channels_flutter: ^2.1.2
+  pusher_channels_flutter: ^2.2.0
   flutter:
     sdk: flutter
 
@@ -103,7 +103,7 @@ dependencies:
   app_links: ^3.4.3
   flutter_gif: ^0.0.4
   sign_in_with_apple:
-
+  video_trimmer: ^2.0.1
 
 
 
