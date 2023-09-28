@@ -61,7 +61,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.clearChat: "مسح الدردشة",
     StringManager.music: "موسيقى",
     StringManager.lock: "قفل",
-    StringManager.theme: "الموضوعات",
+    StringManager.theme: "الخلفيات",
     StringManager.roomMode: "وضع الغرفة",
     StringManager.midePartyMode: "وضع الحفلة المتوسطه",
     StringManager.modeChairs: "وضع الميكروفون",
