@@ -326,6 +326,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
               },
               child: UserImage(
                 boxFit: BoxFit.cover,
+                frame: widget.userData.frame,
+                frameId: widget.userData.frameId,
                 imageSize: ConfigSize.defaultSize! * 7.5,
                 image: widget.userData.profile!.image!,
               ),

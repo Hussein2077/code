@@ -2,7 +2,6 @@ class MomentCommentModel {
   final int? commentId;
   final int? momentId;
   final int? userId;
-
   final String comment;
   final String userProfilePic;
   final String userName;

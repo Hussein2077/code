@@ -11,7 +11,9 @@ class FamilyMemberCard extends StatelessWidget {
   final String name ; 
   final String type ; 
   final String image ; 
-  const FamilyMemberCard({required this.id ,  required this.image , required this.name , required this.type ,  super.key});
+  final String frame ;
+  final int frameId ;
+  const FamilyMemberCard({required this.id ,  required this.image , required this.name , required this.type ,  super.key, required this.frame, required this.frameId});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class FamilyMemberCard extends StatelessWidget {
                             top: ConfigSize.defaultSize! * 1.5),
                         child: UserImage(
                           image: image,
+
                           imageSize: ConfigSize.defaultSize! * 4.5,
                         ),
                       ),

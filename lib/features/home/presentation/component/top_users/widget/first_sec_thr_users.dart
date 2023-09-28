@@ -38,7 +38,9 @@ class FirstSecThrUsers extends StatelessWidget {
                         top: position,
                       ),
                     height: height,
-                    child:UserImage(image:userData.avater!  ,child: Align(
+                    child:UserImage(
+
+                      image:userData.avater!  ,child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Image.asset(
                             badge,

@@ -56,7 +56,10 @@ class OthersUsers extends StatelessWidget {
                 ),
                             const    Spacer(flex: 1,),
           
-                UserImage(image: usersData[index].avater! , imageSize: ConfigSize.defaultSize!*4,),
+                UserImage(
+                  frame: usersData[index].frame,
+                  frameId: usersData[index].frameId,
+                  image: usersData[index].avater! , imageSize: ConfigSize.defaultSize!*4,),
                             const    Spacer(flex: 1,),
           
                 Column(

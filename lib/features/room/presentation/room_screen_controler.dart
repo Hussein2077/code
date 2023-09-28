@@ -1004,6 +1004,7 @@ Widget messagesChached(
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2),
                 child: UserImage(
+
                     image: message.user.inRoomAttributes.value['img'] ??
                         RoomScreen.usersMessagesRoom[message.user.id]?.image ??
                         ""),
@@ -1331,7 +1332,6 @@ Widget roomBackground(
 
 Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
     UserDataModel? topUser, MyDataModel myDataModel, EnterRoomModel room) {
-  log("hostTopCenterWidget");
   return Padding(
     padding: EdgeInsets.only(
         top: ConfigSize.defaultSize! * 10, right: ConfigSize.defaultSize! * 6),
@@ -1363,6 +1363,8 @@ Widget hostTopCenterWidget(BuildContext context, LayoutMode layoutMode,
                   ),
                   child: UserImage(
                     image: topUser!.profile!.image!,
+                    frame: topUser.frame,
+                    frameId: topUser.frameId,
                     imageSize: ConfigSize.defaultSize! * 4,
                   ),
                 ),

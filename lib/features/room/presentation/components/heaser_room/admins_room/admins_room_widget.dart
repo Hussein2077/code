@@ -62,6 +62,7 @@ class AdminsRoomWidget extends StatelessWidget {
                                   ),
                                   UserImage(
                                       image: state.admins[index].profile!.image!,
+
                                    ),
                                   SizedBox(
                                     width: ConfigSize.defaultSize! * 3,
