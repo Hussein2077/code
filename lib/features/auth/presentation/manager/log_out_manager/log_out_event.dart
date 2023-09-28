@@ -10,3 +10,5 @@ abstract class BaseLogOutEvent extends Equatable {
 
 
 class LogOutEvent extends BaseLogOutEvent {}
+
+class DeleteAccountEvent extends BaseLogOutEvent{}

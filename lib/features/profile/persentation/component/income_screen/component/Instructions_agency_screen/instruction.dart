@@ -92,7 +92,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
               },
               title: StringManager.goToJoin.tr(),
             ),
-            SizedBox(height: ConfigSize.defaultSize!*2.4),
+            SizedBox(height: ConfigSize.defaultSize!*6.4),
           ],
         ),
       ),
@@ -112,6 +112,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
            child: Text(
              mode,
              style: TextStyle(
+               color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: ConfigSize.defaultSize!*1.5,
                     overflow: TextOverflow.fade

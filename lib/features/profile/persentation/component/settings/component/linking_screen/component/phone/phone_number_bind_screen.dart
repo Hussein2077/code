@@ -64,21 +64,21 @@ class _PhoneNumberBindScreenState extends State<PhoneNumberBindScreen> {
                                warningToast(context: context, title: StringManager.pleaseSelectYourCountry);
 
                                   } else {
-                                   
-                                    if(PhoneWithCountry.phoneIsValid &&passWordController.text.isNotEmpty){
-                                      getIt<FireBaseDataSource>().phoneAuthentication(PhoneWithCountry.number.phoneNumber!, context);
-                                      Navigator.pushNamed(context, Routes.otpBindScreen,
-                                          arguments: OtpScreenParameter(
-                                              codeCountry: PhoneWithCountry.number.dialCode!,
-                                              password: passWordController.text,
-                                              phone:PhoneWithCountry.number.phoneNumber! ));
-
-                                    }else {
-                                warningToast(context: context, title: StringManager.pleaseEnterPassword);
-                                    }
-
-
-                                  }
+                                    if (PhoneWithCountry.phoneIsValid &&
+                        passWordController.text.isNotEmpty) {
+                      getIt<FireBaseDataSource>().phoneAuthentication(
+                          PhoneWithCountry.number.phoneNumber!, context);
+                      Navigator.pushNamed(context, Routes.otpBindScreen,
+                          arguments: OtbScreenParm(
+                              codeCountry: PhoneWithCountry.number.dialCode!,
+                              password: passWordController.text,
+                              phone: PhoneWithCountry.number.phoneNumber!));
+                    } else {
+                      warningToast(
+                          context: context,
+                          title: StringManager.pleaseEnterPassword);
+                    }
+                  }
 
                                 
                                 }, title: StringManager.done),

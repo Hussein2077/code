@@ -72,7 +72,7 @@ UserInfoWidget.nameController!.dispose();
           rowWidget(
               context: context,
               title: StringManager.interests.tr(),
-              subTitle: widget.myDataModel.intro,
+              subTitle: "",
               onTap: () => Navigator.pushNamed(context, Routes.interstedScreen),
 
               ),

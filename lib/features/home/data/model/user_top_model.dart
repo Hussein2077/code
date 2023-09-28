@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 
 class UserTopModel extends Equatable {
-  final int? exp;
+  final dynamic? exp;
   final int? userId;
   // final String? sex;
 
@@ -13,6 +13,7 @@ class UserTopModel extends Equatable {
   final String? frame;
   final dynamic? frameId; 
   final String? senderImage;
+  final String? receverImage;
   final int? vipLevel;
 
 
@@ -26,11 +27,12 @@ class UserTopModel extends Equatable {
       this.frameId,
      this.vipLevel,
         this.senderImage,
+        this.receverImage,
      });
 
   factory UserTopModel.fromJson(Map<String, dynamic> jsonData) {
     return UserTopModel(
-      exp: jsonData['exp']??0,
+      exp: jsonData['exp'].toString()??'',
       userId: jsonData['user_id'],
       // sex: jsonData['sex'] ?? "",
       avater: (jsonData['avatar']==null ||jsonData['avatar']=="")? "tic_logo.jpg":jsonData['avatar'],
@@ -39,6 +41,7 @@ class UserTopModel extends Equatable {
       frameId: jsonData['frame_id'] ??1,
         vipLevel:jsonData['vip_level']??0,
        senderImage:jsonData['sender_img']??'',
+      receverImage:jsonData['resever_img']??'',
     );
   }
 

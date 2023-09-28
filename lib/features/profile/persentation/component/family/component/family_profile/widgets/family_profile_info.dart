@@ -313,6 +313,8 @@ Widget familyMemeber(
                 return FamilyMemberCard(
                   id: owner.id.toString(),
                   image: owner.image!,
+                  frame: owner.frame!,
+                  frameId: owner.frameId!,
                   name: owner.name!,
                   type: StringManager.owner.tr(),
                 );
@@ -321,6 +323,8 @@ Widget familyMemeber(
                   id: members[index-1].id.toString(),
                   image: members[index-1].image!,
                   name: members[index-1].name!,
+                  frame:  members[index-1].frame!,
+                  frameId: members[index-1].frameId!,
                   type: members[index-1].isFamilyAdmin!
                       ? StringManager.admin.tr()
                       : StringManager.member.tr(),

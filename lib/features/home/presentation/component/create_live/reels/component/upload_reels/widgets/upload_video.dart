@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/view.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -33,7 +34,11 @@ class UploadVideoState extends State<UploadVideo> {
       log("sucsses");
       String? filePath = result.files.single.path;
       if (filePath != null) {
-        video = filePath ; 
+             Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) {
+                    return TrimmerView(File(result.files.single.path!));
+                  }),
+                );
     _generateThumbnail(filePath);
       } else {
       }

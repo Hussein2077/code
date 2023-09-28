@@ -29,8 +29,9 @@ class ProfileBody extends StatelessWidget {
           ),
           UserInfoRow(
          
-            imageSize: ConfigSize.defaultSize! * 7,
+            imageSize: ConfigSize.defaultSize! * 6,
             underName: IdWithCopyIcon(id: myData.uuid.toString()),
+            underNameWidth: ConfigSize.defaultSize!*14,
             endIcon: Container(
               padding: EdgeInsets.all(ConfigSize.defaultSize!),
               decoration: const BoxDecoration(

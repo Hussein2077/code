@@ -15,7 +15,7 @@ class PusherService {
    try {
      await pusher.init(
          cluster: cluster,
-         apiKey: 'd0344cbe6b1489f567f0',
+         apiKey: appKey,
          onConnectionStateChange:onConnectionStateChange,
          onError: onError,
          onSubscriptionSucceeded: onSubscriptionSucceeded,

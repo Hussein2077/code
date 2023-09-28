@@ -12,7 +12,7 @@ import 'package:tik_chat_v2/features/room/presentation/manager/manager_top_inroo
 class TobinRoomBloc extends Bloc<TopInRoonEvents,GetTopInRoomState> {
   final GetTopRoomUC getTopRoomUC;
 
-  TobinRoomBloc({required this.getTopRoomUC}) : super(GetTopInRoomState()) {
+  TobinRoomBloc({required this.getTopRoomUC}) : super(const GetTopInRoomState()) {
     on<getTopIn24HoursRoomEvent>(getTodayTop);
     on<getTopInTotalRoomEvent>(getTotalTop);
   }
@@ -21,8 +21,8 @@ class TobinRoomBloc extends Bloc<TopInRoonEvents,GetTopInRoomState> {
   FutureOr<void> getTodayTop(getTopIn24HoursRoomEvent event,
       Emitter<GetTopInRoomState> emit) async {
     final result = await getTopRoomUC.call(
-        TopPramiter(sendOrReceiver: event.classId,
-            date: event.typeDate, isHome: '0', roomId: event.ownerId));
+        TopPramiterInRoom(
+            date: event.typeDate, roomId: event.ownerId));
     result.fold(
             (l) =>
             emit(state.copyWith(
@@ -36,8 +36,8 @@ class TobinRoomBloc extends Bloc<TopInRoonEvents,GetTopInRoomState> {
   FutureOr<void> getTotalTop(getTopInTotalRoomEvent event,
       Emitter<GetTopInRoomState> emit) async {
     final result = await getTopRoomUC.call(
-        TopPramiter(sendOrReceiver: event.classId,
-            date: event.typeDate, isHome: '0', roomId: event.ownerId));
+        TopPramiterInRoom(
+            date: event.typeDate, roomId: event.ownerId));
     result.fold(
             (l) =>
             emit(state.copyWith(

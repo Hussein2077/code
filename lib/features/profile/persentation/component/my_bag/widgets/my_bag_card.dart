@@ -103,7 +103,7 @@ class _MyBagCardState extends State<MyBagCard> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             Text(
-              widget.time.substring(0, 10),
+              widget.time,
               style: Theme.of(context).textTheme.bodySmall,
             ),
             (MyBagCard.frameUsed.toString() != widget.targetId &&

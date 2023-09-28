@@ -69,9 +69,9 @@ Widget columnInfo(
         ),
         Text(
           num,
-          style: userProfile == null
-              ? Theme.of(context).textTheme.bodyLarge
-              : TextStyle(
+          style:
+
+          TextStyle(
                   fontFamily: 'ElMessiri',
                   fontSize: ConfigSize.defaultSize! * 1.6,
                   color: Colors.white,

@@ -34,10 +34,10 @@ class _FFFScreenState extends State<FFFScreen> {
           .add(const GetFriendsOrFollowersOrFollwothemEvent(type: '3'));
     } else if (widget.title == StringManager.followers.tr()) {
       BlocProvider.of<GetFollowerOrFollowingBloc>(context)
-          .add(const GetFriendsOrFollowersOrFollwothemEvent(type: '1'));
+          .add(const GetFriendsOrFollowersOrFollwothemEvent(type: '2'));
     } else {
       BlocProvider.of<GetFollowerOrFollowingBloc>(context)
-          .add(const GetFriendsOrFollowersOrFollwothemEvent(type: '2'));
+          .add(const GetFriendsOrFollowersOrFollwothemEvent(type: '1'));
     }
     super.initState();
   }
@@ -99,11 +99,11 @@ class _FFFScreenState extends State<FFFScreen> {
       } else if (widget.title == StringManager.followers.tr()) {
         BlocProvider.of<GetFollowerOrFollowingBloc>(context).add(
             GetMoreFriendsOrFollowersOrFollwothemEvent(
-                type: '1', page: widget.page.toString()));
+                type: '2', page: widget.page.toString()));
       } else {
         BlocProvider.of<GetFollowerOrFollowingBloc>(context).add(
             GetMoreFriendsOrFollowersOrFollwothemEvent(
-                type: '2', page: widget.page.toString()));
+                type: '1', page: widget.page.toString()));
       }
     } else {}
   }

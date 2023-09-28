@@ -33,6 +33,10 @@ class UserRoomRow extends StatelessWidget {
             UserImage(
               boxFit: BoxFit.cover,
               image: userTopMode.avater!,
+              imageSize:  ConfigSize.defaultSize! * 5,
+              frame: userTopMode.frame,
+              frameId: userTopMode.frameId,
+
             ),
             SizedBox(
               width: ConfigSize.defaultSize! * 0.5,

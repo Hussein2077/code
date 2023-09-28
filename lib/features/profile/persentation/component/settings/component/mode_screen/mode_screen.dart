@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_theme/
 
 class ModeScreen extends StatefulWidget {
    int selectedMode=2;
+
    ModeScreen({ super.key, required this.select});
   String select;
 
@@ -22,7 +23,6 @@ class ModeScreen extends StatefulWidget {
 }
 
 class _ModeScreenState extends State<ModeScreen> {
-
   List<String> mode = [StringManager.lightMode.tr(), StringManager.darkMode.tr()];
 
  @override
@@ -93,11 +93,14 @@ class _ModeScreenState extends State<ModeScreen> {
 
 
 
-           
+
 
             },
             title: StringManager.save.tr(),
-          )
+          ),
+          SizedBox(
+            height: ConfigSize.defaultSize! * 5.5,
+          ),
         ],
       ),
     );

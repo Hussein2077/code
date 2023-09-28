@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
-  static const int versionApp = 27;
+  static const int versionApp = 28;
 
   //updates
   static const String updateApp ='Update TikChat APP';
@@ -34,7 +34,9 @@ static const String cachReelsKey ='cachReelsKey';
   static const String cachUserData = 'Cache_User_Key';
   static const String keepLogin = 'Keep_Login';
   static const String roomIntro = "Room Intro";
-
+  static const String deleteAccount = "delete account";
+  static const String wanaLogeOut = "Do you want to log out?";
+  static const String wanaDeletAccout = "Do you want to Delete Account?";
 
  ////
  static const String youWillSpend = 'You will Spend';
@@ -403,8 +405,7 @@ static const String cachReelsKey ='cachReelsKey';
   static const String beComeAdmin = "Be come admin";
   static const String privacy = "Privacy";
   static const String useTheFeatureAndEnjoyit = "Use The Feature And Enjoy it";
-  static const String thisFeatureisNotAvailableForYou =
-      "ThisFeatureisNotAvailableForYou";
+  static const String thisFeatureisNotAvailableForYou = "ThisFeatureisNotAvailableForYou";
   static const String note = "notes";
   static const String updateRoomName = "update your room name here";
 
@@ -424,7 +425,7 @@ static const String cachReelsKey ='cachReelsKey';
   static const String writeBan = "write ban";
   static const String block = "Block";
   static const String lastActive = "Last Active: ";
-  static const String spitialMassege = "رسالة مميزة";
+  static const String spitialMassege = "spitial messege";
   static const String theTextHasBeenCopied = "The text has been copied";
   static const String roomSetting = "Room Setting";
   static const String entertainment = "entertainment";
@@ -452,6 +453,32 @@ static const String cachReelsKey ='cachReelsKey';
     static const String addAComment = 'Add a comment...';
     static const String reelsView = 'Reels View';
     static const String empty = 'Empty';
+      static const String nowInRoom = "Now In Room";
+
+    static const String theOtp = 'the otp you have entered is wrong';
+ static const String inputPhonenum = "Input your phone number";
+ static const String pleaseEnterYourPassword = "Please Enter your Password";
+ static const String enterNewPassword = "Enter New Password";
+ static const String changePhone = "Change Phone";
+ static const String changePassword = "Change Password";
+ static const String pleaseEnterYourPhone = "Please Enter your phone";
+ static const String enterYourPhone = "Enter your phone";
+ static const String pleaseAddYourCountry = "Please Add Your Country";
+ static const String thePrivecyPolicy = "the Privacy Policy";
+ static const String moments = "Moments";
+ static const String giftBox = "GiftBox";
+ static const String addComment = "Add comment";
+ static const String addMoment = "Add Moment";
+ static const String addMoment1 = "Add moment ...";
+
+ static const String followingtab = "Following";
+ static const String likedTab = "Liked";
+ static const String momentsTab = "Moments";
+
+
+
+
+
 
 
 

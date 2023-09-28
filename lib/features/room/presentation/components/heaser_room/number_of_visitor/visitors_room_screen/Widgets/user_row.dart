@@ -39,7 +39,10 @@ class UserRow extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(width:ConfigSize.defaultSize! ,),
-            UserImage(image: roomVistorModel.image,boxFit: BoxFit.cover,),
+            UserImage(image: roomVistorModel.image,boxFit: BoxFit.cover,frame: roomVistorModel.frame,
+              frameId: roomVistorModel.frameId,
+              imageSize: ConfigSize.defaultSize! * 5,
+            ),
             SizedBox(
               width: ConfigSize.defaultSize! * 2,
             ),

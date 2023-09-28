@@ -39,7 +39,6 @@ class UserInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(userData.profile!.image!);
     return InkWell(
       onTap: onTap ??
               () {
@@ -57,6 +56,8 @@ class UserInfoRow extends StatelessWidget {
               flex: 1,
             ),
             UserImage(
+              frame: userData.frame,
+              frameId: userData.familyId,
               imageSize: imageSize,
               boxFit: BoxFit.cover,
               image: userData.profile!.image!,
@@ -73,13 +74,15 @@ class UserInfoRow extends StatelessWidget {
               children: [
                 GradientTextVip(
                   text: userData.name ?? "",
-                  textStyle: Theme.of(context).textTheme.bodyLarge!,
+                  textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                  ),
 
                   isVip:  userData.hasColorName! ,
                 ),
                 SizedBox(
                   width:
-                  underNameWidth ?? MediaQuery.of(context).size.width - 140,
+                  underNameWidth ?? ConfigSize.screenWidth!-200,
                   child: underName ??
                       Row(
 

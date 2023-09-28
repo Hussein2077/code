@@ -461,6 +461,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             RoomScreen.updatePKNotifier.value + 1;
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
+      Future.delayed(const Duration(seconds: 3), () async {
+        ZegoUIKit().sendInRoomMessage("انضم للغرفة", false);
+      });
     }
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -474,9 +477,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             .listen(onInRoomCommandReceived));
     });
 
-    Future.delayed(const Duration(seconds: 3), () async {
-      ZegoUIKit().sendInRoomMessage("انضم للغرفة", false);
-    });
+
   }
 
   @override

@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
+
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
@@ -186,6 +187,7 @@ Widget reelRowWidget(
         const Spacer(
           flex: 1,
         ),
+
       ],
     ),
   );

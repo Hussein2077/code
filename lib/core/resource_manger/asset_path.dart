@@ -239,6 +239,8 @@ class AssetsPath {
   static const String lockRoom = "$pathIcon/lockroom.png";
   static const String music2 = "$pathIcon/music.png";
   static const String myVideos = "$pathImage/my_videos.jpeg";
+    static const String defaultImage = "$pathImage/Facebook_default_male_avatar.gif";
+
 
 
   

@@ -30,8 +30,8 @@ class CustomContainRoom extends StatelessWidget {
 
     return InkWell(
       onTap: (){
-        BlocProvider.of<TobinRoomBloc>(context)..add(getTopIn24HoursRoomEvent(classId: '3',typeDate: '1',ownerId:ownerId ))
-          ..add(getTopInTotalRoomEvent(classId: '3' ,typeDate: '4',ownerId: ownerId)) ;
+        BlocProvider.of<TobinRoomBloc>(context)..add(getTopIn24HoursRoomEvent(typeDate: '1',ownerId:ownerId ))
+          ..add(getTopInTotalRoomEvent(typeDate: '2',ownerId: ownerId)) ;
         bottomDailog(
             context: context,
             widget:  TopInRoomScreen(id: id, roomData: roomData, myData: myData, layoutMode:layoutMode ,) );

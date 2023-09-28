@@ -79,7 +79,7 @@ passwordController.dispose();
                                     if(PhoneWithCountry.phoneIsValid){
                                       getIt<FireBaseDataSource>().phoneAuthentication(PhoneWithCountry.number.phoneNumber!, context);
                                       Navigator.pushNamed(context, Routes.otp,
-                                          arguments: OtpScreenParameter(
+                                          arguments: OtbScreenParm(
                                               codeCountry: PhoneWithCountry.number.dialCode!,
                                               password: passwordController.text,
                                               phone:PhoneWithCountry.number.phoneNumber! ));

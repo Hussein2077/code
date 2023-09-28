@@ -17,7 +17,10 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_policy/privacy_policy_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_policy/privacy_policy_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
@@ -31,6 +34,14 @@ import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/mode_screen/mode_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -91,13 +102,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_add_moment/add_moment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_comment/delete_moment_comment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_delete_moment/delete_moment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment/get_moment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_get_moment_comment/get_moment_comment_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_make_moment_like/make_moment_like_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/moment/manager_moment_send_gift/moment_send_gift_bloc.dart';
+
+
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
@@ -127,9 +133,6 @@ import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/
 import 'package:tik_chat_v2/firebase_options.dart';
 
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
-
-
-
 
 final globalNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -425,6 +428,10 @@ final  String theme ;
 
 
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
+        BlocProvider(create: (_) => getIt<SendCodeBloc>()),
+        BlocProvider(
+            create: (_) =>
+            getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
       ],
       child:  BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {

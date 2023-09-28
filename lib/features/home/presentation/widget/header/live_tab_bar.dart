@@ -49,7 +49,9 @@ class _LiveTabBARState extends State<LiveTabBAR> {
         Row(
 mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Text("${StringManager.appTitle.tr()} " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7)),
+             Text("${StringManager.appTitle.tr()} " ,
+                 style: TextStyle(color: ColorManager.whiteColor ,
+                     fontSize: ConfigSize.defaultSize!*1.7)),
                  Image.asset(
                     AssetsPath.iconApp,
                     scale: 12,

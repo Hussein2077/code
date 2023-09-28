@@ -9,7 +9,8 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class CompleteProfile extends StatelessWidget {
-  const CompleteProfile({super.key});
+  final double percent  ; 
+  const CompleteProfile({required this.percent ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class CompleteProfile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                 " ${StringManager.profileCompleted.tr()} 20%",
+                 " ${StringManager.profileCompleted.tr()} ${percent*100}%",
                   style: TextStyle(
                       color: ColorManager.deeporang,
                       fontSize: ConfigSize.defaultSize! * 2),
@@ -35,7 +36,7 @@ class CompleteProfile extends StatelessWidget {
                   barRadius: Radius.circular(ConfigSize.defaultSize!),
                 width: MediaQuery.of(context).size.width-100,
                 lineHeight: ConfigSize.defaultSize!*1.2,
-                percent: 0.2,
+                percent: percent,
                 backgroundColor: Colors.deepOrange.withOpacity(0.1),
                 progressColor: ColorManager.deeporang,
               ),

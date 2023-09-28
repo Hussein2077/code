@@ -164,9 +164,9 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                                             id: membersData[index]
                                                 .id
                                                 .toString(),
-                                            image: membersData[index]
-                                                
-                                                .image!,
+                                            image: membersData[index].image!,
+                                            frame:  membersData[index].frame!,
+                                            frameId: membersData[index].frameId!,
                                             name: membersData[index].name!,
                                             type: index == 0
                                                 ? StringManager.owner.tr()

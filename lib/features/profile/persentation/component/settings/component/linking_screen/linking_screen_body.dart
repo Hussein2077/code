@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,12 +13,12 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/account_events.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/account_states.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
 
 class LinkingScreenBody extends StatefulWidget {
   final MyDataModel myData;
+
   const LinkingScreenBody({required this.myData, super.key});
 
   @override
@@ -27,13 +29,14 @@ class _LinkingScreenBodyState extends State<LinkingScreenBody> {
   @override
   Widget build(BuildContext context) {
     bool isHigh = (widget.myData.isGoogle! && widget.myData.isPhone!);
+    log('kkkkk${widget.myData.isPhone!}');
     return BlocListener<AcountBloc, AccountStates>(
       listener: (context, state) {
-        if(state is GoogleAccountSuccessState){
+        if (state is GoogleAccountSuccessState) {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-        }else if(state is GoogleAccountErrorState) {
-errorToast(context: context, title: state.errorMessage);
-        }else if (state is GoogleAccountLoading){
+        } else if (state is GoogleAccountErrorState) {
+          errorToast(context: context, title: state.errorMessage);
+        } else if (state is GoogleAccountLoading) {
           loadingToast(context: context, title: StringManager.loading.tr());
         }
       },
@@ -49,13 +52,13 @@ errorToast(context: context, title: state.errorMessage);
               children: [
                 (isHigh)
                     ? Image.asset(
-                        AssetsPath.highProtected,
-                        scale: 1.5,
-                      )
+                  AssetsPath.highProtected,
+                  scale: 1.5,
+                )
                     : Image.asset(
-                        AssetsPath.lowProtected,
-                        scale: 1.5,
-                      ),
+                  AssetsPath.lowProtected,
+                  scale: 1.5,
+                ),
                 Text.rich(
                   TextSpan(
                     children: [
@@ -64,7 +67,7 @@ errorToast(context: context, title: state.errorMessage);
                           style: Theme.of(context).textTheme.bodyLarge),
                       TextSpan(
                           text:
-                              (isHigh) ? StringManager.high : StringManager.low.tr(),
+                          (isHigh) ? StringManager.high : StringManager.low.tr(),
                           style: TextStyle(
                               color: (isHigh) ? Colors.green : Colors.red,
                               fontSize: ConfigSize.defaultSize! * 1.8)),
@@ -80,16 +83,26 @@ errorToast(context: context, title: state.errorMessage);
                   title: StringManager.phoneNum.tr(),
                   isBind: widget.myData.isPhone!,
                   type: "phone",
+                  onTap: () {
+                    log('hero');
+                    log('hero${widget.myData.isPhone!}');
+                    widget.myData.isPhone!
+                        ? Navigator.pushNamed(
+                            context, Routes.changePassOrNumberScreen)
+                        : Navigator.pushNamed(context, Routes.phoneBindScreen);
+                  },
                 ),
                 SizedBox(
                   height: ConfigSize.defaultSize! * 3.5,
                 ),
                 linkingRow(
-                    context: context,
-                    icon: AssetsPath.googleIcon,
-                    title: StringManager.google.tr(),
-                    isBind: widget.myData.isGoogle!,
-                    type: "google"),
+                  context: context,
+                  icon: AssetsPath.googleIcon,
+                  title: StringManager.google.tr(),
+                  isBind: widget.myData.isGoogle!,
+                  type: "google",
+                  onTap: () {},
+                ),
               ],
             ),
           ),
@@ -103,7 +116,7 @@ Widget linkingRow({
   required BuildContext context,
   required String icon,
   required String title,
-  void Function()? onTap,
+  required void Function() onTap,
   required bool isBind,
   required String type,
 }) {
@@ -126,30 +139,28 @@ Widget linkingRow({
       const Spacer(
         flex: 15,
       ),
-      isBind
-          ? MainButton(
-              onTap: () {},
-              title: StringManager.linked.tr(),
-              width: ConfigSize.defaultSize! * 7,
-              height: ConfigSize.defaultSize! * 3,
-              titleSize: ConfigSize.defaultSize! * 1.6,
-              buttonColor: ColorManager.bageGriedinet,
-            )
-          : MainButton(
-              onTap: type == "google"
-                  ? () {
-                      BlocProvider.of<AcountBloc>(context)
-                          .add(BindGoolgeAccountEvent());
-                    }
-                  : () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, Routes.phoneBindScreen);
-                    },
-              title: StringManager.link.tr(),
-              width: ConfigSize.defaultSize! * 7,
-              height: ConfigSize.defaultSize! * 3,
-              titleSize: ConfigSize.defaultSize! * 1.6,
-            ),
+
+      MainButton(
+        onTap: onTap,
+        title: isBind ? StringManager.linked.tr():StringManager.link.tr() ,
+        width: ConfigSize.defaultSize! * 7,
+        height: ConfigSize.defaultSize! * 3,
+        titleSize: ConfigSize.defaultSize! * 1.6,
+        buttonColor:
+            isBind ?   ColorManager.bageGriedinet:ColorManager.yellowGrident,
+      ),
+
+//the old ontap in the second mainbutton
+      // type == "google"
+      //     ? () {
+      //         BlocProvider.of<AcountBloc>(context)
+      //             .add(BindGoolgeAccountEvent());
+      //       }
+      //     : () {
+      //         Navigator.pop(context);
+      //         Navigator.pushNamed(context, Routes.phoneBindScreen);
+      //       },
+
       const Spacer(
         flex: 1,
       ),
