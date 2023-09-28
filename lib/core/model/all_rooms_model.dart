@@ -86,7 +86,7 @@ class RoomModelOfAll {
   final int? isRecommended;
   final int? ownerId;
   final String? lang;
-  final CounterRoomModel? country;
+  final String? country;
 
   final bool? passwordStatus;
   final bool? isPK;
@@ -155,9 +155,7 @@ class RoomModelOfAll {
         roomIntro: map['room_intro'],
         isRecommended: map['is_recommended'],
         lang: map['lang'],
-        country: map['country'] == null
-            ? null
-            : CounterRoomModel.fromJson(map['country']),
+        country: map['country']??'',
         ownerId: map['owner_id'],
         isPK: map['is_pk'],
         isBoxLucky: map['have_luck_box']);
