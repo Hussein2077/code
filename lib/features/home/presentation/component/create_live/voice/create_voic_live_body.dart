@@ -45,83 +45,85 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
   Widget build(BuildContext context) {
     return ScreenBackGround(
         image: AssetsPath.createVoicBackGround,
-        child: Column(
-          children: [
-             SizedBox(
-              height: ConfigSize.defaultSize! * 4,
-            ),
-             header(context: context),
-             SizedBox(
-              height: ConfigSize.defaultSize! * 4,
-            ),
-             Container(
-              width: MediaQuery.of(context).size.width - 50,
-              height: ConfigSize.defaultSize! * 10,
-              decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(ConfigSize.defaultSize! * 1.2),
-                  color: Colors.white.withOpacity(0.2)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                    const AddVoiceLivePic(),
-                    SizedBox(width: ConfigSize.defaultSize!*20,
-                        child: TextFieldWidget( textColor: Colors.white, controller:voicNameController,hintText: StringManager.roomName.tr(), )),
-                    Icon(Icons.edit, color: Colors.white, size: ConfigSize.defaultSize!*2,)
-                  ],),
-            ) ,
-             SizedBox(
-              height: ConfigSize.defaultSize! * 2,
-            ),
-             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:const [
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+               SizedBox(
+                height: ConfigSize.defaultSize! * 4,
+              ),
+               header(context: context),
+               SizedBox(
+                height: ConfigSize.defaultSize! * 4,
+              ),
+               Container(
+                width: MediaQuery.of(context).size.width - 50,
+                height: ConfigSize.defaultSize! * 10,
+                decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(ConfigSize.defaultSize! * 1.2),
+                    color: Colors.white.withOpacity(0.2)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                      const AddVoiceLivePic(),
+                      SizedBox(width: ConfigSize.defaultSize!*20,
+                          child: TextFieldWidget( textColor: Colors.white, controller:voicNameController,hintText: StringManager.roomName.tr(), )),
+                      Icon(Icons.edit, color: Colors.white, size: ConfigSize.defaultSize!*2,)
+                    ],),
+              ) ,
+               SizedBox(
+                height: ConfigSize.defaultSize! * 2,
+              ),
+               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children:const [
 
-             PublicPriveteButton(),
-            RoomTypeButton()
+               PublicPriveteButton(),
+              RoomTypeButton()
 ],),
-             SizedBox(
-              height: ConfigSize.defaultSize! * 4,
-            ),
-             Image.asset(AssetsPath.seatsImage),
-             SizedBox(
-              height: ConfigSize.defaultSize! * 10,
-            ),
+               SizedBox(
+                height: ConfigSize.defaultSize! * 4,
+              ),
+               Image.asset(AssetsPath.seatsImage),
+               SizedBox(
+                height: ConfigSize.defaultSize! * 10,
+              ),
 
-          BlocConsumer<CreateRoomBloc,CreateRoomStates>(
-              builder: (context,state){
-         return MainButton(
-           onTap: () {
-             if(checkRoomData(roomName:voicNameController.text,context: context)){
-               createRoom(context: context,roomName: voicNameController.text);
-             }
-         },title: StringManager.createRoom.tr(),) ;
+            BlocConsumer<CreateRoomBloc,CreateRoomStates>(
+                builder: (context,state){
+           return MainButton(
+             onTap: () {
+               if(checkRoomData(roomName:voicNameController.text,context: context)){
+                 createRoom(context: context,roomName: voicNameController.text);
+               }
+           },title: StringManager.createRoom.tr(),) ;
        },
        listener: (context,state){
-                switch(state.createRoomState){
-                  case RequestState.loaded:
-                    Navigator.pop(context);
-                    BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-                    Navigator.pushNamed(context,Routes.roomHandler,
-                        arguments:RoomHandlerPramiter(
-                            ownerRoomId: MyDataModel.getInstance().id.toString(),
-                            myDataModel: MyDataModel.getInstance()));
-                    break;
-                  case RequestState.loading:
-                    loadingToast(context: context, title: StringManager.loading.tr());
-                    break;
-                  case RequestState.error:
-                    errorToast(context: context, title: state.createRoomErrorMessage);
-                    break;
-                }
+                  switch(state.createRoomState){
+                    case RequestState.loaded:
+                      Navigator.pop(context);
+                      BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+                      Navigator.pushNamed(context,Routes.roomHandler,
+                          arguments:RoomHandlerPramiter(
+                              ownerRoomId: MyDataModel.getInstance().id.toString(),
+                              myDataModel: MyDataModel.getInstance()));
+                      break;
+                    case RequestState.loading:
+                      loadingToast(context: context, title: StringManager.loading.tr());
+                      break;
+                    case RequestState.error:
+                      errorToast(context: context, title: state.createRoomErrorMessage);
+                      break;
+                  }
 
 
 
 
-         }
+           }
        ,
        )
-          ],
+            ],
+          ),
         ));
   }
 }
