@@ -756,4 +756,12 @@ static const String cachReelsKey ='cachReelsKey';
   "قحبة",
   "لبوة"
  ];
+
+ //games links
+ static const String teenPatti = "http://twistfuture.com/dragon_chat/DragonChat/index.html?&sound=1&gametype=1&token=";
+ static const String roulette = "http://twistfuture.com/dragon_chat/DragonChat/index.html?sound=1&gametype=2&token=";
+ static const String carRace = "http://twistfuture.com/dragon_chat/DragonChat/index.html?sound=1&gametype=3&token=";
+ static const String updown = "http://twistfuture.com/dragon_chat/DragonChat/index.html?sound=1&gametype=4&token=";
+ static const String ludo = "http://www.twistfuture.com/dragon_chat/DragonChatLudo/index.html?sound=1&token=";
+
 }

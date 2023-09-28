@@ -178,29 +178,28 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
   void joinToGames(int index)async {
     String token = await Methods().returnUserToken() ;
     if(index==0){
-       dailogRoom(context: context,
-        widget:
-        WebViewInRoom(url: 'http://twistfuture.com/dragon_chat/DragonChat/index.html?token=${token}&sound=1&gametype=1',) );
+      dailogRoom(context: context,
+          widget: WebViewInRoom(url: '${StringManager.teenPatti}${token}',) );
 
 
     }else if(index ==1){
       dailogRoom(context: context,
-      widget:WebViewInRoom(url: 'http://twistfuture.com/dragon_chat/DragonChat/index.html?token=${token}&sound=1&gametype=2',));
+          widget: WebViewInRoom(url: '${StringManager.roulette}${token}',) );
 
     }else if(index==2){
       dailogRoom(context: context,
-        widget:WebViewInRoom(url:'http://twistfuture.com/dragon_chat/DragonChat/index.html?token=${token}&sound=1&gametype=3',) );
+          widget: WebViewInRoom(url: '${StringManager.carRace}${token}',) );
 
     }else if (index ==3){
       dailogRoom(
           context: context,
-      widget:WebViewInRoom(url: 'http://twistfuture.com/dragon_chat/DragonChat/index.html?token=${token}&sound=1&gametype=4',)
+          widget: WebViewInRoom(url: '${StringManager.updown}${token}',)
       );
 
     }else if(index ==4){
       dailogRoom(
           context: context,
-          widget:WebViewInRoom(url: 'http://www.twistfuture.com/dragon_chat/DragonChatLudo/index.html?token=${token}&sound=1',)
+          widget: WebViewInRoom(url: '${StringManager.ludo}${token}',)
       );
 
     }
