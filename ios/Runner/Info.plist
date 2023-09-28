@@ -2,6 +2,47 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+	<key>CFBundleURLSchemes</key>
+	<array>
+		<string>https</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.260492813683-vi5lbq1tsn9sef069fjl86vo3dqpgs8s</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>GIDClientID</key>
+	<string>260492813683-vi5lbq1tsn9sef069fjl86vo3dqpgs8s.apps.googleusercontent.com</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>google</string>
+		<string>googlechrome</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string> السبب هو حتي يستطيع المستخدم ان يشارك الاغاني والموسيقي التي يحبها مع اصدقائة عن طريق الطتبيق</string>
+	<key>NSCameraUsageDescription</key>
+	<string>السبب هو حتي يستطيع المستخدم ان يستخدم ميزة البث المرئي وهي ميزة تجعل المستخدمين الاخرين يشاهدونه ويشارك معهم لاحظاته السعيدة</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>السبب هو حتي يستطيع المستخدم ان يستخدم ميزة البث الصوتي وهي ميزة تجعل المستخدمين يسمعون بعضهم البعض ويشاركوا لاحظاتهم السعيدة</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>ألسبب هو انني اريد المستخدم ان يكون لديه صورة شخصية تعبر عن هويته في التطبيق و يضيف صورة لبعض الاشياء التي تعبر عنه ايضا  حتي يحظي بتجربية ممتعه</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

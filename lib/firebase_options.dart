@@ -64,12 +64,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBs04BsY7-Y-_QIlFY4jvRRbDckkv3jwL8',
-    appId: '1:260492813683:ios:8a8bc269be4888c7d99106',
+    appId: '1:260492813683:ios:da0ce460eae64607d99106',
     messagingSenderId: '260492813683',
     projectId: 'tikchat-874b7',
     storageBucket: 'tikchat-874b7.appspot.com',
-    iosClientId: '260492813683-rpc2j93eah87smunm49vjtr5hn0mbt87.apps.googleusercontent.com',
-    iosBundleId: 'com.example.temoLive',
+    iosClientId: '260492813683-vi5lbq1tsn9sef069fjl86vo3dqpgs8s.apps.googleusercontent.com',
+    iosBundleId: 'com.tikkchat.app',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
