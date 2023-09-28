@@ -164,8 +164,7 @@ class RouteGenerator {
                   password: otbScreenParm.password,
                 ));
       case Routes.addInfo:
-        GoogleSignInAccount? googleData =
-            settings.arguments as GoogleSignInAccount?;
+        GoogleSignInAccount? googleData = settings.arguments as GoogleSignInAccount?;
         return MaterialPageRoute(
             builder: (_) => AddInfoScreen(
                   googleData: googleData,

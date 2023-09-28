@@ -212,6 +212,11 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       
         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+
+        print('#########');
+        print(userData.authToken);
+        print('#########');
+
         Methods().saveUserToken(authToken: userData.authToken);
 
         return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );
@@ -244,7 +249,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     final body =    {
       ConstentApi.type: "apple",
       ConstentApi.name: credential.givenName,
-      "apple_id":  credential.authorizationCode,
+      "apple_id": credential.authorizationCode,
+      'user_id': credential.userIdentifier,
       'device_token':devicedata
     };
     try{
@@ -257,12 +263,10 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ),
       );
 
-
       Map<String, dynamic> resultData = response.data;
 
-
-
       MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+
       Methods().saveUserToken(authToken: userData.authToken);
       return userData;
     }on DioError catch (e){
