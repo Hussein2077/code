@@ -37,6 +37,7 @@ import 'package:tik_chat_v2/features/room/presentation/components/heaser_room/he
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/error_luck_widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/sucess_luck_widget.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/view_music/music_list.dart';
@@ -1423,6 +1424,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           width: ConfigSize.defaultSize! * 92.5,
           height: ConfigSize.defaultSize! * 92.5,
         ),
+        Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+                padding: EdgeInsets.only(
+                    right: 0, bottom: ConfigSize.defaultSize! * 2),
+                child: const PageViewGames())),
         ValueListenableBuilder(
             valueListenable: RoomScreen.editRoom,
             builder: (context, editValue, _) {

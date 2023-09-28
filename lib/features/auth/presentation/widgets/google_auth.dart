@@ -47,6 +47,25 @@ class GoogleAndAppleAuth extends StatelessWidget {
         }else {
 
         }
+
+        if(state is SiginWithAppleSuccesMessageState){
+          Methods().clearAuthData();
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+          if (state.userModel.isFirst!) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Routes.addInfo, (route) => false);
+          } else {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.mainScreen,
+                  (route) => false,
+            );
+          }
+        }else if (state is SiginWithGoogleErrorMessageState){
+          errorToast(context: context, title: state.errorMessage);
+        }else {
+
+        }
       },
       builder: (context, state) {
         return Row(
@@ -69,9 +88,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
               InkWell(
                 onTap: () {
 
-                  BlocProvider.of<SignInWithPlatformBloc>(
-                      context)
-                      .add(SiginAppleEvent());
+                  BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginAppleEvent());
 
                 },
                 child:  CircleAvatar(
