@@ -1,6 +1,10 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_info_row.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/components/defines.dart';
@@ -13,21 +17,29 @@ class MomentCommentsScreen extends StatefulWidget {
   final MomentModel momentModel;
 
   const MomentCommentsScreen({
-
     required this.momentModel,
     super.key,
-    //this.userDataModel,
   });
+
+
 
   @override
   State<MomentCommentsScreen> createState() => _MomentCommentsScreenState();
 }
 
 class _MomentCommentsScreenState extends State<MomentCommentsScreen> {
+
   ValueNotifier<bool> isEmptyNotifier = ValueNotifier(true);
 
-  // final UserDataModel? userDataModel;
   TextEditingController commentController =TextEditingController();
+
+  @override
+  void initState() {
+    BlocProvider.of<GetMomentCommentBloc>(context).add(
+        GetMomentCommentEvent(
+            momentId: widget.momentModel.momentId.toString()));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(

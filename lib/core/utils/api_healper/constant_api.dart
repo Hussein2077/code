@@ -132,9 +132,12 @@ class ConstentApi {
   static const String reportReals = "$baseUrl/report";
 
   static String getMoments(
-    String userId,
-  ) {
-    return "$baseUrl/moment?user_id=$userId";
+      String userId,
+      String type,
+      String page,
+
+      ) {
+    return "$baseUrl/moment?user_id=$userId&type=$type&page=$page";
   }
 
   static String addMomentComment(

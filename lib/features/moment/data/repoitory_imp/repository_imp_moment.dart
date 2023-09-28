@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/features/moment/domain/use_case/add_moment_use_case.
 import 'package:tik_chat_v2/features/moment/domain/use_case/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_comment_usecase.dart';
 import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_likes_uc.dart';
+import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/use_case/moment_send_gift.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 
@@ -40,7 +41,7 @@ class RepositoryImpMoment extends BaseRespositryMoment{
   }
 
   @override
-  Future<Either<List<MomentModel>, Failure>> getMoment(String userId)async {
+  Future<Either<List<MomentModel>, Failure>> getMoment(GetMomentPrameter userId)async {
     try {
       final result = await baseRemotlyDataSourceMoment.getMoments(userId ) ;
       return left(result);
