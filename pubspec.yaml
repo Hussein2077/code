@@ -104,6 +104,7 @@ dependencies:
   flutter_gif: ^0.0.4
   sign_in_with_apple: any
   video_trimmer: ^2.0.1
+  dots_indicator: ^2.1.0
 
 
 
