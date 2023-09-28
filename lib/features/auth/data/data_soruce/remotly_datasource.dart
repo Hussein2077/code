@@ -263,10 +263,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       MyDataModel userData = MyDataModel.fromMap(resultData['data']);
 
-      print('#########');
-      print(userData.authToken);
-      print('#########');
-
       Methods().saveUserToken(authToken: userData.authToken);
       return userData;
     }on DioError catch (e){
