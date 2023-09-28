@@ -17,6 +17,11 @@ class LogOutUseCase {
     return result ;
   }
 
+  Future<Either<String, Failure>> deleteAccount()async {
+    final result =await baseRepository.deleteAccount();
+
+    return result ;
+  }
 
 
 }

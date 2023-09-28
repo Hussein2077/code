@@ -34,7 +34,9 @@ static const String cachReelsKey ='cachReelsKey';
   static const String cachUserData = 'Cache_User_Key';
   static const String keepLogin = 'Keep_Login';
   static const String roomIntro = "Room Intro";
-
+  static const String deleteAccount = "delete account";
+  static const String wanaLogeOut = "Do you want to log out?";
+  static const String wanaDeletAccout = "Do you want to Delete Account?";
 
  ////
  static const String youWillSpend = 'You will Spend';
