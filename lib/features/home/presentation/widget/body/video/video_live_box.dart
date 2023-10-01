@@ -64,11 +64,14 @@ class VideoLiveBox extends StatelessWidget {
                       SizedBox(
                         width: ConfigSize.defaultSize!,
                       ),
-                      CachedNetworkImage(
+                      Text(room.country!,style: const TextStyle(
+                          fontSize: 17
+                      )),
+                    /*  CachedNetworkImage(
                         imageUrl: ConstentApi().getImage(room.country),
                         width: ConfigSize.defaultSize!*2.4,
                         height: ConfigSize.defaultSize!*2.4,
-                      ),
+                      ),*/
                       SizedBox(
                         width: ConfigSize.defaultSize!,
                       ),
