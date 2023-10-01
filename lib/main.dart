@@ -451,7 +451,6 @@ final  String theme ;
             return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: darkTheme ,
-
             navigatorKey: globalNavigatorKey ,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
@@ -464,7 +463,6 @@ final  String theme ;
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: theme=="dark"?darkTheme: lightTheme ,
-
             navigatorKey: globalNavigatorKey ,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
