@@ -129,12 +129,14 @@ class AduioLiveRow extends StatelessWidget {
                           SizedBox(
                             width: ConfigSize.defaultSize,
                           ),
-                          CachedNetworkImage(
-                            imageUrl:
-                                ConstentApi().getImage(room.country),
+                          Text(room.country!,style: TextStyle(
+                            fontSize: 17
+                          )),
+                          /*CachedNetworkImage(
+                            imageUrl: room.country!,
                             width: ConfigSize.defaultSize! * 2.4,
                             height: ConfigSize.defaultSize! * 2.4,
-                          ),
+                          ),*/
                         ],
                       )
                     ],
