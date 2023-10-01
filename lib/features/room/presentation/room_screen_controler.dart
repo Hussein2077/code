@@ -1001,6 +1001,7 @@ Widget messagesChached(
         children: [
           Row(
             children: [
+              
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2),
                 child: UserImage(
@@ -1009,11 +1010,8 @@ Widget messagesChached(
                         RoomScreen.usersMessagesRoom[message.user.id]?.image ??
                         ""),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  GradientTextVip(
+              SizedBox(width: ConfigSize.defaultSize,),
+             GradientTextVip(
                     text: message.user.name,
                     isVip: message.user.inRoomAttributes.value['vip'] == ''
                         ? false
@@ -1027,10 +1025,10 @@ Widget messagesChached(
                         fontSize: AppPadding.p10),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
-                    height: AppPadding.p2,
-                  ),
+                              SizedBox(width: ConfigSize.defaultSize!-3,),
+
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       room.ownerId.toString() == message.user.id
                           ? SizedBox(
@@ -1082,89 +1080,9 @@ Widget messagesChached(
                         ),
                     ],
                   ),
-                ],
-              ),
             ],
           ),
-          (bubble == "" && changeTheme == false)
-              ? Padding(
-                  padding: EdgeInsets.only(
-                      left: AppPadding.p24,
-                      top: AppPadding.p2,
-                      bottom: AppPadding.p2,
-                      right: AppPadding.p2),
-                  child: Container(
-                    // width: ConfigSize.defaultSize!*33,
-                    decoration: BoxDecoration(
-                        color: ColorManager.lightGray.withOpacity(0.2)),
-
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                    child: SelectableText.rich(
-                      TextSpan(children: spans),
-                    ),
-                  ),
-                )
-              : changeTheme
-                  ? Padding(
-                      padding: EdgeInsets.only(
-                          left: ConfigSize.defaultSize! * 3,
-                          top: ConfigSize.defaultSize! - 4,
-                          bottom: ConfigSize.defaultSize! - 4,
-                          right: ConfigSize.defaultSize! - 4),
-                      child: Container(
-                        // width: ConfigSize.defaultSize!*33,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(ConfigSize.defaultSize!),
-                            color: ColorManager.deepBlue),
-
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 4),
-                        child: SelectableText.rich(
-                          TextSpan(children: spans),
-                        ),
-                      ),
-                    )
-                  : Padding(
-                      padding: EdgeInsets.only(
-                          left: AppPadding.p24,
-                          top: AppPadding.p2,
-                          bottom: AppPadding.p2,
-                          right: AppPadding.p2),
-                      child: CachedNetworkImage(
-                          imageUrl: ConstentApi().getImage(bubble == ""
-                              ? RoomScreen
-                                  .usersMessagesRoom[message.user.id]?.bubble
-                              : bubble),
-                          imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: imageProvider, fit: BoxFit.fill),
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: ConfigSize.defaultSize! + 15,
-                                    vertical: ConfigSize.defaultSize!),
-                                child: SelectableText.rich(
-                                  TextSpan(children: spans),
-                                ),
-                              ),
-                          placeholder: (context, url) => Shimmer.fromColors(
-                                baseColor: Colors.grey[850]!,
-                                highlightColor: Colors.grey[800]!,
-                                child: Container(
-                                  width: ConfigSize.defaultSize! * 5.7,
-                                  height: ConfigSize.defaultSize! * 5.7,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.black,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
-                          errorWidget: (context, url, error) => const Center(
-                                child: Icon(Icons.error),
-                              )),
-                    ),
+        
         ],
       ),
     ),
