@@ -11,7 +11,6 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/problem_customers_services.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
@@ -54,10 +53,7 @@ class ReelsScreenState extends State<ReelsScreen> {
     unLikedVideo = [];
     followList = [];
     if (SplashScreen.initPage == 1) {
-      BlocProvider.of<GetReelsBloc>(context)
-          .add(GetReelsEvent(reelId: MainScreen.reelId));
-    } else {
-      BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+      BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId: MainScreen.reelId));
     }
 
     report = TextEditingController();
@@ -82,8 +78,7 @@ class ReelsScreenState extends State<ReelsScreen> {
           } else if (state is UploadReelsErrorState) {
             errorToast(context: context, title: state.error);
           } else if (state is UploadReelsSucssesState) {
-            BlocProvider.of<GetUserReelsBloc>(context)
-                .add(const GetUserReelEvent(id: null));
+            BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent(id: null));
             sucssesToast(context: context, title: state.message);
           }
         },
@@ -157,7 +152,7 @@ class ReelsScreenState extends State<ReelsScreen> {
                           log('======> Clicked on back arrow <======');
                         },
                         onIndexChanged: (index) {
-                          if (index % 10 == 0 && (state.data!.length - index == 5)) {
+                          if(state.data!.length - index == 4){
                             BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
                           }
                           log(state.data!.length.toString() + "zzzzz");

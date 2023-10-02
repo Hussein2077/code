@@ -24,8 +24,7 @@ class SignInWithPlatformBloc
       final result = await signInWithGoogleUC.call(const Noparamiter());
       result.fold(
           (l) => emit(SiginWithGoogleSuccesMessageState(userData: l)),
-          (r) => emit(SiginWithGoogleErrorMessageState(
-              errorMessage: DioHelper().getTypeOfFailure(r))));
+          (r) => emit(SiginWithGoogleErrorMessageState(errorMessage: DioHelper().getTypeOfFailure(r))));
     });
     on<SiginAppleEvent>(SiginWithApple);
 
