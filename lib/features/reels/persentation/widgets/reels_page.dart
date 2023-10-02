@@ -10,10 +10,11 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
+
+
 
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
@@ -67,7 +68,7 @@ class _ReelsPageState extends State<ReelsPage>{
 
 
           initializePlayer().then((value) { ReelsPage.videoPlayerController = _videoPlayerController ;
-          
+
           });
 
 
@@ -82,7 +83,7 @@ class _ReelsPageState extends State<ReelsPage>{
          try{
            final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
            if(file?.file !=null){
-            
+
              ReelsPage.isVideoPause.value = false ;
              _videoPlayerController = VideoPlayerController.file(file!.file);
              if(kDebugMode){
@@ -101,17 +102,17 @@ class _ReelsPageState extends State<ReelsPage>{
              log("error in found cach video and paly in network reels");
            }
 
-           //TODO NEXT VIDEO AUTO 
+           //TODO NEXT VIDEO AUTO
 
          }
 
-         
+
 
 
 
        _videoPlayerController.setLooping(true);
     await Future.wait([_videoPlayerController.initialize()]);
-   
+
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       autoPlay: true,
@@ -214,10 +215,10 @@ class _ReelsPageState extends State<ReelsPage>{
               ),
             ),
           )
-              : 
+              :
 
            ReelLodaingWidget(reelId: widget.item.id.toString(), userView: widget.userView,),
-        
+
           if (_liked)
             const Center(
               child: LikeIcon(),
