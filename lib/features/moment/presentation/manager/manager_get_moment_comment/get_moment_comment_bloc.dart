@@ -17,8 +17,6 @@ class GetMomentCommentBloc extends Bloc<BaseGetMomentCommentEvent, GetMomentComm
     final result = await getMomentCommentUseCase.call(GetMomentCommentPrameter(momentId: event.momentId , page: page.toString()));
     result.fold((l) => emit(GetMomentCommentSucssesState(data: l)), (r) => emit(GetMomentCommentErrorState(null, DioHelper().getTypeOfFailure(r))));
     });
-
-
         on<LoadMoreMomentCommentEvent>((event, emit)async {
           page++ ; 
     final result = await getMomentCommentUseCase.call(GetMomentCommentPrameter(momentId: event.momentId , page: page.toString()));

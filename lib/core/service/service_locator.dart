@@ -57,9 +57,11 @@ import 'package:tik_chat_v2/features/moment/domain/use_case/moment_send_gift.dar
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
@@ -488,7 +490,10 @@ class ServerLocator {
                 getIt.registerFactory(() => AddMomentBloc(addMomentUseCase: getIt()));
                 getIt.registerFactory(() => DeleteMomentBloc(deleteMomentUseCase: getIt()));
 
-                getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
+                getIt.registerFactory(() => GetMomentuserBloc(getMomentUseCase: getIt()));
+                getIt.registerFactory(() => GetFollowingUserMomentBloc(getMomenttUseCase: getIt()));
+                getIt.registerFactory(() => GetMomentILikeItBloc(getMomenttUseCase: getIt()));
+
                 getIt.registerFactory(() => DeleteMomentCommentBloc(deleteMomentCommentUseCase: getIt()));
                 getIt.registerFactory(() => GetMomentCommentBloc(getMomentCommentUseCase: getIt()));
                 getIt.registerFactory(() => MomentSendGiftBloc(momentSendGiftUseCase:  getIt()));
