@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 
 
+
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
 import '../components/screen_options.dart';
@@ -79,6 +80,7 @@ class _ReelsPageState extends State<ReelsPage>{
          try{
            final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
            if(file?.file !=null){
+            log("heeeeeeeeer");
 
              ReelsPage.isVideoPause.value = false ;
              _videoPlayerController = VideoPlayerController.file(file!.file);

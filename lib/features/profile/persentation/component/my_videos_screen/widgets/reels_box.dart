@@ -30,7 +30,6 @@ class ReelsBox extends StatelessWidget {
               if (state is GetUserReelsSucssesState) {
                                  for (int i = 0; i < state.data!.length; i++) {
                         if(!thumbnail.containsKey(state.data![i].id.toString())){
-                          log("heeeeeeeeeeeeer");
   Uint8List thumbnailPath =
                             await getVideoThumbnail(state.data![i].url!);
     thumbnail.putIfAbsent(

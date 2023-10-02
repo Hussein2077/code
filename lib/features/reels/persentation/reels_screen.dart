@@ -28,10 +28,10 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_r
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ReelsScreen extends StatefulWidget {
@@ -44,18 +44,21 @@ class ReelsScreen extends StatefulWidget {
 late TextEditingController report;
 
 class ReelsScreenState extends State<ReelsScreen> {
-  static List<int> likedVideos = [];
   static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
   static Map<String, Uint8List> thumbnail = {};
+  static Map<String, bool> likedVideos = {};
+  static Map<String, int> likedVideoCount = {};
+  static Map<String, bool> followMap = {};
 
-  List<int> unLikedVideo = [];
-  static List<String> followList = [];
+  // static List<String> followList = [];
 
   @override
   void initState() {
-    likedVideos = [];
-    unLikedVideo = [];
-    followList = [];
+    likedVideos = {};
+    likedVideoCount = {};
+    followMap = {};
+
+    // followList = [];
     if (SplashScreen.initPage == 1) {
       BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId: MainScreen.reelId));
     }
@@ -69,8 +72,11 @@ class ReelsScreenState extends State<ReelsScreen> {
   void dispose() {
     super.dispose();
     report.dispose();
+    likedVideos.clear();
+    likedVideoCount.clear();
+    followMap.clear();
 
-    thumbnail.clear() ;
+    thumbnail.clear();
   }
 
   @override
@@ -93,12 +99,10 @@ class ReelsScreenState extends State<ReelsScreen> {
                 child: BlocConsumer<GetReelsBloc, GetReelsState>(
                   builder: (context, state) {
                     if (state is GetReelsSucssesState) {
-                      for (int i = 0; i < state.data!.length; i++) {
-                        if (state.data![i].likeExists == true &&
-                            !unLikedVideo.contains(state.data![i].id)) {
-                          likedVideos.add(state.data![i].id!);
-                        }
-                      }
+                      ReelsController().likesMap(state.data!);
+                      ReelsController().likesCountMap(state.data!);
+                      ReelsController().followMap(state.data!);
+
                       return ReelsViewer(
                         userView: false,
                         reelsList: state.data!,
@@ -117,17 +121,15 @@ class ReelsScreenState extends State<ReelsScreen> {
                           BlocProvider.of<MakeReelLikeBloc>(context)
                               .add(MakeReelLikeEvent(reelId: id.toString()));
                           setState(() {
-                            if (ReelsScreenState.likedVideos.contains(id)) {
-                              likedVideos.remove(id);
-                              unLikedVideo.add(id);
-                            } else {
-                              likedVideos.add(id);
-                            }
+                            ReelsScreenState.likedVideos[id.toString()] =
+                                !ReelsScreenState.likedVideos[id.toString()]!;
+                            ReelsController().changeLikeCount(id.toString());
                           });
                         },
                         onFollow: (userId, isFollow) {
                           setState(() {
-                            ReelsScreenState.followList.add(userId);
+                            followMap[userId] = !followMap[userId]!;
+
                           });
                           BlocProvider.of<FollowBloc>(context)
                               .add(FollowEvent(userId: userId));
@@ -178,17 +180,13 @@ class ReelsScreenState extends State<ReelsScreen> {
                   listener: (context, state) async {
                     if (state is GetReelsSucssesState) {
                       for (int i = 0; i < state.data!.length; i++) {
-                        if(!thumbnail.containsKey(state.data![i].id.toString())){
-                          log("0");
-
-  Uint8List thumbnailPath =
-                            await getVideoThumbnail(state.data![i].url!);
-    thumbnail.putIfAbsent(
-                            state.data![i].id.toString(), () => thumbnailPath);
-                            log("2");
-                    
+                        if (!thumbnail
+                            .containsKey(state.data![i].id.toString())) {
+                          Uint8List thumbnailPath = await ReelsController()
+                              .getVideoThumbnail(state.data![i].url!);
+                          thumbnail.putIfAbsent(state.data![i].id.toString(),
+                              () => thumbnailPath);
                         }
-                      
                       }
                     }
                   },
@@ -255,19 +253,5 @@ class ReelsScreenState extends State<ReelsScreen> {
         ),
       ),
     );
-  }
-
-  Future<Uint8List> getVideoThumbnail(String videoUrl) async {
-                              log("1");
-
-    final uint8list = await VideoThumbnail.thumbnailData(
-      video: videoUrl,
-      imageFormat: ImageFormat.JPEG,
-      // maxHeight: 300,
-      //     maxWidth: 300,
-      quality: 70,
-    );
-
-    return uint8list!;
   }
 }
