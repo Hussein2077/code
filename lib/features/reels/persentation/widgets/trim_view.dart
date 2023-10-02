@@ -1,9 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:video_trimmer/video_trimmer.dart';
+import 'dart:ui' as ui;
 
 class TrimmerView extends StatefulWidget {
   final File file;
@@ -33,7 +36,6 @@ class _TrimmerViewState extends State<TrimmerView> {
     await _trimmer
         .saveTrimmedVideo(
           onSave: (s)async {
-            log(s.toString()+"aaaaaaaaaaaaaaaaaa");
      UploadVideoState.video = s ; 
      Navigator.pop(context);
           },
@@ -66,17 +68,16 @@ class _TrimmerViewState extends State<TrimmerView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Video Trimmer"),
           leading:  IconButton(onPressed: (){
               UploadVideoState.video = widget.file.path;
               Navigator.pop(context);
-            }, icon:Icon( Icons.arrow_back_ios))
+            }, icon:const Icon( Icons.arrow_back_ios))
          
         ),
         body: Builder(
           builder: (context) => Center(
             child: Container(
-              padding: EdgeInsets.only(bottom: 30.0),
+              padding: const EdgeInsets.only(bottom: 30.0),
               color: Colors.black,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +85,7 @@ class _TrimmerViewState extends State<TrimmerView> {
                 children: <Widget>[
                   Visibility(
                     visible: _progressVisibility,
-                    child: LinearProgressIndicator(
+                    child: const LinearProgressIndicator(
                       backgroundColor: Colors.red,
                     ),
                   ),
@@ -98,26 +99,26 @@ class _TrimmerViewState extends State<TrimmerView> {
                               
                               log(outputPath.toString());
                               final snackBar = SnackBar(
-                                  content: Text('Video Saved successfully'));
+                                  content: Text(StringManager.sucsses.tr()));
                               ScaffoldMessenger.of(context).showSnackBar(
                                 snackBar,
                               );
                             });
                             // Navigator.pop(context);
                           },
-                    child: Text("SAVE"),
+                    child: Text(StringManager.save.tr()),
                   ),
                   Expanded(
                     child: VideoViewer(trimmer: _trimmer),
                   ),
                   Center(
                     child: Directionality(
-                      textDirection: TextDirection.ltr,
+                      textDirection:  ui.TextDirection.ltr,
                       child: TrimViewer(
                         trimmer: _trimmer,
                         viewerHeight: 50.0,
                         viewerWidth: MediaQuery.of(context).size.width,
-                        maxVideoLength: const Duration(seconds: 30),
+                        maxVideoLength: const Duration(seconds: 180),
                         onChangeStart: (value) => _startValue = value,
                         onChangeEnd: (value) => _endValue = value,
                         onChangePlaybackState: (value) =>
@@ -127,12 +128,12 @@ class _TrimmerViewState extends State<TrimmerView> {
                   ),
                   TextButton(
                     child: _isPlaying
-                        ? Icon(
+                        ? const Icon(
                             Icons.pause,
                             size: 80.0,
                             color: Colors.white,
                           )
-                        : Icon(
+                        : const Icon(
                             Icons.play_arrow,
                             size: 80.0,
                             color: Colors.white,

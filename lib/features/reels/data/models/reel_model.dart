@@ -14,9 +14,10 @@ class ReelModel {
   String? userImage ;
   bool? isFollow ;
   String? subVideo; 
+  String? img;
 
 
-  ReelModel ({this.subVideo, this.isFollow,this.userName , this.userImage ,  this.id , this.userId , this.description ,this.url ,this.shareNum , this.commentNum ,this.likeNum , this.likeExists});
+  ReelModel ({this.subVideo, this.isFollow,this.userName , this.userImage ,  this.id , this.userId , this.description ,this.url ,this.shareNum , this.commentNum ,this.likeNum , this.likeExists, this.img});
 
   factory ReelModel.fromJson (Map <String, dynamic> json){
     return ReelModel(
@@ -31,7 +32,8 @@ class ReelModel {
       userName: json["user"]==null? "" :json["user"]['name']??"",
       userImage: json["user"]==null?"": json["user"]['image']??"",
       isFollow: json["user"]==null?"": json["user"]['is_follow']??false,
-      subVideo: json['sub_video']??""
+      subVideo: json['sub_video']??"",
+      img: "https://storage.googleapis.com/tik-chat/${json['img']}",
 
     );
   }

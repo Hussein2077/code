@@ -1,13 +1,24 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
-import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment/get_moment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment/get_moment_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment/get_moment_state.dart';
+import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
+import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_state.dart';
+
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/add_moment_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_appbar.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
@@ -31,7 +42,7 @@ class _MomentScreenState extends State<MomentScreen>with TickerProviderStateMixi
       length: 3,
       vsync: this, // Provide a TickerProvider
     );
-    BlocProvider.of<GetMomentBloc>(context).add(GetMomentEvent(
+    BlocProvider.of<GetMomentuserBloc>(context).add(GetUserMomentEvent(
       userId: MyDataModel.getInstance().id.toString(),
     ));
     super.initState();
@@ -71,132 +82,300 @@ return Scaffold(
           TabBarView(
               controller:_tabController ,
 
-              children: [
-            BlocBuilder<GetMomentBloc, GetMomentState>(
-  builder: (context, state) {
-    if(state is GetMomentSucssesState) {
+            children: [
+              BlocBuilder<GetFollowingUserMomentBloc, GetFollowingUserMomentState>(
+                builder: (context, state) {
+                  if (state is GetFollowingUserMomentSucssesState) {
+                    return LiquidPullToRefresh(
+                      color: ColorManager.mainColor,
+                      backgroundColor: ColorManager.orange,
+                      showChildOpacityTransition: false,
+                      onRefresh: () async {
+                        BlocProvider.of<GetMomentILikeItBloc>(context)
+                            .add(
+                            const GetMomentIliKEitEvent());
 
-      return Container(
-              width: ConfigSize.screenWidth,
-              height: ConfigSize.screenHeight,
+                      },
+                      child: state.data!.isEmpty
+                          ? const SingleChildScrollView(
+                          child: EmptyWidget(
+                            message:
+                            StringManager.noDataFoundHere,
+                          ))
+                          : Container(
+                        width: ConfigSize.screenWidth,
+                        height: ConfigSize.screenHeight,
 
-              padding: EdgeInsets.symmetric(
-                  horizontal: ConfigSize.defaultSize! * 0.2),
-              child: ListView.builder(
-                itemCount: state.data.length,
-                itemBuilder: (context, i) {
-                  return Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ConfigSize.defaultSize! * 1,
-                            vertical: ConfigSize.defaultSize! * 1),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                              ConfigSize.defaultSize! * 2),
-                          color: Colors.white.withOpacity(0.2),
-                        ),
-                        child: Column(
-                          children: [
-                            MomentAppBar(
-                              momentModel: state.data[i],
-                            ),
-                            MomentView(
-                              momentModel:state.data[i],
-                            ),
-                            SizedBox(
-                              height: ConfigSize.defaultSize! * 1.5,
-                            ),
-                            MomentBottomBar(
-                              momentModel:state.data[i],
-                            ),
-                            SizedBox(
-                              height: ConfigSize.defaultSize! * 1.5,
-                            ),
-                          ],
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                            ConfigSize.defaultSize! *
+                                0.2),
+                        child: ListView.builder(
+                          itemCount: state.data!.length,
+                          itemBuilder: (context, i) {
+                            return Column(
+                              children: [
+                                Container(
+                                  // margin: EdgeInsets.symmetric(
+                                  //     horizontal:
+                                  //     ConfigSize.defaultSize! * 1,
+                                  //     vertical:
+                                  //     ConfigSize.defaultSize! * 1),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white
+                                        .withOpacity(0.2),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      MomentAppBar(
+                                        momentModel:
+                                        state.data![i],
+                                      ),
+                                      MomentView(
+                                        momentModel:
+                                        state.data![i],
+                                      ),
+                                      SizedBox(
+                                        height: ConfigSize
+                                            .defaultSize! *
+                                            1.5,
+                                      ),
+                                      MomentBottomBar(
+                                        momentModel:
+                                        state.data![i],
+                                      ),
+                                      SizedBox(
+                                        height: ConfigSize
+                                            .defaultSize! *
+                                            1.5,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Divider(
+                                //   endIndent: ConfigSize.defaultSize! * 2,
+                                //   color: Theme.of(context)
+                                //       .colorScheme
+                                //       .secondary,
+                                //   indent: ConfigSize.defaultSize! * 2,
+                                // ),
+                              ],
+                            );
+                          },
                         ),
                       ),
-                      Divider(
-                        endIndent: ConfigSize.defaultSize! * 2,
-                        color: Theme.of(context).colorScheme.secondary,
-                        indent: ConfigSize.defaultSize! * 2,
-                      ),
-                    ],
-                  );
+                    );
+                  }
+                  else if (state is GetFollowingUserMomentErrorState) {
+                    return CustomErrorWidget(
+                      message: state.errorMassage,
+                    );
+                  }
+                  else if (state is GetFollowingUserMomentLoadingState) {
+                    return const LoadingWidget();
+                  }
+                  else {
+                    return const CustomErrorWidget(
+                      message: StringManager.noDataFoundHere,
+                    );
+                  }
                 },
               ),
-            );
-    }else if(state is GetMomentErrorState){
-      errorToast(context: context, title: state.error);
-    }else if(state is GetMomentLoadingState){
-      loadingToast(context: context);
-    }
-    return const SizedBox();
-  },
-),
-            BlocBuilder<GetMomentBloc, GetMomentState>(
-  builder: (context, state) {
-    if(state is GetMomentSucssesState) {
+              BlocBuilder<GetMomentILikeItBloc, GetMomentILikeItUserState>(
+                builder: (context, state) {
+                  if (state is GetMomentILikeItSucssesState) {
+                    return LiquidPullToRefresh(
+                      color: ColorManager.mainColor,
+                      backgroundColor: ColorManager.orange,
+                      showChildOpacityTransition: false,
+                      onRefresh: () async {
+                        BlocProvider.of<GetMomentILikeItBloc>(context)
+                            .add(
+                            const GetMomentIliKEitEvent());
+                      },
+                      child: state.data!.isEmpty
+                          ? const SingleChildScrollView(
+                          child: EmptyWidget(
+                            message:
+                            StringManager.noDataFoundHere,
+                          ))
+                          : Container(
+                        width: ConfigSize.screenWidth,
+                        height: ConfigSize.screenHeight,
 
-      return Container(
-              width: ConfigSize.screenWidth,
-              height: ConfigSize.screenHeight,
-
-              padding: EdgeInsets.symmetric(
-                  horizontal: ConfigSize.defaultSize! * 0.2),
-              child: ListView.builder(
-                itemCount: state.data.length,
-                itemBuilder: (context, i) {
-                  return Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: ConfigSize.defaultSize! * 1,
-                            vertical: ConfigSize.defaultSize! * 1),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                              ConfigSize.defaultSize! * 2),
-                          color: Colors.white.withOpacity(0.2),
-                        ),
-                        child: Column(
-                          children: [
-                            MomentAppBar(
-                              momentModel: state.data[i],
-                            ),
-                            MomentView(
-                              momentModel:state.data[i],
-                            ),
-                            SizedBox(
-                              height: ConfigSize.defaultSize! * 1.5,
-                            ),
-                            MomentBottomBar(
-                              momentModel:state.data[i],
-                            ),
-                            SizedBox(
-                              height: ConfigSize.defaultSize! * 1.5,
-                            ),
-                          ],
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                            ConfigSize.defaultSize! *
+                                0.2),
+                        child: ListView.builder(
+                          itemCount: state.data!.length,
+                          itemBuilder: (context, i) {
+                            return Column(
+                              children: [
+                                Container(
+                                  // margin: EdgeInsets.symmetric(
+                                  //     horizontal:
+                                  //     ConfigSize.defaultSize! * 1,
+                                  //     vertical:
+                                  //     ConfigSize.defaultSize! * 1),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white
+                                        .withOpacity(0.2),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      MomentAppBar(
+                                        momentModel:
+                                        state.data![i],
+                                      ),
+                                      MomentView(
+                                        momentModel:
+                                        state.data![i],
+                                      ),
+                                      SizedBox(
+                                        height: ConfigSize
+                                            .defaultSize! *
+                                            1.5,
+                                      ),
+                                      MomentBottomBar(
+                                        momentModel:
+                                        state.data![i],
+                                      ),
+                                      SizedBox(
+                                        height: ConfigSize
+                                            .defaultSize! *
+                                            1.5,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Divider(
+                                //   endIndent: ConfigSize.defaultSize! * 2,
+                                //   color: Theme.of(context)
+                                //       .colorScheme
+                                //       .secondary,
+                                //   indent: ConfigSize.defaultSize! * 2,
+                                // ),
+                              ],
+                            );
+                          },
                         ),
                       ),
-                      Divider(
-                        endIndent: ConfigSize.defaultSize! * 2,
-                        color: Theme.of(context).colorScheme.secondary,
-                        indent: ConfigSize.defaultSize! * 2,
-                      ),
-                    ],
-                  );
+                    );
+                  }
+                  else if (state is GetMomentILikeItErrorState) {
+                    return CustomErrorWidget(
+                      message: state.errorMassage,
+                    );
+                  }
+                  else if (state is GetMomentILikeItLoadingState) {
+                    return const LoadingWidget();
+                  }
+                  else {
+                    return const CustomErrorWidget(
+                      message: StringManager.noDataFoundHere,
+                    );
+                  }
                 },
               ),
-            );
-    }else if(state is GetMomentErrorState){
-      errorToast(context: context, title: state.error);
-    }else if(state is GetMomentLoadingState){
-      loadingToast(context: context);
-    }
-    return const SizedBox();
-  },
-),
-          ]),
+              BlocBuilder<GetMomentuserBloc, GetMomentUserState>(
+                builder: (context, state) {
+                  if (state is GetMomentUserSucssesState) {
+                    return LiquidPullToRefresh(
+                      color: ColorManager.mainColor,
+                      backgroundColor: ColorManager.orange,
+                      showChildOpacityTransition: false,
+                      onRefresh: () async {
+                        BlocProvider.of<GetMomentuserBloc>(context).add(
+                            GetUserMomentEvent(
+                                userId: MyDataModel.getInstance()
+                                    .id
+                                    .toString()));
+                      },
+                      child: state.data!.isEmpty
+                          ? const SingleChildScrollView(
+                          child: EmptyWidget(
+                            message:
+                            StringManager.noDataFoundHere,
+                          ))
+                          : Container(
+                        width: ConfigSize.screenWidth,
+                        height: ConfigSize.screenHeight,
+
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                            ConfigSize.defaultSize! *
+                                0.2),
+                        child: ListView.builder(
+                          itemCount: state.data!.length,
+                          itemBuilder: (context, i) {
+                            return Column(
+                              children: [
+                                Container(
+                                  // margin: EdgeInsets.symmetric(
+                                  //     horizontal:
+                                  //     ConfigSize.defaultSize! * 1,
+                                  //     vertical:
+                                  //     ConfigSize.defaultSize! * 1),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white
+                                        .withOpacity(0.2),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      MomentAppBar(
+                                        momentModel:
+                                        state.data![i],
+                                      ),
+                                      MomentView(
+                                        momentModel:
+                                        state.data![i],
+                                      ),
+                                      SizedBox(
+                                        height: ConfigSize
+                                            .defaultSize! *
+                                            1.5,
+                                      ),
+                                      MomentBottomBar(
+                                        momentModel:
+                                        state.data![i],
+                                      ),
+                                      SizedBox(
+                                        height: ConfigSize
+                                            .defaultSize! *
+                                            1.5,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Divider(
+                                //   endIndent: ConfigSize.defaultSize! * 2,
+                                //   color: Theme.of(context)
+                                //       .colorScheme
+                                //       .secondary,
+                                //   indent: ConfigSize.defaultSize! * 2,
+                                // ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  } else if (state is GetMomentUserErrorState) {
+                    return CustomErrorWidget(
+                      message: state.errorMassage,
+                    );
+                  } else if (state is GetMomentUserLoadingState) {
+                    return const LoadingWidget();
+                  }  else {
+                    return const CustomErrorWidget(
+                      message: StringManager.noDataFoundHere,
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ],
       ),
 

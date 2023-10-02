@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/features/moment/domain/use_case/add_moment_use_case.
 import 'package:tik_chat_v2/features/moment/domain/use_case/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_comment_usecase.dart';
 import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_likes_uc.dart';
+import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/use_case/moment_send_gift.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 
@@ -20,7 +21,7 @@ abstract class BaseRemotlyDataSourceMoment {
 
   Future<String> deleteMoment(String momentId);
 
-  Future<List<MomentModel>> getMoments(String userId);
+  Future<List<MomentModel>> getMoments(GetMomentPrameter pram);
 
   Future<String> addMomentCooment(AddMomentCommentPrameter momentId);
 
@@ -85,12 +86,12 @@ class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
   }
 
   @override
-  Future<List<MomentModel>> getMoments(String userId)async {
+  Future<List<MomentModel>> getMoments(GetMomentPrameter pram)async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
       final response = await Dio().get(
-        ConstentApi.getMoments(userId),
+        ConstentApi.getMoments(pram.userId??'',pram.type,pram.page,),
         options: Options(
           headers: headers,
         ),

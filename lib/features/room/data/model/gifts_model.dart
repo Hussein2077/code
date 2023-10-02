@@ -11,10 +11,11 @@ class GiftsModel extends Equatable {
   final String showImg2 ;
   final int price;
   final int vipLevel ;
+  final int musicGift; 
 
   const GiftsModel(
       {required this.id,required  this.name,required  this.type, required  this.img,
-       required   this.showImg, required this.price,required this.showImg2, required this.vipLevel});
+       required   this.showImg, required this.price,required this.showImg2, required this.vipLevel , required this.musicGift});
 
 
 factory GiftsModel.fromJson(Map<String,dynamic> jsonData){
@@ -26,7 +27,8 @@ factory GiftsModel.fromJson(Map<String,dynamic> jsonData){
     price:  jsonData['price'],
     img:  jsonData['img'],
     showImg:  jsonData['show_img'],
-    showImg2:  jsonData['show_img2']
+    showImg2:  jsonData['show_img2'],
+    musicGift:  jsonData['music_gift']
   );
 }
 

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/features/view.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/trim_view.dart';
 
 class HomePage extends StatelessWidget {
   @override

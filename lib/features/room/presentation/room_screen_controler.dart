@@ -4,11 +4,9 @@ import 'dart:ui' as ui;
 
 import 'package:awesome_ripple_animation/awesome_ripple_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -981,7 +979,6 @@ Widget messagesChached(
     }
   }
 
-  log(bubble.toString()+"zzzzzzzzzzzzzzzz");
   return InkWell(
     onTap: () {
       bottomDailog(
@@ -1011,74 +1008,162 @@ Widget messagesChached(
                         ""),
               ),
               SizedBox(width: ConfigSize.defaultSize,),
-             GradientTextVip(
-                    text: message.user.name,
-                    isVip: message.user.inRoomAttributes.value['vip'] == ''
-                        ? false
-                        : message.user.inRoomAttributes.value['vip'] == '8'
-                            ? true
-                            : false,
-                    textStyle: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontStyle: FontStyle.italic,
-                        fontSize: AppPadding.p10),
-                    textAlign: TextAlign.center,
-                  ),
-                              SizedBox(width: ConfigSize.defaultSize!-3,),
+            
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      room.ownerId.toString() == message.user.id
-                          ? SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: Image.asset(AssetsPath.hostMark))
-                          : const SizedBox(),
-                      AristocracyLevel(
-                          level: vip == ""
-                              ? RoomScreen.usersMessagesRoom[message.user.id]
-                                      ?.vipLevel ??
-                                  0
-                              : int.parse(vip)),
-                      const SizedBox(
-                        width: 1,
+                    SizedBox(height: ConfigSize.defaultSize!*1.5,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                           GradientTextVip(
+                        text: message.user.name,
+                        isVip: message.user.inRoomAttributes.value['vip'] == ''
+                            ? false
+                            : message.user.inRoomAttributes.value['vip'] == '8'
+                                ? true
+                                : false,
+                        textStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
+                            fontStyle: FontStyle.italic,
+                            fontSize: AppPadding.p10),
+                        textAlign: TextAlign.center,
                       ),
-                      if ((RoomScreen.usersMessagesRoom[message.user.id]
-                                  ?.senderLevelImg ??
-                              '') !=
-                          '')
-                        SizedBox(
-                          width: ConfigSize.defaultSize! * 4,
-                          height: ConfigSize.defaultSize! * 2,
-                          child: LevelContainer(
-                            image: sender == ""
-                                ? RoomScreen.usersMessagesRoom[message.user.id]
-                                        ?.senderLevelImg ??
-                                    ''
-                                : sender,
+                                  SizedBox(width: ConfigSize.defaultSize!-3,),
+                          room.ownerId.toString() == message.user.id
+                              ? SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Image.asset(AssetsPath.hostMark))
+                              : const SizedBox(),
+                          AristocracyLevel(
+                              level: vip == ""
+                                  ? RoomScreen.usersMessagesRoom[message.user.id]
+                                          ?.vipLevel ??
+                                      0
+                                  : int.parse(vip)),
+                          const SizedBox(
+                            width: 1,
                           ),
-                        ),
-                      const SizedBox(
-                        width: 1,
+                          if ((RoomScreen.usersMessagesRoom[message.user.id]
+                                      ?.senderLevelImg ??
+                                  '') !=
+                              '')
+                            SizedBox(
+                              width: ConfigSize.defaultSize! * 4,
+                              height: ConfigSize.defaultSize! * 2,
+                              child: LevelContainer(
+                                image: sender == ""
+                                    ? RoomScreen.usersMessagesRoom[message.user.id]
+                                            ?.senderLevelImg ??
+                                        ''
+                                    : sender,
+                              ),
+                            ),
+                          const SizedBox(
+                            width: 1,
+                          ),
+                          if ((RoomScreen.usersMessagesRoom[message.user.id]
+                                      ?.revicerLevelImg ??
+                                  '') !=
+                              '')
+                            SizedBox(
+                              width: ConfigSize.defaultSize! * 4,
+                              height: ConfigSize.defaultSize! * 2,
+                              child: LevelContainer(
+                                image: receiver == ""
+                                    ? RoomScreen.usersMessagesRoom[message.user.id]
+                                            ?.revicerLevelImg ??
+                                        ''
+                                    : receiver,
+                              ),
+                            ),
+                        ],
                       ),
-                      if ((RoomScreen.usersMessagesRoom[message.user.id]
-                                  ?.revicerLevelImg ??
-                              '') !=
-                          '')
-                        SizedBox(
-                          width: ConfigSize.defaultSize! * 4,
-                          height: ConfigSize.defaultSize! * 2,
-                          child: LevelContainer(
-                            image: receiver == ""
-                                ? RoomScreen.usersMessagesRoom[message.user.id]
-                                        ?.revicerLevelImg ??
-                                    ''
-                                : receiver,
-                          ),
+                      (bubble == "" && changeTheme == false)
+              ? Padding(
+                  padding: EdgeInsets.only(
+                      left: AppPadding.p24,
+                      top: AppPadding.p2,
+                      bottom: AppPadding.p2,
+                      right: AppPadding.p2),
+                  child: Container(
+                    // width: ConfigSize.defaultSize!*33,
+                    decoration: BoxDecoration(
+                        color: ColorManager.lightGray.withOpacity(0.2)),
+
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    child: SelectableText.rich(
+                      TextSpan(children: spans),
+                    ),
+                  ),
+                )
+              : changeTheme
+                  ? Padding(
+                      padding: EdgeInsets.only(
+                          left: ConfigSize.defaultSize! * 3,
+                          top: ConfigSize.defaultSize! - 4,
+                          bottom: ConfigSize.defaultSize! - 4,
+                          right: ConfigSize.defaultSize! - 4),
+                      child: Container(
+                        // width: ConfigSize.defaultSize!*33,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(ConfigSize.defaultSize!),
+                            color: ColorManager.deepBlue),
+
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 4),
+                        child: SelectableText.rich(
+                          TextSpan(children: spans),
                         ),
+                      ),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.only(
+                          left: AppPadding.p24,
+                          top: AppPadding.p2,
+                          bottom: AppPadding.p2,
+                          right: AppPadding.p2),
+                      child: CachedNetworkImage(
+                          imageUrl: ConstentApi().getImage(bubble == ""
+                              ? RoomScreen
+                                  .usersMessagesRoom[message.user.id]?.bubble
+                              : bubble),
+                          imageBuilder: (context, imageProvider) => Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.fill),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: ConfigSize.defaultSize! + 15,
+                                    vertical: ConfigSize.defaultSize!),
+                                child: SelectableText.rich(
+                                  TextSpan(children: spans),
+                                ),
+                              ),
+                          placeholder: (context, url) => Shimmer.fromColors(
+                                baseColor: Colors.grey[850]!,
+                                highlightColor: Colors.grey[800]!,
+                                child: Container(
+                                  width: ConfigSize.defaultSize! * 5.7,
+                                  height: ConfigSize.defaultSize! * 5.7,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.black,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                          errorWidget: (context, url, error) => const Center(
+                                child: Icon(Icons.error),
+                              )),
+                    ),
+                    
                     ],
+
                   ),
             ],
           ),

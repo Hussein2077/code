@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -86,6 +87,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
        await Methods().removeCachReels();
       }
       Methods().cachingReels(reels,response.data);
+      log(response.data.toString());
       return reels;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getReels' );
