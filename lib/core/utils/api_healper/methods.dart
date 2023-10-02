@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/model/video_cache_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/cach_manager.dart';
@@ -99,7 +100,12 @@ class Methods {
         if(kDebugMode){
           log("ConstentApi().getImage(reels[i].url)${reels[i].url!}");
         }
-        getIt<VideoCacheManager>().cacheVideo(reels[i].url!,StringManager.cachReelsKey);
+        VideoCacheModel video = VideoCacheModel(
+            img: reels[i].img == null? "" : reels[i].img!,
+            url: reels[i].url!
+        );
+
+        getIt<VideoCacheManager>().cacheVideo(video,StringManager.cachReelsKey);
       }
 
     }
