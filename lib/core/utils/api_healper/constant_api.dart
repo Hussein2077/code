@@ -9,7 +9,6 @@ class ConstentApi {
   static const String baseUrl = "https://tik-chat.com/api";
  // static const String baseUrl = "https://test.tik-chat.com/api";
  // static const String baseUrl = "https://tik-chat.com/api";
-  static const String baseUrl = "https://tik-chat.com/api";
   static const String getBoxes = "$baseUrl/box/list";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
