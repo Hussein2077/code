@@ -43,7 +43,7 @@ class TopInRoomScreenBody extends StatelessWidget {
                           width: ConfigSize.defaultSize!*34.7,
                           child: Text(StringManager.noDaimonsNow.tr(),
                               style:const TextStyle(
-                                  color: ColorManager.lightGray,
+                                  color: ColorManager.darkBlack,
                                   fontWeight: FontWeight.w700)),
                         )
                       : SizedBox(
@@ -107,7 +107,7 @@ class TopInRoomScreenBody extends StatelessWidget {
                       ? Text(
                     StringManager.noDaimonsNow.tr(),
                           style: const TextStyle(
-                              color: ColorManager.lightGray,
+                              color: ColorManager.darkBlack,
                               fontWeight: FontWeight.w700),
                         )
                       : SizedBox(

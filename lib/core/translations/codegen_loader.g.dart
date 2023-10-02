@@ -269,7 +269,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.withdrawal: "السحب",
     StringManager.whatIsAgency: "ما هي الوكالة",
     StringManager.enterTheAgencyYouWishToJoin:
-        'أدخل اسم الوكالة التي ترغب في الانضمام إليها',
+        'أدخل معرف الوكالة التي ترغب في الانضمام إليها',
     StringManager.enterYourWhatsAppNumber: 'أدخل رقم هاتفك على WhatsApp',
     StringManager.enterAgencyIDHere: 'أدخل معرف الوكالة هنا',
     StringManager.enterYourNumberHere: 'أدخل رقمك هنا',
@@ -325,6 +325,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.years: "سنوات",
     StringManager.mounth: "شهور",
     StringManager.totalDaimonds: "إجمالي الماس",
+    StringManager.totalUsd: "إجمالي الدولارات",
+    StringManager.ownerUsd: "رصيدك من الدولارات",
     StringManager.chargeCoins: "شحن النقود",
     StringManager.cantopen: "ممنوع فتح في هذا الوضع",
     StringManager.cantclosepk: "ممنوع غلق الpk",

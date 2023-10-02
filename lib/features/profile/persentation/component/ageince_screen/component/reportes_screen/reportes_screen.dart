@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
@@ -91,17 +92,17 @@ class _ReportsScreenState extends State<ReportsScreen> {
                             context: context,
                             image: "",
                             num: state.data!.sumAgencyDaiomd.toString(),
-                            title: StringManager.totalDaimonds),
+                            title: StringManager.totalDaimonds.tr()),
                         historyDetiels(
                             context: context,
                             image: AssetsPath.circleDollar,
                             num: state.data!.sumAgencyUsd.toString(),
-                            title: StringManager.totalUsd),
+                            title: StringManager.totalUsd.tr()),
                         historyDetiels(
                             context: context,
                             image: AssetsPath.circleDollar,
                             num: state.data!.totalOwnerUsd.toString(),
-                            title: StringManager.ownerUsd),
+                            title: StringManager.ownerUsd.tr()),
                       ],
                     ),
                     CustomHorizntalDvider(
@@ -218,6 +219,8 @@ Widget historyDetiels(
               : Image.asset(
                   image,
                   scale: 2,
+
+            color: ColorManager.orang,
                 )
         ],
       ),
