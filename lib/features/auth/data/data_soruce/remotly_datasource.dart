@@ -172,19 +172,23 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   @override
   Future<AuthWithGoogleModel> sigInWithGoogle() async{
 
+    print("1");
   
     // ignore: no_leading_underscores_for_local_identifiers
     final _googleSignIn = GoogleSignIn(scopes: ['email']);
     Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
 
+    print("2");
     // // ignore: unused_element
     // Future logout() => _googleSignIn.disconnect();
     final userModel = await login();
 
+    print("3");
 
     final devicedata = await DioHelper().initPlatformState(); // to get information device
      Map<String, String> headers = await DioHelper().header();
 
+    print("4");
 
     if (userModel == null)
     {

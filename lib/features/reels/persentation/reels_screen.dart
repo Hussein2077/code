@@ -57,10 +57,7 @@ class ReelsScreenState extends State<ReelsScreen> {
     unLikedVideo = [];
     followList = [];
     if (SplashScreen.initPage == 1) {
-      BlocProvider.of<GetReelsBloc>(context)
-          .add(GetReelsEvent(reelId: MainScreen.reelId));
-    } else {
-      BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+      BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId: MainScreen.reelId));
     }
 
     report = TextEditingController();
@@ -85,8 +82,7 @@ class ReelsScreenState extends State<ReelsScreen> {
           } else if (state is UploadReelsErrorState) {
             errorToast(context: context, title: state.error);
           } else if (state is UploadReelsSucssesState) {
-            BlocProvider.of<GetUserReelsBloc>(context)
-                .add(const GetUserReelEvent(id: null));
+            BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent(id: null));
             sucssesToast(context: context, title: state.message);
           }
         },
@@ -160,7 +156,7 @@ class ReelsScreenState extends State<ReelsScreen> {
                           log('======> Clicked on back arrow <======');
                         },
                         onIndexChanged: (index) {
-                          if (index % 10 == 0 && (state.data!.length - index == 5)) {
+                          if(state.data!.length - index == 4){
                             BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
                           }
                           log(state.data!.length.toString() + "zzzzz");
