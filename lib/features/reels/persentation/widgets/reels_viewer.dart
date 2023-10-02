@@ -51,7 +51,7 @@ class ReelsViewer extends StatefulWidget {
 
 
    // to know iam in user view or not
-  final bool? userView; 
+  final bool userView; 
 
    const ReelsViewer({
     Key? key,
@@ -68,7 +68,7 @@ class ReelsViewer extends StatefulWidget {
     this.onIndexChanged,
     this.showProgressIndicator =true,
     this.startIndex ,
-    this.userView,
+   required this.userView,
   }) : super(key: key);
 
   @override

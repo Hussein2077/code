@@ -59,12 +59,12 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/vip/vip_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/my_videos_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/trim_view.dart';
 import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/room_handler/handler_room_screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/view_music/view_music_screen.dart';
-import 'package:tik_chat_v2/features/view.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
 
