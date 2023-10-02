@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -11,7 +13,6 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/problem_customers_services.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
@@ -30,6 +31,8 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_r
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ReelsScreen extends StatefulWidget {
   const ReelsScreen({super.key});
@@ -38,18 +41,18 @@ class ReelsScreen extends StatefulWidget {
   State<ReelsScreen> createState() => ReelsScreenState();
 }
 
-late TextEditingController report ;
+late TextEditingController report;
 
 class ReelsScreenState extends State<ReelsScreen> {
   static List<int> likedVideos = [];
   static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
+  static Map<String, Uint8List> thumbnail = {};
 
   List<int> unLikedVideo = [];
   static List<String> followList = [];
 
   @override
   void initState() {
-
     likedVideos = [];
     unLikedVideo = [];
     followList = [];
@@ -62,7 +65,6 @@ class ReelsScreenState extends State<ReelsScreen> {
 
     report = TextEditingController();
 
-
     super.initState();
   }
 
@@ -71,6 +73,7 @@ class ReelsScreenState extends State<ReelsScreen> {
     super.dispose();
     report.dispose();
 
+    thumbnail.clear() ;
   }
 
   @override
@@ -91,7 +94,7 @@ class ReelsScreenState extends State<ReelsScreen> {
             body: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                child: BlocBuilder<GetReelsBloc, GetReelsState>(
+                child: BlocConsumer<GetReelsBloc, GetReelsState>(
                   builder: (context, state) {
                     if (state is GetReelsSucssesState) {
                       for (int i = 0; i < state.data!.length; i++) {
@@ -101,6 +104,7 @@ class ReelsScreenState extends State<ReelsScreen> {
                         }
                       }
                       return ReelsViewer(
+                        userView: false,
                         reelsList: state.data!,
                         appbarTitle: StringManager.reels.tr(),
                         onShare: (reel) {
@@ -136,19 +140,18 @@ class ReelsScreenState extends State<ReelsScreen> {
                           log('Comment on reel ==> $comment');
                         },
                         onClickMoreBtn: (id, userData) {
-
                           bottomDailog(
-
                               context: context,
                               widget: SingleChildScrollView(
                                 padding: EdgeInsets.only(
-                                  bottom:  MediaQuery.of(context).viewInsets.bottom,
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom,
                                 ),
                                 child: moreDilog(
-                                    context: context,
+                                  context: context,
                                   userId: userData.toString(),
                                   id: id.toString(),
-                                    ),
+                                ),
                               ));
                           log('======> Clicked on more option <======');
                         },
@@ -178,17 +181,35 @@ class ReelsScreenState extends State<ReelsScreen> {
                           message: StringManager.unexcepectedError.tr());
                     }
                   },
+                  listener: (context, state) async {
+                    if (state is GetReelsSucssesState) {
+                      for (int i = 0; i < state.data!.length; i++) {
+                        if(!thumbnail.containsKey(state.data![i].id.toString())){
+                          log("0");
+
+  Uint8List thumbnailPath =
+                            await getVideoThumbnail(state.data![i].url!);
+    thumbnail.putIfAbsent(
+                            state.data![i].id.toString(), () => thumbnailPath);
+                            log("2");
+                    
+                        }
+                      
+                      }
+                    }
+                  },
                 ))));
   }
 
-  Widget moreDilog(
-      {required BuildContext context,
-        required String id,
-        required String userId,
-      }) {
+  Widget moreDilog({
+    required BuildContext context,
+    required String id,
+    required String userId,
+  }) {
     return Container(
       padding: EdgeInsets.symmetric(
-          vertical: ConfigSize.defaultSize!, horizontal: ConfigSize.defaultSize!),
+          vertical: ConfigSize.defaultSize!,
+          horizontal: ConfigSize.defaultSize!),
       width: MediaQuery.of(context).size.width,
       height: ConfigSize.defaultSize! * 35,
       decoration: BoxDecoration(
@@ -196,29 +217,30 @@ class ReelsScreenState extends State<ReelsScreen> {
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
       child: moreReportDialogIcon(
         context: context,
-        title:  StringManager.report.tr(),
-        onTap: () => BlocProvider.of<ReportRealsBloc>(context)
-            .add(ReportReals(reportedId: userId,realId: id,description: report.text)),
+        title: StringManager.report.tr(),
+        onTap: () => BlocProvider.of<ReportRealsBloc>(context).add(ReportReals(
+            reportedId: userId, realId: id, description: report.text)),
       ),
     );
   }
+
   Widget moreReportDialogIcon(
       {required BuildContext context,
-        required String title,
-
-        void Function()? onTap}) {
+      required String title,
+      void Function()? onTap}) {
     return BlocListener<ReportRealsBloc, ReportRealsState>(
       listener: (context, state) {
-        if(state is ReportReelsLoadingState){
+        if (state is ReportReelsLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
-        }else if(state is ReportReelsSucssesState){
+        } else if (state is ReportReelsSucssesState) {
           sucssesToast(context: context, title: state.message);
-        }else if(state is ReportReelsErrorState){
+        } else if (state is ReportReelsErrorState) {
           sucssesToast(context: context, title: state.error);
         }
       },
       child: Padding(
-        padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -227,22 +249,31 @@ class ReelsScreenState extends State<ReelsScreen> {
               title,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-
-             ProblemTextFormField(
+            ProblemTextFormField(
               textEditingController: report,
             ),
-
             MainButton(
               onTap: onTap!,
               title: StringManager.report.tr(),
               width: MediaQuery.of(context).size.width,
-
             ),
-
-
           ],
         ),
       ),
     );
+  }
+
+  Future<Uint8List> getVideoThumbnail(String videoUrl) async {
+                              log("1");
+
+    final uint8list = await VideoThumbnail.thumbnailData(
+      video: videoUrl,
+      imageFormat: ImageFormat.JPEG,
+      // maxHeight: 300,
+      //     maxWidth: 300,
+      quality: 70,
+    );
+
+    return uint8list!;
   }
 }

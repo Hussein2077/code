@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,15 +14,33 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class ReelsBox extends StatelessWidget {
     final ScrollController scrollController ; 
   final UserDataModel userDataModel;
+    static Map<String, Uint8List> thumbnail = {};
+
   const ReelsBox({super.key, required this.userDataModel, required this.scrollController});
   @override
   Widget build(BuildContext context) {
 
-    return BlocBuilder<GetUserReelsBloc, GetUserReelsState>(
+    return BlocConsumer<GetUserReelsBloc, GetUserReelsState>(
+      listener: (context, state) async{
+              if (state is GetUserReelsSucssesState) {
+                                 for (int i = 0; i < state.data!.length; i++) {
+                        if(!thumbnail.containsKey(state.data![i].id.toString())){
+                          log("heeeeeeeeeeeeer");
+  Uint8List thumbnailPath =
+                            await getVideoThumbnail(state.data![i].url!);
+    thumbnail.putIfAbsent(
+                            state.data![i].id.toString(), () => thumbnailPath);
+                    
+                        }
+                      
+                      }
+                    }
+      },
       builder: (context, state) {
         if (state is GetUserReelsSucssesState) {
           return GridView.builder(
@@ -95,6 +114,19 @@ class ReelsBox extends StatelessWidget {
         }
       },
     );
+  }
+
+    Future<Uint8List> getVideoThumbnail(String videoUrl) async {
+      log("1");
+    final uint8list = await VideoThumbnail.thumbnailData(
+      video: videoUrl,
+      imageFormat: ImageFormat.JPEG,
+      // maxHeight: 300,
+      //     maxWidth: 300,
+      quality: 70,
+    );
+
+    return uint8list!;
   }
 
 

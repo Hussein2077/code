@@ -127,6 +127,7 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                  ),
                               child: Stack(
                                 children: [
+                                
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -264,7 +265,15 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                             Icon(Icons.error,color: ColorManager.mainColor,size: AppPadding.p20,) ,
                                           ],
                                         )
-                                    )
+                                    ),
+                                    if(widget.data[index].price>=2000)
+                                 Align(alignment: Alignment.topLeft,
+                                  child: Image.asset(AssetsPath.globalIcon , scale: 2,),
+                                   ),
+                                        if(widget.data[index].musicGift==1)
+                                 Align(alignment: Alignment.topRight,
+                                  child: Image.asset(AssetsPath.music2 , scale: 1.5, color: Colors.grey,),
+                                   ),
                                 ],
                               )
 
