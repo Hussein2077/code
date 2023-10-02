@@ -33,10 +33,14 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
 
         if (state is FollowSucssesState) {
           isFollow = !isFollow;
+                    ReelsScreenState.followMap[widget.userData.id.toString()]=true;
+                              ReelsScreenState.follow.value = !ReelsScreenState.follow.value;
+
+
           setState(() {});
         } else if (state is UnFollowSucssesState) {
           ReelsScreenState.follow.value = !ReelsScreenState.follow.value;
-          ReelsScreenState.followList.remove(widget.userData.id.toString());
+          ReelsScreenState.followMap[widget.userData.id.toString()]=false;
           isFollow = !isFollow;
           setState(() {});
         }else if (state is  FollowLoadingState){

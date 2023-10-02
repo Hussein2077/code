@@ -1,18 +1,15 @@
 import 'dart:developer';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:chewie/chewie.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 
 
 
@@ -83,6 +80,7 @@ class _ReelsPageState extends State<ReelsPage>{
          try{
            final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
            if(file?.file !=null){
+            log("heeeeeeeeer");
 
              ReelsPage.isVideoPause.value = false ;
              _videoPlayerController = VideoPlayerController.file(file!.file);
