@@ -19,15 +19,13 @@ import 'package:tik_chat_v2/features/room_audio/data/model/all_main_classes_mode
 abstract class HomeRemoteDataSours {
 
   Future<RankingModel> getTop(TopPramiter topPramiter);
-  Future<AllRoomsDataModel> getAllRooms(
-      {int? countryId, int? classId, int? typeId,String? search, int? page ,
-        TypeGetRooms? typeGetRooms });
+  Future<AllRoomsDataModel> getAllRooms({int? countryId, int? classId, int? typeId,String? search, int? page, TypeGetRooms? typeGetRooms });
   Future<List<CountryModel>> getAllCountry();
   Future<List<CarouselsModel>> getCarousel();
   Future<ConfigModel> getConfigApp(ConfigModelBody configModelBody);
-  Future<String> createRoom(
-      {required CreateRoomPramiter creatRoomPramiter});
+  Future<String> createRoom({required CreateRoomPramiter creatRoomPramiter});
   Future<List<AllMainClassesModel>> getAllRoomTypes();
+  Future<AllRoomsDataModel> getAllRoomsVideo({int? countryId, int? classId, int? typeId,String? search, int? page, TypeGetRooms? typeGetRooms});
 
 
 
@@ -246,5 +244,46 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
     }
 
   }
+
+  @override
+  Future<AllRoomsDataModel> getAllRoomsVideo(
+      {int? countryId, int? classId, int? typeId, String? search,int? page,
+        TypeGetRooms? typeGetRooms  }) async {
+    Map<String, String> headers = await DioHelper().header();
+    String? filterType;
+    switch(typeGetRooms??''){
+      case TypeGetRooms.festival:
+        filterType = 'boss';
+        break;
+      case TypeGetRooms.popular:
+        filterType = 'popular';
+        break;
+      case TypeGetRooms.trend:
+        filterType = 'trend';
+        break;
+    }
+
+
+    //TODO chnage base url
+    try {
+      final response = await Dio().get(
+          ConstentApi().getDataRooms(
+              page: page,
+              classId: classId,
+              countryId: countryId,
+              typeId: typeId,
+              filter: filterType,
+              search: search),
+          options: Options(
+            headers: headers,
+          ));
+      final rooms = AllRoomsDataModel.fromMap(response.data);
+
+      return Future.value(rooms);
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName:'getAllRooms' );
+    }
+  }
+
 
 }

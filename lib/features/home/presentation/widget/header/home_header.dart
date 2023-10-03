@@ -8,16 +8,21 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 
 
-class HomeHeader extends StatelessWidget {
+class HomeHeader extends StatefulWidget {
   final TabController liveController;
   const HomeHeader({required this.liveController, super.key});
 
+  @override
+  State<HomeHeader> createState() => _HomeHeaderState();
+}
+
+class _HomeHeaderState extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        LiveTabBAR(liveController: liveController,),
+        LiveTabBAR(liveController: widget.liveController,),
         InkWell(
             onTap: () {
               Navigator.pushNamed(context, Routes.searchScreen);
