@@ -216,7 +216,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.reelName: "اسم البث المباشر",
     StringManager.shareYourMoment: "شارك لحظتك مع العالم عبر الريلز",
     StringManager.yourVideoWillPublished:
-        "سيتم نشر الفيديو الخاص بك على صفحة البث المباشر",
+        "سيتم نشر الفيديو الخاص بك على صفحة الريلز",
     StringManager.mentionYourFriends: "أشر إلى أصدقائك",
     StringManager.chooseTheTopic: "اختر الموضوع",
     StringManager.postTheVideo: "نشر الفيديو",

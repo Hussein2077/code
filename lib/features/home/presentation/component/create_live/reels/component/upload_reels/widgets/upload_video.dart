@@ -57,8 +57,8 @@ class UploadVideoState extends State<UploadVideo> {
             : 
       
        Container(
-      width: MediaQuery.of(context).size.width / 2,
-      height: ConfigSize.defaultSize! * 25,
+      width: MediaQuery.of(context).size.width / 2.5,
+      height: ConfigSize.defaultSize! * 15,
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).colorScheme.primary),
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
