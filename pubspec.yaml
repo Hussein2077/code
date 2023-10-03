@@ -106,6 +106,7 @@ dependencies:
   video_trimmer: ^2.0.1
   dots_indicator: ^2.1.0
   video_compress: ^3.1.2
+  zego_uikit_signaling_plugin: ^2.0.3
 
 
 

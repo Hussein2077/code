@@ -16,7 +16,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_r
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'widgets/chose_topic_dailog.dart';
 import 'widgets/upload_video.dart';
-import 'package:video_compress/video_compress.dart';
+
 
 
 class UploadReelsScreen extends StatefulWidget {
