@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_states.dart';
-import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/all_main_classes_model.dart';
 
 class RoomTypeButton extends StatefulWidget {
   static AllMainClassesModel?  roomType  ;
