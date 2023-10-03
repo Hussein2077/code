@@ -32,7 +32,7 @@ class _CoinsScreenState extends State<CoinsScreen>with TickerProviderStateMixin 
         Expanded(
           child: TabBarView(
             controller: coinsController,
-            children: const [
+            children: [
        CoinsTabView(type: "gold"),
       // CoinsTabView(type: "silver"),
         
