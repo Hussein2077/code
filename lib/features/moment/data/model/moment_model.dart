@@ -40,7 +40,7 @@ class MomentModel {
       momentId: json['id'],
       userId: json['user_id'],
       moment: json['description'],
-      momentImage: json['img'],
+      momentImage: json['img']??"",
       commentNum: json['comment_num'],
       likeNum: json['like_num'],
       giftsCount: json['gifts_count'],

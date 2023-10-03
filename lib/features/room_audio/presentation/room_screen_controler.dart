@@ -221,15 +221,15 @@ List<String> splitUsersInRoom({required List<ZegoUIKitUser> orginalList}) {
   return listIds;
 }
 
-getUserDataInMessages(String userId) async {
-  try {
-    List<RoomUserMesseagesModel> user =
-        await RemotlyDataSourceRoom().getUsersInRoon([userId]);
-    RoomScreen.usersMessagesRoom.putIfAbsent(userId, () => user[0]);
-  } catch (e) {
-    log(e.toString());
-  }
-}
+// getUserDataInMessages(String userId) async {
+//   try {
+//     List<RoomUserMesseagesModel> user =
+//         await RemotlyDataSourceRoom().getUsersInRoon([userId]);
+//     RoomScreen.usersMessagesRoom.putIfAbsent(userId, () => user[0]);
+//   } catch (e) {
+//     log(e.toString());
+//   }
+// }
 
 // getUserDataInRoom(String userId) async {
 //   try {
