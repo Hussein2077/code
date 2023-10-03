@@ -47,11 +47,9 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
         resizeToAvoidBottomInset: true,
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(
-              height: ConfigSize.defaultSize!,
-            ),
+         
               HeaderWithOnlyTitle(title: StringManager.newReel.tr()),
 
             shareYourMoment(context: context),
@@ -65,6 +63,7 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
                   border: Border.all(color: ColorManager.lightGray)),
               width: MediaQuery.of(context).size.width - 50,
               child: TextFieldWidget(
+                  
                   textColor: Theme.of(context).colorScheme.primary,
                   controller: reelsNameController,
                   hintText: StringManager.reelName.tr()),
@@ -114,7 +113,8 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
                 }
 
               },
-            )
+            ),
+            SizedBox(height: ConfigSize.defaultSize!*10,)
           ],
         ),
       ),
@@ -144,7 +144,7 @@ Widget shareYourMoment({required BuildContext context}) {
         ],
       ),
       Text(
-        StringManager.yourVideoWillPublished,
+        StringManager.yourVideoWillPublished.tr(),
         style: Theme.of(context).textTheme.titleSmall,
       ),
     ],

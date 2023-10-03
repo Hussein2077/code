@@ -1306,9 +1306,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     if (message.timestamp < value) {
                       return const SizedBox.shrink();
                     }
-                    if (RoomScreen.usersMessagesRoom[message.user.id] == null) {
-                      getUserDataInMessages(message.user.id);
-                    }
+                  
                     if (message.user.inRoomAttributes.value['sen'] == null &&
                         RoomScreen.usersMessagesRoom[message.user.id]
                                 ?.senderLevelImg ==

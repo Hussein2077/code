@@ -49,7 +49,7 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
     return Scaffold(
         //backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.background,
           bottom: TabBar(
             indicatorColor: ColorManager.orang,
             indicatorSize: TabBarIndicatorSize.label,
