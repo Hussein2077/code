@@ -33,7 +33,7 @@ class _AddProFilePicState extends State<AddProFilePic> {
 @override
   void initState() {
     if(widget.gooleImageUrl!=null){
- getGoogleImage();
+      getGoogleImage();
     }
     
     super.initState();
@@ -66,21 +66,19 @@ class _AddProFilePicState extends State<AddProFilePic> {
                 width: ConfigSize.defaultSize! * 11,
                 height: ConfigSize.defaultSize! * 11,
 
-                decoration:MyDataModel.getInstance().profile?.image!=null?
+                decoration: MyDataModel.getInstance().profile?.image != "" ?
                 BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                    
-                    ConstentApi().getImage(MyDataModel.getInstance().profile!.image)),
+                          image: CachedNetworkImageProvider(ConstentApi().getImage(MyDataModel.getInstance().profile!.image)),
                           fit: BoxFit.fill,
                         ),
                       ):
-                
-                
-                 AddProFilePic.image != null
-                    ? BoxDecoration(
+
+
+                 AddProFilePic.image != null ?
+                 BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,
                         image: DecorationImage(
@@ -88,7 +86,7 @@ class _AddProFilePicState extends State<AddProFilePic> {
                           fit: BoxFit.cover,
                         ),
                       )
-                    :AddProFilePic.googleImage!=null?
+                    :AddProFilePic.googleImage != null ?
                     BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,
@@ -96,9 +94,8 @@ class _AddProFilePicState extends State<AddProFilePic> {
                           image: FileImage(AddProFilePic.googleImage!),
                           fit: BoxFit.cover,
                         ),
-                      ):
-                    
-                     BoxDecoration(
+                      )
+                     :BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,
                       ),
