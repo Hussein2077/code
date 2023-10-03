@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Package imports:
-import '../../../../../features/room/presentation/Room_Screen.dart';
+import '../../../../../features/room_audio/presentation/Room_Screen.dart';
 import '../../../../zego_uikit/zego_uikit.dart';
 
 // Project imports:
