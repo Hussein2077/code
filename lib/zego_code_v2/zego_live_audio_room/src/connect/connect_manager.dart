@@ -3,7 +3,7 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
-import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 
 
 

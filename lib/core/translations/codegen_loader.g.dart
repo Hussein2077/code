@@ -13,6 +13,7 @@ class CodegenLoader extends AssetLoader {
 
   static const Map<String, dynamic> ar = {
     StringManager.appTitle: "تيك شات",
+    StringManager.video_size_error: "يرجى تحميل الفيديو أقل من 3 دقائق",
     StringManager.enterPhoneNum: "أدخل رقم هاتفك",
     StringManager.signUp: "سجل",
     StringManager.login: "تسجيل الدخول",
@@ -214,9 +215,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.upload: "تحميل",
     StringManager.newReel: "البث المباشر الجديد",
     StringManager.reelName: "اسم البث المباشر",
-    StringManager.shareYourMoment: "شارك لحظتك مع العالم عبر البث المباشر",
+    StringManager.shareYourMoment: "شارك لحظتك مع العالم عبر الريلز",
     StringManager.yourVideoWillPublished:
-        "سيتم نشر الفيديو الخاص بك على صفحة البث المباشر",
+        "سيتم نشر الفيديو الخاص بك على صفحة الريلز",
     StringManager.mentionYourFriends: "أشر إلى أصدقائك",
     StringManager.chooseTheTopic: "اختر الموضوع",
     StringManager.postTheVideo: "نشر الفيديو",

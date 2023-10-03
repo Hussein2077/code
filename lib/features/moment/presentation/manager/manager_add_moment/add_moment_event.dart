@@ -1,6 +1,7 @@
 
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
-import 'package:image_picker/image_picker.dart';
 
 abstract class BaseAddMomentEvent extends Equatable {
   const BaseAddMomentEvent();
@@ -10,12 +11,12 @@ abstract class BaseAddMomentEvent extends Equatable {
 }
 
 class AddMomentEvent extends BaseAddMomentEvent {
-  final String moment ; 
-  final String userId ; 
-  final XFile momentImage ;
+  final String? moment;
 
-  const AddMomentEvent({
-    required this.moment ,
-    required this.momentImage ,
-    required this.userId});
+  final File? momentImage;
+
+  final String userId;
+
+  const AddMomentEvent(
+      { this.moment,  this.momentImage, required this.userId});
 }

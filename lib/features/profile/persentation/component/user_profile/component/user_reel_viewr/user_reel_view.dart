@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/problem_customers_services.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
@@ -30,6 +32,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_r
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 
 class UserReelView extends StatefulWidget {
@@ -50,13 +53,11 @@ late TextEditingController report ;
 
 
 class UserReelViewState extends State<UserReelView> {
-  static List<int> likedVideos = [];
-  List<int> unLikedVideo = [];
+
 
   @override
   void initState() {
-    likedVideos = [];
-    unLikedVideo = [];
+
     report = TextEditingController();
 
     super.initState();
@@ -97,15 +98,15 @@ class UserReelViewState extends State<UserReelView> {
         child: Scaffold(body: BlocBuilder<GetUserReelsBloc, GetUserReelsState>(
           builder: (context, state) {
             if (state is GetUserReelsSucssesState) {
-              for (int i = 0; i < state.data!.length; i++) {
-                state.data![i].userId = widget.userDataModel.id;
-                state.data![i].userImage = widget.userDataModel.profile!.image;
-                state.data![i].userName = widget.userDataModel.name;
-                if (state.data![i].likeExists == true &&
-                    !unLikedVideo.contains(state.data![i].id)) {
-                  likedVideos.add(state.data![i].id!);
-                }
-              }
+              // for (int i = 0; i < state.data!.length; i++) {
+              //   state.data![i].userId = widget.userDataModel.id;
+              //   state.data![i].userImage = widget.userDataModel.profile!.image;
+              //   state.data![i].userName = widget.userDataModel.name;
+              //   if (state.data![i].likeExists == true &&
+              //       !unLikedVideo.contains(state.data![i].id)) {
+              //     likedVideos.add(state.data![i].id!);
+              //   }
+              // }
 
               return ReelsViewer(
                 userView: true,
@@ -126,14 +127,12 @@ class UserReelViewState extends State<UserReelView> {
                 onLike: (id) {
                   BlocProvider.of<MakeReelLikeBloc>(context)
                       .add(MakeReelLikeEvent(reelId: id.toString()));
-                  setState(() {
-                    if (UserReelViewState.likedVideos.contains(id)) {
-                      likedVideos.remove(id);
-                      unLikedVideo.add(id);
-                    } else {
-                      likedVideos.add(id);
-                    }
-                  });
+               setState(() {
+                            ReelsBox.likedVideos[id.toString()] =
+                                !ReelsBox.likedVideos[id.toString()]!;
+                            ReelsController().changeLikeUserCount(id.toString());
+                          });
+                          log( ReelsBox.likedVideos.toString());
                 },
                 onFollow: (userId, isFollow) {
                   BlocProvider.of<FollowBloc>(context)

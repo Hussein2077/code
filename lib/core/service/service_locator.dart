@@ -44,17 +44,19 @@ import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/curse
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
-import 'package:tik_chat_v2/features/moment/data/data_source/remotly_data_source.dart';
-import 'package:tik_chat_v2/features/moment/data/repoitory_imp/repository_imp_moment.dart';
-import 'package:tik_chat_v2/features/moment/domain/repostoriy/base_repository_moment.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/add_moment_use_case.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/delete_moment_comment_use_case.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/delete_moment_use_case.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_comment_usecase.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_use_case.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/make_moment_like.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/moment_send_gift.dart';
+import 'package:tik_chat_v2/features/moment/data/data_source/remotly_data_source_moment.dart';
+import 'package:tik_chat_v2/features/moment/data/repostory_imp/repository_imp_moment.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_comment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_comment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_comment_usecase.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/make_moment_like.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
+import 'package:tik_chat_v2/features/moment/domain/repository/base_repository_moment.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
@@ -202,58 +204,58 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_ree
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
-import 'package:tik_chat_v2/features/room/data/Repository_Imp/repository_Imp.dart';
-import 'package:tik_chat_v2/features/room/data/data_sorce/remotly_data_source_room.dart';
-import 'package:tik_chat_v2/features/room/domine/Repository/Base_Repository_Profile.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/add_admin_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/add_room_back_ground_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/background_usecase.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/ban_user_from_writing_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/change_room_mode.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/close_pk_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/dispose_hide_room_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/emojie_usecase.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/enter_room.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/exist_room_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/getGiftes_useCase.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/get_all_room_user_usecase.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/get_boxex_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/get_mybackground_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/get_top_room.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/hide_pk_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/hide_room_use_case.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/invite_user_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/kickout_pramiter_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/leave_mic_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/lock_unLock_mic_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/mute_unmute_mic_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/mute_unmute_use_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/pickup_box_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/remove_admin_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/remove_pass_room_UC.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/room_admins_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/send_box_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/send_gift_use_case.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/send_pob_up_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/send_yallow_banner_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/show_pk_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/start_pk_uc.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/up_mic_usecase.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/update_room_usecase.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/pk/Conter_Time_pk_Widget.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manager_admin_room/admin_room_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manager_pk/pk_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manager_top_inroom/topin_room_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/room_handler_manager/room_handler_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/data/Repository_Imp/repository_Imp.dart';
+import 'package:tik_chat_v2/features/room_audio/data/data_sorce/remotly_data_source_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/Repository/Base_Repository_Profile.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/add_admin_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/add_room_back_ground_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/background_usecase.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/ban_user_from_writing_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/change_room_mode.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/close_pk_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/dispose_hide_room_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/emojie_usecase.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/enter_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/exist_room_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/getGiftes_useCase.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_boxex_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_mybackground_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_pk_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_room_use_case.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_user_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/kickout_pramiter_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/leave_mic_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/lock_unLock_mic_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_unmute_mic_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_unmute_use_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/pickup_box_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/remove_admin_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/remove_pass_room_UC.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/room_admins_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_box_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_gift_use_case.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_pob_up_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_yallow_banner_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/show_pk_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_pk_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/update_room_usecase.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_top_inroom/topin_room_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_get_my_background/get_my_background_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -490,7 +492,7 @@ class ServerLocator {
                 getIt.registerFactory(() => AddMomentBloc(addMomentUseCase: getIt()));
                 getIt.registerFactory(() => DeleteMomentBloc(deleteMomentUseCase: getIt()));
 
-                getIt.registerFactory(() => GetMomentuserBloc(getMomentUseCase: getIt()));
+                getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
                 getIt.registerFactory(() => GetFollowingUserMomentBloc(getMomenttUseCase: getIt()));
                 getIt.registerFactory(() => GetMomentILikeItBloc(getMomenttUseCase: getIt()));
 
@@ -502,27 +504,29 @@ class ServerLocator {
                 getIt.registerFactory(() => PrivacyPolicyBloc(privacyPolicyUseCase:  getIt()));
 
                 getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
+                getIt.registerFactory(() => AddMomentCommentBloc(addMomentCommentUseCase:  getIt()));
 
 
     
 
 //usecase
 
-    getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRespositryMoment: getIt()));
+    getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(() => AddMomentCommentUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => SendCodeUseCase(baseRepository: getIt()));
-    getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRespositryMoment: getIt()));
+    getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRepositoryMoment: getIt()));
 
 
-    getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRespositryMoment: getIt()));
+    getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRepositoryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRespositryMoment: getIt()));
+   getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRepositoryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => GetMomentUseCase(baseRespositryMoment: getIt()));
+   getIt.registerLazySingleton(() => GetMomentUseCase(baseRepositoryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRespositryMoment: getIt()));
+   getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRepositoryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => AddMomentUseCase(baseRespositryMoment: getIt()));
+   getIt.registerLazySingleton(() => AddMomentUseCase(baseRepositoryMoment: getIt()));
 
    getIt.registerLazySingleton(() => DeleteReelUseCse(baseRepositoryProfile: getIt()));
 
@@ -788,7 +792,7 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton<BaseRepository>(
         () => RepositoryImp(baseRemotlyDataSource: getIt()));
 
-    getIt.registerLazySingleton<BaseRespositryMoment>(
+    getIt.registerLazySingleton<BaseRepositoryMoment>(
         () => RepositoryImpMoment(baseRemotlyDataSourceMoment: getIt()));
 
     getIt.registerLazySingleton<BaseRepositoryProfile>(

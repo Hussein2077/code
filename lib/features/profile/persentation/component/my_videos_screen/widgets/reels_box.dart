@@ -14,37 +14,59 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 
-class ReelsBox extends StatelessWidget {
-    final ScrollController scrollController ; 
+class ReelsBox extends StatefulWidget {
+  final ScrollController scrollController;
   final UserDataModel userDataModel;
-    static Map<String, Uint8List> thumbnail = {};
+  static Map<String, Uint8List> thumbnail = {};
+    static Map<String, bool> likedVideos = {};
+  static Map<String, int> likedVideoCount = {};
 
-  const ReelsBox({super.key, required this.userDataModel, required this.scrollController});
+  const ReelsBox(
+      {super.key, required this.userDataModel, required this.scrollController});
+
+  @override
+  State<ReelsBox> createState() => _ReelsBoxState();
+}
+
+class _ReelsBoxState extends State<ReelsBox> {
+  @override
+  void initState() {
+   ReelsBox.likedVideos.clear();
+      ReelsBox.likedVideoCount.clear();
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
 
     return BlocConsumer<GetUserReelsBloc, GetUserReelsState>(
-      listener: (context, state) async{
-              if (state is GetUserReelsSucssesState) {
-                                 for (int i = 0; i < state.data!.length; i++) {
-                        if(!thumbnail.containsKey(state.data![i].id.toString())){
-  Uint8List thumbnailPath =
-                            await getVideoThumbnail(state.data![i].url!);
-    thumbnail.putIfAbsent(
-                            state.data![i].id.toString(), () => thumbnailPath);
-                    
-                        }
-                      
-                      }
-                    }
+      listener: (context, state) async {
+        if (state is GetUserReelsSucssesState) {
+          log(ReelsBox.likedVideos.toString());
+          
+              ReelsController().likesUserMap(state.data!);
+                      ReelsController().likesCountUserMap(state.data!);
+          for (int i = 0; i < state.data!.length; i++) {
+            if (!ReelsBox.thumbnail.containsKey(state.data![i].id.toString())) {
+              Uint8List thumbnailPath = await ReelsController()
+                  .getVideoThumbnail(state.data![i].url!);
+              ReelsBox.thumbnail.putIfAbsent(
+                  state.data![i].id.toString(), () => thumbnailPath);
+            }
+          }
+
+          log(ReelsBox.likedVideos.toString());
+
+        }else {
+        }
       },
       builder: (context, state) {
         if (state is GetUserReelsSucssesState) {
           return GridView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            controller:scrollController ,
+              physics: const AlwaysScrollableScrollPhysics(),
+              controller: widget.scrollController,
               itemCount: state.data!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   mainAxisSpacing: 20,
@@ -54,29 +76,28 @@ class ReelsBox extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.userReelView,
-                        arguments: ReelsUserPramiter(startIndex: index,
-                            userDataModel: userDataModel));
+                        arguments: ReelsUserPramiter(
+                            startIndex: index, userDataModel: widget.userDataModel));
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),
-                      decoration: BoxDecoration(
-                                            color: Colors.grey,
-
-                      image:state.data![index].subVideo==""?null: DecorationImage(
-                fit: BoxFit.fill,
-                  image: CachedNetworkImageProvider(
-
-                    ConstentApi().getImage(state.data![index].subVideo)) )
-                  ),
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        image: state.data![index].subVideo == ""
+                            ? null
+                            : DecorationImage(
+                                fit: BoxFit.fill,
+                                image: CachedNetworkImageProvider(ConstentApi()
+                                    .getImage(state.data![index].subVideo)))),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: ConfigSize.defaultSize! - 5
-                      ),
+                          horizontal: ConfigSize.defaultSize! - 5),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(Icons.favorite, color: Colors.red,
+                          Icon(Icons.favorite,
+                              color: Colors.red,
                               size: ConfigSize.defaultSize! * 2),
                           SizedBox(
                             width: ConfigSize.defaultSize! / 10,
@@ -88,12 +109,10 @@ class ReelsBox extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.3),
                               ),
                               margin: EdgeInsets.only(
-                                  bottom: ConfigSize.defaultSize! - 8
-                              ),
+                                  bottom: ConfigSize.defaultSize! - 8),
                               padding: EdgeInsets.symmetric(
                                   vertical: 1,
-                                  horizontal: ConfigSize.defaultSize!
-                              ),
+                                  horizontal: ConfigSize.defaultSize!),
                               child: Text(state.data![index].likeNum.toString(),
                                   style: const TextStyle(fontSize: 10))),
                         ],
@@ -105,28 +124,15 @@ class ReelsBox extends StatelessWidget {
         } else if (state is GetUserReelsLoadingState) {
           return const LoadingWidget();
         } else if (state is GetReelUsersErrorState) {
-          return CustomErrorWidget(message: state.errorMassage,);
+          return CustomErrorWidget(
+            message: state.errorMassage,
+          );
         } else {
-          return
-            CustomErrorWidget(
-            message: StringManager.unexcepectedError.tr(),);
+          return CustomErrorWidget(
+            message: StringManager.unexcepectedError.tr(),
+          );
         }
       },
     );
   }
-
-    Future<Uint8List> getVideoThumbnail(String videoUrl) async {
-      log("1");
-    final uint8list = await VideoThumbnail.thumbnailData(
-      video: videoUrl,
-      imageFormat: ImageFormat.JPEG,
-      // maxHeight: 300,
-      //     maxWidth: 300,
-      quality: 70,
-    );
-
-    return uint8list!;
-  }
-
-
 }

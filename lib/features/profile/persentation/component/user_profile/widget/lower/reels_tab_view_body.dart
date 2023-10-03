@@ -30,6 +30,8 @@ class _ReelsTabViewState extends State<ReelsTabView> {
     final ScrollController scrollController = ScrollController();
     @override
      void initState() {
+            BlocProvider.of<GetUserReelsBloc>(context)
+          .add(GetUserReelEvent(id:  widget.userDataModel.id.toString()));
     scrollController.addListener(scrollListener);
 
     

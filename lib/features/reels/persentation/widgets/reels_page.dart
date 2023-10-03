@@ -10,9 +10,6 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-
-
-
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
 import '../components/screen_options.dart';

@@ -140,7 +140,6 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
   @override
   Future<String> makeLike(String reelId) async{
       Map<String, String> headers = await DioHelper().header();
-     
 
     try {
       final response = await Dio().post(
@@ -149,7 +148,6 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
           headers: headers,
         ),
       );
-
       return response.data[ConstentApi.message];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e ,endpointName: 'makeReelLike');
