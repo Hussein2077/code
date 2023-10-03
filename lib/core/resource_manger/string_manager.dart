@@ -305,6 +305,7 @@ static const String cachReelsKey ='cachReelsKey';
   static const String pleaseAddDetiels = "Please Add Detiels";
   static const String unFollow = "UnFollow";
   static const String sucsses = "Sucsses";
+  static const String video_size_error = "Please Upload Video Less Than 3 Minutes";
   static const String linked = "Linked";
   static const String pleaseEnterNewPhoneNum = 'Please Enter New Phone Number';
   static const String pleaseEnterPassword = 'Please Enter Password';

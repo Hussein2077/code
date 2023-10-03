@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:video_trimmer/video_trimmer.dart';
@@ -63,15 +63,28 @@ class _TrimmerViewState extends State<TrimmerView> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        return false ; 
-      },
+      onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          leading:  IconButton(onPressed: (){
-              UploadVideoState.video = widget.file.path;
-              Navigator.pop(context);
-            }, icon:const Icon( Icons.arrow_back_ios))
+          leading:  IconButton(
+              onPressed: ()async{
+
+                final videoInfo = FlutterVideoInfo();
+                String videoFilePath = widget.file.path;
+                var info = await videoInfo.getVideoInfo(videoFilePath);
+
+                if(info!.duration!/60000 > 3.0){
+                  final snackBar = SnackBar(
+                      content: Text(StringManager.video_size_error.tr()));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    snackBar,
+                  );
+                }else{
+                  UploadVideoState.video = widget.file.path;
+                  Navigator.pop(context);
+                }
+            },
+              icon:const Icon( Icons.arrow_back_ios))
          
         ),
         body: Builder(
@@ -118,7 +131,7 @@ class _TrimmerViewState extends State<TrimmerView> {
                         trimmer: _trimmer,
                         viewerHeight: 50.0,
                         viewerWidth: MediaQuery.of(context).size.width,
-                        maxVideoLength: const Duration(minutes: 10),
+                        maxVideoLength: const Duration(minutes: 3),
                         onChangeStart: (value) => _startValue = value,
                         onChangeEnd: (value) => _endValue = value,
                         onChangePlaybackState: (value) =>
