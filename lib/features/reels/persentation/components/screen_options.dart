@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -75,8 +76,8 @@ class ScreenOptions extends StatelessWidget {
                   ),
             //User View
             if (userView == true)
-              if (onLike != null &&
-                  (!UserReelViewState.likedVideos.contains(item.id)))
+              if (onLike != null )
+                if (!ReelsBox.likedVideos[item.id.toString()]!)
                 IconButton(
                   icon: Icon(
                     CupertinoIcons.heart_solid,
@@ -97,7 +98,7 @@ class ScreenOptions extends StatelessWidget {
                 ),
             //User View
             if (userView == true)
-              if (UserReelViewState.likedVideos.contains(item.id))
+              if (ReelsBox.likedVideos[item.id.toString()]!)
                 IconButton(
                   icon: Icon(
                     CupertinoIcons.heart_solid,
@@ -112,15 +113,8 @@ class ScreenOptions extends StatelessWidget {
                         ReelsScreenState.likedVideoCount[item.id.toString()]!),
                     style: const TextStyle(color: Colors.white))
                 : Text(
-                    (!item.likeExists! &&
-                            UserReelViewState.likedVideos.contains(item.id))
-                        ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
-                        : (item.likeExists! &&
-                                !UserReelViewState.likedVideos
-                                    .contains(item.id))
-                            ? NumbersToShort.convertNumToShort(
-                                item.likeNum! - 1)
-                            : NumbersToShort.convertNumToShort(item.likeNum!),
+                    NumbersToShort.convertNumToShort(
+                        ReelsBox.likedVideoCount[item.id.toString()]!),
                     style: const TextStyle(color: Colors.white)),
             SizedBox(height: ConfigSize.defaultSize),
             IconButton(

@@ -51,7 +51,7 @@ class UserRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GradientTextVip(
-                  text: "${roomVistorModel.name}   (${chckType(roomVistorModel.type)})" ?? "",
+                  text: "${roomVistorModel.name}   ${chckType(roomVistorModel.type)}" ?? "",
                   textStyle: Theme.of(context).textTheme.bodyLarge!,
                   isVip: roomVistorModel.hasColorName,
                 ),
@@ -88,9 +88,9 @@ class UserRow extends StatelessWidget {
   String chckType(int type) {
     switch (type) {
       case 0:
-        return 'Owner';
+        return '( Owner )';
       case 1:
-        return 'Admin';
+        return '( Admin )';
       case 2:
         return '';
       default:
