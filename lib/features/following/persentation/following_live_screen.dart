@@ -61,7 +61,7 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               Text(
-                StringManager.momentsTab.tr(),
+                StringManager.momentTab.tr(),
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ],

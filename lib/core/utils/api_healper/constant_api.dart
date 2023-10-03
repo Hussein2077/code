@@ -125,9 +125,10 @@ class ConstentApi {
   static const String getReels = "$baseUrl/reals";
   static const String yallowBanner = "$baseUrl/rooms/yellow-banner";
   static const String addMoment = "$baseUrl/moment";
-  static const String makeMomentLikes = "$baseUrl/moment/2/like";
-  static const String momentSendGift = "$baseUrl/moment/2/gift";
+  static  String makeMomentLikes(String momentID) => "$baseUrl/moment/$momentID/like";
+  static   String momentSendGift({required String momentID}) =>"$baseUrl/moment/$momentID/gift";
   static const  String privacyPolicy ="https://test.dragon-chat.co/page/privacy-policy";
+
 
 
   static const String reportReals = "$baseUrl/report";
@@ -270,6 +271,8 @@ class ConstentApi {
   String showEmojie(String id, String roomId, String userId, String toZego) {
     return "$baseUrl/emojis/$id?room_id=$roomId&user_id=$userId&to_zego=$toZego";
   }
+
+
 
   String changeBackgroundZigo(
       {required String timestamp,

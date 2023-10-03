@@ -1,10 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_state.dart';
-
 
 
 class GetMomentILikeItBloc
@@ -19,8 +18,8 @@ class GetMomentILikeItBloc
       final result = await getMomenttUseCase
           .call(GetMomentPrameter(page: page.toString(), userId: MyDataModel.getInstance().id.toString(),type: "2"));
       result.fold(
-              (l) => emit(GetMomentILikeItSucssesState(data: l)),
-              (r) => emit(GetMomentILikeItErrorState(
+          (l) => emit(GetMomentILikeItSucssesState(data: l)),
+          (r) => emit(GetMomentILikeItErrorState(
               null, DioHelper().getTypeOfFailure(r))));
     });
 
@@ -29,7 +28,7 @@ class GetMomentILikeItBloc
       final result = await getMomenttUseCase.call(GetMomentPrameter(
 
         page: page.toString(),
-        userId: MyDataModel.getInstance().id.toString(),
+           userId: MyDataModel.getInstance().id.toString(),
         type: "2",
       ));
       result.fold((l) {
@@ -37,7 +36,7 @@ class GetMomentILikeItBloc
           emit(GetMomentILikeItSucssesState(data: [...state.data!, ...l]));
         }
       },
-              (r) => emit(GetMomentILikeItErrorState(
+          (r) => emit(GetMomentILikeItErrorState(
               null, DioHelper().getTypeOfFailure(r))));
     });
   }

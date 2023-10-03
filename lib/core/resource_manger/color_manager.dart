@@ -54,6 +54,8 @@ class ColorManager {
   static const Color blueContributeContanierText = Color(0xFF0091E3);
   static const Color giftColors = Color(0x1FFFB800);
     static const Color giftback = Color(0xFF110B15);
+    static const Color hotyellow =     Color(0xFFFFBB0D);
+
 
    static const List<Color> yellowGrident = [
     Color(0xFFEEB609),

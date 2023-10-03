@@ -2,7 +2,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_likes_uc.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_likes_uc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_state.dart';
 
