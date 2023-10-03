@@ -5,7 +5,7 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/room_type_widget.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
 
 import '../../num_of_vistor.dart';
 // ignore: depend_on_referenced_packages

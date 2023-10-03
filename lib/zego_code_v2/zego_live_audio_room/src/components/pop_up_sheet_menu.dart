@@ -10,11 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
  
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
-import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/profile/general_room_profile.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 
 
 

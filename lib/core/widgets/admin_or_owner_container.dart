@@ -5,7 +5,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 
 class AdminOrOwnerContainer extends StatelessWidget {
   final int? userId;

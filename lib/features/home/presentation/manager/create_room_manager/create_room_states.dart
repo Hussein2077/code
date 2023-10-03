@@ -1,7 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
-import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/all_main_classes_model.dart';
 
 class CreateRoomStates extends Equatable {
   final List<AllMainClassesModel> typesRoom ;

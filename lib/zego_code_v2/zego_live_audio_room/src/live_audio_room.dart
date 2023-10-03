@@ -12,9 +12,9 @@ import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_roo
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/exist_room_uc.dart';
-import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/exist_room_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_signaling/zego_uikit_signaling_plugin.dart';
 
 

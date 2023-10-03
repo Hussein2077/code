@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unnecessary_question_mark, prefer_typing_uninitialized_variables
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
-import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/all_main_classes_model.dart';
+
 
 class AllRoomsDataModel {
   final bool? success;
