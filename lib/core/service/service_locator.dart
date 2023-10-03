@@ -44,16 +44,16 @@ import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/curse
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
-import 'package:tik_chat_v2/features/moment/data/data_source/remotly_data_source.dart';
-import 'package:tik_chat_v2/features/moment/data/repoitory_imp/repository_imp_moment.dart';
-import 'package:tik_chat_v2/features/moment/domain/repostoriy/base_repository_moment.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/add_moment_use_case.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/delete_moment_comment_use_case.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/delete_moment_use_case.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_comment_usecase.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/get_moment_use_case.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/make_moment_like.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/moment_send_gift.dart';
+import 'package:tik_chat_v2/features/moment/data/data_source/remotly_data_source_moment.dart';
+import 'package:tik_chat_v2/features/moment/data/repostory_imp/repository_imp_moment.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_comment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_comment_usecase.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/make_moment_like.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
+import 'package:tik_chat_v2/features/moment/domain/repository/base_repository_moment.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
@@ -490,7 +490,7 @@ class ServerLocator {
                 getIt.registerFactory(() => AddMomentBloc(addMomentUseCase: getIt()));
                 getIt.registerFactory(() => DeleteMomentBloc(deleteMomentUseCase: getIt()));
 
-                getIt.registerFactory(() => GetMomentuserBloc(getMomentUseCase: getIt()));
+                getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
                 getIt.registerFactory(() => GetFollowingUserMomentBloc(getMomenttUseCase: getIt()));
                 getIt.registerFactory(() => GetMomentILikeItBloc(getMomenttUseCase: getIt()));
 
@@ -508,21 +508,21 @@ class ServerLocator {
 
 //usecase
 
-    getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRespositryMoment: getIt()));
+    getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => SendCodeUseCase(baseRepository: getIt()));
-    getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRespositryMoment: getIt()));
+    getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRepositoryMoment: getIt()));
 
 
-    getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRespositryMoment: getIt()));
+    getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRepositoryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRespositryMoment: getIt()));
+   getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRepositoryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => GetMomentUseCase(baseRespositryMoment: getIt()));
+   getIt.registerLazySingleton(() => GetMomentUseCase(baseRepositoryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRespositryMoment: getIt()));
+   getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRepositoryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => AddMomentUseCase(baseRespositryMoment: getIt()));
+   getIt.registerLazySingleton(() => AddMomentUseCase(baseRepositoryMoment: getIt()));
 
    getIt.registerLazySingleton(() => DeleteReelUseCse(baseRepositoryProfile: getIt()));
 
@@ -788,7 +788,7 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton<BaseRepository>(
         () => RepositoryImp(baseRemotlyDataSource: getIt()));
 
-    getIt.registerLazySingleton<BaseRespositryMoment>(
+    getIt.registerLazySingleton<BaseRepositoryMoment>(
         () => RepositoryImpMoment(baseRemotlyDataSourceMoment: getIt()));
 
     getIt.registerLazySingleton<BaseRepositoryProfile>(

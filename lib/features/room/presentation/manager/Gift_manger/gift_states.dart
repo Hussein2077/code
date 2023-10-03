@@ -20,8 +20,11 @@ class GiftsStates extends Equatable {
   final List<GiftsModel> dataLucky;
   final RequestState luckyState;
   final String luckyMessage;
+  final List<GiftsModel> momentGifts;
+  final RequestState momentGiftsState;
+  final String momentGiftsMessage;
 
- const GiftsStates(
+  const GiftsStates(
       {this.hotMessage = "",
         this.dataNormal = const [],
         this.normalState = RequestState.loading,
@@ -36,8 +39,10 @@ class GiftsStates extends Equatable {
         this.famousMessage = "",
         this.dataLucky = const [],
         this.luckyMessage = '',
-        this.luckyState = RequestState.loading
-
+        this.luckyState = RequestState.loading,
+  this.momentGifts = const [],
+  this.momentGiftsState = RequestState.loading,
+  this.momentGiftsMessage = "",
 
       });
 
@@ -57,6 +62,9 @@ class GiftsStates extends Equatable {
     List<GiftsModel>? dataLucky,
     RequestState? luckyState,
     String? luckyMessage,
+    List<GiftsModel>? momentGifts,
+    RequestState? momentGiftsState,
+    String? momentGiftsMessage,
 
   }) {
     return GiftsStates(
@@ -74,7 +82,10 @@ class GiftsStates extends Equatable {
         famousState: famousState ?? this.famousState ,
         dataLucky: dataLucky ?? this.dataLucky ,
         luckyMessage: luckyMessage ?? this.luckyMessage ,
-        luckyState:  luckyState ?? this.luckyState
+        luckyState:  luckyState ?? this.luckyState,
+      momentGifts: momentGifts ?? this.momentGifts,
+      momentGiftsMessage: momentGiftsMessage ?? this.momentGiftsMessage,
+      momentGiftsState: momentGiftsState ?? this.momentGiftsState,
 
 
     );
@@ -96,6 +107,9 @@ class GiftsStates extends Equatable {
     dataFamous,
     dataLucky,
     luckyState,
-    luckyMessage
+    luckyMessage,
+    momentGifts,
+    momentGiftsMessage,
+    momentGiftsState
   ];
 }

@@ -240,7 +240,10 @@ class AssetsPath {
   static const String music2 = "$pathIcon/music.png";
   static const String myVideos = "$pathImage/my_videos.jpeg";
     static const String defaultImage = "$pathImage/Facebook_default_male_avatar.gif";
-
+  static const String likeIcon = "$pathIcon/likeicon.png";
+  static const String commentIcon = "$pathIcon/commentIcon.png";
+  static const String giftMoment = "$pathIcon/giftmoment.png";
+  static const String editIcon = "$pathIcon/editicon.png";
 
 
   

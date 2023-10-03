@@ -9,6 +9,6 @@ abstract class BaseMakeMomentLikeEvent extends Equatable {
 }
 
 class MakeMomentLikeEvent extends BaseMakeMomentLikeEvent {
-  final String userId ;
-  const MakeMomentLikeEvent({required this.userId});
+  final String momentId ;
+  const MakeMomentLikeEvent({required this.momentId});
 }

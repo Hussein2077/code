@@ -419,7 +419,7 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),
         BlocProvider(create: (_) => getIt<DeleteMomentBloc>()),
 
-        BlocProvider(create: (_) => getIt<GetMomentuserBloc>()),
+        BlocProvider(create: (_) => getIt<GetMomentBloc>()),
         BlocProvider(create: (_) => getIt<GetFollowingUserMomentBloc>()),
         BlocProvider(create: (_) => getIt<GetMomentILikeItBloc>()),
 

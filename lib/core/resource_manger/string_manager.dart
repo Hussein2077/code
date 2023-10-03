@@ -470,10 +470,12 @@ static const String cachReelsKey ='cachReelsKey';
  static const String addComment = "Add comment";
  static const String addMoment = "Add Moment";
  static const String addMoment1 = "Add moment ...";
+ static const String thisMoment = "this moment has no likes yet";
 
- static const String followingtab = "Following";
- static const String likedTab = "Liked";
- static const String momentsTab = "Moments";
+ static const String momentTab = "Moments";
+ static const String likes = "Liked";
+ static const String followingTab = "Following";
+ static const String myMomentsTab = "My moments";
 
 
 

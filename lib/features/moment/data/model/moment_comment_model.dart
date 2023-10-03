@@ -2,6 +2,7 @@ class MomentCommentModel {
   final int? commentId;
   final int? momentId;
   final int? userId;
+  final String? uuid;
   final String comment;
   final String userProfilePic;
   final String userName;
@@ -11,6 +12,7 @@ class MomentCommentModel {
     this.commentId,
     this.momentId,
     this.userId,
+    this.uuid,
     required this.comment,
     required this.userProfilePic,
     required this.userName,
@@ -20,7 +22,8 @@ class MomentCommentModel {
   factory MomentCommentModel.fromJson(Map<String, dynamic> json) {
     return MomentCommentModel(
         commentId: json['id'],
-        userId: json['user_id'],
+        userId: json['user']['id'],
+        uuid: json['user']['uuid'],
         momentId: json['moment_id'],
         comment: json['comment'],
         commentTime: json['created_at'],
