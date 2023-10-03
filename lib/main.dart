@@ -35,6 +35,7 @@ import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
@@ -418,6 +419,7 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),
         BlocProvider(create: (_) => getIt<DeleteMomentBloc>()),
+        BlocProvider(create: (_) => getIt<AddMomentCommentBloc>()),
 
         BlocProvider(create: (_) => getIt<GetMomentBloc>()),
         BlocProvider(create: (_) => getIt<GetFollowingUserMomentBloc>()),
