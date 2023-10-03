@@ -37,24 +37,18 @@ class _UserProfileState extends State<UserProfile> {
 
    
     if (widget.userId != null) {
-      log("1");
       myProfile = false;
       BlocProvider.of<GetUserBloc>(context)
           .add(GetuserEvent(userId: widget.userId!));
-      // BlocProvider.of<GetUserReelsBloc>(context)
-      //     .add(GetUserReelEvent(id: widget.userId!));
+ 
     } else if (widget.userData != null) {
-            log("2");
 
-        // BlocProvider.of<GetUserReelsBloc>(context)
-        //   .add(GetUserReelEvent(id: widget.userData!.id.toString()));
+      
       myProfile = false;
     } else {
-            log("3");
 
       myProfile = true;
-      //  BlocProvider.of<GetUserReelsBloc>(context)
-      //     .add(const GetUserReelEvent(id: null));
+  
     }
     super.initState();
   }

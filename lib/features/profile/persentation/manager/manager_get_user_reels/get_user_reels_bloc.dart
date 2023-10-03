@@ -17,7 +17,6 @@ final GetUserReelsUsecase getUserReelUseCase ;
     emit(GetUserReelsLoadingState(null));
     final result = await getUserReelUseCase.getUserReels(event.id , page.toString() );
     result.fold((l) { 
-      log("emite sucsses state ");
       emit(GetUserReelsSucssesState(data: l));}, (r) => emit(GetReelUsersErrorState(null, DioHelper().getTypeOfFailure(r))));
     });
 

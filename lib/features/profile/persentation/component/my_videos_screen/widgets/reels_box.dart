@@ -33,7 +33,6 @@ class ReelsBox extends StatefulWidget {
 class _ReelsBoxState extends State<ReelsBox> {
   @override
   void initState() {
-    log("iniiiiit");
    ReelsBox.likedVideos.clear();
       ReelsBox.likedVideoCount.clear();
 
@@ -41,12 +40,10 @@ class _ReelsBoxState extends State<ReelsBox> {
   }
   @override
   Widget build(BuildContext context) {
-    log("hhhhhhhhhhhhher");
 
     return BlocConsumer<GetUserReelsBloc, GetUserReelsState>(
       listener: (context, state) async {
         if (state is GetUserReelsSucssesState) {
-          log("listner sucsses");
           log(ReelsBox.likedVideos.toString());
           
               ReelsController().likesUserMap(state.data!);
@@ -63,12 +60,10 @@ class _ReelsBoxState extends State<ReelsBox> {
           log(ReelsBox.likedVideos.toString());
 
         }else {
-          log("lisstner else");
         }
       },
       builder: (context, state) {
         if (state is GetUserReelsSucssesState) {
-          log("final");
           return GridView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
               controller: widget.scrollController,
