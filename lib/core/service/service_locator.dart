@@ -46,6 +46,7 @@ import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
 import 'package:tik_chat_v2/features/moment/data/data_source/remotly_data_source_moment.dart';
 import 'package:tik_chat_v2/features/moment/data/repostory_imp/repository_imp_moment.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_use_case.dart';
@@ -55,6 +56,7 @@ import 'package:tik_chat_v2/features/moment/domain/moment_usecse/make_moment_lik
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
 import 'package:tik_chat_v2/features/moment/domain/repository/base_repository_moment.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
@@ -502,6 +504,7 @@ class ServerLocator {
                 getIt.registerFactory(() => PrivacyPolicyBloc(privacyPolicyUseCase:  getIt()));
 
                 getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
+                getIt.registerFactory(() => AddMomentCommentBloc(addMomentCommentUseCase:  getIt()));
 
 
     
@@ -509,6 +512,7 @@ class ServerLocator {
 //usecase
 
     getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(() => AddMomentCommentUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => SendCodeUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRepositoryMoment: getIt()));
