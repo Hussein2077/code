@@ -2,7 +2,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
+
 
 class RoomVideoScreen extends StatefulWidget {
   const RoomVideoScreen({Key? key}) : super(key: key);
@@ -15,20 +15,21 @@ class _RoomVideoScreenState extends State<RoomVideoScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: ZegoUIKitPrebuiltLiveStreaming(
-        appID: appID, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
-        appSign: appSign, // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
-        userID: 'user_id',
-        userName: 'user_name',
-        liveID: liveID,
-        config: isHost
-            ? ZegoUIKitPrebuiltLiveStreamingConfig.host(
-          plugins: [ZegoUIKitSignalingPlugin()],
-        )
-            : ZegoUIKitPrebuiltLiveStreamingConfig.audience(
-          plugins: [ZegoUIKitSignalingPlugin()],
-        ),
-      ),
+      child:SizedBox()
+      // ZegoUIKitPrebuiltLiveStreaming(
+      //   appID: appID, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+      //   appSign: appSign, // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+      //   userID: 'user_id',
+      //   userName: 'user_name',
+      //   liveID: liveID,
+      //   config: isHost
+      //       ? ZegoUIKitPrebuiltLiveStreamingConfig.host(
+      //     plugins: [ZegoUIKitSignalingPlugin()],
+      //   )
+      //       : ZegoUIKitPrebuiltLiveStreamingConfig.audience(
+      //     plugins: [ZegoUIKitSignalingPlugin()],
+      //   ),
+      // ),
     );
   }
 }
