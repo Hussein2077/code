@@ -93,19 +93,11 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 1,
               ),
-              const ContinerWithIcons(
-                icon1: Icons.date_range,
-                widget: DateWidget(),
-                icon2: Icons.keyboard_arrow_down,
-              ),
+              const DateWidget(),
               const Spacer(
                 flex: 1,
               ),
-              const ContinerWithIcons(
-                icon1: Icons.flag,
-                widget: CountryWidget(),
-                icon2: Icons.keyboard_arrow_down,
-              ),
+              const CountryWidget(),
               const Spacer(
                 flex: 1,
               ),
