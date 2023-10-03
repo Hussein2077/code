@@ -11,7 +11,8 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/moment_giftbox_screen.dart';
-import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
+
 
 
 class MomentGiftView extends StatefulWidget {

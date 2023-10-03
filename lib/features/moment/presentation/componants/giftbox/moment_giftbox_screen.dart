@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_bloc.dart';
-import 'package:tik_chat_v2/features/room/presentation/manager/Gift_manger/gift_states.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_states.dart';
 import 'widgets/moment_gift_view.dart';
 import 'widgets/moment_giftbox_bottom_bar.dart';
 
