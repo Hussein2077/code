@@ -2037,6 +2037,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       Map<String, dynamic> resultData = response.data;
+      log(resultData.toString());
 
       return List<ReelModel>.from(
           resultData['data'].map((x) => ReelModel.fromJson(x)));

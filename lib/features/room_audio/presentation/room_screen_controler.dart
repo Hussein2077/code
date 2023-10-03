@@ -1082,7 +1082,14 @@ Widget messagesChached(
                             ),
                         ],
                       ),
-                      (bubble == "" && changeTheme == false)
+                  
+                    
+                    ],
+
+                  ),
+            ],
+          ),
+              (bubble == "" && changeTheme == false)
               ? Padding(
                   padding: EdgeInsets.only(
                       left: AppPadding.p24,
@@ -1161,12 +1168,6 @@ Widget messagesChached(
                                 child: Icon(Icons.error),
                               )),
                     ),
-                    
-                    ],
-
-                  ),
-            ],
-          ),
         
         ],
       ),
