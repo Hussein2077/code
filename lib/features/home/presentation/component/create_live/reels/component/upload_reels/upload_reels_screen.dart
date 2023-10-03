@@ -16,7 +16,6 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_r
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'widgets/chose_topic_dailog.dart';
 import 'widgets/upload_video.dart';
-import 'package:video_compress/video_compress.dart';
 
 
 class UploadReelsScreen extends StatefulWidget {
@@ -29,11 +28,12 @@ class UploadReelsScreen extends StatefulWidget {
 class UploadReelsScreenState extends State<UploadReelsScreen> {
   late TextEditingController reelsNameController;
   static List<int> selectedIntrest = [];
-  static List<String> selectedIntrestNames = [];
+  static List<String> selectedTopics = [];
+  static ValueNotifier<bool> hashtag= ValueNotifier<bool>(false);
+
   @override
   void initState() {
     selectedIntrest = [];
-    selectedIntrestNames = [];
     reelsNameController = TextEditingController();
     super.initState();
   }
@@ -76,14 +76,30 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
             //     title: StringManager.mentionYourFriends.tr(),
             //     widget: const MentionDailog()),
 
-            reelRowWidget(
-                context: context,
-                icon: AssetsPath.hashTagIcon,
-                title: StringManager.chooseTheTopic.tr(),
-                widget: const ChooseTopicDailog(),
-            ),
 
-            // if(selectedIntrestNames.isNotEmpty) Text(selectedIntrestNames.toString(), style: TextStyle(color: Colors.black, fontSize: 20),),
+            Column(
+              children: [
+                reelRowWidget(
+                  context: context,
+                  icon: AssetsPath.hashTagIcon,
+                  title: StringManager.chooseTheTopic.tr(),
+                  widget: const ChooseTopicDailog(),
+                ),
+                const SizedBox(height: 10,),
+                ValueListenableBuilder<bool>(
+                  valueListenable: hashtag,
+                  builder: (context, b, _) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for(int i = 0; i < selectedTopics.length; i++)
+                          Text("  ${selectedTopics[i]}#")
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
 
             BlocBuilder<UploadReelsBloc, UploadReelsState>(
               builder: (context, state) {
@@ -98,33 +114,11 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
                     return MainButton(
                     onTap: () async{
                       if (UploadVideoState.video != null) {
-
                         BlocProvider.of<UploadReelsBloc>(context).add(
                             UploadReelsEvent(
                                 categories: selectedIntrest,
                                 description: reelsNameController.text,
                                 reel: File(UploadVideoState.video!)));
-
-                        // double sizeInMb = File(UploadVideoState.video!).lengthSync() / (1024 * 1024);
-                        // print("##############");
-                        // print(sizeInMb);
-                        // print("##############");
-                        // if(sizeInMb > 30.0) {
-                        //   BlocProvider.of<UploadReelsBloc>(context).add(
-                        //     UploadReelsEvent(
-                        //         categories: selectedIntrest,
-                        //         description: reelsNameController.text,
-                        //         reel: File(UploadVideoState.video!)));
-                        // }else{
-                        //   MediaInfo? mediaInfo = await VideoCompress.compressVideo(
-                        //     UploadVideoState.video!,
-                        //     quality: VideoQuality.LowQuality,
-                        //     includeAudio: true,
-                        //   );
-                        //   print("##############");
-                        //   print(mediaInfo!.filesize!/1000000);
-                        //   print("##############");
-                        // }
                         Navigator.pop(context);
                       } else {
                         errorToast(
@@ -183,7 +177,7 @@ Widget reelRowWidget(
       bottomDailog(context: context, widget: widget);
     },
     child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
@@ -218,7 +212,6 @@ Widget reelRowWidget(
               const Spacer(
                 flex: 1,
               ),
-
             ],
           ),
         ),

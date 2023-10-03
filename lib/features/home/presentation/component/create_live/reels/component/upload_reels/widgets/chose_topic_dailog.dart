@@ -22,6 +22,7 @@ class ChooseTopicDailog extends StatefulWidget {
 }
 
 class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
+
   @override
   void initState() {
     BlocProvider.of<GetUserInterstedBloc>(context).add(GetUserInterstedEvent());
@@ -58,11 +59,11 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
                           setState(() {
                               if (UploadReelsScreenState.selectedIntrest.contains( state.data[index].id)){
                             UploadReelsScreenState.selectedIntrest.removeWhere((element) => element== state.data[index].id);
-                            UploadReelsScreenState.selectedIntrestNames.removeWhere((element) => element== state.data[index].name);
+                            UploadReelsScreenState.selectedTopics.removeWhere((element) => element== state.data[index].name);
                           }else {
                             UploadReelsScreenState.selectedIntrest.add(state.data[index].id!);
-                            UploadReelsScreenState.selectedIntrestNames.add(state.data[index].name!);
-                          }
+                            UploadReelsScreenState.selectedTopics.add(state.data[index].name!);
+                              }
                           });
 
                         },
@@ -83,6 +84,7 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
             child: MainButton(onTap: (){
+              UploadReelsScreenState.hashtag.value = !UploadReelsScreenState.hashtag.value;
               Navigator.pop(context);
             }, title: StringManager.done.tr()),
           )

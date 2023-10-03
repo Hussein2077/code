@@ -821,6 +821,8 @@ PODS:
     - ZIPFoundation
   - flutter_secure_storage (6.0.0):
     - Flutter
+  - flutter_video_info (1.1.0):
+    - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -935,6 +937,8 @@ PODS:
   - libwebp/sharpyuv (1.3.2)
   - libwebp/webp (1.3.2):
     - libwebp/sharpyuv
+  - media_info (0.6.1):
+    - Flutter
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -1028,9 +1032,11 @@ DEPENDENCIES:
   - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
   - flutter_logs (from `.symlinks/plugins/flutter_logs/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - flutter_video_info (from `.symlinks/plugins/flutter_video_info/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - libphonenumber_plugin (from `.symlinks/plugins/libphonenumber_plugin/ios`)
+  - media_info (from `.symlinks/plugins/media_info/ios`)
   - native_device_orientation (from `.symlinks/plugins/native_device_orientation/ios`)
   - on_audio_query_ios (from `.symlinks/plugins/on_audio_query_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -1136,12 +1142,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_logs/ios"
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  flutter_video_info:
+    :path: ".symlinks/plugins/flutter_video_info/ios"
   google_sign_in_ios:
     :path: ".symlinks/plugins/google_sign_in_ios/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   libphonenumber_plugin:
     :path: ".symlinks/plugins/libphonenumber_plugin/ios"
+  media_info:
+    :path: ".symlinks/plugins/media_info/ios"
   native_device_orientation:
     :path: ".symlinks/plugins/native_device_orientation/ios"
   on_audio_query_ios:
@@ -1222,6 +1232,7 @@ SPEC CHECKSUMS:
   flutter_facebook_auth: 42016bec1574eabf69bc2fe4311e8cd55813d352
   flutter_logs: 5d0dca26963e0f30b11a995a764744ef77d5d428
   flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
+  flutter_video_info: a932e1b0da369bba95c3a14b7f61d5f8b0d03280
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   google_sign_in_ios: 1256ff9d941db546373826966720b0c24804bcdd
   GoogleDataTransport: 54dee9d48d14580407f8f5fbf2f496e92437a2f2
@@ -1235,6 +1246,7 @@ SPEC CHECKSUMS:
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   libphonenumber_plugin: e8a7d64a6624a7c25f2c4ab0b7ead2a8e341e35e
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
+  media_info: 32d75eec667b09571616de41b194abb96670bc22
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   native_device_orientation: 3b4cfc9565a7b879cc4fde282b3e27745e852d0d
   NWWebSocket: 05fc4419102f33934f87157d70228837e327064f
@@ -1270,6 +1282,6 @@ SPEC CHECKSUMS:
   ZIPFoundation: d170fa8e270b2a32bef9dcdcabff5b8f1a5deced
   ZPNs: 7e3b073a97f3a7d9bbf77d76c94c4f592ab9aa2c
 
-PODFILE CHECKSUM: 9368280ebe1b1181e83ec0a4f6985aefff92fa08
+PODFILE CHECKSUM: a8a446562c8b36fdf25b71fc774325d0aaccf3be
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.12.1
