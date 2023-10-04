@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
      
       body: LiquidPullToRefresh(
         color: ColorManager.bage,
-        backgroundColor: ColorManager.mainColor,
+        backgroundColor: ColorManager.loadingColor,
         showChildOpacityTransition : false,
 
       onRefresh: ()async{

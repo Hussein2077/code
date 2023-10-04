@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/lower/lower_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
@@ -20,7 +21,7 @@ class ReelsBox extends StatefulWidget {
   final ScrollController scrollController;
   final UserDataModel userDataModel;
   static Map<String, Uint8List> thumbnail = {};
-    static Map<String, bool> likedVideos = {};
+  static Map<String, bool> likedVideos = {};
   static Map<String, int> likedVideoCount = {};
 
   const ReelsBox(
@@ -33,21 +34,31 @@ class ReelsBox extends StatefulWidget {
 class _ReelsBoxState extends State<ReelsBox> {
   @override
   void initState() {
-   ReelsBox.likedVideos.clear();
-      ReelsBox.likedVideoCount.clear();
+    if(LowerProfileBody.getUserReels){
+      log("heeeeeeeeeeeer");
+ ReelsBox.likedVideos.clear();
+    ReelsBox.likedVideoCount.clear();
+    }
+   
 
     super.initState();
   }
   @override
-  Widget build(BuildContext context) {
+  void dispose() {
 
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocConsumer<GetUserReelsBloc, GetUserReelsState>(
       listener: (context, state) async {
         if (state is GetUserReelsSucssesState) {
           log(ReelsBox.likedVideos.toString());
-          
-              ReelsController().likesUserMap(state.data!);
-                      ReelsController().likesCountUserMap(state.data!);
+                                ReelsController().followMap(state.data!);
+
+          ReelsController().likesUserMap(state.data!);
+          ReelsController().likesCountUserMap(state.data!);
           for (int i = 0; i < state.data!.length; i++) {
             if (!ReelsBox.thumbnail.containsKey(state.data![i].id.toString())) {
               Uint8List thumbnailPath = await ReelsController()
@@ -57,13 +68,13 @@ class _ReelsBoxState extends State<ReelsBox> {
             }
           }
 
-          log(ReelsBox.likedVideos.toString());
-
-        }else {
-        }
+          log(ReelsBox.likedVideos.toString()+"zzzzzzzzz");
+        } else {}
       },
       builder: (context, state) {
         if (state is GetUserReelsSucssesState) {
+          // ReelsController().likesUserMap(state.data!);
+          // ReelsController().likesCountUserMap(state.data!);
           return GridView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
               controller: widget.scrollController,
@@ -77,7 +88,8 @@ class _ReelsBoxState extends State<ReelsBox> {
                   onTap: () {
                     Navigator.pushNamed(context, Routes.userReelView,
                         arguments: ReelsUserPramiter(
-                            startIndex: index, userDataModel: widget.userDataModel));
+                            startIndex: index,
+                            userDataModel: widget.userDataModel));
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),

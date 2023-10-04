@@ -77,8 +77,8 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
                     children: [
                       SizedBox(height: ConfigSize.defaultSize!*2,),
                       LiquidPullToRefresh(
-                        color: ColorManager.bage,
-                        backgroundColor: ColorManager.mainColor,
+                color: ColorManager.bage,
+        backgroundColor: ColorManager.loadingColor,
                         showChildOpacityTransition: false,
                         onRefresh: () async {
                           BlocProvider.of<GetFollwersRoomBloc>(context)

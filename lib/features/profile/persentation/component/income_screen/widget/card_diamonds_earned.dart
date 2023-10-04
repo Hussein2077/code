@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -11,13 +12,14 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_sto
 // ignore: must_be_immutable
 class CardOfDiamondEarned extends StatefulWidget {
   final String assetCard;
-   CardOfDiamondEarned({super.key, required this.assetCard});
+   const CardOfDiamondEarned({super.key, required this.assetCard});
 
   @override
   State<CardOfDiamondEarned> createState() => _CardOfDiamondEarnedState();
 }
 
 class _CardOfDiamondEarnedState extends State<CardOfDiamondEarned> {
+  @override
   void initState() {
     BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
     super.initState();
@@ -58,7 +60,8 @@ class _CardOfDiamondEarnedState extends State<CardOfDiamondEarned> {
                   BlocBuilder<MyStoreBloc, MyStoreState>(
                     builder: (context, state) {
                    if (state is MyStoreSucssesState){
-                    diamond = state.myStore.diamonds.toString();
+
+                    diamond = MyDataModel.getInstance().myAgencyModel==null? state.myStore.diamonds.toString()  : state.myStore.monthlyDiamonds.toString();
                        return Text(
                       state.myStore.diamonds.toString(),
                         style: TextStyle(

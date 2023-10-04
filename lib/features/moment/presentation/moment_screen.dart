@@ -87,8 +87,8 @@ return Scaffold(
                 builder: (context, state) {
                   if (state is GetFollowingUserMomentSucssesState) {
                     return LiquidPullToRefresh(
-                      color: ColorManager.mainColor,
-                      backgroundColor: ColorManager.orange,
+                     color: ColorManager.bage,
+        backgroundColor: ColorManager.loadingColor,
                       showChildOpacityTransition: false,
                       onRefresh: () async {
                         BlocProvider.of<GetMomentILikeItBloc>(context)

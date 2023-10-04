@@ -52,6 +52,11 @@ class _UserProfileState extends State<UserProfile> {
     }
     super.initState();
   }
+  @override
+  void dispose() {
+LowerProfileBody.getUserReels = true;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

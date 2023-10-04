@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
@@ -36,13 +37,18 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.pushNamed(context, Routes.uploadReels);
+          }, icon: Icon(Icons.add , color: Theme.of(context).colorScheme.primary, ))
+        ],
         backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(
           StringManager.myVideos,
           style: Theme.of(context)
               .textTheme
               .bodyMedium!
-              .copyWith(fontSize: ConfigSize.defaultSize! * 1.8),
+              .copyWith(fontSize: ConfigSize.defaultSize! * 2 , ),
         ),
       ),
       body: ReelsBox(
