@@ -26,6 +26,7 @@ class AddMomentScreen extends StatefulWidget {
 }
 
 class _AddMomentScreenState extends State<AddMomentScreen> {
+  String? path;
 
   final ImagePicker picker = ImagePicker();
 
@@ -83,7 +84,7 @@ class _AddMomentScreenState extends State<AddMomentScreen> {
                   maxLines: null,
                   controller: widget.controller,
                   textInputAction: TextInputAction.send,
-                  cursorColor: const Color(0xffA653ff),
+                  cursorColor: ColorManager.mainColor,
                   cursorHeight: ConfigSize.defaultSize! * 3,
                   cursorWidth: ConfigSize.defaultSize! * 0.3,
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -158,12 +159,29 @@ class _AddMomentScreenState extends State<AddMomentScreen> {
                 },
                 child: InkWell(
                   onTap: () {
-                    BlocProvider.of<AddMomentBloc>(context).add(AddMomentEvent(
-                      userId: MyDataModel.getInstance().id.toString(),
-                      moment: widget.controller!.text,
-                      momentImage: File(AddMomentScreen.image!.path,),
+                    path=AddMomentScreen.image?.path;
+                    if(path!=null){
+                      BlocProvider.of<AddMomentBloc>(context).add(AddMomentEvent(
+                        userId: MyDataModel.getInstance().id.toString(),
+                        moment: widget.controller!.text,
+                        momentImage: File(path!,),
 
-                    ));
+                      ));
+
+                    }
+
+                    else{
+                      BlocProvider.of<AddMomentBloc>(context).add(AddMomentEvent(
+                        userId: MyDataModel.getInstance().id.toString(),
+                        moment: widget.controller!.text,
+
+
+                      ));
+
+                    }
+
+
+
 
 
                   },

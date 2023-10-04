@@ -1,32 +1,64 @@
+import 'dart:developer';
+
+
+import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
+
+import 'widgets/moment_bottom_bar.dart';
+
 class MomentController{
+
   static final Map<int, int> commentsOfMomentsMap = {};
+  static int commentIncrement(int momentId){
+    MomentController.commentsOfMomentsMap[momentId] =
+        MomentController.commentsOfMomentsMap[momentId]! + 1;
+    return  MomentController.commentsOfMomentsMap[momentId]!;
+  }
+  static int commentsDecrement(int momentId){
+    MomentController.commentsOfMomentsMap[momentId] =
+        MomentController.commentsOfMomentsMap[momentId]! - 1;
+    return  MomentController.commentsOfMomentsMap[momentId]! ;
+  }
+
+
+
   static final Map<int,bool> favorites = {};
   static final Map<int,int> favoritesCount = {};
   static int selectedMoment = -1 ;
-  static bool likeReverce(int momentId){
-   favorites[momentId]= !favorites[momentId]!;
-    return favorites[momentId]!;
+  void  likeReverce(int momentId){
+    MomentController.favorites[momentId]= !MomentController.favorites[momentId]!;
+    MomentBottomBarState.likeNotifierCounter.value++;
+    // log( MomentController.favorites.toString());
+
   }
-  static void likecounter(int momentId){
+  void likecounter(int momentId){
+
+    if( MomentController.favorites[momentId]==true){
+      MomentController.favoritesCount[momentId]= MomentController.favoritesCount[momentId]!+1;
+      MomentBottomBarState.likeNotifierCounter.value++;
+      // log( MomentController.favoritesCount.toString());
 
 
-    if(favorites[momentId]==true){
-      favoritesCount[momentId]= favoritesCount[momentId]!+1;
+    }else if( MomentController.favorites[momentId]==false){
+      MomentController.favoritesCount[momentId]= MomentController.favoritesCount[momentId]!-1;
+      MomentBottomBarState.likeNotifierCounter.value++;
+      // log( MomentController.favoritesCount.toString());
 
-    }else if( favorites[momentId]==false){
-     favoritesCount[momentId]= favoritesCount[momentId]!-1;
     }
   }
-  static int commentIncrement(int momentId){
-  commentsOfMomentsMap[momentId] =
-     commentsOfMomentsMap[momentId]! + 1;
-    return  commentsOfMomentsMap[momentId]!;
+
+
+  void fillLikeMaps (List<MomentModel> momentModelList){
+    for (int i = 0; i < momentModelList.length; i++) {
+      MomentController.favorites.putIfAbsent(
+          momentModelList[i].momentId, () => momentModelList[i].isLike);
+      MomentController.favoritesCount.putIfAbsent(
+          momentModelList[i].momentId, () => momentModelList[i].likeNum);
+
+    }
   }
-  static int commentsDecrement(int momentId){
-    commentsOfMomentsMap[momentId] =
-       commentsOfMomentsMap[momentId]! - 1;
-    return  commentsOfMomentsMap[momentId]! ;
-  }
+
+
+
 
 
 

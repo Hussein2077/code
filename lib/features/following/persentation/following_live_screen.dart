@@ -120,8 +120,16 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
                 } else if (state is GetFollwersRoomLoadingState) {
                   return const LoadingWidget();
                 } else {
-                  return const CustomErrorWidget(
-                      message: StringManager.unexcepectedError);
+                  return  LiquidPullToRefresh(
+                      color: ColorManager.bage,
+                      backgroundColor: ColorManager.mainColor,
+                      showChildOpacityTransition: false,
+                      onRefresh: () async {
+                        BlocProvider.of<GetFollwersRoomBloc>(context)
+                            .add(const GetFollwersRoomEvent(type: "5"));
+                      },
+                    child :const CustomErrorWidget(
+                      message: StringManager.unexcepectedError));
                 }
               },
             ),
