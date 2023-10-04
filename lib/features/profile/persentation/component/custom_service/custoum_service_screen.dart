@@ -19,10 +19,11 @@ import 'widget/problem_type.dart';
 
 class CustoumServiceScreen extends StatefulWidget {
   final int myId;
+
   const CustoumServiceScreen({required this.myId, super.key});
 
-@override
-State<CustoumServiceScreen> createState() => _CustoumServiceScreenState();
+  @override
+  State<CustoumServiceScreen> createState() => _CustoumServiceScreenState();
 }
 
 class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
@@ -50,23 +51,24 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
               SizedBox(
                 height: ConfigSize.defaultSize!,
               ),
-               HeaderWithOnlyTitle(title: StringManager.custoumService.tr()),
+              HeaderWithOnlyTitle(title: StringManager.custoumService.tr()),
               Text(
                 StringManager.typeOfProblem.tr(),
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-               const ProblemType(),
+              const ProblemType(),
               Text(
                 StringManager.details.tr(),
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Container(
                 width: MediaQuery.of(context).size.width - 50,
-                padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
+                padding:
+                    EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
                 decoration: BoxDecoration(
                     color: ColorManager.lightGray,
                     borderRadius:
-                    BorderRadius.circular(ConfigSize.defaultSize! * 2)),
+                        BorderRadius.circular(ConfigSize.defaultSize! * 2)),
                 child: TextFieldWidget(
                     maxLines: 4,
                     hintText: StringManager.explainProblem.tr(),
@@ -78,12 +80,16 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width - 50,
-                padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
+                padding:
+                    EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
                 decoration: BoxDecoration(
                     color: ColorManager.lightGray,
                     borderRadius:
-                    BorderRadius.circular(ConfigSize.defaultSize! * 2)),
-                child: TextFieldWidget(type: TextInputType.number, hintText: "", controller: contactController),
+                        BorderRadius.circular(ConfigSize.defaultSize! * 2)),
+                child: TextFieldWidget(
+                    type: TextInputType.number,
+                    hintText: "",
+                    controller: contactController),
               ),
               Text(
                 StringManager.screenshot.tr(),
@@ -112,6 +118,10 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
                             errorToast(
                                 context: context,
                                 title: StringManager.pleaseAddDetiels.tr());
+                          } else if (AddScreenShot.image == null) {
+                            errorToast(
+                                context: context,
+                                title: StringManager.enterYourImage.tr());
                           } else {
                             BlocProvider.of<FeedBackBloc>(context).add(
                                 FeedBackEvent(

@@ -365,6 +365,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.comments : "التعليقات",
     StringManager.noCommentsYet : "لا يوجد تعليقات",
     StringManager.addAComment : "اضف تعليق",
+    StringManager.enterYourImage : "ادخل الصوره للتوضيح",
 
     StringManager.chooseTopic : "اختر المواضيع التي تعتبرها الأكثر أهمية بالنسبة لك!",
 
@@ -382,6 +383,7 @@ StringManager.coinToUpload : "عمله لرفع صوره",
 StringManager.pepoleOnline : "الاشخاص بالغرفة",
 StringManager.reelsView : "الريلز",
 StringManager.empty : "فارغ",
+StringManager.coinsIsEmpty : "الكوينز فارغ",
     StringManager.nowInRoom : "دخول الغرفة",
 
 

@@ -17,9 +17,9 @@ class CountryIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: ConfigSize.defaultSize! * 2),
+
       width: ConfigSize.defaultSize! * 15,
-      padding: EdgeInsets.all(ConfigSize.defaultSize!),
+
       decoration: BoxDecoration(
         color: color,
           gradient:color==null? const LinearGradient(colors: ColorManager.mainColorList):null,
@@ -27,32 +27,39 @@ class CountryIcon extends StatelessWidget {
             ConfigSize.defaultSize! * 2,
           )),
       child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            flag == null
-                ? Image.asset(
-                    AssetsPath.globalIcon,
-                    scale: 2,
-                  )
-                : flag == AssetsPath.fireIcon
-                    ? Image.asset(
-                        AssetsPath.fireIcon,
-                        scale: 2.5,
-                      )
-                    : CachedNetworkImage(
-                        imageUrl: ConstentApi().getImage(flag),
-                        width: ConfigSize.defaultSize! * 2.4,
-                        height: ConfigSize.defaultSize! * 2.4,
-                      ),
-            Text(
-              name ?? StringManager.countries.tr(),
-              style: TextStyle(
-                  color: ColorManager.whiteColor,
-                  fontSize: ConfigSize.defaultSize! * 1.6),
-            ),
-            // const Icon(Icons.keyboard_arrow_down , color: Colors.white,),
-          ],
+        child: Padding(
+          padding:  EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!-2),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              flag == null
+                  ? Image.asset(
+                      AssetsPath.globalIcon,
+                      scale: 2,
+                    )
+                  : flag == AssetsPath.fireIcon
+                      ? Image.asset(
+                          AssetsPath.fireIcon,
+                          scale: 2.5,
+                        )
+                      : CachedNetworkImage(
+                          imageUrl: ConstentApi().getImage(flag),
+                          width: ConfigSize.defaultSize! * 2.4,
+                          height: ConfigSize.defaultSize! * 2.4,
+                        ),
+              SizedBox(
+                width:ConfigSize.defaultSize! * 11 ,
+                child: Text(
+                  name ?? StringManager.countries.tr(),
+                  style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                      color: ColorManager.whiteColor,
+                      fontSize: ConfigSize.defaultSize! * 1.6),
+                ),
+              ),
+              // const Icon(Icons.keyboard_arrow_down , color: Colors.white,),
+            ],
+          ),
         ),
       ),
     );

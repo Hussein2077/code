@@ -23,6 +23,7 @@ import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
 import 'package:tik_chat_v2/features/room/presentation/components/buttons/gifts/widgets/gift_users.dart';
+import 'package:tik_chat_v2/features/room/presentation/components/profile/widgets/gift_user_only.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_events.dart';
 import 'package:tik_chat_v2/features/room/presentation/manager/send_gift_manger/send_gift_states.dart';
@@ -494,9 +495,9 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
     for (int i = 0; i < userSelected.length; i++) {
       toUid += '${userSelected[i].toString()},';
     }
-//    log(toUid.toString());
 
-    (userSelected.isEmpty && /*GiftUserOnly.userSelected == ""*/ true)
+
+    (userSelected.isEmpty && GiftUserOnly.userSelected == "")
         ? BlocProvider.of<SendGiftBloc>(context).add(SendGiftesEvent(
             ownerId: widget.roomData.ownerId.toString(),
             id: GiftScreen.giftId.toString(),
@@ -531,7 +532,6 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
       log("Owner ID"+ widget.roomData.ownerId.toString(),);
       log("ID Gift"+ GiftScreen.giftId.toString(),);
       log("ID Gift"+ GiftScreen.giftId.toString(),);
-      log("u id"+toUid.substring(0, toUid.length - 1));
     }
 
   }
