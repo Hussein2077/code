@@ -42,7 +42,9 @@ class MyMomentsScreen extends StatelessWidget{
                   child: EmptyWidget(
                     message: StringManager.noDataFoundHere,
                   ))
-                  : TabViewBody(momentModelList:state.data!),
+                  : TabViewBody(
+                  type: 'mine',
+                  momentModelList:state.data!),
             );
           }
           else if (state is GetMomentUserErrorState) {
@@ -52,7 +54,9 @@ class MyMomentsScreen extends StatelessWidget{
           }
           else if (state is GetMomentUserLoadingState) {
             if (tempData!.isNotEmpty) {
-              return TabViewBody(momentModelList:tempData!);
+              return TabViewBody(
+                  type: 'mine',
+                  momentModelList:tempData!);
 
             } else {
               return Container(

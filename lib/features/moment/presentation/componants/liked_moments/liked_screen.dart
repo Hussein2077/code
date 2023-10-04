@@ -18,6 +18,9 @@ class LikedScreen extends StatefulWidget {
 
   const LikedScreen({super.key, });
 
+
+
+
   @override
   State<LikedScreen> createState() => _LikedScreenState();
 }
@@ -27,6 +30,15 @@ class _LikedScreenState extends State<LikedScreen> {
 
 
   List<MomentModel>? tempData = [];
+
+
+  @override
+  void initState() {
+
+    BlocProvider.of<GetMomentILikeItBloc>(context)
+        .add(const GetMomentIliKEitEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +61,13 @@ class _LikedScreenState extends State<LikedScreen> {
                 ))
                 :TabViewBody(momentModelList:state.data!),
           );
-        } else if (state is GetMomentILikeItErrorState) {
+        }
+        else if (state is GetMomentILikeItErrorState) {
           return CustomErrorWidget(
             message: state.errorMassage,
           );
-        } else if (state is GetMomentILikeItLoadingState) {
+        }
+        else if (state is GetMomentILikeItLoadingState) {
           if (tempData!.isEmpty) {
             return Container(
                 width: ConfigSize.screenWidth,
