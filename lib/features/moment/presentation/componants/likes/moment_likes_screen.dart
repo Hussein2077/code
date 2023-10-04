@@ -6,8 +6,6 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_like_model.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_state.dart';
@@ -50,13 +48,21 @@ class MomentsLikesScreenState extends State<MomentsLikesScreen> {
     return Scaffold(
       body: SizedBox(
         height: ConfigSize.screenHeight!,
-
         child: Stack(
           children: [
             Column(
               children: [
                 SizedBox(
-                  height: ConfigSize.defaultSize! * 19,
+                  height: ConfigSize.defaultSize! * 3,
+                ),
+                Row(
+                  children: [
+                    const Spacer(flex: 1,),
+                    IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_back_ios)),
+                    const Spacer(flex: 4,),
+                    Text(StringManager.comments,style: Theme.of(context).textTheme.titleLarge,),
+                    const Spacer(flex: 5,),
+                  ],
                 ),
                 BlocBuilder<GetMomentLikesBloc, GetMomentLikesState>(
                   builder: (context, state) {
@@ -64,11 +70,11 @@ class MomentsLikesScreenState extends State<MomentsLikesScreen> {
                       likesListTemp = state.data;
                       return SizedBox(
                         width: ConfigSize.screenWidth!,
-                        height: ConfigSize.screenHeight! * 0.78,
+                        height: ConfigSize.screenHeight! * 0.88,
                         child: Column(
                           children: [
                             Container(
-                              height: ConfigSize.screenHeight! * 0.7,
+                              height: ConfigSize.screenHeight! * 0.82,
                               padding: EdgeInsets.only(
                                 left: ConfigSize.defaultSize!,
                                 right: ConfigSize.defaultSize!,
@@ -77,7 +83,7 @@ class MomentsLikesScreenState extends State<MomentsLikesScreen> {
                                   ? MomentLikes(
                                       scrollController: scrollController,
                                       momentLikeModelList:
-                                          likesListTemp ?? state.data!,
+                                           state.data!,
                                     )
                                   : Column(
                                       crossAxisAlignment:
@@ -104,16 +110,16 @@ class MomentsLikesScreenState extends State<MomentsLikesScreen> {
                     } else if (state is GetMomentLikeLoadingState) {
                       if (likesListTemp!.isEmpty) {
                         return SizedBox(
-                            height: ConfigSize.screenHeight! * 0.78,
+                            height: ConfigSize.screenHeight! * 0.88,
                             child: const LoadingWidget());
                       } else {
                         return SizedBox(
                           width: ConfigSize.screenWidth!,
-                          height: ConfigSize.screenHeight! * 0.78,
+                          height: ConfigSize.screenHeight! * 0.88,
                           child: Column(
                             children: [
                               Container(
-                                  height: ConfigSize.screenHeight! * 0.7,
+                                  height: ConfigSize.screenHeight! * 0.82,
                                   padding: EdgeInsets.only(
                                     left: ConfigSize.defaultSize!,
                                     right: ConfigSize.defaultSize!,
@@ -145,8 +151,8 @@ class MomentsLikesScreenState extends State<MomentsLikesScreen> {
   void scrollListener() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      BlocProvider.of<GetMomentCommentBloc>(context).add(
-          LoadMoreMomentCommentEvent(momentId: widget.momentId.toString()));
+      BlocProvider.of<GetMomentLikesBloc>(context).add(
+          GetMoreMomentLikesEvent(momentId: widget.momentId.toString()));
     } else {}
   }
 }

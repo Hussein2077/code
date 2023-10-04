@@ -15,17 +15,10 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_fol
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/tab_view_body.dart';
 
-class FollowingScreen extends StatefulWidget {
-  const FollowingScreen({super.key});
+class FollowingScreen extends StatelessWidget {
+   FollowingScreen({super.key});
 
-  @override
-  State<FollowingScreen> createState() => _FollowingScreenState();
-}
-
-class _FollowingScreenState extends State<FollowingScreen> {
   List<MomentModel>? tempData = [];
-
-
 
   @override
   Widget build(BuildContext context) {

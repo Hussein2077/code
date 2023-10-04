@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -8,7 +10,6 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/comments/moment_comments_screen.dart';
-import 'package:tik_chat_v2/features/moment/presentation/componants/comments/widgets/comment_textfield.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/moment_giftbox_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/likes/moment_likes_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
@@ -71,11 +72,16 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                           MakeMomentLikeStates>(
                         listener: (context, state) {
                           if (state is MakeMomentLikeSucssesState) {
-                            MomentController.likeReverce(
+                            MomentController().likeReverce(
                                 MomentController.selectedMoment);
-                            MomentController.likecounter(
+                            MomentController().likecounter(
                               MomentController.selectedMoment,);
+                            log(' MomentController.selectedMoment${ MomentController.selectedMoment}');
+                            log(' MomentController.selectedMoment${ likeNotifierCounter}');
+
                             likeNotifierCounter.value++;
+                            log(' MomentController.selectedMoment${ likeNotifierCounter}');
+
                           }
                         },
                         child: ValueListenableBuilder(

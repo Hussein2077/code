@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_use
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/moment_controller.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
+
 import 'widgets/moment_comment_row.dart';
 
 class MomentCommentsScreen extends StatefulWidget {
@@ -75,26 +76,37 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
       },
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Container(
+          child: SizedBox(
             height: ConfigSize.screenHeight!,
             child: Stack(
               children: [
                 Column(
                   children: [
                     SizedBox(
-                      height: ConfigSize.defaultSize! * 19,
+                      height: ConfigSize.defaultSize! * 3,
                     ),
+                    Row(
+                      children: [
+                        const Spacer(flex: 1,),
+                        IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_back_ios)),
+                        const Spacer(flex: 4,),
+                        Text(StringManager.comments,style: Theme.of(context).textTheme.titleLarge,),
+                        const Spacer(flex: 5,),
+                      ],
+                    ),
+
+
                     BlocBuilder<GetMomentCommentBloc, GetMomentCommentState>(
                       builder: (context, state) {
                         if (state is GetMomentCommentSucssesState) {
                           commentListtemp = state.data;
                           return SizedBox(
                             width: ConfigSize.screenWidth!,
-                            height: ConfigSize.screenHeight! * 0.78,
+                            height: ConfigSize.screenHeight! * 0.88,
                             child: Column(
                               children: [
                                 Container(
-                                  height: ConfigSize.screenHeight! * 0.7,
+                                  height: ConfigSize.screenHeight! * 0.82,
                                   padding: EdgeInsets.only(
                                     left: ConfigSize.defaultSize!,
                                     right: ConfigSize.defaultSize!,
@@ -134,16 +146,16 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                         } else if (state is GetMomentCommentLoadingState) {
                           if (commentListtemp!.isEmpty) {
                             return SizedBox(
-                                height: ConfigSize.screenHeight! * 0.78,
+                                height: ConfigSize.screenHeight! * 0.88,
                                 child: const LoadingWidget());
                           } else {
                             return SizedBox(
                               width: ConfigSize.screenWidth!,
-                              height: ConfigSize.screenHeight! * 0.78,
+                              height: ConfigSize.screenHeight! * 0.88,
                               child: Column(
                                 children: [
                                   Container(
-                                      height: ConfigSize.screenHeight! * 0.7,
+                                      height: ConfigSize.screenHeight! * 0.82,
                                       padding: EdgeInsets.only(
                                         left: ConfigSize.defaultSize!,
                                         right: ConfigSize.defaultSize!,

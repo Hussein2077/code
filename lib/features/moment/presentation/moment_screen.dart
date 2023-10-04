@@ -125,7 +125,7 @@ class MomentScreenState extends State<MomentScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                        FollowingScreen(),
+                         FollowingScreen(),
                          const LikedScreen(),
                         MyMomentsScreen(
 

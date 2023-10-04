@@ -30,6 +30,8 @@ class TabViewBody extends StatelessWidget {
             ifAbsent: () =>
             momentModelList[i].isLike,
           );
+          log('favorites${ MomentController.favorites}');
+
           MomentController.favoritesCount.update(
             momentModelList[i].momentId,
                 (existingValue) => momentModelList[i].likeNum,
@@ -37,6 +39,7 @@ class TabViewBody extends StatelessWidget {
             momentModelList[i].likeNum,
 
           );
+          log('favoritesCount${ MomentController.favoritesCount}');
           MomentController.commentsOfMomentsMap.update(
             momentModelList[i].momentId,
                 (existingValue) => momentModelList[i].commentNum,

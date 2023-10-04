@@ -51,6 +51,7 @@ import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_use_
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_comment_usecase.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_likes_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/make_moment_like.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
@@ -65,6 +66,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_use
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
@@ -505,6 +507,7 @@ class ServerLocator {
 
                 getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
                 getIt.registerFactory(() => AddMomentCommentBloc(addMomentCommentUseCase:  getIt()));
+                getIt.registerFactory(() => GetMomentLikesBloc(getMomentLikeUseCase:  getIt()));
 
 
     
@@ -512,6 +515,7 @@ class ServerLocator {
 //usecase
 
     getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(() => GetMomentLikeUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => AddMomentCommentUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => SendCodeUseCase(baseRepository: getIt()));
