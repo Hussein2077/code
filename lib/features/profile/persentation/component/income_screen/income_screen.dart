@@ -67,7 +67,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                   onTap: () {
                     Navigator.pushNamed(context, Routes.cashWithdrawal);
                   },
-                  title: StringManager.withdrawal,
+                  title: StringManager.withdrawal.tr(),
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
                   if (state.myDataModel.myAgencyModel==null)
