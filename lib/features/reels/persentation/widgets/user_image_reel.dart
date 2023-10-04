@@ -30,7 +30,6 @@ class UserImageReel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(ReelsScreenState.followMap.toString()+"zzzzzzzzzzzzzzzz");
 
     return Stack(
       children: [

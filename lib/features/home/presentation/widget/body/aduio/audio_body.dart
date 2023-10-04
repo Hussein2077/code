@@ -56,8 +56,8 @@ class _AduioBodyState extends State<AduioBody> {
               topRight: Radius.circular(ConfigSize.defaultSize! * 4),
               topLeft: Radius.circular(ConfigSize.defaultSize! * 4))),
       child: LiquidPullToRefresh(
-        color: ColorManager.bage,
-        backgroundColor: ColorManager.mainColor,
+          color: ColorManager.bage,
+        backgroundColor: ColorManager.loadingColor,
         showChildOpacityTransition: false,
         onRefresh: () async {
           BlocProvider.of<GetRoomsBloc>(context).add(GetRoomsEvent(
