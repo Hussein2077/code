@@ -304,6 +304,7 @@ static const String video ='Video';
   static const String bullying = "Bullying";
   static const String violence = "Violence";
   static const String pleaseAddDetiels = "Please Add Detiels";
+  static const String enterYourImage = "Enter Image for more details";
   static const String unFollow = "UnFollow";
   static const String sucsses = "Sucsses";
   static const String video_size_error = "Please Upload Video Less Than 3 Minutes";
@@ -455,6 +456,7 @@ static const String video ='Video';
     static const String addAComment = 'Add a comment...';
     static const String reelsView = 'Reels View';
     static const String empty = 'Empty';
+    static const String coinsIsEmpty = 'Coins is Empty';
       static const String nowInRoom = "Now In Room";
 
     static const String theOtp = 'the otp you have entered is wrong';
