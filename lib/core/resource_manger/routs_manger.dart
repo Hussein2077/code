@@ -65,6 +65,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/room_handler/handler_room_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
+import 'package:tik_chat_v2/features/room_video/presentaion/components/video_room_handler/video_handler_room_screen.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
 
@@ -127,6 +128,7 @@ class Routes {
   static const String chargeAgencyOwnerHistory = "/ChargeAgencyOwnerHistory";
   static const String interstedScreen = "/interstedScreen";
   static const String roomHandler = '/roomHandler';
+  static const String videoRoomHandler = '/videoRoomHandler';
   static const String privacySettings = "/privicySettening";
   static const String webView = "/webView";
   static const String myVideosScreen = "/MyVideosScreen";
@@ -223,6 +225,9 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => SafeArea(
                 child: HandlerRoomScreen(roomPramiter: roomHandlerPramiter)));
+      case Routes.videoRoomHandler:
+        return MaterialPageRoute(
+            builder: (_) => VideoHandlerRoomScreen());
       case Routes.roomScreen:
         RoomPramiter roomPramiter = settings.arguments as RoomPramiter;
         return MaterialPageRoute(

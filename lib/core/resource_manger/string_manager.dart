@@ -15,6 +15,7 @@ class StringManager {
  static const String cachExtraLevelKey = 'ExtraLevel';
  static const String cachGiftKey ='chachGifts';
 static const String cachReelsKey ='cachReelsKey';
+static const String video ='Video';
 //shared
  static const String selectTimeFirst ='Select time frist';
  static const String appGift = "App Gift";

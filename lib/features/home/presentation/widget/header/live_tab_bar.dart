@@ -30,28 +30,14 @@ class _LiveTabBARState extends State<LiveTabBAR> {
       child: TabBar(
         
         indicatorColor: ColorManager.whiteColor,
-        indicatorPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*6),
-        controller: widget.liveController, tabs: [
-        // Row(
-        //   children: [
-        //      Text("${StringManager.live}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7),),
-        //     widget.liveController.index == 0
-        //         ? Image.asset(
-        //             AssetsPath.videoIcon,
-        //             scale: 2,
-        //           )
-        //         : Image.asset(
-        //             AssetsPath.unslectedVideoIcon,
-        //             scale: 2,
-        //           )
-        //   ],
-        // ),
+        indicatorPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
+        controller: widget.liveController,
+          tabs: [
         Row(
-mainAxisAlignment: MainAxisAlignment.center,
           children: [
              Text("${StringManager.appTitle.tr()} " ,
                  style: TextStyle(color: ColorManager.whiteColor ,
-                     fontSize: ConfigSize.defaultSize!*1.7)),
+                     fontSize: ConfigSize.defaultSize!*1.5)),
                  Image.asset(
                     AssetsPath.iconApp,
                     scale: 12,
@@ -59,6 +45,20 @@ mainAxisAlignment: MainAxisAlignment.center,
                
           ],
         ),
+            Row(
+              children: [
+                Text("${StringManager.live}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7),),
+                widget.liveController.index == 1
+                    ? Image.asset(
+                  AssetsPath.videoIcon,
+                  scale: 2,
+                )
+                    : Image.asset(
+                  AssetsPath.unslectedVideoIcon,
+                  scale: 2,
+                )
+              ],
+            ),
       ]),
     );
   }

@@ -108,4 +108,22 @@ class HomeRepostoryImp implements RepoHome{
       return Right(DioHelper.buildFailure(e));
     }
   }
+
+  @override
+  Future<Either<Failure, AllRoomsDataModel>> getAllRoomsVideo(
+      {int? countryId, int? classId, int? typeId, String? search, int? page ,
+        TypeGetRooms? typeGetRooms}) async {
+    try {
+      final failureOrDone = await homeRemoteDataSours.getAllRooms(
+          typeGetRooms: typeGetRooms,
+          page:  page,
+          countryId: countryId,
+          classId: classId,
+          typeId: typeId,
+          search: search);
+      return Right(failureOrDone);
+    } on Exception catch (e) {
+      return Left(DioHelper.buildFailure(e));
+    }
+  }
 }

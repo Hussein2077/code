@@ -29,5 +29,11 @@ abstract class RepoHome{
   Future<Either<Failure, String>> createroom(
       {CreateRoomPramiter creatRoomPramiter});
   Future<Either<List<AllMainClassesModel>,Failure>> getAllRoomTypes();
-
+  Future<Either<Failure, AllRoomsDataModel>> getAllRoomsVideo(
+      {int? countryId,
+        int? classId,
+        int? typeId,
+        String? search,
+        int? page,
+        TypeGetRooms? typeGetRooms});
 }
