@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -24,43 +24,60 @@ class ScreenOptions extends StatelessWidget {
   final Function(ReelModel)? onShare;
   final Function(int)? onLike;
   final Function(String)? onComment;
-  final Function(int,int)? onClickMoreBtn;
-  final Function(String,bool)? onFollow;
+  final Function(int, int)? onClickMoreBtn;
+  final Function(String, bool)? onFollow;
   final bool? userView;
-  final bool? isFollowed ;
+  final bool? isFollowed;
 
-  const ScreenOptions({
-    Key? key,
-    required this.item,
-    this.showVerifiedTick = true,
-    this.onClickMoreBtn,
-    this.onComment,
-    this.onFollow,
-    this.onLike,
-    this.onShare,
-    this.userView,
-    this.isFollowed
-  }) : super(key: key);
+  const ScreenOptions(
+      {Key? key,
+      required this.item,
+      this.showVerifiedTick = true,
+      this.onClickMoreBtn,
+      this.onComment,
+      this.onFollow,
+      this.onLike,
+      this.onShare,
+      this.userView,
+      this.isFollowed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<ReelCommentModel>? commentListtemp;
     return Padding(
-        padding:  EdgeInsets.all(ConfigSize.defaultSize!*0.8),
+        padding: EdgeInsets.all(ConfigSize.defaultSize! * 0.8),
         child: Column(
           children: [
             if (item.userImage != null)
-              UserImageReel(image: item.userImage!,isFollowed: isFollowed, userId:item.userId! ,onFollow: onFollow, ),
+              UserImageReel(
+                image: item.userImage!,
+                isFollowed: item.isFollow,
+                userId: item.userId!,
+                onFollow: onFollow,
+              ),
             if (item.userImage == null)
-               CircleAvatar(
+              CircleAvatar(
                 radius: 16,
-                child: Icon(Icons.person, size: ConfigSize.defaultSize!*1.8),
+                child: Icon(Icons.person, size: ConfigSize.defaultSize! * 1.8),
               ),
             SizedBox(height: ConfigSize.defaultSize),
-            if (userView == null)
-              if (onLike != null &&
-                  (!item.likeExists! &&
-                      !ReelsScreenState.likedVideos.contains(item.id)))
+
+            if (userView == false)
+              if (onLike != null)
+                if (!ReelsScreenState.likedVideos[item.id.toString()]!)
+                  IconButton(
+                    icon: Icon(
+                      CupertinoIcons.heart_solid,
+                      color: Colors.white,
+                      size: ConfigSize.defaultSize! * 4,
+                    ),
+                    onPressed: () => onLike!(item.id!),
+                  ),
+            //User View
+            if (userView == true)
+              if (onLike != null )
+                if (!ReelsBox.likedVideos[item.id.toString()]!)
                 IconButton(
                   icon: Icon(
                     CupertinoIcons.heart_solid,
@@ -69,20 +86,8 @@ class ScreenOptions extends StatelessWidget {
                   ),
                   onPressed: () => onLike!(item.id!),
                 ),
-            if (userView == true)
-              if (onLike != null &&
-                  (!UserReelViewState.likedVideos.contains(item.id)))
-                IconButton(
-                  icon: Icon(
-                    CupertinoIcons.heart_solid,
-                    color: Colors.white,
-                    size: ConfigSize.defaultSize! * 4,
-                  ),
-                  onPressed: () => onLike!(item.id!),
-                ),
-            if (userView == null)
-              if (
-                  ReelsScreenState.likedVideos.contains(item.id))
+            if (userView == false)
+              if (ReelsScreenState.likedVideos[item.id.toString()]!)
                 IconButton(
                   icon: Icon(
                     CupertinoIcons.heart_solid,
@@ -91,8 +96,9 @@ class ScreenOptions extends StatelessWidget {
                   ),
                   onPressed: () => onLike!(item.id!),
                 ),
+            //User View
             if (userView == true)
-              if (UserReelViewState.likedVideos.contains(item.id))
+              if (ReelsBox.likedVideos[item.id.toString()]!)
                 IconButton(
                   icon: Icon(
                     CupertinoIcons.heart_solid,
@@ -101,28 +107,14 @@ class ScreenOptions extends StatelessWidget {
                   ),
                   onPressed: () => onLike!(item.id!),
                 ),
-            userView == null  
+            userView == false
                 ? Text(
-                    (!item.likeExists! &&
-                            ReelsScreenState.likedVideos.contains(item.id))
-                        ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
-                        : (item.likeExists! &&
-                                !ReelsScreenState.likedVideos
-                                    .contains(item.id))
-                            ? NumbersToShort.convertNumToShort(
-                                item.likeNum! - 1)
-                            : NumbersToShort.convertNumToShort(item.likeNum!),
+                    NumbersToShort.convertNumToShort(
+                        ReelsScreenState.likedVideoCount[item.id.toString()]!),
                     style: const TextStyle(color: Colors.white))
                 : Text(
-                    (!item.likeExists! &&
-                            UserReelViewState.likedVideos.contains(item.id))
-                        ? NumbersToShort.convertNumToShort(item.likeNum! + 1)
-                        : (item.likeExists! &&
-                                !UserReelViewState.likedVideos
-                                    .contains(item.id))
-                            ? NumbersToShort.convertNumToShort(
-                                item.likeNum! - 1)
-                            : NumbersToShort.convertNumToShort(item.likeNum!),
+                    NumbersToShort.convertNumToShort(
+                        ReelsBox.likedVideoCount[item.id.toString()]!),
                     style: const TextStyle(color: Colors.white)),
             SizedBox(height: ConfigSize.defaultSize),
             IconButton(
@@ -187,7 +179,7 @@ class ScreenOptions extends StatelessWidget {
             if (onClickMoreBtn != null)
               IconButton(
                 icon: const Icon(Icons.more_vert),
-                onPressed:  () => onClickMoreBtn!(item.id!,item.userId!),
+                onPressed: () => onClickMoreBtn!(item.id!, item.userId!),
                 color: Colors.white,
               ),
           ],

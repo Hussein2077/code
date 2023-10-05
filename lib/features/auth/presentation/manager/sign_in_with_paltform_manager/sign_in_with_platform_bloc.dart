@@ -24,8 +24,7 @@ class SignInWithPlatformBloc
       final result = await signInWithGoogleUC.call(const Noparamiter());
       result.fold(
           (l) => emit(SiginWithGoogleSuccesMessageState(userData: l)),
-          (r) => emit(SiginWithGoogleErrorMessageState(
-              errorMessage: DioHelper().getTypeOfFailure(r))));
+          (r) => emit(SiginWithGoogleErrorMessageState(errorMessage: DioHelper().getTypeOfFailure(r))));
     });
     on<SiginAppleEvent>(SiginWithApple);
 
@@ -34,8 +33,8 @@ class SignInWithPlatformBloc
     emit(const SiginWithPlatFormLoadingState());
     final signinOrFailur = await signInWithAppleUC.call(const Noparamiter());
     signinOrFailur.fold(
-            (l) => emit( SiginWithFacebookSuccesMessageState(succesMessage:"Sign In Succesfully",userModel: l)),
-            (r) => emit(SiginWithFacebookErrorMessageState(errorMessage: DioHelper().getTypeOfFailure(r))));
+            (l) => emit(SiginWithAppleSuccesMessageState(succesMessage:"Sign In Succesfully",userModel: l)),
+            (r) => emit(SiginWithAppleErrorMessageState(errorMessage: DioHelper().getTypeOfFailure(r))));
 
 
 

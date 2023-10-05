@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 // Project imports:
@@ -25,7 +25,7 @@ import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/seat/plugins.d
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/seat/seat_manager.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/logger_service.dart';
-import '../../../../features/room/presentation/Room_Screen.dart';
+import '../../../../features/room_audio/presentation/Room_Screen.dart';
 
 
 /// user and sdk should be login and init before page enter

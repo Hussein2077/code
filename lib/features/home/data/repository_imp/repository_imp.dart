@@ -11,7 +11,7 @@ import 'package:tik_chat_v2/features/home/data/model/user_rank_model.dart';
 import 'package:tik_chat_v2/features/home/domin/repository/rebostory_ab.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/creat_room_usecase.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
-import 'package:tik_chat_v2/features/room/data/model/all_main_classes_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/all_main_classes_model.dart';
 
 
 
@@ -106,6 +106,24 @@ class HomeRepostoryImp implements RepoHome{
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AllRoomsDataModel>> getAllRoomsVideo(
+      {int? countryId, int? classId, int? typeId, String? search, int? page ,
+        TypeGetRooms? typeGetRooms}) async {
+    try {
+      final failureOrDone = await homeRemoteDataSours.getAllRooms(
+          typeGetRooms: typeGetRooms,
+          page:  page,
+          countryId: countryId,
+          classId: classId,
+          typeId: typeId,
+          search: search);
+      return Right(failureOrDone);
+    } on Exception catch (e) {
+      return Left(DioHelper.buildFailure(e));
     }
   }
 }

@@ -95,7 +95,7 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
 
   @override
   void dispose() {
-     controller!.clearCache(); // Clear the WebView cache.
+     controller?.clearCache(); // Clear the WebView cache.
      controller = null;
     super.dispose();
   }

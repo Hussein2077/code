@@ -1,13 +1,19 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_info_row.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_info_row.dart';
+
 
 class MomentAppBar extends StatefulWidget{
-final MomentModel momentModel;
+ final MomentModel momentModel;
    const MomentAppBar({super.key,
      required this.momentModel,
   });
@@ -17,22 +23,24 @@ final MomentModel momentModel;
 }
 
 class _MomentAppBarState extends State<MomentAppBar> {
+
+
   List<String> global = [];
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: ConfigSize.screenWidth!,
-      height: ConfigSize.defaultSize!*10,
+      height: ConfigSize.defaultSize!*8,
       child:
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
               width: ConfigSize.defaultSize!*35,
-              height: ConfigSize.defaultSize!*10,
+              height: ConfigSize.defaultSize!*5,
               child: MomentInfoRow(
-            momentModel: widget.momentModel, comment: false,
+            momentModel: widget.momentModel,
               )),
           SizedBox(
             width: ConfigSize.defaultSize! * 4,
@@ -44,6 +52,13 @@ class _MomentAppBarState extends State<MomentAppBar> {
                   size:ConfigSize.defaultSize! *2.5,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
+                dropdownDecoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.5),
+borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+                  border: Border.all(color: Colors.white,),
+
+                ),
+
                 items: [
                   ...MenuItems.firstItems.map(
                         (item) => DropdownMenuItem<MenuItem>(
@@ -51,47 +66,18 @@ class _MomentAppBarState extends State<MomentAppBar> {
                       child: MenuItems.buildItem(item),
                     ),
                   ),
-
                 ],
                 onChanged: (value) {
-                  MenuItems.onChanged(context, value!);
+                  MenuItems.onChanged(context, value!,widget.momentModel.momentId.toString(),
+                    widget.momentModel.userId.toString()
+                  );
+
                 },
                 dropdownWidth: ConfigSize.defaultSize!*12,
 
-
               ),
             ),
-
-
           ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         ],
       ),
@@ -120,15 +106,15 @@ abstract class MenuItems {
   static Widget buildItem(MenuItem item) {
     return Row(
       children: [
-        Icon(item.icon, color: Colors.white, size: 22),
+        Icon(item.icon, color: Colors.red.withOpacity(0.8), size: 22),
          SizedBox(
           width: ConfigSize.defaultSize!,
         ),
         Expanded(
           child: Text(
             item.text,
-            style: const TextStyle(
-              color: Colors.white,
+            style:  TextStyle(
+              color: Colors.red.withOpacity(0.8),
             ),
           ),
         ),
@@ -136,11 +122,12 @@ abstract class MenuItems {
     );
   }
 
-  static void onChanged(BuildContext context, MenuItem item) {
+  static void onChanged(BuildContext context, MenuItem item,String momentId,String userId) {
     if (item == delete) {
-      // Do something for delete
+      BlocProvider.of<DeleteMomentBloc>(context).add(DeleteMomentEvent(momentId: momentId ));
+      BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent( userId: userId ));
     } else if (item == report) {
-      // Do something for report
+      //BlocProvider.of<DeleteMomentBloc>(context).add(DeleteMomentEvent(momentId: momentId ));
     }
   }
 }

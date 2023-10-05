@@ -9,12 +9,15 @@ class StringManager {
       "Tik Chat recommends that you update to the latest version You can keep enjoy the app while downloading the update";
  // cach keys
  static const String cacheFrameKey = 'Frame';
- static const String cacheEmojieKey = 'Emojie';
+  static const String hasJoin = "has joined";
+
+  static const String cacheEmojieKey = 'Emojie';
  static const String cacheEntroKey = 'Entro';
  static const String cachExtraKey = 'Extra';
  static const String cachExtraLevelKey = 'ExtraLevel';
  static const String cachGiftKey ='chachGifts';
 static const String cachReelsKey ='cachReelsKey';
+static const String video ='Video';
 //shared
  static const String selectTimeFirst ='Select time frist';
  static const String appGift = "App Gift";
@@ -160,6 +163,7 @@ static const String cachReelsKey ='cachReelsKey';
   static const String use = "Use";
   static const String send = "Send";
   static const String buy = "Buy";
+  static const String test = "test";
   static const String levelMissions = "Level missions";
   static const String knight = "Kinght";
   static const String baron = "Baron";
@@ -303,8 +307,10 @@ static const String cachReelsKey ='cachReelsKey';
   static const String bullying = "Bullying";
   static const String violence = "Violence";
   static const String pleaseAddDetiels = "Please Add Detiels";
+  static const String enterYourImage = "Enter Image for more details";
   static const String unFollow = "UnFollow";
   static const String sucsses = "Sucsses";
+  static const String video_size_error = "Please Upload Video Less Than 3 Minutes";
   static const String linked = "Linked";
   static const String pleaseEnterNewPhoneNum = 'Please Enter New Phone Number';
   static const String pleaseEnterPassword = 'Please Enter Password';
@@ -384,11 +390,11 @@ static const String cachReelsKey ='cachReelsKey';
  static const String leaveSeat = "take off seat";
  static const String areYouSureLeaveSeat = "Are you sure to leave seat";
  static const String ok = "ok";
- static const String unMuteMic = "UnMute mic";
- static const String muteMic = "Mute mic";
- static const String unLockSeat = "UnLockSeat";
- static const String lockSeat = "LockSeat";
- static const String showDetails = "Show details";
+ static const String unMuteMic = "الغاء كتم المقعد";
+ static const String muteMic = "كتم المقعد";
+ static const String unLockSeat = "الغاء غلق المقعد";
+ static const String lockSeat = "غلق المقعد";
+ static const String showDetails = "اظهر التفاصيل";
  static const String privilegeVip6 = "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
  static const String active = "Active";
  static const String updateScssfuly = "update Sucessfully";
@@ -453,6 +459,7 @@ static const String cachReelsKey ='cachReelsKey';
     static const String addAComment = 'Add a comment...';
     static const String reelsView = 'Reels View';
     static const String empty = 'Empty';
+    static const String coinsIsEmpty = 'Coins is Empty';
       static const String nowInRoom = "Now In Room";
 
     static const String theOtp = 'the otp you have entered is wrong';
@@ -470,10 +477,12 @@ static const String cachReelsKey ='cachReelsKey';
  static const String addComment = "Add comment";
  static const String addMoment = "Add Moment";
  static const String addMoment1 = "Add moment ...";
+ static const String thisMoment = "this moment has no likes yet";
 
- static const String followingtab = "Following";
- static const String likedTab = "Liked";
- static const String momentsTab = "Moments";
+ static const String momentTab = "Moments";
+ static const String likes = "Liked";
+ static const String followingTab = "Following";
+ static const String myMomentsTab = "My moments";
 
 
 
@@ -756,4 +765,12 @@ static const String cachReelsKey ='cachReelsKey';
   "قحبة",
   "لبوة"
  ];
+
+ //games links
+ static const String teenPatti = "http://twistfuture.com/dragon_chat/DragonChat/index.html?&sound=1&gametype=1&token=";
+ static const String roulette = "http://twistfuture.com/dragon_chat/DragonChat/index.html?sound=1&gametype=2&token=";
+ static const String carRace = "http://twistfuture.com/dragon_chat/DragonChat/index.html?sound=1&gametype=3&token=";
+ static const String updown = "http://twistfuture.com/dragon_chat/DragonChat/index.html?sound=1&gametype=4&token=";
+ static const String ludo = "http://www.twistfuture.com/dragon_chat/DragonChatLudo/index.html?sound=1&token=";
+
 }

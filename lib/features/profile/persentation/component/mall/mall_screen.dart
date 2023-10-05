@@ -73,14 +73,16 @@ mallController.dispose();    super.dispose();
                       MallTabView(
                         dataMall: state.framesMall,
                         dataMallMessage: state.frameMallMessage,
-                        stateRequest: state.frameMallRequest,
+                        stateRequest: state.frameMallRequest, type: 'f',
                       ),
                       MallTabView(
+                        type: 'c',
                         dataMall: state.carsMall,
                         dataMallMessage: state.carMallMessage,
                         stateRequest: state.carMallRequest,
                       ),
                       MallTabView(
+                        type: 'b',
                         dataMall: state.bubblesMall,
                         dataMallMessage: state.bubbleMallMessage,
                         stateRequest: state.bubbleMallRequest,

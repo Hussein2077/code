@@ -93,6 +93,8 @@ class AssetsPath {
 
   //icons
   static const String pk1 = "$pathIcon/pk2.png";
+  static const String appleIcon ="$pathIcon/apple_logo.png" ;
+  static const String stripeIcon ="$pathIcon/stripe_logo.png" ;
   static const String muteSeatGreen = "$pathIcon/muteIcon.png";
   static const String adminMark = "$pathIcon/admin-mark.png";
   static const String iconShare = "$pathIcon/share.png";
@@ -240,7 +242,10 @@ class AssetsPath {
   static const String music2 = "$pathIcon/music.png";
   static const String myVideos = "$pathImage/my_videos.jpeg";
     static const String defaultImage = "$pathImage/Facebook_default_male_avatar.gif";
-
+  static const String likeIcon = "$pathIcon/likeicon.png";
+  static const String commentIcon = "$pathIcon/commentIcon.png";
+  static const String giftMoment = "$pathIcon/giftmoment.png";
+  static const String editIcon = "$pathIcon/editicon.png";
 
 
   

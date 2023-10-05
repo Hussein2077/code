@@ -3,35 +3,41 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tik_chat_v2/core/model/video_cache_model.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 
 
 class VideoCacheManager {
   SharedPreferences? _preferences;
-  Map<String, List<String>> _cacheMap = {};
+  final Map<String, List<VideoCacheModel>> _cacheMap = {};
 
-  Map<String, List<String>> get cacheMap => _cacheMap ;
+  Map<String, List<VideoCacheModel>> get cacheMap => _cacheMap ;
   Future<void> init() async {
     _preferences = await SharedPreferences.getInstance();
-    final cachedKeys = _preferences!.getStringList('video_cache_keys');
+    final cachedKeys = _preferences!.getStringList('reels_cache_keys');
     if (cachedKeys != null) {
+      List<VideoCacheModel> finalList = [];
       for (final key in cachedKeys) {
-        final videoUrls = _preferences!.getStringList('video_cache_$key');
-        if (videoUrls != null) {
-          _cacheMap[key] = videoUrls;
+        final videoUrl = _preferences!.getString('video_cache_reel_$key');
+        final imgUrl = _preferences!.getString('img_cache_reel_$key');
+        VideoCacheModel video = VideoCacheModel(img: imgUrl!, url: videoUrl!);
+        finalList.add(video);
+        if (finalList.isNotEmpty) {
+          _cacheMap[key] = finalList;
         }
       }
     }
   }
 
-  Future<void> cacheVideo(String videoUrl, String cacheKey) async {
+  Future<void> cacheVideo(VideoCacheModel video, String cacheKey) async {
 
     final cacheManager =  getIt<DefaultCacheManager>() ;
-    await cacheManager.downloadFile(videoUrl);
+    await cacheManager.downloadFile(video.url);
+    await cacheManager.downloadFile(video.img);
     if (_cacheMap.containsKey(cacheKey)) {
-      _cacheMap[cacheKey]!.add(videoUrl);
+      _cacheMap[cacheKey]!.add(video);
     } else {
-      _cacheMap[cacheKey] = [videoUrl];
+      _cacheMap[cacheKey] = [video];
     }
 
     await _saveCacheMap();
@@ -46,7 +52,7 @@ class VideoCacheManager {
     if (_cacheMap.containsKey(cacheKey)) {
       final videoUrls = _cacheMap[cacheKey];
       for (final url in videoUrls!) {
-        await cacheManager.removeFile(url);
+        await cacheManager.removeFile(url.url);
       }
       _cacheMap.remove(cacheKey);
       await _saveCacheMap();
@@ -59,10 +65,13 @@ class VideoCacheManager {
 
   Future<void> _saveCacheMap() async {
     final keys = _cacheMap.keys.toList();
-    await _preferences!.setStringList('video_cache_keys', keys);
+    await _preferences!.setStringList('reels_cache_keys', keys);
     for (final key in keys) {
       final videoUrls = _cacheMap[key];
-      await _preferences!.setStringList('video_cache_$key', videoUrls!);
+      for(int i = 0; i < videoUrls!.length; i++) {
+        await _preferences!.setString('video_cache_reel_$key', videoUrls[i].url);
+        await _preferences!.setString('img_cache_reel_$key', videoUrls[i].img);
+      }
     }
   }
 }

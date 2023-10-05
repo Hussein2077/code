@@ -51,7 +51,7 @@ class ReelsViewer extends StatefulWidget {
 
 
    // to know iam in user view or not
-  final bool? userView; 
+  final bool userView; 
 
    const ReelsViewer({
     Key? key,
@@ -68,7 +68,7 @@ class ReelsViewer extends StatefulWidget {
     this.onIndexChanged,
     this.showProgressIndicator =true,
     this.startIndex ,
-    this.userView,
+   required this.userView,
   }) : super(key: key);
 
   @override
@@ -93,7 +93,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black26,
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: SizedBox(
           

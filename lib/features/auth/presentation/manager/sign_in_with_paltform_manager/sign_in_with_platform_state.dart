@@ -42,3 +42,17 @@ final AuthWithGoogleModel userData ;
   const SiginWithGoogleSuccesMessageState({   required this.userData});
 
 }
+
+class SiginWithAppleSuccesMessageState extends SignInWithPlatformState{
+  final String succesMessage ;
+  final MyDataModel userModel ;
+
+  const SiginWithAppleSuccesMessageState({ required this.userModel, required this.succesMessage});
+
+}
+class SiginWithAppleErrorMessageState extends SignInWithPlatformState{
+  final String errorMessage ;
+
+  const SiginWithAppleErrorMessageState({required this.errorMessage});
+
+}

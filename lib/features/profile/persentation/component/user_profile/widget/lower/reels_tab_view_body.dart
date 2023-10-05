@@ -1,19 +1,13 @@
 
 import 'dart:developer';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
-import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/lower/lower_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
 
 class ReelsTabView extends StatefulWidget {
@@ -30,10 +24,20 @@ class _ReelsTabViewState extends State<ReelsTabView> {
     final ScrollController scrollController = ScrollController();
     @override
      void initState() {
+    if(LowerProfileBody.getUserReels){
+       BlocProvider.of<GetUserReelsBloc>(context)
+          .add(GetUserReelEvent(id:  widget.userDataModel.id.toString()));
+    }
+     
     scrollController.addListener(scrollListener);
 
     
     super.initState();
+  }
+  @override
+  void dispose() {
+      LowerProfileBody.getUserReels = false ;
+    super.dispose();
   }
 
   @override

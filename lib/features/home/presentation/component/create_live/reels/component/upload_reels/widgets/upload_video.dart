@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/view.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/trim_view.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -57,8 +57,8 @@ class UploadVideoState extends State<UploadVideo> {
             : 
       
        Container(
-      width: MediaQuery.of(context).size.width / 2,
-      height: ConfigSize.defaultSize! * 25,
+      width: MediaQuery.of(context).size.width / 2.5,
+      height: ConfigSize.defaultSize! * 15,
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).colorScheme.primary),
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),

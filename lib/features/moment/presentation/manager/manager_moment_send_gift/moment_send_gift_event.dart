@@ -1,6 +1,4 @@
-
 import 'package:equatable/equatable.dart';
-import 'package:tik_chat_v2/features/moment/domain/use_case/moment_send_gift.dart';
 
 abstract class BaseMomentSendGiftEvent extends Equatable {
   const BaseMomentSendGiftEvent();
@@ -10,6 +8,15 @@ abstract class BaseMomentSendGiftEvent extends Equatable {
 }
 
 class MomentSendGiftEvent extends BaseMomentSendGiftEvent {
-  final MomentSendGiftPrameter momentSendGiftPrameter ;
-  const MomentSendGiftEvent({required this.momentSendGiftPrameter});
+
+final String momentId;
+final int giftNum;
+final int giftId;
+// final MomentSendGiftPrameter momentSendGiftPrameter;
+const MomentSendGiftEvent( {
+// required this.momentSendGiftPrameter,
+required this.momentId,
+required this.giftNum,
+required this.giftId,
+});
 }

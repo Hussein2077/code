@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:persian_linear_date_picker/persian_linear_date_picker.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
@@ -71,10 +72,26 @@ class _DateWidgetState extends State<DateWidget> {
                 )),
           );
         },
-        child: Text(
-          DateWidget.selectedDatee,
-          style: TextStyle(
-              fontSize: ConfigSize.defaultSize! * 1.9, color: Colors.grey),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
+          width: MediaQuery.of(context).size.width - 50,
+          height: ConfigSize.defaultSize! * 6,
+          decoration: BoxDecoration(
+              color: ColorManager.lightGray,
+              borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 3)),
+          child: Row(
+            children: [
+              const Icon(Icons.date_range , color: Colors.grey,),
+              SizedBox(width: ConfigSize.defaultSize,),
+              Text(
+                DateWidget.selectedDatee,
+                style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.9, color: Colors.grey),
+              ),
+              const Spacer(),
+              const Icon(Icons.keyboard_arrow_down , color: Colors.grey,),
+            ],
+          ),
         ));
   }
 }

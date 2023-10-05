@@ -10,7 +10,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 
 // Package imports:
 import 'package:tik_chat_v2/core/utils/Config_Size.dart';
-import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/seat/seat_manager.dart';
 

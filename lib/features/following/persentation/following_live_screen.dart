@@ -8,7 +8,6 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
-import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_state.dart';
@@ -50,7 +49,7 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
     return Scaffold(
         //backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.background,
           bottom: TabBar(
             indicatorColor: ColorManager.orang,
             indicatorSize: TabBarIndicatorSize.label,
@@ -62,9 +61,9 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               Text(
-                StringManager.momentsTab.tr(),
+                StringManager.momentTab.tr(),
                 style: Theme.of(context).textTheme.headlineLarge,
-              ),
+          ),
             ],
           ),
         ),
@@ -78,8 +77,8 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
                     children: [
                       SizedBox(height: ConfigSize.defaultSize!*2,),
                       LiquidPullToRefresh(
-                        color: ColorManager.bage,
-                        backgroundColor: ColorManager.mainColor,
+                color: ColorManager.bage,
+        backgroundColor: ColorManager.loadingColor,
                         showChildOpacityTransition: false,
                         onRefresh: () async {
                           BlocProvider.of<GetFollwersRoomBloc>(context)
@@ -121,8 +120,16 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
                 } else if (state is GetFollwersRoomLoadingState) {
                   return const LoadingWidget();
                 } else {
-                  return const CustomErrorWidget(
-                      message: StringManager.unexcepectedError);
+                  return  LiquidPullToRefresh(
+                      color: ColorManager.bage,
+                      backgroundColor: ColorManager.mainColor,
+                      showChildOpacityTransition: false,
+                      onRefresh: () async {
+                        BlocProvider.of<GetFollwersRoomBloc>(context)
+                            .add(const GetFollwersRoomEvent(type: "5"));
+                      },
+                    child :const CustomErrorWidget(
+                      message: StringManager.unexcepectedError));
                 }
               },
             ),

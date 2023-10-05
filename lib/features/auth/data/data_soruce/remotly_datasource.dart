@@ -172,19 +172,23 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   @override
   Future<AuthWithGoogleModel> sigInWithGoogle() async{
 
+    print("1");
   
     // ignore: no_leading_underscores_for_local_identifiers
     final _googleSignIn = GoogleSignIn(scopes: ['email']);
     Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
 
+    print("2");
     // // ignore: unused_element
     // Future logout() => _googleSignIn.disconnect();
     final userModel = await login();
 
+    print("3");
 
     final devicedata = await DioHelper().initPlatformState(); // to get information device
      Map<String, String> headers = await DioHelper().header();
 
+    print("4");
 
     if (userModel == null)
     {
@@ -212,6 +216,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       
         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+
         Methods().saveUserToken(authToken: userData.authToken);
 
         return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );
@@ -244,7 +249,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     final body =    {
       ConstentApi.type: "apple",
       ConstentApi.name: credential.givenName,
-      "apple_id":  credential.authorizationCode,
+      "apple_id": credential.authorizationCode,
+      'user_id': credential.userIdentifier,
       'device_token':devicedata
     };
     try{
@@ -257,12 +263,10 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ),
       );
 
-
       Map<String, dynamic> resultData = response.data;
 
-
-
       MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+
       Methods().saveUserToken(authToken: userData.authToken);
       return userData;
     }on DioError catch (e){

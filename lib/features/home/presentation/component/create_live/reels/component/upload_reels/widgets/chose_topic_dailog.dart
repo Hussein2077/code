@@ -22,6 +22,7 @@ class ChooseTopicDailog extends StatefulWidget {
 }
 
 class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
+
   @override
   void initState() {
     BlocProvider.of<GetUserInterstedBloc>(context).add(GetUserInterstedEvent());
@@ -49,7 +50,7 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
             child: BlocBuilder<GetAllInterstedBloc, GetAllInterstedState>(
               builder: (context, state) {
                   if (state is GetAllInterstedSucssesState){
-   return ListView.builder(
+                    return ListView.builder(
                     itemExtent: 50,
                     itemCount: state.data.length,
                     itemBuilder: (context, index) {
@@ -58,11 +59,13 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
                           setState(() {
                               if (UploadReelsScreenState.selectedIntrest.contains( state.data[index].id)){
                             UploadReelsScreenState.selectedIntrest.removeWhere((element) => element== state.data[index].id);
+                            UploadReelsScreenState.selectedTopics.removeWhere((element) => element== state.data[index].name);
                           }else {
                             UploadReelsScreenState.selectedIntrest.add(state.data[index].id!);
-                          }
+                            UploadReelsScreenState.selectedTopics.add(state.data[index].name!);
+                              }
                           });
-                        
+
                         },
                         child: topicRow(context: context, title: state.data[index].name! , selected:UploadReelsScreenState.selectedIntrest.contains( state.data[index].id) ));
                     });
@@ -81,6 +84,7 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
             child: MainButton(onTap: (){
+              UploadReelsScreenState.hashtag.value = !UploadReelsScreenState.hashtag.value;
               Navigator.pop(context);
             }, title: StringManager.done.tr()),
           )
@@ -91,34 +95,37 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
 }
 
 Widget topicRow({required BuildContext context, required String title , required bool selected}) {
-  return Container(
-    margin: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*2),
-    decoration: BoxDecoration(
-      gradient:selected? const LinearGradient(colors: ColorManager.mainColorList):null,
-      borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*2),
-      border: Border.all(color: Theme.of(context).colorScheme.primary)
-    ),
-    child: Row(
-      children: [
-        const Spacer(
-          flex: 1,
-        ),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        const Spacer(
-          flex: 15,
-        ),
-        Icon(
-          Icons.arrow_forward_ios,
-          color: Theme.of(context).colorScheme.primary,
-          size: ConfigSize.defaultSize! * 1.6,
-        ),
-        const Spacer(
-          flex: 1,
-        ),
-      ],
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Container(
+      margin: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*2),
+      decoration: BoxDecoration(
+        gradient:selected? const LinearGradient(colors: ColorManager.mainColorList):null,
+        borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*2),
+        border: Border.all(color: Theme.of(context).colorScheme.primary)
+      ),
+      child: Row(
+        children: [
+          const Spacer(
+            flex: 1,
+          ),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const Spacer(
+            flex: 15,
+          ),
+          Icon(
+            Icons.arrow_forward_ios,
+            color: Theme.of(context).colorScheme.primary,
+            size: ConfigSize.defaultSize! * 1.6,
+          ),
+          const Spacer(
+            flex: 1,
+          ),
+        ],
+      ),
     ),
   );
 }

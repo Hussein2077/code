@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/model/video_cache_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/cach_manager.dart';
@@ -29,15 +30,15 @@ import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_countr
 import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-import 'package:tik_chat_v2/features/room/data/model/emojie_model.dart';
-import 'package:tik_chat_v2/features/room/data/model/gifts_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
-import 'package:tik_chat_v2/features/room/domine/use_case/exist_room_uc.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/buttons/gifts/widgets/gift_view_biger.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/view_music/music_list.dart';
-import 'package:tik_chat_v2/features/room/presentation/room_screen_controler.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/exist_room_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_view_biger.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
@@ -99,7 +100,12 @@ class Methods {
         if(kDebugMode){
           log("ConstentApi().getImage(reels[i].url)${reels[i].url!}");
         }
-        getIt<VideoCacheManager>().cacheVideo(reels[i].url!,StringManager.cachReelsKey);
+        VideoCacheModel video = VideoCacheModel(
+            img: reels[i].img == null? "" : reels[i].img!,
+            url: reels[i].url!
+        );
+
+        getIt<VideoCacheManager>().cacheVideo(video,StringManager.cachReelsKey);
       }
 
     }

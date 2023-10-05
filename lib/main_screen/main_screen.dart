@@ -28,9 +28,11 @@ import 'package:tik_chat_v2/features/home/presentation/widget/country_dilog.dart
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
-import 'package:tik_chat_v2/features/room/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dart';
 import 'package:tik_chat_v2/splash.dart';
 
@@ -86,7 +88,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       vsync: this,
     )..repeat();
 
-
+    BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
 
     super.initState();
   }
@@ -226,6 +228,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   void initPusher()async {
     HomeScreen.pusherService.initPusher(
-        "3c3748161654c5c362dc","mt1");
+        "4fb9e086738157749a5a","eu");
   }
 }

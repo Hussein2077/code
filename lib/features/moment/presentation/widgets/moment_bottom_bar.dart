@@ -1,87 +1,177 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/comments/moment_comments_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/moment_giftbox_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/likes/moment_likes_screen.dart';
-import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/moment_controller.dart';
 
 
-class MomentBottomBar extends StatelessWidget{
+class MomentBottomBar extends StatefulWidget {
   final MomentModel momentModel;
   const MomentBottomBar({
     required this.momentModel,
-    super.key
+    super.key,
   });
 
   @override
+  State<MomentBottomBar> createState() => MomentBottomBarState();
+}
+
+class MomentBottomBarState extends State<MomentBottomBar> {
+  static ValueNotifier<int> commentsCounter = ValueNotifier<int>(0);
+  static ValueNotifier<int> likeNotifierCounter = ValueNotifier<int>(0);
+
+  @override
   Widget build(BuildContext context) {
-   return SizedBox(
-height: ConfigSize.defaultSize!*2,
-     child: Row(
-       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-       children: [
-         InkWell(
-           onTap: (){
-             BlocProvider.of<GetMomentLikesBloc>(context).add(GetMomentLikesEvent(momentId:momentModel.momentId.toString() ));
+    return BlocListener<AddMomentCommentBloc, AddMomentCommentState>(
+      listener: (context, state) {
+        if (state is AddMomentCommentSucssesState) {
+          MomentController.commentIncrement(widget.momentModel.momentId);
+          MomentBottomBarState.commentsCounter.value++;
+        } else if (state is AddMomentCommentErrorState) {
+          errorToast(context: context, title: state.error);
+        } else if (state is AddMomentCommentLoadingState) {
+          // loadingToast(context: context);
+        }
+      },
+      child: SizedBox(
+        height: ConfigSize.defaultSize! * 2,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            //the likes row
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    bottomDailog(
+                        context: context,
+                        widget: MomentsLikesScreen(
+                          momentId: widget.momentModel.momentId.toString(),
+                        ),
+                        color: Colors.white);
+                  },
+                  child: SizedBox(
+                    width: ConfigSize.defaultSize! * 6,
+                    child: Center(
+                      child: BlocListener<MakeMomentLikeBloc,
+                          MakeMomentLikeStates>(
+                        listener: (context, state) {
+                          if (state is MakeMomentLikeSucssesState) {
+                            MomentController().likeReverce(
+                                MomentController.selectedMoment);
+                            MomentController().likecounter(
+                              MomentController.selectedMoment,);
+                            log(' MomentController.selectedMoment${ MomentController.selectedMoment}');
+                            log(' MomentController.selectedMoment${ likeNotifierCounter}');
 
-             bottomDailog(context: context,
-             widget: MomentLikesScreen(momentModel:momentModel ,) ,
-             color: Theme.of(context).colorScheme.background);
-           },
-           child: Row(
-             children: [
-               //'likes number'
-               Text(momentModel.likeNum.toString(),style:Theme.of(context).textTheme.bodyLarge),
-             const Icon(Icons.favorite_border_rounded),
-             ],
-           ),
-         ),
+                            likeNotifierCounter.value++;
+                            log(' MomentController.selectedMoment${ likeNotifierCounter}');
 
-         InkWell(//Routes.momentCommentsScreen
-           onTap: (){
-             bottomDailog(context: context,
-
-                 widget: MomentCommentsScreen(momentModel: momentModel,) ,
-
-                 color: Theme.of(context).colorScheme.background);
-           },
-           child: Row(
-             children: [
-               //'message number'
-               Text(momentModel.commentNum.toString(),style:Theme.of(context).textTheme.bodyLarge),
-             const Icon(Icons.mode_comment_outlined),
-             ],
-           ),
-         ),
-
-         InkWell(
-           onTap: (){
-             bottomDailog(context: context,
-
-                 widget:
-                 //const SizedBox(),
-                  const MomentGiftboxScreen(
-
-
-                 ) ,
-                 color: Theme.of(context).colorScheme.background);
-           },
-           child: Row(
-             children: const [
-               //'likes number'
-              // Text('123',style:Theme.of(context).textTheme.bodyLarge),
-             Icon(Icons.card_giftcard_rounded),
-             ],
-           ),
-         ),
-       ],
-     ),
-   );
+                          }
+                        },
+                        child: ValueListenableBuilder(
+                          valueListenable: likeNotifierCounter,
+                          builder:
+                              (BuildContext context, int value, Widget? child) {
+                            return Text(
+                                MomentController
+                                    .favoritesCount[widget.momentModel.momentId]
+                                    .toString(),
+                                style: Theme.of(context).textTheme.bodyLarge);
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                ValueListenableBuilder<int>(
+                  valueListenable: likeNotifierCounter,
+                  builder: (context, likeCount, child) {
+                    return InkWell(
+                      onTap: () {
+                        MomentController.selectedMoment =
+                            widget.momentModel.momentId;
+                        BlocProvider.of<MakeMomentLikeBloc>(context).add(
+                            MakeMomentLikeEvent(
+                                momentId:
+                                    widget.momentModel.momentId.toString()));
+                      },
+                      child: Image.asset(
+                        AssetsPath.likeIcon,
+                        color:
+                        MomentController.favorites[widget.momentModel.momentId]!
+                                ? ColorManager.orang
+                                : Theme.of(context).colorScheme.secondary,
+                        scale: 0.1,
+                      ),
+                    );
+                  },
+                )
+              ],
+            ),
+            InkWell(
+              onTap: () {
+                bottomDailog(
+                    context: context,
+                    widget: MomentCommentsScreen(
+                      momentId: widget.momentModel.momentId.toString(),
+                    ),
+                    color: Theme.of(context).colorScheme.background);
+              },
+              child: Row(
+                //comment row
+                children: [
+                  ValueListenableBuilder(
+                    valueListenable: commentsCounter,
+                    builder: (BuildContext context, int value, Widget? child) {
+                      return SizedBox(
+                        width: ConfigSize.defaultSize! * 5,
+                        child: Center(
+                          child: Text(
+                              MomentController.commentsOfMomentsMap[
+                                      widget.momentModel.momentId]
+                                  .toString(),
+                              style: Theme.of(context).textTheme.bodyLarge),
+                        ),
+                      );
+                    },
+                  ),
+                  Image.asset(AssetsPath.commentIcon,
+                      color: Theme.of(context).colorScheme.secondary,
+                      scale: 0.1),
+                ],
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                bottomDailog(
+                    context: context,
+                    widget: MomentGiftboxScreen(
+                      myDataModel: MyDataModel(),
+                      momentId: widget.momentModel.momentId.toString(),
+                    ),
+                    color: Theme.of(context).colorScheme.background);
+              },
+              child: Image.asset(AssetsPath.giftMoment, scale: 0.1),
+            ),
+          ],
+        ),
+      ),
+    );
   }
-
-
 }

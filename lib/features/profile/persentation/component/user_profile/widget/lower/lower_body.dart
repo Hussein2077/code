@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_event.dart';
+
 import 'profile_tab_view_body.dart';
 import 'profile_tabs.dart';
 import 'reels_tab_view_body.dart';
@@ -16,6 +17,7 @@ import 'reels_tab_view_body.dart';
 class LowerProfileBody extends StatefulWidget {
     final UserDataModel userDataModel ;
      final bool myProfile; 
+     static bool getUserReels = true ; 
 
   const LowerProfileBody({required this.myProfile ,  required this.userDataModel ,  super.key});
 
@@ -27,9 +29,14 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
   late TabController profileController ; 
   @override
   void initState() {
+    LowerProfileBody.getUserReels = true ; 
         BlocProvider.of<GiftHistoryBloc>(context).add(GetGiftHistory(id: widget.userDataModel.id.toString()));
+        
 
     profileController = TabController(length: 2, vsync: this);
+    if(!widget.myProfile){
+      profileController.index=1;
+    }
     super.initState();
   }
   @override

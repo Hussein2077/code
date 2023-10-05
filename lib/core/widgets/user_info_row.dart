@@ -81,8 +81,7 @@ class UserInfoRow extends StatelessWidget {
                   isVip:  userData.hasColorName! ,
                 ),
                 SizedBox(
-                  width:
-                  underNameWidth ?? ConfigSize.screenWidth!-200,
+                  width: underNameWidth ?? ConfigSize.screenWidth!-150,
                   child: underName ??
                       Row(
 

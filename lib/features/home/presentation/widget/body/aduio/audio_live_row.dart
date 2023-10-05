@@ -11,7 +11,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/room_type_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/num_of_vistor.dart';
-import 'package:tik_chat_v2/features/room/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
 
 class AduioLiveRow extends StatelessWidget {
   final int style;
@@ -129,12 +129,14 @@ class AduioLiveRow extends StatelessWidget {
                           SizedBox(
                             width: ConfigSize.defaultSize,
                           ),
-                          CachedNetworkImage(
-                            imageUrl:
-                                ConstentApi().getImage(room.country!.flag),
+                          Text(room.country!,style: TextStyle(
+                            fontSize: 17
+                          )),
+                     /*CachedNetworkImage(
+                            imageUrl: room.country!,
                             width: ConfigSize.defaultSize! * 2.4,
                             height: ConfigSize.defaultSize! * 2.4,
-                          ),
+                          ),*/
                         ],
                       )
                     ],

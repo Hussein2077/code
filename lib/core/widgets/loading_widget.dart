@@ -26,10 +26,7 @@ class LoadingWidget extends StatelessWidget {
 
                         child: const TikTokLoadingAnimation()),
                   ),
-                   SizedBox(
-                    height: ConfigSize.defaultSize!*1.5,
-                  ),
-                  Text(StringManager.loading.tr(),style:Theme.of(context).textTheme.headlineLarge )
+        
 
                 ],
               ),

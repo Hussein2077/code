@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_card.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_method_dialog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_state.dart';
@@ -23,7 +26,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_co
 class CoinsTabView extends StatelessWidget {
   final String type;
 
-  const CoinsTabView({required this.type, super.key});
+  CoinsTabView({required this.type, super.key});
+
+  var coinPackageId;
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +73,13 @@ class CoinsTabView extends StatelessWidget {
                                ?BlocListener<BuyCoinsBloc,BuyCoinsState>(
                                child:InkWell(
                                  onTap: (){
-
-                                   BlocProvider.of<BuyCoinsBloc>(context).add(
-                                       BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID:state.data[index].id.toString() , paymentMethod: 'opay')));
+                                   if(Platform.isIOS){
+                                     coinPackageId = state.data[index].id.toString();
+                                     showAlertDialog(context);
+                                   }else{
+                                     BlocProvider.of<BuyCoinsBloc>(context).add(
+                                         BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID:state.data[index].id.toString() , paymentMethod: 'opay')));
+                                   }
                                  },
                                  child:Column(
                                    children: [
@@ -129,4 +138,12 @@ class CoinsTabView extends StatelessWidget {
       ],
     );
   }
+
+  showAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: coinPackageId,),
+    );
+  }
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/aduio/audio_body.dart';
+import 'package:tik_chat_v2/features/home/presentation/widget/body/video/video_body.dart';
 
 
 
@@ -14,11 +15,10 @@ class HomeBody extends StatelessWidget {
         
         controller: liveController,
         children:const [
-    
-    //  VideoBody(),
-     AduioBody()
-    
-      ]),
+          AduioBody(),
+          VideoBody()
+
+        ]),
     );
     
     

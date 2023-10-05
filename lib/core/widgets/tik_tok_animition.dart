@@ -160,7 +160,7 @@ class TikTokLoadingAnimationState extends State<TikTokLoadingAnimation> with Sin
           height: 18,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: ColorManager.mainColor,
+            color: ColorManager.loadingColor
           ),
           child: StreamBuilder(
             initialData: true,
