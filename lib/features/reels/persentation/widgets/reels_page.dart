@@ -68,7 +68,7 @@ class _ReelsPageState extends State<ReelsPage>{
 
     }
   }
-  
+
   Future initializePlayer() async {
 
 
