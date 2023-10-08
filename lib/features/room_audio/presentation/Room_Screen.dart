@@ -346,10 +346,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           RoomScreen.listOfMuteSeats.putIfAbsent(i, () => i);
         } else if (widget.room.seats![i] == "empty") {
         } else if (widget.room.seats![i]['id'] != null) {
-          UserOnMicModel myDataModel =
-              UserOnMicModel.fromJson(widget.room.seats![i]);
-          ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(
-              id: myDataModel.id.toString(), name: myDataModel.name.toString());
+          UserOnMicModel myDataModel = UserOnMicModel.fromJson(widget.room.seats![i]);
+          ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(id: myDataModel.id.toString(), name: myDataModel.name.toString());
           zegoUIKitUser.inRoomAttributes.value['uu'] = 'moooo';
           RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
         }
@@ -749,75 +747,19 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     //log('commandData.command'+commandData.command);
     if (result[messageContent] != null) {
       if (result[messageContent][message] == changeBackground) {
-        RoomScreen.imgbackground.value =
-            result[messageContent][imgBackgroundKey] ?? "";
-        roomImg = result[messageContent][roomImgKey];
-        roomIntro = result[messageContent][roomIntroKey];
-        roomName = result[messageContent][roomNameKey];
-        roomType = result[messageContent]['room_type'] ?? "";
-        RoomScreen.roomIsLoked = result[messageContent]['is_locked'];
-        RoomScreen.editRoom.value = RoomScreen.editRoom.value + 1;
+        ChangeBackground(result, roomImg, roomIntro, roomName, roomType);
       }
       else if (result[messageContent][message] == userEntro) {
         if (result[messageContent]['uid'] != widget.myDataModel.id) {
-          if (result[messageContent][entroImgIdKey] == "") {
-            if (result[messageContent]['vip'] == null
-                ? false
-                : result[messageContent]['vip'] > 0) {
-              RoomScreen.showEntro.value = true;
-            }
-
-            userNameIntro = result[messageContent][userName];
-            userImageIntrp = result[messageContent][userImge];
-          } else {
-            if (RoomScreen.isGiftEntroAnimating) {
-              RoomScreen.listOfAnimatingEntros.add(EntroData(
-                  imgId: result[messageContent][entroImgIdKey],
-                  imgUrl: result[messageContent]['entroImg']));
-            } else {
-              await loadAnimationEntro(result[messageContent][entroImgIdKey],
-                  result[messageContent]['entroImg']);
-              if (result[messageContent]['vip'] == null
-                  ? false
-                  : result[messageContent]['vip'] > 0) {
-                RoomScreen.showEntro.value = true;
-              }
-              userNameIntro = result[messageContent][userName];
-              userImageIntrp = result[messageContent][userImge];
-            }
-          }
+          UserEntro(result, userNameIntro, userImageIntrp, loadAnimationEntro);
         }
-      } else if (result[messageContent]['msg'] == 'SHB') {
-        if (result[messageContent][ownerId].toString() !=
-            widget.room.ownerId.toString()) {
-          UserDataModel sendData;
-
-          sendData = UserDataModel(
-              profile: ProfileRoomModel(image: result[messageContent]['si']),
-              name: result[messageContent]['sn'],
-              level: LevelDataModel(
-                  senderImage: result[messageContent]['ssl'],
-                  receiverImage: result[messageContent]['srl']),
-              vip1: VipCenterModel(level: result[messageContent]['sv']));
-
-          UserDataModel receiverData;
-          receiverData = UserDataModel(
-              profile: ProfileRoomModel(image: result[messageContent]['ri']),
-              name: result[messageContent]['rn'],
-              level: LevelDataModel(
-                  senderImage: result[messageContent]['rsl'],
-                  receiverImage: result[messageContent]['rrl']),
-              vip1: VipCenterModel(level: result[messageContent]['rv']));
-
-          sendDataUser = sendData;
-          receiverDataUser = receiverData;
-          giftBanner = result[messageContent][giftImgKey].toString();
-          isPasswordRoomBanner = result[messageContent]['isPass'];
-          ownerIdRoomBanner = result[messageContent]['oId'].toString();
-          controllerBanner.forward();
-          RoomScreen.showBanner.value = true;
+      }
+      else if (result[messageContent]['msg'] == 'SHB') {
+        if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {
+          ShowPopularBanner(result, sendDataUser, receiverDataUser, giftBanner, isPasswordRoomBanner, ownerIdRoomBanner, controllerBanner);
         }
-      } else if (result[messageContent][message] == showEmojie) {
+      }
+      else if (result[messageContent][message] == showEmojie) {
         showingEmojie(
             userId: result[messageContent][idUser].toString(),
             emojieData: EmojieData(
@@ -826,174 +768,52 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               length: result[messageContent]['t_length'],
             ),
             timeEmojie: result[messageContent]['t_length']);
-      } else if (result[messageContent][message] == showGifts) {
-        String sendId = result[messageContent][sendIdKey].toString();
-        String receiverId = result[messageContent][receiverIdKey].toString();
-        if (sendId == widget.myDataModel.id.toString()) {
-          RoomScreen.myCoins.value = result[messageContent]['coins'];
-        }
-        UserDataModel sendData = UserDataModel();
-        UserDataModel receiverData = UserDataModel();
-        if (result[messageContent][isExpensive]) {
-          if (RoomScreen.usersInRoom[sendId] == null) {
-            sendData =
-                await RemotlyDataSourceProfile().getUserData(userId: sendId);
-            RoomScreen.usersInRoom.putIfAbsent(sendId, () => sendData);
-          } else {
-            sendData = RoomScreen.usersInRoom[sendId]!;
-          }
-
-          if (RoomScreen.usersInRoom[receiverId] == null) {
-            receiverData = await RemotlyDataSourceProfile()
-                .getUserData(userId: receiverId);
-            RoomScreen.usersInRoom.putIfAbsent(receiverId, () => receiverData);
-          } else {
-            receiverData = RoomScreen.usersInRoom[receiverId]!;
-          }
-        }
-        Map<String, dynamic> cachedGifts = {};
-        if (result[messageContent]['showGift'].contains("mp4")) {
-          cachedGifts =
-              await Methods().getCachingVideo(key: StringManager.cachGiftKey);
-        }
-
-        GiftData giftData = GiftData(
-            localPath: cachedGifts
-                    .containsKey(result[messageContent]['gift_id'].toString())
-                ? cachedGifts[result[messageContent]['gift_id'].toString()]
-                : null,
-            giftId: result[messageContent]['gift_id'].toString(),
-            img: result[messageContent][showGiftKey],
-            senderData: sendData,
-            reciverData: receiverData,
-            giftBanner: result[messageContent][giftImgKey].toString(),
-            giftImg: result[messageContent][showGiftKey],
-            numberOfGift: result[messageContent][numGift].toString(),
-            roomGiftsPrice:
-                result[messageContent][roomGiftsPriceKey].toString(),
-            isPlural: result[messageContent][plural],
-            showBanner: result[messageContent][isExpensive]);
-        if (cachedGifts
-            .containsKey(result[messageContent]['gift_id'].toString())) {
-          // RoomScreen.isGiftEntroAnimating = true;
-          if (RoomScreen.isGiftEntroAnimating) {
-            RoomScreen.listOfAnimatingMp4Gifts.add(giftData);
-          } else {
-            await loadMp4Gift(giftData: giftData);
-          }
-        } else {
-          if (RoomScreen.isGiftEntroAnimating) {
-            RoomScreen.listOfAnimatingGifts.add(giftData);
-          } else {
-            await loadAnimationGift(giftData);
-          }
-        }
-      } else if (result[messageContent][message] == kicKoutKey) {
-        durationKickout = result[messageContent]['duration'];
-        RoomScreen.isKick.value = true;
-        Future.delayed(const Duration(seconds: 3), () async {
-          Navigator.pop(context);
-          await Methods().exitFromRoom(widget.room.ownerId.toString());
-          BlocProvider.of<OnRoomBloc>(context).add(LeaveMicEvent(
-              ownerId: widget.room.ownerId.toString(),
-              userId: widget.myDataModel.id.toString()));
-          BlocProvider.of<OnRoomBloc>(context).add(InitEvent());
-          RoomScreen.isKick.value = false;
-        });
-      } else if (result[messageContent][message] == showPkKey) {
-        RoomScreen.showPK.value = true;
-        RoomScreen.isPK.value = true;
-      } else if (result[messageContent][message] == startPkKey) {
-        RoomScreen.timeMinutePK = int.parse(result[messageContent][timePkKey]);
-        RoomScreen.timeSecondPK = 0;
-        RoomScreen.scoreTeam2 = 0;
-        RoomScreen.precantgeTeam1 = 0.5;
-        RoomScreen.precantgeTeam2 = 0.5;
-        PKWidget.isStartPK.value = true;
-        RoomScreen.scoreTeam1 = 0;
-        RoomScreen.updatePKNotifier.value =
-            RoomScreen.updatePKNotifier.value + 1;
-        getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
-      } else if (result[messageContent][message] == hidePkKey) {
-        RoomScreen.showPK.value = false;
-        restorePKData();
-        RoomScreen.isPK.value = false;
-      } else if (result[messageContent][message] == updatePkKey) {
-        RoomScreen.scoreTeam2 = result[messageContent]['scoreTeam2'];
-        RoomScreen.precantgeTeam1 =
-            double.parse(result[messageContent]['percentagepk_team1']);
-        RoomScreen.precantgeTeam2 =
-            double.parse(result[messageContent]['percentagepk_team2']);
-        RoomScreen.scoreTeam1 = result[messageContent]['scoreTeam1'];
-        RoomScreen.updatePKNotifier.value =
-            RoomScreen.updatePKNotifier.value + 1;
-      } else if (result[messageContent][message] == closePkKey) {
-        RoomScreen.scoreTeam2 = result[messageContent]['scoreTeam2'];
-        RoomScreen.precantgeTeam1 =
-            double.parse(result[messageContent]['percentagepk_team1']);
-        RoomScreen.precantgeTeam2 =
-            double.parse(result[messageContent]['percentagepk_team2']);
-        PKWidget.isStartPK.value = false;
-        RoomScreen.scoreTeam1 = result[messageContent]['scoreTeam1'];
-        RoomScreen.updatePKNotifier.value =
-            RoomScreen.updatePKNotifier.value + 1;
-        if (result[messageContent]['winner_Team'] == 2) {
-          loadAnimationBlueTeam("images/WIN.svga");
-          loadAnimationRedTeam("images/LOSE.svga");
-        } else if (result[messageContent]['winner_Team'] == 1) {
-          loadAnimationBlueTeam("images/LOSE.svga");
-          loadAnimationRedTeam("images/WIN.svga");
-        } else {
-          loadAnimationBlueTeam("files/ce611dcb83b465805d552565d0705be4.svga");
-          loadAnimationRedTeam("files/091e42c561800ca052493228e2165d70.svga");
-        }
-        getIt<SetTimerPK>().timer.cancel();
-      } else if (result[messageContent][message] == leaveMicKey) {
+      }
+      else if (result[messageContent][message] == showGifts) {
+        ShowGifts(result, widget.myDataModel.id.toString(), loadMp4Gift, loadAnimationGift);
+      }
+      else if (result[messageContent][message] == kicKoutKey) {
+        KicKoutKey(result, durationKickout, widget.room.ownerId.toString(), widget.myDataModel.id.toString(), context);
+      }
+      else if (result[messageContent][message] == showPkKey) {
+        ShowPkKey();
+      }
+      else if (result[messageContent][message] == startPkKey) {
+        StartPkKey(result, widget.room.ownerId.toString(), context);
+      }
+      else if (result[messageContent][message] == hidePkKey) {
+        HidePkKey();
+      }
+      else if (result[messageContent][message] == updatePkKey) {
+        UpdatePkKey(result);
+      }
+      else if (result[messageContent][message] == closePkKey) {
+        ClosePkKey(result, loadAnimationBlueTeam, loadAnimationRedTeam);
+      }
+      else if (result[messageContent][message] == leaveMicKey) {
         RoomScreen.userOnMics.value.remove(result[messageContent]['position']);
-      } else if (result[messageContent][message] == upMicKey) {
-        ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(
-            id: result[messageContent]['userId'],
-            name: result[messageContent]['userName']);
-        RoomScreen.userOnMics.value.putIfAbsent(
-            int.parse(result[messageContent]['position']), () => zegoUIKitUser);
-      } else if (result[messageContent][message] == muteMicKey) {
-        RoomScreen.listOfMuteSeats.putIfAbsent(
-            int.parse(result[messageContent]['position']),
-            () => int.parse(result[messageContent]['position']));
-        RoomScreen.editAudioVideoContainer.value =
-            RoomScreen.editAudioVideoContainer.value + 1;
-      } else if (result[messageContent][message] == unMuteMicKey) {
-        RoomScreen.listOfMuteSeats
-            .remove(int.parse(result[messageContent]['position']));
-
-        RoomScreen.editAudioVideoContainer.value =
-            RoomScreen.editAudioVideoContainer.value + 1;
-      } else if (result[messageContent][message] == lockMicKey) {
-        RoomScreen.listOfLoskSeats.value.putIfAbsent(
-            int.parse(result[messageContent]['position']),
-            () => int.parse(result[messageContent]['position']));
-        RoomScreen.editAudioVideoContainer.value =
-            RoomScreen.editAudioVideoContainer.value + 1;
-      } else if (result[messageContent][message] == unLockMicKey) {
-        RoomScreen.listOfLoskSeats.value
-            .remove(int.parse(result[messageContent]['position']));
-        RoomScreen.editAudioVideoContainer.value =
-            RoomScreen.editAudioVideoContainer.value + 1;
-      } else if (result[messageContent][message] == topUserKey) {
-        if (RoomScreen.topUserInRoom.value.id == null ||
-            result[messageContent]['id'] !=
-                RoomScreen.topUserInRoom.value.id.toString()) {
-          RoomScreen.topUserInRoom.value = UserDataModel(
-              id: result[messageContent]['id'],
-              name: result[messageContent]['name'],
-              frame: result[messageContent]['frame'],
-              profile: ProfileRoomModel(image: result[messageContent]['img']),
-              hasColorName: result[messageContent]['has_color_name']);
-          final topModel = await RemotlyDataSourceProfile().getUserData(
-              userId: RoomScreen.topUserInRoom.value.id.toString());
-          RoomScreen.topUserInRoom.value = topModel;
+      }
+      else if (result[messageContent][message] == upMicKey) {
+        UpMicKey(result);
+      }
+      else if (result[messageContent][message] == muteMicKey) {
+        MuteMicKey(result);
+      }
+      else if (result[messageContent][message] == unMuteMicKey) {
+        UnMuteMicKey(result);
+      }
+      else if (result[messageContent][message] == lockMicKey) {
+        LockMicKey(result);
+      }
+      else if (result[messageContent][message] == unLockMicKey) {
+        UnLockMicKey(result);
+      }
+      else if (result[messageContent][message] == topUserKey) {
+        if (RoomScreen.topUserInRoom.value.id == null || result[messageContent]['id'] != RoomScreen.topUserInRoom.value.id.toString()) {
+          TopUserKey(result);
         }
-      } else if (result[messageContent][message] == roomModeKey) {
+      }
+      else if (result[messageContent][message] == roomModeKey) {
         if (result[messageContent]['mode'] == 'topCenter') {
           setState(() {
             layoutMode = LayoutMode.hostTopCenter;
@@ -1010,7 +830,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             RoomScreen.userOnMics.value.clear();
           });
         }
-      } else if (result[messageContent][message] == updateAdminsKey) {
+      }
+      else if (result[messageContent][message] == updateAdminsKey) {
         RoomScreen.adminsInRoom.clear();
         List<String> admins =
             List<String>.from(result[messageContent]['admins'].map((x) => x));
@@ -1021,10 +842,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         }
 
         setState(() {});
-      } else if (result[messageContent][message] == removeChatKey) {
-        RoomScreen.clearTimeNotifier.value =
-            DateTime.now().millisecondsSinceEpoch;
-      } else if (result[messageContent][message] == showLuckyBoxKey) {
+      }
+      else if (result[messageContent][message] == removeChatKey) {
+        RoomScreen.clearTimeNotifier.value = DateTime.now().millisecondsSinceEpoch;
+      }
+      else if (result[messageContent][message] == showLuckyBoxKey) {
         LuckyBoxData luckyBox = LuckyBoxData(
             boxId: result[messageContent][boxIDKey].toString(),
             coinns: result[messageContent][boxCoinsKey].toString(),
@@ -1039,10 +861,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         RoomScreen.luckyBoxes.add(luckyBox);
 
         luckyBoxAddecontroller.add(RoomScreen.luckyBoxes);
-      } else if (result[messageContent][message] == hideLuckyBoxKey) {
-        RoomScreen.luckyBoxes.removeWhere((element) =>
-            element.boxId == result[messageContent][boxIDKey].toString());
-      } else if (result[messageContent][message] == bannerSuperBoxKey) {
+      }
+      else if (result[messageContent][message] == hideLuckyBoxKey) {
+        RoomScreen.luckyBoxes.removeWhere((element) => element.boxId == result[messageContent][boxIDKey].toString());
+      }
+      else if (result[messageContent][message] == bannerSuperBoxKey) {
         UserDataModel sendBox;
         if (RoomScreen
                 .usersInRoom[result[messageContent]["ownerBoxid"].toString()] ==
@@ -1059,7 +882,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ownerIdRoomLuckyBanner =
             result[messageContent]["ownerRoomId"].toString();
         showBannerLuckyBox.value = true;
-      } else if (result[messageContent]['msg'] == showPobUpKey) {
+      }
+      else if (result[messageContent]['msg'] == showPobUpKey) {
         ZegoInRoomMessageInput.senderPobUpId = result[messageContent]['uId'];
         if (RoomScreen.usersInRoom[result[messageContent]['uId']] == null) {
           pobUpSender = await RemotlyDataSourceProfile()
@@ -1073,7 +897,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ZegoInRoomMessageInput.messagePonUp = result[messageContent]['my_msg'];
 
         showPopUp.value = true;
-      } else if (result[messageContent][message] == banFromWritingKey) {
+      }
+      else if (result[messageContent][message] == banFromWritingKey) {
         log(result[messageContent]['userId'].toString());
         RoomScreen.banedUsers.putIfAbsent(result[messageContent]['userId'],
             () => result[messageContent]['userId']);
@@ -1097,7 +922,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             }
           });
         }
-      } else if (result[messageContent][message] == unbanFromWritingKey) {
+      }
+      else if (result[messageContent][message] == unbanFromWritingKey) {
         RoomScreen.banedUsers.remove(result[messageContent]['userId']);
 
         if (widget.myDataModel.id.toString() ==
@@ -1108,7 +934,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           RoomScreen.showMessageButton.value = true;
           RoomScreen.banedUsers.clear();
         }
-      } else if (result[messageContent][message] == 'banDevice') {
+      }
+      else if (result[messageContent][message] == 'banDevice') {
         if (result[messageContent]['userId'] == widget.myDataModel.id) {
           await Methods().exitFromRoom(widget.room.ownerId.toString());
           Navigator.pushNamedAndRemoveUntil(

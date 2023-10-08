@@ -1,4 +1,6 @@
 
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,11 +32,11 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
 
   List<String> gamesImages=
   [
-    AssetsPath.iconApp,
-    AssetsPath.iconApp,
-    AssetsPath.iconApp,
-    AssetsPath.iconApp,
-    AssetsPath.iconApp,
+    AssetsPath.teenPatti,
+    AssetsPath.roulette,
+    AssetsPath.carRace,
+    AssetsPath.updown,
+    AssetsPath.ludo,
   ];
 
   @override
@@ -157,20 +159,14 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
                             ),
                           ),
                         ),
-                        // dotis
                       ])
-              ) ,
-
-
-
-
-
-    ));
-          } ))
+              ),
+             ),
+         );
+         },
+      ),
+        ),
     );
-
-
-//69663|heuSYKdUEknu646buIkI7hw0Y2tAS1wY0yCgyJMQ
   }
 
   // TODO change links

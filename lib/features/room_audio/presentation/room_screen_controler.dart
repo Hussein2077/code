@@ -1,21 +1,32 @@
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
+
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/invitation_to_mic.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/splash.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
 
@@ -478,3 +489,258 @@ class YallowBannerData {
   //   },
   //   child: ,
   // ) ;
+
+
+ChangeBackground(Map<String, dynamic> result, var roomImg, var roomIntro, var roomName, var roomType){
+  RoomScreen.imgbackground.value = result[messageContent][imgBackgroundKey] ?? "";
+  roomImg = result[messageContent][roomImgKey];
+  roomIntro = result[messageContent][roomIntroKey];
+  roomName = result[messageContent][roomNameKey];
+  roomType = result[messageContent]['room_type'] ?? "";
+  RoomScreen.roomIsLoked = result[messageContent]['is_locked'];
+  RoomScreen.editRoom.value = RoomScreen.editRoom.value + 1;
+}
+
+UserEntro(Map<String, dynamic> result, var userNameIntro, var userImageIntrp, Future<void> Function(String imgId, String imgUrl) loadAnimationEntro)async{
+  if (result[messageContent][entroImgIdKey] == "") {
+    if (result[messageContent]['vip'] == null
+        ? false
+        : result[messageContent]['vip'] > 0) {
+      RoomScreen.showEntro.value = true;
+    }
+
+    userNameIntro = result[messageContent][userName];
+    userImageIntrp = result[messageContent][userImge];
+  } else {
+    if (RoomScreen.isGiftEntroAnimating) {
+      RoomScreen.listOfAnimatingEntros.add(EntroData(
+          imgId: result[messageContent][entroImgIdKey],
+          imgUrl: result[messageContent]['entroImg']));
+    } else {
+      await loadAnimationEntro(result[messageContent][entroImgIdKey],
+      result[messageContent]['entroImg']);
+      if (result[messageContent]['vip'] == null
+          ? false
+          : result[messageContent]['vip'] > 0) {
+        RoomScreen.showEntro.value = true;
+      }
+      userNameIntro = result[messageContent][userName];
+      userImageIntrp = result[messageContent][userImge];
+    }
+  }
+}
+
+ShowPopularBanner(Map<String, dynamic> result, var sendDataUser, var receiverDataUser, var giftBanner, var isPasswordRoomBanner, var ownerIdRoomBanner, var controllerBanner){
+  UserDataModel sendData;
+
+  sendData = UserDataModel(
+      profile: ProfileRoomModel(image: result[messageContent]['si']),
+      name: result[messageContent]['sn'],
+      level: LevelDataModel(
+          senderImage: result[messageContent]['ssl'],
+          receiverImage: result[messageContent]['srl']),
+      vip1: VipCenterModel(level: result[messageContent]['sv']));
+
+  UserDataModel receiverData;
+  receiverData = UserDataModel(
+      profile: ProfileRoomModel(image: result[messageContent]['ri']),
+      name: result[messageContent]['rn'],
+      level: LevelDataModel(
+          senderImage: result[messageContent]['rsl'],
+          receiverImage: result[messageContent]['rrl']),
+      vip1: VipCenterModel(level: result[messageContent]['rv']));
+
+  sendDataUser = sendData;
+  receiverDataUser = receiverData;
+  giftBanner = result[messageContent][giftImgKey].toString();
+  isPasswordRoomBanner = result[messageContent]['isPass'];
+  ownerIdRoomBanner = result[messageContent]['oId'].toString();
+  controllerBanner.forward();
+  RoomScreen.showBanner.value = true;
+}
+
+ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({required GiftData giftData}) loadMp4Gift, Future<void> Function(GiftData giftData) loadAnimationGift)async{
+  String sendId = result[messageContent][sendIdKey].toString();
+  String receiverId = result[messageContent][receiverIdKey].toString();
+  if (sendId == id) {
+    RoomScreen.myCoins.value = result[messageContent]['coins'];
+  }
+  UserDataModel sendData = UserDataModel();
+  UserDataModel receiverData = UserDataModel();
+  if (result[messageContent][isExpensive]) {
+    if (RoomScreen.usersInRoom[sendId] == null) {
+      sendData =
+          await RemotlyDataSourceProfile().getUserData(userId: sendId);
+      RoomScreen.usersInRoom.putIfAbsent(sendId, () => sendData);
+    } else {
+      sendData = RoomScreen.usersInRoom[sendId]!;
+    }
+
+    if (RoomScreen.usersInRoom[receiverId] == null) {
+      receiverData = await RemotlyDataSourceProfile()
+          .getUserData(userId: receiverId);
+      RoomScreen.usersInRoom.putIfAbsent(receiverId, () => receiverData);
+    } else {
+      receiverData = RoomScreen.usersInRoom[receiverId]!;
+    }
+  }
+  Map<String, dynamic> cachedGifts = {};
+  if (result[messageContent]['showGift'].contains("mp4")) {
+    cachedGifts =
+        await Methods().getCachingVideo(key: StringManager.cachGiftKey);
+  }
+
+  GiftData giftData = GiftData(
+      localPath: cachedGifts
+          .containsKey(result[messageContent]['gift_id'].toString())
+          ? cachedGifts[result[messageContent]['gift_id'].toString()]
+          : null,
+      giftId: result[messageContent]['gift_id'].toString(),
+      img: result[messageContent][showGiftKey],
+      senderData: sendData,
+      reciverData: receiverData,
+      giftBanner: result[messageContent][giftImgKey].toString(),
+      giftImg: result[messageContent][showGiftKey],
+      numberOfGift: result[messageContent][numGift].toString(),
+      roomGiftsPrice:
+      result[messageContent][roomGiftsPriceKey].toString(),
+      isPlural: result[messageContent][plural],
+      showBanner: result[messageContent][isExpensive]);
+  if (cachedGifts
+      .containsKey(result[messageContent]['gift_id'].toString())) {
+    // RoomScreen.isGiftEntroAnimating = true;
+    if (RoomScreen.isGiftEntroAnimating) {
+      RoomScreen.listOfAnimatingMp4Gifts.add(giftData);
+    } else {
+      await loadMp4Gift(giftData: giftData);
+    }
+  } else {
+    if (RoomScreen.isGiftEntroAnimating) {
+      RoomScreen.listOfAnimatingGifts.add(giftData);
+    } else {
+      await loadAnimationGift(giftData);
+    }
+  }
+}
+
+KicKoutKey(Map<String, dynamic> result, var durationKickout, String ownerId, String id, BuildContext context){
+  durationKickout = result[messageContent]['duration'];
+  RoomScreen.isKick.value = true;
+  Future.delayed(const Duration(seconds: 3), () async {
+    Navigator.pop(context);
+    await Methods().exitFromRoom(ownerId);
+    BlocProvider.of<OnRoomBloc>(context).add(LeaveMicEvent(
+        ownerId: ownerId,
+        userId: id));
+    BlocProvider.of<OnRoomBloc>(context).add(InitRoomEvent());
+    RoomScreen.isKick.value = false;
+  });
+}
+
+ShowPkKey(){
+  RoomScreen.showPK.value = true;
+  RoomScreen.isPK.value = true;
+}
+
+StartPkKey(Map<String, dynamic> result, String ownerId, BuildContext context){
+  RoomScreen.timeMinutePK = int.parse(result[messageContent][timePkKey]);
+  RoomScreen.timeSecondPK = 0;
+  RoomScreen.scoreTeam2 = 0;
+  RoomScreen.precantgeTeam1 = 0.5;
+  RoomScreen.precantgeTeam2 = 0.5;
+  PKWidget.isStartPK.value = true;
+  RoomScreen.scoreTeam1 = 0;
+  RoomScreen.updatePKNotifier.value = RoomScreen.updatePKNotifier.value + 1;
+  getIt<SetTimerPK>().start(context, ownerId);
+}
+
+HidePkKey(){
+  RoomScreen.showPK.value = false;
+  restorePKData();
+  RoomScreen.isPK.value = false;
+}
+
+UpdatePkKey(Map<String, dynamic> result){
+  RoomScreen.scoreTeam2 = result[messageContent]['scoreTeam2'];
+  RoomScreen.precantgeTeam1 =
+      double.parse(result[messageContent]['percentagepk_team1']);
+  RoomScreen.precantgeTeam2 =
+      double.parse(result[messageContent]['percentagepk_team2']);
+  RoomScreen.scoreTeam1 = result[messageContent]['scoreTeam1'];
+  RoomScreen.updatePKNotifier.value =
+      RoomScreen.updatePKNotifier.value + 1;
+}
+
+ClosePkKey(Map<String, dynamic> result, Future<void> Function(String img) loadAnimationBlueTeam, Future<void> Function(String img) loadAnimationRedTeam){
+  RoomScreen.scoreTeam2 = result[messageContent]['scoreTeam2'];
+  RoomScreen.precantgeTeam1 =
+      double.parse(result[messageContent]['percentagepk_team1']);
+  RoomScreen.precantgeTeam2 =
+      double.parse(result[messageContent]['percentagepk_team2']);
+  PKWidget.isStartPK.value = false;
+  RoomScreen.scoreTeam1 = result[messageContent]['scoreTeam1'];
+  RoomScreen.updatePKNotifier.value =
+      RoomScreen.updatePKNotifier.value + 1;
+  if (result[messageContent]['winner_Team'] == 2) {
+    loadAnimationBlueTeam("images/WIN.svga");
+    loadAnimationRedTeam("images/LOSE.svga");
+  } else if (result[messageContent]['winner_Team'] == 1) {
+    loadAnimationBlueTeam("images/LOSE.svga");
+    loadAnimationRedTeam("images/WIN.svga");
+  } else {
+    loadAnimationBlueTeam("files/ce611dcb83b465805d552565d0705be4.svga");
+    loadAnimationRedTeam("files/091e42c561800ca052493228e2165d70.svga");
+  }
+  getIt<SetTimerPK>().timer.cancel();
+}
+
+UpMicKey(Map<String, dynamic> result){
+  ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(
+      id: result[messageContent]['userId'],
+      name: result[messageContent]['userName']);
+  RoomScreen.userOnMics.value.putIfAbsent(
+      int.parse(result[messageContent]['position']), () => zegoUIKitUser);
+}
+
+MuteMicKey(Map<String, dynamic> result){
+  RoomScreen.listOfMuteSeats.putIfAbsent(
+      int.parse(result[messageContent]['position']),
+          () => int.parse(result[messageContent]['position']));
+  RoomScreen.editAudioVideoContainer.value =
+      RoomScreen.editAudioVideoContainer.value + 1;
+}
+
+UnMuteMicKey(Map<String, dynamic> result){
+  RoomScreen.listOfMuteSeats
+      .remove(int.parse(result[messageContent]['position']));
+
+  RoomScreen.editAudioVideoContainer.value =
+      RoomScreen.editAudioVideoContainer.value + 1;
+}
+
+LockMicKey(Map<String, dynamic> result){
+  RoomScreen.listOfLoskSeats.value.putIfAbsent(
+      int.parse(result[messageContent]['position']),
+          () => int.parse(result[messageContent]['position']));
+  RoomScreen.editAudioVideoContainer.value =
+      RoomScreen.editAudioVideoContainer.value + 1;
+}
+
+UnLockMicKey(Map<String, dynamic> result){
+  RoomScreen.listOfLoskSeats.value
+      .remove(int.parse(result[messageContent]['position']));
+  RoomScreen.editAudioVideoContainer.value =
+      RoomScreen.editAudioVideoContainer.value + 1;
+}
+
+TopUserKey(Map<String, dynamic> result)async{
+  RoomScreen.topUserInRoom.value = UserDataModel(
+      id: result[messageContent]['id'],
+      name: result[messageContent]['name'],
+      frame: result[messageContent]['frame'],
+      profile: ProfileRoomModel(image: result[messageContent]['img']),
+      hasColorName: result[messageContent]['has_color_name']);
+  final topModel = await RemotlyDataSourceProfile().getUserData(
+      userId: RoomScreen.topUserInRoom.value.id.toString());
+  RoomScreen.topUserInRoom.value = topModel;
+}

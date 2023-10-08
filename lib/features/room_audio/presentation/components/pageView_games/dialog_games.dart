@@ -19,9 +19,6 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
   WebViewController?  controller;
 
 
-  // @override
-  // bool get wantKeepAlive => false;
-
   @override
   void initState() {
     super.initState();
