@@ -90,14 +90,24 @@ class _ReelsPageState extends State<ReelsPage>{
                log("in network reels");
              }
              _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
-
+          
            }
          }catch(e){
            if(kDebugMode){
              log("error in found cach video and paly in network reels");
            }
+           //TODO  HANDEL EXCEPTION
+//            _videoPlayerController.addListener(() {
+//             log("heeeeeeeeeeer");
+//   if (_videoPlayerController.value.hasError) {
+//     log('Playback error occurred: ${_videoPlayerController.value.errorDescription}');
+//                             widget.swiperController.next();
 
-           //TODO NEXT VIDEO AUTO
+//   }
+// });
+           
+
+
 
          }
 
@@ -114,21 +124,20 @@ class _ReelsPageState extends State<ReelsPage>{
       showControls: false,
       looping: true,
     );
-    setState(() {});
-    _videoPlayerController.addListener(() {
-      if (_videoPlayerController.value.position ==
-          _videoPlayerController.value.duration) {
-        //TODO add auto scroll as feature
-       // widget.swiperController.next();
-      }
-      if(!ModalRoute.of(context)!.isCurrent){
-        _videoPlayerController.pause();
-        ReelsPage.isVideoPause.value = true ;
-      }
-      log("ModalRoute.of(context).isCurrent${ModalRoute.of(context)!.isCurrent}");
+    // _videoPlayerController.addListener(() {
+    //   log("11111111111");
+    //   if (_videoPlayerController.value.position.inSeconds ==
+    //       _videoPlayerController.value.duration.inSeconds) {
+    //    widget.swiperController.next();
+    //   }
+    //   if(!ModalRoute.of(context)!.isCurrent){
+    //     _videoPlayerController.pause();
+    //     ReelsPage.isVideoPause.value = true ;
+    //   }
+    //   log("ModalRoute.of(context).isCurrent${ModalRoute.of(context)!.isCurrent}");
 
 
-    });
+    // });
   }
 
   @override
