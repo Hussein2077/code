@@ -135,6 +135,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handle
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
 
+import 'features/moment/presentation/manager/manager_moment_get_gifts/get_moment_gifts_bloc.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
 final globalNavigatorKey = GlobalKey<NavigatorState>();
@@ -438,6 +439,7 @@ final  String theme ;
 
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
         BlocProvider(create: (_) => getIt<SendCodeBloc>()),
+        BlocProvider(create: (_) => getIt<GetMomentGiftsBloc>()),
         BlocProvider(
             create: (_) =>
             getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),

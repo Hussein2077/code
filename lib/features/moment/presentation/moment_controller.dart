@@ -1,5 +1,4 @@
 
-
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 
 import 'widgets/moment_bottom_bar.dart';
@@ -8,7 +7,6 @@ class MomentController{
 
   static final Map<int, int> commentsOfMomentsMap = {};
   static int selectedMomentComment = -1 ;
-
   static void commentIncrement(int momentId){
     MomentController.commentsOfMomentsMap[momentId] =
         MomentController.commentsOfMomentsMap[momentId]! + 1;
@@ -21,8 +19,27 @@ class MomentController{
     MomentBottomBarState.commentsCounter.value++;
 
   }
+  void fillCommentMap ( List<MomentModel> momentModelList){
+    for (int i = 0; i < momentModelList.length; i++) {
+      MomentController.commentsOfMomentsMap.putIfAbsent(
+          momentModelList[i].momentId, () => momentModelList[i].commentNum);
+    }
+  }
 
+  static final Map<int, int> giftsOfMomentsMap = {};
+  static int selectedMomentGift = -1 ;
+  static void giftIncrement(int momentId){
+    MomentController.giftsOfMomentsMap[momentId] =
+        MomentController.giftsOfMomentsMap[momentId]! + 1;
+    MomentBottomBarState.giftsNotifierCounter.value++;
 
+  }
+  void fillGiftMap ( List<MomentModel> momentModelList){
+    for (int i = 0; i < momentModelList.length; i++) {
+      MomentController.giftsOfMomentsMap.putIfAbsent(
+          momentModelList[i].momentId, () => momentModelList[i].giftsCount);
+    }
+  }
 
   static final Map<int,bool> favorites = {};
   static final Map<int,int> favoritesCount = {};
@@ -46,8 +63,6 @@ class MomentController{
 
     }
   }
-
-
   void fillLikeMaps (List<MomentModel> momentModelList){
     for (int i = 0; i < momentModelList.length; i++) {
       MomentController.favorites.putIfAbsent(
@@ -57,18 +72,5 @@ class MomentController{
 
     }
   }
-
-
-  void fillCommentMap ( List<MomentModel> momentModelList){
-    for (int i = 0; i < momentModelList.length; i++) {
-      MomentController.commentsOfMomentsMap.putIfAbsent(
-          momentModelList[i].momentId, () => momentModelList[i].commentNum);
-    }
-  }
-
-
-
-
-
 
 }

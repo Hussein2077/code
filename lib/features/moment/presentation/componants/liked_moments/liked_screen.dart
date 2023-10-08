@@ -68,17 +68,17 @@ class _LikedScreenState extends State<LikedScreen> {
           );
         }
         else if (state is GetMomentILikeItLoadingState) {
-          if (tempData!.isEmpty) {
-            return Container(
-                width: ConfigSize.screenWidth,
-                height: ConfigSize.screenHeight,
-                padding: EdgeInsets.symmetric(
-                    horizontal:
-                    ConfigSize.defaultSize! *
-                        0.2),
-                child: const LoadingWidget());
-          } else {
+          if (tempData!.isNotEmpty) {
             return TabViewBody(momentModelList:tempData!);
+          } else { return Container(
+              width: ConfigSize.screenWidth,
+              height: ConfigSize.screenHeight,
+              padding: EdgeInsets.symmetric(
+                  horizontal:
+                  ConfigSize.defaultSize! *
+                      0.2),
+              child: const LoadingWidget());
+
           }        } else {
           return const CustomErrorWidget(
             message: StringManager.noDataFoundHere,

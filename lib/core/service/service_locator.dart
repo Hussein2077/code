@@ -51,6 +51,7 @@ import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_use_
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_comment_usecase.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_gifts_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_likes_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/make_moment_like.dart';
@@ -64,6 +65,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_fol
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_get_gifts/get_moment_gifts_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
@@ -508,6 +510,7 @@ class ServerLocator {
                 getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
                 getIt.registerFactory(() => AddMomentCommentBloc(addMomentCommentUseCase:  getIt()));
                 getIt.registerFactory(() => GetMomentLikesBloc(getMomentLikeUseCase:  getIt()));
+                getIt.registerFactory(() => GetMomentGiftsBloc(getMomentGiftsUseCase:  getIt()));
 
 
     
@@ -515,6 +518,7 @@ class ServerLocator {
 //usecase
 
     getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(() => GetMomentGiftsUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => GetMomentLikeUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => AddMomentCommentUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));

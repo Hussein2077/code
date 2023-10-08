@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/comments/moment_comments_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/moment_giftbox_screen.dart';
+import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/moment_sent_gifts_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/likes/moment_likes_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_event.dart';
@@ -31,6 +32,7 @@ class MomentBottomBar extends StatefulWidget {
 class MomentBottomBarState extends State<MomentBottomBar> {
   static ValueNotifier<int> commentsCounter = ValueNotifier<int>(0);
   static ValueNotifier<int> likeNotifierCounter = ValueNotifier<int>(0);
+  static ValueNotifier<int> giftsNotifierCounter = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
@@ -129,17 +131,43 @@ class MomentBottomBarState extends State<MomentBottomBar> {
               ],
             ),
           ),
-          InkWell(
-            onTap: () {
-              bottomDailog(
-                  context: context,
-                  widget: MomentGiftboxScreen(
-                    myDataModel: MyDataModel(),
-                    momentId: widget.momentModel.momentId.toString(),
+          Row(
+            children: [
+              InkWell(
+                onTap: () {
+
+                  bottomDailog(
+                      context: context,
+                      widget: MommentSentGiftScreen(momentId: widget.momentModel.momentId.toString(),),
+                      color: Theme.of(context).colorScheme.background);
+                },
+                child: SizedBox(
+                  width: ConfigSize.defaultSize! * 6,
+                  child: Center(
+                    child: ValueListenableBuilder(
+                      valueListenable: giftsNotifierCounter,
+                      builder:
+                          (BuildContext context, int value, Widget? child) {
+                        return Text(widget.momentModel.giftsCount.toString(),
+                            style: Theme.of(context).textTheme.bodyLarge);
+                      },
+                    ),
                   ),
-                  color: Theme.of(context).colorScheme.background);
-            },
-            child: Image.asset(AssetsPath.giftMoment, scale: 0.1),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  bottomDailog(
+                      context: context,
+                      widget: MomentGiftboxScreen(
+                        myDataModel: MyDataModel(),
+                        momentId: widget.momentModel.momentId.toString(),
+                      ),
+                      color: Theme.of(context).colorScheme.background);
+                },
+                child: Image.asset(AssetsPath.giftMoment, scale: 0.1),
+              ),
+            ],
           ),
         ],
       ),
