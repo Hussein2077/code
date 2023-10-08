@@ -74,7 +74,7 @@ Widget columnInfo(
           TextStyle(
                   fontFamily: 'ElMessiri',
                   fontSize: ConfigSize.defaultSize! * 1.6,
-                  color: Colors.white,
+
                 ),
         )
       ],
