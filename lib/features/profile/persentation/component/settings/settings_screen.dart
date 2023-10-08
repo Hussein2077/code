@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -93,6 +94,8 @@ class SettingsScreen extends StatelessWidget {
             },
             builder: (context, state) {
               return MainButton(onTap: () {
+                final _googleSignIn = GoogleSignIn();
+                _googleSignIn.disconnect();
                 BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
               }, title: StringManager.logOut.tr());
             },
