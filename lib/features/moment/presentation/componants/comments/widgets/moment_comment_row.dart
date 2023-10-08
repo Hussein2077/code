@@ -11,21 +11,21 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_comment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
 
 
 class MomentComments extends StatefulWidget {
-
+  final String? type;
   final List<MomentCommentModel> momentCommentListModel;
   final ScrollController scrollController;
 
   const MomentComments({
-    required this.momentCommentListModel,
-    required this.scrollController,
-    super.key});
+  required this.momentCommentListModel,
+  required this.scrollController,
+  this.type,
+  super.key});
 
-  @override
-  State<MomentComments> createState() => _MomentCommentsState();
+@override
+State<MomentComments> createState() => _MomentCommentsState();
 }
 
 class _MomentCommentsState extends State<MomentComments> {
@@ -85,10 +85,9 @@ class _MomentCommentsState extends State<MomentComments> {
                                 .of(context)
                                 .textTheme
                                 .headlineMedium!.copyWith(
-                              fontWeight: FontWeight.w500
+                                fontWeight: FontWeight.w500
                             ),
                             isVip: false,
-                            //comment==true? momentCommentModel.userProfilePic:momentLikeModel.userImage!,
                           ),
                         ),
                         Row(
@@ -130,48 +129,48 @@ class _MomentCommentsState extends State<MomentComments> {
                     const Spacer(
                       flex: 5,
                     ),
-                   if (widget.momentCommentListModel[i].userId==MyDataModel.getInstance().id)
-                    SizedBox(
-                      width: ConfigSize.defaultSize! * 4,
-                      height: ConfigSize.defaultSize! * 4,
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton2(
-                          customButton: Icon(
-                            Icons.more_vert_rounded,
-                            size: ConfigSize.defaultSize! * 2.5,
-                            color: Theme
-                                .of(context)
-                                .colorScheme
-                                .secondary,
-                          ),
-                          dropdownDecoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(
-                                ConfigSize.defaultSize!),
-                            border: Border.all(color: Colors.white,),
-
-                          ),
-
-                          items: [
-                            ...MenuItems.firstItems.map(
-                                  (item) =>
-                                  DropdownMenuItem<MenuItem>(
-                                    value: item,
-                                    child: MenuItems.buildItem(item),
-                                  ),
+                    if (widget.momentCommentListModel[i].userId==MyDataModel.getInstance().id||widget.type=='mine')
+                      SizedBox(
+                        width: ConfigSize.defaultSize! * 4,
+                        height: ConfigSize.defaultSize! * 4,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton2(
+                            customButton: Icon(
+                              Icons.more_vert_rounded,
+                              size: ConfigSize.defaultSize! * 2.5,
+                              color: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .primary,
                             ),
-                          ],
-                          onChanged: (value) {
-                            MenuItems.onChanged(context, value!,
-                                widget.momentCommentListModel[i].momentId.toString(),
-                                widget.momentCommentListModel[i].commentId!
-                            );
-                          },
-                          dropdownWidth: ConfigSize.defaultSize! * 12,
+                            dropdownDecoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(
+                                  ConfigSize.defaultSize!),
+                              border: Border.all(color: Colors.white,),
 
+                            ),
+
+                            items: [
+                              ...MenuItems.firstItems.map(
+                                    (item) =>
+                                    DropdownMenuItem<MenuItem>(
+                                      value: item,
+                                      child: MenuItems.buildItem(item),
+                                    ),
+                              ),
+                            ],
+                            onChanged: (value) {
+                              MenuItems.onChanged(context, value!,
+                                  widget.momentCommentListModel[i].momentId.toString(),
+                                  widget.momentCommentListModel[i].commentId!
+                              );
+                            },
+                            dropdownWidth: ConfigSize.defaultSize! * 12,
+
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 0.5,),
@@ -187,7 +186,7 @@ class _MomentCommentsState extends State<MomentComments> {
                             .of(context)
                             .textTheme
                             .bodyLarge!.copyWith(
-                          fontSize: ConfigSize.defaultSize!*1.6
+                            fontSize: ConfigSize.defaultSize!*1.6
 
                         )
                             .copyWith(
@@ -257,5 +256,3 @@ abstract class MenuItems {
 
 
 }
-
-

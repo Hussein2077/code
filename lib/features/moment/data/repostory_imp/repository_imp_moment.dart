@@ -8,12 +8,14 @@ import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/moment/data/data_source/remotly_data_source_moment.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_comment_model.dart';
+import 'package:tik_chat_v2/features/moment/data/model/moment_gift_model.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_like_model.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_comment_usecase.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_gifts_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_likes_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
@@ -118,5 +120,17 @@ class RepositoryImpMoment extends BaseRepositoryMoment{
     }
   }
 
+ @override
+ Future<Either<List<MomentGiftsModel>, Failure>> getMomentGifts(GetMomentGiftsPrameter getMomentGiftsPrameter)async {
+   try{
+
+     final result = await baseRemotlyDataSourceMoment.getMomentGifts(getMomentGiftsPrameter);
+     return left(result);
+
+
+   }on Exception catch(e){
+     return right(DioHelper.buildFailure(e));
+   }
+ }
 
 }

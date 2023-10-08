@@ -271,7 +271,9 @@ class ConstentApi {
     return "$baseUrl/emojis/$id?room_id=$roomId&user_id=$userId&to_zego=$toZego";
   }
 
-
+   static String getMomentGifts(String momentId) {
+     return "$baseUrl/moments/$momentId/gifts";
+   }
 
   String changeBackgroundZigo(
       {required String timestamp,

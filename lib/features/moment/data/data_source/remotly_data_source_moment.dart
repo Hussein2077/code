@@ -7,12 +7,14 @@ import 'package:dio/dio.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_comment_model.dart';
+import 'package:tik_chat_v2/features/moment/data/model/moment_gift_model.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_like_model.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/add_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/delete_moment_comment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_comment_usecase.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_gifts_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_likes_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
@@ -39,12 +41,35 @@ abstract class BaseRemotlyDataSourceMoment {
 
   Future<String> makeMomentLike(String momentId);
   Future<String> momentSendGifts(MomentSendGiftPrameter momentSendGiftPrameter);
+  Future<List<MomentGiftsModel>> getMomentGifts(
+      GetMomentGiftsPrameter getMomentGiftsPrameter);
 
 }
 
 
 class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
 
+  @override
+  Future<List<MomentGiftsModel>> getMomentGifts(
+      GetMomentGiftsPrameter getMomentGiftsPrameter) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+
+        ConstentApi.getMomentGifts(
+          getMomentGiftsPrameter.momentId,),
+        options: Options(
+            headers: headers
+        ),
+      );
+      return List<MomentGiftsModel>.from(
+          response.data['data'].map((x) => MomentGiftsModel.fromjson(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getMomentGifts');
+    }
+  }
   @override
   Future<String> addMomnet(AddMomentPrameter prameter) async{
     Map<String, String> headers = await DioHelper().header();
