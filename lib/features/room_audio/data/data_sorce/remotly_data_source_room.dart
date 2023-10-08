@@ -74,6 +74,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> sendYallowBanner(String ownerId, String message);
 
 
+
 }
 
 
@@ -1159,5 +1160,7 @@ static String uploadImagePrice = "" ;
     }
       
   }
+  
+
 
 }
