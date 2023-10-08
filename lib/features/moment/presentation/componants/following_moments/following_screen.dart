@@ -42,11 +42,13 @@ class FollowingScreen extends StatelessWidget {
                 ))
                 :  TabViewBody(momentModelList:state.data! ),
           );
-        } else if (state is GetFollowingUserMomentErrorState) {
+        }
+        else if (state is GetFollowingUserMomentErrorState) {
           return CustomErrorWidget(
             message: state.errorMassage,
           );
-        } else if (state is GetFollowingUserMomentLoadingState) {
+        }
+        else if (state is GetFollowingUserMomentLoadingState) {
           if (tempData!.isEmpty) {
             return Container(
                 width: ConfigSize.screenWidth,
@@ -56,6 +58,7 @@ class FollowingScreen extends StatelessWidget {
                     ConfigSize.defaultSize! *
                         0.2),
                 child: const LoadingWidget());
+
           } else {
             return  TabViewBody(momentModelList:tempData! );
           }          } else {

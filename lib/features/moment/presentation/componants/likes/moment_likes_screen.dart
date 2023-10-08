@@ -107,12 +107,9 @@ class MomentsLikesScreenState extends State<MomentsLikesScreen> {
                       return CustomErrorWidget(
                         message: state.errorMassage,
                       );
-                    } else if (state is GetMomentLikeLoadingState) {
+                    }
+                    else if (state is GetMomentLikeLoadingState) {
                       if (likesListTemp!.isEmpty) {
-                        return SizedBox(
-                            height: ConfigSize.screenHeight! * 0.88,
-                            child: const LoadingWidget());
-                      } else {
                         return SizedBox(
                           width: ConfigSize.screenWidth!,
                           height: ConfigSize.screenHeight! * 0.88,
@@ -133,6 +130,11 @@ class MomentsLikesScreenState extends State<MomentsLikesScreen> {
                             ],
                           ),
                         );
+                      } else {
+                        return SizedBox(
+                            height: ConfigSize.screenHeight! * 0.88,
+                            child: const LoadingWidget());
+
                       }
                     } else {
                       return const CustomErrorWidget(
