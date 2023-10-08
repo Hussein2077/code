@@ -493,25 +493,9 @@ class ServerLocator {
         getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
         getIt.registerFactory(() => GetUserReelsBloc(getUserReelUseCase: getIt()));
                 getIt.registerFactory(() => DeleteReelBloc(deleteReelUseCse: getIt()));
-                getIt.registerFactory(() => AddMomentBloc(addMomentUseCase: getIt()));
-                getIt.registerFactory(() => DeleteMomentBloc(deleteMomentUseCase: getIt()));
-
-                getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
-                getIt.registerFactory(() => GetFollowingUserMomentBloc(getMomenttUseCase: getIt()));
-                getIt.registerFactory(() => GetMomentILikeItBloc(getMomenttUseCase: getIt()));
-
-                getIt.registerFactory(() => DeleteMomentCommentBloc(deleteMomentCommentUseCase: getIt()));
-                getIt.registerFactory(() => GetMomentCommentBloc(getMomentCommentUseCase: getIt()));
-                getIt.registerFactory(() => MomentSendGiftBloc(momentSendGiftUseCase:  getIt()));
-                getIt.registerFactory(() => MakeMomentLikeBloc(makeMomentLikeUseCase:  getIt()));
-
-                getIt.registerFactory(() => AddMomentCommentBloc(addMomentCommentUseCase:  getIt()));
-                getIt.registerFactory(() => GetMomentLikesBloc(getMomentLikeUseCase:  getIt()));
-                getIt.registerFactory(() => GetMomentGiftsBloc(getMomentGiftsUseCase:  getIt()));
     getIt.registerFactory(() => SendCodeBloc(sendCodeUseCase:  getIt()));
     getIt.registerFactory(() => PrivacyPolicyBloc(privacyPolicyUseCase:  getIt()));
     getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
-
     getIt.registerFactory(() => AddMomentBloc(addMomentUseCase: getIt()));
     getIt.registerFactory(() => DeleteMomentBloc(deleteMomentUseCase: getIt()));
     getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
