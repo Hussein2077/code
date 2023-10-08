@@ -15,6 +15,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_a
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_state.dart';
 
+import 'widgets/member_agency_body.dart';
 import 'widgets/owner_agency_body.dart';
 
 class AgenceScreen extends StatefulWidget {
@@ -53,11 +54,11 @@ class _AgenceScreenState extends State<AgenceScreen> {
                       bio: state.data.notice!,
                       id: state.data.id!.toString(),
                       image: state.data.image!),
-                  //  if(mydata.myType == 2)
-                    OwnerAgencyBody(myData: widget.mydata),
+              if((StringManager.userType[2]!||StringManager.userType[4]! ))
+                  OwnerAgencyBody(myData: widget.mydata),
 
-                  // if(mydata.myType == 1)
-                  //   Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
+                  if(StringManager.userType[1]! || StringManager.userType[6]!)
+                    Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
                 ],
               );
             } else if (state is ShowAgencyLoadingState) {

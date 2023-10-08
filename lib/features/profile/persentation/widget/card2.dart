@@ -1,5 +1,3 @@
-
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
@@ -14,9 +12,9 @@ import 'profile_row_item.dart';
 
 class Card2 extends StatelessWidget {
   final bool isDarkTheme;
-  final MyDataModel myData ;
+  final MyDataModel myData;
 
-  const Card2({required this.isDarkTheme,required this.myData, super.key});
+  const Card2({required this.isDarkTheme, required this.myData, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +27,23 @@ class Card2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-             if(myData.myType ==3||myData.myType ==2||myData.myType ==4)
-             ProfileRowItem(
-              title: StringManager.agency.tr(),
-              image: AssetsPath.agencyIcon,
-              onTap: () =>Navigator.pushNamed(context, Routes.agencyScreen,arguments: myData) ,
-            ),
+            if (StringManager.userType[1]! ||
+                StringManager.userType[2]! ||
+                StringManager.userType[4]! ||
+                StringManager.userType[6]!)
+              ProfileRowItem(
+                title: StringManager.agency.tr(),
+                image: AssetsPath.agencyIcon,
+                onTap: () => Navigator.pushNamed(context, Routes.agencyScreen,
+                    arguments: myData),
+              ),
+                    if (StringManager.userType[3]! || StringManager.userType[6]!)
+              ProfileRowItem(
+                title: StringManager.agency.tr(),
+                image: AssetsPath.agencyIcon,
+                onTap: () => Navigator.pushNamed(context, Routes.charchingDolarsForUsers,
+                    arguments: myData),
+              ),
             ProfileRowItem(
               title: StringManager.family.tr(),
               image: AssetsPath.familyIcon,
