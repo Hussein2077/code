@@ -47,7 +47,6 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.background,
           bottom: TabBar(

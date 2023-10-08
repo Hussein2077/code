@@ -29,12 +29,6 @@ class TabViewBody extends StatelessWidget {
         itemBuilder: (context, i) {
 
 
-          MomentController.commentsOfMomentsMap.update(
-            momentModelList[i].momentId,
-                (existingValue) => momentModelList[i].commentNum,
-            ifAbsent: () =>
-            momentModelList[i].commentNum,
-          );
 
 
           return Column(

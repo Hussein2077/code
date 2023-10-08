@@ -27,7 +27,6 @@ class MomentController{
   }
 
   static final Map<int, int> giftsOfMomentsMap = {};
-  static int selectedMomentGift = -1 ;
   static void giftIncrement(int momentId){
     MomentController.giftsOfMomentsMap[momentId] =
         MomentController.giftsOfMomentsMap[momentId]! + 1;
