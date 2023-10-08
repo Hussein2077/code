@@ -11,16 +11,16 @@ class MomentGiftsModel{
 
   factory MomentGiftsModel.fromjson(Map<String, dynamic> json) {
     return MomentGiftsModel(
-      giftNum: json['userid'],
-      giftId: json['userid'],
-      giftImage: json['userid'],
+      giftNum: json['gift_num'],
+      giftId: json['gift_id'],
+      giftImage: json['img'],
     );
   }
 
 
 
 
-  }
+}
 
 
 

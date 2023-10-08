@@ -504,13 +504,26 @@ class ServerLocator {
                 getIt.registerFactory(() => GetMomentCommentBloc(getMomentCommentUseCase: getIt()));
                 getIt.registerFactory(() => MomentSendGiftBloc(momentSendGiftUseCase:  getIt()));
                 getIt.registerFactory(() => MakeMomentLikeBloc(makeMomentLikeUseCase:  getIt()));
-                getIt.registerFactory(() => SendCodeBloc(sendCodeUseCase:  getIt()));
-                getIt.registerFactory(() => PrivacyPolicyBloc(privacyPolicyUseCase:  getIt()));
 
-                getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
                 getIt.registerFactory(() => AddMomentCommentBloc(addMomentCommentUseCase:  getIt()));
                 getIt.registerFactory(() => GetMomentLikesBloc(getMomentLikeUseCase:  getIt()));
                 getIt.registerFactory(() => GetMomentGiftsBloc(getMomentGiftsUseCase:  getIt()));
+    getIt.registerFactory(() => SendCodeBloc(sendCodeUseCase:  getIt()));
+    getIt.registerFactory(() => PrivacyPolicyBloc(privacyPolicyUseCase:  getIt()));
+    getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
+
+    getIt.registerFactory(() => AddMomentBloc(addMomentUseCase: getIt()));
+    getIt.registerFactory(() => DeleteMomentBloc(deleteMomentUseCase: getIt()));
+    getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
+    getIt.registerFactory(() => GetFollowingUserMomentBloc(getMomenttUseCase: getIt()));
+    getIt.registerFactory(() => GetMomentILikeItBloc(getMomenttUseCase: getIt()));
+    getIt.registerFactory(() => DeleteMomentCommentBloc(deleteMomentCommentUseCase: getIt()));
+    getIt.registerFactory(() => GetMomentCommentBloc(getMomentCommentUseCase: getIt()));
+    getIt.registerFactory(() => MomentSendGiftBloc(momentSendGiftUseCase:  getIt()));
+    getIt.registerFactory(() => MakeMomentLikeBloc(makeMomentLikeUseCase:  getIt()));
+    getIt.registerFactory(() => AddMomentCommentBloc(addMomentCommentUseCase:  getIt()));
+    getIt.registerFactory(() => GetMomentLikesBloc(getMomentLikeUseCase:  getIt()));
+    getIt.registerFactory(() => GetMomentGiftsBloc(getMomentGiftsUseCase:  getIt()));
 
 
     
@@ -521,21 +534,15 @@ class ServerLocator {
     getIt.registerLazySingleton(() => GetMomentGiftsUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => GetMomentLikeUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => AddMomentCommentUseCase(baseRepositoryMoment: getIt()));
-    getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));
-    getIt.registerLazySingleton(() => SendCodeUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRepositoryMoment: getIt()));
-
-
     getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRepositoryMoment: getIt()));
-
    getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRepositoryMoment: getIt()));
-
    getIt.registerLazySingleton(() => GetMomentUseCase(baseRepositoryMoment: getIt()));
-
    getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRepositoryMoment: getIt()));
 
    getIt.registerLazySingleton(() => AddMomentUseCase(baseRepositoryMoment: getIt()));
-
+    getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));
+    getIt.registerLazySingleton(() => SendCodeUseCase(baseRepository: getIt()));
    getIt.registerLazySingleton(() => DeleteReelUseCse(baseRepositoryProfile: getIt()));
 
    getIt.registerLazySingleton(() => GetUserReelsUsecase(baseRepositoryProfile: getIt()));

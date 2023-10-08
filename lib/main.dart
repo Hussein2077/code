@@ -432,6 +432,8 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
         BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
+        BlocProvider(create: (_) => getIt<GetMomentGiftsBloc>()),
+
         BlocProvider(create: (context) => ThemeBloc()),
                 BlocProvider(create: (_) => getIt<RoomVistorBloc>()),
 
@@ -439,7 +441,6 @@ final  String theme ;
 
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
         BlocProvider(create: (_) => getIt<SendCodeBloc>()),
-        BlocProvider(create: (_) => getIt<GetMomentGiftsBloc>()),
         BlocProvider(
             create: (_) =>
             getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
