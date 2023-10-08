@@ -41,7 +41,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                   SizedBox(height: ConfigSize.defaultSize! / 0.2),
                   HeaderWithOnlyTitle(title: StringManager.income.tr()),
                   SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                 CardOfDiamondEarned(
+                 const CardOfDiamondEarned(
                   assetCard: AssetsPath.moneyBag,
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),

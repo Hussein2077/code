@@ -156,6 +156,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.use: "استخدام",
     StringManager.send: "إرسال",
     StringManager.buy: "شراء",
+    StringManager.test: "تجربة",
     StringManager.levelMissions: "مهمات المستوى",
     StringManager.knight: "افندي",
     StringManager.baron: "بيك",

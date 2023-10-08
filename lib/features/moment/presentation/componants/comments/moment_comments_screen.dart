@@ -2,6 +2,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
@@ -14,6 +15,8 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/moment_controller.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 
@@ -21,10 +24,11 @@ import 'widgets/moment_comment_row.dart';
 
 class MomentCommentsScreen extends StatefulWidget {
   final String momentId;
-final String? type;
+
+//final String type; 3 values following or liked or mymoments to change the blocbuilder
   const MomentCommentsScreen({
+    //required this.type,
     required this.momentId,
-     this.type,
     super.key,
   });
 
@@ -49,6 +53,8 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
   void dispose() {
     super.dispose();
     commentListtemp!.clear();
+    BlocProvider.of<GetMomentBloc>(context).add(
+        GetUserMomentEvent(userId: MyDataModel.getInstance().id.toString()));
     MomentBottomBarState.commentsCounter.value++;
   }
 
@@ -82,7 +88,7 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                     Row(
                       children: [
                         const Spacer(flex: 1,),
-                        IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios)),
+                        IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_back_ios)),
                         const Spacer(flex: 4,),
                         Text(StringManager.comments,style: Theme.of(context).textTheme.titleLarge,),
                         const Spacer(flex: 5,),
@@ -107,7 +113,6 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                                   ),
                                   child: state.data!.isNotEmpty
                                       ? MomentComments(
-                                    type: widget.type,
                                           momentCommentListModel:
                                                state.data!,
                                           scrollController: scrollController,
@@ -144,7 +149,6 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                                 height: ConfigSize.screenHeight! * 0.88,
                                 child: const LoadingWidget());
                           } else {
-
                             return SizedBox(
                               width: ConfigSize.screenWidth!,
                               height: ConfigSize.screenHeight! * 0.88,
@@ -157,8 +161,6 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                                         right: ConfigSize.defaultSize!,
                                       ),
                                       child: MomentComments(
-                                        type: widget.type,
-
                                         momentCommentListModel: commentListtemp!,
                                         scrollController: scrollController,
                                       )),

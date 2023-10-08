@@ -49,7 +49,7 @@ class ProfileRoomModel {
 
   factory ProfileRoomModel.fromMap(Map<String, dynamic> map) {
     return ProfileRoomModel(
-      image: map['image'],
+      image: map['image']??"",
       imageId: map['image_id'],
       gender: map['gender'],
       birthday: map['birthday'],

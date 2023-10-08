@@ -1,7 +1,5 @@
 
 
-import 'dart:developer';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
@@ -84,7 +82,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
   void initState() {
    controller.index = widget.startIndex??0;
     super.initState();
-   
   }
 
 
@@ -107,26 +104,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
                 padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
                 child: Swiper(
                   itemBuilder: (BuildContext context, int index) {
-    //                 if(ReelsPage.videoPlayerController!=null){
-    //                   log("1");
-    //         ReelsPage.videoPlayerController!.addListener(() { 
-    //                   // log("2");
-    //                   log((ReelsPage.videoPlayerController!.value.position.inSeconds).toString());
-    //                   log((ReelsPage.videoPlayerController!.value.duration.inSeconds).toString());
-
-
-                     
-    //                   if (ReelsPage.videoPlayerController!.value.position.inSeconds ==
-    //      ReelsPage.videoPlayerController!.value.duration.inSeconds){
-    //                             log("3");
-
-    //                   controller.next();
-
-    //      }
-      
-    // });
-    //                 }
-         
                     return ReelsPage(
                       userView: widget.userView,
                       item: widget.reelsList[index],

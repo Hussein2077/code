@@ -18,13 +18,14 @@ class MallCard extends StatelessWidget {
   final String time;
   final String id;
   final String image;
+  final  void Function() onTapTest;
   const MallCard(
       {required this.image,
       required this.id,
       required this.name,
       required this.price,
       required this.time,
-      super.key});
+      super.key, required this.onTapTest});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,7 @@ class MallCard extends StatelessWidget {
             height: ConfigSize.defaultSize!,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               MainButton(
                 title: StringManager.buy,
@@ -102,6 +103,15 @@ class MallCard extends StatelessWidget {
                             ));
                       });
                 },
+                width: ConfigSize.defaultSize! * 7,
+                height: ConfigSize.defaultSize! * 2,
+                titleSize: ConfigSize.defaultSize! * 1.4,
+              ),
+
+              MainButton(
+                title: StringManager.test,
+                onTap: onTapTest,
+
                 width: ConfigSize.defaultSize! * 7,
                 height: ConfigSize.defaultSize! * 2,
                 titleSize: ConfigSize.defaultSize! * 1.4,

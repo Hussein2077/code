@@ -9,7 +9,9 @@ class StringManager {
       "Tik Chat recommends that you update to the latest version You can keep enjoy the app while downloading the update";
  // cach keys
  static const String cacheFrameKey = 'Frame';
- static const String cacheEmojieKey = 'Emojie';
+  static const String hasJoin = "has joined";
+
+  static const String cacheEmojieKey = 'Emojie';
  static const String cacheEntroKey = 'Entro';
  static const String cachExtraKey = 'Extra';
  static const String cachExtraLevelKey = 'ExtraLevel';
@@ -161,6 +163,7 @@ static const String video ='Video';
   static const String use = "Use";
   static const String send = "Send";
   static const String buy = "Buy";
+  static const String test = "test";
   static const String levelMissions = "Level missions";
   static const String knight = "Kinght";
   static const String baron = "Baron";

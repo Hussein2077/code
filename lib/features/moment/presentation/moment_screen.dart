@@ -9,22 +9,14 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/following_moments/following_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/liked_moments/liked_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/my_moments_screen/my_moments_screen.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_state.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_state.dart';
-import 'package:tik_chat_v2/features/moment/presentation/moment_controller.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/add_moment_screen.dart';
 import '../../../core/utils/config_size.dart';
 
@@ -67,56 +59,9 @@ class MomentScreenState extends State<MomentScreen>
   }
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MakeMomentLikeBloc, MakeMomentLikeStates>(
-      listener: (context, state) {
-        if (state is MakeMomentLikeSucssesState) {
-          MomentController().likeReverce(
-              MomentController.selectedMomentLike);
-          MomentController().likecounter(
-            MomentController.selectedMomentLike,
-          );
-        }
-
-      },
-  child: BlocListener<GetMomentBloc, GetMomentUserState>(
-      listener: (context, state) {
-        if (state is GetMomentUserSucssesState) {
-          MomentController().fillLikeMaps(state.data!);
-          MomentController().fillCommentMap(state.data!);
-
-        }
-      },
-  child: BlocListener<GetMomentILikeItBloc, GetMomentILikeItUserState>(
-      listener: (context, state) {
-        if (state is GetMomentILikeItSucssesState) {
-          MomentController().fillLikeMaps(state.data!);
-          MomentController().fillCommentMap(state.data!);
-
-        }
-      },
-
-      child: BlocListener<GetFollowingUserMomentBloc, GetFollowingUserMomentState>(
-      listener: (context, state) {
-        if (state is GetFollowingUserMomentSucssesState) {
-          MomentController().fillLikeMaps(state.data!);
-          MomentController().fillCommentMap(state.data!);
-
-        }
-      },
-  child:  BlocListener<AddMomentCommentBloc, AddMomentCommentState>(
-    listener: (context, state) {
-      if(state is AddMomentCommentSucssesState){
-        MomentController.commentIncrement(MomentController.selectedMomentComment);
-
-
-      }
-
-    },
-  child: BlocListener<DeleteMomentBloc, DeleteMomentState>(
+    return BlocListener<DeleteMomentBloc, DeleteMomentState>(
   listener:       (context, state) {
     if(state is DeleteMomentSucssesState){
-      MomentController.commentsDecrement(MomentController.selectedMomentComment);
-
       sucssesToast(context: context, title: state.message);
     }
     else if( state is DeleteMomentLoadingState){
@@ -139,7 +84,7 @@ class MomentScreenState extends State<MomentScreen>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  height: ConfigSize.defaultSize! * 7,
+                  height: ConfigSize.defaultSize! * 6,
                   width: ConfigSize.defaultSize! * 41,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
@@ -176,7 +121,7 @@ class MomentScreenState extends State<MomentScreen>
                 ),
                 SizedBox(
                   width: ConfigSize.screenWidth,
-                  height: ConfigSize.screenHeight! * 0.682,
+                  height: ConfigSize.defaultSize! * 52.7,
                   child: TabBarView(
                     controller: _tabController,
                     children: [
@@ -226,11 +171,6 @@ class MomentScreenState extends State<MomentScreen>
         ),
       ),
     ),
-),
-),
-),
-),
-),
 );
   }
 }

@@ -11,17 +11,17 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_comment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
 
 
 class MomentComments extends StatefulWidget {
-final String? type;
+
   final List<MomentCommentModel> momentCommentListModel;
   final ScrollController scrollController;
 
   const MomentComments({
     required this.momentCommentListModel,
     required this.scrollController,
-     this.type,
     super.key});
 
   @override
@@ -88,6 +88,7 @@ class _MomentCommentsState extends State<MomentComments> {
                               fontWeight: FontWeight.w500
                             ),
                             isVip: false,
+                            //comment==true? momentCommentModel.userProfilePic:momentLikeModel.userImage!,
                           ),
                         ),
                         Row(
@@ -129,7 +130,7 @@ class _MomentCommentsState extends State<MomentComments> {
                     const Spacer(
                       flex: 5,
                     ),
-                   if (widget.momentCommentListModel[i].userId==MyDataModel.getInstance().id||widget.type=='mine')
+                   if (widget.momentCommentListModel[i].userId==MyDataModel.getInstance().id)
                     SizedBox(
                       width: ConfigSize.defaultSize! * 4,
                       height: ConfigSize.defaultSize! * 4,
@@ -141,7 +142,7 @@ class _MomentCommentsState extends State<MomentComments> {
                             color: Theme
                                 .of(context)
                                 .colorScheme
-                                .primary,
+                                .secondary,
                           ),
                           dropdownDecoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),

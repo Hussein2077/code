@@ -1,5 +1,3 @@
-
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,45 +44,45 @@ class PrivacySettingState extends State<PrivacySetting> {
         if (state is SucssesState) {
           BlocProvider.of<MangerGetVipPrevBloc>(context).add(getVipPrevEvent());
         } else if (state is ErrorState) {
-        errorToast(context: context, title: state.massege.tr());}
-         else if (state is LoadingState) {
-      loadingToast(context: context , title: StringManager.loading.tr());
+          errorToast(context: context, title: state.massege.tr());
+        } else if (state is LoadingState) {
+          loadingToast(context: context, title: StringManager.loading.tr());
         }
-        
       },
       builder: (context, state) {
         return BlocBuilder<MangerGetVipPrevBloc, MangerGetVipPrevState>(
           builder: (context, state) {
             if (state is GetVipPrevSucssesState) {
-        
               isFirst++;
               tempData = state.data;
+
+              print('${state.data[5].title!}huss');
               return Scaffold(
                 body: Column(
                   children: [
                     HeaderWithOnlyTitle(
-                       
-                        title: StringManager.settings.tr(),
-                        ),
+                      title: StringManager.settings.tr(),
+                    ),
                     Expanded(
                       child: ListView.builder(
-                          itemBuilder: (BuildContext context, int index) {
-                            return  state.data[index].key=='room'?const SizedBox():
-
-
-                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*2),
-                          child: MainPravelagePrivecyColumn(
-                            prevalageName: state.data[index].title!,
-                            prevalageDescription: state.data[index].description!,
-                            state: state.data[index].isActive!,
-                            myData: widget.myData,
-                            isAllow:  state.data[index].isAllowToUser!,
-                            keytype:state.data[index].key! ,
-                          ),
-                        );
-                      },
-                        itemCount:state.data.length ,
+                        itemBuilder: (BuildContext context, int index) {
+                          return state.data[index].key == 'room'
+                              ? const SizedBox()
+                              : Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: ConfigSize.defaultSize! * 2),
+                                  child: MainPravelagePrivecyColumn(
+                                    prevalageName: state.data[index].title!,
+                                    prevalageDescription:
+                                        state.data[index].description!,
+                                    state: state.data[index].isActive!,
+                                    myData: widget.myData,
+                                    isAllow: state.data[index].isAllowToUser!,
+                                    keytype: state.data[index].key!,
+                                  ),
+                                );
+                        },
+                        itemCount: state.data.length,
                       ),
                     )
                   ],
@@ -95,49 +93,56 @@ class PrivacySettingState extends State<PrivacySetting> {
                 if (isFirst == 0) {
                   return const LoadingWidget();
                 } else {
-                  return Scaffold(
-                body: Column(
-                  children: [
-                    HeaderWithOnlyTitle(
-                      
-                        title: StringManager.settings.tr(),
-                       ),
-                    Expanded(
-                      child: ListView.builder(
-                          itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*2),
-                          child: MainPravelagePrivecyColumn(
-                            prevalageName: tempData![index].title!,
-                            prevalageDescription: tempData![index].description!,
-                            state: tempData![index].isActive!,
-                            myData: widget.myData,
-                            isAllow:  tempData![index].isAllowToUser!,
-                            keytype:tempData![index].key! ,
+                  return  Scaffold(
+                    body: Column(
+                      children: [
+                        HeaderWithOnlyTitle(
+                          title: StringManager.settings.tr(),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemBuilder: (BuildContext context, int index) {
+                              return
+                                tempData![index].key == 'room'
+                                    ? const SizedBox()
+                                    :  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              ConfigSize.defaultSize! * 2),
+                                      child: MainPravelagePrivecyColumn(
+                                        prevalageName: tempData![index].title!,
+                                        prevalageDescription:
+                                            tempData![index].description!,
+                                        state: tempData![index].isActive!,
+                                        myData: widget.myData,
+                                        isAllow:
+                                            tempData![index].isAllowToUser!,
+                                        keytype: tempData![index].key!,
+                                      ),
+                                    );
+                            },
+                            itemCount: tempData!.length,
                           ),
-                        );
-                      },
-                        itemCount:tempData!.length ,
-                      ),
-                    )
-                  ],
-                ),
-              );
+                        )
+                      ],
+                    ),
+                  );
                 }
               } else if (state is GetVipPrevErrorState) {
-                return  Scaffold(
+                return Scaffold(
                   body: Container(
-                    padding: EdgeInsets.symmetric(vertical: ConfigSize.screenWidth!*0.3),
+                    padding: EdgeInsets.symmetric(
+                        vertical: ConfigSize.screenWidth! * 0.3),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-
                           Image.asset(AssetsPath.serverError),
-                          SizedBox(height: ConfigSize.screenHeight!*0.1),
+                          SizedBox(height: ConfigSize.screenHeight! * 0.1),
                           Text(
-                           (state.error).toString().tr(),
+                            (state.error).toString().tr(),
                             style: const TextStyle(fontSize: 22),
-                          ),                    ]),
+                          ),
+                        ]),
                   ),
                 );
               } else {
