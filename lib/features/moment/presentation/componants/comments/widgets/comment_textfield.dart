@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -6,8 +7,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_mom
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
-
+import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 
 class CommentTextField extends StatelessWidget{
    TextEditingController commentController ;
@@ -51,7 +51,7 @@ return Expanded(
                   .secondary
                   .withOpacity(0.3),
               filled: true,
-              hintText: StringManager.addComment,
+              hintText: StringManager.addComment.tr(),
               hintStyle: Theme.of(context)
                   .textTheme
                   .bodySmall,
@@ -81,9 +81,10 @@ return Expanded(
       ),
       InkWell(
         onTap: () {
-          BlocProvider.of<AddMomentCommentBloc>(
-              context)
-              .add(AddMomentCommentEvent(
+              MomentBottomBarState.selectedMomentComment = int.parse(momentId);
+
+              BlocProvider.of<AddMomentCommentBloc>(context).add(
+                  AddMomentCommentEvent(
                       momentId: momentId.toString(),
                       comment: commentController.text));
               BlocProvider.of<GetMomentCommentBloc>(context)
@@ -91,7 +92,6 @@ return Expanded(
                 momentId: momentId.toString(),
               ));
               commentController.clear();
-
             },
         child: Container(
           width: ConfigSize.defaultSize! * 5,

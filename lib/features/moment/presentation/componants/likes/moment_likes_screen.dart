@@ -60,7 +60,7 @@ class MomentsLikesScreenState extends State<MomentsLikesScreen> {
                     const Spacer(flex: 1,),
                     IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_back_ios)),
                     const Spacer(flex: 4,),
-                    Text(StringManager.comments,style: Theme.of(context).textTheme.titleLarge,),
+                    Text(StringManager.likes.tr(),style: Theme.of(context).textTheme.titleLarge,),
                     const Spacer(flex: 5,),
                   ],
                 ),

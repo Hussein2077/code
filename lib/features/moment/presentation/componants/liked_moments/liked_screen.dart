@@ -24,7 +24,12 @@ class LikedScreen extends StatefulWidget {
 
 class _LikedScreenState extends State<LikedScreen> {
 
-
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<GetMomentILikeItBloc>(context)
+        .add(const GetMomentIliKEitEvent());
+  }
 
   List<MomentModel>? tempData = [];
 
@@ -54,7 +59,9 @@ class _LikedScreenState extends State<LikedScreen> {
             message: state.errorMassage,
           );
         } else if (state is GetMomentILikeItLoadingState) {
-          if (tempData!.isEmpty) {
+          if (tempData!.isNotEmpty) {
+            return TabViewBody(momentModelList:tempData!);
+          } else {
             return Container(
                 width: ConfigSize.screenWidth,
                 height: ConfigSize.screenHeight,
@@ -63,8 +70,7 @@ class _LikedScreenState extends State<LikedScreen> {
                     ConfigSize.defaultSize! *
                         0.2),
                 child: const LoadingWidget());
-          } else {
-            return TabViewBody(momentModelList:tempData!);
+
           }        } else {
           return const CustomErrorWidget(
             message: StringManager.noDataFoundHere,

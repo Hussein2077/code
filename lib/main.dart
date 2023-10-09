@@ -392,6 +392,8 @@ final  String theme ;
               ..add(GiftesCountryEvent(type: 3))
               ..add(GiftesFamousEvent(type: 5))
               ..add(GiftesLuckyEvent(type: 6))
+              ..add(GiftesMomentEvent(type: 4)),
+
 
         ),
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),

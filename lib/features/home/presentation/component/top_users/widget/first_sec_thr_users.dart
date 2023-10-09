@@ -31,6 +31,7 @@ class FirstSecThrUsers extends StatelessWidget {
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
 
@@ -56,6 +57,7 @@ class FirstSecThrUsers extends StatelessWidget {
             child: Text(
               userData.name!,
               style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
             ),
           ),
 type=='sender'?

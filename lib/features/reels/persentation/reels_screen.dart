@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -12,6 +13,7 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/problem_customers_services.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
@@ -42,12 +44,17 @@ class ReelsScreen extends StatefulWidget {
 
 late TextEditingController report;
 
-class ReelsScreenState extends State<ReelsScreen> {
+class ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin{
   static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
   static Map<String, Uint8List> thumbnail = {};
   static Map<String, bool> likedVideos = {};
   static Map<String, int> likedVideoCount = {};
   static Map<String, bool> followMap = {};
+
+  late TabController _tabController;
+
+
+
 
   // static List<String> followList = [];
 
@@ -65,7 +72,10 @@ class ReelsScreenState extends State<ReelsScreen> {
     }
 
     report = TextEditingController();
-
+    _tabController = TabController(
+      length: 2,
+      vsync: this, // Provide a TickerProvider
+    );
   }
 
   @override
@@ -75,123 +85,268 @@ class ReelsScreenState extends State<ReelsScreen> {
     likedVideos.clear();
     likedVideoCount.clear();
     followMap.clear();
-
     thumbnail.clear();
+
+    _tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UploadReelsBloc, UploadReelsState>(
-        listener: (context, state) {
-          if (state is UploadReelsLoadingState) {
-            loadingToast(context: context, title: StringManager.loading.tr());
-          } else if (state is UploadReelsErrorState) {
-            errorToast(context: context, title: state.error);
-          } else if (state is UploadReelsSucssesState) {
-            BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent(id: null));
-            sucssesToast(context: context, title: state.message);
-          }
-        },
-        child: Scaffold(
-            body: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: BlocConsumer<GetReelsBloc, GetReelsState>(
-                  builder: (context, state) {
-                    if (state is GetReelsSucssesState) {
-                      ReelsController.getInstance.likesMap(state.data!);
-                      ReelsController.getInstance.likesCountMap(state.data!);
-                      ReelsController.getInstance.followMap(state.data!);
-                   log(" instaincr reel ${    ReelsController.getInstance.hashCode}");
-                      return ReelsViewer(
-                        userView: false,
-                        reelsList: state.data!,
-                        appbarTitle: StringManager.reels.tr(),
-                        onShare: (reel) {
-                          DynamicLinkProvider()
-                              .showReelLink(
-                            reelId: reel.id!,
-                            reelImage: reel.userImage!,
-                          )
-                              .then((value) {
-                            Share.share(value);
-                          });
-                        },
-                        onLike: (id) {
-                          BlocProvider.of<MakeReelLikeBloc>(context)
-                              .add(MakeReelLikeEvent(reelId: id.toString()));
-                          setState(() {
-                            ReelsScreenState.likedVideos[id.toString()] =
-                                !ReelsScreenState.likedVideos[id.toString()]!;
-                            ReelsController.getInstance.changeLikeCount(id.toString());
-                          });
-                        },
-                        onFollow: (userId, isFollow) {
-                          setState(() {
-                            followMap[userId] = !followMap[userId]!;
+    return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 35,
+          backgroundColor: Theme.of(context).colorScheme.background,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(0),
+            child: TabBar(
+              
+              indicatorColor: ColorManager.orang,
+              indicatorSize: TabBarIndicatorSize.label,
+              controller: _tabController,
+              tabs: [
+                Text(
+                  StringManager.reels.tr(),
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                Text(
+                  StringManager.momentTab.tr(),
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+              ],
+            ),
+          ),
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            BlocListener<UploadReelsBloc, UploadReelsState>(
+              listener: (context, state) {
+                if (state is UploadReelsLoadingState) {
+                  loadingToast(context: context, title: StringManager.loading.tr());
+                } else if (state is UploadReelsErrorState) {
+                  errorToast(context: context, title: state.error);
+                } else if (state is UploadReelsSucssesState) {
+                  BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent(id: null));
+                  sucssesToast(context: context, title: state.message);
+                }
+              },
+              child: Scaffold(
+                  body: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: BlocConsumer<GetReelsBloc, GetReelsState>(
+                        builder: (context, state) {
+                          if (state is GetReelsSucssesState) {
+                            ReelsController.getInstance.likesMap(state.data!);
+                            ReelsController.getInstance.likesCountMap(state.data!);
+                            ReelsController.getInstance.followMap(state.data!);
+                         log(" instaincr reel ${    ReelsController.getInstance.hashCode}");
+                            return ReelsViewer(
+                              userView: false,
+                              reelsList: state.data!,
+                              //appbarTitle: StringManager.reels.tr(),
+                              onShare: (reel) {
+                                DynamicLinkProvider()
+                                    .showReelLink(
+                                  reelId: reel.id!,
+                                  reelImage: reel.userImage!,
+                                )
+                                    .then((value) {
+                                  Share.share(value);
+                                });
+                              },
+                              onLike: (id) {
+                                BlocProvider.of<MakeReelLikeBloc>(context)
+                                    .add(MakeReelLikeEvent(reelId: id.toString()));
+                                setState(() {
+                                  ReelsScreenState.likedVideos[id.toString()] =
+                                      !ReelsScreenState.likedVideos[id.toString()]!;
+                                  ReelsController.getInstance.changeLikeCount(id.toString());
+                                });
+                              },
+                              onFollow: (userId, isFollow) {
+                                setState(() {
+                                  followMap[userId] = !followMap[userId]!;
 
-                          });
-                          BlocProvider.of<FollowBloc>(context)
-                              .add(FollowEvent(userId: userId));
-                        },
-                        onComment: (comment) {
-                          log('Comment on reel ==> $comment');
-                        },
-                        onClickMoreBtn: (id, userData) {
-                          bottomDailog(
-                              context: context,
-                              widget: SingleChildScrollView(
-                                padding: EdgeInsets.only(
-                                  bottom:
-                                      MediaQuery.of(context).viewInsets.bottom,
-                                ),
-                                child: moreDilog(
-                                  context: context,
-                                  userId: userData.toString(),
-                                  id: id.toString(),
-                                ),
-                              ));
-                          log('======> Clicked on more option <======');
-                        },
-                        onClickBackArrow: () {
-                          Navigator.pop(context);
-                          log('======> Clicked on back arrow <======');
-                        },
-                        onIndexChanged: (index) {
-                          if(state.data!.length - index == 4){
-                            BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
+                                });
+                                BlocProvider.of<FollowBloc>(context)
+                                    .add(FollowEvent(userId: userId));
+                              },
+                              onComment: (comment) {
+                                log('Comment on reel ==> $comment');
+                              },
+                              onClickMoreBtn: (id, userData) {
+                                bottomDailog(
+                                    context: context,
+                                    widget: SingleChildScrollView(
+                                      padding: EdgeInsets.only(
+                                        bottom:
+                                            MediaQuery.of(context).viewInsets.bottom,
+                                      ),
+                                      child: moreDilog(
+                                        context: context,
+                                        userId: userData.toString(),
+                                        id: id.toString(),
+                                      ),
+                                    ));
+                                log('======> Clicked on more option <======');
+                              },
+                              onClickBackArrow: () {
+                                Navigator.pop(context);
+                                log('======> Clicked on back arrow <======');
+                              },
+                              onIndexChanged: (index) {
+                                if(state.data!.length - index == 4){
+                                  BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
+                                }
+                                log(state.data!.length.toString() + "zzzzz");
+                                log('======> Current Index ======> $index <========');
+                              },
+                              showProgressIndicator: false,
+                              showVerifiedTick: false,
+                              showAppbar: true,
+                            );
+                          } else if (state is GetReelsLoadingState) {
+                            return const LoadingWidget();
+                          } else if (state is GetReelsErrorState) {
+                            return CustomErrorWidget(message: state.errorMassage);
+                          } else {
+                            return CustomErrorWidget(
+                                message: StringManager.unexcepectedError.tr());
                           }
-                          log(state.data!.length.toString() + "zzzzz");
-                          log('======> Current Index ======> $index <========');
                         },
-                        showProgressIndicator: false,
-                        showVerifiedTick: false,
-                        showAppbar: true,
-                      );
-                    } else if (state is GetReelsLoadingState) {
-                      return const LoadingWidget();
-                    } else if (state is GetReelsErrorState) {
-                      return CustomErrorWidget(message: state.errorMassage);
-                    } else {
-                      return CustomErrorWidget(
-                          message: StringManager.unexcepectedError.tr());
-                    }
-                  },
-                  listener: (context, state) async {
-                    if (state is GetReelsSucssesState) {
-                      for (int i = 0; i < state.data!.length; i++) {
-                        if (!thumbnail
-                            .containsKey(state.data![i].id.toString())) {
-                          Uint8List thumbnailPath = await  ReelsController.getInstance
-                              .getVideoThumbnail(state.data![i].url!);
-                          thumbnail.putIfAbsent(state.data![i].id.toString(),
-                              () => thumbnailPath);
-                        }
-                      }
-                    }
-                  },
-                ))));
+                        listener: (context, state) async {
+                          if (state is GetReelsSucssesState) {
+                            for (int i = 0; i < state.data!.length; i++) {
+                              if (!thumbnail
+                                  .containsKey(state.data![i].id.toString())) {
+                                Uint8List thumbnailPath = await  ReelsController.getInstance
+                                    .getVideoThumbnail(state.data![i].url!);
+                                thumbnail.putIfAbsent(state.data![i].id.toString(),
+                                    () => thumbnailPath);
+                              }
+                            }
+                          }
+                        },
+                      )))),
+
+            const MomentScreen(),
+          ],
+        ));
+
+
+
+      // BlocListener<UploadReelsBloc, UploadReelsState>(
+      //   listener: (context, state) {
+      //     if (state is UploadReelsLoadingState) {
+      //       loadingToast(context: context, title: StringManager.loading.tr());
+      //     } else if (state is UploadReelsErrorState) {
+      //       errorToast(context: context, title: state.error);
+      //     } else if (state is UploadReelsSucssesState) {
+      //       BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent(id: null));
+      //       sucssesToast(context: context, title: state.message);
+      //     }
+      //   },
+      //   child: Scaffold(
+      //       body: SizedBox(
+      //           width: MediaQuery.of(context).size.width,
+      //           height: MediaQuery.of(context).size.height,
+      //           child: BlocConsumer<GetReelsBloc, GetReelsState>(
+      //             builder: (context, state) {
+      //               if (state is GetReelsSucssesState) {
+      //                 ReelsController.getInstance.likesMap(state.data!);
+      //                 ReelsController.getInstance.likesCountMap(state.data!);
+      //                 ReelsController.getInstance.followMap(state.data!);
+      //              log(" instaincr reel ${    ReelsController.getInstance.hashCode}");
+      //                 return ReelsViewer(
+      //                   userView: false,
+      //                   reelsList: state.data!,
+      //                   appbarTitle: StringManager.reels.tr(),
+      //                   onShare: (reel) {
+      //                     DynamicLinkProvider()
+      //                         .showReelLink(
+      //                       reelId: reel.id!,
+      //                       reelImage: reel.userImage!,
+      //                     )
+      //                         .then((value) {
+      //                       Share.share(value);
+      //                     });
+      //                   },
+      //                   onLike: (id) {
+      //                     BlocProvider.of<MakeReelLikeBloc>(context)
+      //                         .add(MakeReelLikeEvent(reelId: id.toString()));
+      //                     setState(() {
+      //                       ReelsScreenState.likedVideos[id.toString()] =
+      //                           !ReelsScreenState.likedVideos[id.toString()]!;
+      //                       ReelsController.getInstance.changeLikeCount(id.toString());
+      //                     });
+      //                   },
+      //                   onFollow: (userId, isFollow) {
+      //                     setState(() {
+      //                       followMap[userId] = !followMap[userId]!;
+      //
+      //                     });
+      //                     BlocProvider.of<FollowBloc>(context)
+      //                         .add(FollowEvent(userId: userId));
+      //                   },
+      //                   onComment: (comment) {
+      //                     log('Comment on reel ==> $comment');
+      //                   },
+      //                   onClickMoreBtn: (id, userData) {
+      //                     bottomDailog(
+      //                         context: context,
+      //                         widget: SingleChildScrollView(
+      //                           padding: EdgeInsets.only(
+      //                             bottom:
+      //                                 MediaQuery.of(context).viewInsets.bottom,
+      //                           ),
+      //                           child: moreDilog(
+      //                             context: context,
+      //                             userId: userData.toString(),
+      //                             id: id.toString(),
+      //                           ),
+      //                         ));
+      //                     log('======> Clicked on more option <======');
+      //                   },
+      //                   onClickBackArrow: () {
+      //                     Navigator.pop(context);
+      //                     log('======> Clicked on back arrow <======');
+      //                   },
+      //                   onIndexChanged: (index) {
+      //                     if(state.data!.length - index == 4){
+      //                       BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
+      //                     }
+      //                     log(state.data!.length.toString() + "zzzzz");
+      //                     log('======> Current Index ======> $index <========');
+      //                   },
+      //                   showProgressIndicator: false,
+      //                   showVerifiedTick: false,
+      //                   showAppbar: true,
+      //                 );
+      //               } else if (state is GetReelsLoadingState) {
+      //                 return const LoadingWidget();
+      //               } else if (state is GetReelsErrorState) {
+      //                 return CustomErrorWidget(message: state.errorMassage);
+      //               } else {
+      //                 return CustomErrorWidget(
+      //                     message: StringManager.unexcepectedError.tr());
+      //               }
+      //             },
+      //             listener: (context, state) async {
+      //               if (state is GetReelsSucssesState) {
+      //                 for (int i = 0; i < state.data!.length; i++) {
+      //                   if (!thumbnail
+      //                       .containsKey(state.data![i].id.toString())) {
+      //                     Uint8List thumbnailPath = await  ReelsController.getInstance
+      //                         .getVideoThumbnail(state.data![i].url!);
+      //                     thumbnail.putIfAbsent(state.data![i].id.toString(),
+      //                         () => thumbnailPath);
+      //                   }
+      //                 }
+      //               }
+      //             },
+      //           ))));
   }
 
   Widget moreDilog({

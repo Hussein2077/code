@@ -478,6 +478,7 @@ static const String video ='Video';
  static const String addMoment = "Add Moment";
  static const String addMoment1 = "Add moment ...";
  static const String thisMoment = "this moment has no likes yet";
+ static const String thisMomentc = "this moment has no comments yet";
 
  static const String momentTab = "Moments";
  static const String likes = "Liked";
