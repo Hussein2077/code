@@ -96,7 +96,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
           ),
           InkWell(
             onTap: () {
-              MomentController.selectedMomentComment=widget.momentModel.momentId;
+              MomentController.getInstance.selectedMomentComment=widget.momentModel.momentId;
 
               bottomDailog(
                   context: context,
@@ -116,7 +116,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       width: ConfigSize.defaultSize! * 5,
                       child: Center(
                         child: Text(
-                            MomentController.commentsOfMomentsMap[
+                            MomentController.getInstance.commentsOfMomentsMap[
                             widget.momentModel.momentId]
                                 .toString(),
                             style: Theme.of(context).textTheme.bodyLarge),
