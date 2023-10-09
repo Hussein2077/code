@@ -55,13 +55,13 @@ class _ReelsBoxState extends State<ReelsBox> {
       listener: (context, state) async {
         if (state is GetUserReelsSucssesState) {
           log(ReelsBox.likedVideos.toString());
-                                ReelsController().followMap(state.data!);
+          ReelsController.getInstance.followMap(state.data!);
 
-          ReelsController().likesUserMap(state.data!);
-          ReelsController().likesCountUserMap(state.data!);
+          ReelsController.getInstance.likesUserMap(state.data!);
+          ReelsController.getInstance.likesCountUserMap(state.data!);
           for (int i = 0; i < state.data!.length; i++) {
             if (!ReelsBox.thumbnail.containsKey(state.data![i].id.toString())) {
-              Uint8List thumbnailPath = await ReelsController()
+              Uint8List thumbnailPath = await  ReelsController.getInstance
                   .getVideoThumbnail(state.data![i].url!);
               ReelsBox.thumbnail.putIfAbsent(
                   state.data![i].id.toString(), () => thumbnailPath);

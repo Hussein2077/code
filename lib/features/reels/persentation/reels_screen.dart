@@ -53,6 +53,8 @@ class ReelsScreenState extends State<ReelsScreen> {
 
   @override
   void initState() {
+    super.initState();
+
     likedVideos = {};
     likedVideoCount = {};
     followMap = {};
@@ -64,18 +66,18 @@ class ReelsScreenState extends State<ReelsScreen> {
 
     report = TextEditingController();
 
-    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
+
     report.dispose();
     likedVideos.clear();
     likedVideoCount.clear();
     followMap.clear();
 
     thumbnail.clear();
+    super.dispose();
   }
 
   @override
@@ -98,10 +100,10 @@ class ReelsScreenState extends State<ReelsScreen> {
                 child: BlocConsumer<GetReelsBloc, GetReelsState>(
                   builder: (context, state) {
                     if (state is GetReelsSucssesState) {
-                      ReelsController().likesMap(state.data!);
-                      ReelsController().likesCountMap(state.data!);
-                      ReelsController().followMap(state.data!);
-
+                      ReelsController.getInstance.likesMap(state.data!);
+                      ReelsController.getInstance.likesCountMap(state.data!);
+                      ReelsController.getInstance.followMap(state.data!);
+                   log(" instaincr reel ${    ReelsController.getInstance.hashCode}");
                       return ReelsViewer(
                         userView: false,
                         reelsList: state.data!,
@@ -122,7 +124,7 @@ class ReelsScreenState extends State<ReelsScreen> {
                           setState(() {
                             ReelsScreenState.likedVideos[id.toString()] =
                                 !ReelsScreenState.likedVideos[id.toString()]!;
-                            ReelsController().changeLikeCount(id.toString());
+                            ReelsController.getInstance.changeLikeCount(id.toString());
                           });
                         },
                         onFollow: (userId, isFollow) {
@@ -181,7 +183,7 @@ class ReelsScreenState extends State<ReelsScreen> {
                       for (int i = 0; i < state.data!.length; i++) {
                         if (!thumbnail
                             .containsKey(state.data![i].id.toString())) {
-                          Uint8List thumbnailPath = await ReelsController()
+                          Uint8List thumbnailPath = await  ReelsController.getInstance
                               .getVideoThumbnail(state.data![i].url!);
                           thumbnail.putIfAbsent(state.data![i].id.toString(),
                               () => thumbnailPath);

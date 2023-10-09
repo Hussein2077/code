@@ -130,7 +130,7 @@ class UserReelViewState extends State<UserReelView> {
                setState(() {
                             ReelsBox.likedVideos[id.toString()] =
                                 !ReelsBox.likedVideos[id.toString()]!;
-                            ReelsController().changeLikeUserCount(id.toString());
+                            ReelsController.getInstance.changeLikeUserCount(id.toString());
                           });
                           log( ReelsBox.likedVideos.toString());
                 },

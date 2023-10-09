@@ -8,20 +8,24 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 
 class ReelsController {
 
+
+   static get  getInstance => ReelsController() ;
+
+
    void likesMap (List<ReelModel> reels ,){
     for (int i = 0 ; i < reels.length ; i++){
-      
+
         ReelsScreenState.likedVideos.putIfAbsent(reels[i].id.toString(), () => reels[i].likeExists!);
-      
+
     }
 
 
   }
    void likesCountMap (List<ReelModel> reels){
     for (int i = 0 ; i < reels.length ; i++){
-      
+
         ReelsScreenState.likedVideoCount.putIfAbsent(reels[i].id.toString(), () => reels[i].likeNum!);
-      
+
     }
 
 
@@ -55,9 +59,9 @@ class ReelsController {
 
 void followMap (List<ReelModel> reels){
     for (int i = 0 ; i < reels.length ; i++){
-      
+
         ReelsScreenState.followMap.putIfAbsent(reels[i].userId.toString(), () => reels[i].isFollow!);
-      
+
     }
 
 
@@ -67,25 +71,25 @@ void followMap (List<ReelModel> reels){
 
    void likesUserMap (List<ReelModel> reels ,){
     for (int i = 0 ; i < reels.length ; i++){
-      
+
         ReelsBox.likedVideos.putIfAbsent(reels[i].id.toString(), () => reels[i].likeExists!);
-      
+
     }
 
 
   }
    void likesCountUserMap (List<ReelModel> reels){
     for (int i = 0 ; i < reels.length ; i++){
-      
+
         ReelsBox.likedVideoCount.putIfAbsent(reels[i].id.toString(), () => reels[i].likeNum!);
-      
+
     }
 
 
   }
 
   void changeLikeUserCount (String id  ){
-    
+
     if(ReelsBox.likedVideos[id]==true){
             ReelsBox.likedVideoCount[id] = ReelsBox.likedVideoCount[id]!+1;
 
