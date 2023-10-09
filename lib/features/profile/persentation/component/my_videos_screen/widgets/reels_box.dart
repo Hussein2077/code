@@ -35,14 +35,14 @@ class _ReelsBoxState extends State<ReelsBox> {
   @override
   void initState() {
     if(LowerProfileBody.getUserReels){
-      log("heeeeeeeeeeeer");
- ReelsBox.likedVideos.clear();
-    ReelsBox.likedVideoCount.clear();
+     ReelsBox.likedVideos.clear();
+     ReelsBox.likedVideoCount.clear();
     }
    
 
     super.initState();
   }
+
   @override
   void dispose() {
 
