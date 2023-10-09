@@ -32,6 +32,7 @@ class ReelsBox extends StatefulWidget {
 }
 
 class _ReelsBoxState extends State<ReelsBox> {
+
   @override
   void initState() {
     if(LowerProfileBody.getUserReels){
@@ -55,16 +56,14 @@ class _ReelsBoxState extends State<ReelsBox> {
       listener: (context, state) async {
         if (state is GetUserReelsSucssesState) {
           log(ReelsBox.likedVideos.toString());
-                                ReelsController().followMap(state.data!);
+          ReelsController().followMap(state.data!);
 
           ReelsController().likesUserMap(state.data!);
           ReelsController().likesCountUserMap(state.data!);
           for (int i = 0; i < state.data!.length; i++) {
             if (!ReelsBox.thumbnail.containsKey(state.data![i].id.toString())) {
-              Uint8List thumbnailPath = await ReelsController()
-                  .getVideoThumbnail(state.data![i].url!);
-              ReelsBox.thumbnail.putIfAbsent(
-                  state.data![i].id.toString(), () => thumbnailPath);
+              Uint8List thumbnailPath = await ReelsController().getVideoThumbnail(state.data![i].url!);
+              ReelsBox.thumbnail.putIfAbsent(state.data![i].id.toString(), () => thumbnailPath);
             }
           }
 
@@ -73,66 +72,78 @@ class _ReelsBoxState extends State<ReelsBox> {
       },
       builder: (context, state) {
         if (state is GetUserReelsSucssesState) {
-          // ReelsController().likesUserMap(state.data!);
-          // ReelsController().likesCountUserMap(state.data!);
-          return GridView.builder(
-              physics: const AlwaysScrollableScrollPhysics(),
-              controller: widget.scrollController,
-              itemCount: state.data!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 0.7,
-                  crossAxisCount: 3),
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.userReelView,
-                        arguments: ReelsUserPramiter(
-                            startIndex: index,
-                            userDataModel: widget.userDataModel));
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        image: state.data![index].subVideo == ""
-                            ? null
-                            : DecorationImage(
-                                fit: BoxFit.fill,
-                                image: CachedNetworkImageProvider(ConstentApi()
-                                    .getImage(state.data![index].subVideo)))),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ConfigSize.defaultSize! - 5),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(Icons.favorite,
-                              color: Colors.red,
-                              size: ConfigSize.defaultSize! * 2),
-                          SizedBox(
-                            width: ConfigSize.defaultSize! / 10,
+          return Column(
+            children: [
+              Expanded(
+                child: GridView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    controller: widget.scrollController,
+                    itemCount: state.loadMore? state.data!.length + 1 : state.data!.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisSpacing: 20,
+                        childAspectRatio: 0.7,
+                        crossAxisCount: 3),
+                    itemBuilder: (context, index) {
+                      if (index < state.data!.length) {
+                        return InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.userReelView,
+                              arguments: ReelsUserPramiter(
+                                  startIndex: index,
+                                  userDataModel: widget.userDataModel));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              image: state.data![index].subVideo == ""
+                                  ? null
+                                  : DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: CachedNetworkImageProvider(ConstentApi()
+                                          .getImage(state.data![index].subVideo)))),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! - 5),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(Icons.favorite,
+                                    color: Colors.red,
+                                    size: ConfigSize.defaultSize! * 2),
+                                SizedBox(
+                                  width: ConfigSize.defaultSize! / 10,
+                                ),
+                                Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.black.withOpacity(0.3),
+                                    ),
+                                    margin: EdgeInsets.only(
+                                        bottom: ConfigSize.defaultSize! - 8),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 1,
+                                        horizontal: ConfigSize.defaultSize!),
+                                    child: Text(state.data![index].likeNum.toString(),
+                                        style: const TextStyle(fontSize: 10))),
+                              ],
+                            ),
                           ),
-                          Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.black.withOpacity(0.3),
-                              ),
-                              margin: EdgeInsets.only(
-                                  bottom: ConfigSize.defaultSize! - 8),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 1,
-                                  horizontal: ConfigSize.defaultSize!),
-                              child: Text(state.data![index].likeNum.toString(),
-                                  style: const TextStyle(fontSize: 10))),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              });
+                        ),
+                      );
+                      }else{
+                        if(state.data!.length % 3 != 0){
+                          return const Center(child: Text("Loading More", style: TextStyle(color: Colors.black, fontSize: 16),));
+                        }else if(state.loadMore){
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                      }
+                    }),
+              ),
+              if(!state.loadMore) const Center(child: Text("No More Reels", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),)),
+            ],
+          );
         } else if (state is GetUserReelsLoadingState) {
           return const LoadingWidget();
         } else if (state is GetReelUsersErrorState) {
