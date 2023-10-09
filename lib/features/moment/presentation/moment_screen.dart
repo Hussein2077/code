@@ -76,9 +76,6 @@ class MomentScreenState extends State<MomentScreen>
             MomentController.selectedMomentLike,
           );
         }
-
-
-
       },
   child: BlocListener<GetMomentBloc, GetMomentUserState>(
       listener: (context, state) {
