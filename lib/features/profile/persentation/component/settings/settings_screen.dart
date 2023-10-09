@@ -78,33 +78,38 @@ class SettingsScreen extends StatelessWidget {
           const Spacer(
             flex: 5,
           ),
-          BlocConsumer<LogOutBloc, LogOutState>(
-            listener: (context, state) async{
-              if(state is LogOutSucssesState) {
-                    await FirebaseAuth.instance.signOut();
-                    Methods().clearAuth();
+          // BlocConsumer<LogOutBloc, LogOutState>(
+          //   listener: (context, state) async{
+          //     if(state is LogOutSucssesState) {
+          //           await FirebaseAuth.instance.signOut();
+          //           Methods().clearAuth();
+          //
+          //
+          //       // ignore: use_build_context_synchronously
+          //       Navigator.pushNamedAndRemoveUntil(context, Routes.login, (route) => false);
+          //     }else if (state is LogOutErrorState){
+          //       errorToast(context: context, title: state.error);
+          //     }
+          //   },
+          //   builder: (context, state) {
+          //     return MainButton(onTap: () {
+          //       BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
+          //     }, title: StringManager.logOut.tr());
+          //   },
+          // ),
+          LogOutOrDeleteAccountButton(logOut: true,
+            text: StringManager.logOut.tr(),
 
+            image: const Icon(Icons.delete_forever,color: Colors.red,),
 
-                // ignore: use_build_context_synchronously
-                Navigator.pushNamedAndRemoveUntil(context, Routes.login, (route) => false);
-              }else if (state is LogOutErrorState){
-                errorToast(context: context, title: state.error);
-              }
-            },
-            builder: (context, state) {
-              return MainButton(onTap: () {
-                BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
-              }, title: StringManager.logOut.tr());
-            },
           ),
-
           SizedBox(
             height: ConfigSize.defaultSize! * 1.6,
           ),
 
-          const LogOutOrDeleteAccountButton(logOut: false,
-            text: StringManager.deleteAccount,
-            image: Icon(Icons.delete_forever,color: Colors.red,),
+            LogOutOrDeleteAccountButton(logOut: false,
+            text: StringManager.deleteAccount.tr(),
+            image: const Icon(Icons.delete_forever,color: Colors.red,),
           ),
 
           const Spacer(),

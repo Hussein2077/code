@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,14 +26,16 @@ class FamilyRankingScreen extends StatefulWidget {
 class _FamilyRankingScreenState extends State<FamilyRankingScreen>
     with TickerProviderStateMixin {
   late TabController rankingController;
+
   @override
   void initState() {
     rankingController = TabController(length: 3, vsync: this);
     super.initState();
   }
+
   @override
   void dispose() {
-   rankingController.dispose();
+    rankingController.dispose();
     super.dispose();
   }
 
@@ -52,7 +53,7 @@ class _FamilyRankingScreenState extends State<FamilyRankingScreen>
                         SizedBox(
                           height: ConfigSize.defaultSize! * 3.5,
                         ),
-                         HeaderWithOnlyTitle(
+                        HeaderWithOnlyTitle(
                           title: StringManager.family.tr(),
                           titleColor: Colors.white,
                         ),
@@ -71,14 +72,16 @@ class _FamilyRankingScreenState extends State<FamilyRankingScreen>
                                   stateRequest: state.dailyDataRequest,
                                   message: state.dailyDatakMassage,
                                 ),
-                                RankingTabBarView(         data: state.weekData,
+                                RankingTabBarView(
+                                  data: state.weekData,
                                   stateRequest: state.weekDataRequest,
-                                                                    message: state.weekDatakMassage,
-),
-                                RankingTabBarView(         data: state.monthData,
+                                  message: state.weekDatakMassage,
+                                ),
+                                RankingTabBarView(
+                                  data: state.monthData,
                                   stateRequest: state.monthDataRequest,
-                                                                    message: state.monthDatakMassage,
-),
+                                  message: state.monthDatakMassage,
+                                ),
                               ]),
                         ),
                         const FamilyRankBottomBar()

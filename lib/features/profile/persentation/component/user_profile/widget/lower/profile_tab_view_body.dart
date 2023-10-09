@@ -25,6 +25,16 @@ class ProfileTabViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> vipNames = [
+      StringManager.knight.tr(),
+      StringManager.baron.tr(),
+      StringManager.viscount.tr(),
+      StringManager.count.tr(),
+      StringManager.marquis.tr(),
+      StringManager.duke.tr(),
+      StringManager.king.tr(),
+      StringManager.superKing.tr(),
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -43,7 +53,7 @@ class ProfileTabViewBody extends StatelessWidget {
             ),
             cover(
               title: StringManager.aristocracy.tr(),
-              num: " ${userDataModel.vip1!.level.toString()}",
+              num:vipNames[userDataModel.vip1!.level!-1] ,
               image: AssetsPath.vipCover,
               onTap: () => Navigator.pushNamed(context, Routes.vip),
             ),
@@ -65,19 +75,18 @@ class ProfileTabViewBody extends StatelessWidget {
                     ),
                     padding: EdgeInsets.symmetric(
                         vertical: ConfigSize.defaultSize! * 0.2,
-                  horizontal: ConfigSize.defaultSize! * 1
-              ),
-              decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                      colors: ColorManager.mainColorList
-                  ),
-                  borderRadius: BorderRadius.circular(10)
-
-              ),
-              child: Center(child: Text(
-                  "${StringManager.familyName.tr()} : ${userDataModel
-                      .familyData!.name!.toString()}",style: Theme.of(context).textTheme.bodyMedium,))),
-        ) :SizedBox(),
+                        horizontal: ConfigSize.defaultSize! * 1),
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            colors: ColorManager.mainColorList),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                        child: Text(
+                      "${StringManager.familyName.tr()} : ${userDataModel.familyData!.name!.toString()}",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ))),
+              )
+            : SizedBox(),
         // Container(
         //     margin: EdgeInsets.only(
         //       right: ConfigSize.defaultSize! * 1.3,
@@ -100,14 +109,12 @@ class ProfileTabViewBody extends StatelessWidget {
           height: ConfigSize.defaultSize! * 1,
         ),
         Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ConfigSize.defaultSize! * 2),
-            child: Text("${StringManager.followers.tr()} : ${userDataModel
-                .numberOfFans!} ", style: Theme
-                .of(context)
-                .textTheme
-                .bodyMedium,))
-        ,
+            padding:
+                EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 2),
+            child: Text(
+              "${StringManager.followers.tr()} : ${userDataModel.numberOfFans!} ",
+              style: Theme.of(context).textTheme.bodyMedium,
+            )),
         SizedBox(
           height: ConfigSize.defaultSize! * 1,
         ),
@@ -187,7 +194,7 @@ class ProfileTabViewBody extends StatelessWidget {
               return SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: ConfigSize.defaultSize! * 5,
-                  child:  CustomErrorWidget(
+                  child: CustomErrorWidget(
                     message: StringManager.unexcepectedError.tr(),
                   ));
             }
@@ -198,10 +205,11 @@ class ProfileTabViewBody extends StatelessWidget {
   }
 }
 
-Widget cover({required String title,
-  required String num,
-  required String image,
-  void Function()? onTap}) {
+Widget cover(
+    {required String title,
+    required String num,
+    required String image,
+    void Function()? onTap}) {
   return InkWell(
     onTap: onTap,
     child: Container(
@@ -213,7 +221,7 @@ Widget cover({required String title,
         image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill),
       ),
       child: Directionality(
-        textDirection:ui.TextDirection.ltr,
+        textDirection: ui.TextDirection.ltr,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

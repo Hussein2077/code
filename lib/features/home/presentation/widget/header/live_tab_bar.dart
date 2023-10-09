@@ -26,14 +26,16 @@ class _LiveTabBARState extends State<LiveTabBAR> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: ConfigSize.defaultSize! * 22,
+      // width: ConfigSize.defaultSize! * 22,
+      width: ConfigSize.defaultSize! * 15,
       child: TabBar(
-        
+        indicatorSize: TabBarIndicatorSize.label,
         indicatorColor: ColorManager.whiteColor,
         indicatorPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
         controller: widget.liveController,
           tabs: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
              Text("${StringManager.appTitle.tr()} " ,
                  style: TextStyle(color: ColorManager.whiteColor ,
@@ -45,20 +47,20 @@ class _LiveTabBARState extends State<LiveTabBAR> {
                
           ],
         ),
-            Row(
-              children: [
-                Text("${StringManager.live}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7),),
-                widget.liveController.index == 1
-                    ? Image.asset(
-                  AssetsPath.videoIcon,
-                  scale: 2,
-                )
-                    : Image.asset(
-                  AssetsPath.unslectedVideoIcon,
-                  scale: 2,
-                )
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Text("${StringManager.live}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7),),
+            //     widget.liveController.index == 1
+            //         ? Image.asset(
+            //       AssetsPath.videoIcon,
+            //       scale: 2,
+            //     )
+            //         : Image.asset(
+            //       AssetsPath.unslectedVideoIcon,
+            //       scale: 2,
+            //     )
+            //   ],
+            // ),
       ]),
     );
   }
