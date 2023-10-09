@@ -18,7 +18,8 @@ abstract class GetUserReelsState  {
 
  }
  class GetUserReelsSucssesState extends GetUserReelsState {
-       GetUserReelsSucssesState({required data}) : super(data);
+  bool loadMore;
+  GetUserReelsSucssesState({required data, required this.loadMore}) : super(data);
 
   
  }
@@ -28,3 +29,7 @@ abstract class GetUserReelsState  {
      GetReelUsersErrorState( super.data, this.errorMassage);
 
  }
+
+class NoMoreReelsState extends GetUserReelsState {
+  NoMoreReelsState(super.data);
+}

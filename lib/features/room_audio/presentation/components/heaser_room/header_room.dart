@@ -182,7 +182,7 @@ class HeaderRoom extends StatelessWidget {
       if (state is ExitRoomSuccesMessageState) {
         Navigator.pop(context);
         errorToast(context: context, title: state.succesMessage);
-        BlocProvider.of<OnRoomBloc>(context).add(InitEvent());
+        BlocProvider.of<OnRoomBloc>(context).add(InitRoomEvent());
       } else if (state is ExitRoomErrorMessageState) {
         errorToast(context: context, title: state.errorMessage);
       } else if (state is RemovePassRoomSucssesState) {

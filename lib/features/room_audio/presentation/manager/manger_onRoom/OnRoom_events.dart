@@ -6,7 +6,7 @@ abstract class OnRoomEvents extends Equatable {
   const OnRoomEvents();
 }
 
-class InitEvent extends OnRoomEvents{
+class InitRoomEvent extends OnRoomEvents{
   @override
   List<Object?> get props => [];
 

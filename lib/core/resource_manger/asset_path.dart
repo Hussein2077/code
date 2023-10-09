@@ -89,6 +89,12 @@ class AssetsPath {
   static const String roomIntroMessageIcon = "$pathImage/roomIntroMessageIcon.png";
   static const String kingchir = "$pathImage/kingschire.png";
 
+  static const String teenPatti = "$pathImage/Teen-Patti-1.png";
+  static const String roulette = "$pathImage/Roulette-New.png";
+  static const String carRace = "$pathImage/Car-Race.png";
+  static const String updown = "$pathImage/7-Up-7-Down-New.png";
+  static const String ludo = "$pathImage/Ludo-Arabic-.png";
+
 
 
   //icons

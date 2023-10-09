@@ -768,10 +768,10 @@ static const String video ='Video';
  ];
 
  //games links
- static const String teenPatti = "http://twistfuture.com/dragon_chat/DragonChat/index.html?&sound=1&gametype=1&token=";
- static const String roulette = "http://twistfuture.com/dragon_chat/DragonChat/index.html?sound=1&gametype=2&token=";
- static const String carRace = "http://twistfuture.com/dragon_chat/DragonChat/index.html?sound=1&gametype=3&token=";
- static const String updown = "http://twistfuture.com/dragon_chat/DragonChat/index.html?sound=1&gametype=4&token=";
- static const String ludo = "http://www.twistfuture.com/dragon_chat/DragonChatLudo/index.html?sound=1&token=";
+ static const String teenPatti = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=1&language=ar&token=";
+ static const String roulette = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=2&language=ar&token=";
+ static const String carRace = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=3&language=ar&token=";
+ static const String updown = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=4&language=ar&token=";
+ static const String ludo = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=5&language=ar&token=";
 
 }
