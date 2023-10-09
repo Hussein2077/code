@@ -71,4 +71,5 @@ abstract class BaseRepositoryRoom {
   Future<Either<String,Failure>> sendYallowBanner(SendPobUpPram sendPobUpPram );
 
 
+
 }

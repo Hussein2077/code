@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/model/my_agency_model.dart';
 import 'package:tik_chat_v2/core/model/my_store_model.dart';
 import 'package:tik_chat_v2/core/model/now_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'profile_room_model.dart';
 import 'vip_center_model.dart';
@@ -184,6 +185,11 @@ class MyDataModel {
   }
 
   factory MyDataModel.fromMap(Map<String, dynamic> map) {
+       StringManager.userType.forEach((key, value) {
+      if(map['type_user']==key){
+       StringManager.userType.update(key, (value) => true);
+      }
+      });
     //check singleton pattern
     if (_instance == null) {
       //create to frist time

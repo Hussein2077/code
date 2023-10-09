@@ -1,27 +1,30 @@
-
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 
 import 'widgets/moment_bottom_bar.dart';
 
 class MomentController{
 
-  static final Map<int, int> commentsOfMomentsMap = {};
-  static int selectedMomentComment = -1 ;
-  static void commentIncrement(int momentId){
-    MomentController.commentsOfMomentsMap[momentId] =
-        MomentController.commentsOfMomentsMap[momentId]! + 1;
+  static get getInstance  => MomentController() ;
+   Map<int, int> commentsOfMomentsMap = {};
+    int selectedMomentComment = -1 ;
+    get getSelectMoment => selectedMomentComment ;
+    set setSelectMoment (int newSelectMoment ) => selectedMomentComment = newSelectMoment ;
+
+   void commentIncrement(int momentId){
+    commentsOfMomentsMap[momentId] =
+        commentsOfMomentsMap[momentId]! + 1;
     MomentBottomBarState.commentsCounter.value++;
 
   }
-  static void commentsDecrement(int momentId){
-    MomentController.commentsOfMomentsMap[momentId] =
-        MomentController.commentsOfMomentsMap[momentId]! - 1;
+   void commentsDecrement(int momentId){
+    commentsOfMomentsMap[momentId] =
+        commentsOfMomentsMap[momentId]! - 1;
     MomentBottomBarState.commentsCounter.value++;
 
   }
   void fillCommentMap ( List<MomentModel> momentModelList){
     for (int i = 0; i < momentModelList.length; i++) {
-      MomentController.commentsOfMomentsMap.putIfAbsent(
+      commentsOfMomentsMap.putIfAbsent(
           momentModelList[i].momentId, () => momentModelList[i].commentNum);
     }
   }

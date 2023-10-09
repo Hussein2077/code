@@ -42,23 +42,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conte
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dialog_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/gift_banner_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/host_top_center_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/kick_out_user_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/lucky_box.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_mid_party.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_party.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/pop_up_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/room_background.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_lucky_banner_body_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/team_blue.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/team_red.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_mid_party.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
@@ -77,8 +61,6 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:video_player/video_player.dart';
 import 'package:path_provider/path_provider.dart';
-import 'components/widgets/viewbackground widgets/show_yallow_banner_widget.dart';
-import 'components/widgets/user_avatar.dart';
 
 class RoomScreen extends StatefulWidget {
   final EnterRoomModel room;
@@ -1309,7 +1291,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 valueListenable:
                     ZegoUIKit().getMicrophoneStateNotifier(user!.id),
                 builder: (context, isMicrophoneEnabled, _) {
-                  return UserAvatar(
+                  return userAvatar(
                       image: user.inRoomAttributes.value['img'].toString(),
                       isMicrophoneEnabled: isMicrophoneEnabled);
                 },
@@ -1340,10 +1322,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     return ValueListenableBuilder(
                         valueListenable: RoomScreen.updateMessgasList,
                         builder: (context, update, _) {
-                          return MessagesChached(
+                          return messagesChached(
                               message: message,
                               myDataModel: widget.myDataModel,
                               room: widget.room,
+                              context: context,
                               vip: message.user.inRoomAttributes.value['vip'] ??
                                   "",
                               bubble:
@@ -1370,13 +1353,13 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       builder: (_, state) {
         return Stack(
           children: [
-            RoomBackground(room: widget.room),
+            roomBackground(context, widget.room),
             if (layoutMode == LayoutMode.hostTopCenter)
               ValueListenableBuilder<UserDataModel>(
                   valueListenable: RoomScreen.topUserInRoom,
                   builder: (context, topUser, _) {
-                    return HostTopCenterWidget(layoutMode: layoutMode, topUser: topUser,
-                        myDataModel: widget.myDataModel, room: widget.room);
+                    return hostTopCenterWidget(context, layoutMode, topUser,
+                        widget.myDataModel, widget.room);
                   }),
             ValueListenableBuilder<bool>(
                 valueListenable: RoomScreen.showPK,
@@ -1470,13 +1453,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             valueListenable: RoomScreen.updateLuckyBox,
             builder: (context, edit, _) {
               if (RoomScreen.luckyBoxes.isNotEmpty) {
-                return LuckyBox(
+                return luckyBox(
                     luckyBoxRemovecontroller: luckyBoxRemovecontroller);
               } else {
                 return const SizedBox();
               }
             }),
-        MusicWidget(refrashRoom: refrashRoom, room: widget.room, controllerMusice: controllerMusice, destroyMusic: destroyMusic),
+        musicWidget(
+            context, refrashRoom, widget.room, controllerMusice, destroyMusic),
         Positioned(
             top: ConfigSize.defaultSize! * 35,
             bottom: ConfigSize.defaultSize! * 7,
@@ -1529,7 +1513,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           Positioned(
               top: -30,
               left: AppPadding.p30,
-              child: ShowYallowBannerWidget(
+              child: showYallowBannerWidget(
                   cureentRoomId: widget.room.ownerId!,
                   controllerYallowBanner: yellowBannercontroller,
                   offsetAnimationYallowBanner: offsetAnimationYellowBanner,
@@ -1591,7 +1575,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 child: SizedBox(
                     width: ConfigSize.defaultSize! * 40.5,
                     height: ConfigSize.defaultSize! * 40.5,
-                    child: PopUpWidget(
+                    child: popUpWidget(
                         ownerDataModel: pobUpSender,
                         massage: ZegoInRoomMessageInput.messagePonUp,
                         enterRoomModel: widget.room,
@@ -1703,7 +1687,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             }
           }
         },
-        child: GiftBannerWidget(
+        child: giftBannerWidget(
             giftImage: giftImage,
             isPlural: isPlural,
             receiverDataUser: receiverDataUser,
@@ -1752,7 +1736,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             }
           }
         },
-        child: ShowLuckyBannerBodyWidget(
+        child: showLuckyBannerBodyWidget(
             sendDataUser: sendDataUser, coins: coins, ownerId: ownerId),
       ),
     );
@@ -1764,18 +1748,18 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         foregroundBuilder: (context, size, user, extraInfo) {
           if (user?.id == null && RoomScreen.showPK.value) {
             if (RoomScreen.teamRed.contains(extraInfo['index'])) {
-              return const TeamRed();
+              return teamRed();
             } else if (RoomScreen.teamBlue.contains(extraInfo['index'])) {
-              return const TeamBlue();
+              return teamBlue();
             } else {
               return Container();
             }
           } else if (user?.id == null && !RoomScreen.showPK.value) {
-            return NoneUserOnSeat(
+            return noneUserOnSeat(
               extraInfo: extraInfo,
             );
           } else {
-            return UserForgroundCach(user: user);
+            return userForgroundCach(user: user);
           }
         },
         // avatarBuilder: avatarBuilder,
@@ -1788,9 +1772,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
           if (user?.id == null) {
-            return NoneUserOnSeatParty(extraInfo: extraInfo);
+            return noneUserOnSeatParty(extraInfo: extraInfo);
           } else {
-            return UserForgroundCachParty(user: user);
+            return userForgroundCachParty(user: user);
           }
         },
         //   avatarBuilder: avatarBuilder,
@@ -1803,9 +1787,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
           if (user?.id == null) {
-            return NoneUserOnSeatMidParty(extraInfo: extraInfo);
+            return noneUserOnSeatMidParty(extraInfo: extraInfo);
           } else {
-            return UserForgroundCachMidParty(user: user);
+            return userForgroundCachMidParty(user: user);
           }
         },
         //   avatarBuilder: avatarBuilder,

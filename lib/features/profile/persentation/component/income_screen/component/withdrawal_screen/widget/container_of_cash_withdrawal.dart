@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -61,7 +62,7 @@ class ContainerWithdrawal extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "${title??StringManager.dolars} : $usd",
+                  "${title??StringManager.dolars.tr()} : $usd",
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(

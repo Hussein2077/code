@@ -43,11 +43,33 @@ abstract class BaseRemotlyDataSourceMoment {
   Future<String> momentSendGifts(MomentSendGiftPrameter momentSendGiftPrameter);
   Future<List<MomentGiftsModel>> getMomentGifts(
       GetMomentGiftsPrameter getMomentGiftsPrameter);
+
 }
 
 
 class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
 
+  @override
+  Future<List<MomentGiftsModel>> getMomentGifts(
+      GetMomentGiftsPrameter getMomentGiftsPrameter) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+
+        ConstentApi.getMomentGifts(
+          getMomentGiftsPrameter.momentId,),
+        options: Options(
+            headers: headers
+        ),
+      );
+      return List<MomentGiftsModel>.from(
+          response.data['data'].map((x) => MomentGiftsModel.fromjson(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getMomentGifts');
+    }
+  }
   @override
   Future<String> addMomnet(AddMomentPrameter prameter) async{
     Map<String, String> headers = await DioHelper().header();
@@ -270,31 +292,5 @@ log('here${resultData.toString()}');
     }
     
   }
-
-
-  @override
-  Future<List<MomentGiftsModel>> getMomentGifts(
-      GetMomentGiftsPrameter getMomentGiftsPrameter) async {
-    Map<String, String> headers = await DioHelper().header();
-
-    try {
-      final response = await Dio().get(
-
-        ConstentApi.getMomentLike(
-            getMomentGiftsPrameter.momentId, getMomentGiftsPrameter.page),
-        options: Options(
-            headers: headers
-        ),
-      );
-      return List<MomentGiftsModel>.from(
-          response.data['data'].map((x) => MomentGiftsModel.fromjson(x)));
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(
-          dioError: e, endpointName: 'getMomentGifts');
-    }
-  }
-
-
-
 
 }

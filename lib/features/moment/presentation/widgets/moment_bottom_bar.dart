@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -20,13 +19,13 @@ class MomentBottomBar extends StatefulWidget {
   final MomentModel momentModel;
   final String? type;
   const MomentBottomBar({
-    required this.momentModel,
-     this.type,
-    super.key,
-  });
+  required this.momentModel,
+  this.type,
+  super.key,
+});
 
-  @override
-  State<MomentBottomBar> createState() => MomentBottomBarState();
+@override
+State<MomentBottomBar> createState() => MomentBottomBarState();
 }
 
 class MomentBottomBarState extends State<MomentBottomBar> {
@@ -80,14 +79,14 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       BlocProvider.of<MakeMomentLikeBloc>(context).add(
                           MakeMomentLikeEvent(
                               momentId:
-                                  widget.momentModel.momentId.toString()));
+                              widget.momentModel.momentId.toString()));
                     },
                     child: Image.asset(
                       AssetsPath.likeIcon,
                       color:
                       MomentController.favorites[widget.momentModel.momentId]!
-                              ? ColorManager.orang
-                              : Theme.of(context).colorScheme.primary,
+                          ? ColorManager.orang
+                          : Theme.of(context).colorScheme.primary,
                       scale: 0.1,
                     ),
                   );
@@ -97,12 +96,12 @@ class MomentBottomBarState extends State<MomentBottomBar> {
           ),
           InkWell(
             onTap: () {
-              MomentController.selectedMomentComment=widget.momentModel.momentId;
+              MomentController.getInstance.selectedMomentComment=widget.momentModel.momentId;
 
               bottomDailog(
                   context: context,
                   widget: MomentCommentsScreen(
-                      type:widget.type,
+                    type:widget.type,
                     momentId: widget.momentModel.momentId.toString(),
                   ),
                   color: Theme.of(context).colorScheme.background);
@@ -117,8 +116,8 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       width: ConfigSize.defaultSize! * 5,
                       child: Center(
                         child: Text(
-                            MomentController.commentsOfMomentsMap[
-                                    widget.momentModel.momentId]
+                            MomentController.getInstance.commentsOfMomentsMap[
+                            widget.momentModel.momentId]
                                 .toString(),
                             style: Theme.of(context).textTheme.bodyLarge),
                       ),

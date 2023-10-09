@@ -69,54 +69,40 @@ class _ReelsPageState extends State<ReelsPage>{
     }
   }
 
-
-
-
   Future initializePlayer() async {
 
-         try{
-           final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
-           if(file?.file !=null){
-            log("heeeeeeeeer");
 
-             ReelsPage.isVideoPause.value = false ;
-             _videoPlayerController = VideoPlayerController.file(file!.file);
-             if(kDebugMode){
-               log("in cache reels");
-             }
-           }else{
-             if(kDebugMode){
-              log((widget.item.url!.toString()));
-               log("in network reels");
-             }
-             _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
-          
-           }
-         }catch(e){
-           if(kDebugMode){
-             log("error in found cach video and paly in network reels");
-           }
-           //TODO  HANDEL EXCEPTION
-//            _videoPlayerController.addListener(() {
-//             log("heeeeeeeeeeer");
-//   if (_videoPlayerController.value.hasError) {
-//     log('Playback error occurred: ${_videoPlayerController.value.errorDescription}');
-//                             widget.swiperController.next();
+    final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
+    if(file?.file !=null){
 
-//   }
-// });
-           
-
-
-
-         }
+      ReelsPage.isVideoPause.value = false ;
+      _videoPlayerController = VideoPlayerController.file(file!.file);
+      if(kDebugMode){
+        log("in cache reels");
+      }
+    }else{
+      if(kDebugMode){
+        log((widget.item.url!.toString()));
+        log("in network reels");
+      }
+      _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
+    }
 
 
 
 
+    _videoPlayerController.setLooping(true);
 
-       _videoPlayerController.setLooping(true);
-    await Future.wait([_videoPlayerController.initialize()]);
+    try{
+      await Future.wait([_videoPlayerController.initialize()]);
+    }catch(e){
+      if(kDebugMode){
+        log("error in reels path is :${Uri.parse(widget.item.url!+'rr')}");
+      }
+      widget.swiperController.next();
+
+    }
+
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
@@ -124,20 +110,20 @@ class _ReelsPageState extends State<ReelsPage>{
       showControls: false,
       looping: true,
     );
-    // _videoPlayerController.addListener(() {
-    //   log("11111111111");
-    //   if (_videoPlayerController.value.position.inSeconds ==
-    //       _videoPlayerController.value.duration.inSeconds) {
-    //    widget.swiperController.next();
-    //   }
-    //   if(!ModalRoute.of(context)!.isCurrent){
-    //     _videoPlayerController.pause();
-    //     ReelsPage.isVideoPause.value = true ;
-    //   }
-    //   log("ModalRoute.of(context).isCurrent${ModalRoute.of(context)!.isCurrent}");
+    setState(() {});
+    _videoPlayerController.addListener(() {
+      if (_videoPlayerController.value.position ==
+          _videoPlayerController.value.duration) {
+        //TODO add auto scroll as feature
+        // widget.swiperController.next();
+      }
+      if(!ModalRoute.of(context)!.isCurrent){
+        _videoPlayerController.pause();
+        ReelsPage.isVideoPause.value = true ;
+      }
 
 
-    // });
+    });
   }
 
   @override

@@ -70,9 +70,9 @@ class MomentScreenState extends State<MomentScreen>
     return BlocListener<MakeMomentLikeBloc, MakeMomentLikeStates>(
       listener: (context, state) {
         if (state is MakeMomentLikeSucssesState) {
-          MomentController().likeReverce(
+          MomentController.getInstance.likeReverce(
               MomentController.selectedMomentLike);
-          MomentController().likecounter(
+          MomentController.getInstance.likecounter(
             MomentController.selectedMomentLike,
           );
         }
@@ -80,16 +80,16 @@ class MomentScreenState extends State<MomentScreen>
   child: BlocListener<GetMomentBloc, GetMomentUserState>(
       listener: (context, state) {
         if (state is GetMomentUserSucssesState) {
-          MomentController().fillLikeMaps(state.data!);
-          MomentController().fillCommentMap(state.data!);
+          MomentController.getInstance.fillLikeMaps(state.data!);
+          MomentController.getInstance.fillCommentMap(state.data!);
 
         }
       },
   child: BlocListener<GetMomentILikeItBloc, GetMomentILikeItUserState>(
       listener: (context, state) {
         if (state is GetMomentILikeItSucssesState) {
-          MomentController().fillLikeMaps(state.data!);
-          MomentController().fillCommentMap(state.data!);
+          MomentController.getInstance.fillLikeMaps(state.data!);
+          MomentController.getInstance.fillCommentMap(state.data!);
 
         }
       },
@@ -97,24 +97,20 @@ class MomentScreenState extends State<MomentScreen>
       child: BlocListener<GetFollowingUserMomentBloc, GetFollowingUserMomentState>(
       listener: (context, state) {
         if (state is GetFollowingUserMomentSucssesState) {
-          MomentController().fillLikeMaps(state.data!);
-          MomentController().fillCommentMap(state.data!);
-
+          MomentController.getInstance.fillLikeMaps(state.data!);
+          MomentController.getInstance.fillCommentMap(state.data!);
         }
       },
   child:  BlocListener<AddMomentCommentBloc, AddMomentCommentState>(
     listener: (context, state) {
       if(state is AddMomentCommentSucssesState){
-        MomentController.commentIncrement(MomentController.selectedMomentComment);
-
-
+        MomentController.getInstance.commentIncrement(MomentController.getInstance.selectedMomentComment);
       }
-
     },
   child: BlocListener<DeleteMomentBloc, DeleteMomentState>(
   listener:       (context, state) {
     if(state is DeleteMomentSucssesState){
-      MomentController.commentsDecrement(MomentController.selectedMomentComment);
+      MomentController.getInstance.commentsDecrement(MomentController.getInstance.selectedMomentComment);
 
       sucssesToast(context: context, title: state.message);
     }

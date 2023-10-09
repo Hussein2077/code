@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -10,12 +11,8 @@ import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_view.dar
 
 class TabViewBody extends StatelessWidget {
  final List<MomentModel> momentModelList;
- final String? type;
 
-  const TabViewBody({Key? key,
-    required this.momentModelList,
-  this.type,
-  }) : super(key: key);
+  const TabViewBody({Key? key, required this.momentModelList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +24,28 @@ class TabViewBody extends StatelessWidget {
       child: ListView.builder(
         itemCount: momentModelList.length,
         itemBuilder: (context, i) {
-
-
-
-
+          // MomentController.favorites.update(
+          //   momentModelList[i].momentId,
+          //       (existingValue) => momentModelList[i].isLike,
+          //   ifAbsent: () =>
+          //   momentModelList[i].isLike,
+          // );
+          // log('favorites${ MomentController.favorites}');
+          //
+          // MomentController.favoritesCount.update(
+          //   momentModelList[i].momentId,
+          //       (existingValue) => momentModelList[i].likeNum,
+          //   ifAbsent: () =>
+          //   momentModelList[i].likeNum,
+          //
+          // );
+          // log('favoritesCount${ MomentController.favoritesCount}');
+          // MomentController.getInstance.commentsOfMomentsMap.update(
+          //   momentModelList[i].momentId,
+          //       (existingValue) => momentModelList[i].commentNum,
+          //   ifAbsent: () =>
+          //   momentModelList[i].commentNum,
+          // );
           return Column(
             children: [
               Container(
@@ -49,7 +64,6 @@ class TabViewBody extends StatelessWidget {
                       height: ConfigSize.defaultSize! * 1.5,
                     ),
                     MomentBottomBar(
-                      type: type,
                       momentModel: momentModelList[i],
                     ),
                     SizedBox(

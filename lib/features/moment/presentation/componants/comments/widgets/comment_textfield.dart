@@ -1,13 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
 
 
 class CommentTextField extends StatelessWidget{
@@ -38,7 +37,7 @@ return Expanded(
           controller: commentController,
           textInputAction: TextInputAction.send,
           onSubmitted: (message) {},
-          cursorColor: ColorManager.mainColor,
+          cursorColor: const Color(0xffA653ff),
           cursorHeight:
           ConfigSize.defaultSize! * 3,
           cursorWidth:
@@ -52,7 +51,7 @@ return Expanded(
                   .secondary
                   .withOpacity(0.3),
               filled: true,
-              hintText: StringManager.addComment.tr(),
+              hintText: StringManager.addComment,
               hintStyle: Theme.of(context)
                   .textTheme
                   .bodySmall,
@@ -107,12 +106,12 @@ return Expanded(
               border: Border.all(
                   color: Theme.of(context)
                       .colorScheme
-                      .primary)),
+                      .secondary)),
           child: Icon(
             Icons.send,
             color: Theme.of(context)
                 .colorScheme
-                .primary,
+                .background,
           ),
         ),
       ),

@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,15 +20,15 @@ import 'widgets/moment_comment_row.dart';
 
 class MomentCommentsScreen extends StatefulWidget {
   final String momentId;
-final String? type;
+  final String? type;
   const MomentCommentsScreen({
-    required this.momentId,
-     this.type,
-    super.key,
-  });
+  required this.momentId,
+  this.type,
+  super.key,
+});
 
-  @override
-  State<MomentCommentsScreen> createState() => MomentCommentsScreenState();
+@override
+State<MomentCommentsScreen> createState() => MomentCommentsScreenState();
 }
 
 class MomentCommentsScreenState extends State<MomentCommentsScreen> {
@@ -59,7 +58,7 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
         if (state is DeleteMomentCommentSucssesState) {
           BlocProvider.of<GetMomentCommentBloc>(context)
               .add(GetMomentCommentEvent(momentId: widget.momentId.toString()));
-          MomentController.commentsDecrement(int.parse(widget.momentId));
+          MomentController.getInstance.commentsDecrement(int.parse(widget.momentId));
           MomentBottomBarState.commentsCounter.value++;
           sucssesToast(context: context, title: state.message);
         } else if (state is DeleteMomentCommentErrorState) {
@@ -108,23 +107,23 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                                   child: state.data!.isNotEmpty
                                       ? MomentComments(
                                     type: widget.type,
-                                          momentCommentListModel:
-                                               state.data!,
-                                          scrollController: scrollController,
-                                        )
+                                    momentCommentListModel:
+                                    state.data!,
+                                    scrollController: scrollController,
+                                  )
                                       : Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                              Text(
-                                                StringManager.thisMoment.tr(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                              ),
-                                            ]),
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          StringManager.thisMoment.tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                      ]),
                                 ),
                                 CommentTextField(
                                   commentController: commentController,
