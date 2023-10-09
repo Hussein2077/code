@@ -6,8 +6,11 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/search_container_visibity.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_events.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/widget/container_of_cash_withdrawal.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_dolars_for_user/charge_dolars_for_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_dolars_for_user/charge_dolars_for_user_event.dart';
@@ -17,13 +20,38 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_sto
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_state.dart';
 
 // ignore: must_be_immutable
-class CharchingDolarsForUsers extends StatelessWidget {
+class CharchingDolarsForUsers extends StatefulWidget {
   CharchingDolarsForUsers({Key? key}) : super(key: key);
 
-  final TextEditingController userID = TextEditingController();
-  final TextEditingController withdrawalAmount = TextEditingController();
+  @override
+  State<CharchingDolarsForUsers> createState() =>
+      _CharchingDolarsForUsersState();
+}
+
+class _CharchingDolarsForUsersState extends State<CharchingDolarsForUsers> {
+  late bool searchContainerVisible;
+  late final TextEditingController withdrawalAmount;
+  late final TextEditingController userID;
+
+  @override
+  void initState() {
+    userID = TextEditingController();
+    withdrawalAmount = TextEditingController();
+    searchContainerVisible = false;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchContainerVisible = false;
+    userID.dispose();
+    withdrawalAmount.dispose();
+    super.dispose();
+  }
+
   final formGlobalKey = GlobalKey<FormState>();
-                        String ownerUsd = " " ; 
+
+  String ownerUsd = " ";
 
   @override
   Widget build(BuildContext context) {
@@ -80,21 +108,18 @@ class CharchingDolarsForUsers extends StatelessWidget {
                     SizedBox(
                       height: ConfigSize.defaultSize! * 2.0,
                     ),
-                     BlocBuilder<MyStoreBloc, MyStoreState>(
+                    BlocBuilder<MyStoreBloc, MyStoreState>(
                       builder: (context, state) {
-                        if(state is MyStoreSucssesState){
-                          ownerUsd = state.myStore.ownerUsd.toString() ; 
-      return  ContainerWithdrawal(
-                          usd:state.myStore.ownerUsd.toString(),
-                          
-                        );
-                        }else {
-                     return  ContainerWithdrawal(
-                          usd:ownerUsd,
-                         
-                        );
+                        if (state is MyStoreSucssesState) {
+                          ownerUsd = state.myStore.ownerUsd.toString();
+                          return ContainerWithdrawal(
+                            usd: state.myStore.ownerUsd.toString(),
+                          );
+                        } else {
+                          return ContainerWithdrawal(
+                            usd: ownerUsd,
+                          );
                         }
-                  
                       },
                     ),
                     SizedBox(
@@ -123,7 +148,26 @@ class CharchingDolarsForUsers extends StatelessWidget {
                         type: TextInputType.number,
                         controller: userID,
                         hintText: StringManager.enterUserID.tr(),
+                        onChanged: (value) {
+                          Future.delayed(const Duration(milliseconds: 1000),
+                              () {
+                            BlocProvider.of<SearchBloc>(context)
+                                .add(SearchEvent(keyWord: userID.text));
+                          });
+                          setState(() {
+                            searchContainerVisible = true;
+                          });
+                        },
+                        onTap: () {
+                          if (!searchContainerVisible) {
+                            searchContainerVisible = true;
+                          }
+                        },
                       ),
+                    ),
+                    SearchContainerVisibility(
+                      searchContainerVisible: searchContainerVisible,
+                      userID: userID,
                     ),
                     SizedBox(
                       height: ConfigSize.defaultSize! * 2.0,
@@ -167,8 +211,10 @@ class CharchingDolarsForUsers extends StatelessWidget {
                               context: context,
                               title: StringManager.pleaseEnterquantity);
                         } else {
-                          BlocProvider.of<ChargeDolarsForUserBloc>(context).add(ChargeDolarsForUserEvent(
-                              id: userID.text, amount: withdrawalAmount.text));
+                          BlocProvider.of<ChargeDolarsForUserBloc>(context).add(
+                              ChargeDolarsForUserEvent(
+                                  id: userID.text,
+                                  amount: withdrawalAmount.text));
                         }
                       },
                       style: ElevatedButton.styleFrom(

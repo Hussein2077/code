@@ -42,7 +42,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
             height: ConfigSize.defaultSize! * 3.5,
           ),
            HeaderWithOnlyTitle(title: StringManager.language.tr()),
-          Expanded(
+          SizedBox(
+            height: ConfigSize.screenHeight!*.72,
               child: ListView.builder(
                   itemCount: language.length,
                   itemExtent: 50,
@@ -61,8 +62,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                       },
                     );
                   })),
-
-          MainButton(
+           MainButton(
             onTap: () async {
 
               if (LanguageScreen.selectedLanguage != null) {
