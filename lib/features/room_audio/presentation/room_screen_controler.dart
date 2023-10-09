@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
 import 'dart:async';
+import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +19,8 @@ import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/error_luck_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/sucess_luck_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
@@ -744,3 +747,119 @@ TopUserKey(Map<String, dynamic> result)async{
       userId: RoomScreen.topUserInRoom.value.id.toString());
   RoomScreen.topUserInRoom.value = topModel;
 }
+
+BannerSuperBoxKey(Map<String, dynamic> result, var isPasswordRoomLuckyBanner, var superCoins, var sendSuperBox, var ownerIdRoomLuckyBanner, var showBannerLuckyBox)async{
+  UserDataModel sendBox;
+  if (RoomScreen.usersInRoom[result[messageContent]["ownerBoxid"].toString()] == null) {
+    sendBox = await RemotlyDataSourceProfile().getUserData(userId: result[messageContent]["ownerBoxid"].toString());
+  } else {
+    sendBox = RoomScreen.usersInRoom[result[messageContent]["ownerBoxid"].toString()]!;
+  }
+  isPasswordRoomLuckyBanner = result[messageContent]["isRoomPassword"];
+  superCoins = result[messageContent]["coins"].toString();
+  sendSuperBox = sendBox;
+  ownerIdRoomLuckyBanner = result[messageContent]["ownerRoomId"].toString();
+  showBannerLuckyBox.value = true;
+}
+
+ShowPobUpKey(Map<String, dynamic> result, var pobUpSender, var showPopUp)async{
+  ZegoInRoomMessageInput.senderPobUpId = result[messageContent]['uId'];
+  if (RoomScreen.usersInRoom[result[messageContent]['uId']] == null) {
+    pobUpSender = await RemotlyDataSourceProfile().getUserData(userId: result[messageContent]['uId'].toString());
+    RoomScreen.usersInRoom.putIfAbsent(result[messageContent]['uId'].toString(), () => pobUpSender!);
+  } else {
+    pobUpSender = RoomScreen.usersInRoom[result[messageContent]['uId'].toString()];
+  }
+  ZegoInRoomMessageInput.messagePonUp = result[messageContent]['my_msg'];
+
+  showPopUp.value = true;
+}
+
+BanFromWritingKey(Map<String, dynamic> result, String id, String ownerId, BuildContext context){
+  log(result[messageContent]['userId'].toString());
+  RoomScreen.banedUsers.putIfAbsent(result[messageContent]['userId'], () => result[messageContent]['userId']);
+  if (id == result[messageContent]['userId']) {
+    RoomScreen.showMessageButton.value = false;
+    showBanFromWritingDilog(context);
+  } else if (result[messageContent]['userId'] == "") {
+    RoomScreen.banFromWriteIcon.value = true;
+
+    if (id != ownerId) {
+      showBanFromWritingDilog(context);
+    }
+
+    RoomScreen.usersInRoom.forEach((key, value) {
+      if (id != ownerId) {
+        RoomScreen.banedUsers.putIfAbsent(key, () => key);
+        RoomScreen.showMessageButton.value = false;
+      }
+    });
+  }
+}
+
+UnbanFromWritingKey(Map<String, dynamic> result, String id){
+  RoomScreen.banedUsers.remove(result[messageContent]['userId']);
+
+  if (id == result[messageContent]['userId']) {
+    RoomScreen.showMessageButton.value = true;
+  } else if (result[messageContent]['userId'] == "") {
+    RoomScreen.banFromWriteIcon.value = false;
+    RoomScreen.showMessageButton.value = true;
+    RoomScreen.banedUsers.clear();
+  }
+}
+
+MuteUserKey(Map<String, dynamic> result){
+  if (result[messageContent][mute]) {
+    ZegoUIKit().turnMicrophoneOn(false, userID: result[messageContent][idUser]);
+    RoomScreen.usersHasMute.add(result[messageContent][idUser]);
+  } else {
+    RoomScreen.usersHasMute.remove(result[messageContent][idUser]);
+  }
+  RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value + 1;
+}
+
+InviteToSeatKey(Map<String, dynamic> result, String id, String ownerId, BuildContext context){
+  if (result[messageContent][idUser] == id) {
+    if (RoomScreen.isInviteToMic == false) {
+      RoomScreen.isInviteToMic = true;
+      invitationDialog(context, ownerId, result[messageContent]['index']);
+    }
+    //todo update this show
+  }
+}
+
+BickFromLuckyBox(Map<String, dynamic> result, StreamController<List<LuckyBoxData>> luckyBoxRemovecontroller, BuildContext context){
+  ZegoUIKit().sendInRoomMessage(result[messageContent]['res'], false);
+  if (result[messageContent]['succ']) {
+    RoomScreen.luckyBoxes.removeAt(RoomScreen.luckyBoxes.length - 1);
+    luckyBoxRemovecontroller.add(RoomScreen.luckyBoxes);
+
+    showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            contentPadding: EdgeInsets.zero,
+            content: SucessLuckWidget(
+              coins: result[messageContent]['co'].toString(),
+            ),
+          );
+        });
+  } else {
+    Navigator.pop(context);
+    showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+              backgroundColor: Colors.transparent,
+              contentPadding: EdgeInsets.zero,
+              content: ErrorLuckWidget(
+                isNotLucky: false,
+              ));
+        });
+  }
+}
+

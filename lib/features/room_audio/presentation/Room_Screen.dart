@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -8,11 +10,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:svgaplayer_flutter/parser.dart';
 import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
-import 'package:tik_chat_v2/core/model/profile_room_model.dart';
-import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -60,7 +59,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_states.dart';
@@ -107,8 +105,7 @@ class RoomScreen extends StatefulWidget {
   static List<int> teamRed = [3, 4, 7, 8];
   static List<String> usersHasMute = [];
   static Map<int, int> listOfMuteSeats = {};
-  static ValueNotifier<Map<String, EmojieData>> listOfEmojie =
-      ValueNotifier({});
+  static ValueNotifier<Map<String, EmojieData>> listOfEmojie = ValueNotifier({});
   static ValueNotifier<int> updateEmojie = ValueNotifier(0);
   static Map<String, String> adminsInRoom = {};
   static Map<String, String> banedUsers = {};
@@ -119,21 +116,17 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<int> clearTimeNotifier = ValueNotifier(0);
   static ValueNotifier<bool> showMessageButton = ValueNotifier<bool>(true);
   static ValueNotifier<bool> banFromWriteIcon = ValueNotifier<bool>(true);
-  static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMics =
-      ValueNotifier<Map<int, ZegoUIKitUser>>({});
-  static ValueNotifier<UserDataModel> topUserInRoom =
-      ValueNotifier<UserDataModel>(UserDataModel());
+  static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMics = ValueNotifier<Map<int, ZegoUIKitUser>>({});
+  static ValueNotifier<UserDataModel> topUserInRoom = ValueNotifier<UserDataModel>(UserDataModel());
   static ValueNotifier<bool> showBanner = ValueNotifier<bool>(false);
   static ValueNotifier<String> myCoins = ValueNotifier<String>('');
   static ValueNotifier<bool> showEntro = ValueNotifier<bool>(false);
   static ValueNotifier<String> roomGiftsPrice = ValueNotifier<String>("");
   static ValueNotifier<bool> isKick = ValueNotifier<bool>(false);
-  static ValueNotifier<Map<int, int>> listOfLoskSeats =
-      ValueNotifier<Map<int, int>>({0: 0});
+  static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
   static ValueNotifier<bool> isPK = ValueNotifier<bool>(false);
   static ValueNotifier<bool> showPK = ValueNotifier<bool>(false);
-  static ValueNotifier<int> updatePKNotifier = ValueNotifier<int>(
-      0); // make only that value notifier because update and rebuild pk widget
+  static ValueNotifier<int> updatePKNotifier = ValueNotifier<int>(0); // make only that value notifier because update and rebuild pk widget
   static ValueNotifier<int> editRoom = ValueNotifier<int>(0);
   static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
   static ValueNotifier<int> updateLuckyBox = ValueNotifier<int>(0);
@@ -167,12 +160,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   late final AnimationController controllerMusice;
   VideoPlayerController? mp4Controller;
   late LayoutMode layoutMode;
-  StreamController<List<LuckyBoxData>> luckyBoxAddecontroller =
-      StreamController.broadcast();
-  StreamController<List<LuckyBoxData>> luckyBoxRemovecontroller =
-      StreamController.broadcast();
-  StreamController<List<ZegoUIKitUser>> userInRoomController =
-      StreamController.broadcast();
+  StreamController<List<LuckyBoxData>> luckyBoxAddecontroller = StreamController.broadcast();
+  StreamController<List<LuckyBoxData>> luckyBoxRemovecontroller = StreamController.broadcast();
+  StreamController<List<ZegoUIKitUser>> userInRoomController = StreamController.broadcast();
   ValueNotifier<bool> showPopUp = ValueNotifier(false);
   ValueNotifier<bool> showBannerLuckyBox = ValueNotifier<bool>(false);
   String userIdEmojie = ""; // to show emojie
@@ -866,134 +856,33 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         RoomScreen.luckyBoxes.removeWhere((element) => element.boxId == result[messageContent][boxIDKey].toString());
       }
       else if (result[messageContent][message] == bannerSuperBoxKey) {
-        UserDataModel sendBox;
-        if (RoomScreen
-                .usersInRoom[result[messageContent]["ownerBoxid"].toString()] ==
-            null) {
-          sendBox = await RemotlyDataSourceProfile().getUserData(
-              userId: result[messageContent]["ownerBoxid"].toString());
-        } else {
-          sendBox = RoomScreen
-              .usersInRoom[result[messageContent]["ownerBoxid"].toString()]!;
-        }
-        isPasswordRoomLuckyBanner = result[messageContent]["isRoomPassword"];
-        superCoins = result[messageContent]["coins"].toString();
-        sendSuperBox = sendBox;
-        ownerIdRoomLuckyBanner =
-            result[messageContent]["ownerRoomId"].toString();
-        showBannerLuckyBox.value = true;
+        BannerSuperBoxKey(result, isPasswordRoomLuckyBanner, superCoins, sendSuperBox, ownerIdRoomLuckyBanner, showBannerLuckyBox);
       }
       else if (result[messageContent]['msg'] == showPobUpKey) {
-        ZegoInRoomMessageInput.senderPobUpId = result[messageContent]['uId'];
-        if (RoomScreen.usersInRoom[result[messageContent]['uId']] == null) {
-          pobUpSender = await RemotlyDataSourceProfile()
-              .getUserData(userId: result[messageContent]['uId'].toString());
-          RoomScreen.usersInRoom.putIfAbsent(
-              result[messageContent]['uId'].toString(), () => pobUpSender!);
-        } else {
-          pobUpSender =
-              RoomScreen.usersInRoom[result[messageContent]['uId'].toString()];
-        }
-        ZegoInRoomMessageInput.messagePonUp = result[messageContent]['my_msg'];
-
-        showPopUp.value = true;
+        ShowPobUpKey(result, pobUpSender, showPopUp);
       }
       else if (result[messageContent][message] == banFromWritingKey) {
-        log(result[messageContent]['userId'].toString());
-        RoomScreen.banedUsers.putIfAbsent(result[messageContent]['userId'],
-            () => result[messageContent]['userId']);
-        if (widget.myDataModel.id.toString() ==
-            result[messageContent]['userId']) {
-          RoomScreen.showMessageButton.value = false;
-          showBanFromWritingDilog(context);
-        } else if (result[messageContent]['userId'] == "") {
-          RoomScreen.banFromWriteIcon.value = true;
-
-          if (widget.myDataModel.id.toString() !=
-              widget.room.ownerId.toString()) {
-            showBanFromWritingDilog(context);
-          }
-
-          RoomScreen.usersInRoom.forEach((key, value) {
-            if (widget.myDataModel.id.toString() !=
-                widget.room.ownerId.toString()) {
-              RoomScreen.banedUsers.putIfAbsent(key, () => key);
-              RoomScreen.showMessageButton.value = false;
-            }
-          });
-        }
+        BanFromWritingKey(result, widget.myDataModel.id.toString(), widget.room.ownerId.toString(), context);
       }
       else if (result[messageContent][message] == unbanFromWritingKey) {
-        RoomScreen.banedUsers.remove(result[messageContent]['userId']);
-
-        if (widget.myDataModel.id.toString() ==
-            result[messageContent]['userId']) {
-          RoomScreen.showMessageButton.value = true;
-        } else if (result[messageContent]['userId'] == "") {
-          RoomScreen.banFromWriteIcon.value = false;
-          RoomScreen.showMessageButton.value = true;
-          RoomScreen.banedUsers.clear();
-        }
+        UnbanFromWritingKey(result, widget.myDataModel.id.toString());
       }
       else if (result[messageContent][message] == 'banDevice') {
         if (result[messageContent]['userId'] == widget.myDataModel.id) {
           await Methods().exitFromRoom(widget.room.ownerId.toString());
-          Navigator.pushNamedAndRemoveUntil(
-              context, Routes.login, (route) => false);
+          Navigator.pushNamedAndRemoveUntil(context, Routes.login, (route) => false);
         }
-      } else if (result[messageContent][message] == muteUserKey) {
-        if (result[messageContent][mute]) {
-          ZegoUIKit()
-              .turnMicrophoneOn(false, userID: result[messageContent][idUser]);
-          RoomScreen.usersHasMute.add(result[messageContent][idUser]);
-        } else {
-          RoomScreen.usersHasMute.remove(result[messageContent][idUser]);
-        }
-        RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value + 1;
-      } else if (result[messageContent][message] == inviteToSeatKey) {
-        if (result[messageContent][idUser] ==
-            widget.myDataModel.id.toString()) {
-          if (RoomScreen.isInviteToMic == false) {
-            RoomScreen.isInviteToMic = true;
-            invitationDialog(context, widget.room.ownerId.toString(),
-                result[messageContent]['index']);
-          }
-          //todo update this show
-        }
-      } else if (result[messageContent]['msg'] == 'LBR' &&
-          result[messageContent]['uid'] == widget.myDataModel.id) {
-        ZegoUIKit().sendInRoomMessage(result[messageContent]['res'], false);
-        if (result[messageContent]['succ']) {
-          RoomScreen.luckyBoxes.removeAt(RoomScreen.luckyBoxes.length - 1);
-          luckyBoxRemovecontroller.add(RoomScreen.luckyBoxes);
-
-          showDialog(
-              barrierDismissible: true,
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  backgroundColor: Colors.transparent,
-                  contentPadding: EdgeInsets.zero,
-                  content: SucessLuckWidget(
-                    coins: result[messageContent]['co'].toString(),
-                  ),
-                );
-              });
-        } else {
-          Navigator.pop(context);
-          showDialog(
-              barrierDismissible: true,
-              context: context,
-              builder: (BuildContext context) {
-                return const AlertDialog(
-                    backgroundColor: Colors.transparent,
-                    contentPadding: EdgeInsets.zero,
-                    content: ErrorLuckWidget(
-                      isNotLucky: false,
-                    ));
-              });
-        }
-      } else if (result[messageContent]['msg'] == showYallowBanner) {
+      }
+      else if (result[messageContent][message] == muteUserKey) {
+        MuteUserKey(result);
+      }
+      else if (result[messageContent][message] == inviteToSeatKey) {
+        InviteToSeatKey(result, widget.myDataModel.id.toString(), widget.room.ownerId.toString(), context);
+      }
+      else if (result[messageContent]['msg'] == 'LBR' && result[messageContent]['uid'] == widget.myDataModel.id) {
+        BickFromLuckyBox(result, luckyBoxRemovecontroller, context);
+      }
+      else if (result[messageContent]['msg'] == showYallowBanner) {
         showYallowBannerAnimation(
           senderId: result[messageContent]['uId'],
           message: result[messageContent]['umsg'],
