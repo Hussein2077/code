@@ -208,10 +208,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               id: widget.myDataModel.id!,
               image: widget.myDataModel.profile!.image!,
               name: widget.myDataModel.name!,
-              revicerLevelImg: widget.myDataModel.level!.receiverImage!,
-              senderLevelImg: widget.myDataModel.level!.senderImage!,
+              revicerLevelImg: widget.myDataModel.level?.receiverImage??'',
+              senderLevelImg: widget.myDataModel.level?.senderImage??'',
               uuid: widget.myDataModel.uuid!,
-              vipLevel: widget.myDataModel.vip1!.level!,
+              vipLevel: widget.myDataModel.vip1?.level??0,
             ));
 
     RoomScreen.isGiftEntroAnimating = false;

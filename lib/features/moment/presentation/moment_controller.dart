@@ -4,6 +4,8 @@ import 'widgets/moment_bottom_bar.dart';
 
 class MomentController {
   static MomentController get getInstance => MomentController();
+
+
   Map<int, int> commentsOfMomentsMap = {};
   Map<int, int> get getCommentsOfMomentsMap => commentsOfMomentsMap;
 
