@@ -77,6 +77,8 @@ class MomentScreenState extends State<MomentScreen>
           );
         }
 
+
+
       },
   child: BlocListener<GetMomentBloc, GetMomentUserState>(
       listener: (context, state) {
