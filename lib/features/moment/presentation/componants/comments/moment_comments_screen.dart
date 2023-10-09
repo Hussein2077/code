@@ -48,7 +48,6 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
   void dispose() {
     super.dispose();
     commentListtemp!.clear();
-    MomentBottomBarState.commentsCounter.value++;
   }
 
   @override

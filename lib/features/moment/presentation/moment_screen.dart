@@ -89,6 +89,7 @@ class MomentScreenState extends State<MomentScreen>
       listener: (context, state) {
         if (state is GetMomentILikeItSucssesState) {
           MomentController.getInstance.fillLikeMaps(state.data!);
+
           MomentController.getInstance.fillCommentMap(state.data!);
 
         }
@@ -104,13 +105,13 @@ class MomentScreenState extends State<MomentScreen>
   child:  BlocListener<AddMomentCommentBloc, AddMomentCommentState>(
     listener: (context, state) {
       if(state is AddMomentCommentSucssesState){
-        MomentController.getInstance.commentIncrement(MomentController.getInstance.selectedMomentComment);
+        MomentController.getInstance.commentIncrement(MomentController.getInstance.getSelectMoment);
       }
     },
   child: BlocListener<DeleteMomentBloc, DeleteMomentState>(
   listener:       (context, state) {
     if(state is DeleteMomentSucssesState){
-      MomentController.getInstance.commentsDecrement(MomentController.getInstance.selectedMomentComment);
+      MomentController.getInstance.commentsDecrement(MomentController.getInstance.getSelectMoment);
 
       sucssesToast(context: context, title: state.message);
     }
