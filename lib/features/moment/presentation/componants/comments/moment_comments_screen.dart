@@ -48,7 +48,6 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
   void dispose() {
     super.dispose();
     commentListtemp!.clear();
-    MomentBottomBarState.commentsCounter.value++;
   }
 
   @override
@@ -58,7 +57,7 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
         if (state is DeleteMomentCommentSucssesState) {
           BlocProvider.of<GetMomentCommentBloc>(context)
               .add(GetMomentCommentEvent(momentId: widget.momentId.toString()));
-          MomentController.commentsDecrement(int.parse(widget.momentId));
+          MomentController.getInstance.commentsDecrement(int.parse(widget.momentId));
           MomentBottomBarState.commentsCounter.value++;
           sucssesToast(context: context, title: state.message);
         } else if (state is DeleteMomentCommentErrorState) {

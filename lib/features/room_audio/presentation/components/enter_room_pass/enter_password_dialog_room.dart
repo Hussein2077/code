@@ -101,7 +101,7 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
                 MainScreen.iskeepInRoom.value=true;
               }
               // ignore: use_build_context_synchronously
-              Navigator.pushNamed(
+              Navigator.pushReplacementNamed(
                   context, Routes.roomHandler,
                   arguments: RoomHandlerPramiter(
                     passwordRoom: password,

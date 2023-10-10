@@ -10,24 +10,33 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_us
 
 class GetUserReelsBloc extends Bloc<BaseGetUserReelsEvent, GetUserReelsState> {
 final GetUserReelsUsecase getUserReelUseCase ; 
-  int page = 1 ; 
+  int page = 1 ;
+  bool loadMore = true;
+
   GetUserReelsBloc({required this.getUserReelUseCase}) : super(GetUserReelsInitial(null)) {
     on<GetUserReelEvent>((event, emit)async {
       page = 1 ; 
     emit(GetUserReelsLoadingState(null));
     final result = await getUserReelUseCase.getUserReels(event.id , page.toString() );
-    result.fold((l) { 
-      emit(GetUserReelsSucssesState(data: l));}, (r) => emit(GetReelUsersErrorState(null, DioHelper().getTypeOfFailure(r))));
+    result.fold((l) {
+      loadMore = true;
+      emit(GetUserReelsSucssesState(data: l, loadMore: true, ));}, (r) => emit(GetReelUsersErrorState(null, DioHelper().getTypeOfFailure(r))));
     });
 
 
         on<LoadMoreUserReelsEvent>((event, emit)async {
-          page++ ; 
-    final result = await getUserReelUseCase.getUserReels(event.id, page.toString());
-    result.fold((l) {  if (l != []) {
-          emit(
-              GetUserReelsSucssesState(data: [...state.data!, ...l]));
-        }}, (r) => emit(GetReelUsersErrorState(null, DioHelper().getTypeOfFailure(r))));
+          page++ ;
+          if(loadMore) {
+            final result = await getUserReelUseCase.getUserReels(event.id, page.toString());
+            result.fold((l) {
+              if (l.isNotEmpty) {
+                emit(GetUserReelsSucssesState(data: [...state.data!, ...l], loadMore: true));
+              }else {
+                loadMore = false;
+                emit(GetUserReelsSucssesState(data: [...state.data!, ...l], loadMore: false));
+              }
+            }, (r) => emit(GetReelUsersErrorState(null, DioHelper().getTypeOfFailure(r))));
+          }
     });
   }
 

@@ -107,7 +107,6 @@ class UserReelViewState extends State<UserReelView> {
               //     likedVideos.add(state.data![i].id!);
               //   }
               // }
-
               return ReelsViewer(
                 userView: true,
                 startIndex: widget.startIndex,
@@ -130,7 +129,7 @@ class UserReelViewState extends State<UserReelView> {
                setState(() {
                             ReelsBox.likedVideos[id.toString()] =
                                 !ReelsBox.likedVideos[id.toString()]!;
-                            ReelsController().changeLikeUserCount(id.toString());
+                            ReelsController.getInstance.changeLikeUserCount(id.toString());
                           });
                           log( ReelsBox.likedVideos.toString());
                 },

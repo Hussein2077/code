@@ -16,7 +16,7 @@ class HomeBody extends StatelessWidget {
         controller: liveController,
         children:const [
           AduioBody(),
-          VideoBody()
+          // VideoBody()
 
         ]),
     );

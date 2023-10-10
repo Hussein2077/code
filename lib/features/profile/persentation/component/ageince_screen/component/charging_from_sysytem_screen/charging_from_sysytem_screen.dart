@@ -7,8 +7,11 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/search_container_visibity.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_events.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/widget/container_of_cash_withdrawal.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_coin_for_user/charge_coin_for_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_coin_for_user/charge_coin_for_user_event.dart';
@@ -26,13 +29,27 @@ class CharchingCoinsForUsers extends StatefulWidget {
 }
 
 class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
+  late bool searchContainerVisible;
+  late final TextEditingController withdrawalAmount;
+  late final TextEditingController userID;
+
+
+
+  @override
+  void dispose() {
+    searchContainerVisible = false;
+    userID.dispose();
+    withdrawalAmount.dispose();
+    super.dispose();
+  }
+
   void initState() {
     BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
+    userID = TextEditingController();
+    withdrawalAmount = TextEditingController();
+    searchContainerVisible = false;
     super.initState();
   }
-  final TextEditingController userID = TextEditingController();
-
-  final TextEditingController withdrawalAmount = TextEditingController();
 
   final formGlobalKey = GlobalKey<FormState>();
 
@@ -138,7 +155,27 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
                         type: TextInputType.number,
                         controller: userID,
                         hintText: StringManager.enterUserID.tr(),
+                        onChanged: (value){
+                          Future.delayed(const Duration(milliseconds: 1000),
+                                  () {
+                                BlocProvider.of<SearchBloc>(context)
+                                    .add(SearchEvent(keyWord: userID.text));
+                              });
+                          setState(() {
+                            searchContainerVisible = true;
+                          });
+
+                        },
+                        onTap: () {
+                          if (!searchContainerVisible) {
+                            searchContainerVisible = true;
+                          }
+                        },
                       ),
+                    ),
+                    SearchContainerVisibility(
+                      searchContainerVisible: searchContainerVisible,
+                      userID: userID,
                     ),
                     SizedBox(
                       height: ConfigSize.defaultSize! * 2.0,

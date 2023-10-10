@@ -87,7 +87,7 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
           (r) => emit(UpdateRoomSucsseState(data: r)));
     });
 
-    on<InitEvent>((event, emit) async {
+    on<InitRoomEvent>((event, emit) async {
       emit(const OnRoomInitialState());
     });
     on<ExitRoomEvent>((event, emit) async {

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -96,7 +98,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
           ),
           InkWell(
             onTap: () {
-              MomentController.selectedMomentComment=widget.momentModel.momentId;
+              MomentController.getInstance.setSelectMoment=widget.momentModel.momentId;
 
               bottomDailog(
                   context: context,
@@ -112,13 +114,12 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                 ValueListenableBuilder(
                   valueListenable: commentsCounter,
                   builder: (BuildContext context, int value, Widget? child) {
+
                     return SizedBox(
                       width: ConfigSize.defaultSize! * 5,
                       child: Center(
                         child: Text(
-                            MomentController.commentsOfMomentsMap[
-                            widget.momentModel.momentId]
-                                .toString(),
+                            MomentController.getInstance.getCommentsOfMomentsMap[widget.momentModel.momentId].toString(),
                             style: Theme.of(context).textTheme.bodyLarge),
                       ),
                     );
