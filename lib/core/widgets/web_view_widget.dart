@@ -34,7 +34,6 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
   @override
   void initState() {
     super.initState();
-    log("url${widget.url}");
       controller = WebViewController()
         ..setJavaScriptMode(JavaScriptMode.unrestricted)
         ..setBackgroundColor(const Color(0x00000000))
