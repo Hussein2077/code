@@ -202,7 +202,7 @@ Widget itemContiner({int? gender, required String title}) {
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
         color: (gender == null)
             ? Colors.white.withOpacity(0.5)
-            : (gender == 0)
+            : (gender == 1)
                 ? Colors.pink[200]
                 : Colors.blue[300],
 
@@ -219,7 +219,7 @@ Widget itemContiner({int? gender, required String title}) {
           ),
           if (gender != null)
             Image.asset(
-              (gender == 0)
+              (gender == 1)
                   ? AssetsPath.whiteFemaleIcon
                   : AssetsPath.whiteMaleIcon,
               scale: 2,
