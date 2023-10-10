@@ -109,7 +109,7 @@ class OtpScreen extends StatelessWidget {
                     }
                     
                   },
-                  title: StringManager.done),
+                  title: StringManager.done.tr()),
               const Spacer(
                 flex: 20,
               ),

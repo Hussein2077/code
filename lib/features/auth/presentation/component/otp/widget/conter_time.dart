@@ -55,6 +55,7 @@ class _CounterTimeWidgetState extends State<CounterTimeWidget> {
      seconds = -1;
      minute =-1 ;
      CounterTimeWidget.isCounting = false ;
+
      // timer.cancel();
     super.dispose();
   }
@@ -70,7 +71,6 @@ class _CounterTimeWidgetState extends State<CounterTimeWidget> {
         if(widget.isPK){
           // BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId:widget.ownerId!));
         }
-
       }
       else if (seconds < 1){
         if(widget.isPK){

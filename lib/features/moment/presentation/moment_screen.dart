@@ -159,43 +159,42 @@ class MomentScreenState extends State<MomentScreen>
                           height: ConfigSize.defaultSize! * 7,
                           width: ConfigSize.defaultSize! * 41,
                           decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.5),
+
                             border: Border.all(color: Colors.white),
                             borderRadius: BorderRadius.circular(
                                 ConfigSize.defaultSize! * 1.5),
                           ),
-                          child: TabBar(
-                            dividerColor: ColorManager.orang,
-                            indicatorColor: Colors.white,
-                            indicator: BoxDecoration(
-                              color: ColorManager.orang,
-                              borderRadius: BorderRadius.circular(
-                                  ConfigSize.defaultSize! * 0.8),
+                          child: Center(
+                            child: TabBar(
+                              dividerColor: ColorManager.orang,
+                              indicatorColor: Colors.white,
+                              indicator: BoxDecoration(
+                                color: ColorManager.orang,
+                                borderRadius: BorderRadius.circular(
+                                    ConfigSize.defaultSize! * 0.8),
+                              ),
+                              isScrollable: true,
+                              padding:
+                                  EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
+                              controller: _tabController,
+                              tabs: [
+                                Text(
+                                  StringManager.followingTab.tr(),
+                                  style:
+                                      Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                Text(
+                                  StringManager.likes.tr(),
+                                  style:
+                                      Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                Text(
+                                  StringManager.myMomentsTab.tr(),
+                                  style:
+                                      Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ],
                             ),
-                            isScrollable: true,
-                            padding:
-                                EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
-                            controller: _tabController,
-                            tabs: [
-                              Text(
-                                StringManager.followingTab.tr(),
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                              Text(
-                                StringManager.likes.tr(),
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                              Text(
-                                StringManager.myMomentsTab.tr(),
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                            ],
                           ),
                         ),
                         Expanded(
