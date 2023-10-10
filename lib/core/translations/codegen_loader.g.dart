@@ -393,6 +393,16 @@ StringManager.reelsView : "الريلز",
 StringManager.empty : "فارغ",
 StringManager.coinsIsEmpty : "الكوينز فارغ",
     StringManager.nowInRoom : "دخول الغرفة",
+    StringManager.moments:'اللحظات',
+    StringManager.giftBox:'صندوق الهدايا',
+    StringManager.likes:'المفضل',
+    StringManager.myMomentsTab:'انا',
+    StringManager.addComment:'اضف تعليق',
+    StringManager.addMoment:'اضف لحظة',
+    StringManager.thisMoment:'لا يوجد اعجابات ',
+    StringManager.thisMomentc:'لا يوجد تعليقات ',
+    StringManager.followingTab:'اتابعهم'
+
 
 
 

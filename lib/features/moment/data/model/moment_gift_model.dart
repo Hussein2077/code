@@ -11,8 +11,8 @@ class MomentGiftsModel{
 
   factory MomentGiftsModel.fromjson(Map<String, dynamic> json) {
     return MomentGiftsModel(
-      giftNum: json['gift_num'],
-      giftId: json['gift_id'],
+      giftNum: json['num_gift'],
+      giftId: json['pivot']['gift_id'],
       giftImage: json['img'],
     );
   }

@@ -82,7 +82,7 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                         const Spacer(flex: 1,),
                         IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios)),
                         const Spacer(flex: 4,),
-                        Text(StringManager.comments,style: Theme.of(context).textTheme.titleLarge,),
+                        Text(StringManager.comments.tr(),style: Theme.of(context).textTheme.titleLarge,),
                         const Spacer(flex: 5,),
                       ],
                     ),
@@ -117,7 +117,7 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                                       MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          StringManager.thisMoment.tr(),
+                                          StringManager.thisMomentc.tr(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium,
@@ -169,8 +169,8 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                             );
                           }
                         } else {
-                          return const CustomErrorWidget(
-                              message: StringManager.noDataFoundHere);
+                          return  CustomErrorWidget(
+                              message: StringManager.noDataFoundHere.tr());
                         }
                       },
                     ),

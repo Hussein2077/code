@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -27,17 +29,27 @@ class MomentView extends StatelessWidget {
               height: ConfigSize.defaultSize! * 1.2,
             ),
             if (momentModel.momentImage != '')
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          ConstentApi().getImage(momentModel.momentImage),
-                        ),
-                        fit: BoxFit.cover)),
-                width: ConfigSize.screenWidth! * 0.5,
-                height: ConfigSize.defaultSize! * 14,
+              InkWell(
+                onTap: (){
+                  showImageViewer(
+                      context,
+                      CachedNetworkImageProvider(
+                        ConstentApi().getImage(momentModel.momentImage),
+                      ),
+                      swipeDismissible: false);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                      image: DecorationImage(
+                          image: NetworkImage(
+                            ConstentApi().getImage(momentModel.momentImage),
+                          ),
+                          fit: BoxFit.cover)),
+                  width: ConfigSize.screenWidth! * 0.5,
+                  height: ConfigSize.defaultSize! * 14,
+                ),
               ),
           ],
         ),

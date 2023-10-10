@@ -258,6 +258,7 @@ class StringManager {
   static const String senderLevel = "Sender Level";
   static const String receiverLevel = "Receiver Level";
 
+
   ///INCOME SCREEN 💲💸💰
   static const String instructionsForJoiningAgency =
       "Instructions for joining an agency";
@@ -480,22 +481,23 @@ class StringManager {
   static const String coinsIsEmpty = 'Coins is Empty';
   static const String nowInRoom = "Now In Room";
 
-  static const String theOtp = 'the otp you have entered is wrong';
-  static const String inputPhonenum = "Input your phone number";
-  static const String pleaseEnterYourPassword = "Please Enter your Password";
-  static const String enterNewPassword = "Enter New Password";
-  static const String changePhone = "Change Phone";
-  static const String changePassword = "Change Password";
-  static const String pleaseEnterYourPhone = "Please Enter your phone";
-  static const String enterYourPhone = "Enter your phone";
-  static const String pleaseAddYourCountry = "Please Add Your Country";
-  static const String thePrivecyPolicy = "the Privacy Policy";
-  static const String moments = "Moments";
-  static const String giftBox = "GiftBox";
-  static const String addComment = "Add comment";
-  static const String addMoment = "Add Moment";
-  static const String addMoment1 = "Add moment ...";
-  static const String thisMoment = "this moment has no likes yet";
+    static const String theOtp = 'the otp you have entered is wrong';
+ static const String inputPhonenum = "Input your phone number";
+ static const String pleaseEnterYourPassword = "Please Enter your Password";
+ static const String enterNewPassword = "Enter New Password";
+ static const String changePhone = "Change Phone";
+ static const String changePassword = "Change Password";
+ static const String pleaseEnterYourPhone = "Please Enter your phone";
+ static const String enterYourPhone = "Enter your phone";
+ static const String pleaseAddYourCountry = "Please Add Your Country";
+ static const String thePrivecyPolicy = "the Privacy Policy";
+ static const String moments = "Moments";
+ static const String giftBox = "GiftBox";
+ static const String addComment = "Add comment";
+ static const String addMoment = "Add Moment";
+ static const String addMoment1 = "Add moment ...";
+ static const String thisMoment = "this moment has no likes yet";
+ static const String thisMomentc = "this moment has no comments yet";
 
   static const String momentTab = "Moments";
   static const String likes = "Liked";

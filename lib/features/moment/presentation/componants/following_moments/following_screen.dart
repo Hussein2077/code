@@ -32,6 +32,7 @@ class FollowingScreen extends StatelessWidget {
             backgroundColor: ColorManager.mainColor,
             showChildOpacityTransition: false,
             onRefresh: () async {
+
               BlocProvider.of<GetFollowingUserMomentBloc>(context)
                   .add(const GetFollowingMomentEvent());
             },
@@ -47,7 +48,9 @@ class FollowingScreen extends StatelessWidget {
             message: state.errorMassage,
           );
         } else if (state is GetFollowingUserMomentLoadingState) {
-          if (tempData!.isEmpty) {
+          if (tempData!.isNotEmpty) {
+            return  TabViewBody(momentModelList:tempData! );
+          } else {
             return Container(
                 width: ConfigSize.screenWidth,
                 height: ConfigSize.screenHeight,
@@ -56,8 +59,7 @@ class FollowingScreen extends StatelessWidget {
                     ConfigSize.defaultSize! *
                         0.2),
                 child: const LoadingWidget());
-          } else {
-            return  TabViewBody(momentModelList:tempData! );
+
           }          } else {
           return const CustomErrorWidget(
             message: StringManager.noDataFoundHere,

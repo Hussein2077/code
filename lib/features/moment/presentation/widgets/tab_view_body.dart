@@ -24,28 +24,7 @@ class TabViewBody extends StatelessWidget {
       child: ListView.builder(
         itemCount: momentModelList.length,
         itemBuilder: (context, i) {
-          // MomentController.favorites.update(
-          //   momentModelList[i].momentId,
-          //       (existingValue) => momentModelList[i].isLike,
-          //   ifAbsent: () =>
-          //   momentModelList[i].isLike,
-          // );
-          // log('favorites${ MomentController.favorites}');
-          //
-          // MomentController.favoritesCount.update(
-          //   momentModelList[i].momentId,
-          //       (existingValue) => momentModelList[i].likeNum,
-          //   ifAbsent: () =>
-          //   momentModelList[i].likeNum,
-          //
-          // );
-          // log('favoritesCount${ MomentController.favoritesCount}');
-          // MomentController.getInstance.commentsOfMomentsMap.update(
-          //   momentModelList[i].momentId,
-          //       (existingValue) => momentModelList[i].commentNum,
-          //   ifAbsent: () =>
-          //   momentModelList[i].commentNum,
-          // );
+
           return Column(
             children: [
               Container(

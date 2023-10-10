@@ -1,3 +1,4 @@
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -14,7 +15,6 @@ import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/mome
 import 'package:tik_chat_v2/features/moment/presentation/componants/likes/moment_likes_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/moment_controller.dart';
 
 
 class MomentBottomBar extends StatefulWidget {
@@ -31,9 +31,20 @@ State<MomentBottomBar> createState() => MomentBottomBarState();
 }
 
 class MomentBottomBarState extends State<MomentBottomBar> {
+  static int selectedMomentLike = -1 ;
+  static int selectedMomentGift= -1 ;
+  static int selectedMomentComment = -1 ;
+  static int giftNum = -1 ;
+
+  static final Map<int, int> commentsOfMomentsMap = {};
+  static final Map<int, int> giftsOfMomentsMap = {};
+  static final Map<int,bool> favorites = {};
+  static final Map<int,int> favoritesCount = {};
+
   static ValueNotifier<int> commentsCounter = ValueNotifier<int>(0);
   static ValueNotifier<int> likeNotifierCounter = ValueNotifier<int>(0);
   static ValueNotifier<int> giftsNotifierCounter = ValueNotifier<int>(0);
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +73,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       builder:
                           (BuildContext context, int value, Widget? child) {
                         return Text(
-                            MomentController
+                            MomentBottomBarState
                                 .favoritesCount[widget.momentModel.momentId]
                                 .toString(),
                             style: Theme.of(context).textTheme.bodyLarge);
@@ -74,9 +85,10 @@ class MomentBottomBarState extends State<MomentBottomBar> {
               ValueListenableBuilder<int>(
                 valueListenable: likeNotifierCounter,
                 builder: (context, likeCount, child) {
+                  log('favorites${MomentBottomBarState.favorites.toString()}');
                   return InkWell(
                     onTap: () {
-                      MomentController.selectedMomentLike =
+                      MomentBottomBarState.selectedMomentLike =
                           widget.momentModel.momentId;
                       BlocProvider.of<MakeMomentLikeBloc>(context).add(
                           MakeMomentLikeEvent(
@@ -86,7 +98,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                     child: Image.asset(
                       AssetsPath.likeIcon,
                       color:
-                      MomentController.favorites[widget.momentModel.momentId]!
+                      MomentBottomBarState.favorites[widget.momentModel.momentId]!
                           ? ColorManager.orang
                           : Theme.of(context).colorScheme.primary,
                       scale: 0.1,
@@ -98,7 +110,6 @@ class MomentBottomBarState extends State<MomentBottomBar> {
           ),
           InkWell(
             onTap: () {
-              MomentController.getInstance.setSelectMoment=widget.momentModel.momentId;
 
               bottomDailog(
                   context: context,
@@ -119,7 +130,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       width: ConfigSize.defaultSize! * 5,
                       child: Center(
                         child: Text(
-                            MomentController.getInstance.getCommentsOfMomentsMap[widget.momentModel.momentId].toString(),
+                            MomentBottomBarState.commentsOfMomentsMap[widget.momentModel.momentId].toString(),
                             style: Theme.of(context).textTheme.bodyLarge),
                       ),
                     );
@@ -135,7 +146,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
             children: [
               InkWell(
                 onTap: () {
-
+                  MomentBottomBarState.selectedMomentGift=widget.momentModel.momentId;
                   bottomDailog(
                       context: context,
                       widget: MommentSentGiftScreen(momentId: widget.momentModel.momentId.toString(),),
@@ -148,7 +159,8 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       valueListenable: giftsNotifierCounter,
                       builder:
                           (BuildContext context, int value, Widget? child) {
-                        return Text(widget.momentModel.giftsCount.toString(),
+                        return Text(
+                            MomentBottomBarState.giftsOfMomentsMap[widget.momentModel.momentId].toString(),
                             style: Theme.of(context).textTheme.bodyLarge);
                       },
                     ),

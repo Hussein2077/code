@@ -11,6 +11,8 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
 
 
 
@@ -89,7 +91,7 @@ class _AddMomentScreenState extends State<AddMomentScreen> {
                   cursorWidth: ConfigSize.defaultSize! * 0.3,
                   style: Theme.of(context).textTheme.bodyLarge,
                   decoration: InputDecoration(
-                      hintText: StringManager.addMoment1.tr(),
+                      hintText: '${StringManager.addMoment.tr()} ...',
                       hintStyle: Theme.of(context).textTheme.bodyMedium,
                       contentPadding: EdgeInsets.only(
                         left: ConfigSize.defaultSize! * 2,
@@ -147,7 +149,9 @@ class _AddMomentScreenState extends State<AddMomentScreen> {
               BlocListener<AddMomentBloc, AddMomentState>(
                 listener: (context, state) {
                   if (state is AddMomentSucssesState) {
-                    sucssesToast(context: context, title: state.message);
+                    BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(
+                      userId: MyDataModel.getInstance().id.toString(),
+                    ));                    sucssesToast(context: context, title: state.message);
                     Navigator.pop(context);
                     Navigator.pop(context);
                   } else if (state is AddMomentErrorState) {

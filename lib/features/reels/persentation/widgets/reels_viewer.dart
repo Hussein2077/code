@@ -2,7 +2,7 @@
 
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -101,7 +101,8 @@ class _ReelsViewerState extends State<ReelsViewer> {
             children: [
               //We need swiper for every content
               Padding(
-                padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
+                padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 0),
+                //padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
                 child: Swiper(
                   itemBuilder: (BuildContext context, int index) {
                     return ReelsPage(
@@ -124,34 +125,57 @@ class _ReelsViewerState extends State<ReelsViewer> {
                 ),
               ),
               if (widget.showAppbar)
-                Container(
-                  height: ConfigSize.defaultSize!*6.4,
-                  color: Colors.black26,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-        
-                      SizedBox(
-                        width: ConfigSize.defaultSize!*2.4,
-                      ),
-        
-        
-                      Text(
-                        widget.appbarTitle ?? 'Reels View',
-                        style:  TextStyle(
-                          fontSize: ConfigSize.defaultSize!*2.2,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white
-                        ),
-                      ),
-        
-        
-                    IconButton(onPressed: (){
-                       Navigator.pushNamed(context, Routes.uploadReels);
-                    }, icon: Icon(Icons.add , color: Colors.white, size: ConfigSize.defaultSize!*3,))
-                    ],
+                Positioned(
+                  right: ConfigSize.defaultSize!*1.5,
+                  top: ConfigSize.defaultSize!*1.5,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.uploadReels);
+                    },
+                    child: Container(
+                        width: ConfigSize.defaultSize! * 3,
+                        height: ConfigSize.defaultSize! * 3,
+                        decoration: BoxDecoration(
+                            color: ColorManager.mainColor.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(
+                                ConfigSize.defaultSize! * 3)),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: ConfigSize.defaultSize! * 3,
+                        )),
                   ),
-                ),
+                )
+
+              // Container(
+              //   height: ConfigSize.defaultSize!*0.1,
+              //  // height: ConfigSize.defaultSize!*6.4,
+              //   color: Colors.black26,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //
+              //       SizedBox(
+              //         width: ConfigSize.defaultSize!*2.4,
+              //       ),
+              //
+              //
+              //       // Text(
+              //       //   widget.appbarTitle ?? 'Reels View',
+              //       //   style:  TextStyle(
+              //       //     fontSize: ConfigSize.defaultSize!*2.2,
+              //       //     fontWeight: FontWeight.w600,
+              //       //     color: Colors.white
+              //       //   ),
+              //       // ),
+              //
+              //
+              //     IconButton(onPressed: (){
+              //        Navigator.pushNamed(context, Routes.uploadReels);
+              //     }, icon: Icon(Icons.add , color: Colors.white, size: ConfigSize.defaultSize!*3,))
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

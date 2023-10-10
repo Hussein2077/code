@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/widg
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 import 'package:tik_chat_v2/features/room_audio/data/data_sorce/remotly_data_source_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 
@@ -157,6 +158,8 @@ class _MomtentGiftBottomBarBodyState extends State<MomtentGiftBottomBarBody>
                                         ConfigSize.defaultSize! * 1.2))),
                             child: InkWell(
                               onTap: () {
+                                MomentBottomBarState.selectedMomentGift=int.parse(widget.momentId);
+                                MomentBottomBarState.giftNum=MomtentGiftBottomBarBody.numberOfGift;
                                 BlocProvider.of<MomentSendGiftBloc>(context)
                                     .add(MomentSendGiftEvent(
                                   momentId: widget.momentId,
