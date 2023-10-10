@@ -21,14 +21,7 @@ class ReelLodaingWidget extends StatelessWidget {
             : Image.memory(ReelsBox.thumbnail[reelId]!,
                 fit: BoxFit.fitWidth)
         : ReelsScreenState.thumbnail[reelId] == null
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircularProgressIndicator(),
-                  SizedBox(height: ConfigSize.defaultSize!),
-                  Text(StringManager.loading.tr())
-                ],
-              )
+            ? const LoadingWidget()
             : Image.memory(ReelsScreenState.thumbnail[reelId]!,
                 fit: BoxFit.fitWidth);
   }

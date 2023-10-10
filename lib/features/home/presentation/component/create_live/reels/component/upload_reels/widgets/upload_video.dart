@@ -11,7 +11,9 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:path_provider/path_provider.dart';
 
 class UploadVideo extends StatefulWidget {
-  const UploadVideo({super.key});
+  const UploadVideo({required this.reelsNameController ,  super.key});
+      final TextEditingController reelsNameController;
+
 
   @override
   State<UploadVideo> createState() => UploadVideoState();
@@ -36,7 +38,7 @@ class UploadVideoState extends State<UploadVideo> {
       if (filePath != null) {
              Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) {
-                    return TrimmerView(File(result.files.single.path!));
+                    return TrimmerView(file:  File(result.files.single.path!) , reelsNameController:widget.reelsNameController ,);
                   }),
                 );
     _generateThumbnail(filePath);
