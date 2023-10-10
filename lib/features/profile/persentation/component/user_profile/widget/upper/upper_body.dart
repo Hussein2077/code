@@ -42,9 +42,12 @@ class UpperProfileBody extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * .4,
           decoration: BoxDecoration(
-            image: DecorationImage(
+            image: myDataModel.profile!.image != null ? DecorationImage(
               image: CachedNetworkImageProvider(
                   ConstentApi().getImage(myDataModel.profile!.image)),
+              fit: BoxFit.cover,
+            ): const DecorationImage(
+              image: AssetImage(AssetsPath.defaultImage),
               fit: BoxFit.cover,
             ),
           ),

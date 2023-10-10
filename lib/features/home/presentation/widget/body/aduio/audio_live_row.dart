@@ -89,9 +89,10 @@ class AduioLiveRow extends StatelessWidget {
                               spreadRadius: 1,
                               blurRadius: 20),
                         ],
-                        image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                                ConstentApi().getImage(room.cover)),
+                        image: room.cover != null? DecorationImage(
+                            image: CachedNetworkImageProvider(ConstentApi().getImage(room.cover)),
+                            fit: BoxFit.fill) : const DecorationImage(
+                            image: AssetImage(AssetsPath.defaultImage),
                             fit: BoxFit.fill),
                         borderRadius:
                             BorderRadius.circular(ConfigSize.defaultSize! * 2)),

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -47,10 +48,12 @@ class UserImageReel extends StatelessWidget {
             height: imageSize ?? ConfigSize.defaultSize! * 5,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                image: DecorationImage(
+                image: image != null ? DecorationImage(
                     fit: boxFit ?? BoxFit.fill,
                     image: CachedNetworkImageProvider(
-                        ConstentApi().getImage(image)))),
+                        ConstentApi().getImage(image))) : const DecorationImage(
+    image: AssetImage(AssetsPath.defaultImage),
+    fit: BoxFit.fill)),
             child: child,
           ),
         ),
