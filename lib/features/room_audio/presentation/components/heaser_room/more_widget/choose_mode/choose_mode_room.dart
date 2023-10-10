@@ -7,6 +7,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
@@ -144,7 +145,7 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
               ),
               InkWell(
                 onTap: ()async {
-                  if(!RoomScreen.isPK.value){
+                  if(!PkController.isPK.value){
                  await   ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
                         .takeOffAllSeat(isPK: false);
                     BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
@@ -216,7 +217,7 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
               ),
               InkWell(
                 onTap: ()async {
-                  if(!RoomScreen.isPK.value){
+                  if(!PkController.isPK.value){
                  await   ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
                         .takeOffAllSeat(isPK: false);
                     BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(

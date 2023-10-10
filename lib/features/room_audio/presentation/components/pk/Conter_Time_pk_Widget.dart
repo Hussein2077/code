@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
@@ -40,7 +41,7 @@ class _CounterPkTimeWidgetState extends State<CounterPkTimeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return  Text("${RoomScreen.timeMinutePK} : ${RoomScreen.timeSecondPK}",
+    return  Text("${PkController.timeMinutePK} : ${PkController.timeSecondPK}",
       style:  TextStyle(color: Colors.white,
           fontSize: ConfigSize.defaultSize! * 1.5,fontWeight: FontWeight.w300),);
   }
@@ -71,7 +72,7 @@ class SetTimerPK {
   }
 
   void _updateSeconds(BuildContext context,String ownerId) {
-    if(RoomScreen.timeMinutePK<1 && RoomScreen.timeSecondPK<1 ){
+    if(PkController.timeMinutePK<1 && PkController.timeSecondPK<1 ){
       if(MyDataModel.getInstance().id.toString() == ownerId){
         BlocProvider.of<PKBloc>(context).add(
             ClosePKEvent(ownerId: ownerId,
@@ -81,16 +82,16 @@ class SetTimerPK {
       // _timer!.cancel();
       // streamController.done;
     }
-    else if ( RoomScreen.timeSecondPK < 1){
-      RoomScreen.timeSecondPK= 59;
-      RoomScreen.timeMinutePK--  ;
-      getIt<TimeData>().setMinute = RoomScreen.timeMinutePK ;
-      getIt<TimeData>().setSecond = RoomScreen.timeSecondPK ;
+    else if ( PkController.timeSecondPK < 1){
+      PkController.timeSecondPK= 59;
+      PkController.timeMinutePK--  ;
+      getIt<TimeData>().setMinute = PkController.timeMinutePK ;
+      getIt<TimeData>().setSecond = PkController.timeSecondPK ;
       streamController.sink.add(getIt<TimeData>()) ;
     }
     else{
-      RoomScreen.timeSecondPK -- ;
-      getIt<TimeData>().setSecond = RoomScreen.timeSecondPK ;
+      PkController.timeSecondPK -- ;
+      getIt<TimeData>().setSecond = PkController.timeSecondPK ;
       streamController.sink.add(getIt<TimeData>());
     }
   }

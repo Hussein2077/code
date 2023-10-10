@@ -22,6 +22,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_bo
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/error_luck_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/sucess_luck_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
@@ -91,14 +92,8 @@ const String numGift = "num_gift";
 const String roomGiftsPriceKey = "gift_price";
 const String kicKoutKey = "kickout";
 const String duration = "duration";
-const String showPkKey = "showPK";
-const String hidePkKey = "hidePK";
-const String startPkKey = "startPK";
-const String updatePkKey = "updatePk";
-const String closePkKey = "closePk";
 const String leaveMicKey = "leaveMic";
 const String upMicKey = "upMic";
-const String timePkKey = "PkTime";
 const String muteMicKey = "muteMic";
 const String unMuteMicKey = "unmuteMic";
 const String lockMicKey = "lockMic";
@@ -290,13 +285,6 @@ Future<void> distroyMusic() async {
   // }
 }
 
-void restorePKData() {
-  RoomScreen.scoreTeam2 = 0;
-  RoomScreen.precantgeTeam1 = 0.5;
-  RoomScreen.precantgeTeam2 = 0.5;
-  RoomScreen.scoreTeam1 = 0;
-}
-
 Future<void> clearAll() async {
   RoomScreen.listOfLoskSeats.value = {0: 0};
   RoomScreen.listOfMuteSeats.clear();
@@ -306,16 +294,16 @@ Future<void> clearAll() async {
   RoomScreen.listOfAnimatingEntros.clear();
   RoomScreen.isShowingBanner = false;
   RoomScreen.listOfAnimatingBanner.clear();
-  RoomScreen.timeMinutePK = 0;
-  RoomScreen.timeSecondPK = 0;
-  RoomScreen.isPK.value = false;
+  PkController.timeMinutePK = 0;
+  PkController.timeSecondPK = 0;
+  PkController.isPK.value = false;
   PKWidget.isStartPK.value = false;
-  RoomScreen.scoreTeam2 = 0;
-  RoomScreen.precantgeTeam1 = 0.5;
-  RoomScreen.precantgeTeam2 = 0.5;
-  RoomScreen.scoreTeam1 = 0;
-  RoomScreen.winRedTeam = false;
-  RoomScreen.winBlueTeam = false;
+  PkController.scoreTeam2 = 0;
+  PkController.precantgeTeam1 = 0.5;
+  PkController.precantgeTeam2 = 0.5;
+  PkController.scoreTeam1 = 0;
+  PkController.winRedTeam = false;
+  PkController.winBlueTeam = false;
   RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
   RoomScreen.musicesInRoom.clear();
@@ -330,13 +318,13 @@ Future<void> clearAll() async {
   LuckyBox.currentBox = 1;
   SetTimerLuckyBox.remTimeSuperBox = 0;
   DialogLuckyBox.startTime = false;
-  RoomScreen.showPK.value = false;
+  PkController.showPK.value = false;
   RoomScreen.topUserInRoom.value = UserDataModel();
   RoomScreen.musicesInRoom.clear();
   RoomScreen.usersHasMute.clear();
   RoomScreen.banedUsers.clear();
   RoomScreen.isInviteToMic = false;
-  RoomScreen.updatePKNotifier.value = 0;
+  PkController.updatePKNotifier.value = 0;
   RoomScreen.editRoom.value = 0;
   RoomScreen.updateEmojie.value = 0;
   RoomScreen.updatebuttomBar.value = 0;
@@ -346,6 +334,7 @@ Future<void> clearAll() async {
   RoomScreen.myCoins.value = "";
   await distroyMusic();
 }
+
 
 void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String ownerId, String userId) {
   if (layoutMode == LayoutMode.hostTopCenter) {
@@ -638,63 +627,6 @@ KicKoutKey(Map<String, dynamic> result, var durationKickout, String ownerId, Str
     BlocProvider.of<OnRoomBloc>(context).add(InitRoomEvent());
     RoomScreen.isKick.value = false;
   });
-}
-
-ShowPkKey(){
-  RoomScreen.showPK.value = true;
-  RoomScreen.isPK.value = true;
-}
-
-StartPkKey(Map<String, dynamic> result, String ownerId, BuildContext context){
-  RoomScreen.timeMinutePK = int.parse(result[messageContent][timePkKey]);
-  RoomScreen.timeSecondPK = 0;
-  RoomScreen.scoreTeam2 = 0;
-  RoomScreen.precantgeTeam1 = 0.5;
-  RoomScreen.precantgeTeam2 = 0.5;
-  PKWidget.isStartPK.value = true;
-  RoomScreen.scoreTeam1 = 0;
-  RoomScreen.updatePKNotifier.value = RoomScreen.updatePKNotifier.value + 1;
-  getIt<SetTimerPK>().start(context, ownerId);
-}
-
-HidePkKey(){
-  RoomScreen.showPK.value = false;
-  restorePKData();
-  RoomScreen.isPK.value = false;
-}
-
-UpdatePkKey(Map<String, dynamic> result){
-  RoomScreen.scoreTeam2 = result[messageContent]['scoreTeam2'];
-  RoomScreen.precantgeTeam1 =
-      double.parse(result[messageContent]['percentagepk_team1']);
-  RoomScreen.precantgeTeam2 =
-      double.parse(result[messageContent]['percentagepk_team2']);
-  RoomScreen.scoreTeam1 = result[messageContent]['scoreTeam1'];
-  RoomScreen.updatePKNotifier.value =
-      RoomScreen.updatePKNotifier.value + 1;
-}
-
-ClosePkKey(Map<String, dynamic> result, Future<void> Function(String img) loadAnimationBlueTeam, Future<void> Function(String img) loadAnimationRedTeam){
-  RoomScreen.scoreTeam2 = result[messageContent]['scoreTeam2'];
-  RoomScreen.precantgeTeam1 =
-      double.parse(result[messageContent]['percentagepk_team1']);
-  RoomScreen.precantgeTeam2 =
-      double.parse(result[messageContent]['percentagepk_team2']);
-  PKWidget.isStartPK.value = false;
-  RoomScreen.scoreTeam1 = result[messageContent]['scoreTeam1'];
-  RoomScreen.updatePKNotifier.value =
-      RoomScreen.updatePKNotifier.value + 1;
-  if (result[messageContent]['winner_Team'] == 2) {
-    loadAnimationBlueTeam("images/WIN.svga");
-    loadAnimationRedTeam("images/LOSE.svga");
-  } else if (result[messageContent]['winner_Team'] == 1) {
-    loadAnimationBlueTeam("images/LOSE.svga");
-    loadAnimationRedTeam("images/WIN.svga");
-  } else {
-    loadAnimationBlueTeam("files/ce611dcb83b465805d552565d0705be4.svga");
-    loadAnimationRedTeam("files/091e42c561800ca052493228e2165d70.svga");
-  }
-  getIt<SetTimerPK>().timer.cancel();
 }
 
 UpMicKey(Map<String, dynamic> result){
