@@ -61,7 +61,7 @@ class _CardOfDiamondEarnedState extends State<CardOfDiamondEarned> {
                     builder: (context, state) {
                    if (state is MyStoreSucssesState){
 
-                    diamond = MyDataModel.getInstance().myAgencyModel==null? state.myStore.diamonds.toString()  : state.myStore.monthlyDiamonds.toString();
+                    diamond = state.myStore.diamonds.toString()  ;
                        return Text(
                       state.myStore.diamonds.toString(),
                         style: TextStyle(

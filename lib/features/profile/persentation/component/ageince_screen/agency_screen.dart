@@ -84,7 +84,7 @@ Widget agencyCommanWidget(
     height: ConfigSize.defaultSize!*20.2,
     width: MediaQuery.of(context).size.width/1.1,
     padding: EdgeInsets.symmetric(
-        vertical: ConfigSize.defaultSize!*1.5,
+        vertical: ConfigSize.defaultSize!*0.0,
         horizontal: ConfigSize.defaultSize!*1.5),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(15),
