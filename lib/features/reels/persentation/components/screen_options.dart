@@ -49,7 +49,10 @@ class ScreenOptions extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.only(right: MediaQuery.of(context).size.width-ConfigSize.defaultSize!*7 ,bottom: ConfigSize.defaultSize!),
         child: Column(
+     
+     
           children: [
+
             if (item.userImage != null)
               UserImageReel(
                 image: item.userImage!,
@@ -176,6 +179,7 @@ class ScreenOptions extends StatelessWidget {
                 ),
               ),
             ),
+
             SizedBox(height: ConfigSize.defaultSize),
             if (onClickMoreBtn != null)
               IconButton(
@@ -183,7 +187,15 @@ class ScreenOptions extends StatelessWidget {
                 onPressed: () => onClickMoreBtn!(item.id!, item.userId!),
                 color: Colors.white,
               ),
+                                      SizedBox(
+                                        // width: MediaQuery.of(context).size.width-ConfigSize.defaultSize!*2,
+                                        // height: ConfigSize.defaultSize!*10,
+                                        child: Text(item.description!.substring(0,10) , style: TextStyle(color: Colors.white , fontSize: ConfigSize.defaultSize!*2),)),
+
+
           ],
+     
+     
         ));
   }
 }
