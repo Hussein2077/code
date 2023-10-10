@@ -112,7 +112,7 @@ class _TrimmerViewState extends State<TrimmerView> {
                   border: Border.all(color: Colors.white)),
               width: MediaQuery.of(context).size.width - 50,
               child: TextFieldWidget(
-                  textColor: Theme.of(context).colorScheme.primary,
+                  textColor: Colors.white,
                   controller: widget.reelsNameController,
                   hintText: StringManager.videoDescription.tr()),
             ),
