@@ -38,13 +38,15 @@ class TopInRoomScreenBody extends StatelessWidget {
               case RequestState.loaded:
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: state.todayUserTopModel.isEmpty
+                  child: !state.todayUserTopModel.isEmpty
                       ? SizedBox(
                           width: ConfigSize.defaultSize!*34.7,
-                          child: Text(StringManager.noDaimonsNow.tr(),
-                              style:const TextStyle(
-                                  color: ColorManager.darkBlack,
-                                  fontWeight: FontWeight.w700)),
+                          child: Center(
+                            child: Text(StringManager.noDaimonsNow.tr(),
+                                style:const TextStyle(
+                                    color: ColorManager.darkBlack,
+                                    fontWeight: FontWeight.w700)),
+                          ),
                         )
                       : SizedBox(
                           width: double.maxFinite,

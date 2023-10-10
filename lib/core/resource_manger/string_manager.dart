@@ -59,7 +59,7 @@ class StringManager {
   static const String music = "music";
   static const String clearChat = "Clear Chat";
   static const String areYouSure = "Are you sure you want to delete chat?";
-  static const String noDaimonsNow = "No daimons Now";
+  static const String noDaimonsNow = "No Diamonds Now";
   static const String diamondsContribution = "Diamonds contribution";
   static const String giftbar =
       "When you send this kind of this of gift , it will be shown in other rooms";
