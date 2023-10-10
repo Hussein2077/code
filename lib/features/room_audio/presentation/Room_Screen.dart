@@ -36,6 +36,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_r
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/host_top_center_widget.dart';
@@ -47,8 +48,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_party.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/team_blue.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/team_red.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_blue.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_red.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
@@ -82,15 +83,7 @@ class RoomScreen extends StatefulWidget {
   final bool isHost;
   static bool isGiftEntroAnimating = false;
   static bool isShowingBanner = false;
-  static int timeMinutePK = 0;
   static bool isInviteToMic = false;
-  static int timeSecondPK = 0;
-  static int scoreTeam1 = 0;
-  static int scoreTeam2 = 0;
-  static double precantgeTeam1 = 0.5;
-  static double precantgeTeam2 = 0.5;
-  static bool winRedTeam = false;
-  static bool winBlueTeam = false;
   static bool roomIsLoked = false;
   static late bool outRoom;
   static List<GiftData> listOfAnimatingGifts = [];
@@ -122,9 +115,6 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<String> roomGiftsPrice = ValueNotifier<String>("");
   static ValueNotifier<bool> isKick = ValueNotifier<bool>(false);
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
-  static ValueNotifier<bool> isPK = ValueNotifier<bool>(false);
-  static ValueNotifier<bool> showPK = ValueNotifier<bool>(false);
-  static ValueNotifier<int> updatePKNotifier = ValueNotifier<int>(0); // make only that value notifier because update and rebuild pk widget
   static ValueNotifier<int> editRoom = ValueNotifier<int>(0);
   static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
   static ValueNotifier<int> updateLuckyBox = ValueNotifier<int>(0);
@@ -149,8 +139,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   final List<StreamSubscription<dynamic>?> subscriptions = [];
   late SVGAAnimationController animationControllerGift;
   late SVGAAnimationController animationControllerEntro;
-  late SVGAAnimationController animationControllerRedTeam;
-  late SVGAAnimationController animationControllerBlueTeam;
   late AnimationController controllerBanner;
   late Animation<Offset> offsetAnimationBanner;
   late AnimationController controllerEntro; // entro animation
@@ -231,8 +219,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     animationControllerGift = SVGAAnimationController(vsync: this);
     animationControllerEntro = SVGAAnimationController(vsync: this);
-    animationControllerRedTeam = SVGAAnimationController(vsync: this);
-    animationControllerBlueTeam = SVGAAnimationController(vsync: this);
+    PkController.animationControllerRedTeam = SVGAAnimationController(vsync: this);
+    PkController.animationControllerBlueTeam = SVGAAnimationController(vsync: this);
     yellowBannercontroller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -323,7 +311,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         userImageIntrp = widget.myDataModel.profile!.image!;
       }
       if (widget.room.showPk == 1) {
-        RoomScreen.showPK.value = true;
+        PkController.showPK.value = true;
       }
 
       RoomScreen.listOfLoskSeats.value.putIfAbsent(0, () => 0); //host place
@@ -450,20 +438,20 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         });
       }
       if (widget.room.isPK == 1) {
-        RoomScreen.isPK.value = true;
-        RoomScreen.showPK.value = true;
-        RoomScreen.timeMinutePK = widget.room.pkModel!.timeMPk!;
-        RoomScreen.timeSecondPK = widget.room.pkModel!.timeSPk!;
-        RoomScreen.scoreTeam1 = widget.room.pkModel!.team1Score!;
-        RoomScreen.scoreTeam2 = widget.room.pkModel!.team2Score!;
-        RoomScreen.precantgeTeam1 =
+        PkController.isPK.value = true;
+        PkController.showPK.value = true;
+        PkController.timeMinutePK = widget.room.pkModel!.timeMPk!;
+        PkController.timeSecondPK = widget.room.pkModel!.timeSPk!;
+        PkController.scoreTeam1 = widget.room.pkModel!.team1Score!;
+        PkController.scoreTeam2 = widget.room.pkModel!.team2Score!;
+        PkController.precantgeTeam1 =
             widget.room.pkModel!.percentageTeam1!.toDouble();
-        RoomScreen.precantgeTeam2 =
+        PkController.precantgeTeam2 =
             widget.room.pkModel!.percentageTeam2!.toDouble();
         PKWidget.pkId = widget.room.pkModel!.pkId.toString();
         PKWidget.isStartPK.value = true;
-        RoomScreen.updatePKNotifier.value =
-            RoomScreen.updatePKNotifier.value + 1;
+        PkController.updatePKNotifier.value =
+            PkController.updatePKNotifier.value + 1;
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
@@ -496,8 +484,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     controllerBanner.dispose();
     animationControllerGift.dispose();
     animationControllerEntro.dispose();
-    animationControllerBlueTeam.dispose();
-    animationControllerRedTeam.dispose();
+    PkController.animationControllerBlueTeam.dispose();
+    PkController.animationControllerRedTeam.dispose();
     controllerMusice.dispose();
     luckyBoxAddecontroller.close();
     RoomScreen.isGiftEntroAnimating = false;
@@ -507,9 +495,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   }
 
   activePK() {
-    RoomScreen.isPK.value
-        ? RoomScreen.isPK.value = false
-        : RoomScreen.isPK.value = true;
+    PkController.isPK.value
+        ? PkController.isPK.value = false
+        : PkController.isPK.value = true;
   }
 
   //todo you should remove this function
@@ -668,26 +656,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     }
   }
 
-  //todo change this image
-  Future<void> loadAnimationRedTeam(String img) async {
-    final videoItem = await SVGAParser.shared
-        .decodeFromURL("https://yai.rstar-soft.com/public/storage/$img");
-    animationControllerRedTeam.videoItem = videoItem;
-    animationControllerRedTeam.forward().whenComplete(() {
-      return animationControllerRedTeam.videoItem = null;
-    });
-  }
-
-  Future<void> loadAnimationBlueTeam(String img) async {
-    //todo update this url
-    final videoItem = await SVGAParser.shared
-        .decodeFromURL("https://yai.rstar-soft.com/public/storage/$img");
-    animationControllerBlueTeam.videoItem = videoItem;
-    animationControllerBlueTeam.forward().whenComplete(() {
-      return animationControllerBlueTeam.videoItem = null;
-    });
-  }
-
   Future<void> showYallowBannerAnimation(
       {required int senderId,
       required String message,
@@ -776,7 +744,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         UpdatePkKey(result);
       }
       else if (result[messageContent][message] == closePkKey) {
-        ClosePkKey(result, loadAnimationBlueTeam, loadAnimationRedTeam);
+        ClosePkKey(result);
       }
       else if (result[messageContent][message] == leaveMicKey) {
         RoomScreen.userOnMics.value.remove(result[messageContent]['position']);
@@ -1093,7 +1061,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                       layoutMode: layoutMode, topUser: topUser,room:  widget.room,myDataModel:   widget.myDataModel, );
                   }),
             ValueListenableBuilder<bool>(
-                valueListenable: RoomScreen.showPK,
+                valueListenable: PkController.showPK,
                 builder: (context, isShowPK, _) {
                   if (isShowPK && layoutMode == LayoutMode.hostTopCenter) {
                     return Padding(
@@ -1202,13 +1170,13 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             top: ConfigSize.defaultSize! * 18,
             bottom: ConfigSize.defaultSize! * 45,
             right: ConfigSize.defaultSize! * 14,
-            child: SVGAImage(animationControllerRedTeam)),
+            child: SVGAImage(PkController.animationControllerRedTeam)),
         Positioned(
             top: ConfigSize.defaultSize! * 18,
             bottom: ConfigSize.defaultSize! * 45,
             left: ConfigSize.defaultSize! * 14,
             child: SVGAImage(
-              animationControllerBlueTeam,
+              PkController.animationControllerBlueTeam,
             )),
         Positioned(child: SVGAImage(animationControllerGift)),
         IgnorePointer(
@@ -1477,7 +1445,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (layoutMode == LayoutMode.hostTopCenter) {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
-          if (user?.id == null && RoomScreen.showPK.value) {
+          if (user?.id == null && PkController.showPK.value) {
             if (RoomScreen.teamRed.contains(extraInfo['index'])) {
               return const  TeamRed();
             } else if (RoomScreen.teamBlue.contains(extraInfo['index'])) {
@@ -1485,7 +1453,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             } else {
               return Container();
             }
-          } else if (user?.id == null && !RoomScreen.showPK.value) {
+          } else if (user?.id == null && !PkController.showPK.value) {
             return NoneUserOnSeat(
               extraInfo: extraInfo,
             );
