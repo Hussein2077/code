@@ -117,19 +117,18 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
                 } else {
                   return MainButton(
                       onTap: () async {
-                        log(reelsNameController.text);
-                        // if (UploadVideoState.video != null) {
-                        //   BlocProvider.of<UploadReelsBloc>(context).add(
-                        //       UploadReelsEvent(
-                        //           categories: selectedIntrest,
-                        //           description: reelsNameController.text,
-                        //           reel: File(UploadVideoState.video!)));
-                        //   Navigator.pop(context);
-                        // } else {
-                        //   errorToast(
-                        //       context: context,
-                        //       title: StringManager.pleaseChosseVideo.tr());
-                        // }
+                        if (UploadVideoState.video != null) {
+                          BlocProvider.of<UploadReelsBloc>(context).add(
+                              UploadReelsEvent(
+                                  categories: selectedIntrest,
+                                  description: reelsNameController.text,
+                                  reel: File(UploadVideoState.video!)));
+                          Navigator.pop(context);
+                        } else {
+                          errorToast(
+                              context: context,
+                              title: StringManager.pleaseChosseVideo.tr());
+                        }
                       },
                       title: StringManager.postTheVideo.tr());
                 }
