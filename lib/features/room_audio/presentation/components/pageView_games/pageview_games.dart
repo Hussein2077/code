@@ -122,7 +122,7 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
                                     _current = index;
                                   });
                                 }),
-                          ) ,
+                          ),
 
 
                         ),
@@ -168,8 +168,7 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
         ),
     );
   }
-
-  // TODO change links
+  
 
   void joinToGames(int index)async {
     String token = await Methods().returnUserToken() ;
