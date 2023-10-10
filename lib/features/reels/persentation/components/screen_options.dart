@@ -47,29 +47,47 @@ class ScreenOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ReelCommentModel>? commentListtemp;
     return Padding(
-        padding: EdgeInsets.only(right: MediaQuery.of(context).size.width-ConfigSize.defaultSize!*7 ,bottom: ConfigSize.defaultSize!),
-        child: Column(
-     
-     
-          children: [
-
-            if (item.userImage != null)
-              UserImageReel(
-                image: item.userImage!,
-                isFollowed: item.isFollow,
-                userId: item.userId!,
-                onFollow: onFollow,
-              ),
-            if (item.userImage == null)
-              CircleAvatar(
-                radius: ConfigSize.defaultSize!*1.6,
-                child: Icon(Icons.person, size: ConfigSize.defaultSize! * 1.8),
-              ),
-            SizedBox(height: ConfigSize.defaultSize),
+        padding: EdgeInsets.only(
+          
+          // right: MediaQuery.of(context).size.width-ConfigSize.defaultSize!*7 ,
         
-            if (userView == false)
-              if (onLike != null)
-                if (!ReelsScreenState.likedVideos[item.id.toString()]!)
+        bottom: ConfigSize.defaultSize!),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+             
+             
+            children: [
+        
+              if (item.userImage != null)
+                UserImageReel(
+                  image: item.userImage!,
+                  isFollowed: item.isFollow,
+                  userId: item.userId!,
+                  onFollow: onFollow,
+                ),
+              if (item.userImage == null)
+                CircleAvatar(
+                  radius: ConfigSize.defaultSize!*1.6,
+                  child: Icon(Icons.person, size: ConfigSize.defaultSize! * 1.8),
+                ),
+              SizedBox(height: ConfigSize.defaultSize),
+          
+              if (userView == false)
+                if (onLike != null)
+                  if (!ReelsScreenState.likedVideos[item.id.toString()]!)
+                    IconButton(
+                      icon: Icon(
+                        CupertinoIcons.heart_solid,
+                        color: Colors.white,
+                        size: ConfigSize.defaultSize! * 4,
+                      ),
+                      onPressed: () => onLike!(item.id!),
+                    ),
+              //User View
+              if (userView == true)
+                if (onLike != null )
+                  if (!ReelsBox.likedVideos[item.id.toString()]!)
                   IconButton(
                     icon: Icon(
                       CupertinoIcons.heart_solid,
@@ -78,124 +96,113 @@ class ScreenOptions extends StatelessWidget {
                     ),
                     onPressed: () => onLike!(item.id!),
                   ),
-            //User View
-            if (userView == true)
-              if (onLike != null )
-                if (!ReelsBox.likedVideos[item.id.toString()]!)
-                IconButton(
-                  icon: Icon(
-                    CupertinoIcons.heart_solid,
-                    color: Colors.white,
-                    size: ConfigSize.defaultSize! * 4,
+              if (userView == false)
+                if (ReelsScreenState.likedVideos[item.id.toString()]!)
+                  IconButton(
+                    icon: Icon(
+                      CupertinoIcons.heart_solid,
+                      color: Colors.red,
+                      size: ConfigSize.defaultSize! * 4,
+                    ),
+                    onPressed: () => onLike!(item.id!),
                   ),
-                  onPressed: () => onLike!(item.id!),
-                ),
-            if (userView == false)
-              if (ReelsScreenState.likedVideos[item.id.toString()]!)
-                IconButton(
-                  icon: Icon(
-                    CupertinoIcons.heart_solid,
-                    color: Colors.red,
-                    size: ConfigSize.defaultSize! * 4,
+              //User View
+              if (userView == true)
+                if (ReelsBox.likedVideos[item.id.toString()]!)
+                  IconButton(
+                    icon: Icon(
+                      CupertinoIcons.heart_solid,
+                      color: Colors.red,
+                      size: ConfigSize.defaultSize! * 4,
+                    ),
+                    onPressed: () => onLike!(item.id!),
                   ),
-                  onPressed: () => onLike!(item.id!),
-                ),
-            //User View
-            if (userView == true)
-              if (ReelsBox.likedVideos[item.id.toString()]!)
-                IconButton(
-                  icon: Icon(
-                    CupertinoIcons.heart_solid,
-                    color: Colors.red,
-                    size: ConfigSize.defaultSize! * 4,
-                  ),
-                  onPressed: () => onLike!(item.id!),
-                ),
-            userView == false
-                ? Text(
-                    NumbersToShort.convertNumToShort(
-                        ReelsScreenState.likedVideoCount[item.id.toString()]!),
-                    style: const TextStyle(color: Colors.white))
-                : Text(
-                    NumbersToShort.convertNumToShort(
-                        ReelsBox.likedVideoCount[item.id.toString()]!),
-                    style: const TextStyle(color: Colors.white)),
-            SizedBox(height: ConfigSize.defaultSize),
-            IconButton(
-              icon: const Icon(CupertinoIcons.chat_bubble_text_fill,
-                  color: Colors.white),
-              onPressed: () {
-                if (onComment != null) {
-                  if (commentListtemp == null) {
-                    BlocProvider.of<GetReelCommentsBloc>(context)
-                        .add(GetReelsCommentsEvent(reelId: item.id.toString()));
-                  }
-                  showModalBottomSheet(
-                      barrierColor: Colors.transparent,
-                      context: context,
-                      builder: (ctx) => BlocBuilder<GetReelCommentsBloc,
-                              GetReelsCommentsState>(
-                            builder: (context, state) {
-                              if (state is GetReelsCommentsSucssesState) {
-                                commentListtemp = state.data;
-                                return CommentBottomSheet(
-                                    reelId: item.id.toString(),
-                                    commentList:
-                                        commentListtemp ?? state.data ?? [],
-                                    onComment: onComment);
-                              } else if (state
-                                  is GetReelsCommentsLoadingState) {
-                                if (commentListtemp == null) {
-                                  return const LoadingWidget();
-                                } else {
+              userView == false
+                  ? Text(
+                      NumbersToShort.convertNumToShort(
+                          ReelsScreenState.likedVideoCount[item.id.toString()]!),
+                      style: const TextStyle(color: Colors.white))
+                  : Text(
+                      NumbersToShort.convertNumToShort(
+                          ReelsBox.likedVideoCount[item.id.toString()]!),
+                      style: const TextStyle(color: Colors.white)),
+              SizedBox(height: ConfigSize.defaultSize),
+              IconButton(
+                icon: const Icon(CupertinoIcons.chat_bubble_text_fill,
+                    color: Colors.white),
+                onPressed: () {
+                  if (onComment != null) {
+                    if (commentListtemp == null) {
+                      BlocProvider.of<GetReelCommentsBloc>(context)
+                          .add(GetReelsCommentsEvent(reelId: item.id.toString()));
+                    }
+                    showModalBottomSheet(
+                        barrierColor: Colors.transparent,
+                        context: context,
+                        builder: (ctx) => BlocBuilder<GetReelCommentsBloc,
+                                GetReelsCommentsState>(
+                              builder: (context, state) {
+                                if (state is GetReelsCommentsSucssesState) {
+                                  commentListtemp = state.data;
                                   return CommentBottomSheet(
                                       reelId: item.id.toString(),
-                                      commentList: commentListtemp ?? [],
+                                      commentList:
+                                          commentListtemp ?? state.data ?? [],
                                       onComment: onComment);
+                                } else if (state
+                                    is GetReelsCommentsLoadingState) {
+                                  if (commentListtemp == null) {
+                                    return const LoadingWidget();
+                                  } else {
+                                    return CommentBottomSheet(
+                                        reelId: item.id.toString(),
+                                        commentList: commentListtemp ?? [],
+                                        onComment: onComment);
+                                  }
+                                } else if (state is GetReelsCommentsErrorState) {
+                                  return CustomErrorWidget(
+                                      message: state.errorMassage);
+                                } else {
+                                  return CustomErrorWidget(
+                                    message: StringManager.unexcepectedError.tr(),
+                                  );
                                 }
-                              } else if (state is GetReelsCommentsErrorState) {
-                                return CustomErrorWidget(
-                                    message: state.errorMassage);
-                              } else {
-                                return CustomErrorWidget(
-                                  message: StringManager.unexcepectedError.tr(),
-                                );
-                              }
-                            },
-                          ));
-                }
-              },
-            ),
-            Text(NumbersToShort.convertNumToShort(item.commentNum!),
-                style: const TextStyle(color: Colors.white)),
-            SizedBox(height: ConfigSize.defaultSize! * 2),
-            InkWell(
-              onTap: () => onShare!(item),
-              child: Transform(
-                transform: Matrix4.rotationZ(5.8),
-                child: const Icon(
-                  CupertinoIcons.arrowshape_turn_up_right_fill,
-                  color: Colors.white,
+                              },
+                            ));
+                  }
+                },
+              ),
+              Text(NumbersToShort.convertNumToShort(item.commentNum!),
+                  style: const TextStyle(color: Colors.white)),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              InkWell(
+                onTap: () => onShare!(item),
+                child: Transform(
+                  transform: Matrix4.rotationZ(5.8),
+                  child: const Icon(
+                    CupertinoIcons.arrowshape_turn_up_right_fill,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-
-            SizedBox(height: ConfigSize.defaultSize),
-            if (onClickMoreBtn != null)
-              IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () => onClickMoreBtn!(item.id!, item.userId!),
-                color: Colors.white,
-              ),
-                                      SizedBox(
-                                        // width: MediaQuery.of(context).size.width-ConfigSize.defaultSize!*2,
-                                        // height: ConfigSize.defaultSize!*10,
-                                        child: Text(item.description!.substring(0,10) , style: TextStyle(color: Colors.white , fontSize: ConfigSize.defaultSize!*2),)),
-
-
-          ],
-     
-     
+        
+              SizedBox(height: ConfigSize.defaultSize),
+              if (onClickMoreBtn != null)
+                IconButton(
+                  icon: const Icon(Icons.more_vert),
+                  onPressed: () => onClickMoreBtn!(item.id!, item.userId!),
+                  color: Colors.white,
+                ),
+                                        SizedBox(
+                                          // width: MediaQuery.of(context).size.width-ConfigSize.defaultSize!*2,
+                                          // height: ConfigSize.defaultSize!*10,
+                                          child: Text(item.description!.substring(0,10) , style: TextStyle(color: Colors.white , fontSize: ConfigSize.defaultSize!*2),)),
+        
+        
+            ],
+             
+             
+          ),
         ));
   }
 }
