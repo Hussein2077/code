@@ -212,6 +212,8 @@ class MomentScreenState extends State<MomentScreen>
                     ),
                   ),
                   floatingActionButton: Container(
+                    margin: EdgeInsets.only(bottom: ConfigSize.defaultSize!*3),
+
                     width: ConfigSize.defaultSize! * 5,
                     height: ConfigSize.defaultSize! * 5,
                     decoration: BoxDecoration(

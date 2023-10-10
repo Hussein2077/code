@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
@@ -59,8 +60,21 @@ borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
 
                 ),
 
-                items: [
-                  ...MenuItems.firstItems.map(
+                items:
+
+                widget.momentModel.userId==MyDataModel.getInstance().id?
+                [
+
+                  ...MenuItems.myItems.map(
+                        (item) => DropdownMenuItem<MenuItem>(
+                      value: item,
+                      child: MenuItems.buildItem(item),
+                    ),
+                  ),
+                ]:
+                [
+
+                  ...MenuItems.othersItems.map(
                         (item) => DropdownMenuItem<MenuItem>(
                       value: item,
                       child: MenuItems.buildItem(item),
@@ -96,8 +110,8 @@ class MenuItem {
 }
 
 abstract class MenuItems {
-  static  List<MenuItem> firstItems = [delete, report, ];
-
+  static  List<MenuItem> myItems = [delete,  ];
+  static  List<MenuItem> othersItems = [ report, ];
 
   static  final delete = MenuItem(text: StringManager.delete.tr(), icon: Icons.delete_forever);
   static final report = MenuItem(text: StringManager.report.tr(), icon: Icons.report_problem_outlined);
