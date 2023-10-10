@@ -1,6 +1,8 @@
 
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
 
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -168,11 +170,12 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
         ),
     );
   }
-  
+
 
   void joinToGames(int index)async {
     String token = await Methods().returnUserToken() ;
     if(index==0){
+      log("url${StringManager.teenPatti}${token}");
       dailogRoom(context: context,
           widget: WebViewInRoom(url: '${StringManager.teenPatti}${token}',) );
 

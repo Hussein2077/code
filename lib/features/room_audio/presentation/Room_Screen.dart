@@ -1191,8 +1191,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               }
             }),
         MusicWidget(room: widget.room,controllerMusice: controllerMusice, destroyMusic:destroyMusic ,
-          refrashRoom:refrashRoom , )
-       ,
+          refrashRoom:refrashRoom , ),
         Positioned(
             top: ConfigSize.defaultSize! * 35,
             bottom: ConfigSize.defaultSize! * 7,
