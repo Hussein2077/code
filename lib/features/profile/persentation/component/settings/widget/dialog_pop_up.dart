@@ -89,7 +89,9 @@ class DialogPopUp extends StatelessWidget {
                         onTap: () => Navigator.pop(context),
                         child: Text(
                           StringManager.cancle.tr(),
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Colors.black,
+                          ),
                         )),
                   ),
                 ),
