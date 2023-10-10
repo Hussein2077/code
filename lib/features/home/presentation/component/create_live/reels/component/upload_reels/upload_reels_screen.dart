@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -52,20 +53,8 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
           children: [
             HeaderWithOnlyTitle(title: StringManager.newReel.tr()),
             shareYourMoment(context: context),
-            const UploadVideo(),
-            Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
-              decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                  border: Border.all(color: Colors.black)),
-              width: MediaQuery.of(context).size.width - 50,
-              child: TextFieldWidget(
-                  textColor: Theme.of(context).colorScheme.primary,
-                  controller: reelsNameController,
-                  hintText: StringManager.videoDescription.tr()),
-            ),
+             UploadVideo(reelsNameController: reelsNameController),
+       
             CustomHorizntalDvider(
               width: MediaQuery.of(context).size.width,
               color: Colors.grey,
@@ -128,18 +117,19 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
                 } else {
                   return MainButton(
                       onTap: () async {
-                        if (UploadVideoState.video != null) {
-                          BlocProvider.of<UploadReelsBloc>(context).add(
-                              UploadReelsEvent(
-                                  categories: selectedIntrest,
-                                  description: reelsNameController.text,
-                                  reel: File(UploadVideoState.video!)));
-                          Navigator.pop(context);
-                        } else {
-                          errorToast(
-                              context: context,
-                              title: StringManager.pleaseChosseVideo.tr());
-                        }
+                        log(reelsNameController.text);
+                        // if (UploadVideoState.video != null) {
+                        //   BlocProvider.of<UploadReelsBloc>(context).add(
+                        //       UploadReelsEvent(
+                        //           categories: selectedIntrest,
+                        //           description: reelsNameController.text,
+                        //           reel: File(UploadVideoState.video!)));
+                        //   Navigator.pop(context);
+                        // } else {
+                        //   errorToast(
+                        //       context: context,
+                        //       title: StringManager.pleaseChosseVideo.tr());
+                        // }
                       },
                       title: StringManager.postTheVideo.tr());
                 }

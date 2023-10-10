@@ -200,7 +200,7 @@ class ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin{
                                 if(state.data!.length - index == 4){
                                   BlocProvider.of<GetReelsBloc>(context).add(LoadMoreReelsEvent());
                                 }
-                                log(state.data!.length.toString() + "zzzzz");
+                                log("${state.data!.length}zzzzz");
                                 log('======> Current Index ======> $index <========');
                               },
                               showProgressIndicator: false,
