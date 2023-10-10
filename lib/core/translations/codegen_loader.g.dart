@@ -61,7 +61,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.thisGiftForbiden: "هذة الهديا متاجة ل",
     StringManager.hours24: '24 ساعة',
     StringManager.total: "الاجمالي",
-    StringManager.noDaimonsNow: "لا دايمون الآن",
+    StringManager.noDaimonsNow: "لا يجود ماسات الآن",
     StringManager.areYouSure: "هل أنت متأكد أنك تريد حذف الدردشه؟",
     StringManager.clearChat: "مسح الدردشة",
     StringManager.music: "موسيقى",
