@@ -51,6 +51,7 @@ class ProfileTabViewBody extends StatelessWidget {
               image: AssetsPath.leveCover,
               onTap: () => Navigator.pushNamed(context, Routes.level),
             ),
+            if(userDataModel.vip1!.level==null)
             cover(
               title: StringManager.aristocracy.tr(),
               num:vipNames[userDataModel.vip1!.level!-1] ,

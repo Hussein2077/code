@@ -79,9 +79,9 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
                             ));
                       }));
             } else if (state is AgnecyMemberLoadingState) {
-              return SizedBox(
-                  height: MediaQuery.of(context).size.height / 2.5,
-                  child: const LoadingWidget());
+              return const Expanded(
+                child: LoadingWidget(),
+              );
             } else if (state is AgnecyMemberErrorState) {
               return SizedBox(
                   height: MediaQuery.of(context).size.height / 2,
@@ -157,9 +157,12 @@ Widget ownerCard(
 
                   isVip: iVip,
                 ),
-                Text(
-                  name,
-                  style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
+                SizedBox(
+                  width:ConfigSize.defaultSize!*3,
+                  child: Text(
+                    name,
+                    style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
+                  ),
                 ),
 
               ],
