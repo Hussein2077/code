@@ -17,6 +17,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/user_image_reel.dart';
+import 'dart:ui' as ui;
 
 class ScreenOptions extends StatelessWidget {
   final ReelModel item;
@@ -46,7 +47,7 @@ class ScreenOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ReelCommentModel>? commentListtemp;
     return Padding(
-        padding: EdgeInsets.all(ConfigSize.defaultSize! * 0.8),
+        padding: EdgeInsets.only(right: MediaQuery.of(context).size.width-ConfigSize.defaultSize!*7 ,bottom: ConfigSize.defaultSize!),
         child: Column(
           children: [
             if (item.userImage != null)
@@ -58,11 +59,11 @@ class ScreenOptions extends StatelessWidget {
               ),
             if (item.userImage == null)
               CircleAvatar(
-                radius: 16,
+                radius: ConfigSize.defaultSize!*1.6,
                 child: Icon(Icons.person, size: ConfigSize.defaultSize! * 1.8),
               ),
             SizedBox(height: ConfigSize.defaultSize),
-
+        
             if (userView == false)
               if (onLike != null)
                 if (!ReelsScreenState.likedVideos[item.id.toString()]!)

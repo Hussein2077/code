@@ -48,7 +48,8 @@ class MessagesChached extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        bottomDailog(
+        if(message.user.id != "0" ){
+  bottomDailog(
             context: context,
             widget: MessageRoomProfile(
               myData: myDataModel,
@@ -56,6 +57,8 @@ class MessagesChached extends StatelessWidget {
               roomData: room,
               layoutMode: layoutMode,
             ));
+        }
+      
       },
       child: Padding(
         padding: EdgeInsets.symmetric(

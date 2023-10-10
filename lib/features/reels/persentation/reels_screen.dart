@@ -95,7 +95,7 @@ class ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 35,
+          toolbarHeight: ConfigSize.defaultSize!*3.8,
           backgroundColor: Theme.of(context).colorScheme.background,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(0),

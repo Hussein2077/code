@@ -222,7 +222,7 @@ class StringManager {
   static const String record = "Record";
   static const String upload = "Upload";
   static const String newReel = "New Reel";
-  static const String reelName = "reel name";
+  static const String videoDescription = "Video description";
   static const String shareYourMoment =
       "Share your moment with the world at reels";
   static const String yourVideoWillPublished =
