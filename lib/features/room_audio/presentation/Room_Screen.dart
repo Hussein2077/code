@@ -731,6 +731,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       else if (result[messageContent][message] == kicKoutKey) {
         KicKoutKey(result, durationKickout, widget.room.ownerId.toString(), widget.myDataModel.id.toString(), context);
       }
+      //PK start rtm
       else if (result[messageContent][message] == showPkKey) {
         ShowPkKey();
       }
@@ -746,6 +747,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       else if (result[messageContent][message] == closePkKey) {
         ClosePkKey(result);
       }
+      //PK end rtm
       else if (result[messageContent][message] == leaveMicKey) {
         RoomScreen.userOnMics.value.remove(result[messageContent]['position']);
       }
