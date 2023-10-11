@@ -98,7 +98,7 @@ dependencies:
   android_intent_plus: ^4.0.2
   firebase_crashlytics: ^3.3.5
   video_thumbnail: ^0.5.3
-  webview_flutter: ^4.2.0
+  webview_flutter: ^4.4.1
   easy_image_viewer: ^1.2.1
   app_links: ^3.4.3
   flutter_gif: ^0.0.4

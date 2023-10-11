@@ -85,9 +85,7 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
-
               }
-
               print('page body: $pageBody');
             })
         ..loadRequest(Uri.parse(widget.url));
