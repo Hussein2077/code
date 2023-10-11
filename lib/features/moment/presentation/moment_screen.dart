@@ -18,6 +18,8 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_state.dart';
@@ -126,9 +128,13 @@ class MomentScreenState extends State<MomentScreen>
             },
             child:  BlocListener<AddMomentCommentBloc, AddMomentCommentState>(
               listener: (context, state) {
-                if(state is AddMomentCommentSucssesState){
+                if (state is AddMomentCommentSucssesState) {
                   MomentController.getInstance.commentIncrement(
                       MomentBottomBarState.selectedMomentComment);
+                  BlocProvider.of<GetMomentCommentBloc>(context)
+                      .add(GetMomentCommentEvent(
+                    momentId: MomentBottomBarState.selectedMomentComment.toString(),
+                  ));
                 }
               },
               child: BlocListener<DeleteMomentBloc, DeleteMomentState>(
