@@ -4,7 +4,7 @@ class AgencyMyStoreModel {
   // final int? monthlyDiamonds ;
   final int? silverCoins ; 
   final int? usd ; 
-  final int? ownerUsd;
+  // final int? ownerUsd;
 
   const AgencyMyStoreModel ({
     this.coins , 
@@ -12,7 +12,7 @@ class AgencyMyStoreModel {
     // this.monthlyDiamonds ,
     this.silverCoins, 
     this.usd ,
-    this.ownerUsd,
+    // this.ownerUsd,
 
   });
 
@@ -23,11 +23,7 @@ class AgencyMyStoreModel {
     // monthlyDiamonds: json['monthly_diamonds']??0,
     silverCoins: json['silver_coins']??0,
     usd: json["usd"]??0,
-    ownerUsd: json['owner_usd']??0,
-
+    // ownerUsd: json['owner_usd']??0,
     );
-
   }
-
-
 }
