@@ -39,7 +39,6 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
         ..setBackgroundColor(const Color(0x00000000))
         ..setNavigationDelegate(
           NavigationDelegate(
-        
             onProgress: (int progress) {
               // Update loading bar.
             },
