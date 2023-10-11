@@ -1180,7 +1180,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             child: SVGAImage(
               PkController.animationControllerBlueTeam,
             )),
-        Positioned(child: SVGAImage(animationControllerGift)),
+        Positioned(
+            child: SVGAImage(animationControllerGift)),
         IgnorePointer(
           child: ValueListenableBuilder<bool>(
               valueListenable: RoomScreen.isVideoVisible,
