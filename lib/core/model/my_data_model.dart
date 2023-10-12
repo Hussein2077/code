@@ -352,7 +352,9 @@ log("${_instance!.isPhone.toString()}");
             senderLevel:level!.senderLevel,
             senderImage: level?.senderImage,
             receiverImage: level?.receiverImage),
-        vip1: VipCenterModel(level: vip1?.level),
+        vip1: VipCenterModel(level: vip1?.level,id: vip1?.id),
+
+
         userType: myType,
         numberOfFans: numberOfFans,
         numberOfFollowings: numberOfFollowings,

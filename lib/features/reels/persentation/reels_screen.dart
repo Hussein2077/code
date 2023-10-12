@@ -86,7 +86,6 @@ class ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin{
     likedVideoCount.clear();
     followMap.clear();
     thumbnail.clear();
-
     _tabController.dispose();
     super.dispose();
   }
@@ -99,9 +98,7 @@ class ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin{
           backgroundColor: Theme.of(context).colorScheme.background,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(0),
-            child: TabBar(
-              
-              indicatorColor: ColorManager.orang,
+            child: TabBar(indicatorColor: ColorManager.orang,
               indicatorSize: TabBarIndicatorSize.label,
               controller: _tabController,
               tabs: [
@@ -118,6 +115,7 @@ class ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin{
           ),
         ),
         body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: [
             BlocListener<UploadReelsBloc, UploadReelsState>(

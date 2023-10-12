@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -25,6 +24,7 @@ class ProfileTabViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+log( userDataModel.vip1!.id.toString()+'hhhh');
     List<String> vipNames = [
       StringManager.knight.tr(),
       StringManager.baron.tr(),
@@ -51,7 +51,13 @@ class ProfileTabViewBody extends StatelessWidget {
               image: AssetsPath.leveCover,
               onTap: () => Navigator.pushNamed(context, Routes.level),
             ),
-            if(userDataModel.vip1!.level==null)
+            userDataModel.vip1!.level==0?
+            cover(
+              title: StringManager.aristocracy.tr(),
+              num:'' ,
+              image: AssetsPath.vipCover,
+              onTap: () => Navigator.pushNamed(context, Routes.vip),
+            ):
             cover(
               title: StringManager.aristocracy.tr(),
               num:vipNames[userDataModel.vip1!.level!-1] ,

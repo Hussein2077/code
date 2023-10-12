@@ -22,7 +22,7 @@ class VipCenterModel extends Equatable {
 
   factory VipCenterModel.fromJson(Map<String, dynamic> jsonData) {
     return VipCenterModel(
-      id: jsonData['id'],
+      id: jsonData['id']??0,
       level: jsonData['level'] ?? 0,
       name: jsonData['name'] ?? "",
       img1: jsonData['img'] ?? "",
