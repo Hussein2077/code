@@ -511,8 +511,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
   }
 }
 
-ShowPopularBanner(Map<String, dynamic> result,
-    var sendDataUser, var receiverDataUser, Map<String,dynamic>  userBannerData , var controllerBanner){
+ShowPopularBanner(Map<String, dynamic> result, var sendDataUser, var receiverDataUser, Map<String,dynamic>  userBannerData , var controllerBanner){
   UserDataModel sendData;
 
   sendData = UserDataModel(
