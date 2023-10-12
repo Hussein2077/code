@@ -25,6 +25,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.privacyPolicy: "سياسة الخصوصية لـ ${StringManager.appTitle}",
     StringManager.areYouSureLeaveSeat: "هل أنت متأكد من مغادرة المقعد؟",
     StringManager.and: "و",
+    StringManager.age: "العمر",
     StringManager.selectTimeFirst: 'اختر الوقت اولا',
     StringManager.enterYourRoomData: "أرجوك,ادخل بيانات غرفتك كاملة",
     StringManager.enterYourRoomName: "أرجوك,ادخل أسم غرفتك",

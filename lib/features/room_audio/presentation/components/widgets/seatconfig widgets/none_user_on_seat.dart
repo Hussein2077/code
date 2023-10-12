@@ -42,7 +42,7 @@ class NoneUserOnSeat extends StatelessWidget {
             width: 3,
           ),
           Text(
-            "empty",
+            "مقعد",
             style: TextStyle(
                 color: Colors.white,
                 fontSize: AppPadding.p10,

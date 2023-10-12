@@ -15,7 +15,6 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/upper/header.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
-import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class UpperProfileBody extends StatelessWidget {
@@ -26,6 +25,7 @@ class UpperProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(myDataModel.profile!.age.toString());
     return InkWell(
       onTap: () {
         // if(ReelsPage.videoPlayerController != null){
@@ -202,7 +202,7 @@ Widget itemContiner({int? gender, required String title}) {
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
         color: (gender == null)
             ? Colors.white.withOpacity(0.5)
-            : (gender == 1)
+            : (gender == 0)
                 ? Colors.pink[200]
                 : Colors.blue[300],
 
@@ -219,7 +219,7 @@ Widget itemContiner({int? gender, required String title}) {
           ),
           if (gender != null)
             Image.asset(
-              (gender == 1)
+              (gender == 0)
                   ? AssetsPath.whiteFemaleIcon
                   : AssetsPath.whiteMaleIcon,
               scale: 2,
