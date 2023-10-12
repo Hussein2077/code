@@ -15,7 +15,7 @@ class KickOutUserWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return   AnimatedOpacity(
+    return   AnimatedOpacity(
       opacity: isKick ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 500),
       child: Container(

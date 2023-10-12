@@ -101,7 +101,6 @@ class RoomScreen extends StatefulWidget {
   static Map<String, String> banedUsers = {};
   static Map<String, UserDataModel> usersMessagesInRoom = {};
   static Map<String, RoomUserMesseagesModel> usersMessagesRoom = {};
-
   static Map<String, UserDataModel> usersInRoom = {};
   static ValueNotifier<int> clearTimeNotifier = ValueNotifier(0);
   static ValueNotifier<bool> showMessageButton = ValueNotifier<bool>(true);
@@ -739,7 +738,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ShowGifts(result, widget.myDataModel.id.toString(), loadMp4Gift, loadAnimationGift);
       }
       else if (result[messageContent][message] == kicKoutKey) {
-        KicKoutKey(result, durationKickout, widget.room.ownerId.toString(), widget.myDataModel.id.toString(), context);
+        KicKout(result, durationKickout, widget.room.ownerId.toString(), widget.myDataModel.id.toString(), context);
+
       }
       //PK start rtm
       else if (result[messageContent][message] == showPkKey) {
