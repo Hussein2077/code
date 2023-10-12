@@ -18,9 +18,9 @@ class ShowYallowBannerWidget extends StatelessWidget {
   AnimationController controllerYallowBanner;
   Animation<Offset> offsetAnimationYallowBanner;
   UserDataModel? senderYallowBanner;
-  bool hasPassword;
+  var hasPassword;
   MyDataModel myData;
-  int ownerId;
+  var ownerId;
   int cureentRoomId;
   ShowYallowBannerWidget({super.key, required this.controllerYallowBanner, required this.offsetAnimationYallowBanner, this.senderYallowBanner, required this.hasPassword, required this.myData, required this.ownerId, required this.cureentRoomId});
 
@@ -35,12 +35,12 @@ class ShowYallowBannerWidget extends StatelessWidget {
                 offset: offsetAnimationYallowBanner.value,
                 child: InkWell(
                   onTap: () {
-                    if (ownerId != cureentRoomId) {
+                    if (ownerId['yallowBannerOwnerRoom'] != cureentRoomId) {
                       Methods().checkIfRoomHasPassword(
                           context: context,
                           isInRoom: true,
-                          hasPassword: hasPassword,
-                          ownerId: ownerId.toString(),
+                          hasPassword: hasPassword['yallowBannerhasPasswoedRoom'],
+                          ownerId: ownerId['yallowBannerOwnerRoom'].toString(),
                           myData: myData);
                     }
                   },

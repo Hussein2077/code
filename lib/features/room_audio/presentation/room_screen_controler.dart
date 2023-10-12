@@ -606,7 +606,7 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
 }
 
 KicKoutKey(Map<String, dynamic> result, var durationKickout, String ownerId, String id, BuildContext context){
-  durationKickout = result[messageContent]['duration'];
+  durationKickout['durationKickout'] = result[messageContent]['duration'];
   RoomScreen.isKick.value = true;
   Future.delayed(const Duration(seconds: 3), () async {
     Navigator.pop(context);
@@ -670,17 +670,17 @@ TopUserKey(Map<String, dynamic> result)async{
   RoomScreen.topUserInRoom.value = topModel;
 }
 
-BannerSuperBoxKey(Map<String, dynamic> result, var isPasswordRoomLuckyBanner, var superCoins, var sendSuperBox, var ownerIdRoomLuckyBanner, var showBannerLuckyBox)async{
+BannerSuperBoxKey(Map<String, dynamic> result, var superBox, var sendSuperBox, var showBannerLuckyBox)async{
   UserDataModel sendBox;
   if (RoomScreen.usersInRoom[result[messageContent]["ownerBoxid"].toString()] == null) {
     sendBox = await RemotlyDataSourceProfile().getUserData(userId: result[messageContent]["ownerBoxid"].toString());
   } else {
     sendBox = RoomScreen.usersInRoom[result[messageContent]["ownerBoxid"].toString()]!;
   }
-  isPasswordRoomLuckyBanner = result[messageContent]["isRoomPassword"];
-  superCoins = result[messageContent]["coins"].toString();
+  superBox['isPasswordRoomLuckyBanner'] = result[messageContent]["isRoomPassword"];
+  superBox['superCoins'] = result[messageContent]["coins"].toString();
   sendSuperBox = sendBox;
-  ownerIdRoomLuckyBanner = result[messageContent]["ownerRoomId"].toString();
+  superBox['ownerIdRoomLuckyBanner'] = result[messageContent]["ownerRoomId"].toString();
   showBannerLuckyBox.value = true;
 }
 

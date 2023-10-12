@@ -18,6 +18,8 @@ class PkController{
   static bool winBlueTeam = false;
   static late SVGAAnimationController animationControllerRedTeam;
   static late SVGAAnimationController animationControllerBlueTeam;
+  static double scoreBlue = 0.5;
+  static double scoreRed = 0.5;
 
   static ValueNotifier<bool> isPK = ValueNotifier<bool>(false);
   static ValueNotifier<bool> showPK = ValueNotifier<bool>(false);

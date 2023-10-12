@@ -175,25 +175,26 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   UserDataModel? receiverDataUser;
   //////
 
+  //////
+  Map<String, dynamic> durationKickout = {"durationKickout": ""};
+  /////
+
+  ////
+  Map<String, dynamic> yallowBanner = {"yallowBannerhasPasswoedRoom": '' , "yallowBannerOwnerRoom" : ''};
+  ////
+
+  ////
+  Map<String, dynamic> superBox = {"isPasswordRoomLuckyBanner": false, "superCoins" : '', "ownerIdRoomLuckyBanner": ''};
+  ////
+
+
   bool isPlural = false;
   String numberOfGift = "0";
-  String durationKickout = "";
-  double scoreBlue = 0.5;
-  double scoreRed = 0.5;
-  String topUserImg = "";
-  String topUserName = "";
-  String topUserId = "";
-  bool showBox = false;
-  bool isPasswordRoomLuckyBanner = false;
   UserDataModel? sendSuperBox;
-  String? superCoins;
-  String? ownerIdRoomLuckyBanner;
   UserDataModel? pobUpSender;
   late AnimationController yellowBannercontroller;
   late Animation<Offset> offsetAnimationYellowBanner;
   UserDataModel? yallowBannerSender;
-  bool? yallowBannerhasPasswoedRoom;
-  int? yallowBannerOwnerRoom;
   bool showYellowBanner = false;
 
   @override
@@ -680,7 +681,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       yallowBannerSender = RoomScreen.usersInRoom[senderId.toString()];
     }
     ZegoInRoomMessageInput.messageYallowBanner = message;
-    yallowBannerhasPasswoedRoom = hasPasswoedRoom;
+    yallowBanner['yallowBannerhasPasswoedRoom'] = hasPasswoedRoom;
 
     if (yellowBannercontroller.animationBehavior.name == "normal") {
       yellowBannercontroller.reset();
@@ -689,7 +690,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     setState(() {
       yellowBannercontroller.forward();
       showYellowBanner = true;
-      yallowBannerOwnerRoom = ownerId;
+      yallowBanner['yallowBannerOwnerRoom'] = ownerId;
     });
     //  }
 
@@ -833,7 +834,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         RoomScreen.luckyBoxes.removeWhere((element) => element.boxId == result[messageContent][boxIDKey].toString());
       }
       else if (result[messageContent][message] == bannerSuperBoxKey) {
-        BannerSuperBoxKey(result, isPasswordRoomLuckyBanner, superCoins, sendSuperBox, ownerIdRoomLuckyBanner, showBannerLuckyBox);
+        BannerSuperBoxKey(result, superBox, sendSuperBox, showBannerLuckyBox);
       }
       else if (result[messageContent]['msg'] == showPobUpKey) {
         ShowPobUpKey(result, pobUpSender, showPopUp);
@@ -1080,8 +1081,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: PKWidget(
-                            scoreBlueTeam: scoreBlue,
-                            scoreRedTem: scoreRed,
+                            scoreBlueTeam: PkController.scoreBlue,
+                            scoreRedTem: PkController.scoreRed,
                             isHost: widget.isHost,
                             ownerId: widget.room.ownerId.toString(),
                             notifyRoom: activePK,
@@ -1229,9 +1230,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                   controllerYallowBanner: yellowBannercontroller,
                   offsetAnimationYallowBanner: offsetAnimationYellowBanner,
                   senderYallowBanner: yallowBannerSender,
-                  hasPassword: yallowBannerhasPasswoedRoom!,
+                  hasPassword: yallowBanner,
                   myData: widget.myDataModel,
-                  ownerId: yallowBannerOwnerRoom!)),
+                  ownerId: yallowBanner)),
         ValueListenableBuilder<bool>(
             valueListenable: RoomScreen.showBanner,
             builder: (context, isShow, _) {
@@ -1263,9 +1264,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     left: ConfigSize.defaultSize! * 5.78,
                     child: showLuckyBannerWidget(
                         sendDataUser: sendSuperBox!,
-                        ownerId: ownerIdRoomLuckyBanner!,
-                        coins: superCoins!,
-                        isPassword: isPasswordRoomLuckyBanner));
+                        superBox: superBox,));
               } else {
                 return const SizedBox();
               }
@@ -1410,9 +1409,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   Widget showLuckyBannerWidget(
       {required UserDataModel sendDataUser,
-      required String ownerId,
-      required String coins,
-      required bool isPassword}) {
+      required var superBox,}) {
     Future.delayed(const Duration(seconds: 8)).then((value) {
       if (showBannerLuckyBox.value) {
         showBannerLuckyBox.value = false;
@@ -1423,8 +1420,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       duration: const Duration(seconds: 5),
       child: InkWell(
         onTap: () async {
-          if (widget.room.ownerId.toString() != ownerId) {
-            if (isPassword) {
+          if (widget.room.ownerId.toString() != superBox['ownerIdRoomLuckyBanner']) {
+            if (superBox['isPasswordRoomLuckyBanner']) {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -1434,7 +1431,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             horizontal: ConfigSize.defaultSize! * 0.8),
                         title: const Text(StringManager.enterPassword),
                         content: EnterPasswordRoomDialog(
-                          ownerId: ownerId,
+                          ownerId: superBox['ownerIdRoomLuckyBanner'],
                           myData: widget.myDataModel,
                         ));
                   });
@@ -1443,12 +1440,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               MainScreen.iskeepInRoom.value = true;
               Navigator.pushNamed(context, Routes.roomHandler,
                   arguments: RoomHandlerPramiter(
-                      ownerRoomId: ownerId, myDataModel: widget.myDataModel));
+                      ownerRoomId: superBox['ownerIdRoomLuckyBanner'], myDataModel: widget.myDataModel));
             }
           }
         },
         child: ShowLuckyBannerBodyWidget(
-            sendDataUser: sendDataUser, coins: coins, ownerId: ownerId),
+            sendDataUser: sendDataUser, coins: superBox['superCoins'], ownerId: superBox['ownerIdRoomLuckyBanner']),
       ),
     );
   }
