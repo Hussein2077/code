@@ -141,7 +141,6 @@ class ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin{
                             ReelsController.getInstance.likesMap(state.data!);
                             ReelsController.getInstance.likesCountMap(state.data!);
                             ReelsController.getInstance.followMap(state.data!);
-                         log(" instaincr reel ${    ReelsController.getInstance.hashCode}");
                             return ReelsViewer(
                               userView: false,
                               reelsList: state.data!,

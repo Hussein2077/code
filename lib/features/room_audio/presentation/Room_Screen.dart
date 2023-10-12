@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:svgaplayer_flutter/parser.dart';
 import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
@@ -154,18 +153,28 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   String userIdEmojie = ""; // to show emojie
   bool showGift = false; // to show gift
   String giftImg = ""; // to show img gift
-  String roomIntro = ""; // to change room intro
-  String roomName = ""; // to change room name
-  String roomImg = ""; // to change roo
-  String roomType = "";
+ ///////
+  Map<String,String>   roomDataUpdates =
+  {'room_intro': '','room_name':'',
+    'room_img':'', 'room_type':''};
+  /////
+
   String roomBackgroundChached = "";
-  String userNameIntro = "";
-  String userImageIntrp = "";
-  String giftBanner = "";
-  String? ownerIdRoomBanner;
+
+ //////
+  Map<String,String> userIntroData = {'user_name_intro':'','user_image_intro':'' };
+ /////
+
+  //////
+  Map<String,dynamic> userBannerData =
+  { 'gift_banner':'',
+    'owner_id_room_banner':'',
+    'is_password_room_banner':''
+  };
   UserDataModel? sendDataUser;
   UserDataModel? receiverDataUser;
-  bool isPasswordRoomBanner = false;
+  //////
+
   bool isPlural = false;
   String numberOfGift = "0";
   String durationKickout = "";
@@ -307,8 +316,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         if (widget.myDataModel.vip1?.id != null) {
           RoomScreen.showEntro.value = true;
         }
-        userNameIntro = widget.myDataModel.name!;
-        userImageIntrp = widget.myDataModel.profile!.image!;
+        userIntroData['user_name_intro']  = widget.myDataModel.name!;
+        userIntroData['user_image_intro'] = widget.myDataModel.profile!.image!;
       }
       if (widget.room.showPk == 1) {
         PkController.showPK.value = true;
@@ -517,7 +526,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (giftData.showBanner) {
       sendDataUser = giftData.senderData;
       receiverDataUser = giftData.reciverData;
-      giftBanner = giftData.giftBanner;
+      userBannerData ['gift_banner']   = giftData.giftBanner;
       giftImg = giftData.giftImg;
       RoomScreen.showBanner.value = giftData.showBanner;
       isPlural = giftData.isPlural;
@@ -568,7 +577,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (giftData.showBanner) {
       sendDataUser = giftData.senderData;
       receiverDataUser = giftData.reciverData;
-      giftBanner = giftData.giftBanner;
+       userBannerData['gift_banner'] = giftData.giftBanner;
       giftImg = giftData.giftImg;
       controllerBanner.forward();
       isPlural = giftData.isPlural;
@@ -703,16 +712,16 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     //log('commandData.command'+commandData.command);
     if (result[messageContent] != null) {
       if (result[messageContent][message] == changeBackground) {
-        ChangeBackground(result, roomImg, roomIntro, roomName, roomType);
+        ChangeBackground(result,roomDataUpdates);
       }
       else if (result[messageContent][message] == userEntro) {
         if (result[messageContent]['uid'] != widget.myDataModel.id) {
-          UserEntro(result, userNameIntro, userImageIntrp, loadAnimationEntro);
+          UserEntro(result,  userIntroData ,loadAnimationEntro);
         }
       }
       else if (result[messageContent]['msg'] == 'SHB') {
         if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {
-          ShowPopularBanner(result, sendDataUser, receiverDataUser, giftBanner, isPasswordRoomBanner, ownerIdRoomBanner, controllerBanner);
+          ShowPopularBanner(result, sendDataUser, receiverDataUser, userBannerData, controllerBanner);
         }
       }
       else if (result[messageContent][message] == showEmojie) {
@@ -1134,11 +1143,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             builder: (context, editValue, _) {
               return HeaderRoom(
                 userInRoomController: userInRoomController,
-                roomName: roomName,
+                roomName:roomDataUpdates['room_name']??'' ,
                 room: widget.room,
                 myDataModel: widget.myDataModel,
-                introRoom: roomIntro,
-                roomImg: roomImg,
+                introRoom: roomDataUpdates['room_intro']??'' ,
+                roomImg:roomDataUpdates['room_img']??'',
                 notifyRoom: activePK,
                 roomMode: layoutMode == LayoutMode.hostTopCenter
                     ? 0
@@ -1146,7 +1155,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                         ? 1
                         : 2,
                 refreshRoom: refrashRoom,
-                roomType: roomType,
+                roomType:roomDataUpdates['room_type']??''  ,
                 layoutMode: layoutMode,
               );
             }),
@@ -1206,7 +1215,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             valueListenable: RoomScreen.showEntro,
             builder: (context, isShow, _) {
               if (isShow) {
-                return showEntroWidget(userNameIntro, userImageIntrp);
+                return showEntroWidget(userIntroData);
               } else {
                 return const SizedBox();
               }
@@ -1236,9 +1245,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             widget.myDataModel.convertToUserObject(),
                         receiverDataUser: receiverDataUser ??
                             widget.myDataModel.convertToUserObject(),
-                        giftImage: giftBanner,
-                        ownerId:
-                            ownerIdRoomBanner ?? widget.room.ownerId.toString(),
+                        giftImage: userBannerData['gift_banner']??'' ,
+                        ownerId:userBannerData['owner_id_room_banner']
+                             ?? widget.room.ownerId.toString(),
                         controllerBanner: controllerBanner,
                         offsetAnimationBanner: offsetAnimationBanner));
               } else {
@@ -1315,7 +1324,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     });
   }
 
-  Widget showEntroWidget(String userName, String userImage) {
+  Widget showEntroWidget( Map<String,String> userIntroData   ) {
     Future.delayed(const Duration(seconds: 8)).then((value) {
       RoomScreen.showEntro.value = false;
     });
@@ -1331,12 +1340,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: UserImage(
-                    image: userImage,
+                    image:userIntroData['user_image_intro']??'' ,
                     imageSize: AppPadding.p40,
                   ),
                 ),
                 Text(
-                  userName,
+                  userIntroData['user_name_intro']??'',
                   style: const TextStyle(
                       color: ColorManager.gold,
                       fontWeight: FontWeight.w600,
@@ -1364,7 +1373,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         onTap: () async {
           if (widget.room.ownerId.toString() != ownerId) {
             if (!showGift) {
-              if (isPasswordRoomBanner) {
+              if (userBannerData['is_password_room_banner']??false) {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {

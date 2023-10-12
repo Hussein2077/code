@@ -470,30 +470,19 @@ class YallowBannerData {
       required this.yallowBannerOwnerRoom});
 }
 
-  // AnimatedBuilder(
-  //
-  //   animation: yellowBannercontroller,
-  //   builder: (context, child) {
-  //     return Positioned(
-  //       left: -ConfigSize.defaultSize!*40+ yellowBannercontroller.value * (MediaQuery.of(context).size.width ),
-  //       child: child!,
-  //     );
-  //   },
-  //   child: ,
-  // ) ;
 
 
-ChangeBackground(Map<String, dynamic> result, var roomImg, var roomIntro, var roomName, var roomType){
+ChangeBackground(Map<String, dynamic> result, Map<String,String> roomDataUpdates ){
   RoomScreen.imgbackground.value = result[messageContent][imgBackgroundKey] ?? "";
-  roomImg = result[messageContent][roomImgKey];
-  roomIntro = result[messageContent][roomIntroKey];
-  roomName = result[messageContent][roomNameKey];
-  roomType = result[messageContent]['room_type'] ?? "";
+  roomDataUpdates['room_img'] = result[messageContent][roomImgKey];
+   roomDataUpdates['room_intro']  = result[messageContent][roomIntroKey];
+  roomDataUpdates['room_name'] = result[messageContent][roomNameKey];
+  roomDataUpdates['room_type'] = result[messageContent]['room_type'] ?? "";
   RoomScreen.roomIsLoked = result[messageContent]['is_locked'];
   RoomScreen.editRoom.value = RoomScreen.editRoom.value + 1;
 }
 
-UserEntro(Map<String, dynamic> result, var userNameIntro, var userImageIntrp, Future<void> Function(String imgId, String imgUrl) loadAnimationEntro)async{
+UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Future<void> Function(String imgId, String imgUrl) loadAnimationEntro)async{
   if (result[messageContent][entroImgIdKey] == "") {
     if (result[messageContent]['vip'] == null
         ? false
@@ -501,8 +490,8 @@ UserEntro(Map<String, dynamic> result, var userNameIntro, var userImageIntrp, Fu
       RoomScreen.showEntro.value = true;
     }
 
-    userNameIntro = result[messageContent][userName];
-    userImageIntrp = result[messageContent][userImge];
+    userIntroData['user_name_intro']  = result[messageContent][userName];
+    userIntroData['user_image_intro']   = result[messageContent][userImge];
   } else {
     if (RoomScreen.isGiftEntroAnimating) {
       RoomScreen.listOfAnimatingEntros.add(EntroData(
@@ -516,13 +505,14 @@ UserEntro(Map<String, dynamic> result, var userNameIntro, var userImageIntrp, Fu
           : result[messageContent]['vip'] > 0) {
         RoomScreen.showEntro.value = true;
       }
-      userNameIntro = result[messageContent][userName];
-      userImageIntrp = result[messageContent][userImge];
+      userIntroData['user_name_intro']  = result[messageContent][userName];
+      userIntroData['user_image_intro']  = result[messageContent][userImge];
     }
   }
 }
 
-ShowPopularBanner(Map<String, dynamic> result, var sendDataUser, var receiverDataUser, var giftBanner, var isPasswordRoomBanner, var ownerIdRoomBanner, var controllerBanner){
+ShowPopularBanner(Map<String, dynamic> result,
+    var sendDataUser, var receiverDataUser, Map<String,dynamic>  userBannerData , var controllerBanner){
   UserDataModel sendData;
 
   sendData = UserDataModel(
@@ -544,9 +534,9 @@ ShowPopularBanner(Map<String, dynamic> result, var sendDataUser, var receiverDat
 
   sendDataUser = sendData;
   receiverDataUser = receiverData;
-  giftBanner = result[messageContent][giftImgKey].toString();
-  isPasswordRoomBanner = result[messageContent]['isPass'];
-  ownerIdRoomBanner = result[messageContent]['oId'].toString();
+  userBannerData['gift_banner']  = result[messageContent][giftImgKey].toString();
+  userBannerData['is_password_room_banner']  = result[messageContent]['isPass'];
+  userBannerData['owner_id_room_banner']  = result[messageContent]['oId'].toString();
   controllerBanner.forward();
   RoomScreen.showBanner.value = true;
 }
