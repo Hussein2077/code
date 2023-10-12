@@ -18,6 +18,8 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_state.dart';
@@ -94,47 +96,52 @@ class MomentScreenState extends State<MomentScreen>
             errorToast(context: context, title: state.errorMessage);
           }
         },
-        child: BlocListener<GetMomentBloc, GetMomentUserState>(
+  child: BlocListener<GetMomentBloc, GetMomentUserState>(
+        listener: (context, state) {
+          if (state is GetMomentUserSucssesState) {
+            //MomentController.getInstance.clearMaps();
+            MomentController.getInstance.fillLikeMaps(state.data!);
+            MomentController.getInstance.fillCommentMap(state.data!);
+            MomentController.getInstance.fillGiftMap(state.data!);
+
+          }
+        },
+        child: BlocListener<GetMomentILikeItBloc, GetMomentILikeItUserState>(
           listener: (context, state) {
-            if (state is GetMomentUserSucssesState) {
+            if (state is GetMomentILikeItSucssesState) {
               //MomentController.getInstance.clearMaps();
               MomentController.getInstance.fillLikeMaps(state.data!);
-              MomentController.getInstance.fillCommentMap(state.data!);
               MomentController.getInstance.fillGiftMap(state.data!);
+              MomentController.getInstance.fillCommentMap(state.data!);
             }
           },
-          child: BlocListener<GetMomentILikeItBloc, GetMomentILikeItUserState>(
+
+          child: BlocListener<GetFollowingUserMomentBloc, GetFollowingUserMomentState>(
             listener: (context, state) {
-              if (state is GetMomentILikeItSucssesState) {
+              if (state is GetFollowingUserMomentSucssesState) {
                 //MomentController.getInstance.clearMaps();
                 MomentController.getInstance.fillLikeMaps(state.data!);
-                MomentController.getInstance.fillGiftMap(state.data!);
                 MomentController.getInstance.fillCommentMap(state.data!);
+                MomentController.getInstance.fillGiftMap(state.data!);
+                log('giftsOfMomentsMap${ MomentBottomBarState.giftsOfMomentsMap}');
               }
             },
-            child: BlocListener<GetFollowingUserMomentBloc,
-                GetFollowingUserMomentState>(
+            child:  BlocListener<AddMomentCommentBloc, AddMomentCommentState>(
               listener: (context, state) {
-                if (state is GetFollowingUserMomentSucssesState) {
-                  //MomentController.getInstance.clearMaps();
-                  MomentController.getInstance.fillLikeMaps(state.data!);
-                  MomentController.getInstance.fillCommentMap(state.data!);
-                  MomentController.getInstance.fillGiftMap(state.data!);
-                  log('giftsOfMomentsMap${MomentBottomBarState.giftsOfMomentsMap}');
+                if(state is AddMomentCommentSucssesState){
+                  MomentController.getInstance.commentIncrement(
+                      MomentBottomBarState.selectedMomentComment);
+                  BlocProvider.of<GetMomentCommentBloc>(context)
+                      .add(GetMomentCommentEvent(
+                    momentId: MomentBottomBarState.selectedMomentComment.toString(),
+                  ));
                 }
               },
-              child: BlocListener<AddMomentCommentBloc, AddMomentCommentState>(
-                listener: (context, state) {
-                  if (state is AddMomentCommentSucssesState) {
-                    MomentController.getInstance.commentIncrement(
+              child: BlocListener<DeleteMomentBloc, DeleteMomentState>(
+                listener:       (context, state) {
+                  if(state is DeleteMomentSucssesState){
+                    MomentController.getInstance.commentsDecrement(
                         MomentBottomBarState.selectedMomentComment);
-                  }
-                },
-                child: BlocListener<DeleteMomentBloc, DeleteMomentState>(
-                  listener: (context, state) {
-                    if (state is DeleteMomentSucssesState) {
-                      MomentController.getInstance.commentsDecrement(
-                          MomentBottomBarState.selectedMomentComment);
 
                       sucssesToast(context: context, title: state.message);
                     } else if (state is DeleteMomentLoadingState) {
