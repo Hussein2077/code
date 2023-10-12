@@ -501,7 +501,7 @@ class StringManager {
  static const String thisMomentc = "this moment has no comments yet";
 
   static const String momentTab = "Moments";
-  static const String likes = "Liked";
+  static const String likes = "Likes";
   static const String followingTab = "Following";
   static const String myMomentsTab = "My moments";
 
