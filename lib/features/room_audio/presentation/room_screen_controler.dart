@@ -11,7 +11,6 @@ import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -194,32 +193,7 @@ List<String> splitUsersInRoom({required List<ZegoUIKitUser> orginalList}) {
   return listIds;
 }
 
-// getUserDataInMessages(String userId) async {
-//   try {
-//     List<RoomUserMesseagesModel> user =
-//         await RemotlyDataSourceRoom().getUsersInRoon([userId]);
-//     RoomScreen.usersMessagesRoom.putIfAbsent(userId, () => user[0]);
-//   } catch (e) {
-//     log(e.toString());
-//   }
-// }
 
-// getUserDataInRoom(String userId) async {
-//   try {
-//     UserDataModel ownerDataModel =
-//         await RemotlyDataSourceProfile().getUserData(userId: userId);
-//     RoomScreen.usersInRoom.putIfAbsent(userId, () {
-//       if (kDebugMode) {
-//         log("i will get user $userId ");
-//       }
-//       return ownerDataModel;
-//     });
-//   } on DioError catch (e) {
-//     if (kDebugMode) {
-//       log(e.toString());
-//     }
-//   }
-// }
 
 List<int> getLockSeatIndex({required LayoutMode layoutMode}) {
   if (layoutMode == LayoutMode.hostTopCenter) {
@@ -604,8 +578,8 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
   }
 }
 
-KicKoutKey(Map<String, dynamic> result, var durationKickout, String ownerId, String id, BuildContext context){
-  durationKickout['durationKickout'] = result[messageContent]['duration'];
+KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String id, BuildContext context){
+  durationKickout = result[messageContent]['duration'];
   RoomScreen.isKick.value = true;
   Future.delayed(const Duration(seconds: 3), () async {
     Navigator.pop(context);
@@ -617,6 +591,7 @@ KicKoutKey(Map<String, dynamic> result, var durationKickout, String ownerId, Str
     RoomScreen.isKick.value = false;
   });
 }
+
 
 UpMicKey(Map<String, dynamic> result){
   ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(
