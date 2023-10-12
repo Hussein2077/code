@@ -45,7 +45,7 @@ class MomentScreenState extends State<MomentScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
-  Map<int,bool> favorites = {};
+  Map<int, bool> favorites = {};
 
   @override
   void initState() {
@@ -86,169 +86,160 @@ class MomentScreenState extends State<MomentScreen>
       child: BlocListener<MomentSendGiftBloc, MomentSendGiftStates>(
         listener: (context, state) {
           if (state is MomentSendGiftSucssesState) {
-            MomentController.getInstance.giftIncrement( MomentBottomBarState.selectedMomentGift,MomentBottomBarState.giftNum);
+            MomentController.getInstance.giftIncrement(
+                MomentBottomBarState.selectedMomentGift,
+                MomentBottomBarState.giftNum);
             sucssesToast(context: context, title: StringManager.sucsses);
-          }
-          else if (state is MomentSEndGiftErrorState) {
-
+          } else if (state is MomentSEndGiftErrorState) {
             errorToast(context: context, title: state.errorMessage);
           }
         },
-  child: BlocListener<GetMomentBloc, GetMomentUserState>(
-        listener: (context, state) {
-          if (state is GetMomentUserSucssesState) {
-            //MomentController.getInstance.clearMaps();
-            MomentController.getInstance.fillLikeMaps(state.data!);
-            MomentController.getInstance.fillCommentMap(state.data!);
-            MomentController.getInstance.fillGiftMap(state.data!);
-
-          }
-        },
-        child: BlocListener<GetMomentILikeItBloc, GetMomentILikeItUserState>(
+        child: BlocListener<GetMomentBloc, GetMomentUserState>(
           listener: (context, state) {
-            if (state is GetMomentILikeItSucssesState) {
+            if (state is GetMomentUserSucssesState) {
               //MomentController.getInstance.clearMaps();
               MomentController.getInstance.fillLikeMaps(state.data!);
-              MomentController.getInstance.fillGiftMap(state.data!);
               MomentController.getInstance.fillCommentMap(state.data!);
+              MomentController.getInstance.fillGiftMap(state.data!);
             }
           },
-
-          child: BlocListener<GetFollowingUserMomentBloc, GetFollowingUserMomentState>(
+          child: BlocListener<GetMomentILikeItBloc, GetMomentILikeItUserState>(
             listener: (context, state) {
-              if (state is GetFollowingUserMomentSucssesState) {
+              if (state is GetMomentILikeItSucssesState) {
                 //MomentController.getInstance.clearMaps();
                 MomentController.getInstance.fillLikeMaps(state.data!);
-                MomentController.getInstance.fillCommentMap(state.data!);
                 MomentController.getInstance.fillGiftMap(state.data!);
-                log('giftsOfMomentsMap${ MomentBottomBarState.giftsOfMomentsMap}');
+                MomentController.getInstance.fillCommentMap(state.data!);
               }
             },
-            child:  BlocListener<AddMomentCommentBloc, AddMomentCommentState>(
+            child: BlocListener<GetFollowingUserMomentBloc,
+                GetFollowingUserMomentState>(
               listener: (context, state) {
-                if(state is AddMomentCommentSucssesState){
-                  MomentController.getInstance.commentIncrement(
-                      MomentBottomBarState.selectedMomentComment);
+                if (state is GetFollowingUserMomentSucssesState) {
+                  //MomentController.getInstance.clearMaps();
+                  MomentController.getInstance.fillLikeMaps(state.data!);
+                  MomentController.getInstance.fillCommentMap(state.data!);
+                  MomentController.getInstance.fillGiftMap(state.data!);
+                  log('giftsOfMomentsMap${MomentBottomBarState.giftsOfMomentsMap}');
                 }
               },
-              child: BlocListener<DeleteMomentBloc, DeleteMomentState>(
-                listener:       (context, state) {
-                  if(state is DeleteMomentSucssesState){
-                    MomentController.getInstance.commentsDecrement(
+              child: BlocListener<AddMomentCommentBloc, AddMomentCommentState>(
+                listener: (context, state) {
+                  if (state is AddMomentCommentSucssesState) {
+                    MomentController.getInstance.commentIncrement(
                         MomentBottomBarState.selectedMomentComment);
-
-                    sucssesToast(context: context, title: state.message);
-                  }
-                  else if( state is DeleteMomentLoadingState){
-                    loadingToast(context: context);
-                  }
-                  else if(state is DeleteMomentErrorState){
-                    errorToast(context: context, title: state.error);
                   }
                 },
-                child: Scaffold(
-                  backgroundColor: Theme.of(context).colorScheme.background,
-                  body: SizedBox(
-                    width: ConfigSize.screenWidth,
-                    height: ConfigSize.screenHeight,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: ConfigSize.defaultSize! * 7,
-                          width: ConfigSize.defaultSize! * 41,
-                          decoration: BoxDecoration(
+                child: BlocListener<DeleteMomentBloc, DeleteMomentState>(
+                  listener: (context, state) {
+                    if (state is DeleteMomentSucssesState) {
+                      MomentController.getInstance.commentsDecrement(
+                          MomentBottomBarState.selectedMomentComment);
 
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(
-                                ConfigSize.defaultSize! * 1.5),
-                          ),
-                          child: Center(
-                            child: TabBar(
-                              dividerColor: ColorManager.orang,
-                              indicatorColor: Colors.white,
-                              indicator: BoxDecoration(
-                                color: ColorManager.orang,
+                      sucssesToast(context: context, title: state.message);
+                    } else if (state is DeleteMomentLoadingState) {
+                      loadingToast(context: context);
+                    } else if (state is DeleteMomentErrorState) {
+                      errorToast(context: context, title: state.error);
+                    }
+                  },
+                  child: Scaffold(
+                    backgroundColor: Theme.of(context).colorScheme.background,
+                    body: Padding(
+                      padding:
+                          EdgeInsets.only(top: ConfigSize.defaultSize! * 1),
+                      child: SizedBox(
+                        width: ConfigSize.screenWidth,
+                        height: ConfigSize.screenHeight,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: ConfigSize.defaultSize! * 41,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white),
                                 borderRadius: BorderRadius.circular(
-                                    ConfigSize.defaultSize! * 0.8),
+                                    ConfigSize.defaultSize! * 1.5),
                               ),
-                              isScrollable: true,
-                              padding:
-                                  EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
-                              controller: _tabController,
-                              tabs: [
-                                Text(
-                                  StringManager.followingTab.tr(),
-                                  style:
-                                      Theme.of(context).textTheme.bodyLarge,
+                              child: Center(
+                                child: TabBar(
+                                  dividerColor: ColorManager.orang,
+                                  indicatorColor: Colors.white,
+                                  indicator: BoxDecoration(
+                                    color: ColorManager.orang,
+                                    borderRadius: BorderRadius.circular(
+                                        ConfigSize.defaultSize! * 0.8),
+                                  ),
+                                  isScrollable: true,
+                                  padding: EdgeInsets.all(
+                                      ConfigSize.defaultSize! * 1.5),
+                                  controller: _tabController,
+                                  tabs: [
+                                    Text(
+                                      StringManager.followingTab.tr(),
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                    Text(
+                                      StringManager.likes.tr(),
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                    Text(
+                                      StringManager.myMomentsTab.tr(),
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  StringManager.likes.tr(),
-                                  style:
-                                      Theme.of(context).textTheme.bodyLarge,
-                                ),
-                                Text(
-                                  StringManager.myMomentsTab.tr(),
-                                  style:
-                                      Theme.of(context).textTheme.bodyLarge,
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
+                            Expanded(
+                              child: TabBarView(
+                                controller: _tabController,
+                                children: [
+                                  FollowingScreen(),
+                                  const LikedScreen(),
+                                  MyMomentsScreen(),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        Expanded(
-                          child: TabBarView(
-                            controller: _tabController,
-                            children: [
-                              FollowingScreen(),
-                              const LikedScreen(),
-                              MyMomentsScreen(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  floatingActionButton: Container(
-                    margin: EdgeInsets.only(bottom: ConfigSize.defaultSize!*3),
-
-                    width: ConfigSize.defaultSize! * 5,
-                    height: ConfigSize.defaultSize! * 5,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
-                      gradient: const LinearGradient(
-                          colors: ColorManager.mainColorList
-
-
                       ),
-
                     ),
-                    child: IconButton(
-                      icon: Icon(Icons.edit, color: Theme
-                          .of(context)
-                          .colorScheme
-                          .background ,),
-
-
-                      onPressed: () {
-                        bottomDailog(
-                            context: context,
-                            widget: AddMomentScreen(),
-                            color: Theme
-                                .of(context)
-                                .colorScheme
-                                .background);
-                      },
+                    floatingActionButton: Container(
+                      margin:
+                          EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
+                      width: ConfigSize.defaultSize! * 5,
+                      height: ConfigSize.defaultSize! * 5,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(ConfigSize.defaultSize! * 5),
+                        gradient: const LinearGradient(
+                            colors: ColorManager.mainColorList),
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                        onPressed: () {
+                          bottomDailog(
+                              context: context,
+                              widget: AddMomentScreen(),
+                              color: Theme.of(context).colorScheme.background);
+                        },
+                      ),
                     ),
                   ),
                 ),
-),
-),
-),
-),
-),
-),
-);
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
