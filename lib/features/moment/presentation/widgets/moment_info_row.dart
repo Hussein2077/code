@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
@@ -25,7 +26,6 @@ class MomentInfoRow extends StatelessWidget {
           },
       child: Container(
         width: ConfigSize.screenWidth,
-        height: ConfigSize.defaultSize!*3,
         padding:
             EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 0.5),
         child:
@@ -48,50 +48,42 @@ class MomentInfoRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: ConfigSize.defaultSize! * 20,
-                      child:
-                      Row(
+                    Row(
 
 
-                        children: [
-                          SizedBox(width: ConfigSize.defaultSize!*0.5,),
-                          GradientTextVip(
-                            text: momentModel.userName,
-                            textStyle: Theme.of(context).textTheme.bodyLarge!,
-                            isVip: momentModel.hasColorName,
-                          ),
-                          SizedBox(width: ConfigSize.defaultSize!*0.5,),
+                      children: [
+                        SizedBox(width: ConfigSize.defaultSize!*0.5,),
+                        GradientTextVip(
+                          text: momentModel.userName,
+                          textStyle: Theme.of(context).textTheme.bodyLarge!,
+                          isVip: momentModel.hasColorName,
+                        ),
+                        SizedBox(width: ConfigSize.defaultSize!*0.5,),
 
-                          Text(
-                            "ID ${momentModel.uuid.toString()}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(
-                                fontSize:
-                                ConfigSize.defaultSize! * 1.1),
-                          ),
+                       /* Text(
+                          "ID ${momentModel.uuid.toString()}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                              fontSize:
+                              ConfigSize.defaultSize! * 1.1),
+                        ),
+*/
 
-
-                        ],
-                      ),
+                      ],
                     ),
-                    SizedBox(
-                      width: ConfigSize.defaultSize! * 20,
-                      child:
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              LevelContainer(
-                                image: momentModel.receiverImage,
-                              ),
-                              LevelContainer(
-                                image: momentModel.senderImage,
-                              ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        LevelContainer(
+                          image: momentModel.receiverImage,
+                        ),
+                        AristocracyLevel(
+                          level: momentModel.vip,
+                        ),
 
-                            ],
-                          ),
+                      ],
                     ),
 
 

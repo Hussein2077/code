@@ -17,8 +17,9 @@ class TabViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-      width: ConfigSize.screenWidth,
-      height: ConfigSize.screenHeight,
+      // color: Colors.blue,
+      // width: ConfigSize.screenWidth,
+      // height: ConfigSize.screenHeight,
       padding: EdgeInsets.symmetric(
           horizontal: ConfigSize.defaultSize! * 0.2),
       child: ListView.builder(
