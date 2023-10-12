@@ -39,7 +39,6 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
         ..setBackgroundColor(const Color(0x00000000))
         ..setNavigationDelegate(
           NavigationDelegate(
-        
             onProgress: (int progress) {
               // Update loading bar.
             },
@@ -86,9 +85,7 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
-
               }
-
               print('page body: $pageBody');
             })
         ..loadRequest(Uri.parse(widget.url));

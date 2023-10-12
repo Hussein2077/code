@@ -3,6 +3,7 @@ import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/see_more_text.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 
 class MomentView extends StatelessWidget {
@@ -21,10 +22,14 @@ class MomentView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            ExpandableText(
+                momentModel.moment,
+              trimLines: 1,
+            ),
+           /* Text(
               momentModel.moment,
               style: Theme.of(context).textTheme.bodyMedium,
-            ),
+            ),*/
             SizedBox(
               height: ConfigSize.defaultSize! * 1.2,
             ),
