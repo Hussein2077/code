@@ -93,8 +93,12 @@ class _TopRoomProfileState extends State<TopRoomProfile> {
               
      
             } else if (state is GetUserErorrState) {
-              //todo update this show
-              return Text(state.error);
+               return InkWell(
+                onTap: () => Navigator.pop(context),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height/2,
+                  child: CustomErrorWidget(message: state.error,)),
+              );
             } else {
               return CustomErrorWidget(message: StringManager.unexcepectedError.tr(),);
            

@@ -185,6 +185,12 @@ class MyDataModel {
   }
 
   factory MyDataModel.fromMap(Map<String, dynamic> map) {
+        StringManager.userType.forEach((key, value) {
+  
+       StringManager.userType.update(key, (value) => false);
+   
+      });
+
        StringManager.userType.forEach((key, value) {
       if(map['type_user']==key){
        StringManager.userType.update(key, (value) => true);
