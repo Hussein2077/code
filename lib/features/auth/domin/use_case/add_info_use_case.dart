@@ -39,5 +39,5 @@ class InformationPramiter extends Equatable {
     required this.country,  this.image , this.date , this.countryCode,required this.name});
 
   @override
-  List<Object?> get props => [name ,date ,image,gender ,country,countryCode ];
+  List<Object?> get props => [name ,date ,image,gender ,country,countryCode];
 }
