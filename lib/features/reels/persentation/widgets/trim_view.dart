@@ -16,7 +16,7 @@ class TrimmerView extends StatefulWidget {
     final TextEditingController reelsNameController;
 
 
-  TrimmerView({required this.file , required this.reelsNameController});
+  const TrimmerView({required this.file , required this.reelsNameController});
 
   @override
   _TrimmerViewState createState() => _TrimmerViewState();
