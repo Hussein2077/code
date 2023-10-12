@@ -13,7 +13,7 @@ class CommentTextField extends StatelessWidget{
    TextEditingController commentController ;
   final String momentId;
 
-  CommentTextField({super.key, required this.commentController,required this.momentId});
+   CommentTextField({super.key, required this.commentController,required this.momentId});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,6 @@ return Expanded(
         height: ConfigSize.defaultSize! * 5,
         width: ConfigSize.defaultSize! * 35,
         decoration: BoxDecoration(
-          color: Colors.transparent,
           borderRadius: BorderRadius.circular(
               ConfigSize.defaultSize! * 1.6),
         ),
@@ -36,7 +35,6 @@ return Expanded(
           maxLines: null,
           controller: commentController,
           textInputAction: TextInputAction.send,
-          onSubmitted: (message) {},
           cursorColor: const Color(0xffA653ff),
           cursorHeight:
           ConfigSize.defaultSize! * 3,
@@ -81,16 +79,12 @@ return Expanded(
       ),
       InkWell(
         onTap: () {
-              MomentBottomBarState.selectedMomentComment = int.parse(momentId);
-
+              MomentBottomBarState.selectedMoment = int.parse(momentId);
               BlocProvider.of<AddMomentCommentBloc>(context).add(
                   AddMomentCommentEvent(
                       momentId: momentId.toString(),
                       comment: commentController.text));
-              BlocProvider.of<GetMomentCommentBloc>(context)
-                  .add(GetMomentCommentEvent(
-                momentId: momentId.toString(),
-              ));
+
               commentController.clear();
             },
         child: Container(
@@ -106,12 +100,12 @@ return Expanded(
               border: Border.all(
                   color: Theme.of(context)
                       .colorScheme
-                      .secondary)),
+                      .primary)),
           child: Icon(
             Icons.send,
             color: Theme.of(context)
                 .colorScheme
-                .background,
+                .primary,
           ),
         ),
       ),

@@ -43,5 +43,62 @@ class GetFollowingUserMomentBloc
           (r) => emit(GetFollowingUserMomentErrorState(
               null, DioHelper().getTypeOfFailure(r))));
     });
+
+
+    on<LocalLikeFollowingMoment>((event, emit) async {
+      state.data!.firstWhere((element) {
+        if (element.momentId.toString() == event.momentId.toString()) {
+          if (element.isLike) {
+            element.isLike = false;
+            element.likeNum = element.likeNum - 1;
+
+            return true;
+          } else {
+            element.isLike = true;
+            element.likeNum = element.likeNum + 1;
+
+            return true;
+          }
+        } else {
+          return false;
+        }
+      });
+      emit(GetFollowingUserMomentSucssesState(data: state.data));
+    });
+
+    on<LocalCommentFollowingMomentEvent>((event, emit) async {
+      state.data!.firstWhere((element) {
+        if (element.momentId.toString() == event.momentId.toString()) {
+          if (event.type=="add") {
+            element.commentNum =  element.commentNum+1;
+
+
+            return true;
+          } else {
+            element.commentNum = element.commentNum - 1;
+
+            return true;
+          }
+        } else {
+          return false;
+        }
+      });
+      emit(GetFollowingUserMomentSucssesState(data: state.data));
+    });
+
+    on<LocalFollowingGiftMoment>((event,emit)async{
+      state.data!.firstWhere((element) {
+        if(element.momentId.toString()==event.momentId.toString()){
+          element.giftsCount= element.giftsCount+event.giftsNum;
+          return true;
+        }else{
+          return false;
+        }
+      });
+      emit(GetFollowingUserMomentSucssesState(data: state.data));
+
+    });
+
+
   }
 }

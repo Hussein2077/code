@@ -19,3 +19,9 @@ class LoadMoreMomentCommentEvent extends BaseGetMomentCommentEvent{
 
 
 }
+
+class LocalDeleteCommentEvent extends BaseGetMomentCommentEvent{
+  final String momentId ;
+  final String commentId ;
+  const LocalDeleteCommentEvent({required this.momentId,required this.commentId});
+}

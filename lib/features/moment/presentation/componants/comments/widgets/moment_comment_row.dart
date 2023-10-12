@@ -11,6 +11,12 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_comment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_event.dart';
+
+
+
+
 
 
 class MomentComments extends StatefulWidget {
@@ -18,10 +24,10 @@ class MomentComments extends StatefulWidget {
   final List<MomentCommentModel> momentCommentListModel;
   final ScrollController scrollController;
 
-  const MomentComments({
-  required this.momentCommentListModel,
-  required this.scrollController,
-  this.type,
+  const MomentComments(
+      {required this.momentCommentListModel,
+      required this.scrollController,
+      this.type,
   super.key});
 
 @override
@@ -32,177 +38,180 @@ class _MomentCommentsState extends State<MomentComments> {
   @override
   Widget build(BuildContext context) {
     return
-      ListView.builder(
-        controller: widget.scrollController,
-        itemCount: widget.momentCommentListModel.length,
-        itemBuilder: (context, i) {
-          return Container(
-            height: ConfigSize.screenHeight! * 0.14,
-            margin: EdgeInsets.symmetric(
-                vertical: ConfigSize.defaultSize!,
-                horizontal: ConfigSize.defaultSize! * 2),
-            padding: EdgeInsets.symmetric(
-                vertical: ConfigSize.defaultSize!,
-                horizontal: ConfigSize.defaultSize! * 2),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(
-                      flex: 1,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Methods().userProfileNvgator(
-                            context: context,
-                            userId: widget.momentCommentListModel[i].userId.toString());
-                      },
-                      child: UserImage(
-                        boxFit: BoxFit.cover,
-                        image: (widget.momentCommentListModel[i].userProfilePic),
+      SizedBox(
+        height: ConfigSize.screenHeight! * 0.82,
+        child: ListView.builder(
+          controller: widget.scrollController,
+          itemCount: widget.momentCommentListModel.length,
+          itemBuilder: (context, i) {
+            return Container(
+              height: ConfigSize.screenHeight! * 0.14,
+              margin: EdgeInsets.symmetric(
+                  vertical: ConfigSize.defaultSize!,
+                  horizontal: ConfigSize.defaultSize! * 2),
+              padding: EdgeInsets.symmetric(
+                  vertical: ConfigSize.defaultSize!,
+                  horizontal: ConfigSize.defaultSize! * 2),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Spacer(
+                        flex: 1,
                       ),
-                    ),
-                    const Spacer(
-                      flex: 1,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: ConfigSize.defaultSize! * 20,
-                          child: GradientTextVip(
-                            text: (widget.momentCommentListModel[i].userName),
-                            textStyle: Theme
-                                .of(context)
-                                .textTheme
-                                .headlineMedium!.copyWith(
-                                fontWeight: FontWeight.w500
+                      InkWell(
+                        onTap: () {
+                          Methods().userProfileNvgator(
+                              context: context,
+                              userId: widget.momentCommentListModel[i].userId.toString());
+                        },
+                        child: UserImage(
+                          boxFit: BoxFit.cover,
+                          image: (widget.momentCommentListModel[i].userProfilePic),
+                        ),
+                      ),
+                      const Spacer(
+                        flex: 1,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: ConfigSize.defaultSize! * 20,
+                            child: GradientTextVip(
+                              text: (widget.momentCommentListModel[i].userName),
+                              textStyle: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .headlineMedium!.copyWith(
+                                  fontWeight: FontWeight.w500
+                              ),
+                              isVip: false,
                             ),
-                            isVip: false,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                child: GradientTextVip(
+                                  text: (widget.momentCommentListModel[i].commentTime
+                                      .substring(11, 16)),
+
+
+                                  textStyle: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .bodySmall!,
+                                  isVip: false,
+                                  //comment==true? momentCommentModel.userProfilePic:momentLikeModel.userImage!,
+                                ),
+                              ),
+                              SizedBox(width: ConfigSize.defaultSize! * .5,),
+                              SizedBox(
+                                child: GradientTextVip(
+                                  text: (widget.momentCommentListModel[i].commentTime
+                                      .substring(0, 10)),
+
+
+                                  textStyle: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .bodySmall!,
+                                  isVip: false,
+                                  //comment==true? momentCommentModel.userProfilePic:momentLikeModel.userImage!,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                        ],
+                      ),
+                      const Spacer(
+                        flex: 5,
+                      ),
+                      if (widget.momentCommentListModel[i].userId==MyDataModel.getInstance().id||widget.type=='mine')
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * 4,
+                          height: ConfigSize.defaultSize! * 4,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2(
+                              customButton: Icon(
+                                Icons.more_vert_rounded,
+                                size: ConfigSize.defaultSize! * 2.5,
+                                color: Theme
+                                    .of(context)
+                                    .colorScheme
+                                    .primary,
+                              ),
+                              dropdownDecoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(
+                                    ConfigSize.defaultSize!),
+                                border: Border.all(color: Colors.white,),
+
+                              ),
+
+                              items: [
+                                ...MenuItems.firstItems.map(
+                                      (item) =>
+                                      DropdownMenuItem<MenuItem>(
+                                        value: item,
+                                        child: MenuItems.buildItem(item),
+                                      ),
+                                ),
+                              ],
+                              onChanged: (value) {
+                                MenuItems.onChanged(context, value!,
+                                    widget.momentCommentListModel[i].momentId.toString(),
+                                    widget.momentCommentListModel[i].commentId!
+                                );
+                              },
+                              dropdownWidth: ConfigSize.defaultSize! * 12,
+
+                            ),
                           ),
                         ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              child: GradientTextVip(
-                                text: (widget.momentCommentListModel[i].commentTime
-                                    .substring(11, 16)),
+                    ],
+                  ),
+                  SizedBox(height: ConfigSize.defaultSize! * 0.5,),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.momentCommentListModel[i].comment,
+                          style:
+                          Theme
+                              .of(context)
+                              .textTheme
+                              .bodyLarge!.copyWith(
+                              fontSize: ConfigSize.defaultSize!*1.6
 
-
-                                textStyle: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodySmall!,
-                                isVip: false,
-                                //comment==true? momentCommentModel.userProfilePic:momentLikeModel.userImage!,
-                              ),
-                            ),
-                            SizedBox(width: ConfigSize.defaultSize! * .5,),
-                            SizedBox(
-                              child: GradientTextVip(
-                                text: (widget.momentCommentListModel[i].commentTime
-                                    .substring(0, 10)),
-
-
-                                textStyle: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodySmall!,
-                                isVip: false,
-                                //comment==true? momentCommentModel.userProfilePic:momentLikeModel.userImage!,
-                              ),
-                            ),
-                          ],
+                          )
+                              .copyWith(
+                            fontSize: ConfigSize.defaultSize! * 1.5,
+                          ),
                         ),
 
                       ],
                     ),
-                    const Spacer(
-                      flex: 5,
-                    ),
-                    if (widget.momentCommentListModel[i].userId==MyDataModel.getInstance().id||widget.type=='mine')
-                      SizedBox(
-                        width: ConfigSize.defaultSize! * 4,
-                        height: ConfigSize.defaultSize! * 4,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2(
-                            customButton: Icon(
-                              Icons.more_vert_rounded,
-                              size: ConfigSize.defaultSize! * 2.5,
-                              color: Theme
-                                  .of(context)
-                                  .colorScheme
-                                  .primary,
-                            ),
-                            dropdownDecoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(
-                                  ConfigSize.defaultSize!),
-                              border: Border.all(color: Colors.white,),
-
-                            ),
-
-                            items: [
-                              ...MenuItems.firstItems.map(
-                                    (item) =>
-                                    DropdownMenuItem<MenuItem>(
-                                      value: item,
-                                      child: MenuItems.buildItem(item),
-                                    ),
-                              ),
-                            ],
-                            onChanged: (value) {
-                              MenuItems.onChanged(context, value!,
-                                  widget.momentCommentListModel[i].momentId.toString(),
-                                  widget.momentCommentListModel[i].commentId!
-                              );
-                            },
-                            dropdownWidth: ConfigSize.defaultSize! * 12,
-
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-                SizedBox(height: ConfigSize.defaultSize! * 0.5,),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.momentCommentListModel[i].comment,
-                        style:
-                        Theme
-                            .of(context)
-                            .textTheme
-                            .bodyLarge!.copyWith(
-                            fontSize: ConfigSize.defaultSize!*1.6
-
-                        )
-                            .copyWith(
-                          fontSize: ConfigSize.defaultSize! * 1.5,
-                        ),
-                      ),
-
-                    ],
                   ),
-                ),
 
 
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       )
     ;
   }
@@ -247,12 +256,9 @@ abstract class MenuItems {
   }
 
   static void onChanged(BuildContext context, MenuItem item, String momentId,int commentId) {
-    BlocProvider.of<DeleteMomentCommentBloc>(context).add(
-        DeleteMomentCommentEvent(
-            momentId: momentId,
-            commentId: commentId.toString()));
-
+    BlocProvider.of<DeleteMomentCommentBloc>(context).add(DeleteMomentCommentEvent(
+            momentId: momentId, commentId: commentId.toString()));
+    BlocProvider.of<GetMomentCommentBloc>(context).add(LocalDeleteCommentEvent(
+        momentId: momentId, commentId: commentId.toString()));
   }
-
-
 }

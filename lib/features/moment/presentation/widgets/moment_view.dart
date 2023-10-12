@@ -43,7 +43,7 @@ class MomentView extends StatelessWidget {
                       borderRadius:
                           BorderRadius.circular(ConfigSize.defaultSize! * 2),
                       image: DecorationImage(
-                          image: NetworkImage(
+                          image: CachedNetworkImageProvider(
                             ConstentApi().getImage(momentModel.momentImage),
                           ),
                           fit: BoxFit.cover)),

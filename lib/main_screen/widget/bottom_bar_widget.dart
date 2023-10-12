@@ -72,7 +72,7 @@ class BottomBarWidget extends StatelessWidget {
                                             BottomNavigationBarItem(
                                       icon:  const BottomIcon(icon: AssetsPath.unSelectedChatIcon,),
                                       activeIcon:  const BottomIcon(icon: AssetsPath.chatIcon,),
-                                      label:StringManager.chat.tr(),
+                                      label:StringManager.momentTab.tr(),
 
                                       
                                       ),

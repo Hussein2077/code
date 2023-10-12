@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_in
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
+import 'package:tik_chat_v2/features/chat/persentation/chat_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/create_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/upload_reels_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/search/search_screen.dart';
@@ -142,6 +143,7 @@ class Routes {
   static const String changePassOrNumberScreen = "/ChangePassOrNumberScreen";
   static const String changePassScreen = "/ChangePassScreen";
   static const String privacyPolicyScreen = "/PrivacyPolicyScreen";
+  static const String chatScreen = "/ChatScreen";
 }
 
 class RouteGenerator {
@@ -444,9 +446,20 @@ class RouteGenerator {
         {
           return CupertinoPageRoute (
               builder: (_) => const SafeArea(child: PrivacyPolicyScreen()));
-        } else {
+        } else
+        {
           return MaterialPageRoute(
               builder: (_) => const SafeArea(child: PrivacyPolicyScreen()));
+        }
+        case Routes.chatScreen:
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => const SafeArea(child: ChatScreen()));
+        } else
+        {
+          return MaterialPageRoute(
+              builder: (_) => const SafeArea(child: ChatScreen()));
         }
 
 

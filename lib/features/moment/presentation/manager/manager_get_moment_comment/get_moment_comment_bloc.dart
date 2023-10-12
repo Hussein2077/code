@@ -28,6 +28,15 @@ class GetMomentCommentBloc extends Bloc<BaseGetMomentCommentEvent, GetMomentComm
               GetMomentCommentSucssesState(data: [...state.data!, ...l]));
         }}, (r) => emit(GetMomentCommentErrorState(null, DioHelper().getTypeOfFailure(r))));
     });
+
+
+
+    on<LocalDeleteCommentEvent>((event, emit) async {
+      state.data!.removeWhere((element) {
+        return element.commentId.toString() == event.commentId.toString();
+      });
+      emit(GetMomentCommentSucssesState(data: state.data));
+    });
   }
 
 }

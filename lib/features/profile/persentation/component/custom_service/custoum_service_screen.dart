@@ -51,7 +51,7 @@ class _CustoumServiceScreenState extends State<CustoumServiceScreen> {
               SizedBox(
                 height: ConfigSize.defaultSize!,
               ),
-              HeaderWithOnlyTitle(title: StringManager.custoumService.tr()),
+              HeaderWithOnlyTitle(title: StringManager.complaints.tr()),
               Text(
                 StringManager.typeOfProblem.tr(),
                 style: Theme.of(context).textTheme.headlineMedium,

@@ -25,6 +25,7 @@ import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/aduio/audio_body.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/country_dilog.dart';
+import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
@@ -119,7 +120,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 ),
             (_) => const ReelsScreen(),
             (_) => const FollowingLiveScreen(),
-            (_) => const ChatScreen(),
+            (_) => const MomentScreen(),
             (_) => const ProfileScreen(),
           ],
           bottomNavigationBar: (currentIndex, onTap) => BottomBarWidget(
