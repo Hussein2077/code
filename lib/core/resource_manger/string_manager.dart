@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
+
   static const int versionApp = 29;
 
   //updates
@@ -143,7 +144,7 @@ class StringManager {
   static const String rechargeHistory = "Recharge History";
   static const String inviteFriend = "Invite Friend";
   static const String settings = "Settings";
-  static const String custoumService = "CustoumService";
+  static const String complaints = "Complaints";
   static const String giftGallery = "Gift Gallery";
   static const String dimond = "Dimond";
   static const String addFriend = "Add Friend";

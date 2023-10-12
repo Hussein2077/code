@@ -10,14 +10,15 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_info_row.dart';
 
-class MomentAppBar extends StatefulWidget {
-  final MomentModel momentModel;
 
-  const MomentAppBar({
-    super.key,
-    required this.momentModel,
+class MomentAppBar extends StatefulWidget{
+ final MomentModel momentModel;
+   const MomentAppBar({super.key,
+     required this.momentModel,
   });
 
   @override
@@ -25,6 +26,8 @@ class MomentAppBar extends StatefulWidget {
 }
 
 class _MomentAppBarState extends State<MomentAppBar> {
+
+
   List<String> global = [];
 
   @override
@@ -139,10 +142,10 @@ abstract class MenuItems {
   static void onChanged(
       BuildContext context, MenuItem item, String momentId, String userId) {
     if (item == delete) {
-      BlocProvider.of<DeleteMomentBloc>(context)
-          .add(DeleteMomentEvent(momentId: momentId));
-      BlocProvider.of<GetMomentBloc>(context)
-          .add(GetUserMomentEvent(userId: userId));
+      BlocProvider.of<DeleteMomentBloc>(context).add(DeleteMomentEvent(momentId: momentId ));
+      BlocProvider.of<GetMomentBloc>(context).add(LocalDeleteMomentEvent(momentId: momentId ));
+      BlocProvider.of<GetMomentILikeItBloc>(context).add(LocalDeleteMomentILikedEvent(momentId: momentId ));
+
     } else if (item == report) {
       //BlocProvider.of<DeleteMomentBloc>(context).add(DeleteMomentEvent(momentId: momentId ));
     }

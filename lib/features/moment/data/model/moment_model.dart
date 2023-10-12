@@ -3,9 +3,9 @@ class MomentModel {
   final int userId;
   final String moment;
   final String momentImage;
-  final int commentNum;
+   int commentNum;
    int likeNum;
-  final int giftsCount;
+   int giftsCount;
   final String creeatedTime;
   final String userName;
   final String userImage;
@@ -14,7 +14,7 @@ class MomentModel {
   final String senderImage;
   final int vip;
   final bool hasColorName;
-  final bool isLike;
+   bool isLike;
 
 
 

@@ -149,6 +149,8 @@ class _AddMomentScreenState extends State<AddMomentScreen> {
               BlocListener<AddMomentBloc, AddMomentState>(
                 listener: (context, state) {
                   if (state is AddMomentSucssesState) {
+                    BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(
+                        userId: MyDataModel.getInstance().id.toString()));
                     sucssesToast(context: context, title: state.message);
                     Navigator.pop(context);
                     Navigator.pop(context);

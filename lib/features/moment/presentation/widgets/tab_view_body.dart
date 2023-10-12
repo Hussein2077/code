@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
-import 'package:tik_chat_v2/features/moment/presentation/moment_controller.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_appbar.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_view.dart';
@@ -11,18 +10,19 @@ import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_view.dar
 
 class TabViewBody extends StatelessWidget {
  final List<MomentModel> momentModelList;
+ final ScrollController scrollController;
 
-  const TabViewBody({Key? key, required this.momentModelList}) : super(key: key);
+  const TabViewBody({Key? key,required this.scrollController, required this.momentModelList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return  Container(
-      // color: Colors.blue,
-      // width: ConfigSize.screenWidth,
-      // height: ConfigSize.screenHeight,
+      width: ConfigSize.screenWidth,
+      height: ConfigSize.screenHeight!*0.81,
       padding: EdgeInsets.symmetric(
           horizontal: ConfigSize.defaultSize! * 0.2),
       child: ListView.builder(
+        controller: scrollController,
         itemCount: momentModelList.length,
         itemBuilder: (context, i) {
 

@@ -45,6 +45,11 @@ class Card2 extends StatelessWidget {
                     arguments: myData),
               ),
             ProfileRowItem(
+              title: StringManager.chat.tr(),
+              image: AssetsPath.chatIcon,
+              onTap: () => Navigator.pushNamed(context, Routes.familyRanking),
+            ),
+            ProfileRowItem(
               title: StringManager.family.tr(),
               image: AssetsPath.familyIcon,
               onTap: () => Navigator.pushNamed(context, Routes.familyRanking),

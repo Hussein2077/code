@@ -19,3 +19,29 @@ class LoadMoreMomentIlikeItEvent extends BaseGetMomentILikeItEvent{
 
 
 }
+
+
+class LocalDeleteMomentILikedEvent extends BaseGetMomentILikeItEvent{
+  final String momentId ;
+  const LocalDeleteMomentILikedEvent({required this.momentId});
+}
+
+
+class LocalLikeMomentIliked extends  BaseGetMomentILikeItEvent{
+  final String momentId ;
+  const LocalLikeMomentIliked({required this.momentId});
+}
+
+
+class LocalCommentIlikedMomentEvent extends  BaseGetMomentILikeItEvent{
+  final String momentId ;
+  final String type  ;
+  const LocalCommentIlikedMomentEvent({required this.type ,  required this.momentId});
+}
+
+class LocalGiftILikedMoment extends  BaseGetMomentILikeItEvent{
+  final String momentId ;
+  final int giftsNum ;
+  const LocalGiftILikedMoment({   required this.momentId,required this.giftsNum});
+}
+
