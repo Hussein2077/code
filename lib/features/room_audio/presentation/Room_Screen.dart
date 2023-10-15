@@ -11,7 +11,6 @@ import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
@@ -21,7 +20,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/user_on_mic_model.dart';
@@ -30,7 +28,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/gift_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/massage_Button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/speakr_button.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/header_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
@@ -41,7 +38,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/view_mus
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/host_top_center_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/room_background.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dialog_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/gift_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
@@ -52,7 +48,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_lucky_banner_body_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/user_avatar.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
@@ -75,6 +71,9 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:video_player/video_player.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'components/widgets/show_gift_banner_widget.dart';
+import 'components/widgets/show_lucky_banner_widget.dart';
 
 class RoomScreen extends StatefulWidget {
   final EnterRoomModel room;
@@ -152,6 +151,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   String userIdEmojie = ""; // to show emojie
   bool showGift = false; // to show gift
   String giftImg = ""; // to show img gift
+
+
  ///////
   Map<String,String>   roomDataUpdates =
   {'room_intro': '','room_name':'',
@@ -1216,7 +1217,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             valueListenable: RoomScreen.showEntro,
             builder: (context, isShow, _) {
               if (isShow) {
-                return showEntroWidget(userIntroData);
+                return ShowEntroWidget(userIntroData: userIntroData, offsetAnimationEntro: offsetAnimationEntro);
               } else {
                 return const SizedBox();
               }
@@ -1240,7 +1241,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 return Positioned(
                     top: ConfigSize.defaultSize! * 7.5,
                     left: AppPadding.p36,
-                    child: showGiftBannerWidget(
+                    child: ShowGiftBannerWidget(
                         isPlural: isPlural,
                         sendDataUser: sendDataUser ??
                             widget.myDataModel.convertToUserObject(),
@@ -1250,7 +1251,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                         ownerId:userBannerData['owner_id_room_banner']
                              ?? widget.room.ownerId.toString(),
                         controllerBanner: controllerBanner,
-                        offsetAnimationBanner: offsetAnimationBanner));
+                        offsetAnimationBanner: offsetAnimationBanner,
+                        isPassword: userBannerData['is_password_room_banner'],
+                        roomOwnerId: widget.room.ownerId.toString(),
+                        showGift: showGift,
+                        roomIntro: widget.room.roomIntro!,
+                    ));
               } else {
                 return const SizedBox();
               }
@@ -1262,9 +1268,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 return Positioned(
                     top: ConfigSize.defaultSize! * 6.95,
                     left: ConfigSize.defaultSize! * 5.78,
-                    child: showLuckyBannerWidget(
+                    child: ShowLuckyBannerWidget(
                         sendDataUser: sendSuperBox!,
-                        superBox: superBox,));
+                        superBox: superBox, showBannerLuckyBox: showBannerLuckyBox, ownerId: widget.room.ownerId.toString(),));
               } else {
                 return const SizedBox();
               }
@@ -1321,133 +1327,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         }
       }
     });
-  }
-
-  Widget showEntroWidget( Map<String,String> userIntroData   ) {
-    Future.delayed(const Duration(seconds: 8)).then((value) {
-      RoomScreen.showEntro.value = false;
-    });
-
-    return Positioned(
-      bottom: ConfigSize.defaultSize! * 17,
-      child: SizedBox(
-          height: AppPadding.p40,
-          child: SlideTransition(
-            position: offsetAnimationEntro,
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: UserImage(
-                    image:userIntroData['user_image_intro']??'' ,
-                    imageSize: AppPadding.p40,
-                  ),
-                ),
-                Text(
-                  userIntroData['user_name_intro']??'',
-                  style: const TextStyle(
-                      color: ColorManager.gold,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18),
-                ),
-                const Text(
-                  "  has Join",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                )
-              ],
-            ),
-          )),
-    );
-  }
-
-  Widget showGiftBannerWidget(
-      {required UserDataModel sendDataUser,
-      required UserDataModel receiverDataUser,
-      required String giftImage,
-      required String ownerId,
-      required bool isPlural,
-      required AnimationController controllerBanner,
-      required Animation<Offset> offsetAnimationBanner}) {
-    return InkWell(
-        onTap: () async {
-          if (widget.room.ownerId.toString() != ownerId) {
-            if (!showGift) {
-              if (userBannerData['is_password_room_banner']??false) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                          insetPadding: EdgeInsets.symmetric(
-                              horizontal: ConfigSize.defaultSize! * 0.8),
-                          backgroundColor: Colors.transparent,
-                          title: const Text(StringManager.enterPassword),
-                          content: EnterPasswordRoomDialog(
-                            ownerId: ownerId,
-                            myData: widget.myDataModel,
-                            isInRoom: true,
-                          ));
-                    });
-              } else {
-                Navigator.pop(context);
-                MainScreen.iskeepInRoom.value = true;
-                Navigator.pushNamed(context, Routes.roomHandler,
-                    arguments: RoomHandlerPramiter(
-                        ownerRoomId: ownerId, myDataModel: widget.myDataModel));
-              }
-            }
-          }
-        },
-        child: GiftBannerWidget(
-            giftImage: giftImage,
-            isPlural: isPlural,
-            receiverDataUser: receiverDataUser,
-            roomIntro: widget.room.roomIntro!,
-            sendDataUser: sendDataUser,
-            controllerBanner: controllerBanner,
-            offsetAnimationBanner: offsetAnimationBanner));
-  }
-
-  Widget showLuckyBannerWidget(
-      {required UserDataModel sendDataUser,
-      required var superBox,}) {
-    Future.delayed(const Duration(seconds: 8)).then((value) {
-      if (showBannerLuckyBox.value) {
-        showBannerLuckyBox.value = false;
-      }
-    });
-    return AnimatedOpacity(
-      opacity: showBannerLuckyBox.value ? 1.0 : 0.0,
-      duration: const Duration(seconds: 5),
-      child: InkWell(
-        onTap: () async {
-          if (widget.room.ownerId.toString() != superBox['ownerIdRoomLuckyBanner']) {
-            if (superBox['isPasswordRoomLuckyBanner']) {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                        backgroundColor: Colors.transparent,
-                        insetPadding: EdgeInsets.symmetric(
-                            horizontal: ConfigSize.defaultSize! * 0.8),
-                        title: const Text(StringManager.enterPassword),
-                        content: EnterPasswordRoomDialog(
-                          ownerId: superBox['ownerIdRoomLuckyBanner'],
-                          myData: widget.myDataModel,
-                        ));
-                  });
-            } else {
-              Navigator.pop(context);
-              MainScreen.iskeepInRoom.value = true;
-              Navigator.pushNamed(context, Routes.roomHandler,
-                  arguments: RoomHandlerPramiter(
-                      ownerRoomId: superBox['ownerIdRoomLuckyBanner'], myDataModel: widget.myDataModel));
-            }
-          }
-        },
-        child: ShowLuckyBannerBodyWidget(
-            sendDataUser: sendDataUser, coins: superBox['superCoins'], ownerId: superBox['ownerIdRoomLuckyBanner']),
-      ),
-    );
   }
 
   ZegoLiveAudioRoomSeatConfig getSeatConfig() {
