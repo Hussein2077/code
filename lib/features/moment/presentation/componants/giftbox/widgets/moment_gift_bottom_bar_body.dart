@@ -158,8 +158,8 @@ class _MomtentGiftBottomBarBodyState extends State<MomtentGiftBottomBarBody>
                                         ConfigSize.defaultSize! * 1.2))),
                             child: InkWell(
                               onTap: () {
-                                MomentBottomBarState.selectedMomentGift=int.parse(widget.momentId);
-                                MomentBottomBarState.giftNum=MomtentGiftBottomBarBody.numberOfGift;
+                                MomentBottomBarState.selectedMoment=int.parse(widget.momentId);
+                                MomentBottomBarState.giftsNum=MomtentGiftBottomBarBody.numberOfGift;
                                 BlocProvider.of<MomentSendGiftBloc>(context)
                                     .add(MomentSendGiftEvent(
                                   momentId: widget.momentId,

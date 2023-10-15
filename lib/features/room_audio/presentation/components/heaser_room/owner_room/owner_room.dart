@@ -32,7 +32,7 @@ class OwnerOfRoom extends StatefulWidget {
 class OwnerOfRoomState extends State<OwnerOfRoom> {
   @override
   Widget build(BuildContext context) {
-    log("widget.roomImg"+widget.roomImg);
+
     return  Padding(
       padding: EdgeInsets.only(top: AppPadding.p20),
       child: Container(

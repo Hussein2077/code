@@ -39,5 +39,73 @@ class GetMomentILikeItBloc
           (r) => emit(GetMomentILikeItErrorState(
               null, DioHelper().getTypeOfFailure(r))));
     });
+
+    on<LocalDeleteMomentILikedEvent>((event, emit)async {
+      state.data!.removeWhere((element) {
+
+        return element.momentId.toString() == event.momentId.toString();
+
+
+      });
+      emit(GetMomentILikeItSucssesState(data: state.data));
+
+    });
+
+    on<LocalLikeMomentIliked>((event, emit) async {
+      state.data!.firstWhere((element) {
+        if (element.momentId.toString() == event.momentId.toString()) {
+          if (element.isLike) {
+            element.isLike = false;
+            element.likeNum = element.likeNum - 1;
+
+            return true;
+          } else {
+            element.isLike = true;
+            element.likeNum = element.likeNum + 1;
+
+            return true;
+          }
+        } else {
+          return false;
+        }
+      });
+      emit(GetMomentILikeItSucssesState(data: state.data));
+    });
+
+    on<LocalCommentIlikedMomentEvent>((event, emit) async {
+      state.data!.firstWhere((element) {
+        if (element.momentId.toString() == event.momentId.toString()) {
+          if (event.type=="add") {
+            element.commentNum =  element.commentNum+1;
+
+
+            return true;
+          } else {
+            element.commentNum = element.commentNum - 1;
+
+            return true;
+          }
+        } else {
+          return false;
+        }
+      });
+      emit(GetMomentILikeItSucssesState(data: state.data));
+    });
+
+    on<LocalGiftILikedMoment>((event,emit)async{
+      state.data!.firstWhere((element) {
+        if(element.momentId.toString()==event.momentId.toString()){
+          element.giftsCount= element.giftsCount+event.giftsNum;
+          return true;
+        }else{
+          return false;
+        }
+      });
+      emit(GetMomentILikeItSucssesState(data: state.data));
+
+    });
+
+
+
   }
 }

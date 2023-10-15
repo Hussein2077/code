@@ -15,9 +15,10 @@ class PhoneWithCountry extends StatefulWidget {
   State<PhoneWithCountry> createState() => _PhoneWithCountryState();
 }
 
-late TextEditingController phonecontroller;
-
 class _PhoneWithCountryState extends State<PhoneWithCountry> {
+
+  late TextEditingController phonecontroller;
+
   @override
   void initState() {
     phonecontroller = TextEditingController();

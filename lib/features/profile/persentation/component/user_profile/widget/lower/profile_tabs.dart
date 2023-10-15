@@ -22,7 +22,6 @@ class ProfileTabs extends StatelessWidget {
         unselectedLabelColor: Colors.grey,
         labelStyle:TextStyle(fontSize: ConfigSize.defaultSize!*1.8 , fontWeight: FontWeight.bold) ,
         unselectedLabelStyle:TextStyle(fontSize: ConfigSize.defaultSize!*1.6) ,
-    
         tabs: [
         Text(StringManager.profile.tr(), ),
               Text(StringManager.reels.tr(),)

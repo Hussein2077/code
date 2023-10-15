@@ -1,18 +1,25 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:persian_linear_date_picker/persian_linear_date_picker.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/country_widget.dart';
+import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/date/date_dilog.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/male_female_widget.dart';
 
 class UserInfoWidget extends StatefulWidget {
     static TextEditingController? bioController;
   static TextEditingController? nameController;
+  static String? age;
+  static int? gender;
   final MyDataModel myDataModel;
-  const UserInfoWidget({required this.myDataModel, super.key});
+    const UserInfoWidget({required this.myDataModel, super.key});
 
   @override
   State<UserInfoWidget> createState() => _UserInfoWidgetState();
@@ -20,13 +27,22 @@ class UserInfoWidget extends StatefulWidget {
 
 class _UserInfoWidgetState extends State<UserInfoWidget> {
 
+  Color btnmale = ColorManager.whiteColor;
+  Color btnfemale = ColorManager.whiteColor;
+  Color btnmaleicon = ColorManager.gray;
+  Color btnfemaleicon = ColorManager.gray;
+  bool? maleAndFemaleFlag;
+
 
   @override
   void initState() {
     CountryWidget.countryFlag = widget.myDataModel.profile!.country;
     UserInfoWidget.bioController = TextEditingController(text: widget.myDataModel.bio);
     UserInfoWidget.nameController = TextEditingController(text: widget.myDataModel.name);
-     UserInfoWidget.bioController!.addListener(() {
+    UserInfoWidget.gender = widget.myDataModel.profile!.gender;
+    maleAndFemaleFlag = widget.myDataModel.profile!.gender == 0 ? false : true;
+    onbuttontap();
+    UserInfoWidget.bioController!.addListener(() {
       setState(() {
         
       });
@@ -36,7 +52,6 @@ class _UserInfoWidgetState extends State<UserInfoWidget> {
         
       });
       });
-
     super.initState();
   }
 @override
@@ -46,6 +61,22 @@ UserInfoWidget.nameController!.dispose();
  CountryWidget.countryFlag="";
 
     super.dispose();
+  }
+
+  void onbuttontap() {
+    if (maleAndFemaleFlag == false) {
+      UserInfoWidget.gender = 0;
+      btnfemale = Colors.pink;
+      btnfemaleicon = ColorManager.whiteColor;
+      btnmale = ColorManager.whiteColor;
+      btnmaleicon = ColorManager.gray;
+    } else if (maleAndFemaleFlag == true) {
+      UserInfoWidget.gender = 1;
+      btnfemale = ColorManager.whiteColor;
+      btnfemaleicon = ColorManager.gray;
+      btnmale = ColorManager.blue;
+      btnmaleicon = ColorManager.whiteColor;
+    }
   }
 
   @override
@@ -89,6 +120,174 @@ UserInfoWidget.nameController!.dispose();
                       title: StringManager.userName.tr()));
             },
           ),
+
+          InkWell(
+            onTap: () {
+              dailogDate(
+                context: context,
+                widget: Container(
+                    height: ConfigSize.defaultSize! * 29,
+                    decoration: BoxDecoration(
+                        color: ColorManager.whiteColor,
+                        borderRadius: BorderRadius.circular(
+                            ConfigSize.defaultSize! * 2.3)),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(
+                            bottom: ConfigSize.defaultSize! * 2.3,
+                          ),
+                          child: PersianLinearDatePicker(
+                            showLabels: false,
+
+                            dateChangeListener:
+                                (String selectedDate) {
+                                  UserInfoWidget.age = selectedDate;
+                            },
+                            showMonthName: true,
+                            columnWidth:
+                            ConfigSize.defaultSize! * 12.7,
+
+                            //  labelStyle:
+                            //      const TextStyle(fontFamily: 'DIN', color: Colors.blue),
+                            selectedRowStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                ConfigSize.defaultSize! * 2.3),
+                            unselectedRowStyle: TextStyle(
+                                fontSize:
+                                ConfigSize.defaultSize! * 2.3,
+                                fontWeight: FontWeight.w100,
+                                color: ColorManager.gray),
+                            isPersian: false,
+                          ),
+                        ),
+                        MaterialButton(
+                            height: ConfigSize.defaultSize! * 5.55,
+                            color: ColorManager.blue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.circular(ConfigSize.defaultSize!*3),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              setState(() {});
+                            },
+                            child: SizedBox(
+                              width: ConfigSize.defaultSize! * 31.1,
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    StringManager.confirm.tr(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: ConfigSize
+                                            .defaultSize! *
+                                            2.5),
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ],
+                    )),
+              );
+            },
+            child: Container(
+              // height: 48.h,
+              // padding: EdgeInsets.all(15.r),
+              decoration: BoxDecoration(
+                // color: const Color(0xffF5F5F5),
+                borderRadius: BorderRadius.circular(
+                    ConfigSize.defaultSize! * 2.7),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Image.asset(AssetsPath.profileIcon, scale: 2.6),
+                      SizedBox(
+                        width: ConfigSize.defaultSize! * 1.7,
+                      ),
+                      Text(StringManager.birthdayDate.tr(),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: ConfigSize.defaultSize! * 1.7,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'NotoKufiArabic',
+                          )),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                          (UserInfoWidget.age == null ||
+                              UserInfoWidget.age == "")
+                              ? widget.myDataModel.profile!.birthday
+                              : UserInfoWidget.age.toString(),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: ConfigSize.defaultSize! * 1.7,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'NotoKufiArabic',
+                          )),
+                      SizedBox(
+                          width: ConfigSize.defaultSize! * 0.5),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: ConfigSize.defaultSize! * 1.7,
+                      ),
+                      SizedBox(
+                          width: ConfigSize.defaultSize! * 1.1),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      maleAndFemaleFlag = true;
+                      onbuttontap();
+                      UserInfoWidget.gender= 1;
+
+                    });
+                  },
+                  child: MaleFemale(
+                    bottomColor: btnmale,
+                    iconColor: btnmaleicon,
+                    gender: StringManager.male.tr(),
+                    icon: Icons.man,
+                  )),
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      maleAndFemaleFlag = false;
+                      onbuttontap();
+                      UserInfoWidget.gender=0;
+
+                    });
+                  },
+                  child: MaleFemale(
+                      bottomColor: btnfemale,
+                      iconColor: btnfemaleicon,
+                      gender: StringManager.female.tr(),
+                      icon: Icons.woman)),
+            ],
+          ),
+
+
+
 
 
    Row(

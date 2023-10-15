@@ -26,7 +26,7 @@ class Card3 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ProfileRowItem(
-              title: StringManager.custoumService.tr(),
+              title: StringManager.complaints.tr(),
               image: AssetsPath.customServiceIcon,
               onTap: () => Navigator.pushNamed(context, Routes.custoumService,
                   arguments: myData.id),

@@ -10,12 +10,12 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 
 class KickOutUserWidget extends StatelessWidget {
   final bool isKick ;
-  final String durationKickout ;
-  const KickOutUserWidget({required this.durationKickout ,   required this.isKick , Key? key}) : super(key: key);
+  var durationKickout ;
+  KickOutUserWidget({required this.durationKickout ,   required this.isKick , Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-   return   AnimatedOpacity(
+    return   AnimatedOpacity(
       opacity: isKick ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 500),
       child: Container(
@@ -26,7 +26,7 @@ class KickOutUserWidget extends StatelessWidget {
         // ignore: sort_child_properties_last
         child: Center(
             child: Text(
-              StringManager().bloc( durationKickout: durationKickout,).tr(),
+              StringManager().bloc( durationKickout: durationKickout['durationKickout'],).tr(),
               style: const TextStyle(color: ColorManager.whiteColor),
             )),
 

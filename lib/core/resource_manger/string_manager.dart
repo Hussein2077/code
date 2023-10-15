@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
-  static const int versionApp = 29;
+
+  static const int versionApp = 30;
 
   //updates
   static const String updateApp = 'Update TikChat APP';
@@ -19,6 +20,7 @@ class StringManager {
   static const String cachGiftKey = 'chachGifts';
   static const String cachReelsKey = 'cachReelsKey';
   static const String video = 'Video';
+  static const String age = 'Age';
 
 //shared
   static const String selectTimeFirst = 'Select time frist';
@@ -142,7 +144,7 @@ class StringManager {
   static const String rechargeHistory = "Recharge History";
   static const String inviteFriend = "Invite Friend";
   static const String settings = "Settings";
-  static const String custoumService = "CustoumService";
+  static const String complaints = "Complaints";
   static const String giftGallery = "Gift Gallery";
   static const String dimond = "Dimond";
   static const String addFriend = "Add Friend";

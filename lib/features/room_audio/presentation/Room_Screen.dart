@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:svgaplayer_flutter/parser.dart';
 import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
@@ -36,6 +35,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_r
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/host_top_center_widget.dart';
@@ -47,8 +47,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_party.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/team_blue.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/team_red.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_blue.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_red.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
@@ -82,15 +82,7 @@ class RoomScreen extends StatefulWidget {
   final bool isHost;
   static bool isGiftEntroAnimating = false;
   static bool isShowingBanner = false;
-  static int timeMinutePK = 0;
   static bool isInviteToMic = false;
-  static int timeSecondPK = 0;
-  static int scoreTeam1 = 0;
-  static int scoreTeam2 = 0;
-  static double precantgeTeam1 = 0.5;
-  static double precantgeTeam2 = 0.5;
-  static bool winRedTeam = false;
-  static bool winBlueTeam = false;
   static bool roomIsLoked = false;
   static late bool outRoom;
   static List<GiftData> listOfAnimatingGifts = [];
@@ -109,7 +101,6 @@ class RoomScreen extends StatefulWidget {
   static Map<String, String> banedUsers = {};
   static Map<String, UserDataModel> usersMessagesInRoom = {};
   static Map<String, RoomUserMesseagesModel> usersMessagesRoom = {};
-
   static Map<String, UserDataModel> usersInRoom = {};
   static ValueNotifier<int> clearTimeNotifier = ValueNotifier(0);
   static ValueNotifier<bool> showMessageButton = ValueNotifier<bool>(true);
@@ -122,9 +113,6 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<String> roomGiftsPrice = ValueNotifier<String>("");
   static ValueNotifier<bool> isKick = ValueNotifier<bool>(false);
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
-  static ValueNotifier<bool> isPK = ValueNotifier<bool>(false);
-  static ValueNotifier<bool> showPK = ValueNotifier<bool>(false);
-  static ValueNotifier<int> updatePKNotifier = ValueNotifier<int>(0); // make only that value notifier because update and rebuild pk widget
   static ValueNotifier<int> editRoom = ValueNotifier<int>(0);
   static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
   static ValueNotifier<int> updateLuckyBox = ValueNotifier<int>(0);
@@ -149,8 +137,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   final List<StreamSubscription<dynamic>?> subscriptions = [];
   late SVGAAnimationController animationControllerGift;
   late SVGAAnimationController animationControllerEntro;
-  late SVGAAnimationController animationControllerRedTeam;
-  late SVGAAnimationController animationControllerBlueTeam;
   late AnimationController controllerBanner;
   late Animation<Offset> offsetAnimationBanner;
   late AnimationController controllerEntro; // entro animation
@@ -166,37 +152,48 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   String userIdEmojie = ""; // to show emojie
   bool showGift = false; // to show gift
   String giftImg = ""; // to show img gift
-  String roomIntro = ""; // to change room intro
-  String roomName = ""; // to change room name
-  String roomImg = ""; // to change roo
-  String roomType = "";
+ ///////
+  Map<String,String>   roomDataUpdates =
+  {'room_intro': '','room_name':'',
+    'room_img':'', 'room_type':''};
+  /////
+
   String roomBackgroundChached = "";
-  String userNameIntro = "";
-  String userImageIntrp = "";
-  String giftBanner = "";
-  String? ownerIdRoomBanner;
+
+ //////
+  Map<String,String> userIntroData = {'user_name_intro':'','user_image_intro':'' };
+ /////
+
+  //////
+  Map<String,dynamic> userBannerData =
+  { 'gift_banner':'',
+    'owner_id_room_banner':'',
+    'is_password_room_banner':''
+  };
   UserDataModel? sendDataUser;
   UserDataModel? receiverDataUser;
-  bool isPasswordRoomBanner = false;
+  //////
+
+  //////
+  Map<String, dynamic> durationKickout = {"durationKickout": ""};
+  /////
+
+  ////
+  Map<String, dynamic> yallowBanner = {"yallowBannerhasPasswoedRoom": '' , "yallowBannerOwnerRoom" : ''};
+  ////
+
+  ////
+  Map<String, dynamic> superBox = {"isPasswordRoomLuckyBanner": false, "superCoins" : '', "ownerIdRoomLuckyBanner": ''};
+  ////
+
+
   bool isPlural = false;
   String numberOfGift = "0";
-  String durationKickout = "";
-  double scoreBlue = 0.5;
-  double scoreRed = 0.5;
-  String topUserImg = "";
-  String topUserName = "";
-  String topUserId = "";
-  bool showBox = false;
-  bool isPasswordRoomLuckyBanner = false;
   UserDataModel? sendSuperBox;
-  String? superCoins;
-  String? ownerIdRoomLuckyBanner;
   UserDataModel? pobUpSender;
   late AnimationController yellowBannercontroller;
   late Animation<Offset> offsetAnimationYellowBanner;
   UserDataModel? yallowBannerSender;
-  bool? yallowBannerhasPasswoedRoom;
-  int? yallowBannerOwnerRoom;
   bool showYellowBanner = false;
 
   @override
@@ -231,8 +228,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     animationControllerGift = SVGAAnimationController(vsync: this);
     animationControllerEntro = SVGAAnimationController(vsync: this);
-    animationControllerRedTeam = SVGAAnimationController(vsync: this);
-    animationControllerBlueTeam = SVGAAnimationController(vsync: this);
+    PkController.animationControllerRedTeam = SVGAAnimationController(vsync: this);
+    PkController.animationControllerBlueTeam = SVGAAnimationController(vsync: this);
     yellowBannercontroller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -319,11 +316,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         if (widget.myDataModel.vip1?.id != null) {
           RoomScreen.showEntro.value = true;
         }
-        userNameIntro = widget.myDataModel.name!;
-        userImageIntrp = widget.myDataModel.profile!.image!;
+        userIntroData['user_name_intro']  = widget.myDataModel.name!;
+        userIntroData['user_image_intro'] = widget.myDataModel.profile!.image!;
       }
       if (widget.room.showPk == 1) {
-        RoomScreen.showPK.value = true;
+        PkController.showPK.value = true;
       }
 
       RoomScreen.listOfLoskSeats.value.putIfAbsent(0, () => 0); //host place
@@ -450,20 +447,20 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         });
       }
       if (widget.room.isPK == 1) {
-        RoomScreen.isPK.value = true;
-        RoomScreen.showPK.value = true;
-        RoomScreen.timeMinutePK = widget.room.pkModel!.timeMPk!;
-        RoomScreen.timeSecondPK = widget.room.pkModel!.timeSPk!;
-        RoomScreen.scoreTeam1 = widget.room.pkModel!.team1Score!;
-        RoomScreen.scoreTeam2 = widget.room.pkModel!.team2Score!;
-        RoomScreen.precantgeTeam1 =
+        PkController.isPK.value = true;
+        PkController.showPK.value = true;
+        PkController.timeMinutePK = widget.room.pkModel!.timeMPk!;
+        PkController.timeSecondPK = widget.room.pkModel!.timeSPk!;
+        PkController.scoreTeam1 = widget.room.pkModel!.team1Score!;
+        PkController.scoreTeam2 = widget.room.pkModel!.team2Score!;
+        PkController.precantgeTeam1 =
             widget.room.pkModel!.percentageTeam1!.toDouble();
-        RoomScreen.precantgeTeam2 =
+        PkController.precantgeTeam2 =
             widget.room.pkModel!.percentageTeam2!.toDouble();
         PKWidget.pkId = widget.room.pkModel!.pkId.toString();
         PKWidget.isStartPK.value = true;
-        RoomScreen.updatePKNotifier.value =
-            RoomScreen.updatePKNotifier.value + 1;
+        PkController.updatePKNotifier.value =
+            PkController.updatePKNotifier.value + 1;
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
@@ -496,8 +493,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     controllerBanner.dispose();
     animationControllerGift.dispose();
     animationControllerEntro.dispose();
-    animationControllerBlueTeam.dispose();
-    animationControllerRedTeam.dispose();
+    PkController.animationControllerBlueTeam.dispose();
+    PkController.animationControllerRedTeam.dispose();
     controllerMusice.dispose();
     luckyBoxAddecontroller.close();
     RoomScreen.isGiftEntroAnimating = false;
@@ -507,9 +504,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   }
 
   activePK() {
-    RoomScreen.isPK.value
-        ? RoomScreen.isPK.value = false
-        : RoomScreen.isPK.value = true;
+    PkController.isPK.value
+        ? PkController.isPK.value = false
+        : PkController.isPK.value = true;
   }
 
   //todo you should remove this function
@@ -529,7 +526,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (giftData.showBanner) {
       sendDataUser = giftData.senderData;
       receiverDataUser = giftData.reciverData;
-      giftBanner = giftData.giftBanner;
+      userBannerData ['gift_banner']   = giftData.giftBanner;
       giftImg = giftData.giftImg;
       RoomScreen.showBanner.value = giftData.showBanner;
       isPlural = giftData.isPlural;
@@ -580,7 +577,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (giftData.showBanner) {
       sendDataUser = giftData.senderData;
       receiverDataUser = giftData.reciverData;
-      giftBanner = giftData.giftBanner;
+       userBannerData['gift_banner'] = giftData.giftBanner;
       giftImg = giftData.giftImg;
       controllerBanner.forward();
       isPlural = giftData.isPlural;
@@ -668,26 +665,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     }
   }
 
-  //todo change this image
-  Future<void> loadAnimationRedTeam(String img) async {
-    final videoItem = await SVGAParser.shared
-        .decodeFromURL("https://yai.rstar-soft.com/public/storage/$img");
-    animationControllerRedTeam.videoItem = videoItem;
-    animationControllerRedTeam.forward().whenComplete(() {
-      return animationControllerRedTeam.videoItem = null;
-    });
-  }
-
-  Future<void> loadAnimationBlueTeam(String img) async {
-    //todo update this url
-    final videoItem = await SVGAParser.shared
-        .decodeFromURL("https://yai.rstar-soft.com/public/storage/$img");
-    animationControllerBlueTeam.videoItem = videoItem;
-    animationControllerBlueTeam.forward().whenComplete(() {
-      return animationControllerBlueTeam.videoItem = null;
-    });
-  }
-
   Future<void> showYallowBannerAnimation(
       {required int senderId,
       required String message,
@@ -703,7 +680,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       yallowBannerSender = RoomScreen.usersInRoom[senderId.toString()];
     }
     ZegoInRoomMessageInput.messageYallowBanner = message;
-    yallowBannerhasPasswoedRoom = hasPasswoedRoom;
+    yallowBanner['yallowBannerhasPasswoedRoom'] = hasPasswoedRoom;
 
     if (yellowBannercontroller.animationBehavior.name == "normal") {
       yellowBannercontroller.reset();
@@ -712,7 +689,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     setState(() {
       yellowBannercontroller.forward();
       showYellowBanner = true;
-      yallowBannerOwnerRoom = ownerId;
+      yallowBanner['yallowBannerOwnerRoom'] = ownerId;
     });
     //  }
 
@@ -735,16 +712,16 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     //log('commandData.command'+commandData.command);
     if (result[messageContent] != null) {
       if (result[messageContent][message] == changeBackground) {
-        ChangeBackground(result, roomImg, roomIntro, roomName, roomType);
+        ChangeBackground(result,roomDataUpdates);
       }
       else if (result[messageContent][message] == userEntro) {
         if (result[messageContent]['uid'] != widget.myDataModel.id) {
-          UserEntro(result, userNameIntro, userImageIntrp, loadAnimationEntro);
+          UserEntro(result,  userIntroData ,loadAnimationEntro);
         }
       }
       else if (result[messageContent]['msg'] == 'SHB') {
         if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {
-          ShowPopularBanner(result, sendDataUser, receiverDataUser, giftBanner, isPasswordRoomBanner, ownerIdRoomBanner, controllerBanner);
+          ShowPopularBanner(result, sendDataUser, receiverDataUser, userBannerData, controllerBanner);
         }
       }
       else if (result[messageContent][message] == showEmojie) {
@@ -761,8 +738,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ShowGifts(result, widget.myDataModel.id.toString(), loadMp4Gift, loadAnimationGift);
       }
       else if (result[messageContent][message] == kicKoutKey) {
-        KicKoutKey(result, durationKickout, widget.room.ownerId.toString(), widget.myDataModel.id.toString(), context);
+        KicKout(result, durationKickout, widget.room.ownerId.toString(), widget.myDataModel.id.toString(), context);
+
       }
+      //PK start rtm
       else if (result[messageContent][message] == showPkKey) {
         ShowPkKey();
       }
@@ -776,8 +755,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         UpdatePkKey(result);
       }
       else if (result[messageContent][message] == closePkKey) {
-        ClosePkKey(result, loadAnimationBlueTeam, loadAnimationRedTeam);
+        ClosePkKey(result);
       }
+      //PK end rtm
       else if (result[messageContent][message] == leaveMicKey) {
         RoomScreen.userOnMics.value.remove(result[messageContent]['position']);
       }
@@ -854,7 +834,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         RoomScreen.luckyBoxes.removeWhere((element) => element.boxId == result[messageContent][boxIDKey].toString());
       }
       else if (result[messageContent][message] == bannerSuperBoxKey) {
-        BannerSuperBoxKey(result, isPasswordRoomLuckyBanner, superCoins, sendSuperBox, ownerIdRoomLuckyBanner, showBannerLuckyBox);
+        BannerSuperBoxKey(result, superBox, sendSuperBox, showBannerLuckyBox);
       }
       else if (result[messageContent]['msg'] == showPobUpKey) {
         ShowPobUpKey(result, pobUpSender, showPopUp);
@@ -1093,7 +1073,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                       layoutMode: layoutMode, topUser: topUser,room:  widget.room,myDataModel:   widget.myDataModel, );
                   }),
             ValueListenableBuilder<bool>(
-                valueListenable: RoomScreen.showPK,
+                valueListenable: PkController.showPK,
                 builder: (context, isShowPK, _) {
                   if (isShowPK && layoutMode == LayoutMode.hostTopCenter) {
                     return Padding(
@@ -1101,8 +1081,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: PKWidget(
-                            scoreBlueTeam: scoreBlue,
-                            scoreRedTem: scoreRed,
+                            scoreBlueTeam: PkController.scoreBlue,
+                            scoreRedTem: PkController.scoreRed,
                             isHost: widget.isHost,
                             ownerId: widget.room.ownerId.toString(),
                             notifyRoom: activePK,
@@ -1164,11 +1144,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             builder: (context, editValue, _) {
               return HeaderRoom(
                 userInRoomController: userInRoomController,
-                roomName: roomName,
+                roomName:roomDataUpdates['room_name']??'' ,
                 room: widget.room,
                 myDataModel: widget.myDataModel,
-                introRoom: roomIntro,
-                roomImg: roomImg,
+                introRoom: roomDataUpdates['room_intro']??'' ,
+                roomImg:roomDataUpdates['room_img']??'',
                 notifyRoom: activePK,
                 roomMode: layoutMode == LayoutMode.hostTopCenter
                     ? 0
@@ -1176,7 +1156,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                         ? 1
                         : 2,
                 refreshRoom: refrashRoom,
-                roomType: roomType,
+                roomType:roomDataUpdates['room_type']??''  ,
                 layoutMode: layoutMode,
               );
             }),
@@ -1202,15 +1182,16 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             top: ConfigSize.defaultSize! * 18,
             bottom: ConfigSize.defaultSize! * 45,
             right: ConfigSize.defaultSize! * 14,
-            child: SVGAImage(animationControllerRedTeam)),
+            child: SVGAImage(PkController.animationControllerRedTeam)),
         Positioned(
             top: ConfigSize.defaultSize! * 18,
             bottom: ConfigSize.defaultSize! * 45,
             left: ConfigSize.defaultSize! * 14,
             child: SVGAImage(
-              animationControllerBlueTeam,
+              PkController.animationControllerBlueTeam,
             )),
-        Positioned(child: SVGAImage(animationControllerGift)),
+        Positioned(
+            child: SVGAImage(animationControllerGift)),
         IgnorePointer(
           child: ValueListenableBuilder<bool>(
               valueListenable: RoomScreen.isVideoVisible,
@@ -1235,7 +1216,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             valueListenable: RoomScreen.showEntro,
             builder: (context, isShow, _) {
               if (isShow) {
-                return showEntroWidget(userNameIntro, userImageIntrp);
+                return showEntroWidget(userIntroData);
               } else {
                 return const SizedBox();
               }
@@ -1249,9 +1230,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                   controllerYallowBanner: yellowBannercontroller,
                   offsetAnimationYallowBanner: offsetAnimationYellowBanner,
                   senderYallowBanner: yallowBannerSender,
-                  hasPassword: yallowBannerhasPasswoedRoom!,
+                  hasPassword: yallowBanner,
                   myData: widget.myDataModel,
-                  ownerId: yallowBannerOwnerRoom!)),
+                  ownerId: yallowBanner)),
         ValueListenableBuilder<bool>(
             valueListenable: RoomScreen.showBanner,
             builder: (context, isShow, _) {
@@ -1265,9 +1246,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             widget.myDataModel.convertToUserObject(),
                         receiverDataUser: receiverDataUser ??
                             widget.myDataModel.convertToUserObject(),
-                        giftImage: giftBanner,
-                        ownerId:
-                            ownerIdRoomBanner ?? widget.room.ownerId.toString(),
+                        giftImage: userBannerData['gift_banner']??'' ,
+                        ownerId:userBannerData['owner_id_room_banner']
+                             ?? widget.room.ownerId.toString(),
                         controllerBanner: controllerBanner,
                         offsetAnimationBanner: offsetAnimationBanner));
               } else {
@@ -1283,9 +1264,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     left: ConfigSize.defaultSize! * 5.78,
                     child: showLuckyBannerWidget(
                         sendDataUser: sendSuperBox!,
-                        ownerId: ownerIdRoomLuckyBanner!,
-                        coins: superCoins!,
-                        isPassword: isPasswordRoomLuckyBanner));
+                        superBox: superBox,));
               } else {
                 return const SizedBox();
               }
@@ -1344,7 +1323,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     });
   }
 
-  Widget showEntroWidget(String userName, String userImage) {
+  Widget showEntroWidget( Map<String,String> userIntroData   ) {
     Future.delayed(const Duration(seconds: 8)).then((value) {
       RoomScreen.showEntro.value = false;
     });
@@ -1360,12 +1339,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: UserImage(
-                    image: userImage,
+                    image:userIntroData['user_image_intro']??'' ,
                     imageSize: AppPadding.p40,
                   ),
                 ),
                 Text(
-                  userName,
+                  userIntroData['user_name_intro']??'',
                   style: const TextStyle(
                       color: ColorManager.gold,
                       fontWeight: FontWeight.w600,
@@ -1393,7 +1372,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         onTap: () async {
           if (widget.room.ownerId.toString() != ownerId) {
             if (!showGift) {
-              if (isPasswordRoomBanner) {
+              if (userBannerData['is_password_room_banner']??false) {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -1430,9 +1409,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   Widget showLuckyBannerWidget(
       {required UserDataModel sendDataUser,
-      required String ownerId,
-      required String coins,
-      required bool isPassword}) {
+      required var superBox,}) {
     Future.delayed(const Duration(seconds: 8)).then((value) {
       if (showBannerLuckyBox.value) {
         showBannerLuckyBox.value = false;
@@ -1443,8 +1420,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       duration: const Duration(seconds: 5),
       child: InkWell(
         onTap: () async {
-          if (widget.room.ownerId.toString() != ownerId) {
-            if (isPassword) {
+          if (widget.room.ownerId.toString() != superBox['ownerIdRoomLuckyBanner']) {
+            if (superBox['isPasswordRoomLuckyBanner']) {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -1454,7 +1431,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                             horizontal: ConfigSize.defaultSize! * 0.8),
                         title: const Text(StringManager.enterPassword),
                         content: EnterPasswordRoomDialog(
-                          ownerId: ownerId,
+                          ownerId: superBox['ownerIdRoomLuckyBanner'],
                           myData: widget.myDataModel,
                         ));
                   });
@@ -1463,12 +1440,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               MainScreen.iskeepInRoom.value = true;
               Navigator.pushNamed(context, Routes.roomHandler,
                   arguments: RoomHandlerPramiter(
-                      ownerRoomId: ownerId, myDataModel: widget.myDataModel));
+                      ownerRoomId: superBox['ownerIdRoomLuckyBanner'], myDataModel: widget.myDataModel));
             }
           }
         },
         child: ShowLuckyBannerBodyWidget(
-            sendDataUser: sendDataUser, coins: coins, ownerId: ownerId),
+            sendDataUser: sendDataUser, coins: superBox['superCoins'], ownerId: superBox['ownerIdRoomLuckyBanner']),
       ),
     );
   }
@@ -1477,7 +1454,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (layoutMode == LayoutMode.hostTopCenter) {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
-          if (user?.id == null && RoomScreen.showPK.value) {
+          if (user?.id == null && PkController.showPK.value) {
             if (RoomScreen.teamRed.contains(extraInfo['index'])) {
               return const  TeamRed();
             } else if (RoomScreen.teamBlue.contains(extraInfo['index'])) {
@@ -1485,7 +1462,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             } else {
               return Container();
             }
-          } else if (user?.id == null && !RoomScreen.showPK.value) {
+          } else if (user?.id == null && !PkController.showPK.value) {
             return NoneUserOnSeat(
               extraInfo: extraInfo,
             );

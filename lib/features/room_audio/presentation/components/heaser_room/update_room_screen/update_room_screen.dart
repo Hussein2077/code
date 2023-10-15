@@ -4,6 +4,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/update_room_body.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
 
@@ -69,7 +70,7 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
   }
   activePK() {
 
-    RoomScreen.isPK.value ? RoomScreen.isPK.value = false : RoomScreen.isPK.value = true;
+    PkController.isPK.value ? PkController.isPK.value = false : PkController.isPK.value = true;
 
   }
 

@@ -53,8 +53,7 @@ class RepositoryImp extends BaseRepository {
   @override
   Future<Either<MyDataModel, Failure>> addInformation(InformationPramiter informationPramiter)async {
     try {
-      final result = await baseRemotlyDataSource
-          .addInformation(informationPramiter);
+      final result = await baseRemotlyDataSource.addInformation(informationPramiter);
       return Left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));

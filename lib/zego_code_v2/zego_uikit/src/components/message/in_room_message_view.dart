@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 
 
 
@@ -92,7 +93,7 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
           removeTop: true,
           removeBottom: true,
           child: ValueListenableBuilder(
-            valueListenable: RoomScreen.isPK,
+            valueListenable: PkController.isPK,
             builder: (context,isShowPK,_){
               return ConstrainedBox(
                 constraints: widget.roomMode == LayoutMode.hostTopCenter

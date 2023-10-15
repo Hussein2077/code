@@ -363,8 +363,6 @@ static String uploadImagePrice = "" ;
   @override
   Future<List<UserTopModel>> getTopInRoom(TopPramiterInRoom topPramiter) async {
         Map<String, String> headers = await DioHelper().header();
-  
-
     final body = {
 
       'type': topPramiter.date,
@@ -376,7 +374,7 @@ static String uploadImagePrice = "" ;
             headers: headers,
           ),
           data: body);
-
+      log('${response.data}topPramiter.date');
       Map<String, dynamic> jsonData = response.data;
       List<UserTopModel> listTopUserModel = [];
       listTopUserModel = List<UserTopModel>.from(

@@ -14,42 +14,51 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_top
 class CustomContainRoom extends StatelessWidget {
   final IconData icon;
   final String text;
-  final String ownerId ;
-  final int id;
-  final EnterRoomModel roomData ;
-  final MyDataModel myData ;
-  final LayoutMode layoutMode ;
+  final String ownerId;
 
-  const CustomContainRoom({required this.id,required this.layoutMode ,
-    Key? key, required this.myData, required this.roomData,
-    required this.icon,required this.ownerId, required this.text})
+  final int id;
+  final EnterRoomModel roomData;
+
+  final MyDataModel myData;
+
+  final LayoutMode layoutMode;
+
+  const CustomContainRoom(
+      {required this.id,
+      required this.layoutMode,
+      Key? key,
+      required this.myData,
+      required this.roomData,
+      required this.icon,
+      required this.ownerId,
+      required this.text})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return InkWell(
-      onTap: (){
-        BlocProvider.of<TobinRoomBloc>(context)..add(getTopIn24HoursRoomEvent(typeDate: '1',ownerId:ownerId ))
-          ..add(getTopInTotalRoomEvent(typeDate: '2',ownerId: ownerId)) ;
+      onTap: () {
+        BlocProvider.of<TobinRoomBloc>(context)
+          ..add(getTopIn24HoursRoomEvent(typeDate: '1', ownerId: ownerId))
+          ..add(getTopInTotalRoomEvent(typeDate: '2', ownerId: ownerId));
         bottomDailog(
             context: context,
-            widget:  TopInRoomScreen(id: id, roomData: roomData, myData: myData, layoutMode:layoutMode ,) );
+            widget: TopInRoomScreen(
+              id: id,
+              roomData: roomData,
+              myData: myData,
+              layoutMode: layoutMode,
+            ));
       },
       child: Container(
-
         decoration: const BoxDecoration(
-          image: DecorationImage(
-
-            image: AssetImage(AssetsPath.contanerDiamodn)
-          ),
+          image: DecorationImage(image: AssetImage(AssetsPath.contanerDiamodn)),
         ),
         padding: EdgeInsets.symmetric(
           horizontal: ConfigSize.defaultSize!,
-
         ),
         child: Padding(
-          padding:  EdgeInsets.only(
+          padding: EdgeInsets.only(
             right: ConfigSize.defaultSize!,
             top: ConfigSize.defaultSize!,
             bottom: ConfigSize.defaultSize!,
@@ -58,29 +67,27 @@ class CustomContainRoom extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width:ConfigSize.defaultSize!*2,
-                height:ConfigSize.defaultSize!*2 ,
+                width: ConfigSize.defaultSize! * 2,
+                height: ConfigSize.defaultSize! * 2,
                 decoration: const BoxDecoration(
-
                     image: DecorationImage(
-                      image: AssetImage(AssetsPath.cup),
-
-                    )
-                ),
+                  image: AssetImage(AssetsPath.cup),
+                )),
               ),
               Text(
                 text,
-                style:  TextStyle(color: Colors.white, fontSize:ConfigSize.defaultSize!+2),
+                style: TextStyle(
+                    color: Colors.white, fontSize: ConfigSize.defaultSize! + 2),
               ),
               SizedBox(
-                width: ConfigSize.defaultSize!-5,
+                width: ConfigSize.defaultSize! - 5,
               ),
-              Icon(Icons.arrow_forward_ios_outlined,color: Color(0xffFFDC84),size: ConfigSize.defaultSize!),
+              Icon(Icons.arrow_forward_ios_outlined,
+                  color: Color(0xffFFDC84), size: ConfigSize.defaultSize!),
             ],
           ),
         ),
-      )
-       ,
+      ),
     );
   }
 }
