@@ -73,7 +73,7 @@ class _BlockButtonState extends State<BlockButton> {
                                 .toList(),
                             // value:RoomTypeButton.roomType ,
                             onChanged: (value) {
-                                 Navigator.pop(context);
+
                                                 if (value ==
                                                     StringManager.fiveMin
                                                         .tr()) {

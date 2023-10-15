@@ -82,10 +82,8 @@ class MomentController {
   }
 
   void giftController(BuildContext context) {
-    log('done1 ');
 
     if (MomentBottomBarState.momentType == MomentType.myMoment) {
-      log('done2 ');
 
       BlocProvider.of<GetMomentBloc>(context).add(LocalGiftMoment(
           giftsNum: MomentBottomBarState.giftsNum,

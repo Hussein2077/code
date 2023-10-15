@@ -92,7 +92,7 @@ class UpperProfileBody extends StatelessWidget {
                         if (!myProfile)
                           if (myDataModel.nowRoom!.isnInRoom!)
                             MainButton(
-                              title: StringManager.nowInRoom,
+                              title: StringManager.nowInRoom.tr(),
                               buttonColor: ColorManager.mainColorList,
                               onTap: () {
                                 Methods().checkIfRoomHasPassword(

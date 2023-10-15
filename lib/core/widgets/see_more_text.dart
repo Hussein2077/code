@@ -2,14 +2,17 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableText extends StatefulWidget {
+
+
+  final String text;
+  final int trimLines;
   const ExpandableText(
       this.text, {
         Key? key,
         this.trimLines = 2,
       })  : super(key: key);
 
-  final String text;
-  final int trimLines;
+
 
   @override
   ExpandableTextState createState() => ExpandableTextState();
@@ -23,7 +26,6 @@ class ExpandableTextState extends State<ExpandableText> {
 
   @override
   Widget build(BuildContext context) {
-    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
     const colorClickableText = Colors.blue;
     TextSpan link = TextSpan(
         text: _readMore ? "... read more" : " read less",

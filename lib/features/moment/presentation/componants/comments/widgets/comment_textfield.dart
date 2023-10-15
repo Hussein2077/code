@@ -5,8 +5,6 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 
 class CommentTextField extends StatelessWidget{
@@ -30,7 +28,8 @@ return Expanded(
               ConfigSize.defaultSize! * 1.6),
         ),
         child: TextField(
-          keyboardType: TextInputType.multiline,
+
+              keyboardType: TextInputType.multiline,
           minLines: 1,
           maxLines: null,
           controller: commentController,
@@ -44,17 +43,36 @@ return Expanded(
               .textTheme
               .bodyLarge,
           decoration: InputDecoration(
-              fillColor: Theme.of(context)
-                  .colorScheme
-                  .secondary
-                  .withOpacity(0.3),
-              filled: true,
-              hintText: StringManager.addComment.tr(),
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall,
-              contentPadding: EdgeInsets.only(
-                left: ConfigSize.defaultSize! * 2,
+
+
+              border: OutlineInputBorder(
+                borderRadius:
+                BorderRadius.circular(
+                    ConfigSize.defaultSize! *
+                        2),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                borderRadius: BorderRadius.all(
+                    Radius.circular(ConfigSize.defaultSize! * 5)),
+              ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color:
+                      Theme.of(context).colorScheme.primary,
+                    ),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(ConfigSize.defaultSize! * 5)),
+                  ),
+                  fillColor:
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                  filled: true,
+                  hintText: StringManager.addComment.tr(),
+                  hintStyle: Theme.of(context).textTheme.bodySmall,
+                  contentPadding: EdgeInsets.only(
+                    left: ConfigSize.defaultSize! * 2,
                 top: ConfigSize.defaultSize! *
                     -0.5,
                 right:
@@ -62,19 +80,9 @@ return Expanded(
                 bottom:
                 ConfigSize.defaultSize! * 1.5,
               ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius:
-                BorderRadius.circular(
-                    ConfigSize.defaultSize! *
-                        2),
-              ),
-              border: OutlineInputBorder(
-                borderRadius:
-                BorderRadius.circular(
-                    ConfigSize.defaultSize! *
-                        2),
-              )),
+
+
+          ),
         ),
       ),
       InkWell(

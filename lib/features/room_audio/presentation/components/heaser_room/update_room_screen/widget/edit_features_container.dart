@@ -46,19 +46,20 @@ class EditFeaturesContainer extends StatefulWidget{
 }
 
 class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
-  List<String> roomFeaturesTitles = [
-    StringManager.clearChat.tr(),
-    StringManager.lockRoom.tr(),
-    StringManager.music2.tr(),
-    StringManager.admin.tr(),
-    StringManager.theme.tr(),
-    StringManager.mode.tr(),
-  ];
-
 
 
   @override
   Widget build(BuildContext context) {
+
+    List<String> roomFeaturesTitles = [
+      StringManager.clearChat.tr(),
+      RoomScreen.roomIsLoked ? StringManager.unlockRoom.tr() : StringManager.lockRoom.tr(),
+      StringManager.music2.tr(),
+      StringManager.admin.tr(),
+      StringManager.theme.tr(),
+      StringManager.mode.tr(),
+    ];
+
     List<Widget> roomFeaturesIcons = [
       Image.asset(
         AssetsPath.chatLock,
@@ -67,10 +68,8 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
         ,
       ),
       Image.asset(
-        AssetsPath.lockRoom,
-        color:
-        Theme.of(context).colorScheme.primary
-        ,
+        RoomScreen.roomIsLoked ? AssetsPath.lockRoom : AssetsPath.openLock,
+        color: Theme.of(context).colorScheme.primary,
       ),
       Image.asset(
         AssetsPath.music2,
@@ -96,12 +95,8 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
         scale: 2.5
         ,
       ),
-
-
-
-
-
     ];
+
     List<Function()?> roomFeaturesOnTaps = [
           () {
       clearChatDialog(context);
@@ -109,15 +104,13 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
 
           () {
             if (RoomScreen.roomIsLoked) {
-              BlocProvider.of<OnRoomBloc>(context).add(
-                  RemovePassRoomEvent(ownerId: widget.ownerId));
-
+              BlocProvider.of<OnRoomBloc>(context).add(RemovePassRoomEvent(ownerId: widget.ownerId));
               setState(() {
                 RoomScreen.roomIsLoked = false;
               });
             } else {
               Navigator.pop(context);
-lockChatDialog();
+              lockChatDialog();
             }
 
           },

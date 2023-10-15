@@ -47,7 +47,7 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
   Timer? timer;
   Timer? timerDuration;
   late final AnimationController animationController;
-  double percent = 0;
+  ValueNotifier<double> percentNotifier = ValueNotifier<double>(0.0);
 
   bool isVisible = false;
 
@@ -63,23 +63,19 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
 
 
 
-  void showWidget() {
+  void showWidget(Timer timer1) {
 
     if (timer != null) {
       timer!.cancel();
     }
-    timer = Timer.periodic(const Duration(milliseconds:1 ), (timer) {
-      setState(() {
-        percent = percent + 0.0017;
-      });
-    });
+    timer =timer1;
     timerDuration = Timer(const Duration(milliseconds:2500 ), () {
       setState(() {
         if (widget.compo != 0) {
           sendGift(widget.compo);
         }
         timer!.cancel();
-        percent = 0;
+        percentNotifier.value = 0;
         widget.compo = 0;
         isVisible = false;
       });
@@ -179,14 +175,16 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
                           ),
                           InkWell(
                             onTap: () {
-                              setState(() {
+
                                 if (timerDuration != null) {
                                   timerDuration!.cancel();
                                 }
-                                showWidget();
-                                percent = 0;
+                                showWidget(Timer.periodic(const Duration(milliseconds: 1), (timer) {
+                                  percentNotifier.value += 0.0017;
+                                }));
+                                percentNotifier.value = 0;
                                 widget.compo++;
-                              });
+
                             },
                             child: Stack(
                               alignment: Alignment.center,
@@ -207,16 +205,21 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
                                             fit: BoxFit.fill)),
                                   ),
                                 ),
-                                CircularPercentIndicator(
-                                  radius: ConfigSize.defaultSize! * 3.4,
-                                  lineWidth: 3,
-                                  animation: true,
-                                  curve: Curves.ease,
-                                  animateFromLastPercent: true,
-                                  addAutomaticKeepAlive: true,
-                                  percent: percent<1?percent:1,
-                                  backgroundColor: Colors.grey,
-                                  progressColor: Colors.yellow,
+                                ValueListenableBuilder<double>(
+                                    valueListenable: percentNotifier,
+                                    builder: (context, percent, child) {
+                                    return CircularPercentIndicator(
+                                      radius: ConfigSize.defaultSize! * 3.4,
+                                      lineWidth: 3,
+                                      animation: true,
+                                      curve: Curves.ease,
+                                      animateFromLastPercent: true,
+                                      addAutomaticKeepAlive: true,
+                                      percent: percent<1?percent:1,
+                                      backgroundColor: Colors.grey,
+                                      progressColor: Colors.yellow,
+                                    );
+                                  }
                                 ),
                               ],
                             ),
@@ -280,7 +283,9 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
                                               Radius.circular(AppPadding.p12))),
                                   child: InkWell(
                                     onTap: () {
-                                      showWidget();
+                                      showWidget(Timer.periodic(const Duration(milliseconds: 1), (timer) {
+                                        percentNotifier.value += 0.0017;
+                                      }));
 
                                       sendGift(null);
                                     },

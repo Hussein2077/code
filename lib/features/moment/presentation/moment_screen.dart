@@ -95,21 +95,21 @@ class MomentScreenState extends State<MomentScreen>
   child: BlocListener<GetMomentBloc, GetMomentUserState>(
         listener: (context, state) {
           if (state is GetMomentUserSucssesState) {
-              MomentController.getInstance.fillGiftMap(state.data!);
+             // MomentController.getInstance.fillGiftMap(state.data!);
 
           }
         },
         child: BlocListener<GetMomentILikeItBloc, GetMomentILikeItUserState>(
           listener: (context, state) {
             if (state is GetMomentILikeItSucssesState) {
-              MomentController.getInstance.fillGiftMap(state.data!);
+              //MomentController.getInstance.fillGiftMap(state.data!);
             }
           },
 
           child: BlocListener<GetFollowingUserMomentBloc, GetFollowingUserMomentState>(
             listener: (context, state) {
               if (state is GetFollowingUserMomentSucssesState) {
-                MomentController.getInstance.fillGiftMap(state.data!);
+                //MomentController.getInstance.fillGiftMap(state.data!);
               }
             },
             child:  BlocListener<AddMomentCommentBloc, AddMomentCommentState>(

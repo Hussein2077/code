@@ -53,7 +53,7 @@ class _MomentCommentsState extends State<MomentComments> {
                   vertical: ConfigSize.defaultSize!,
                   horizontal: ConfigSize.defaultSize! * 2),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5),
               ),
               child: Column(

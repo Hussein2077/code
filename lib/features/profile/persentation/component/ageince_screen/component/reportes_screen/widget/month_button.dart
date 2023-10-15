@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -42,7 +43,7 @@ class _MounthButtonState extends State<MounthButton> {
         child: DropdownButton2(
           isExpanded: true,
           hint: Text(
-           StringManager.mounth,
+           StringManager.mounth.tr(),
             style: TextStyle(
               fontSize: ConfigSize.defaultSize! * 1.8,
               fontWeight: FontWeight.bold,

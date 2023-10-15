@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:persian_linear_date_picker/persian_linear_date_picker.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
-import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -196,53 +195,48 @@ UserInfoWidget.nameController!.dispose();
               );
             },
             child: Container(
-              // height: 48.h,
-              // padding: EdgeInsets.all(15.r),
+         padding:
+                  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1),
               decoration: BoxDecoration(
                 // color: const Color(0xffF5F5F5),
-                borderRadius: BorderRadius.circular(
-                    ConfigSize.defaultSize! * 2.7),
+                borderRadius:
+                    BorderRadius.circular(ConfigSize.defaultSize! * 2.7),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Image.asset(AssetsPath.profileIcon, scale: 2.6),
-                      SizedBox(
-                        width: ConfigSize.defaultSize! * 1.7,
-                      ),
-                      Text(StringManager.birthdayDate.tr(),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: ConfigSize.defaultSize! * 1.7,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'NotoKufiArabic',
-                          )),
-                    ],
+                  Text(StringManager.birthdayDate.tr(),
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: ConfigSize.defaultSize! * 1.7,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'NotoKufiArabic',
+                      )),
+                  SizedBox(
+                      width: ConfigSize.screenWidth! * 0.489,
                   ),
                   Row(
                     children: [
                       Text(
                           (UserInfoWidget.age == null ||
-                              UserInfoWidget.age == "")
+                                  UserInfoWidget.age == "")
                               ? widget.myDataModel.profile!.birthday
                               : UserInfoWidget.age.toString(),
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.grey,
                             fontSize: ConfigSize.defaultSize! * 1.7,
                             fontWeight: FontWeight.w400,
                             fontFamily: 'NotoKufiArabic',
                           )),
                       SizedBox(
-                          width: ConfigSize.defaultSize! * 0.5),
+                          width: ConfigSize.defaultSize! * 0.8),
                       Icon(
                         Icons.arrow_forward_ios_rounded,
-                        size: ConfigSize.defaultSize! * 1.7,
+                        size: ConfigSize.defaultSize! * 2.5,
                       ),
                       SizedBox(
-                          width: ConfigSize.defaultSize! * 1.1),
+                          width: ConfigSize.defaultSize! * 0.35),
                     ],
                   )
                 ],
@@ -345,6 +339,7 @@ Widget rowWidget(
           Icon(
             Icons.arrow_forward_ios,
             color: Theme.of(context).colorScheme.primary,
+
           ),
           // const Spacer(flex: 1),
         ],

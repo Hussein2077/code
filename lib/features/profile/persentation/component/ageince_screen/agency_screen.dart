@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -27,50 +28,100 @@ class AgenceScreen extends StatefulWidget {
 }
 
 class _AgenceScreenState extends State<AgenceScreen> {
+
+  final ScrollController scrollController = ScrollController();
+  var data;
+
   @override
   void initState() {
     BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
+    BlocProvider.of<ShowAgencyBloc>(context).add(ShowAgencyEvent());
+    scrollController.addListener(scrollListener);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ShowAgencyBloc>(context).add(ShowAgencyEvent());
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
         body: BlocBuilder<ShowAgencyBloc, ShowAgencyState>(
           builder: (context, state) {
             if (state is ShowAgencySucssesState) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: ConfigSize.defaultSize! * 3.5,
+              data = state.data;
+              return LiquidPullToRefresh(
+                color: ColorManager.bage,
+                backgroundColor: ColorManager.loadingColor,
+                showChildOpacityTransition: false,
+                onRefresh: () async {
+                  BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
+                  BlocProvider.of<ShowAgencyBloc>(context).add(ShowAgencyEvent());
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  controller: scrollController,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 3.5,
+                      ),
+                       HeaderWithOnlyTitle(title: StringManager.agency.tr()),
+
+                      agencyCommanWidget(
+                          context: context,
+                          agienceName: state.data.name!,
+                          bio: state.data.notice!,
+                          id: state.data.id!.toString(),
+                          image: state.data.image!),
+                  if((StringManager.userType[2]!||StringManager.userType[4]! ))
+                      OwnerAgencyBody(myData: widget.mydata),
+
+                      if(StringManager.userType[1]! || StringManager.userType[6]!)
+                        Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
+                    ],
                   ),
-                   HeaderWithOnlyTitle(title: StringManager.agency.tr()),
-
-                  agencyCommanWidget(
-                      context: context,
-                      agienceName: state.data.name!,
-                      bio: state.data.notice!,
-                      id: state.data.id!.toString(),
-                      image: state.data.image!),
-              if((StringManager.userType[2]!||StringManager.userType[4]! ))
-                  OwnerAgencyBody(myData: widget.mydata),
-
-                  if(StringManager.userType[1]! || StringManager.userType[6]!)
-                    Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
-                ],
+                ),
               );
             } else if (state is ShowAgencyLoadingState) {
-              return const LoadingWidget();
+              if(data != null){
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: ConfigSize.defaultSize! * 3.5,
+                    ),
+                    HeaderWithOnlyTitle(title: StringManager.agency.tr()),
+
+                    agencyCommanWidget(
+                        context: context,
+                        agienceName: data.name!,
+                        bio: data.notice!,
+                        id: data.id!.toString(),
+                        image: data.image!),
+                    if((StringManager.userType[2]!||StringManager.userType[4]! ))
+                      OwnerAgencyBody(myData: widget.mydata),
+
+                    if(StringManager.userType[1]! || StringManager.userType[6]!)
+                      Expanded(child: MemberAgencyBody(owner: data.owner!,))
+                  ],
+                );
+              }else {
+                return const LoadingWidget();
+              }
             } else if (state is ShowAgencyErrorState) {
               return CustomErrorWidget(message: state.error);
             } else {
-              return  CustomErrorWidget(
-                  message: StringManager.unexcepectedError.tr());
+              return  CustomErrorWidget(message: StringManager.unexcepectedError.tr());
             }
           },
         ));
+  }
+  void scrollListener() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
+      BlocProvider.of<ShowAgencyBloc>(context).add(ShowAgencyEvent());
+    } else {}
   }
 }
 
@@ -129,7 +180,7 @@ Widget agencyCommanWidget(
               style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
             ),
             Text(
-              "Bio :$bio",
+              "${StringManager.bio.tr()} :$bio",
               style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
             ),
 

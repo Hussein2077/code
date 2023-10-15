@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -49,6 +50,8 @@ class _AddProFilePicState extends State<AddProFilePic> {
     
     AddProFilePic.image = await picker.pickImage(source: ImageSource.gallery , imageQuality:quality );
     setState(() {});
+   // MyDataModel.getInstance().profile!.image=AddProFilePic.image.path;
+    log('${AddProFilePic.image!.path}heeeeeeeeeeeee');
   }
 
   @override
@@ -56,6 +59,7 @@ class _AddProFilePicState extends State<AddProFilePic> {
     return InkWell(
         onTap: () {
           _getImage(widget.quality);
+          log('hereee');
         },
         child: SizedBox(
           width: ConfigSize.defaultSize! * 11.4,
@@ -66,7 +70,8 @@ class _AddProFilePicState extends State<AddProFilePic> {
                 width: ConfigSize.defaultSize! * 11,
                 height: ConfigSize.defaultSize! * 11,
 
-                decoration: MyDataModel.getInstance().profile?.image != "" ?
+                decoration: MyDataModel.getInstance().profile?.image != ""
+                    &&AddProFilePic.image==null ?
                 BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
                         shape: BoxShape.circle,

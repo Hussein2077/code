@@ -12,6 +12,8 @@ class StringManager {
   // cach keys
   static const String cacheFrameKey = 'Frame';
   static const String hasJoin = "has joined";
+  static const String games = "Games";
+  static const String gameroom = "Game Room";
 
   static const String cacheEmojieKey = 'Emojie';
   static const String cacheEntroKey = 'Entro';
@@ -366,6 +368,7 @@ class StringManager {
   static const String mysteriousPerson = "Mysterious Person";
   static const String cancle = "Cancel";
   static const String nameAgency = "Name Agency ";
+  static const String Bio = "Bio";
 
   //create room
   static const String enterYourRoomData = "please,Enter your room data";
@@ -457,6 +460,7 @@ class StringManager {
   static const String entertainment = "entertainment";
   static const String lockChat = "lock chat";
   static const String lockRoom = "lock room";
+  static const String unlockRoom = "unlock room";
   static const String music2 = "music";
   static const String addAmin2 = "add admin";
   static const String roomCover = "room cover";
@@ -502,7 +506,7 @@ class StringManager {
  static const String thisMomentc = "this moment has no comments yet";
 
   static const String momentTab = "Moments";
-  static const String likes = "Liked";
+  static const String likes = "Likes";
   static const String followingTab = "Following";
   static const String myMomentsTab = "My moments";
 

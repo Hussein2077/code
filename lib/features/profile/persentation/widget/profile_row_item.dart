@@ -13,38 +13,41 @@ class ProfileRowItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Row(
-        children: [
-          const Spacer(
-            flex: 1,
-          ),
-          Image.asset(
-            image,
-            scale: 2.5,
-          ),
-          const Spacer(
-            flex: 1,
-          ),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontSize: ConfigSize.defaultSize! * 1.6,
+    return SizedBox(
+      height: ConfigSize.defaultSize! * 5,
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+          children: [
+            const Spacer(
+              flex: 1,
             ),
-          ),
-          const Spacer(
-            flex: 20,
-          ),
-          Icon(
-            Icons.arrow_forward_ios,
-            color: Theme.of(context).colorScheme.primary,
-            size: ConfigSize.defaultSize! * 1.4,
-          ),
-          const Spacer(
-            flex: 1,
-          ),
-        ],
+            Image.asset(
+              image,
+              scale: 2.5,
+            ),
+            const Spacer(
+              flex: 1,
+            ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontSize: ConfigSize.defaultSize! * 1.6,
+              ),
+            ),
+            const Spacer(
+              flex: 20,
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Theme.of(context).colorScheme.primary,
+              size: ConfigSize.defaultSize! * 1.4,
+            ),
+            const Spacer(
+              flex: 1,
+            ),
+          ],
+        ),
       ),
     );
   }
