@@ -200,34 +200,42 @@ class _CharchingDolarsForUsersState extends State<CharchingDolarsForUsers> {
                     const Spacer(
                       flex: 6,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (userID.text.isEmpty) {
-                          errorToast(
-                              context: context,
-                              title: StringManager.pleaseEnterID);
-                        } else if (withdrawalAmount.text.isEmpty) {
-                          errorToast(
-                              context: context,
-                              title: StringManager.pleaseEnterquantity);
-                        } else {
-                          BlocProvider.of<ChargeDolarsForUserBloc>(context).add(
-                              ChargeDolarsForUserEvent(
-                                  id: userID.text,
-                                  amount: withdrawalAmount.text));
+                    BlocBuilder<ChargeDolarsForUserBloc, ChargeDolarsForUserState>(
+                        builder: (context, state){
+                          if (state is ChargeDolarsForUserLoadingState){
+                            return const SizedBox();
+                          }else{
+                            return ElevatedButton(
+                              onPressed: () {
+                                if (userID.text.isEmpty) {
+                                  errorToast(
+                                      context: context,
+                                      title: StringManager.pleaseEnterID);
+                                } else if (withdrawalAmount.text.isEmpty) {
+                                  errorToast(
+                                      context: context,
+                                      title: StringManager.pleaseEnterquantity);
+                                } else {
+                                  BlocProvider.of<ChargeDolarsForUserBloc>(context).add(
+                                      ChargeDolarsForUserEvent(
+                                          id: userID.text,
+                                          amount: withdrawalAmount.text));
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          ConfigSize.defaultSize! * 1.2)),
+                                  backgroundColor: ColorManager.mainColor,
+                                  fixedSize: Size(MediaQuery.of(context).size.width,
+                                      ConfigSize.defaultSize! * 6.0)),
+                              child: Text(
+                                StringManager.withdrawal.tr(),
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            );
+                          }
                         }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  ConfigSize.defaultSize! * 1.2)),
-                          backgroundColor: ColorManager.mainColor,
-                          fixedSize: Size(MediaQuery.of(context).size.width,
-                              ConfigSize.defaultSize! * 6.0)),
-                      child: Text(
-                        StringManager.withdrawal.tr(),
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
                     ),
                     const Spacer(),
                   ],

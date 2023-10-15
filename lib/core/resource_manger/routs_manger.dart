@@ -34,6 +34,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/family/compo
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_requests/family_requests_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/family_profile_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/family/family_ranking_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/games/games_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/request_to_join_agency_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/instruction.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/exchange_for_gold_screen/exchange_for_gold.dart';
@@ -94,6 +95,7 @@ class Routes {
   static const String custoumService = "/CustoumService";
   static const String settings = "/Settings";
   static const String language = "/Language";
+  static const String games = "/GamesScreen";
 
   static const String mode = "/Mode";
 
@@ -329,6 +331,9 @@ class RouteGenerator {
 
       case Routes.detailsWithdrawal:
         return MaterialPageRoute(builder: (_) => const DetailsScreen());
+
+      case Routes.games:
+        return MaterialPageRoute(builder: (_) => GamesScreen());
 
       case Routes.agencyScreen:
         MyDataModel myData = settings.arguments as MyDataModel;

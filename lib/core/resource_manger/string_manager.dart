@@ -12,6 +12,8 @@ class StringManager {
   // cach keys
   static const String cacheFrameKey = 'Frame';
   static const String hasJoin = "has joined";
+  static const String games = "Games";
+  static const String gameroom = "Game Room";
 
   static const String cacheEmojieKey = 'Emojie';
   static const String cacheEntroKey = 'Entro';
@@ -458,6 +460,7 @@ class StringManager {
   static const String entertainment = "entertainment";
   static const String lockChat = "lock chat";
   static const String lockRoom = "lock room";
+  static const String unlockRoom = "unlock room";
   static const String music2 = "music";
   static const String addAmin2 = "add admin";
   static const String roomCover = "room cover";

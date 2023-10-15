@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -40,6 +41,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  double _keyboardHeight = 0;
+  final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
   late TextEditingController passwordController;
   @override
   void initState() {
@@ -61,6 +64,11 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
     passwordController = TextEditingController();
+    _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
+      setState(() {
+        _keyboardHeight = height;
+      });
+    });
     super.initState();
   }
 
@@ -114,6 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   MainButton(
                     onTap: () {
+
+                      // final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+                      // print(keyboardHeight);
+                      //
+                      // print(_keyboardHeight);
 
                       if (PhoneWithCountry.phoneIsValid) {
                         BlocProvider.of<LoginWithPhoneBloc>(context).add(

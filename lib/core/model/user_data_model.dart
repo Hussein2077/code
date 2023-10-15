@@ -51,6 +51,7 @@ class UserDataModel {
   final bool? isAanonymous;
   final String? onlineTime;
   final bool? isCountryHiden;
+  var isGold;
   final String? visitTime;
 
 
@@ -92,6 +93,7 @@ class UserDataModel {
         this.roomHidden,
         this.lastActiveHidden,
         this.visitTime ,
+        this.isGold ,
       });
 
 
@@ -143,6 +145,7 @@ class UserDataModel {
         lastActiveHidden :map['last_active_hidden']??false,
         visitHidden:map['visit_hidden']??false,
         roomHidden: map['room_hidden']??false,
+        isGold: map['is_gold_id']??false,
 
         familyData: map['family_data']==null? null:  FamilyDataModel.fromjosn(
             map['family_data']),
@@ -203,6 +206,7 @@ class UserDataModel {
       hasColorName: hasColorName,
       lastActiveHidden: lastActiveHidden,
       isCountryHiden: isCountryHiden,
+        isGold: isGold,
 
       nowRoom: NowRoomModel(
         isnInRoom: nowRoom?.isnInRoom??false,

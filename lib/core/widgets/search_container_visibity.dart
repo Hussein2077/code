@@ -25,7 +25,6 @@ class _SearchContainerVisibilityState extends State<SearchContainerVisibility> {
         height:ConfigSize.screenHeight! * .3,
         width: ConfigSize.screenWidth!,
         color: Colors.white,
-
         child: BlocBuilder<SearchBloc, SearchStates>(
           builder: (context, state) {
             if (state is SuccessSearchStates) {
@@ -49,7 +48,7 @@ class _SearchContainerVisibilityState extends State<SearchContainerVisibility> {
                         ));
                   });
             } else if (state is LoadingSearchStates) {
-              return const Expanded(child: LoadingWidget());
+              return const LoadingWidget();
             } else {
               return const SizedBox();
             }

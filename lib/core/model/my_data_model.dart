@@ -54,7 +54,8 @@ class MyDataModel {
   final bool? visitHidden;
   bool? hasColorName;
   bool? isAanonymous;
-     NowRoomModel? nowRoom;
+  NowRoomModel? nowRoom;
+  var isGold;
 
 
   static MyDataModel? _instance;
@@ -101,6 +102,7 @@ class MyDataModel {
         this.familyDataModel,
       this.visitHidden,
               this.nowRoom,
+              this.isGold,
 
       });
 
@@ -141,8 +143,9 @@ class MyDataModel {
       VipCenterModel? vip1,
       bool? isPhone,
       int? myType,
-      bool? isHideRoom,
-           NowRoomModel? nowRoom,
+        bool? isHideRoom,
+        var isGold,
+        NowRoomModel? nowRoom,
 
       
       }) {
@@ -181,6 +184,7 @@ class MyDataModel {
     this.isHideRoom = isHideRoom ?? this.isHideRoom;
     this.familyId = familyId ?? this.familyId;
     this.familyDataModel = familyDataModel ?? this.familyDataModel;
+    this.isGold = isGold ?? this.isGold;
     this.nowRoom = nowRoom ?? this.nowRoom;
   }
 
@@ -235,7 +239,6 @@ class MyDataModel {
           isCountryHiden: map['country_hidden']??false,
           lastActiveHidden :map['anonymous']??false,
           visitHidden:map['visit_hidden']??false,
-
           profile: map['profile'] != null
               ? ProfileRoomModel.fromMap(map['profile'] as Map<String, dynamic>)
               : null,
@@ -251,8 +254,9 @@ class MyDataModel {
           familyDataModel: map['family_data'] != null
               ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
               : null,
-          myType: map['type_user'] ?? 0, 
-          nowRoom:   map['now_room'] != null
+          myType: map['type_user'] ?? 0,
+        isGold:map['is_gold_id']??false,
+        nowRoom:   map['now_room'] != null
               ? NowRoomModel.fromjson(map['now_room'] as Map<String, dynamic>)
               : null,
           
@@ -308,6 +312,7 @@ class MyDataModel {
           familyDataModel: map['family_data'] != null
               ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
               : null,
+          isGold: map['is_gold_id'],
           myType: map['type_user'] ?? 0);
 
     }
@@ -365,8 +370,9 @@ log("${_instance!.isPhone.toString()}");
         numberOfFans: numberOfFans,
         numberOfFollowings: numberOfFollowings,
         numberOfFriends: numberOfFriends,
+        isGold: isGold,
         profileVisotrs: profileVisotrs,
-        
+
      
         
         
