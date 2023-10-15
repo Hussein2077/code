@@ -31,17 +31,15 @@ class _CountryDialogState extends State<CountryDialog> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
-
-Spacer(),
+        Spacer(),
         Container(
-         
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height*.7,
+          height: MediaQuery.of(context).size.height * .7,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular( ConfigSize.defaultSize! * 1.5),topRight:Radius.circular( ConfigSize.defaultSize! * 1.5) )
-          ),
+              color: Theme.of(context).colorScheme.background,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(ConfigSize.defaultSize! * 1.5),
+                  topRight: Radius.circular(ConfigSize.defaultSize! * 1.5))),
           child: BlocBuilder<CounrtyBloc, CountryStates>(
             builder: (context, state) {
               if (state is CountryLoadingState) {
@@ -85,7 +83,8 @@ Spacer(),
                                       state.countrys[index - 1].name;
                                   BlocProvider.of<GetRoomsBloc>(context).add(
                                       GetRoomsEvent(
-                                          countryId: state.countrys[index - 1].id));
+                                          countryId:
+                                              state.countrys[index - 1].id));
                                 }
 
                                 CountryDialog.selectedCountry.value =
@@ -93,12 +92,12 @@ Spacer(),
                                 Navigator.pop(context);
                               },
                               child: index == 0
-                                  ?  CountryIcon(
-                                     color: Colors.grey.withOpacity(0.6),
+                                  ? CountryIcon(
+                                      color: Colors.grey.withOpacity(0.6),
                                       flag: AssetsPath.fireIcon,
                                       name: StringManager.popular)
                                   : CountryIcon(
-                                     color: Colors.grey.withOpacity(0.6),
+                                      color: Colors.grey.withOpacity(0.6),
                                       flag: state.countrys[index - 1].flag,
                                       name: state.countrys[index - 1].name),
                             );
