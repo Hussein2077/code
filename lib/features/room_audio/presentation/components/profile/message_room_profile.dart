@@ -63,7 +63,6 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
     if (state is SuccessKickoutState) {
       sucssesToast(context: context, title: state.successMessage);
     } else if (state is ErrorKickoutState) {
-
       errorToast(context: context, title: state.errorMessage);
     }
     },
