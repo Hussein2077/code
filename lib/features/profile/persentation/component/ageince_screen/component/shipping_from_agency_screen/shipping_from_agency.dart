@@ -90,7 +90,7 @@ class _CharchingDolarsForUsersState extends State<CharchingDolarsForUsers> {
                             },
                             child: const Icon(Icons.arrow_back_ios)),
                         Text(
-                          StringManager.chargeCoins,
+                          StringManager.chargeCoins.tr(),
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         InkWell(

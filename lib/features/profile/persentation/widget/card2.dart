@@ -20,7 +20,7 @@ class Card2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width - 30,
-        height: ConfigSize.defaultSize! * 15,
+        //height: ConfigSize.defaultSize! * 15,
         decoration: BoxDecoration(
             color: isDarkTheme ? Colors.grey.withOpacity(0.3) : Colors.white,
             borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),

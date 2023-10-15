@@ -402,7 +402,8 @@ StringManager.coinsIsEmpty : "الكوينز فارغ",
     StringManager.addMoment:'اضف لحظة',
     StringManager.thisMoment:'لا يوجد اعجابات ',
     StringManager.thisMomentc:'لا يوجد تعليقات ',
-    StringManager.followingTab:'اتابعهم'
+    StringManager.followingTab:'اتابعهم',
+    StringManager.nameAgency:'اسم الوكالة',
 
 
 

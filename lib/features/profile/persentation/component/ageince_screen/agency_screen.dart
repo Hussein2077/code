@@ -129,7 +129,7 @@ Widget agencyCommanWidget(
               style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
             ),
             Text(
-              "Bio :$bio",
+              "${StringManager.bio.tr()} :$bio",
               style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
             ),
 

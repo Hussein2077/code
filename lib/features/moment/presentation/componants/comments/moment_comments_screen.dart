@@ -120,13 +120,11 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                         message: state.errorMassage,
                       );
                     } else if (state is GetMomentCommentLoadingState) {
-                      log('commentListtemp3${commentListtemp!}');
-                      log('commentListtemp${commentListtemp!.length}');
-
                       if (commentListtemp!.isNotEmpty) {
                         return Column(
                           children: [
-                            Padding(
+                            Container(
+                              height: ConfigSize.screenHeight! * 0.82,
                               padding: EdgeInsets.only(
                                 left: ConfigSize.defaultSize!,
                                 right: ConfigSize.defaultSize!,

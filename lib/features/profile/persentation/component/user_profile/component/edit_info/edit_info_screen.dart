@@ -61,7 +61,7 @@ class EditInfoScreen extends StatelessWidget {
                     onTap: () {
                       BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
                           bio: UserInfoWidget.bioController!.text,
-                          date: UserInfoWidget.age!.length < 3 ? null : UserInfoWidget.age!,
+                          date: UserInfoWidget.age == null ? null : UserInfoWidget.age!,
                           gender: UserInfoWidget.gender!.toString(),
                           country: CountryWidget.countryFlag!,
                           name: UserInfoWidget.nameController!.text,
