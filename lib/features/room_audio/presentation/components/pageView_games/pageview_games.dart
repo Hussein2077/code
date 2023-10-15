@@ -30,8 +30,6 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
   int _current = 0 ;
   bool _scale = false;
 
-  //TODO games images
-
   List<String> gamesImages=
   [
     AssetsPath.teenPatti,

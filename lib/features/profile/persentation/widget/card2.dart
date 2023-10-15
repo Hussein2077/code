@@ -20,13 +20,18 @@ class Card2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width - 30,
-        height: ConfigSize.defaultSize! * 15,
+        height: ConfigSize.defaultSize! * 20,
         decoration: BoxDecoration(
             color: isDarkTheme ? Colors.grey.withOpacity(0.3) : Colors.white,
             borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            ProfileRowItem(
+              title: StringManager.games.tr(),
+              image: AssetsPath.gamesIcon,
+              onTap: () => Navigator.pushNamed(context, Routes.games),
+            ),
             if (StringManager.userType[1]! ||
                 StringManager.userType[2]! ||
                 StringManager.userType[4]! ||

@@ -99,6 +99,7 @@ class AssetsPath {
 
   //icons
   static const String pk1 = "$pathIcon/pk2.png";
+  static const String gamesIcon = "$pathIcon/games.png";
   static const String appleIcon ="$pathIcon/apple_logo.png" ;
   static const String stripeIcon ="$pathIcon/stripe_logo.png" ;
   static const String muteSeatGreen = "$pathIcon/muteIcon.png";

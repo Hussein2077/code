@@ -12,6 +12,8 @@ class StringManager {
   // cach keys
   static const String cacheFrameKey = 'Frame';
   static const String hasJoin = "has joined";
+  static const String games = "Games";
+  static const String gameroom = "Game Room";
 
   static const String cacheEmojieKey = 'Emojie';
   static const String cacheEntroKey = 'Entro';
