@@ -72,8 +72,10 @@ log( userDataModel.vip1!.id.toString()+'hhhh');
         (userDataModel.familyId != 0)
             ? InkWell(
                 onTap: () {
+
                   Navigator.pushNamed(context, Routes.familyProfile,
-                      arguments: userDataModel.familyData!.ownerFamilyId);
+                      arguments: userDataModel.familyId);
+
                 },
                 child: Container(
                     margin: EdgeInsets.only(
