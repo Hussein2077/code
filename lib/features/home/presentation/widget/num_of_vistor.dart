@@ -17,12 +17,12 @@ class NumVistor extends StatelessWidget {
                       Text(
                         numOfVistor,
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: ConfigSize.defaultSize! * 1.5),
                       ),
                       Icon(
                         Icons.person,
-                        color: Colors.white,
+                        color: Colors.black,
                         size: ConfigSize.defaultSize! * 2,
                       ),
                     ],
