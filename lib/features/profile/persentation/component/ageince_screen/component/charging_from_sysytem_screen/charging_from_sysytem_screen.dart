@@ -208,32 +208,40 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
                     const Spacer(
                       flex: 6,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (userID.text.isEmpty) {
-                          errorToast(
-                              context: context,
-                              title: StringManager.pleaseEnterID.tr());
-                        } else if (withdrawalAmount.text.isEmpty) {
-                          errorToast(
-                              context: context,
-                              title: StringManager.pleaseEnterquantity.tr());
-                        } else {
-                          BlocProvider.of<ChargeCoinForUserBloc>(context).add(ChargeCoinForUserEvent(
-                              id: userID.text, amount: withdrawalAmount.text));
+                    BlocBuilder<ChargeCoinForUserBloc, ChargeCoinForUserState>(
+                      builder: (BuildContext context, state) {
+                        if(state is ChargeCoinForUserLoadingState){
+                          return const SizedBox();
+                        }else{
+                          return ElevatedButton(
+                            onPressed: () {
+                              if (userID.text.isEmpty) {
+                                errorToast(
+                                    context: context,
+                                    title: StringManager.pleaseEnterID.tr());
+                              } else if (withdrawalAmount.text.isEmpty) {
+                                errorToast(
+                                    context: context,
+                                    title: StringManager.pleaseEnterquantity.tr());
+                              } else {
+                                BlocProvider.of<ChargeCoinForUserBloc>(context).add(ChargeCoinForUserEvent(
+                                    id: userID.text, amount: withdrawalAmount.text));
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        ConfigSize.defaultSize! * 1.2)),
+                                backgroundColor: ColorManager.mainColor,
+                                fixedSize: Size(MediaQuery.of(context).size.width,
+                                    ConfigSize.defaultSize! * 6.0)),
+                            child: Text(
+                              StringManager.withdrawal.tr(),
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          );
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  ConfigSize.defaultSize! * 1.2)),
-                          backgroundColor: ColorManager.mainColor,
-                          fixedSize: Size(MediaQuery.of(context).size.width,
-                              ConfigSize.defaultSize! * 6.0)),
-                      child: Text(
-                        StringManager.withdrawal.tr(),
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
                     ),
                     const Spacer(),
                   ],

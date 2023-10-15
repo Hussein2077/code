@@ -77,7 +77,7 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
 
         },
         child:  Padding(
-      padding: const EdgeInsets.only(bottom:25,left: 4),
+      padding: EdgeInsets.only(bottom:ConfigSize.defaultSize! * 15,left: 4),
       child:  AnimatedBuilder(
           animation: _controllerAnimation,
       builder: (context, child) {
@@ -85,9 +85,9 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
         scale: _scaleAnimation.value,
         child:
              Padding(
-          padding: EdgeInsets.only(left: _scale? AppPadding.p20:0,bottom:_scale? AppPadding.p20:0),
+          padding: EdgeInsets.only(left: _scale? AppPadding.p20:0,bottom: AppPadding.p20 ),
           child: SizedBox(
-                  width:_scale  ? ConfigSize.defaultSize!*6 : ConfigSize.defaultSize!*3,
+                  width:_scale  ? ConfigSize.defaultSize!*6 : ConfigSize.defaultSize!*5,
                   height: _scale ?ConfigSize.defaultSize!*9 : ConfigSize.defaultSize!*6,
                   child:Stack(
                       children: [
@@ -181,24 +181,24 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
 
 
     }else if(index ==1){
-      log("url${StringManager.teenPatti}${token}");
+      log("url${StringManager.roulette}${token}");
       dailogRoom(context: context,
           widget: WebViewInRoom(url: '${StringManager.roulette}${token}',) );
 
     }else if(index==2){
-      log("url${StringManager.teenPatti}${token}");
+      log("url${StringManager.carRace}${token}");
       dailogRoom(context: context,
           widget: WebViewInRoom(url: '${StringManager.carRace}${token}',) );
 
     }else if (index ==3){
-      log("url${StringManager.teenPatti}${token}");
+      log("url${StringManager.updown}${token}");
       dailogRoom(
           context: context,
           widget: WebViewInRoom(url: '${StringManager.updown}${token}',)
       );
 
     }else if(index ==4){
-      log("url${StringManager.teenPatti}${token}");
+      log("url${StringManager.ludo}${token}");
       dailogRoom(
           context: context,
           widget: WebViewInRoom(url: '${StringManager.ludo}${token}',)
