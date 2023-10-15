@@ -15,6 +15,8 @@ class DioHelper {
   Future<Map<String, String>> header() async {
     String key = await Methods().getlocalization();
     String token = await Methods().returnUserToken();
+          print("t####ken:    " + token );
+
     if(kDebugMode){
       log(token);
     }
