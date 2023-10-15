@@ -66,6 +66,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
    
       Navigator.pop(context);
     } else if (state is ErrorKickoutState) {
+
       errorToast(context: context, title: state.errorMessage);
      
     }
