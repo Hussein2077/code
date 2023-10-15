@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 // Project imports:
@@ -198,7 +200,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
         ZegoUIKitUser? user,
         Map<String, dynamic> extraInfo,
       ) {
-        return  ValueListenableBuilder(valueListenable: RoomScreen.showPK,
+        return  ValueListenableBuilder(valueListenable: PkController.showPK,
             builder: (context,isShowPK,_){
             return  ZegoSeatForeground(
               user: user,
@@ -280,25 +282,28 @@ class ZegoLivePageState extends State<ZegoLivePage>
   }
 
   Widget bottomBar() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: ValueListenableBuilder (
-        valueListenable: RoomScreen.updatebuttomBar,
-        builder: (context,edit,_){
-          return  ZegoBottomBar(
-            height: 124.r,
-            buttonSize: zegoLiveButtonSize,
-            config: widget.config,
-            seatManager: widget.seatManager,
-            connectManager: widget.connectManager,
-            prebuiltController: widget.prebuiltController,
-            isPluginEnabled: widget.plugins?.isEnabled ?? false,
-            avatarBuilder: widget.config.seatConfig.avatarBuilder,
-            roomData: widget.roomData,
-            myDataModel : widget.myDataModel,
-            layoutMode: widget.roomMode,
-          ) ;
-        },
+    return Padding(
+      padding: EdgeInsets.only(bottom: ConfigSize.screenHeight!*0.01),
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: ValueListenableBuilder (
+          valueListenable: RoomScreen.updatebuttomBar,
+          builder: (context,edit,_){
+            return  ZegoBottomBar(
+              height: 124.r,
+              buttonSize: zegoLiveButtonSize,
+              config: widget.config,
+              seatManager: widget.seatManager,
+              connectManager: widget.connectManager,
+              prebuiltController: widget.prebuiltController,
+              isPluginEnabled: widget.plugins?.isEnabled ?? false,
+              avatarBuilder: widget.config.seatConfig.avatarBuilder,
+              roomData: widget.roomData,
+              myDataModel : widget.myDataModel,
+              layoutMode: widget.roomMode,
+            ) ;
+          },
+        ),
       ),
     );
   }
@@ -308,7 +313,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
       return Container();
     }
 
-    return  ValueListenableBuilder(valueListenable: RoomScreen.showPK,
+    return  ValueListenableBuilder(valueListenable: PkController.showPK,
         builder: (context,isShowPK,_){
           return  Positioned(
       left: 75.r,

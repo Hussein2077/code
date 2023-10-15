@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,6 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_r
 import 'widgets/chose_topic_dailog.dart';
 import 'widgets/upload_video.dart';
 
-
-
 class UploadReelsScreen extends StatefulWidget {
   const UploadReelsScreen({super.key});
 
@@ -30,11 +29,12 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
   late TextEditingController reelsNameController;
   static List<int> selectedIntrest = [];
   static List<String> selectedTopics = [];
-  static ValueNotifier<bool> hashtag= ValueNotifier<bool>(false);
+  static ValueNotifier<bool> hashtag = ValueNotifier<bool>(false);
 
   @override
   void initState() {
     selectedIntrest = [];
+    selectedTopics = [];
     reelsNameController = TextEditingController();
     super.initState();
   }
@@ -53,19 +53,8 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
           children: [
             HeaderWithOnlyTitle(title: StringManager.newReel.tr()),
             shareYourMoment(context: context),
-            const UploadVideo(),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                  border: Border.all(color: Colors.black)),
-              width: MediaQuery.of(context).size.width - 50,
-              child: TextFieldWidget(
-
-                  textColor: Theme.of(context).colorScheme.primary,
-                  controller: reelsNameController,
-                  hintText: StringManager.reelName.tr()),
-            ),
+             UploadVideo(reelsNameController: reelsNameController),
+       
             CustomHorizntalDvider(
               width: MediaQuery.of(context).size.width,
               color: Colors.grey,
@@ -77,7 +66,6 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
             //     title: StringManager.mentionYourFriends.tr(),
             //     widget: const MentionDailog()),
 
-
             Column(
               children: [
                 reelRowWidget(
@@ -86,16 +74,30 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
                   title: StringManager.chooseTheTopic.tr(),
                   widget: const ChooseTopicDailog(),
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 ValueListenableBuilder<bool>(
                   valueListenable: hashtag,
                   builder: (context, b, _) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        for(int i = 0; i < selectedTopics.length; i++)
-                          Text("  ${selectedTopics[i]}#")
-                      ],
+                    return SizedBox(
+                      height: ConfigSize.defaultSize!*15,
+                      width: MediaQuery.of(context).size.width,
+                      child: GridView.builder(
+                        itemCount: selectedTopics.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                mainAxisSpacing: 6,
+                                 childAspectRatio: 4,
+                                  crossAxisCount: 3 ,
+                                  crossAxisSpacing: 20 
+                                  ),
+                          itemBuilder: (context, index) {
+                            return Text(
+                              "  ${selectedTopics[index]}#",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            );
+                          }),
                     );
                   },
                 ),
@@ -104,32 +106,32 @@ class UploadReelsScreenState extends State<UploadReelsScreen> {
 
             BlocBuilder<UploadReelsBloc, UploadReelsState>(
               builder: (context, state) {
-                if (state is UploadReelsLoadingState){
-            return MainButton(
-                    onTap: () {
-
-                errorToast(context: context, title: StringManager.pleaseWaitReel.tr());
-                    },
-                    title: StringManager.loading.tr());
-                }else {
-                    return MainButton(
-                    onTap: () async{
-                      if (UploadVideoState.video != null) {
-                        BlocProvider.of<UploadReelsBloc>(context).add(
-                            UploadReelsEvent(
-                                categories: selectedIntrest,
-                                description: reelsNameController.text,
-                                reel: File(UploadVideoState.video!)));
-                        Navigator.pop(context);
-                      } else {
+                if (state is UploadReelsLoadingState) {
+                  return MainButton(
+                      onTap: () {
                         errorToast(
                             context: context,
-                            title: StringManager.pleaseChosseVideo.tr());
-                      }
-                    },
-                    title: StringManager.postTheVideo.tr());
+                            title: StringManager.pleaseWaitReel.tr());
+                      },
+                      title: StringManager.loading.tr());
+                } else {
+                  return MainButton(
+                      onTap: () async {
+                        if (UploadVideoState.video != null) {
+                          BlocProvider.of<UploadReelsBloc>(context).add(
+                              UploadReelsEvent(
+                                  categories: selectedIntrest,
+                                  description: reelsNameController.text,
+                                  reel: File(UploadVideoState.video!)));
+                          Navigator.pop(context);
+                        } else {
+                          errorToast(
+                              context: context,
+                              title: StringManager.pleaseChosseVideo.tr());
+                        }
+                      },
+                      title: StringManager.postTheVideo.tr());
                 }
-
               },
             )
           ],

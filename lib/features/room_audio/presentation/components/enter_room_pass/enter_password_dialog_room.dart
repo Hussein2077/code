@@ -104,8 +104,8 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
               Navigator.pushReplacementNamed(
                   context, Routes.roomHandler,
                   arguments: RoomHandlerPramiter(
-                    passwordRoom: password,
-                      myDataModel:widget.myData,
+                    myDataModel:widget.myData,
+                      passwordRoom: password,
                     ownerRoomId: widget.ownerId,
                       ));
             },

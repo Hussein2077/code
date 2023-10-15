@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
 
-  static const int versionApp = 29;
+  static const int versionApp = 30;
 
   //updates
   static const String updateApp = 'Update TikChat APP';
@@ -20,6 +20,7 @@ class StringManager {
   static const String cachGiftKey = 'chachGifts';
   static const String cachReelsKey = 'cachReelsKey';
   static const String video = 'Video';
+  static const String age = 'Age';
 
 //shared
   static const String selectTimeFirst = 'Select time frist';
@@ -223,7 +224,7 @@ class StringManager {
   static const String record = "Record";
   static const String upload = "Upload";
   static const String newReel = "New Reel";
-  static const String reelName = "reel name";
+  static const String videoDescription = "Video description";
   static const String shareYourMoment =
       "Share your moment with the world at reels";
   static const String yourVideoWillPublished =

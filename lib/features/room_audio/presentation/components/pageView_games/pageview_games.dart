@@ -181,20 +181,24 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
 
 
     }else if(index ==1){
+      log("url${StringManager.teenPatti}${token}");
       dailogRoom(context: context,
           widget: WebViewInRoom(url: '${StringManager.roulette}${token}',) );
 
     }else if(index==2){
+      log("url${StringManager.teenPatti}${token}");
       dailogRoom(context: context,
           widget: WebViewInRoom(url: '${StringManager.carRace}${token}',) );
 
     }else if (index ==3){
+      log("url${StringManager.teenPatti}${token}");
       dailogRoom(
           context: context,
           widget: WebViewInRoom(url: '${StringManager.updown}${token}',)
       );
 
     }else if(index ==4){
+      log("url${StringManager.teenPatti}${token}");
       dailogRoom(
           context: context,
           widget: WebViewInRoom(url: '${StringManager.ludo}${token}',)

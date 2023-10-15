@@ -32,70 +32,66 @@ class _MomentAppBarState extends State<MomentAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: ConfigSize.screenWidth!,
-      height: ConfigSize.defaultSize!*8,
-      child:
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-              width: ConfigSize.defaultSize!*35,
-              height: ConfigSize.defaultSize!*5,
-              child: MomentInfoRow(
-            momentModel: widget.momentModel,
-              )),
-          SizedBox(
-            width: ConfigSize.defaultSize! * 4,
-            height: ConfigSize.defaultSize! * 4,
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton2(
-                customButton:  Icon(
-                  Icons.more_vert_rounded,
-                  size:ConfigSize.defaultSize! *2.5,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                dropdownDecoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.5),
-borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-                  border: Border.all(color: Colors.white,),
-
-                ),
-
-                items:
-
-                widget.momentModel.userId==MyDataModel.getInstance().id?
-                [
-
-                  ...MenuItems.myItems.map(
-                        (item) => DropdownMenuItem<MenuItem>(
-                      value: item,
-                      child: MenuItems.buildItem(item),
+    return Padding(
+      padding:  EdgeInsets.symmetric(
+        vertical: ConfigSize.defaultSize!*2
+      ),
+      child: SizedBox(
+        width: ConfigSize.screenWidth!,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                width: ConfigSize.defaultSize! * 35,
+                child: MomentInfoRow(
+                  momentModel: widget.momentModel,
+                )),
+            SizedBox(
+              width: ConfigSize.defaultSize! * 4,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton2(
+                  customButton: Icon(
+                    Icons.more_vert_rounded,
+                    size: ConfigSize.defaultSize! * 2.5,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  dropdownDecoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+                    border: Border.all(
+                      color: Colors.white,
                     ),
                   ),
-                ]:
-                [
-
-                  ...MenuItems.othersItems.map(
-                        (item) => DropdownMenuItem<MenuItem>(
-                      value: item,
-                      child: MenuItems.buildItem(item),
-                    ),
-                  ),
-                ],
-                onChanged: (value) {
-                  MenuItems.onChanged(context, value!,widget.momentModel.momentId.toString(),
-                    widget.momentModel.userId.toString()
-                  );
-
-                },
-                dropdownWidth: ConfigSize.defaultSize!*12,
-
+                  items: widget.momentModel.userId == MyDataModel.getInstance().id
+                      ? [
+                          ...MenuItems.myItems.map(
+                            (item) => DropdownMenuItem<MenuItem>(
+                              value: item,
+                              child: MenuItems.buildItem(item),
+                            ),
+                          ),
+                        ]
+                      : [
+                          ...MenuItems.othersItems.map(
+                            (item) => DropdownMenuItem<MenuItem>(
+                              value: item,
+                              child: MenuItems.buildItem(item),
+                            ),
+                          ),
+                        ],
+                  onChanged: (value) {
+                    MenuItems.onChanged(
+                        context,
+                        value!,
+                        widget.momentModel.momentId.toString(),
+                        widget.momentModel.userId.toString());
+                  },
+                  dropdownWidth: ConfigSize.defaultSize! * 12,
+                ),
               ),
             ),
-          ),
-
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -112,24 +108,29 @@ class MenuItem {
 }
 
 abstract class MenuItems {
-  static  List<MenuItem> myItems = [delete,  ];
-  static  List<MenuItem> othersItems = [ report, ];
+  static List<MenuItem> myItems = [
+    delete,
+  ];
+  static List<MenuItem> othersItems = [
+    report,
+  ];
 
-  static  final delete = MenuItem(text: StringManager.delete.tr(), icon: Icons.delete_forever);
-  static final report = MenuItem(text: StringManager.report.tr(), icon: Icons.report_problem_outlined);
-
+  static final delete =
+      MenuItem(text: StringManager.delete.tr(), icon: Icons.delete_forever);
+  static final report = MenuItem(
+      text: StringManager.report.tr(), icon: Icons.report_problem_outlined);
 
   static Widget buildItem(MenuItem item) {
     return Row(
       children: [
         Icon(item.icon, color: Colors.red.withOpacity(0.8), size: 22),
-         SizedBox(
+        SizedBox(
           width: ConfigSize.defaultSize!,
         ),
         Expanded(
           child: Text(
             item.text,
-            style:  TextStyle(
+            style: TextStyle(
               color: Colors.red.withOpacity(0.8),
             ),
           ),
@@ -138,7 +139,8 @@ abstract class MenuItems {
     );
   }
 
-  static void onChanged(BuildContext context, MenuItem item,String momentId,String userId) {
+  static void onChanged(
+      BuildContext context, MenuItem item, String momentId, String userId) {
     if (item == delete) {
       BlocProvider.of<DeleteMomentBloc>(context).add(DeleteMomentEvent(momentId: momentId ));
       BlocProvider.of<GetMomentBloc>(context).add(LocalDeleteMomentEvent(momentId: momentId ));

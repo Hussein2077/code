@@ -57,10 +57,10 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
               if(MyDataModel.getInstance().isAanonymous??false){
                 MyDataModel activeMysteriousUser =
                 MyDataModel(
-                    id: MyDataModel.getInstance().id,
+                    id: 0,
                     uuid: MyDataModel.getInstance().uuid,
                     name: StringManager.mysteriousPerson.tr(),
-                    profile:ProfileRoomModel(image:'/hide.jpeg') ,intro: "");
+                    profile:ProfileRoomModel(image:'hide.png') ,intro: "");
                 Navigator.pushReplacementNamed(context,Routes.roomScreen,
                     arguments:RoomPramiter(
                     roomModel: state.room,

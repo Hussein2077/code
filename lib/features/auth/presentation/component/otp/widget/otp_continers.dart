@@ -19,32 +19,31 @@ class _OtpContinersState extends State<OtpContiners> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: TextFieldPin(
-          textController: textEditingController,
-          
-          autoFocus: false,
-          codeLength: _otpCodeLength,
-          alignment: MainAxisAlignment.center,
-          defaultBoxSize: ConfigSize.defaultSize! * 4.44,
-          margin: ConfigSize.defaultSize! * 0.37,
-          selectedBoxSize: ConfigSize.defaultSize! * 4.5,
-          textStyle: TextStyle(fontSize: ConfigSize.defaultSize! * 1.9),
-          defaultDecoration: BoxDecoration(
-            border: Border.all(width: 1, color: ColorManager.mainColor),
-            borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.6),
-          ),
-          selectedDecoration: BoxDecoration(
-            border: Border.all(width: 2, color: ColorManager.mainColor),
-            borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.6),
-          ),
-          onChange: (value) {
-            setState(() {
-              OtpContiners.code = value;
+    print('${textEditingController.text}huss');
+    return TextFieldPin(
+        textController: textEditingController,
+        autoFocus: false,
+        codeLength: _otpCodeLength,
+        alignment: MainAxisAlignment.center,
+        defaultBoxSize: ConfigSize.defaultSize! * 4.44,
+        margin: ConfigSize.defaultSize! * 0.37,
+        selectedBoxSize: ConfigSize.defaultSize! * 4.5,
+        textStyle: TextStyle(fontSize: ConfigSize.defaultSize! * 1.9),
+        defaultDecoration: BoxDecoration(
+          border: Border.all(width: 1, color: ColorManager.mainColor),
+          borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.6),
+        ),
+        selectedDecoration: BoxDecoration(
+          border: Border.all(width: 2, color: ColorManager.mainColor),
+          borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.6),
+        ),
+        onChange: (value) {
+          setState(() {
+            OtpContiners.code = value;
 
-            });
-          }),
-    );
+          });
+        }
+
+        );
   }
 }

@@ -59,14 +59,11 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
 
   void scrollListener() {
 
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (widget.userDataModel.id == MyDataModel.getInstance().id) {
-        BlocProvider.of<GetUserReelsBloc>(context)
-            .add(const LoadMoreUserReelsEvent(id: null));
+        BlocProvider.of<GetUserReelsBloc>(context).add(const LoadMoreUserReelsEvent(id: null));
       } else {
-        BlocProvider.of<GetUserReelsBloc>(context).add(
-            LoadMoreUserReelsEvent(id: widget.userDataModel.id.toString()));
+        BlocProvider.of<GetUserReelsBloc>(context).add(LoadMoreUserReelsEvent(id: widget.userDataModel.id.toString()));
       }
     } else {}
   }

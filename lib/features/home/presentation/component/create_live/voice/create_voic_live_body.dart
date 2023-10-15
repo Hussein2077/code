@@ -180,7 +180,6 @@ bool checkRoomData({required String roomName , required BuildContext context}){
      return true ;
   }
 }
-
 void createRoom ({required BuildContext context ,required String roomName}){
   if(PublicPriveteButton.lockedOrUn == StringManager.public.tr()) {
     BlocProvider.of<CreateRoomBloc>(context)

@@ -185,6 +185,12 @@ class MyDataModel {
   }
 
   factory MyDataModel.fromMap(Map<String, dynamic> map) {
+        StringManager.userType.forEach((key, value) {
+  
+       StringManager.userType.update(key, (value) => false);
+   
+      });
+
        StringManager.userType.forEach((key, value) {
       if(map['type_user']==key){
        StringManager.userType.update(key, (value) => true);
@@ -352,7 +358,9 @@ log("${_instance!.isPhone.toString()}");
             senderLevel:level!.senderLevel,
             senderImage: level?.senderImage,
             receiverImage: level?.receiverImage),
-        vip1: VipCenterModel(level: vip1?.level),
+        vip1: VipCenterModel(level: vip1?.level,id: vip1?.id),
+
+
         userType: myType,
         numberOfFans: numberOfFans,
         numberOfFollowings: numberOfFollowings,

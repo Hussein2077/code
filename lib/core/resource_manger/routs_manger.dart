@@ -410,11 +410,14 @@ class RouteGenerator {
 
                      case Routes.trimmerView:
         File pram = settings.arguments as File;
+TextEditingController textEditingController = settings.arguments as TextEditingController;
 
         return MaterialPageRoute(
             builder: (_) => SafeArea(
                     child: TrimmerView(
-                      pram
+                     file:pram , 
+                     reelsNameController:textEditingController ,
+
 
                 )));
 

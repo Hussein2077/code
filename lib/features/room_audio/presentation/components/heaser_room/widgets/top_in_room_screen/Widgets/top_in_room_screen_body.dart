@@ -16,21 +16,28 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_top_inroom/topin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_top_inroom/topin_room_states.dart';
 
-
 class TopInRoomScreenBody extends StatelessWidget {
   final TabController dateController;
   final int id;
-  final EnterRoomModel roomData ;
-  final MyDataModel myData ;
-  final LayoutMode layoutMode ;
-  const TopInRoomScreenBody({required this.id,required this.layoutMode, required this.myData, required this.roomData,
-    required this.dateController, Key? key})
+  final EnterRoomModel roomData;
+
+  final MyDataModel myData;
+
+  final LayoutMode layoutMode;
+
+  const TopInRoomScreenBody(
+      {required this.id,
+      required this.layoutMode,
+      required this.myData,
+      required this.roomData,
+      required this.dateController,
+      Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: ConfigSize.screenHeight!-430,
+        height: ConfigSize.screenHeight! - 430,
         child: TabBarView(controller: dateController, children: [
           BlocBuilder<TobinRoomBloc, GetTopInRoomState>(
               builder: (context, state) {
@@ -38,12 +45,12 @@ class TopInRoomScreenBody extends StatelessWidget {
               case RequestState.loaded:
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: !state.todayUserTopModel.isEmpty
+                  child: state.todayUserTopModel.isEmpty
                       ? SizedBox(
-                          width: ConfigSize.defaultSize!*34.7,
+                          width: ConfigSize.defaultSize! * 34.7,
                           child: Center(
                             child: Text(StringManager.noDaimonsNow.tr(),
-                                style:const TextStyle(
+                                style: const TextStyle(
                                     color: ColorManager.darkBlack,
                                     fontWeight: FontWeight.w700)),
                           ),
@@ -57,22 +64,22 @@ class TopInRoomScreenBody extends StatelessWidget {
                                     state.todayUserTopModel.length, (index) {
                                   return InkWell(
                                     onTap: () {
-                                  Navigator.pop(context) ;
-                                  bottomDailog(
-                                      context: context,
-                                      widget: GeneralRoomProfile(
-                                      
-                                      userId:state.todayUserTopModel[index].userId.toString() ,
-                                      myData:myData,
-                                      roomData:roomData,
-                                     layoutMode:layoutMode
-                                      )
-                                  );
-                                                                                                        Methods().userProfileNvgator(context: context , userId:state.todayUserTopModel[index].userId.toString());
-
-
-                                   
-                          
+                                      Navigator.pop(context);
+                                      bottomDailog(
+                                          context: context,
+                                          widget: GeneralRoomProfile(
+                                              userId: state
+                                                  .todayUserTopModel[index]
+                                                  .userId
+                                                  .toString(),
+                                              myData: myData,
+                                              roomData: roomData,
+                                              layoutMode: layoutMode));
+                                      Methods().userProfileNvgator(
+                                          context: context,
+                                          userId: state
+                                              .todayUserTopModel[index].userId
+                                              .toString());
                                     },
                                     child: ItemRankInRoom(
                                       userTopMode:
@@ -84,9 +91,7 @@ class TopInRoomScreenBody extends StatelessWidget {
                         ),
                 );
               case RequestState.loading:
-                return const LoadingWidget(
-
-                );
+                return const LoadingWidget();
               case RequestState.error:
                 return Center(
                     child: SizedBox(
@@ -107,7 +112,7 @@ class TopInRoomScreenBody extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: state.totalUserTopModel.isEmpty
                       ? Text(
-                    StringManager.noDaimonsNow.tr(),
+                          StringManager.noDaimonsNow.tr(),
                           style: const TextStyle(
                               color: ColorManager.darkBlack,
                               fontWeight: FontWeight.w700),
@@ -124,7 +129,7 @@ class TopInRoomScreenBody extends StatelessWidget {
                                         Navigator.pop(context);
                                         bottomDailog(
                                             context: context,
-                                            widget:const SizedBox()
+                                            widget: const SizedBox()
                                             // GenralProfileDialog(
                                             //     userId:state. totalUserTopModel[index].userId.toString() ,
                                             //   myData: myData,
@@ -132,9 +137,7 @@ class TopInRoomScreenBody extends StatelessWidget {
                                             //     layoutMode:layoutMode
                                             // )
 
-                                        );
-
-                          
+                                            );
                                       },
                                       child: ItemRankInRoom(
                                         userTopMode:

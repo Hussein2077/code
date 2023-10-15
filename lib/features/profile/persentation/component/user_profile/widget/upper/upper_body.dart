@@ -15,7 +15,6 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/upper/header.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
-import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class UpperProfileBody extends StatelessWidget {
@@ -26,6 +25,7 @@ class UpperProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(myDataModel.profile!.age.toString());
     return InkWell(
       onTap: () {
         // if(ReelsPage.videoPlayerController != null){
@@ -42,9 +42,12 @@ class UpperProfileBody extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * .4,
           decoration: BoxDecoration(
-            image: DecorationImage(
+            image: myDataModel.profile!.image != null ? DecorationImage(
               image: CachedNetworkImageProvider(
                   ConstentApi().getImage(myDataModel.profile!.image)),
+              fit: BoxFit.cover,
+            ): const DecorationImage(
+              image: AssetImage(AssetsPath.defaultImage),
               fit: BoxFit.cover,
             ),
           ),

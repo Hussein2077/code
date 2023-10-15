@@ -51,8 +51,7 @@ class EditInfoScreen extends StatelessWidget {
                 children: [
                   HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
                   CompleteProfile(percent: percent),
-                  title(
-                      context: context, title: StringManager.personalInfo.tr()),
+                  title(context: context, title: StringManager.personalInfo.tr()),
                   UserInfoWidget(myDataModel: state.myDataModel),
                   title(context: context, title: StringManager.addImage.tr()),
                   const AddProFilePic(
@@ -62,7 +61,8 @@ class EditInfoScreen extends StatelessWidget {
                     onTap: () {
                       BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
                           bio: UserInfoWidget.bioController!.text,
-                          gender: myDataModel.profile!.gender!.toString(),
+                          date: UserInfoWidget.age!.length < 3 ? null : UserInfoWidget.age!,
+                          gender: UserInfoWidget.gender!.toString(),
                           country: CountryWidget.countryFlag!,
                           name: UserInfoWidget.nameController!.text,
                           image: AddProFilePic.image == null
@@ -79,13 +79,10 @@ class EditInfoScreen extends StatelessWidget {
                 children: [
                   HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
                   CompleteProfile(percent: percent),
-                  title(
-                      context: context, title: StringManager.personalInfo.tr()),
+                  title(context: context, title: StringManager.personalInfo.tr()),
                   UserInfoWidget(myDataModel: myDataModel),
                   title(context: context, title: StringManager.addImage.tr()),
-                  const AddProFilePic(
-                    quality: 40,
-                  ),
+                  const AddProFilePic(quality: 40,),
                   MainButton(
                     onTap: () {},
                     title: StringManager.save.tr(),

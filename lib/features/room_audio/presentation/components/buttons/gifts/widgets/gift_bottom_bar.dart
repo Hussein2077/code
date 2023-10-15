@@ -498,6 +498,7 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
     }
 
 
+
     (userSelected.isEmpty && GiftUserOnly.userSelected == "")
         ? BlocProvider.of<SendGiftBloc>(context).add(SendGiftesEvent(
             ownerId: widget.roomData.ownerId.toString(),

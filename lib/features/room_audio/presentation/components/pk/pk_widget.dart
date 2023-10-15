@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -13,8 +12,8 @@ import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/time_pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
@@ -61,7 +60,7 @@ class _PKWidgetState extends State<PKWidget> {
           ));
         }else{
           return ValueListenableBuilder<int>(
-            valueListenable: RoomScreen.updatePKNotifier,
+            valueListenable: PkController.updatePKNotifier,
             builder: (context,scoreTime1,_){
               return Stack(
                 children: [
@@ -114,7 +113,7 @@ class _PKWidgetState extends State<PKWidget> {
                       animation: true,
                       lineHeight: AppPadding.p20,
                       animationDuration: 2500,
-                      percent: RoomScreen.precantgeTeam1==0.0?0.1: RoomScreen.precantgeTeam1==1.0?0.9:RoomScreen.precantgeTeam1,
+                      percent: PkController.precantgeTeam1==0.0?0.1: PkController.precantgeTeam1==1.0?0.9:PkController.precantgeTeam1,
                       backgroundColor: Colors.transparent,
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       progressColor: ColorManager.blue,
@@ -131,21 +130,21 @@ class _PKWidgetState extends State<PKWidget> {
                         lineHeight: AppPadding.p20,
                         isRTL: true,
                         animationDuration: 2500,
-                        percent: RoomScreen.precantgeTeam2==0.0?0.1:
-                        RoomScreen.precantgeTeam2==1.0?0.9:RoomScreen.precantgeTeam2,
+                        percent: PkController.precantgeTeam2==0.0?0.1:
+                        PkController.precantgeTeam2==1.0?0.9:PkController.precantgeTeam2,
                         backgroundColor: Colors.transparent,
 
                         progressColor: Colors.red,
                       )),
                   Positioned(
                       left: AppPadding.p14,
-                      child: Text(RoomScreen.scoreTeam1.toString(),
+                      child: Text(PkController.scoreTeam1.toString(),
                           style: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.w700))),
                   Positioned(
                       right: AppPadding.p20,
                       child:  Text(
-                        RoomScreen.scoreTeam2.toString(),
+                        PkController.scoreTeam2.toString(),
                         style: const TextStyle(
                             color: Colors.white, fontWeight: FontWeight.w700),
                       )),
@@ -254,17 +253,17 @@ class _PKWidgetState extends State<PKWidget> {
                   MainButton(
                     onTap: () async {
                       widget.notifyRoom();
-                      if(RoomScreen.timeMinutePK !=0){
+                      if(PkController.timeMinutePK !=0){
                         BlocProvider.of<PKBloc>(context).add(StartPKEvent(
-                            time: RoomScreen.timeMinutePK.toString(),
+                            time: PkController.timeMinutePK.toString(),
                             ownerId: widget.ownerId));
-                        RoomScreen.scoreTeam2 = 0;
-                        RoomScreen.precantgeTeam1 = 0.5;
-                        RoomScreen.precantgeTeam2 = 0.5;
-                        RoomScreen.scoreTeam1 = 0;
+                        PkController.scoreTeam2 = 0;
+                        PkController.precantgeTeam1 = 0.5;
+                        PkController.precantgeTeam2 = 0.5;
+                        PkController.scoreTeam1 = 0;
                         PKWidget.isStartPK.value = true;
-                        RoomScreen.updatePKNotifier.value =
-                         RoomScreen.updatePKNotifier.value + 1;
+                        PkController.updatePKNotifier.value =
+                            PkController.updatePKNotifier.value + 1;
 
                         Navigator.of(context).pop();
                       }else{
