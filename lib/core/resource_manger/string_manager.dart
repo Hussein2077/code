@@ -459,6 +459,7 @@ class StringManager {
   static const String entertainment = "entertainment";
   static const String lockChat = "lock chat";
   static const String lockRoom = "lock room";
+  static const String unlockRoom = "unlock room";
   static const String music2 = "music";
   static const String addAmin2 = "add admin";
   static const String roomCover = "room cover";
