@@ -136,7 +136,6 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
                   onTap: () async {
                     var userCredential = await getIt<FireBaseDataSource>()
                         .verifyOTP(OtpContiners.code, context);
-
                     if (userCredential?.user != null) {
                       if (widget.type == 'bindNumber') {
 
