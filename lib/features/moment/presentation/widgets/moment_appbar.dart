@@ -53,7 +53,7 @@ class _MomentAppBarState extends State<MomentAppBar> {
                   customButton: Icon(
                     Icons.more_vert_rounded,
                     size: ConfigSize.defaultSize! * 2.5,
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   dropdownDecoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.5),

@@ -82,7 +82,7 @@ class MomentLikes extends StatelessWidget {
                     Icon(
                       Icons.arrow_forward_ios,
                       size: ConfigSize.defaultSize! * 2,
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     const Spacer(
                       flex: 2,
