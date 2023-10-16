@@ -150,7 +150,6 @@ class _MomtentGiftBottomBarBodyState extends State<MomtentGiftBottomBarBody>
                                     begin: Alignment.centerLeft,
                                     end: Alignment.centerRight,
                                     colors: ColorManager.mainColorList),
-                                //  border: Border.all(color: AppColor.mainColor),
                                 borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(
                                         ConfigSize.defaultSize! * 1.2),
@@ -368,9 +367,4 @@ sucssesToast(context: context, title: StringManager.sucsses);
     return result.userCoin.toString();
   }
 
-  Future<String> getUserCoinsString() async {
-    final result = await RemotlyDataSourceRoom().getConfigKey(null);
-    RoomScreen.myCoins.value = result.userCoinString ?? '';
-    return result.userCoinString ?? '';
-  }
 }
