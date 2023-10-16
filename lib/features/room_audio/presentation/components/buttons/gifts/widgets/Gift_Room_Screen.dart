@@ -1,4 +1,5 @@
 
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_states.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
-import 'package:blurrycontainer/blurrycontainer.dart';
 
 
 class GiftScreen extends StatefulWidget {
@@ -83,71 +83,59 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
                     padding: EdgeInsets.zero,
                     automaticIndicatorColorAdjustment: false,
                     tabs: [
-                        Text(
+                      Text(
                         StringManager.appGift.tr(),
-                        style:
-                            const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      Text(StringManager.spicalGift.tr(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600)),
-                      Text(StringManager.country.tr(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600)),
-                      Text(StringManager.famousGifts.tr(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600)
+                        style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Text(StringManager.luckyGifts.tr(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600)
-
-                      )
-
+                          style: const TextStyle(fontWeight: FontWeight.w600)),
+                      Text(StringManager.spicalGift.tr(),
+                          style: const TextStyle(fontWeight: FontWeight.w600)),
+                      Text(StringManager.famousGifts.tr(),
+                          style: const TextStyle(fontWeight: FontWeight.w600)),
+                      Text(StringManager.country.tr(),
+                          style: const TextStyle(fontWeight: FontWeight.w600)),
                     ]),
                 Expanded(
                   child: TabBarView(
                     
                     controller: giftControler, children: [
                     PageViewGeftWidget(
-                      data: state.dataNormal,
-                      state: state.normalState,
-                      message: state.normalMessage,
-                      userCoins:
-                          widget.myDataModel.myStore?.coins.toString()??'',
-                         myData:widget.myDataModel
-                    ),
+                        data: state.dataNormal,
+                        state: state.normalState,
+                        message: state.normalMessage,
+                        userCoins:
+                            widget.myDataModel.myStore?.coins.toString() ?? '',
+                        myData: widget.myDataModel),
+                    PageViewGeftWidget(
+                        data: state.dataLucky,
+                        state: state.luckyState,
+                        message: state.luckyMessage,
+                        userCoins:
+                            widget.myDataModel.myStore?.coins.toString() ?? '',
+                        myData: widget.myDataModel),
                     PageViewGeftWidget(
                       data: state.dataHot,
                       state: state.hotState,
                       message: state.hotMessage,
                       userCoins:
-                          widget.myDataModel.myStore?.coins.toString()??'', myData:widget.myDataModel,
-                    ),
-                    PageViewGeftWidget(
-                      data: state.dataCountry,
-                      state: state.countryState,
-                      message: state.countryMessage,
-                      userCoins:
-                          widget.myDataModel.myStore?.coins.toString()??'',
-                         myData:widget.myDataModel
+                          widget.myDataModel.myStore?.coins.toString() ?? '',
+                      myData: widget.myDataModel,
                     ),
                     PageViewGeftWidget(
                         data: state.dataFamous,
                         state: state.famousState,
                         message: state.famousMessage,
                         userCoins:
-                        widget.myDataModel.myStore?.coins.toString()??'',
-                        myData:widget.myDataModel
-                    ),
+                            widget.myDataModel.myStore?.coins.toString() ?? '',
+                        myData: widget.myDataModel),
                     PageViewGeftWidget(
-                        data: state.dataLucky,
-                        state: state.luckyState,
-                        message: state.luckyMessage,
+                        data: state.dataCountry,
+                        state: state.countryState,
+                        message: state.countryMessage,
                         userCoins:
-                        widget.myDataModel.myStore?.coins.toString()??'',
-                        myData:widget.myDataModel
-                    )
+                            widget.myDataModel.myStore?.coins.toString() ?? '',
+                        myData: widget.myDataModel),
                   ]),
                 ),
                 GiftBottomBar(

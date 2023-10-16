@@ -1,19 +1,25 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
-
+import 'dart:ui' as ui;
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 class ExpandableText extends StatefulWidget {
 
 
   final String text;
   final int trimLines;
   final TextStyle? style;
+  final VoidCallback? onTap;
+
 
   const ExpandableText(
       this.text, {
         Key? key,
         this.trimLines = 2,
         this.style,
+        this.onTap,
+
       })  : super(key: key);
 
 
@@ -30,13 +36,14 @@ class ExpandableTextState extends State<ExpandableText> {
 
   @override
   Widget build(BuildContext context) {
-    const colorClickableText = ColorManager.mainColor;
     TextSpan link = TextSpan(
-        text: _readMore ? "... read more" : " read less",
+        //text: _readMore ? 'read more': 'read less',
+        text: _readMore ? StringManager.readMore.tr() : StringManager.readLess.tr(),
         style: const TextStyle(
-          color: colorClickableText,
+          color: ColorManager.mainColor,
         ),
-        recognizer: TapGestureRecognizer()..onTap = _onTapLink
+      recognizer: TapGestureRecognizer()..onTap = widget.onTap ?? _onTapLink,
+
     );
     Widget result = LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -49,7 +56,7 @@ class ExpandableTextState extends State<ExpandableText> {
         // Layout and measure link
         TextPainter textPainter = TextPainter(
           text: link,
-          textDirection: TextDirection.rtl,//better to pass this from master widget if ltr and rtl both supported
+          textDirection: ui.TextDirection.ltr, // or TextDirection.rtl, as needed
           maxLines: widget.trimLines,
           ellipsis: '...',
         );

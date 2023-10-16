@@ -7,8 +7,8 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 
 class ConstentApi {
-  // static const String baseUrl = "https://tik-chat.com/api";
- static const String baseUrl = "https://test.tik-chat.com/api";
+  //static const String baseUrl = "https://tik-chat.com/api";
+  static const String baseUrl = "https://test.tik-chat.com/api";
   static const String getBoxes = "$baseUrl/box/list";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
@@ -317,6 +317,8 @@ class ConstentApi {
   static const String phoneCode = "phone_code";
   static const String phonePass = "phone_pass";
   static String getgiftHistory(String id) => "$baseUrl/my_gifts?user_id=$id";
+  static const String sendLuckyGift   = "$baseUrl/gifts/send-lucky-gift";
+
 
   // messages send phone request
 

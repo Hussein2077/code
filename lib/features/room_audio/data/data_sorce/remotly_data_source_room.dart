@@ -17,6 +17,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/box_lucky_model.dart'
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/lucky_gift_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
@@ -70,6 +71,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<Unit> muteUser(String ownerId,String  userId ,bool mute) ;
   Future<Unit> inviteUser(String ownerId,String  userId ,int indexSeat) ;
    Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) ;
+  Future<LuckyGiftModel> sendLuckyGift(GiftPramiter giftPramiter);
 
   Future<String> sendYallowBanner(String ownerId, String message);
 
@@ -1158,7 +1160,30 @@ static String uploadImagePrice = "" ;
     }
       
   }
-  
 
+@override
+Future<LuckyGiftModel> sendLuckyGift(GiftPramiter giftPramiter) async{
+  Map<String, String> headers = await DioHelper().header();
+
+  final body = {
+    'owner_id': giftPramiter.ownerId,
+    'id': giftPramiter.id,
+    'toUid': giftPramiter.toUid,
+    'num': giftPramiter.num,
+    'to_zego': giftPramiter.toZego
+  };
+  try {
+    final response = await Dio().post(ConstentApi.sendLuckyGift,
+        options: Options(
+          headers: headers,
+        ),
+        data: body);
+    log(response.data.toString());
+
+    return LuckyGiftModel.fromJosn(response.data);
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e, endpointName: 'sendLuckyGift');
+  }
+}
 
 }

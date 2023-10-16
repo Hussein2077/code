@@ -1,12 +1,15 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
+import 'package:tik_chat_v2/core/widgets/see_more_text.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_comment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
@@ -45,7 +48,7 @@ class _MomentCommentsState extends State<MomentComments> {
           itemCount: widget.momentCommentListModel.length,
           itemBuilder: (context, i) {
             return Container(
-              height: ConfigSize.screenHeight! * 0.14,
+              // height: ConfigSize.screenHeight! * 0.14,
               margin: EdgeInsets.symmetric(
                   vertical: ConfigSize.defaultSize!,
                   horizontal: ConfigSize.defaultSize! * 2),
@@ -101,31 +104,31 @@ class _MomentCommentsState extends State<MomentComments> {
                           Row(
                             children: [
                               SizedBox(
-                                child: GradientTextVip(
-                                  text: (widget.momentCommentListModel[i].commentTime
+                                child: Text(
+                                  (widget.momentCommentListModel[i].commentTime
                                       .substring(11, 16)),
 
 
-                                  textStyle: Theme
+                                  style: Theme
                                       .of(context)
                                       .textTheme
                                       .bodySmall!,
-                                  isVip: false,
+
                                   //comment==true? momentCommentModel.userProfilePic:momentLikeModel.userImage!,
                                 ),
                               ),
                               SizedBox(width: ConfigSize.defaultSize! * .5,),
                               SizedBox(
-                                child: GradientTextVip(
-                                  text: (widget.momentCommentListModel[i].commentTime
+                                child: Text(
+                                 (widget.momentCommentListModel[i].commentTime
                                       .substring(0, 10)),
 
 
-                                  textStyle: Theme
+                                  style: Theme
                                       .of(context)
                                       .textTheme
                                       .bodySmall!,
-                                  isVip: false,
+
                                   //comment==true? momentCommentModel.userProfilePic:momentLikeModel.userImage!,
                                 ),
                               ),
@@ -187,20 +190,32 @@ class _MomentCommentsState extends State<MomentComments> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.momentCommentListModel[i].comment,
-                          style:
-                          Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge!.copyWith(
-                              fontSize: ConfigSize.defaultSize!*1.6
 
-                          )
-                              .copyWith(
-                            fontSize: ConfigSize.defaultSize! * 1.5,
+                        InkWell(
+                          onLongPress: () {
+                            Clipboard.setData(ClipboardData(
+                              text:                             widget.momentCommentListModel[i].comment,
+
+                            ));
+                            sucssesToast(
+                                context: context,
+                                title: StringManager.copiedToClipboard.tr());
+                          },
+
+                          child: ExpandableText(
+                            widget.momentCommentListModel[i].comment,
+                            trimLines: 1,
+                            style:
+                              Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyLarge!.copyWith(
+                                  fontSize: ConfigSize.defaultSize!*1.6
+
+                              ),
                           ),
                         ),
+
 
                       ],
                     ),

@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/get_room_users_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/lucky_gift_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/Repository/Base_Repository_Profile.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/ban_user_from_writing_uc.dart';
@@ -524,8 +525,17 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
     }
     
   }
-  
-  
+
+
+  @override
+  Future<Either<LuckyGiftModel, Failure>> sendLuckyGift(GiftPramiter giftPramiter) async{
+    try {
+      final result = await baseRemotlyDataSourceRoom.sendLuckyGift(giftPramiter);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
 
 
 
