@@ -42,6 +42,7 @@ class CodegenLoader extends AssetLoader {
         "سيتم إرسال رمز التحقق لك على هذا الرقم",
     StringManager.reSend: "إعادة الإرسال",
     StringManager.done: "تم",
+    StringManager.win: "فوز",
     StringManager.updateApp: 'تحديث تطبيق تيك شات',
     StringManager.updateText:
         'توصي Tik Chat بالتحديث إلى أحدث إصدار. يمكنك الاستمرار في الاستمتاع بالتطبيق أثناء تنزيل التحديث',

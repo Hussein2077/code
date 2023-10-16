@@ -39,6 +39,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/room_background.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dialog_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/lucky_gift_win_circle.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_mid_party.dart';
@@ -120,6 +121,7 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<String> imgbackground = ValueNotifier<String>("");
   static List<YallowBannerData> listofAnimationYallowBanner = [];
   static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
+  static ValueNotifier<int> winCircularluckyGift = ValueNotifier<int>(0);
 
   const RoomScreen(
       {Key? key,
@@ -196,6 +198,22 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   late Animation<Offset> offsetAnimationYellowBanner;
   UserDataModel? yallowBannerSender;
   bool showYellowBanner = false;
+  showOverlay(Widget widget) {
+    OverlayState overlayState = Overlay.of(context);
+    overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(
+      builder: (context) => Padding(
+          padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
+          child: widget),
+    );
+
+    overlayState.insert(overlayEntry);
+
+    //to remove overlay after a certain time, use:
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      overlayEntry.remove();
+    });
+  }
 
   @override
   void initState() {
@@ -1314,6 +1332,22 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               return const SizedBox();
             }
           },
+        ),
+        IgnorePointer(
+          child: ValueListenableBuilder<int>(
+              valueListenable: RoomScreen.winCircularluckyGift,
+              builder: (context, sohw, _) {
+                if (sohw != 0) {
+                  Future.delayed(const Duration(seconds: 1)).then((value) {
+                    return showOverlay(const Align(
+                        alignment: Alignment.topCenter,
+                        child: LukyGiftWinCircle()));
+                  });
+                  return const SizedBox();
+                } else {
+                  return const SizedBox();
+                }
+              }),
         ),
       ]);
     }, listener: (context, state) {

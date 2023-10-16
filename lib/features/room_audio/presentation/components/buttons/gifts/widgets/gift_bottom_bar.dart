@@ -79,6 +79,8 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
         widget.compo = 0;
         isVisible = false;
       });
+      RoomScreen.winCircularluckyGift.value = 0;
+
     });
 
 
