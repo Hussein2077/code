@@ -410,7 +410,7 @@ StringManager.coinsIsEmpty : "الكوينز فارغ",
     StringManager.games:'الالعاب',
     StringManager.readMore:'المزيد',
     StringManager.readLess:'اعرض اقل',
-
+    StringManager.copiedToClipboard:'تمم النسخ'
 
 
 

@@ -514,6 +514,8 @@ class StringManager {
   static const String noMoreReels = "No More Reels";
   static const String readMore = "... read more";
   static const String readLess = " read less";
+  static const String copiedToClipboard = "Copied to Clipboard";
+
 
   static Map<int, bool> userType = {
     0: false,
