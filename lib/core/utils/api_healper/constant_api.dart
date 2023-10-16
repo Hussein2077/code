@@ -317,6 +317,8 @@ class ConstentApi {
   static const String phoneCode = "phone_code";
   static const String phonePass = "phone_pass";
   static String getgiftHistory(String id) => "$baseUrl/my_gifts?user_id=$id";
+  static const String sendLuckyGift   = "$baseUrl/gifts/send-lucky-gift";
+
 
   // messages send phone request
 
@@ -347,5 +349,7 @@ class ConstentApi {
   static String getMomentLike(String momentId, String page) {
     return "$baseUrl/moment/$momentId/like?page=$page";
   }
+
+
 
 }

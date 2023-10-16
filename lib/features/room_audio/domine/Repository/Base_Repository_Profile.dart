@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/get_room_users_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/lucky_gift_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/ban_user_from_writing_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/enter_room.dart';
@@ -69,6 +70,8 @@ abstract class BaseRepositoryRoom {
   Future<Either<Unit,Failure>> inviteUser(String ownerId, String userId,int  indexSeat);
   Future<Either<GetConfigKeyModel, Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
   Future<Either<String,Failure>> sendYallowBanner(SendPobUpPram sendPobUpPram );
+  Future<Either<LuckyGiftModel , Failure>> sendLuckyGift(GiftPramiter giftPramiter);
+
 
 
 
