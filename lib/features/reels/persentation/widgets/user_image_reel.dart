@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +6,8 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-// ignore: depend_on_referenced_packages
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 
 class UserImageReel extends StatelessWidget {
   final double? imageSize;
@@ -58,9 +56,9 @@ class UserImageReel extends StatelessWidget {
           ),
         ),
         ValueListenableBuilder<bool>(
-            valueListenable: ReelsScreenState.follow,
+            valueListenable: ReelsController.follow,
             builder: (context, isShow, _) {
-              if (ReelsScreenState.followMap[userId.toString()]==false &&
+              if (ReelsController.followingMap[userId.toString()]==false &&
                   (userId != MyDataModel.getInstance().id)) {
                 return Positioned(
                     bottom: 0,

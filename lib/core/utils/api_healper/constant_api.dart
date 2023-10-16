@@ -348,4 +348,6 @@ class ConstentApi {
     return "$baseUrl/moment/$momentId/like?page=$page";
   }
 
+  static String getFollowingReels = "$baseUrl/reals/user-followers";
+
 }

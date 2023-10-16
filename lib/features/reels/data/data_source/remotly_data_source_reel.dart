@@ -17,6 +17,7 @@ abstract class BaseRemotlyDataSourceReels {
     Future<String> makeComments( String reelId , String comment);
     Future<String> makeLike( String reelId , );
     Future<String> reportReals(ReportRealsParameter reportRealsParameter);
+    Future<List<ReelModel>> getFollowingReels();
 
 
 }
@@ -182,6 +183,25 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
 
   }
 
+  @override
+  Future<List<ReelModel>> getFollowingReels() async{
 
+    Map<String, String> headers = await DioHelper().header();
+
+    List<ReelModel> reels = [];
+    try {
+      final response = await Dio().get(
+        ConstentApi.getFollowingReels,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      List<ReelModel> normalReels = List<ReelModel>.from((response.data["data"] as List).map((e) => ReelModel.fromJson(e)));
+      reels.addAll(normalReels);
+      return reels;
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName:'getFollowingReels' );
+    }
+  }
 
 }

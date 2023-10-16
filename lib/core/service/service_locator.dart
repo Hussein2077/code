@@ -196,12 +196,14 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manage
 import 'package:tik_chat_v2/features/reels/data/data_source/remotly_data_source_reel.dart';
 import 'package:tik_chat_v2/features/reels/data/repository_imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/reels/domin/repository/base_repository_reels.dart';
+import 'package:tik_chat_v2/features/reels/domin/use_case/get_following_reels_uc.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/get_reel_comments_uc.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/get_reels_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/make_reel_comment.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/make_reel_like_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/report_reals_use_case.dart';
 import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
@@ -508,9 +510,10 @@ class ServerLocator {
     getIt.registerFactory(() => AddMomentCommentBloc(addMomentCommentUseCase:  getIt()));
     getIt.registerFactory(() => GetMomentLikesBloc(getMomentLikeUseCase:  getIt()));
     getIt.registerFactory(() => GetMomentGiftsBloc(getMomentGiftsUseCase:  getIt()));
+    getIt.registerFactory(() => GetFollowingReelsBloc(getFollowingReelUseCase:  getIt()));
 
 
-    
+
 
 //usecase
 
@@ -782,6 +785,8 @@ getIt.registerLazySingleton(
 
          getIt.registerLazySingleton(
         () => ReportRealsUseCases(baseRepositoryReel: getIt()));
+
+    getIt.registerLazySingleton(() => GetFollowingReelUseCase(baseRepositoryReel: getIt()));
 
 
 

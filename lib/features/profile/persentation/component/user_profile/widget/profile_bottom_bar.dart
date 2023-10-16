@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_state.dart';
-import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 
 class ProfileBottomBar extends StatefulWidget {
   final UserDataModel userData;
@@ -33,14 +33,14 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
 
         if (state is FollowSucssesState) {
           isFollow = !isFollow;
-                    ReelsScreenState.followMap[widget.userData.id.toString()]=true;
-                              ReelsScreenState.follow.value = !ReelsScreenState.follow.value;
+          ReelsController.followingMap[widget.userData.id.toString()]=true;
+          ReelsController.follow.value = !ReelsController.follow.value;
 
 
           setState(() {});
         } else if (state is UnFollowSucssesState) {
-          ReelsScreenState.follow.value = !ReelsScreenState.follow.value;
-          ReelsScreenState.followMap[widget.userData.id.toString()]=false;
+          ReelsController.follow.value = !ReelsController.follow.value;
+          ReelsController.followingMap[widget.userData.id.toString()]=false;
           isFollow = !isFollow;
           setState(() {});
         }else if (state is  FollowLoadingState){

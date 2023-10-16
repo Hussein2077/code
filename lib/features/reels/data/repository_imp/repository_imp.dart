@@ -10,10 +10,8 @@ import 'package:tik_chat_v2/features/reels/domin/use_case/upload_reel_use_case.d
 
 class RepositoryReels extends BaseRepositoryReels {
    final BaseRemotlyDataSourceReels baseRemotlyDataSourceReels;
+  RepositoryReels({required this.baseRemotlyDataSourceReels});
 
-
-  RepositoryReels(
-      {required this.baseRemotlyDataSourceReels});
   @override
   Future<Either<String, Failure>> uploadReel(UploadReelParamiter uploadReelParamiter)async {
      try {
@@ -73,5 +71,15 @@ class RepositoryReels extends BaseRepositoryReels {
       return Right(DioHelper.buildFailure(e));
     }
   }
+
+   @override
+   Future<Either<List<ReelModel>, Failure>> getFollowingReels()async {
+     try {
+       final result = await baseRemotlyDataSourceReels.getFollowingReels();
+       return Left(result);
+     } on Exception catch (e) {
+       return Right(DioHelper.buildFailure(e));
+     }
+   }
 
 }

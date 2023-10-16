@@ -38,6 +38,7 @@ import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dar
 import 'package:tik_chat_v2/splash.dart';
 
 import '../core/resource_manger/asset_path.dart';
+import '../features/reels/persentation/reels_screen_taps.dart';
 import 'widget/bottom_bar_widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -118,7 +119,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   actionDynamicLink: widget.actionDynamicLink,
 
                 ),
-            (_) => const ReelsScreen(),
+            (_) => const ReelsScreenTaps(),
             (_) => const FollowingLiveScreen(),
             (_) => const MomentScreen(),
             (_) => const ProfileScreen(),
