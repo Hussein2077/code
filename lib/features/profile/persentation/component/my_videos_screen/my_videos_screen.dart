@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -44,7 +45,7 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(
-          StringManager.myVideos,
+          StringManager.myVideos.tr(),
           style: Theme.of(context)
               .textTheme
               .bodyMedium!
