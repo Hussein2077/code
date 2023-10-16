@@ -78,7 +78,8 @@ class _GiftBottomBarState extends State<GiftBottomBar> with TickerProviderStateM
         percentNotifier.value = 0;
         widget.compo = 0;
         isVisible = false;
-      });
+      }
+      );
     });
 
 
