@@ -42,6 +42,8 @@ class AssetsPath {
   static const String blueBackGround = "$pathImage/blue_voice_background.png";
   static const String yellowBackGround =
       "$pathImage/yellwo_voice_background.png";
+  static const String luckyGiftBox ="$pathImage/Bubble-Win.png" ;
+  static const String goldCoin = "$pathImage/goldcoin.png";
 
   static const String pinkBackGround = "$pathImage/pink_voice_background.png";
   static const String topUsersBackGround = "$pathImage/top_users_back.png";

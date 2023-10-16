@@ -306,6 +306,7 @@ Future<void> clearAll() async {
   RoomScreen.isKick.value = false;
   RoomScreen.showBanner.value = false;
   RoomScreen.myCoins.value = "";
+  RoomScreen.winCircularluckyGift.value = 0;
   await distroyMusic();
 }
 

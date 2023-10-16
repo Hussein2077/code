@@ -92,7 +92,7 @@ class StringManager {
   static const String bySigningOrLogin =
       "By Signing up/Logging in, you agree to";
   static const String privacyPolicy = "$appTitle Privacy Policy";
-
+  static const String win = 'Win' ;
   static const String and = "and";
   static const String termsOfService = "Terms of Service";
   static const String enterTheVerificatiOnCode = "Enter the verification code";
