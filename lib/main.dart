@@ -118,6 +118,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
@@ -449,9 +451,8 @@ final  String theme ;
 
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
         BlocProvider(create: (_) => getIt<SendCodeBloc>()),
-        BlocProvider(
-            create: (_) =>
-            getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
+        BlocProvider(create: (_) => getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
+        BlocProvider(create: (_) => getIt<GetFollowingReelsBloc>()..add(GetFollowingReelsEvent())),
       ],
       child:  BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {

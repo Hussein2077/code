@@ -10,8 +10,7 @@ abstract class BaseRepositoryReels {
   Future<Either<List<ReelModel>, Failure>> getReels(String? page,String? reelId);
   Future<Either<List<ReelCommentModel>, Failure>> getReelComments(String? page , String reelId);
   Future<Either<String, Failure>> makeReelComment( String reelId ,  String comment);
-
   Future<Either<String, Failure>> makeReelLike( String reelId ,);
   Future<Either<String, Failure>> reportReals(ReportRealsParameter reportRealsParameter);
-
+  Future<Either<List<ReelModel>, Failure>> getFollowingReels();
 }

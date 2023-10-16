@@ -15,7 +15,7 @@ import 'package:tik_chat_v2/features/reels/persentation/components/comments/comm
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_state.dart';
-import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/user_image_reel.dart';
 import 'dart:ui' as ui;
 
@@ -76,7 +76,7 @@ class ScreenOptions extends StatelessWidget {
                       children: [
                         if (userView == false)
                           if (onLike != null)
-                            if (!ReelsScreenState.likedVideos[item.id.toString()]!)
+                            if (!ReelsController.likedVideos[item.id.toString()]!)
                               IconButton(
                                 icon: Icon(
                                   CupertinoIcons.heart_solid,
@@ -98,7 +98,7 @@ class ScreenOptions extends StatelessWidget {
                                 onPressed: () => onLike!(item.id!),
                               ),
                         if (userView == false)
-                          if (ReelsScreenState.likedVideos[item.id.toString()]!)
+                          if (ReelsController.likedVideos[item.id.toString()]!)
                             IconButton(
                               icon: Icon(
                                 CupertinoIcons.heart_solid,
@@ -120,7 +120,7 @@ class ScreenOptions extends StatelessWidget {
                             ),
                         userView == false
                             ? Text(
-                            NumbersToShort.convertNumToShort(ReelsScreenState
+                            NumbersToShort.convertNumToShort(ReelsController
                                 .likedVideoCount[item.id.toString()]!),
                             style: const TextStyle(color: Colors.white))
                             : Text(
