@@ -104,11 +104,15 @@ class AduioLiveRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        room.name ?? "",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: ConfigSize.defaultSize! * 1.8),
+                      SizedBox(
+                        width: ConfigSize.defaultSize!*15,
+                        child: Text(
+                          room.name ?? '',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: ConfigSize.defaultSize! * 1.8),
+                        ),
                       ),
                       SizedBox(
                         width: ConfigSize.defaultSize! * 21,
@@ -131,7 +135,7 @@ class AduioLiveRow extends StatelessWidget {
                             width: ConfigSize.defaultSize,
                           ),
                           Text(room.country!,style: TextStyle(
-                            fontSize: 17
+                            fontSize: ConfigSize.defaultSize!*1.7
                           )),
                      /*CachedNetworkImage(
                             imageUrl: room.country!,
