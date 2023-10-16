@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
-
+//
   static const int versionApp = 30;
 
   //updates
@@ -474,6 +474,7 @@ class StringManager {
   static const String nameAnayoums = 'Mysterious Person';
 
   static const String myVideos = 'My Videos';
+  static const String loadingMore = "Loading More";
   static const String noFamily = 'this person doesn\'t belong to any family';
 
   static const String pleaseWaitReel =
@@ -509,6 +510,10 @@ class StringManager {
   static const String likes = "Likes";
   static const String followingTab = "Following";
   static const String myMomentsTab = "My moments";
+  static const String noReels = "No Reels";
+  static const String noMoreReels = "No More Reels";
+  static const String readMore = "... read more";
+  static const String readLess = " read less";
 
   static Map<int, bool> userType = {
     0: false,

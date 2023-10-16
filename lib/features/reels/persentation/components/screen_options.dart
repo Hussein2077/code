@@ -6,8 +6,8 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/core/widgets/see_more_text.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/core/utils/convert_numbers_to_short.dart';
@@ -53,97 +53,99 @@ class ScreenOptions extends StatelessWidget {
           child: SizedBox(
             width:
                 MediaQuery.of(context).size.width - ConfigSize.defaultSize! * 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                if (item.userImage != null)
-                  UserImageReel(
-                    image: item.userImage!,
-                    isFollowed: item.isFollow,
-                    userId: item.userId!,
-                    onFollow: onFollow,
-                  ),
-                if (item.userImage == null)
-                  CircleAvatar(
-                    radius: ConfigSize.defaultSize! * 1.6,
-                    child:
-                        Icon(Icons.person, size: ConfigSize.defaultSize! * 1.8),
-                  ),
-                SizedBox(height: ConfigSize.defaultSize),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (userView == false)
-                      if (onLike != null)
-                        if (!ReelsScreenState.likedVideos[item.id.toString()]!)
-                          IconButton(
-                            icon: Icon(
-                              CupertinoIcons.heart_solid,
-                              color: Colors.white,
-                              size: ConfigSize.defaultSize! * 4,
+                    if (item.userImage != null)
+                      UserImageReel(
+                        image: item.userImage!,
+                        isFollowed: item.isFollow,
+                        userId: item.userId!,
+                        onFollow: onFollow,
+                      ),
+                    if (item.userImage == null)
+                      CircleAvatar(
+                        radius: ConfigSize.defaultSize! * 1.6,
+                        child:
+                        Icon(Icons.person, size: ConfigSize.defaultSize! * 1.8),
+                      ),
+                    SizedBox(height: ConfigSize.defaultSize),
+                    Column(
+                      children: [
+                        if (userView == false)
+                          if (onLike != null)
+                            if (!ReelsScreenState.likedVideos[item.id.toString()]!)
+                              IconButton(
+                                icon: Icon(
+                                  CupertinoIcons.heart_solid,
+                                  color: Colors.white,
+                                  size: ConfigSize.defaultSize! * 4,
+                                ),
+                                onPressed: () => onLike!(item.id!),
+                              ),
+                        //User View
+                        if (userView == true)
+                          if (onLike != null)
+                            if (!ReelsBox.likedVideos[item.id.toString()]!)
+                              IconButton(
+                                icon: Icon(
+                                  CupertinoIcons.heart_solid,
+                                  color: Colors.white,
+                                  size: ConfigSize.defaultSize! * 4,
+                                ),
+                                onPressed: () => onLike!(item.id!),
+                              ),
+                        if (userView == false)
+                          if (ReelsScreenState.likedVideos[item.id.toString()]!)
+                            IconButton(
+                              icon: Icon(
+                                CupertinoIcons.heart_solid,
+                                color: Colors.red,
+                                size: ConfigSize.defaultSize! * 4,
+                              ),
+                              onPressed: () => onLike!(item.id!),
                             ),
-                            onPressed: () => onLike!(item.id!),
-                          ),
-                    //User View
-                    if (userView == true)
-                      if (onLike != null)
-                        if (!ReelsBox.likedVideos[item.id.toString()]!)
-                          IconButton(
-                            icon: Icon(
-                              CupertinoIcons.heart_solid,
-                              color: Colors.white,
-                              size: ConfigSize.defaultSize! * 4,
+                        //User View
+                        if (userView == true)
+                          if (ReelsBox.likedVideos[item.id.toString()]!)
+                            IconButton(
+                              icon: Icon(
+                                CupertinoIcons.heart_solid,
+                                color: Colors.red,
+                                size: ConfigSize.defaultSize! * 4,
+                              ),
+                              onPressed: () => onLike!(item.id!),
                             ),
-                            onPressed: () => onLike!(item.id!),
-                          ),
-                    if (userView == false)
-                      if (ReelsScreenState.likedVideos[item.id.toString()]!)
-                        IconButton(
-                          icon: Icon(
-                            CupertinoIcons.heart_solid,
-                            color: Colors.red,
-                            size: ConfigSize.defaultSize! * 4,
-                          ),
-                          onPressed: () => onLike!(item.id!),
-                        ),
-                    //User View
-                    if (userView == true)
-                      if (ReelsBox.likedVideos[item.id.toString()]!)
-                        IconButton(
-                          icon: Icon(
-                            CupertinoIcons.heart_solid,
-                            color: Colors.red,
-                            size: ConfigSize.defaultSize! * 4,
-                          ),
-                          onPressed: () => onLike!(item.id!),
-                        ),
-                    userView == false
-                        ? Text(
+                        userView == false
+                            ? Text(
                             NumbersToShort.convertNumToShort(ReelsScreenState
                                 .likedVideoCount[item.id.toString()]!),
                             style: const TextStyle(color: Colors.white))
-                        : Text(
+                            : Text(
                             NumbersToShort.convertNumToShort(
                                 ReelsBox.likedVideoCount[item.id.toString()]!),
                             style: const TextStyle(color: Colors.white)),
-                    SizedBox(height: ConfigSize.defaultSize),
-                    IconButton(
-                      icon: const Icon(CupertinoIcons.chat_bubble_text_fill,
-                          color: Colors.white),
-                      onPressed: () {
-                        if (onComment != null) {
-                          if (commentListtemp == null) {
-                            BlocProvider.of<GetReelCommentsBloc>(context).add(
-                                GetReelsCommentsEvent(
-                                    reelId: item.id.toString()));
-                          }
-                          showModalBottomSheet(
-                              barrierColor: Colors.transparent,
-                              context: context,
-                              builder: (ctx) => BlocBuilder<GetReelCommentsBloc,
+                        SizedBox(height: ConfigSize.defaultSize),
+                        IconButton(
+                          icon: const Icon(CupertinoIcons.chat_bubble_text_fill,
+                              color: Colors.white),
+                          onPressed: () {
+                            if (onComment != null) {
+                              if (commentListtemp == null) {
+                                BlocProvider.of<GetReelCommentsBloc>(context).add(
+                                    GetReelsCommentsEvent(
+                                        reelId: item.id.toString()));
+                              }
+                              showModalBottomSheet(
+                                  barrierColor: Colors.transparent,
+                                  context: context,
+                                  builder: (ctx) => BlocBuilder<GetReelCommentsBloc,
                                       GetReelsCommentsState>(
                                     builder: (context, state) {
                                       if (state
-                                          is GetReelsCommentsSucssesState) {
+                                      is GetReelsCommentsSucssesState) {
                                         commentListtemp = state.data;
                                         return CommentBottomSheet(
                                             reelId: item.id.toString(),
@@ -152,18 +154,18 @@ class ScreenOptions extends StatelessWidget {
                                                 [],
                                             onComment: onComment);
                                       } else if (state
-                                          is GetReelsCommentsLoadingState) {
+                                      is GetReelsCommentsLoadingState) {
                                         if (commentListtemp == null) {
                                           return const LoadingWidget();
                                         } else {
                                           return CommentBottomSheet(
                                               reelId: item.id.toString(),
                                               commentList:
-                                                  commentListtemp ?? [],
+                                              commentListtemp ?? [],
                                               onComment: onComment);
                                         }
                                       } else if (state
-                                          is GetReelsCommentsErrorState) {
+                                      is GetReelsCommentsErrorState) {
                                         return CustomErrorWidget(
                                             message: state.errorMassage);
                                       } else {
@@ -175,42 +177,64 @@ class ScreenOptions extends StatelessWidget {
                                       }
                                     },
                                   ));
-                        }
-                      },
+                            }
+                          },
+                        ),
+                        Text(NumbersToShort.convertNumToShort(item.commentNum!),
+                            style: const TextStyle(color: Colors.white)),
+                      ],
                     ),
-                    Text(NumbersToShort.convertNumToShort(item.commentNum!),
-                        style: const TextStyle(color: Colors.white)),
+                    SizedBox(height: ConfigSize.defaultSize! * 1),
+                    InkWell(
+                      onTap: () => onShare!(item),
+                      child: Transform(
+                        transform: Matrix4.rotationZ(5.8),
+                        child: const Icon(
+                          CupertinoIcons.arrowshape_turn_up_right_fill,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: ConfigSize.defaultSize),
+                    if (onClickMoreBtn != null)
+                      IconButton(
+                        icon: const Icon(Icons.more_vert),
+                        onPressed: () => onClickMoreBtn!(item.id!, item.userId!),
+                        color: Colors.white,
+                      ),
+                    // Center(
+                    //   child: SizedBox(
+                    //       width:ConfigSize.screenWidth!*0.8,
+                    //       //MediaQuery.of(context).size.width -
+                    //           //ConfigSize.defaultSize!,
+                    //       child: ExpandableText(
+                    //         item.description.toString(),
+                    //         trimLines: 3,
+                    //         style: TextStyle(
+                    //             color: Colors.white,
+                    //             fontSize: ConfigSize.defaultSize! * 1.6),
+                    //         //overflow: TextOverflow.fade,
+                    //       )),
+                    // ),
                   ],
                 ),
-                SizedBox(height: ConfigSize.defaultSize! * 1),
-                InkWell(
-                  onTap: () => onShare!(item),
-                  child: Transform(
-                    transform: Matrix4.rotationZ(5.8),
-                    child: const Icon(
-                      CupertinoIcons.arrowshape_turn_up_right_fill,
-                      color: Colors.white,
-                    ),
-                  ),
+                Positioned(
+                  bottom: 0,
+                  left: ConfigSize.screenWidth!*0.1,
+                  child: SizedBox(
+                      width:ConfigSize.screenWidth!*0.8,
+                      //MediaQuery.of(context).size.width -
+                          //ConfigSize.defaultSize!,
+                      child: ExpandableText(
+                        item.description.toString(),
+                        trimLines: 3,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: ConfigSize.defaultSize! * 1.6),
+                        //overflow: TextOverflow.fade,
+                      )),
                 ),
-                SizedBox(height: ConfigSize.defaultSize),
-                if (onClickMoreBtn != null)
-                  IconButton(
-                    icon: const Icon(Icons.more_vert),
-                    onPressed: () => onClickMoreBtn!(item.id!, item.userId!),
-                    color: Colors.white,
-                  ),
-                SizedBox(
-                    width: MediaQuery.of(context).size.width -
-                        ConfigSize.defaultSize!,
-                    child: Text(
-                      item.description.toString(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: ConfigSize.defaultSize! * 1.6),
-                      overflow: TextOverflow.fade,
-                    )),
-              ],
+              ]
             ),
           )),
     );

@@ -1,15 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 
 class ExpandableText extends StatefulWidget {
 
 
   final String text;
   final int trimLines;
+  final TextStyle? style;
+
   const ExpandableText(
       this.text, {
         Key? key,
         this.trimLines = 2,
+        this.style,
       })  : super(key: key);
 
 
@@ -26,7 +30,7 @@ class ExpandableTextState extends State<ExpandableText> {
 
   @override
   Widget build(BuildContext context) {
-    const colorClickableText = Colors.blue;
+    const colorClickableText = ColorManager.mainColor;
     TextSpan link = TextSpan(
         text: _readMore ? "... read more" : " read less",
         style: const TextStyle(
@@ -69,14 +73,14 @@ class ExpandableTextState extends State<ExpandableText> {
             text: _readMore
                 ? widget.text.substring(0, endIndex)
                 : widget.text,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: widget.style ??Theme.of(context).textTheme.bodyMedium,
 
             children: <TextSpan>[link],
           );
         } else {
           textSpan = TextSpan(
             text: widget.text,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: widget.style ??Theme.of(context).textTheme.bodyMedium,
 
           );
         }

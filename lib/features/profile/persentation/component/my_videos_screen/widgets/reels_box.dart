@@ -135,16 +135,16 @@ class _ReelsBoxState extends State<ReelsBox> {
                       );
                       }else{
                         if(state.data!.length % 3 != 0){
-                          return const Center(child: Text("Loading More", style: TextStyle(color: Colors.black, fontSize: 16),));
+                          return  Center(child: Text(StringManager.loadingMore.tr()  , style: const TextStyle(color: Colors.black, fontSize: 16),));
                         }else if(state.data!.length == 0){
-                          return const Center(child: Text("No Reels", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),));
+                          return  Center(child: Text(StringManager.noReels.tr(), style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),));
                         } else if(state.loadMore){
                           return const Center(child: CircularProgressIndicator());
                         }
                       }
                     }),
               ),
-              if(!state.loadMore) const Center(child: Text("No More Reels", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),)),
+              if(!state.loadMore)  Center(child: Text(StringManager.noMoreReels.tr(), style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),)),
             ],
           );
         } else if (state is GetUserReelsLoadingState) {

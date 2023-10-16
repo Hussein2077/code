@@ -404,6 +404,12 @@ StringManager.coinsIsEmpty : "الكوينز فارغ",
     StringManager.thisMomentc:'لا يوجد تعليقات ',
     StringManager.followingTab:'اتابعهم',
     StringManager.nameAgency:'اسم الوكالة',
+    StringManager.loadingMore:'تحميل المزيد',
+    StringManager.noReels:'لا يوجد ريلز',
+    StringManager.noMoreReels:'لا يوجد مزيد من الريلز',
+    StringManager.games:'الالعاب',
+    StringManager.readMore:'المزيد',
+    StringManager.readLess:'اعرض اقل',
 
 
 

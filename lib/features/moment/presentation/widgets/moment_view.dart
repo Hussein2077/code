@@ -25,7 +25,7 @@ class MomentView extends StatelessWidget {
 
             child:ExpandableText(
               momentModel.moment,
-              trimLines: 1,
+              trimLines: 2,
             ),
           ),
 

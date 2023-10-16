@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -44,14 +43,13 @@ class ReelsScreen extends StatefulWidget {
 
 late TextEditingController report;
 
-class ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin{
+class ReelsScreenState extends State<ReelsScreen>{
   static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
   static Map<String, Uint8List> thumbnail = {};
   static Map<String, bool> likedVideos = {};
   static Map<String, int> likedVideoCount = {};
   static Map<String, bool> followMap = {};
 
-  late TabController _tabController;
 
 
 
@@ -72,10 +70,7 @@ class ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin{
     }
 
     report = TextEditingController();
-    _tabController = TabController(
-      length: 2,
-      vsync: this, // Provide a TickerProvider
-    );
+
   }
 
   @override
