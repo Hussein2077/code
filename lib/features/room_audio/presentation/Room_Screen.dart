@@ -1450,11 +1450,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       if (state is ErrorSendGiftStates) {
         errorToast(context: context, title: state.errorMessage);
       } else if (state is SuccessSendGiftStates) {
-        if (state.successMessage.contains("كسبت")) {
-          ZegoUIKit().sendInRoomMessage(state.successMessage, true);
-        } else {
+
+        
           ZegoUIKit().sendInRoomMessage(state.successMessage, false);
-        }
+
       }
     });
   }
