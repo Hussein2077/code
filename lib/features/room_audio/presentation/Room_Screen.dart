@@ -716,11 +716,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     Future.delayed(const Duration(minutes: 7), () {
       //ckeck if there are other banner ;
       yellowBannercontroller.reverse().then((value) =>
-          // loadMoreYallowBannerAnimation(
-          //     YallowBannerData(senderId: senderId,
-          //         message: message,
-          //         yallowBannerhasPasswoedRoom: hasPasswoedRoom,
-          //         yallowBannerOwnerRoom: ownerId))
+
           log("don"));
     });
   }
