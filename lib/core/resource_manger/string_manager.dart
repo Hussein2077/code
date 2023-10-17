@@ -519,6 +519,8 @@ class StringManager {
   static const String copiedToClipboard = "Copied to Clipboard";
   static const String allow = "Allow";
   static const String applicationDoesnt = "Application doesn't have access to the library";
+  static const String luckGiftSend = 'send';
+
 
 
   static Map<int, bool> userType = {

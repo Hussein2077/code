@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
@@ -42,6 +43,26 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     giftControler = TabController(length: 5, vsync: this);
+    GiftBottomBar.typeGift = TypeGift.normal ;
+    giftControler!.addListener(() {
+      switch(giftControler?.index){
+        case 0 :
+          GiftBottomBar.typeGift = TypeGift.normal;
+          break ;
+        case 1 :
+          GiftBottomBar.typeGift = TypeGift.lucky;
+          break ;
+        case 2 :
+          GiftBottomBar.typeGift = TypeGift.spical;
+          break ;
+        case 3 :
+          GiftBottomBar.typeGift = TypeGift.famous;
+          break ;
+        case 4 :
+          GiftBottomBar.typeGift = TypeGift.country;
+          break ;
+      }
+    });
   }
 
   @override
@@ -139,7 +160,6 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
                   ]),
                 ),
                 GiftBottomBar(
-                  myDataModel: widget.myDataModel,
                   roomData: widget.roomData,
                 ),
               ],
