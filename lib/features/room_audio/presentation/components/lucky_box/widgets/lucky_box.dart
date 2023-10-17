@@ -7,12 +7,11 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/error_luck_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_states.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 
 class LuckyBox extends StatelessWidget {
 
@@ -31,9 +30,9 @@ class LuckyBox extends StatelessWidget {
                       barrierDismissible: true,
                       context: context,
                       builder: (BuildContext context) {
-                        if (RoomScreen.luckyBoxes.isEmpty) {
-                          RoomScreen.updateLuckyBox.value =
-                              RoomScreen.updateLuckyBox.value + 1;
+                        if (LuckyBoxVariables.luckyBoxMap['luckyBoxes'].isEmpty) {
+                          LuckyBoxVariables.updateLuckyBox.value =
+                              LuckyBoxVariables.updateLuckyBox.value + 1;
                           return Center(
                               child: Container(
                                 height: ConfigSize.defaultSize! * 46.2,
@@ -56,28 +55,21 @@ class LuckyBox extends StatelessWidget {
                             backgroundColor: Colors.transparent,
                             contentPadding: EdgeInsets.zero,
                             content: DialogLuckyBox(
-                              coins: RoomScreen
-                                  .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                              coins: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                                   .coinns,
-                              luckyBoxId: RoomScreen
-                                  .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                              luckyBoxId: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                                   .boxId,
-                              ownerBoxId: RoomScreen
-                                  .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                              ownerBoxId: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                                   .ownerBoxId,
-                              ownerBoxName: RoomScreen
-                                  .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                              ownerBoxName: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                                   .ownerName,
                               removeController: luckyBoxRemovecontroller,
-                              typeLuckyBox: RoomScreen
-                                  .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                              typeLuckyBox: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                                   .typeLuckyBox,
                               remTime: SetTimerLuckyBox.remTimeSuperBox,
-                              ownerImage: RoomScreen
-                                  .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                              ownerImage: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                                   .ownerImage,
-                              uid: RoomScreen
-                                  .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                              uid: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                                   .uId,
                             ),
                           );
@@ -97,8 +89,8 @@ class LuckyBox extends StatelessWidget {
                       top: AppPadding.p40,
                       right: AppPadding.p10,
                       child: Badge.count(
-                          count: RoomScreen.luckyBoxes.length,
-                          isLabelVisible: RoomScreen.luckyBoxes.length != 1),
+                          count: LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length,
+                          isLabelVisible: LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length != 1),
                     )
                   ],
                 )),

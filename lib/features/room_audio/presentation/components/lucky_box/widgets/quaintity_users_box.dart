@@ -1,14 +1,9 @@
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/box_lucky_model.dart';
-import '../lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 
 class QuaintityUsersBox extends StatefulWidget {
   final List<TypeBox> boxes ;
@@ -37,12 +32,12 @@ class QuaintityUsersBoxState extends State<QuaintityUsersBox> {
               child:  InkWell(
                 onTap: (){
                 setState(() {
-                  LuckyBox.quantity = '25' ;
+                  LuckyBoxVariables.luckyBoxMap['quantity'] = '25' ;
                 });
               },child: Container(
 
                 decoration: BoxDecoration(
-                  color: LuckyBox.quantity == '25' ? Colors.white :Colors.transparent,
+                  color: LuckyBoxVariables.luckyBoxMap['quantity'] == '25' ? Colors.white :Colors.transparent,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(AppPadding.p17),
                       bottomLeft: Radius.circular(AppPadding.p17)),
@@ -51,7 +46,7 @@ class QuaintityUsersBoxState extends State<QuaintityUsersBox> {
                   child: Text(
                     "25",
                     style: TextStyle(
-                        color:LuckyBox. quantity == '25' ? ColorManager.mainColor :Colors.white  ,
+                        color:LuckyBoxVariables.luckyBoxMap['quantity'] == '25' ? ColorManager.mainColor :Colors.white  ,
                         fontWeight: FontWeight.w700,
                         fontSize: AppPadding.p16),
                   ),
@@ -61,16 +56,16 @@ class QuaintityUsersBoxState extends State<QuaintityUsersBox> {
               flex: 1,
               child: InkWell(onTap: (){
                 setState(() {
-                  LuckyBox.  quantity = '50';
+                  LuckyBoxVariables.luckyBoxMap['quantity'] = '50';
                 });},child: Container(
                 decoration:   BoxDecoration(
-                  color:LuckyBox.  quantity == '50' ? Colors.white :Colors.transparent,
+                  color:LuckyBoxVariables.luckyBoxMap['quantity'] == '50' ? Colors.white :Colors.transparent,
                 ),
                 child: Center(
                   child: Text(
                     "50",
                     style: TextStyle(
-                        color:LuckyBox.  quantity == '50' ?  ColorManager.mainColor:Colors.white,
+                        color:LuckyBoxVariables.luckyBoxMap['quantity'] == '50' ?  ColorManager.mainColor:Colors.white,
                         fontWeight: FontWeight.w700,
                         fontSize: AppPadding.p16),
                   ),
@@ -80,14 +75,14 @@ class QuaintityUsersBoxState extends State<QuaintityUsersBox> {
               flex: 1,
               child: InkWell(onTap: (){
                 setState(() {
-                  LuckyBox.quantity = '75';
+                  LuckyBoxVariables.luckyBoxMap['quantity'] = '75';
                 });},child: Container(
-                color:LuckyBox.   quantity == '75' ? Colors.white : Colors.transparent,
+                color:LuckyBoxVariables.luckyBoxMap['quantity'] == '75' ? Colors.white : Colors.transparent,
                 child: Center(
                   child: Text(
                     "75",
                     style: TextStyle(
-                        color:LuckyBox.  quantity == '75' ? ColorManager.mainColor: Colors.white,
+                        color:LuckyBoxVariables.luckyBoxMap['quantity'] == '75' ? ColorManager.mainColor: Colors.white,
                         fontWeight: FontWeight.w700,
                         fontSize: AppPadding.p16),
                   ),
@@ -97,10 +92,10 @@ class QuaintityUsersBoxState extends State<QuaintityUsersBox> {
               flex: 1,
               child: InkWell(onTap: (){
                 setState(() {
-                  LuckyBox.quantity = '100' ;
+                  LuckyBoxVariables.luckyBoxMap['quantity'] = '100' ;
                 });},child: Container(
                   decoration: BoxDecoration(
-                    color:LuckyBox.  quantity == '100'?  Colors.white:Colors.transparent,
+                    color:LuckyBoxVariables.luckyBoxMap['quantity'] == '100'?  Colors.white:Colors.transparent,
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(AppPadding.p17),
                         bottomRight: Radius.circular(AppPadding.p17)),
@@ -109,7 +104,7 @@ class QuaintityUsersBoxState extends State<QuaintityUsersBox> {
                     child: Text(
                       "100",
                       style: TextStyle(
-                          color:LuckyBox.   quantity == '100'?  ColorManager.mainColor : Colors.white,
+                          color:LuckyBoxVariables.luckyBoxMap['quantity'] == '100'?  ColorManager.mainColor : Colors.white,
                           fontWeight: FontWeight.w700,
                           fontSize: AppPadding.p16),
                     ),

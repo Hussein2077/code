@@ -146,6 +146,7 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
                               child: Text(
                                 "${StringManager.roomIntro.tr()} \n ${widget.room.roomIntro}",
                                 style: TextStyle(color: ColorManager.textRoomComment2 ,fontSize: 24.sp),
+                                maxLines: 20,
                               ),
                             ),
                           )

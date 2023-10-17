@@ -11,16 +11,14 @@ import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/error_luck_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/sucess_luck_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
@@ -40,27 +38,6 @@ class EmojieData {
 
   EmojieData(
       {required this.emojie, required this.emojieId, required this.length});
-}
-
-class LuckyBoxData {
-  final String boxId;
-  final String coinns;
-  final String ownerBoxId;
-  final String ownerName;
-  final TypeLuckyBox typeLuckyBox;
-  final int remTime;
-  final String uId;
-  final String ownerImage;
-
-  LuckyBoxData(
-      {required this.boxId,
-      required this.uId,
-      required this.ownerImage,
-      required this.coinns,
-      required this.ownerName,
-      required this.ownerBoxId,
-      required this.typeLuckyBox,
-      required this.remTime});
 }
 
 const String messageContent = "messageContent";
@@ -105,7 +82,6 @@ const String updateAdminsKey = "updateAdmins";
 const String removeChatKey = "removeChat";
 const String showLuckyBoxKey = "showluckybox";
 const String hideLuckyBoxKey = "hideluckybox";
-const String bannerSuperBoxKey = 'bannerSuperBox';
 const String ownerRoomIdKey = "ownerRoomId";
 const String boxIDKey = "boxId";
 const String boxTypeKey = "boxType";
@@ -285,11 +261,10 @@ Future<void> clearAll() async {
   MusicScreen.isPlaying.value = false;
   RoomScreen.adminsInRoom.clear();
   RoomScreen.usersInRoom.clear();
-  RoomScreen.luckyBoxes.clear();
+  LuckyBoxVariables.luckyBoxMap['luckyBoxes'].clear();
   RoomScreen.usersMessagesInRoom.clear();
   RoomScreen.usersMessagesRoom.clear();
-
-  LuckyBox.currentBox = 1;
+  LuckyBoxVariables.luckyBoxMap['currentBox'] = 1;
   SetTimerLuckyBox.remTimeSuperBox = 0;
   DialogLuckyBox.startTime = false;
   PkController.showPK.value = false;
@@ -645,20 +620,6 @@ TopUserKey(Map<String, dynamic> result)async{
   RoomScreen.topUserInRoom.value = topModel;
 }
 
-BannerSuperBoxKey(Map<String, dynamic> result, var superBox, var sendSuperBox, var showBannerLuckyBox)async{
-  UserDataModel sendBox;
-  if (RoomScreen.usersInRoom[result[messageContent]["ownerBoxid"].toString()] == null) {
-    sendBox = await RemotlyDataSourceProfile().getUserData(userId: result[messageContent]["ownerBoxid"].toString());
-  } else {
-    sendBox = RoomScreen.usersInRoom[result[messageContent]["ownerBoxid"].toString()]!;
-  }
-  superBox['isPasswordRoomLuckyBanner'] = result[messageContent]["isRoomPassword"];
-  superBox['superCoins'] = result[messageContent]["coins"].toString();
-  sendSuperBox = sendBox;
-  superBox['ownerIdRoomLuckyBanner'] = result[messageContent]["ownerRoomId"].toString();
-  showBannerLuckyBox.value = true;
-}
-
 ShowPobUpKey(Map<String, dynamic> result, var pobUpSender, var showPopUp)async{
   ZegoInRoomMessageInput.senderPobUpId = result[messageContent]['uId'];
   if (RoomScreen.usersInRoom[result[messageContent]['uId']] == null) {
@@ -725,38 +686,3 @@ InviteToSeatKey(Map<String, dynamic> result, String id, String ownerId, BuildCon
     //todo update this show
   }
 }
-
-BickFromLuckyBox(Map<String, dynamic> result, StreamController<List<LuckyBoxData>> luckyBoxRemovecontroller, BuildContext context){
-  ZegoUIKit().sendInRoomMessage(result[messageContent]['res'], false);
-  if (result[messageContent]['succ']) {
-    RoomScreen.luckyBoxes.removeAt(RoomScreen.luckyBoxes.length - 1);
-    luckyBoxRemovecontroller.add(RoomScreen.luckyBoxes);
-
-    showDialog(
-        barrierDismissible: true,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: Colors.transparent,
-            contentPadding: EdgeInsets.zero,
-            content: SucessLuckWidget(
-              coins: result[messageContent]['co'].toString(),
-            ),
-          );
-        });
-  } else {
-    Navigator.pop(context);
-    showDialog(
-        barrierDismissible: true,
-        context: context,
-        builder: (BuildContext context) {
-          return const AlertDialog(
-              backgroundColor: Colors.transparent,
-              contentPadding: EdgeInsets.zero,
-              content: ErrorLuckWidget(
-                isNotLucky: false,
-              ));
-        });
-  }
-}
-

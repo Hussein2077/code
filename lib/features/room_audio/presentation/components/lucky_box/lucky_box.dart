@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'dart:ui' as ui ;
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/coins_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/quaintity_users_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
@@ -22,12 +23,7 @@ class LuckyBox extends StatefulWidget {
   final EnterRoomModel roomData;
 
   const LuckyBox({required this.roomData, Key? key}) : super(key: key);
-  static String typeBox = "luckyBox";
 
-  static String coins = "0";
-  static String quantity = '25';
-
-  static int currentBox = 1;
 
   @override
   LuckyBoxState createState() => LuckyBoxState();
@@ -96,12 +92,12 @@ class LuckyBoxState extends State<LuckyBox> {
                               child: InkWell(
                                   onTap: () {
                                     setState(() {
-                                      LuckyBox.typeBox = "luckyBox";
+                                      LuckyBoxVariables.typeBox = "luckyBox";
                                     });
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: LuckyBox.typeBox == "luckyBox"
+                                      color: LuckyBoxVariables.typeBox == "luckyBox"
                                           ? Colors.white
                                           : Colors.transparent,
                                       borderRadius: BorderRadius.only(
@@ -115,7 +111,7 @@ class LuckyBoxState extends State<LuckyBox> {
                                         StringManager.luckyBox.tr(),
                                         style: TextStyle(
                                             color:
-                                                LuckyBox.typeBox == "luckyBox"
+                                            LuckyBoxVariables.typeBox == "luckyBox"
                                                     ? ColorManager.mainColor
                                                     : Colors.white,
                                             fontWeight: FontWeight.w700,
@@ -128,12 +124,12 @@ class LuckyBoxState extends State<LuckyBox> {
                               child: InkWell(
                                   onTap: () {
                                     setState(() {
-                                      LuckyBox.typeBox = "superBox";
+                                      LuckyBoxVariables.typeBox = "superBox";
                                     });
                                   },
                                   child: Container(
                                       decoration: BoxDecoration(
-                                        color: LuckyBox.typeBox == "superBox"
+                                        color: LuckyBoxVariables.typeBox == "superBox"
                                             ? Colors.white
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.only(
@@ -147,7 +143,7 @@ class LuckyBoxState extends State<LuckyBox> {
                                           StringManager.superBox.tr(),
                                           style: TextStyle(
                                               color:
-                                                  LuckyBox.typeBox == "superBox"
+                                              LuckyBoxVariables.typeBox == "superBox"
                                                       ? ColorManager.mainColor
                                                       : Colors.white,
                                               fontWeight: FontWeight.w700,
@@ -172,7 +168,7 @@ class LuckyBoxState extends State<LuckyBox> {
                     // detect coin
 
                     CoinsLuckyBox(
-                      boxes: LuckyBox.typeBox == 'superBox'
+                      boxes: LuckyBoxVariables.typeBox == 'superBox'
                           ? state.boxLuckyModel.superBox
                           : state.boxLuckyModel.normalBox,
                       refresh: refresh,
@@ -180,7 +176,7 @@ class LuckyBoxState extends State<LuckyBox> {
                     const Spacer(
                       flex: 1,
                     ),
-                    if (LuckyBox.typeBox != 'superBox')
+                    if (LuckyBoxVariables.typeBox != 'superBox')
                       Padding(
                         padding: const EdgeInsets.only(right: 180, bottom: 6),
                         child: Text(
@@ -192,9 +188,9 @@ class LuckyBoxState extends State<LuckyBox> {
                         ),
                       ),
                     // detect quantity
-                    if (LuckyBox.typeBox != 'superBox')
+                    if (LuckyBoxVariables.typeBox != 'superBox')
                       QuaintityUsersBox(
-                        boxes: LuckyBox.typeBox == 'superBox'
+                        boxes: LuckyBoxVariables.typeBox == 'superBox'
                             ? state.boxLuckyModel.superBox
                             : state.boxLuckyModel.normalBox,
                       ),
@@ -204,23 +200,23 @@ class LuckyBoxState extends State<LuckyBox> {
                     //send button
 
                     if ((state.boxLuckyModel.normalBox.isNotEmpty &&
-                            LuckyBox.typeBox != 'superBox') ||
+                        LuckyBoxVariables.typeBox != 'superBox') ||
                         (state.boxLuckyModel.superBox.isNotEmpty &&
-                            LuckyBox.typeBox == 'superBox'))
+                            LuckyBoxVariables.typeBox == 'superBox'))
                       InkWell(
                         onTap: () {
-                          if (LuckyBox.typeBox == 'superBox') {
+                          if (LuckyBoxVariables.typeBox == 'superBox') {
                             if (state.boxLuckyModel.superBox.isNotEmpty) {
                               log(state.boxLuckyModel.superBox.length
                                   .toString());
                               BlocProvider.of<LuckyBoxesBloc>(context).add(
                                   SendBoxesEvent(
                                       boxId: state.boxLuckyModel
-                                          .superBox[LuckyBox.currentBox - 1].id
+                                          .superBox[LuckyBoxVariables.luckyBoxMap['currentBox'] - 1].id
                                           .toString(),
                                       ownerId:
                                           widget.roomData.ownerId.toString(),
-                                      quintity: LuckyBox.quantity));
+                                      quintity: LuckyBoxVariables.luckyBoxMap['quantity']));
                             } else {
                               errorToast(
                                 context: context,
@@ -231,10 +227,10 @@ class LuckyBoxState extends State<LuckyBox> {
                             BlocProvider.of<LuckyBoxesBloc>(context).add(
                                 SendBoxesEvent(
                                     boxId: state.boxLuckyModel
-                                        .normalBox[LuckyBox.currentBox - 1].id
+                                        .normalBox[LuckyBoxVariables.luckyBoxMap['currentBox'] - 1].id
                                         .toString(),
                                     ownerId: widget.roomData.ownerId.toString(),
-                                    quintity: LuckyBox.quantity));
+                                    quintity: LuckyBoxVariables.luckyBoxMap['quantity']));
                           }
                         },
                         child: Container(
