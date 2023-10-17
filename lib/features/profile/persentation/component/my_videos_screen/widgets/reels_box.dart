@@ -5,7 +5,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gif/flutter_gif.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -31,22 +33,27 @@ class ReelsBox extends StatefulWidget {
   State<ReelsBox> createState() => _ReelsBoxState();
 }
 
-class _ReelsBoxState extends State<ReelsBox> {
+class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
+  late FlutterGifController flutterGifController;
 
   @override
   void initState() {
-    if(LowerProfileBody.getUserReels){
-     ReelsBox.likedVideos.clear();
-     ReelsBox.likedVideoCount.clear();
+    if (LowerProfileBody.getUserReels) {
+      ReelsBox.likedVideos.clear();
+      ReelsBox.likedVideoCount.clear();
     }
-   
 
+    flutterGifController = FlutterGifController(vsync: this);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      flutterGifController.repeat(
+          min: 0, max: 20, period: const Duration(milliseconds: 2000));
+    });
     super.initState();
   }
 
   @override
   void dispose() {
-
+    flutterGifController.dispose();
     super.dispose();
   }
 
@@ -62,13 +69,12 @@ class _ReelsBoxState extends State<ReelsBox> {
           ReelsController.getInstance.likesCountUserMap(state.data!);
           for (int i = 0; i < state.data!.length; i++) {
             if (!ReelsBox.thumbnail.containsKey(state.data![i].id.toString())) {
-              Uint8List thumbnailPath = await  ReelsController.getInstance
+              Uint8List thumbnailPath = await ReelsController.getInstance
                   .getVideoThumbnail(state.data![i].url!);
               ReelsBox.thumbnail.putIfAbsent(
                   state.data![i].id.toString(), () => thumbnailPath);
             }
           }
-
         } else {}
       },
       builder: (context, state) {
@@ -79,72 +85,127 @@ class _ReelsBoxState extends State<ReelsBox> {
                 child: GridView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
                     controller: widget.scrollController,
-                    itemCount: state.loadMore? state.data!.length + 1 : state.data!.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisSpacing: 20,
-                        childAspectRatio: 0.7,
-                        crossAxisCount: 3),
+                    itemCount: state.loadMore
+                        ? state.data!.length + 1
+                        : state.data!.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisSpacing: 20,
+                            childAspectRatio: 0.7,
+                            crossAxisCount: 3),
                     itemBuilder: (context, index) {
                       if (index < state.data!.length) {
                         return InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, Routes.userReelView,
-                              arguments: ReelsUserPramiter(
-                                  startIndex: index,
-                                  userDataModel: widget.userDataModel));
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5),
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              image: state.data![index].subVideo == ""
-                                  ? null
-                                  : DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: CachedNetworkImageProvider(ConstentApi()
-                                          .getImage(state.data![index].subVideo)))),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! - 5),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.userReelView,
+                                arguments: ReelsUserPramiter(
+                                    startIndex: index,
+                                    userDataModel: widget.userDataModel));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Stack(
                               children: [
-                                Icon(Icons.favorite,
-                                    color: Colors.red,
-                                    size: ConfigSize.defaultSize! * 2),
-                                SizedBox(
-                                  width: ConfigSize.defaultSize! / 10,
-                                ),
-                                Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.black.withOpacity(0.3),
+                                GifImage(
+                                    controller: flutterGifController,
+                                    image: NetworkImage(ConstentApi().getImage(
+                                        state.data![index].subVideo))),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: ConfigSize.defaultSize! * 2),
+                                  child: Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.favorite,
+                                            color: Colors.red,
+                                            size: ConfigSize.defaultSize! * 2),
+                                        SizedBox(
+                                          width: ConfigSize.defaultSize! / 10,
+                                        ),
+                                        Material(
+                                          elevation: 15,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Colors.black.withOpacity(0.3),
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                              ),
+                                              margin: EdgeInsets.only(
+                                                  bottom:
+                                                      ConfigSize.defaultSize! -
+                                                          8),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 1,
+                                                  horizontal:
+                                                      ConfigSize.defaultSize!),
+                                              child: Text(
+                                                  state.data![index].likeNum
+                                                      .toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium!
+                                                      .copyWith(
+                                                        color: Colors.white,
+                                                        fontSize: ConfigSize
+                                                            .defaultSize!,
+                                                      ))),
+                                        ),
+                                      ],
                                     ),
-                                    margin: EdgeInsets.only(
-                                        bottom: ConfigSize.defaultSize! - 8),
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 1,
-                                        horizontal: ConfigSize.defaultSize!),
-                                    child: Text(state.data![index].likeNum.toString(),
-                                        style: const TextStyle(fontSize: 10))),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-                        ),
-                      );
-                      }else{
-                        if(state.data!.length % 3 != 0){
-                          return  Center(child: Text(StringManager.loadingMore.tr()  , style: const TextStyle(color: Colors.black, fontSize: 16),));
-                        }else if(state.data!.length == 0){
-                          return  Center(child: Text(StringManager.noReels.tr(), style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),));
-                        } else if(state.loadMore){
-                          return const Center(child: CircularProgressIndicator());
+                        );
+                      } else {
+                        if (widget.scrollController.position.pixels == widget.scrollController.position.maxScrollExtent) {
+                          state.loadMore = true;
+                        } else {
+                          state.loadMore = false;
+                        }
+                        if (state.data!.length % 3 != 0) {
+                          return Center(
+                              child: Text(
+                            StringManager.loadingMore.tr(),
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 16),
+                          ));
+                        } else if (state.data!.isEmpty) {
+                          return Center(
+                              child: Text(
+                            StringManager.noReels.tr(),
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ));
+                        } else if (state.loadMore) {
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                       }
                     }),
               ),
-              if(!state.loadMore)  Center(child: Text(StringManager.noMoreReels.tr(), style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),)),
+              if (!state.loadMore)
+                Center(
+                    child: Text(
+                  StringManager.noMoreReels.tr(),
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                )),
             ],
           );
         } else if (state is GetUserReelsLoadingState) {
