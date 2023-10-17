@@ -105,7 +105,7 @@ class AduioLiveRow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: ConfigSize.defaultSize!*15,
+                        width: ConfigSize.defaultSize!*19,
                         child: Text(
                           room.name ?? '',
                           overflow: TextOverflow.ellipsis,
@@ -115,7 +115,7 @@ class AduioLiveRow extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: ConfigSize.defaultSize! * 21,
+                        width: ConfigSize.defaultSize! * 19,
                         child: Text(
                           room.roomIntro ?? "",
                           style: TextStyle(

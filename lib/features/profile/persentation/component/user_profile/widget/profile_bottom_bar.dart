@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
@@ -67,7 +68,7 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
             bottomBarColumn(
               context: context,
               icon: isFollow ? AssetsPath.unfollowIcon : AssetsPath.followIcon,
-              title: isFollow ? StringManager.unFollow : StringManager.follow,
+              title: isFollow ? StringManager.unFollow.tr() : StringManager.follow.tr(),
               onTap: () => isFollow
                   ? BlocProvider.of<FollowBloc>(context)
                       .add(UnFollowEvent(userId: widget.userData.id.toString()))
@@ -89,6 +90,7 @@ Widget bottomBarColumn(
   return InkWell(
     onTap: onTap,
     child: Column(
+
       children: [
         title != null
             ? Image.asset(
@@ -107,7 +109,7 @@ Widget bottomBarColumn(
                   icon,
                 ))),
                 child: Text(
-                  StringManager.chat,
+                  StringManager.chatWithDifferentTranslation.tr(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: ConfigSize.defaultSize! * 1.5),

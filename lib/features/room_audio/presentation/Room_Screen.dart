@@ -31,6 +31,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/massage_Button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/speakr_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/header_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
@@ -54,7 +55,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/user_avatar.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/pop_up_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/show_yallow_banner_widget.dart';
@@ -77,7 +78,6 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:video_player/video_player.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'components/widgets/show_gift_banner_widget.dart';
 import 'components/widgets/show_lucky_banner_widget.dart';
 
@@ -95,7 +95,6 @@ class RoomScreen extends StatefulWidget {
   static List<EntroData> listOfAnimatingEntros = [];
   static List<String> listOfAnimatingBanner = [];
   static List<MusicObject> musicesInRoom = [];
-  static List<LuckyBoxData> luckyBoxes = [];
   static List<int> teamBlue = [1, 2, 5, 6];
   static List<int> teamRed = [3, 4, 7, 8];
   static List<String> usersHasMute = [];
@@ -120,7 +119,6 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
   static ValueNotifier<int> editRoom = ValueNotifier<int>(0);
   static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
-  static ValueNotifier<int> updateLuckyBox = ValueNotifier<int>(0);
   static ValueNotifier<int> updateMessgasList = ValueNotifier<int>(0);
   static ValueNotifier<int> updatebuttomBar = ValueNotifier<int>(0);
   static ValueNotifier<String> imgbackground = ValueNotifier<String>("");
@@ -150,11 +148,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   late final AnimationController controllerMusice;
   VideoPlayerController? mp4Controller;
   late LayoutMode layoutMode;
-  StreamController<List<LuckyBoxData>> luckyBoxAddecontroller = StreamController.broadcast();
-  StreamController<List<LuckyBoxData>> luckyBoxRemovecontroller = StreamController.broadcast();
   StreamController<List<ZegoUIKitUser>> userInRoomController = StreamController.broadcast();
   ValueNotifier<bool> showPopUp = ValueNotifier(false);
-  ValueNotifier<bool> showBannerLuckyBox = ValueNotifier<bool>(false);
   String userIdEmojie = ""; // to show emojie
   bool showGift = false; // to show gift
   String giftImg = ""; // to show img gift
@@ -201,7 +196,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   bool isPlural = false;
   String numberOfGift = "0";
-  UserDataModel? sendSuperBox;
   UserDataModel? pobUpSender;
   late AnimationController yellowBannercontroller;
   late Animation<Offset> offsetAnimationYellowBanner;
@@ -366,15 +360,15 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (!MainScreen.iskeepInRoom.value) {
       RoomScreen.roomIsLoked = widget.room.roomPassStatus!;
 
-      if (widget.myDataModel.intro! != "") {
-        loadAnimationEntro(widget.myDataModel.introId?.toString() ?? "",
-            widget.myDataModel.intro!);
-        if (widget.myDataModel.vip1?.id != null) {
-          RoomScreen.showEntro.value = true;
-        }
-        userIntroData['user_name_intro']  = widget.myDataModel.name!;
-        userIntroData['user_image_intro'] = widget.myDataModel.profile!.image!;
-      }
+      // if (widget.myDataModel.intro! != "") {
+      //   loadAnimationEntro(widget.myDataModel.introId?.toString() ?? "",
+      //       widget.myDataModel.intro!);
+      //   if (widget.myDataModel.vip1?.id != null) {
+      //     RoomScreen.showEntro.value = true;
+      //   }
+      //   userIntroData['user_name_intro']  = widget.myDataModel.name!;
+      //   userIntroData['user_image_intro'] = widget.myDataModel.profile!.image!;
+      // }
       if (widget.room.showPk == 1) {
         PkController.showPK.value = true;
       }
@@ -414,7 +408,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               remTime: widget.room.boxes![i].remmingTime,
               uId: widget.room.boxes![i].ownerBoxData.uuid!,
               ownerImage: widget.room.boxes![i].ownerBoxData.image ?? '');
-          RoomScreen.luckyBoxes.add(luckyBox);
+          LuckyBoxVariables.luckyBoxMap['luckyBoxes'].add(luckyBox);
         }
 
         if (widget.room.boxes!.isNotEmpty) {
@@ -427,27 +421,19 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     backgroundColor: Colors.transparent,
                     contentPadding: EdgeInsets.zero,
                     content: DialogLuckyBox(
-                      coins: RoomScreen
-                          .luckyBoxes[RoomScreen.luckyBoxes.length - 1].coinns,
-                      luckyBoxId: RoomScreen
-                          .luckyBoxes[RoomScreen.luckyBoxes.length - 1].boxId,
-                      ownerBoxId: RoomScreen
-                          .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                      coins: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1].coinns,
+                      luckyBoxId: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1].boxId,
+                      ownerBoxId: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                           .ownerBoxId,
-                      ownerBoxName: RoomScreen
-                          .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                      ownerBoxName: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                           .ownerName,
-                      removeController: luckyBoxRemovecontroller,
-                      typeLuckyBox: RoomScreen
-                          .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                      removeController: LuckyBoxVariables.luckyBoxRemovecontroller,
+                      typeLuckyBox: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                           .typeLuckyBox,
-                      remTime: RoomScreen
-                          .luckyBoxes[RoomScreen.luckyBoxes.length - 1].remTime,
-                      ownerImage: RoomScreen
-                          .luckyBoxes[RoomScreen.luckyBoxes.length - 1]
+                      remTime: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1].remTime,
+                      ownerImage: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1]
                           .ownerImage,
-                      uid: RoomScreen
-                          .luckyBoxes[RoomScreen.luckyBoxes.length - 1].uId,
+                      uid: LuckyBoxVariables.luckyBoxMap['luckyBoxes'][LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1].uId,
                     ),
                   );
                 }); // your dialong goes here
@@ -455,7 +441,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         }
       }
 
-      luckyBoxAddecontroller.stream
+      LuckyBoxVariables.luckyBoxAddecontroller.stream
           .listen((List<LuckyBoxData> updatedListBoxes) {
         if (updatedListBoxes.isNotEmpty) {
           showDialog(
@@ -473,7 +459,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                         .ownerBoxId,
                     ownerBoxName:
                         updatedListBoxes[updatedListBoxes.length - 1].ownerName,
-                    removeController: luckyBoxRemovecontroller,
+                    removeController: LuckyBoxVariables.luckyBoxRemovecontroller,
                     typeLuckyBox: updatedListBoxes[updatedListBoxes.length - 1]
                         .typeLuckyBox,
                     remTime: 30,
@@ -483,16 +469,16 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                   ),
                 );
               });
-          RoomScreen.updateLuckyBox.value = RoomScreen.updateLuckyBox.value + 1;
+          LuckyBoxVariables.updateLuckyBox.value = LuckyBoxVariables.updateLuckyBox.value + 1;
         } else {
           updatedListBoxes.clear();
-          RoomScreen.updateLuckyBox.value = RoomScreen.updateLuckyBox.value + 1;
+          LuckyBoxVariables.updateLuckyBox.value = LuckyBoxVariables.updateLuckyBox.value + 1;
         }
       });
 
-      luckyBoxRemovecontroller.stream
+      LuckyBoxVariables.luckyBoxRemovecontroller.stream
           .listen((List<LuckyBoxData> updatedListBoxes) {
-        RoomScreen.updateLuckyBox.value = RoomScreen.updateLuckyBox.value + 1;
+        LuckyBoxVariables.updateLuckyBox.value = LuckyBoxVariables.updateLuckyBox.value + 1;
       });
       //topUserCached
       if (widget.room.topUser!.id != null) {
@@ -521,6 +507,21 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       Future.delayed(const Duration(seconds: 3), () async {
         ZegoUIKit().sendInRoomMessage("انضم للغرفة", false);
+
+        //to show intro
+        Map<String,dynamic>    mapZego = {
+          "messageContent" : {
+            "message" : "userEntro" ,
+            "entroImg"  :  widget.myDataModel.intro ,
+            "entroImgId" : widget.myDataModel.introId ,
+            'userName'   : widget.myDataModel.name,
+            'userImge'   : widget.myDataModel.profile?.image,
+            'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
+          }
+        };
+        String map = jsonEncode(mapZego);
+        ZegoUIKit.instance.sendInRoomCommand(map,[]);
+
       });
     }
 
@@ -552,7 +553,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     PkController.animationControllerBlueTeam.dispose();
     PkController.animationControllerRedTeam.dispose();
     controllerMusice.dispose();
-    luckyBoxAddecontroller.close();
+    LuckyBoxVariables.luckyBoxAddecontroller.close();
     RoomScreen.isGiftEntroAnimating = false;
     yellowBannercontroller.dispose();
     luckGiftBannderController.dispose();
@@ -755,11 +756,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     Future.delayed(const Duration(minutes: 7), () {
       //ckeck if there are other banner ;
       yellowBannercontroller.reverse().then((value) =>
-          // loadMoreYallowBannerAnimation(
-          //     YallowBannerData(senderId: senderId,
-          //         message: message,
-          //         yallowBannerhasPasswoedRoom: hasPasswoedRoom,
-          //         yallowBannerOwnerRoom: ownerId))
+
           log("don"));
     });
   }
@@ -774,9 +771,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ChangeBackground(result,roomDataUpdates);
       }
       else if (result[messageContent][message] == userEntro) {
-        if (result[messageContent]['uid'] != widget.myDataModel.id) {
           UserEntro(result,  userIntroData ,loadAnimationEntro);
-        }
       }
       else if (result[messageContent]['msg'] == 'SHB') {
         if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {
@@ -874,26 +869,13 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         RoomScreen.clearTimeNotifier.value = DateTime.now().millisecondsSinceEpoch;
       }
       else if (result[messageContent][message] == showLuckyBoxKey) {
-        LuckyBoxData luckyBox = LuckyBoxData(
-            boxId: result[messageContent][boxIDKey].toString(),
-            coinns: result[messageContent][boxCoinsKey].toString(),
-            ownerBoxId: result[messageContent][ownerBoxIdKey].toString(),
-            ownerName: result[messageContent][ownerBoxNameKey],
-            typeLuckyBox: result[messageContent][boxTypeKey] == 'normal'
-                ? TypeLuckyBox.normalBox
-                : TypeLuckyBox.superBox,
-            uId: result[messageContent]['ownerBoxUId'],
-            ownerImage: result[messageContent]['ownerBoxImage'] ?? '',
-            remTime: 30);
-        RoomScreen.luckyBoxes.add(luckyBox);
-
-        luckyBoxAddecontroller.add(RoomScreen.luckyBoxes);
+        show_lucky_box(result);
       }
       else if (result[messageContent][message] == hideLuckyBoxKey) {
-        RoomScreen.luckyBoxes.removeWhere((element) => element.boxId == result[messageContent][boxIDKey].toString());
+        hide_lucky_box(result);
       }
-      else if (result[messageContent][message] == bannerSuperBoxKey) {
-        BannerSuperBoxKey(result, superBox, sendSuperBox, showBannerLuckyBox);
+      else if (result[messageContent][message] == LuckyBoxVariables.bannerSuperBoxKey) {
+        BannerSuperBoxKey(result, superBox, LuckyBoxVariables.sendSuperBox);
       }
       else if (result[messageContent]['msg'] == showPobUpKey) {
         ShowPobUpKey(result, pobUpSender, showPopUp);
@@ -917,7 +899,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         InviteToSeatKey(result, widget.myDataModel.id.toString(), widget.room.ownerId.toString(), context);
       }
       else if (result[messageContent]['msg'] == 'LBR' && result[messageContent]['uid'] == widget.myDataModel.id) {
-        BickFromLuckyBox(result, luckyBoxRemovecontroller, context);
+        BickFromLuckyBox(result, context);
       }
       else if (result[messageContent]['msg'] == showYallowBanner) {
         showYallowBannerAnimation(
@@ -1220,11 +1202,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               );
             }),
         ValueListenableBuilder(
-            valueListenable: RoomScreen.updateLuckyBox,
+            valueListenable: LuckyBoxVariables.updateLuckyBox,
             builder: (context, edit, _) {
-              if (RoomScreen.luckyBoxes.isNotEmpty) {
+              if (LuckyBoxVariables.luckyBoxMap['luckyBoxes'].isNotEmpty) {
                 return LuckyBox(
-                    luckyBoxRemovecontroller: luckyBoxRemovecontroller);
+                    luckyBoxRemovecontroller: LuckyBoxVariables.luckyBoxRemovecontroller);
               } else {
                 return const SizedBox();
               }
@@ -1361,15 +1343,15 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           },
         ),
         ValueListenableBuilder(
-            valueListenable: showBannerLuckyBox,
+            valueListenable: LuckyBoxVariables.showBannerLuckyBox,
             builder: (context, showBanner, _) {
               if (showBanner) {
                 return Positioned(
                     top: ConfigSize.defaultSize! * 6.95,
                     left: ConfigSize.defaultSize! * 5.78,
                     child: ShowLuckyBannerWidget(
-                        sendDataUser: sendSuperBox!,
-                        superBox: superBox, showBannerLuckyBox: showBannerLuckyBox, ownerId: widget.room.ownerId.toString(),));
+                        sendDataUser: LuckyBoxVariables.sendSuperBox!,
+                        superBox: superBox, showBannerLuckyBox: LuckyBoxVariables.showBannerLuckyBox, ownerId: widget.room.ownerId.toString(),));
               } else {
                 return const SizedBox();
               }

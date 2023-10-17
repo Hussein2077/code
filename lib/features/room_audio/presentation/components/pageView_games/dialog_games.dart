@@ -1,11 +1,11 @@
-
-
-
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
 import 'package:tik_chat_v2/core/widgets/dilog_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+
+
 
 class WebViewInRoom extends StatefulWidget {
   final String url ;
@@ -59,8 +59,8 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
 
   @override
   void dispose() {
-    controller!.clearCache(); // Clear the WebView cache.
-    controller!.clearLocalStorage();
+    // controller!.clearCache(); // Clear the WebView cache.
+    // controller!.clearLocalStorage();
     controller!.goBack();
     controller = null;
 

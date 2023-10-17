@@ -119,7 +119,8 @@ class StringManager {
   static const String followers = "Followers";
   static const String vistors = "Vistors";
   static const String thisUserIsBaned = "this user is baned";
-  static const String chat = "Chat";
+  static const String chat = "Chat ";
+  static const String chatWithDifferentTranslation = "Chat";
   static const String profile = "Profile";
   static const String live = "Live";
   static const String voice = "Voice";
@@ -516,6 +517,8 @@ class StringManager {
   static const String readMore = "... read more";
   static const String readLess = " read less";
   static const String copiedToClipboard = "Copied to Clipboard";
+  static const String allow = "Allow";
+  static const String applicationDoesnt = "Application doesn't have access to the library";
   static const String luckGiftSend = 'send';
 
 
@@ -805,6 +808,6 @@ class StringManager {
  static const String roulette = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=2&language=ar&token=";
  static const String carRace = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=3&language=ar&token=";
  static const String updown = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=4&language=ar&token=";
- static const String ludo = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=5&language=ar&token=";
+ static const String ludo = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=5&language=ar&token=";//todo change this link
 
 }
