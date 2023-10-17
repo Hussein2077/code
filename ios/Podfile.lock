@@ -924,6 +924,8 @@ PODS:
   - in_app_purchase_storekit (0.0.1):
     - Flutter
     - FlutterMacOS
+  - keyboard_height_plugin (0.0.1):
+    - Flutter
   - leveldb-library (1.22.2)
   - libphonenumber_plugin (0.0.1):
     - Flutter
@@ -1038,6 +1040,7 @@ DEPENDENCIES:
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - in_app_purchase_storekit (from `.symlinks/plugins/in_app_purchase_storekit/darwin`)
+  - keyboard_height_plugin (from `.symlinks/plugins/keyboard_height_plugin/ios`)
   - libphonenumber_plugin (from `.symlinks/plugins/libphonenumber_plugin/ios`)
   - native_device_orientation (from `.symlinks/plugins/native_device_orientation/ios`)
   - on_audio_query_ios (from `.symlinks/plugins/on_audio_query_ios/ios`)
@@ -1152,6 +1155,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   in_app_purchase_storekit:
     :path: ".symlinks/plugins/in_app_purchase_storekit/darwin"
+  keyboard_height_plugin:
+    :path: ".symlinks/plugins/keyboard_height_plugin/ios"
   libphonenumber_plugin:
     :path: ".symlinks/plugins/libphonenumber_plugin/ios"
   native_device_orientation:
@@ -1246,6 +1251,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   in_app_purchase_storekit: 4fb7ee9e824b1f09107fbfbbce8c4b276366dc43
+  keyboard_height_plugin: 43fa8bba20fd5c4fdeed5076466b8b9d43cc6b86
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   libphonenumber_plugin: e8a7d64a6624a7c25f2c4ab0b7ead2a8e341e35e
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
