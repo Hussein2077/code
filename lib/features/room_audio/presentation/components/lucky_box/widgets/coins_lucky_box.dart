@@ -1,13 +1,9 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/box_lucky_model.dart';
-import '../lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 
 class CoinsLuckyBox extends StatefulWidget {
   final List<TypeBox> boxes ;
@@ -37,15 +33,15 @@ class CoinsLuckyBoxState extends State<CoinsLuckyBox> {
               child: InkWell(
                 onTap: (){
                   setState(() {
-                    LuckyBox.coins = widget.boxes[i].coins.toString() ;
-                    LuckyBox.currentBox = i+1 ;
+                    LuckyBoxVariables.luckyBoxMap['coins'] = widget.boxes[i].coins.toString() ;
+                    LuckyBoxVariables.luckyBoxMap['currentBox'] = i+1 ;
                     widget.refresh();
 
                   });
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color:  LuckyBox.coins ==widget.boxes[i].coins.toString()?  Colors.white:  Colors.transparent,
+                    color:  LuckyBoxVariables.luckyBoxMap['coins'] ==widget.boxes[i].coins.toString()?  Colors.white:  Colors.transparent,
                     borderRadius:  widget.boxes.length == 1 ? BorderRadius.circular(AppPadding.p17)  :  BorderRadius.only(
                         topLeft: Radius.circular(AppPadding.p17),
                         bottomLeft: Radius.circular(AppPadding.p17)),
@@ -54,7 +50,7 @@ class CoinsLuckyBoxState extends State<CoinsLuckyBox> {
                     child: Text(
                       "${widget.boxes[i].coins}",
                       style: TextStyle(
-                          color:  LuckyBox.coins ==widget.boxes[i].coins.toString()?
+                          color:  LuckyBoxVariables.luckyBoxMap['coins'] ==widget.boxes[i].coins.toString()?
                           ColorManager.mainColor : Colors.white,
                           fontWeight: FontWeight.w700,
                           fontSize: AppPadding.p16),
@@ -71,21 +67,21 @@ class CoinsLuckyBoxState extends State<CoinsLuckyBox> {
                 child: InkWell(
                   onTap: (){
                     setState(() {
-                      LuckyBox.coins = widget.boxes[i].coins.toString() ;
-                      LuckyBox.currentBox = i+1 ;
+                      LuckyBoxVariables.luckyBoxMap['coins'] = widget.boxes[i].coins.toString() ;
+                      LuckyBoxVariables.luckyBoxMap['currentBox'] = i+1 ;
                       widget.refresh();
 
                     });
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color:  LuckyBox.coins ==widget.boxes[i].coins.toString()?  Colors.white:  Colors.transparent,
+                      color:  LuckyBoxVariables.luckyBoxMap['coins'] ==widget.boxes[i].coins.toString()?  Colors.white:  Colors.transparent,
                     ),
                     child: Center(
                       child: Text(
                         "${widget.boxes[i].coins}",
                         style: TextStyle(
-                            color:  LuckyBox.coins ==widget.boxes[i].coins.toString()? ColorManager.mainColor : Colors.white,
+                            color:  LuckyBoxVariables.luckyBoxMap['coins'] ==widget.boxes[i].coins.toString()? ColorManager.mainColor : Colors.white,
                             fontWeight: FontWeight.w700,
                             fontSize: AppPadding.p16),
                       ),
@@ -100,14 +96,14 @@ class CoinsLuckyBoxState extends State<CoinsLuckyBox> {
                 child: InkWell(
                   onTap: (){
                     setState(() {
-                      LuckyBox.coins = widget.boxes[i].coins.toString() ;
-                      LuckyBox.currentBox = i+1 ;
+                      LuckyBoxVariables.luckyBoxMap['coins'] = widget.boxes[i].coins.toString() ;
+                      LuckyBoxVariables.luckyBoxMap['currentBox'] = i+1 ;
                       widget.refresh();
                     });
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color:  LuckyBox.coins ==widget.boxes[i].coins.toString()?  Colors.white:  Colors.transparent,
+                      color:  LuckyBoxVariables.luckyBoxMap['coins'] ==widget.boxes[i].coins.toString()?  Colors.white:  Colors.transparent,
                       borderRadius:  widget.boxes.length == 1 ? BorderRadius.circular(AppPadding.p17)  :  BorderRadius.only(
                           topRight: Radius.circular(AppPadding.p17),
                           bottomRight: Radius.circular(AppPadding.p17)),
@@ -116,7 +112,7 @@ class CoinsLuckyBoxState extends State<CoinsLuckyBox> {
                       child: Text(
                         "${widget.boxes[i].coins}",
                         style: TextStyle(
-                            color:  LuckyBox.coins ==widget.boxes[i].coins.toString()? ColorManager.mainColor : Colors.white,
+                            color:  LuckyBoxVariables.luckyBoxMap['coins'] ==widget.boxes[i].coins.toString()? ColorManager.mainColor : Colors.white,
                             fontWeight: FontWeight.w700,
                             fontSize: AppPadding.p16),
                       ),
