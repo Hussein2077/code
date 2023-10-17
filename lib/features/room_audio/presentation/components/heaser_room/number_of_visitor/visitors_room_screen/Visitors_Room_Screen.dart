@@ -50,6 +50,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
    return BlocBuilder<RoomVistorBloc,RoomVistorState>(
     builder: (context, state) {
    if (state is GetRoomVistorSucssesState){
+
          return Container(
       height: ConfigSize.screenHeight! / 1.5,
       color: Theme.of(context).colorScheme.background,
