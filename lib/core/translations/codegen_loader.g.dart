@@ -110,6 +110,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.followers: "المعجبين",
     StringManager.vistors: "الزوار",
     StringManager.chat: "المحادثات",
+    StringManager.chatWithDifferentTranslation: "دردش",
     StringManager.profile: "الملف الشخصي",
     StringManager.live: "بث مباشر",
     StringManager.voice: "المكالمات الصوتية",

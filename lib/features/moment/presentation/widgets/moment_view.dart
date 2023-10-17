@@ -59,13 +59,24 @@ class MomentView extends StatelessWidget {
                                 height: ConfigSize.screenHeight! * 0.6,
                                 width: ConfigSize.screenWidth! * 0.7,
                                 child: SingleChildScrollView(
-                                  child: Text(
-                                    overflow: TextOverflow.fade,
-                                    momentModel.moment,
-                                    style: const TextStyle(
-                                      fontFamily: 'ElMessiri',
-                                      fontSize: 14,
-                                      color: Colors.white,
+                                  child: InkWell(
+                                    onLongPress: () {
+                                      Clipboard.setData(ClipboardData(
+                                        text: momentModel.moment,
+                                      ));
+                                      sucssesToast(
+                                          context: context,
+                                          title: StringManager.copiedToClipboard.tr());
+                                    },
+
+                                    child: Text(
+                                      overflow: TextOverflow.fade,
+                                      momentModel.moment,
+                                      style: const TextStyle(
+                                        fontFamily: 'ElMessiri',
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),

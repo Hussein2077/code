@@ -323,15 +323,15 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (!MainScreen.iskeepInRoom.value) {
       RoomScreen.roomIsLoked = widget.room.roomPassStatus!;
 
-      if (widget.myDataModel.intro! != "") {
-        loadAnimationEntro(widget.myDataModel.introId?.toString() ?? "",
-            widget.myDataModel.intro!);
-        if (widget.myDataModel.vip1?.id != null) {
-          RoomScreen.showEntro.value = true;
-        }
-        userIntroData['user_name_intro']  = widget.myDataModel.name!;
-        userIntroData['user_image_intro'] = widget.myDataModel.profile!.image!;
-      }
+      // if (widget.myDataModel.intro! != "") {
+      //   loadAnimationEntro(widget.myDataModel.introId?.toString() ?? "",
+      //       widget.myDataModel.intro!);
+      //   if (widget.myDataModel.vip1?.id != null) {
+      //     RoomScreen.showEntro.value = true;
+      //   }
+      //   userIntroData['user_name_intro']  = widget.myDataModel.name!;
+      //   userIntroData['user_image_intro'] = widget.myDataModel.profile!.image!;
+      // }
       if (widget.room.showPk == 1) {
         PkController.showPK.value = true;
       }
@@ -470,6 +470,20 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       Future.delayed(const Duration(seconds: 3), () async {
         ZegoUIKit().sendInRoomMessage("انضم للغرفة", false);
+
+        //to show intro
+        Map<String,dynamic>    mapZego = {
+          "messageContent" : {
+            "message" : "userEntro" ,
+            "entroImg"  :  widget.myDataModel.intro ,
+            "entroImgId" : widget.myDataModel.introId ,
+            'userName'   : widget.myDataModel.name,
+            'userImge'   : widget.myDataModel.profile?.image,
+            'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
+          }
+        };
+        String map = jsonEncode(mapZego);
+        ZegoUIKit.instance.sendInRoomCommand(map,[]);
 
       });
     }
@@ -717,9 +731,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ChangeBackground(result,roomDataUpdates);
       }
       else if (result[messageContent][message] == userEntro) {
-        if (result[messageContent]['uid'] != widget.myDataModel.id) {
           UserEntro(result,  userIntroData ,loadAnimationEntro);
-        }
       }
       else if (result[messageContent]['msg'] == 'SHB') {
         if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {

@@ -52,7 +52,7 @@ class Card2 extends StatelessWidget {
             ProfileRowItem(
               title: StringManager.chat.tr(),
               image: AssetsPath.chatIcon,
-              onTap: () => Navigator.pushNamed(context, Routes.familyRanking),
+              onTap: () => Navigator.pushNamed(context, Routes.chatScreen),
             ),
             ProfileRowItem(
               title: StringManager.family.tr(),
