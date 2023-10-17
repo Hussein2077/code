@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,8 +23,7 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
   late ScrollController scrollController ;
   @override
   void initState() {
-               BlocProvider.of<GetUserReelsBloc>(context)
-          .add(const GetUserReelEvent(id: null));
+    BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent(id: null));
     scrollController = ScrollController();
     scrollController.addListener(scrollListener);
 
@@ -59,13 +56,14 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
   }
 
   void scrollListener() {
-
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (widget.userDataModel.id == MyDataModel.getInstance().id) {
         BlocProvider.of<GetUserReelsBloc>(context).add(const LoadMoreUserReelsEvent(id: null));
       } else {
         BlocProvider.of<GetUserReelsBloc>(context).add(LoadMoreUserReelsEvent(id: widget.userDataModel.id.toString()));
       }
-    } else {}
+    } else {
+      ReelsBox.loading = false;
+    }
   }
 }
