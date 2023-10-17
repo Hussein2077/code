@@ -81,7 +81,8 @@ class _MainPravelagePrivecyColumnState
                     BlocProvider.of<PrivacyBloc>(context)
                         .add(DisposeePrev(type: widget.keytype));
                   }
-                })
+                }
+                )
           ],
         ),
 

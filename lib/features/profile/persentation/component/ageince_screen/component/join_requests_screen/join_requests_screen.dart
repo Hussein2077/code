@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
@@ -58,7 +59,7 @@ class _AgencyRequestsScreenState extends State<AgencyRequestsScreen> {
                   SizedBox(
                     height: ConfigSize.defaultSize! * 3,
                   ),
-                  const HeaderWithOnlyTitle(title: StringManager.joinRequests),
+                   HeaderWithOnlyTitle(title: StringManager.joinRequests.tr()),
                   Expanded(
                       child: ListView.builder(
                           itemCount: state.data.length,
@@ -113,8 +114,8 @@ class _AgencyRequestsScreenState extends State<AgencyRequestsScreen> {
                     SizedBox(
                       height: ConfigSize.defaultSize! * 3,
                     ),
-                    const HeaderWithOnlyTitle(
-                        title: StringManager.joinRequests),
+                     HeaderWithOnlyTitle(
+                        title: StringManager.joinRequests.tr()),
                     Expanded(
                         child: ListView.builder(
                             itemCount: agenceRequests!.length,

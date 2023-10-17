@@ -119,7 +119,8 @@ class StringManager {
   static const String followers = "Followers";
   static const String vistors = "Vistors";
   static const String thisUserIsBaned = "this user is baned";
-  static const String chat = "Chat";
+  static const String chat = "Chat ";
+  static const String chatWithDifferentTranslation = "Chat";
   static const String profile = "Profile";
   static const String live = "Live";
   static const String voice = "Voice";
