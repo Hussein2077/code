@@ -92,6 +92,10 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                                   ),
                                 ],
                               ),
+                              idOrNot:     Text(
+                                "ID ${state.data.data[index].user.uuid}",
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
                             );
                           }))
                 ],
