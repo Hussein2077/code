@@ -516,6 +516,8 @@ class StringManager {
   static const String readMore = "... read more";
   static const String readLess = " read less";
   static const String copiedToClipboard = "Copied to Clipboard";
+  static const String luckGiftSend = 'send';
+
 
 
   static Map<int, bool> userType = {

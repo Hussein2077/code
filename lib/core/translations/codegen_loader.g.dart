@@ -378,6 +378,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.enterYourImage : "ادخل الصوره للتوضيح",
 
     StringManager.chooseTopic : "اختر المواضيع التي تعتبرها الأكثر أهمية بالنسبة لك!",
+    StringManager.luckGiftSend  : "اضرب",
 
 
 

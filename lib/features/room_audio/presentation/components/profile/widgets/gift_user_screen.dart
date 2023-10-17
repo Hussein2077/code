@@ -107,7 +107,6 @@ class _GiftUserScreenState extends State<GiftUserScreen>
                 ]),
               ),
               GiftBottomBar(
-                myDataModel: widget.myDataModel,
                 roomData: widget.roomData,
               ),
             ],

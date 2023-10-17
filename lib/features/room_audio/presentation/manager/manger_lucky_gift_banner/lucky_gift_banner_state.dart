@@ -18,8 +18,9 @@ class SendLuckyGiftSucssesState extends LuckyGiftBannerState  {
 
 
 
+
  
-const SendLuckyGiftSucssesState({required this.isFirst ,  required this.data , required this.giftNum }) ; 
+const SendLuckyGiftSucssesState({required this.isFirst ,  required this.data , required this.giftNum }) ;
 }
 
 
