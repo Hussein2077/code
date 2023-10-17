@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/family/component/family_profile/component/family_requests/widgets/family_user_info_row.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_take_action/bloc/take_action_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_take_action/bloc/take_action_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_family_take_action/bloc/take_action_state.dart';
@@ -64,7 +65,7 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                           itemCount: state.data.data.length,
                           itemExtent: 70,
                           itemBuilder: (context, index) {
-                            return UserInfoRow(
+                            return FamilyUserInforow(
                               userData: state.data.data[index].user,
                               underNameWidth:  MediaQuery.of(context).size.width - 180,
                               endIcon: Row(
@@ -92,10 +93,10 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                                   ),
                                 ],
                               ),
-                              idOrNot:     Text(
-                                "ID ${state.data.data[index].user.uuid}",
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
+                              // idOrNot:     Text(
+                              //   "ID ${state.data.data[index].user.uuid}",
+                              //   style: Theme.of(context).textTheme.titleSmall,
+                              // ),
                             );
                           }))
                 ],
