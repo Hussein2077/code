@@ -170,22 +170,26 @@ class MusicListWidgetState extends State<MusicListWidget> {
     );
   }
     Widget noAccessToLibraryWidget() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.redAccent.withOpacity(0.5),
-      ),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text("Application doesn't have access to the library"),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () => checkAndRequestPermissions(retry: true),
-            child: const Text("Allow"),
-          ),
-        ],
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.white),
+          color: ColorManager.whiteColor.withOpacity(0.5),
+        ),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+
+          children: [
+             Text(StringManager.applicationDoesnt.tr()),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () => checkAndRequestPermissions(retry: true),
+              child:  Text(StringManager.allow.tr()),
+            ),
+          ],
+        ),
       ),
     );
   }
