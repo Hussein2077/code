@@ -33,7 +33,7 @@ class ReelModel {
       userImage: json["user"]==null?"": json["user"]['image']??"",
       isFollow: json["user"]==null?"": json["user"]['is_follow']??false,
       subVideo: json['sub_video']??"",
-      img: "https://storage.googleapis.com/tik-chat/${json['img']}",
+      img: "https://storage.googleapis.com/tik-chat/frames/253.jpg",
 
     );
   }
