@@ -163,9 +163,11 @@ Future<void> showingEmojie(
 
 List<String> splitUsersInRoom({required List<ZegoUIKitUser> orginalList}) {
   List<String> listIds = [];
+
   orginalList.forEach((element) {
     listIds.add(element.id);
   });
+  log(listIds.toString());
   return listIds;
 }
 

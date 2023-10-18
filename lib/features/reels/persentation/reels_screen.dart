@@ -41,10 +41,13 @@ class ReelsScreenState extends State<ReelsScreen>{
 
   @override
   void initState() {
+    log("1zzzzzzzzzzzzzzzzzzzzzzz");
+    log(ReelsController.likedVideos.toString());
+
     super.initState();
-    ReelsController.likedVideos = {};
-    ReelsController.likedVideoCount = {};
-    ReelsController.followingMap = {};
+    // ReelsController.likedVideos = {};
+    // ReelsController.likedVideoCount = {};
+    // ReelsController.followingMap = {};
     if (SplashScreen.initPage == 1) {
       BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId: MainScreen.reelId));
     }
@@ -52,11 +55,12 @@ class ReelsScreenState extends State<ReelsScreen>{
 
   @override
   void dispose() {
-    MoreReportDialogIcon.report.dispose();
-    ReelsController.likedVideos.clear();
-    ReelsController.likedVideoCount.clear();
-    ReelsController.followingMap.clear();
-    ReelsController.thumbnail.clear();
+    log("2zzzzzzzzzzzzzzzzzzzzzzz");
+    // MoreReportDialogIcon.report.dispose();
+    // ReelsController.likedVideos.clear();
+    // ReelsController.likedVideoCount.clear();
+    // ReelsController.followingMap.clear();
+    // ReelsController.thumbnail.clear();
     super.dispose();
   }
 
@@ -81,6 +85,8 @@ class ReelsScreenState extends State<ReelsScreen>{
                     child: BlocConsumer<GetReelsBloc, GetReelsState>(
                       builder: (context, state) {
                         if (state is GetReelsSucssesState) {
+                          log(state.data!.length.toString()+"elhamody");
+
                           ReelsController.getInstance.likesMap(state.data!);
                           ReelsController.getInstance
                               .likesCountMap(state.data!);
@@ -159,6 +165,8 @@ class ReelsScreenState extends State<ReelsScreen>{
                       },
                       listener: (context, state) async {
                         if (state is GetReelsSucssesState) {
+                          log("elhamody1");
+                          log(ReelsController.thumbnail.toString()+"aaaaaaaa");
                           for (int i = 0; i < state.data!.length; i++) {
                             if (!ReelsController.thumbnail.containsKey(state.data![i].id.toString())) {
                               Uint8List thumbnailPath = await ReelsController.getInstance.getVideoThumbnail(state.data![i].url!);
