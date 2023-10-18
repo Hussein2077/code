@@ -63,12 +63,11 @@ class AduioLiveRow extends StatelessWidget {
                                 image: AssetImage(AssetsPath.yellowBackGround))
                             : const DecorationImage(
                                 image: AssetImage(AssetsPath.pinkBackGround)),
-                    borderRadius:
-                        BorderRadius.circular(ConfigSize.defaultSize! * 2)),
-                margin: EdgeInsets.only(
+                    borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2)),
+                margin: EdgeInsetsDirectional.only(
                     bottom: ConfigSize.defaultSize! * 2,
-                    left: ConfigSize.defaultSize! * 2.5),
-                width: ConfigSize.defaultSize! * 33,
+                    start: ConfigSize.defaultSize! * 2.5),
+                width: ConfigSize.defaultSize! *33,
                 height: ConfigSize.defaultSize! * 10,
               )),
               Row(
@@ -148,9 +147,9 @@ class AduioLiveRow extends StatelessWidget {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: EdgeInsetsDirectional.only(
                         top: room.passwordStatus!? ConfigSize.defaultSize! * 2 : ConfigSize.defaultSize! * 5,
-                        right: ConfigSize.defaultSize! * 2),
+                        end: ConfigSize.defaultSize! * 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
