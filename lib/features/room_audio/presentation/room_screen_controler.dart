@@ -258,12 +258,13 @@ Future<void> clearAll() async {
   RoomScreen.listOfEmojie.value.clear();
   RoomScreen.musicesInRoom.clear();
   RoomScreen.adminsInRoom.clear();
+  RoomScreen.usersMessagesRoom.clear();
+  RoomScreen.usersMessagesProfileRoom.clear();
   MusicScreen.isPlaying.value = false;
   RoomScreen.adminsInRoom.clear();
   RoomScreen.usersInRoom.clear();
   LuckyBoxVariables.luckyBoxMap['luckyBoxes'].clear();
-  RoomScreen.usersMessagesInRoom.clear();
-  RoomScreen.usersMessagesRoom.clear();
+  RoomScreen.usersMessagesProfileRoom.clear();
   LuckyBoxVariables.luckyBoxMap['currentBox'] = 1;
   SetTimerLuckyBox.remTimeSuperBox = 0;
   DialogLuckyBox.startTime = false;
@@ -449,7 +450,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
           imgId: result[messageContent][entroImgIdKey],
           imgUrl: result[messageContent]['entroImg']));
     } else {
-      await loadAnimationEntro(result[messageContent][entroImgIdKey],
+      await loadAnimationEntro(result[messageContent][entroImgIdKey].toString(),
       result[messageContent]['entroImg']);
       if (result[messageContent]['vip'] == null
           ? false

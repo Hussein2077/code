@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
+import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
@@ -65,89 +66,6 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
       return Right(DioHelper.buildFailure(e));
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   @override
@@ -537,9 +455,14 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
     }
   }
 
-
-
-
-
+  @override
+  Future<Either<List<RoomUserMesseagesModel>, Failure>> getUsersInRoon(String userId) async{
+    try {
+      final result = await baseRemotlyDataSourceRoom.getUsersInRoon(userId);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
 
 }

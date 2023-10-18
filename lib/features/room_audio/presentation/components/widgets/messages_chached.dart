@@ -49,7 +49,7 @@ class MessagesChached extends StatelessWidget {
     return InkWell(
       onTap: () {
         if(message.user.id != "0" ){
-  bottomDailog(
+          bottomDailog(
             context: context,
             widget: MessageRoomProfile(
               myData: myDataModel,
@@ -207,8 +207,7 @@ class MessagesChached extends StatelessWidget {
                   right: AppPadding.p2),
               child: CachedNetworkImage(
                   imageUrl: ConstentApi().getImage(bubble == ""
-                      ? RoomScreen
-                      .usersMessagesRoom[message.user.id]?.bubble
+                      ? RoomScreen.usersMessagesRoom[message.user.id]?.bubble
                       : bubble),
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
