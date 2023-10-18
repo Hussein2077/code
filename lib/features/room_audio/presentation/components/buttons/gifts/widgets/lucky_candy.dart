@@ -50,14 +50,7 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
     )..repeat();
     super.initState();
   }
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    showWidget(Timer.periodic(const Duration(milliseconds: 1), (timer) {
-      percentNotifier.value += 0.0017;
-    }));
-    super.didChangeDependencies();
-  }
+
   @override
   void dispose() {
     animationController.dispose();
@@ -66,18 +59,11 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-
+    return
         InkWell(
           onTap: () {
-            if (timerDuration != null) {
-              timerDuration!.cancel();
-            }
-            showWidget(Timer.periodic(const Duration(milliseconds: 1), (timer) {
-              percentNotifier.value += 0.0017;
-            }));
-            percentNotifier.value = 0;
+            sendGift();
+            percentNotifier.value =  0;
           },
           child:Container(
             decoration: BoxDecoration(
@@ -100,6 +86,9 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
                 ValueListenableBuilder<double>(
                     valueListenable: percentNotifier,
                     builder: (context, percent, child)  {
+                      if(percent >= 1){
+                        endAllLuckyGift();
+                      }
                       return CircularPercentIndicator(
                         radius: ConfigSize.defaultSize! * 3.4,
                         lineWidth: 3,
@@ -116,42 +105,27 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
               ],
             ),
           ),
-        ),
-      ],
-    );
+        );
+
   }
-  void showWidget(Timer? timer1) {
-    sendGift(null);
+
+
+  void endAllLuckyGift(){
+
     if (timer != null) {
       timer!.cancel();
     }
-    timer = timer1;
-    timerDuration = Timer(const Duration(milliseconds:2500 ), () {
+    compo = 0;
 
-      timer!.cancel();
-      percentNotifier.value = 0;
-      compo = 0;
-      GiftBottomBar.typeCandy.value = TypeCandy.non;
-      BlocProvider.of<LuckyGiftBannerBloc>(context).add(EndBannerEvent());
+    BlocProvider.of<LuckyGiftBannerBloc>(context).add(EndBannerEvent());
 
-      widget.luckGiftBannderController!.reverse().then((value) {
-      });
-      RoomScreen.winCircularluckyGift.value = 0;
-    });
-
-
-
-
-    GiftBottomBar.typeCandy.value = TypeCandy.luckyCandy;
-
-
+    widget.luckGiftBannderController!.reverse().then((value) {});
+    Future.delayed(const Duration(seconds: 1),()=>GiftBottomBar.typeCandy.value = TypeCandy.non)  ;
+    Future.delayed(const Duration(seconds: 1),()=>RoomScreen.winCircularluckyGift.value = 0)  ;
   }
 
-  void sendGift(int? compoNum) {
+  void sendGift() {
     List<String> userSelected =[] ;
-    // GiftUser.userSelected.entries.map((e) {
-    //   return e.value.userId;
-    // }).toList();
     GiftUser.userSelected.forEach((key, value) {
       userSelected.add(value.userId);
     });
