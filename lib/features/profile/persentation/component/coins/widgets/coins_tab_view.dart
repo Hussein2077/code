@@ -18,7 +18,6 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_card.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_method_dialog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_state.dart';
@@ -103,6 +102,16 @@ class _CoinsTabViewState extends State<CoinsTabView> {
     }
   }
 
+  Future<void> _buyProduct(ProductDetails product) async {
+    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+    try {
+      await _connection.buyConsumable(purchaseParam: purchaseParam);
+    } catch (e) {
+      log("error in buy function: $e");
+      // Handle purchase errors, if any.
+    }
+  }
+
   late BuyCoinsBloc buyCoinsBloc;
 
   late StreamSubscription mSub;
@@ -174,7 +183,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                                   child: InkWell(
                                     onTap: () {
                                       if (Platform.isIOS) {
-                                        showAlertDialog(context, state.data[index].id.toString(), productsMap[state.data[index].coin.toString()]);
+                                        _buyProduct(productsMap[state.data[index].coin.toString()]);
                                       } else {
                                         BlocProvider.of<BuyCoinsBloc>(context).add(BuyCoins(buyCoinsParameter: BuyCoinsParameter(coinsID: state.data[index].id.toString(), paymentMethod: 'opay')));
                                       }
@@ -237,17 +246,6 @@ class _CoinsTabViewState extends State<CoinsTabView> {
           }
         })
       ],
-    );
-  }
-
-  showAlertDialog(BuildContext context, var coinPackageId, var product) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => PaymentMethodDialog(
-        coinPackageId: coinPackageId,
-        product: product,
-        inAppPurchase: _connection,
-      ),
     );
   }
 }
