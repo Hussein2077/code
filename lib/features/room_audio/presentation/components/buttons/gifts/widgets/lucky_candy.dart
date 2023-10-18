@@ -38,6 +38,8 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
   Timer? timer;
   Timer? timerDuration;
   late final AnimationController animationController;
+  ValueNotifier<double> percentNotifier = ValueNotifier<double>(0.0);
+
   double percent = 0;
 
   @override
@@ -46,8 +48,15 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     )..repeat();
-    showWidget();
     super.initState();
+  }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    showWidget(Timer.periodic(const Duration(milliseconds: 1), (timer) {
+      percentNotifier.value += 0.0017;
+    }));
+    super.didChangeDependencies();
   }
   @override
   void dispose() {
@@ -59,64 +68,75 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Row(
       children: [
-     
+
         InkWell(
           onTap: () {
-            setState(() {
-              if (timerDuration != null) {
-                timerDuration!.cancel();
-              }
-              showWidget();
-              percent = 0;
-            });
+            if (timerDuration != null) {
+              timerDuration!.cancel();
+            }
+            showWidget(Timer.periodic(const Duration(milliseconds: 1), (timer) {
+              percentNotifier.value += 0.0017;
+            }));
+            percentNotifier.value = 0;
           },
           child:Container(
-            height: ConfigSize.screenHeight! * .1,
-            width: ConfigSize.screenWidth! * .3,
             decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [
-                ColorManager.orang,
-                ColorManager.whiteColor,
-              ]),
-              borderRadius:
-              BorderRadius.circular(ConfigSize.defaultSize! * 1.5),
+              gradient:   const LinearGradient(colors: ColorManager.mainColorList),
+              borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
             ),
-            child: Center(
-              child: Text(
-                StringManager.luckGiftSend.tr(),
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.white
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+
+                Center(
+                  child: Text(
+                    StringManager.luckGiftSend.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Colors.white),
+                  ),
                 ),
-              ),
+                ValueListenableBuilder<double>(
+                    valueListenable: percentNotifier,
+                    builder: (context, percent, child)  {
+                      return CircularPercentIndicator(
+                        radius: ConfigSize.defaultSize! * 3.4,
+                        lineWidth: 3,
+                        animation: true,
+                        curve: Curves.ease,
+                        animateFromLastPercent: true,
+                        addAutomaticKeepAlive: true,
+                        percent: percent<1?percent:1,
+                        backgroundColor: Colors.grey,
+                        progressColor: Colors.yellow,
+                      );
+                    }
+                ),
+              ],
             ),
           ),
         ),
       ],
     );
   }
-  void showWidget() {
+  void showWidget(Timer? timer1) {
     sendGift(null);
     if (timer != null) {
       timer!.cancel();
     }
-    timer = Timer.periodic(const Duration(milliseconds:1 ), (timer) {
-      setState(() {
-        percent = percent + 0.0017;
-      });
-    });
+    timer = timer1;
     timerDuration = Timer(const Duration(milliseconds:2500 ), () {
-     
-        timer!.cancel();
-        percent = 0;
-        compo = 0;
-        GiftBottomBar.typeCandy.value = TypeCandy.non;
-       BlocProvider.of<LuckyGiftBannerBloc>(context).add(EndBannerEvent());
 
-         widget.luckGiftBannderController!.reverse().then((value) {
-           
-          });
-    RoomScreen.winCircularluckyGift.value = 0;
- 
+      timer!.cancel();
+      percentNotifier.value = 0;
+      compo = 0;
+      GiftBottomBar.typeCandy.value = TypeCandy.non;
+      BlocProvider.of<LuckyGiftBannerBloc>(context).add(EndBannerEvent());
+
+      widget.luckGiftBannderController!.reverse().then((value) {
+      });
+      RoomScreen.winCircularluckyGift.value = 0;
     });
 
 
@@ -128,34 +148,34 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
   }
 
   void sendGift(int? compoNum) {
-     List<String> userSelected =[] ;
+    List<String> userSelected =[] ;
     // GiftUser.userSelected.entries.map((e) {
     //   return e.value.userId;
     // }).toList();
-    GiftUser.userSelected.forEach((key, value) { 
+    GiftUser.userSelected.forEach((key, value) {
       userSelected.add(value.userId);
     });
     String toUid = "";
     for (int i = 0; i < userSelected.length; i++) {
       toUid += '${userSelected[i].toString()},';
     }
-    
+
 
     (userSelected.isEmpty && GiftUserOnly.userSelected == "")
         ? BlocProvider.of<LuckyGiftBannerBloc>(context).add(SendLuckyGiftEvent(
-        ownerId: widget.roomData.ownerId.toString(),
-        id: GiftScreen.giftId.toString(),
-        toUid: "",
-        num: GiftBottomBar.numberOfGift.toString(),
-        ))
+      ownerId: widget.roomData.ownerId.toString(),
+      id: GiftScreen.giftId.toString(),
+      toUid: "",
+      num: GiftBottomBar.numberOfGift.toString(),
+    ))
         :  BlocProvider.of<LuckyGiftBannerBloc>(context).add(SendLuckyGiftEvent(
-        ownerId: widget.roomData.ownerId.toString(),
-        id: GiftScreen.giftId.toString(),
-        toUid: GiftUserOnly.userSelected == ""
-            ? toUid.substring(0, toUid.length - 1)
-            : GiftUserOnly.userSelected,
-        num: GiftBottomBar.numberOfGift.toString(),
-        ));
+      ownerId: widget.roomData.ownerId.toString(),
+      id: GiftScreen.giftId.toString(),
+      toUid: GiftUserOnly.userSelected == ""
+          ? toUid.substring(0, toUid.length - 1)
+          : GiftUserOnly.userSelected,
+      num: GiftBottomBar.numberOfGift.toString(),
+    ));
 
 
   }
