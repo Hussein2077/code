@@ -263,6 +263,7 @@ class StringManager {
   static const String startBattle = "Start Battale";
   static const String senderLevel = "Sender Level";
   static const String receiverLevel = "Receiver Level";
+  static const String yourThemeIsUpload = "Your Theme is upload please wait to approve";
 
 
   ///INCOME SCREEN 💲💸💰
