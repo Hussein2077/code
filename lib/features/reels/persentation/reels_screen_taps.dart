@@ -18,7 +18,6 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
-  Map<int,bool> favorites = {};
 
   @override
   void initState() {
