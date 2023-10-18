@@ -80,16 +80,15 @@ class _PageViewWidgetState extends State<PageViewWidget> {
         Padding(
           padding: EdgeInsets.only(
               left: ConfigSize.defaultSize! * 6,
-              bottom: ConfigSize.defaultSize! * 3),
+              bottom: ConfigSize.defaultSize! * 2),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: pages.map((page) {
               int index = pages.indexOf(page);
               return Container(
                 width: ConfigSize.defaultSize,
                 height: ConfigSize.defaultSize,
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: current == index ? Colors.white : Colors.grey,

@@ -146,14 +146,25 @@ class AduioLiveRow extends StatelessWidget {
                       )
                     ],
                   ),
+
                   Padding(
                     padding: EdgeInsets.only(
-                        top: ConfigSize.defaultSize! * 5,
+                        top: room.passwordStatus!? ConfigSize.defaultSize! * 2 : ConfigSize.defaultSize! * 5,
                         right: ConfigSize.defaultSize! * 2),
-                    child: NumVistor(
-                      numOfVistor: room.visitorsCount.toString(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        if(room.passwordStatus!) Image.asset(AssetsPath.lock, color: ColorManager.orang,),
+                        if(room.passwordStatus!) SizedBox(
+                          height: ConfigSize.defaultSize,
+                        ),
+                        NumVistor(
+                          numOfVistor: room.visitorsCount.toString(),
+                        ),
+                      ],
                     ),
-                  )
+                  ),
+
                 ],
               )
             ],

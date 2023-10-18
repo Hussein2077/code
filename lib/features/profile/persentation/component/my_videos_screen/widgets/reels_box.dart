@@ -25,6 +25,7 @@ class ReelsBox extends StatefulWidget {
   static Map<String, Uint8List> thumbnail = {};
   static Map<String, bool> likedVideos = {};
   static Map<String, int> likedVideoCount = {};
+  static bool loading = false;
 
   const ReelsBox(
       {super.key, required this.userDataModel, required this.scrollController});
@@ -44,7 +45,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
     }
 
     flutterGifController = FlutterGifController(vsync: this);
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       flutterGifController.repeat(
           min: 0, max: 20, period: const Duration(milliseconds: 2000));
     });
@@ -79,17 +80,15 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
       },
       builder: (context, state) {
         if (state is GetUserReelsSucssesState) {
+          ReelsBox.loading = state.loadMore;
           return Column(
             children: [
               Expanded(
                 child: GridView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
                     controller: widget.scrollController,
-                    itemCount: state.loadMore
-                        ? state.data!.length + 1
-                        : state.data!.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                    itemCount: ReelsBox.loading ? state.data!.length + 1 : state.data!.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             mainAxisSpacing: 20,
                             childAspectRatio: 0.7,
                             crossAxisCount: 3),
@@ -169,19 +168,15 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                           ),
                         );
                       } else {
-                        if (widget.scrollController.position.pixels == widget.scrollController.position.maxScrollExtent) {
-                          state.loadMore = true;
-                        } else {
-                          state.loadMore = false;
-                        }
-                        if (state.data!.length % 3 != 0) {
+                        if (state.data!.length % 3 != 0 && state.data!.length > 6) {
                           return Center(
                               child: Text(
                             StringManager.loadingMore.tr(),
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 16),
                           ));
-                        } else if (state.data!.isEmpty) {
+                        }
+                        else if (state.data!.isEmpty) {
                           return Center(
                               child: Text(
                             StringManager.noReels.tr(),
@@ -190,14 +185,15 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold),
                           ));
-                        } else if (state.loadMore) {
+                        }
+                        else if (ReelsBox.loading && state.data!.length > 6) {
                           return const Center(
                               child: CircularProgressIndicator());
                         }
                       }
                     }),
               ),
-              if (!state.loadMore)
+              if (!ReelsBox.loading)
                 Center(
                     child: Text(
                   StringManager.noMoreReels.tr(),
