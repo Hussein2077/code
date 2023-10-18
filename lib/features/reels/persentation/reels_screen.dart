@@ -41,26 +41,15 @@ class ReelsScreenState extends State<ReelsScreen>{
 
   @override
   void initState() {
-    log("1zzzzzzzzzzzzzzzzzzzzzzz");
-    log(ReelsController.likedVideos.toString());
-
-    super.initState();
-    // ReelsController.likedVideos = {};
-    // ReelsController.likedVideoCount = {};
-    // ReelsController.followingMap = {};
     if (SplashScreen.initPage == 1) {
       BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId: MainScreen.reelId));
     }
+    super.initState();
+
   }
 
   @override
   void dispose() {
-    log("2zzzzzzzzzzzzzzzzzzzzzzz");
-    // MoreReportDialogIcon.report.dispose();
-    // ReelsController.likedVideos.clear();
-    // ReelsController.likedVideoCount.clear();
-    // ReelsController.followingMap.clear();
-    // ReelsController.thumbnail.clear();
     super.dispose();
   }
 
@@ -91,7 +80,6 @@ class ReelsScreenState extends State<ReelsScreen>{
                           ReelsController.getInstance
                               .likesCountMap(state.data!);
                           ReelsController.getInstance.followMap(state.data!);
-                          log(" instaincr reel ${ReelsController.getInstance.hashCode}");
                           return ReelsViewer(
                             userView: false,
                             reelsList: state.data!,

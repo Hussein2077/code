@@ -57,7 +57,8 @@ class _ReelsPageState extends State<ReelsPage>
   bool _liked = false;
   double? videoWidth;
   double? videoHeight;
-  late final AnimationController _controller = AnimationController(
+  late final AnimationController _controller =
+  AnimationController(
     duration: const Duration(milliseconds: 2000),
     vsync: this,
   )..repeat(reverse: false);
