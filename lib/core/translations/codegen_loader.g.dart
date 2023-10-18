@@ -27,6 +27,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.and: "و",
     StringManager.age: "العمر",
     StringManager.selectTimeFirst: 'اختر الوقت اولا',
+    StringManager.yourThemeIsUpload: 'تم تحميل الخلفية من فضلك انتظر حتي يتم الموافقة',
     StringManager.enterYourRoomData: "أرجوك,ادخل بيانات غرفتك كاملة",
     StringManager.enterYourRoomName: "أرجوك,ادخل أسم غرفتك",
     StringManager.enterYourRoomImage: "أرجوك,ادخل صورة غرفتك",
