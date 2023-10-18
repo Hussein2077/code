@@ -46,8 +46,7 @@ class _PublicPriveteButtonState extends State<PublicPriveteButton> {
               ),
             ],
           ),
-          items: global
-              .map((item) => DropdownMenuItem<String>(
+          items: global.map((item) => DropdownMenuItem<String>(
                   value: item,
                   child: Row(
                     children: [
