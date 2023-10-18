@@ -27,12 +27,19 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/emojie/emojie_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/gift_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_bottom_bar.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/lucky_candy.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/massage_Button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/speakr_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/header_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/lucky_gift_send_button_in_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/lucky_win_circle_with_overlay.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_gift_banner_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_gift_win_circle.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_gift_banner_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_lucky_banner_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_yallow_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
@@ -42,8 +49,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/room_background.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dialog_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/lucky_gift_banner_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/lucky_gift_win_circle.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_mid_party.dart';
@@ -58,7 +63,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/pop_up_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/show_yallow_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -78,8 +82,7 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:video_player/video_player.dart';
 import 'package:path_provider/path_provider.dart';
-import 'components/widgets/show_gift_banner_widget.dart';
-import 'components/widgets/show_lucky_banner_widget.dart';
+
 
 class RoomScreen extends StatefulWidget {
   final EnterRoomModel room;
@@ -201,22 +204,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   late Animation<Offset> offsetAnimationYellowBanner;
   UserDataModel? yallowBannerSender;
   bool showYellowBanner = false;
-  showOverlay(Widget widget) {
-    OverlayState overlayState = Overlay.of(context);
-    overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(
-      builder: (context) => Padding(
-          padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
-          child: widget),
-    );
 
-    overlayState.insert(overlayEntry);
-
-    //to remove overlay after a certain time, use:
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      overlayEntry.remove();
-    });
-  }
 
   @override
   void initState() {
@@ -1307,7 +1295,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               if (state.data.isWin && !state.data.isPopular) {
                 ZegoUIKit()
                     .sendInRoomMessage(state.data.coomentMesasge, false);
-                LukyGiftWinCircle.winCoin = state.data.winCoin;
+                LuckyGiftWinCircle.winCoin = state.data.winCoin;
                 RoomScreen.winCircularluckyGift.value =
                     RoomScreen.winCircularluckyGift.value + 1;
               } else if (state.data.isWin && state.data.isPopular) {
@@ -1382,17 +1370,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         Positioned(
           bottom: ConfigSize.defaultSize! * 12,
           left: ConfigSize.screenWidth! * 0.45,
-          child: ValueListenableBuilder<TypeCandy>(
-              valueListenable: GiftBottomBar.typeCandy,
-              builder: (BuildContext context, TypeCandy typeCabdy, _) {
-                if (typeCabdy == TypeCandy.luckyCandy) {
-                  return LuckyCandy(
-                      roomData: widget.room,
-                      luckGiftBannderController: luckGiftBannderController);
-                } else {
-                  return const IgnorePointer(child: SizedBox());
-                }
-              }),
+          child:LuckyGiftSendButtonInRoom(
+            room: widget.room,
+            luckGiftBannderController: luckGiftBannderController,
+          ),
         ),
         ValueListenableBuilder<bool>(
           valueListenable: RoomScreen.isKick,
@@ -1411,21 +1392,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             }
           },
         ),
-        IgnorePointer(
-          child: ValueListenableBuilder<int>(
-              valueListenable: RoomScreen.winCircularluckyGift,
-              builder: (context, sohw, _) {
-                if (sohw != 0) {
-                  Future.delayed(const Duration(seconds: 1)).then((value) {
-                    return showOverlay(const Align(
-                        alignment: Alignment.topCenter,
-                        child: LukyGiftWinCircle()));
-                  });
-                  return const SizedBox();
-                } else {
-                  return const SizedBox();
-                }
-              }),
+        const IgnorePointer(
+          child:LuckyWinCircleWithOverlay()
         ),
       ]);
     }, listener: (context, state) {
