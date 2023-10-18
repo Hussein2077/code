@@ -44,7 +44,7 @@ class FamilyRankBottomBar extends StatelessWidget {
           },
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: ConfigSize.defaultSize! * 6,
+            height: ConfigSize.defaultSize! * 9,
             color: ColorManager.lightOrange,
             child: Center(
               child: Text(

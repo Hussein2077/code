@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
 //
-  static const int versionApp = 30;
+  static const int versionApp = 31;
 
   //updates
   static const String updateApp = 'Update TikChat APP';
@@ -187,7 +187,7 @@ class StringManager {
   static const String familyName = "Family Name";
   static const String familyBio = "Family Bio";
   static const String requestToJoin = "Request to join";
-  static const String familyMember = "Family Member";
+  static const String familyMember = "Family Members screen";
   static const String more = "More";
   static const String owner = "owner";
   static const String admin = "admin";
@@ -263,6 +263,7 @@ class StringManager {
   static const String startBattle = "Start Battale";
   static const String senderLevel = "Sender Level";
   static const String receiverLevel = "Receiver Level";
+  static const String yourThemeIsUpload = "Your Theme is upload please wait to approve";
 
 
   ///INCOME SCREEN 💲💸💰
@@ -411,16 +412,20 @@ class StringManager {
   static const String leaveSeat = "take off seat";
   static const String areYouSureLeaveSeat = "Are you sure to leave seat";
   static const String ok = "ok";
-  static const String unMuteMic = "الغاء كتم المقعد";
-  static const String muteMic = "كتم المقعد";
-  static const String unLockSeat = "الغاء غلق المقعد";
-  static const String lockSeat = "غلق المقعد";
-  static const String showDetails = "اظهر التفاصيل";
-  static const String privilegeVip6 =
-      "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
+  static const String unMuteMic = "“Unmute the seat";
+  static const String muteMic = "Mute the seat";
+  static const String unLockSeat = "Unlock the seat";
+  static const String lockSeat = "Close the seat";
+  static const String showDetails = "Show details";
+  static const String privilegeVip6 = "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
   static const String active = "Active";
   static const String updateScssfuly = "update Sucessfully";
   static const String youblockedFromRoom = 'you have a bloc from this room ';
+  static const String removeTheSpeaker = 'Remove the speaker';
+  static const String areYouSureToRemove = 'Are you sure to remove';
+  static const String fromTheSeat = 'from the seat?';
+  static const String leaveTheSeat = 'Leave the seat';
+  static const String areYouSureToLeaveSeat = 'Are you sure to leave seat?';
 
   static const String minute = "munit";
   static const String thisGiftForbiden = "this Gift for vip";

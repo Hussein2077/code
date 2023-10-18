@@ -77,16 +77,15 @@ class MomentInfoRow extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         LevelContainer(
-                          image: momentModel.receiverImage,
+                          width: ConfigSize.defaultSize!*5,
+                          height: ConfigSize.defaultSize!*5,
+                          image: momentModel.senderImage,
                         ),
                         AristocracyLevel(
                           level: momentModel.vip,
                         ),
-
                       ],
                     ),
-
-
                   ],
                 ),
 

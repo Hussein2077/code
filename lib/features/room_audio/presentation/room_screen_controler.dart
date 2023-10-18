@@ -163,9 +163,11 @@ Future<void> showingEmojie(
 
 List<String> splitUsersInRoom({required List<ZegoUIKitUser> orginalList}) {
   List<String> listIds = [];
+
   orginalList.forEach((element) {
     listIds.add(element.id);
   });
+  log(listIds.toString());
   return listIds;
 }
 
@@ -282,6 +284,7 @@ Future<void> clearAll() async {
   RoomScreen.showBanner.value = false;
   RoomScreen.myCoins.value = "";
   RoomScreen.winCircularluckyGift.value = 0;
+
   await distroyMusic();
 }
 

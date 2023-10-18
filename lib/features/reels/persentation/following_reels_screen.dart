@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,19 +35,18 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
   @override
   void initState() {
     super.initState();
-    ReelsController.likedVideos = {};
-    ReelsController.likedVideoCount = {};
-    ReelsController.followingMap = {};
-    BlocProvider.of<GetFollowingReelsBloc>(context).add(GetFollowingReelsEvent());
+    // ReelsController.likedVideos = {};
+    // ReelsController.likedVideoCount = {};
+    // ReelsController.followingMap = {};
   }
 
   @override
   void dispose() {
-    MoreReportDialogIcon.report.dispose();
-    ReelsController.likedVideos.clear();
-    ReelsController.likedVideoCount.clear();
-    ReelsController.followingMap.clear();
-    ReelsController.thumbnail.clear();
+    // MoreReportDialogIcon.report.dispose();
+    // ReelsController.likedVideos.clear();
+    // ReelsController.likedVideoCount.clear();
+    // ReelsController.followingMap.clear();
+    // ReelsController.thumbnail.clear();
     super.dispose();
   }
 
@@ -58,6 +59,7 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
           child: BlocConsumer<GetFollowingReelsBloc, GetFollowingReelsState>(
             builder: (context, state) {
               if (state is GetFollowingReelsSucssesState) {
+                log(state.data!.length.toString()+"elhamody");
                 ReelsController.getInstance.likesMap(state.data!);
                 ReelsController.getInstance.likesCountMap(state.data!);
                 ReelsController.getInstance.followMap(state.data!);
@@ -107,6 +109,10 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
                     Navigator.pop(context);
                   },
                   onIndexChanged: (index) {
+                    if (state.data!.length - index == 4) {
+                      BlocProvider.of<GetFollowingReelsBloc>(context)
+                          .add(LoadMoreFollowingReelsEvent());
+                    }
 
                   },
                   showProgressIndicator: false,
@@ -114,7 +120,11 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
                   showAppbar: true,
                 );
               } else if (state is GetFollowingReelsLoadingState) {
+
+
                 return const LoadingWidget();
+
+
               } else if (state is GetFollowingReelsErrorState) {
                 return CustomErrorWidget(message: state.errorMassage);
               } else {
@@ -123,6 +133,7 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
             },
             listener: (context, state) async {
               if (state is GetFollowingReelsSucssesState) {
+
                 for (int i = 0; i < state.data!.length; i++) {
                   if (!ReelsController.thumbnail.containsKey(state.data![i].id.toString())) {
                     Uint8List thumbnailPath = await ReelsController.getInstance.getVideoThumbnail(state.data![i].url!);

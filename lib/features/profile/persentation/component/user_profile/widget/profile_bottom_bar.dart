@@ -10,7 +10,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
-
+import 'dart:ui' as ui;
 class ProfileBottomBar extends StatefulWidget {
   final UserDataModel userData;
   const ProfileBottomBar({required this.userData, super.key});
@@ -90,7 +90,7 @@ Widget bottomBarColumn(
   return InkWell(
     onTap: onTap,
     child: Column(
-
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         title != null
             ? Image.asset(
@@ -108,11 +108,19 @@ Widget bottomBarColumn(
                         image: AssetImage(
                   icon,
                 ))),
-                child: Text(
-                  StringManager.chatWithDifferentTranslation.tr(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: ConfigSize.defaultSize! * 1.5),
+                child: Directionality(
+                  textDirection: ui.TextDirection.ltr,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        StringManager.chatWithDifferentTranslation.tr(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: ConfigSize.defaultSize! * 1.5),
+                      ),
+                    ],
+                  ),
                 ),
               ),
         if (title != null)

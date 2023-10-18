@@ -1,6 +1,8 @@
 // Project imports:
 
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room_defines.dart';
 
 /// %0: is a string placeholder, represents the first parameter of prompt
@@ -146,17 +148,17 @@ class ZegoInnerText {
                 ),
         removeFromSeatDialogInfo = removeFromSeatDialogInfo ??
             ZegoDialogInfo(
-              title: 'Remove the speaker',
-              message: 'Are you sure to remove %0 from the seat?',
-              cancelButtonName: 'Cancel',
-              confirmButtonName: 'OK',
+              title: StringManager.removeTheSpeaker.tr(),
+              message: '${StringManager.areYouSureToRemove.tr()} %0 ${StringManager.fromTheSeat.tr()}',
+              cancelButtonName:  StringManager.cancel.tr(),
+              confirmButtonName: StringManager.ok.tr(),
             ),
         leaveSeatDialogInfo = leaveSeatDialogInfo ??
             ZegoDialogInfo(
-              title: 'Leave the seat',
-              message: 'Are you sure to leave seat?',
-              cancelButtonName: 'Cancel',
-              confirmButtonName: 'OK',
+              title: StringManager.leaveTheSeat.tr(),
+              message: StringManager.areYouSureToLeaveSeat.tr(),
+              cancelButtonName: StringManager.cancel.tr(),
+              confirmButtonName: StringManager.ok.tr(),
             ),
         hostInviteTakeSeatDialog = hostInviteTakeSeatDialog ??
             ZegoDialogInfo(

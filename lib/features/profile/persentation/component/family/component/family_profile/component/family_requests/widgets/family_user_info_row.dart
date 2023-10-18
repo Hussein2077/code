@@ -8,11 +8,12 @@ import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
-import 'user_country_icon.dart';
-import 'user_image.dart';
+import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
+import 'package:tik_chat_v2/core/widgets/user_image.dart';
 
 
-class UserInfoRow extends StatelessWidget {
+
+class FamilyUserInforow extends StatelessWidget {
   final UserDataModel userData ;
 
   final double? imageSize;
@@ -22,12 +23,12 @@ class UserInfoRow extends StatelessWidget {
   final Widget? endIcon;
 
   final double? underNameWidth;
-    final Widget? idOrNot;
+  final Widget? idOrNot;
 
 
   final void Function()? onTap;
 
-  const UserInfoRow(
+  const FamilyUserInforow(
       {this.underNameWidth,
         this.onTap,
         required this.userData,
@@ -42,8 +43,8 @@ class UserInfoRow extends StatelessWidget {
     return InkWell(
       onTap: onTap ??
               () {
-                Methods().userProfileNvgator(context: context ,userId: userData.id.toString()  );
-            
+            Methods().userProfileNvgator(context: context ,userId: userData.id.toString()  );
+
           },
       child: Padding(
         padding:  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.5),
@@ -87,27 +88,24 @@ class UserInfoRow extends StatelessWidget {
 
                         children: [
                           MaleFemaleIcon(
-                            maleOrFeamle: userData.profile!.gender,
-                            age: userData.profile!.age,
+                            maleOrFeamle: userData.profile!.gender, age: userData.profile!.gender,
                           ),
                           SizedBox(width: ConfigSize.defaultSize!*0.8),
-                          if(!userData.isCountryHiden!)
-                          UserCountryIcon(country: userData.profile!.country),
                           LevelContainer(
                             image: userData.level!.receiverImage!,
-
+                            height: ConfigSize.defaultSize!*2,
+                            width: ConfigSize.defaultSize!*4,
                           ),
                           AristocracyLevel(
-
                             level: userData.vip1!.level!,
                           ),
 
                           const Spacer(),
-                          idOrNot??
-                          Text(
-                            "ID ${userData.uuid.toString()}",
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
+                          // idOrNot??
+                          //     Text(
+                          //       "ID ${userData.uuid.toString()}",
+                          //       style: Theme.of(context).textTheme.titleSmall,
+                          //     ),
                         ],
                       ),
                 )

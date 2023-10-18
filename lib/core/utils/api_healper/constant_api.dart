@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 class ConstentApi {
   static const String baseUrl = "https://tik-chat.com/api";
-  //static const String baseUrl = "https://test.tik-chat.com/api";
+  // static const String baseUrl = "https://test.tik-chat.com/api";
   static const String getBoxes = "$baseUrl/box/list";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
@@ -349,7 +349,10 @@ class ConstentApi {
   static String getMomentLike(String momentId, String page) {
     return "$baseUrl/moment/$momentId/like?page=$page";
   }
+  static String getFollowingReels( String page,) {
+    return "$baseUrl/reals/user-followers?page=$page";
+  }
 
-  static String getFollowingReels = "$baseUrl/reals/user-followers";
+  // static String getFollowingReels = "$baseUrl/reals/user-followers";
 
 }
