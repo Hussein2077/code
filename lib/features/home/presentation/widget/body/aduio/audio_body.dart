@@ -89,27 +89,31 @@ class _AduioBodyState extends State<AduioBody> {
                     }
                   },
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          bottomDailog(
-                              context: context, widget: const CountryDialog());
-                        },
-                        child: ValueListenableBuilder(
-                          valueListenable: CountryDialog.selectedCountry,
-                          builder: (context, value, Widget? widget) {
-                            return CountryIcon(
-                              flag: CountryDialog.flag,
-                              name: CountryDialog.name,
-                              
-                            );
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            bottomDailog(
+                                context: context, widget: const CountryDialog());
                           },
-                        )),
-                    topRankIcon(context: context)
-                  ],
+                          child: ValueListenableBuilder(
+                            valueListenable: CountryDialog.selectedCountry,
+                            builder: (context, value, Widget? widget) {
+                              return CountryIcon(
+                                flag: CountryDialog.flag,
+                                name: CountryDialog.name,
+
+                              );
+                            },
+                          )),
+                      topRankIcon(context: context)
+                    ],
+                  ),
                 ),
+
                 BlocBuilder<GetRoomsBloc, GetRoomsStates>(
                   builder: (context, state) {
                     switch (state.getRoomsState) {
