@@ -179,7 +179,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.familyName: " العائلة",
     StringManager.familyBio: "نبذة عن العائلة",
     StringManager.requestToJoin: "طلب الانضمام",
-    StringManager.familyMember: "عضو في العائلة",
+    StringManager.familyMember: "اعضاء العائلة",
     StringManager.more: "المزيد",
     StringManager.owner: "المالك",
     StringManager.admin: "المسؤول",

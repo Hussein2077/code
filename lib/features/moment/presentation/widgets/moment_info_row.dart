@@ -84,11 +84,8 @@ class MomentInfoRow extends StatelessWidget {
                         AristocracyLevel(
                           level: momentModel.vip,
                         ),
-
                       ],
                     ),
-
-
                   ],
                 ),
 

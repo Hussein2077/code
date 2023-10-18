@@ -68,93 +68,99 @@ class AduioLiveRow extends StatelessWidget {
                 margin: EdgeInsets.only(
                     bottom: ConfigSize.defaultSize! * 2,
                     left: ConfigSize.defaultSize! * 2.5),
-                width: ConfigSize.defaultSize! *33,
+                width: ConfigSize.defaultSize! * 33,
                 height: ConfigSize.defaultSize! * 10,
               )),
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: ConfigSize.defaultSize! * 1.2),
-                    width: ConfigSize.defaultSize! * 8.6,
-                    height: ConfigSize.defaultSize! * 7.6,
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: style == 0
-                                  ? ColorManager.blue.withOpacity(0.6)
-                                  : style == 1
-                                      ? ColorManager.orang.withOpacity(0.6)
-                                      : ColorManager.pink.withOpacity(0.6),
-                              spreadRadius: 1,
-                              blurRadius: 20),
-                        ],
-                        image: room.cover != null? DecorationImage(
-                            image: CachedNetworkImageProvider(ConstentApi().getImage(room.cover)),
-                            fit: BoxFit.fill) : const DecorationImage(
-                            image: AssetImage(AssetsPath.defaultImage),
-                            fit: BoxFit.fill),
-                        borderRadius:
-                            BorderRadius.circular(ConfigSize.defaultSize! * 2)),
-                  ),
-                  SizedBox(
-                    width: ConfigSize.defaultSize,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: ConfigSize.defaultSize!*19,
-                        child: Text(
-                          room.name ?? '',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: ConfigSize.defaultSize! * 1.8),
-                        ),
-                      ),
-                      SizedBox(
-                        width: ConfigSize.defaultSize! * 19,
-                        child: Text(
-                          room.roomIntro ?? "",
-                          style: TextStyle(
-                              color: Colors.black.withOpacity(0.5),
-                              fontSize: ConfigSize.defaultSize! * 1.2,
-                              overflow: TextOverflow.ellipsis),
-                        ),
-                      ),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 0.5,
-                      ),
-                      Row(
-                        children: [
-                          RoomTypeWidget(
-                              style: style, type: room.type!.name ?? ""),
-                          SizedBox(
-                            width: ConfigSize.defaultSize,
-                          ),
-                          Text(room.country!,style: TextStyle(
-                            fontSize: ConfigSize.defaultSize!*1.7
-                          )),
-                     /*CachedNetworkImage(
-                            imageUrl: room.country!,
-                            width: ConfigSize.defaultSize! * 2.4,
-                            height: ConfigSize.defaultSize! * 2.4,
-                          ),*/
-                        ],
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: ConfigSize.defaultSize! * 5,
-                        right: ConfigSize.defaultSize! * 2),
-                    child: NumVistor(
-                      numOfVistor: room.visitorsCount.toString(),
+              Container(
+               // color: Colors.red,
+                child: Row(
+                  children: [
+                    Container(
+                      margin:
+                          EdgeInsets.only(top: ConfigSize.defaultSize! * 1.2),
+                      width: ConfigSize.defaultSize! * 8.6,
+                      height: ConfigSize.defaultSize! * 7.6,
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                color: style == 0
+                                    ? ColorManager.blue.withOpacity(0.6)
+                                    : style == 1
+                                        ? ColorManager.orang.withOpacity(0.6)
+                                        : ColorManager.pink.withOpacity(0.6),
+                                spreadRadius: 1,
+                                blurRadius: 20),
+                          ],
+                          image: room.cover != null
+                              ? DecorationImage(
+                                  image: CachedNetworkImageProvider(
+                                      ConstentApi().getImage(room.cover)),
+                                  fit: BoxFit.fill)
+                              : const DecorationImage(
+                                  image: AssetImage(AssetsPath.defaultImage),
+                                  fit: BoxFit.fill),
+                          borderRadius: BorderRadius.circular(
+                              ConfigSize.defaultSize! * 2)),
                     ),
-                  )
-                ],
+                    SizedBox(
+                      width: ConfigSize.defaultSize,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * 19,
+                          child: Text(
+                            room.name ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: ConfigSize.defaultSize! * 1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * 19,
+                          child: Text(
+                            room.roomIntro ?? "",
+                            style: TextStyle(
+                                color: Colors.black.withOpacity(0.5),
+                                fontSize: ConfigSize.defaultSize! * 1.2,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
+                        SizedBox(
+                          height: ConfigSize.defaultSize! * 0.5,
+                        ),
+                        Row(
+                          children: [
+                            RoomTypeWidget(
+                                style: style, type: room.type!.name ?? ""),
+                            SizedBox(
+                              width: ConfigSize.defaultSize,
+                            ),
+                            Text(room.country!,
+                                style: TextStyle(
+                                    fontSize: ConfigSize.defaultSize! * 1.7)),
+                            /*CachedNetworkImage(
+                              imageUrl: room.country!,
+                              width: ConfigSize.defaultSize! * 2.4,
+                              height: ConfigSize.defaultSize! * 2.4,
+                            ),*/
+                          ],
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: ConfigSize.defaultSize! * 5,
+                          right: ConfigSize.defaultSize! * 2),
+                      child: NumVistor(
+                        numOfVistor: room.visitorsCount.toString(),
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),
