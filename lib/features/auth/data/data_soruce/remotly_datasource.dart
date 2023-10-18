@@ -220,7 +220,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
         return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );
       }on DioError catch (e){
-
          throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithGoogle");
       }
       } 

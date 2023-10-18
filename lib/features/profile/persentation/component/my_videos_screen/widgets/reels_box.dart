@@ -168,7 +168,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                           ),
                         );
                       } else {
-                        if (state.data!.length % 3 != 0) {
+                        if (state.data!.length % 3 != 0 && state.data!.length > 6) {
                           return Center(
                               child: Text(
                             StringManager.loadingMore.tr(),
@@ -186,10 +186,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                                 fontWeight: FontWeight.bold),
                           ));
                         }
-                        else if(index == state.data!.length){
-                          return const SizedBox();
-                        }
-                        else if (ReelsBox.loading) {
+                        else if (ReelsBox.loading && state.data!.length > 6) {
                           return const Center(
                               child: CircularProgressIndicator());
                         }
