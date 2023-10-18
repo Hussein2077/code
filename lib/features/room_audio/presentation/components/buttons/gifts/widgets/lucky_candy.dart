@@ -48,6 +48,10 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     )..repeat();
+    timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
+      percentNotifier.value += 0.0017;
+    });
+    sendGift();
     super.initState();
   }
 
