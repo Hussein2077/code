@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -37,6 +38,7 @@ class UserRow extends StatelessWidget {
           );
         },
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(width:ConfigSize.defaultSize! ,),
             UserImage(image: roomVistorModel.image,boxFit: BoxFit.cover,frame: roomVistorModel.frame,
@@ -50,10 +52,19 @@ class UserRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GradientTextVip(
-                  text: "${roomVistorModel.name}   ${chckType(roomVistorModel.type)}" ?? "",
-                  textStyle: Theme.of(context).textTheme.bodyLarge!,
-                  isVip: roomVistorModel.hasColorName,
+                Row(
+                  children: [
+                    GradientTextVip(
+                      text: roomVistorModel.name,
+                      textStyle: Theme.of(context).textTheme.bodyLarge!,
+                      isVip: roomVistorModel.hasColorName,
+                    ),
+                    SizedBox(
+                      width: ConfigSize.defaultSize! * 2,
+                    ),
+                    if(roomVistorModel.type == 0) Image.asset(AssetsPath.hostMark, scale: 2,),
+                    if(roomVistorModel.type == 1) Image.asset(AssetsPath.adminMark, scale: 2,),
+                  ],
                 ),
                 SizedBox(
                   height: ConfigSize.defaultSize!*3,
@@ -78,23 +89,10 @@ class UserRow extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
-  }
-
-  String chckType(int type) {
-    switch (type) {
-      case 0:
-        return '( Owner )';
-      case 1:
-        return '( Admin )';
-      case 2:
-        return '';
-      default:
-        return '';
-    }
   }
 }

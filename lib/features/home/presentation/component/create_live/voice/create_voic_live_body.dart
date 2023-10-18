@@ -24,22 +24,23 @@ import 'widget/public_privite_button.dart';
 import 'widget/room_type_button.dart';
 
 class CreateVoiceLiveBody extends StatefulWidget {
-
-
   const CreateVoiceLiveBody({super.key});
+
+  static bool isFirst = true;
 
   @override
   State<CreateVoiceLiveBody> createState() => _CreateVoiceLiveBodyState();
 }
 
 class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
-  late TextEditingController voicNameController ;
+  late TextEditingController voicNameController;
+
   @override
   void initState() {
+    CreateVoiceLiveBody.isFirst = true;
     voicNameController = TextEditingController();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,86 +49,139 @@ class _CreateVoiceLiveBodyState extends State<CreateVoiceLiveBody> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-               SizedBox(
+              SizedBox(
                 height: ConfigSize.defaultSize! * 4,
               ),
-               header(context: context),
-               SizedBox(
+              header(context: context),
+              SizedBox(
                 height: ConfigSize.defaultSize! * 4,
               ),
-               Container(
+              Container(
                 width: MediaQuery.of(context).size.width - 50,
                 height: ConfigSize.defaultSize! * 10,
                 decoration: BoxDecoration(
                     borderRadius:
                         BorderRadius.circular(ConfigSize.defaultSize! * 1.2),
                     color: Colors.white.withOpacity(0.2)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                      const AddVoiceLivePic(),
-                      SizedBox(width: ConfigSize.defaultSize!*20,
-                          child: TextFieldWidget( textColor: Colors.white, controller:voicNameController,hintText: StringManager.roomName.tr(), )),
-                      Icon(Icons.edit, color: Colors.white, size: ConfigSize.defaultSize!*2,)
-                    ],),
-              ) ,
-               SizedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const AddVoiceLivePic(),
+                    SizedBox(
+                        width: ConfigSize.defaultSize! * 20,
+                        child: TextFieldWidget(
+                          textColor: Colors.white,
+                          controller: voicNameController,
+                          hintText: StringManager.roomName.tr(),
+                        )),
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                      size: ConfigSize.defaultSize! * 2,
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
                 height: ConfigSize.defaultSize! * 2,
               ),
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:const [
-
-               PublicPriveteButton(),
-              RoomTypeButton()
-],),
-               SizedBox(
+                children: [PublicPriveteButton(), RoomTypeButton()],
+              ),
+              SizedBox(
                 height: ConfigSize.defaultSize! * 4,
               ),
-               Image.asset(AssetsPath.seatsImage),
-               SizedBox(
+              Image.asset(AssetsPath.seatsImage),
+              SizedBox(
                 height: ConfigSize.defaultSize! * 10,
               ),
-
-            BlocConsumer<CreateRoomBloc,CreateRoomStates>(
-                builder: (context,state){
-           return MainButton(
-             onTap: () {
-               if(checkRoomData(roomName:voicNameController.text,context: context)){
-                 createRoom(context: context,roomName: voicNameController.text);
-               }
-           },title: StringManager.createRoom.tr(),) ;
-       },
-       listener: (context,state){
-                  switch(state.createRoomState){
+              BlocConsumer<CreateRoomBloc, CreateRoomStates>(
+                builder: (context, state) {
+                  return MainButton(
+                    onTap: () {
+                      if (CreateVoiceLiveBody.isFirst) {
+                        setState(() {
+                          CreateVoiceLiveBody.isFirst = false;
+                        });
+                        if (checkRoomData(
+                            roomName: voicNameController.text,
+                            context: context)) {
+                          createRoom(
+                              context: context,
+                              roomName: voicNameController.text);
+                        }
+                      }
+                    },
+                    title: StringManager.createRoom.tr(),
+                  );
+                },
+                listener: (context, state) {
+                  switch (state.createRoomState) {
                     case RequestState.loaded:
                       Navigator.pop(context);
-                      BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-                      Navigator.pushNamed(context,Routes.roomHandler,
-                          arguments:RoomHandlerPramiter(
-                              ownerRoomId: MyDataModel.getInstance().id.toString(),
+                      BlocProvider.of<GetMyDataBloc>(context)
+                          .add(GetMyDataEvent());
+                      Navigator.pushNamed(context, Routes.roomHandler,
+                          arguments: RoomHandlerPramiter(
+                              ownerRoomId:
+                                  MyDataModel.getInstance().id.toString(),
                               myDataModel: MyDataModel.getInstance()));
                       break;
                     case RequestState.loading:
-                      loadingToast(context: context, title: StringManager.loading.tr());
+                      loadingToast(
+                          context: context, title: StringManager.loading.tr());
                       break;
                     case RequestState.error:
-                      errorToast(context: context, title: state.createRoomErrorMessage);
+                      setState(() {
+                        CreateVoiceLiveBody.isFirst = true;
+                      });
+                      errorToast(
+                          context: context,
+                          title: state.createRoomErrorMessage);
                       break;
                   }
-
-
-
-
-           }
-       ,
-       )
+                },
+              )
             ],
           ),
         ));
   }
-}
 
+  bool checkRoomData(
+      {required String roomName, required BuildContext context}) {
+    if (roomName.isEmpty) {
+      setState(() {
+        CreateVoiceLiveBody.isFirst = true;
+      });
+      errorToast(context: context, title: StringManager.enterYourRoomName.tr());
+      return false;
+    } else if (AddVoiceLivePicState.image == null) {
+      setState(() {
+        CreateVoiceLiveBody.isFirst = true;
+      });
+      errorToast(
+          context: context, title: StringManager.enterYourRoomImage.tr());
+      return false;
+    } else if (RoomTypeButton.roomType == null) {
+      setState(() {
+        CreateVoiceLiveBody.isFirst = true;
+      });
+      errorToast(context: context, title: StringManager.enterYourRoomType.tr());
+      return false;
+    } else if (roomName.isEmpty &&
+        AddVoiceLivePicState.image == null &&
+        RoomTypeButton.roomType == null) {
+      setState(() {
+        CreateVoiceLiveBody.isFirst = true;
+      });
+      errorToast(context: context, title: StringManager.enterYourRoomData.tr());
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
 
 Widget header({required BuildContext context}) {
   return Row(
@@ -159,51 +213,27 @@ Widget header({required BuildContext context}) {
   );
 }
 
-bool checkRoomData({required String roomName , required BuildContext context}){
-  if(roomName.isEmpty){
-    errorToast(context: context, title: StringManager.enterYourRoomName.tr());
-    return false ;
-  }else if (AddVoiceLivePicState.image == null){
-    errorToast(context: context, title: StringManager.enterYourRoomImage.tr());
-    return false ;
-  }else if ( RoomTypeButton.roomType == null){
-    errorToast(context: context, title: StringManager.enterYourRoomType.tr());
-    return false ;
-   }else if(roomName.isEmpty &&
-      AddVoiceLivePicState.image == null &&
-      RoomTypeButton.roomType == null  )  {
-
-     errorToast(context: context, title: StringManager.enterYourRoomData.tr());
-     return false ;
-  }else{
-
-     return true ;
-  }
-}
-void createRoom ({required BuildContext context ,required String roomName}){
-  if(PublicPriveteButton.lockedOrUn == StringManager.public.tr()) {
-    BlocProvider.of<CreateRoomBloc>(context)
-        .add(CreateAudioRoomEvent(
+void createRoom({required BuildContext context, required String roomName}) {
+  if (PublicPriveteButton.lockedOrUn == StringManager.public) {
+    BlocProvider.of<CreateRoomBloc>(context).add(CreateAudioRoomEvent(
       password: '',
-      roomName: roomName ,
+      roomName: roomName,
       roomCover: File(AddVoiceLivePicState.image!.path),
       roomIntero: '',
       roomType: RoomTypeButton.roomType!.id.toString(),
     ));
-  }else{
+  } else {
     showDialog(
         context: context,
-        builder: (context){
+        builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
-              horizontal: ConfigSize.defaultSize!*0.8
-            ),
+            insetPadding:
+                EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 0.8),
             backgroundColor: Colors.transparent,
-            content:  EnterPasswordCreatRoom(
-             name: roomName ,
+            content: EnterPasswordCreatRoom(
+              name: roomName,
             ),
           );
-        }
-    );
+        });
   }
 }
