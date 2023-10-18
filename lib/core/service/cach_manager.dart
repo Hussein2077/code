@@ -31,6 +31,7 @@ class VideoCacheManager {
 
   Future<void> cacheVideo(VideoCacheModel video, String cacheKey) async {
 
+    log(video.img.toString()+"aaaaaaaaaa");
     final cacheManager =  getIt<DefaultCacheManager>() ;
     await cacheManager.downloadFile(video.url);
     await cacheManager.downloadFile(video.img);
