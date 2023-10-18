@@ -67,9 +67,8 @@ class ScreenOptions extends StatelessWidget {
                       ),
                     if (item.userImage == null)
                       CircleAvatar(
-                        radius: ConfigSize.defaultSize! * 1.6,
-                        child:
-                        Icon(Icons.person, size: ConfigSize.defaultSize! * 1.8),
+                        radius: ConfigSize.defaultSize! * 2,
+                        child: Icon(Icons.person, size: ConfigSize.defaultSize! * 2),
                       ),
                     SizedBox(height: ConfigSize.defaultSize),
                     Column(
