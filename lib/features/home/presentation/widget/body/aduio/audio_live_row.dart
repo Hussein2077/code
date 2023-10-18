@@ -68,7 +68,7 @@ class AduioLiveRow extends StatelessWidget {
                 margin: EdgeInsets.only(
                     bottom: ConfigSize.defaultSize! * 2,
                     left: ConfigSize.defaultSize! * 2.5),
-                width: ConfigSize.defaultSize! *33,
+                width: ConfigSize.defaultSize! * 33,
                 height: ConfigSize.defaultSize! * 10,
               )),
               Row(

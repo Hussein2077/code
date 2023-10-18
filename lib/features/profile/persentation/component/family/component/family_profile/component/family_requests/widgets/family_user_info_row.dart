@@ -91,14 +91,12 @@ class FamilyUserInforow extends StatelessWidget {
                             maleOrFeamle: userData.profile!.gender, age: userData.profile!.gender,
                           ),
                           SizedBox(width: ConfigSize.defaultSize!*0.8),
-                          // if(!userData.isCountryHiden!)
-                          //   UserCountryIcon(country: userData.profile!.country),
                           LevelContainer(
                             image: userData.level!.receiverImage!,
-
+                            height: ConfigSize.defaultSize!*2,
+                            width: ConfigSize.defaultSize!*4,
                           ),
                           AristocracyLevel(
-
                             level: userData.vip1!.level!,
                           ),
 

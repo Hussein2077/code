@@ -187,7 +187,7 @@ class StringManager {
   static const String familyName = "Family Name";
   static const String familyBio = "Family Bio";
   static const String requestToJoin = "Request to join";
-  static const String familyMember = "Family Member";
+  static const String familyMember = "Family Members screen";
   static const String more = "More";
   static const String owner = "owner";
   static const String admin = "admin";
