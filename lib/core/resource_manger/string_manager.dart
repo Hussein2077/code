@@ -411,16 +411,20 @@ class StringManager {
   static const String leaveSeat = "take off seat";
   static const String areYouSureLeaveSeat = "Are you sure to leave seat";
   static const String ok = "ok";
-  static const String unMuteMic = "الغاء كتم المقعد";
-  static const String muteMic = "كتم المقعد";
-  static const String unLockSeat = "الغاء غلق المقعد";
-  static const String lockSeat = "غلق المقعد";
-  static const String showDetails = "اظهر التفاصيل";
-  static const String privilegeVip6 =
-      "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
+  static const String unMuteMic = "“Unmute the seat";
+  static const String muteMic = "Mute the seat";
+  static const String unLockSeat = "Unlock the seat";
+  static const String lockSeat = "Close the seat";
+  static const String showDetails = "Show details";
+  static const String privilegeVip6 = "This is a VIP6 exclusive function. Upgrade to VIP6 Enjoy!";
   static const String active = "Active";
   static const String updateScssfuly = "update Sucessfully";
   static const String youblockedFromRoom = 'you have a bloc from this room ';
+  static const String removeTheSpeaker = 'Remove the speaker';
+  static const String areYouSureToRemove = 'Are you sure to remove';
+  static const String fromTheSeat = 'from the seat?';
+  static const String leaveTheSeat = 'Leave the seat';
+  static const String areYouSureToLeaveSeat = 'Are you sure to leave seat?';
 
   static const String minute = "munit";
   static const String thisGiftForbiden = "this Gift for vip";

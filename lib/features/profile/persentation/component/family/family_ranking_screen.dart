@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -44,6 +45,11 @@ class _FamilyRankingScreenState extends State<FamilyRankingScreen>
     return BlocBuilder<FamilyRankingBloc, FamilyRankingStates>(
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+
+            ),
+          ),
             body: ScreenColorBackGround(
                 color: ColorManager.mainColorList,
                 child: ScreenBackGround(
