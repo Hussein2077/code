@@ -1179,7 +1179,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             child: Padding(
                 padding: EdgeInsets.only(
                     right: 0, bottom: ConfigSize.defaultSize! * 2),
-                child: const PageViewGames())),
+                child: const PageViewy())),
         ValueListenableBuilder(
             valueListenable: RoomScreen.editRoom,
             builder: (context, editValue, _) {
