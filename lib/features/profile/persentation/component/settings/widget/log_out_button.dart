@@ -14,7 +14,6 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_state.dart';
-import '../../../../../../core/utils/config_size.dart';
 import 'dialog_pop_up.dart';
 
 class LogOutOrDeleteAccountButton extends StatelessWidget {
@@ -42,6 +41,7 @@ class LogOutOrDeleteAccountButton extends StatelessWidget {
               context, Routes.login, (route) => false);
         } else if (state is LogOutErrorState) {
           errorToast(context: context, title: state.error);
+          await FirebaseAuth.instance.signOut();
           SharedPreferences preference = getIt();
           preference.remove(StringManager.keepLogin);
           preference.remove(StringManager.userDataKey);

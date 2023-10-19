@@ -2,6 +2,8 @@
 
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 // ignore: depend_on_referenced_packages
@@ -28,6 +30,8 @@ class UserImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('lll${frame}');
+    log('lll${frameId}');
      if (image!=""&&image!=null){
     return   Stack(
       alignment: Alignment.center,

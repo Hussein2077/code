@@ -351,5 +351,6 @@ class ConstentApi {
   }
 
   static String getFollowingReels = "$baseUrl/reals/user-followers";
+  static String activeNotification = "$baseUrl/reals/user-followers";
 
 }

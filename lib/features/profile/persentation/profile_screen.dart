@@ -1,6 +1,8 @@
 
 
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,6 +51,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
          if (state is GetMyDataSucssesState){
+           log('gggggggggggg${state.myDataModel.frameId}');
+           log('${state.myDataModel.frame}');
             tempData = state.myDataModel ;
              return  ProfileBody(myData: state.myDataModel);
          } else if (state is GetMyDataErrorState){
