@@ -79,7 +79,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
         ),
         Padding(
           padding: EdgeInsets.only(
-              left: ConfigSize.defaultSize! * 6,
+
               bottom: ConfigSize.defaultSize! * 2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

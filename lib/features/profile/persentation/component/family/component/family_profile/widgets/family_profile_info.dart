@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -37,7 +40,8 @@ class FamilyProfileInfo extends StatelessWidget {
           bool isOwner = (familyData.id == state.myDataModel.familyId&&familyData.amIOwner!);
           bool isAdmin = (familyData.id == state.myDataModel.familyId&&familyData.amIAdmin!);
           bool isMember = (familyData.id == state.myDataModel.familyId);
-
+          log("MY FAMILY${MyDataModel.getInstance().familyId}");
+          log("MY FAMILY auther ${familyData.id}");
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
             child: Column(
@@ -46,9 +50,10 @@ class FamilyProfileInfo extends StatelessWidget {
                 SizedBox(
                   height: ConfigSize.defaultSize! * 3.5,
                 ),
+
                 HeaderWithOnlyTitle(
                     title: "",
-                    endIcon:(isOwner||isAdmin)
+                    endIcon:((isOwner||isAdmin)&&(MyDataModel.getInstance().familyId.toString()==familyData.id.toString()))
                         ? Stack(
                             children: [
                               IconButton(
@@ -84,7 +89,27 @@ class FamilyProfileInfo extends StatelessWidget {
                                     ))
                             ],
                           )
-                        : null),
+                        :isMember? IconButton(
+                      onPressed: () {
+                        bottomDailog(
+                            context: context,
+                            widget: SettingsDailog(
+                              isAdmin: isAdmin,
+                              isMember: isMember,
+                              familyId:familyData.id.toString() ,
+                              isOwner:isOwner,
+                              numOfRequests:
+                              familyData.numOfRequests.toString(),
+                            ));
+                      },
+                      icon: Icon(
+                        Icons.settings,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: ConfigSize.defaultSize! * 2.5,
+                      ),
+                    )
+
+                   :null,),
                 familyInfo(
                     image: familyData.img!,
                     context: context,
@@ -132,7 +157,7 @@ class FamilyProfileInfo extends StatelessWidget {
 
                 familyRooms(
                   context,
-                  state.myDataModel.familyId.toString()
+                  familyData.id.toString(),
                 )
               ],
             ),
