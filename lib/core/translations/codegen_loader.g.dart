@@ -106,7 +106,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.youCanNotModify:
         "لا يمكنك تعديل تاريخ الميلاد والجنس بعد التحديد",
     StringManager.home: "الصفحة الرئيسية",
-    StringManager.reels: "ريـلز",
+    StringManager.reels: "لك",
+    StringManager.followingReels: "المتابعون",
     StringManager.follwoing: "اتابعهم",
     StringManager.followers: "المعجبين",
     StringManager.vistors: "الزوار",
@@ -403,7 +404,6 @@ class CodegenLoader extends AssetLoader {
     StringManager.addMoment: 'اضف لحظة',
     StringManager.thisMoment: 'لا يوجد اعجابات ',
     StringManager.thisMomentc: 'لا يوجد تعليقات ',
-    StringManager.followingTab: 'اتابعهم',
     StringManager.nameAgency: 'اسم الوكالة',
     StringManager.loadingMore: 'تحميل المزيد',
     StringManager.noReels: 'لا يوجد ريلز',

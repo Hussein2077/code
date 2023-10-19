@@ -19,8 +19,8 @@ class CarouselsModel extends Equatable {
     return CarouselsModel(
       id: jsonData['id'],
       img: jsonData['img'],
-      ownerId: jsonData['owner_id'],
-      hasPassword: jsonData['isLocked'],
+      ownerId: jsonData['owner_id']?? 0,
+      hasPassword: jsonData['isLocked'] ?? false,
     );
   }
 
