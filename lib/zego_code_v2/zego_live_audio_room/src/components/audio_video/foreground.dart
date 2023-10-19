@@ -202,9 +202,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
             }
             else{
               // normal user
-              log("777777777777777777777777777777777777777777777777111111111111");
               if(!widget.isHost){
-                log("7777777777777777777777777777777777777777777777772222222");
                 popupItems.add(PopupItem(
                   PopupItemValue.takeOnSeat,
                   StringManager.takeSeat.tr(),
@@ -423,6 +421,13 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       return;
     }
 
+    if(popupItems.length==1&&popupItems.contains(PopupItem(
+      PopupItemValue.showUserDetails,
+      StringManager.showDetails.tr(),
+      data: widget.seatManager.getUserByIndex(index)?.id,
+    )) ){
+      log("hhhhhhhhhhhhhhhhhhhhhh");
+    }
     popupItems.add(PopupItem(
       PopupItemValue.cancel,
       StringManager.cancle.tr(),
