@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
@@ -103,7 +104,7 @@ class _MyBagCardState extends State<MyBagCard> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             Text(
-              widget.time,
+            Methods().formatDateTime(dateTime:   widget.time,locale: context.locale.languageCode),
               style: Theme.of(context).textTheme.bodySmall,
             ),
             (MyBagCard.frameUsed.toString() != widget.targetId &&

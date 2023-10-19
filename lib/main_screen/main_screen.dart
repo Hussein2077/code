@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,6 +11,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -81,6 +84,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   bool isFirst = true;
 
   late final AnimationController animationController;
+
+  //
+  // @override
+  // void didChangeDependencies() {
+  //   log("lin didChangeDependencies");
+  //   log("DioHelper.genralContext: ${DioHelper.genralContext?.widget.hashCode}");
+  //
+  //   DioHelper.genralContext =context ;
+  //   super.didChangeDependencies();
+  // }
 
   @override
   void initState() {
