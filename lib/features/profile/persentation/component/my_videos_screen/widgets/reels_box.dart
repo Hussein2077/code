@@ -168,7 +168,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                           ),
                         );
                       } else {
-                        if (state.data!.length % 3 != 0 && state.data!.length > 6) {
+                        if (state.data!.length % 3 != 0 && state.data!.length > 6 && ReelsBox.loading) {
                           return Center(
                               child: Text(
                             StringManager.loadingMore.tr(),

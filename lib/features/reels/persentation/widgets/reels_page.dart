@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/service/cach_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
@@ -56,7 +57,8 @@ class _ReelsPageState extends State<ReelsPage>
   bool _liked = false;
   double? videoWidth;
   double? videoHeight;
-  late final AnimationController _controller = AnimationController(
+  late final AnimationController _controller =
+  AnimationController(
     duration: const Duration(milliseconds: 2000),
     vsync: this,
   )..repeat(reverse: false);
@@ -84,7 +86,11 @@ class _ReelsPageState extends State<ReelsPage>
 
 
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
+    final image =  await   getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
+    // log(image.file!.path.toString()+"xxxxxxxxxxxxx") ;
+
     if(file?.file !=null){
+
 
       ReelsPage.isVideoPause.value = false ;
       _videoPlayerController = VideoPlayerController.file(file!.file);

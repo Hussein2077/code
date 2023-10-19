@@ -9,3 +9,5 @@ abstract class BaseGetFollowingReelsEvent extends Equatable {
 }
 
 class GetFollowingReelsEvent extends BaseGetFollowingReelsEvent{}
+
+class LoadMoreFollowingReelsEvent extends BaseGetFollowingReelsEvent{}

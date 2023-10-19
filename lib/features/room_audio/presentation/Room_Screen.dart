@@ -1381,7 +1381,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             }),
         Positioned(
           bottom: ConfigSize.defaultSize! * 12,
-          left: ConfigSize.screenWidth! * 0.35,
+          left: ConfigSize.screenWidth! * 0.45,
           child: ValueListenableBuilder<TypeCandy>(
               valueListenable: GiftBottomBar.typeCandy,
               builder: (BuildContext context, TypeCandy typeCabdy, _) {

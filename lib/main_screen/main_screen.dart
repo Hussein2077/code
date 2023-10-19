@@ -29,6 +29,8 @@ import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
@@ -90,7 +92,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       vsync: this,
     )..repeat();
 
-    BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+
+
 
     super.initState();
   }

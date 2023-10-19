@@ -263,6 +263,7 @@ class StringManager {
   static const String startBattle = "Start Battale";
   static const String senderLevel = "Sender Level";
   static const String receiverLevel = "Receiver Level";
+  static const String yourThemeIsUpload = "Your Theme is upload please wait to approve";
 
 
   ///INCOME SCREEN 💲💸💰
@@ -808,10 +809,10 @@ class StringManager {
   ];
 
  //games links
- static const String teenPatti = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=1&language=ar&token=";
- static const String roulette = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=2&language=ar&token=";
- static const String carRace = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=3&language=ar&token=";
- static const String updown = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=4&language=ar&token=";
- static const String ludo = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=5&language=ar&token=";//todo change this link
+ static const String teenPatti = "http://167.172.6.20/TikChat/index.html?sound=1&gametype=1&language=ar&token=";
+ static const String roulette = "http://167.172.6.20/TikChat/index.html?sound=1&gametype=2&language=ar&token=";
+ static const String carRace = "http://167.172.6.20/TikChat/index.html?sound=1&gametype=3&language=ar&token=";
+ static const String updown = "http://167.172.6.20/TikChat/index.html?sound=1&gametype=4&language=ar&token=";
+ static const String ludo = "http://167.172.6.20/TikChatLudo/index.html?sound=0&language=ar&token=";
 
 }
