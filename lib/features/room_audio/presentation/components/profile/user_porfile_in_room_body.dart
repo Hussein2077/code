@@ -56,8 +56,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
   @override
   Widget build(BuildContext context) {
     isOnMic = checkIsUserOnMic(widget.userData);
-    isAdminOrHost =
-        cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
+    isAdminOrHost = cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
     myProfile = myProfileOrNot(widget.userData, widget.myData);
 
     return Stack(
@@ -124,7 +123,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                             isVip: widget.userData.hasColorName!,
                           ),
                           IdWithCopyIcon(
-                            id: widget.userData.uuid!,
+                            userData: widget.userData,
                           ),
                           SizedBox(
                             height: ConfigSize.defaultSize! * 0.5,

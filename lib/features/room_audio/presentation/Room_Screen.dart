@@ -59,6 +59,9 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_bo
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/pop_up_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/show_yallow_banner_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_event.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_states.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -103,7 +106,7 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<int> updateEmojie = ValueNotifier(0);
   static Map<String, String> adminsInRoom = {};
   static Map<String, String> banedUsers = {};
-  static Map<String, UserDataModel> usersMessagesInRoom = {};
+  static Map<String, UserDataModel> usersMessagesProfileRoom = {};
   static Map<String, RoomUserMesseagesModel> usersMessagesRoom = {};
   static Map<String, UserDataModel> usersInRoom = {};
   static ValueNotifier<int> clearTimeNotifier = ValueNotifier(0);
@@ -119,7 +122,6 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
   static ValueNotifier<int> editRoom = ValueNotifier<int>(0);
   static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
-  static ValueNotifier<int> updateMessgasList = ValueNotifier<int>(0);
   static ValueNotifier<int> updatebuttomBar = ValueNotifier<int>(0);
   static ValueNotifier<String> imgbackground = ValueNotifier<String>("");
   static List<YallowBannerData> listofAnimationYallowBanner = [];
@@ -238,20 +240,20 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     userInRoomController.stream.listen((zegoList) {});
 
-    RoomScreen.usersMessagesRoom.putIfAbsent(
-        widget.myDataModel.id.toString(),
-        () => RoomUserMesseagesModel(
-              bubble: widget.myDataModel.bubble ?? "",
-              bubbleId: widget.myDataModel.bubbleId ?? 0,
-              hasColorName: widget.myDataModel.hasColorName ?? false,
-              id: widget.myDataModel.id!,
-              image: widget.myDataModel.profile!.image!,
-              name: widget.myDataModel.name!,
-              revicerLevelImg: widget.myDataModel.level?.receiverImage??'',
-              senderLevelImg: widget.myDataModel.level?.senderImage??'',
-              uuid: widget.myDataModel.uuid!,
-              vipLevel: widget.myDataModel.vip1?.level??0,
-            ));
+    // RoomScreen.usersMessagesProfileRoom.putIfAbsent(
+    //     widget.myDataModel.id.toString(),
+    //     () => RoomUserMesseagesModel(
+    //           bubble: widget.myDataModel.bubble ?? "",
+    //           bubbleId: widget.myDataModel.bubbleId ?? 0,
+    //           hasColorName: widget.myDataModel.hasColorName ?? false,
+    //           id: widget.myDataModel.id!,
+    //           image: widget.myDataModel.profile!.image!,
+    //           name: widget.myDataModel.name!,
+    //           revicerLevelImg: widget.myDataModel.level?.receiverImage??'',
+    //           senderLevelImg: widget.myDataModel.level?.senderImage??'',
+    //           uuid: widget.myDataModel.uuid!,
+    //           vipLevel: widget.myDataModel.vip1?.level??0,
+    //         ));
     luckGiftBannderController = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -867,6 +869,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == removeChatKey) {
         RoomScreen.clearTimeNotifier.value = DateTime.now().millisecondsSinceEpoch;
+        RoomScreen.usersMessagesRoom.clear();
       }
       else if (result[messageContent][message] == showLuckyBoxKey) {
         show_lucky_box(result);
@@ -1050,51 +1053,50 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 },
               );
             }
-            ..inRoomMessageViewConfig.itemBuilder =
-                (context, message, extraInfo) {
+            ..inRoomMessageViewConfig.itemBuilder = (context, message, extraInfo) {
               return ValueListenableBuilder(
                   valueListenable: RoomScreen.clearTimeNotifier,
-                  builder:
-                      (BuildContext context, dynamic value, Widget? child) {
+                  builder: (BuildContext context, dynamic value, Widget? child) {
                     if (message.timestamp < value) {
                       return const SizedBox.shrink();
                     }
-                  
-                    if (message.user.inRoomAttributes.value['sen'] == null &&
-                        RoomScreen.usersMessagesRoom[message.user.id]
-                                ?.senderLevelImg ==
-                            null) {
-                      Future.delayed(const Duration(seconds: 3), () {
-                        if (kDebugMode) {
-                          log("wait 2 sec to load more in formation about user");
-                        }
-                        RoomScreen.updateMessgasList.value =
-                            RoomScreen.updateMessgasList.value + 1;
-                      });
+                    if (message.user.inRoomAttributes.value['sen'] == null && RoomScreen.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
+                      if (kDebugMode) {
+                        log("wait 2 sec to load more in formation about user");
+                      }
+                      BlocProvider.of<GetUsersInRoomBloc>(context).add(GetUsersInRoomEvents(userId: message.user.id));
                     }
-                    return ValueListenableBuilder(
-                        valueListenable: RoomScreen.updateMessgasList,
-                        builder: (context, update, _) {
+
+                    return BlocConsumer<GetUsersInRoomBloc,UsersInRoomState>(
+                      builder: (BuildContext context, UsersInRoomState state) {
                           return MessagesChached(
                               message: message,
                               myDataModel: widget.myDataModel,
                               room: widget.room,
-                              vip: message.user.inRoomAttributes.value['vip'] ??
-                                  "",
-                              bubble:
-                                  message.user.inRoomAttributes.value['bubl'] ??
-                                      "",
-                              frame:
-                                  message.user.inRoomAttributes.value['frm'] ??
-                                      "",
-                              sender:
-                                  message.user.inRoomAttributes.value['sen'] ??
-                                      "",
-                              receiver:
-                                  message.user.inRoomAttributes.value['rec'] ??
-                                      "",
+                              vip: message.user.inRoomAttributes.value['vip'] ?? "",
+                              bubble: message.user.inRoomAttributes.value['bubl'] ?? "",
+                              frame: message.user.inRoomAttributes.value['frm'] ?? "",
+                              sender: message.user.inRoomAttributes.value['sen'] ?? "",
+                              receiver: message.user.inRoomAttributes.value['rec'] ?? "",
                               layoutMode: layoutMode);
-                        });
+                      },
+                      listener: (BuildContext context, UsersInRoomState state) {
+                      if (state is GetUsersInRoomSucssesState){
+                        RoomScreen.usersMessagesRoom.removeWhere((key, value) => key == state.data![0].id.toString());
+                        RoomScreen.usersMessagesRoom.putIfAbsent(state.data![0].id.toString(), () => state.data![0]);
+                        MessagesChached(
+                            message: message,
+                            myDataModel: widget.myDataModel,
+                            room: widget.room,
+                            vip: message.user.inRoomAttributes.value['vip'] ?? "",
+                            bubble: message.user.inRoomAttributes.value['bubl'] ?? "",
+                            frame: message.user.inRoomAttributes.value['frm'] ?? "",
+                            sender: message.user.inRoomAttributes.value['sen'] ?? "",
+                            receiver: message.user.inRoomAttributes.value['rec'] ?? "",
+                            layoutMode: layoutMode);
+                      }
+                    },
+                    );
                   });
             },
         ));

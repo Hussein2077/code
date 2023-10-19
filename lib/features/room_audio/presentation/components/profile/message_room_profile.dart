@@ -44,8 +44,7 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
   @override
   Widget build(BuildContext context) {
  
-      BlocProvider.of<GetUserBloc>(context)
-          .add(GetuserEvent(userId: widget.userId));
+      BlocProvider.of<GetUserBloc>(context).add(GetuserEvent(userId: widget.userId));
 
 
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
@@ -69,14 +68,21 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
         child: BlocBuilder<GetUserBloc, GetUserState>(
           builder: (context, state) {
             if (state is GetUserLoddingState) {
-              return TransparentLoadingWidget(
+              return  RoomScreen.usersMessagesProfileRoom[widget.userId] == null
+                  ? TransparentLoadingWidget(
                 height: ConfigSize.defaultSize!*2,
                 width: ConfigSize.defaultSize!*7.2,
+              ) : UserProfileInRoom(
+                  myData: widget.myData,
+                  roomData: widget.roomData,
+                  userData: RoomScreen.usersMessagesProfileRoom[widget.userId]!,
+                  layoutMode: widget.layoutMode
               );
+
             } else if (state is GetUserSucssesState) {
-              RoomScreen.usersInRoom.removeWhere((key, value) => key == state.data.id.toString());
-              RoomScreen.usersInRoom
-                  .putIfAbsent(state.data.id.toString(), () => state.data);
+              RoomScreen.usersMessagesProfileRoom.removeWhere((key, value) => key == state.data.id.toString());
+              RoomScreen.usersMessagesProfileRoom.putIfAbsent(state.data.id.toString(), () => state.data);
+
 
               return UserProfileInRoom(
                        myData: widget.myData,
