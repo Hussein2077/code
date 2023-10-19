@@ -26,14 +26,12 @@ class EditFeaturesContainer extends StatefulWidget{
   final int roomId;
   final bool passwordStatus;
   final String ownerId;
-  final Function() notifyRoom;
   final int modeRoom;
   final String userId;
   final Function() refreshRoom;
 
   const EditFeaturesContainer(
       {required this.roomId,
-        required this.notifyRoom,
         required this.ownerId,
         required this.userId,
         required this.modeRoom,

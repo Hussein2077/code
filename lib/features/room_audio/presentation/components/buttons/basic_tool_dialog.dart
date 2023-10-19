@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/warning_dialog.dart';
@@ -13,6 +14,7 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_events.dart';
@@ -22,13 +24,12 @@ import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_roo
 import 'package:share_plus/share_plus.dart';
 
 class BasicToolDialog extends StatefulWidget {
-  final Function() notifyRoom;
   final LayoutMode layoutMode;
   final String ownerId;
   final String userId ;
   final bool isOnMic ;
   final EnterRoomModel roomData ;
-  const  BasicToolDialog({Key? key,required this.roomData, required this.notifyRoom, required this.layoutMode, required this.ownerId, required this.userId, required this.isOnMic}) : super(key: key);
+  const  BasicToolDialog({Key? key,required this.roomData, required this.layoutMode, required this.ownerId, required this.userId, required this.isOnMic}) : super(key: key);
 
   @override
   State<BasicToolDialog> createState() => _BasicToolDialogState();
@@ -125,7 +126,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                         await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
                             .takeOffAllSeat(isPK: true );
                         Navigator.pop(context);
-                        widget.notifyRoom();
+                        activePK();
                         BlocProvider.of<PKBloc>(context)
                             .add(ShowPKEvent(ownerId: widget.ownerId));
                       }
