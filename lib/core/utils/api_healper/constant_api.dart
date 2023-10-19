@@ -353,6 +353,6 @@ class ConstentApi {
     return "$baseUrl/reals/user-followers?page=$page";
   }
 
-  static String getFollowingReels = "$baseUrl/reals/user-followers";
+
 
 }

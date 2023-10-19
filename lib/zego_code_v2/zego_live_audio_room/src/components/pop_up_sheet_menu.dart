@@ -113,22 +113,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
           }) ;
 
 
-            // if (widget.seatManager.isSeatLockedNotifier.value) {
-            //   ZegoLoggerService.logInfo(
-            //     'take on seat, but seat is locked',
-            //     tag: 'audio room',
-            //     subTag: 'seat manager',
-            //   );
-            // }
-            // else {
-            //   log("popupItem.valuepopupItem.valuepopupItem.value22") ;
-            //   widget.seatManager.takeOnSeat(
-            //     popupItem.data as int,
-            //     isForce: false,
-            //     isDeleteAfterOwnerLeft: true,
-            //     owerId: widget.roomData.ownerId.toString(),
-            //   );
-            // }
+
             break;
           case PopupItemValue.takeOffSeat:
             // clear popup sheet info

@@ -4,6 +4,7 @@ import 'dart:core';
 import 'dart:developer';
 
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -98,6 +99,9 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
   @override
   void initState() {
     super.initState();
+    ZegoLiveConnectManager.contextQuery =(){
+      return context ;
+    } ;
     if(!MainScreen.iskeepInRoom.value){
       zegoUIKitPrebuiltLiveAudioRoomConfig = widget.config ;
       correctConfigValue();
@@ -136,9 +140,10 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
         config: widget.config,
         prebuiltController: widget.controller,
         innerText: widget.config.innerText,
-        contextQuery: () {
+        contextQuery: ( ) {
           return context;
-        }, ownerId:widget.roomData.ownerId.toString(),
+        },
+        ownerId:widget.roomData.ownerId.toString(),
         isHost: widget.roomData.ownerId.toString() == widget.myDataModel.id.toString(),
       );
       connectManager = ZegoLiveConnectManager(
@@ -146,9 +151,10 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
         seatManager: seatManager!,
         prebuiltController: widget.controller,
         innerText: widget.config.innerText,
-        contextQuery: () {
-          return context;
-        }, roomData: widget.roomData,
+        // contextQuery: () {
+        //   return context;
+        // },
+        roomData: widget.roomData,
       );
       seatManager?.setConnectManager(connectManager!);
 
@@ -232,7 +238,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
 
     switch (state) {
       case AppLifecycleState.resumed:
-        // plugins?.tryReLogin();
+        plugins?.tryReLogin();
         // RoomScreen.userOnMics.value.putIfAbsent(int.parse( widget.userID),
         //         () => ZegoUIKitUser(id: widget.userID, name: widget.userName)) ;
         // if(!RoomScreen.outRoom){
@@ -256,6 +262,12 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
         await  e.call(widget.roomData.ownerId.toString());
         break;
 
+      case AppLifecycleState.hidden:
+        if(kDebugMode){
+          log("hidden screen");
+        }
+
+        break;
     }
   }
 

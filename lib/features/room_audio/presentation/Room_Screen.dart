@@ -222,38 +222,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    log( widget.myDataModel.bubble.toString()+"xxxxxxxxxxxx");
-    log( widget.myDataModel.profile!.image.toString()+"xxxxxxxxxxxx");
 
-    log( widget.myDataModel.vip1!.level.toString()+"xxxxxxxxxxxx");
-
-    log(  widget.myDataModel.level!.senderImage.toString()+"xxxxxxxxxxxx");
-
-    log( widget.myDataModel.level!.receiverImage.toString()+"xxxxxxxxxxxx");
-
-    log( widget.myDataModel.frameId.toString()+"xxxxxxxxxxxx");
-
-    log( widget.myDataModel.frame.toString()+"xxxxxxxxxxxx");
 
 
     super.initState();
 
     userInRoomController.stream.listen((zegoList) {});
-
-    // RoomScreen.usersMessagesProfileRoom.putIfAbsent(
-    //     widget.myDataModel.id.toString(),
-    //     () => RoomUserMesseagesModel(
-    //           bubble: widget.myDataModel.bubble ?? "",
-    //           bubbleId: widget.myDataModel.bubbleId ?? 0,
-    //           hasColorName: widget.myDataModel.hasColorName ?? false,
-    //           id: widget.myDataModel.id!,
-    //           image: widget.myDataModel.profile!.image!,
-    //           name: widget.myDataModel.name!,
-    //           revicerLevelImg: widget.myDataModel.level?.receiverImage??'',
-    //           senderLevelImg: widget.myDataModel.level?.senderImage??'',
-    //           uuid: widget.myDataModel.uuid!,
-    //           vipLevel: widget.myDataModel.vip1?.level??0,
-    //         ));
     luckGiftBannderController = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -1040,9 +1014,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               ],
             )
             ..seatConfig.avatarBuilder = (context, size, user, extraInfo) {
-              // if (RoomScreen.usersInRoom[user?.id] == null) {
-              //   getUserDataInRoom(user!.id);
-              // }
+
               return ValueListenableBuilder<bool>(
                 valueListenable:
                     ZegoUIKit().getMicrophoneStateNotifier(user!.id),
@@ -1084,16 +1056,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                       if (state is GetUsersInRoomSucssesState){
                         RoomScreen.usersMessagesRoom.removeWhere((key, value) => key == state.data![0].id.toString());
                         RoomScreen.usersMessagesRoom.putIfAbsent(state.data![0].id.toString(), () => state.data![0]);
-                        MessagesChached(
-                            message: message,
-                            myDataModel: widget.myDataModel,
-                            room: widget.room,
-                            vip: message.user.inRoomAttributes.value['vip'] ?? "",
-                            bubble: message.user.inRoomAttributes.value['bubl'] ?? "",
-                            frame: message.user.inRoomAttributes.value['frm'] ?? "",
-                            sender: message.user.inRoomAttributes.value['sen'] ?? "",
-                            receiver: message.user.inRoomAttributes.value['rec'] ?? "",
-                            layoutMode: layoutMode);
                       }
                     },
                     );
@@ -1103,6 +1065,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   }
 
   Widget background() {
+
     return BlocConsumer<OnRoomBloc, OnRoomStates>(
       builder: (_, state) {
         return Stack(
@@ -1140,7 +1103,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       },
       listener: (_, state) async {
         if (state is UpdateRoomSucsseState) {
+
           MainScreen.roomData = state.data;
+
           Navigator.pop(context);
           sucssesToast(
               context: context, title: StringManager.successfulOperation);

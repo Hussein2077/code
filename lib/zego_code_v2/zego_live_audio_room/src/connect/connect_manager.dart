@@ -28,7 +28,6 @@ class ZegoLiveConnectManager {
     required this.seatManager,
     required this.prebuiltController,
     required this.innerText,
-    required this.contextQuery,
   }) {
     listenStream();
   }
@@ -36,9 +35,10 @@ class ZegoLiveConnectManager {
   final ZegoUIKitPrebuiltLiveAudioRoomConfig config;
   final ZegoLiveSeatManager seatManager;
   final ZegoLiveAudioRoomController? prebuiltController;
-  final BuildContext Function() contextQuery;
   final ZegoInnerText innerText;
   final EnterRoomModel roomData;
+  static  BuildContext Function()? contextQuery ;
+
 
   /// current audience connection state
   final audienceLocalConnectStateNotifier =
@@ -237,7 +237,7 @@ class ZegoLiveConnectManager {
 
     _isInvitedTakeSeatDlgVisible = true;
     showLiveDialog(
-      context: contextQuery(),
+      context: contextQuery!(),
       title: translation.title,
       content: translation.message,
       leftButtonText: translation.cancelButtonName,
@@ -255,7 +255,7 @@ class ZegoLiveConnectManager {
           );
         });
 
-        Navigator.of(contextQuery()).pop();
+        Navigator.of(contextQuery!()).pop();
       },
       rightButtonText: translation.confirmButtonName,
       rightButtonCallback: () {
@@ -283,7 +283,7 @@ class ZegoLiveConnectManager {
           }
 
           requestPermissions(
-            context: contextQuery(),
+            context: contextQuery!(),
             isShowDialog: true,
             innerText: innerText,
           ).then((_) {
@@ -309,7 +309,7 @@ class ZegoLiveConnectManager {
           });
         });
 
-        Navigator.of(contextQuery()).pop();
+        Navigator.of(contextQuery!()).pop();
       },
     );
   }
@@ -328,7 +328,7 @@ class ZegoLiveConnectManager {
       _audienceIDsInvitedTakeSeatByHost.remove(invitee.id);
     } else {
       requestPermissions(
-        context: contextQuery(),
+        context: contextQuery!(),
         isShowDialog: true,
         innerText: innerText,
       ).then((value) {
@@ -393,7 +393,7 @@ class ZegoLiveConnectManager {
     /// hide invite take seat dialog
     if (_isInvitedTakeSeatDlgVisible) {
       _isInvitedTakeSeatDlgVisible = false;
-      Navigator.of(contextQuery()).pop();
+      Navigator.of(contextQuery!()).pop();
     }
   }
 
@@ -442,7 +442,7 @@ class ZegoLiveConnectManager {
       /// hide invite take seat dialog
       if (_isInvitedTakeSeatDlgVisible) {
         _isInvitedTakeSeatDlgVisible = false;
-        Navigator.of(contextQuery()).pop();
+        Navigator.of(contextQuery!()).pop();
       }
     }
   }
@@ -500,7 +500,7 @@ class ZegoLiveConnectManager {
         /// hide invite join take seat dialog
         if (_isInvitedTakeSeatDlgVisible) {
           _isInvitedTakeSeatDlgVisible = false;
-          Navigator.of(contextQuery()).pop();
+          Navigator.of(contextQuery!()).pop();
         }
 
         break;
@@ -528,7 +528,7 @@ class ZegoLiveConnectManager {
       /// hide invite take seat dialog
       if (_isInvitedTakeSeatDlgVisible) {
         _isInvitedTakeSeatDlgVisible = false;
-        Navigator.of(contextQuery()).pop();
+        Navigator.of(contextQuery!()).pop();
       }
     }
   }
