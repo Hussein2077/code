@@ -114,7 +114,7 @@ class GiftBannerWidget extends StatelessWidget {
                                           const Rect.fromLTWH(
                                               0.0, 0.0, 200.0, 100.0),
                                         )),
-                                  overflow: TextOverflow.fade),
+                                  overflow: TextOverflow.ellipsis),
                             ),
                           ],
                         )

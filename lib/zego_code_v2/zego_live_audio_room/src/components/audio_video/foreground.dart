@@ -417,17 +417,19 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
 
     }
 
+    if(popupItems.length==1 && popupItems.contains( PopupItem(
+      PopupItemValue.showUserDetails,
+      StringManager.showDetails.tr(),
+      data:widget.seatManager.getUserByIndex(index)?.id,
+    )) ){
+      log("hhhhhhhhhhhhhhhhhhhhhh");
+    }
+
     if (popupItems.isEmpty) {
       return;
     }
 
-    if(popupItems.length==1&&popupItems.contains(PopupItem(
-      PopupItemValue.showUserDetails,
-      StringManager.showDetails.tr(),
-      data: widget.seatManager.getUserByIndex(index)?.id,
-    )) ){
-      log("hhhhhhhhhhhhhhhhhhhhhh");
-    }
+
     popupItems.add(PopupItem(
       PopupItemValue.cancel,
       StringManager.cancle.tr(),

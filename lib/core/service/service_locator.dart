@@ -525,6 +525,7 @@ class ServerLocator {
 
 
 //usecase
+    getIt.registerLazySingleton(() => GetRoomUserUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(() => ActiveNotificationUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => SendLuckyGiftUc(roomRepo: getIt()));
     getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
