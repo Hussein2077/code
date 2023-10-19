@@ -50,6 +50,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -453,6 +454,7 @@ final  String theme ;
 
 
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
+        BlocProvider(create: (_) => getIt<ActiveNotificationBloc>()),
         BlocProvider(create: (_) => getIt<SendCodeBloc>()),
         BlocProvider(create: (_) => getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
         BlocProvider(create: (_) => getIt<GetFollowingReelsBloc>()..add(GetFollowingReelsEvent())),

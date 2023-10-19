@@ -72,6 +72,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_mome
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/active_notification_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/add_intrested_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_time_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_uc.dart';
@@ -135,6 +136,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/get_vip_prev_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_active_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
@@ -517,13 +519,14 @@ class ServerLocator {
     getIt.registerFactory(() => GetFollowingReelsBloc(getFollowingReelUseCase:  getIt()));
 
     getIt.registerFactory(() => LuckyGiftBannerBloc(sendLuckyGiftUc: getIt()));
+    getIt.registerFactory(() => ActiveNotificationBloc(activeNotificationUseCase: getIt()));
     getIt.registerFactory(() => GetUsersInRoomBloc(getRoomUserUseCase: getIt(),));
 
 
 
 //usecase
-    getIt.registerLazySingleton(
-            () => SendLuckyGiftUc(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => ActiveNotificationUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => SendLuckyGiftUc(roomRepo: getIt()));
     getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => GetMomentGiftsUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => GetMomentLikeUseCase(baseRepositoryMoment: getIt()));
@@ -794,7 +797,6 @@ getIt.registerLazySingleton(
         () => ReportRealsUseCases(baseRepositoryReel: getIt()));
 
     getIt.registerLazySingleton(() => GetFollowingReelUseCase(baseRepositoryReel: getIt()));
-    getIt.registerLazySingleton(() => GetRoomUserUseCase(roomRepo: getIt(),));
 
 
 

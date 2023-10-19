@@ -427,6 +427,11 @@ class CodegenLoader extends AssetLoader {
     StringManager.leaveTheSeat : 'مغادرة المقعد',
     StringManager.areYouSureToLeaveSeat : 'هل أنت متأكد من مغادرة المقعد؟',
     StringManager.ok : 'نعم',
+    StringManager.activeNotification : 'ارسال الاشعارات',
+    StringManager.data : 'البيانات',
+    StringManager.clearData : 'مسح البيانات',
+    StringManager.downloadData : 'تحميل البيانات',
+    StringManager.downloadedData : 'تم تحميل البيانات',
   };
   static const Map<String, dynamic> tr = {
     StringManager.appTitle: "Tikchat",

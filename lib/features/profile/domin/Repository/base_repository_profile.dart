@@ -30,8 +30,8 @@ import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
 import 'package:tik_chat_v2/features/profile/data/model/useitem_model.dart';
-import 'package:tik_chat_v2/features/profile/domin/entitie/data_mall_entities.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/back_pack_entities.dart';
+import 'package:tik_chat_v2/features/profile/domin/entitie/data_mall_entities.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
@@ -200,15 +200,10 @@ abstract class BaseRepositoryProfile {
   Future<Either<List<InterstedMode>,Failure>> getUserIntersted();
     Future<Either<String, Failure>> prevActive(String type);
 
-
-
-
   Future<Either<String, Failure>> prevDispose(String type);
     Future<Either<List<ReelModel>, Failure>> getUserReels(String? id , String page );
 
   Future<Either<String, Failure>> deleteReel(String id);
 
-
-
-
+  Future<Either<bool, Failure>> activeNotification();
 }

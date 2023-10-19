@@ -767,5 +767,13 @@ class Methods {
     );
   }
 
-
+    Future<bool> getNotificationState() async {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      bool notificationState = preferences.getBool("notificationState") ?? true;
+      return notificationState;
+    }
+    Future<void> setNotificationState({required bool notificationState}) async {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setBool("notificationState", notificationState);
+    }
 }

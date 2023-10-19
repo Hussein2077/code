@@ -5,7 +5,6 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/core/widgets/user_info_row.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -121,21 +120,38 @@ class _FamilyRequestsScreenState extends State<FamilyRequestsScreen> {
                             itemCount: familyRequests!.length,
                             itemExtent: 70,
                             itemBuilder: (context, index) {
-                              return UserInfoRow(
+                              return FamilyUserInforow(
                                 userData: familyRequests![index].user,
+                                underNameWidth:  MediaQuery.of(context).size.width - 180,
                                 endIcon: Row(
                                   children: [
                                     reqIcon(
                                       icon: AssetsPath.acceptIcon,
+                                      onTap: () =>
+                                          BlocProvider.of<TakeActionBloc>(context)
+                                              .add(FamilyTakeActionEvent(
+                                              reqId: familyRequests![index].id
+                                                  .toString(),
+                                              status: '1')),
                                     ),
                                     SizedBox(
                                       width: ConfigSize.defaultSize! * 2,
                                     ),
                                     reqIcon(
                                       icon: AssetsPath.declineIcon,
+                                      onTap: () =>
+                                          BlocProvider.of<TakeActionBloc>(context)
+                                              .add(FamilyTakeActionEvent(
+                                              reqId: familyRequests![index].id
+                                                  .toString(),
+                                              status: '2')),
                                     ),
                                   ],
                                 ),
+                                // idOrNot:     Text(
+                                //   "ID ${state.data.data[index].user.uuid}",
+                                //   style: Theme.of(context).textTheme.titleSmall,
+                                // ),
                               );
                             }))
                   ],

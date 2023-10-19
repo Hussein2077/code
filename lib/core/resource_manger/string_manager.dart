@@ -525,6 +525,10 @@ class StringManager {
   static const String allow = "Allow";
   static const String applicationDoesnt = "Application doesn't have access to the library";
   static const String luckGiftSend = 'send';
+  static const String downloadData = 'Download Data';
+  static const String downloadedData = 'data downloaded';
+  static const String activeNotification = 'active notification';
+  static const String data = 'Data';
 
 
 
