@@ -123,7 +123,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                             isVip: widget.userData.hasColorName!,
                           ),
                           IdWithCopyIcon(
-                            id: widget.userData.uuid!,
+                            userData: widget.userData,
                           ),
                           SizedBox(
                             height: ConfigSize.defaultSize! * 0.5,
