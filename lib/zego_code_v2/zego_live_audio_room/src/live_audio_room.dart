@@ -4,8 +4,10 @@ import 'dart:core';
 import 'dart:developer';
 
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room_controller.dart';
@@ -98,6 +100,15 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
   @override
   void initState() {
     super.initState();
+
+      ZegoLiveConnectManager.contextQuery =(){
+        return context;
+      };
+    ZegoLiveSeatManager.contextQuery =(){
+      return context;
+    };
+
+
     if(!MainScreen.iskeepInRoom.value){
       zegoUIKitPrebuiltLiveAudioRoomConfig = widget.config ;
       correctConfigValue();
@@ -136,9 +147,8 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
         config: widget.config,
         prebuiltController: widget.controller,
         innerText: widget.config.innerText,
-        contextQuery: () {
-          return context;
-        }, ownerId:widget.roomData.ownerId.toString(),
+       // contextQuery:ZegoLiveConnectManager.contextQuery!,
+        ownerId:widget.roomData.ownerId.toString(),
         isHost: widget.roomData.ownerId.toString() == widget.myDataModel.id.toString(),
       );
       connectManager = ZegoLiveConnectManager(
@@ -146,9 +156,10 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
         seatManager: seatManager!,
         prebuiltController: widget.controller,
         innerText: widget.config.innerText,
-        contextQuery: () {
-          return context;
-        }, roomData: widget.roomData,
+        // contextQuery: () {
+        //   return context;
+        // },
+        roomData: widget.roomData,
       );
       seatManager?.setConnectManager(connectManager!);
 
@@ -185,28 +196,10 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
 
   @override
   void dispose() {
-    super.dispose();
+
 
     WidgetsBinding.instance.removeObserver(this);
-
-   //  widget.controller?.uninitByPrebuilt();
-   //
-   //  // connectManager?.uninit();
-   //  // seatManager?.uninit();
-   //  // plugins?.uninit();
-   //
-   // // uninitContext();
-   //
-   //  for (final subscription in subscriptions) {
-   //    subscription?.cancel();
-   //  }
-   //
-   //  if (widget.appDesignSize != null) {
-   //    ScreenUtil.init(
-   //      navigatorState.context,
-   //      designSize: widget.appDesignSize!,
-   //    );
-   //  }
+    super.dispose();
   }
 
   @override
@@ -232,19 +225,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
 
     switch (state) {
       case AppLifecycleState.resumed:
-        // plugins?.tryReLogin();
-        // RoomScreen.userOnMics.value.putIfAbsent(int.parse( widget.userID),
-        //         () => ZegoUIKitUser(id: widget.userID, name: widget.userName)) ;
-        // if(!RoomScreen.outRoom){
-        //   BlocProvider.of<RoomBloc>(context).add(EnterRoomEvent(ownerId: widget.roomData.ownerId.toString()
-        //       , roomPassword: '',sendTpZego: false,ignorPassword: false , isVip:widget.userData.vip1?.level??0  ));
-        //   for(var e in  RoomScreen.userOnMics.value.entries){
-        //     if(e.value.id == widget.userData.id){
-        //       BlocProvider.of<OnRoomBloc>(context).add(UpMicEvent(ownerId: widget.roomData.ownerId.toString(),
-        //           userId:widget.userData.id.toString() , position:e.key.toString()));
-        //     }
-        //   }
-        // }
+        plugins?.tryReLogin();
         break;
       case AppLifecycleState.inactive:
         break ;
@@ -256,6 +237,12 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
         await  e.call(widget.roomData.ownerId.toString());
         break;
 
+      case AppLifecycleState.hidden:
+        if(kDebugMode){
+          log("hidden screen");
+        }
+
+        break;
     }
   }
 

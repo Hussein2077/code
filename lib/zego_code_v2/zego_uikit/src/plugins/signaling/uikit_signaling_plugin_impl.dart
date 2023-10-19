@@ -23,8 +23,7 @@ class ZegoUIKitSignalingPluginImpl
   factory ZegoUIKitSignalingPluginImpl() => shared;
   ZegoUIKitSignalingPluginImpl._internal() {
     WidgetsFlutterBinding.ensureInitialized();
-    assert(ZegoPluginAdapter().signalingPlugin != null,
-        'ZegoUIKitSignalingPluginImpl: ZegoUIKitPluginType.signaling is null');
+    assert(ZegoPluginAdapter().signalingPlugin != null, 'ZegoUIKitSignalingPluginImpl: ZegoUIKitPluginType.signaling is null');
   }
   static final ZegoUIKitSignalingPluginImpl shared =
       ZegoUIKitSignalingPluginImpl._internal();

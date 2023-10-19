@@ -131,6 +131,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
@@ -458,21 +459,23 @@ final  String theme ;
         BlocProvider(
           create: (context) => getIt<LuckyGiftBannerBloc>(),
         ),
+        BlocProvider(
+          create: (context) => getIt<GetUsersInRoomBloc>(),
+        ),
 
       ],
       child:  BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           if (state is LightThemeState )  {
-   return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: lightTheme ,
-
-            navigatorKey: globalNavigatorKey ,
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
-            onGenerateRoute: RouteGenerator.getRoute,
-            locale: context.locale,
-            initialRoute: Routes.splash,
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: lightTheme ,
+              navigatorKey: globalNavigatorKey ,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              onGenerateRoute: RouteGenerator.getRoute,
+              locale: context.locale,
+              initialRoute: Routes.splash,
           );
           }else if (state is DarkThemeState){
             return MaterialApp(

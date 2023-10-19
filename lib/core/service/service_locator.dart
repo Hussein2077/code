@@ -228,6 +228,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_use
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_boxex_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_mybackground_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_user_in_room_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_room_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_user_uc.dart';
@@ -254,6 +255,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conte
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
@@ -515,6 +517,7 @@ class ServerLocator {
     getIt.registerFactory(() => GetFollowingReelsBloc(getFollowingReelUseCase:  getIt()));
 
     getIt.registerFactory(() => LuckyGiftBannerBloc(sendLuckyGiftUc: getIt()));
+    getIt.registerFactory(() => GetUsersInRoomBloc(getRoomUserUseCase: getIt(),));
 
 
 
@@ -791,6 +794,7 @@ getIt.registerLazySingleton(
         () => ReportRealsUseCases(baseRepositoryReel: getIt()));
 
     getIt.registerLazySingleton(() => GetFollowingReelUseCase(baseRepositoryReel: getIt()));
+    getIt.registerLazySingleton(() => GetRoomUserUseCase(roomRepo: getIt(),));
 
 
 

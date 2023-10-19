@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/admin_or_owner_container.dart';
@@ -56,8 +57,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
   @override
   Widget build(BuildContext context) {
     isOnMic = checkIsUserOnMic(widget.userData);
-    isAdminOrHost =
-        cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
+    isAdminOrHost = cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
     myProfile = myProfileOrNot(widget.userData, widget.myData);
 
     return Stack(
@@ -124,7 +124,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                             isVip: widget.userData.hasColorName!,
                           ),
                           IdWithCopyIcon(
-                            id: widget.userData.uuid!,
+                            userData: widget.userData,
                           ),
                           SizedBox(
                             height: ConfigSize.defaultSize! * 0.5,

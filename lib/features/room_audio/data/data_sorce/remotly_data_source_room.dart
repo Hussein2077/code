@@ -75,10 +75,11 @@ abstract class BaseRemotlyDataSourceRoom {
 
   Future<String> sendYallowBanner(String ownerId, String message);
 
+  Future<List<RoomUserMesseagesModel>> getUsersInRoon(String? userId);
+
 
 
 }
-
 
 
 
@@ -1140,20 +1141,19 @@ static String uploadImagePrice = "" ;
 
 
    @override
-  Future<List<RoomUserMesseagesModel>> getUsersInRoon(List<String> userIds) async {
+  Future<List<RoomUserMesseagesModel>> getUsersInRoon(String? userId) async {
     Map<String, String> headers = await DioHelper().header();
 
-    final body = {'users_ids': userIds};
+    final body = {'users_ids': userId};
     try {
-      final response = await Dio().post(ConstentApi.getUsersInRoom,
+      final response = await Dio().post(ConstentApi.getUsersCommenstInRoom,
           options: Options(
             headers: headers,
           ),
           data: body);
       Map<String, dynamic> resultData = response.data;
       log(resultData.toString());
-      return List<RoomUserMesseagesModel>.from(
-          resultData['data'].map((x) => RoomUserMesseagesModel.fromJson(x)));
+      return List<RoomUserMesseagesModel>.from(resultData['data'].map((x) => RoomUserMesseagesModel.fromJson(x)));
     } on DioError catch (e) {
       throw DioHelper.handleDioError(
           dioError: e, endpointName: 'getUsersInRoon');

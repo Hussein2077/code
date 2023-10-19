@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/update_room_body.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
 
@@ -48,7 +48,6 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
             introHint: state.data.roomIntro!,
             room: widget.room,
             myDataModel: widget.myDataModel,
-            notifyRoom: activePK,
             refreshRoom: refrashRoom,
             roomMode: layoutMode == LayoutMode.hostTopCenter?0:layoutMode == LayoutMode.party?1:2,
           );
@@ -59,7 +58,6 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
             introHint: widget.roomDate.roomIntro!,
             room: widget.room,
             myDataModel: widget.myDataModel,
-            notifyRoom: activePK,
             refreshRoom: refrashRoom,
             roomMode: layoutMode == LayoutMode.hostTopCenter?0:layoutMode == LayoutMode.party?1:2,
 
@@ -67,11 +65,6 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
         }
       },
     );
-  }
-  activePK() {
-
-    PkController.isPK.value ? PkController.isPK.value = false : PkController.isPK.value = true;
-
   }
 
   //todo you should remove this function

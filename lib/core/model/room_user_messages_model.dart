@@ -25,11 +25,11 @@ class RoomUserMesseagesModel {
   factory RoomUserMesseagesModel.fromJson(Map<String, dynamic> json) {
     return RoomUserMesseagesModel(
         bubbleId: json['bubble_id'],
-        bubble: json['bubble'],
+        bubble: json['bubble']?? "",
         hasColorName: json['has_color_name'],
         id: json['id'],
         image: json['profile_image']??"",
-        name: json['name'],
+        name: json['name']?? "",
         revicerLevelImg: json['level']['receiver_img']??'',
         senderLevelImg: json['level']['sender_img']??"",
         uuid: json['uuid'],
