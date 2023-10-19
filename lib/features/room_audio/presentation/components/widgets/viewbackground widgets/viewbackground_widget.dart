@@ -57,16 +57,16 @@ class ViewbackgroundWidget extends StatefulWidget {
   Animation<Offset> offsetAnimationEntro;
   AnimationController yellowBannercontroller;
   Animation<Offset> offsetAnimationYellowBanner;
-  UserDataModel yallowBannerSender;
+  UserDataModel? yallowBannerSender;
   Map<String, bool> isPlural;
-  UserDataModel sendDataUser;
-  UserDataModel receiverDataUser;
+  UserDataModel? sendDataUser;
+  UserDataModel? receiverDataUser;
   AnimationController controllerBanner;
   Animation<Offset> offsetAnimationBanner;
   AnimationController luckGiftBannderController;
   Animation<Offset> offsetLuckGiftAnimationBanner;
   ValueNotifier<bool> showPopUp;
-  UserDataModel pobUpSender;
+  UserDataModel? pobUpSender;
   Map<String, dynamic> durationKickout;
   ViewbackgroundWidget({super.key,
     required this.room,
@@ -241,8 +241,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         left: AppPadding.p36,
                         child: ShowGiftBannerWidget(
                           isPlural: widget.isPlural['isPlural']!,
-                          sendDataUser: widget.sendDataUser,
-                          receiverDataUser: widget.receiverDataUser,
+                          sendDataUser: widget.sendDataUser!,
+                          receiverDataUser: widget.receiverDataUser!,
                           giftImage: widget.userBannerData['gift_banner'] ?? '',
                           ownerId: widget.userBannerData['owner_id_room_banner'] ?? widget.room.ownerId.toString(),
                           controllerBanner: widget.controllerBanner,
@@ -329,7 +329,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                             ownerDataModel: widget.pobUpSender,
                             massage: ZegoInRoomMessageInput.messagePonUp,
                             enterRoomModel: widget.room,
-                            vip: widget.pobUpSender.vip1?.level ?? 8)),
+                            vip: widget.pobUpSender == null ? 8 : widget.pobUpSender!.vip1!.level!)),
                   );
                 }),
             Positioned(

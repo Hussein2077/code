@@ -126,7 +126,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   VideoPlayerController? mp4Controller;
   late LayoutMode layoutMode;
   StreamController<List<ZegoUIKitUser>> userInRoomController = StreamController.broadcast();
-  ValueNotifier<bool> showPopUp = ValueNotifier(false);
+  ValueNotifier<bool> showPopUp = ValueNotifier<bool>(false);
   String userIdEmojie = ""; // to show emojie
   String giftImg = ""; // to show img gift
   late AnimationController luckGiftBannderController;
@@ -881,8 +881,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 : -1
             ..hostSeatIndexes = [0]
             ..seatConfig = getSeatConfig()
-            ..viewbackground = ViewbackgroundWidget(room: widget.room, roomDataUpdates: roomDataUpdates, userBannerData: userBannerData, superBox: superBox, userInRoomController: userInRoomController, layoutMode: layoutMode, refrashRoom: refrashRoom, controllerMusice: controllerMusice, destroyMusic: destroyMusic, animationControllerEntro: animationControllerEntro, animationControllerGift: animationControllerGift,
-                mp4Controller: mp4Controller, yallowBanner: yallowBanner, showYellowBanner: showYellowBanner, userIntroData: userIntroData, offsetAnimationEntro: offsetAnimationEntro, yellowBannercontroller: yellowBannercontroller, offsetAnimationYellowBanner: offsetAnimationYellowBanner, yallowBannerSender: yallowBannerSender!, isPlural: isPlural, sendDataUser: sendDataUser!, receiverDataUser: receiverDataUser!, controllerBanner: controllerBanner, offsetAnimationBanner: offsetAnimationBanner, luckGiftBannderController: luckGiftBannderController, offsetLuckGiftAnimationBanner: offsetLuckGiftAnimationBanner, showPopUp: showPopUp, pobUpSender: pobUpSender!, durationKickout: durationKickout)
+            ..viewbackground = ViewbackgroundWidget(room: widget.room, roomDataUpdates: roomDataUpdates, userBannerData: userBannerData, superBox: superBox, userInRoomController: userInRoomController, layoutMode: layoutMode, refrashRoom: refrashRoom, controllerMusice: controllerMusice, destroyMusic: destroyMusic, animationControllerEntro: animationControllerEntro, animationControllerGift: animationControllerGift, mp4Controller: mp4Controller, yallowBanner: yallowBanner, showYellowBanner: showYellowBanner, userIntroData: userIntroData, offsetAnimationEntro: offsetAnimationEntro, yellowBannercontroller: yellowBannercontroller, offsetAnimationYellowBanner: offsetAnimationYellowBanner, yallowBannerSender: yallowBannerSender, isPlural: isPlural, sendDataUser: sendDataUser, receiverDataUser: receiverDataUser, controllerBanner: controllerBanner, offsetAnimationBanner: offsetAnimationBanner, luckGiftBannderController: luckGiftBannderController, offsetLuckGiftAnimationBanner: offsetLuckGiftAnimationBanner, showPopUp: showPopUp, pobUpSender: pobUpSender, durationKickout: durationKickout)
             ..background = BackgroundWidget(room: widget.room, layoutMode: layoutMode, isHost: widget.isHost)
             ..onSeatsChanged = (
               Map<int, ZegoUIKitUser> takenSeats,

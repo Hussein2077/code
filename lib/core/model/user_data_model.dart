@@ -104,7 +104,7 @@ class UserDataModel {
         id: map['id'] ,
         chatId: map['chat_id'] ,
         notificationId: map['notification_id'],
-        name: map['name'] ,
+        name: map['name']?? "",
         frame: map['frame'] ,
         intro: map['intro'] ,
         isFriend: map['is_friend'] ,
