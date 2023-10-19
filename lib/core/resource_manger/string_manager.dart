@@ -113,8 +113,8 @@ class StringManager {
   static const String youCanNotModify =
       "You cannot modify the date of birth and gender after selection. Please fill it in carefully";
   static const String home = "Home";
-  static const String reels = "Reels";
-  static const String followingReels = "Following Reels";
+  static const String reels = "For You";
+  static const String followingReels = "Following";
   static const String follwoing = "Follwoing";
   static const String followers = "Followers";
   static const String vistors = "Vistors";
