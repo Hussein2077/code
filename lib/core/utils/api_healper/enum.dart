@@ -6,3 +6,4 @@ enum TypesCache   {gift,frame,intro,extra, emojie }
 enum MomentType {myMoment,followingMoment,likedMoment}
 enum TypeCandy {non,luckyCandy,normalCandy}
 enum TypeGift {normal,lucky,spical,famous,country}
+enum LayoutMode { hostTopCenter, party, seats12 }

@@ -33,6 +33,10 @@ const String updatePkKey = "updatePk";
 const String closePkKey = "closePk";
 const String timePkKey = "PkTime";
 
+activePK() {
+  PkController.isPK.value ? PkController.isPK.value = false : PkController.isPK.value = true;
+}
+
 ShowPkKey(){
   PkController.showPK.value = true;
   PkController.isPK.value = true;
