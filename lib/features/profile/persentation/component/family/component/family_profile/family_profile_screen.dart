@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 
@@ -39,7 +42,11 @@ class _FamilyProfileScreenState extends State<FamilyProfileScreen> {
         body: BlocBuilder<ShowFamilyBloc, ShowFamilyState>(
           builder: (context, state) {
             if(state is ShowFamilySucssesState){
-                  return Column(
+              log("amImember ${state.data.amImember!}");
+              log("amIAdmin  ${state.data.amIAdmin!}");
+              log("amIOwner  ${state.data.amIOwner!}");
+
+              return Column(
               children: [
                 Expanded(
                   child: SingleChildScrollView(
@@ -60,7 +67,8 @@ class _FamilyProfileScreenState extends State<FamilyProfileScreen> {
                     ),
                   ),
                 ),
-                (state.data.amImember!||state.data.amIAdmin!||state.data.amIOwner!)?
+                // (state.data.amImember!||state.data.amIAdmin!||state.data.amIOwner!)
+                (MyDataModel.getInstance().familyId!=0) ?
                 const SizedBox():
                  FamilyProfileBottomBar(familyId: state.data.id.toString(),)
               ],

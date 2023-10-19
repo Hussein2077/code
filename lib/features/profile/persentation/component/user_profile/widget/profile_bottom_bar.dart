@@ -50,7 +50,7 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: ConfigSize.screenHeight! * .1,
+        // height: ConfigSize.screenHeight! * .1,
         decoration:
             BoxDecoration(color: Theme.of(context).colorScheme.background),
         child: Row(
