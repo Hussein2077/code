@@ -26,6 +26,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/ageince_scre
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/shipping_from_agency_screen/component/shipping_from_agency_details.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/component/shipping_from_agency_screen/shipping_from_agency.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/coins_scrren.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/histtory_pamyent.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/custom_service/custoum_service_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/f_f_f_v_screens/f_f_f_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/f_f_f_v_screens/vistor_screen.dart';
@@ -146,6 +147,8 @@ class Routes {
   static const String changePassScreen = "/ChangePassScreen";
   static const String privacyPolicyScreen = "/PrivacyPolicyScreen";
   static const String chatScreen = "/ChatScreen";
+  static const String paymentHistory = "/paymentHistory";
+
 }
 
 class RouteGenerator {
@@ -426,6 +429,8 @@ TextEditingController textEditingController = settings.arguments as TextEditingC
 
                 )));
 
+      case Routes.paymentHistory:
+        return MaterialPageRoute(builder: (_) => const PaymentHistory());
 
 
       case Routes.otpBindScreen:

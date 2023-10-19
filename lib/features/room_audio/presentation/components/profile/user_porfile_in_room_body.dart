@@ -64,7 +64,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          height: ConfigSize.screenHeight! * .5,
+          height: ConfigSize.screenHeight! * .47,
           decoration: BoxDecoration(
               color: const Color(0xFFFFFCE4),
               borderRadius: BorderRadius.only(
