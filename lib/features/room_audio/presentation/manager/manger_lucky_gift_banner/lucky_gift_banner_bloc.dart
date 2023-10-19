@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_luck
 class LuckyGiftBannerBloc
     extends Bloc<BaseLuckyGiftBannerEvent, LuckyGiftBannerState> {
   final SendLuckyGiftUc sendLuckyGiftUc;
-  int giftNum = 0;
+  int giftNum = 1;
     int isFrist = 0 ;
 
 
