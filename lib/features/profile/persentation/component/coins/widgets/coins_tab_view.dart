@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -17,6 +14,7 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
@@ -29,88 +27,13 @@ class CoinsTabView extends StatefulWidget {
 
   const CoinsTabView({required this.type, super.key});
 
+  static int productId = 0;
+
   @override
   State<CoinsTabView> createState() => _CoinsTabViewState();
 }
 
 class _CoinsTabViewState extends State<CoinsTabView> {
-
-  final InAppPurchase _connection = InAppPurchase.instance;
-
-  final Set<String> _productIds = {"140", "1400", "4200", "14000", "28000", "70000"};
-
-  List<ProductDetails> _products = [];
-
-  Map<String, dynamic> productsMap = {
-    "140": '',
-    "1400": '',
-    "4200": '',
-    "14000": '',
-    "28000": '',
-    "70000": '',
-  };
-
-  late StreamSubscription<List<PurchaseDetails>> purchaseUpdatedSubscription;
-
-  Future<void> _initialize() async {
-    final bool available = await _connection.isAvailable();
-    if (available) {
-      await _queryProducts();
-      // Subscribe to purchase updates
-      _connection.purchaseStream.listen((detailsList) {
-        _handlePurchaseUpdates(detailsList);
-      });
-    }
-  }
-
-  Future<void> _queryProducts() async {
-    final ProductDetailsResponse response = await _connection.queryProductDetails(_productIds);
-    if (response.error == null) {
-      setState(() {
-        _products = response.productDetails;
-        for(int i = 0; i < _products.length; i++){
-          productsMap[_products[i].id] = _products[i];
-        }
-      });
-    }
-  }
-
-  Future<void> _handlePurchaseUpdates(List<PurchaseDetails> detailsList) async{
-    for (PurchaseDetails purchaseDetails in detailsList) {
-      print("status: ${purchaseDetails.status.name}");
-      if (purchaseDetails.status == PurchaseStatus.purchased) {
-        await acknowledgePurchase(purchaseDetails);
-        print(purchaseDetails.transactionDate!);
-        // Handle the purchased item, e.g., grant access to premium content.
-        // Make sure to verify and acknowledge the purchase on your server.
-        // You can also save purchase details locally for later reference.
-      } else if (purchaseDetails.status == PurchaseStatus.error) {
-        // Handle purchase errors, if any.
-        print("status error: ${purchaseDetails.error!.message}");
-      }
-    }
-  }
-
-  Future<void> acknowledgePurchase(PurchaseDetails purchaseDetails) async {
-    try {
-      if (purchaseDetails.pendingCompletePurchase) {
-        print("pendingCompletePurchase");
-        await InAppPurchase.instance.completePurchase(purchaseDetails);
-      }
-    } catch (e) {
-      // Handle any errors or exceptions that may occur during the acknowledgment process.
-    }
-  }
-
-  Future<void> _buyProduct(ProductDetails product) async {
-    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-    try {
-      await _connection.buyConsumable(purchaseParam: purchaseParam);
-    } catch (e) {
-      log("error in buy function: $e");
-      // Handle purchase errors, if any.
-    }
-  }
 
   late BuyCoinsBloc buyCoinsBloc;
 
@@ -118,7 +41,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
 
   @override
   void initState() {
-    _initialize();
+    initialize(context);
     buyCoinsBloc = BlocProvider.of<BuyCoinsBloc>(context);
     mSub = buyCoinsBloc.stream.listen((state) {
       if (state is BuyCoinsSuccessState) {
@@ -183,7 +106,8 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                                   child: InkWell(
                                     onTap: () {
                                       if (Platform.isIOS) {
-                                        _buyProduct(productsMap[state.data[index].coin.toString()]);
+                                        CoinsTabView.productId = state.data[index].id;
+                                        buyProduct(productsMap[state.data[index].coin.toString()]);
                                       } else {
                                         BlocProvider.of<BuyCoinsBloc>(context).add(BuyCoins(buyCoinsParameter: BuyCoinsParameter(coinsID: state.data[index].id.toString(), paymentMethod: 'opay')));
                                       }

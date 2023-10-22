@@ -1,6 +1,6 @@
 
 
-// ignore_for_file: avoid_renaming_method_parameters
+// ignore_for_file: avoid_renaming_method_parameters, non_constant_identifier_names
 
 import 'dart:developer';
 import 'dart:io';
@@ -190,6 +190,7 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<ReelModel>> getUserReel(String? id, String page);
   Future<String> deleteMessage(String id);
   Future<bool> activeNotification();
+  Future<String> inAppPurchase({required String user_id ,required String product_id});
 
 
 }
@@ -2079,6 +2080,32 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
 
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName:'activeNotification' );
+    }
+
+  }
+
+    @override
+  Future<String> inAppPurchase({required String user_id, required String product_id}) async{
+
+    Map<String, String> headers = await DioHelper().header();
+
+    final body = {
+      'product_id': product_id,
+      'user_id': user_id
+      };
+    try {
+      final response = await Dio().post(
+        ConstentApi.activeNotification,
+        data: body,
+        options: Options(
+          headers: headers,
+        ),
+      );
+
+      Map<String, dynamic> resultData = response.data;
+      return resultData['message'];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'activeNotification' );
     }
