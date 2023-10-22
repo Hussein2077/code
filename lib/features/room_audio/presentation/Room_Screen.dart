@@ -444,19 +444,20 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ZegoUIKit().sendInRoomMessage("انضم للغرفة", false);
 
         //to show intro
-        Map<String,dynamic>    mapZego = {
-          "messageContent" : {
-            "message" : "userEntro" ,
-            "entroImg"  :  widget.myDataModel.intro ,
-            "entroImgId" : widget.myDataModel.introId ,
-            'userName'   : widget.myDataModel.name,
-            'userImge'   : widget.myDataModel.profile?.image,
-            'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
-          }
-        };
-        String map = jsonEncode(mapZego);
-        ZegoUIKit.instance.sendInRoomCommand(map,[]);
-
+         if(widget.myDataModel.intro!=''){
+           Map<String,dynamic>    mapZego = {
+             "messageContent" : {
+               "message" : "userEntro" ,
+               "entroImg"  :  widget.myDataModel.intro ,
+               "entroImgId" : widget.myDataModel.introId ,
+               'userName'   : widget.myDataModel.name,
+               'userImge'   : widget.myDataModel.profile?.image,
+               'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
+             }
+           };
+           String map = jsonEncode(mapZego);
+           ZegoUIKit.instance.sendInRoomCommand(map,[]);
+         }
       });
     }
 
@@ -699,7 +700,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       if (result[messageContent][message] == changeBackground) {
         ChangeBackground(result,roomDataUpdates);
       }
+
       else if (result[messageContent][message] == userEntro) {
+        log('hiiiiiiiiii' + result[messageContent][message]);
+
           UserEntro(result,  userIntroData ,loadAnimationEntro);
       }
       else if (result[messageContent]['msg'] == 'SHB') {
