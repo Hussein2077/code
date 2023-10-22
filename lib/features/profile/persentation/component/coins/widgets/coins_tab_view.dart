@@ -80,7 +80,9 @@ class _CoinsTabViewState extends State<CoinsTabView> {
       log("status: ${purchaseDetails.status.name}");
       if (purchaseDetails.status == PurchaseStatus.purchased) {
         await acknowledgePurchase(purchaseDetails);
-        log(purchaseDetails.transactionDate!);
+        print("#################");
+        print(purchaseDetails);
+        print("#################");
         // Handle the purchased item, e.g., grant access to premium content.
         // Make sure to verify and acknowledge the purchase on your server.
         // You can also save purchase details locally for later reference.
