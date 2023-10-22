@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -29,7 +30,6 @@ class HeaderRoom extends StatelessWidget {
   final String roomName;
 
   final String roomImg;
-  final Function() notifyRoom;
   final Function() refreshRoom;
   final int roomMode;
   final String roomType;
@@ -43,7 +43,6 @@ class HeaderRoom extends StatelessWidget {
   HeaderRoom({
     required this.roomName,
     required this.introRoom,
-    required this.notifyRoom,
     required this.roomImg,
     required this.room,
     required this.myDataModel,

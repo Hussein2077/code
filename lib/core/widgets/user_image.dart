@@ -30,8 +30,7 @@ class UserImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('lll${frame}');
-    log('lll${frameId}');
+
      if (image!=""&&image!=null){
     return   Stack(
       alignment: Alignment.center,

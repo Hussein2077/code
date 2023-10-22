@@ -20,7 +20,7 @@ class CounrtyBloc extends Bloc<CounrtyEvent, CountryStates> {
      emit (const CountryLoadingState());
       final result =   await getCountryUseCase.call(const Noparamiter());
       result.fold( (l) => emit(CountrySuccesMessageState(countrys: l)),
-              (r) => emit(CountryErrorMessageState(errorMessage: DioHelper().getTypeOfFailure(r))));
+              (r) => emit(CountryErrorMessageState(errorMessage: DioHelper().getTypeOfFailure(r, ))));
 
   }
 }

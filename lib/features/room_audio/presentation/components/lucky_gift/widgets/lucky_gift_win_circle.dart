@@ -5,18 +5,18 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
-class LukyGiftWinCircle extends StatefulWidget {
+class LuckyGiftWinCircle extends StatefulWidget {
   static String winCoin = '0';
 
   static late AnimationController animationController;
 
-  const LukyGiftWinCircle({Key? key}) : super(key: key);
+  const LuckyGiftWinCircle({Key? key}) : super(key: key);
 
   @override
-  _LukyGiftWinCircleState createState() => _LukyGiftWinCircleState();
+  _LuckyGiftWinCircleState createState() => _LuckyGiftWinCircleState();
 }
 
-class _LukyGiftWinCircleState extends State<LukyGiftWinCircle>
+class _LuckyGiftWinCircleState extends State<LuckyGiftWinCircle>
     with SingleTickerProviderStateMixin {
 
   late Animation<double> _scaleAnimation;
@@ -26,17 +26,17 @@ class _LukyGiftWinCircleState extends State<LukyGiftWinCircle>
     super.initState();
 
 
-    LukyGiftWinCircle.animationController = AnimationController(
+    LuckyGiftWinCircle.animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
     _scaleAnimation = Tween<double>(begin: 0.89, end: 1.0).animate(
       CurvedAnimation(
-        parent: LukyGiftWinCircle.animationController,
+        parent: LuckyGiftWinCircle.animationController,
         curve: Curves.bounceOut,
       ),
     );
-    LukyGiftWinCircle.animationController.forward();
+    LuckyGiftWinCircle.animationController.forward();
 
   }
 
@@ -71,7 +71,7 @@ class _LukyGiftWinCircleState extends State<LukyGiftWinCircle>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "${LukyGiftWinCircle.winCoin} ",
+                    "${LuckyGiftWinCircle.winCoin} ",
                     style: TextStyle(
                         fontSize: ConfigSize.defaultSize! * 2,
                         color: const Color.fromARGB(255, 255, 191, 54),

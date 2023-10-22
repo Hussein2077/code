@@ -6,12 +6,30 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_foll
 
 class GetFollowingReelsBloc extends Bloc<BaseGetFollowingReelsEvent, GetFollowingReelsState> {
   final GetFollowingReelUseCase getFollowingReelUseCase ;
+  int page = 1 ;
+  bool loadMore = true;
+
+
+
+
 
   GetFollowingReelsBloc({required this.getFollowingReelUseCase}) : super(GetFollowingReelsInitial(null)) {
     on<GetFollowingReelsEvent>((event, emit)async {
+      page = 1 ;
       emit(GetFollowingReelsLoadingState(null));
-      final result = await getFollowingReelUseCase.getFollowingReel();
+      final result = await getFollowingReelUseCase.getFollowingReel(page.toString());
       result.fold((l) => emit(GetFollowingReelsSucssesState(data: l)), (r) => emit(GetFollowingReelsErrorState(null, DioHelper().getTypeOfFailure(r))));
     });
+
+    on<LoadMoreFollowingReelsEvent>((event, emit)async {
+      page++ ;
+      final result = await getFollowingReelUseCase.getFollowingReel( page.toString());
+      result.fold((l) {  if (l != []) {
+        emit(
+            GetFollowingReelsSucssesState(data: [...state.data!, ...l]));
+      }}, (r) => emit(GetFollowingReelsErrorState(null, DioHelper().getTypeOfFailure(r))));
+    });
+
   }
+
 }

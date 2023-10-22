@@ -55,7 +55,6 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
         break;
     }
 
-
     try {
       final response = await Dio().get(
           ConstentApi().getDataRooms(

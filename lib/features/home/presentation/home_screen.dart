@@ -91,7 +91,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             HomeHeader(
               liveController: liveController,
             ),
-            
            HomeBody(liveController: liveController),
           ],
         ),

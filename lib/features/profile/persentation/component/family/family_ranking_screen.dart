@@ -44,55 +44,53 @@ class _FamilyRankingScreenState extends State<FamilyRankingScreen>
   Widget build(BuildContext context) {
     return BlocBuilder<FamilyRankingBloc, FamilyRankingStates>(
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            systemOverlayStyle: SystemUiOverlayStyle(
+        return SafeArea(
+          child: Scaffold(
+              body: ScreenColorBackGround(
+                  color: ColorManager.mainColorList,
+                  child: ScreenBackGround(
+                      image: AssetsPath.familyBackGround,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: ConfigSize.defaultSize! * 3.5,
+                          ),
+                          HeaderWithOnlyTitle(
+                            title: StringManager.family.tr(),
+                            titleColor: Colors.white,
+                          ),
+                          FamilyRankTabs(
+                            rankingController: rankingController,
+                          ),
+                          SizedBox(
+                            height: ConfigSize.defaultSize! * 3,
+                          ),
+                          Expanded(
 
-            ),
-          ),
-            body: ScreenColorBackGround(
-                color: ColorManager.mainColorList,
-                child: ScreenBackGround(
-                    image: AssetsPath.familyBackGround,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: ConfigSize.defaultSize! * 3.5,
-                        ),
-                        HeaderWithOnlyTitle(
-                          title: StringManager.family.tr(),
-                          titleColor: Colors.white,
-                        ),
-                        FamilyRankTabs(
-                          rankingController: rankingController,
-                        ),
-                        SizedBox(
-                          height: ConfigSize.defaultSize! * 3,
-                        ),
-                        Expanded(
-                          child: TabBarView(
-                              controller: rankingController,
-                              children: [
-                                RankingTabBarView(
-                                  data: state.dailyData,
-                                  stateRequest: state.dailyDataRequest,
-                                  message: state.dailyDatakMassage,
-                                ),
-                                RankingTabBarView(
-                                  data: state.weekData,
-                                  stateRequest: state.weekDataRequest,
-                                  message: state.weekDatakMassage,
-                                ),
-                                RankingTabBarView(
-                                  data: state.monthData,
-                                  stateRequest: state.monthDataRequest,
-                                  message: state.monthDatakMassage,
-                                ),
-                              ]),
-                        ),
-                        const FamilyRankBottomBar()
-                      ],
-                    ))));
+                            child: TabBarView(
+                                controller: rankingController,
+                                children: [
+                                  RankingTabBarView(
+                                    data: state.dailyData,
+                                    stateRequest: state.dailyDataRequest,
+                                    message: state.dailyDatakMassage,
+                                  ),
+                                  RankingTabBarView(
+                                    data: state.weekData,
+                                    stateRequest: state.weekDataRequest,
+                                    message: state.weekDatakMassage,
+                                  ),
+                                  RankingTabBarView(
+                                    data: state.monthData,
+                                    stateRequest: state.monthDataRequest,
+                                    message: state.monthDatakMassage,
+                                  ),
+                                ]),
+                          ),
+                          const FamilyRankBottomBar()
+                        ],
+                      )))),
+        );
       },
     );
   }

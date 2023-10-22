@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -11,9 +10,11 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -27,14 +28,22 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_palt
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
+import 'package:tik_chat_v2/main.dart';
 import 'widgets/google_auth.dart';
 import 'widgets/phone_wtih_country.dart';
 import 'widgets/privcy_text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   final bool? isUpdate;
-  final bool? isForceUpdate ;
-  const LoginScreen({required this.isForceUpdate,required this.isUpdate, Key? key}) : super(key: key);
+  final bool? isForceUpdate;
+  final bool? isLoginFromAnotherAccountAndBuildFailure;
+
+  const LoginScreen(
+      {required this.isForceUpdate,
+      required this.isUpdate,
+      Key? key,
+      this.isLoginFromAnotherAccountAndBuildFailure})
+      : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -44,54 +53,78 @@ class _LoginScreenState extends State<LoginScreen> {
   double _keyboardHeight = 0;
   final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
   late TextEditingController passwordController;
+
   @override
   void initState() {
-    if((widget.isUpdate??false)){
+    if ((widget.isUpdate ?? false)) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         showDialog(
-            barrierDismissible:widget.isForceUpdate??false,
+            barrierDismissible: widget.isForceUpdate ?? false,
             context: context,
             builder: (BuildContext context) {
-              return WillPopScope(child:Material(
-                  color: Colors.transparent,
-                  child: UpdateScreen(isForceUpdate: (widget.isForceUpdate??false),)),
+              return WillPopScope(
+                  child: Material(
+                      color: Colors.transparent,
+                      child: UpdateScreen(
+                        isForceUpdate: (widget.isForceUpdate ?? false),
+                      )),
                   onWillPop: () async {
                     SystemNavigator.pop();
                     return false;
                   });
             });
-
       });
     }
     passwordController = TextEditingController();
+    if (widget.isLoginFromAnotherAccountAndBuildFailure!) {
+      Future.delayed(const Duration(seconds: 2), () {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return PopUpDialog(
+                headerText: StringManager.anotherAccountLoggedIn,
+                accpetText: () {
+                  Navigator.pop(context);
+                },
+                accpettitle: StringManager.ok,
+
+              );
+            });
+      });
+    }
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
       setState(() {
         _keyboardHeight = height;
       });
     });
-    super.initState();
+
+    super.didChangeDependencies();
   }
 
   @override
   void dispose() {
     passwordController.dispose();
-    super.dispose();
+     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return BlocConsumer<LoginWithPhoneBloc, LoginWithPhoneState>(
-    
       builder: (context, state) {
         return SizedBox(
-          height:MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Scaffold(
               body: SingleChildScrollView(
-                child: ScreenBackGround(
-            image: AssetsPath.loginBackGround,
-            child: Column(
+            child: ScreenBackGround(
+              image: AssetsPath.loginBackGround,
+              child: Column(
                 children: [
                   const Spacer(
                     flex: 20,
@@ -113,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       widget: SizedBox(
                           width: MediaQuery.of(context).size.width - 140,
                           child: TextFieldWidget(
-                            obscureText: true,
+                              obscureText: true,
                               hintColor: Colors.black.withOpacity(0.6),
                               hintText: StringManager.password.tr(),
                               controller: passwordController))),
@@ -122,7 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   MainButton(
                     onTap: () {
-
                       // final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
                       // print(keyboardHeight);
                       //
@@ -143,20 +175,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      CustomHorizntalDvider(width: ConfigSize.defaultSize! * 10),
+                      CustomHorizntalDvider(
+                          width: ConfigSize.defaultSize! * 10),
                       Text(
                         StringManager.orLoginWith.tr(),
                         style: TextStyle(
                             fontSize: ConfigSize.defaultSize! + 4,
                             color: ColorManager.whiteColor),
                       ),
-                      CustomHorizntalDvider(width: ConfigSize.defaultSize! * 10),
+                      CustomHorizntalDvider(
+                          width: ConfigSize.defaultSize! * 10),
                     ],
                   ),
                   const Spacer(
                     flex: 1,
                   ),
-             const GoogleAndAppleAuth(),
+                  const GoogleAndAppleAuth(),
                   const Spacer(
                     flex: 1,
                   ),
@@ -188,33 +222,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     flex: 1,
                   )
                 ],
+              ),
             ),
-          ),
-              )),
+          )),
         );
       },
-        listener: (context, state) async{
-           if (state is LoginWithPhoneSuccesMessageState) {
-
-
-             Methods().clearAuthData();
-         await    Methods().addFireBaseNotifcationId();
-             //todo check this event if still here or not
-             BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-               Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen , (route) => false,);
-                      //to do getmy data
-                      
-
-           }
-           else if (state is LoginWithPhoneErrorMessageState) {
-            errorToast(context: context, title: state.errorMessage);
-           }
-           else if(state is LoginWithPhoneLoadingState){
-             loadingToast(context: context, title: StringManager.loading.tr());
-
-           }
+      listener: (context, state) async {
+        if (state is LoginWithPhoneSuccesMessageState) {
+          Methods().clearAuthData();
+          await Methods().addFireBaseNotifcationId();
+          //todo check this event if still here or not
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            Routes.mainScreen,
+            (route) => false,
+          );
+          //to do getmy data
+        } else if (state is LoginWithPhoneErrorMessageState) {
+          errorToast(context: context, title: state.errorMessage);
+        } else if (state is LoginWithPhoneLoadingState) {
+          loadingToast(context: context, title: StringManager.loading.tr());
+        }
       },
     );
   }
-
 }

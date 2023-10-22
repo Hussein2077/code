@@ -12,38 +12,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
-import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/user_on_mic_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/basic_tool_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/emojie/emojie_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/gift_button.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_bottom_bar.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/lucky_candy.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/massage_Button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/speakr_button.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/header_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/host_top_center_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/room_background.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dialog_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/lucky_gift_banner_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/lucky_gift_win_circle.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/background_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_mid_party.dart';
@@ -53,18 +40,11 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/user_avatar.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/lucky_box.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/pop_up_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/show_yallow_banner_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_state.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_states.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/viewbackground_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_event.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_states.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/audio_video/defines.dart';
@@ -78,8 +58,6 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:video_player/video_player.dart';
 import 'package:path_provider/path_provider.dart';
-import 'components/widgets/show_gift_banner_widget.dart';
-import 'components/widgets/show_lucky_banner_widget.dart';
 
 class RoomScreen extends StatefulWidget {
   final EnterRoomModel room;
@@ -95,15 +73,14 @@ class RoomScreen extends StatefulWidget {
   static List<EntroData> listOfAnimatingEntros = [];
   static List<String> listOfAnimatingBanner = [];
   static List<MusicObject> musicesInRoom = [];
-  static List<int> teamBlue = [1, 2, 5, 6];
-  static List<int> teamRed = [3, 4, 7, 8];
+
   static List<String> usersHasMute = [];
   static Map<int, int> listOfMuteSeats = {};
   static ValueNotifier<Map<String, EmojieData>> listOfEmojie = ValueNotifier({});
   static ValueNotifier<int> updateEmojie = ValueNotifier(0);
   static Map<String, String> adminsInRoom = {};
   static Map<String, String> banedUsers = {};
-  static Map<String, UserDataModel> usersMessagesInRoom = {};
+  static Map<String, UserDataModel> usersMessagesProfileRoom = {};
   static Map<String, RoomUserMesseagesModel> usersMessagesRoom = {};
   static Map<String, UserDataModel> usersInRoom = {};
   static ValueNotifier<int> clearTimeNotifier = ValueNotifier(0);
@@ -119,7 +96,6 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
   static ValueNotifier<int> editRoom = ValueNotifier<int>(0);
   static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
-  static ValueNotifier<int> updateMessgasList = ValueNotifier<int>(0);
   static ValueNotifier<int> updatebuttomBar = ValueNotifier<int>(0);
   static ValueNotifier<String> imgbackground = ValueNotifier<String>("");
   static List<YallowBannerData> listofAnimationYallowBanner = [];
@@ -149,9 +125,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   VideoPlayerController? mp4Controller;
   late LayoutMode layoutMode;
   StreamController<List<ZegoUIKitUser>> userInRoomController = StreamController.broadcast();
-  ValueNotifier<bool> showPopUp = ValueNotifier(false);
+  ValueNotifier<bool> showPopUp = ValueNotifier<bool>(false);
   String userIdEmojie = ""; // to show emojie
-  bool showGift = false; // to show gift
   String giftImg = ""; // to show img gift
   late AnimationController luckGiftBannderController;
   late Animation<Offset> offsetLuckGiftAnimationBanner;
@@ -193,65 +168,24 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Map<String, dynamic> superBox = {"isPasswordRoomLuckyBanner": false, "superCoins" : '', "ownerIdRoomLuckyBanner": ''};
   ////
 
+  Map<String, bool> isPlural = {'isPlural': false};
 
-  bool isPlural = false;
+  Map<String, bool> showYellowBanner = {'showYellowBanner': false};
+
   String numberOfGift = "0";
   UserDataModel? pobUpSender;
   late AnimationController yellowBannercontroller;
   late Animation<Offset> offsetAnimationYellowBanner;
   UserDataModel? yallowBannerSender;
-  bool showYellowBanner = false;
-  showOverlay(Widget widget) {
-    OverlayState overlayState = Overlay.of(context);
-    overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(
-      builder: (context) => Padding(
-          padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
-          child: widget),
-    );
-
-    overlayState.insert(overlayEntry);
-
-    //to remove overlay after a certain time, use:
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      overlayEntry.remove();
-    });
-  }
 
   @override
   void initState() {
-    log( widget.myDataModel.bubble.toString()+"xxxxxxxxxxxx");
-    log( widget.myDataModel.profile!.image.toString()+"xxxxxxxxxxxx");
 
-    log( widget.myDataModel.vip1!.level.toString()+"xxxxxxxxxxxx");
-
-    log(  widget.myDataModel.level!.senderImage.toString()+"xxxxxxxxxxxx");
-
-    log( widget.myDataModel.level!.receiverImage.toString()+"xxxxxxxxxxxx");
-
-    log( widget.myDataModel.frameId.toString()+"xxxxxxxxxxxx");
-
-    log( widget.myDataModel.frame.toString()+"xxxxxxxxxxxx");
 
 
     super.initState();
 
     userInRoomController.stream.listen((zegoList) {});
-
-    RoomScreen.usersMessagesRoom.putIfAbsent(
-        widget.myDataModel.id.toString(),
-        () => RoomUserMesseagesModel(
-              bubble: widget.myDataModel.bubble ?? "",
-              bubbleId: widget.myDataModel.bubbleId ?? 0,
-              hasColorName: widget.myDataModel.hasColorName ?? false,
-              id: widget.myDataModel.id!,
-              image: widget.myDataModel.profile!.image!,
-              name: widget.myDataModel.name!,
-              revicerLevelImg: widget.myDataModel.level?.receiverImage??'',
-              senderLevelImg: widget.myDataModel.level?.senderImage??'',
-              uuid: widget.myDataModel.uuid!,
-              vipLevel: widget.myDataModel.vip1?.level??0,
-            ));
     luckGiftBannderController = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -360,15 +294,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (!MainScreen.iskeepInRoom.value) {
       RoomScreen.roomIsLoked = widget.room.roomPassStatus!;
 
-      // if (widget.myDataModel.intro! != "") {
-      //   loadAnimationEntro(widget.myDataModel.introId?.toString() ?? "",
-      //       widget.myDataModel.intro!);
-      //   if (widget.myDataModel.vip1?.id != null) {
-      //     RoomScreen.showEntro.value = true;
-      //   }
-      //   userIntroData['user_name_intro']  = widget.myDataModel.name!;
-      //   userIntroData['user_image_intro'] = widget.myDataModel.profile!.image!;
-      // }
       if (widget.room.showPk == 1) {
         PkController.showPK.value = true;
       }
@@ -506,9 +431,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
-        ZegoUIKit().sendInRoomMessage("انضم للغرفة", false);
+        ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
 
-        //to show intro
+        // todo add condation
+
+               //to show intro
         Map<String,dynamic>    mapZego = {
           "messageContent" : {
             "message" : "userEntro" ,
@@ -562,12 +489,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  activePK() {
-    PkController.isPK.value
-        ? PkController.isPK.value = false
-        : PkController.isPK.value = true;
-  }
-
   //todo you should remove this function
   refrashRoom() {
     setState(() {});
@@ -589,7 +510,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       userBannerData ['gift_banner']   = giftData.giftBanner;
       giftImg = giftData.giftImg;
       RoomScreen.showBanner.value = giftData.showBanner;
-      isPlural = giftData.isPlural;
+      isPlural['isPlural'] = giftData.isPlural;
       numberOfGift = giftData.numberOfGift;
       RoomScreen.roomGiftsPrice.value = giftData.roomGiftsPrice;
     } else {
@@ -640,7 +561,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
        userBannerData['gift_banner'] = giftData.giftBanner;
       giftImg = giftData.giftImg;
       controllerBanner.forward();
-      isPlural = giftData.isPlural;
+      isPlural['isPlural'] = giftData.isPlural;
       numberOfGift = giftData.numberOfGift;
       RoomScreen.showBanner.value = giftData.showBanner;
       RoomScreen.roomGiftsPrice.value = giftData.roomGiftsPrice;
@@ -748,7 +669,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     setState(() {
       yellowBannercontroller.forward();
-      showYellowBanner = true;
+      showYellowBanner['showYellowBanner'] = true;
       yallowBanner['yallowBannerOwnerRoom'] = ownerId;
     });
     //  }
@@ -837,16 +758,22 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == roomModeKey) {
         if (result[messageContent]['mode'] == 'topCenter') {
+          widget.room.mode = 0 ;
+
           setState(() {
             layoutMode = LayoutMode.hostTopCenter;
             RoomScreen.userOnMics.value.clear();
           });
         } else if (result[messageContent]['mode'] == 'party') {
+          widget.room.mode = 1 ;
+
           setState(() {
             layoutMode = LayoutMode.party;
             RoomScreen.userOnMics.value.clear();
           });
         } else if (result[messageContent]['mode'] == 'seats12') {
+          widget.room.mode = 2 ;
+
           setState(() {
             layoutMode = LayoutMode.seats12;
             RoomScreen.userOnMics.value.clear();
@@ -867,6 +794,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == removeChatKey) {
         RoomScreen.clearTimeNotifier.value = DateTime.now().millisecondsSinceEpoch;
+        RoomScreen.usersMessagesRoom.clear();
       }
       else if (result[messageContent][message] == showLuckyBoxKey) {
         show_lucky_box(result);
@@ -951,8 +879,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 : -1
             ..hostSeatIndexes = [0]
             ..seatConfig = getSeatConfig()
-            ..viewbackground = viewbackground()
-            ..background = background()
+            ..viewbackground = ViewbackgroundWidget(room: widget.room, roomDataUpdates: roomDataUpdates, userBannerData: userBannerData, superBox: superBox, userInRoomController: userInRoomController, layoutMode: layoutMode, refrashRoom: refrashRoom, controllerMusice: controllerMusice, destroyMusic: destroyMusic, animationControllerEntro: animationControllerEntro, animationControllerGift: animationControllerGift, mp4Controller: mp4Controller, yallowBanner: yallowBanner, showYellowBanner: showYellowBanner, userIntroData: userIntroData, offsetAnimationEntro: offsetAnimationEntro, yellowBannercontroller: yellowBannercontroller, offsetAnimationYellowBanner: offsetAnimationYellowBanner, yallowBannerSender: yallowBannerSender, isPlural: isPlural, sendDataUser: sendDataUser, receiverDataUser: receiverDataUser, controllerBanner: controllerBanner, offsetAnimationBanner: offsetAnimationBanner, luckGiftBannderController: luckGiftBannderController, offsetLuckGiftAnimationBanner: offsetLuckGiftAnimationBanner, showPopUp: showPopUp, pobUpSender: pobUpSender, durationKickout: durationKickout)
+            ..background = BackgroundWidget(room: widget.room, layoutMode: layoutMode, isHost: widget.isHost)
             ..onSeatsChanged = (
               Map<int, ZegoUIKitUser> takenSeats,
               List<int> untakenSeats,
@@ -983,7 +911,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 BasicToolButton(
                   myDataModel: widget.myDataModel,
                   roomId: widget.room.id.toString(),
-                  notifyRoom: activePK,
                   layoutMode: layoutMode,
                   ownerId: widget.room.ownerId.toString(),
                   isOnMic: true,
@@ -1002,7 +929,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 BasicToolButton(
                   myDataModel: widget.myDataModel,
                   roomId: widget.room.id.toString(),
-                  notifyRoom: activePK,
                   layoutMode: LayoutMode.party,
                   ownerId: widget.room.ownerId.toString(),
                   isOnMic: false,
@@ -1028,7 +954,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 BasicToolButton(
                   myDataModel: widget.myDataModel,
                   roomId: widget.room.id.toString(),
-                  notifyRoom: activePK,
                   layoutMode: layoutMode,
                   ownerId: widget.room.ownerId.toString(),
                   isOnMic: true,
@@ -1037,9 +962,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               ],
             )
             ..seatConfig.avatarBuilder = (context, size, user, extraInfo) {
-              // if (RoomScreen.usersInRoom[user?.id] == null) {
-              //   getUserDataInRoom(user!.id);
-              // }
+
               return ValueListenableBuilder<bool>(
                 valueListenable:
                     ZegoUIKit().getMicrophoneStateNotifier(user!.id),
@@ -1050,394 +973,43 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 },
               );
             }
-            ..inRoomMessageViewConfig.itemBuilder =
-                (context, message, extraInfo) {
+            ..inRoomMessageViewConfig.itemBuilder = (context, message, extraInfo) {
               return ValueListenableBuilder(
                   valueListenable: RoomScreen.clearTimeNotifier,
-                  builder:
-                      (BuildContext context, dynamic value, Widget? child) {
+                  builder: (BuildContext context, dynamic value, Widget? child) {
                     if (message.timestamp < value) {
                       return const SizedBox.shrink();
                     }
-                  
-                    if (message.user.inRoomAttributes.value['sen'] == null &&
-                        RoomScreen.usersMessagesRoom[message.user.id]
-                                ?.senderLevelImg ==
-                            null) {
-                      Future.delayed(const Duration(seconds: 3), () {
-                        if (kDebugMode) {
-                          log("wait 2 sec to load more in formation about user");
-                        }
-                        RoomScreen.updateMessgasList.value =
-                            RoomScreen.updateMessgasList.value + 1;
-                      });
+                    if (message.user.inRoomAttributes.value['sen'] == null && RoomScreen.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
+                      if (kDebugMode) {
+                        log("wait 2 sec to load more in formation about user");
+                      }
+                      BlocProvider.of<GetUsersInRoomBloc>(context).add(GetUsersInRoomEvents(userId: message.user.id));
                     }
-                    return ValueListenableBuilder(
-                        valueListenable: RoomScreen.updateMessgasList,
-                        builder: (context, update, _) {
+
+                    return BlocConsumer<GetUsersInRoomBloc,UsersInRoomState>(
+                      builder: (BuildContext context, UsersInRoomState state) {
                           return MessagesChached(
                               message: message,
                               myDataModel: widget.myDataModel,
                               room: widget.room,
-                              vip: message.user.inRoomAttributes.value['vip'] ??
-                                  "",
-                              bubble:
-                                  message.user.inRoomAttributes.value['bubl'] ??
-                                      "",
-                              frame:
-                                  message.user.inRoomAttributes.value['frm'] ??
-                                      "",
-                              sender:
-                                  message.user.inRoomAttributes.value['sen'] ??
-                                      "",
-                              receiver:
-                                  message.user.inRoomAttributes.value['rec'] ??
-                                      "",
+                              vip: message.user.inRoomAttributes.value['vip'] ?? "",
+                              bubble: message.user.inRoomAttributes.value['bubl'] ?? "",
+                              frame: message.user.inRoomAttributes.value['frm'] ?? "",
+                              sender: message.user.inRoomAttributes.value['sen'] ?? "",
+                              receiver: message.user.inRoomAttributes.value['rec'] ?? "",
                               layoutMode: layoutMode);
-                        });
+                      },
+                      listener: (BuildContext context, UsersInRoomState state) {
+                      if (state is GetUsersInRoomSucssesState){
+                        RoomScreen.usersMessagesRoom.removeWhere((key, value) => key == state.data![0].id.toString());
+                        RoomScreen.usersMessagesRoom.putIfAbsent(state.data![0].id.toString(), () => state.data![0]);
+                      }
+                    },
+                    );
                   });
             },
         ));
-  }
-
-  Widget background() {
-    return BlocConsumer<OnRoomBloc, OnRoomStates>(
-      builder: (_, state) {
-        return Stack(
-          children: [
-            RoomBackground( room: widget.room,),
-            if (layoutMode == LayoutMode.hostTopCenter)
-              ValueListenableBuilder<UserDataModel>(
-                  valueListenable: RoomScreen.topUserInRoom,
-                  builder: (context, topUser, _) {
-                    return HostTopCenterWidget(
-                      layoutMode: layoutMode, topUser: topUser,room:  widget.room,myDataModel:   widget.myDataModel, );
-                  }),
-            ValueListenableBuilder<bool>(
-                valueListenable: PkController.showPK,
-                builder: (context, isShowPK, _) {
-                  if (isShowPK && layoutMode == LayoutMode.hostTopCenter) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: AppPadding.p45),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: PKWidget(
-                            scoreBlueTeam: PkController.scoreBlue,
-                            scoreRedTem: PkController.scoreRed,
-                            isHost: widget.isHost,
-                            ownerId: widget.room.ownerId.toString(),
-                            notifyRoom: activePK,
-                          )),
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-          ],
-        );
-      },
-      listener: (_, state) async {
-        if (state is UpdateRoomSucsseState) {
-          MainScreen.roomData = state.data;
-          Navigator.pop(context);
-          sucssesToast(
-              context: context, title: StringManager.successfulOperation);
-        } else if (state is UpdateRoomErrorState) {
-          Navigator.pop(context);
-          errorToast(context: context, title: state.errorMassage);
-        } else if (state is OnRoomLoadingState) {
-          bottomDailog(context: context, widget: const DialogLoadingWidget());
-        } else if (state is BanUserFromWritingErrorState) {
-          Navigator.pop(context);
-          errorToast(context: context, title: state.errorMassage);
-        } else if (state is BanUserFromWritingLoadingState) {
-          bottomDailog(context: context, widget: const DialogLoadingWidget());
-        } else if (state is BanUserFromWritingSuccessState) {
-          Navigator.pop(context);
-          sucssesToast(context: context, title: state.successMassage);
-        } else if (state is SendPobUpErrorState) {
-          errorToast(context: context, title: state.errorMassage);
-        } else if (state is SendPobUpSuccessState) {
-          // sucssesToast(context: context, title: state.successMassage) ;
-        } else if (state is SendYallowBannerErrorState) {
-          errorToast(context: context, title: state.errorMassage);
-        }
-      },
-    );
-  }
-
-  Widget viewbackground() {
-    return BlocConsumer<SendGiftBloc, SendGiftStates>(
-        builder: (context, state) {
-      return Stack(children: [
-        SizedBox(
-          width: ConfigSize.defaultSize! * 92.5,
-          height: ConfigSize.defaultSize! * 92.5,
-        ),
-        Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-                padding: EdgeInsets.only(
-                    right: 0, bottom: ConfigSize.defaultSize! * 2),
-                child: const PageViewGames())),
-        ValueListenableBuilder(
-            valueListenable: RoomScreen.editRoom,
-            builder: (context, editValue, _) {
-              return HeaderRoom(
-                userInRoomController: userInRoomController,
-                roomName:roomDataUpdates['room_name']??'' ,
-                room: widget.room,
-                myDataModel: widget.myDataModel,
-                introRoom: roomDataUpdates['room_intro']??'' ,
-                roomImg:roomDataUpdates['room_img']??'',
-                notifyRoom: activePK,
-                roomMode: layoutMode == LayoutMode.hostTopCenter
-                    ? 0
-                    : layoutMode == LayoutMode.party
-                        ? 1
-                        : 2,
-                refreshRoom: refrashRoom,
-                roomType:roomDataUpdates['room_type']??''  ,
-                layoutMode: layoutMode,
-              );
-            }),
-        ValueListenableBuilder(
-            valueListenable: LuckyBoxVariables.updateLuckyBox,
-            builder: (context, edit, _) {
-              if (LuckyBoxVariables.luckyBoxMap['luckyBoxes'].isNotEmpty) {
-                return LuckyBox(
-                    luckyBoxRemovecontroller: LuckyBoxVariables.luckyBoxRemovecontroller);
-              } else {
-                return const SizedBox();
-              }
-            }),
-        MusicWidget(room: widget.room,controllerMusice: controllerMusice, destroyMusic:destroyMusic ,
-          refrashRoom:refrashRoom , ),
-        Positioned(
-            top: ConfigSize.defaultSize! * 35,
-            bottom: ConfigSize.defaultSize! * 7,
-            right: ConfigSize.defaultSize! * 7,
-            left: ConfigSize.defaultSize! * 7,
-            child: SVGAImage(animationControllerEntro)),
-        Positioned(
-            top: ConfigSize.defaultSize! * 18,
-            bottom: ConfigSize.defaultSize! * 45,
-            right: ConfigSize.defaultSize! * 14,
-            child: SVGAImage(PkController.animationControllerRedTeam)),
-        Positioned(
-            top: ConfigSize.defaultSize! * 18,
-            bottom: ConfigSize.defaultSize! * 45,
-            left: ConfigSize.defaultSize! * 14,
-            child: SVGAImage(
-              PkController.animationControllerBlueTeam,
-            )),
-        Positioned(
-            child: SVGAImage(animationControllerGift)),
-        IgnorePointer(
-          child: ValueListenableBuilder<bool>(
-              valueListenable: RoomScreen.isVideoVisible,
-              builder: (context, isShow, _) {
-                if (isShow) {
-                  return AspectRatio(
-                    aspectRatio: mp4Controller!.value.aspectRatio,
-                    child: VideoPlayer(mp4Controller!),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
-        ),
-        Positioned(
-            top: ConfigSize.defaultSize! * 35,
-            bottom: ConfigSize.defaultSize! * 7,
-            right: ConfigSize.defaultSize! * 7,
-            left: ConfigSize.defaultSize! * 7,
-            child: SVGAImage(animationControllerEntro)),
-        ValueListenableBuilder<bool>(
-            valueListenable: RoomScreen.showEntro,
-            builder: (context, isShow, _) {
-              if (isShow) {
-                return ShowEntroWidget(userIntroData: userIntroData, offsetAnimationEntro: offsetAnimationEntro);
-              } else {
-                return const SizedBox();
-              }
-            }),
-        if (showYellowBanner)
-          Positioned(
-              top: -30,
-              left: AppPadding.p30,
-              child: ShowYallowBannerWidget(
-                  cureentRoomId: widget.room.ownerId!,
-                  controllerYallowBanner: yellowBannercontroller,
-                  offsetAnimationYallowBanner: offsetAnimationYellowBanner,
-                  senderYallowBanner: yallowBannerSender,
-                  hasPassword: yallowBanner,
-                  myData: widget.myDataModel,
-                  ownerId: yallowBanner)),
-        ValueListenableBuilder<bool>(
-            valueListenable: RoomScreen.showBanner,
-            builder: (context, isShow, _) {
-              if (isShow) {
-                return Positioned(
-                    top: ConfigSize.defaultSize! * 7.5,
-                    left: AppPadding.p36,
-                    child: ShowGiftBannerWidget(
-                        isPlural: isPlural,
-                        sendDataUser: sendDataUser ??
-                            widget.myDataModel.convertToUserObject(),
-                        receiverDataUser: receiverDataUser ??
-                            widget.myDataModel.convertToUserObject(),
-                        giftImage: userBannerData['gift_banner']??'' ,
-                        ownerId:userBannerData['owner_id_room_banner']
-                             ?? widget.room.ownerId.toString(),
-                        controllerBanner: controllerBanner,
-                        offsetAnimationBanner: offsetAnimationBanner,
-                        isPassword: userBannerData['is_password_room_banner'],
-                        roomOwnerId: widget.room.ownerId.toString(),
-                        showGift: showGift,
-                        roomIntro: widget.room.roomIntro!,
-                    ));
-              } else {
-                return const SizedBox();
-              }
-            }),
-        BlocConsumer<LuckyGiftBannerBloc, LuckyGiftBannerState>(
-          listener: (context, state) {
-            if (state is SendLuckyGiftSucssesState) {
-              if (state.data.isWin && !state.data.isPopular) {
-                ZegoUIKit()
-                    .sendInRoomMessage(state.data.coomentMesasge, false);
-                LukyGiftWinCircle.winCoin = state.data.winCoin;
-                RoomScreen.winCircularluckyGift.value =
-                    RoomScreen.winCircularluckyGift.value + 1;
-              } else if (state.data.isWin && state.data.isPopular) {
-                ZegoUIKit().sendInRoomMessage(state.data.message, true);
-                ZegoUIKit()
-                    .sendInRoomMessage(state.data.coomentMesasge, false);
-              } else {
-                ZegoUIKit()
-                    .sendInRoomMessage(state.data.coomentMesasge, false);
-              }
-              if (state.isFirst == 1) {
-                    luckGiftBannderController.forward();
-              }
-            } else if (state is SendLuckyGiftErrorStateState) {
-              errorToast(context: context, title: state.error);
-            }
-          },
-          builder: (context, state) {
-            if (state is SendLuckyGiftSucssesState) {
-              return Positioned(
-                  top: ConfigSize.defaultSize! * 40.5,
-                  left: 0,
-                  child: LuckGiftBannerWidget(
-                      reciverName: state.data.receiverName,
-                      giftNum: state.giftNum,
-                      giftImage: state.data.giftImage,
-                      controllerBanner: luckGiftBannderController,
-                      offsetAnimationBanner:
-                      offsetLuckGiftAnimationBanner));
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
-        ValueListenableBuilder(
-            valueListenable: LuckyBoxVariables.showBannerLuckyBox,
-            builder: (context, showBanner, _) {
-              if (showBanner) {
-                return Positioned(
-                    top: ConfigSize.defaultSize! * 6.95,
-                    left: ConfigSize.defaultSize! * 5.78,
-                    child: ShowLuckyBannerWidget(
-                        sendDataUser: LuckyBoxVariables.sendSuperBox!,
-                        superBox: superBox, showBannerLuckyBox: LuckyBoxVariables.showBannerLuckyBox, ownerId: widget.room.ownerId.toString(),));
-              } else {
-                return const SizedBox();
-              }
-            }),
-        ValueListenableBuilder<bool>(
-            valueListenable: showPopUp,
-            builder: (context, isShow, _) {
-              return AnimatedPositioned(
-                duration: const Duration(seconds: 10),
-                curve: Curves.linear,
-                onEnd: () {
-                  showPopUp.value = false;
-                },
-                top: ConfigSize.defaultSize! * 30,
-                left: isShow
-                    ? -ConfigSize.defaultSize! * 40
-                    : ConfigSize.defaultSize! * 40,
-                child: SizedBox(
-                    width: ConfigSize.defaultSize! * 40.5,
-                    height: ConfigSize.defaultSize! * 40.5,
-                    child: PopUpWidget(
-                        ownerDataModel: pobUpSender,
-                        massage: ZegoInRoomMessageInput.messagePonUp,
-                        enterRoomModel: widget.room,
-                        vip: pobUpSender?.vip1?.level ?? 8)),
-              );
-            }),
-        Positioned(
-          bottom: ConfigSize.defaultSize! * 12,
-          left: ConfigSize.screenWidth! * 0.35,
-          child: ValueListenableBuilder<TypeCandy>(
-              valueListenable: GiftBottomBar.typeCandy,
-              builder: (BuildContext context, TypeCandy typeCabdy, _) {
-                if (typeCabdy == TypeCandy.luckyCandy) {
-                  return LuckyCandy(
-                      roomData: widget.room,
-                      luckGiftBannderController: luckGiftBannderController);
-                } else {
-                  return const IgnorePointer(child: SizedBox());
-                }
-              }),
-        ),
-        ValueListenableBuilder<bool>(
-          valueListenable: RoomScreen.isKick,
-          builder: (context, isKicked, _) {
-            if (isKicked) {
-              return Positioned(
-                  bottom: ConfigSize.defaultSize! * 6,
-                  left: AppPadding.p30,
-                  right: AppPadding.p36,
-                  child: KickOutUserWidget(
-                    durationKickout: durationKickout,
-                    isKick: isKicked,
-                  ));
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
-        IgnorePointer(
-          child: ValueListenableBuilder<int>(
-              valueListenable: RoomScreen.winCircularluckyGift,
-              builder: (context, sohw, _) {
-                if (sohw != 0) {
-                  Future.delayed(const Duration(seconds: 1)).then((value) {
-                    return showOverlay(const Align(
-                        alignment: Alignment.topCenter,
-                        child: LukyGiftWinCircle()));
-                  });
-                  return const SizedBox();
-                } else {
-                  return const SizedBox();
-                }
-              }),
-        ),
-      ]);
-    }, listener: (context, state) {
-      if (state is ErrorSendGiftStates) {
-        errorToast(context: context, title: state.errorMessage);
-      } else if (state is SuccessSendGiftStates) {
-
-        
-          ZegoUIKit().sendInRoomMessage(state.successMessage, false);
-
-      }
-    });
   }
 
   ZegoLiveAudioRoomSeatConfig getSeatConfig() {
@@ -1445,9 +1017,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
           if (user?.id == null && PkController.showPK.value) {
-            if (RoomScreen.teamRed.contains(extraInfo['index'])) {
+            if (PkController.teamRed.contains(extraInfo['index'])) {
               return const  TeamRed();
-            } else if (RoomScreen.teamBlue.contains(extraInfo['index'])) {
+            } else if (PkController.teamBlue.contains(extraInfo['index'])) {
               return const  TeamBlue();
             } else {
               return Container();
@@ -1502,8 +1074,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         );
   }
 }
-
-enum LayoutMode { hostTopCenter, party, seats12 }
 
 List<ZegoLiveAudioRoomLayoutRowConfig> rowRoomSeats(LayoutMode layoutMode) {
   switch (layoutMode) {

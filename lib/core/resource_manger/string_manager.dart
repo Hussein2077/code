@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
 //
-  static const int versionApp = 31;
+  static const int versionApp = 33;
 
   //updates
   static const String updateApp = 'Update TikChat APP';
@@ -113,8 +113,8 @@ class StringManager {
   static const String youCanNotModify =
       "You cannot modify the date of birth and gender after selection. Please fill it in carefully";
   static const String home = "Home";
-  static const String reels = "Reels";
-  static const String followingReels = "Following Reels";
+  static const String reels = "For You";
+  static const String followingReels = "Following";
   static const String follwoing = "Follwoing";
   static const String followers = "Followers";
   static const String vistors = "Vistors";
@@ -263,6 +263,8 @@ class StringManager {
   static const String startBattle = "Start Battale";
   static const String senderLevel = "Sender Level";
   static const String receiverLevel = "Receiver Level";
+  static const String yourThemeIsUpload = "Your Theme is upload please wait to approve";
+  static const String anotherAccountLoggedIn ="Account has been logged in from another device,\nYou have no account" ;
 
 
   ///INCOME SCREEN 💲💸💰
@@ -812,10 +814,10 @@ class StringManager {
   ];
 
  //games links
- static const String teenPatti = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=1&language=ar&token=";
- static const String roulette = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=2&language=ar&token=";
- static const String carRace = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=3&language=ar&token=";
- static const String updown = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=4&language=ar&token=";
- static const String ludo = "http://twistfuture.com/tik-chat/TikChat/index.html?sound=1&gametype=5&language=ar&token=";//todo change this link
+ static const String teenPatti = "http://167.172.6.20/TikChat/index.html?sound=1&gametype=1&language=ar&token=";
+ static const String roulette = "http://167.172.6.20/TikChat/index.html?sound=1&gametype=2&language=ar&token=";
+ static const String carRace = "http://167.172.6.20/TikChat/index.html?sound=1&gametype=3&language=ar&token=";
+ static const String updown = "http://167.172.6.20/TikChat/index.html?sound=1&gametype=4&language=ar&token=";
+ static const String ludo = "http://167.172.6.20/TikChatLudo/index.html?sound=0&language=ar&token=";
 
 }

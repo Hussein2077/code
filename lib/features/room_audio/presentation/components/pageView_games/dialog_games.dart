@@ -59,8 +59,6 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
 
   @override
   void dispose() {
-    // controller!.clearCache(); // Clear the WebView cache.
-    // controller!.clearLocalStorage();
     controller!.goBack();
     controller = null;
 

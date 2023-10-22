@@ -1,6 +1,9 @@
 
 
+import 'dart:developer';
+
 import 'package:card_swiper/card_swiper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -71,6 +74,7 @@ class ReelsViewer extends StatefulWidget {
    required this.userView,
   }) : super(key: key);
 
+
   @override
   State<ReelsViewer> createState() => _ReelsViewerState();
 }
@@ -95,35 +99,59 @@ class _ReelsViewerState extends State<ReelsViewer> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: SizedBox(
+        child:NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification notification) {
+      // Handle the scroll event here
+      if (notification is ScrollStartNotification) {
+        // Scroll started
+        if(kDebugMode){
+          log('Scroll started');
+        }
+      }
+      else if (notification is ScrollUpdateNotification) {
+        // Scrolling
+        if(kDebugMode){
+          log('Scrolling');
+        }
+      }
+      else if (notification is ScrollEndNotification) {
+        if(kDebugMode) {
+          log('Scroll ended');
+        }
+        ReelsPage.canPlayNow.value = true ;
+      }
+      return true;
+    },
+    child:SizedBox(
           
           child: Stack(
             children: [
               //We need swiper for every content
-              Padding(
-                padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 0),
-                //padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
-                child: Swiper(
-                  itemBuilder: (BuildContext context, int index) {
-                    return ReelsPage(
-                      userView: widget.userView,
-                      item: widget.reelsList[index],
-                      onClickMoreBtn: widget.onClickMoreBtn,
-                      onComment: widget.onComment,
-                      onFollow: widget.onFollow,
-                      onLike: widget.onLike,
-                      onShare: widget.onShare,
-                      showVerifiedTick: widget.showVerifiedTick,
-                      swiperController: controller,
-                      showProgressIndicator: widget.showProgressIndicator,
-                    );
-                  },
-                  controller: controller,
-                  itemCount: widget.reelsList.length,
-                  scrollDirection: Axis.vertical,
-                  onIndexChanged: widget.onIndexChanged,
-                ),
-              ),
+            Padding(
+                   padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 0),
+                   //padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
+                   child: Swiper(
+                     itemBuilder: (BuildContext context, int index) {
+                       return ReelsPage(
+                         userView: widget.userView,
+                         item: widget.reelsList[index],
+                         onClickMoreBtn: widget.onClickMoreBtn,
+                         onComment: widget.onComment,
+                         onFollow: widget.onFollow,
+                         onLike: widget.onLike,
+                         onShare: widget.onShare,
+                         showVerifiedTick: widget.showVerifiedTick,
+                         swiperController: controller,
+                         showProgressIndicator: widget.showProgressIndicator,
+                       );
+                     },
+
+                     controller: controller,
+                     itemCount: widget.reelsList.length,
+                     scrollDirection: Axis.vertical,
+                     onIndexChanged: widget.onIndexChanged,
+                   ),
+                 ),
               if (widget.showAppbar)
                 Positioned(
                   right: ConfigSize.defaultSize!*1.5,
@@ -180,6 +208,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

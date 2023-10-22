@@ -30,6 +30,7 @@ class ReelsPage extends StatefulWidget {
   static VideoPlayerController? videoPlayerController;
 
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
+  static ValueNotifier<bool> canPlayNow = ValueNotifier<bool>(true);
 
   const ReelsPage(
       {Key? key,
@@ -56,7 +57,8 @@ class _ReelsPageState extends State<ReelsPage>
   bool _liked = false;
   double? videoWidth;
   double? videoHeight;
-  late final AnimationController _controller = AnimationController(
+  late final AnimationController _controller =
+  AnimationController(
     duration: const Duration(milliseconds: 2000),
     vsync: this,
   )..repeat(reverse: false);
@@ -68,23 +70,52 @@ class _ReelsPageState extends State<ReelsPage>
     curve: Curves.bounceIn
     ,
   ));
+  FileInfo? image ;
+
 
   @override
   void initState() {
     super.initState();
-    if (!UrlChecker.isImageUrl(widget.item.url!) &&
-        UrlChecker.isValid(widget.item.url!)) {
-      initializePlayer().then((value) {
-        ReelsPage.videoPlayerController = _videoPlayerController;
-      });
+    if(ReelsPage.canPlayNow.value) {
+      if (!UrlChecker.isImageUrl(widget.item.url!) &&
+          UrlChecker.isValid(widget.item.url!)) {
+        initializePlayer().then((value) {
+          ReelsPage.videoPlayerController = _videoPlayerController;
+        });
+      }
+    }else{
+      log('can not play in initState');
     }
+   widget.swiperController.addListener(() {
+     log("hhhhhh222222");
+   }) ;
+    ReelsPage.canPlayNow.addListener(() {
+      if(ReelsPage.canPlayNow.value) {
+        if (!UrlChecker.isImageUrl(widget.item.url!) &&
+            UrlChecker.isValid(widget.item.url!)) {
+          log("222222h");
+          initializePlayer().then((value) {
+            ReelsPage.videoPlayerController = _videoPlayerController;
+          });
+        }
+      }else{
+        log("333333h");
+
+      }
+    });
+
   }
+
+
 
   Future initializePlayer() async {
 
+    image =await  getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
 
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
     if(file?.file !=null){
+
+
 
       ReelsPage.isVideoPause.value = false ;
       _videoPlayerController = VideoPlayerController.file(file!.file);
@@ -105,13 +136,16 @@ class _ReelsPageState extends State<ReelsPage>
     _videoPlayerController.setLooping(true);
 
     try{
-      await Future.wait([_videoPlayerController.initialize()]);
+      await Future.wait([_videoPlayerController.initialize()]).then((value) {
+        ReelsPage.canPlayNow.value= false ;
+      } );
     }catch(e){
+
       if(kDebugMode){
+        log("error type : ${e.toString()}");
         log("error in reels path is :${Uri.parse(widget.item.url!+'rr')}");
       }
-      widget.swiperController.next();
-
+     // widget.swiperController.next();
     }
 
 
@@ -124,8 +158,7 @@ class _ReelsPageState extends State<ReelsPage>
     setState(() {});
     _videoPlayerController.addListener(() {
       if (_videoPlayerController.value.position ==
-          _videoPlayerController.value.duration) {
-        //TODO add auto scroll as feature
+          _videoPlayerController.value.duration) {// TODO add auto scroll as feature
         // widget.swiperController.next();
       }
       if (!ModalRoute.of(context)!.isCurrent) {
@@ -142,7 +175,7 @@ class _ReelsPageState extends State<ReelsPage>
     _videoPlayerController.dispose();
     if (_chewieController != null) {
       _chewieController!.dispose();
-    }
+    };
 
 
     super.dispose();
@@ -153,7 +186,8 @@ class _ReelsPageState extends State<ReelsPage>
 
   @override
   Widget build(BuildContext context) {
-    return getVideoView();
+    log("rebuild widget video view ");
+    return   getVideoView();
   }
 
   Widget getVideoView() {
@@ -217,6 +251,7 @@ class _ReelsPageState extends State<ReelsPage>
                 ),
               )
             : ReelLodaingWidget(
+          image: image,
                 reelId: widget.item.id.toString(),
                 userView: widget.userView,
               ),

@@ -24,7 +24,7 @@ class ProfileTabViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-log( userDataModel.vip1!.id.toString()+'hhhh');
+log( '${userDataModel.id}hhhh');
     List<String> vipNames = [
       StringManager.knight.tr(),
       StringManager.baron.tr(),
@@ -69,7 +69,7 @@ log( userDataModel.vip1!.id.toString()+'hhhh');
         SizedBox(
           height: ConfigSize.defaultSize! * 2,
         ),
-        (userDataModel.familyId != 0)
+        (userDataModel.familyId != 0&&userDataModel.familyData!=null)
             ? InkWell(
                 onTap: () {
 

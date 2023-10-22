@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
  
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
@@ -113,22 +115,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
           }) ;
 
 
-            // if (widget.seatManager.isSeatLockedNotifier.value) {
-            //   ZegoLoggerService.logInfo(
-            //     'take on seat, but seat is locked',
-            //     tag: 'audio room',
-            //     subTag: 'seat manager',
-            //   );
-            // }
-            // else {
-            //   log("popupItem.valuepopupItem.valuepopupItem.value22") ;
-            //   widget.seatManager.takeOnSeat(
-            //     popupItem.data as int,
-            //     isForce: false,
-            //     isDeleteAfterOwnerLeft: true,
-            //     owerId: widget.roomData.ownerId.toString(),
-            //   );
-            // }
+
             break;
           case PopupItemValue.takeOffSeat:
             // clear popup sheet info
@@ -197,10 +184,10 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
         decoration: BoxDecoration(
           border: (index == (widget.popupItems.length - 1))
               ? null
-              : Border(
+              : const Border(
                   bottom: BorderSide(
                     width: 0.5,
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white,
                   ),
                 ),
         ),
@@ -209,7 +196,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
             popupItem.text,
             style: TextStyle(
               fontSize: 28.r,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
@@ -246,7 +233,7 @@ void showPopUpSheet({
 
   showModalBottomSheet(
     barrierColor: ZegoUIKitDefaultTheme.viewBarrierColor,
-    backgroundColor: const Color(0xff111014),
+    backgroundColor: ColorManager.deeporang,
     //ZegoUIKitDefaultTheme.viewBackgroundColor,
     context: context,
     shape: RoundedRectangleBorder(

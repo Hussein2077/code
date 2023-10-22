@@ -10,8 +10,11 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/audio_video/audio_room_layout.dart';
@@ -132,6 +135,11 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       return;
     }
     List<PopupItem> popupItems = [];
+   PopupItem popupItem =  PopupItem(
+      PopupItemValue.showUserDetails,
+      StringManager.showDetails.tr(),
+      data: widget.seatManager.getUserByIndex(index)?.id,
+    ) ;
 
     // check mode room
     if(widget.roomMode==LayoutMode.hostTopCenter){
@@ -201,9 +209,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
             }
             else{
               // normal user
-              log("777777777777777777777777777777777777777777777777111111111111");
               if(!widget.isHost){
-                log("7777777777777777777777777777777777777777777777772222222");
                 popupItems.add(PopupItem(
                   PopupItemValue.takeOnSeat,
                   StringManager.takeSeat.tr(),
@@ -243,11 +249,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
 
       }
       else{
-        popupItems.add(PopupItem(
-          PopupItemValue.showUserDetails,
-          StringManager.showDetails.tr(),
-          data: widget.seatManager.getUserByIndex(index)?.id,
-        ));
+        popupItems.add(popupItem);
 
         if(widget.seatManager.localIsAHost
             && widget.seatManager.getUserByIndex(index)?.id !=widget.roomData.ownerId.toString() ){
@@ -363,11 +365,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
         //seat not empty
 
         //first to any user in room can show userDetails
-        popupItems.add(PopupItem(
-          PopupItemValue.showUserDetails,
-          StringManager.showDetails.tr(),
-          data: widget.seatManager.getUserByIndex(index)?.id,
-        ));
+        popupItems.add(popupItem);
        if( -1 !=
             widget.seatManager
                 .getIndexByUserID(ZegoUIKit().getLocalUser().id) &&
@@ -418,9 +416,27 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
 
     }
 
+    if(popupItems.length==1 && popupItems.contains(popupItem)){
+      bottomDailog(
+          context: context,
+          widget:
+          GeneralRoomProfile(
+            myData: widget.myDataModel,
+            userId:widget.seatManager.getUserByIndex(index)?.id??'' ,
+            roomData: widget.roomData,
+            layoutMode:widget.layoutMode ,
+          )
+
+      );
+
+      return ;
+
+    }
+
     if (popupItems.isEmpty) {
       return;
     }
+
 
     popupItems.add(PopupItem(
       PopupItemValue.cancel,

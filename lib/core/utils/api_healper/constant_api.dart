@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
 
 
 
 
 class ConstentApi {
-  //static const String baseUrl = "https://tik-chat.com/api";
-  static const String baseUrl = "https://test.tik-chat.com/api";
+  static const String baseUrl =  kReleaseMode ?  "https://tik-chat.com/api" :
+  'https://test.tik-chat.com/api';
+  //static const String baseUrl =  "https://test.tik-chat.com/api";
   static const String getBoxes = "$baseUrl/box/list";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
@@ -85,7 +87,7 @@ class ConstentApi {
   static const String getGoldData = "$baseUrl/coins/list";
   static const String sentToZego = "$baseUrl/send_to_zego";
   static const String getExtraData = "$baseUrl/images";
-  static const  String getUsersInRoom ="$baseUrl/rooms/users";
+  static const  String getUsersCommenstInRoom ="$baseUrl/rooms/users";
   static const String banUserFromWriting =
       "$baseUrl/rooms/ban_user_from_writing";
   static const String unBanUserFromWriting =
@@ -349,8 +351,10 @@ class ConstentApi {
   static String getMomentLike(String momentId, String page) {
     return "$baseUrl/moment/$momentId/like?page=$page";
   }
+  static String getFollowingReels( String page,) {
+    return "$baseUrl/reals/user-followers?page=$page";
+  }
 
-  static String getFollowingReels = "$baseUrl/reals/user-followers";
   static String activeNotification = "$baseUrl/reals/user-followers";
 
 }
