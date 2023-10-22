@@ -116,7 +116,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
       }
       else if (notification is ScrollEndNotification) {
         if(kDebugMode) {
-          print('Scroll ended');
+          log('Scroll ended');
         }
         ReelsPage.canPlayNow.value = true ;
       }

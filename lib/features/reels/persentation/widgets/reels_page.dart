@@ -84,6 +84,9 @@ class _ReelsPageState extends State<ReelsPage>
     }else{
       log('can not play in initState');
     }
+   widget.swiperController.addListener(() {
+     log("hhhhhh222222");
+   }) ;
     ReelsPage.canPlayNow.addListener(() {
       if(ReelsPage.canPlayNow.value) {
         if (!UrlChecker.isImageUrl(widget.item.url!) &&
