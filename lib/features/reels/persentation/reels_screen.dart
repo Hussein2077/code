@@ -23,6 +23,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_r
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
@@ -72,6 +73,7 @@ class ReelsScreenState extends State<ReelsScreen>{
                     child: BlocConsumer<GetReelsBloc, GetReelsState>(
                       builder: (context, state) {
                         if (state is GetReelsSucssesState) {
+                          ReelsPage.isFirst = true;
                           ReelsController.getInstance.likesMap(state.data!);
                           ReelsController.getInstance
                               .likesCountMap(state.data!);
