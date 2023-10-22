@@ -4,6 +4,7 @@ Future<void> bottomDailog({
   required BuildContext context,
   required Widget widget,
   Color? color,
+  double?height,
 }) {
   return showGeneralDialog(
       context: context,
@@ -17,9 +18,13 @@ Future<void> bottomDailog({
       pageBuilder: (context, animation, secondaryAnimation) {
         return Align(
           alignment: const Alignment(0, 1),
-          child: Material(
-            type: MaterialType.transparency,
-            child: widget,
+          child: SizedBox(
+            height: height,
+
+            child: Material(
+              type: MaterialType.transparency,
+              child: widget,
+            ),
           ),
         );
       });

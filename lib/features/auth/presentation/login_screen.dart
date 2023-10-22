@@ -42,7 +42,7 @@ class LoginScreen extends StatefulWidget {
       {required this.isForceUpdate,
       required this.isUpdate,
       Key? key,
-      this.isLoginFromAnotherAccountAndBuildFailure})
+      this.isLoginFromAnotherAccountAndBuildFailure = false})
       : super(key: key);
 
   @override
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    if ((widget.isUpdate ?? false)) {
+    if (true) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         showDialog(
             barrierDismissible: widget.isForceUpdate ?? false,
@@ -87,7 +87,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.pop(context);
                 },
                 accpettitle: StringManager.ok,
-
               );
             });
       });
@@ -97,11 +96,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void didChangeDependencies() {
-
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
-      setState(() {
-        _keyboardHeight = height;
-      });
+      if (mounted) {
+        setState(() {
+          _keyboardHeight = height;
+        });
+      }
     });
 
     super.didChangeDependencies();
@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     passwordController.dispose();
-     super.dispose();
+    super.dispose();
   }
 
   @override
