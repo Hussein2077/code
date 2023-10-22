@@ -2028,6 +2028,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<List<ReelModel>> getUserReel(String? id , String page) async{
   Map<String, String> headers = await DioHelper().header();
+  List<ReelModel> reels = [];
 
     try {
       final response = await Dio().get(
@@ -2037,9 +2038,14 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       Map<String, dynamic> resultData = response.data;
-
-      return List<ReelModel>.from(
+      List<ReelModel> normalReels =   List<ReelModel>.from(
           resultData['data'].map((x) => ReelModel.fromJson(x)));
+      reels.addAll(normalReels);
+
+      Methods().cachingReels(reels,response.data);
+
+
+      return reels ;
 
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getUserReel' );

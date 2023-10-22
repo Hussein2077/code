@@ -220,18 +220,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    log( widget.myDataModel.bubble.toString()+"xxxxxxxxxxxx");
-    log( widget.myDataModel.profile!.image.toString()+"xxxxxxxxxxxx");
 
-    log( widget.myDataModel.vip1!.level.toString()+"xxxxxxxxxxxx");
-
-    log(  widget.myDataModel.level!.senderImage.toString()+"xxxxxxxxxxxx");
-
-    log( widget.myDataModel.level!.receiverImage.toString()+"xxxxxxxxxxxx");
-
-    log( widget.myDataModel.frameId.toString()+"xxxxxxxxxxxx");
-
-    log( widget.myDataModel.frame.toString()+"xxxxxxxxxxxx");
 
 
     super.initState();
@@ -837,16 +826,22 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == roomModeKey) {
         if (result[messageContent]['mode'] == 'topCenter') {
+          widget.room.mode = 0 ;
+
           setState(() {
             layoutMode = LayoutMode.hostTopCenter;
             RoomScreen.userOnMics.value.clear();
           });
         } else if (result[messageContent]['mode'] == 'party') {
+          widget.room.mode = 1 ;
+
           setState(() {
             layoutMode = LayoutMode.party;
             RoomScreen.userOnMics.value.clear();
           });
         } else if (result[messageContent]['mode'] == 'seats12') {
+          widget.room.mode = 2 ;
+
           setState(() {
             layoutMode = LayoutMode.seats12;
             RoomScreen.userOnMics.value.clear();

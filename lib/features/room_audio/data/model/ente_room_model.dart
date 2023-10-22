@@ -55,7 +55,7 @@ class EnterRoomModel extends Equatable {
   final PKModel? pkModel;
   final List<dynamic>? seats ;
   final UserDataModel? topUser ;
-  final int? mode ;
+   int? mode ;
   final List<String>? admins ;
   final List<String>? banedUsers ;
   final ShowFamilyModel? ownerFamliy ;
@@ -69,7 +69,7 @@ class EnterRoomModel extends Equatable {
 
 
 
-  const EnterRoomModel(
+   EnterRoomModel(
       { this.strtoTime,
         this.isUsersBaned,
         this.timePK,

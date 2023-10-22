@@ -98,7 +98,6 @@ class Methods {
     await getIt<VideoCacheManager>().init() ;
       for(int i =0;i<reels.length;i++){
         if(kDebugMode){
-          log("ConstentApi().getImage(reels[i].url)${reels[i].url!}");
         }
         VideoCacheModel video = VideoCacheModel(
             img: reels[i].img == null? "" : reels[i].img!,
