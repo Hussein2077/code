@@ -433,6 +433,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       Future.delayed(const Duration(seconds: 3), () async {
         ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
 
+        // todo add condation
         //to show intro
         Map<String,dynamic>    mapZego = {
           "messageContent" : {

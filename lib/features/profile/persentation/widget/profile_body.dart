@@ -22,8 +22,6 @@ class ProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     Brightness currentBrightness = Theme.of(context).brightness;
     bool isDarkTheme = currentBrightness == Brightness.dark;
-    log('ggggggggkkkkkgggg${myData.frameId}');
-    log('${myData.frame}');
     return ScreenColorBackGround(
       color1: isDarkTheme ? Colors.black : ColorManager.lightGray,
       child: Column(

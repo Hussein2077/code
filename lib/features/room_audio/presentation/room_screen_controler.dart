@@ -442,11 +442,12 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
     if (result[messageContent]['vip'] == null
         ? false
         : result[messageContent]['vip'] > 0) {
+      userIntroData['user_name_intro']  = result[messageContent][userName];
+      userIntroData['user_image_intro']   = result[messageContent][userImge];
       RoomScreen.showEntro.value = true;
     }
 
-    userIntroData['user_name_intro']  = result[messageContent][userName];
-    userIntroData['user_image_intro']   = result[messageContent][userImge];
+
   } else {
     if (RoomScreen.isGiftEntroAnimating) {
       RoomScreen.listOfAnimatingEntros.add(EntroData(
