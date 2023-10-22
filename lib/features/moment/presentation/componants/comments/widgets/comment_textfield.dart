@@ -22,7 +22,7 @@ return Expanded(
     children: [
       Container(
         height: ConfigSize.defaultSize! * 5,
-        width: ConfigSize.defaultSize! * 35,
+        width: ConfigSize.screenWidth! * .8,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(
               ConfigSize.defaultSize! * 1.6),
@@ -92,7 +92,6 @@ return Expanded(
                   AddMomentCommentEvent(
                       momentId: momentId.toString(),
                       comment: commentController.text));
-
               commentController.clear();
             },
         child: Container(

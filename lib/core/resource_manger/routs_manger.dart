@@ -161,7 +161,7 @@ class RouteGenerator {
             builder: (_) => LoginScreen(
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
-              isLoginFromAnotherAccountAndBuildFailure: loginPramiter!.isLoginFromAnotherAccountAndBuildFailure??false,
+              isLoginFromAnotherAccountAndBuildFailure: loginPramiter?.isLoginFromAnotherAccountAndBuildFailure??false,
                 ));
       case Routes.otp:
         OtbScreenParm otbScreenParm =
@@ -507,7 +507,7 @@ class LoginPramiter {
   final bool? isLoginFromAnotherAccountAndBuildFailure;
 
   const LoginPramiter(
-      { this.isForceUpdate,  this.isUpdate,this.isLoginFromAnotherAccountAndBuildFailure, Key? key});
+      { this.isForceUpdate,  this.isUpdate, this.isLoginFromAnotherAccountAndBuildFailure=false, Key? key});
 }
 
 class MainPramiter {

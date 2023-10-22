@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:app_links/app_links.dart';
+
+ import 'package:app_links/app_links.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   static String? appSign ; 
   static int? appId ; 
-
+ static late  String devicePlatform;
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -34,7 +35,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-
+    if (defaultTargetPlatform == TargetPlatform.android){
+      SplashScreen.devicePlatform=StringManager.androidPlatform;
+    } else if (defaultTargetPlatform == TargetPlatform.iOS){
+      SplashScreen.devicePlatform=StringManager.iOSPlatform;
+    }
         loadResources().then((value)async {
             if(configModel == null){
               errorToast(context: context, title: StringManager.unexcepectedError.tr());
@@ -181,6 +186,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final result = await GetConfigeAppUseCase(
         homeRepo: getIt()).call(ConfigModelBody(
         appVersion: StringManager.versionApp.toString(),
+      devicePlatform:SplashScreen.devicePlatform,
     ));
     result.fold((l){
       SplashScreen.appId = l.appId ; 
