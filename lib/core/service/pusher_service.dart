@@ -46,7 +46,7 @@ class PusherService {
  }
 
  void onSubscriptionSucceeded(String channelName, dynamic data) {
-   log("onSubscriptionSucceeded: $channelName data: $data");
+   log("onSubscriptionSucceeded1: $channelName data: $data");
    final me = pusher.getChannel(channelName)?.me;
    log("Me: $me");
  }

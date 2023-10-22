@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
 //
-  static const int versionApp = 32;
+  static const int versionApp = 33;
 
   //updates
   static const String updateApp = 'Update TikChat APP';

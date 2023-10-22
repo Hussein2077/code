@@ -73,8 +73,7 @@ class RoomScreen extends StatefulWidget {
   static List<EntroData> listOfAnimatingEntros = [];
   static List<String> listOfAnimatingBanner = [];
   static List<MusicObject> musicesInRoom = [];
-  static List<int> teamBlue = [1, 2, 5, 6];
-  static List<int> teamRed = [3, 4, 7, 8];
+
   static List<String> usersHasMute = [];
   static Map<int, int> listOfMuteSeats = {};
   static ValueNotifier<Map<String, EmojieData>> listOfEmojie = ValueNotifier({});
@@ -295,15 +294,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     if (!MainScreen.iskeepInRoom.value) {
       RoomScreen.roomIsLoked = widget.room.roomPassStatus!;
 
-      // if (widget.myDataModel.intro! != "") {
-      //   loadAnimationEntro(widget.myDataModel.introId?.toString() ?? "",
-      //       widget.myDataModel.intro!);
-      //   if (widget.myDataModel.vip1?.id != null) {
-      //     RoomScreen.showEntro.value = true;
-      //   }
-      //   userIntroData['user_name_intro']  = widget.myDataModel.name!;
-      //   userIntroData['user_image_intro'] = widget.myDataModel.profile!.image!;
-      // }
       if (widget.room.showPk == 1) {
         PkController.showPK.value = true;
       }
@@ -441,7 +431,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
-        ZegoUIKit().sendInRoomMessage("انضم للغرفة", false);
+        ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
 
         //to show intro
         Map<String,dynamic>    mapZego = {
@@ -1019,9 +1009,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
           if (user?.id == null && PkController.showPK.value) {
-            if (RoomScreen.teamRed.contains(extraInfo['index'])) {
+            if (PkController.teamRed.contains(extraInfo['index'])) {
               return const  TeamRed();
-            } else if (RoomScreen.teamBlue.contains(extraInfo['index'])) {
+            } else if (PkController.teamBlue.contains(extraInfo['index'])) {
               return const  TeamBlue();
             } else {
               return Container();

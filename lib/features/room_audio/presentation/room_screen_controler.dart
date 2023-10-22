@@ -257,6 +257,8 @@ Future<void> clearAll() async {
   PkController.winBlueTeam = false;
   RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
+  RoomScreen.listOfEmojie.dispose() ;
+
   RoomScreen.musicesInRoom.clear();
   RoomScreen.adminsInRoom.clear();
   RoomScreen.usersMessagesRoom.clear();
