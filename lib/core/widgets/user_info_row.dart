@@ -57,7 +57,7 @@ class UserInfoRow extends StatelessWidget {
             ),
             UserImage(
               frame: userData.frame,
-              frameId: userData.familyId,
+              frameId: userData.frameId,
               imageSize: imageSize,
               boxFit: BoxFit.cover,
               image: userData.profile!.image!,

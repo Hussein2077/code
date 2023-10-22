@@ -1,25 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
-import 'package:tik_chat_v2/core/widgets/mian_button.dart';
-import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/linking_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/widget/log_out_button.dart';
 
-class SettingsScreen extends StatelessWidget {
+import 'component/data_screen/data_screen.dart';
 
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
@@ -31,7 +26,16 @@ class SettingsScreen extends StatelessWidget {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-           HeaderWithOnlyTitle(title: StringManager.settings.tr()),
+          HeaderWithOnlyTitle(title: StringManager.settings.tr()),
+          SizedBox(
+            height: ConfigSize.defaultSize! * 3.5,
+          ),
+          settingsRow(
+            context: context,
+            isIcon: true,
+            title: StringManager.data.tr(),
+            onTap: () => bottomDailog(context: context, widget: DataScreen()),
+          ),
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
@@ -40,7 +44,7 @@ class SettingsScreen extends StatelessWidget {
             icon: AssetsPath.linkingIcon,
             title: StringManager.linkingAccount.tr(),
             onTap: () =>
-                bottomDailog(context: context, widget:  LinkingScreen()),
+                bottomDailog(context: context, widget: LinkingScreen()),
           ),
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
@@ -123,9 +127,10 @@ class SettingsScreen extends StatelessWidget {
 
 Widget settingsRow(
     {required BuildContext context,
-    required String icon,
+    String? icon,
     required String title,
-     double? size,
+    bool? isIcon,
+    double? size,
     void Function()? onTap}) {
   return InkWell(
     onTap: onTap,
@@ -134,10 +139,12 @@ Widget settingsRow(
         const Spacer(
           flex: 1,
         ),
-        Image.asset(
-          icon,
-          scale:size?? 2,
-        ),
+        isIcon == null
+            ? Image.asset(
+                icon ?? '',
+                scale: size ?? 2,
+              )
+            : const Icon(Icons.cloud_done_outlined,color: ColorManager.mainColor,),
         const Spacer(
           flex: 1,
         ),

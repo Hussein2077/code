@@ -968,6 +968,16 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
     }
   }
 
+  @override
+  Future<Either<bool, Failure>> activeNotification()async {
+    try {
+      final result = await baseRemotlyDataSourceProfile.activeNotification();
+      return left(result );
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
 
 
 }

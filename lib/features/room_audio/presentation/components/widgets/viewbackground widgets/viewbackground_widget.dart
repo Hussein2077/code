@@ -13,21 +13,21 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_bottom_bar.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/lucky_candy.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/header_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_gift_banner_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_gift_win_circle.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_gift_banner_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_lucky_banner_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_yallow_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/lucky_gift_banner_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/lucky_gift_win_circle.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_gift_banner_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_lucky_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/pop_up_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/show_yallow_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
@@ -50,23 +50,23 @@ class ViewbackgroundWidget extends StatefulWidget {
   final void Function() destroyMusic;
   SVGAAnimationController animationControllerEntro;
   SVGAAnimationController animationControllerGift;
-  VideoPlayerController mp4Controller;
+  VideoPlayerController? mp4Controller;
   Map<String, dynamic> yallowBanner;
   Map<String, bool> showYellowBanner;
   Map<String,String> userIntroData;
   Animation<Offset> offsetAnimationEntro;
   AnimationController yellowBannercontroller;
   Animation<Offset> offsetAnimationYellowBanner;
-  UserDataModel yallowBannerSender;
+  UserDataModel? yallowBannerSender;
   Map<String, bool> isPlural;
-  UserDataModel sendDataUser;
-  UserDataModel receiverDataUser;
+  UserDataModel? sendDataUser;
+  UserDataModel? receiverDataUser;
   AnimationController controllerBanner;
   Animation<Offset> offsetAnimationBanner;
   AnimationController luckGiftBannderController;
   Animation<Offset> offsetLuckGiftAnimationBanner;
   ValueNotifier<bool> showPopUp;
-  UserDataModel pobUpSender;
+  UserDataModel? pobUpSender;
   Map<String, dynamic> durationKickout;
   ViewbackgroundWidget({super.key,
     required this.room,
@@ -197,8 +197,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   builder: (context, isShow, _) {
                     if (isShow) {
                       return AspectRatio(
-                        aspectRatio: widget.mp4Controller.value.aspectRatio,
-                        child: VideoPlayer(widget.mp4Controller),
+                        aspectRatio: widget.mp4Controller!.value.aspectRatio,
+                        child: VideoPlayer(widget.mp4Controller!),
                       );
                     } else {
                       return Container();
@@ -241,8 +241,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         left: AppPadding.p36,
                         child: ShowGiftBannerWidget(
                           isPlural: widget.isPlural['isPlural']!,
-                          sendDataUser: widget.sendDataUser,
-                          receiverDataUser: widget.receiverDataUser,
+                          sendDataUser: widget.sendDataUser!,
+                          receiverDataUser: widget.receiverDataUser!,
                           giftImage: widget.userBannerData['gift_banner'] ?? '',
                           ownerId: widget.userBannerData['owner_id_room_banner'] ?? widget.room.ownerId.toString(),
                           controllerBanner: widget.controllerBanner,
@@ -261,7 +261,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 if (state is SendLuckyGiftSucssesState) {
                   if (state.data.isWin && !state.data.isPopular) {
                     ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
-                    LukyGiftWinCircle.winCoin = state.data.winCoin;
+                    LuckyGiftWinCircle.winCoin = state.data.winCoin;
                     RoomScreen.winCircularluckyGift.value =
                         RoomScreen.winCircularluckyGift.value + 1;
                   } else if (state.data.isWin && state.data.isPopular) {
@@ -275,7 +275,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   if (state.isFirst == 1) {
                     widget.luckGiftBannderController.forward();
                   }
-                } else if (state is SendLuckyGiftErrorStateState) {
+                }
+                else if (state is SendLuckyGiftErrorStateState) {
                   errorToast(context: context, title: state.error);
                 }
               },
@@ -329,7 +330,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                             ownerDataModel: widget.pobUpSender,
                             massage: ZegoInRoomMessageInput.messagePonUp,
                             enterRoomModel: widget.room,
-                            vip: widget.pobUpSender.vip1?.level ?? 8)),
+                            vip: widget.pobUpSender == null ? 8 : widget.pobUpSender!.vip1!.level!)),
                   );
                 }),
             Positioned(
@@ -370,9 +371,9 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   builder: (context, sohw, _) {
                     if (sohw != 0) {
                       Future.delayed(const Duration(seconds: 1)).then((value) {
-                        return showOverlay(const Align(
+                        return showOverlay( const Align(
                             alignment: Alignment.topCenter,
-                            child: LukyGiftWinCircle()));
+                                      child: LuckyGiftWinCircle()));
                       });
                       return const SizedBox();
                     } else {
