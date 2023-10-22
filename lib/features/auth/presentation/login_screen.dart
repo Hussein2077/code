@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -35,9 +36,13 @@ import 'widgets/privcy_text_widget.dart';
 class LoginScreen extends StatefulWidget {
   final bool? isUpdate;
   final bool? isForceUpdate;
-final bool? isLoginFromAnotherAccountAndBuildFailure;
+  final bool? isLoginFromAnotherAccountAndBuildFailure;
+
   const LoginScreen(
-      {required this.isForceUpdate, required this.isUpdate, Key? key, this.isLoginFromAnotherAccountAndBuildFailure})
+      {required this.isForceUpdate,
+      required this.isUpdate,
+      Key? key,
+      this.isLoginFromAnotherAccountAndBuildFailure})
       : super(key: key);
 
   @override
@@ -49,10 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
   late TextEditingController passwordController;
 
-
   @override
   void initState() {
-
     if ((widget.isUpdate ?? false)) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         showDialog(
@@ -73,18 +76,28 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
     passwordController = TextEditingController();
+    if (widget.isLoginFromAnotherAccountAndBuildFailure!) {
+      Future.delayed(const Duration(seconds: 2), () {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return PopUpDialog(
+                headerText: StringManager.anotherAccountLoggedIn,
+                accpetText: () {
+                  Navigator.pop(context);
+                },
+                accpettitle: StringManager.ok,
 
+              );
+            });
+      });
+    }
     super.initState();
   }
+
   @override
   void didChangeDependencies() {
-    if ( widget.isLoginFromAnotherAccountAndBuildFailure!) {
-     Future.delayed(const Duration(seconds: 2),(){
-       errorToast(
-           context:context,
-           title: StringManager.anotherAccountLoggedIn);
-     });
-    }
+
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
       setState(() {
         _keyboardHeight = height;
@@ -97,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     passwordController.dispose();
-    super.dispose();
+     super.dispose();
   }
 
   @override

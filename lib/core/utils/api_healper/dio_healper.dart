@@ -57,14 +57,14 @@ class DioHelper {
       case ServerFailure:
         return Strings.serverFailureMessage;
       case UnauthorizedFailure:
-        isLoginFromAnotherAccountAndBuildFailure = true;
+        print('once');
         Navigator.pushNamedAndRemoveUntil(
             GlobalContextService.navigatorKey.currentContext!,
             Routes.login,
             (Route<dynamic> route) => false,
             arguments: LoginPramiter(
                 isLoginFromAnotherAccountAndBuildFailure:
-                    isLoginFromAnotherAccountAndBuildFailure));
+                isLoginFromAnotherAccountAndBuildFailure = true));
 
         return Strings.unauthorizedFailureMassage;
       case SiginGoogleFailure:
