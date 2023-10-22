@@ -9,8 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
@@ -173,7 +175,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Map<String, bool> showYellowBanner = {'showYellowBanner': false};
 
   String numberOfGift = "0";
-  UserDataModel? pobUpSender;
+  Map <String , dynamic> popUpData = {"pop_up_sender" : null};
   late AnimationController yellowBannercontroller;
   late Animation<Offset> offsetAnimationYellowBanner;
   UserDataModel? yallowBannerSender;
@@ -806,7 +808,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         BannerSuperBoxKey(result, superBox, LuckyBoxVariables.sendSuperBox);
       }
       else if (result[messageContent]['msg'] == showPobUpKey) {
-        ShowPobUpKey(result, pobUpSender, showPopUp);
+
+
+        ShowPobUpKey(result,popUpData, showPopUp ) ;
+
+
       }
       else if (result[messageContent][message] == banFromWritingKey) {
         BanFromWritingKey(result, widget.myDataModel.id.toString(), widget.room.ownerId.toString(), context);
@@ -879,7 +885,32 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 : -1
             ..hostSeatIndexes = [0]
             ..seatConfig = getSeatConfig()
-            ..viewbackground = ViewbackgroundWidget(room: widget.room, roomDataUpdates: roomDataUpdates, userBannerData: userBannerData, superBox: superBox, userInRoomController: userInRoomController, layoutMode: layoutMode, refrashRoom: refrashRoom, controllerMusice: controllerMusice, destroyMusic: destroyMusic, animationControllerEntro: animationControllerEntro, animationControllerGift: animationControllerGift, mp4Controller: mp4Controller, yallowBanner: yallowBanner, showYellowBanner: showYellowBanner, userIntroData: userIntroData, offsetAnimationEntro: offsetAnimationEntro, yellowBannercontroller: yellowBannercontroller, offsetAnimationYellowBanner: offsetAnimationYellowBanner, yallowBannerSender: yallowBannerSender, isPlural: isPlural, sendDataUser: sendDataUser, receiverDataUser: receiverDataUser, controllerBanner: controllerBanner, offsetAnimationBanner: offsetAnimationBanner, luckGiftBannderController: luckGiftBannderController, offsetLuckGiftAnimationBanner: offsetLuckGiftAnimationBanner, showPopUp: showPopUp, pobUpSender: pobUpSender, durationKickout: durationKickout)
+            ..viewbackground = ViewbackgroundWidget(room: widget.room,
+                roomDataUpdates: roomDataUpdates, userBannerData: userBannerData,
+                superBox: superBox, userInRoomController: userInRoomController,
+                layoutMode: layoutMode, refrashRoom: refrashRoom,
+                controllerMusice: controllerMusice, destroyMusic: destroyMusic,
+                animationControllerEntro: animationControllerEntro,
+                animationControllerGift: animationControllerGift,
+                mp4Controller: mp4Controller,
+                yallowBanner: yallowBanner,
+                showYellowBanner: showYellowBanner,
+                userIntroData: userIntroData,
+                offsetAnimationEntro: offsetAnimationEntro,
+                yellowBannercontroller: yellowBannercontroller,
+                offsetAnimationYellowBanner: offsetAnimationYellowBanner,
+                yallowBannerSender: yallowBannerSender,
+                isPlural: isPlural,
+                sendDataUser: sendDataUser,
+                receiverDataUser: receiverDataUser,
+                controllerBanner: controllerBanner,
+                offsetAnimationBanner: offsetAnimationBanner,
+                luckGiftBannderController: luckGiftBannderController,
+                offsetLuckGiftAnimationBanner: offsetLuckGiftAnimationBanner,
+                showPopUp: showPopUp,
+                popUpData: popUpData,
+                durationKickout: durationKickout)
+
             ..background = BackgroundWidget(room: widget.room, layoutMode: layoutMode, isHost: widget.isHost)
             ..onSeatsChanged = (
               Map<int, ZegoUIKitUser> takenSeats,

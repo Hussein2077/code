@@ -257,7 +257,6 @@ Future<void> clearAll() async {
   PkController.winBlueTeam = false;
   RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
-  RoomScreen.listOfEmojie.dispose() ;
 
   RoomScreen.musicesInRoom.clear();
   RoomScreen.adminsInRoom.clear();
@@ -626,14 +625,10 @@ TopUserKey(Map<String, dynamic> result)async{
   RoomScreen.topUserInRoom.value = topModel;
 }
 
-ShowPobUpKey(Map<String, dynamic> result, var pobUpSender, var showPopUp)async{
+ShowPobUpKey(Map<String, dynamic> result, Map<String , dynamic> pobUpData, var showPopUp)async{
   ZegoInRoomMessageInput.senderPobUpId = result[messageContent]['uId'];
-  if (RoomScreen.usersInRoom[result[messageContent]['uId']] == null) {
-    pobUpSender = await RemotlyDataSourceProfile().getUserData(userId: result[messageContent]['uId'].toString());
-    RoomScreen.usersInRoom.putIfAbsent(result[messageContent]['uId'].toString(), () => pobUpSender!);
-  } else {
-    pobUpSender = RoomScreen.usersInRoom[result[messageContent]['uId'].toString()];
-  }
+  pobUpData['pop_up_sender']  = UserDataModel(name:result[messageContent]['name'] , profile: ProfileRoomModel(image:result[messageContent]['image'] ,  ) , vip1:VipCenterModel(level:result[messageContent]['VIP'] ) );
+
   ZegoInRoomMessageInput.messagePonUp = result[messageContent]['my_msg'];
 
   showPopUp.value = true;
