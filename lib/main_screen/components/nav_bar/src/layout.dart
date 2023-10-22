@@ -142,10 +142,10 @@ class BottomNavLayoutState extends State<BottomNavLayout> {
     // If something else than current item is selected
     else {
       // Navigate to page
-      if(ReelsPage.videoPlayerController != null){
-        ReelsPage.videoPlayerController!.pause();
-        ReelsPage.isVideoPause.value= true ;
-      }
+      // if(ReelsPage.videoPlayerController != null){
+      //   ReelsPage.videoPlayerController!.pause();
+      //   ReelsPage.isVideoPause.value= true ;
+      // }
       pageStack.push(index);
 
       // Set state to change the page

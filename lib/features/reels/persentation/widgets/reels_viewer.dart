@@ -3,13 +3,17 @@
 import 'dart:developer';
 
 import 'package:card_swiper/card_swiper.dart';
+import 'package:chewie/chewie.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
+import 'package:video_player/video_player.dart';
 
 class ReelsViewer extends StatefulWidget {
   /// use reel model and provide list of reels, list contains reels object, object contains url and other parameters
@@ -50,8 +54,9 @@ class ReelsViewer extends StatefulWidget {
   final Function()? onClickBackArrow;
 
   // StartIndex 
-  final int? startIndex ; 
+  final int? startIndex ;
 
+  static ReelModel? reelModel   ;
 
    // to know iam in user view or not
   final bool userView; 
@@ -80,10 +85,15 @@ class ReelsViewer extends StatefulWidget {
 }
 
 class _ReelsViewerState extends State<ReelsViewer> {
+
+  VideoPlayerController? _videoPlayerController;
+  ChewieController? _chewieController;
   SwiperController controller = SwiperController();
+  FileInfo? image ;
 
   @override
   void initState() {
+    initializePlayer() ;
    controller.index = widget.startIndex??0;
     super.initState();
   }
@@ -118,7 +128,8 @@ class _ReelsViewerState extends State<ReelsViewer> {
         if(kDebugMode) {
           log('Scroll ended');
         }
-        ReelsPage.canPlayNow.value = true ;
+    //    ReelsPage.canPlayNow.value = true ;
+        initializePlayer() ;
       }
       return true;
     },
@@ -132,6 +143,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
                    //padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
                    child: Swiper(
                      itemBuilder: (BuildContext context, int index) {
+
                        return ReelsPage(
                          userView: widget.userView,
                          item: widget.reelsList[index],
@@ -143,9 +155,12 @@ class _ReelsViewerState extends State<ReelsViewer> {
                          showVerifiedTick: widget.showVerifiedTick,
                          swiperController: controller,
                          showProgressIndicator: widget.showProgressIndicator,
+                         image: image,
+                         videoPlayerController:_videoPlayerController ,
+                         chewieController: _chewieController,
+
                        );
                      },
-
                      controller: controller,
                      itemCount: widget.reelsList.length,
                      scrollDirection: Axis.vertical,
@@ -175,39 +190,74 @@ class _ReelsViewerState extends State<ReelsViewer> {
                   ),
                 )
 
-              // Container(
-              //   height: ConfigSize.defaultSize!*0.1,
-              //  // height: ConfigSize.defaultSize!*6.4,
-              //   color: Colors.black26,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //
-              //       SizedBox(
-              //         width: ConfigSize.defaultSize!*2.4,
-              //       ),
-              //
-              //
-              //       // Text(
-              //       //   widget.appbarTitle ?? 'Reels View',
-              //       //   style:  TextStyle(
-              //       //     fontSize: ConfigSize.defaultSize!*2.2,
-              //       //     fontWeight: FontWeight.w600,
-              //       //     color: Colors.white
-              //       //   ),
-              //       // ),
-              //
-              //
-              //     IconButton(onPressed: (){
-              //        Navigator.pushNamed(context, Routes.uploadReels);
-              //     }, icon: Icon(Icons.add , color: Colors.white, size: ConfigSize.defaultSize!*3,))
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ),
       ),
     ));
+  }
+
+
+  Future initializePlayer() async {
+
+
+    image =await  getIt<DefaultCacheManager>().getFileFromCache(ReelsViewer.reelModel?.img??'');
+
+    final file = await getIt<DefaultCacheManager>().getFileFromCache(ReelsViewer.reelModel?.url??'');
+    if(file?.file !=null){
+
+
+
+      ReelsPage.isVideoPause.value = false ;
+      _videoPlayerController = VideoPlayerController.file(file!.file);
+      if(kDebugMode){
+        log("in cache reels");
+      }
+    }else{
+      if(kDebugMode){
+        log((ReelsViewer.reelModel!.url.toString()));
+        log("in network reels");
+      }
+      _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(ReelsViewer.reelModel!.url!));
+    }
+
+
+
+
+    _videoPlayerController?.setLooping(true);
+
+    try{
+      await Future.wait([_videoPlayerController!.initialize()]).then((value) {
+        ReelsPage.canPlayNow.value= false ;
+      } );
+    }catch(e){
+
+      if(kDebugMode){
+        log("error type : ${e.toString()}");
+        log("error in reels path is :${Uri.parse(ReelsViewer.reelModel!.url!+'rr')}");
+      }
+      // widget.swiperController.next();
+    }
+
+
+    _chewieController = ChewieController(
+      videoPlayerController: _videoPlayerController!,
+      autoPlay: true,
+      showControls: false,
+      looping: true,
+    );
+    setState(() {});
+    _videoPlayerController?.addListener(() {
+      if (_videoPlayerController?.value.position ==
+          _videoPlayerController?.value.duration) {// TODO add auto scroll as feature
+        // widget.swiperController.next();
+      }
+      if (!ModalRoute.of(context)!.isCurrent) {
+        _videoPlayerController?.pause();
+        ReelsPage.isVideoPause.value = true;
+      }
+
+
+    });
   }
 }
