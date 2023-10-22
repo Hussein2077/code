@@ -2,6 +2,8 @@
 
 
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_social_textfield/flutter_social_textfield.dart';
@@ -383,6 +385,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
       return;
     }
     if(ZegoInRoomMessageInput.activePobUp.value && int.parse(numPobUp)>0){
+      log("elhamody");
       BlocProvider.of<OnRoomBloc>(context).add(
           SendPobUpEvent(ownerId: widget.roomData.ownerId.toString(),
           message: textController.text)) ;
