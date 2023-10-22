@@ -437,9 +437,7 @@ ChangeBackground(Map<String, dynamic> result, Map<String,String> roomDataUpdates
 
 UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Future<void> Function(String imgId, String imgUrl) loadAnimationEntro)async{
   if (result[messageContent][entroImgIdKey] == "") {
-    if (result[messageContent]['vip'] == null
-        ? false
-        : result[messageContent]['vip'] > 0) {
+    if (result[messageContent]['vip'] == null ? false : result[messageContent]['vip'] > 0) {
       RoomScreen.showEntro.value = true;
     }
 
