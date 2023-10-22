@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
+import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
@@ -27,7 +28,7 @@ abstract class BaseRemotlyDataSource {
   Future<MyDataModel> loginWithPassAndPhone(AuthPramiter authPramiter);
   Future<MyDataModel> addInformation(InformationPramiter informationPramiter);
   Future<MyDataModel> sigInWithFacebook();
-  Future<MyDataModel> sigInWithApple();
+  Future<AuthWithAppleModel> sigInWithApple();
   Future<AuthWithGoogleModel> sigInWithGoogle();
   Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
@@ -170,24 +171,17 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   
   @override
   Future<AuthWithGoogleModel> sigInWithGoogle() async{
-
-    print("1");
   
     // ignore: no_leading_underscores_for_local_identifiers
     final _googleSignIn = GoogleSignIn(scopes: ['email']);
     Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
 
-    print("2");
     // // ignore: unused_element
     // Future logout() => _googleSignIn.disconnect();
     final userModel = await login();
 
-    print("3");
-
     final devicedata = await DioHelper().initPlatformState(); // to get information device
-     Map<String, String> headers = await DioHelper().header();
-
-    print("4");
+    Map<String, String> headers = await DioHelper().header();
 
     if (userModel == null)
     {
@@ -226,7 +220,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   }
 
   @override
-  Future<MyDataModel> sigInWithApple() async{
+  Future<AuthWithAppleModel> sigInWithApple() async{
     final AuthorizationCredentialAppleID? credential ;
     try {
       credential = await SignInWithApple
@@ -242,8 +236,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     final devicedata = await DioHelper().initPlatformState(); // to get information device
     Map<String, String> headers = await DioHelper().header();
 
-    log("credential.authorizationCode,"+credential.authorizationCode);
-
     final body =    {
       ConstentApi.type: "apple",
       ConstentApi.name: credential.givenName,
@@ -252,7 +244,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       'device_token':devicedata
     };
     try{
-      //todo change url
       final response = await Dio().post(
         ConstentApi.loginUrl,
         data: body,
@@ -266,7 +257,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       MyDataModel userData = MyDataModel.fromMap(resultData['data']);
 
       Methods().saveUserToken(authToken: userData.authToken);
-      return userData;
+
+      return AuthWithAppleModel(apiUserData: userData, userData: credential);
     }on DioError catch (e){
       throw DioHelper.handleDioError(dioError: e,endpointName: 'sigInWithApple');
     }

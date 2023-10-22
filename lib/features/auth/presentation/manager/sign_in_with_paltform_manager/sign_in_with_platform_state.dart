@@ -1,6 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart';
 
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
 
@@ -45,7 +46,7 @@ final AuthWithGoogleModel userData ;
 
 class SiginWithAppleSuccesMessageState extends SignInWithPlatformState{
   final String succesMessage ;
-  final MyDataModel userModel ;
+  final AuthWithAppleModel userModel ;
 
   const SiginWithAppleSuccesMessageState({ required this.userModel, required this.succesMessage});
 

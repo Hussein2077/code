@@ -1,8 +1,9 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names, prefer_typing_uninitialized_variables
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -10,10 +11,10 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_state.dart';
-
 import 'widgets/add_profile_pic.dart';
 import 'widgets/continer_with_icons.dart';
 import 'widgets/country_widget.dart';
@@ -21,8 +22,8 @@ import 'widgets/date/date_widget.dart';
 import 'widgets/male_female_buttons.dart';
 
 class AddInfoScreen extends StatefulWidget {
-  final GoogleSignInAccount? googleData;
-  const AddInfoScreen({ this.googleData, super.key});
+  ThirdPartyAuthModel Data;
+  AddInfoScreen({required this.Data, super.key});
 
   @override
   State<AddInfoScreen> createState() => _AddInfoScreenState();
@@ -33,9 +34,17 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   @override
   void initState() {
     nameController = TextEditingController();
-    if (widget.googleData?.displayName != null) {
-      nameController.text = widget.googleData!.displayName!;
+    if(widget.Data.type.toString() == "google"){
+    if (widget.Data.data.displayName != null) {
+      nameController.text = widget.Data.data.displayName!;
     }
+    }
+    if(widget.Data.type.toString() == "apple"){
+    if(widget.Data.data.givenName != null){
+      nameController.text = widget.Data.data.givenName!;
+    }
+    }
+
     super.initState();
   }
 
@@ -62,7 +71,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 1,
               ),
-              AddProFilePic(gooleImageUrl: widget.googleData?.photoUrl,quality: 40,),
+              AddProFilePic(gooleImageUrl: widget.Data.type.toString() == "google"? widget.Data.data.photoUrl : null, quality: 40,),
               const Spacer(
                 flex: 1,
               ),

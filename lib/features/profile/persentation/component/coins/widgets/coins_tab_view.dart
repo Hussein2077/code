@@ -77,16 +77,16 @@ class _CoinsTabViewState extends State<CoinsTabView> {
 
   Future<void> _handlePurchaseUpdates(List<PurchaseDetails> detailsList) async{
     for (PurchaseDetails purchaseDetails in detailsList) {
-      log("status: ${purchaseDetails.status.name}");
+      print("status: ${purchaseDetails.status.name}");
       if (purchaseDetails.status == PurchaseStatus.purchased) {
         await acknowledgePurchase(purchaseDetails);
-        log(purchaseDetails.transactionDate!);
+        print(purchaseDetails.transactionDate!);
         // Handle the purchased item, e.g., grant access to premium content.
         // Make sure to verify and acknowledge the purchase on your server.
         // You can also save purchase details locally for later reference.
       } else if (purchaseDetails.status == PurchaseStatus.error) {
         // Handle purchase errors, if any.
-        log("status error: ${purchaseDetails.error!.message}");
+        print("status error: ${purchaseDetails.error!.message}");
       }
     }
   }
@@ -94,7 +94,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
   Future<void> acknowledgePurchase(PurchaseDetails purchaseDetails) async {
     try {
       if (purchaseDetails.pendingCompletePurchase) {
-        log("pendingCompletePurchase");
+        print("pendingCompletePurchase");
         await InAppPurchase.instance.completePurchase(purchaseDetails);
       }
     } catch (e) {
