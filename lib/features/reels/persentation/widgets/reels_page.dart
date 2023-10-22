@@ -28,6 +28,7 @@ class ReelsPage extends StatefulWidget {
   final bool showProgressIndicator;
   final bool userView;
   static VideoPlayerController? videoPlayerController;
+   static bool isFirst = true;
 
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
 
@@ -77,6 +78,10 @@ class _ReelsPageState extends State<ReelsPage>
         UrlChecker.isValid(widget.item.url!)) {
       initializePlayer().then((value) {
         ReelsPage.videoPlayerController = _videoPlayerController;
+        if(ReelsPage.isFirst) {
+          ReelsPage.videoPlayerController?.play();
+          ReelsPage.isFirst = false;
+        }
       });
     }
   }
@@ -121,7 +126,6 @@ class _ReelsPageState extends State<ReelsPage>
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      autoPlay: true,
       showControls: false,
       looping: true,
     );
