@@ -1,6 +1,7 @@
 
-import 'dart:io';
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -9,6 +10,7 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_state.dart';
@@ -23,7 +25,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
     return BlocConsumer<SignInWithPlatformBloc, SignInWithPlatformState>(
       listener: (context, state) async{
         if(state is SiginWithGoogleSuccesMessageState){
-                    Methods().clearAuthData();
+          Methods().clearAuthData();
           //todo check this event if still here or not
           await Methods().addFireBaseNotifcationId();
 
@@ -32,7 +34,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.addInfo,
-              arguments: state.userData.userData,
+              arguments: ThirdPartyAuthModel(data: state.userData.userData, type: "google"),
               (route) => false,
             );
           } else {
@@ -51,9 +53,9 @@ class GoogleAndAppleAuth extends StatelessWidget {
         if(state is SiginWithAppleSuccesMessageState){
           Methods().clearAuthData();
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-          if (state.userModel.isFirst!) {
+          if (state.userModel.apiUserData.isFirst!) {
             Navigator.pushNamedAndRemoveUntil(
-                context, Routes.addInfo, (route) => false);
+                context, Routes.addInfo, arguments: ThirdPartyAuthModel(data: state.userModel.userData, type: "apple"), (route) => false);
           } else {
             Navigator.pushNamedAndRemoveUntil(
               context,

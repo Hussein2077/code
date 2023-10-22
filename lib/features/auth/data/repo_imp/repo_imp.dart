@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/remotly_datasource.dart';
+import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
@@ -60,7 +61,7 @@ class RepositoryImp extends BaseRepository {
     }
   }
   @override
-  Future<Either<MyDataModel, Failure>> siginWithApple()async {
+  Future<Either<AuthWithAppleModel, Failure>> siginWithApple()async {
     try {
       final result = await baseRemotlyDataSource.sigInWithApple();
       return Left(result);

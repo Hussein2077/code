@@ -70,6 +70,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_follwers_o
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
@@ -471,6 +472,10 @@ final  String theme ;
         BlocProvider(
           create: (context) => getIt<GetUsersInRoomBloc>(),
         ),
+                BlocProvider(
+          create: (context) => getIt<InAppPurchaseBloc>(),
+        ),
+
 
       ],
       child:  BlocBuilder<ThemeBloc, ThemeState>(
