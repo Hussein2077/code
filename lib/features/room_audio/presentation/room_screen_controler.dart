@@ -11,14 +11,13 @@ import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/error_luck_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/sucess_luck_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
@@ -258,14 +257,17 @@ Future<void> clearAll() async {
   PkController.winBlueTeam = false;
   RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
+  RoomScreen.listOfEmojie.dispose() ;
+
   RoomScreen.musicesInRoom.clear();
   RoomScreen.adminsInRoom.clear();
+  RoomScreen.usersMessagesRoom.clear();
+  RoomScreen.usersMessagesProfileRoom.clear();
   MusicScreen.isPlaying.value = false;
   RoomScreen.adminsInRoom.clear();
   RoomScreen.usersInRoom.clear();
   LuckyBoxVariables.luckyBoxMap['luckyBoxes'].clear();
-  RoomScreen.usersMessagesInRoom.clear();
-  RoomScreen.usersMessagesRoom.clear();
+  RoomScreen.usersMessagesProfileRoom.clear();
   LuckyBoxVariables.luckyBoxMap['currentBox'] = 1;
   SetTimerLuckyBox.remTimeSuperBox = 0;
   DialogLuckyBox.startTime = false;
@@ -440,18 +442,19 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
     if (result[messageContent]['vip'] == null
         ? false
         : result[messageContent]['vip'] > 0) {
+      userIntroData['user_name_intro']  = result[messageContent][userName];
+      userIntroData['user_image_intro']   = result[messageContent][userImge];
       RoomScreen.showEntro.value = true;
     }
 
-    userIntroData['user_name_intro']  = result[messageContent][userName];
-    userIntroData['user_image_intro']   = result[messageContent][userImge];
+
   } else {
     if (RoomScreen.isGiftEntroAnimating) {
       RoomScreen.listOfAnimatingEntros.add(EntroData(
           imgId: result[messageContent][entroImgIdKey],
           imgUrl: result[messageContent]['entroImg']));
     } else {
-      await loadAnimationEntro(result[messageContent][entroImgIdKey],
+      await loadAnimationEntro(result[messageContent][entroImgIdKey].toString(),
       result[messageContent]['entroImg']);
       if (result[messageContent]['vip'] == null
           ? false

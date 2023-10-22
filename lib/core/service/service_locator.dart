@@ -72,6 +72,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_mome
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/active_notification_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/add_intrested_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_time_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_uc.dart';
@@ -135,6 +136,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/get_vip_prev_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_active_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
@@ -228,6 +230,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_use
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_boxex_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_mybackground_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_user_in_room_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_room_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_user_uc.dart';
@@ -254,6 +257,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conte
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
@@ -515,12 +519,15 @@ class ServerLocator {
     getIt.registerFactory(() => GetFollowingReelsBloc(getFollowingReelUseCase:  getIt()));
 
     getIt.registerFactory(() => LuckyGiftBannerBloc(sendLuckyGiftUc: getIt()));
+    getIt.registerFactory(() => ActiveNotificationBloc(activeNotificationUseCase: getIt()));
+    getIt.registerFactory(() => GetUsersInRoomBloc(getRoomUserUseCase: getIt(),));
 
 
 
 //usecase
-    getIt.registerLazySingleton(
-            () => SendLuckyGiftUc(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => GetRoomUserUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => ActiveNotificationUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => SendLuckyGiftUc(roomRepo: getIt()));
     getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => GetMomentGiftsUseCase(baseRepositoryMoment: getIt()));
     getIt.registerLazySingleton(() => GetMomentLikeUseCase(baseRepositoryMoment: getIt()));

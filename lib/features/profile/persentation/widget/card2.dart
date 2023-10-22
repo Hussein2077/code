@@ -44,9 +44,9 @@ class Card2 extends StatelessWidget {
               ),
                     if (StringManager.userType[3]! || StringManager.userType[6]!)
               ProfileRowItem(
-                title: StringManager.agency.tr(),
+                title: StringManager.chargingFromTheSystem.tr(),
                 image: AssetsPath.agencyIcon,
-                onTap: () => Navigator.pushNamed(context, Routes.charchingDolarsForUsers,
+                onTap: () => Navigator.pushNamed(context, Routes.charchingCoinsForUsers,
                     arguments: myData),
               ),
             ProfileRowItem(

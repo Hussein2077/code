@@ -7,8 +7,10 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
@@ -34,6 +36,8 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
   @override
   void initState() {
     super.initState();
+
+
       controller = WebViewController()
         ..setJavaScriptMode(JavaScriptMode.unrestricted)
         ..setBackgroundColor(const Color(0x00000000))
@@ -86,9 +90,8 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
               }
-              print('page body: $pageBody');
             })
-        ..loadRequest(Uri.parse(widget.url));
+        ..loadFile(widget.url);
   }
 
   @override

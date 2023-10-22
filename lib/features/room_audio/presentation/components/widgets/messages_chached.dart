@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -49,7 +50,7 @@ class MessagesChached extends StatelessWidget {
     return InkWell(
       onTap: () {
         if(message.user.id != "0" ){
-  bottomDailog(
+          bottomDailog(
             context: context,
             widget: MessageRoomProfile(
               myData: myDataModel,
@@ -207,8 +208,7 @@ class MessagesChached extends StatelessWidget {
                   right: AppPadding.p2),
               child: CachedNetworkImage(
                   imageUrl: ConstentApi().getImage(bubble == ""
-                      ? RoomScreen
-                      .usersMessagesRoom[message.user.id]?.bubble
+                      ? RoomScreen.usersMessagesRoom[message.user.id]?.bubble
                       : bubble),
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(

@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 
 class FamilyProfileBottomBar extends StatelessWidget {
   final String familyId;
+
   const FamilyProfileBottomBar({required this.familyId, super.key});
 
   @override
@@ -59,7 +60,6 @@ class FamilyProfileBottomBar extends StatelessWidget {
           ),
         );
         }
-    
       },
     );
   }

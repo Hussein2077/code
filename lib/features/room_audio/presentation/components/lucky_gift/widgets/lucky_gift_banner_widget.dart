@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 import 'dart:ui' as ui;
 
-import '../../../../../core/utils/config_size.dart';
 
 
 class LuckGiftBannerWidget extends StatelessWidget {

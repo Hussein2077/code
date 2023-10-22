@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -44,8 +45,7 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
   @override
   Widget build(BuildContext context) {
  
-      BlocProvider.of<GetUserBloc>(context)
-          .add(GetuserEvent(userId: widget.userId));
+      BlocProvider.of<GetUserBloc>(context).add(GetuserEvent(userId: widget.userId));
 
 
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
@@ -69,14 +69,21 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
         child: BlocBuilder<GetUserBloc, GetUserState>(
           builder: (context, state) {
             if (state is GetUserLoddingState) {
-              return TransparentLoadingWidget(
+              return  RoomScreen.usersMessagesProfileRoom[widget.userId] == null
+                  ? TransparentLoadingWidget(
                 height: ConfigSize.defaultSize!*2,
                 width: ConfigSize.defaultSize!*7.2,
+              ) : UserProfileInRoom(
+                  myData: widget.myData,
+                  roomData: widget.roomData,
+                  userData: RoomScreen.usersMessagesProfileRoom[widget.userId]!,
+                  layoutMode: widget.layoutMode
               );
+
             } else if (state is GetUserSucssesState) {
-              RoomScreen.usersInRoom.removeWhere((key, value) => key == state.data.id.toString());
-              RoomScreen.usersInRoom
-                  .putIfAbsent(state.data.id.toString(), () => state.data);
+              RoomScreen.usersMessagesProfileRoom.removeWhere((key, value) => key == state.data.id.toString());
+              RoomScreen.usersMessagesProfileRoom.putIfAbsent(state.data.id.toString(), () => state.data);
+
 
               return UserProfileInRoom(
                        myData: widget.myData,

@@ -23,8 +23,6 @@ class CustoumCachedImage extends StatelessWidget{
   const  CustoumCachedImage({super.key, required this.url,this.widget,required this.height,required this.width, this.errorWidget, this.radius, this.boxFit});
   @override
   Widget build(BuildContext context) {
-
-    log("Imge VIP  "+url);
     return CachedNetworkImage(
       
       width: width,

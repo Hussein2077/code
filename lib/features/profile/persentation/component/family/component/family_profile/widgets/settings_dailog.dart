@@ -14,7 +14,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_delete_family/bloc/delete_family_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_delete_family/bloc/delete_family_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_exite_family/bloc/exit_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_exite_family/bloc/exit_family_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_exite_family/bloc/exit_family_state.dart';
+
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 
@@ -24,6 +26,7 @@ class SettingsDailog extends StatelessWidget {
   final String familyId;
   final bool isAdmin;
   final bool isMember;
+
   const SettingsDailog(
       {required this.familyId,
       required this.isOwner,
@@ -36,10 +39,12 @@ class SettingsDailog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<ExitFamilyBloc, ExitFamilyState>(
       listener: (context, state) {
-        if(state is ExitFamilySucssesState){
+        if (state is ExitFamilySucssesState) {
+          Navigator.pop(context);
           Navigator.pop(context);
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-        }else if (state is ExitFamilyErrorState){
+
+        } else if (state is ExitFamilyErrorState) {
           errorToast(context: context, title: state.error);
         }
       },
@@ -62,7 +67,8 @@ class SettingsDailog extends StatelessWidget {
                 if (isAdmin || isOwner)
                   settingsTabs(
                     context: context,
-                    title: "${StringManager.joinRequests.tr()} ( $numOfRequests )",
+                    title:
+                        "${StringManager.joinRequests.tr()} ( $numOfRequests )",
                     onTap: () => Navigator.pushNamed(
                         context, Routes.familyRequests,
                         arguments: familyId),
@@ -76,10 +82,13 @@ class SettingsDailog extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return PopUpDialog(
-                            headerText: StringManager.areYouSureDeleteFamily.tr(),
-                            accpetText: (){ Navigator.pop(context);
-                                BlocProvider.of<DeleteFamilyBloc>(context)
-                                    .add(DeleteFamilyEvent(id: familyId));},
+                            headerText:
+                                StringManager.areYouSureDeleteFamily.tr(),
+                            accpetText: () {
+                              Navigator.pop(context);
+                              BlocProvider.of<DeleteFamilyBloc>(context)
+                                  .add(DeleteFamilyEvent(id: familyId));
+                            },
                           );
                         }),
                   ),
@@ -92,9 +101,10 @@ class SettingsDailog extends StatelessWidget {
                         builder: (context) {
                           return PopUpDialog(
                             headerText: StringManager.exitFamily.tr(),
-                            accpetText: () =>
-                                BlocProvider.of<DeleteFamilyBloc>(context)
-                                    .add(DeleteFamilyEvent(id: familyId)),
+                            accpetText: () {
+                              BlocProvider.of<ExitFamilyBloc>(context).add(ExitFamilyEvent());
+                              Navigator.pop(context);
+                            },
                           );
                         }),
                   ),

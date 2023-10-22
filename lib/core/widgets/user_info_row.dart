@@ -11,9 +11,8 @@ import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'user_country_icon.dart';
 import 'user_image.dart';
 
-
 class UserInfoRow extends StatelessWidget {
-  final UserDataModel userData ;
+  final UserDataModel userData;
 
   final double? imageSize;
 
@@ -22,33 +21,32 @@ class UserInfoRow extends StatelessWidget {
   final Widget? endIcon;
 
   final double? underNameWidth;
-    final Widget? idOrNot;
-
+  final Widget? idOrNot;
 
   final void Function()? onTap;
 
   const UserInfoRow(
       {this.underNameWidth,
-        this.onTap,
-        required this.userData,
-        this.endIcon,
-        this.underName,
-        this.imageSize,
-        this.idOrNot,
-        super.key});
+      this.onTap,
+      required this.userData,
+      this.endIcon,
+      this.underName,
+      this.imageSize,
+      this.idOrNot,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap ??
-              () {
-                Methods().userProfileNvgator(context: context ,userId: userData.id.toString()  );
-            
+          () {
+            Methods().userProfileNvgator(
+                context: context, userId: userData.id.toString());
           },
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.5),
+        padding:
+            EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.5),
         child: Row(
-
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -57,13 +55,13 @@ class UserInfoRow extends StatelessWidget {
             ),
             UserImage(
               frame: userData.frame,
-              frameId: userData.familyId,
+              frameId: userData.frameId,
               imageSize: imageSize,
               boxFit: BoxFit.cover,
               image: userData.profile!.image!,
             ),
             SizedBox(
-              width:  ConfigSize.defaultSize! * 0.5,
+              width: ConfigSize.defaultSize! * 0.5,
             ),
             const Spacer(
               flex: 4,
@@ -75,39 +73,36 @@ class UserInfoRow extends StatelessWidget {
                 GradientTextVip(
                   text: userData.name ?? "",
                   textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                  ),
-
-                  isVip:  userData.hasColorName! ,
+                        fontSize: ConfigSize.defaultSize! * 1.6,
+                      ),
+                  isVip: userData.hasColorName!,
                 ),
                 SizedBox(
-                  width: underNameWidth ?? ConfigSize.screenWidth!-150,
+                  width: underNameWidth ?? ConfigSize.screenWidth! - 150,
                   child: underName ??
                       Row(
-
                         children: [
                           MaleFemaleIcon(
                             maleOrFeamle: userData.profile!.gender,
                             age: userData.profile!.age,
                           ),
-                          SizedBox(width: ConfigSize.defaultSize!*0.8),
-                          if(!userData.isCountryHiden!)
-                          UserCountryIcon(country: userData.profile!.country),
+                          SizedBox(width: ConfigSize.defaultSize! * 0.4),
+                          if (!userData.isCountryHiden!)
+                            UserCountryIcon(country: userData.profile!.country),
                           LevelContainer(
                             image: userData.level!.receiverImage!,
-
                           ),
                           AristocracyLevel(
-
                             level: userData.vip1!.level!,
                           ),
-
-                          const Spacer(),
-                          idOrNot??
-                          Text(
-                            "ID ${userData.uuid.toString()}",
-                            style: Theme.of(context).textTheme.titleSmall,
+                          SizedBox(
+                            width: ConfigSize.defaultSize!*.5,
                           ),
+                          idOrNot ??
+                              Text(
+                                "ID ${userData.uuid.toString()}",
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
                         ],
                       ),
                 )

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -30,7 +32,7 @@ class ProfileBody extends StatelessWidget {
           UserInfoRow(
          
             imageSize: ConfigSize.defaultSize! * 6,
-            underName: IdWithCopyIcon(id: myData.uuid.toString()),
+            underName: IdWithCopyIcon(userData: myData),
             underNameWidth: ConfigSize.defaultSize!*14,
             endIcon: Container(
               padding: EdgeInsets.all(ConfigSize.defaultSize!),

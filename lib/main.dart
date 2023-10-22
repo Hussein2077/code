@@ -50,6 +50,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -131,6 +132,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_room_vistor/room_vistor_bloc.dart';
@@ -146,9 +148,12 @@ import 'package:tik_chat_v2/firebase_options.dart';
 
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
-final globalNavigatorKey = GlobalKey<NavigatorState>();
+// final globalNavigatorKey = GlobalKey<NavigatorState>();
 
-
+class GlobalContextService {
+  static GlobalKey<NavigatorState> navigatorKey =
+  GlobalKey<NavigatorState>();
+}
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -158,9 +163,12 @@ Future<void> main() async {
       Permission.notification.request();
     }
   });
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -181,6 +189,7 @@ String theme = await Methods().returnThemeStatus();
     saveLocale: true,
     child:  MyApp(theme: theme),
   ));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -452,11 +461,15 @@ final  String theme ;
 
 
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
+        BlocProvider(create: (_) => getIt<ActiveNotificationBloc>()),
         BlocProvider(create: (_) => getIt<SendCodeBloc>()),
         BlocProvider(create: (_) => getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
         BlocProvider(create: (_) => getIt<GetFollowingReelsBloc>()..add(GetFollowingReelsEvent())),
         BlocProvider(
           create: (context) => getIt<LuckyGiftBannerBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<GetUsersInRoomBloc>(),
         ),
 
       ],
@@ -464,10 +477,10 @@ final  String theme ;
         builder: (context, state) {
           if (state is LightThemeState )  {
    return MaterialApp(
+
             debugShowCheckedModeBanner: false,
             theme: lightTheme ,
-
-            navigatorKey: globalNavigatorKey ,
+     navigatorKey: GlobalContextService.navigatorKey, // set property
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
@@ -478,7 +491,7 @@ final  String theme ;
             return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: darkTheme ,
-            navigatorKey: globalNavigatorKey ,
+              navigatorKey: GlobalContextService.navigatorKey, // set property
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
@@ -490,14 +503,14 @@ final  String theme ;
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: theme=="dark"?darkTheme: lightTheme ,
-            navigatorKey: globalNavigatorKey ,
-            supportedLocales: context.supportedLocales,
+          navigatorKey: GlobalContextService.navigatorKey, // set property
+
+          supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
             locale: context.locale,
             initialRoute: Routes.splash,
           );
-
        }
         }
       ),

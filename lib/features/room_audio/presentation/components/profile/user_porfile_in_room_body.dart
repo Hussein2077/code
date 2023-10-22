@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/admin_or_owner_container.dart';
@@ -56,15 +57,14 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
   @override
   Widget build(BuildContext context) {
     isOnMic = checkIsUserOnMic(widget.userData);
-    isAdminOrHost =
-        cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
+    isAdminOrHost = cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
     myProfile = myProfileOrNot(widget.userData, widget.myData);
 
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          height: ConfigSize.screenHeight! * .5,
+          height: ConfigSize.screenHeight! * .47,
           decoration: BoxDecoration(
               color: const Color(0xFFFFFCE4),
               borderRadius: BorderRadius.only(
@@ -124,7 +124,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                             isVip: widget.userData.hasColorName!,
                           ),
                           IdWithCopyIcon(
-                            id: widget.userData.uuid!,
+                            userData: widget.userData,
                           ),
                           SizedBox(
                             height: ConfigSize.defaultSize! * 0.5,
@@ -134,12 +134,12 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                             children: [
                               UserCountryIcon(
                                   country: widget.userData.profile!.country),
-                              const SizedBox(width: 5),
+                               SizedBox(width: ConfigSize.defaultSize! * 0.5),
                               MaleFemaleIcon(
                                 maleOrFeamle: widget.userData.profile!.gender,
                                 age: widget.userData.profile!.age,
                               ),
-                              const SizedBox(width: 5),
+                               SizedBox(width: ConfigSize.defaultSize! * 0.5),
                               AdminOrOwnerContainer(
                                 roomOwnerId: widget.roomData.ownerId,
                                 userId: widget.userData.id,
@@ -149,7 +149,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                                 AristocracyLevel(
                                   level: widget.userData.vip1!.level!,
                                 ),
-                              const SizedBox(width: 5),
+                               SizedBox(width: ConfigSize.defaultSize! * 0.5),
                             ],
                           ),
                           SizedBox(height: ConfigSize.defaultSize! * 2),
@@ -229,8 +229,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 50,
+                 SizedBox(
+                  height: ConfigSize.defaultSize!*5
                 ),
                 Row(
                   children: [
@@ -242,7 +242,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                       colorText: ColorManager.yellowVipContanierText,
                       vipOrContribute: StringManager.receiverLevel.tr(),
                     )),
-                    const SizedBox(width: 20),
+                     SizedBox(width: ConfigSize.defaultSize! * 2),
                     Expanded(
                         child: ContainerVipOrContribute(
                       colors: ColorManager.lightBlueInPofile,
@@ -256,7 +256,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                 ),
                 SizedBox(height: ConfigSize.defaultSize!),
                 // GiftGalleryContainer(userId: widget.userData.id!),
-                SizedBox(height: ConfigSize.defaultSize! + 5),
+                SizedBox(height: ConfigSize.defaultSize!* 1.5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

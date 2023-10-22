@@ -13,6 +13,8 @@ class CodegenLoader extends AssetLoader {
 
   static const Map<String, dynamic> ar = {
     StringManager.appTitle: "تيك شات",
+    StringManager.anotherAccountLoggedIn: "ليس لديك حساب تم تسجيل الدخول من جهاز اخر",
+
     StringManager.video_size_error: "يرجى تحميل الفيديو أقل من 3 دقائق",
     StringManager.enterPhoneNum: "أدخل رقم هاتفك",
     StringManager.signUp: "سجل",
@@ -106,7 +108,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.youCanNotModify:
         "لا يمكنك تعديل تاريخ الميلاد والجنس بعد التحديد",
     StringManager.home: "الصفحة الرئيسية",
-    StringManager.reels: "ريـلز",
+    StringManager.reels: "لك",
+    StringManager.followingReels: "المتابعون",
     StringManager.follwoing: "اتابعهم",
     StringManager.followers: "المعجبين",
     StringManager.vistors: "الزوار",
@@ -403,7 +406,6 @@ class CodegenLoader extends AssetLoader {
     StringManager.addMoment: 'اضف لحظة',
     StringManager.thisMoment: 'لا يوجد اعجابات ',
     StringManager.thisMomentc: 'لا يوجد تعليقات ',
-    StringManager.followingTab: 'اتابعهم',
     StringManager.nameAgency: 'اسم الوكالة',
     StringManager.loadingMore: 'تحميل المزيد',
     StringManager.noReels: 'لا يوجد ريلز',
@@ -427,6 +429,11 @@ class CodegenLoader extends AssetLoader {
     StringManager.leaveTheSeat : 'مغادرة المقعد',
     StringManager.areYouSureToLeaveSeat : 'هل أنت متأكد من مغادرة المقعد؟',
     StringManager.ok : 'نعم',
+    StringManager.activeNotification : 'ارسال الاشعارات',
+    StringManager.data : 'البيانات',
+    StringManager.clearData : 'مسح البيانات',
+    StringManager.downloadData : 'تحميل البيانات',
+    StringManager.downloadedData : 'تم تحميل البيانات',
   };
   static const Map<String, dynamic> tr = {
     StringManager.appTitle: "Tikchat",

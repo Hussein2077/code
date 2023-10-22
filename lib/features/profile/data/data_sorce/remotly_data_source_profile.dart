@@ -186,12 +186,10 @@ abstract class BaseRemotlyDataSourceProfile {
     Future<String> addIntersted(List<int> ids);
       Future<List<InterstedMode>> getUserIntersted();
         Future<String> prevActive(String type);
-
   Future<String> prevDispose(String type);
-
   Future<List<ReelModel>> getUserReel(String? id, String page);
-
   Future<String> deleteMessage(String id);
+  Future<bool> activeNotification();
 
 
 }
@@ -2071,6 +2069,26 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       throw DioHelper.handleDioError(dioError: e,endpointName:'deleteReel' );
     }
  
+  }
+
+  @override
+  Future<bool> activeNotification() async{
+    Map<String, String> headers = await DioHelper().header();
+    try {
+      final response = await Dio().get(
+        ConstentApi.activeNotification,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return resultData['message'];
+
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName:'activeNotification' );
+    }
+
   }
 
 }

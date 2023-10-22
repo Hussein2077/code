@@ -20,7 +20,8 @@ class PkController{
   static late SVGAAnimationController animationControllerBlueTeam;
   static double scoreBlue = 0.5;
   static double scoreRed = 0.5;
-
+  static List<int> teamBlue = [1, 2, 5, 6];
+  static List<int> teamRed = [3, 4, 7, 8];
   static ValueNotifier<bool> isPK = ValueNotifier<bool>(false);
   static ValueNotifier<bool> showPK = ValueNotifier<bool>(false);
   static ValueNotifier<int> updatePKNotifier = ValueNotifier<int>(0);
@@ -32,6 +33,10 @@ const String startPkKey = "startPK";
 const String updatePkKey = "updatePk";
 const String closePkKey = "closePk";
 const String timePkKey = "PkTime";
+
+activePK() {
+  PkController.isPK.value ? PkController.isPK.value = false : PkController.isPK.value = true;
+}
 
 ShowPkKey(){
   PkController.showPK.value = true;

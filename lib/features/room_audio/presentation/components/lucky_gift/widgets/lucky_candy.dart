@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -64,52 +62,52 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return
-        InkWell(
-          onTap: () {
-            sendGift();
-            percentNotifier.value =  0;
-          },
-          child:Container(
-            decoration: BoxDecoration(
-              gradient:   const LinearGradient(colors: ColorManager.mainColorList),
-              borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-
-                Center(
-                  child: Text(
-                    StringManager.luckGiftSend.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: Colors.white),
-                  ),
-                ),
-                ValueListenableBuilder<double>(
-                    valueListenable: percentNotifier,
-                    builder: (context, percent, child)  {
-                      if(percent >= 1){
-                        endAllLuckyGift();
-                      }
-                      return CircularPercentIndicator(
-                        radius: ConfigSize.defaultSize! * 3.4,
-                        lineWidth: 3,
-                        animation: true,
-                        curve: Curves.ease,
-                        animateFromLastPercent: true,
-                        addAutomaticKeepAlive: true,
-                        percent: percent<1?percent:1,
-                        backgroundColor: Colors.grey,
-                        progressColor: Colors.yellow,
-                      );
-                    }
-                ),
-              ],
-            ),
+      InkWell(
+        onTap: () {
+          sendGift();
+          percentNotifier.value =  0;
+        },
+        child:Container(
+          decoration: BoxDecoration(
+            gradient:   const LinearGradient(colors: ColorManager.mainColorList),
+            borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
           ),
-        );
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+
+              Center(
+                child: Text(
+                  StringManager.luckGiftSend.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Colors.white),
+                ),
+              ),
+              ValueListenableBuilder<double>(
+                  valueListenable: percentNotifier,
+                  builder: (context, percent, child)  {
+                    if(percent >= 1){
+                      endAllLuckyGift();
+                    }
+                    return CircularPercentIndicator(
+                      radius: ConfigSize.defaultSize! * 3.4,
+                      lineWidth: 3,
+                      animation: true,
+                      curve: Curves.ease,
+                      animateFromLastPercent: true,
+                      addAutomaticKeepAlive: true,
+                      percent: percent<1?percent:1,
+                      backgroundColor: Colors.grey,
+                      progressColor: Colors.yellow,
+                    );
+                  }
+              ),
+            ],
+          ),
+        ),
+      );
 
   }
 

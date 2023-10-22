@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
 //
-  static const int versionApp = 31;
+  static const int versionApp = 33;
 
   //updates
   static const String updateApp = 'Update TikChat APP';
@@ -113,8 +113,8 @@ class StringManager {
   static const String youCanNotModify =
       "You cannot modify the date of birth and gender after selection. Please fill it in carefully";
   static const String home = "Home";
-  static const String reels = "Reels";
-  static const String followingReels = "Following Reels";
+  static const String reels = "For You";
+  static const String followingReels = "Following";
   static const String follwoing = "Follwoing";
   static const String followers = "Followers";
   static const String vistors = "Vistors";
@@ -264,6 +264,7 @@ class StringManager {
   static const String senderLevel = "Sender Level";
   static const String receiverLevel = "Receiver Level";
   static const String yourThemeIsUpload = "Your Theme is upload please wait to approve";
+  static const String anotherAccountLoggedIn ="Account has been logged in from another device,\nYou have no account" ;
 
 
   ///INCOME SCREEN 💲💸💰
@@ -525,6 +526,10 @@ class StringManager {
   static const String allow = "Allow";
   static const String applicationDoesnt = "Application doesn't have access to the library";
   static const String luckGiftSend = 'send';
+  static const String downloadData = 'Download Data';
+  static const String downloadedData = 'data downloaded';
+  static const String activeNotification = 'active notification';
+  static const String data = 'Data';
 
 
 

@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
+import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
@@ -71,6 +72,7 @@ abstract class BaseRepositoryRoom {
   Future<Either<GetConfigKeyModel, Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
   Future<Either<String,Failure>> sendYallowBanner(SendPobUpPram sendPobUpPram );
   Future<Either<LuckyGiftModel , Failure>> sendLuckyGift(GiftPramiter giftPramiter);
+  Future<Either<List<RoomUserMesseagesModel>,Failure>> getUsersInRoon(String userId);
 
 
 
