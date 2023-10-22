@@ -98,6 +98,8 @@ class _ReelsViewerState extends State<ReelsViewer> {
     controller.dispose();
     super.dispose();
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +124,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
         if(kDebugMode) {
           log('Scroll ended');
         }
+        ReelsPage.videoPlayerController?.play();
 
       }
       return true;

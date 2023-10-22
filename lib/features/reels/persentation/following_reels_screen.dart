@@ -59,7 +59,6 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
           child: BlocConsumer<GetFollowingReelsBloc, GetFollowingReelsState>(
             builder: (context, state) {
               if (state is GetFollowingReelsSucssesState) {
-                log(state.data!.length.toString()+"elhamody");
                 ReelsController.getInstance.likesMap(state.data!);
                 ReelsController.getInstance.likesCountMap(state.data!);
                 ReelsController.getInstance.followMap(state.data!);
