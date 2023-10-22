@@ -758,16 +758,22 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == roomModeKey) {
         if (result[messageContent]['mode'] == 'topCenter') {
+          widget.room.mode = 0 ;
+
           setState(() {
             layoutMode = LayoutMode.hostTopCenter;
             RoomScreen.userOnMics.value.clear();
           });
         } else if (result[messageContent]['mode'] == 'party') {
+          widget.room.mode = 1 ;
+
           setState(() {
             layoutMode = LayoutMode.party;
             RoomScreen.userOnMics.value.clear();
           });
         } else if (result[messageContent]['mode'] == 'seats12') {
+          widget.room.mode = 2 ;
+
           setState(() {
             layoutMode = LayoutMode.seats12;
             RoomScreen.userOnMics.value.clear();

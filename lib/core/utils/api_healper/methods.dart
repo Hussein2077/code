@@ -99,15 +99,16 @@ class Methods {
     return decodedMap;
   }
 
-  Future<void> cachingReels(
-      List<ReelModel> reels, Map<String, dynamic> mapReels) async {
-    await getIt<VideoCacheManager>().init();
-    for (int i = 0; i < reels.length; i++) {
-      if (kDebugMode) {
-        log("ConstentApi().getImage(reels[i].url)${reels[i].url!}");
-      }
-      VideoCacheModel video = VideoCacheModel(
-          img: reels[i].img == null ? "" : reels[i].img!, url: reels[i].url!);
+
+  Future<void> cachingReels(List<ReelModel> reels , Map<String,dynamic> mapReels ) async{
+    await getIt<VideoCacheManager>().init() ;
+      for(int i =0;i<reels.length;i++){
+        if(kDebugMode){
+        }
+        VideoCacheModel video = VideoCacheModel(
+            img: reels[i].img == null? "" : reels[i].img!,
+            url: reels[i].url!
+        );
 
       getIt<VideoCacheManager>().cacheVideo(video, StringManager.cachReelsKey);
     }

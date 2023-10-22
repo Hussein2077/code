@@ -70,6 +70,8 @@ class _ReelsPageState extends State<ReelsPage>
     curve: Curves.bounceIn
     ,
   ));
+  FileInfo? image ;
+
 
   @override
   void initState() {
@@ -105,12 +107,14 @@ class _ReelsPageState extends State<ReelsPage>
   }
 
 
+
   Future initializePlayer() async {
 
+    image =await  getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
 
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
-    final image =  await   getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
     if(file?.file !=null){
+
 
 
       ReelsPage.isVideoPause.value = false ;
@@ -247,6 +251,7 @@ class _ReelsPageState extends State<ReelsPage>
                 ),
               )
             : ReelLodaingWidget(
+          image: image,
                 reelId: widget.item.id.toString(),
                 userView: widget.userView,
               ),
