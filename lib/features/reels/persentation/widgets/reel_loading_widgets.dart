@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -9,13 +9,12 @@ import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 class ReelLodaingWidget extends StatelessWidget {
   final bool userView;
   final String reelId;
-   FileInfo? image ;
-    ReelLodaingWidget(
+  final FileInfo? image ;
+  const  ReelLodaingWidget(
       {  this.image  ,  required this.reelId, required this.userView, super.key});
 
   @override
   Widget build(BuildContext context) {
-    log(image.toString());
 
     return userView
         ? image!=null?Image.file(image!.file , fit: BoxFit.fitWidth,): ReelsBox.thumbnail[reelId] == null
