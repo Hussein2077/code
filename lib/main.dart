@@ -148,9 +148,12 @@ import 'package:tik_chat_v2/firebase_options.dart';
 
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
-final globalNavigatorKey = GlobalKey<NavigatorState>();
+// final globalNavigatorKey = GlobalKey<NavigatorState>();
 
-
+class GlobalContextService {
+  static GlobalKey<NavigatorState> navigatorKey =
+  GlobalKey<NavigatorState>();
+}
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -160,9 +163,12 @@ Future<void> main() async {
       Permission.notification.request();
     }
   });
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -183,6 +189,7 @@ String theme = await Methods().returnThemeStatus();
     saveLocale: true,
     child:  MyApp(theme: theme),
   ));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -469,21 +476,22 @@ final  String theme ;
       child:  BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           if (state is LightThemeState )  {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: lightTheme ,
-              navigatorKey: globalNavigatorKey ,
-              supportedLocales: context.supportedLocales,
-              localizationsDelegates: context.localizationDelegates,
-              onGenerateRoute: RouteGenerator.getRoute,
-              locale: context.locale,
-              initialRoute: Routes.splash,
+   return MaterialApp(
+
+            debugShowCheckedModeBanner: false,
+            theme: lightTheme ,
+     navigatorKey: GlobalContextService.navigatorKey, // set property
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            onGenerateRoute: RouteGenerator.getRoute,
+            locale: context.locale,
+            initialRoute: Routes.splash,
           );
           }else if (state is DarkThemeState){
             return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: darkTheme ,
-            navigatorKey: globalNavigatorKey ,
+              navigatorKey: GlobalContextService.navigatorKey, // set property
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
@@ -495,14 +503,14 @@ final  String theme ;
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: theme=="dark"?darkTheme: lightTheme ,
-            navigatorKey: globalNavigatorKey ,
-            supportedLocales: context.supportedLocales,
+          navigatorKey: GlobalContextService.navigatorKey, // set property
+
+          supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
             locale: context.locale,
             initialRoute: Routes.splash,
           );
-
        }
         }
       ),

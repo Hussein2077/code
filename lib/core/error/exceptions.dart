@@ -19,8 +19,7 @@ factory ErrorModelException.fromJson( Map<String,dynamic> json){
 // code => 500
 class ServerException implements Exception {}
 
-
-
+class AnotherAccountException implements Exception {}
 
 // code => 401
 class UnauthorizedException implements Exception {}

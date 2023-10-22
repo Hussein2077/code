@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/widgets/web_view_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/Privacy_Policy/privacy_policy_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
@@ -158,10 +159,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case Routes.login:
         LoginPramiter? loginPramiter = settings.arguments as LoginPramiter?;
+
         return MaterialPageRoute(
             builder: (_) => LoginScreen(
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
+              isLoginFromAnotherAccountAndBuildFailure: loginPramiter!.isLoginFromAnotherAccountAndBuildFailure??false,
                 ));
       case Routes.otp:
         OtbScreenParm otbScreenParm =
@@ -506,9 +509,10 @@ class OtbScreenParm {
 class LoginPramiter {
   final bool? isUpdate;
   final bool? isForceUpdate;
+  final bool? isLoginFromAnotherAccountAndBuildFailure;
 
   const LoginPramiter(
-      {required this.isForceUpdate, required this.isUpdate, Key? key});
+      { this.isForceUpdate,  this.isUpdate,this.isLoginFromAnotherAccountAndBuildFailure, Key? key});
 }
 
 class MainPramiter {
