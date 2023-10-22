@@ -1,5 +1,7 @@
 
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -978,6 +980,15 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
     }
   }
 
+  @override
+  Future<Either<String, Failure>> inAppPurchase({required String user_id, required String product_id})async {
+   try {
+      final result =await baseRemotlyDataSourceProfile.inAppPurchase(user_id:user_id , product_id: product_id);
+      return Left(result);
+    } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
 
 
 }

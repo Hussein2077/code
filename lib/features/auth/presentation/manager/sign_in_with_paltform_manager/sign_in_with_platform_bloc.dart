@@ -33,7 +33,7 @@ class SignInWithPlatformBloc
     emit(const SiginWithPlatFormLoadingState());
     final signinOrFailur = await signInWithAppleUC.call(const Noparamiter());
     signinOrFailur.fold(
-            (l) => emit(SiginWithAppleSuccesMessageState(succesMessage:"Sign In Succesfully",userModel: l)),
+            (l) => emit(SiginWithAppleSuccesMessageState(succesMessage:"Sign In Succesfully", userModel: l)),
             (r) => emit(SiginWithAppleErrorMessageState(errorMessage: DioHelper().getTypeOfFailure(r))));
 
 

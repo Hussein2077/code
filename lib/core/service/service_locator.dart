@@ -117,6 +117,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_user_reels_use_c
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vip_center_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vistors_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/in_app_purchase_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
 
@@ -138,6 +139,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -521,11 +523,13 @@ class ServerLocator {
     getIt.registerFactory(() => LuckyGiftBannerBloc(sendLuckyGiftUc: getIt()));
     getIt.registerFactory(() => ActiveNotificationBloc(activeNotificationUseCase: getIt()));
     getIt.registerFactory(() => GetUsersInRoomBloc(getRoomUserUseCase: getIt(),));
+    getIt.registerFactory(() => InAppPurchaseBloc(inAppPurchaseUsecase: getIt(),));
 
 
 
 //usecase
     getIt.registerLazySingleton(() => GetRoomUserUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => InAppPurchaseUsecase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => ActiveNotificationUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => SendLuckyGiftUc(roomRepo: getIt()));
     getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));

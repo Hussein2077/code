@@ -124,6 +124,7 @@ class ReelsScreenState extends State<ReelsScreen>{
                               Navigator.pop(context);
                             },
                             onIndexChanged: (index) {
+                              ReelsViewer.reelModel = state.data?[index];
                               if (state.data!.length - index == 4) {
                                 BlocProvider.of<GetReelsBloc>(context)
                                     .add(LoadMoreReelsEvent());
@@ -133,9 +134,11 @@ class ReelsScreenState extends State<ReelsScreen>{
                             showVerifiedTick: false,
                             showAppbar: true,
                           );
-                        } else if (state is GetReelsLoadingState) {
+                        }
+                        else if (state is GetReelsLoadingState) {
                           return const LoadingWidget();
-                        } else if (state is GetReelsErrorState) {
+                        }
+                        else if (state is GetReelsErrorState) {
                           return CustomErrorWidget(message: state.errorMassage);
                         } else {
                           return CustomErrorWidget(

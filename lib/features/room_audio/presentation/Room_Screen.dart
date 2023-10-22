@@ -431,24 +431,24 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
-        ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
+        ZegoUIKit().sendInRoomMessage("انضم للغرفة", false);
 
-        // todo add condation
+        if(widget.myDataModel.intro! != ""){
+          Map<String,dynamic>    mapZego = {
+            "messageContent" : {
+              "message" : "userEntro" ,
+              "entroImg"  :  widget.myDataModel.intro ,
+              "entroImgId" : widget.myDataModel.introId ,
+              'userName'   : widget.myDataModel.name,
+              'userImge'   : widget.myDataModel.profile?.image,
+              'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
+            }
+          };
+          UserEntro(mapZego, userIntroData ,loadAnimationEntro);
+          String map = jsonEncode(mapZego);
+          ZegoUIKit.instance.sendInRoomCommand(map,[]);
 
-               //to show intro
-        Map<String,dynamic>    mapZego = {
-          "messageContent" : {
-            "message" : "userEntro" ,
-            "entroImg"  :  widget.myDataModel.intro ,
-            "entroImgId" : widget.myDataModel.introId ,
-            'userName'   : widget.myDataModel.name,
-            'userImge'   : widget.myDataModel.profile?.image,
-            'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
-          }
-        };
-        String map = jsonEncode(mapZego);
-        ZegoUIKit.instance.sendInRoomCommand(map,[]);
-
+        }
       });
     }
 
@@ -692,7 +692,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ChangeBackground(result,roomDataUpdates);
       }
       else if (result[messageContent][message] == userEntro) {
-          UserEntro(result,  userIntroData ,loadAnimationEntro);
+        UserEntro(result, userIntroData ,loadAnimationEntro);
       }
       else if (result[messageContent]['msg'] == 'SHB') {
         if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {

@@ -206,4 +206,7 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> deleteReel(String id);
 
   Future<Either<bool, Failure>> activeNotification();
+  
+  Future<Either<String, Failure>> inAppPurchase({required String user_id ,required String product_id});
+
 }
