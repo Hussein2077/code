@@ -35,7 +35,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    log("hhhhhhhhhhh");
     if (defaultTargetPlatform == TargetPlatform.android){
       SplashScreen.devicePlatform=StringManager.androidPlatform;
     } else if (defaultTargetPlatform == TargetPlatform.iOS){
