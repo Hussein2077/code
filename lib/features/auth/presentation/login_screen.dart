@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    if (true) {
+    if (false) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         showDialog(
             barrierDismissible: widget.isForceUpdate ?? false,
