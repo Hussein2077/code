@@ -254,8 +254,7 @@ class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
   @override
   Future<List<MomentModel>> getMoments(GetMomentPrameter pram)async {
     Map<String, String> headers = await DioHelper().header();
-    String timeZone= await Methods().getCurrentTimeZone();
-    headers.addAll({'tz':timeZone});
+
     try {
       final response = await Dio().get(
         ConstentApi.getMoments(pram.userId??'',pram.type,pram.page,),
