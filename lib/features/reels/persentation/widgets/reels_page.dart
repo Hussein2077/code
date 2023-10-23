@@ -28,6 +28,7 @@ class ReelsPage extends StatefulWidget {
   final bool showProgressIndicator;
   final bool userView;
   static VideoPlayerController? videoPlayerController;
+   static bool isFirst = true;
 
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
 
@@ -53,6 +54,7 @@ class _ReelsPageState extends State<ReelsPage>
     with SingleTickerProviderStateMixin {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
+  FileInfo? image ;
   bool _liked = false;
   double? videoWidth;
   double? videoHeight;
@@ -77,6 +79,10 @@ class _ReelsPageState extends State<ReelsPage>
         UrlChecker.isValid(widget.item.url!)) {
       initializePlayer().then((value) {
         ReelsPage.videoPlayerController = _videoPlayerController;
+        if(ReelsPage.isFirst) {
+          ReelsPage.videoPlayerController?.play();
+          ReelsPage.isFirst = false;
+        }
       });
     }
   }
@@ -85,7 +91,8 @@ class _ReelsPageState extends State<ReelsPage>
 
 
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
-    final image =  await   getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
+    final cachImage =  await   getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
+    image = cachImage ;
 
     if(file?.file !=null){
 
@@ -121,7 +128,6 @@ class _ReelsPageState extends State<ReelsPage>
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      autoPlay: true,
       showControls: false,
       looping: true,
     );
@@ -223,6 +229,7 @@ class _ReelsPageState extends State<ReelsPage>
             : ReelLodaingWidget(
           reelId: widget.item.id.toString(),
           userView: widget.userView,
+          image:image ,
         ),
         if (_liked)
           const Center(

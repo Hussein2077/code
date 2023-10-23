@@ -439,6 +439,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
   if (result[messageContent][entroImgIdKey] == "") {
     if (result[messageContent]['vip'] == null ? false : result[messageContent]['vip'] > 0) {
       RoomScreen.showEntro.value = true;
+
     }
 
     userIntroData['user_name_intro']  = result[messageContent][userName];

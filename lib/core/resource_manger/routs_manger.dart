@@ -514,7 +514,7 @@ class LoginPramiter {
   final bool? isLoginFromAnotherAccountAndBuildFailure;
 
   const LoginPramiter(
-      { this.isForceUpdate,  this.isUpdate,this.isLoginFromAnotherAccountAndBuildFailure, Key? key});
+      { this.isForceUpdate,  this.isUpdate, this.isLoginFromAnotherAccountAndBuildFailure=false, Key? key});
 }
 
 class MainPramiter {
