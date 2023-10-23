@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    if (true) {
+    if (false) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         showDialog(
             barrierDismissible: widget.isForceUpdate ?? false,
@@ -239,9 +239,11 @@ class _LoginScreenState extends State<LoginScreen> {
             (route) => false,
           );
           //to do getmy data
-        } else if (state is LoginWithPhoneErrorMessageState) {
+        }
+        else if (state is LoginWithPhoneErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
-        } else if (state is LoginWithPhoneLoadingState) {
+        }
+        else if (state is LoginWithPhoneLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
         }
       },

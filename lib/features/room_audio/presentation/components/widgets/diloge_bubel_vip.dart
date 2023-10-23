@@ -18,12 +18,12 @@ class DilogBubbelVip extends StatelessWidget {
   final UserDataModel? userData;
   final EnterRoomModel roomData;
 
- const DilogBubbelVip(
+  const DilogBubbelVip(
       {Key? key,
-      required this.roomData,
-      required this.message,
-      required this.vip,
-      this.userData})
+        required this.roomData,
+        required this.message,
+        required this.vip,
+        this.userData})
       : super(key: key);
 
   @override
@@ -57,14 +57,14 @@ class DilogBubbelVip extends StatelessWidget {
       children: [
         Positioned(
             left:level==6?ConfigSize.defaultSize! * 4.7 :(level==5||level==4||level==3)?ConfigSize.defaultSize! *6.3: ConfigSize.defaultSize! * 5.3,
-           // left:level==6?ConfigSize.defaultSize! * 4.7 :(level==5||level==4||level==3)?ConfigSize.defaultSize! * 6.3: ConfigSize.defaultSize! * 5.3,
+            // left:level==6?ConfigSize.defaultSize! * 4.7 :(level==5||level==4||level==3)?ConfigSize.defaultSize! * 6.3: ConfigSize.defaultSize! * 5.3,
             child: UserImage(
               image: userData!.profile!.image!,
 
             )),
         Image.asset(
           scale: 0.1,
-         // scale: 0.1,
+          // scale: 0.1,
           width: double.infinity,
           vip,
         ),
@@ -95,9 +95,9 @@ class DilogBubbelVip extends StatelessWidget {
                   //     image: userData!.level!.senderImage!),
                   //         if (userData!.id == roomData.ownerId)
                   Image.asset(
-                      AssetsPath.hostMark,
-                      scale: 3.5,
-                    ),
+                    AssetsPath.hostMark,
+                    scale: 3.5,
+                  ),
                   SizedBox(
                     width: ConfigSize.defaultSize!*0.2,
                   ),
@@ -113,12 +113,12 @@ class DilogBubbelVip extends StatelessWidget {
 
                     isVip: false,
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: level==3?ConfigSize.defaultSize!*0.5:(level==4||level==5)?ConfigSize.defaultSize!*0.9:0,
                   ),
                 ],
               ),
-              
+
               SizedBox(
                 width: ConfigSize.defaultSize! * 23.1,
                 child: Padding(
