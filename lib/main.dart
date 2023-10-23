@@ -155,6 +155,7 @@ class GlobalContextService {
   static GlobalKey<NavigatorState> navigatorKey =
   GlobalKey<NavigatorState>();
 }
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -168,8 +169,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);

@@ -44,11 +44,8 @@ class ViewbackgroundWidget extends StatefulWidget {
   Map<String,String> roomDataUpdates;
   Map<String,dynamic> userBannerData;
   Map<String, dynamic> superBox;
-  StreamController<List<ZegoUIKitUser>> userInRoomController;
   LayoutMode layoutMode;
-  final void Function() refrashRoom;
   AnimationController controllerMusice;
-  final void Function() destroyMusic;
   SVGAAnimationController animationControllerEntro;
   SVGAAnimationController animationControllerGift;
   VideoPlayerController? mp4Controller;
@@ -74,11 +71,8 @@ class ViewbackgroundWidget extends StatefulWidget {
     required this.roomDataUpdates,
     required this.userBannerData,
     required this.superBox,
-    required this.userInRoomController,
     required this.layoutMode,
-    required this.refrashRoom,
     required this.controllerMusice,
-    required this.destroyMusic,
     required this.animationControllerEntro,
     required this.animationControllerGift,
     required this.mp4Controller,
@@ -145,7 +139,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 valueListenable: RoomScreen.editRoom,
                 builder: (context, editValue, _) {
                   return HeaderRoom(
-                    userInRoomController: widget.userInRoomController,
                     roomName: widget.roomDataUpdates['room_name']??'' ,
                     room: widget.room,
                     myDataModel: MyDataModel.getInstance(),
@@ -156,7 +149,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         : widget.layoutMode == LayoutMode.party
                         ? 1
                         : 2,
-                    refreshRoom: widget.refrashRoom,
                     roomType: widget.roomDataUpdates['room_type']??''  ,
                     layoutMode: widget.layoutMode,
                   );
@@ -171,7 +163,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                     return const SizedBox();
                   }
                 }),
-            MusicWidget(room: widget.room, controllerMusice: widget.controllerMusice, destroyMusic: widget.destroyMusic, refrashRoom: widget.refrashRoom , ),
+            MusicWidget(room: widget.room, controllerMusice: widget.controllerMusice,),
             Positioned(
                 top: ConfigSize.defaultSize! * 35,
                 bottom: ConfigSize.defaultSize! * 7,

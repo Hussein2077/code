@@ -363,16 +363,13 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => SafeArea(
                 child: MusicListWidget(
-                    ownerId: pramiter.ownerId,
-                    refreshMusicScreen: pramiter.refresh)));
+                    ownerId: pramiter.ownerId,)));
       case Routes.music:
         MusicPramiter pramiter = settings.arguments as MusicPramiter;
         return MaterialPageRoute(
             builder: (_) => SafeArea(
                     child: MusicScreen(
-                  ownerId: pramiter.ownerId,
-                  refrashRoom: pramiter.refresh,
-                )));
+                  ownerId: pramiter.ownerId)));
 
       case Routes.charchingDolarsForUsers:
         return MaterialPageRoute(builder: (_) => CharchingDolarsForUsers());
@@ -563,10 +560,9 @@ class RoomHandlerPramiter {
 }
 
 class MusicPramiter {
-  final void Function() refresh;
   final String ownerId;
 
-  const MusicPramiter({required this.refresh, required this.ownerId});
+  const MusicPramiter({required this.ownerId});
 }
 
 class UserProfilePreamiter {
