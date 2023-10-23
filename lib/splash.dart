@@ -35,6 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+    log("hhhhhhhhhhh");
     if (defaultTargetPlatform == TargetPlatform.android){
       SplashScreen.devicePlatform=StringManager.androidPlatform;
     } else if (defaultTargetPlatform == TargetPlatform.iOS){
@@ -76,7 +77,6 @@ class _SplashScreenState extends State<SplashScreen> {
             }
             else if ((configModel!.isAuth??false)){
               await      initDynamicLinks();
-              log("SplashScreen.dynamicLink"+SplashScreen.dynamicLink.toString());
               if(kDebugMode){
                 log("configModel1${configModel!.updateEntroCach}");
                 log("configModel1${configModel!.updateGiftCache}");
@@ -164,8 +164,6 @@ class _SplashScreenState extends State<SplashScreen> {
     final String? reelId = deepLink?.queryParameters['reel_id'];
 
 
-
-    log('action$action');
     if(action =='show_reel'){
       log("handleDeepLink reelId $reelId");
       showReelDynamicLink(reelId: reelId);
@@ -177,7 +175,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void showReelDynamicLink({String? reelId}){
     MainScreen.reelId = reelId??'';
     SplashScreen.initPage =1;
-    log("in show reel2");
 
   }
 

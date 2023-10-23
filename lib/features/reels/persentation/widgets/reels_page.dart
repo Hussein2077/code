@@ -85,7 +85,12 @@ class _ReelsPageState extends State<ReelsPage>
         }
       });
     }
+
+    ReelsPage.videoPlayerController?.addListener(() {
+      log("1111111111111111111");
+    });
   }
+
 
   Future initializePlayer() async {
 

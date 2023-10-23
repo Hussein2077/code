@@ -124,7 +124,14 @@ class _ReelsViewerState extends State<ReelsViewer> {
         if(kDebugMode) {
           log('Scroll ended');
         }
-        ReelsPage.videoPlayerController?.play();
+        if((ReelsPage.videoPlayerController?.value.isPlaying)??false){
+          log("play");
+          ReelsPage.videoPlayerController?.play();
+        }else{
+          log("not play ");
+        }
+
+
 
       }
       return true;
