@@ -35,11 +35,10 @@ class UpdateRoomBody extends StatefulWidget {
   final MyDataModel myDataModel;
   final int roomMode;
 
-  final Function() refreshRoom;
   const UpdateRoomBody({required this.roomDate,
     required this.nameHint,
     required this.introHint,
-    Key? key, required this.room, required this.myDataModel, required this.refreshRoom, required this.roomMode}) : super(key: key);
+    Key? key, required this.room, required this.myDataModel, required this.roomMode}) : super(key: key);
 
   //static   AllMainClassesModel?  roomType  ;
   @override
@@ -279,7 +278,6 @@ class _UpdateRoomBodyState extends State<UpdateRoomBody> {
                   ownerId: widget.room.ownerId.toString(),
                   passwordStatus: widget.room.roomPassStatus!,
                   modeRoom:widget. roomMode,
-                  refreshRoom: widget.refreshRoom,
                   userId: widget.myDataModel.id.toString(),
                 ),
                 const Spacer(

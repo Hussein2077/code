@@ -124,7 +124,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   late final AnimationController controllerMusice;
   VideoPlayerController? mp4Controller;
   late LayoutMode layoutMode;
-  StreamController<List<ZegoUIKitUser>> userInRoomController = StreamController.broadcast();
   ValueNotifier<bool> showPopUp = ValueNotifier<bool>(false);
   String userIdEmojie = ""; // to show emojie
   String giftImg = ""; // to show img gift
@@ -185,7 +184,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     super.initState();
 
-    userInRoomController.stream.listen((zegoList) {});
     luckGiftBannderController = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -472,7 +470,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     for (final subscription in subscriptions) {
       subscription?.cancel();
     }
-    userInRoomController.close();
     controllerEntro.dispose();
     controllerBanner.dispose();
     animationControllerGift.dispose();
@@ -488,19 +485,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     super.dispose();
   }
-
-  //todo you should remove this function
-  refrashRoom() {
-    setState(() {});
-  }
-
-  //todo you shoulde remove setState here
-  destroyMusic() {
-    setState(() {
-      distroyMusic();
-    });
-  }
-
 
   Future<void> loadMp4Gift({required GiftData giftData}) async {
     RoomScreen.isGiftEntroAnimating = true;
@@ -885,9 +869,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             ..seatConfig = getSeatConfig()
             ..viewbackground = ViewbackgroundWidget(room: widget.room,
                 roomDataUpdates: roomDataUpdates, userBannerData: userBannerData,
-                superBox: superBox, userInRoomController: userInRoomController,
-                layoutMode: layoutMode, refrashRoom: refrashRoom,
-                controllerMusice: controllerMusice, destroyMusic: destroyMusic,
+                superBox: superBox,
+                layoutMode: layoutMode,
+                controllerMusice: controllerMusice,
                 animationControllerEntro: animationControllerEntro,
                 animationControllerGift: animationControllerGift,
                 mp4Controller: mp4Controller,

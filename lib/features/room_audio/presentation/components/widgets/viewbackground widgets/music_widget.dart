@@ -15,11 +15,9 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 
 class MusicWidget extends StatelessWidget {
 
-  final void Function() refrashRoom;
   EnterRoomModel room;
   AnimationController controllerMusice;
-  final void Function() destroyMusic;
-  MusicWidget({super.key, required this.refrashRoom, required this.room, required this.controllerMusice, required this.destroyMusic});
+  MusicWidget({super.key, required this.room, required this.controllerMusice});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +41,6 @@ class MusicWidget extends StatelessWidget {
                       return Dialog(
                           backgroundColor: ColorManager.mainColor,
                           child: MusicDialog(
-                            refreshRoom: refrashRoom,
                             ownerId: room.ownerId.toString(),
                             totalDuration: totalDuration,
                           ));
@@ -72,7 +69,10 @@ class MusicWidget extends StatelessWidget {
                                         image: AssetImage(AssetsPath.music)))))),
                   ),
                   GestureDetector(
-                    onTap: destroyMusic,
+                    onTap: ()async{
+                        await ZegoUIKit().stopMedia();
+                        MusicScreen.isPlaying.value = false;
+                    },
                     child: Container(
                         decoration: BoxDecoration(
                             color: ColorManager.mainColor.withOpacity(0.5),

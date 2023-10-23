@@ -214,7 +214,7 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 Future<void> loadMusice({required String path}) async {
   // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
 
-  await ZegoUIKit().playMedia(filePathOrURL: path, enableRepeat: true);
+  await ZegoUIKit().playMedia(filePathOrURL: path);
 
   // await RoomScreen.zegoMediaPlayer?.loadResource(path);
 
@@ -225,15 +225,6 @@ Future<void> loadMusice({required String path}) async {
   // log(RoomScreen.zegoMediaPlayer!.getTotalDuration().toString());
 
   MusicScreen.isPlaying.value = true;
-}
-
-Future<void> distroyMusic() async {
-  //if (RoomScreen.zegoMediaPlayer != null) {
-  await ZegoUIKit().stopMedia();
-
-  //  RoomScreen.zegoMediaPlayer = null;
-  MusicScreen.isPlaying.value = false;
-  // }
 }
 
 Future<void> clearAll() async {
@@ -284,8 +275,6 @@ Future<void> clearAll() async {
   RoomScreen.showBanner.value = false;
   RoomScreen.myCoins.value = "";
   RoomScreen.winCircularluckyGift.value = 0;
-
-  await distroyMusic();
 }
 
 
