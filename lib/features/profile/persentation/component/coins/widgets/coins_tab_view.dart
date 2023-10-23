@@ -106,8 +106,13 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                                   child: InkWell(
                                     onTap: () {
                                       if (Platform.isIOS) {
-                                        CoinsTabView.productId = state.data[index].id;
-                                        buyProduct(productsMap[state.data[index].coin.toString()]);
+                                        if(productsMap[state.data[index].coin.toString()] == ""){
+                                          warningToast(context: context, title: "Loading Products Please try again");
+                                        }else{
+                                          CoinsTabView.productId = state.data[index].id;
+                                          buyProduct(productsMap[state.data[index].coin.toString()]);
+                                        }
+                                        
                                       } else {
                                         BlocProvider.of<BuyCoinsBloc>(context).add(BuyCoins(buyCoinsParameter: BuyCoinsParameter(coinsID: state.data[index].id.toString(), paymentMethod: 'opay')));
                                       }

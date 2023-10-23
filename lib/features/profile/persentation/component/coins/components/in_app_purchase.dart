@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_tab_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_event.dart';
@@ -49,8 +50,9 @@ Map<String, dynamic> productsMap = {
 
   Future<void> _handlePurchaseUpdates(List<PurchaseDetails> detailsList, BuildContext context) async{
     for (PurchaseDetails purchaseDetails in detailsList) {
-      print("status: ${purchaseDetails.status.name}");
-      if (purchaseDetails.status == PurchaseStatus.purchased) {
+      if(purchaseDetails.status == PurchaseStatus.pending){
+        loadingToast(context: context);
+      }else if (purchaseDetails.status == PurchaseStatus.purchased) {
         await acknowledgePurchase(purchaseDetails).then((value){
           BlocProvider.of<InAppPurchaseBloc>(context).add(PostInAppPurchaseEvent(user_id: MyDataModel.getInstance().id.toString(), product_id: CoinsTabView.productId.toString()));
         });
