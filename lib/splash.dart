@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       SplashScreen.devicePlatform = StringManager.iOSPlatform;
     }
-   
+
     loadResources().then((value) async {
       if (configModel == null) {
         errorToast(
