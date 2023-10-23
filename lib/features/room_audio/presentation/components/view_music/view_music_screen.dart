@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 
 
 
@@ -18,11 +20,11 @@ class MusicScreen extends StatefulWidget {
   static ValueNotifier<bool> isPlaying = ValueNotifier<bool>(false);
   static int? nowPlaying;
   final String ownerId ;
-  final void Function() refrashRoom ;
+
+  static StreamController<List<MusicObject>> musicController = StreamController.broadcast();
 
 
-
- const  MusicScreen({Key? key, required this.ownerId , required this.refrashRoom}) : super(key: key);
+ const  MusicScreen({Key? key, required this.ownerId}) : super(key: key);
 
   @override
   State<MusicScreen> createState() => _MusicScreenState();
@@ -37,6 +39,12 @@ class _MusicScreenState extends State<MusicScreen> {
   @override
   void initState() {
     super.initState();
+        MusicScreen.musicController.stream.listen((musicList) {
+          setState(() {
+            
+          });
+        });
+
     Future.delayed(Duration.zero, () async {
 
      Map<String,dynamic> mapChachedMusic = await Methods().getCachingMusic() ;
@@ -64,14 +72,9 @@ class _MusicScreenState extends State<MusicScreen> {
   }
 
   @override
-  void dispose() {
+  void dispose(){
+        MusicScreen.musicController.close();
     super.dispose();
-  }
-
-  refreshMuisicScreen(){
-    setState(() {
-
-    });
   }
 
   @override
@@ -85,7 +88,7 @@ class _MusicScreenState extends State<MusicScreen> {
               onPressed: (){
             Navigator.pushNamed(context, Routes.musicList,
 
-                arguments: MusicPramiter(refresh: refreshMuisicScreen,ownerId: widget.ownerId));
+                arguments: MusicPramiter(ownerId: widget.ownerId));
 
           }, icon: const Icon(Icons.add))
         ],
@@ -110,11 +113,11 @@ class _MusicScreenState extends State<MusicScreen> {
 
                                 child:   InkWell(
                                   onTap: ()async{
-                                    distroyMusic();
+                                    await ZegoUIKit().stopMedia();
+                                    MusicScreen.isPlaying.value = false;
                                     setState(() {
                                       MusicScreen.nowPlaying = index;
                                       MusicScreen.isPlaying.value=false;
-                                      widget.refrashRoom();
                                     });
                                     setState(() {
                                       RoomScreen.musicesInRoom.removeAt(index) ;
@@ -150,7 +153,6 @@ class _MusicScreenState extends State<MusicScreen> {
                         await    loadMusice(path:RoomScreen.musicesInRoom[index].uri);
                                MusicScreen.isPlaying.value=true;
                               MusicScreen.nowPlaying = index;
-                              widget.refrashRoom();
                             setState(() {
                         
                             });
@@ -159,19 +161,19 @@ class _MusicScreenState extends State<MusicScreen> {
                           else if(MusicScreen.isPlaying.value&&MusicScreen.nowPlaying==index)
                           {
 
-                           await distroyMusic();
+                           await ZegoUIKit().stopMedia();
+                        MusicScreen.isPlaying.value = false;
                               MusicScreen.nowPlaying = null;
                               MusicScreen.isPlaying.value=false;
-                              widget.refrashRoom();
                             setState(() {
                             
                             });
                           }else if(MusicScreen.isPlaying.value&&MusicScreen.nowPlaying!=index){
-                               await  distroyMusic();
+                               await ZegoUIKit().stopMedia();
+                        MusicScreen.isPlaying.value = false;
                                await loadMusice(path:RoomScreen.musicesInRoom[index].uri);
                                    MusicScreen.isPlaying.value=true;
                               MusicScreen.nowPlaying = index;
-                              widget.refrashRoom();
 
                             setState(() {
                            

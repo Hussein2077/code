@@ -48,7 +48,6 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
             introHint: state.data.roomIntro!,
             room: widget.room,
             myDataModel: widget.myDataModel,
-            refreshRoom: refrashRoom,
             roomMode: layoutMode == LayoutMode.hostTopCenter?0:layoutMode == LayoutMode.party?1:2,
           );
         } else {
@@ -58,19 +57,11 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
             introHint: widget.roomDate.roomIntro!,
             room: widget.room,
             myDataModel: widget.myDataModel,
-            refreshRoom: refrashRoom,
             roomMode: layoutMode == LayoutMode.hostTopCenter?0:layoutMode == LayoutMode.party?1:2,
 
           );
         }
       },
     );
-  }
-
-  //todo you should remove this function
-  refrashRoom() {
-    setState(() {
-
-    });
   }
 }

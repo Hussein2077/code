@@ -100,6 +100,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
               MomentBottomBarState.selectedMoment=widget.momentModel.momentId;
               bottomDailog(
                   context: context,
+height:  ConfigSize.screenHeight! * .7,
                   widget: MomentCommentsScreen(
                     type:widget.type,
                     momentId: widget.momentModel.momentId.toString(),

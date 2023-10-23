@@ -3,17 +3,14 @@
 import 'dart:developer';
 
 import 'package:card_swiper/card_swiper.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
-import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
-import 'package:video_player/video_player.dart';
+
 
 class ReelsViewer extends StatefulWidget {
   /// use reel model and provide list of reels, list contains reels object, object contains url and other parameters
@@ -86,14 +83,11 @@ class ReelsViewer extends StatefulWidget {
 
 class _ReelsViewerState extends State<ReelsViewer> {
 
-  VideoPlayerController? _videoPlayerController;
-  ChewieController? _chewieController;
   SwiperController controller = SwiperController();
-  FileInfo? image ;
+
 
   @override
   void initState() {
-    initializePlayer() ;
    controller.index = widget.startIndex??0;
     super.initState();
   }
@@ -104,6 +98,8 @@ class _ReelsViewerState extends State<ReelsViewer> {
     controller.dispose();
     super.dispose();
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,8 +124,15 @@ class _ReelsViewerState extends State<ReelsViewer> {
         if(kDebugMode) {
           log('Scroll ended');
         }
-    //    ReelsPage.canPlayNow.value = true ;
-        initializePlayer() ;
+        if((ReelsPage.videoPlayerController?.value.isPlaying)??false){
+          log("play");
+          ReelsPage.videoPlayerController?.play();
+        }else{
+          log("not play ");
+        }
+
+
+
       }
       return true;
     },
@@ -155,9 +158,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
                          showVerifiedTick: widget.showVerifiedTick,
                          swiperController: controller,
                          showProgressIndicator: widget.showProgressIndicator,
-                         image: image,
-                         videoPlayerController:_videoPlayerController ,
-                         chewieController: _chewieController,
 
                        );
                      },
@@ -198,66 +198,4 @@ class _ReelsViewerState extends State<ReelsViewer> {
   }
 
 
-  Future initializePlayer() async {
-
-
-    image =await  getIt<DefaultCacheManager>().getFileFromCache(ReelsViewer.reelModel?.img??'');
-
-    final file = await getIt<DefaultCacheManager>().getFileFromCache(ReelsViewer.reelModel?.url??'');
-    if(file?.file !=null){
-
-
-
-      ReelsPage.isVideoPause.value = false ;
-      _videoPlayerController = VideoPlayerController.file(file!.file);
-      if(kDebugMode){
-        log("in cache reels");
-      }
-    }else{
-      if(kDebugMode){
-        log((ReelsViewer.reelModel!.url.toString()));
-        log("in network reels");
-      }
-      _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(ReelsViewer.reelModel!.url!));
-    }
-
-
-
-
-    _videoPlayerController?.setLooping(true);
-
-    try{
-      await Future.wait([_videoPlayerController!.initialize()]).then((value) {
-        ReelsPage.canPlayNow.value= false ;
-      } );
-    }catch(e){
-
-      if(kDebugMode){
-        log("error type : ${e.toString()}");
-        log("error in reels path is :${Uri.parse(ReelsViewer.reelModel!.url!+'rr')}");
-      }
-      // widget.swiperController.next();
-    }
-
-
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController!,
-      autoPlay: true,
-      showControls: false,
-      looping: true,
-    );
-    setState(() {});
-    _videoPlayerController?.addListener(() {
-      if (_videoPlayerController?.value.position ==
-          _videoPlayerController?.value.duration) {// TODO add auto scroll as feature
-        // widget.swiperController.next();
-      }
-      if (!ModalRoute.of(context)!.isCurrent) {
-        _videoPlayerController?.pause();
-        ReelsPage.isVideoPause.value = true;
-      }
-
-
-    });
-  }
 }

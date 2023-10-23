@@ -5,13 +5,14 @@ import 'tik_tok_animition.dart';
 
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({super.key});
-
+  const LoadingWidget({super.key, this.height, this.width});
+final double? height;
+final double? width;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-              height: MediaQuery.of(context).size.height*.7,
-              width: MediaQuery.of(context).size.width,
+              height:height?? MediaQuery.of(context).size.height*.7,
+              width:width?? MediaQuery.of(context).size.width,
 
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -214,7 +214,7 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 Future<void> loadMusice({required String path}) async {
   // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
 
-  await ZegoUIKit().playMedia(filePathOrURL: path, enableRepeat: true);
+  await ZegoUIKit().playMedia(filePathOrURL: path);
 
   // await RoomScreen.zegoMediaPlayer?.loadResource(path);
 
@@ -225,15 +225,6 @@ Future<void> loadMusice({required String path}) async {
   // log(RoomScreen.zegoMediaPlayer!.getTotalDuration().toString());
 
   MusicScreen.isPlaying.value = true;
-}
-
-Future<void> distroyMusic() async {
-  //if (RoomScreen.zegoMediaPlayer != null) {
-  await ZegoUIKit().stopMedia();
-
-  //  RoomScreen.zegoMediaPlayer = null;
-  MusicScreen.isPlaying.value = false;
-  // }
 }
 
 Future<void> clearAll() async {
@@ -284,8 +275,6 @@ Future<void> clearAll() async {
   RoomScreen.showBanner.value = false;
   RoomScreen.myCoins.value = "";
   RoomScreen.winCircularluckyGift.value = 0;
-
-  await distroyMusic();
 }
 
 
@@ -439,6 +428,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
   if (result[messageContent][entroImgIdKey] == "") {
     if (result[messageContent]['vip'] == null ? false : result[messageContent]['vip'] > 0) {
       RoomScreen.showEntro.value = true;
+
     }
 
     userIntroData['user_name_intro']  = result[messageContent][userName];
@@ -621,14 +611,10 @@ TopUserKey(Map<String, dynamic> result)async{
   RoomScreen.topUserInRoom.value = topModel;
 }
 
-ShowPobUpKey(Map<String, dynamic> result, var pobUpSender, var showPopUp)async{
+ShowPobUpKey(Map<String, dynamic> result, Map<String , dynamic> pobUpData, var showPopUp)async{
   ZegoInRoomMessageInput.senderPobUpId = result[messageContent]['uId'];
-  if (RoomScreen.usersInRoom[result[messageContent]['uId']] == null) {
-    pobUpSender = await RemotlyDataSourceProfile().getUserData(userId: result[messageContent]['uId'].toString());
-    RoomScreen.usersInRoom.putIfAbsent(result[messageContent]['uId'].toString(), () => pobUpSender!);
-  } else {
-    pobUpSender = RoomScreen.usersInRoom[result[messageContent]['uId'].toString()];
-  }
+  pobUpData['pop_up_sender']  = UserDataModel(name:result[messageContent]['name'] , profile: ProfileRoomModel(image:result[messageContent]['image'] ,  ) , vip1:VipCenterModel(level:result[messageContent]['VIP'] ) );
+
   ZegoInRoomMessageInput.messagePonUp = result[messageContent]['my_msg'];
 
   showPopUp.value = true;

@@ -30,7 +30,6 @@ class MoreDailogWidget extends StatefulWidget {
   final Function() notifyRoom;
   final int modeRoom;
   final String userId;
-  final Function() refreshRoom;
 
   const MoreDailogWidget(
       {required this.roomId,
@@ -39,7 +38,6 @@ class MoreDailogWidget extends StatefulWidget {
       required this.userId,
       required this.modeRoom,
       required this.passwordStatus,
-      required this.refreshRoom,
       Key? key})
       : super(key: key);
 
@@ -157,7 +155,6 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
                     onTap: () {
                       Navigator.pushNamed(context, Routes.music,
                           arguments: MusicPramiter(
-                              refresh: widget.refreshRoom,
                               ownerId: widget.ownerId));
                     },
                     child: Column(
@@ -447,7 +444,6 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
                           Navigator.pop(context);
                           Navigator.pushNamed(context, Routes.music,
                               arguments: MusicPramiter(
-                                  refresh: widget.refreshRoom,
                                   ownerId: widget.ownerId));
                         },
                         child: Column(

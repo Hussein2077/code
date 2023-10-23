@@ -23,6 +23,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_r
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
@@ -72,6 +73,7 @@ class ReelsScreenState extends State<ReelsScreen>{
                     child: BlocConsumer<GetReelsBloc, GetReelsState>(
                       builder: (context, state) {
                         if (state is GetReelsSucssesState) {
+                          ReelsPage.isFirst = true;
                           ReelsController.getInstance.likesMap(state.data!);
                           ReelsController.getInstance
                               .likesCountMap(state.data!);
@@ -103,8 +105,7 @@ class ReelsScreenState extends State<ReelsScreen>{
                               });
                               BlocProvider.of<FollowBloc>(context).add(FollowEvent(userId: userId));
                             },
-                            onComment: (comment) {
-                            },
+
                             onClickMoreBtn: (id, userData) {
                               bottomDailog(
                                   context: context,
@@ -124,7 +125,6 @@ class ReelsScreenState extends State<ReelsScreen>{
                               Navigator.pop(context);
                             },
                             onIndexChanged: (index) {
-                              ReelsViewer.reelModel = state.data?[index];
                               if (state.data!.length - index == 4) {
                                 BlocProvider.of<GetReelsBloc>(context)
                                     .add(LoadMoreReelsEvent());
@@ -134,8 +134,7 @@ class ReelsScreenState extends State<ReelsScreen>{
                             showVerifiedTick: false,
                             showAppbar: true,
                           );
-                        }
-                        else if (state is GetReelsLoadingState) {
+                        } else if (state is GetReelsLoadingState) {
                           return const LoadingWidget();
                         }
                         else if (state is GetReelsErrorState) {
@@ -147,6 +146,7 @@ class ReelsScreenState extends State<ReelsScreen>{
                       },
                       listener: (context, state) async {
                         if (state is GetReelsSucssesState) {
+
                           for (int i = 0; i < state.data!.length; i++) {
                             if (!ReelsController.thumbnail.containsKey(state.data![i].id.toString())) {
                               Uint8List thumbnailPath = await ReelsController.getInstance.getVideoThumbnail(state.data![i].url!);
@@ -156,7 +156,8 @@ class ReelsScreenState extends State<ReelsScreen>{
                         }
                       },
                     ))
-            )));
+            )
+        ));
 
   }
 }

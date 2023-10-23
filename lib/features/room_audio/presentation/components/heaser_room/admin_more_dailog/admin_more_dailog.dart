@@ -14,11 +14,9 @@ import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 
 class AdminMoreDailog extends StatelessWidget {
-    final Function() refreshRoom;
       final String ownerId;
 
-
-  const AdminMoreDailog({required this.ownerId , required this.refreshRoom , super.key});
+  const AdminMoreDailog({required this.ownerId, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,7 @@ class AdminMoreDailog extends StatelessWidget {
                    onTap:   () {
             Navigator.pushNamed(context, Routes.music,
                 arguments: MusicPramiter(
-                    refresh: refreshRoom,
+                  
                     ownerId: ownerId));
           },
                    child: Column(

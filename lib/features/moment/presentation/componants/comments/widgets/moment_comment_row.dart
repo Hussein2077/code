@@ -42,7 +42,6 @@ class _MomentCommentsState extends State<MomentComments> {
   Widget build(BuildContext context) {
     return
       SizedBox(
-        height: ConfigSize.screenHeight! * 0.82,
         child: ListView.builder(
           controller: widget.scrollController,
           itemCount: widget.momentCommentListModel.length,

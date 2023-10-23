@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -40,6 +42,7 @@ class DilogBubbelVip extends StatelessWidget {
     } else if (6 == vip) {
       return dilogVip(vip:AssetsPath.bVIP6 , level: 6);
     } else if (7 == vip) {
+      log("elhamody333");
       return dilogVip(vip:AssetsPath.bVIP7 ,level: 7);
     } else if (8 == vip) {
       return dilogVip(vip:AssetsPath.bVIP8 , level: 8);
@@ -79,11 +82,11 @@ class DilogBubbelVip extends StatelessWidget {
                   AristocracyLevel(
                     level: userData!.vip1!.level! ,
                   ),
-                  if(userData!.level!.senderImage! != '')
-
-                    LevelContainer(
-                      image: userData!.level!.senderImage!),
-                          if (userData!.id == roomData.ownerId)
+                  // if(userData!.level!.senderImage! != '')
+                  //
+                  //   LevelContainer(
+                  //     image: userData!.level!.senderImage!),
+                  //         if (userData!.id == roomData.ownerId)
                     Image.asset(
                       AssetsPath.hostMark,
                       scale: 3.5,
@@ -99,7 +102,7 @@ class DilogBubbelVip extends StatelessWidget {
                         fontSize: AppPadding.p12,
                         color: Colors.white),
 
-                    isVip: userData!.hasColorName!,
+                    isVip: false,
                   ),
                 ],
               ),
