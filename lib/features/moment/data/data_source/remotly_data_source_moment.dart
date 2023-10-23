@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_comment_model.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_gift_model.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_like_model.dart';
@@ -253,7 +254,8 @@ class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
   @override
   Future<List<MomentModel>> getMoments(GetMomentPrameter pram)async {
     Map<String, String> headers = await DioHelper().header();
-
+    String timeZone= await Methods().getCurrentTimeZone();
+    headers.addAll({'tz':timeZone});
     try {
       final response = await Dio().get(
         ConstentApi.getMoments(pram.userId??'',pram.type,pram.page,),

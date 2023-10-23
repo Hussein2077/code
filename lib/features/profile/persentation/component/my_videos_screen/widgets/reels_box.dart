@@ -47,7 +47,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
     flutterGifController = FlutterGifController(vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       flutterGifController.repeat(
-          min: 0, max: 20, period: const Duration(milliseconds: 2000));
+   min: 0,max: 20,   period: const Duration(milliseconds: 2000));
     });
     super.initState();
   }
@@ -94,6 +94,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                             crossAxisCount: 3),
                     itemBuilder: (context, index) {
                       if (index < state.data!.length) {
+
                         return InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, Routes.userReelView,

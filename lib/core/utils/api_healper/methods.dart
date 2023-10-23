@@ -763,7 +763,12 @@ class Methods {
       ),
     );
   }
-
+  Future<String> getCurrentTimeZone() async {
+    DateTime dateTimeNow = DateTime.now();
+    print('GMT${  dateTimeNow.timeZoneName}');
+    print('${  dateTimeNow.timeZoneOffset}');
+    return 'GMT${dateTimeNow.timeZoneName}';
+  }
   String formatDateTime({
     required String dateTime,
     String format = 'E, d MMM yyyy hh:mm a',
@@ -780,7 +785,7 @@ class Methods {
     if (formatter.format(dateTimeNow).substring(5, 12) ==
         formatter.format(DateTime.parse(dateTime)).substring(5, 12)) {
       formatter = DateFormat('hh:mm a', locale);
-      return 'today at ${formatter.format(DateTime.parse(dateTime))}';
+      return '${StringManager.today.tr()} ${formatter.format(DateTime.parse(dateTime))}';
     } else {
       return formatter.format(DateTime.parse(dateTime));
     }

@@ -20,7 +20,6 @@ class DioHelper {
     String key = await Methods().getlocalization();
     String token = await Methods().returnUserToken();
 
-
     if (kDebugMode) {
       log(token);
     }
@@ -31,7 +30,7 @@ class DioHelper {
       "Authorization": "Bearer $token",
       // "device": devicedata??'noToken',
       "Accept": 'application/json',
-      "X-localization": key
+      "X-localization": key,
     };
     return headers;
   }

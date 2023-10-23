@@ -33,23 +33,23 @@ class _HomeHeaderState extends State<HomeHeader> {
         LiveTabBAR(liveController: widget.liveController,),
         InkWell(
             onTap: () async{
-            //   String token = await Methods().returnUserToken();
-            // await  getIt<DefaultCacheManager>().downloadFile('https://www.youtube.com/watch?v=ERA9s5J4BcY');
-            //   File? path =await  getIt<DefaultCacheManager>().getSingleFile('https://www.youtube.com/watch?v=ERA9s5J4BcY');
-            //   if(path.path ==null){
-            //     log("file does not exist ");
-            //   }else{
-            //     log("file path ${path.path}");
-            //     getIt<DefaultCacheManager>().downloadFile('https://www.youtube.com/watch?v=ERA9s5J4BcY')
-            //         .then((value){
-            //           log("rrrrrrrr");
-            //       Navigator.pushNamed(context, Routes.webView,
-            //           arguments: WebViewPramiter(url:path!.path,title:  '',titleColor: ColorManager.roomComment )  );
-            //
-            //     });
-            //
-            //   }
-              //Navigator.pushNamed(context, Routes.searchScreen);
+              String token = await Methods().returnUserToken();
+            await  getIt<DefaultCacheManager>().downloadFile('https://www.youtube.com/watch?v=ERA9s5J4BcY');
+              File? path =await  getIt<DefaultCacheManager>().getSingleFile('https://www.youtube.com/watch?v=ERA9s5J4BcY');
+              if(path.path ==null){
+                log("file does not exist ");
+              }else{
+                log("file path ${path.path}");
+                getIt<DefaultCacheManager>().downloadFile('https://www.youtube.com/watch?v=ERA9s5J4BcY')
+                    .then((value){
+                      log("rrrrrrrr");
+                  Navigator.pushNamed(context, Routes.webView,
+                      arguments: WebViewPramiter(url:path!.path,title:  '',titleColor: ColorManager.roomComment )  );
+
+                });
+
+              }
+              Navigator.pushNamed(context, Routes.searchScreen);
             },
             child: Image.asset(AssetsPath.searchIcon, scale: 2.5,)),
                  BlocBuilder<GetMyDataBloc, GetMyDataState>(
