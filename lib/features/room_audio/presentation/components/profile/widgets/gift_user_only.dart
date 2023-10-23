@@ -11,7 +11,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 class GiftUserOnly extends StatefulWidget {
   final String userId;
   final String ownerId;
-  const GiftUserOnly({required this.userId, required this.ownerId, super.key});
+  final String userImage ;
+  const GiftUserOnly({required this.userId, required this.userImage, required this.ownerId, super.key});
   static String userSelected = "";
   @override
   GiftUserOnlyState createState() => GiftUserOnlyState();
@@ -77,9 +78,7 @@ class GiftUserOnlyState extends State<GiftUserOnly> {
                         child: ClipOval(
                             child: Image(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(ConstentApi().getImage(
-                                    RoomScreen.usersInRoom[widget.userId]!
-                                        .profile!.image))))),
+                                image: NetworkImage(ConstentApi().getImage(widget.userImage))))),
                     if (RoomScreen.adminsInRoom.containsKey(widget.userId))
                       Positioned(
                         top: ConfigSize.defaultSize! * 3,

@@ -51,7 +51,6 @@ class _AddProFilePicState extends State<AddProFilePic> {
     AddProFilePic.image = await picker.pickImage(source: ImageSource.gallery , imageQuality:quality );
     setState(() {});
    // MyDataModel.getInstance().profile!.image=AddProFilePic.image.path;
-    log('${AddProFilePic.image!.path}heeeeeeeeeeeee');
   }
 
   @override
