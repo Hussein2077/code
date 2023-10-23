@@ -166,7 +166,7 @@ class RouteGenerator {
             builder: (_) => LoginScreen(
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
-              isLoginFromAnotherAccountAndBuildFailure: loginPramiter!.isLoginFromAnotherAccountAndBuildFailure??false,
+              isLoginFromAnotherAccountAndBuildFailure: loginPramiter?.isLoginFromAnotherAccountAndBuildFailure??false,
                 ));
       case Routes.otp:
         OtbScreenParm otbScreenParm =

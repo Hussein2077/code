@@ -42,7 +42,6 @@ class DilogBubbelVip extends StatelessWidget {
     } else if (6 == vip) {
       return dilogVip(vip:AssetsPath.bVIP6 , level: 6);
     } else if (7 == vip) {
-      log("elhamody333");
       return dilogVip(vip:AssetsPath.bVIP7 ,level: 7);
     } else if (8 == vip) {
       return dilogVip(vip:AssetsPath.bVIP8 , level: 8);
@@ -57,12 +56,15 @@ class DilogBubbelVip extends StatelessWidget {
       alignment: Alignment.centerLeft,
       children: [
         Positioned(
-            left:level==6?ConfigSize.defaultSize! * 4.7 :(level==5||level==4||level==3)?ConfigSize.defaultSize! * 6.3: ConfigSize.defaultSize! * 5.3,
+            left:level==6?ConfigSize.defaultSize! * 4.7 :(level==5||level==4||level==3)?ConfigSize.defaultSize! *6.3: ConfigSize.defaultSize! * 5.3,
+           // left:level==6?ConfigSize.defaultSize! * 4.7 :(level==5||level==4||level==3)?ConfigSize.defaultSize! * 6.3: ConfigSize.defaultSize! * 5.3,
             child: UserImage(
               image: userData!.profile!.image!,
+
             )),
         Image.asset(
           scale: 0.1,
+         // scale: 0.1,
           width: double.infinity,
           vip,
         ),
@@ -73,25 +75,32 @@ class DilogBubbelVip extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 textDirection: TextDirection.rtl,
                 children: [
-                  const SizedBox(
-                    width: 4,
-                  ),
-              
+                  //  SizedBox(
+                  //   width: ConfigSize.defaultSize!*0.5,
+                  // ),
+
                   AristocracyLevel(
                     level: userData!.vip1!.level! ,
                   ),
+                  SizedBox(
+                    width: ConfigSize.defaultSize!*0.2,
+                  ),
+
                   // if(userData!.level!.senderImage! != '')
                   //
                   //   LevelContainer(
                   //     image: userData!.level!.senderImage!),
                   //         if (userData!.id == roomData.ownerId)
-                    Image.asset(
+                  Image.asset(
                       AssetsPath.hostMark,
                       scale: 3.5,
                     ),
-
+                  SizedBox(
+                    width: ConfigSize.defaultSize!*0.2,
+                  ),
                   // if(userData!.level!.receiverImage! != '')
                   //   LevelContainer(
                   //     image: userData!.level!.receiverImage!),
@@ -104,6 +113,9 @@ class DilogBubbelVip extends StatelessWidget {
 
                     isVip: false,
                   ),
+                   SizedBox(
+                    width: level==3?ConfigSize.defaultSize!*0.5:(level==4||level==5)?ConfigSize.defaultSize!*0.9:0,
+                  ),
                 ],
               ),
               
@@ -111,12 +123,19 @@ class DilogBubbelVip extends StatelessWidget {
                 width: ConfigSize.defaultSize! * 23.1,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(
-                    message,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: AppPadding.p10,
-                        color: Colors.white),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: level==3?ConfigSize.defaultSize!*0.5:(level==4||level==5)?ConfigSize.defaultSize!*0.9:0,
+                      ),
+                      Text(
+                        message,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: AppPadding.p10,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               )
