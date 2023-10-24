@@ -2,6 +2,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -34,7 +35,8 @@ class GoogleAndAppleAuth extends StatelessWidget {
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.addInfo,
-              arguments: ThirdPartyAuthModel(data: state.userData.userData, type: "google"),
+              arguments: ThirdPartyAuthModel(
+                  data: state.userData.userData, type: "google"),
               (route) => false,
             );
           } else {
@@ -44,10 +46,10 @@ class GoogleAndAppleAuth extends StatelessWidget {
               (route) => false,
             );
           }
-        }else if (state is SiginWithGoogleErrorMessageState){
+        } else if (state is SiginWithGoogleErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
-        }else {
-
+        } else if (state is SiginWithPlatFormLoadingState) {
+          loadingToast(context: context);
         }
 
         if(state is SiginWithAppleSuccesMessageState){

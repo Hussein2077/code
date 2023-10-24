@@ -37,85 +37,90 @@ class _DataScreenState extends State<DataScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          dataRow(
-            context: context,
-            icon: Icons.delete,
-            title: StringManager.clearData.tr(),
-            onTap: () {
-              Methods().clearCachData(context);
-            },
-          ),
-          SizedBox(
-            height: ConfigSize.defaultSize! * 3.5,
-          ),
-          dataRow(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 2,
+      width: MediaQuery.of(context).size.width,
+      child: SafeArea(
+          child: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: ConfigSize.defaultSize!*3,),
+            dataRow(
               context: context,
-              icon: Icons.cloud_download,
-              title: StringManager.downloadData.tr(),
-              onTap: () async {
-                await Methods().chachGiftInRoom();
-                await Methods().getAndLoadExtraData();
-                await Methods().getAndLoadFrames();
-                await Methods().getAndLoadEntro();
-                await Methods().getAndLoadEmojie();
-                sucssesToast(
-                    title: StringManager.downloadedData.tr(), context: context);
-              }),
-          SizedBox(
-            height: ConfigSize.defaultSize! * 3.5,
-          ),
-          // Row(
-          //   children: [
-          //     SizedBox(
-          //       width: ConfigSize.screenWidth! * 0.05,
-          //     ),
-          //     Text(
-          //       StringManager.activeNotification.tr(),
-          //       style: Theme.of(context).textTheme.bodyMedium,
-          //     ),
-          //     SizedBox(
-          //       width: ConfigSize.screenWidth! * 0.5,
-          //     ),
-          //     SizedBox(
-          //       height: ConfigSize.defaultSize! * 1.9,
-          //       width: ConfigSize.screenWidth! * .18,
-          //       child: SliderTheme(
-          //         data: const SliderThemeData(
-          //             trackHeight: 15,
-          //             thumbColor: ColorManager.mainColor,
-          //             activeTrackColor: ColorManager.orang),
-          //         child: Slider(
-          //           value: currentValue,
-          //           divisions: 1,
-          //           onChanged: (value) {
-          //             if (value == 1) {
-          //               Methods().setNotificationState(notificationState: true);
-          //               BlocProvider.of<ActiveNotificationBloc>(context)
-          //                   .add(const ActiveNotificationEvent(state: true));
-          //             } else if (value == 0) {
-          //               Methods()
-          //                   .setNotificationState(notificationState: false);
-          //               BlocProvider.of<ActiveNotificationBloc>(context)
-          //                   .add(const ActiveNotificationEvent(state: false));
-          //             }
-          //             setState(() {
-          //               currentValue = value;
-          //             });
-          //           },
-          //         ),
-          //       ),
-          //     ),
-          //     //SizedBox(width: ConfigSize.screenWidth!*0.05,),
-          //   ],
-          // ),
-        ],
-      ),
-    ));
+              icon: Icons.delete,
+              title: StringManager.clearData.tr(),
+              onTap: () {
+                Methods().clearCachData(context);
+              },
+            ),
+            SizedBox(
+              height: ConfigSize.defaultSize! * 3.5,
+            ),
+            dataRow(
+                context: context,
+                icon: Icons.cloud_download,
+                title: StringManager.downloadData.tr(),
+                onTap: () async {
+                  await Methods().chachGiftInRoom();
+                  await Methods().getAndLoadExtraData();
+                  await Methods().getAndLoadFrames();
+                  await Methods().getAndLoadEntro();
+                  await Methods().getAndLoadEmojie();
+                  sucssesToast(
+                      title: StringManager.downloadedData.tr(), context: context);
+                }),
+            SizedBox(
+              height: ConfigSize.defaultSize! * 3.5,
+            ),
+            // Row(
+            //   children: [
+            //     SizedBox(
+            //       width: ConfigSize.screenWidth! * 0.05,
+            //     ),
+            //     Text(
+            //       StringManager.activeNotification.tr(),
+            //       style: Theme.of(context).textTheme.bodyMedium,
+            //     ),
+            //     SizedBox(
+            //       width: ConfigSize.screenWidth! * 0.5,
+            //     ),
+            //     SizedBox(
+            //       height: ConfigSize.defaultSize! * 1.9,
+            //       width: ConfigSize.screenWidth! * .18,
+            //       child: SliderTheme(
+            //         data: const SliderThemeData(
+            //             trackHeight: 15,
+            //             thumbColor: ColorManager.mainColor,
+            //             activeTrackColor: ColorManager.orang),
+            //         child: Slider(
+            //           value: currentValue,
+            //           divisions: 1,
+            //           onChanged: (value) {
+            //             if (value == 1) {
+            //               Methods().setNotificationState(notificationState: true);
+            //               BlocProvider.of<ActiveNotificationBloc>(context)
+            //                   .add(const ActiveNotificationEvent(state: true));
+            //             } else if (value == 0) {
+            //               Methods()
+            //                   .setNotificationState(notificationState: false);
+            //               BlocProvider.of<ActiveNotificationBloc>(context)
+            //                   .add(const ActiveNotificationEvent(state: false));
+            //             }
+            //             setState(() {
+            //               currentValue = value;
+            //             });
+            //           },
+            //         ),
+            //       ),
+            //     ),
+            //     //SizedBox(width: ConfigSize.screenWidth!*0.05,),
+            //   ],
+            // ),
+          ],
+        ),
+      )),
+    );
   }
 }
 
