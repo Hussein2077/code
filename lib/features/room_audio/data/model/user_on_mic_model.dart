@@ -11,10 +11,11 @@ class UserOnMicModel extends Equatable {
 
 
   factory UserOnMicModel.fromJson(Map<String,dynamic>json ){
+    log("json${json.toString()}");
     return    UserOnMicModel(
-            id:json['id'],
-            name: json['name']
-        );
+            id:json['id']??0,
+            name: json['name']??''
+    );
 }
   @override
   List<Object?> get props => [id,name];
