@@ -829,7 +829,6 @@ class Methods {
     }
 
     getTheNewData(BuildContext context){
-      if (true) {
         log('getTheNewData${MyDataModel.getInstance().id.toString()}');
         BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
         BlocProvider.of<GetFollowingUserMomentBloc>(context).add(const GetFollowingMomentEvent());
@@ -837,7 +836,6 @@ class Methods {
         BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(userId: MyDataModel.getInstance().id.toString(),));
         BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
         BlocProvider.of<GetFollowingReelsBloc>(context).add(GetFollowingReelsEvent());
-        BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent());
         BlocProvider.of<GetFollwersRoomBloc>(context).add(const GetFollwersRoomEvent(type: "5"));
         BlocProvider.of<GetRoomsBloc>(context).add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
         AduioBody.type = StringManager.popular;
@@ -847,6 +845,6 @@ class Methods {
         CountryDialog.selectedCountry.value =
         !CountryDialog.selectedCountry.value;
       }
-    }
+
 
 }

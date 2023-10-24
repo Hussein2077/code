@@ -85,6 +85,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_al
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_intersed/get_user_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
@@ -416,7 +417,7 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
-        BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
+        BlocProvider(create: (_) => getIt<GetUserReelsBloc>()..add(const GetUserReelEvent())),
         BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
         BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),
