@@ -305,7 +305,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         } else if (widget.room.seats![i]['id'] != null) {
           UserOnMicModel myDataModel = UserOnMicModel.fromJson(widget.room.seats![i]);
           ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(id: myDataModel.id.toString(), name: myDataModel.name.toString());
-          zegoUIKitUser.inRoomAttributes.value['uu'] = 'moooo';
           RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
         }
       }
@@ -973,13 +972,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               ],
             )
             ..seatConfig.avatarBuilder = (context, size, user, extraInfo) {
-
               return ValueListenableBuilder<bool>(
                 valueListenable:
                     ZegoUIKit().getMicrophoneStateNotifier(user!.id),
                 builder: (context, isMicrophoneEnabled, _) {
                   return UserAvatar(
-                      image: user.inRoomAttributes.value['img'].toString(),
+                      image: user.inRoomAttributes.value['img'],
                       isMicrophoneEnabled: isMicrophoneEnabled);
                 },
               );

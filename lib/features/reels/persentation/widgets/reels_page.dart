@@ -85,9 +85,7 @@ class _ReelsPageState extends State<ReelsPage>
       });
     }
 
-    ReelsPage.videoPlayerController?.addListener(() {
-      log("1111111111111111111");
-    });
+
   }
 
 
@@ -95,7 +93,7 @@ class _ReelsPageState extends State<ReelsPage>
 
 
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
-    final cachImage =  await   getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
+    final cachImage =  await getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
     image = cachImage ;
 
     if(file?.file !=null){
@@ -153,6 +151,7 @@ class _ReelsPageState extends State<ReelsPage>
 
   @override
   void dispose() {
+    log("in dispose");
     _videoPlayerController.dispose();
     if (_chewieController != null) {
       _chewieController!.dispose();

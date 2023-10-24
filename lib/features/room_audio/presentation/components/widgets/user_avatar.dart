@@ -5,11 +5,12 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 
 class UserAvatar extends StatelessWidget {
-  String image;
+  String? image;
   bool isMicrophoneEnabled;
-  UserAvatar({super.key, required this.image, required this.isMicrophoneEnabled});
+  UserAvatar({super.key,  this.image, required this.isMicrophoneEnabled});
 
   @override
   Widget build(BuildContext context) {
@@ -53,4 +54,6 @@ class UserAvatar extends StatelessWidget {
       ],
     );
   }
+
+
 }

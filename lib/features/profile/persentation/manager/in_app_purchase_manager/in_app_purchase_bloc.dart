@@ -15,7 +15,7 @@ class InAppPurchaseBloc extends Bloc<InAppPurchaseEvent, InAppPurchaseState> {
       emit(InAppPurchaseLoadingState());
 final result = await inAppPurchaseUsecase.inAppPurchase(user_id: event.user_id, product_id: event.product_id);
 
-result.fold((l) => emit(InAppPurchaseSucssesState(message: l)), (r) => emit(InAppPurchaseErrorState(error: DioHelper().getTypeOfFailure(r))));
+result.fold((l) => emit(InAppPurchaseSucssesState(data: l)), (r) => emit(InAppPurchaseErrorState(error: DioHelper().getTypeOfFailure(r))));
       
     });
   }

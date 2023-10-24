@@ -18,10 +18,12 @@ class GiftUserScreen extends StatefulWidget {
   final MyDataModel myDataModel;
   final EnterRoomModel roomData;
   final String userId;
+  final String userImage ;
   const GiftUserScreen(
       {required this.myDataModel,
       required this.roomData,
       required this.userId,
+        required this.userImage,
       super.key});
   static int giftId = 0;
   static int giftPrice = 0;
@@ -53,6 +55,7 @@ class _GiftUserScreenState extends State<GiftUserScreen>
               GiftUserOnly(
                 userId: widget.userId,
                 ownerId: widget.roomData.ownerId.toString(),
+                userImage: widget.userImage,
               ),
               SizedBox(
                 height: ConfigSize.defaultSize! * 2,

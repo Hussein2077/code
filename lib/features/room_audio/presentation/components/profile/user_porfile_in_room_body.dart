@@ -281,7 +281,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                             widget: GiftUserScreen(
                               roomData: widget.roomData,
                               userId: widget.userData.id.toString(),
-                              myDataModel: widget.myData,
+                              myDataModel: widget.myData, userImage: widget.userData.profile?.image??'',
                             ));
                       },
                       child: const ImageWithText(

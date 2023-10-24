@@ -36,6 +36,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/in_app_purchase_mode.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
@@ -190,7 +191,7 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<ReelModel>> getUserReel(String? id, String page);
   Future<String> deleteMessage(String id);
   Future<bool> activeNotification();
-  Future<String> inAppPurchase({required String user_id ,required String product_id});
+  Future<InAppPurchaseMode> inAppPurchase({required String user_id ,required String product_id});
 
 
 }
@@ -2093,7 +2094,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
     @override
-  Future<String> inAppPurchase({required String user_id, required String product_id}) async{
+  Future<InAppPurchaseMode> inAppPurchase({required String user_id, required String product_id}) async{
 
     Map<String, String> headers = await DioHelper().header();
 
@@ -2103,17 +2104,17 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       };
     try {
       final response = await Dio().post(
-        ConstentApi.activeNotification,
+        ConstentApi.inAppPurchase,
         data: body,
         options: Options(
           headers: headers,
         ),
       );
-
       Map<String, dynamic> resultData = response.data;
-      return resultData['message'];
+      InAppPurchaseMode data = InAppPurchaseMode.fromJson(resultData);
+      return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'activeNotification' );
+      throw DioHelper.handleDioError(dioError: e,endpointName:'InAppPurchase' );
     }
 
   }
