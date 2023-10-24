@@ -27,6 +27,11 @@ class MyBagTabView extends StatelessWidget {
             crossAxisCount: 2, childAspectRatio: 1.2),
         itemCount: myBagData.length,
         itemBuilder: (context, index) {
+          log(myBagData[0].type);
+          log(myBagData[0].name);
+          log(myBagData[0].expire);
+          log(myBagData[0].showImg.toString());
+          log(myBagData[0].firstUsed.toString());
           return MyBagCard(
             viewIndex: viewIndex,
             id: myBagData[index].id.toString(),
