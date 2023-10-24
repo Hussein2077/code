@@ -17,6 +17,7 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_palt
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class GoogleAndAppleAuth extends StatelessWidget {
   const GoogleAndAppleAuth({super.key});

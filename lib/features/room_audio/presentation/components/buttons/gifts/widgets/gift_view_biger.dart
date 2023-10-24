@@ -84,6 +84,8 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                if(GiftScreen.numOfGift==index){
                                  setState(() {
                                    GiftScreen.numOfGift =-1 ;
+                                   GiftScreen.giftId =  -1;
+                                   GiftScreen.giftPrice= -1;
                                  });
                                }
                                else{
@@ -100,6 +102,8 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                               if(GiftScreen.numOfGift==index){
                                 setState(() {
                                   GiftScreen.numOfGift =-1 ;
+                                  GiftScreen.giftId =  -1;
+                                  GiftScreen.giftPrice= -1;
                                   // currentPageView = -1 ;
                                 });
                               }
