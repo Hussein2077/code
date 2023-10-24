@@ -14,9 +14,8 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 class MusicDialog extends StatefulWidget {
   static double currentSliderValue = 45;
   final String ownerId ;
-  final  int totalDuration  ;
 
-  const MusicDialog({required this.ownerId, required this.totalDuration, Key? key}) : super(key: key);
+  const MusicDialog({required this.ownerId, Key? key}) : super(key: key);
 
   @override
   State<MusicDialog> createState() => _MusicDialogState();
@@ -27,9 +26,7 @@ late  bool isPlay  ;
 
   @override
   void initState() {
-    // TODO: implement initState
     isPlay =  MusicScreen.isPlaying.value ;
-
     super.initState();
   }
 
@@ -49,10 +46,14 @@ late  bool isPlay  ;
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                  RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].name
-                      .toString(),
-                  style: const TextStyle(color: Colors.white),overflow: TextOverflow.ellipsis,),
+              ValueListenableBuilder(
+                valueListenable: ZegoUIKit().getMediaCurrentProgressNotifier(),
+                builder: (BuildContext context, dynamic value, Widget? child){
+                  return Text(
+                    RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].name.toString(),
+                    style: const TextStyle(color: Colors.white),overflow: TextOverflow.ellipsis,);
+                },
+              ),
               SizedBox(
                 height: ConfigSize.defaultSize! *  2.5,
               ),
@@ -93,30 +94,21 @@ late  bool isPlay  ;
                   const Spacer(),
                   InkWell(
                       onTap: () async {
-
                         if ((MusicScreen.nowPlaying! - 1) > -1) {
-                        await ZegoUIKit().stopMedia();
-                        MusicScreen.isPlaying.value = false;
 
+                          distroyMusic();
                           MusicScreen.nowPlaying = MusicScreen.nowPlaying! - 1;
-                          loadMusice(
-                              path: RoomScreen
-                                  .musicesInRoom[MusicScreen.nowPlaying!]
-                                  .uri);
+                          loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+
                         } else {
-                        await ZegoUIKit().stopMedia();
-                        MusicScreen.isPlaying.value = false;
-
-                          MusicScreen.nowPlaying =
-                              RoomScreen.musicesInRoom.length - 1;
-                          loadMusice(
-                              path: RoomScreen
-                                  .musicesInRoom[MusicScreen.nowPlaying!].uri);
+                          distroyMusic();
+                          MusicScreen.nowPlaying = RoomScreen.musicesInRoom.length - 1;
+                          loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                         }
+                        ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
                         setState(() {
-                          isPlay=true ;
+                          isPlay = true ;
                         });
-
                       },
                       child: const Icon(
                         Icons.skip_previous,
@@ -131,15 +123,11 @@ late  bool isPlay  ;
                         if (isPlay) {
                         await  ZegoUIKit().pauseMedia() ;
                           setState(() {
-                         //   RoomScreen.zegoMediaPlayer!.pause();
-
                             isPlay = false;
                           });
                         } else {
                           await  ZegoUIKit().resumeMedia() ;
                           setState(() {
-
-                           // RoomScreen.zegoMediaPlayer!.resume();
                             isPlay= true;
                           });
                         }
@@ -153,29 +141,19 @@ late  bool isPlay  ;
                   InkWell(
                     child: const Icon(Icons.skip_next, color: Colors.white),
                     onTap: ()  async{
-                      if ((MusicScreen.nowPlaying! + 1) < RoomScreen.musicesInRoom.length) {
-                        await ZegoUIKit().stopMedia();
-                        MusicScreen.isPlaying.value = false;
-
-                          MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
-                          loadMusice(
-                              path: RoomScreen
-                                  .musicesInRoom[MusicScreen.nowPlaying!]
-                                  .uri);
-                        } else {
-
-                        await ZegoUIKit().stopMedia();
-                        MusicScreen.isPlaying.value = false;
-                        
-                          MusicScreen.nowPlaying = 0;
-                          loadMusice(
-                              path: RoomScreen
-                                  .musicesInRoom[MusicScreen.nowPlaying!].uri);
-                        }
-                        setState(() {
-                          isPlay=true ;
-                        });
-
+                      if ((MusicScreen.nowPlaying! +1) >=  RoomScreen.musicesInRoom.length) {
+                        distroyMusic();
+                        MusicScreen.nowPlaying = 0;
+                        loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                      } else {
+                        distroyMusic();
+                        MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
+                        loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                      }
+                      ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
+                      setState(() {
+                        isPlay = true;
+                      });
                     },
                   ),
                   const Spacer(
@@ -192,36 +170,14 @@ late  bool isPlay  ;
                 child: ValueListenableBuilder(
                   valueListenable: ZegoUIKit().getMediaCurrentProgressNotifier(),
                   builder: (BuildContext context, dynamic value, Widget? child){
-                  if(ZegoUIKit().getMediaTotalDuration() == ZegoUIKit().getMediaCurrentProgress()){
-                      if ((MusicScreen.nowPlaying! + 1) < RoomScreen.musicesInRoom.length) {
-                        ZegoUIKit().stopMedia();
-                        MusicScreen.isPlaying.value = false;
-
-                          MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
-                          loadMusice(
-                              path: RoomScreen
-                                  .musicesInRoom[MusicScreen.nowPlaying!]
-                                  .uri);
-                        } else {
-
-                        ZegoUIKit().stopMedia();
-                        MusicScreen.isPlaying.value = false;
-                        
-                          MusicScreen.nowPlaying = 0;
-                          loadMusice(
-                              path: RoomScreen
-                                  .musicesInRoom[MusicScreen.nowPlaying!].uri);
-                        }
-                      }
                     return Slider(
-                    autofocus: true,
-                    activeColor: ColorManager.gold1,
-                    min: 0,
-                    max: ZegoUIKit().getMediaTotalDuration().toDouble(),
-                    value: ZegoUIKit().getMediaCurrentProgress().toDouble(),
-                    onChanged: (double value) async{
-                    //  RoomScreen.zegoMediaPlayer!.seekTo(value.toInt());
-                      ZegoUIKit().seekTo(value.toInt()) ;
+                      autofocus: true,
+                      activeColor: ColorManager.gold1,
+                      min: 0,
+                      max:ZegoUIKit().getMediaTotalDuration().toDouble(),
+                      value: ZegoUIKit().getMediaCurrentProgress().toDouble(),
+                      onChanged: (double value) async{
+                        ZegoUIKit().seekTo(value.toInt()) ;
                     },
                   );
                   },

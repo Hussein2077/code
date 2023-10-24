@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/rstarcompany/Downloads/flutter
-FLUTTER_APPLICATION_PATH=/Users/rstarcompany/Documents/GitHub/tikChatV2-
+FLUTTER_ROOT=/Users/mac/Developer/flutter
+FLUTTER_APPLICATION_PATH=/Users/mac/GitHub/tikChatV2-
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.3.3

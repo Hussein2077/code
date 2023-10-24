@@ -16,6 +16,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
@@ -275,6 +276,12 @@ Future<void> clearAll() async {
   RoomScreen.showBanner.value = false;
   RoomScreen.myCoins.value = "";
   RoomScreen.winCircularluckyGift.value = 0;
+  GiftUser.userSelected.clear();
+}
+
+Future<void> distroyMusic() async {
+  await ZegoUIKit().stopMedia();
+  MusicScreen.isPlaying.value = false;
 }
 
 
