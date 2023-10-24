@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 
 class ConstentApi {
-  static const String baseUrl =  !kReleaseMode ?  "https://tik-chat.com/api" :
+  static const String baseUrl =  kReleaseMode ?  "https://tik-chat.com/api" :
   'https://test.tik-chat.com/api';
 
   static const String getBoxes = "$baseUrl/box/list";

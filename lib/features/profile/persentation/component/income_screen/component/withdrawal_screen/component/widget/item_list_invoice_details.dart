@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -35,7 +36,7 @@ class ItemInvoiceDetails extends StatelessWidget {
             ),
 
             Text(
-              StringManager.successfulOperation,
+              StringManager.successfulOperation.tr(),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             SizedBox(
@@ -45,7 +46,7 @@ class ItemInvoiceDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                    StringManager.date,
+                    StringManager.date.tr(),
                     style: Theme.of(context).textTheme.bodyMedium
                 ),
                 Text(
@@ -61,7 +62,7 @@ class ItemInvoiceDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                    StringManager.withdrawalAmount,
+                    StringManager.withdrawalAmount.tr(),
                     style: Theme.of(context).textTheme.bodyMedium
                 ),
                 Text(
@@ -77,7 +78,7 @@ class ItemInvoiceDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  StringManager.userID,
+                  StringManager.userID.tr(),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
@@ -94,7 +95,7 @@ class ItemInvoiceDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  StringManager.type,
+                  StringManager.type.tr(),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
