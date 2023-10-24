@@ -24,7 +24,6 @@ class MusicListWidgetState extends State<MusicListWidget> {
   late StreamSubscription scanResultStreamSubscription;
   late StreamSubscription pickResultStreamSubscription;
   late Map<String, dynamic> mapChachedMusic;
-  // Main method.
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
   bool _hasPermission = false;
@@ -32,6 +31,12 @@ class MusicListWidgetState extends State<MusicListWidget> {
   @override
   void initState() {
     super.initState();
+
+    MusicScreen.musicController.stream.listen((musicList) {
+      setState(() {
+
+      });
+    });
 
     Future.delayed(Duration.zero, () async {
       mapChachedMusic = await Methods().getCachingMusic();
@@ -127,8 +132,7 @@ class MusicListWidgetState extends State<MusicListWidget> {
 
                             MusicScreen.musicController.sink.add(RoomScreen.musicesInRoom);
 
-                            Methods()
-                                .setCachingMusic(cachingMusic: mapChachedMusic);
+                            Methods().setCachingMusic(cachingMusic: mapChachedMusic);
                           }
 
                           // widget.refreshMusicScreen();

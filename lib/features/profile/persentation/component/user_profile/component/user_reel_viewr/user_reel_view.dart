@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,19 +48,10 @@ class UserReelView extends StatefulWidget {
   State<UserReelView> createState() => UserReelViewState();
 }
 
-late TextEditingController report ;
+TextEditingController report = TextEditingController();
 
 
 class UserReelViewState extends State<UserReelView> {
-
-
-  @override
-  void initState() {
-
-    report = TextEditingController();
-
-    super.initState();
-  }
 
   @override
   void dispose() {
