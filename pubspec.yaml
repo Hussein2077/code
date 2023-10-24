@@ -79,7 +79,7 @@ dependencies:
   encrypt: ^5.0.1
   zego_plugin_adapter: ^2.0.1
   zego_zim: 2.7.1
-  zego_zpns: 2.3.1
+  zego_zpns:
   file_picker: ^5.2.10
   flutter_social_textfield: ^0.1.2
   profanity_filter: ^2.0.0
