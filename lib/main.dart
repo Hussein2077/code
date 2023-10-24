@@ -5,7 +5,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
 import 'package:tik_chat_v2/core/notifcation/firebase_messaging_background.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -13,7 +12,6 @@ import 'package:tik_chat_v2/core/resource_manger/themes/dark_theme.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/light_theme.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
@@ -24,7 +22,6 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_pho
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
-import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_event.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
@@ -32,7 +29,6 @@ import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manag
 import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/cursel_bloc/cursel_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
-import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manager_top_rank/top_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/manger_search/search_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
@@ -40,14 +36,11 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_mom
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_get_gifts/get_moment_gifts_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
@@ -68,7 +61,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_follwers_or_following_manger/bloc/get_follower_or_following_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
@@ -93,7 +85,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_al
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_intersed/get_user_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
@@ -112,8 +103,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
-
-
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
@@ -121,10 +110,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_g
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
-import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
-import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_comment/make_reel_comment_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
@@ -146,7 +133,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
-
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
 // final globalNavigatorKey = GlobalKey<NavigatorState>();
@@ -216,7 +202,7 @@ final  String theme ;
           create: (context) => getIt<LogOutBloc>(),
         ),
         BlocProvider(
-          create: (context) => getIt<GetMyDataBloc>()..add(GetMyDataEvent()),
+          create: (context) => getIt<GetMyDataBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<MallBloc>()
@@ -304,7 +290,7 @@ final  String theme ;
         ),
         BlocProvider(
           create: (context) => getIt<GetFollwersRoomBloc>()
-            ..add(const GetFollwersRoomEvent(type: "5")),
+          ,
         ),
         BlocProvider(
           create: (context) => getIt<CarouselBloc>()..add(GetCarouselEvent()),
@@ -313,8 +299,7 @@ final  String theme ;
           create: (context) => getIt<CounrtyBloc>()..add(GetAllCountryEvent()),
         ),
         BlocProvider(
-          create: (context) => getIt<GetRoomsBloc>()
-            ..add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular)),
+          create: (context) => getIt<GetRoomsBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<SearchBloc>(),
@@ -410,8 +395,6 @@ final  String theme ;
               ..add(GiftesFamousEvent(type: 5))
               ..add(GiftesLuckyEvent(type: 6))
               ..add(GiftesMomentEvent(type: 4)),
-
-
         ),
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
         BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),
@@ -422,7 +405,7 @@ final  String theme ;
         ),
         BlocProvider(create: (_) => getIt<PrivacyBloc>()),
         BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
-        BlocProvider(create: (_) => getIt<GetReelsBloc>()..add(GetReelsEvent())),
+        BlocProvider(create: (_) => getIt<GetReelsBloc>()),
         BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
         BlocProvider(create: (_) => getIt<UserReportBloc>()),
         BlocProvider(
@@ -433,47 +416,39 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
-        BlocProvider(
-            create: (_) =>
-                getIt<GetUserReelsBloc>()..add(const GetUserReelEvent())),
+        BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
         BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
         BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),
         BlocProvider(create: (_) => getIt<DeleteMomentBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentCommentBloc>()),
-
         BlocProvider(create: (_) => getIt<GetMomentBloc>()),
-        BlocProvider(create: (_) => getIt<GetFollowingUserMomentBloc>()..add(const GetFollowingMomentEvent())),
-        BlocProvider(create: (_) => getIt<GetMomentILikeItBloc>()..add(const GetMomentIliKEitEvent())),
+        BlocProvider(create: (_) => getIt<GetFollowingUserMomentBloc>()),
+        BlocProvider(create: (_) => getIt<GetMomentILikeItBloc>()),
         BlocProvider(create: (_) => getIt<GetMomentLikesBloc>()),
-
         BlocProvider(create: (_) => getIt<DeleteMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
         BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
         BlocProvider(create: (_) => getIt<GetMomentGiftsBloc>()),
-
         BlocProvider(create: (context) => ThemeBloc()),
-                BlocProvider(create: (_) => getIt<RoomVistorBloc>()),
-
-
-
+        BlocProvider(create: (_) => getIt<RoomVistorBloc>()),
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
         BlocProvider(create: (_) => getIt<ActiveNotificationBloc>()),
         BlocProvider(create: (_) => getIt<SendCodeBloc>()),
-        BlocProvider(create: (_) => getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
-        BlocProvider(create: (_) => getIt<GetFollowingReelsBloc>()..add(GetFollowingReelsEvent())),
+        BlocProvider(
+            create: (_) =>
+                getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
+        BlocProvider(create: (_) => getIt<GetFollowingReelsBloc>()),
         BlocProvider(
           create: (context) => getIt<LuckyGiftBannerBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<GetUsersInRoomBloc>(),
         ),
-                BlocProvider(
+        BlocProvider(
           create: (context) => getIt<InAppPurchaseBloc>(),
         ),
-
-
       ],
       child:  BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {

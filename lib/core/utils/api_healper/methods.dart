@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
@@ -16,7 +17,7 @@ import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/video_cache_model.dart';
-import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/cach_manager.dart';
@@ -28,9 +29,29 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
+import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
+import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
 import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
+import 'package:tik_chat_v2/features/home/presentation/widget/body/aduio/audio_body.dart';
+import 'package:tik_chat_v2/features/home/presentation/widget/country_dilog.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 
@@ -806,4 +827,26 @@ class Methods {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setBool("notificationState", notificationState);
     }
+
+    getTheNewData(BuildContext context){
+      if (true) {
+        log('getTheNewData${MyDataModel.getInstance().id.toString()}');
+        BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+        BlocProvider.of<GetFollowingUserMomentBloc>(context).add(const GetFollowingMomentEvent());
+        BlocProvider.of<GetMomentILikeItBloc>(context).add(const GetMomentIliKEitEvent());
+        BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(userId: MyDataModel.getInstance().id.toString(),));
+        BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+        BlocProvider.of<GetFollowingReelsBloc>(context).add(GetFollowingReelsEvent());
+        BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent());
+        BlocProvider.of<GetFollwersRoomBloc>(context).add(const GetFollwersRoomEvent(type: "5"));
+        BlocProvider.of<GetRoomsBloc>(context).add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
+        AduioBody.type = StringManager.popular;
+        AduioBody.countryId = null;
+        CountryDialog.flag = AssetsPath.fireIcon;
+        CountryDialog.name = StringManager.popular;
+        CountryDialog.selectedCountry.value =
+        !CountryDialog.selectedCountry.value;
+      }
+    }
+
 }

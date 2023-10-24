@@ -29,6 +29,7 @@ import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/main.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'widgets/google_auth.dart';
 import 'widgets/phone_wtih_country.dart';
 import 'widgets/privcy_text_widget.dart';
