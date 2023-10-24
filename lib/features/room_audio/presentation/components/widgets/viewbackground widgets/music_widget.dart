@@ -20,6 +20,7 @@ class MusicWidget extends StatelessWidget {
 
   EnterRoomModel room;
   AnimationController controllerMusice;
+  static bool isIPlayerMedia = false ;
   MusicWidget({super.key, required this.room, required this.controllerMusice});
 
   @override
@@ -32,7 +33,7 @@ class MusicWidget extends StatelessWidget {
               return const SizedBox();
             case MediaPlayState.Playing:
             case MediaPlayState.Pausing:
-              return DraggableFloatWidget(
+              return MusicWidget.isIPlayerMedia ? DraggableFloatWidget(
                 config: DraggableFloatWidgetBaseConfig(
                   initPositionYInTop: false,
                   initPositionYMarginBorder: ConfigSize.screenHeight! - 300,
@@ -73,7 +74,11 @@ class MusicWidget extends StatelessWidget {
                                           image: AssetImage(AssetsPath.music)))))),
                     ),
                     GestureDetector(
-                      onTap: () => distroyMusic(),
+                      onTap: () {
+                        distroyMusic() ;
+                        MusicWidget.isIPlayerMedia = false ;
+
+          } ,
                       child: Container(
                           decoration: BoxDecoration(
                               color: ColorManager.mainColor.withOpacity(0.5),
@@ -87,20 +92,23 @@ class MusicWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-              );
+              ) :const SizedBox();
             case MediaPlayState.PlayEnded:
-              if ((MusicScreen.nowPlaying! +1) >=  RoomScreen.musicesInRoom.length) {
-                distroyMusic();
-                MusicScreen.nowPlaying = 0;
-                loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
-                ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
-              } else {
-                distroyMusic();
-                MusicScreen.nowPlaying =MusicScreen.nowPlaying!+1;
-                loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
-                ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
+              if(MusicWidget.isIPlayerMedia){
+                if ((MusicScreen.nowPlaying! +1) >=  RoomScreen.musicesInRoom.length) {
+                  distroyMusic();
+                  MusicScreen.nowPlaying = 0;
+                  loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                  ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
+                } else {
+                  distroyMusic();
+                  MusicScreen.nowPlaying =MusicScreen.nowPlaying!+1;
+                  loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                  ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
+                }
               }
-              return DraggableFloatWidget(
+
+              return MusicWidget.isIPlayerMedia ? DraggableFloatWidget(
                 config: DraggableFloatWidgetBaseConfig(
                   initPositionYInTop: false,
                   initPositionYMarginBorder: ConfigSize.screenHeight! - 300,
@@ -141,7 +149,11 @@ class MusicWidget extends StatelessWidget {
                                           image: AssetImage(AssetsPath.music)))))),
                     ),
                     GestureDetector(
-                      onTap: () => distroyMusic(),
+                      onTap: () {
+                        distroyMusic() ;
+                        MusicWidget.isIPlayerMedia = false ;
+
+                      } ,
                       child: Container(
                           decoration: BoxDecoration(
                               color: ColorManager.mainColor.withOpacity(0.5),
@@ -155,7 +167,7 @@ class MusicWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-              );
+              ) :const SizedBox();
           }
         });
   }

@@ -125,6 +125,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     )),
                     IconButton(
                         onPressed: () async {
+                          MusicWidget.isIPlayerMedia = true ;
                           if (!MusicScreen.isPlaying.value) {
                             await loadMusice(path: RoomScreen.musicesInRoom[index].uri);
                             MusicScreen.nowPlaying = index;
