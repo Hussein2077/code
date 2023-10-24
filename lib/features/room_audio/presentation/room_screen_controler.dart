@@ -441,9 +441,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
     } else {
       await loadAnimationEntro(result[messageContent][entroImgIdKey].toString(),
       result[messageContent]['entroImg']);
-      if (result[messageContent]['vip'] == null
-          ? false
-          : result[messageContent]['vip'] > 0) {
+      if ( result[messageContent]['vip'] ) {
         RoomScreen.showEntro.value = true;
       }
       userIntroData['user_name_intro']  = result[messageContent][userName];

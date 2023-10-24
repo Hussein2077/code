@@ -73,7 +73,6 @@ class RoomScreen extends StatefulWidget {
   static List<EntroData> listOfAnimatingEntros = [];
   static List<String> listOfAnimatingBanner = [];
   static List<MusicObject> musicesInRoom = [];
-
   static List<String> usersHasMute = [];
   static Map<int, int> listOfMuteSeats = {};
   static ValueNotifier<Map<String, EmojieData>> listOfEmojie = ValueNotifier({});
@@ -699,8 +698,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       else if (result[messageContent][message] == kicKoutKey) {
         KicKout(result, durationKickout, widget.room.ownerId.toString(), widget.myDataModel.id.toString(), context);
 
-      }
-      //PK start rtm
+      }//PK start rtm
       else if (result[messageContent][message] == showPkKey) {
         ShowPkKey();
       }

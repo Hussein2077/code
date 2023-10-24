@@ -3,8 +3,7 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/internal/core/d
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/internal/core/defines.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/audio_video_defines.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
+
 
 import '../../zego_uikit.dart';
 /// @nodoc

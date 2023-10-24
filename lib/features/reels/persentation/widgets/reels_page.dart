@@ -28,8 +28,7 @@ class ReelsPage extends StatefulWidget {
   final bool showProgressIndicator;
   final bool userView;
   static VideoPlayerController? videoPlayerController;
-   static bool isFirst = true;
-
+  static bool isFirst = true;
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
 
   const ReelsPage(

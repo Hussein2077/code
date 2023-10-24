@@ -75,6 +75,7 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
             return false;
           }
           controller!.goBack();
+
           Navigator.pop(context);
           return false;
         },
