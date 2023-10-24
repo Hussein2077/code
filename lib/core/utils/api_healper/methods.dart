@@ -768,8 +768,7 @@ class Methods {
   Future<String> getCurrentTimeZone() async {
     DateTime dateTimeNow = DateTime.now();
     print('GMT${  dateTimeNow.timeZoneName}');
-    print('${  dateTimeNow.timeZoneOffset}');
-    return 'GMT${dateTimeNow.timeZoneName}';
+    return dateTimeNow.timeZoneName;
   }
   String formatDateTime({
     required String dateTime,

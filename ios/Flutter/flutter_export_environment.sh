@@ -1,6 +1,6 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\Users\Lenovo\flutter"
+export "FLUTTER_ROOT=C:\dev\flutter"
 export "FLUTTER_APPLICATION_PATH=C:\Users\Lenovo\Documents\GitHub\tikChatV2-"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"

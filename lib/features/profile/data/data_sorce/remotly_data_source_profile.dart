@@ -383,7 +383,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<List<UserDataModel>> getVaistors({String? page}) async {
     Map<String, String> headers = await DioHelper().header();
-
+    final timeZone=await Methods().getCurrentTimeZone();
+  headers.addAll({'tz':timeZone});
     try {
       final response = page == null
           ? await Dio().get(ConstentApi.getVistors,
@@ -408,6 +409,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<List<BackPackModel>> getBackPack(String type) async {
     Map<String, String> headers = await DioHelper().header();
+    final timeZone=await Methods().getCurrentTimeZone();
+    headers.addAll({'tz':timeZone});
     try {
       final response = await Dio().get(ConstentApi().getBackPack(type),
           options: Options(
