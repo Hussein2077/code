@@ -35,6 +35,9 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back_ios_outlined , color: Theme.of(context).colorScheme.primary, )),
         actions: [
           IconButton(onPressed: (){
             Navigator.pushNamed(context, Routes.uploadReels);

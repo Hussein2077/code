@@ -1,4 +1,5 @@
 
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -39,49 +40,51 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: SizedBox(
-          width: ConfigSize.screenWidth,
-          height: ConfigSize.screenHeight,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TabBar(
-                dividerColor: ColorManager.orang,
-                indicatorColor: Colors.white,
-                indicator: BoxDecoration(
-                  color: ColorManager.orang,
-                  borderRadius: BorderRadius.circular(
-                      ConfigSize.defaultSize! * 0.8),
-                ),
-                isScrollable: true,
-                padding: EdgeInsets.all(ConfigSize.defaultSize! * 1),
-                controller: _tabController,
-                tabs: [
-                  Text(
-                    StringManager.reels.tr(),
-                    style:
-                    Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Text(
-                    StringManager.followingReels.tr(),
-                    style:
-                    Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ],
+        body: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            TabBarView(
+              controller: _tabController,
+              children: const [
+                ReelsScreen(),
+                FollowingReelsScreen(),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 5
               ),
-              Expanded(
-                child: TabBarView(
+              child: BlurryContainer(
+                blur: 5,
+                color: Colors.white.withOpacity(0.4),
+                child: TabBar(
+                  indicator: BoxDecoration(
+                    color: ColorManager.orang,
+                    borderRadius: BorderRadius.circular(
+                        ConfigSize.defaultSize! * 0.8),
+                  ),
+                  isScrollable: true,
+                  padding: EdgeInsets.symmetric(
+                    vertical: ConfigSize.defaultSize!-9,
+                      horizontal: ConfigSize.defaultSize! ),
                   controller: _tabController,
-                  children: const [
-                    ReelsScreen(),
-                    FollowingReelsScreen(),
+                  tabs: [
+                    Text(
+                      StringManager.reels.tr(),
+                      style:
+                      Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    Text(
+                      StringManager.followingReels.tr(),
+                      style:
+                      Theme.of(context).textTheme.headlineSmall,
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+
+          ],
         ),
       ),
     );
