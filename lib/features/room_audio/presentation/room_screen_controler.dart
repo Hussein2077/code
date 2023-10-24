@@ -24,6 +24,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_wi
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/invitation_to_mic.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -277,6 +278,9 @@ Future<void> clearAll() async {
   RoomScreen.myCoins.value = "";
   RoomScreen.winCircularluckyGift.value = 0;
   GiftUser.userSelected.clear();
+  MusicWidget.isIPlayerMedia =false ;
+  await distroyMusic();
+
 }
 
 Future<void> distroyMusic() async {
