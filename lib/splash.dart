@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:app_links/app_links.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -40,6 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
   String errorMessage = "";
 
   ConfigModel? configModel;
+
+
 
   @override
   void initState() {
@@ -162,6 +165,15 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> loadResources() async {
+    Future.delayed(const Duration(seconds: 1), () async {
+      final String defaultLocale = Platform.localeName;
+
+
+      await context.setLocale(Locale(defaultLocale.substring(0,2)));
+
+      await Methods().saveLocalazitaon(language:defaultLocale.substring(0,2));
+
+    });
     final result =
         await GetConfigeAppUseCase(homeRepo: getIt()).call(ConfigModelBody(
       appVersion: StringManager.versionApp.toString(),

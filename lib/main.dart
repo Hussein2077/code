@@ -113,7 +113,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_da
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
 
-
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
@@ -152,28 +151,31 @@ import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_p
 // final globalNavigatorKey = GlobalKey<NavigatorState>();
 
 class GlobalContextService {
-  static GlobalKey<NavigatorState> navigatorKey =
-  GlobalKey<NavigatorState>();
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }
 
 Future<void> main() async {
+  Future.wait([
+    EasyLocalization.ensureInitialized(),
+    Permission.notification.isDenied.then((value) {
+      if (value) {
+        Permission.notification.request();
+      }
+    }),
+    Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    ),
+    FirebaseMessaging.instance.setAutoInitEnabled(true),
+  ]);
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  // CreateLiveVideoBody.cameras = await availableCameras();
-  await Permission.notification.isDenied.then((value) {
-    if (value) {
-      Permission.notification.request();
-    }
-  });
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // CreateLiveVideoBody.cameras = await availableCameras();
+
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   tokenDevices = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await ServerLocator().init();
-String theme = await Methods().returnThemeStatus();
+  String theme = await Methods().returnThemeStatus();
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),
     supportedLocales: const [
@@ -187,14 +189,14 @@ String theme = await Methods().returnThemeStatus();
     assetLoader: const CodegenLoader(),
     path: 'lib/core/translations/',
     saveLocale: true,
-    child:  MyApp(theme: theme),
+    child: MyApp(theme: theme),
   ));
-
 }
 
 class MyApp extends StatelessWidget {
-final  String theme ;
-  const MyApp({required this.theme ,   super.key});
+  final String theme;
+
+  const MyApp({required this.theme, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -403,15 +405,13 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<GetMyBackgroundBloc>()),
         BlocProvider(create: (_) => getIt<AddRoomBackgroundBloc>()),
         BlocProvider(
-            create: (_) => getIt<GiftBloc>()
-              ..add(GiftesNormalEvent(type: 1))
-              ..add(GiftesHotEvent(type: 2))
-              ..add(GiftesCountryEvent(type: 3))
-              ..add(GiftesFamousEvent(type: 5))
-              ..add(GiftesLuckyEvent(type: 6))
-              ..add(GiftesMomentEvent(type: 4)),
-
-
+          create: (_) => getIt<GiftBloc>()
+            ..add(GiftesNormalEvent(type: 1))
+            ..add(GiftesHotEvent(type: 2))
+            ..add(GiftesCountryEvent(type: 3))
+            ..add(GiftesFamousEvent(type: 5))
+            ..add(GiftesLuckyEvent(type: 6))
+            ..add(GiftesMomentEvent(type: 4)),
         ),
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
         BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),
@@ -422,7 +422,8 @@ final  String theme ;
         ),
         BlocProvider(create: (_) => getIt<PrivacyBloc>()),
         BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
-        BlocProvider(create: (_) => getIt<GetReelsBloc>()..add(GetReelsEvent())),
+        BlocProvider(
+            create: (_) => getIt<GetReelsBloc>()..add(GetReelsEvent())),
         BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
         BlocProvider(create: (_) => getIt<UserReportBloc>()),
         BlocProvider(
@@ -441,83 +442,84 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),
         BlocProvider(create: (_) => getIt<DeleteMomentBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentCommentBloc>()),
-
-        BlocProvider(create: (_) => getIt<GetMomentBloc>()..add(GetUserMomentEvent(
-          userId: MyDataModel.getInstance().id.toString(),
-        ))),
-        BlocProvider(create: (_) => getIt<GetFollowingUserMomentBloc>()..add(const GetFollowingMomentEvent())),
-        BlocProvider(create: (_) => getIt<GetMomentILikeItBloc>()..add(const GetMomentIliKEitEvent())),
+        BlocProvider(
+            create: (_) => getIt<GetMomentBloc>()
+              ..add(GetUserMomentEvent(
+                userId: MyDataModel.getInstance().id.toString(),
+              ))),
+        BlocProvider(
+            create: (_) => getIt<GetFollowingUserMomentBloc>()
+              ..add(const GetFollowingMomentEvent())),
+        BlocProvider(
+            create: (_) => getIt<GetMomentILikeItBloc>()
+              ..add(const GetMomentIliKEitEvent())),
         BlocProvider(create: (_) => getIt<GetMomentLikesBloc>()),
-
         BlocProvider(create: (_) => getIt<DeleteMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
         BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
         BlocProvider(create: (_) => getIt<GetMomentGiftsBloc>()),
-
         BlocProvider(create: (context) => ThemeBloc()),
-                BlocProvider(create: (_) => getIt<RoomVistorBloc>()),
-
-
-
+        BlocProvider(create: (_) => getIt<RoomVistorBloc>()),
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
         BlocProvider(create: (_) => getIt<ActiveNotificationBloc>()),
         BlocProvider(create: (_) => getIt<SendCodeBloc>()),
-        BlocProvider(create: (_) => getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
-        BlocProvider(create: (_) => getIt<GetFollowingReelsBloc>()..add(GetFollowingReelsEvent())),
+        BlocProvider(
+            create: (_) =>
+                getIt<PrivacyPolicyBloc>()..add(privacyPolicyEvent())),
+        BlocProvider(
+            create: (_) =>
+                getIt<GetFollowingReelsBloc>()..add(GetFollowingReelsEvent())),
         BlocProvider(
           create: (context) => getIt<LuckyGiftBannerBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<GetUsersInRoomBloc>(),
         ),
-                BlocProvider(
+        BlocProvider(
           create: (context) => getIt<InAppPurchaseBloc>(),
         ),
-
-
       ],
-      child:  BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
-          if (state is LightThemeState )  {
-   return MaterialApp(
-
+      child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
+        if (state is LightThemeState) {
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: lightTheme ,
-     navigatorKey: GlobalContextService.navigatorKey, // set property
+            theme: lightTheme,
+            navigatorKey: GlobalContextService.navigatorKey,
+            // set property
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
             locale: context.locale,
             initialRoute: Routes.splash,
           );
-          }else if (state is DarkThemeState){
-            return MaterialApp(
+        } else if (state is DarkThemeState) {
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: darkTheme ,
-              navigatorKey: GlobalContextService.navigatorKey, // set property
+            theme: darkTheme,
+            navigatorKey: GlobalContextService.navigatorKey,
+            // set property
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
             locale: context.locale,
             initialRoute: Routes.splash,
           );
-          }
-       else {
-        return MaterialApp(
+        } else {
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: theme=="dark"?darkTheme: lightTheme ,
-          navigatorKey: GlobalContextService.navigatorKey, // set property
+            theme: theme == "dark" ? darkTheme : lightTheme,
+            navigatorKey: GlobalContextService.navigatorKey,
+            // set property
 
-          supportedLocales: context.supportedLocales,
+            supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
             locale: context.locale,
             initialRoute: Routes.splash,
           );
-       }
         }
-      ),
+      }),
     );
   }
 }

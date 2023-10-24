@@ -43,8 +43,8 @@ class _HomeHeaderState extends State<HomeHeader> {
                 getIt<DefaultCacheManager>().downloadFile('https://www.youtube.com/watch?v=ERA9s5J4BcY')
                     .then((value){
                       log("rrrrrrrr");
-                  Navigator.pushNamed(context, Routes.webView,
-                      arguments: WebViewPramiter(url:path!.path,title:  '',titleColor: ColorManager.roomComment )  );
+                  // Navigator.pushNamed(context, Routes.webView,
+                  //     arguments: WebViewPramiter(url:path!.path,title:  '',titleColor: ColorManager.roomComment )  );
 
                 });
 

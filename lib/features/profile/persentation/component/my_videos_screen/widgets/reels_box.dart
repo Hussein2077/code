@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gif/flutter_gif.dart';
+import 'package:gif_view/gif_view.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -35,8 +36,7 @@ class ReelsBox extends StatefulWidget {
 }
 
 class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
-  late FlutterGifController flutterGifController;
-
+late GifController controller;
   @override
   void initState() {
     if (LowerProfileBody.getUserReels) {
@@ -44,17 +44,28 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
       ReelsBox.likedVideoCount.clear();
     }
 
-    flutterGifController = FlutterGifController(vsync: this);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      flutterGifController.repeat(
-   min: 0,max: 15,   period: const Duration(milliseconds: 2000));
-    });
+    // flutterGifController = FlutterGifController(vsync: this);
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   flutterGifController.repeat(
+    //       min: 0,max: 5,   period: const Duration(milliseconds: 500));
+    // });
+
+     controller = GifController();
+
+    controller.play(inverted: true,initialFrame: 0);
+
+
+    GifStatus status = controller.status;
+    log(status.toString());
+
+
+
     super.initState();
   }
 
   @override
   void dispose() {
-    flutterGifController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -106,10 +117,13 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                             margin: const EdgeInsets.symmetric(horizontal: 5),
                             child: Stack(
                               children: [
-                                GifImage(
-                                    controller: flutterGifController,
-                                    image: NetworkImage(ConstentApi().getImage(
-                                        state.data![index].subVideo))),
+                                GifView.network(
+                                  ConstentApi().getImage(
+                                      state.data![index].subVideo),
+                                  controller: controller,
+                                  frameRate: 10,
+                                ),
+
                                 Padding(
                                   padding: EdgeInsets.only(
                                       bottom: ConfigSize.defaultSize! * 2),
