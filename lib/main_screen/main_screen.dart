@@ -27,6 +27,8 @@ import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/aduio/audio_body.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/country_dilog.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
@@ -214,7 +216,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       if (event == ConnectivityResult.wifi ||
           event == ConnectivityResult.mobile) {
         if (!isFirst) {
+log('jako');
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+          BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(
+            userId: MyDataModel.getInstance().id.toString(),
+          ));
           BlocProvider.of<GetFollwersRoomBloc>(context)
               .add(const GetFollwersRoomEvent(type: "5"));
           BlocProvider.of<GetRoomsBloc>(context)

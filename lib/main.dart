@@ -442,9 +442,7 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<DeleteMomentBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentCommentBloc>()),
 
-        BlocProvider(create: (_) => getIt<GetMomentBloc>()..add(GetUserMomentEvent(
-          userId: MyDataModel.getInstance().id.toString(),
-        ))),
+        BlocProvider(create: (_) => getIt<GetMomentBloc>()),
         BlocProvider(create: (_) => getIt<GetFollowingUserMomentBloc>()..add(const GetFollowingMomentEvent())),
         BlocProvider(create: (_) => getIt<GetMomentILikeItBloc>()..add(const GetMomentIliKEitEvent())),
         BlocProvider(create: (_) => getIt<GetMomentLikesBloc>()),
