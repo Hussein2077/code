@@ -17,13 +17,14 @@ class DioHelper {
   bool? isLoginFromAnotherAccountAndBuildFailure = false;
 
   Future<Map<String, String>> header() async {
-    String key = await Methods().getlocalization();
+    String key = await Methods().getLocalization();
     String token = await Methods().returnUserToken();
 
     if (kDebugMode) {
       log(token);
-    }
 
+    }
+    log('$key log(key)');
     final devicedata = await initPlatformState();
     log(devicedata.toString());
     Map<String, String> headers = {

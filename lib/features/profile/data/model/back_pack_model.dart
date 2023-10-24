@@ -21,7 +21,7 @@ class BackPackModel extends BackPackEnities {
       isDress:json['is_dress'] ,
       firstUsed: json['is_used'],
         targetId: json['target_id'],
-        expire: json['expire'].toString(),
+        expire: json['expire'].toString()=='0'?"": json['expire'].toString(),
         id: json['id'],
         showImg: json['show_img'],
         type: json['type']);

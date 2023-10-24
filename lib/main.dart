@@ -462,7 +462,7 @@ final  String theme ;
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
-            locale: context.locale,
+            locale:  context.locale,
             initialRoute: Routes.splash,
           );
           }else if (state is DarkThemeState){

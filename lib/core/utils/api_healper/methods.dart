@@ -79,11 +79,13 @@ class Methods {
     preferences.setString("languagne", language);
   }
 
-  Future<String> getlocalization() async {
+  Future<String> getLocalization() async {
+    final String defaultLocale = Platform.localeName;
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String language = preferences.getString("languagne") ?? "en";
+    String language = preferences.getString("languagne") ??defaultLocale.substring(0,2);
     return language;
   }
+
 
   Future<void> setCachingMusic(
       {required Map<String, dynamic> cachingMusic}) async {
@@ -787,8 +789,7 @@ class Methods {
   Future<String> getCurrentTimeZone() async {
     DateTime dateTimeNow = DateTime.now();
     print('GMT${  dateTimeNow.timeZoneName}');
-    print('${  dateTimeNow.timeZoneOffset}');
-    return 'GMT${dateTimeNow.timeZoneName}';
+    return dateTimeNow.timeZoneName;
   }
   String formatDateTime({
     required String dateTime,
