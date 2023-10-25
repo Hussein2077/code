@@ -50,7 +50,7 @@ class MomentScreenState extends State<MomentScreen>
   @override
   void initState() {
     _tabController = TabController(
-      length: 3,
+      length: 4,
       vsync: this, // Provide a TickerProvider
     );
 
