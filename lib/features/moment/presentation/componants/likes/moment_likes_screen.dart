@@ -58,7 +58,10 @@ class MomentsLikesScreenState extends State<MomentsLikesScreen> {
                 Row(
                   children: [
                     const Spacer(flex: 1,),
-                    IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_back_ios)),
+                    IconButton(onPressed: (){
+                      Navigator.pop(context);
+
+                    }, icon: const Icon(Icons.arrow_back_ios)),
                     const Spacer(flex: 4,),
                     Text(StringManager.likes.tr(),style: Theme.of(context).textTheme.titleLarge,),
                     const Spacer(flex: 5,),
