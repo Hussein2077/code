@@ -1,13 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
-import 'package:tik_chat_v2/core/notifcation/firebase_messaging_background.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/dark_theme.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/light_theme.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -134,6 +132,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
 // final globalNavigatorKey = GlobalKey<NavigatorState>();
@@ -144,24 +144,36 @@ class GlobalContextService {
 }
 
 Future<void> main() async {
+
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await EasyLocalization.ensureInitialized();
   // CreateLiveVideoBody.cameras = await availableCameras();
   await Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
+
     }
   });
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+
   );
+
+
+
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
   tokenDevices = await FirebaseMessaging.instance.getToken();
+
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
   await ServerLocator().init();
-String theme = await Methods().returnThemeStatus();
+
+  String theme = await Methods().returnThemeStatus();
+
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),
     supportedLocales: const [
@@ -177,6 +189,7 @@ String theme = await Methods().returnThemeStatus();
     saveLocale: true,
     child:  MyApp(theme: theme),
   ));
+
 
 }
 
