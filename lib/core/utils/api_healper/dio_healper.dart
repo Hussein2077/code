@@ -61,7 +61,7 @@ class DioHelper {
             (Route<dynamic> route) => false,
             arguments: LoginPramiter(
                 isLoginFromAnotherAccountAndBuildFailure:
-                isLoginFromAnotherAccountAndBuildFailure = true));
+                isLoginFromAnotherAccountAndBuildFailure = false));
 
         return Strings.unauthorizedFailureMassage;
       case SiginGoogleFailure:
@@ -73,6 +73,13 @@ class DioHelper {
       case InternetFailure:
         return Strings.checkYourInternet;
       case AnotherAccountMessageFailure:
+        Navigator.pushNamedAndRemoveUntil(
+            GlobalContextService.navigatorKey.currentContext!,
+            Routes.login,
+                (Route<dynamic> route) => false,
+            arguments: LoginPramiter(
+                isLoginFromAnotherAccountAndBuildFailure:
+                isLoginFromAnotherAccountAndBuildFailure = true));
         return Strings.anotherAccountLoggedIn;
       default:
         return failure.errorMessage ?? StringManager.unexcepectedError.tr();

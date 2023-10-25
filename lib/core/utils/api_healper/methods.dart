@@ -775,6 +775,9 @@ class Methods {
     String format = 'E, d MMM yyyy hh:mm a',
     String locale = 'ar',
   }) {
+    if(dateTime==''){
+      return '';
+    }
     DateTime dateTimeNow = DateTime.now();
     DateFormat formatter = DateFormat(format, locale);
     if (formatter.format(dateTimeNow).substring(5, 12) ==
