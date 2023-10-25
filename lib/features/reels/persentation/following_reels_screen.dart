@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_ree
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/more_report_dialog_icon.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 
 import 'manager/manager_make_reel_like/make_reel_like_bloc.dart';
@@ -59,7 +60,7 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
           child: BlocConsumer<GetFollowingReelsBloc, GetFollowingReelsState>(
             builder: (context, state) {
               if (state is GetFollowingReelsSucssesState) {
-                log(state.data!.length.toString()+"elhamody");
+                ReelsPage.isFirst = true;
                 ReelsController.getInstance.likesMap(state.data!);
                 ReelsController.getInstance.likesCountMap(state.data!);
                 ReelsController.getInstance.followMap(state.data!);

@@ -1,13 +1,15 @@
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/widgets/web_view_widget.dart';
+import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/Privacy_Policy/privacy_policy_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
@@ -164,7 +166,7 @@ class RouteGenerator {
             builder: (_) => LoginScreen(
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
-              isLoginFromAnotherAccountAndBuildFailure: loginPramiter!.isLoginFromAnotherAccountAndBuildFailure??false,
+              isLoginFromAnotherAccountAndBuildFailure: loginPramiter?.isLoginFromAnotherAccountAndBuildFailure??false,
                 ));
       case Routes.otp:
         OtbScreenParm otbScreenParm =
@@ -176,10 +178,10 @@ class RouteGenerator {
                   password: otbScreenParm.password,
                 ));
       case Routes.addInfo:
-        GoogleSignInAccount? googleData = settings.arguments as GoogleSignInAccount?;
+        ThirdPartyAuthModel Data = settings.arguments as ThirdPartyAuthModel;
         return MaterialPageRoute(
             builder: (_) => AddInfoScreen(
-                  googleData: googleData,
+                  Data: Data,
                 ));
       case Routes.mainScreen:
         MainPramiter? mainPramiter = settings.arguments as MainPramiter?;
@@ -361,16 +363,13 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => SafeArea(
                 child: MusicListWidget(
-                    ownerId: pramiter.ownerId,
-                    refreshMusicScreen: pramiter.refresh)));
+                    ownerId: pramiter.ownerId,)));
       case Routes.music:
         MusicPramiter pramiter = settings.arguments as MusicPramiter;
         return MaterialPageRoute(
             builder: (_) => SafeArea(
                     child: MusicScreen(
-                  ownerId: pramiter.ownerId,
-                  refrashRoom: pramiter.refresh,
-                )));
+                  ownerId: pramiter.ownerId)));
 
       case Routes.charchingDolarsForUsers:
         return MaterialPageRoute(builder: (_) => CharchingDolarsForUsers());
@@ -512,7 +511,7 @@ class LoginPramiter {
   final bool? isLoginFromAnotherAccountAndBuildFailure;
 
   const LoginPramiter(
-      { this.isForceUpdate,  this.isUpdate,this.isLoginFromAnotherAccountAndBuildFailure, Key? key});
+      { this.isForceUpdate,  this.isUpdate, this.isLoginFromAnotherAccountAndBuildFailure=false, Key? key});
 }
 
 class MainPramiter {
@@ -561,10 +560,9 @@ class RoomHandlerPramiter {
 }
 
 class MusicPramiter {
-  final void Function() refresh;
   final String ownerId;
 
-  const MusicPramiter({required this.refresh, required this.ownerId});
+  const MusicPramiter({required this.ownerId});
 }
 
 class UserProfilePreamiter {

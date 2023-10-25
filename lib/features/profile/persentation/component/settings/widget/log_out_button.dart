@@ -28,7 +28,6 @@ class LogOutOrDeleteAccountButton extends StatelessWidget {
     return BlocListener<LogOutBloc, LogOutState>(
       listener: (context, state) async {
         if (state is LogOutSucssesState || state is DeleteAccountSucssesState) {
-          print('success hussein');
           await FirebaseAuth.instance.signOut();
           SharedPreferences preference = getIt();
           preference.remove(StringManager.keepLogin);
@@ -39,7 +38,8 @@ class LogOutOrDeleteAccountButton extends StatelessWidget {
           // ignore: use_build_context_synchronously
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.login, (route) => false);
-        } else if (state is LogOutErrorState) {
+        }
+        else if (state is LogOutErrorState) {
           errorToast(context: context, title: state.error);
           await FirebaseAuth.instance.signOut();
           SharedPreferences preference = getIt();
@@ -47,7 +47,8 @@ class LogOutOrDeleteAccountButton extends StatelessWidget {
           preference.remove(StringManager.userDataKey);
           preference.remove(StringManager.userTokenKey);
           preference.remove(StringManager.deviceToken);
-        }   else if (state is LogOutLoadingState || state is DeleteAccountLoadingState){
+        }
+        else if (state is LogOutLoadingState || state is DeleteAccountLoadingState){
         // ShowMToast().loadingToast(context, message: StringManager.errorInPayment, alignment: Alignment.bottomCenter);
         }
         else if (state is DeleteAccountErrorState){
@@ -56,7 +57,6 @@ class LogOutOrDeleteAccountButton extends StatelessWidget {
         }
       },
       child: MainButton(onTap: () {
-        log('${logOut.toString()}huuuuuuuuuuu');
         if (logOut) {
 
           showDialog(

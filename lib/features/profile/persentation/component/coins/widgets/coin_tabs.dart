@@ -41,7 +41,11 @@ class CoinTabs extends StatelessWidget {
       },style: TextButton.styleFrom(
           foregroundColor:Colors.white
       ),
-        child:  const Text('فتوره'), )
+        child: Text(
+          StringManager.details.tr(),
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+      )
     ],);
   }
 }

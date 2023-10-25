@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -14,12 +13,9 @@ import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.d
 
 class MusicDialog extends StatefulWidget {
   static double currentSliderValue = 45;
-  final void Function() refreshRoom ;
   final String ownerId ;
-  final  int totalDuration  ;
 
-  const MusicDialog({required this.refreshRoom,
-    required this.ownerId, required this.totalDuration, Key? key}) : super(key: key);
+  const MusicDialog({required this.ownerId, Key? key}) : super(key: key);
 
   @override
   State<MusicDialog> createState() => _MusicDialogState();
@@ -27,12 +23,10 @@ class MusicDialog extends StatefulWidget {
 
 class _MusicDialogState extends State<MusicDialog> {
 late  bool isPlay  ;
-double seeking = 0.0 ;
+
   @override
   void initState() {
-    // TODO: implement initState
     isPlay =  MusicScreen.isPlaying.value ;
-
     super.initState();
   }
 
@@ -52,10 +46,14 @@ double seeking = 0.0 ;
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                  RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].name
-                      .toString(),
-                  style: const TextStyle(color: Colors.white),overflow: TextOverflow.ellipsis,),
+              ValueListenableBuilder(
+                valueListenable: ZegoUIKit().getMediaCurrentProgressNotifier(),
+                builder: (BuildContext context, dynamic value, Widget? child){
+                  return Text(
+                    RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].name.toString(),
+                    style: const TextStyle(color: Colors.white),overflow: TextOverflow.ellipsis,);
+                },
+              ),
               SizedBox(
                 height: ConfigSize.defaultSize! *  2.5,
               ),
@@ -68,8 +66,7 @@ double seeking = 0.0 ;
                       onTap: () async {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, Routes.music ,
-                            arguments: MusicPramiter(refresh: widget.refreshRoom,
-                            ownerId: widget.ownerId));
+                            arguments: MusicPramiter(ownerId: widget.ownerId));
                       },
                       child: const Icon(
                         Icons.library_music_outlined,
@@ -97,27 +94,21 @@ double seeking = 0.0 ;
                   const Spacer(),
                   InkWell(
                       onTap: () async {
-
                         if ((MusicScreen.nowPlaying! - 1) > -1) {
-                          distroyMusic();
 
+                          distroyMusic();
                           MusicScreen.nowPlaying = MusicScreen.nowPlaying! - 1;
-                          loadMusice(
-                              path: RoomScreen
-                                  .musicesInRoom[MusicScreen.nowPlaying!]
-                                  .uri);
+                          loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+
                         } else {
                           distroyMusic();
-                          MusicScreen.nowPlaying =
-                              RoomScreen.musicesInRoom.length - 1;
-                          loadMusice(
-                              path: RoomScreen
-                                  .musicesInRoom[MusicScreen.nowPlaying!].uri);
+                          MusicScreen.nowPlaying = RoomScreen.musicesInRoom.length - 1;
+                          loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                         }
+                        ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
                         setState(() {
-                          isPlay=true ;
+                          isPlay = true ;
                         });
-
                       },
                       child: const Icon(
                         Icons.skip_previous,
@@ -132,15 +123,11 @@ double seeking = 0.0 ;
                         if (isPlay) {
                         await  ZegoUIKit().pauseMedia() ;
                           setState(() {
-                         //   RoomScreen.zegoMediaPlayer!.pause();
-
                             isPlay = false;
                           });
                         } else {
                           await  ZegoUIKit().resumeMedia() ;
                           setState(() {
-
-                           // RoomScreen.zegoMediaPlayer!.resume();
                             isPlay= true;
                           });
                         }
@@ -154,9 +141,19 @@ double seeking = 0.0 ;
                   InkWell(
                     child: const Icon(Icons.skip_next, color: Colors.white),
                     onTap: ()  async{
-                      // ZegoMediaPlayerState v  =      await    RoomScreen.zegoMediaPlayer!.getCurrentState() ;
-                      // int e = await RoomScreen.zegoMediaPlayer!.getCurrentProgress() ;
-
+                      if ((MusicScreen.nowPlaying! +1) >=  RoomScreen.musicesInRoom.length) {
+                        distroyMusic();
+                        MusicScreen.nowPlaying = 0;
+                        loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                      } else {
+                        distroyMusic();
+                        MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
+                        loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                      }
+                      ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
+                      setState(() {
+                        isPlay = true;
+                      });
                     },
                   ),
                   const Spacer(
@@ -170,19 +167,19 @@ double seeking = 0.0 ;
               SizedBox(
                 height: AppPadding.p10,
                 width: ConfigSize.defaultSize! * 32,
-                child: Slider(
-                  autofocus: true,
-                  activeColor: ColorManager.gold1,
-                  min: 0,
-                  max: widget.totalDuration.toDouble(),
-                  value:seeking,
-                  onChanged: (double value) {
-                    setState(() {
-                      seeking =value ;
-                     log( seeking.toString()) ;
-                    });
-                  //  RoomScreen.zegoMediaPlayer!.seekTo(value.toInt());
-                    ZegoUIKit().seekTo(value.toInt()) ;
+                child: ValueListenableBuilder(
+                  valueListenable: ZegoUIKit().getMediaCurrentProgressNotifier(),
+                  builder: (BuildContext context, dynamic value, Widget? child){
+                    return Slider(
+                      autofocus: true,
+                      activeColor: ColorManager.gold1,
+                      min: 0,
+                      max:ZegoUIKit().getMediaTotalDuration().toDouble(),
+                      value: ZegoUIKit().getMediaCurrentProgress().toDouble(),
+                      onChanged: (double value) async{
+                        ZegoUIKit().seekTo(value.toInt()) ;
+                    },
+                  );
                   },
                 ),
               )

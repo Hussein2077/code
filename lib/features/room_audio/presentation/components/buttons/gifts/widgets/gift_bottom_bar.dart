@@ -52,11 +52,13 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
 
 
 
+  static List<String> userSelected = [];
 
   @override
   void initState() {
+    userSelected.clear();
+    GiftUser.userSelected.clear();
     super.initState();
-
     getUserCoins();
   }
 

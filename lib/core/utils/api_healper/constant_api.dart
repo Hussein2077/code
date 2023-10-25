@@ -10,8 +10,9 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 class ConstentApi {
   static const String baseUrl =  kReleaseMode ?  "https://tik-chat.com/api" :
   'https://test.tik-chat.com/api';
-  // static const String baseUrl =  "https://test.tik-chat.com/api";
+
   static const String getBoxes = "$baseUrl/box/list";
+  static const String inAppPurchase = "$baseUrl/purchased";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
   static const String levelUrl = "$baseUrl/level_center";
@@ -264,7 +265,6 @@ class ConstentApi {
 
   String getImage(imageUrl) =>
       "https://storage.googleapis.com/tik-chat/$imageUrl";
-
   String getDataMallUrl(int type) => "$baseUrl/mall/wares?type=$type";
   String getGifts(int type) {
     return "$baseUrl/gifts?type=$type";

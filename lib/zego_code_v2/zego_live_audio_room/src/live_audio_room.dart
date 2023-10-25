@@ -237,12 +237,8 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
         await  e.call(widget.roomData.ownerId.toString());
         break;
 
-      case AppLifecycleState.hidden:
-        if(kDebugMode){
-          log("hidden screen");
-        }
 
-        break;
+
     }
   }
 

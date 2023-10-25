@@ -59,9 +59,9 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
 
   @override
   void dispose() {
+    log("indispose web view in room ");
     controller!.goBack();
     controller = null;
-
     super.dispose();
   }
 
@@ -75,6 +75,7 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
             return false;
           }
           controller!.goBack();
+
           Navigator.pop(context);
           return false;
         },

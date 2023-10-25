@@ -16,6 +16,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
@@ -23,6 +24,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_wi
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/invitation_to_mic.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -214,7 +216,7 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 Future<void> loadMusice({required String path}) async {
   // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
 
-  await ZegoUIKit().playMedia(filePathOrURL: path, enableRepeat: true);
+  await ZegoUIKit().playMedia(filePathOrURL: path);
 
   // await RoomScreen.zegoMediaPlayer?.loadResource(path);
 
@@ -225,15 +227,6 @@ Future<void> loadMusice({required String path}) async {
   // log(RoomScreen.zegoMediaPlayer!.getTotalDuration().toString());
 
   MusicScreen.isPlaying.value = true;
-}
-
-Future<void> distroyMusic() async {
-  //if (RoomScreen.zegoMediaPlayer != null) {
-  await ZegoUIKit().stopMedia();
-
-  //  RoomScreen.zegoMediaPlayer = null;
-  MusicScreen.isPlaying.value = false;
-  // }
 }
 
 Future<void> clearAll() async {
@@ -257,7 +250,6 @@ Future<void> clearAll() async {
   PkController.winBlueTeam = false;
   RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
-
   RoomScreen.musicesInRoom.clear();
   RoomScreen.adminsInRoom.clear();
   RoomScreen.usersMessagesRoom.clear();
@@ -285,8 +277,15 @@ Future<void> clearAll() async {
   RoomScreen.showBanner.value = false;
   RoomScreen.myCoins.value = "";
   RoomScreen.winCircularluckyGift.value = 0;
-
+  GiftUser.userSelected.clear();
+  MusicWidget.isIPlayerMedia =false ;
   await distroyMusic();
+
+}
+
+Future<void> distroyMusic() async {
+  await ZegoUIKit().stopMedia();
+  MusicScreen.isPlaying.value = false;
 }
 
 
@@ -438,15 +437,13 @@ ChangeBackground(Map<String, dynamic> result, Map<String,String> roomDataUpdates
 
 UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Future<void> Function(String imgId, String imgUrl) loadAnimationEntro)async{
   if (result[messageContent][entroImgIdKey] == "") {
-    if (result[messageContent]['vip'] == null
-        ? false
-        : result[messageContent]['vip'] > 0) {
-      userIntroData['user_name_intro']  = result[messageContent][userName];
-      userIntroData['user_image_intro']   = result[messageContent][userImge];
+    if (result[messageContent]['vip'] == null ? false : result[messageContent]['vip'] > 0) {
       RoomScreen.showEntro.value = true;
+
     }
 
-
+    userIntroData['user_name_intro']  = result[messageContent][userName];
+    userIntroData['user_image_intro']   = result[messageContent][userImge];
   } else {
     if (RoomScreen.isGiftEntroAnimating) {
       RoomScreen.listOfAnimatingEntros.add(EntroData(
@@ -455,9 +452,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
     } else {
       await loadAnimationEntro(result[messageContent][entroImgIdKey].toString(),
       result[messageContent]['entroImg']);
-      if (result[messageContent]['vip'] == null
-          ? false
-          : result[messageContent]['vip'] > 0) {
+      if ( result[messageContent]['vip'] ) {
         RoomScreen.showEntro.value = true;
       }
       userIntroData['user_name_intro']  = result[messageContent][userName];

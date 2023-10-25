@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -40,7 +41,7 @@ class _DetailsScreenState extends State<DetailsScreen>
         elevation: 0,
         backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(
-          StringManager.details,
+          StringManager.details.tr(),
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         centerTitle: true,

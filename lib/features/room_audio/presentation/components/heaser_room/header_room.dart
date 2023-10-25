@@ -30,11 +30,8 @@ class HeaderRoom extends StatelessWidget {
   final String roomName;
 
   final String roomImg;
-  final Function() refreshRoom;
   final int roomMode;
   final String roomType;
-
-  final StreamController<List<ZegoUIKitUser>> userInRoomController;
 
   final LayoutMode layoutMode;
 
@@ -47,8 +44,6 @@ class HeaderRoom extends StatelessWidget {
     required this.room,
     required this.myDataModel,
     required this.roomMode,
-    required this.refreshRoom,
-    required this.userInRoomController,
     required this.layoutMode,
     Key? key,
     required this.roomType,
@@ -80,7 +75,6 @@ class HeaderRoom extends StatelessWidget {
                       StreamBuilder<List<ZegoUIKitUser>>(
                           stream: ZegoUIKit().getUserListStream(),
                           builder: (context, snapshot) {
-                            userInRoomController.add(ZegoUIKit().getAllUsers());
                             return NumberOfVisitor(
                               myDataModel: myDataModel,
                               roomData: room,
@@ -109,7 +103,6 @@ class HeaderRoom extends StatelessWidget {
                                       context: context,
                                       widget: AdminMoreDailog(
                                         ownerId:room.ownerId.toString() ,
-                                        refreshRoom: refreshRoom,
                                     
                                       ));
                                 } else

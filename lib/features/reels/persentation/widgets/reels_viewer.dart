@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 
+
 class ReelsViewer extends StatefulWidget {
   /// use reel model and provide list of reels, list contains reels object, object contains url and other parameters
   final List<ReelModel> reelsList;
@@ -50,8 +51,9 @@ class ReelsViewer extends StatefulWidget {
   final Function()? onClickBackArrow;
 
   // StartIndex 
-  final int? startIndex ; 
+  final int? startIndex ;
 
+  static ReelModel? reelModel   ;
 
    // to know iam in user view or not
   final bool userView; 
@@ -80,7 +82,9 @@ class ReelsViewer extends StatefulWidget {
 }
 
 class _ReelsViewerState extends State<ReelsViewer> {
+
   SwiperController controller = SwiperController();
+
 
   @override
   void initState() {
@@ -94,6 +98,8 @@ class _ReelsViewerState extends State<ReelsViewer> {
     controller.dispose();
     super.dispose();
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +124,15 @@ class _ReelsViewerState extends State<ReelsViewer> {
         if(kDebugMode) {
           log('Scroll ended');
         }
-        ReelsPage.canPlayNow.value = true ;
+        if((ReelsPage.videoPlayerController?.value.isPlaying)??false){
+          log("play");
+          ReelsPage.videoPlayerController?.play();
+        }else{
+          log("not play ");
+        }
+
+
+
       }
       return true;
     },
@@ -132,6 +146,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
                    //padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
                    child: Swiper(
                      itemBuilder: (BuildContext context, int index) {
+
                        return ReelsPage(
                          userView: widget.userView,
                          item: widget.reelsList[index],
@@ -143,9 +158,9 @@ class _ReelsViewerState extends State<ReelsViewer> {
                          showVerifiedTick: widget.showVerifiedTick,
                          swiperController: controller,
                          showProgressIndicator: widget.showProgressIndicator,
+
                        );
                      },
-
                      controller: controller,
                      itemCount: widget.reelsList.length,
                      scrollDirection: Axis.vertical,
@@ -175,39 +190,12 @@ class _ReelsViewerState extends State<ReelsViewer> {
                   ),
                 )
 
-              // Container(
-              //   height: ConfigSize.defaultSize!*0.1,
-              //  // height: ConfigSize.defaultSize!*6.4,
-              //   color: Colors.black26,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //
-              //       SizedBox(
-              //         width: ConfigSize.defaultSize!*2.4,
-              //       ),
-              //
-              //
-              //       // Text(
-              //       //   widget.appbarTitle ?? 'Reels View',
-              //       //   style:  TextStyle(
-              //       //     fontSize: ConfigSize.defaultSize!*2.2,
-              //       //     fontWeight: FontWeight.w600,
-              //       //     color: Colors.white
-              //       //   ),
-              //       // ),
-              //
-              //
-              //     IconButton(onPressed: (){
-              //        Navigator.pushNamed(context, Routes.uploadReels);
-              //     }, icon: Icon(Icons.add , color: Colors.white, size: ConfigSize.defaultSize!*3,))
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ),
       ),
     ));
   }
+
+
 }

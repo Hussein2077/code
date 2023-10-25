@@ -28,7 +28,6 @@ class EditFeaturesContainer extends StatefulWidget{
   final String ownerId;
   final int modeRoom;
   final String userId;
-  final Function() refreshRoom;
 
   const EditFeaturesContainer(
       {required this.roomId,
@@ -36,7 +35,6 @@ class EditFeaturesContainer extends StatefulWidget{
         required this.userId,
         required this.modeRoom,
         required this.passwordStatus,
-        required this.refreshRoom,
         Key? key})
       : super(key: key);
   @override
@@ -115,7 +113,6 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
           () {
             Navigator.pushNamed(context, Routes.music,
                 arguments: MusicPramiter(
-                    refresh: widget.refreshRoom,
                     ownerId: widget.ownerId));
           },
           () {

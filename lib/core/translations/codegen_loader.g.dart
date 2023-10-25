@@ -109,7 +109,7 @@ class CodegenLoader extends AssetLoader {
         "لا يمكنك تعديل تاريخ الميلاد والجنس بعد التحديد",
     StringManager.home: "الصفحة الرئيسية",
     StringManager.reels: "لك",
-    StringManager.followingReels: "المتابعون",
+    StringManager.followingReels: "اتابعهم",
     StringManager.follwoing: "اتابعهم",
     StringManager.followers: "المعجبين",
     StringManager.vistors: "الزوار",

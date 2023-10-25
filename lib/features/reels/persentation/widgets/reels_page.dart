@@ -28,22 +28,21 @@ class ReelsPage extends StatefulWidget {
   final bool showProgressIndicator;
   final bool userView;
   static VideoPlayerController? videoPlayerController;
-
+  static bool isFirst = true;
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
-  static ValueNotifier<bool> canPlayNow = ValueNotifier<bool>(true);
 
   const ReelsPage(
       {Key? key,
-      required this.item,
-      this.showVerifiedTick = true,
-      this.onClickMoreBtn,
-      this.onComment,
-      this.onFollow,
-      this.onLike,
-      this.onShare,
-      this.showProgressIndicator = true,
-      required this.swiperController,
-      required this.userView})
+        required this.item,
+        this.showVerifiedTick = true,
+        this.onClickMoreBtn,
+        this.onComment,
+        this.onFollow,
+        this.onLike,
+        this.onShare,
+        this.showProgressIndicator = true,
+        required this.swiperController,
+        required this.userView})
       : super(key: key);
 
   @override
@@ -54,6 +53,7 @@ class _ReelsPageState extends State<ReelsPage>
     with SingleTickerProviderStateMixin {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
+  FileInfo? image ;
   bool _liked = false;
   double? videoWidth;
   double? videoHeight;
@@ -70,51 +70,33 @@ class _ReelsPageState extends State<ReelsPage>
     curve: Curves.bounceIn
     ,
   ));
-  FileInfo? image ;
-
 
   @override
   void initState() {
     super.initState();
-    if(ReelsPage.canPlayNow.value) {
-      if (!UrlChecker.isImageUrl(widget.item.url!) &&
-          UrlChecker.isValid(widget.item.url!)) {
-        initializePlayer().then((value) {
-          ReelsPage.videoPlayerController = _videoPlayerController;
-        });
-      }
-    }else{
-      log('can not play in initState');
-    }
-   widget.swiperController.addListener(() {
-     log("hhhhhh222222");
-   }) ;
-    ReelsPage.canPlayNow.addListener(() {
-      if(ReelsPage.canPlayNow.value) {
-        if (!UrlChecker.isImageUrl(widget.item.url!) &&
-            UrlChecker.isValid(widget.item.url!)) {
-          log("222222h");
-          initializePlayer().then((value) {
-            ReelsPage.videoPlayerController = _videoPlayerController;
-          });
+    if (!UrlChecker.isImageUrl(widget.item.url!) &&
+        UrlChecker.isValid(widget.item.url!)) {
+      initializePlayer().then((value) {
+        ReelsPage.videoPlayerController = _videoPlayerController;
+        if(ReelsPage.isFirst) {
+          ReelsPage.videoPlayerController?.play();
+          ReelsPage.isFirst = false;
         }
-      }else{
-        log("333333h");
+      });
+    }
 
-      }
-    });
 
   }
 
 
-
   Future initializePlayer() async {
 
-    image =await  getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
 
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
-    if(file?.file !=null){
+    final cachImage =  await getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
+    image = cachImage ;
 
+    if(file?.file !=null){
 
 
       ReelsPage.isVideoPause.value = false ;
@@ -136,29 +118,26 @@ class _ReelsPageState extends State<ReelsPage>
     _videoPlayerController.setLooping(true);
 
     try{
-      await Future.wait([_videoPlayerController.initialize()]).then((value) {
-        ReelsPage.canPlayNow.value= false ;
-      } );
+      await Future.wait([_videoPlayerController.initialize()]);
     }catch(e){
-
       if(kDebugMode){
-        log("error type : ${e.toString()}");
         log("error in reels path is :${Uri.parse(widget.item.url!+'rr')}");
       }
-     // widget.swiperController.next();
+      widget.swiperController.next();
+
     }
 
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      autoPlay: true,
       showControls: false,
       looping: true,
     );
     setState(() {});
     _videoPlayerController.addListener(() {
       if (_videoPlayerController.value.position ==
-          _videoPlayerController.value.duration) {// TODO add auto scroll as feature
+          _videoPlayerController.value.duration) {
+        //TODO add auto scroll as feature
         // widget.swiperController.next();
       }
       if (!ModalRoute.of(context)!.isCurrent) {
@@ -172,10 +151,11 @@ class _ReelsPageState extends State<ReelsPage>
 
   @override
   void dispose() {
+    log("in dispose");
     _videoPlayerController.dispose();
     if (_chewieController != null) {
       _chewieController!.dispose();
-    };
+    }
 
 
     super.dispose();
@@ -186,8 +166,7 @@ class _ReelsPageState extends State<ReelsPage>
 
   @override
   Widget build(BuildContext context) {
-    log("rebuild widget video view ");
-    return   getVideoView();
+    return getVideoView();
   }
 
   Widget getVideoView() {
@@ -195,66 +174,66 @@ class _ReelsPageState extends State<ReelsPage>
       fit: StackFit.expand,
       children: [
         (_chewieController != null &&
-                _chewieController!.videoPlayerController.value.isInitialized)
+            _chewieController!.videoPlayerController.value.isInitialized)
             ? FittedBox(
-                fit: BoxFit.cover,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: GestureDetector(
-                    onDoubleTap: () {
-                      if (!widget.item.likeExists!) {
-                        _liked = true;
-                        if (widget.onLike != null) {
-                          widget.onLike!(widget.item.id!);
-                        }
-                        setState(() {});
-                      }
-                    },
-                    onTap: () {
-                      setState(() {
-                        if (_videoPlayerController.value.isPlaying) {
-                          _videoPlayerController.pause();
-                          ReelsPage.isVideoPause.value = true;
-                        } else {
-                          ReelsPage.isVideoPause.value = false;
-                          _videoPlayerController.play();
-                        }
-                      });
-                    },
-                    onHorizontalDragEnd: (DragEndDetails details){
-                      if(details.primaryVelocity!>0){
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                SlideTransition(
-                                  position: _offsetAnimation,
-                                  child: UserProfile(
-                                    userId:
-                                    MyDataModel.getInstance().id.toString() ==
-                                        widget.item.userId.toString()
-                                        ? null
-                                        : widget.item.userId.toString(),
-                                  ),
-                                ),
+          fit: BoxFit.cover,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: GestureDetector(
+              onDoubleTap: () {
+                if (!widget.item.likeExists!) {
+                  _liked = true;
+                  if (widget.onLike != null) {
+                    widget.onLike!(widget.item.id!);
+                  }
+                  setState(() {});
+                }
+              },
+              onTap: () {
+                setState(() {
+                  if (_videoPlayerController.value.isPlaying) {
+                    _videoPlayerController.pause();
+                    ReelsPage.isVideoPause.value = true;
+                  } else {
+                    ReelsPage.isVideoPause.value = false;
+                    _videoPlayerController.play();
+                  }
+                });
+              },
+              onHorizontalDragEnd: (DragEndDetails details){
+                if(details.primaryVelocity!>0){
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder:
+                          (context, animation, secondaryAnimation) =>
+                          SlideTransition(
+                            position: _offsetAnimation,
+                            child: UserProfile(
+                              userId:
+                              MyDataModel.getInstance().id.toString() ==
+                                  widget.item.userId.toString()
+                                  ? null
+                                  : widget.item.userId.toString(),
+                            ),
                           ),
-                        );
-                      }
-                    },
-
-                    child: Chewie(
-                      controller: _chewieController!,
                     ),
-                  ),
-                ),
-              )
-            : ReelLodaingWidget(
-          image: image,
-                reelId: widget.item.id.toString(),
-                userView: widget.userView,
+                  );
+                }
+              },
+
+              child: Chewie(
+                controller: _chewieController!,
               ),
+            ),
+          ),
+        )
+            : ReelLodaingWidget(
+          reelId: widget.item.id.toString(),
+          userView: widget.userView,
+          image:image ,
+        ),
         if (_liked)
           const Center(
             child: LikeIcon(),
@@ -293,14 +272,14 @@ class _ReelsPageState extends State<ReelsPage>
               if (ispause) {
                 return IgnorePointer(
                     child: Container(
-                  color: Colors.grey.withOpacity(0.2),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    CupertinoIcons.play_fill,
-                    size: ConfigSize.defaultSize! * 11.5,
-                    color: Colors.white.withOpacity(0.7),
-                  ),
-                ));
+                      color: Colors.grey.withOpacity(0.2),
+                      alignment: Alignment.center,
+                      child: Icon(
+                        CupertinoIcons.play_fill,
+                        size: ConfigSize.defaultSize! * 11.5,
+                        color: Colors.white.withOpacity(0.7),
+                      ),
+                    ));
               } else {
                 return const SizedBox();
               }

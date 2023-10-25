@@ -22,6 +22,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/in_app_purchase_mode.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
@@ -206,4 +207,7 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> deleteReel(String id);
 
   Future<Either<bool, Failure>> activeNotification();
+  
+  Future<Either<InAppPurchaseMode, Failure>> inAppPurchase({required String user_id ,required String product_id});
+
 }

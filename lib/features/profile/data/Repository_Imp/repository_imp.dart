@@ -1,5 +1,7 @@
 
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -27,6 +29,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/in_app_purchase_mode.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
 
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
@@ -978,6 +981,15 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
     }
   }
 
+  @override
+  Future<Either<InAppPurchaseMode, Failure>> inAppPurchase({required String user_id, required String product_id})async {
+   try {
+      final result =await baseRemotlyDataSourceProfile.inAppPurchase(user_id:user_id , product_id: product_id);
+      return Left(result);
+    } catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
 
 
 }

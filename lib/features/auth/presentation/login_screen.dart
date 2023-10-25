@@ -29,6 +29,7 @@ import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/main.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'widgets/google_auth.dart';
 import 'widgets/phone_wtih_country.dart';
 import 'widgets/privcy_text_widget.dart';
@@ -42,7 +43,7 @@ class LoginScreen extends StatefulWidget {
       {required this.isForceUpdate,
       required this.isUpdate,
       Key? key,
-      this.isLoginFromAnotherAccountAndBuildFailure})
+      this.isLoginFromAnotherAccountAndBuildFailure = false})
       : super(key: key);
 
   @override
@@ -87,7 +88,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.pop(context);
                 },
                 accpettitle: StringManager.ok,
-
               );
             });
       });
@@ -97,11 +97,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void didChangeDependencies() {
-
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
-      setState(() {
-        _keyboardHeight = height;
-      });
+      if (mounted) {
+        setState(() {
+          _keyboardHeight = height;
+        });
+      }
     });
 
     super.didChangeDependencies();
@@ -110,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     passwordController.dispose();
-     super.dispose();
+    super.dispose();
   }
 
   @override
@@ -239,9 +240,11 @@ class _LoginScreenState extends State<LoginScreen> {
             (route) => false,
           );
           //to do getmy data
-        } else if (state is LoginWithPhoneErrorMessageState) {
+        }
+        else if (state is LoginWithPhoneErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
-        } else if (state is LoginWithPhoneLoadingState) {
+        }
+        else if (state is LoginWithPhoneLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
         }
       },
