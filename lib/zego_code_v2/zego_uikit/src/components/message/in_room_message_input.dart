@@ -385,7 +385,6 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
       return;
     }
     if(ZegoInRoomMessageInput.activePobUp.value && int.parse(numPobUp)>0){
-      log("elhamody");
       BlocProvider.of<OnRoomBloc>(context).add(
           SendPobUpEvent(ownerId: widget.roomData.ownerId.toString(),
           message: textController.text)) ;
