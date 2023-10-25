@@ -664,12 +664,25 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     });
   }
 
+
+
+
 //massages
-  Future<void> onInRoomCommandReceived(
-      ZegoInRoomCommandReceivedData commandData) async {
+  Future<void> onInRoomCommandReceived(ZegoInRoomCommandReceivedData commandData) async {
     Map<String, dynamic> result = jsonDecode(commandData.command);
-    //log('commandData.command'+commandData.command);
     if (result[messageContent] != null) {
+
+      // switch(result[messageContent][message]){
+      //   case changeBackground:
+      //     ChangeBackground(result,roomDataUpdates);
+      //     break;
+      //   case userEntro:
+      //     UserEntro(result, userIntroData ,loadAnimationEntro);
+      //     break;
+      //
+      // }
+
+
       if (result[messageContent][message] == changeBackground) {
         ChangeBackground(result,roomDataUpdates);
       }
