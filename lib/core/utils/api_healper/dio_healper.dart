@@ -24,7 +24,6 @@ class DioHelper {
       log(token);
 
     }
-    log('$key log(key)');
     final devicedata = await initPlatformState();
     log(devicedata.toString());
     Map<String, String> headers = {

@@ -264,7 +264,6 @@ class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
         ),
       );
       Map<String, dynamic> resultData = response.data;
-log('here${resultData.toString()}');
       return List<MomentModel>.from(
           resultData['data'].map((x) => MomentModel.fromJson(x)));
 

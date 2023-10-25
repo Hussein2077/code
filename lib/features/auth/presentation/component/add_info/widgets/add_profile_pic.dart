@@ -58,7 +58,7 @@ class _AddProFilePicState extends State<AddProFilePic> {
     return InkWell(
         onTap: () {
           _getImage(widget.quality);
-          log('hereee');
+
         },
         child: SizedBox(
           width: ConfigSize.defaultSize! * 11.4,

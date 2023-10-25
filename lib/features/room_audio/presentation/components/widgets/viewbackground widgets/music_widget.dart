@@ -107,7 +107,6 @@ class MusicWidget extends StatelessWidget {
                   ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
                 }
               }
-
               return MusicWidget.isIPlayerMedia ? DraggableFloatWidget(
                 config: DraggableFloatWidgetBaseConfig(
                   initPositionYInTop: false,
