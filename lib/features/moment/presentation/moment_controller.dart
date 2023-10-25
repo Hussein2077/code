@@ -3,11 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
-import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
 
@@ -17,8 +18,6 @@ class MomentController {
   static get getInstance => MomentController();
 
   //comments
-
-  //commentController(
   void commentController(BuildContext context, String type) {
     if (MomentBottomBarState.momentType == MomentType.myMoment) {
       BlocProvider.of<GetMomentBloc>(context).add(LocalCommentMoment(
@@ -35,35 +34,13 @@ class MomentController {
               momentId: MomentBottomBarState.selectedMoment.toString(),
               type: type));
     }
+    else if (MomentBottomBarState.momentType == MomentType.allMoments){
+      BlocProvider.of<GetMomentallBloc>(context).add(
+          LocalCommentMomentAllEvent(momentId:MomentBottomBarState.selectedMoment.toString() , type: type ));
+
+    }
   }
 
-  // void commentsDecrement(int momentId){
-  //   MomentBottomBarState.commentsOfMomentsMap[momentId] =
-  //       MomentBottomBarState.commentsOfMomentsMap[momentId]! - 1;
-  //   MomentBottomBarState.commentsCounter.value++;
-
-  // }
-  // void fillCommentMap ( List<MomentModel> momentModelList){
-  //   log('fillCommentMap1${MomentBottomBarState.commentsOfMomentsMap}');
-  //   for (int i = 0; i < momentModelList.length; i++) {
-  //     MomentBottomBarState.commentsOfMomentsMap.putIfAbsent(
-  //         momentModelList[i].momentId, () => momentModelList[i].commentNum);
-  //   }
-  // }
-
-  //gifts
-
-  // void giftIncrement(int momentId, int giftsNum) {
-  //   MomentBottomBarState.giftsOfMomentsMap[momentId] =
-  //       MomentBottomBarState.giftsOfMomentsMap[momentId]! + giftsNum;
-  // }
-  //
-  // void fillGiftMap(List<MomentModel> momentModelList) {
-  //   for (int i = 0; i < momentModelList.length; i++) {
-  //     MomentBottomBarState.giftsOfMomentsMap.putIfAbsent(
-  //         momentModelList[i].momentId, () => momentModelList[i].giftsCount);
-  //   }
-  // }
 
   //like
 
@@ -78,9 +55,13 @@ class MomentController {
       BlocProvider.of<GetFollowingUserMomentBloc>(context).add(
           LocalLikeFollowingMoment(
               momentId: MomentBottomBarState.selectedMoment.toString()));
+    }else if(MomentBottomBarState.momentType == MomentType.allMoments){
+
+      BlocProvider.of<GetMomentallBloc>(context).add(LocalLikeMomentAll(momentId:MomentBottomBarState.selectedMoment.toString() ));
+
     }
   }
-
+//gifts
   void giftController(BuildContext context) {
 
     if (MomentBottomBarState.momentType == MomentType.myMoment) {
@@ -97,6 +78,10 @@ class MomentController {
       BlocProvider.of<GetFollowingUserMomentBloc>(context).add(LocalFollowingGiftMoment(
           giftsNum: MomentBottomBarState.giftsNum,
 
+          momentId:MomentBottomBarState.selectedMoment.toString() ));
+    }else if (MomentBottomBarState.momentType == MomentType.allMoments) {
+      BlocProvider.of<GetMomentallBloc>(context).add(LocalGiftMomentAllEvent(
+          giftsNum: MomentBottomBarState.giftsNum,
           momentId:MomentBottomBarState.selectedMoment.toString() ));
     }
   }

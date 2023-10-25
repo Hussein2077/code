@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/moment/presentation/componants/all_moments/all_moments.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/following_moments/following_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/liked_moments/liked_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/my_moments_screen/my_moments_screen.dart';
@@ -182,6 +183,11 @@ class MomentScreenState extends State<MomentScreen>
                                   style:
                                       Theme.of(context).textTheme.headlineSmall,
                                 ),
+                                Text(
+                                  StringManager.allMomentsTab.tr(),
+                                  style:
+                                  Theme.of(context).textTheme.headlineSmall,
+                                ),
                               ],
                             ),
                           ),
@@ -192,6 +198,8 @@ class MomentScreenState extends State<MomentScreen>
                                 FollowingScreen(),
                                 LikedScreen(),
                                 MyMomentsScreen(),
+                                AllMomentsScreen(),
+
                               ],
                             ),
                           ),

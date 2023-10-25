@@ -434,6 +434,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.clearData : 'مسح البيانات',
     StringManager.downloadData : 'تحميل البيانات',
     StringManager.downloadedData : 'تم تحميل البيانات',
+    StringManager.allMomentsTab : "كل اللحظات",
+
   };
   static const Map<String, dynamic> tr = {
     StringManager.appTitle: "Tikchat",
