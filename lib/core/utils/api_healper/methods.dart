@@ -777,12 +777,6 @@ class Methods {
   }) {
     DateTime dateTimeNow = DateTime.now();
     DateFormat formatter = DateFormat(format, locale);
-    // log('datatime');
-    // log(formatter.format(dateTimeNow));
-    // log(formatter.format(dateTimeNow).substring(5, 12));
-    // log(formatter.format(DateTime.parse(dateTime!)));
-    // log(formatter.format(DateTime.parse(dateTime!)).substring(5, 12));
-
     if (formatter.format(dateTimeNow).substring(5, 12) ==
         formatter.format(DateTime.parse(dateTime)).substring(5, 12)) {
       formatter = DateFormat('hh:mm a', locale);
@@ -792,12 +786,6 @@ class Methods {
     }
   }
 
-// Future loginFromAnotherAccount()async{
-//
-//     DioHelper.handleLoginResponse(response)
-//
-//       return ;
-// }
     Future<bool> getNotificationState() async {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       bool notificationState = preferences.getBool("notificationState") ?? true;
