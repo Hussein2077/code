@@ -126,7 +126,6 @@ class _MusicScreenState extends State<MusicScreen> {
                     )),
                     IconButton(
                         onPressed: () async {
-                          MusicWidget.isIPlayerMedia = true ;
                           if (!MusicScreen.isPlaying.value) {
                             await loadMusice(path: RoomScreen.musicesInRoom[index].uri);
                             MusicScreen.nowPlaying = index;
@@ -141,6 +140,9 @@ class _MusicScreenState extends State<MusicScreen> {
                             MusicScreen.nowPlaying = index;
                             setState(() {});
                           }
+                          setState(() {
+                            MusicWidget.isIPlayerMedia = true ;
+                          });
                         },
                         icon: (MusicScreen.isPlaying.value && (MusicScreen.nowPlaying == index))
                             ? Icon(
