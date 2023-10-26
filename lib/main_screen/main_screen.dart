@@ -1,4 +1,3 @@
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,6 +24,9 @@ import 'package:tik_chat_v2/splash.dart';
 import '../features/reels/persentation/reels_screen_taps.dart';
 import 'widget/bottom_bar_widget.dart';
 
+
+
+
 class MainScreen extends StatefulWidget {
   final bool? isChachGift;
 
@@ -43,6 +45,7 @@ class MainScreen extends StatefulWidget {
   static ValueNotifier<bool> iskeepInRoom = ValueNotifier<bool>(false);
 
   static EnterRoomModel? roomData;
+
   static String reelId = '' ;
 
   const MainScreen(
@@ -64,15 +67,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   late final AnimationController animationController;
 
-  //
-  // @override
-  // void didChangeDependencies() {
-  //   log("lin didChangeDependencies");
-  //   log("DioHelper.genralContext: ${DioHelper.genralContext?.widget.hashCode}");
-  //
-  //   DioHelper.genralContext =context ;
-  //   super.didChangeDependencies();
-  // }
+
 
   @override
   void initState() {

@@ -183,6 +183,9 @@ class _SplashScreenState extends State<SplashScreen> {
       SplashScreen.appId = l.appId;
       SplashScreen.appSign = l.appSign;
       configModel = l;
-    }, (r) => errorMessage = DioHelper().getTypeOfFailure(r));
+    }, (r) {
+      errorMessage = DioHelper().getTypeOfFailure(r) ;
+      errorToast(context: context, title: errorMessage) ;
+    });
   }
 }
