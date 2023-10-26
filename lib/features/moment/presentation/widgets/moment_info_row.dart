@@ -58,7 +58,7 @@ class MomentInfoRow extends StatelessWidget {
                           width: ConfigSize.defaultSize! * 0.5,
                         ),
                         Text(
-                          Methods().formatDateTime(
+                          Methods.instance.formatDateTime(
                               dateTime: momentModel.creeatedTime,
                               locale: context.locale.languageCode),
                           style: Theme.of(context)
