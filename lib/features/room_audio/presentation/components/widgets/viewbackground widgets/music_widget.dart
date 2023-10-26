@@ -76,7 +76,6 @@ class MusicWidget extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         distroyMusic() ;
-                        MusicWidget.isIPlayerMedia = false ;
 
           } ,
                       child: Container(
@@ -150,7 +149,6 @@ class MusicWidget extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         distroyMusic() ;
-                        MusicWidget.isIPlayerMedia = false ;
 
                       } ,
                       child: Container(

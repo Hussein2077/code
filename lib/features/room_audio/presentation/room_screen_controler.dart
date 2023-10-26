@@ -215,7 +215,7 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 
 Future<void> loadMusice({required String path}) async {
   // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
-
+  MusicWidget.isIPlayerMedia = true ;
   await ZegoUIKit().playMedia(filePathOrURL: path);
 
   // await RoomScreen.zegoMediaPlayer?.loadResource(path);
@@ -278,13 +278,14 @@ Future<void> clearAll() async {
   RoomScreen.myCoins.value = "";
   RoomScreen.winCircularluckyGift.value = 0;
   GiftUser.userSelected.clear();
-  MusicWidget.isIPlayerMedia =false ;
   await distroyMusic();
 
 }
 
 Future<void> distroyMusic() async {
+  MusicWidget.isIPlayerMedia = false ;
   await ZegoUIKit().stopMedia();
+
   MusicScreen.isPlaying.value = false;
 }
 
@@ -363,41 +364,7 @@ showInFormationDilog(BuildContext context) {
   );
 }
 
-/*Widget familyRoomIcon (BuildContext context ,EnterRoomModel room ){
-      return  Positioned(
-                    right: 0,
-                    top: ConfigSize.defaultSize! * 7,
-                    child: InkWell(
-                      onTap: ()  async{
-                    
-                
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushNamed(context, Routes.familyProfile,
-                            arguments:room.roomFamily!.id);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(right: ConfigSize.defaultSize!),
-                        width: ConfigSize.defaultSize!*10,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ConfigSize.defaultSize!, vertical: AppPadding.p2),
-                        decoration: BoxDecoration(
-                            image: const DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(AssetsPath.purbleBackGround)),
-                            borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-                        child: Center(
-                          child: Text(
-                            room.roomFamily!.name!,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontStyle: FontStyle.italic,
-                                fontSize: ConfigSize.defaultSize! * 1.2 ,overflow: TextOverflow.ellipsis),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
- }*/
+
 
 showBanFromWritingDilog(BuildContext context) {
   return showDialog<String>(

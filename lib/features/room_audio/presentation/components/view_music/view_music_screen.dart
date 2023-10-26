@@ -9,7 +9,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 
 class MusicScreen extends StatefulWidget {
@@ -140,9 +139,7 @@ class _MusicScreenState extends State<MusicScreen> {
                             MusicScreen.nowPlaying = index;
                             setState(() {});
                           }
-                          setState(() {
-                            MusicWidget.isIPlayerMedia = true ;
-                          });
+
                         },
                         icon: (MusicScreen.isPlaying.value && (MusicScreen.nowPlaying == index))
                             ? Icon(
