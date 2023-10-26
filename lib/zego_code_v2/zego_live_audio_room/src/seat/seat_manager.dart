@@ -1132,6 +1132,8 @@ class ZegoLiveSeatManager {
   }
 
   ZegoUIKitUser? getUserByIndex(int index) {
+    log(index.toString());
+    log(seatsUserMapNotifier.value.toString());
     return ZegoUIKit()
         .getUser(seatsUserMapNotifier.value[index.toString()] ?? '');
   }

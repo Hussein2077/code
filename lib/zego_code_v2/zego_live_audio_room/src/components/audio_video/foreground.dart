@@ -124,6 +124,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
   }
 
   void onClicked() {
+
     var index =
         int.tryParse(widget.extraInfo[layoutGridItemIndexKey].toString()) ?? -1;
     if (-1 == index) {
@@ -417,6 +418,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
     }
 
     if(popupItems.length==1 && popupItems.contains(popupItem)){
+    log(widget.seatManager.getUserByIndex.toString()+"xxxxxxxx");
       bottomDailog(
           context: context,
           widget:
@@ -442,7 +444,6 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       PopupItemValue.cancel,
       StringManager.cancle.tr(),
     ));
-
     showPopUpSheet(
         context: context,
         userID: widget.user?.id ?? "",
