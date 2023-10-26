@@ -208,7 +208,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           headers: headers,
         ),
       );
-        Methods().saveMyData();
+        Methods.instance.saveMyData();
       MyDataModel userData =
       MyDataModel.fromMap(response.data[ConstentApi.data]);
 
@@ -383,7 +383,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<List<UserDataModel>> getVaistors({String? page}) async {
     Map<String, String> headers = await DioHelper().header();
-    final timeZone=await Methods().getCurrentTimeZone();
+    final timeZone=await Methods.instance.getCurrentTimeZone();
   headers.addAll({'tz':timeZone});
     try {
       final response = page == null
@@ -409,7 +409,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<List<BackPackModel>> getBackPack(String type) async {
     Map<String, String> headers = await DioHelper().header();
-    final timeZone=await Methods().getCurrentTimeZone();
+    final timeZone=await Methods.instance.getCurrentTimeZone();
     headers.addAll({'tz':timeZone});
     try {
       final response = await Dio().get(ConstentApi().getBackPack(type),
@@ -2045,7 +2045,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           resultData['data'].map((x) => ReelModel.fromJson(x)));
       reels.addAll(normalReels);
 
-      Methods().cachingReels(reels,response.data);
+      Methods.instance.cachingReels(reels,response.data);
 
 
       return reels ;

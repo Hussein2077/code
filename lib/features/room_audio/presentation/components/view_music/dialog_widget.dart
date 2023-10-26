@@ -47,7 +47,7 @@ late  bool isPlay  ;
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ValueListenableBuilder(
-                valueListenable: ZegoUIKit().getMediaCurrentProgressNotifier(),
+                valueListenable: ZegoUIKit.instance.getMediaCurrentProgressNotifier(),
                 builder: (BuildContext context, dynamic value, Widget? child){
                   return Text(
                     RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].name.toString(),
@@ -85,7 +85,7 @@ late  bool isPlay  ;
                       onChanged: (double value) {
                         setState(() {
                           MusicDialog.currentSliderValue = value;
-                          ZegoUIKit().setMediaVolume(MusicDialog.currentSliderValue.toInt()) ;
+                          ZegoUIKit.instance.setMediaVolume(MusicDialog.currentSliderValue.toInt()) ;
 
                         });
                       },
@@ -105,7 +105,7 @@ late  bool isPlay  ;
                           MusicScreen.nowPlaying = RoomScreen.musicesInRoom.length - 1;
                           loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                         }
-                        ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
+                        ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                         setState(() {
                           isPlay = true ;
                         });
@@ -121,12 +121,12 @@ late  bool isPlay  ;
                     child: InkWell(
                       onTap: () async{
                         if (isPlay) {
-                        await  ZegoUIKit().pauseMedia() ;
+                        await  ZegoUIKit.instance.pauseMedia() ;
                           setState(() {
                             isPlay = false;
                           });
                         } else {
-                          await  ZegoUIKit().resumeMedia() ;
+                          await  ZegoUIKit.instance.resumeMedia() ;
                           setState(() {
                             isPlay= true;
                           });
@@ -150,7 +150,7 @@ late  bool isPlay  ;
                         MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
                         loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                       }
-                      ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
+                      ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                       setState(() {
                         isPlay = true;
                       });
@@ -168,16 +168,16 @@ late  bool isPlay  ;
                 height: AppPadding.p10,
                 width: ConfigSize.defaultSize! * 32,
                 child: ValueListenableBuilder(
-                  valueListenable: ZegoUIKit().getMediaCurrentProgressNotifier(),
+                  valueListenable: ZegoUIKit.instance.getMediaCurrentProgressNotifier(),
                   builder: (BuildContext context, dynamic value, Widget? child){
                     return Slider(
                       autofocus: true,
                       activeColor: ColorManager.gold1,
                       min: 0,
-                      max:ZegoUIKit().getMediaTotalDuration().toDouble(),
-                      value: ZegoUIKit().getMediaCurrentProgress().toDouble(),
+                      max:ZegoUIKit.instance.getMediaTotalDuration().toDouble(),
+                      value: ZegoUIKit.instance.getMediaCurrentProgress().toDouble(),
                       onChanged: (double value) async{
-                        ZegoUIKit().seekTo(value.toInt()) ;
+                        ZegoUIKit.instance.seekTo(value.toInt()) ;
                     },
                   );
                   },

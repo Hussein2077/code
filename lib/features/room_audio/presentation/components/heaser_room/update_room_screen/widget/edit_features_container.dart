@@ -303,7 +303,7 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
 
     }} ;
     String map = jsonEncode(mapInformation);
-    ZegoUIKit().sendInRoomCommand(map ,[]);
+    ZegoUIKit.instance.sendInRoomCommand(map ,[]);
 
   }
 }

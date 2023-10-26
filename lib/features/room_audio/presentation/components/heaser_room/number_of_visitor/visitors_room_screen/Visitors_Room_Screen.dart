@@ -39,7 +39,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
     scrollController.addListener(scrollListener);
     BlocProvider.of<RoomVistorBloc>(context).add(GetAllRoomUserEvents(
         ownerId: widget.roomData.ownerId.toString(),
-        usersIds: splitUsersInRoom(orginalList: ZegoUIKit().getAllUsers())));
+        usersIds: splitUsersInRoom(orginalList: ZegoUIKit.instance.getAllUsers())));
 
     super.initState();
   }

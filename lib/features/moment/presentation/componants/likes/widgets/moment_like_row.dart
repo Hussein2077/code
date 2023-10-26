@@ -27,7 +27,7 @@ class MomentLikes extends StatelessWidget {
       itemBuilder: (context, i) {
         return InkWell(
           onTap: () {
-            Methods().userProfileNvgator(
+            Methods.instance.userProfileNvgator(
                 context: context,
                 userId: momentLikeModelList[i].userId.toString());
           },

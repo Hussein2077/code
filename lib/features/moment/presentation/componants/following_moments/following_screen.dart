@@ -38,17 +38,18 @@ class _FollowingScreenState extends State<FollowingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: LiquidPullToRefresh(
-        color: ColorManager.bage,
-        backgroundColor: ColorManager.mainColor,
-        showChildOpacityTransition: false,
-        onRefresh: () async {
+    return LiquidPullToRefresh(
+      color: ColorManager.bage,
+      backgroundColor: ColorManager.mainColor,
+      showChildOpacityTransition: false,
+      onRefresh: () async {
 
-          BlocProvider.of<GetFollowingUserMomentBloc>(context)
-              .add(const GetFollowingMomentEvent());
-        },
+        BlocProvider.of<GetFollowingUserMomentBloc>(context)
+            .add(const GetFollowingMomentEvent());
+      },
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+
         child: BlocBuilder<GetFollowingUserMomentBloc, GetFollowingUserMomentState>(
           builder: (context, state) {
             if (state is GetFollowingUserMomentSucssesState) {

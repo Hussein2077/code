@@ -171,7 +171,7 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
 
 
   void joinToGames(int index)async {
-    String token = await Methods().returnUserToken() ;
+    String token = await Methods.instance.returnUserToken() ;
     if(index==0){
       log("url${StringManager.teenPatti}${token}");
       dailogRoom(context: context,

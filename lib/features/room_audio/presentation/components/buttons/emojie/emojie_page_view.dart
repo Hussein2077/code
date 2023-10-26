@@ -75,7 +75,7 @@ class _EmojiePageViewState extends State<EmojiePageView> {
                                             ),
                                             timeEmojie:state.data[index].tLength) ;
 
-                                        ZegoUIKit().sendInRoomCommand(getMessagaRealTime(
+                                        ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
                                             state.data[index].id,
                                             state.data[index].emoji,
                                             state.data[index].tLength,

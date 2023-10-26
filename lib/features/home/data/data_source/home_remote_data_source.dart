@@ -154,11 +154,11 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
     final body = {
       'version': configModelBody.appVersion,
       'OS': configModelBody.devicePlatform,
-      'gift_time' :await Methods().getsLastTimeCache(TypesCache.gift),
-      'intro_time':await Methods().getsLastTimeCache(TypesCache.intro),
-      'frame_time':await Methods().getsLastTimeCache(TypesCache.frame),
-      'emoji_time':await Methods().getsLastTimeCache(TypesCache.emojie),
-      'extra_time':await Methods().getsLastTimeCache(TypesCache.extra)
+      'gift_time' :await Methods.instance.getsLastTimeCache(TypesCache.gift),
+      'intro_time':await Methods.instance.getsLastTimeCache(TypesCache.intro),
+      'frame_time':await Methods.instance.getsLastTimeCache(TypesCache.frame),
+      'emoji_time':await Methods.instance.getsLastTimeCache(TypesCache.emojie),
+      'extra_time':await Methods.instance.getsLastTimeCache(TypesCache.extra)
     };
     try {
       final response = await Dio().post(ConstentApi.getConfigApp,

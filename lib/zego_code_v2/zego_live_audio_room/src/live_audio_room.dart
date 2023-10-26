@@ -232,7 +232,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       case AppLifecycleState.paused:
         break ;
       case AppLifecycleState.detached:
-         Methods().exitFromRoom(widget.roomData.ownerId.toString()) ;
+         Methods.instance.exitFromRoom(widget.roomData.ownerId.toString()) ;
         ExistroomUC e = ExistroomUC( roomRepo: getIt());
         await  e.call(widget.roomData.ownerId.toString());
         break;

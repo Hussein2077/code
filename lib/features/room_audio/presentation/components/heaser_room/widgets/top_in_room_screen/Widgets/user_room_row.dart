@@ -17,7 +17,7 @@ class UserRoomRow extends StatelessWidget {
     return InkWell(
       onTap: onTap ??
           () {
-            Methods().userProfileNvgator(
+            Methods.instance.userProfileNvgator(
                 context: context, userId: userTopMode.userId.toString());
           },
       child: Padding(

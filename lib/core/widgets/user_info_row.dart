@@ -40,7 +40,7 @@ class UserInfoRow extends StatelessWidget {
     return InkWell(
       onTap: onTap ??
           () {
-            Methods().userProfileNvgator(
+            Methods.instance.userProfileNvgator(
                 context: context, userId: userData.id.toString());
           },
       child: Padding(

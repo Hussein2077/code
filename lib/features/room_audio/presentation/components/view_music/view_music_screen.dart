@@ -36,7 +36,7 @@ class _MusicScreenState extends State<MusicScreen> {
     });
 
     Future.delayed(Duration.zero, () async {
-      Map<String, dynamic> mapChachedMusic = await Methods().getCachingMusic();
+      Map<String, dynamic> mapChachedMusic = await Methods.instance.getCachingMusic();
 
       if (mapChachedMusic[widget.ownerId] != null) {
         for (int i = 0; i < mapChachedMusic[widget.ownerId].length; i++) {
@@ -96,9 +96,9 @@ class _MusicScreenState extends State<MusicScreen> {
                                       setState(() {
                                         RoomScreen.musicesInRoom.removeAt(index);
                                       });
-                                      Map<String, dynamic> mapChachedMusic = await Methods().getCachingMusic();
+                                      Map<String, dynamic> mapChachedMusic = await Methods.instance.getCachingMusic();
                                       mapChachedMusic.update(widget.ownerId, (value) => RoomScreen.musicesInRoom);
-                                      Methods().setCachingMusic(cachingMusic: mapChachedMusic);
+                                      Methods.instance.setCachingMusic(cachingMusic: mapChachedMusic);
                                       Navigator.pop(context);
                                     },
                                     child: Text(

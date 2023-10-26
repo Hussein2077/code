@@ -38,7 +38,7 @@ class UserImageReel extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Methods().userProfileNvgator(
+            Methods.instance.userProfileNvgator(
                 context: context, userId: userId.toString());
           },
           child: Container(

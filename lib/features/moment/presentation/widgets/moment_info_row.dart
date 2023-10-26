@@ -17,7 +17,7 @@ class MomentInfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Methods().userProfileNvgator(
+        Methods.instance.userProfileNvgator(
             context: context, userId: momentModel.userId.toString());
       },
       child: Container(

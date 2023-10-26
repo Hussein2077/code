@@ -36,7 +36,7 @@ class ShowYallowBannerWidget extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     if (ownerId['yallowBannerOwnerRoom'] != cureentRoomId) {
-                      Methods().checkIfRoomHasPassword(
+                      Methods.instance.checkIfRoomHasPassword(
                           context: context,
                           isInRoom: true,
                           hasPassword: hasPassword['yallowBannerhasPasswoedRoom'],

@@ -25,7 +25,7 @@ class FirstSecThrUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-                        Methods().userProfileNvgator(context: context ,userId: userData.userId.toString()  );
+                        Methods.instance.userProfileNvgator(context: context ,userId: userData.userId.toString()  );
 
      
       },

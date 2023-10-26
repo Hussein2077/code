@@ -76,7 +76,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    Methods().getTheNewData(context);
+    Methods.instance.getTheNewData(context);
 
     listenToInternet();
     initPusher();
@@ -169,7 +169,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   width: ConfigSize.defaultSize!*7.2,
                                 ));
 
-                        await Methods().exitFromRoom(
+                        await Methods.instance.exitFromRoom(
                             MainScreen.roomData!.ownerId.toString());
                         Navigator.pop(context);
                         MainScreen.iskeepInRoom.value = false;
@@ -200,7 +200,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       if (event == ConnectivityResult.wifi ||
           event == ConnectivityResult.mobile) {
         if (!isFirst) {
-          Methods().getTheNewData(context);
+          Methods.instance.getTheNewData(context);
       }
       isFirst = false;
       } else if (event == ConnectivityResult.none) {

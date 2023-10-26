@@ -39,7 +39,7 @@ class MusicListWidgetState extends State<MusicListWidget> {
     });
 
     Future.delayed(Duration.zero, () async {
-      mapChachedMusic = await Methods().getCachingMusic();
+      mapChachedMusic = await Methods.instance.getCachingMusic();
       if (mapChachedMusic[widget.ownerId] != null) {
         for (int i = 0; i < mapChachedMusic[widget.ownerId].length; i++) {
           MusicObject musicObject = MusicObject(
@@ -132,7 +132,7 @@ class MusicListWidgetState extends State<MusicListWidget> {
 
                             MusicScreen.musicController.sink.add(RoomScreen.musicesInRoom);
 
-                            Methods().setCachingMusic(cachingMusic: mapChachedMusic);
+                            Methods.instance.setCachingMusic(cachingMusic: mapChachedMusic);
                           }
 
                           // widget.refreshMusicScreen();

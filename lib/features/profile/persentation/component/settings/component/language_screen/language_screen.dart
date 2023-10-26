@@ -68,7 +68,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
               if (LanguageScreen.selectedLanguage != null) {
                 await context.setLocale(
                     Locale(languageCode[LanguageScreen.selectedLanguage!]));
-                await Methods().saveLocalazitaon(
+                await Methods.instance.saveLocalazitaon(
                     language: languageCode[LanguageScreen.selectedLanguage!]);
               }
 

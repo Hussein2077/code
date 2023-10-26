@@ -171,7 +171,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       await context.setLocale(Locale(defaultLocale.substring(0,2)));
 
-      await Methods().saveLocalazitaon(language:defaultLocale.substring(0,2));
+      await Methods.instance.saveLocalazitaon(language:defaultLocale.substring(0,2));
 
     });
     final result =

@@ -27,9 +27,9 @@ class GoogleAndAppleAuth extends StatelessWidget {
     return BlocConsumer<SignInWithPlatformBloc, SignInWithPlatformState>(
       listener: (context, state) async{
         if(state is SiginWithGoogleSuccesMessageState){
-          Methods().clearAuthData();
+          Methods.instance.clearAuthData();
           //todo check this event if still here or not
-          await Methods().addFireBaseNotifcationId();
+          await Methods.instance.addFireBaseNotifcationId();
 
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           if (state.userData.apiUserData.isFirst!) {
@@ -54,7 +54,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
         }
 
         if(state is SiginWithAppleSuccesMessageState){
-          Methods().clearAuthData();
+          Methods.instance.clearAuthData();
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           if (state.userModel.apiUserData.isFirst!) {
             Navigator.pushNamedAndRemoveUntil(

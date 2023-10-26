@@ -37,17 +37,17 @@ class _AllMomentsScreenState extends State<AllMomentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: LiquidPullToRefresh(
-        color: ColorManager.bage,
-        backgroundColor: ColorManager.mainColor,
-        showChildOpacityTransition: false,
-        onRefresh: () async {
+    return LiquidPullToRefresh(
+      color: ColorManager.bage,
+      backgroundColor: ColorManager.mainColor,
+      showChildOpacityTransition: false,
+      onRefresh: () async {
+        BlocProvider.of<GetMomentallBloc>(context)
+            .add(const GetMomentAllEvent());
+      },
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
 
-          BlocProvider.of<GetMomentallBloc>(context)
-              .add(const GetMomentAllEvent());
-        },
         child: BlocBuilder<GetMomentallBloc, GetMomentAllState>(
           builder: (context, state) {
             if (state is GetMomentAllSucssesState) {

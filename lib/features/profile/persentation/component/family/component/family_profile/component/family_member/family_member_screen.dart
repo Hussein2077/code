@@ -217,7 +217,7 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                                                                     .id
                                                                     .toString()));
                                                   } else {
-                                                    Methods()
+                                                    Methods.instance
                                                         .userProfileNvgator(
                                                             context: context,
                                                             userId: membersData[
@@ -311,7 +311,7 @@ Widget familyOwnerDilog({
         settingsTabs(
             context: context, title: StringManager.showProfile.tr(),
             onTap: () {
-              Methods().userProfileNvgator(context: context ,userId: userId);
+              Methods.instance.userProfileNvgator(context: context ,userId: userId);
             }),
         CustomHorizntalDvider(width: MediaQuery.of(context).size.width),
         settingsTabs(

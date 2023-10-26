@@ -41,19 +41,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     liveController = TabController(length: 1, vsync: this);
     if((widget.isChachGift??false)){
-      Methods().chachGiftInRoom();
+      Methods.instance.chachGiftInRoom();
     }
     if((widget.isCachExtra??false)){
-      Methods().getAndLoadExtraData();
+      Methods.instance.getAndLoadExtraData();
     }
     if((widget.isCachFrame??false)){
-      Methods().getAndLoadFrames();
+      Methods.instance.getAndLoadFrames();
     }
     if((widget.isCachEntro??false)){
-      Methods().getAndLoadEntro();
+      Methods.instance.getAndLoadEntro();
     }
     if((widget.isCachEmojie??false)){
-      Methods().getAndLoadEmojie();
+      Methods.instance.getAndLoadEmojie();
     }
     if((widget.isUpdate??false)){
       SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void enterRoomDynamicLink({ String? password, String? ownerId })async {
     if(password=='1'){
-      await  Methods().checkIfRoomHasPassword(
+      await  Methods.instance.checkIfRoomHasPassword(
           myData :MyDataModel.getInstance() ,
           context: context,
           hasPassword: password=='1' ,
@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void visitUserProfileDynamicLink ({String? userId }){
-    Methods().userProfileNvgator(context: context,userId:userId );
+    Methods.instance.userProfileNvgator(context: context,userId:userId );
   }
 
 }

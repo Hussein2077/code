@@ -73,14 +73,14 @@ class HeaderRoom extends StatelessWidget {
                         width: 10,
                       ),
                       StreamBuilder<List<ZegoUIKitUser>>(
-                          stream: ZegoUIKit().getUserListStream(),
+                          stream: ZegoUIKit.instance.getUserListStream(),
                           builder: (context, snapshot) {
                             return NumberOfVisitor(
                               myDataModel: myDataModel,
                               roomData: room,
                               ownerId: room.ownerId.toString(),
                               numberOfVistor:
-                                  ZegoUIKit().getAllUsers().length.toString(),
+                                  ZegoUIKit.instance.getAllUsers().length.toString(),
                               layoutMode: layoutMode,
                             );
                           }),

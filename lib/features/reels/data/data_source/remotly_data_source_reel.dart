@@ -60,7 +60,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
   Future<List<ReelModel>> getReels(String? page,String? reelId) async{
      Map<String, String> headers = await DioHelper().header();
      if(page == '1'){
-       await Methods().removeCachReels();
+       await Methods.instance.removeCachReels();
      }
     try {
 
@@ -74,7 +74,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
         );
         ReelModel   spasficReel =ReelModel.fromJson(responseSpasficReel.data["data"]) ;
         reels.add(spasficReel);
-       await Methods().cachingReels(reels,responseSpasficReel.data);
+       await Methods.instance.cachingReels(reels,responseSpasficReel.data);
       }
       final response = await Dio().get(
         ConstentApi.getReel(page: page),
@@ -87,7 +87,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
               .map((e) => ReelModel.fromJson(e)));
       reels.addAll(normalReels);
 
-      Methods().cachingReels(reels,response.data);
+      Methods.instance.cachingReels(reels,response.data);
       log(response.data.toString());
       return reels;
     } on DioError catch (e) {
@@ -199,7 +199,7 @@ class RemotlyDataSourceReels extends BaseRemotlyDataSourceReels {
       );
       List<ReelModel> normalReels = List<ReelModel>.from((response.data["data"] as List).map((e) => ReelModel.fromJson(e)));
       reels.addAll(normalReels);
-      Methods().cachingReels(reels,response.data);
+      Methods.instance.cachingReels(reels,response.data);
 
       return reels;
     } on DioError catch (e) {

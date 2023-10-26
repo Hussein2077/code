@@ -79,13 +79,13 @@ class _ModeScreenState extends State<ModeScreen> {
             onTap: ()async {
 
               if(widget.selectedMode==0){
-                Methods().saveThemeStatus(theme: "light");
+                Methods.instance.saveThemeStatus(theme: "light");
                 BlocProvider.of<ThemeBloc>(context).add(const ChangeThemeEvent(type:"light"));
                 Navigator.pop(context);
               }else {
                                 Navigator.pop(context);
 
-                Methods().saveThemeStatus(theme: "dark");
+                Methods.instance.saveThemeStatus(theme: "dark");
                                 BlocProvider.of<ThemeBloc>(context).add(const ChangeThemeEvent(type:"dark"));
 
 

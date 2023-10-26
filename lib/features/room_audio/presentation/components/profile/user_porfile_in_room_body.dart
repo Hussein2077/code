@@ -321,7 +321,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
             padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 5.2),
             child: InkWell(
               onTap: () {
-                Methods().userProfileNvgator(
+                Methods.instance.userProfileNvgator(
                     context: context, userData: widget.userData);
               },
               child: UserImage(
@@ -341,7 +341,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
   Future<void> sendMuteUserMessage(
       {required bool mute, required String userId}) async {
     if (mute) {
-      ZegoUIKit().turnMicrophoneOn(false, userID: userId);
+      ZegoUIKit.instance.turnMicrophoneOn(false, userID: userId);
       RoomScreen.usersHasMute.add(userId);
       RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value + 1;
     } else {
@@ -353,6 +353,6 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
       "messageContent": {"message": "muteUser", 'mute': mute, 'id_user': userId}
     };
     String map = jsonEncode(mapInformation);
-    ZegoUIKit().sendInRoomCommand(map, []);
+    ZegoUIKit.instance.sendInRoomCommand(map, []);
   }
 }

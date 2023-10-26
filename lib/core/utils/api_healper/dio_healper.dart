@@ -17,8 +17,8 @@ class DioHelper {
   bool? isLoginFromAnotherAccountAndBuildFailure = false;
 
   Future<Map<String, String>> header() async {
-    String key = await Methods().getLocalization();
-    String token = await Methods().returnUserToken();
+    String key = await Methods.instance.getLocalization();
+    String token = await Methods.instance.returnUserToken();
 
     if (kDebugMode) {
       log(token);

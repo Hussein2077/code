@@ -75,7 +75,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 imageSize: ConfigSize.defaultSize! * 10,
                               ),
                               onTap: (){
-                                                                      Methods().userProfileNvgator(context: context);
+                                                                      Methods.instance.userProfileNvgator(context: context);
 
 
                               },

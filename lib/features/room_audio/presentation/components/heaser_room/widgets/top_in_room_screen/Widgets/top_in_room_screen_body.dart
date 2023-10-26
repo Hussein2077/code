@@ -75,7 +75,7 @@ class TopInRoomScreenBody extends StatelessWidget {
                                               myData: myData,
                                               roomData: roomData,
                                               layoutMode: layoutMode));
-                                      Methods().userProfileNvgator(
+                                      Methods.instance.userProfileNvgator(
                                           context: context,
                                           userId: state
                                               .todayUserTopModel[index].userId

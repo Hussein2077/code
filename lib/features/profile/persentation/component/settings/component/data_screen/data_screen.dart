@@ -25,7 +25,7 @@ class _DataScreenState extends State<DataScreen> {
   }
 
   Future<void> intiNotificationState() async {
-    bool key = await Methods().getNotificationState();
+    bool key = await Methods.instance.getNotificationState();
 
     if (key == false) {
       currentValue = 0;
@@ -51,7 +51,7 @@ class _DataScreenState extends State<DataScreen> {
               icon: Icons.delete,
               title: StringManager.clearData.tr(),
               onTap: () {
-                Methods().clearCachData(context);
+                Methods.instance.clearCachData(context);
               },
             ),
             SizedBox(
@@ -62,11 +62,11 @@ class _DataScreenState extends State<DataScreen> {
                 icon: Icons.cloud_download,
                 title: StringManager.downloadData.tr(),
                 onTap: () async {
-                  await Methods().chachGiftInRoom();
-                  await Methods().getAndLoadExtraData();
-                  await Methods().getAndLoadFrames();
-                  await Methods().getAndLoadEntro();
-                  await Methods().getAndLoadEmojie();
+                  await Methods.instance.chachGiftInRoom();
+                  await Methods.instance.getAndLoadExtraData();
+                  await Methods.instance.getAndLoadFrames();
+                  await Methods.instance.getAndLoadEntro();
+                  await Methods.instance.getAndLoadEmojie();
                   sucssesToast(
                       title: StringManager.downloadedData.tr(), context: context);
                 }),
