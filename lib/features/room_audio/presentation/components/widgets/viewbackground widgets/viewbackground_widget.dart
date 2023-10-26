@@ -48,7 +48,7 @@ class ViewbackgroundWidget extends StatefulWidget {
   AnimationController controllerMusice;
   SVGAAnimationController animationControllerEntro;
   SVGAAnimationController animationControllerGift;
-  VideoPlayerController? mp4Controller;
+  static VideoPlayerController? mp4Controller;
   Map<String, dynamic> yallowBanner;
   Map<String, bool> showYellowBanner;
   Map<String,String> userIntroData;
@@ -75,7 +75,6 @@ class ViewbackgroundWidget extends StatefulWidget {
     required this.controllerMusice,
     required this.animationControllerEntro,
     required this.animationControllerGift,
-    required this.mp4Controller,
     required this.yallowBanner,
     required this.showYellowBanner,
     required this.userIntroData,
@@ -190,8 +189,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   builder: (context, isShow, _) {
                     if (isShow) {
                       return AspectRatio(
-                        aspectRatio: widget.mp4Controller!.value.aspectRatio,
-                        child: VideoPlayer(widget.mp4Controller!),
+                        aspectRatio: ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
+                        child: VideoPlayer(ViewbackgroundWidget.mp4Controller!),
                       );
                     } else {
                       return Container();
