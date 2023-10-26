@@ -1034,6 +1034,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   ZegoLiveAudioRoomSeatConfig getSeatConfig() {
     if (layoutMode == LayoutMode.hostTopCenter) {
+
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
           if (user?.id == null && PkController.showPK.value) {

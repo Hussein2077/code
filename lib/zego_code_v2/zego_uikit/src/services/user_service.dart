@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/internal/core/core.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/internal/core/defines.dart';
 import 'package:flutter/material.dart';
@@ -47,8 +49,11 @@ mixin ZegoUserService {
     }
 
     if (userID == ZegoUIKitCore.shared.coreData.localUser.id) {
+
       return ZegoUIKitCore.shared.coreData.localUser.toZegoUikitUser();
     } else {
+
+
       final queryUser = ZegoUIKitCore.shared.coreData.remoteUsersList
           .firstWhere((element) => element.id == userID,
               orElse: ZegoUIKitCoreUser.empty)
