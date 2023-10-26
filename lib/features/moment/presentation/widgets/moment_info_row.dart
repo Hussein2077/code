@@ -17,7 +17,7 @@ class MomentInfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Methods().userProfileNvgator(
+        Methods.instance.userProfileNvgator(
             context: context, userId: momentModel.userId.toString());
       },
       child: Container(
@@ -58,7 +58,7 @@ class MomentInfoRow extends StatelessWidget {
                           width: ConfigSize.defaultSize! * 0.5,
                         ),
                         Text(
-                          Methods().formatDateTime(
+                          Methods.instance.formatDateTime(
                               dateTime: momentModel.creeatedTime,
                               locale: context.locale.languageCode),
                           style: Theme.of(context)

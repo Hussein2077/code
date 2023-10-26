@@ -63,7 +63,7 @@ class SettingsScreen extends StatelessWidget {
             icon: AssetsPath.modeIcon,
             title: StringManager.mode.tr(),
             onTap: () async{
-              String theme = await Methods().returnThemeStatus();
+              String theme = await Methods.instance.returnThemeStatus();
               Navigator.pushNamed(context, Routes.mode,arguments:theme );
             },
           ),

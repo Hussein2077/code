@@ -43,7 +43,7 @@ class FamilyUserInforow extends StatelessWidget {
     return InkWell(
       onTap: onTap ??
               () {
-            Methods().userProfileNvgator(context: context ,userId: userData.id.toString()  );
+            Methods.instance.userProfileNvgator(context: context ,userId: userData.id.toString()  );
 
           },
       child: Padding(

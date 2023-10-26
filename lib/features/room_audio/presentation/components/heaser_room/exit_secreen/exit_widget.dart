@@ -86,7 +86,7 @@ class ExitWidgetState extends State<ExitWidget> {
                       MainScreen.iskeepInRoom.value=false;
                       Navigator.pop(context);
                       Navigator.pop(context);
-                      await   Methods().exitFromRoom(widget.roomData.ownerId.toString());
+                      await   Methods.instance.exitFromRoom(widget.roomData.ownerId.toString());
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

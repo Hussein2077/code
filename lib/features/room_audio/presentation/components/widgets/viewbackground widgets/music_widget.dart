@@ -26,7 +26,7 @@ class MusicWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<MediaPlayState>(
-        valueListenable: ZegoUIKit().getMediaPlayStateNotifier(),
+        valueListenable: ZegoUIKit.instance.getMediaPlayStateNotifier(),
         builder: (context, state, _) {
           switch(state) {
             case MediaPlayState.NoPlay:
@@ -98,12 +98,12 @@ class MusicWidget extends StatelessWidget {
                   distroyMusic();
                   MusicScreen.nowPlaying = 0;
                   loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
-                  ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
+                  ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                 } else {
                   distroyMusic();
                   MusicScreen.nowPlaying =MusicScreen.nowPlaying!+1;
                   loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
-                  ZegoUIKit().getMediaCurrentProgressNotifier().value = 0;
+                  ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                 }
               }
               return MusicWidget.isIPlayerMedia ? DraggableFloatWidget(

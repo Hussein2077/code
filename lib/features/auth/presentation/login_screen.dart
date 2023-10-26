@@ -206,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Methods().clearAuthData();
+                          Methods.instance.clearAuthData();
                           Navigator.pushNamed(context, Routes.signUp);
                         },
                         child: Text(
@@ -230,8 +230,8 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       listener: (context, state) async {
         if (state is LoginWithPhoneSuccesMessageState) {
-          Methods().clearAuthData();
-          await Methods().addFireBaseNotifcationId();
+          Methods.instance.clearAuthData();
+          await Methods.instance.addFireBaseNotifcationId();
           //todo check this event if still here or not
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           Navigator.pushNamedAndRemoveUntil(

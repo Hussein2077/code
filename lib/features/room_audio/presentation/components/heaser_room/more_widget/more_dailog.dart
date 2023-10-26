@@ -522,7 +522,7 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
 
     }} ;
     String map = jsonEncode(mapInformation);
-    ZegoUIKit().sendInRoomCommand(map ,[]);
+    ZegoUIKit.instance.sendInRoomCommand(map ,[]);
 
   }
 }

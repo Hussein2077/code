@@ -91,7 +91,7 @@ class GamesScreen extends StatelessWidget {
   }
 
   void joinToGames(int index, BuildContext context)async {
-    String token = await Methods().returnUserToken() ;
+    String token = await Methods.instance.returnUserToken() ;
     if(index==0){
       log("url${StringManager.teenPatti}${token}");
       Navigator.push(context, MaterialPageRoute(builder: ((context) => WebViewInRoom(url: '${StringManager.teenPatti}${token}',))));

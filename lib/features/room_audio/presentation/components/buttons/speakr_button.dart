@@ -28,9 +28,9 @@ class _SpeakerButtonState extends State<SpeakerButton> {
         onTap: (() {
 
           if(mute){
-            ZegoUIKit().startPlayAllAudioVideo() ;
+            ZegoUIKit.instance.startPlayAllAudioVideo() ;
           }else{
-            ZegoUIKit().stopPlayAllAudioVideo();
+            ZegoUIKit.instance.stopPlayAllAudioVideo();
           }
 
           setState(() {

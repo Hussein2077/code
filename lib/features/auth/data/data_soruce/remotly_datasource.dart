@@ -83,7 +83,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       Map<String, dynamic> jsonData = response.data;
 
       MyDataModel userData = MyDataModel.fromMap(jsonData['data']);
-      Methods().saveUserToken(authToken: userData.authToken);
+      Methods.instance.saveUserToken(authToken: userData.authToken);
       
       return userData;
     } on DioError catch (e) {
@@ -111,7 +111,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       );
       Map<String, dynamic> jsonData = response.data;
       MyDataModel userData = MyDataModel.fromMap(jsonData['data']);
-      Methods().saveUserToken(authToken: userData.authToken);
+      Methods.instance.saveUserToken(authToken: userData.authToken);
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:"loginWithPassAndPhone");
@@ -162,7 +162,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       MyDataModel userData = MyDataModel.fromMap(response.data[ConstentApi.data]);
 
-      Methods().saveMyData();
+      Methods.instance.saveMyData();
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:"addInformation");
@@ -210,7 +210,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       
         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
 
-        Methods().saveUserToken(authToken: userData.authToken);
+        Methods.instance.saveUserToken(authToken: userData.authToken);
 
         return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );
       }on DioError catch (e){
@@ -256,7 +256,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       MyDataModel userData = MyDataModel.fromMap(resultData['data']);
 
-      Methods().saveUserToken(authToken: userData.authToken);
+      Methods.instance.saveUserToken(authToken: userData.authToken);
 
       return AuthWithAppleModel(apiUserData: userData, userData: credential);
     }on DioError catch (e){
@@ -297,7 +297,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       bool sussec = resultData["success"];
       if (sussec) {
         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
-        Methods().saveUserToken(authToken: userData.authToken);
+        Methods.instance.saveUserToken(authToken: userData.authToken);
         return userData;
       }
       else {

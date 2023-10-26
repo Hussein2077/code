@@ -140,7 +140,7 @@ class AdminMoreDailog extends StatelessWidget {
 
     }} ;
     String map = jsonEncode(mapInformation);
-    ZegoUIKit().sendInRoomCommand(map ,[]);
+    ZegoUIKit.instance.sendInRoomCommand(map ,[]);
 
   }
 

@@ -29,7 +29,7 @@ class OthersUsers extends StatelessWidget {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: (){
-                                      Methods().userProfileNvgator(context: context ,userId: usersData[index].userId.toString()  );
+                                      Methods.instance.userProfileNvgator(context: context ,userId: usersData[index].userId.toString()  );
 
   
             },

@@ -173,7 +173,7 @@ Future<void> main() async {
 
   await ServerLocator().init();
 
-  String theme = await Methods().returnThemeStatus();
+  String theme = await Methods.instance.returnThemeStatus();
 
   runApp(EasyLocalization(
     fallbackLocale: const Locale('en'),

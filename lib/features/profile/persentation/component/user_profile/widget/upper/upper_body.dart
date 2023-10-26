@@ -95,7 +95,7 @@ class UpperProfileBody extends StatelessWidget {
                               title: StringManager.nowInRoom.tr(),
                               buttonColor: ColorManager.mainColorList,
                               onTap: () {
-                                Methods().checkIfRoomHasPassword(
+                                Methods.instance.checkIfRoomHasPassword(
                                     myData: MyDataModel.getInstance(),
                                     context: context,
                                     hasPassword:

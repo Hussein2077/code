@@ -865,7 +865,7 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton(() => cacheManager);
    final VideoCacheManager videoCacheManager = VideoCacheManager() ;
     getIt.registerLazySingleton(() => videoCacheManager);
-    final MyDataModel cacheMyData = await Methods().returnMyData();
+    final MyDataModel cacheMyData = await Methods.instance.returnMyData();
     getIt.registerLazySingleton(() => cacheMyData);
     FireBaseDataSource fireBaseDataSource = FireBaseDataSource();
     getIt.registerLazySingleton(() => fireBaseDataSource);

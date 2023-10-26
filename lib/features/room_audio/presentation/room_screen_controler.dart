@@ -216,7 +216,7 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 Future<void> loadMusice({required String path}) async {
   // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
   MusicWidget.isIPlayerMedia = true ;
-  await ZegoUIKit().playMedia(filePathOrURL: path);
+  await instance.playMedia(filePathOrURL: path);
 
   // await RoomScreen.zegoMediaPlayer?.loadResource(path);
 
@@ -284,7 +284,7 @@ Future<void> clearAll() async {
 
 Future<void> distroyMusic() async {
   MusicWidget.isIPlayerMedia = false ;
-  await ZegoUIKit().stopMedia();
+  await ZegoUIKit.instance.stopMedia();
 
   MusicScreen.isPlaying.value = false;
 }
@@ -485,7 +485,7 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
   Map<String, dynamic> cachedGifts = {};
   if (result[messageContent]['showGift'].contains("mp4")) {
     cachedGifts =
-        await Methods().getCachingVideo(key: StringManager.cachGiftKey);
+        await Methods.instance.getCachingVideo(key: StringManager.cachGiftKey);
   }
 
   GiftData giftData = GiftData(
@@ -526,7 +526,7 @@ KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String
   RoomScreen.isKick.value = true;
   Future.delayed(const Duration(seconds: 3), () async {
     Navigator.pop(context);
-    await Methods().exitFromRoom(ownerId);
+    await Methods.instance.exitFromRoom(ownerId);
     BlocProvider.of<OnRoomBloc>(context).add(LeaveMicEvent(
         ownerId: ownerId,
         userId: id));
@@ -632,7 +632,7 @@ UnbanFromWritingKey(Map<String, dynamic> result, String id){
 
 MuteUserKey(Map<String, dynamic> result){
   if (result[messageContent][mute]) {
-    ZegoUIKit().turnMicrophoneOn(false, userID: result[messageContent][idUser]);
+    ZegoUIKit.instance.turnMicrophoneOn(false, userID: result[messageContent][idUser]);
     RoomScreen.usersHasMute.add(result[messageContent][idUser]);
   } else {
     RoomScreen.usersHasMute.remove(result[messageContent][idUser]);

@@ -45,8 +45,6 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_event.dart';
@@ -67,6 +65,14 @@ import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_roo
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 
 class Methods {
+
+  Methods._intarnel();
+
+    static final   instance =   Methods._intarnel() ;
+
+  factory  Methods() => instance ;
+
+
   Future<void> clearAuth() async {
     SharedPreferences preference = getIt();
     preference.remove(StringManager.userDataKey);
@@ -157,10 +163,10 @@ class Methods {
     await ZegoUIKitPrebuiltLiveAudioRoomState.plugins?.uninit();
     // await ZegoUIKit().resetSoundEffect();
     // await ZegoUIKit().resetBeautyEffect();
-    await ZegoUIKit().leaveRoom();
-    await ZegoUIKit().uninit();
-    await ZegoUIKit().uninit();
-    ZegoUIKit().logout();
+    await ZegoUIKit.instance.leaveRoom();
+    await ZegoUIKit.instance.uninit();
+    await ZegoUIKit.instance.uninit();
+    ZegoUIKit.instance.logout();
     await clearAll();
     ExistroomUC e = ExistroomUC(roomRepo: getIt());
     await e.call(ownerId);
@@ -171,7 +177,7 @@ class Methods {
   Future<void> checkIfInRoom({required String ownerId}) async {
     if (MainScreen.iskeepInRoom.value) {
       MainScreen.iskeepInRoom.value = false;
-      await Methods().exitFromRoom(MainScreen.roomData?.ownerId == null
+      await Methods.instance.exitFromRoom(MainScreen.roomData?.ownerId == null
           ? ownerId
           : MainScreen.roomData!.ownerId.toString());
     }
@@ -319,7 +325,7 @@ class Methods {
 
   //cache extraf
   Future<SvgaDataModel> getExtraData() async {
-    String token = await Methods().returnUserToken();
+    String token = await Methods.instance.returnUserToken();
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
     };
@@ -381,7 +387,7 @@ class Methods {
   //cache entro
   Future<List<DataMallModel>> getUsersEntro() async {
     log("getUsersEntro");
-    String token = await Methods().returnUserToken();
+    String token = await Methods.instance.returnUserToken();
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
     };
@@ -430,7 +436,7 @@ class Methods {
 
   //cache Frame
   Future<List<DataMallModel>> getFrames() async {
-    String token = await Methods().returnUserToken();
+    String token = await Methods.instance.returnUserToken();
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
     };
@@ -483,7 +489,7 @@ class Methods {
   }
 
   Future<List<EmojieModel>> getEmojie() async {
-    String token = await Methods().returnUserToken();
+    String token = await Methods.instance.returnUserToken();
 
     try {
       final response = await Dio().get(ConstentApi.getEmojie,
@@ -557,7 +563,7 @@ class Methods {
   _download(
       {required String img, required int giftId, required String path}) async {
     Map<String, dynamic> chachedMp4Gifts =
-        await Methods().getCachingVideo(key: StringManager.cachGiftKey);
+        await Methods.instance.getCachingVideo(key: StringManager.cachGiftKey);
 
     PageViewGeftWidget.chachedGiftMp4 = chachedMp4Gifts;
 
@@ -613,7 +619,7 @@ class Methods {
       return await SVGAParser.shared
           .decodeFromURL(ConstentApi().getImage(url))
           .whenComplete(() async {
-        await Methods().cacheSvgaImage(
+        await Methods.instance.cacheSvgaImage(
           svgaUrl: ConstentApi().getImage(url),
           imageId: giftId,
         );
@@ -768,7 +774,7 @@ class Methods {
   }
 
   Future addFireBaseNotifcationId() async {
-    String token = await Methods().returnUserToken();
+    String token = await Methods.instance.returnUserToken();
     String? tokenn = await FirebaseMessaging.instance.getToken();
 
     await Dio().post(

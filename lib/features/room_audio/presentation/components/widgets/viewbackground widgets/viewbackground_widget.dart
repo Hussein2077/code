@@ -257,11 +257,11 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                     RoomScreen.winCircularluckyGift.value =
                         RoomScreen.winCircularluckyGift.value + 1;
                   } else if (state.data.isWin && state.data.isPopular) {
-                    ZegoUIKit().sendInRoomMessage(state.data.message, true);
-                    ZegoUIKit()
+                    ZegoUIKit.instance.sendInRoomMessage(state.data.message, true);
+                    ZegoUIKit.instance
                         .sendInRoomMessage(state.data.coomentMesasge, false);
                   } else {
-                    ZegoUIKit()
+                    ZegoUIKit.instance
                         .sendInRoomMessage(state.data.coomentMesasge, false);
                   }
                   if (state.isFirst == 1) {

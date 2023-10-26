@@ -426,7 +426,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
-        ZegoUIKit().sendInRoomMessage("انضم للغرفة", false);
+        ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
 
         if(widget.myDataModel.intro! != ""){
           Map<String,dynamic>    mapZego = {
@@ -449,11 +449,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       subscriptions
-        ..add(ZegoUIKit()
+        ..add(ZegoUIKit.instance
             .getSignalingPlugin()
             .getInRoomTextMessageReceivedEventStream()
             .listen((event) {}))
-        ..add(ZegoUIKit()
+        ..add(ZegoUIKit.instance
             .getInRoomCommandReceivedStream()
             .listen(onInRoomCommandReceived));
     });
@@ -499,7 +499,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     }
 
     if (giftData.localPath == null) {
-      await Methods()
+      await Methods.instance
           .cacheMp4(
               vedioId: int.parse(giftData.giftId), vedioUrl: giftData.giftImg)
           .then((value) async {
@@ -552,7 +552,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     try {
       final videoItem =
-          await Methods().getCachedSvgaImage(giftData.giftId, giftData.img);
+          await Methods.instance.getCachedSvgaImage(giftData.giftId, giftData.img);
 
       animationControllerGift.videoItem = videoItem;
 
@@ -599,7 +599,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     RoomScreen.isGiftEntroAnimating = true;
     try {
       final videoItem =
-          await Methods().getCachedSvgaImage('$imgId$cacheEntroKey', imgUrl);
+          await Methods.instance.getCachedSvgaImage('$imgId$cacheEntroKey', imgUrl);
       animationControllerGift.videoItem = videoItem;
       //  animationControllerGift.videoItem.audios
       animationControllerGift.forward().whenComplete(() {
@@ -813,7 +813,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == 'banDevice') {
         if (result[messageContent]['userId'] == widget.myDataModel.id) {
-          await Methods().exitFromRoom(widget.room.ownerId.toString());
+          await Methods.instance.exitFromRoom(widget.room.ownerId.toString());
           Navigator.pushNamedAndRemoveUntil(context, Routes.login, (route) => false);
         }
       }
@@ -919,8 +919,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               hostExtendButtons: [
                 const SpeakerButton(),
                 GiftButton(
-                  listUsers: ZegoUIKit().getAudioVideoList(),
-                  listAllUsers: ZegoUIKit().getAllUsers(),
+                  listUsers: ZegoUIKit.instance.getAudioVideoList(),
+                  listAllUsers: ZegoUIKit.instance.getAllUsers(),
                   roomData: widget.room,
                   myDataModel: widget.myDataModel,
                 ),
@@ -942,8 +942,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               audienceExtendButtons: [
                 const SpeakerButton(),
                 GiftButton(
-                    listUsers: ZegoUIKit().getAudioVideoList(),
-                    listAllUsers: ZegoUIKit().getAllUsers(),
+                    listUsers: ZegoUIKit.instance.getAudioVideoList(),
+                    listAllUsers: ZegoUIKit.instance.getAllUsers(),
                     myDataModel: widget.myDataModel,
                     roomData: widget.room),
                 MassageButton(myDataModel: widget.myDataModel),
@@ -963,8 +963,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               speakerExtendButtons: [
                 const SpeakerButton(),
                 GiftButton(
-                    listUsers: ZegoUIKit().getAudioVideoList(),
-                    listAllUsers: ZegoUIKit().getAllUsers(),
+                    listUsers: ZegoUIKit.instance.getAudioVideoList(),
+                    listAllUsers: ZegoUIKit.instance.getAllUsers(),
                     myDataModel: widget.myDataModel,
                     roomData: widget.room),
                 MassageButton(myDataModel: widget.myDataModel),
@@ -985,7 +985,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             ..seatConfig.avatarBuilder = (context, size, user, extraInfo) {
               return ValueListenableBuilder<bool>(
                 valueListenable:
-                    ZegoUIKit().getMicrophoneStateNotifier(user!.id),
+                    ZegoUIKit.instance.getMicrophoneStateNotifier(user!.id),
                 builder: (context, isMicrophoneEnabled, _) {
                   return UserAvatar(
                       image: user.inRoomAttributes.value['img'],

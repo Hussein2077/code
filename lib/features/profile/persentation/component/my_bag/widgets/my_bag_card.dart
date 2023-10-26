@@ -104,7 +104,7 @@ class _MyBagCardState extends State<MyBagCard> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             Text(
-                widget.time=='0'? '': Methods().formatDateTime(dateTime:   widget.time,locale: context.locale.languageCode),
+                widget.time=='0'? '': Methods.instance.formatDateTime(dateTime:   widget.time,locale: context.locale.languageCode),
               style: Theme.of(context).textTheme.bodySmall,
             ),
             (MyBagCard.frameUsed.toString() != widget.targetId &&

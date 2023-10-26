@@ -97,7 +97,7 @@ class ShowSVGAState extends State<ShowSVGA> with TickerProviderStateMixin {
             .repeat() // Try to use .forward() .reverse()
             .whenComplete(() => animationController.videoItem = null);
         // load data again
-        await Methods().cacheSvgaImage(
+        await Methods.instance.cacheSvgaImage(
           svgaUrl: ConstentApi().getImage(widget.url),
           imageId: giftId,
         );
@@ -116,7 +116,7 @@ class ShowSVGAState extends State<ShowSVGA> with TickerProviderStateMixin {
           .whenComplete(() => animationController.videoItem = null);
 
       // load data again
-      await Methods().cacheSvgaImage(
+      await Methods.instance.cacheSvgaImage(
         svgaUrl: ConstentApi().getImage(widget.url),
         imageId: giftId,
       );

@@ -56,7 +56,7 @@ class _VistorScreenState extends State<VistorScreen> {
                           idOrNot: Expanded(
 
                             child: Text(
-                              " ${Methods().formatDateTime(dateTime:state.data![index].visitTime ?? '', locale: context.locale.languageCode)}",
+                              " ${Methods.instance.formatDateTime(dateTime:state.data![index].visitTime ?? '', locale: context.locale.languageCode)}",
                               style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 10),
                             ),
                           ),

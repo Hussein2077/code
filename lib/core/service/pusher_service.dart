@@ -73,7 +73,7 @@ class PusherService {
 
  dynamic onAuthorizer(
      String channelName, String socketId, dynamic options) async {
-   String token = await Methods().returnUserToken();
+   String token = await Methods.instance.returnUserToken();
    var authUrl = 'https://tik-chat.com/api/broadcasting/auth';
    var result = await http.post(
      Uri.parse(authUrl),

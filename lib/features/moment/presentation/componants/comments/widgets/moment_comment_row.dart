@@ -71,7 +71,7 @@ class _MomentCommentsState extends State<MomentComments> {
                       ),
                       InkWell(
                         onTap: () {
-                          Methods().userProfileNvgator(
+                          Methods.instance.userProfileNvgator(
                               context: context,
                               userId: widget.momentCommentListModel[i].userId.toString());
                         },
