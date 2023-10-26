@@ -216,7 +216,7 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 Future<void> loadMusice({required String path}) async {
   // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
   MusicWidget.isIPlayerMedia = true ;
-  await instance.playMedia(filePathOrURL: path);
+  await ZegoUIKit.instance.playMedia(filePathOrURL: path);
 
   // await RoomScreen.zegoMediaPlayer?.loadResource(path);
 
