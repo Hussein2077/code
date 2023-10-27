@@ -91,7 +91,7 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
                 Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
               }
             })
-        ..loadFile(widget.url);
+        ..loadRequest(Uri.parse(widget.url));
   }
 
   @override

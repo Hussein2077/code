@@ -236,6 +236,7 @@ class ConstentApi {
       "$allRooms?page=$page&country_id=${countryId ?? ''}&class_id=${classId ?? ''}&type_id=${typeId ?? ''}&search=${search ?? ''}&filter=${filter ?? ''}";
   String getUserData({
     required String userId,
+   bool? isVisit,
   }) {
     return "$baseUrl/users/$userId";
   }

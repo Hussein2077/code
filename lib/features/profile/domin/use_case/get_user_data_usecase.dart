@@ -8,9 +8,10 @@ import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_pr
 class GetUserDataUseCase {
   BaseRepositoryProfile baseRepositoryProfile;
   GetUserDataUseCase({required this.baseRepositoryProfile});
-  Future<Either<UserDataModel, Failure>> getUserData(String userId ,
+  Future<Either<UserDataModel, Failure>> getUserData(String userId , bool? isVisit
 ) async {
-    final result = await baseRepositoryProfile.getUserData( userId: userId  ,);
+    final result = await baseRepositoryProfile.getUserData( userId: userId  ,isVisit:isVisit);
     return result ;
   }
 }
+

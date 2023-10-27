@@ -35,7 +35,7 @@ class _UserProfileState extends State<UserProfile> {
     if (widget.userId != null) {
       myProfile = false;
       BlocProvider.of<GetUserBloc>(context)
-          .add(GetuserEvent(userId: widget.userId!));
+          .add(GetuserEvent(userId: widget.userId!,isVisit: true));
  
     } else if (widget.userData != null) {
 

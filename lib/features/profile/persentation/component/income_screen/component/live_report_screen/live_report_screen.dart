@@ -180,7 +180,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                       case RequestState.error:
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: ConfigSize.defaultSize! * 20,
+                          height: ConfigSize.defaultSize! * 30,
                           child:  CustomErrorWidget(
                               message: StringManager.unexcepectedError.tr()),
                         );

@@ -3,6 +3,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -24,10 +25,22 @@ class IdWithCopyIcon extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('ID: ${userData.uuid.toString()}',
-              style: TextStyle(
-                  color: userData.isGold! ? ColorManager.gold : ColorManager.orang,
-                  fontSize: ConfigSize.defaultSize! * 1.7)),
+          userData.isGold!?
+          GradientText('ID: ${userData.uuid.toString()}',
+            style: TextStyle(
+                fontSize: ConfigSize.defaultSize! * 1.9,
+            ),
+            gradientDirection: GradientDirection.ttb,
+            colors:  ColorManager.goldId,
+
+          )
+              :Text('ID: ${userData.uuid.toString()}',
+            style: TextStyle(
+                color:  ColorManager.orang,
+                fontSize: ConfigSize.defaultSize! * 1.7),
+          )
+
+      ,
           SizedBox(
             width: ConfigSize.defaultSize,
           ),

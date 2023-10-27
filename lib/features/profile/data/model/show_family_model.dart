@@ -61,7 +61,8 @@ class FamilyLevel {
   final String? nextName;
   final String? nextImage;
   final dynamic per;
-  final int? rem;
+  final dynamic? rem;
+  final bool? isLastLevel;
   const FamilyLevel(
       {this.levelExp,
       this.levelName,
@@ -72,7 +73,9 @@ class FamilyLevel {
       this.nextImage,
       this.nextName,
       this.per,
-      this.rem});
+      this.rem,
+      this.isLastLevel,
+      });
 
   factory FamilyLevel.fromjson(Map<String, dynamic> json) {
     return FamilyLevel(
@@ -84,7 +87,10 @@ class FamilyLevel {
         nextExp: json['next_exp'],
         nextImage: json['next_img'],
         nextName: json['next_name']??' ',
-        per: json['per'],
-        rem: json['rem']);
+        per: json['per'].toDouble(),
+        rem: json['rem'].toDouble(),
+      isLastLevel: json['is_last_level']??false,
+
+    );
   }
 }

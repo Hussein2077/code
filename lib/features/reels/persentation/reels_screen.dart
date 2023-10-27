@@ -95,17 +95,22 @@ class ReelsScreenState extends State<ReelsScreen>{
                             onLike: (id) {
                               BlocProvider.of<MakeReelLikeBloc>(context).add(MakeReelLikeEvent(reelId: id.toString()));
                               setState(() {
-                                ReelsController.likedVideos[id.toString()] = !ReelsController.likedVideos[id.toString()]!;
-                                ReelsController.getInstance.changeLikeCount(id.toString());
+                                ReelsController.likedVideos[id.toString()] =
+                                    !ReelsController
+                                        .likedVideos[id.toString()]!;
+                                ReelsController.getInstance
+                                    .changeLikeCount(id.toString());
                               });
                             },
                             onFollow: (userId, isFollow) {
                               setState(() {
-                                ReelsController.followingMap[userId] = !ReelsController.followingMap[userId]!;
+                                ReelsController.followingMap[userId] =
+                                    !ReelsController.followingMap[userId]!;
                               });
-                              BlocProvider.of<FollowBloc>(context).add(FollowEvent(userId: userId));
+                              BlocProvider.of<FollowBloc>(context)
+                                  .add(FollowEvent(userId: userId));
                             },
-
+                            onComment: (comment) {},
                             onClickMoreBtn: (id, userData) {
                               bottomDailog(
                                   context: context,

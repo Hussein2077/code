@@ -123,10 +123,10 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
 
   @override
   Future<Either<UserDataModel, Failure>> getUserData(
-      {required String userId  }) async {
+      {required String userId  ,bool? isVisit}) async {
     try {
       final result =
-          await baseRemotlyDataSourceProfile.getUserData(userId: userId  );
+          await baseRemotlyDataSourceProfile.getUserData(userId: userId ,isVisit :isVisit);
       return left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));

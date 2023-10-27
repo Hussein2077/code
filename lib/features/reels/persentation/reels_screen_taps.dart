@@ -46,41 +46,39 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
             TabBarView(
               controller: _tabController,
               children: const [
-                ReelsScreen(),
                 FollowingReelsScreen(),
+                ReelsScreen(),
+
               ],
             ),
             Padding(
               padding: const EdgeInsets.only(
                 top: 5
               ),
-              child: BlurryContainer(
-                blur: 5,
-                color: Colors.white.withOpacity(0.4),
-                child: TabBar(
-                  indicator: BoxDecoration(
-                    color: ColorManager.orang,
-                    borderRadius: BorderRadius.circular(
-                        ConfigSize.defaultSize! * 0.8),
-                  ),
-                  isScrollable: true,
-                  padding: EdgeInsets.symmetric(
-                    vertical: ConfigSize.defaultSize!-9,
-                      horizontal: ConfigSize.defaultSize! ),
-                  controller: _tabController,
-                  tabs: [
-                    Text(
-                      StringManager.reels.tr(),
-                      style:
-                      Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    Text(
-                      StringManager.followingReels.tr(),
-                      style:
-                      Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ],
+              child: TabBar(
+                indicator: BoxDecoration(
+                  color: ColorManager.orang,
+                  borderRadius: BorderRadius.circular(
+                      ConfigSize.defaultSize! * 0.8),
                 ),
+                isScrollable: true,
+                padding: EdgeInsets.symmetric(
+                  vertical: ConfigSize.defaultSize!-9,
+                    horizontal: ConfigSize.defaultSize! ),
+                controller: _tabController,
+                tabs: [
+                  Text(
+                    StringManager.followingReels.tr(),
+                    style:
+                    Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  Text(
+                    StringManager.reels.tr(),
+                    style:
+                    Theme.of(context).textTheme.headlineSmall,
+                  ),
+
+                ],
               ),
             ),
 

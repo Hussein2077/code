@@ -40,8 +40,6 @@ class FamilyProfileInfo extends StatelessWidget {
           bool isOwner = (familyData.id == state.myDataModel.familyId&&familyData.amIOwner!);
           bool isAdmin = (familyData.id == state.myDataModel.familyId&&familyData.amIAdmin!);
           bool isMember = (familyData.id == state.myDataModel.familyId);
-          log("MY FAMILY${MyDataModel.getInstance().familyId}");
-          log("MY FAMILY auther ${familyData.id}");
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
             child: Column(
@@ -122,12 +120,14 @@ class FamilyProfileInfo extends StatelessWidget {
                 ),
                 familyLevelCard(
                     context: context,
-                    percent: familyData.familylevel!.per + 0.0,
+                    percent: familyData.familylevel!.per,
                     currentLevel: familyData.familylevel!.levelName!,
                     currentlevelPoint:
-                        familyData.familylevel!.levelExp.toString(),
+                        familyData.familylevel!.familyExp.toString(),
                     endLevelPoint: familyData.familylevel!.nextExp.toString(),
-                    nextLevel: familyData.familylevel!.nextName!),
+                    nextLevel: familyData.familylevel!.nextName!,
+                  isLastLevel: familyData.familylevel!.isLastLevel!
+                ),
                 SizedBox(
                   height: ConfigSize.defaultSize! * 2,
                 ),
@@ -176,7 +176,9 @@ Widget familyLevelCard(
     required String nextLevel,
     required String currentlevelPoint,
     required String endLevelPoint,
-    required double percent}) {
+    required double percent,
+    required bool isLastLevel,
+    }) {
   return Container(
     margin: EdgeInsets.only(left: ConfigSize.defaultSize!),
     padding: EdgeInsets.only(left: ConfigSize.defaultSize! * 2),
@@ -193,6 +195,7 @@ Widget familyLevelCard(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
           Text(
             currentLevel,
             style: TextStyle(
@@ -217,11 +220,12 @@ Widget familyLevelCard(
                 ),
               ),
               const Spacer(),
+    isLastLevel==false?
               Text(
                 nextLevel,
                 style: TextStyle(
                     color: Colors.white, fontSize: ConfigSize.defaultSize! * 1.6),
-              ),
+              ): Icon(Icons.star,color: ColorManager.gold,size: ConfigSize.defaultSize!*5),
               SizedBox(
                 width: ConfigSize.defaultSize! * 4,
               )
