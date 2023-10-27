@@ -64,9 +64,9 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                         ConfigSize.defaultSize! * 0.8),
                   ),
                   isScrollable: true,
-                  padding: EdgeInsets.symmetric(
-                    vertical: ConfigSize.defaultSize!-9,
-                      horizontal: ConfigSize.defaultSize! ),
+                  // padding: EdgeInsets.symmetric(
+                  //   vertical: ConfigSize.defaultSize!-9,
+                  //     horizontal: ConfigSize.defaultSize! ),
                   controller: _tabController,
                   tabs: [
                     Text(

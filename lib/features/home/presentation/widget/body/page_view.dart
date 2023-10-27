@@ -31,21 +31,12 @@ class _PageViewWidgetState extends State<PageViewWidget> {
 
     InkWell(
       onTap: () async {
-        log('kkkkk${widget.carouselsList[i].url}');
             Navigator.pushNamed(context, Routes.webView,
                 arguments: WebViewPramiter(
                     url: widget.carouselsList[i].url,
                     title: '',
                     titleColor: Colors.transparent));
 
-            // if (widget.carouselsList[i].ownerId != 0) {
-            //   await Methods().checkIfRoomHasPassword(
-            //       myData: MyDataModel.getInstance(),
-            //       context: context,
-            //       hasPassword: widget.carouselsList[i].hasPassword,
-            //       ownerId: widget.carouselsList[i].ownerId.toString(),
-            //       isInRoom: MainScreen.iskeepInRoom.value);
-            // }
           },
           child: Container(
             decoration: BoxDecoration(
