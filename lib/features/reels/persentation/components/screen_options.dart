@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -131,12 +133,18 @@ class ScreenOptions extends StatelessWidget {
                           icon: const Icon(CupertinoIcons.chat_bubble_text_fill,
                               color: Colors.white),
                           onPressed: () {
+                            log('incomment1');
                             if (onComment != null) {
+                              log('incomment2');
                               if (commentListtemp == null) {
+                                log('incomment3');
+
                                 BlocProvider.of<GetReelCommentsBloc>(context).add(
                                     GetReelsCommentsEvent(
                                         reelId: item.id.toString()));
                               }
+                              log('incomment4');
+
                               showModalBottomSheet(
                                   barrierColor: Colors.transparent,
                                   context: context,
@@ -146,6 +154,8 @@ class ScreenOptions extends StatelessWidget {
                                       if (state
                                       is GetReelsCommentsSucssesState) {
                                         commentListtemp = state.data;
+                                        log('incomment5');
+
                                         return CommentBottomSheet(
                                             reelId: item.id.toString(),
                                             commentList: commentListtemp ??
@@ -177,6 +187,8 @@ class ScreenOptions extends StatelessWidget {
                                     },
                                   ));
                             }
+                            log('incomment6');
+
                           },
                         ),
                         Text(NumbersToShort.convertNumToShort(item.commentNum!),

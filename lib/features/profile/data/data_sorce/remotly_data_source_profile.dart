@@ -66,7 +66,7 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<String> follow({required String userId});
   Future<String> unFollow({required String userId});
   Future<UserDataModel> getUserData(
-      {required String userId});
+      {required String userId,bool? isVisit});
   Future<List<VipCenterModel>> getVipCenter();
   Future<int> getvipCount();
   Future<List<UserDataModel>> getVaistors({String? page});
@@ -316,11 +316,10 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
   @override
   Future<UserDataModel> getUserData(
-      {required String userId}) async {
+      {required String userId,bool?isVisit}) async {
 
     Map<String, String> headers = await DioHelper().header();
     try {
-      // log("Family Name");
       final response = await Dio().get(
           ConstentApi().getUserData(
             userId: userId,
@@ -330,7 +329,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           ));
 
       UserDataModel userData = UserDataModel.fromMap(response.data["data"]);
-      // log("Family Name  ${userData.familyData!.name!}");
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getUserData' );

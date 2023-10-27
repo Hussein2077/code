@@ -56,7 +56,7 @@ abstract class BaseRepositoryProfile {
 
   Future<Either<Failure, String>> unFollow({required String userId});
 
-  Future<Either<UserDataModel, Failure>> getUserData({required String userId});
+  Future<Either<UserDataModel, Failure>> getUserData({required String userId,bool? isVisit});
 
   Future<Either<List<VipCenterModel>, Failure>> getVipCenter();
 

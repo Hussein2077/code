@@ -10,8 +10,8 @@ abstract class BaseGetUserEvent extends Equatable {
 
 class GetuserEvent extends BaseGetUserEvent {
  final String userId;
-
- const  GetuserEvent({  required this.userId});
+ bool? isVisit;
+   GetuserEvent({  required this.userId,this.isVisit});
 
 }
 

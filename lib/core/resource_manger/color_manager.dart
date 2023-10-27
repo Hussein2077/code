@@ -65,4 +65,13 @@ class ColorManager {
     Color(0xFFEEB609),
     Color(0xFFDBA514),
   ];
+   static const List<Color> goldId = [
+     ColorManager.yellow,
+     ColorManager.yellow,
+     ColorManager.lightGray,
+     ColorManager.yellow,
+     ColorManager.yellow,
+     ColorManager.lightGray,
+  ];
+
 }

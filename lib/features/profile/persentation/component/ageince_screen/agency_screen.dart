@@ -56,31 +56,29 @@ class _AgenceScreenState extends State<AgenceScreen> {
                   BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
                   BlocProvider.of<ShowAgencyBloc>(context).add(ShowAgencyEvent());
                 },
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  controller: scrollController,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 3.5,
-                      ),
-                       HeaderWithOnlyTitle(title: StringManager.agency.tr()),
+                child:
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: ConfigSize.defaultSize! * 3.5,
+                    ),
+                     HeaderWithOnlyTitle(title: StringManager.agency.tr()),
 
-                      agencyCommanWidget(
-                          context: context,
-                          agienceName: state.data.name!,
-                          bio: state.data.notice!,
-                          id: state.data.id!.toString(),
-                          image: state.data.image!),
-                  if((StringManager.userType[2]!||StringManager.userType[4]! ))
-                      OwnerAgencyBody(myData: widget.mydata),
+                    agencyCommanWidget(
+                        context: context,
+                        agienceName: state.data.name!,
+                        bio: state.data.notice!,
+                        id: state.data.id!.toString(),
+                        image: state.data.image!),
+                if((StringManager.userType[2]!||StringManager.userType[4]! ))
+                    OwnerAgencyBody(myData: widget.mydata),
 
-                      if(StringManager.userType[1]! || StringManager.userType[6]!)
-                        Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
-                    ],
-                  ),
+                    if(StringManager.userType[1]! || StringManager.userType[6]!)
+                      Expanded(child: MemberAgencyBody(owner: state.data.owner!,))
+                  ],
                 ),
+
               );
             } else if (state is ShowAgencyLoadingState) {
               if(data != null){

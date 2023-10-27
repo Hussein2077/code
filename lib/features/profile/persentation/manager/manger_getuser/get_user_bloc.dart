@@ -12,7 +12,7 @@ class GetUserBloc extends Bloc<BaseGetUserEvent, GetUserState> {
   GetUserBloc({required this.getUserDataUseCase}) : super(GetUserInitial()) {
     on<GetuserEvent>((event, emit) async {
       emit(GetUserLoddingState());
-      final result = await getUserDataUseCase.getUserData(event.userId);
+      final result = await getUserDataUseCase.getUserData(event.userId,event.isVisit);
       result.fold((l) => emit(GetUserSucssesState(data: l)),
           (r) => emit(GetUserErorrState(error: DioHelper().getTypeOfFailure(r))));
     });

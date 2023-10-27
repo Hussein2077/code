@@ -1,30 +1,37 @@
 
+
 import 'package:equatable/equatable.dart';
 
 class CarouselsModel extends Equatable {
-  final int  id ;
-  final String img ;
-  final String contents ;
-  final String url ;
+  final int id;
 
+  final String img;
+  final String url;
 
-  const CarouselsModel({
-    required  this.id, required this.img, required this.contents,required this.url});
+  //final String contents;
 
+  final int ownerId;
+  final bool hasPassword;
 
+  const CarouselsModel( {
+    required this.id,
+    required this.img,
+    required this.url,
+    //required this.contents,
+    required this.ownerId,
+    required this.hasPassword,
+  });
 
-  factory CarouselsModel.fromJson(Map<String , dynamic > jsonData){
+  factory CarouselsModel.fromJson(Map<String, dynamic> jsonData) {
     return CarouselsModel(
-        id: jsonData['id'],
-        img:jsonData['img'],
-        url:jsonData['url'],
-        contents: jsonData['contents']
+      id: jsonData['id'],
+      url: jsonData['url']??"",
+      img: jsonData['img'],
+      ownerId: jsonData['owner_id']??0,
+      hasPassword: jsonData['isLocked']??false,
     );
   }
+
   @override
-  List<Object?> get props => [id,img,contents];
-
+  List<Object?> get props => [id, img, ownerId,hasPassword,url];
 }
-
-
-
