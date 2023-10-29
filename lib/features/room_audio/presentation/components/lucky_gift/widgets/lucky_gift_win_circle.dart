@@ -8,7 +8,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 class LuckyGiftWinCircle extends StatefulWidget {
   static String winCoin = '0';
 
-  static late AnimationController animationController;
+  // static late AnimationController animationController;
 
   const LuckyGiftWinCircle({Key? key}) : super(key: key);
 
@@ -19,24 +19,24 @@ class LuckyGiftWinCircle extends StatefulWidget {
 class _LuckyGiftWinCircleState extends State<LuckyGiftWinCircle>
     with SingleTickerProviderStateMixin {
 
-  late Animation<double> _scaleAnimation;
+  // late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
 
 
-    LuckyGiftWinCircle.animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-    );
-    _scaleAnimation = Tween<double>(begin: 0.89, end: 1.0).animate(
-      CurvedAnimation(
-        parent: LuckyGiftWinCircle.animationController,
-        curve: Curves.bounceOut,
-      ),
-    );
-    LuckyGiftWinCircle.animationController.forward();
+    // LuckyGiftWinCircle.animationController = AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(milliseconds: 100),
+    // );
+    // _scaleAnimation = Tween<double>(begin: 0.89, end: 1.0).animate(
+    //   CurvedAnimation(
+    //     parent: LuckyGiftWinCircle.animationController,
+    //     curve: Curves.bounceOut,
+    //   ),
+    // );
+    // LuckyGiftWinCircle.animationController.forward();
 
   }
 
@@ -48,9 +48,7 @@ class _LuckyGiftWinCircleState extends State<LuckyGiftWinCircle>
 
   @override
   Widget build(BuildContext context) {
-    return ScaleTransition(
-        scale: _scaleAnimation,
-        child: Container(
+    return  Container(
           width: ConfigSize.defaultSize! * 25,
           height: ConfigSize.defaultSize! * 25,
           decoration: const BoxDecoration(
@@ -82,6 +80,6 @@ class _LuckyGiftWinCircleState extends State<LuckyGiftWinCircle>
               )
             ],
           ),
-        ));
+        );
   }
 }
