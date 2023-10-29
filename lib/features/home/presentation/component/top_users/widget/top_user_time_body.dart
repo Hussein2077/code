@@ -48,25 +48,28 @@ class TopUserTimeBody extends StatelessWidget {
                       FirstSecThrUsers(
                         userData:usersRank!.userRankModels[1] ,
                         badge: AssetsPath.secBadge,
-                        height: ConfigSize.defaultSize! * 9,
-                        position: ConfigSize.defaultSize! * 11,
+                        height: ConfigSize.defaultSize! * 4,
+                        position: 5,
                         type: type,
+                        bottomPosition: ConfigSize.defaultSize! * 3,
                       ),
 
                       // first
                       FirstSecThrUsers(
                         userData:usersRank!.userRankModels[0]  ,
                         badge: AssetsPath.firstBadge,
-                        height: ConfigSize.defaultSize! * 10,
-                        position: ConfigSize.defaultSize! * 6,
+                        height: ConfigSize.defaultSize! * 6,
+                        position:5,
                         type: type,
+                        bottomPosition:ConfigSize.defaultSize! * 5 ,
                       ),
                       //third
                       FirstSecThrUsers(
                         userData: usersRank!.userRankModels[2] ,
                         badge: AssetsPath.thrBadge,
-                        height: ConfigSize.defaultSize! * 9,
-                        position: ConfigSize.defaultSize! * 11,
+                        height: ConfigSize.defaultSize! * 3,
+                        position:5,
+                        bottomPosition: ConfigSize.defaultSize! * 3,
                         type: type,
                       ),
                     ]),
