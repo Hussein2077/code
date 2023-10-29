@@ -14,6 +14,8 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_join_family/bloc/join_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_join_family/bloc/join_family_event.dart';
 import 'dialog_pop_up.dart';
 
 class LogOutOrDeleteAccountButton extends StatelessWidget {
@@ -38,6 +40,9 @@ class LogOutOrDeleteAccountButton extends StatelessWidget {
           // ignore: use_build_context_synchronously
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.login, (route) => false);
+          BlocProvider.of<JoinFamilyBloc>(context)
+              .add(InitJoinFamilyEvent() );
+
         }
         else if (state is LogOutErrorState) {
           errorToast(context: context, title: state.error);
@@ -47,6 +52,7 @@ class LogOutOrDeleteAccountButton extends StatelessWidget {
           preference.remove(StringManager.userDataKey);
           preference.remove(StringManager.userTokenKey);
           preference.remove(StringManager.deviceToken);
+          BlocProvider.of<JoinFamilyBloc>(context).add(InitJoinFamilyEvent());
         }
         else if (state is LogOutLoadingState || state is DeleteAccountLoadingState){
         // ShowMToast().loadingToast(context, message: StringManager.errorInPayment, alignment: Alignment.bottomCenter);

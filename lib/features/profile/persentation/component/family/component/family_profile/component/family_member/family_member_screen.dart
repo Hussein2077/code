@@ -49,7 +49,7 @@ class FamilyMemberScreen extends StatefulWidget {
 }
 
 class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
-  late final ShowFamilyModel? familydata;
+   late final ShowFamilyModel? familydata;
 
   final ScrollController scrollController = ScrollController();
 
@@ -267,7 +267,7 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                           },
                         );
                       } else {
-                        return SizedBox();
+                        return const SizedBox();
                       }
                     },
                   );
