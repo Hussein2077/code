@@ -36,6 +36,8 @@ class MomentInfoRow extends StatelessWidget {
                 UserImage(
                   boxFit: BoxFit.cover,
                   image: momentModel.userImage,
+
+
                 ),
                 const Spacer(
                   flex: 1,

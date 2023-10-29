@@ -13,8 +13,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class VideoLiveBox extends StatelessWidget {
   final RoomModelOfAll room;
-  final int style;
-  const VideoLiveBox({required this.room, required this.style, super.key});
+  final int? style;
+  const VideoLiveBox({required this.room,  this.style, super.key});
 
   @override
   Widget build(BuildContext context) {

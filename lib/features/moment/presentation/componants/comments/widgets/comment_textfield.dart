@@ -15,109 +15,107 @@ class CommentTextField extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-return Expanded(
-  child: Row(
-    mainAxisAlignment:
-    MainAxisAlignment.spaceEvenly,
-    children: [
-      Container(
-        height: ConfigSize.defaultSize! * 5,
-        width: ConfigSize.screenWidth! * .8,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
-              ConfigSize.defaultSize! * 1.6),
-        ),
-        child: TextField(
+return Row(
+  mainAxisAlignment:
+  MainAxisAlignment.spaceEvenly,
+  children: [
+    Container(
+      height: ConfigSize.defaultSize! * 5,
+      width: ConfigSize.screenWidth! * .8,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+            ConfigSize.defaultSize! * 1.6),
+      ),
+      child: TextField(
 
-              keyboardType: TextInputType.multiline,
-          minLines: 1,
-          maxLines: null,
-          controller: commentController,
-          textInputAction: TextInputAction.send,
-          cursorColor: const Color(0xffA653ff),
-          cursorHeight:
-          ConfigSize.defaultSize! * 3,
-          cursorWidth:
-          ConfigSize.defaultSize! * 0.3,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge,
-          decoration: InputDecoration(
+        keyboardType: TextInputType.multiline,
+        minLines: 1,
+        maxLines: null,
+        controller: commentController,
+        textInputAction: TextInputAction.send,
+        cursorColor: const Color(0xffA653ff),
+        cursorHeight:
+        ConfigSize.defaultSize! * 3,
+        cursorWidth:
+        ConfigSize.defaultSize! * 0.3,
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge,
+        decoration: InputDecoration(
 
 
-              border: OutlineInputBorder(
-                borderRadius:
-                BorderRadius.circular(
-                    ConfigSize.defaultSize! *
-                        2),
+            border: OutlineInputBorder(
+              borderRadius:
+              BorderRadius.circular(
+                  ConfigSize.defaultSize! *
+                      2),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
               ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                borderRadius: BorderRadius.all(
-                    Radius.circular(ConfigSize.defaultSize! * 5)),
-              ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color:
-                      Theme.of(context).colorScheme.primary,
-                    ),
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(ConfigSize.defaultSize! * 5)),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(ConfigSize.defaultSize! * 5)),
+            ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color:
+                    Theme.of(context).colorScheme.primary,
                   ),
-                  fillColor:
-                      Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-                  filled: true,
-                  hintText: StringManager.addComment.tr(),
-                  hintStyle: Theme.of(context).textTheme.bodySmall,
-                  contentPadding: EdgeInsets.only(
-                    left: ConfigSize.defaultSize! * 2,
-                top: ConfigSize.defaultSize! *
-                    -0.5,
-                right:
-                ConfigSize.defaultSize! * 2,
-                bottom:
-                ConfigSize.defaultSize! * 1.5,
-              ),
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(ConfigSize.defaultSize! * 5)),
+                ),
+                fillColor:
+                    Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                filled: true,
+                hintText: StringManager.addComment.tr(),
+                hintStyle: Theme.of(context).textTheme.bodySmall,
+                contentPadding: EdgeInsets.only(
+                  left: ConfigSize.defaultSize! * 2,
+              top: ConfigSize.defaultSize! *
+                  -0.5,
+              right:
+              ConfigSize.defaultSize! * 2,
+              bottom:
+              ConfigSize.defaultSize! * 1.5,
+            ),
 
 
-          ),
         ),
       ),
-      InkWell(
-        onTap: () {
-              MomentBottomBarState.selectedMoment = int.parse(momentId);
-              BlocProvider.of<AddMomentCommentBloc>(context).add(
-                  AddMomentCommentEvent(
-                      momentId: momentId.toString(),
-                      comment: commentController.text));
-              commentController.clear();
-            },
-        child: Container(
-          width: ConfigSize.defaultSize! * 5,
-          height: ConfigSize.defaultSize! * 5,
-          decoration: BoxDecoration(
-              color: Theme.of(context)
-                  .colorScheme
-                  .secondary
-                  .withOpacity(0.3),
-              borderRadius: BorderRadius.circular(
-                  ConfigSize.defaultSize! * 3),
-              border: Border.all(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primary)),
-          child: Icon(
-            Icons.send,
+    ),
+    InkWell(
+      onTap: () {
+            MomentBottomBarState.selectedMoment = int.parse(momentId);
+            BlocProvider.of<AddMomentCommentBloc>(context).add(
+                AddMomentCommentEvent(
+                    momentId: momentId.toString(),
+                    comment: commentController.text));
+            commentController.clear();
+          },
+      child: Container(
+        width: ConfigSize.defaultSize! * 5,
+        height: ConfigSize.defaultSize! * 5,
+        decoration: BoxDecoration(
             color: Theme.of(context)
                 .colorScheme
-                .primary,
-          ),
+                .secondary
+                .withOpacity(0.3),
+            borderRadius: BorderRadius.circular(
+                ConfigSize.defaultSize! * 3),
+            border: Border.all(
+                color: Theme.of(context)
+                    .colorScheme
+                    .primary)),
+        child: Icon(
+          Icons.send,
+          color: Theme.of(context)
+              .colorScheme
+              .primary,
         ),
       ),
-    ],
-  ),
+    ),
+  ],
 );
   }
 

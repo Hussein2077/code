@@ -53,16 +53,19 @@ class _AllMomentsScreenState extends State<AllMomentsScreen> {
             if (state is GetMomentAllSucssesState) {
               tempData = state.data;
 
-              return state.data!.isEmpty
-                  ? const EmptyWidget(
+              return state.data!.isNotEmpty
+                  ? TabViewBody(momentModelList:state.data!,scrollController:scrollController , )
+                  :
+              const EmptyWidget(
                 message: StringManager.noDataFoundHere,
-              )
-                  :  TabViewBody(momentModelList:state.data!,scrollController:scrollController , );
-            } else if (state is GetMomentAllErrorState) {
+              );
+            }
+            else if (state is GetMomentAllErrorState) {
               return CustomErrorWidget(
                 message: state.errorMassage,
               );
-            } else if (state is GetMomentAllLoadingState) {
+            }
+            else if (state is GetMomentAllLoadingState) {
               if (tempData!.isNotEmpty) {
                 return  TabViewBody(momentModelList:tempData!,scrollController: scrollController, );
               } else {
@@ -76,7 +79,11 @@ class _AllMomentsScreenState extends State<AllMomentsScreen> {
                     child: const LoadingWidget());
 
               }          } else {
-              return const CustomErrorWidget(
+              return
+
+                TabViewBody(momentModelList:tempData!,scrollController:scrollController , );
+
+                const CustomErrorWidget(
                 message: StringManager.noDataFoundHere,
               );
             }

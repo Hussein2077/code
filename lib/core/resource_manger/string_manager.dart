@@ -519,7 +519,7 @@ static const String iOSPlatform='IOS';
   static const String likes = "Likes";
   static const String followingTab = "Following";
   static const String myMomentsTab = "My moments";
-  static const String allMomentsTab = "All Moments";
+  static const String trendingTab = "Trending";
 
   static const String noReels = "No Reels";
   static const String noMoreReels = "No More Reels";
@@ -533,6 +533,7 @@ static const String iOSPlatform='IOS';
   static const String downloadedData = 'data downloaded';
   static const String activeNotification = 'active notification';
   static const String data = 'Data';
+  static const String nooneIsAwake = 'nobody is open room now 😕';
 
 
 

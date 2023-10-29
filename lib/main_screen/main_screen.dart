@@ -71,7 +71,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    Methods.instance.getTheNewData(context);
+    Methods.instance.getDependencies(context);
 
     listenToInternet();
     initPusher();
@@ -195,7 +195,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       if (event == ConnectivityResult.wifi ||
           event == ConnectivityResult.mobile) {
         if (!isFirst) {
-          Methods.instance.getTheNewData(context);
+          Methods.instance.getDependencies(context);
       }
       isFirst = false;
       } else if (event == ConnectivityResult.none) {

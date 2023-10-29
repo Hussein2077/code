@@ -21,6 +21,7 @@ class AristocracyLevel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (level==0){
+      //return Image.asset(levels[7] ,scale: 6, );
       return const SizedBox();
     }else {
       return  Image.asset(levels[level-1] ,scale: 6, );

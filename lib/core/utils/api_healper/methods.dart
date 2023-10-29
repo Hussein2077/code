@@ -40,6 +40,8 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_fol
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
@@ -823,7 +825,7 @@ class Methods {
       preferences.setBool("notificationState", notificationState);
     }
 
-    getTheNewData(BuildContext context){
+    getDependencies(BuildContext context){
         log('getTheNewData${MyDataModel.getInstance().id.toString()}');
         BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
         BlocProvider.of<GetFollowingUserMomentBloc>(context).add(const GetFollowingMomentEvent());
@@ -833,6 +835,7 @@ class Methods {
         BlocProvider.of<GetFollowingReelsBloc>(context).add(GetFollowingReelsEvent());
         BlocProvider.of<GetFollwersRoomBloc>(context).add(const GetFollwersRoomEvent(type: "5"));
         BlocProvider.of<GetRoomsBloc>(context).add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
+        BlocProvider.of<GetMomentallBloc>(context).add(const GetMomentAllEvent());
         AduioBody.type = StringManager.popular;
         AduioBody.countryId = null;
         CountryDialog.flag = AssetsPath.fireIcon;
