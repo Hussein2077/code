@@ -694,7 +694,6 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
         ZegoExpressEngine.instance.muteMicrophone(false);
         ZegoExpressEngine.instance.mutePublishStreamAudio(true);
         coreData.localUser.microphoneMuteMode.value = true;
-
         /// local sound level should be mute too
         coreData.localUser.mainChannel.soundLevel.add(0.0);
       } else {

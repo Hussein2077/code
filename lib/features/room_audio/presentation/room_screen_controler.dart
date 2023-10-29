@@ -294,7 +294,8 @@ Future<void> distroyMusic() async {
 
   await ZegoUIKit.instance.stopMedia().then((value){
     if(targetState){
-      ZegoUIKit.instance.turnMicrophoneOn(targetState);
+      ZegoUIKit.instance.turnMicrophoneOn(false);
+      ZegoUIKit.instance.turnMicrophoneOn(true);
     }
   });
 
