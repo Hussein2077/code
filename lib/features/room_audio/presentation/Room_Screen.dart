@@ -147,7 +147,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Map<String,dynamic> userBannerData =
   { 'gift_banner':'',
     'owner_id_room_banner':'',
-    'is_password_room_banner':''
+    'is_password_room_banner': false
   };
 
   Map<String, dynamic> DataUser = {"sendDataUser": {}, "receiverDataUser": {}};
