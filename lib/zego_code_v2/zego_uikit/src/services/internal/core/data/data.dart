@@ -416,7 +416,6 @@ class ZegoUIKitCoreData
         tag: 'uikit',
         subTag: 'core data',
       );
-
       return;
     }
 

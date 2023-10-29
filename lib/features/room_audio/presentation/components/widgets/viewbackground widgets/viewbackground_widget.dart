@@ -106,7 +106,11 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
     OverlayEntry overlayEntry = OverlayEntry(
       builder: (context) => Padding(
           padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
-          child: widget),
+          child: Container(
+            color: Colors.red,
+            width: 40,
+            height: 40,
+          )),
     );
 
     overlayState.insert(overlayEntry);
@@ -258,7 +262,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                     ZegoUIKit.instance.sendInRoomMessage(state.data.message, true);
                     ZegoUIKit.instance
                         .sendInRoomMessage(state.data.coomentMesasge, false);
-                  } else {
+                  }
+                  else {
                     ZegoUIKit.instance
                         .sendInRoomMessage(state.data.coomentMesasge, false);
                   }

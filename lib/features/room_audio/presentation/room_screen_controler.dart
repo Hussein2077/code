@@ -284,7 +284,19 @@ Future<void> clearAll() async {
 
 Future<void> distroyMusic() async {
   MusicWidget.isIPlayerMedia = false ;
-  await ZegoUIKit.instance.stopMedia();
+  var valueNotifier =
+  ZegoUIKit.instance.getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id);
+
+  var targetState = valueNotifier.value;
+  log("targetState :${targetState}");
+
+  /// reverse current state
+
+  await ZegoUIKit.instance.stopMedia().then((value){
+    if(targetState){
+      ZegoUIKit.instance.turnMicrophoneOn(targetState);
+    }
+  });
 
   MusicScreen.isPlaying.value = false;
 }

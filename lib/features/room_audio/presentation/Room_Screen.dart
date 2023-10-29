@@ -876,8 +876,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 : -1
             ..hostSeatIndexes = [0]
             ..seatConfig = getSeatConfig()
-            ..viewbackground = ViewbackgroundWidget(room: widget.room,
-                roomDataUpdates: roomDataUpdates, userBannerData: userBannerData,
+            ..viewbackground = ViewbackgroundWidget(
+                room: widget.room,
+                roomDataUpdates: roomDataUpdates,
+                userBannerData: userBannerData,
                 superBox: superBox,
                 layoutMode: layoutMode,
                 controllerMusice: controllerMusice,
@@ -985,7 +987,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             ..seatConfig.avatarBuilder = (context, size, user, extraInfo) {
               return ValueListenableBuilder<bool>(
                 valueListenable:
-                    ZegoUIKit.instance.getMicrophoneStateNotifier(user!.id),
+                    ZegoUIKit().getMicrophoneStateNotifier(user!.id),
                 builder: (context, isMicrophoneEnabled, _) {
                   return UserAvatar(
                       image: user.inRoomAttributes.value['img'],
@@ -1000,7 +1002,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     if (message.timestamp < value) {
                       return const SizedBox.shrink();
                     }
-                    if (message.user.inRoomAttributes.value['sen'] == null && RoomScreen.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
+                    if (message.user.inRoomAttributes.value['sen'] == null &&
+                        RoomScreen.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
                       if (kDebugMode) {
                         log("wait 2 sec to load more in formation about user");
                       }
