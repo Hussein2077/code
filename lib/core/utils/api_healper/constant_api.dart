@@ -7,8 +7,8 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 
 class ConstentApi {
-  static const String baseUrl = 'https://tik-chat.com/api' ;
- // static const String baseUrl = 'https://test.tik-chat.com/api' ;
+  // static const String baseUrl = 'https://tik-chat.com/api' ;
+ static const String baseUrl = 'https://test.tik-chat.com/api' ;
   static const String getBoxes = "$baseUrl/box/list";
   static const String inAppPurchase = "$baseUrl/purchased";
   static const String sendBox = "$baseUrl/box/send";
@@ -259,7 +259,6 @@ class ConstentApi {
   String getVipCenter({required String level}) =>
       "$baseUrl/vip_center?level=$level";
 
-  // String getImage(imageUrl) => "https://dragon-chat-app.com/storage/$imageUrl";
 
   String getImage(imageUrl) =>
       "https://storage.googleapis.com/tik-chat/$imageUrl";

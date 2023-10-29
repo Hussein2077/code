@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
@@ -28,6 +30,8 @@ class LogOutOrDeleteAccountButton extends StatelessWidget {
     return BlocListener<LogOutBloc, LogOutState>(
       listener: (context, state) async {
         if (state is LogOutSucssesState || state is DeleteAccountSucssesState) {
+          MyDataModel().clearObject();
+          Methods().removeUserData();
           await FirebaseAuth.instance.signOut();
           SharedPreferences preference = getIt();
           preference.remove(StringManager.keepLogin);
@@ -40,6 +44,8 @@ class LogOutOrDeleteAccountButton extends StatelessWidget {
               context, Routes.login, (route) => false);
         }
         else if (state is LogOutErrorState) {
+          MyDataModel().clearObject();
+          Methods().removeUserData();
           errorToast(context: context, title: state.error);
           await FirebaseAuth.instance.signOut();
           SharedPreferences preference = getIt();

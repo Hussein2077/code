@@ -247,6 +247,11 @@ class Methods {
     }
   }
 
+  void removeUserData (){
+    DefaultCacheManager().removeFile(StringManager.cachUserData);
+
+  }
+
   Future<void> saveThemeStatus({required String theme}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 

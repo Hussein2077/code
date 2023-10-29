@@ -54,7 +54,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                 const Spacer(
                   flex: 4,
                 ),
-                if (state.myDataModel.myAgencyModel==null)
+                if (state.myDataModel.myAgencyModel!.name=="")
                 MainButton(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.instructionsScreen);
@@ -62,7 +62,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                   title: StringManager.joinRequests.tr(),
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                  if ((state.myDataModel.myAgencyModel!=null)&&(state.myDataModel.myType ==1))
+                  if ((state.myDataModel.myAgencyModel!.name!="")&&(state.myDataModel.myType ==1))
                 MainButton(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.cashWithdrawal);
@@ -70,7 +70,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                   title: StringManager.withdrawal.tr(),
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                  if (state.myDataModel.myAgencyModel==null)
+                  if (state.myDataModel.myAgencyModel!.name=="")
                 MainButton(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.exchangeForGoldScreen);
