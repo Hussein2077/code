@@ -461,7 +461,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
   }
 }
 
-ShowPopularBanner(Map<String, dynamic> result, var sendDataUser, var receiverDataUser, Map<String,dynamic>  userBannerData , var controllerBanner){
+ShowPopularBanner(Map<String, dynamic> result, var DataUser, Map<String,dynamic>  userBannerData , var controllerBanner){
   UserDataModel sendData;
 
   sendData = UserDataModel(
@@ -480,9 +480,8 @@ ShowPopularBanner(Map<String, dynamic> result, var sendDataUser, var receiverDat
           senderImage: result[messageContent]['rsl'],
           receiverImage: result[messageContent]['rrl']),
       vip1: VipCenterModel(level: result[messageContent]['rv']));
-
-  sendDataUser = sendData;
-  receiverDataUser = receiverData;
+  DataUser['sendDataUser'] = sendData;
+  DataUser['receiverDataUser'] = receiverData;
   userBannerData['gift_banner']  = result[messageContent][giftImgKey].toString();
   userBannerData['is_password_room_banner']  = result[messageContent]['isPass'];
   userBannerData['owner_id_room_banner']  = result[messageContent]['oId'].toString();

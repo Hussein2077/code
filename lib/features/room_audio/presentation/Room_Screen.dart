@@ -149,8 +149,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     'owner_id_room_banner':'',
     'is_password_room_banner':''
   };
-  UserDataModel? sendDataUser;
-  UserDataModel? receiverDataUser;
+
+  Map<String, dynamic> DataUser = {"sendDataUser": {}, "receiverDataUser": {}};
   //////
 
   //////
@@ -486,8 +486,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Future<void> loadMp4Gift({required GiftData giftData}) async {
     RoomScreen.isGiftEntroAnimating = true;
     if (giftData.showBanner) {
-      sendDataUser = giftData.senderData;
-      receiverDataUser = giftData.reciverData;
+      DataUser['sendDataUser'] = giftData.senderData;
+      DataUser['receiverDataUser'] = giftData.reciverData;
       userBannerData ['gift_banner']   = giftData.giftBanner;
       giftImg = giftData.giftImg;
       RoomScreen.showBanner.value = giftData.showBanner;
@@ -537,9 +537,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Future<void> loadAnimationGift(GiftData giftData) async {
     RoomScreen.isGiftEntroAnimating = true;
     if (giftData.showBanner) {
-      sendDataUser = giftData.senderData;
-      receiverDataUser = giftData.reciverData;
-       userBannerData['gift_banner'] = giftData.giftBanner;
+      DataUser['sendDataUser'] = giftData.senderData;
+      DataUser['receiverDataUser'] = giftData.reciverData;
+      userBannerData['gift_banner'] = giftData.giftBanner;
       giftImg = giftData.giftImg;
       controllerBanner.forward();
       isPlural['isPlural'] = giftData.isPlural;
@@ -670,18 +670,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Future<void> onInRoomCommandReceived(ZegoInRoomCommandReceivedData commandData) async {
     Map<String, dynamic> result = jsonDecode(commandData.command);
     if (result[messageContent] != null) {
-
-      // switch(result[messageContent][message]){
-      //   case changeBackground:
-      //     ChangeBackground(result,roomDataUpdates);
-      //     break;
-      //   case userEntro:
-      //     UserEntro(result, userIntroData ,loadAnimationEntro);
-      //     break;
-      //
-      // }
-
-
       if (result[messageContent][message] == changeBackground) {
         ChangeBackground(result,roomDataUpdates);
       }
@@ -690,7 +678,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent]['msg'] == 'SHB') {
         if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {
-          ShowPopularBanner(result, sendDataUser, receiverDataUser, userBannerData, controllerBanner);
+          ShowPopularBanner(result, DataUser, userBannerData, controllerBanner);
         }
       }
       else if (result[messageContent][message] == showEmojie) {
@@ -891,8 +879,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 offsetAnimationYellowBanner: offsetAnimationYellowBanner,
                 yallowBannerSender: yallowBannerSender,
                 isPlural: isPlural,
-                sendDataUser: sendDataUser,
-                receiverDataUser: receiverDataUser,
+                dataUser: DataUser,
                 controllerBanner: controllerBanner,
                 offsetAnimationBanner: offsetAnimationBanner,
                 luckGiftBannderController: luckGiftBannderController,

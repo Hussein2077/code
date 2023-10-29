@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
@@ -34,7 +33,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_luck
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_states.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/components/message/in_room_message_input.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 import 'package:video_player/video_player.dart';
 
@@ -57,8 +55,7 @@ class ViewbackgroundWidget extends StatefulWidget {
   Animation<Offset> offsetAnimationYellowBanner;
   UserDataModel? yallowBannerSender;
   Map<String, bool> isPlural;
-  UserDataModel? sendDataUser;
-  UserDataModel? receiverDataUser;
+  Map<String, dynamic> dataUser;
   AnimationController controllerBanner;
   Animation<Offset> offsetAnimationBanner;
   AnimationController luckGiftBannderController;
@@ -83,8 +80,7 @@ class ViewbackgroundWidget extends StatefulWidget {
     required this.offsetAnimationYellowBanner,
     required this.yallowBannerSender,
     required this.isPlural,
-    required this.sendDataUser,
-    required this.receiverDataUser,
+    required this.dataUser,
     required this.controllerBanner,
     required this.offsetAnimationBanner,
     required this.luckGiftBannderController,
@@ -233,8 +229,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         left: AppPadding.p36,
                         child: ShowGiftBannerWidget(
                           isPlural: widget.isPlural['isPlural']!,
-                          sendDataUser: widget.sendDataUser!,
-                          receiverDataUser: widget.receiverDataUser!,
+                          sendDataUser: widget.dataUser['sendDataUser'],
+                          receiverDataUser: widget.dataUser['receiverDataUser'],
                           giftImage: widget.userBannerData['gift_banner'] ?? '',
                           ownerId: widget.userBannerData['owner_id_room_banner'] ?? widget.room.ownerId.toString(),
                           controllerBanner: widget.controllerBanner,
