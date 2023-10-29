@@ -2,7 +2,9 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/audio_video_defines.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/command.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/internal/core/core.dart';
@@ -676,11 +678,12 @@ class ZegoUIKitCoreData
       getUserStreamChannel(targetUser, streamType)
         ..streamID = ''
         ..streamTimestamp = 0;
+      if(kDebugMode){
+        log("stopPlayingStream:");
+      }
       targetUser
         ..destroyTextureRenderer(streamType: streamType)
-        ..camera.value = false
-        ..microphone.value = false
-        ..microphoneMuteMode.value = false;
+        ..camera.value = false;
     }
 
     // clear streamID

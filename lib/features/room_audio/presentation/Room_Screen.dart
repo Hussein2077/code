@@ -590,7 +590,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           RoomScreen.listOfAnimatingEntros[0].imgUrl);
       RoomScreen.listOfAnimatingEntros.removeAt(0);
     } else {
-      log("is empty");
+
       RoomScreen.isGiftEntroAnimating = false;
     }
   }

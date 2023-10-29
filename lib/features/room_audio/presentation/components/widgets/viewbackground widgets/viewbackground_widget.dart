@@ -106,11 +106,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
     OverlayEntry overlayEntry = OverlayEntry(
       builder: (context) => Padding(
           padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
-          child: Container(
-            color: Colors.red,
-            width: 40,
-            height: 40,
-          )),
+          child: widget),
     );
 
     overlayState.insert(overlayEntry);

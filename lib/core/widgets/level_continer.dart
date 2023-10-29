@@ -14,7 +14,6 @@ final double? width;
 final double? height;
   @override
   Widget build(BuildContext context) {
-    log(image+"sadasdas");
     return Container(
         width:width?? ConfigSize.defaultSize!*3,
       height:height?? ConfigSize.defaultSize!*1.5,
