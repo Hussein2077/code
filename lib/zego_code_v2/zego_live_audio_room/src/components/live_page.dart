@@ -235,7 +235,6 @@ class ZegoLivePageState extends State<ZegoLivePage>
       sortAudioVideo: audioVideoViewSorter,
       avatarBuilder: widget.config.seatConfig.avatarBuilder,
     );
-    https://tic-chat.saree3-app.com/storage/profile/5GfuZ94MLP.jpg
     return Positioned(
       top: 190.r,
       //left: 35.w,

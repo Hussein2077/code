@@ -889,7 +889,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 showPopUp: showPopUp,
                 popUpData: popUpData,
                 durationKickout: durationKickout)
-
             ..background = BackgroundWidget(room: widget.room, layoutMode: layoutMode, isHost: widget.isHost)
             ..onSeatsChanged = (
               Map<int, ZegoUIKitUser> takenSeats,
