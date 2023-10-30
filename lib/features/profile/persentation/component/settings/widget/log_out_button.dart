@@ -57,7 +57,7 @@ class _LogOutOrDeleteAccountButtonState
           } else if (state is LogOutErrorState) {
             LogOutOrDeleteAccountButton.isFirstTabInAcceptButton = true;
             errorToast(context: context, title: state.error);
-            
+
           } else if (state is LogOutLoadingState ||
               state is DeleteAccountLoadingState) {
             // ShowMToast().loadingToast(context, message: StringManager.errorInPayment, alignment: Alignment.bottomCenter);
