@@ -533,6 +533,24 @@ static const String iOSPlatform='IOS';
   static const String downloadedData = 'data downloaded';
   static const String activeNotification = 'active notification';
   static const String data = 'Data';
+  static const String lastSeen = "Last seen";
+  static const String blocked = "Blocked";
+  static const String youCanNotChat = "You cannot chat with this person";
+  static const String groupChat = "Group Chat";
+  static const String appTeam = "Tik Team";
+  static const String system = "System";
+  static const String officialAccount = "Official Account";
+  static const String toSendMassage = "To send Massage";
+  static const String hinttext = "Say something...";
+
+
+
+
+
+
+
+
+
 
 
 

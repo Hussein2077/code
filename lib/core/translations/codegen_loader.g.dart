@@ -435,6 +435,22 @@ class CodegenLoader extends AssetLoader {
     StringManager.downloadData : 'تحميل البيانات',
     StringManager.downloadedData : 'تم تحميل البيانات',
     StringManager.allMomentsTab : "كل اللحظات",
+    StringManager.lastSeen: "اخر ظهور",
+    StringManager.blocked: "محظور",
+    StringManager.youCanNotChat: "لا يمكنك الدردشة مع هذا الشخص",
+    StringManager.groupChat : "شات جماعي",
+    StringManager.system: "النظام",
+    StringManager.appTeam: "فريق تيك شات",
+    StringManager.officialAccount : "الحساب الرسمي" ,
+    StringManager.toSendMassage: "لأرسال الرساله",
+    StringManager.hinttext: "قل شيئا...",
+
+
+
+
+
+
+
 
   };
   static const Map<String, dynamic> tr = {

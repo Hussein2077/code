@@ -24,6 +24,15 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_p
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/get_group_massage/get_group_massage_bloc.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/manager_post_group_Chat/post_group_chat_bloc.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_bloc.dart';
+import 'package:tik_chat_v2/features/chat/data/data_source/remoted_dataSource_chat.dart';
+import 'package:tik_chat_v2/features/chat/data/repository_imp/repository_imp.dart';
+import 'package:tik_chat_v2/features/chat/domine/repository/base_repository_chat.dart';
+import 'package:tik_chat_v2/features/chat/domine/usecases/get_group_massage.dart';
+import 'package:tik_chat_v2/features/chat/domine/usecases/get_officialMsg_UC.dart';
+import 'package:tik_chat_v2/features/chat/domine/usecases/post_group_chat_usecase.dart';
 import 'package:tik_chat_v2/features/following/data/data_sorce/follwoing_remote_data_sours.dart';
 import 'package:tik_chat_v2/features/following/data/repository_imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/following/domin/repository/follwoing_repository.dart';
@@ -528,8 +537,23 @@ class ServerLocator {
     getIt.registerFactory(
             () => GetMomentallBloc(getMomenttUseCase:  getIt() ));
 
+    getIt.registerFactory(
+            () => GetGroupMassageBloc(getGroupMassageUseCase:  getIt() ));
+    getIt.registerFactory(
+            () => GetOfficialMsgsBloc(getOfficialMsgUC:  getIt() ));
+
+    getIt.registerFactory(
+            () => PostGroupChatBloc(postGroupMassageUseCase:  getIt() ));
+
 
 //usecase
+
+    getIt.registerLazySingleton(() => PostGroupMassageUseCase(baseRepositoryChat: getIt()));
+
+    getIt.registerLazySingleton(() => GetGroupMassageUseCase(baseRepositoryChat: getIt()));
+
+    getIt.registerLazySingleton(() => GetOfficialMsgUC(baseRepositoryChat: getIt()));
+
     getIt.registerLazySingleton(() => GetRoomUserUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(() => InAppPurchaseUsecase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => ActiveNotificationUseCase(baseRepositoryProfile: getIt()));
@@ -809,9 +833,11 @@ getIt.registerLazySingleton(
 
 //repo
 
-
+    getIt.registerLazySingleton<BaseRepositoryChat>(
+            () => RepositoryImpChat(baseDataSourceChat: getIt()));
     getIt.registerLazySingleton<BaseRepository>(
-        () => RepositoryImp(baseRemotlyDataSource: getIt()));
+            () => RepositoryImp(baseRemotlyDataSource: getIt()));
+
 
     getIt.registerLazySingleton<BaseRepositoryMoment>(
         () => RepositoryImpMoment(baseRemotlyDataSourceMoment: getIt()));
@@ -828,6 +854,8 @@ getIt.registerLazySingleton(
         () => RepositoryReels(baseRemotlyDataSourceReels: getIt()));
 
 //data source
+    getIt.registerLazySingleton<BaseDataSourceChat>(
+            () => RemotedDataSourceChat());
     getIt.registerLazySingleton<BaseRemotlyDataSourceMoment>(
             () => RemotlyDataSourceMoment());
     getIt.registerLazySingleton<BaseRemotlyDataSourceRoom>(

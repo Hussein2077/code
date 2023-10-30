@@ -15,7 +15,11 @@ import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_in
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
-import 'package:tik_chat_v2/features/chat/persentation/chat_screen.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/Messages_Screen/official_massage_screen.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/Messages_Screen/system_Messages_Screen.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/group_chat/group_chat.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/chatpage_body.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/create_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/upload_reels_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/search/search_screen.dart';
@@ -151,6 +155,16 @@ class Routes {
   static const String privacyPolicyScreen = "/PrivacyPolicyScreen";
   static const String chatScreen = "/ChatScreen";
   static const String paymentHistory = "/paymentHistory";
+  static const String groupChatScreen = "/GropuChatScreen";
+  static const String messages = "/Messages";
+  static const String systemmessages = "/systemmessages";
+  static const String chatPageBody = "/chatPageBody";
+
+
+
+
+
+
 
 }
 
@@ -470,12 +484,75 @@ TextEditingController textEditingController = settings.arguments as TextEditingC
         if (Platform.isIOS)
         {
           return CupertinoPageRoute (
-              builder: (_) => const SafeArea(child: ChatScreen()));
+              builder: (_) =>  SafeArea(child: ChatPage()));
         } else
         {
           return MaterialPageRoute(
-              builder: (_) => const SafeArea(child: ChatScreen()));
+              builder: (_) =>  SafeArea(child: ChatPage()));
         }
+
+      case Routes.systemmessages:
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => const SafeArea(child: SystemMessagesScreen()));
+        } else {
+          return MaterialPageRoute(
+              builder: (_) => const SafeArea(child: SystemMessagesScreen()));
+        }
+
+      case Routes.groupChatScreen:
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => SafeArea(child: GroupChatScreen()));
+        } else {
+          return MaterialPageRoute(
+              builder: (_) => SafeArea(child: GroupChatScreen()));
+        }
+
+      case Routes.messages:
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => const SafeArea(child: OfficialMessagesScreen()));
+        } else {
+          return MaterialPageRoute(
+              builder: (_) => const SafeArea(child: OfficialMessagesScreen()));
+        }
+
+
+
+      case Routes.chatPageBody:
+        ChatPageBodyPramiter chatPageBodyPramiter =
+        settings.arguments as ChatPageBodyPramiter;
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => SafeArea(
+                  child: ChatPageBody(
+                    unReadMessages: chatPageBodyPramiter.unReadMessages,
+                    id: chatPageBodyPramiter.chatId,
+                    name: chatPageBodyPramiter.name,
+                    yayaId: chatPageBodyPramiter.yayaId,
+                    image: chatPageBodyPramiter.image,
+                    deviceTocke: chatPageBodyPramiter.notificationId,
+                    myName: chatPageBodyPramiter.myName,
+                  )));
+        } else {
+          return MaterialPageRoute(
+              builder: (_) => SafeArea(
+                  child: ChatPageBody(
+                    unReadMessages: chatPageBodyPramiter.unReadMessages,
+                    id: chatPageBodyPramiter.chatId,
+                    name: chatPageBodyPramiter.name,
+                    yayaId: chatPageBodyPramiter.yayaId,
+                    image: chatPageBodyPramiter.image,
+                    deviceTocke: chatPageBodyPramiter.notificationId,
+                    myName: chatPageBodyPramiter.myName,
+                  )));
+        }
+
 
 
     }
@@ -591,4 +668,30 @@ class ReelsUserPramiter {
 
   const ReelsUserPramiter(
       {required this.startIndex, required this.userDataModel, Key? key});
+}
+
+
+
+class ChatPageBodyPramiter {
+  final String chatId;
+
+  final String name;
+
+  final String yayaId;
+  final int unReadMessages;
+
+  final String image;
+
+  final String notificationId;
+
+  final String myName;
+
+  ChatPageBodyPramiter(
+      {required this.unReadMessages,
+        required this.chatId,
+        required this.name,
+        required this.yayaId,
+        required this.image,
+        required this.notificationId,
+        required this.myName});
 }

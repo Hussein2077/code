@@ -60,6 +60,11 @@ class MyDataModel {
 
   static MyDataModel? _instance;
 
+  void clearObject (){
+    _instance = null ;
+
+  }
+
   MyDataModel(
       {this.isFirst,
       this.bubbleId,
@@ -248,9 +253,10 @@ class MyDataModel {
           myStore: map['my_store'] != null
               ? MyStoreModel.fromMap(map['my_store'] as Map<String, dynamic>)
               : null,
-          myAgencyModel: map['agency'] != null
-              ? MyAgencyModel.fromjson(map["agency"])
-              : null,
+        myAgencyModel:  map['agency'] != null ?
+        map['agency'].isNotEmpty
+            ? MyAgencyModel.fromjson(map["agency"])
+            : MyAgencyModel(img: "" , name: "" , notice: ""): MyAgencyModel(img: "" , name: "" , notice: ""),
           familyDataModel: map['family_data'] != null
               ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
               : null,
@@ -306,9 +312,10 @@ class MyDataModel {
           myStore: map['my_store'] != null
               ? MyStoreModel.fromMap(map['my_store'] as Map<String, dynamic>)
               : null,
-          myAgencyModel: map['agency'] != null
-              ? MyAgencyModel.fromjson(map["agency"])
-              : null,
+          myAgencyModel:  map['agency'] != null ?
+      map['agency'].isNotEmpty
+          ? MyAgencyModel.fromjson(map["agency"])
+          : MyAgencyModel(img: "" , name: "" , notice: ""): MyAgencyModel(img: "" , name: "" , notice: ""),
           familyDataModel: map['family_data'] != null
               ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
               : null,
@@ -316,7 +323,6 @@ class MyDataModel {
           myType: map['type_user'] ?? 0);
 
     }
-log("${_instance!.isPhone.toString()}");
 
     return _instance!;
   }

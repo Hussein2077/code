@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -251,6 +252,11 @@ class Methods {
     } else {
       preferences.setString(StringManager.userTokenKey, authToken ?? "noToken");
     }
+  }
+
+  void removeUserData (){
+    DefaultCacheManager().removeFile(StringManager.cachUserData);
+
   }
 
   Future<void> saveThemeStatus({required String theme}) async {
@@ -775,7 +781,7 @@ class Methods {
 
   Future addFireBaseNotifcationId() async {
     String token = await Methods.instance.returnUserToken();
-    String? tokenn = await FirebaseMessaging.instance.getToken();
+    String? tokenn = FirebaseAuth.instance.currentUser?.uid.toString();
 
     await Dio().post(
       ConstentApi.editeUrl,

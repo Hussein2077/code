@@ -1,8 +1,14 @@
+
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -10,12 +16,17 @@ import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/firebase_sign_in.dart';
+import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/following/persentation/following_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
@@ -71,7 +82,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    Methods.instance.getTheNewData(context);
+    Methods().getTheNewData(context);
+    Future.delayed(Duration.zero,() async {
+      await FirebaseAuth.instance.signOut();
+    });
 
     listenToInternet();
     initPusher();
@@ -94,100 +108,178 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        children: [
-      Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: BottomNavLayout(
-          pages: [
-            (_) => HomeScreen(
-                  isCachExtra: widget.isCachExtra,
-                  isCachFrame: widget.isCachFrame,
-                  isChachGift: widget.isChachGift,
-                  isUpdate: widget.isUpdate,
-                  isCachEmojie: widget.isCachEmojie,
-                  isCachEntro: widget.isCachEntro,
-                  actionDynamicLink: widget.actionDynamicLink,
-
-                ),
-            (_) => const ReelsScreenTaps(),
-            (_) => const FollowingLiveScreen(),
-            (_) => const MomentScreen(),
-            (_) => const ProfileScreen(),
-          ],
-          bottomNavigationBar: (currentIndex, onTap) => BottomBarWidget(
-            currentIndex: currentIndex,
-            onTap: onTap,
-          ),
-          savePageState: true,
-          lazyLoadPages: true,
-          pageStack: ReorderToFrontPageStack(initialPage: SplashScreen.initPage),
-          extendBody: false,
-          resizeToAvoidBottomInset: true,
-          pageTransitionData: null,
-        ),
-      ),
-      ValueListenableBuilder<bool>(
-          valueListenable: MainScreen.iskeepInRoom,
-          builder: (BuildContext context, bool value, Widget? child) {
-            if (value) {
-              return DraggableFloatWidget(
-                config: const DraggableFloatWidgetBaseConfig(
-                  initPositionYInTop: false,
-                  initPositionYMarginBorder: 50,
-                  borderTopContainTopBar: true,
-                  borderBottom: 30,
-                ),
-                onTap: () {
-                  RoomScreen.outRoom = false;
-                  Navigator.pushNamed(context, Routes.roomScreen,
-                      arguments: RoomPramiter(
-                          roomModel: MainScreen.roomData!,
-                          myDataModel: MyDataModel.getInstance(),
-                          isHost: MyDataModel.getInstance().id.toString() ==
-                              MainScreen.roomData!.ownerId.toString()));
+    return FutureBuilder<void>(
+        future: Future.delayed(const Duration(seconds: 2)),
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SizedBox();
+          } else {
+            return WillPopScope(
+                onWillPop: () async {
+                  // showExitDialog() ;
+                  return false;
                 },
-                child: Stack(
-                  children: [
-                    RotationTransition(
-                        turns: animationController,
-                        child: UserImage(
-                          imageSize: ConfigSize.defaultSize! * 14,
-                          image: MainScreen.roomData!.roomCover!,
-                        )),
-                    GestureDetector(
-                      onTap: () async {
-                        bottomDailog(
-                            context: context,
-                            widget:  TransparentLoadingWidget(
-                                  height: ConfigSize.defaultSize!*2,
-                                  width: ConfigSize.defaultSize!*7.2,
-                                ));
+                child: StreamBuilder(
+                    stream: FirebaseAuth.instance.authStateChanges(),
 
-                        await Methods.instance.exitFromRoom(
-                            MainScreen.roomData!.ownerId.toString());
-                        Navigator.pop(context);
-                        MainScreen.iskeepInRoom.value = false;
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(20)),
-                          padding: const EdgeInsets.all(4),
-                          child: Icon(
-                            CupertinoIcons.clear,
-                            color: Colors.white,
-                            size: AppPadding.p10,
-                          )),
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              return const SizedBox();
-            }
-          })
-    ]);
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        Methods().addFireBaseNotifcationId();
+
+                        return Stack(
+                            children: [
+                              Scaffold(
+                                backgroundColor: Theme
+                                    .of(context)
+                                    .colorScheme
+                                    .background,
+                                body: BottomNavLayout(
+                                  pages: [
+                                        (_) =>
+                                        HomeScreen(
+                                          isCachExtra: widget.isCachExtra,
+                                          isCachFrame: widget.isCachFrame,
+                                          isChachGift: widget.isChachGift,
+                                          isUpdate: widget.isUpdate,
+                                          isCachEmojie: widget.isCachEmojie,
+                                          isCachEntro: widget.isCachEntro,
+                                          actionDynamicLink: widget
+                                              .actionDynamicLink,
+
+                                        ),
+                                        (_) => const ReelsScreenTaps(),
+                                        (_) => const FollowingLiveScreen(),
+                                        (_) => const MomentScreen(),
+                                        (_) => const ProfileScreen(),
+                                  ],
+                                  bottomNavigationBar: (currentIndex, onTap) =>
+                                      BottomBarWidget(
+                                        currentIndex: currentIndex,
+                                        onTap: onTap,
+                                      ),
+                                  savePageState: true,
+                                  lazyLoadPages: true,
+                                  pageStack: ReorderToFrontPageStack(
+                                      initialPage: SplashScreen.initPage),
+                                  extendBody: false,
+                                  resizeToAvoidBottomInset: true,
+                                  pageTransitionData: null,
+                                ),
+                              ),
+                              ValueListenableBuilder<bool>(
+                                  valueListenable: MainScreen.iskeepInRoom,
+                                  builder: (BuildContext context, bool value,
+                                      Widget? child) {
+                                    if (value) {
+                                      return DraggableFloatWidget(
+                                        config: const DraggableFloatWidgetBaseConfig(
+                                          initPositionYInTop: false,
+                                          initPositionYMarginBorder: 50,
+                                          borderTopContainTopBar: true,
+                                          borderBottom: 30,
+                                        ),
+                                        onTap: () {
+                                          RoomScreen.outRoom = false;
+                                          Navigator.pushNamed(
+                                              context, Routes.roomScreen,
+                                              arguments: RoomPramiter(
+                                                  roomModel: MainScreen
+                                                      .roomData!,
+                                                  myDataModel: MyDataModel
+                                                      .getInstance(),
+                                                  isHost: MyDataModel
+                                                      .getInstance()
+                                                      .id
+                                                      .toString() ==
+                                                      MainScreen.roomData!
+                                                          .ownerId
+                                                          .toString()));
+                                        },
+                                        child: Stack(
+                                          children: [
+                                            RotationTransition(
+                                                turns: animationController,
+                                                child: UserImage(
+                                                  imageSize: ConfigSize
+                                                      .defaultSize! * 14,
+                                                  image: MainScreen.roomData!
+                                                      .roomCover!,
+                                                )),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                bottomDailog(
+                                                    context: context,
+                                                    widget: TransparentLoadingWidget(
+                                                      height: ConfigSize
+                                                          .defaultSize! * 2,
+                                                      width: ConfigSize
+                                                          .defaultSize! * 7.2,
+                                                    ));
+
+                                                await Methods.instance.exitFromRoom(
+                                                    MainScreen.roomData!.ownerId
+                                                        .toString());
+                                                Navigator.pop(context);
+                                                MainScreen.iskeepInRoom.value =
+                                                false;
+                                              },
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.black
+                                                          .withOpacity(0.5),
+                                                      borderRadius: BorderRadius
+                                                          .circular(
+                                                          20)),
+                                                  padding: const EdgeInsets.all(
+                                                      4),
+                                                  child: Icon(
+                                                    CupertinoIcons.clear,
+                                                    color: Colors.white,
+                                                    size: AppPadding.p10,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  })
+                            ]);
+                      } else {
+                        return BlocBuilder<GetMyDataBloc, GetMyDataState>(
+                            builder: (context, state) {
+                              if (state is GetMyDataSucssesState) {
+          if (!kDebugMode) {
+            return FireBaseSignIn(
+              phone: "0",
+              email: "Eelhamody@gmail.com",
+              password: "Eelhamody@gmail.com",
+              data: state.myDataModel,
+            );
+          }else {
+            return FireBaseSignIn(
+              phone: state.myDataModel.phone ??"0",
+              email: "${state.myDataModel.id}@gmail.com",
+              password: "${state.myDataModel.id}@gmail.com",
+              data: state.myDataModel,
+            );
+          }
+
+
+                              } else if(state is GetMyDataErrorState) {
+                                return CustomErrorWidget(message: state.errorMassage,);
+                              }else{
+                                return const LoadingWidget();
+                              }
+
+                            }
+                        );
+                      }
+                    }
+                ));
+          }
+        });
   }
 
   listenToInternet() {
