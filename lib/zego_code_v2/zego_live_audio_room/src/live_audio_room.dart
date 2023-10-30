@@ -258,7 +258,8 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       connectManager: connectManager!,
       prebuiltController: widget.controller,
       roomData:  widget.roomData,
-      roomMode: widget.roomMode, myDataModel: widget.myDataModel,
+      roomMode: widget.roomMode,
+      myDataModel: widget.myDataModel,
     );
   }
 

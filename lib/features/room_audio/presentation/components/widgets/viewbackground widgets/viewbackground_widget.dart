@@ -121,7 +121,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
   Widget build(BuildContext context) {
     return BlocConsumer<SendGiftBloc, SendGiftStates>(
         builder: (context, state) {
-          return Stack(children: [
+          return Stack(
+              children: [
             SizedBox(
               width: ConfigSize.defaultSize! * 92.5,
               height: ConfigSize.defaultSize! * 92.5,
@@ -380,11 +381,9 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
         }, listener: (context, state) {
       if (state is ErrorSendGiftStates) {
         errorToast(context: context, title: state.errorMessage);
-      } else if (state is SuccessSendGiftStates) {
-
-
+      }
+      else if (state is SuccessSendGiftStates) {
         ZegoUIKit().sendInRoomMessage(state.successMessage, false);
-
       }
     });
   }

@@ -117,8 +117,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
               child: LayoutBuilder(builder: (context, constraints) {
                 return Stack(
                   children: [
-                    background(context, constraints.maxHeight),
-
+                    background(context,constraints.maxHeight),
                    ValueListenableBuilder(
                       valueListenable: RoomScreen.editAudioVideoContainer,
                       builder: (context,update,_){
@@ -130,7 +129,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
                     bottomBar(),
                     messageList(),
                     // to show entro  && gifts
-                    viewbackground(context, constraints.maxHeight),
+                    viewbackground(context,constraints.maxHeight),
                   ],
                 );
               }),

@@ -41,10 +41,10 @@ class _LuckyGiftWinCircleState extends State<LuckyGiftWinCircle>
   }
 
 
-
   void dispose() {
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {

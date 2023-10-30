@@ -91,22 +91,17 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
                     if(percent >= 1){
                       endAllLuckyGift();
                     }
-                    return Container(
-                      width: 100,
-                      height: 100,
-                      color:  Colors.red,
+                    return CircularPercentIndicator(
+                      radius: ConfigSize.defaultSize! * 3.4,
+                      lineWidth: 3,
+                      animation: true,
+                      curve: Curves.ease,
+                      animateFromLastPercent: true,
+                      addAutomaticKeepAlive: true,
+                      percent: percent<1?percent:1,
+                      backgroundColor: Colors.grey,
+                      progressColor: Colors.yellow,
                     );
-                    // return CircularPercentIndicator(
-                    //   radius: ConfigSize.defaultSize! * 3.4,
-                    //   lineWidth: 3,
-                    //   animation: true,
-                    //   curve: Curves.ease,
-                    //   animateFromLastPercent: true,
-                    //   addAutomaticKeepAlive: true,
-                    //   percent: percent<1?percent:1,
-                    //   backgroundColor: Colors.grey,
-                    //   progressColor: Colors.yellow,
-                    // );
                   }
               ),
             ],
