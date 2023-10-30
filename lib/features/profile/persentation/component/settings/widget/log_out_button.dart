@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
@@ -51,6 +53,8 @@ class _LogOutOrDeleteAccountButtonState
             preference.remove(StringManager.userDataKey);
             preference.remove(StringManager.userTokenKey);
             preference.remove(StringManager.deviceToken);
+            MyDataModel.getInstance().clearObject();
+            Methods().removeUserData();
 
             // ignore: use_build_context_synchronously
             Navigator.pushNamedAndRemoveUntil(
