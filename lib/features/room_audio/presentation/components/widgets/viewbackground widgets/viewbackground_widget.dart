@@ -55,8 +55,7 @@ class ViewbackgroundWidget extends StatefulWidget {
   Animation<Offset> offsetAnimationYellowBanner;
   UserDataModel? yallowBannerSender;
   Map<String, bool> isPlural;
-  UserDataModel? sendDataUser;
-  UserDataModel? receiverDataUser;
+  Map<String, dynamic> dataUser;
   AnimationController controllerBanner;
   Animation<Offset> offsetAnimationBanner;
   AnimationController luckGiftBannderController;
@@ -81,8 +80,7 @@ class ViewbackgroundWidget extends StatefulWidget {
     required this.offsetAnimationYellowBanner,
     required this.yallowBannerSender,
     required this.isPlural,
-    required this.sendDataUser,
-    required this.receiverDataUser,
+    required this.dataUser,
     required this.controllerBanner,
     required this.offsetAnimationBanner,
     required this.luckGiftBannderController,
@@ -232,8 +230,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         left: AppPadding.p36,
                         child: ShowGiftBannerWidget(
                           isPlural: widget.isPlural['isPlural']!,
-                          sendDataUser: widget.sendDataUser!,
-                          receiverDataUser: widget.receiverDataUser!,
+                          sendDataUser: widget.dataUser['sendDataUser'],
+                          receiverDataUser: widget.dataUser['receiverDataUser'],
                           giftImage: widget.userBannerData['gift_banner'] ?? '',
                           ownerId: widget.userBannerData['owner_id_room_banner'] ?? widget.room.ownerId.toString(),
                           controllerBanner: widget.controllerBanner,

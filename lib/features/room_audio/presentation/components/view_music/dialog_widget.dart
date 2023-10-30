@@ -65,8 +65,7 @@ late  bool isPlay  ;
                   InkWell(
                       onTap: () async {
                         Navigator.pop(context);
-                        Navigator.pushNamed(context, Routes.music ,
-                            arguments: MusicPramiter(ownerId: widget.ownerId));
+                        Navigator.pushNamed(context, Routes.music , arguments: MusicPramiter(ownerId: widget.ownerId));
                       },
                       child: const Icon(
                         Icons.library_music_outlined,
