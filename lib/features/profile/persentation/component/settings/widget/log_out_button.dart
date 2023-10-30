@@ -59,13 +59,16 @@ class _LogOutOrDeleteAccountButtonState
             // ignore: use_build_context_synchronously
             Navigator.pushNamedAndRemoveUntil(
                 context, Routes.login, (route) => false);
-          } else if (state is LogOutErrorState) {
+          }
+          else if (state is LogOutErrorState) {
             LogOutOrDeleteAccountButton.isFirstTabInAcceptButton = true;
             errorToast(context: context, title: state.error);
 
-          } else if (state is LogOutLoadingState ||
+          }
+          else if (state is LogOutLoadingState ||
               state is DeleteAccountLoadingState) {
-          } else if (state is DeleteAccountErrorState) {
+          }
+          else if (state is DeleteAccountErrorState) {
             LogOutOrDeleteAccountButton.isFirstTabInAcceptButton = true;
           }
         },
