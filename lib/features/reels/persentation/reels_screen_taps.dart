@@ -46,8 +46,9 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
             TabBarView(
               controller: _tabController,
               children: const [
-                FollowingReelsScreen(),
                 ReelsScreen(),
+                FollowingReelsScreen(),
+
 
               ],
             ),
@@ -68,15 +69,16 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                 controller: _tabController,
                 tabs: [
                   Text(
-                    StringManager.followingReels.tr(),
-                    style:
-                    Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Text(
                     StringManager.reels.tr(),
                     style:
                     Theme.of(context).textTheme.headlineSmall,
                   ),
+                  Text(
+                    StringManager.followingReels.tr(),
+                    style:
+                    Theme.of(context).textTheme.headlineSmall,
+                  ),
+
 
                 ],
               ),

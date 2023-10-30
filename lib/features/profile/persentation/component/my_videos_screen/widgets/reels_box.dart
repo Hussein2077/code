@@ -180,12 +180,13 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                         else if (state.data!.isEmpty) {
                           return Center(
                               child: Text(
-                            StringManager.noReels.tr(),
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
-                          ));
+                                StringManager.noReels.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                          );
                         }
                         else if (ReelsBox.loading && state.data!.length > 6) {
                           return const Center(

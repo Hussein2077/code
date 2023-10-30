@@ -24,97 +24,75 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
       {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetFollwersRoomBloc, GetFollwersRoomState>(
-      builder: (context, state) {
-        if (state is GetFollwersRoomSucssesState) {
-          return Column(
-            children: [
-              SizedBox(
-                height: ConfigSize.defaultSize! * 2,
-              ),
-              Row(
+    return SafeArea(
+      child: Column(
+        children: [
+          SizedBox(
+            height: ConfigSize.defaultSize! * 2,
+          ),
+          Text(StringManager.follwoing.tr(),
+              style: Theme.of(context).textTheme.headlineLarge),
+          SizedBox(
+            height: ConfigSize.defaultSize! * 2,
+          ),
+          LiquidPullToRefresh(
+            color: ColorManager.bage,
+            backgroundColor: ColorManager.loadingColor,
+            showChildOpacityTransition: false,
+            onRefresh: () async {
+              BlocProvider.of<GetFollwersRoomBloc>(context)
+                  .add(const GetFollwersRoomEvent(type: "5"));
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
                 children: [
-                  const Spacer(
-                    flex: 1,
+                  SizedBox(
+                    height: ConfigSize.defaultSize! * 0.5,
                   ),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back_ios)),
-                  const Spacer(
-                    flex: 4,
-                  ),
-                  Text(StringManager.follwoing.tr(),
-
-                      style:  TextStyle(
-                              fontSize: ConfigSize.defaultSize!*2.2,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white
-                            ),
-                  ),
-                  const Spacer(
-                    flex: 5,
+                  BlocBuilder<GetFollwersRoomBloc, GetFollwersRoomState>(
+                    builder: (context, state) {
+                      if (state is GetFollwersRoomSucssesState) {
+                        return state.rooms.data!.isEmpty
+                            ? EmptyWidget(
+                                message: StringManager.nooneIsAwake.tr(),
+                                backgrpundColor: Colors.transparent,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineLarge,
+                              )
+                            : SizedBox(
+                                width: ConfigSize.screenWidth,
+                                height: ConfigSize.screenHeight! * 0.79,
+                                child: GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2),
+                                    itemCount: state.rooms.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return VideoLiveBox(
+                                        room: state.rooms.data![index],
+                                      );
+                                    }),
+                              );
+                      } else if (state is GetFollwersRoomErrorState) {
+                        return CustomErrorWidget(
+                          message: state.error,
+                        );
+                      } else if (state is GetFollwersRoomLoadingState) {
+                        return const LoadingWidget();
+                      } else {
+                        return CustomErrorWidget(
+                            message: StringManager.unexcepectedError.tr());
+                      }
+                    },
                   ),
                 ],
               ),
-              SizedBox(
-                height: ConfigSize.defaultSize! * 0.5,
-              ),
-              LiquidPullToRefresh(
-                color: ColorManager.bage,
-                backgroundColor: ColorManager.loadingColor,
-                showChildOpacityTransition: false,
-                onRefresh: () async {
-                  BlocProvider.of<GetFollwersRoomBloc>(context)
-                      .add(const GetFollwersRoomEvent(type: "5"));
-                },
-                child: state.rooms.data!.isEmpty
-                    ? const SingleChildScrollView(
-                        child: EmptyWidget(
-                        message: StringManager.noDataFoundHere,
-                      ))
-                    : Expanded(
-                        child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2),
-                            itemCount: state.rooms.data!.length,
-                            itemBuilder: (context, index) {
-                              int style = 0;
-                              if (index == 0 || index == 1 || index == 2) {
-                                style = index;
-                              } else {
-                                style = index % 3;
-                              }
-                              return VideoLiveBox(
-                                room: state.rooms.data![index],
-                                style: style,
-                              );
-                            }),
-                      ),
-              )
-            ],
-          );
-        } else if (state is GetFollwersRoomErrorState) {
-          return CustomErrorWidget(
-            message: state.error,
-          );
-        } else if (state is GetFollwersRoomLoadingState) {
-          return const LoadingWidget();
-        } else {
-          return LiquidPullToRefresh(
-              color: ColorManager.bage,
-              backgroundColor: ColorManager.mainColor,
-              showChildOpacityTransition: false,
-              onRefresh: () async {
-                BlocProvider.of<GetFollwersRoomBloc>(context)
-                    .add(const GetFollwersRoomEvent(type: "5"));
-              },
-              child: const CustomErrorWidget(
-                  message: StringManager.unexcepectedError));
-        }
-      },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

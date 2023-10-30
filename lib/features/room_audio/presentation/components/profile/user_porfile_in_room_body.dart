@@ -92,7 +92,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      myProfile
+                      myProfile//for the blockbutto
                           ? SizedBox(width: ConfigSize.defaultSize! * 8)
                           : Padding(
                               padding: EdgeInsets.only(
@@ -113,7 +113,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                       Column(
                         children: [
                           SizedBox(
-                            height: ConfigSize.defaultSize! * 1.5,
+                            height: ConfigSize.defaultSize! * 3,
+                           // height: ConfigSize.defaultSize! * 1.5,
                           ),
                           GradientTextVip(
                             text: widget.userData.name!,
@@ -180,6 +181,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                             ),
                         ],
                       ),
+                      //column for setting and mute buttons
                       Column(
                         children: [
                           SettingsButton(
@@ -230,7 +232,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                   ),
                 ),
                  SizedBox(
-                  height: ConfigSize.defaultSize!*5
+                  height: ConfigSize.defaultSize!*3
                 ),
                 Row(
                   children: [
@@ -318,7 +320,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
         Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 5.2),
+            padding: EdgeInsets.only(top: ConfigSize.screenHeight! * 0.05),
             child: InkWell(
               onTap: () {
                 Methods.instance.userProfileNvgator(

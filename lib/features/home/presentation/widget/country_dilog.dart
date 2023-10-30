@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/arrow_back.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
@@ -31,7 +31,7 @@ class _CountryDialogState extends State<CountryDialog> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Spacer(),
+        const Spacer(),
         Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * .7,
@@ -95,7 +95,7 @@ class _CountryDialogState extends State<CountryDialog> {
                                   ? CountryIcon(
                                       color: Colors.grey.withOpacity(0.6),
                                       flag: AssetsPath.fireIcon,
-                                      name: StringManager.popular)
+                                      name: StringManager.popular.tr())
                                   : CountryIcon(
                                       color: Colors.grey.withOpacity(0.6),
                                       flag: state.countrys[index - 1].flag,

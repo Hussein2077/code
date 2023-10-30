@@ -8,7 +8,6 @@ class CarouselsModel extends Equatable {
   final String img;
   final String url;
 
-  //final String contents;
 
   final int ownerId;
   final bool hasPassword;

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
-//
+
   static const int versionApp = 34;
 static const String androidPlatform='Android';
 static const String iOSPlatform='IOS';
@@ -519,7 +519,7 @@ static const String iOSPlatform='IOS';
   static const String likes = "Likes";
   static const String followingTab = "Following";
   static const String myMomentsTab = "My moments";
-  static const String allMomentsTab = "All Moments";
+  static const String trendingTab = "Trending";
 
   static const String noReels = "No Reels";
   static const String noMoreReels = "No More Reels";
@@ -533,6 +533,7 @@ static const String iOSPlatform='IOS';
   static const String downloadedData = 'data downloaded';
   static const String activeNotification = 'active notification';
   static const String data = 'Data';
+  static const String nooneIsAwake = 'nobody is open room now 😕';
   static const String lastSeen = "Last seen";
   static const String blocked = "Blocked";
   static const String youCanNotChat = "You cannot chat with this person";

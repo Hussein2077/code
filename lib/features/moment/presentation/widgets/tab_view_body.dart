@@ -18,7 +18,7 @@ class TabViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
       width: ConfigSize.screenWidth,
-      height: ConfigSize.screenHeight!*0.81,
+      height: ConfigSize.screenHeight!*0.84,
       padding: EdgeInsets.symmetric(
           horizontal: ConfigSize.defaultSize! * 0.2),
       child: ListView.builder(

@@ -7,8 +7,8 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class RoomTypeWidget extends StatelessWidget {
   final String type ; 
-  final int style ; 
-  const RoomTypeWidget({required this.type,  required this.style, super.key});
+  final int? style ;
+  const RoomTypeWidget({required this.type,  this.style, super.key});
 
   @override
   Widget build(BuildContext context) {

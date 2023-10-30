@@ -1,8 +1,10 @@
+
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
@@ -32,12 +34,23 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
   TextEditingController commentController = TextEditingController(text: '');
   final ScrollController scrollController = ScrollController();
 
+
+  double _keyboardHeight = 0;
+  final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
+  static ValueNotifier<bool> showTextFieldmoment = ValueNotifier<bool>(false);
+
+
+
   @override
   void initState() {
     BlocProvider.of<GetMomentCommentBloc>(context)
         .add(GetMomentCommentEvent(momentId: widget.momentId.toString()));
     super.initState();
     scrollController.addListener(scrollListener);
+    _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
+      _keyboardHeight = height;
+      showTextFieldmoment.value = !showTextFieldmoment.value;
+    });
   }
 
   @override
@@ -48,115 +61,122 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-       body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            SizedBox(
-              height: ConfigSize.defaultSize!,
-            ),
-            Row(
-              children: [
-                const Spacer(flex: 1,),
-                IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios)),
-                const Spacer(flex: 4,),
-                Text(StringManager.comments.tr(),style: Theme.of(context).textTheme.titleLarge,),
-                const Spacer(flex: 5,),
-              ],
-            ),
+    return SafeArea(
+      child: Scaffold(
+       resizeToAvoidBottomInset: false,
+         body: Column(
+           children: [
+             SizedBox(
+               height: ConfigSize.defaultSize!,
+             ),
+             Row(
+               children: [
+                 const Spacer(flex: 1,),
+                 IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios)),
+                 const Spacer(flex: 4,),
+                 Text(StringManager.comments.tr(),style: Theme.of(context).textTheme.titleLarge,),
+                 const Spacer(flex: 5,),
+               ],
+             ),
 
 
-            SizedBox(
-              width: ConfigSize.screenWidth!,
-              height: ConfigSize.screenHeight! * 0.65,
-              child: BlocBuilder<GetMomentCommentBloc, GetMomentCommentState>(
-                builder: (context, state) {
-                  if (state is GetMomentCommentSucssesState) {
+             SizedBox(
+               width: ConfigSize.screenWidth!,
+               height: ConfigSize.screenHeight! * 0.59,
+               child: BlocBuilder<GetMomentCommentBloc, GetMomentCommentState>(
+                 builder: (context, state) {
+                   if (state is GetMomentCommentSucssesState) {
 
-                    commentListtemp = state.data;
-                    log('commentListtemp${commentListtemp!.length}');
-                    log('commentListtemp${state.data!.length}');
-                    return Column(
-                      children: [
-                        Container(
-                          height: ConfigSize.screenHeight! * 0.54 ,
-                          padding: EdgeInsets.only(
-                            left: ConfigSize.defaultSize!,
-                            right: ConfigSize.defaultSize!,
-                          ),
-                          child: state.data!.isNotEmpty
-                              ? MomentComments(
-                            type: widget.type,
-                            momentCommentListModel:
-                            state.data!,
-                            scrollController: scrollController,
-                          )
-                              : Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.center,
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  StringManager.thisMomentc.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium,
-                                ),
-                              ]),
-                        ),
-                        CommentTextField(
-                          commentController: commentController,
-                          momentId: widget.momentId.toString(),
-                        ),
-                      ],
-                    );
-                  }
-                  else if (state is GetMomentCommentErrorState) {
-                    return CustomErrorWidget(
-                      message: state.errorMassage,
-                    );
-                  } else if (state is GetMomentCommentLoadingState) {
-                    if (commentListtemp!.isNotEmpty) {
-                      return Column(
-                        children: [
-                          Container(
-                            height: ConfigSize.screenHeight! * 0.5,
-                            padding: EdgeInsets.only(
-                              left: ConfigSize.defaultSize!,
-                              right: ConfigSize.defaultSize!,
-                            ),
-                            child: MomentComments(
-                              type: widget.type,
+                     commentListtemp = state.data;
+                     return Column(
+                       children: [
+                         state.data!.isNotEmpty
+                             ? Expanded(
+                           child: MomentComments(
+                             type: widget.type,
+                             momentCommentListModel: state.data!,
+                             scrollController: scrollController,
+                           ),
+                         )
+                             : Expanded(
+                           child: Center(
+                             child: Text(
+                               StringManager.thisMomentc
+                                   .tr(),
+                               style: Theme.of(context)
+                                   .textTheme
+                                   .bodyLarge,
+                             ),
+                           ),
+                         ),
+                         CommentTextField(
+                           commentController: commentController,
+                           momentId: widget.momentId.toString(),
+                         ),
+                         ValueListenableBuilder<bool>(
+                             valueListenable: showTextFieldmoment,
+                             builder: (context, isShow, _) {
+                               if (isShow) {
+                                 return   SizedBox(height:_keyboardHeight);
+                               } else {
+                                 return const SizedBox(height: 0,);
+                               }
+                             }
+                         )
+                       ],
+                     );
+                   }
+                   else if (state is GetMomentCommentErrorState) {
+                     return CustomErrorWidget(
+                       message: state.errorMassage,
+                     );
+                   }
+                   else if (state is GetMomentCommentLoadingState) {
+                     if (commentListtemp!.isNotEmpty) {
+                       return Column(
+                         children: [
+                           Expanded(
+                             child: MomentComments(
+                               type: widget.type,
+                               momentCommentListModel: commentListtemp!,
+                               scrollController: scrollController,
+                             ),
+                           ),
+                           CommentTextField(
+                             commentController: commentController,
+                             momentId: widget.momentId.toString(),
+                           ),
+                           ValueListenableBuilder<bool>(
+                               valueListenable: showTextFieldmoment,
+                               builder: (context, isShow, _) {
+                                 if (isShow) {
+                                   return SizedBox(height:_keyboardHeight);
+                                 } else {
+                                   return const SizedBox(height: 0,);
+                                 }
+                               }
+                           )
 
-                              momentCommentListModel: commentListtemp!,
-                              scrollController: scrollController,
-                            ),
-                          ),
-                          CommentTextField(
-                            commentController: commentController,
-                            momentId: widget.momentId.toString(),
-                          ),
-                        ],
-                      );
-                    }
-                    else {
-                      return  Align(
-                          alignment: Alignment.topCenter,
-                          child: LoadingWidget(height: ConfigSize.screenHeight!*.3,width: ConfigSize.screenWidth!*.3,));
-                    }
-                  } else {
-                    return
+                         ],
+                       );
+                     }
+                     else {
+                       return  Align(
+                           alignment: Alignment.topCenter,
+                           child: LoadingWidget(height: ConfigSize.screenHeight!*.3,width: ConfigSize.screenWidth!*.3,));
+                     }
+                   }
+                   else {
+                     return
 
-                      CustomErrorWidget(
-                        message: StringManager.noDataFoundHere.tr());
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
+                       CustomErrorWidget(
+                         message: StringManager.noDataFoundHere.tr());
+                   }
+                 },
+               ),
+             ),
+           ],
+         ),
       ),
     );
   }

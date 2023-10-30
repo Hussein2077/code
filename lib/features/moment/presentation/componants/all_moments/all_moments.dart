@@ -10,9 +10,9 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/tab_view_body.dart';
 
@@ -53,16 +53,19 @@ class _AllMomentsScreenState extends State<AllMomentsScreen> {
             if (state is GetMomentAllSucssesState) {
               tempData = state.data;
 
-              return state.data!.isEmpty
-                  ? const EmptyWidget(
+              return state.data!.isNotEmpty
+                  ? TabViewBody(momentModelList:state.data!,scrollController:scrollController , )
+                  :
+              const EmptyWidget(
                 message: StringManager.noDataFoundHere,
-              )
-                  :  TabViewBody(momentModelList:state.data!,scrollController:scrollController , );
-            } else if (state is GetMomentAllErrorState) {
+              );
+            }
+            else if (state is GetMomentAllErrorState) {
               return CustomErrorWidget(
                 message: state.errorMassage,
               );
-            } else if (state is GetMomentAllLoadingState) {
+            }
+            else if (state is GetMomentAllLoadingState) {
               if (tempData!.isNotEmpty) {
                 return  TabViewBody(momentModelList:tempData!,scrollController: scrollController, );
               } else {
@@ -75,8 +78,11 @@ class _AllMomentsScreenState extends State<AllMomentsScreen> {
                             0.2),
                     child: const LoadingWidget());
 
-              }          } else {
-              return const CustomErrorWidget(
+              }          }
+            else {
+              return
+
+                const CustomErrorWidget(
                 message: StringManager.noDataFoundHere,
               );
             }
