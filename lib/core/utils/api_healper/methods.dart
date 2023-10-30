@@ -839,7 +839,7 @@ class Methods {
         AduioBody.type = StringManager.popular;
         AduioBody.countryId = null;
         CountryDialog.flag = AssetsPath.fireIcon;
-        CountryDialog.name = StringManager.popular;
+        CountryDialog.name = StringManager.popular.tr();
         CountryDialog.selectedCountry.value =
         !CountryDialog.selectedCountry.value;
       }
