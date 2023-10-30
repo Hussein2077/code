@@ -425,10 +425,10 @@ class YallowBannerData {
 
 
 
-ChangeBackground(Map<String, dynamic> result, Map<String,String> roomDataUpdates ){
+ChangeBackground(Map<String, dynamic> result, Map<String,String> roomDataUpdates){
   RoomScreen.imgbackground.value = result[messageContent][imgBackgroundKey] ?? "";
   roomDataUpdates['room_img'] = result[messageContent][roomImgKey];
-   roomDataUpdates['room_intro']  = result[messageContent][roomIntroKey];
+  roomDataUpdates['room_intro']  = result[messageContent][roomIntroKey];
   roomDataUpdates['room_name'] = result[messageContent][roomNameKey];
   roomDataUpdates['room_type'] = result[messageContent]['room_type'] ?? "";
   RoomScreen.roomIsLoked = result[messageContent]['is_locked'];
