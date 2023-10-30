@@ -46,6 +46,8 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_event.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_join_family/bloc/join_family_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_join_family/bloc/join_family_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -845,10 +847,12 @@ class Methods {
         BlocProvider.of<GetFollwersRoomBloc>(context).add(const GetFollwersRoomEvent(type: "5"));
         BlocProvider.of<GetRoomsBloc>(context).add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
         BlocProvider.of<GetMomentallBloc>(context).add(const GetMomentAllEvent());
+        BlocProvider.of<JoinFamilyBloc>(context)
+            .add(InitJoinFamilyEvent() );
         AduioBody.type = StringManager.popular;
         AduioBody.countryId = null;
         CountryDialog.flag = AssetsPath.fireIcon;
-        CountryDialog.name = StringManager.popular;
+        CountryDialog.name = StringManager.popular.tr();
         CountryDialog.selectedCountry.value =
         !CountryDialog.selectedCountry.value;
       }
