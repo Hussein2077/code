@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -774,7 +775,7 @@ class Methods {
 
   Future addFireBaseNotifcationId() async {
     String token = await Methods().returnUserToken();
-    String? tokenn = await FirebaseMessaging.instance.getToken();
+    String? tokenn = FirebaseAuth.instance.currentUser?.uid.toString();
 
     await Dio().post(
       ConstentApi.editeUrl,

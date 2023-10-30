@@ -19,6 +19,10 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_p
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/get_group_massage/get_group_massage_bloc.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/manager_post_group_Chat/post_group_chat_bloc.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_bloc.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_events.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_event.dart';
@@ -466,6 +470,13 @@ final  String theme ;
           create: (context) => getIt<InAppPurchaseBloc>(),
         ),
         BlocProvider(create: (_) => getIt<GetMomentallBloc>()),
+        BlocProvider(create: (_) => getIt<GetGroupMassageBloc>()),
+        BlocProvider(
+          create: (context) =>
+          getIt<GetOfficialMsgsBloc>()..add(getOfficailMsgsEvent()),
+        ),
+        BlocProvider(create: (_) => getIt<PostGroupChatBloc>()),
+
 
       ],
       child:  BlocBuilder<ThemeBloc, ThemeState>(
