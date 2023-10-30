@@ -44,6 +44,7 @@ class _LogOutOrDeleteAccountButtonState
         listener: (context, state) async {
           if (state is LogOutSucssesState ||
               state is DeleteAccountSucssesState) {
+
             await FirebaseAuth.instance.signOut();
             SharedPreferences preference = getIt();
             preference.remove(StringManager.keepLogin);
@@ -60,11 +61,8 @@ class _LogOutOrDeleteAccountButtonState
 
           } else if (state is LogOutLoadingState ||
               state is DeleteAccountLoadingState) {
-            // ShowMToast().loadingToast(context, message: StringManager.errorInPayment, alignment: Alignment.bottomCenter);
           } else if (state is DeleteAccountErrorState) {
             LogOutOrDeleteAccountButton.isFirstTabInAcceptButton = true;
-            // showToastWidget(ToastWidget().errorToast(state.error),
-            //     context: context, position: StyledToastPosition.top);
           }
         },
         child: MainButton(
