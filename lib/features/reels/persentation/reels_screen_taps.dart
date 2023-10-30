@@ -48,8 +48,6 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
               children: const [
                 ReelsScreen(),
                 FollowingReelsScreen(),
-
-
               ],
             ),
             Padding(
@@ -73,6 +71,7 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                     style:
                     Theme.of(context).textTheme.headlineSmall,
                   ),
+
                   Text(
                     StringManager.followingReels.tr(),
                     style:

@@ -11,6 +11,7 @@ class ExpandableText extends StatefulWidget {
   final int trimLines;
   final TextStyle? style;
   final VoidCallback? onTap;
+  final TextAlign? textAlign;
 
 
   const ExpandableText(
@@ -19,6 +20,7 @@ class ExpandableText extends StatefulWidget {
         this.trimLines = 2,
         this.style,
         this.onTap,
+        this.textAlign,
 
       })  : super(key: key);
 
@@ -92,6 +94,7 @@ class ExpandableTextState extends State<ExpandableText> {
           );
         }
         return RichText(
+          textAlign: widget.textAlign ??TextAlign.left,
           softWrap: true,
           overflow: TextOverflow.clip,
           text: textSpan,
