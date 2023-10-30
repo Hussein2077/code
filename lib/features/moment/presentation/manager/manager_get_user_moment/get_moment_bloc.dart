@@ -46,13 +46,24 @@ class GetMomentBloc extends Bloc<BaseGetMomentEvent, GetMomentUserState> {
         {
           if (element.isLike) {
             element.isLike = false;
-            element.likeNum = element.likeNum - 1;
-
+            if (element.likeNum.endsWith('k')) {}
+            else {
+              int newLikeNum = 0;
+              newLikeNum = int.parse(element.likeNum) - 1;
+              element.likeNum = newLikeNum.toString();
+            }
             return true;
           } else {
             element.isLike = true;
-            element.likeNum = element.likeNum + 1;
+            if (element.likeNum.endsWith('k')) {
 
+
+            }
+            else {
+              int newLikeNum = 0;
+              newLikeNum = int.parse(element.likeNum) + 1;
+              element.likeNum = newLikeNum.toString();
+            }
             return true;
           }
         }
@@ -67,10 +78,26 @@ class GetMomentBloc extends Bloc<BaseGetMomentEvent, GetMomentUserState> {
       state.data!.firstWhere((element) {
         if (element.momentId.toString() == event.momentId.toString()) {
           if (event.type=="add") {
-            element.commentNum =  element.commentNum+1;
+            if (element.commentNum.endsWith('k')) {
+
+
+            }
+            else {
+              int newcomentnum = 0;
+              newcomentnum = int.parse(element.commentNum) + 1;
+              element.commentNum = newcomentnum.toString();
+            }
             return true;
           } else {
-            element.commentNum = element.commentNum - 1;
+            if (element.commentNum.endsWith('k')) {
+
+            }
+            else {
+              int newCommentNum = 0;
+              newCommentNum = int.parse(element.commentNum) - 1;
+              element.commentNum = newCommentNum.toString();
+            }
+
             return true;
           }
         } else {

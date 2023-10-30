@@ -10,9 +10,9 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/tab_view_body.dart';
 
@@ -78,10 +78,9 @@ class _AllMomentsScreenState extends State<AllMomentsScreen> {
                             0.2),
                     child: const LoadingWidget());
 
-              }          } else {
+              }          }
+            else {
               return
-
-                TabViewBody(momentModelList:tempData!,scrollController:scrollController , );
 
                 const CustomErrorWidget(
                 message: StringManager.noDataFoundHere,

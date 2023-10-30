@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -15,6 +17,9 @@ class MomentInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('kkkk${momentModel.frameId}');
+    log('kkkk${momentModel.frame}');
+
     return InkWell(
       onTap: () {
         Methods.instance.userProfileNvgator(
@@ -36,8 +41,8 @@ class MomentInfoRow extends StatelessWidget {
                 UserImage(
                   boxFit: BoxFit.cover,
                   image: momentModel.userImage,
-
-
+                  frame: momentModel.frame,
+                  frameId: momentModel.frameId,
                 ),
                 const Spacer(
                   flex: 1,

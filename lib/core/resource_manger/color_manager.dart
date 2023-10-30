@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorManager {
+
   static const Color whiteColor = Color(0xFFffffff);
   static const List<Color> mainColorList = [
     Color(0xFFFF382C),
@@ -32,9 +33,7 @@ class ColorManager {
   static const Color orangeRed = Color(0xFFFF6C19);
   static const Color darkPink = Color(0xFFF40A6D);
   static const Color goldLuck =  Color(0xFFFFE91E);
-
   static const Color bage = Color(0xFFFFEAC2);
-
   static const Color borwn = Color(0xFFA46200);
   static const Color lightOrange = Color(0xFFFFDECC);
   static const Color yellow = Color(0xFFFFAD38);
@@ -59,19 +58,14 @@ class ColorManager {
 
 
     static const Color hotyellow =     Color(0xFFFFBB0D);
+    static const Color shimmerGold1 =     Color(0xFFefcf34);
+    static const Color shimmerGold2 =     Color(0xFFd4a812);
 
 
    static const List<Color> yellowGrident = [
     Color(0xFFEEB609),
     Color(0xFFDBA514),
   ];
-   static const List<Color> goldId = [
-     ColorManager.yellow,
-     ColorManager.yellow,
-     ColorManager.lightGray,
-     ColorManager.yellow,
-     ColorManager.yellow,
-     ColorManager.lightGray,
-  ];
+
 
 }

@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_all/get_moment_all_state.dart';
+
+import 'get_moment_all_event.dart';
+import 'get_moment_all_state.dart';
 
 class GetMomentallBloc
     extends Bloc<BaseGetMomentAllEvent, GetMomentAllState> {
@@ -56,13 +57,25 @@ emit(GetMomentAllSucssesState(data: state.data));
         if (element.momentId.toString() == event.momentId.toString()) {
           if (element.isLike) {
             element.isLike = false;
-            element.likeNum = element.likeNum - 1;
 
+            if (element.likeNum.endsWith('k')) {}
+            else {
+              int newLikeNum = 0;
+              newLikeNum = int.parse(element.likeNum) - 1;
+              element.likeNum = newLikeNum.toString();
+            }
             return true;
           } else {
             element.isLike = true;
-            element.likeNum = element.likeNum + 1;
+            if (element.likeNum.endsWith('k')) {
 
+
+            }
+            else {
+              int newLikeNum = 0;
+              newLikeNum = int.parse(element.likeNum) + 1;
+              element.likeNum = newLikeNum.toString();
+            }
             return true;
           }
         } else {
@@ -76,13 +89,30 @@ emit(GetMomentAllSucssesState(data: state.data));
       state.data!.firstWhere((element) {
         if (element.momentId.toString() == event.momentId.toString()) {
           if (event.type=="add") {
-            element.commentNum =  element.commentNum+1;
-          
+
+            if (element.commentNum.endsWith('k')) {
+
+
+            }
+            else {
+              int newcomentnum = 0;
+              newcomentnum = int.parse(element.commentNum) + 1;
+              element.commentNum = newcomentnum.toString();
+            }
+            //element.commentNum =  element.commentNum+1;
+
 
             return true;
-          } else {
-            element.commentNum = element.commentNum - 1;
+          }
+          else {
+            if (element.commentNum.endsWith('k')) {
 
+            }
+            else {
+              int newCommentNum = 0;
+              newCommentNum = int.parse(element.commentNum) - 1;
+              element.commentNum = newCommentNum.toString();
+            }
             return true;
           }
         } else {
@@ -95,7 +125,15 @@ emit(GetMomentAllSucssesState(data: state.data));
     on<LocalGiftMomentAllEvent>((event,emit)async{
       state.data!.firstWhere((element) {
         if(element.momentId.toString()==event.momentId.toString()){
-          element.giftsCount= element.giftsCount+event.giftsNum;
+          if (element.giftsCount.endsWith('k')) {
+
+
+          }
+          else {
+            int newGiftNum = 0;
+            newGiftNum = int.parse(element.giftsCount) + event.giftsNum;
+            element.giftsCount = newGiftNum.toString();
+          }
           return true;
         }else{
           return false;

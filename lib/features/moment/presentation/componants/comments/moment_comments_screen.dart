@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +63,7 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+       resizeToAvoidBottomInset: false,
          body: Column(
            children: [
              SizedBox(
@@ -148,7 +150,7 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                                valueListenable: showTextFieldmoment,
                                builder: (context, isShow, _) {
                                  if (isShow) {
-                                   return   SizedBox(height:_keyboardHeight);
+                                   return SizedBox(height:_keyboardHeight);
                                  } else {
                                    return const SizedBox(height: 0,);
                                  }

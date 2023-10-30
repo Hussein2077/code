@@ -3,15 +3,17 @@ class MomentModel {
   final int userId;
   final String moment;
   final String momentImage;
-   int commentNum;
-   int likeNum;
-   int giftsCount;
+  dynamic commentNum;
+  dynamic likeNum;
+  dynamic giftsCount;
   final String creeatedTime;
   final String userName;
   final String userImage;
   final String uuid;
   final String receiverImage;
   final String senderImage;
+  final String frame;
+  final int frameId;
   final int vip;
   final bool hasColorName;
    bool isLike;
@@ -22,6 +24,8 @@ class MomentModel {
 
       {required this.momentId,
         required this.isLike,
+        required this.frame,
+        required this.frameId,
       required this.uuid,
       required this.hasColorName,
       required this.receiverImage,
@@ -55,6 +59,8 @@ class MomentModel {
       senderImage: json['user']['sender_img'],
       receiverImage: json['user']['receiver_img'],
       hasColorName: json['user']['has_color_name'],
+      frameId: json['user']['frame_id'],
+      frame: json['user']['frame'],
     );
 
   }
