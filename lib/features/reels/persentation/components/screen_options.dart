@@ -55,7 +55,8 @@ class ScreenOptions extends StatelessWidget {
           child: SizedBox(
             width:
                 MediaQuery.of(context).size.width - ConfigSize.defaultSize! * 2,
-            child: Stack(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,21 +230,42 @@ class ScreenOptions extends StatelessWidget {
                     // ),
                   ],
                 ),
-                Positioned(
-                  bottom: 0,
-                  left: ConfigSize.screenWidth!*0.1,
-                  child: SizedBox(
-                      width:ConfigSize.screenWidth!*0.8,
-                      //MediaQuery.of(context).size.width -
-                          //ConfigSize.defaultSize!,
-                      child: ExpandableText(
-                        item.description.toString(),
-                        trimLines: 3,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: ConfigSize.defaultSize! * 1.6),
-                        //overflow: TextOverflow.fade,
-                      )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width - ConfigSize.defaultSize! * 11,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                          width:ConfigSize.screenWidth!*0.7,
+                          //MediaQuery.of(context).size.width -
+                              //ConfigSize.defaultSize!,
+                          child: ExpandableText(
+                            item.description.toString(),
+                            textAlign: TextAlign.right,
+
+                            trimLines: 3,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: ConfigSize.defaultSize! * 1.6),
+                            //overflow: TextOverflow.fade,
+                          )),
+                      SizedBox(
+                          width:ConfigSize.screenWidth!*0.7,
+                          //MediaQuery.of(context).size.width -
+                              //ConfigSize.defaultSize!,
+                          child: ExpandableText(
+                            item.userName.toString(),
+                            textAlign: TextAlign.right,
+                            trimLines: 3,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: ConfigSize.defaultSize! * 1.6),
+                            //overflow: TextOverflow.fade,
+                          )),
+                    ],
+                  ),
                 ),
               ]
             ),
