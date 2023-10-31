@@ -1,4 +1,4 @@
-
+import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
@@ -34,9 +34,6 @@ import 'package:tik_chat_v2/splash.dart';
 import '../features/reels/persentation/reels_screen_taps.dart';
 import 'widget/bottom_bar_widget.dart';
 
-
-
-
 class MainScreen extends StatefulWidget {
   final bool? isChachGift;
 
@@ -50,13 +47,13 @@ class MainScreen extends StatefulWidget {
 
   final bool? isUpdate;
 
-  final Uri?  actionDynamicLink ;
+  final Uri? actionDynamicLink;
 
   static ValueNotifier<bool> iskeepInRoom = ValueNotifier<bool>(false);
 
   static EnterRoomModel? roomData;
 
-  static String reelId = '' ;
+  static String reelId = '';
 
   const MainScreen(
       {this.isCachFrame,
@@ -77,15 +74,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   late final AnimationController animationController;
 
-
-
   @override
   void initState() {
-    Future.delayed(Duration.zero,() async {
-      await FirebaseAuth.instance.signOut();
-    });
-    Methods.instance.getDependencies(context);
 
+    Methods.instance.getDependencies(context);
 
     listenToInternet();
     initPusher();
@@ -93,9 +85,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     )..repeat();
-
-
-
 
     super.initState();
   }
@@ -108,178 +97,115 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-        future: Future.delayed(const Duration(seconds: 2)),
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SizedBox();
-          } else {
-            return WillPopScope(
-                onWillPop: () async {
-                  // showExitDialog() ;
-                  return false;
-                },
-                child: StreamBuilder(
-                    stream: FirebaseAuth.instance.authStateChanges(),
-
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        Methods().addFireBaseNotifcationId();
-
-                        return Stack(
-                            children: [
-                              Scaffold(
-                                backgroundColor: Theme
-                                    .of(context)
-                                    .colorScheme
-                                    .background,
-                                body: BottomNavLayout(
-                                  pages: [
-                                        (_) =>
-                                        HomeScreen(
-                                          isCachExtra: widget.isCachExtra,
-                                          isCachFrame: widget.isCachFrame,
-                                          isChachGift: widget.isChachGift,
-                                          isUpdate: widget.isUpdate,
-                                          isCachEmojie: widget.isCachEmojie,
-                                          isCachEntro: widget.isCachEntro,
-                                          actionDynamicLink: widget
-                                              .actionDynamicLink,
-
-                                        ),
-                                        (_) => const ReelsScreenTaps(),
-                                        (_) => const FollowingLiveScreen(),
-                                        (_) => const MomentScreen(),
-                                        (_) => const ProfileScreen(),
-                                  ],
-                                  bottomNavigationBar: (currentIndex, onTap) =>
-                                      BottomBarWidget(
-                                        currentIndex: currentIndex,
-                                        onTap: onTap,
-                                      ),
-                                  savePageState: true,
-                                  lazyLoadPages: true,
-                                  pageStack: ReorderToFrontPageStack(
-                                      initialPage: SplashScreen.initPage),
-                                  extendBody: false,
-                                  resizeToAvoidBottomInset: true,
-                                  pageTransitionData: null,
-                                ),
-                              ),
-                              ValueListenableBuilder<bool>(
-                                  valueListenable: MainScreen.iskeepInRoom,
-                                  builder: (BuildContext context, bool value,
-                                      Widget? child) {
-                                    if (value) {
-                                      return DraggableFloatWidget(
-                                        config: const DraggableFloatWidgetBaseConfig(
-                                          initPositionYInTop: false,
-                                          initPositionYMarginBorder: 50,
-                                          borderTopContainTopBar: true,
-                                          borderBottom: 30,
-                                        ),
-                                        onTap: () {
-                                          RoomScreen.outRoom = false;
-                                          Navigator.pushNamed(
-                                              context, Routes.roomScreen,
-                                              arguments: RoomPramiter(
-                                                  roomModel: MainScreen
-                                                      .roomData!,
-                                                  myDataModel: MyDataModel
-                                                      .getInstance(),
-                                                  isHost: MyDataModel
-                                                      .getInstance()
-                                                      .id
-                                                      .toString() ==
-                                                      MainScreen.roomData!
-                                                          .ownerId
-                                                          .toString()));
-                                        },
-                                        child: Stack(
-                                          children: [
-                                            RotationTransition(
-                                                turns: animationController,
-                                                child: UserImage(
-                                                  imageSize: ConfigSize
-                                                      .defaultSize! * 14,
-                                                  image: MainScreen.roomData!
-                                                      .roomCover!,
-                                                )),
-                                            GestureDetector(
-                                              onTap: () async {
-                                                bottomDailog(
-                                                    context: context,
-                                                    widget: TransparentLoadingWidget(
-                                                      height: ConfigSize
-                                                          .defaultSize! * 2,
-                                                      width: ConfigSize
-                                                          .defaultSize! * 7.2,
-                                                    ));
-
-                                                await Methods.instance.exitFromRoom(
-                                                    MainScreen.roomData!.ownerId
-                                                        .toString());
-                                                Navigator.pop(context);
-                                                MainScreen.iskeepInRoom.value =
-                                                false;
-                                              },
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.black
-                                                          .withOpacity(0.5),
-                                                      borderRadius: BorderRadius
-                                                          .circular(
-                                                          20)),
-                                                  padding: const EdgeInsets.all(
-                                                      4),
-                                                  child: Icon(
-                                                    CupertinoIcons.clear,
-                                                    color: Colors.white,
-                                                    size: AppPadding.p10,
-                                                  )),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    } else {
-                                      return const SizedBox();
-                                    }
-                                  })
-                            ]);
-                      } else {
-                        return BlocBuilder<GetMyDataBloc, GetMyDataState>(
-                            builder: (context, state) {
-                              if (state is GetMyDataSucssesState) {
-          if (!kDebugMode) {
-            return FireBaseSignIn(
-              phone: "0",
-              email: "Eelhamody@gmail.com",
-              password: "Eelhamody@gmail.com",
-              data: state.myDataModel,
-            );
-          }else {
-            return FireBaseSignIn(
-              phone: state.myDataModel.phone ??"0",
-              email: "${state.myDataModel.id}@gmail.com",
-              password: "${state.myDataModel.id}@gmail.com",
-              data: state.myDataModel,
-            );
-          }
+    return BlocListener<GetMyDataBloc, GetMyDataState>(
+  listener: (context, state) {
+    if (state is GetMyDataSucssesState){
 
 
-                              } else if(state is GetMyDataErrorState) {
-                                return CustomErrorWidget(message: state.errorMassage,);
-                              }else{
-                                return const LoadingWidget();
-                              }
+      if (state.myDataModel.profile!.age==0 || state.myDataModel.profile!.country==""){
+        Navigator.pushNamedAndRemoveUntil(context, Routes.addInfo, (route) => false) ;
+      }
+    }
+  },
+  child: WillPopScope(
+        onWillPop: () async {
+          // showExitDialog() ;
+          return false;
+        },
+        child: Stack(children: [
+          Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            body: BottomNavLayout(
+              pages: [
+                (_) => HomeScreen(
+                      isCachExtra: widget.isCachExtra,
+                      isCachFrame: widget.isCachFrame,
+                      isChachGift: widget.isChachGift,
+                      isUpdate: widget.isUpdate,
+                      isCachEmojie: widget.isCachEmojie,
+                      isCachEntro: widget.isCachEntro,
+                      actionDynamicLink: widget.actionDynamicLink,
+                    ),
+                (_) => const ReelsScreenTaps(),
+                (_) => const FollowingLiveScreen(),
+                (_) => const MomentScreen(),
+                (_) => const ProfileScreen(),
+              ],
+              bottomNavigationBar: (currentIndex, onTap) => BottomBarWidget(
+                currentIndex: currentIndex,
+                onTap: onTap,
+              ),
+              savePageState: true,
+              lazyLoadPages: true,
+              pageStack:
+                  ReorderToFrontPageStack(initialPage: SplashScreen.initPage),
+              extendBody: false,
+              resizeToAvoidBottomInset: true,
+              pageTransitionData: null,
+            ),
+          ),
+          ValueListenableBuilder<bool>(
+              valueListenable: MainScreen.iskeepInRoom,
+              builder: (BuildContext context, bool value, Widget? child) {
+                if (value) {
+                  return DraggableFloatWidget(
+                    config: const DraggableFloatWidgetBaseConfig(
+                      initPositionYInTop: false,
+                      initPositionYMarginBorder: 50,
+                      borderTopContainTopBar: true,
+                      borderBottom: 30,
+                    ),
+                    onTap: () {
+                      RoomScreen.outRoom = false;
+                      Navigator.pushNamed(context, Routes.roomScreen,
+                          arguments: RoomPramiter(
+                              roomModel: MainScreen.roomData!,
+                              myDataModel: MyDataModel.getInstance(),
+                              isHost: MyDataModel.getInstance().id.toString() ==
+                                  MainScreen.roomData!.ownerId.toString()));
+                    },
+                    child: Stack(
+                      children: [
+                        RotationTransition(
+                            turns: animationController,
+                            child: UserImage(
+                              imageSize: ConfigSize.defaultSize! * 14,
+                              image: MainScreen.roomData!.roomCover!,
+                            )),
+                        GestureDetector(
+                          onTap: () async {
+                            bottomDailog(
+                                context: context,
+                                widget: TransparentLoadingWidget(
+                                  height: ConfigSize.defaultSize! * 2,
+                                  width: ConfigSize.defaultSize! * 7.2,
+                                ));
 
-                            }
-                        );
-                      }
-                    }
-                ));
-          }
-        });
+                            await Methods.instance.exitFromRoom(
+                                MainScreen.roomData!.ownerId.toString());
+                            Navigator.pop(context);
+                            MainScreen.iskeepInRoom.value = false;
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(20)),
+                              padding: const EdgeInsets.all(4),
+                              child: Icon(
+                                CupertinoIcons.clear,
+                                color: Colors.white,
+                                size: AppPadding.p10,
+                              )),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              })
+        ])),
+);
   }
 
   listenToInternet() {
@@ -288,20 +214,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           event == ConnectivityResult.mobile) {
         if (!isFirst) {
           Methods.instance.getDependencies(context);
-      }
-      isFirst = false;
+        }
+        isFirst = false;
       } else if (event == ConnectivityResult.none) {
-      errorToast(
-      context: context, title: StringManager.checkYourInternet.tr());
+        errorToast(
+            context: context, title: StringManager.checkYourInternet.tr());
       }
     });
   }
 
-
-
-
-  void initPusher()async {
-    HomeScreen.pusherService.initPusher(
-        "4fb9e086738157749a5a","eu");
+  void initPusher() async {
+    HomeScreen.pusherService.initPusher("4fb9e086738157749a5a", "eu");
   }
 }

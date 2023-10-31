@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_use
 import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_apple_us.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/send_code_usecase.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_policy/privacy_policy_bloc.dart';
@@ -828,6 +829,7 @@ getIt.registerLazySingleton(
 
     getIt.registerLazySingleton(() => GetFollowingReelUseCase(baseRepositoryReel: getIt()));
 
+    getIt.registerLazySingleton(() => FirebaseLoginBloc());
 
 
 //repo

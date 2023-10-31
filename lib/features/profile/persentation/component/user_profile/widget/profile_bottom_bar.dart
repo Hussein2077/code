@@ -74,7 +74,7 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
                         myName: MyDataModel.getInstance().name!));
               } else {
                 errorToast(context: context, title: StringManager.friends);
-            
+
               }
             },),
             // bottomBarColumn(
