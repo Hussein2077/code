@@ -24,6 +24,8 @@ class UserImage extends StatelessWidget {
 
   final bool? isRoom ;
 
+  final double constValue  = 1.7 ;
+
   const UserImage(
       {this.frameId,
       this.frame,
@@ -42,10 +44,10 @@ class UserImage extends StatelessWidget {
         children: [
           SizedBox(
              width: imageSize != null
-                ? imageSize! * 1.5
+                ? imageSize! * constValue
                 : ConfigSize.defaultSize! * 5,
             height: imageSize != null
-                ? imageSize! * 1.5
+                ? imageSize! * constValue
                 : ConfigSize.defaultSize! * 5,
           ),
           Container(
@@ -59,13 +61,13 @@ class UserImage extends StatelessWidget {
                         ConstentApi().getImage(image)))),
             child: child,
           ),
-          if ((frameId != null && frameId != "" && frame != null && frame != "")&&(isRoom==false))
+          if ((frameId != null && frameId != "" && frame != null && frame != "")&&(isRoom!=true))
             SizedBox(
                 width: imageSize != null
-                    ? imageSize! * 1.5
+                    ? imageSize! * constValue
                     : ConfigSize.defaultSize! * 7,
                 height: imageSize != null
-                    ? imageSize! * 1.5
+                    ? imageSize! * constValue
                     : ConfigSize.defaultSize! * 7,
                 child: ShowSVGA(imageId: "${frameId}Frame", url: frame!)),
 
