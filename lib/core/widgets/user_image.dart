@@ -69,7 +69,7 @@ class UserImage extends StatelessWidget {
                     : ConfigSize.defaultSize! * 7,
                 child: ShowSVGA(imageId: "${frameId}Frame", url: frame!)),
 
-           if (isRoom==true)
+           if (isRoom??false)
             SizedBox(
                 width: imageSize != null
                     ? imageSize! * 1.85
