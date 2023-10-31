@@ -1,5 +1,7 @@
 
 
+import 'dart:math';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';

@@ -72,6 +72,7 @@ class PopUpDialog extends StatelessWidget {
                       StringManager.cancel.tr(),
                       style: Theme.of(context).textTheme.bodyMedium,
                     )),
+                if(!(unShowCancle??false))
                 SizedBox(
                   height: ConfigSize.defaultSize! * 2,
                   child: const VerticalDivider(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:persian_linear_date_picker/persian_linear_date_picker.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/date/date_dilog.dart';
@@ -62,7 +63,7 @@ class _DateWidgetState extends State<DateWidget> {
                       ),
                     ),
                    MainButton(onTap: (){
-                         Navigator.pop(context);
+                     Navigator.pop(context);
                           rebuild();
                    },
                    
@@ -71,6 +72,7 @@ class _DateWidgetState extends State<DateWidget> {
                   ],
                 )),
           );
+
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),

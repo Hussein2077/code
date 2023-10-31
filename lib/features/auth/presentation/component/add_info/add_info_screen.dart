@@ -7,14 +7,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_state.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/toast.dart';
 import 'widgets/add_profile_pic.dart';
 import 'widgets/continer_with_icons.dart';
 import 'widgets/country_widget.dart';
@@ -23,6 +26,7 @@ import 'widgets/male_female_buttons.dart';
 
 class AddInfoScreen extends StatefulWidget {
   ThirdPartyAuthModel Data;
+
   AddInfoScreen({required this.Data, super.key});
 
   @override
@@ -31,18 +35,19 @@ class AddInfoScreen extends StatefulWidget {
 
 class _AddInfoScreenState extends State<AddInfoScreen> {
   late TextEditingController nameController;
+
   @override
   void initState() {
     nameController = TextEditingController();
-    if(widget.Data.type.toString() == "google"){
-    if (widget.Data.data.displayName != null) {
-      nameController.text = widget.Data.data.displayName!;
+    if (widget.Data.type.toString() == "google") {
+      if (widget.Data.data.displayName != null) {
+        nameController.text = widget.Data.data.displayName!;
+      }
     }
-    }
-    if(widget.Data.type.toString() == "apple"){
-    if(widget.Data.data.givenName != null){
-      nameController.text = widget.Data.data.givenName!;
-    }
+    if (widget.Data.type.toString() == "apple") {
+      if (widget.Data.data.givenName != null) {
+        nameController.text = widget.Data.data.givenName!;
+      }
     }
 
     super.initState();
@@ -71,7 +76,12 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 1,
               ),
-              AddProFilePic(gooleImageUrl: widget.Data.type.toString() == "google"? widget.Data.data.photoUrl : null, quality: 40,),
+              AddProFilePic(
+                gooleImageUrl: widget.Data.type.toString() == "google"
+                    ? widget.Data.data.photoUrl
+                    : null,
+                quality: 40,
+              ),
               const Spacer(
                 flex: 1,
               ),
@@ -118,15 +128,23 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                   onTap: () {
                     bool result = valadate();
                     if (result) {
-                      BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
-                          image: AddProFilePic.image == null
-                              ? AddProFilePic.googleImage
-                              :File( AddProFilePic.image!.path),
-                          gender: MaleFemaleButtons.selectedGender,
-                          country: CountryWidget.countryFlag!,
-                          name: nameController.text,
-                          date: DateWidget.selectedDatee,
-                          countryCode: CountryWidget.codeContry!));
+                      if (Methods().calculateAge(DateWidget.selectedDatee) >=
+                          18) {
+                        BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
+                            image: AddProFilePic.image == null
+                                ? AddProFilePic.googleImage
+                                : File(AddProFilePic.image!.path),
+                            gender: MaleFemaleButtons.selectedGender,
+                            country: CountryWidget.countryFlag!,
+                            name: nameController.text,
+                            date: DateWidget.selectedDatee,
+                            countryCode: CountryWidget.codeContry!));
+                      } else {
+                        errorToast(
+                          context: context,
+                          title: StringManager.yourAgeIsUnder18,
+                        );
+                      }
                     }
                   },
                   title: StringManager.done),

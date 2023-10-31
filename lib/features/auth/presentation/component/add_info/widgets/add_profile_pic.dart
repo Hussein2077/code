@@ -69,7 +69,7 @@ class _AddProFilePicState extends State<AddProFilePic> {
                 width: ConfigSize.defaultSize! * 11,
                 height: ConfigSize.defaultSize! * 11,
 
-                decoration: MyDataModel.getInstance().profile?.image != ""
+                decoration: MyDataModel.getInstance().profile?.image != ""&&MyDataModel.getInstance().profile?.image != null
                     &&AddProFilePic.image==null ?
                 BoxDecoration(
                         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
