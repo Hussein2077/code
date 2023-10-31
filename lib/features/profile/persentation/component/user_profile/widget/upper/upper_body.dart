@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -27,6 +28,7 @@ class UpperProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(myDataModel.profile!.age.toString());
+     log('QWERTY${!myProfile}');
     return InkWell(
       onTap: () {
         // if(ReelsPage.videoPlayerController != null){
@@ -70,23 +72,28 @@ class UpperProfileBody extends StatelessWidget {
                     const Spacer(
                       flex: 6,
                     ),
-                    if(!myProfile)
-                    if(myDataModel.nowRoom!.isnInRoom!)
-                      UserImage(
-                        isRoom: true,
-                          frame: "",
-                          frameId: null,
-                          image: myDataModel.profile!.image!,
-                          boxFit: BoxFit.cover,
-                          imageSize: ConfigSize.defaultSize! * 8),
-                    if(!myProfile)
-                      if(myDataModel.nowRoom!.isnInRoom==false)
-                    UserImage(
-                      frame: myDataModel.frame,
-                      frameId: myDataModel.familyId,
-                        image: myDataModel.profile!.image!,
-                        boxFit: BoxFit.cover,
-                        imageSize: ConfigSize.defaultSize! * 8),
+                      InkWell(
+                        onTap: () {
+                          if(myDataModel.nowRoom?.isnInRoom??false){
+                            Methods.instance.checkIfRoomHasPassword(
+                                myData: MyDataModel.getInstance(),
+                                context: context,
+                                hasPassword:
+                                myDataModel.nowRoom!.roomstatus!,
+                                ownerId:
+                                myDataModel.nowRoom!.uid.toString(),
+                                isInRoom: MainScreen.iskeepInRoom.value);
+                          }
+                        },
+                        child: UserImage(
+                            isRoom: (myDataModel.nowRoom?.isnInRoom??false),
+                            frame: (myDataModel.nowRoom?.isnInRoom??false)? myDataModel.frame:"",
+                            frameId: (myDataModel.nowRoom?.isnInRoom??false)? myDataModel.frameId:null,
+                            image: myDataModel.profile!.image!,
+                            boxFit: BoxFit.cover,
+                            imageSize: ConfigSize.defaultSize! * 8),
+                      ),
+
                     const Spacer(
                       flex: 1,
                     ),
