@@ -59,8 +59,8 @@ class MomentModel {
       senderImage: json['user']['sender_img'],
       receiverImage: json['user']['receiver_img'],
       hasColorName: json['user']['has_color_name'],
-      frameId: json['user']['frame_id'],
-      frame: json['user']['frame'],
+      frameId: json['user']['frame_id']??0,
+      frame: json['user']['frame']??"",
     );
 
   }
