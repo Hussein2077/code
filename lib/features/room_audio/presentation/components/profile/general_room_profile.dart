@@ -28,6 +28,7 @@ class GeneralRoomProfile extends StatefulWidget {
       required this.roomData,
       required this.layoutMode,
       super.key});
+
   MyDataModel myData;
   EnterRoomModel roomData;
   String userId;
@@ -38,85 +39,73 @@ class GeneralRoomProfile extends StatefulWidget {
 }
 
 class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
-
-
-
-
   @override
   Widget build(BuildContext context) {
-    
-      BlocProvider.of<GetUserBloc>(context)
-          .add(GetuserEvent(userId: widget.userId));
-  
+    BlocProvider.of<GetUserBloc>(context)
+        .add(GetuserEvent(userId: widget.userId));
 
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
-     listener: (context, state) {
-    if (state is SuccessAddAdminRoomState) {
-      sucssesToast(context: context, title: StringManager.beComeAdmin.tr());
-  
-    } else if (state is ErrorAddAdminRoomState) {
-      errorToast(context: context, title: state.errorMessage);
-   
-    }
-    },
+      listener: (context, state) {
+        if (state is SuccessAddAdminRoomState) {
+          sucssesToast(context: context, title: StringManager.beComeAdmin.tr());
+        } else if (state is ErrorAddAdminRoomState) {
+          errorToast(context: context, title: state.errorMessage);
+        }
+      },
       child: BlocListener<UsersInRoomBloc, OnUserInRoomStates>(
         listener: (context, state) {
-    if (state is SuccessKickoutState) {
-      sucssesToast(context: context, title: state.successMessage);
-   
-      Navigator.pop(context);
-    } else if (state is ErrorKickoutState) {
+          if (state is SuccessKickoutState) {
+            sucssesToast(context: context, title: state.successMessage);
 
-      errorToast(context: context, title: state.errorMessage);
-     
-    }
-    },
+            Navigator.pop(context);
+          } else if (state is ErrorKickoutState) {
+            errorToast(context: context, title: state.errorMessage);
+          }
+        },
         child: BlocBuilder<GetUserBloc, GetUserState>(
           builder: (context, state) {
             if (state is GetUserLoddingState) {
-              return  RoomScreen.usersInRoom[widget.userId] == null
+              return RoomScreen.usersInRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
-                      height: ConfigSize.screenHeight! / 2,
+                      height: ConfigSize.defaultSize! * 2,
+                      width: ConfigSize.defaultSize! * 5.2,
                     )
                   : UserProfileInRoom(
-                       myData: widget.myData,
-                  roomData: widget.roomData,
-                  userData: RoomScreen.usersInRoom[widget.userId]!,
-                  layoutMode: widget.layoutMode
-
-              );
+                      myData: widget.myData,
+                      roomData: widget.roomData,
+                      userData: RoomScreen.usersInRoom[widget.userId]!,
+                      layoutMode: widget.layoutMode);
             } else if (state is GetUserSucssesState) {
-              RoomScreen.usersInRoom.removeWhere((key, value) => key == state.data.id.toString());
+              RoomScreen.usersInRoom
+                  .removeWhere((key, value) => key == state.data.id.toString());
               RoomScreen.usersInRoom
                   .putIfAbsent(state.data.id.toString(), () => state.data);
               return UserProfileInRoom(
-                       myData: widget.myData,
+                  myData: widget.myData,
                   roomData: widget.roomData,
                   userData: state.data,
-                  layoutMode: widget.layoutMode
-
-              );
+                  layoutMode: widget.layoutMode);
             } else if (state is GetUserErorrState) {
               return InkWell(
                 onTap: () => Navigator.pop(context),
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height/2,
-                  child: CustomErrorWidget(message: state.error,)),
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: CustomErrorWidget(
+                      message: state.error,
+                    )),
               );
             } else {
-             return RoomScreen.usersInRoom[widget.userId] == null
+              return RoomScreen.usersInRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
-                height: ConfigSize.defaultSize!*2,
-                width: ConfigSize.defaultSize!*7.2,
+                      height: ConfigSize.defaultSize! * 2,
+                      width: ConfigSize.defaultSize! * 5.2,
                     )
-                  :UserProfileInRoom(
-                           myData: widget.myData,
+                  : UserProfileInRoom(
+                      myData: widget.myData,
                       roomData: widget.roomData,
                       userData: RoomScreen.usersInRoom[widget.userId]!,
                       layoutMode: widget.layoutMode,
-                    
-                  );
-           
+                    );
             }
           },
         ),
