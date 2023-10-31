@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -15,8 +17,14 @@ class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState>
     on<FireBaseLoginEvent>((event, emit) async{
 
       await FirebaseAuth.instance.signOut();
+ if (kDebugMode){
+   await FirebaseAuth.instance.signInWithEmailAndPassword(
+       email: "eelhamody@gmail.com",
+       password:"eelhamody@gmail.com"
+   );
+ }else {
 
-      try {
+   try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: "${MyDataModel.getInstance().id}@gmail.com",
             password:"${MyDataModel.getInstance().id}@gmail.com"
@@ -37,7 +45,10 @@ class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState>
         //     context, Routes.login, (route) => false);
 
       }
+ }
       Methods().addFireBaseNotifcationId();
+      Functions.updateAvailability(MyDataModel.getInstance().id.toString(),
+          MyDataModel.getInstance().name.toString(), MyDataModel.getInstance().profile!.image!);
 
 
 

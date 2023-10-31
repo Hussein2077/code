@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -108,7 +110,8 @@ class Card2 extends StatelessWidget {
                   }
                 );
                   }else {
-               return     ProfileRowItem(
+
+                    return     ProfileRowItem(
                       title: StringManager.chat.tr(),
                       image: AssetsPath.chatIcon,
 
