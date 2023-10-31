@@ -51,8 +51,9 @@ class FirstSecThrUsers extends StatelessWidget {
               margin: EdgeInsets.only(
                 top: position,
               ),
-              height: height,
+              // height: height,
               child: UserImage(
+                imageSize:height ,
                 image: userData.avater!,
                 frameId: userData.frameId,
                 frame:userData.frame ,
