@@ -860,5 +860,25 @@ class Methods {
         !CountryDialog.selectedCountry.value;
       }
 
+  int calculateAge(String date) {
+    if(date==''){
+      return 0;
+    }
+    DateTime currentDate = DateTime.now();
+    DateTime   birthDate=DateTime.parse(date.replaceAll('/', '-'));
+    int age = currentDate.year - birthDate.year;
+    int month1 = currentDate.month;
+    int month2 = birthDate.month;
+    if (month2 > month1) {
+      age--;
+    } else if (month1 == month2) {
+      int day1 = currentDate.day;
+      int day2 = birthDate.day;
+      if (day2 > day1) {
+        age--;
+      }
+    }
+    return age;
+  }
 
 }

@@ -265,6 +265,7 @@ static const String iOSPlatform='IOS';
   static const String senderLevel = "Sender Level";
   static const String receiverLevel = "Receiver Level";
   static const String yourThemeIsUpload = "Your Theme is upload please wait to approve";
+  static const String yourAgeIsUnder18 = "Your age is under 18";
   static const String anotherAccountLoggedIn ="Account has been logged in from another device,\nYou have no account" ;
 
 
