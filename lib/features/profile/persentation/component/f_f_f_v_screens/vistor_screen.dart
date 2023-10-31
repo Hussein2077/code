@@ -53,12 +53,9 @@ class _VistorScreenState extends State<VistorScreen> {
                       itemExtent: 80,
                       itemBuilder: (context, index) {
                         return UserInfoRow(
-                          idOrNot: Expanded(
-
-                            child: Text(
-                              " ${Methods.instance.formatDateTime(dateTime:state.data![index].visitTime ?? '', locale: context.locale.languageCode)}",
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 10),
-                            ),
+                          idOrNot: Text(
+                            " ${Methods.instance.formatDateTime(dateTime:state.data![index].visitTime ?? '', locale: context.locale.languageCode)}",
+                            style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 10),
                           ),
                           userData: state.data![index],
                           endIcon: Icon(

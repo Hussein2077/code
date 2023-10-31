@@ -54,6 +54,8 @@ class FirstSecThrUsers extends StatelessWidget {
               height: height,
               child: UserImage(
                 image: userData.avater!,
+                frameId: userData.frameId,
+                frame:userData.frame ,
               )),
           SizedBox(
             width: ConfigSize.defaultSize! * 6,

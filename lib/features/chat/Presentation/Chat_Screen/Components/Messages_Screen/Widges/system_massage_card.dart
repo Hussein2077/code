@@ -29,7 +29,8 @@ class SystemMaasageCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start, children: [
           SizedBox(width: ConfigSize.defaultSize!*4 , height:  ConfigSize.defaultSize!*4, child: const Image(image: AssetImage(AssetsPath.system))),
            Card(
             shape: RoundedRectangleBorder(
@@ -39,24 +40,32 @@ class SystemMaasageCard extends StatelessWidget {
              child: Container(
               width: ConfigSize.screenWidth!*0.8,
               height: ConfigSize.defaultSize!*10,
+              margin: EdgeInsets.all( ConfigSize.defaultSize!*0.5),
               decoration: BoxDecoration(
                 color: ColorManager.gold1.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*2),
                  ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: ConfigSize.defaultSize!*0.5,),
-               SizedBox(
-                 width: ConfigSize.screenWidth!*0.5,
-                 child: Text(title.toString(),
-                   style: TextStyle(color: ColorManager.orang , fontSize: ConfigSize.defaultSize!*1.4 ,
-                     fontWeight: FontWeight.bold ,),),
-               ),
+              child: Row(
 
-               SizedBox(height: ConfigSize.defaultSize!*0.5,),
-                Text(content ,style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.5),)
+                children: [
+                  SizedBox(width: ConfigSize.defaultSize!,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: ConfigSize.defaultSize!*0.5,),
+                   SizedBox(
+                     width: ConfigSize.screenWidth!*0.7,
+                     child: Text(title.toString(),
+                       style: TextStyle(color: ColorManager.orang , fontSize: ConfigSize.defaultSize!*1.4 ,
+                         fontWeight: FontWeight.bold ,),
+                     overflow:TextOverflow.fade ,),
+                   ),
+
+                   SizedBox(height: ConfigSize.defaultSize!*0.5,),
+                    Text(content ,style: TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.5),)
+                    ],
+                  ),
                 ],
               ),
                      ),

@@ -13,9 +13,12 @@ class ShimmerId extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Brightness currentBrightness = Theme.of(context).brightness;
+    bool isDarkTheme = currentBrightness == Brightness.dark;
     return Shimmer.fromColors(
+     // period: const Duration(microseconds:1 ),
       baseColor: ColorManager.shimmerGold1.withOpacity(0.9),
-      highlightColor: ColorManager.whiteColor.withOpacity(0.5),
+      highlightColor: isDarkTheme?ColorManager.darkBlack.withOpacity(0.5):ColorManager.whiteColor.withOpacity(0.5),
       child: Text(
         'ID: $id',
         style: style ?? Theme.of(context).textTheme.titleSmall,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +65,7 @@ class ChatWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(title.toString(),style: Theme.of(context).textTheme.headlineLarge,),
-                      Text(content,style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white.withOpacity(0.8)),overflow:TextOverflow.fade ,)],
+                      Text(content,style: Theme.of(context).textTheme.bodyMedium,overflow:TextOverflow.fade ,)],
                   ),
                 )
               ],

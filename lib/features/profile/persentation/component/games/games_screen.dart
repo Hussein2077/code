@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
+import 'package:tik_chat_v2/core/widgets/force_rotate_widget.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/dialog_games.dart';
 
@@ -94,7 +95,10 @@ class GamesScreen extends StatelessWidget {
     String token = await Methods.instance.returnUserToken() ;
     if(index==0){
       log("url${StringManager.teenPatti}${token}");
-      Navigator.push(context, MaterialPageRoute(builder: ((context) => WebViewInRoom(url: '${StringManager.teenPatti}${token}',))));
+
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) => const ForceRotateWidget(widget: WebViewInRoom(url: 'http://167.172.6.20/Test/Tik-Chat-Seven-full/index.html?token=694|SbQAJQ2rGaE0BVxfa0NC6XGcwFH3EeodH6xaIHE6fa8214a0&sound=0&language=ar',),))));
+     // Navigator.push(context, MaterialPageRoute(builder: ((context) => WebViewInRoom(url: 'http://167.172.6.20/Test/Tik-Chat-Seven-full/index.html?token=694|SbQAJQ2rGaE0BVxfa0NC6XGcwFH3EeodH6xaIHE6fa8214a0&sound=0&language=ar',))));
 
     }else if(index ==1){
       log("url${StringManager.roulette}${token}");

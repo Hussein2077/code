@@ -98,29 +98,14 @@ class UserInfoRow extends StatelessWidget {
                           SizedBox(
                             width: ConfigSize.defaultSize!*.5,
                           ),
-                          idOrNot ??
+                          idOrNot!=null ?
                               userData.isGold?
                           ShimmerId(id: userData.uuid.toString(),style: Theme.of(context).textTheme.titleSmall,)
                               :
                               Text(
                                 "ID ${userData.uuid.toString()}",
                                 style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                          //   myDataModel.isGold?
-                          //                         Shimmer.fromColors(
-                          //                           baseColor:
-                          //
-                          //                               ColorManager.shimmerGold1.withOpacity(0.9),
-                          //                           highlightColor:
-                          //                               ColorManager.whiteColor.withOpacity(0.5),
-                          //                           child: Text(
-                          //                             'ID: ${myDataModel.uuid.toString()}',
-                          //                             style: TextStyle(
-                          //                                 color: Colors.white,
-                          //                                 fontSize: ConfigSize.defaultSize! * 1.2,
-                          //                                 fontWeight: FontWeight.w700),
-                          //                           ),
-                          //                         ):
+                              ):const SizedBox()
                         ],
                       ),
                 )
