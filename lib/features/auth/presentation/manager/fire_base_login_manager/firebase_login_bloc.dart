@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -22,6 +23,7 @@ class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState>
        password:"eelhamody@gmail.com"
    );
  }else {
+
    try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: "${MyDataModel.getInstance().id}@gmail.com",
@@ -45,6 +47,8 @@ class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState>
       }
  }
       Methods().addFireBaseNotifcationId();
+      Functions.updateAvailability(MyDataModel.getInstance().id.toString(),
+          MyDataModel.getInstance().name.toString(), MyDataModel.getInstance().profile!.image!);
 
 
 
