@@ -99,13 +99,14 @@ class UserInfoRow extends StatelessWidget {
                             width: ConfigSize.defaultSize!*.5,
                           ),
                           idOrNot!=null ?
+                          idOrNot!:
                               userData.isGold?
                           ShimmerId(id: userData.uuid.toString(),style: Theme.of(context).textTheme.titleSmall,)
                               :
                               Text(
                                 "ID ${userData.uuid.toString()}",
                                 style: Theme.of(context).textTheme.titleSmall,
-                              ):const SizedBox()
+                              )
                         ],
                       ),
                 )

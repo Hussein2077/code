@@ -17,7 +17,7 @@ class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState>
     on<FireBaseLoginEvent>((event, emit) async{
 
       await FirebaseAuth.instance.signOut();
- if (kDebugMode){
+ if (!kDebugMode){
    await FirebaseAuth.instance.signInWithEmailAndPassword(
        email: "eelhamody@gmail.com",
        password:"eelhamody@gmail.com"
