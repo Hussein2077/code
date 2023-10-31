@@ -4,6 +4,7 @@
 import 'package:dio/dio.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/chat/data/models/official_msgs_model.dart';
 
 
@@ -26,7 +27,8 @@ class RemotedDataSourceChat extends BaseDataSourceChat {
   @override
   Future <OfficialSystemModel> getOfficailMsgs() async {
     Map<String, String> headers = await DioHelper().header();
- 
+    final timeZone=await Methods.instance.getCurrentTimeZone();
+    headers.addAll({'tz':timeZone});
 
     try {
      final response = await Dio().get(

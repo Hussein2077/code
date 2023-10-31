@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -8,8 +7,6 @@ import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
-import 'package:tik_chat_v2/features/home/presentation/component/top_users/top_user_screen.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
 
 class FirstSecThrUsers extends StatelessWidget {
   final double position;

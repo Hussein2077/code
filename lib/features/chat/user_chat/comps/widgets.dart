@@ -29,7 +29,7 @@ class ChatWidgets {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
           elevation: 0,
           child: InkWell(
             onTap: onTap,
