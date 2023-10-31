@@ -788,7 +788,6 @@ class ZegoLiveSeatManager {
         );
 
       });
-      log("11111111111111111111111111112222222");
 
 
       return true;

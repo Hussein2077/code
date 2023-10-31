@@ -418,7 +418,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
     }
 
     if(popupItems.length==1 && popupItems.contains(popupItem)){
-    log(widget.seatManager.getUserByIndex.toString()+"xxxxxxxx");
+
       bottomDailog(
           context: context,
           widget:
