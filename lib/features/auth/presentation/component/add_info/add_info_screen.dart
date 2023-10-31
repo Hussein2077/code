@@ -22,8 +22,8 @@ import 'widgets/date/date_widget.dart';
 import 'widgets/male_female_buttons.dart';
 
 class AddInfoScreen extends StatefulWidget {
-  ThirdPartyAuthModel Data;
-  AddInfoScreen({required this.Data, super.key});
+  ThirdPartyAuthModel? Data;
+  AddInfoScreen({ this.Data, super.key});
 
   @override
   State<AddInfoScreen> createState() => _AddInfoScreenState();
@@ -34,15 +34,17 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   @override
   void initState() {
     nameController = TextEditingController();
-    if(widget.Data.type.toString() == "google"){
-    if (widget.Data.data.displayName != null) {
-      nameController.text = widget.Data.data.displayName!;
-    }
-    }
-    if(widget.Data.type.toString() == "apple"){
-    if(widget.Data.data.givenName != null){
-      nameController.text = widget.Data.data.givenName!;
-    }
+    if (widget.Data!=null) {
+      if (widget.Data!.type.toString() == "google") {
+        if (widget.Data!.data.displayName != null) {
+          nameController.text = widget.Data!.data.displayName!;
+        }
+      }
+      if (widget.Data!.type.toString() == "apple") {
+        if (widget.Data!.data.givenName != null) {
+          nameController.text = widget.Data!.data.givenName!;
+        }
+      }
     }
 
     super.initState();
@@ -71,7 +73,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 1,
               ),
-              AddProFilePic(gooleImageUrl: widget.Data.type.toString() == "google"? widget.Data.data.photoUrl : null, quality: 40,),
+              AddProFilePic(gooleImageUrl: widget.Data?.type.toString() == "google"? widget.Data?.data.photoUrl : null, quality: 40,),
               const Spacer(
                 flex: 1,
               ),

@@ -69,7 +69,7 @@ class _CountryDialogState extends State<CountryDialog> {
                                   AduioBody.type = StringManager.popular;
                                   AduioBody.countryId = null;
                                   CountryDialog.flag = AssetsPath.fireIcon;
-                                  CountryDialog.name = StringManager.popular;
+                                  CountryDialog.name = StringManager.popular.tr();
                                   BlocProvider.of<GetRoomsBloc>(context).add(
                                       GetRoomsEvent(
                                           typeGetRooms: TypeGetRooms.popular));

@@ -29,6 +29,8 @@ import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
@@ -849,6 +851,7 @@ class Methods {
         BlocProvider.of<GetMomentallBloc>(context).add(const GetMomentAllEvent());
         BlocProvider.of<JoinFamilyBloc>(context)
             .add(InitJoinFamilyEvent() );
+        BlocProvider.of<FirebaseLoginBloc>(context).add(const FireBaseLoginEvent());
         AduioBody.type = StringManager.popular;
         AduioBody.countryId = null;
         CountryDialog.flag = AssetsPath.fireIcon;

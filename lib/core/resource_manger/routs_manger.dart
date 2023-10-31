@@ -192,7 +192,7 @@ class RouteGenerator {
                   password: otbScreenParm.password,
                 ));
       case Routes.addInfo:
-        ThirdPartyAuthModel Data = settings.arguments as ThirdPartyAuthModel;
+        ThirdPartyAuthModel? Data = settings.arguments as ThirdPartyAuthModel?;
         return MaterialPageRoute(
             builder: (_) => AddInfoScreen(
                   Data: Data,

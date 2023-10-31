@@ -25,7 +25,7 @@ bool cheakisAdminOrHost(
     UserDataModel userData, MyDataModel myData, EnterRoomModel roomData) {
   bool isAdminORHost =
       ((userData.id != myData.id && userData.id != roomData.ownerId) &&
-          (RoomScreen.adminsInRoom.containsKey(myData.id) ||
+          (RoomScreen.adminsInRoom.containsKey(myData.id.toString()) ||
               myData.id == roomData.ownerId));
   return isAdminORHost;
 }
