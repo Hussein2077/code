@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -8,6 +7,7 @@ import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
+import 'package:tik_chat_v2/core/widgets/shimmer_id.dart';
 import 'user_country_icon.dart';
 import 'user_image.dart';
 
@@ -99,10 +99,28 @@ class UserInfoRow extends StatelessWidget {
                             width: ConfigSize.defaultSize!*.5,
                           ),
                           idOrNot ??
+                              userData.isGold?
+                          ShimmerId(id: userData.uuid.toString(),style: Theme.of(context).textTheme.titleSmall,)
+                              :
                               Text(
                                 "ID ${userData.uuid.toString()}",
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
+                          //   myDataModel.isGold?
+                          //                         Shimmer.fromColors(
+                          //                           baseColor:
+                          //
+                          //                               ColorManager.shimmerGold1.withOpacity(0.9),
+                          //                           highlightColor:
+                          //                               ColorManager.whiteColor.withOpacity(0.5),
+                          //                           child: Text(
+                          //                             'ID: ${myDataModel.uuid.toString()}',
+                          //                             style: TextStyle(
+                          //                                 color: Colors.white,
+                          //                                 fontSize: ConfigSize.defaultSize! * 1.2,
+                          //                                 fontWeight: FontWeight.w700),
+                          //                           ),
+                          //                         ):
                         ],
                       ),
                 )

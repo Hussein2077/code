@@ -63,7 +63,8 @@ class _ChatPageState extends State<ChatPage> {
         Navigator.pushNamed(context, Routes.systemmessages);
       },
     ];
-
+    Brightness currentBrightness = Theme.of(context).brightness;
+    bool isDarkTheme = currentBrightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
         child:Column(
@@ -76,9 +77,9 @@ class _ChatPageState extends State<ChatPage> {
                 if(ModalRoute.of(context)!.canPop) const ArrowBack(color: ColorManager.darkBlack,),
                 Text(StringManager.chat.tr(),
                   style: TextStyle(
-                    color: ColorManager.orang,
+                    color: ColorManager.darkBlack,
                     fontWeight: FontWeight.bold,
-                    fontSize:  ConfigSize.defaultSize!*3,
+                    fontSize:  ConfigSize.defaultSize!*2.5,
                   ),
                 ),
               ],
@@ -207,6 +208,7 @@ class _ChatPageState extends State<ChatPage> {
                               ['unRead'],
                               ));
                               },
+                                context: context,
                               );
                               });
                               },

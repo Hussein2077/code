@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -54,10 +55,13 @@ class _LikedScreenState extends State<LikedScreen> {
             if (state is GetMomentILikeItSucssesState) {
               tempData=state.data!;
               return state.data!.isEmpty
-                  ? const EmptyWidget(
-                    message:
-                    StringManager.noDataFoundHere,
-                  )
+                  ? EmptyWidget(
+                message: StringManager.nooneIsAwake.tr(),
+                backgrpundColor: Colors.transparent,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge,
+              )
                   :TabViewBody(momentModelList:state.data!,scrollController: scrollController);
             } else if (state is GetMomentILikeItErrorState) {
               return CustomErrorWidget(

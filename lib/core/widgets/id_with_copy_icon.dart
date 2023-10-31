@@ -24,22 +24,19 @@ class IdWithCopyIcon extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          userData.isGold!
-              ? Shimmer.fromColors(
-                  baseColor: ColorManager.shimmerGold1.withOpacity(0.9),
-                  highlightColor: ColorManager.shimmerGold2.withOpacity(0.5),
+
+          Shimmer.fromColors(
+                  baseColor:
+                  userData.isGold!
+                      ?ColorManager.shimmerGold1.withOpacity(0.9):ColorManager.orang,
+                  highlightColor: userData.isGold!
+                      ?ColorManager.whiteColor.withOpacity(0.5):ColorManager.orang,
                   child: Text(
                     'ID: ${userData.uuid.toString()}',
                     style: TextStyle(
                       fontSize: ConfigSize.defaultSize! * 1.9,
                     ),
                   ),
-                )
-              : Text(
-                  'ID: ${userData.uuid.toString()}',
-                  style: TextStyle(
-                      color: ColorManager.orang,
-                      fontSize: ConfigSize.defaultSize! * 1.7),
                 ),
           SizedBox(
             width: ConfigSize.defaultSize,

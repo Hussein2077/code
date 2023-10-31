@@ -31,7 +31,7 @@ class CustoumCachedImage extends StatelessWidget{
       imageUrl: ConstentApi().getImage(url) ,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius??0),
+          borderRadius: BorderRadius.circular(radius??20),
           image: DecorationImage(
               image: imageProvider, fit:boxFit ?? BoxFit.cover),
         ),

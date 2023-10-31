@@ -120,8 +120,8 @@ class MomentScreenState extends State<MomentScreen>
                   height: ConfigSize.defaultSize! * 4,
                   width: ConfigSize.screenWidth,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                    border: Border.all(color: Theme.of(context).colorScheme.primary),
+                    color: Colors.grey.withOpacity(0.5),
+                    border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(
                         ConfigSize.defaultSize! * 1.5),
                   ),

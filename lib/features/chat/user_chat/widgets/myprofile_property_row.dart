@@ -44,13 +44,13 @@ class MyProfilPropertyRow extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(iconPath),
+                  Image.asset(iconPath,color:iconPath==AssetsPath.groupChat?ColorManager.yellow:null ,),
                   const Spacer(
                     flex: 1,
                   ),
                   Text(
                     title,
-                    style:  TextStyle(fontSize: ConfigSize.defaultSize!*1.8,color: ColorManager.darkBlack),
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 if(descriptiontitle!=null)
                   Row(
