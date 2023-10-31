@@ -383,17 +383,18 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                 ),
                 ChatWidgets.messageField(
                     onSubmit: onSubmit, onSubmitImage: onSubmitImage , focusNode: focusNode, context: context),
-                ValueListenableBuilder<bool>(
-                    valueListenable: showTextField,
-                    builder: (context, isShow, _) {
-                      if (isShow) {
-                        return SizedBox(height: _keyboardHeight);
-                      } else {
-                        return const SizedBox(
-                          height: 0,
-                        );
-                      }
-                    })
+                // ValueListenableBuilder<bool>(
+                //     valueListenable: showTextField,
+                //     builder: (context, isShow, _) {
+                //       if (isShow) {
+                //
+                //         return SizedBox(height: _keyboardHeight);
+                //       } else {
+                //         return const SizedBox(
+                //           height: 0,
+                //         );
+                //       }
+                //     })
               ],
             ),
           );
