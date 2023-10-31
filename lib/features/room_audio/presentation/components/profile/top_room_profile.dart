@@ -77,7 +77,7 @@ class _TopRoomProfileState extends State<TopRoomProfile> {
             if (state is GetUserLoddingState) {
               return TransparentLoadingWidget(
                 height: ConfigSize.defaultSize!*2,
-                width: ConfigSize.defaultSize!*7.2,
+                width: ConfigSize.defaultSize!*5.2,
               );
             } else if (state is GetUserSucssesState) {
               RoomScreen.usersInRoom.removeWhere((key, value) => key == state.data.id.toString());

@@ -69,6 +69,17 @@ class UpperProfileBody extends StatelessWidget {
                     const Spacer(
                       flex: 6,
                     ),
+                    if(!myProfile)
+                    if(myDataModel.nowRoom!.isnInRoom!)
+                      UserImage(
+                        isRoom: true,
+                          frame: "",
+                          frameId: null,
+                          image: myDataModel.profile!.image!,
+                          boxFit: BoxFit.cover,
+                          imageSize: ConfigSize.defaultSize! * 8),
+                    if(!myProfile)
+                      if(myDataModel.nowRoom!.isnInRoom==false)
                     UserImage(
                       frame: myDataModel.frame,
                       frameId: myDataModel.familyId,
@@ -89,24 +100,6 @@ class UpperProfileBody extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                           isVip: myDataModel.hasColorName!,
                         ),
-                        if (!myProfile)
-                          if (myDataModel.nowRoom!.isnInRoom!)
-                            MainButton(
-                              title: StringManager.nowInRoom.tr(),
-                              buttonColor: ColorManager.mainColorList,
-                              onTap: () {
-                                Methods.instance.checkIfRoomHasPassword(
-                                    myData: MyDataModel.getInstance(),
-                                    context: context,
-                                    hasPassword:
-                                        myDataModel.nowRoom!.roomstatus!,
-                                    ownerId:
-                                        myDataModel.nowRoom!.uid.toString(),
-                                    isInRoom: MainScreen.iskeepInRoom.value);
-                              },
-                              width: ConfigSize.defaultSize! * 12.7,
-                              height: ConfigSize.defaultSize! * 4.4,
-                            ),
                       ],
                     ),
 

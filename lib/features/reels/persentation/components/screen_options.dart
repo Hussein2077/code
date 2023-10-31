@@ -240,24 +240,28 @@ class ScreenOptions extends StatelessWidget {
                       SizedBox(
                           width:ConfigSize.screenWidth!*0.7,
                           //MediaQuery.of(context).size.width -
-                              //ConfigSize.defaultSize!,
+                          //ConfigSize.defaultSize!,
                           child: ExpandableText(
-                            item.description.toString(),
+                            item.userName.toString(),
                             textAlign: TextAlign.right,
-
                             trimLines: 3,
                             style: TextStyle(
+                              fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: ConfigSize.defaultSize! * 1.6),
+                                fontSize: ConfigSize.defaultSize! * 1.8),
                             //overflow: TextOverflow.fade,
                           )),
+                      SizedBox(
+                        height: ConfigSize.defaultSize,
+                      ),
                       SizedBox(
                           width:ConfigSize.screenWidth!*0.7,
                           //MediaQuery.of(context).size.width -
                               //ConfigSize.defaultSize!,
                           child: ExpandableText(
-                            item.userName.toString(),
+                            item.description.toString(),
                             textAlign: TextAlign.right,
+
                             trimLines: 3,
                             style: TextStyle(
                                 color: Colors.white,

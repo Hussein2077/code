@@ -259,6 +259,9 @@ class AssetsPath {
   static const String groupChat = "$pathIcon/group_chat.png";
   static const String tikTeam = "$pathIcon/tik_team.png";
   static const String system = "$pathIcon/system.png";
+  static const String isRoomGIF = "$pathIcon/is_room.gif";
+
+
 
 
   

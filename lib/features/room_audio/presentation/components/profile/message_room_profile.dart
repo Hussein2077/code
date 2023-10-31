@@ -72,7 +72,7 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
               return  RoomScreen.usersMessagesProfileRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
                 height: ConfigSize.defaultSize!*2,
-                width: ConfigSize.defaultSize!*7.2,
+                width: ConfigSize.defaultSize!*5.2,
               ) : UserProfileInRoom(
                   myData: widget.myData,
                   roomData: widget.roomData,
