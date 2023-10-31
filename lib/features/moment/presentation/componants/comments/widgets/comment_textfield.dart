@@ -33,7 +33,7 @@ return Row(
         maxLines: null,
         controller: commentController,
         textInputAction: TextInputAction.send,
-        cursorColor: const Color(0xffA653ff),
+        //cursorColor: const Color(0xffA653ff),
         cursorHeight:
         ConfigSize.defaultSize! * 3,
         cursorWidth:

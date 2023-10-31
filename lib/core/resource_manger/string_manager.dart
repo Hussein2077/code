@@ -136,6 +136,7 @@ static const String iOSPlatform='IOS';
   static const String followingLive = "Following Live";
   static const String messages = "Messages";
   static const String friends = "Friends";
+  static const String youAreNotFriends = "Friends";
   static const String search = "Search";
   static const String coins = "Coins";
   static const String silver = "Silver";
@@ -544,6 +545,7 @@ static const String iOSPlatform='IOS';
   static const String officialAccount = "Official Account";
   static const String toSendMassage = "To send Massage";
   static const String hinttext = "Say something...";
+  static const String enetrMessage = 'Enter Message';
 
 
 

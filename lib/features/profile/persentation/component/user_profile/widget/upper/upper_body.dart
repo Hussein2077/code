@@ -1,8 +1,8 @@
-import 'dart:developer';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/core/widgets/shimmer_id.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/upper/header.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
@@ -133,6 +134,11 @@ class UpperProfileBody extends StatelessWidget {
                         SizedBox(
                           width: ConfigSize.defaultSize!,
                         ),
+                        myDataModel.isGold?
+                        ShimmerId(id: myDataModel.uuid.toString(),style: TextStyle(
+                            color: Colors.white,
+                            fontSize: ConfigSize.defaultSize! * 1.2,
+                            fontWeight: FontWeight.w700),):
                         itemContiner(
                           title: "ID ${myDataModel.uuid}",
                         ),

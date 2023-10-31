@@ -24,6 +24,7 @@ class OfficialMessagesScreen extends StatefulWidget {
 
 class _OfficialMessagesScreenState extends State<OfficialMessagesScreen> {
   @override
+
   Widget build(BuildContext context) {
     BlocProvider.of<GetOfficialMsgsBloc>(context)
                         .add( getOfficailMsgsEvent() );

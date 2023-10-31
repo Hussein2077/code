@@ -49,7 +49,7 @@ class FamilyMemberScreen extends StatefulWidget {
 }
 
 class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
-   late final ShowFamilyModel? familydata;
+   late  ShowFamilyModel? familydata;
 
   final ScrollController scrollController = ScrollController();
 
@@ -88,7 +88,8 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                   .add(ShowFamilyEvent(id: widget.owner.familyId.toString()));
 
               sucssesToast(context: context, title: state.massage);
-            } else if (state is FamilyRemoveUserErrorState) {
+            }
+            else if (state is FamilyRemoveUserErrorState) {
               errorToast(context: context, title: state.error);
             }
           },

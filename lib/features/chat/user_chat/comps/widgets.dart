@@ -1,4 +1,5 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -9,8 +10,8 @@ import 'package:tik_chat_v2/features/chat/user_chat/comps/animated-dialog.dart';
 import '../../../../core/utils/config_size.dart';
 import 'styles.dart';
 
-
 class ChatWidgets {
+
   static Widget card(
       {title,
       time,
@@ -19,54 +20,150 @@ class ChatWidgets {
       image,
       cheakRead,
       sentby,
-      unReadMessages}) {
+      unReadMessages,
+      context,
+      }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3.0),
       child: Card(
-    shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(15),
-    ),
-    color: Colors.white.withOpacity(0.5),
-        elevation: 0,
-        child: ListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+          elevation: 0,
+          child: InkWell(
             onTap: onTap,
-            contentPadding: const EdgeInsets.all(5),
-            leading: UserImage(
-                image:image,
-                imageSize: ConfigSize.defaultSize! * 5),
-            title: Text(title),
-            subtitle: subtitle != null ? Text(subtitle) : null,
-            trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+            child: Row(
               children: [
-                if (unReadMessages != 0 &&
-                    sentby != FirebaseAuth.instance.currentUser!.uid)
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.red),
-                    child: Text(
-                      '${unReadMessages}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                SizedBox(
-                  height: ConfigSize.defaultSize!,
+                InkWell(
+                  onTap: () {
+                    showImageViewer(
+                        context,
+                        CachedNetworkImageProvider(
+                          ConstentApi().getImage(image),
+                        ),
+                        swipeDismissible: false);
+                  },
+                  child: UserImage(
+                      image: image, imageSize: ConfigSize.defaultSize! * 6),
                 ),
-                Text(
-                  time,
-                  style: (unReadMessages != 0 &&
-                          sentby != FirebaseAuth.instance.currentUser!.uid)
-                      ? const TextStyle(color: Colors.red, fontSize: 12)
-                      : const TextStyle(color: Colors.black),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+
+                          color:Colors.white ,
+                        fontSize: ConfigSize.defaultSize!*1.8
+                      ),
+                    ),
+                    SizedBox(
+                      width: ConfigSize.screenWidth!*0.5,
+                      child: Text(
+                        subtitle,
+                        style: TextStyle(
+
+                            color:Colors.white ,
+                            fontSize: ConfigSize.defaultSize!*1.4
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(
+                  flex: 5,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (unReadMessages != 0 &&
+                        sentby != FirebaseAuth.instance.currentUser!.uid)
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.red),
+                        child: Text(
+                          '${unReadMessages}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    SizedBox(
+                      height: ConfigSize.defaultSize!,
+                    ),
+                    Text(
+                      time,
+                      style: (unReadMessages != 0 &&
+                              sentby != FirebaseAuth.instance.currentUser!.uid)
+                          ? const TextStyle(color: Colors.red, fontSize: 12)
+                          : const TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                const Spacer(
+                  flex: 1,
                 ),
               ],
-            )),
-      ),
+            ),
+          )
+
+          // ListTile(
+          //     onTap: onTap,
+          //     contentPadding: const EdgeInsets.all(5),
+          //     leading:
+          //     InkWell(
+          //       onTap: (){
+          //
+          //         showImageViewer(
+          //             context,
+          //             CachedNetworkImageProvider(
+          //               ConstentApi().getImage(image),
+          //             ),
+          //             swipeDismissible: false);
+          //       },
+          //       child: UserImage(
+          //           image:image,
+          //           imageSize: ConfigSize.defaultSize! * 7),
+          //     ),
+          //     title: Text( title,style: Theme.of(context).textTheme.bodyLarge!,),
+          //     subtitle: subtitle != null ? Text(subtitle) : null,
+          //     trailing:
+          //     Column(
+          //       mainAxisAlignment: MainAxisAlignment.end,
+          //       children: [
+          //         if (unReadMessages != 0 &&
+          //             sentby != FirebaseAuth.instance.currentUser!.uid)
+          //           Container(
+          //             padding: const EdgeInsets.all(4),
+          //             decoration: const BoxDecoration(
+          //                 shape: BoxShape.circle, color: Colors.red),
+          //             child: Text(
+          //               '${unReadMessages}',
+          //               style: const TextStyle(
+          //                 color: Colors.white,
+          //                 fontSize: 12,
+          //               ),
+          //               textAlign: TextAlign.center,
+          //             ),
+          //           ),
+          //         SizedBox(
+          //           height: ConfigSize.defaultSize!,
+          //         ),
+          //         Text(
+          //           time,
+          //           style: (unReadMessages != 0 &&
+          //                   sentby != FirebaseAuth.instance.currentUser!.uid)
+          //               ? const TextStyle(color: Colors.red, fontSize: 12)
+          //               : const TextStyle(color: Colors.black),
+          //         ),
+          //       ],
+          //     )),
+          ),
     );
   }
 
@@ -224,25 +321,63 @@ class ChatWidgets {
           );
   }
 
-  static messageField({required onSubmitImage, required onSubmit , required FocusNode focusNode}) {
+  static messageField(
+      {required onSubmitImage,
+      required onSubmit,
+      // required dynamic Function(TextEditingController) onSubmit ,
+      required FocusNode focusNode,
+      required BuildContext context}) {
     final con = TextEditingController();
 
     return Container(
+      width: ConfigSize.screenWidth,
+      height: ConfigSize.screenHeight! * 0.06,
       margin: const EdgeInsets.all(5),
-      child: TextField(
-        focusNode: focusNode,
-        textInputAction: TextInputAction.done,
-        onSubmitted: (value) {
-          onSubmit(con);
-        },
-        controller: con,
-        decoration: Styles.messageTextFieldStyle(onSubmitImage: () {
-          onSubmitImage();
-        }, onSubmit: () {
-          onSubmit(con);
-        }),
+      //decoration: Styles.messageFieldCardStyle(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+            width: ConfigSize.screenWidth! * 0.82,
+            height: ConfigSize.screenHeight! * 0.06,
+            child: TextField(
+              focusNode: focusNode,
+              textInputAction: TextInputAction.done,
+              onSubmitted: (value) {
+                onSubmit(con);
+              },
+              controller: con,
+              decoration: Styles.messageTextFieldStyle(
+                  onSubmitImage: () {
+                    onSubmitImage();
+                  },
+                  onSubmit: () {
+                    onSubmit(con);
+                  },
+                  context: context),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              onSubmit(con);
+            },
+            child: Container(
+              width: ConfigSize.screenHeight! * 0.06,
+              height: ConfigSize.screenHeight! * 0.06,
+              decoration: BoxDecoration(
+                color:  Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                borderRadius: BorderRadius.all(
+                    Radius.circular(ConfigSize.defaultSize! * 5)),
+                border:Border.all(color: Theme.of(context).colorScheme.primary),
+              ),
+              child: const Icon(
+                Icons.send,
+                color: ColorManager.orang,
+              ),
+            ),
+          )
+        ],
       ),
-      decoration: Styles.messageFieldCardStyle(),
     );
   }
 

@@ -73,8 +73,8 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
                         notificationId: widget.userData.notificationId!,
                         myName: MyDataModel.getInstance().name!));
               } else {
-                errorToast(context: context, title: StringManager.friends);
-
+                errorToast(context: context, title: StringManager.youAreNotFriends);
+            
               }
             },),
             // bottomBarColumn(

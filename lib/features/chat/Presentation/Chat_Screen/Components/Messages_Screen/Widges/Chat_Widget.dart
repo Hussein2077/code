@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 
 import '../../../../../../../core/utils/config_size.dart';
@@ -33,20 +36,34 @@ class ChatWidget extends StatelessWidget {
                 border: Border.all(
                     color: ColorManager.lightGray,
                     width: 1 // red as border color
-                    )),
+                    ),
+
+
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustoumCachedImage(
-                  url: img,
-                  height: ConfigSize.defaultSize! * 24,
-                  width: double.maxFinite,
+                if(img!='')
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                          color: ColorManager.lightGray,
+                          width: 1 // red as border color
+                      )),
+                  child: CustoumCachedImage(
+                    url: img,
+                    height: ConfigSize.defaultSize! * 18,
+                    width: double.maxFinite,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(title.toString()), Text(content)],
+                    children: [
+                      Text(title.toString(),style: Theme.of(context).textTheme.headlineLarge,),
+                      Text(content,style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white.withOpacity(0.8)),overflow:TextOverflow.fade ,)],
                   ),
                 )
               ],
@@ -54,7 +71,16 @@ class ChatWidget extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(creadet),
+            child: Text(
+              Methods.instance.formatDateTime(
+                  dateTime: creadet,
+                  locale: context.locale.languageCode),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(
+                  fontSize: ConfigSize.defaultSize! ),
+            ),
           )
         ],
       ),
