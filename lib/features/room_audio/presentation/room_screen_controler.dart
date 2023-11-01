@@ -29,7 +29,10 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_use
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/splash.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class EmojieData {
   final String emojie;
@@ -203,8 +206,8 @@ List<Color> colors = const [
 
 int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) {
   if (layoutMode == LayoutMode.hostTopCenter) {
-    ZegoUIKitPrebuiltLiveAudioRoomState.seatManager
-        ?.takeOnSeat(0, owerId: ownerId);
+    ZegoLiveAudioRoomManagers().seatManager
+        ?.takeOnSeat(0, ownerId: ownerId);
     return 0;
   } else if (layoutMode == LayoutMode.party) {
     return 0;
@@ -280,7 +283,7 @@ Future<void> clearAll() async {
 }
 
 Future<void> distroyMusic() async {
-  await ZegoUIKit().stopMedia();
+  await ZegoUIKit.instance.stopMedia();
   MusicScreen.isPlaying.value = false;
 }
 
@@ -341,8 +344,8 @@ invitationDialog(BuildContext context, String owerId, int index) {
     builder: (BuildContext context) => InvitationToMicDialog(
       onClick: () async {
         Navigator.pop(context);
-        await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
-            .takeOnSeat(index, owerId: owerId);
+        await ZegoLiveAudioRoomManagers().seatManager!
+            .takeOnSeat(index, ownerId: owerId);
       },
     ),
   );

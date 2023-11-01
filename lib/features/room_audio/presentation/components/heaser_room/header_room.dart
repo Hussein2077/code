@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -20,8 +19,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_r
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class HeaderRoom extends StatelessWidget {
   final EnterRoomModel room;

@@ -18,6 +18,7 @@ import firebase_messaging
 import firebase_storage
 import flutter_secure_storage_macos
 import in_app_purchase_storekit
+import package_info_plus
 import path_provider_foundation
 import platform_device_id
 import platform_device_id_macos
@@ -27,7 +28,7 @@ import shared_preferences_foundation
 import sign_in_with_apple
 import sqflite
 import url_launcher_macos
-import wakelock_macos
+import wakelock_plus
 import zego_express_engine
 import zego_zim
 
@@ -45,6 +46,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseStoragePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseStoragePlugin"))
   FlutterSecureStoragePlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStoragePlugin"))
   InAppPurchasePlugin.register(with: registry.registrar(forPlugin: "InAppPurchasePlugin"))
+  FPPPackageInfoPlusPlugin.register(with: registry.registrar(forPlugin: "FPPPackageInfoPlusPlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
   PlatformDeviceIdMacosPlugin.register(with: registry.registrar(forPlugin: "PlatformDeviceIdMacosPlugin"))
   PlatformDeviceIdMacosPlugin.register(with: registry.registrar(forPlugin: "PlatformDeviceIdMacosPlugin"))
@@ -54,7 +56,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   SignInWithApplePlugin.register(with: registry.registrar(forPlugin: "SignInWithApplePlugin"))
   SqflitePlugin.register(with: registry.registrar(forPlugin: "SqflitePlugin"))
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
-  WakelockMacosPlugin.register(with: registry.registrar(forPlugin: "WakelockMacosPlugin"))
+  WakelockPlusMacosPlugin.register(with: registry.registrar(forPlugin: "WakelockPlusMacosPlugin"))
   ZegoExpressEnginePlugin.register(with: registry.registrar(forPlugin: "ZegoExpressEnginePlugin"))
   ZegoZimPlugin.register(with: registry.registrar(forPlugin: "ZegoZimPlugin"))
 }

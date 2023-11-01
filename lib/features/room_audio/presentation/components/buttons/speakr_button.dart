@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 
 

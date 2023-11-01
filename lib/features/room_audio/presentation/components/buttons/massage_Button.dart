@@ -46,14 +46,14 @@ class MassageButton extends StatelessWidget {
                   : snapshot.data!.docs
                       .where((element) => element['users']
                           .toString()
-                          .contains(FirebaseAuth.instance.currentUser!.uid))
+                          .contains(FirebaseAuth.instance.currentUser?.uid??''))
                       .toList();
 
               int totalMessages = 0;
               int temp = 0;
               for (int i = 0; i < data.length; i++) {
                 if (data[i]['sent_by'] !=
-                    FirebaseAuth.instance.currentUser!.uid) {
+                    FirebaseAuth.instance.currentUser?.uid) {
                   totalMessages = data[i]['unRead'];
                   temp += totalMessages;
                 }

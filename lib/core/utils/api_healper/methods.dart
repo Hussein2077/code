@@ -45,8 +45,6 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_event.dart';
@@ -63,8 +61,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_ro
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class Methods {
   Future<void> clearAuth() async {
@@ -113,6 +111,7 @@ class Methods {
   }
 
   Future<Map<String, dynamic>> getCachingVideo({required String key}) async {
+
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, dynamic> defultMap = {};
     String encodedMap1 = json.encode(defultMap);
@@ -146,21 +145,22 @@ class Methods {
   }
 
   Future<void> removeCachReels() async {
+
     await getIt<VideoCacheManager>().init();
     getIt<VideoCacheManager>()
         .removeVideosByCacheKey(StringManager.cachReelsKey);
   }
 
   Future<void> exitFromRoom(String ownerId) async {
-    ZegoUIKitPrebuiltLiveAudioRoomState.connectManager?.uninit();
-    await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager?.uninit();
-    await ZegoUIKitPrebuiltLiveAudioRoomState.plugins?.uninit();
+    ZegoLiveAudioRoomManagers().connectManager?.uninit();
+    await ZegoLiveAudioRoomManagers().seatManager?.uninit();
+    await ZegoLiveAudioRoomManagers().plugins?.uninit();
     // await ZegoUIKit().resetSoundEffect();
     // await ZegoUIKit().resetBeautyEffect();
-    await ZegoUIKit().leaveRoom();
-    await ZegoUIKit().uninit();
-    await ZegoUIKit().uninit();
-    ZegoUIKit().logout();
+    await ZegoUIKit.instance.leaveRoom();
+    await ZegoUIKit.instance.uninit();
+    await ZegoUIKit.instance.uninit();
+    ZegoUIKit.instance.logout();
     await clearAll();
     ExistroomUC e = ExistroomUC(roomRepo: getIt());
     await e.call(ownerId);

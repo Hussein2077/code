@@ -14,7 +14,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_view_biger.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_states.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 
 
 class GiftScreen extends StatefulWidget {

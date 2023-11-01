@@ -20,7 +20,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_fu
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class EditFeaturesContainer extends StatefulWidget{
   final int roomId;

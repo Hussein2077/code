@@ -7,7 +7,8 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/message/in_room_message_input_board.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/message/input_board.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_inner_text.dart';
 
 bool checkIsUserOnMic(UserDataModel userData) {
   bool isOnMic = false;
@@ -49,8 +50,9 @@ void mentionAction(
   Navigator.pop(context);
   Navigator.of(context).push(ZegoInRoomMessageInputBoard(
       roomData: roomData,
-      myDataModel: userData.convertToMyDataObject(),
-      mention: "@$name"));
+      mention:  "@$name",
+    innerText: ZegoInnerText(),
+       ));
 }
 
 void repoertsAction(
