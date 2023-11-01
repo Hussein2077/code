@@ -14,7 +14,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_roo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_room_vistor/room_vistor_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_room_vistor/room_vistor_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 class VisitorsRoomScreen extends StatefulWidget {
   const  VisitorsRoomScreen(
       {required this.roomData,

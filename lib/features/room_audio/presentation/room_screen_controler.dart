@@ -24,13 +24,15 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_wi
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/invitation_to_mic.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/splash.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class EmojieData {
   final String emojie;
@@ -204,8 +206,8 @@ List<Color> colors = const [
 
 int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) {
   if (layoutMode == LayoutMode.hostTopCenter) {
-    ZegoUIKitPrebuiltLiveAudioRoomState.seatManager
-        ?.takeOnSeat(0, owerId: ownerId);
+    ZegoLiveAudioRoomManagers().seatManager
+        ?.takeOnSeat(0, ownerId: ownerId);
     return 0;
   } else if (layoutMode == LayoutMode.party) {
     return 0;
@@ -215,8 +217,8 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 
 Future<void> loadMusice({required String path}) async {
   // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
-  MusicWidget.isIPlayerMedia = true ;
-  await ZegoUIKit.instance.playMedia(filePathOrURL: path);
+
+  await ZegoUIKit().playMedia(filePathOrURL: path);
 
   // await RoomScreen.zegoMediaPlayer?.loadResource(path);
 
@@ -278,15 +280,11 @@ Future<void> clearAll() async {
   RoomScreen.myCoins.value = "";
   RoomScreen.winCircularluckyGift.value = 0;
   GiftUser.userSelected.clear();
-  await distroyMusic();
-
 }
 
 Future<void> distroyMusic() async {
-  MusicWidget.isIPlayerMedia = false ;
   await ZegoUIKit.instance.stopMedia();
-
-MusicScreen.isPlaying.value = false;
+  MusicScreen.isPlaying.value = false;
 }
 
 
@@ -346,8 +344,8 @@ invitationDialog(BuildContext context, String owerId, int index) {
     builder: (BuildContext context) => InvitationToMicDialog(
       onClick: () async {
         Navigator.pop(context);
-        await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
-            .takeOnSeat(index, owerId: owerId);
+        await ZegoLiveAudioRoomManagers().seatManager!
+            .takeOnSeat(index, ownerId: owerId);
       },
     ),
   );
@@ -364,7 +362,41 @@ showInFormationDilog(BuildContext context) {
   );
 }
 
-
+/*Widget familyRoomIcon (BuildContext context ,EnterRoomModel room ){
+      return  Positioned(
+                    right: 0,
+                    top: ConfigSize.defaultSize! * 7,
+                    child: InkWell(
+                      onTap: ()  async{
+                    
+                
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushNamed(context, Routes.familyProfile,
+                            arguments:room.roomFamily!.id);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(right: ConfigSize.defaultSize!),
+                        width: ConfigSize.defaultSize!*10,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ConfigSize.defaultSize!, vertical: AppPadding.p2),
+                        decoration: BoxDecoration(
+                            image: const DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(AssetsPath.purbleBackGround)),
+                            borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
+                        child: Center(
+                          child: Text(
+                            room.roomFamily!.name!,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontStyle: FontStyle.italic,
+                                fontSize: ConfigSize.defaultSize! * 1.2 ,overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+ }*/
 
 showBanFromWritingDilog(BuildContext context) {
   return showDialog<String>(
@@ -392,10 +424,10 @@ class YallowBannerData {
 
 
 
-ChangeBackground(Map<String, dynamic> result, Map<String,String> roomDataUpdates){
+ChangeBackground(Map<String, dynamic> result, Map<String,String> roomDataUpdates ){
   RoomScreen.imgbackground.value = result[messageContent][imgBackgroundKey] ?? "";
   roomDataUpdates['room_img'] = result[messageContent][roomImgKey];
-  roomDataUpdates['room_intro']  = result[messageContent][roomIntroKey];
+   roomDataUpdates['room_intro']  = result[messageContent][roomIntroKey];
   roomDataUpdates['room_name'] = result[messageContent][roomNameKey];
   roomDataUpdates['room_type'] = result[messageContent]['room_type'] ?? "";
   RoomScreen.roomIsLoked = result[messageContent]['is_locked'];
@@ -428,7 +460,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
   }
 }
 
-ShowPopularBanner(Map<String, dynamic> result, var DataUser, Map<String,dynamic>  userBannerData , var controllerBanner){
+ShowPopularBanner(Map<String, dynamic> result, var sendDataUser, var receiverDataUser, Map<String,dynamic>  userBannerData , var controllerBanner){
   UserDataModel sendData;
 
   sendData = UserDataModel(
@@ -447,8 +479,9 @@ ShowPopularBanner(Map<String, dynamic> result, var DataUser, Map<String,dynamic>
           senderImage: result[messageContent]['rsl'],
           receiverImage: result[messageContent]['rrl']),
       vip1: VipCenterModel(level: result[messageContent]['rv']));
-  DataUser['sendDataUser'] = sendData;
-  DataUser['receiverDataUser'] = receiverData;
+
+  sendDataUser = sendData;
+  receiverDataUser = receiverData;
   userBannerData['gift_banner']  = result[messageContent][giftImgKey].toString();
   userBannerData['is_password_room_banner']  = result[messageContent]['isPass'];
   userBannerData['owner_id_room_banner']  = result[messageContent]['oId'].toString();
@@ -484,7 +517,7 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
   Map<String, dynamic> cachedGifts = {};
   if (result[messageContent]['showGift'].contains("mp4")) {
     cachedGifts =
-        await Methods.instance.getCachingVideo(key: StringManager.cachGiftKey);
+        await Methods().getCachingVideo(key: StringManager.cachGiftKey);
   }
 
   GiftData giftData = GiftData(
@@ -525,7 +558,7 @@ KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String
   RoomScreen.isKick.value = true;
   Future.delayed(const Duration(seconds: 3), () async {
     Navigator.pop(context);
-    await Methods.instance.exitFromRoom(ownerId);
+    await Methods().exitFromRoom(ownerId);
     BlocProvider.of<OnRoomBloc>(context).add(LeaveMicEvent(
         ownerId: ownerId,
         userId: id));
@@ -631,7 +664,7 @@ UnbanFromWritingKey(Map<String, dynamic> result, String id){
 
 MuteUserKey(Map<String, dynamic> result){
   if (result[messageContent][mute]) {
-    ZegoUIKit.instance.turnMicrophoneOn(false, userID: result[messageContent][idUser]);
+    ZegoUIKit().turnMicrophoneOn(false, userID: result[messageContent][idUser]);
     RoomScreen.usersHasMute.add(result[messageContent][idUser]);
   } else {
     RoomScreen.usersHasMute.remove(result[messageContent][idUser]);

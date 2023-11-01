@@ -32,8 +32,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_luck
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_states.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/components/message/in_room_message_input.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:video_player/video_player.dart';
 
 class ViewbackgroundWidget extends StatefulWidget {
@@ -46,7 +46,7 @@ class ViewbackgroundWidget extends StatefulWidget {
   AnimationController controllerMusice;
   SVGAAnimationController animationControllerEntro;
   SVGAAnimationController animationControllerGift;
-  static VideoPlayerController? mp4Controller;
+  VideoPlayerController? mp4Controller;
   Map<String, dynamic> yallowBanner;
   Map<String, bool> showYellowBanner;
   Map<String,String> userIntroData;
@@ -55,7 +55,8 @@ class ViewbackgroundWidget extends StatefulWidget {
   Animation<Offset> offsetAnimationYellowBanner;
   UserDataModel? yallowBannerSender;
   Map<String, bool> isPlural;
-  Map<String, dynamic> dataUser;
+  UserDataModel? sendDataUser;
+  UserDataModel? receiverDataUser;
   AnimationController controllerBanner;
   Animation<Offset> offsetAnimationBanner;
   AnimationController luckGiftBannderController;
@@ -72,6 +73,7 @@ class ViewbackgroundWidget extends StatefulWidget {
     required this.controllerMusice,
     required this.animationControllerEntro,
     required this.animationControllerGift,
+    required this.mp4Controller,
     required this.yallowBanner,
     required this.showYellowBanner,
     required this.userIntroData,
@@ -80,7 +82,8 @@ class ViewbackgroundWidget extends StatefulWidget {
     required this.offsetAnimationYellowBanner,
     required this.yallowBannerSender,
     required this.isPlural,
-    required this.dataUser,
+    required this.sendDataUser,
+    required this.receiverDataUser,
     required this.controllerBanner,
     required this.offsetAnimationBanner,
     required this.luckGiftBannderController,
@@ -119,8 +122,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
   Widget build(BuildContext context) {
     return BlocConsumer<SendGiftBloc, SendGiftStates>(
         builder: (context, state) {
-          return Stack(
-              children: [
+          return Stack(children: [
             SizedBox(
               width: ConfigSize.defaultSize! * 92.5,
               height: ConfigSize.defaultSize! * 92.5,
@@ -186,8 +188,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   builder: (context, isShow, _) {
                     if (isShow) {
                       return AspectRatio(
-                        aspectRatio: ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
-                        child: VideoPlayer(ViewbackgroundWidget.mp4Controller!),
+                        aspectRatio: widget.mp4Controller!.value.aspectRatio,
+                        child: VideoPlayer(widget.mp4Controller!),
                       );
                     } else {
                       return Container();
@@ -230,8 +232,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         left: AppPadding.p36,
                         child: ShowGiftBannerWidget(
                           isPlural: widget.isPlural['isPlural']!,
-                          sendDataUser: widget.dataUser['sendDataUser'],
-                          receiverDataUser: widget.dataUser['receiverDataUser'],
+                          sendDataUser: widget.sendDataUser!,
+                          receiverDataUser: widget.receiverDataUser!,
                           giftImage: widget.userBannerData['gift_banner'] ?? '',
                           ownerId: widget.userBannerData['owner_id_room_banner'] ?? widget.room.ownerId.toString(),
                           controllerBanner: widget.controllerBanner,
@@ -254,12 +256,11 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                     RoomScreen.winCircularluckyGift.value =
                         RoomScreen.winCircularluckyGift.value + 1;
                   } else if (state.data.isWin && state.data.isPopular) {
-                    ZegoUIKit.instance.sendInRoomMessage(state.data.message, true);
-                    ZegoUIKit.instance
+                    ZegoUIKit().sendInRoomMessage(state.data.message, true);
+                    ZegoUIKit()
                         .sendInRoomMessage(state.data.coomentMesasge, false);
-                  }
-                  else {
-                    ZegoUIKit.instance
+                  } else {
+                    ZegoUIKit()
                         .sendInRoomMessage(state.data.coomentMesasge, false);
                   }
                   if (state.isFirst == 1) {
@@ -379,9 +380,11 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
         }, listener: (context, state) {
       if (state is ErrorSendGiftStates) {
         errorToast(context: context, title: state.errorMessage);
-      }
-      else if (state is SuccessSendGiftStates) {
+      } else if (state is SuccessSendGiftStates) {
+
+
         ZegoUIKit().sendInRoomMessage(state.successMessage, false);
+
       }
     });
   }

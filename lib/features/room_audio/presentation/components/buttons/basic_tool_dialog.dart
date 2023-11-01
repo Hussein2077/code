@@ -12,7 +12,6 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/warning_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
@@ -20,8 +19,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_luc
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 
 class BasicToolDialog extends StatefulWidget {
   final LayoutMode layoutMode;
@@ -123,7 +122,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                             builder: (_) {
                               return const LoadingWidget();
                             });
-                        await ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
+                        await ZegoLiveAudioRoomManagers().seatManager!
                             .takeOffAllSeat(isPK: true );
                         Navigator.pop(context);
                         activePK();
