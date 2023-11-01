@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 
 // Package imports:
 import 'package:permission_handler/permission_handler.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/defines.dart';
@@ -55,7 +56,7 @@ class _ZegoToggleMicrophoneButtonState
   void initState() {
     super.initState();
 
-    SchedulerBinding.instance?.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       /// synchronizing the default status
       ZegoUIKit().turnMicrophoneOn(widget.defaultOn, muteMode: widget.muteMode);
     });
@@ -73,30 +74,11 @@ class _ZegoToggleMicrophoneButtonState
       builder: (context, isMicrophoneOn, _) {
         /// update if microphone state changed
         return GestureDetector(
-          onTap: onPressed,
-          child: Container(
-            width: containerSize.width,
-            height: containerSize.height,
-            decoration: BoxDecoration(
-              color: isMicrophoneOn
-                  ? widget.normalIcon?.backgroundColor ??
-                      controlBarButtonCheckedBackgroundColor
-                  : widget.offIcon?.backgroundColor ??
-                      controlBarButtonBackgroundColor,
-              shape: BoxShape.circle,
-            ),
-            child: SizedBox.fromSize(
-              size: sizeBoxSize,
-              child: isMicrophoneOn
-                  ? widget.normalIcon?.icon ??
-                      UIKitImage.asset(
-                          StyleIconUrls.iconS1ControlBarMicrophoneNormal)
-                  : widget.offIcon?.icon ??
-                      UIKitImage.asset(
-                          StyleIconUrls.iconS1ControlBarMicrophoneOff),
-            ),
-          ),
-        );
+            onTap:  onPressed,
+            child:
+            isMicrophoneOn ?
+            Image.asset(AssetsPath.normalMic , width: 40.zR, height: 40.zR ,)
+            : Image.asset(AssetsPath.mute , width: 40.zR, height: 40.zR ,),);
       },
     );
   }
