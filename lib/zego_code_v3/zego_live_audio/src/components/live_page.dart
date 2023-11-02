@@ -199,7 +199,8 @@ class ZegoLivePageState extends State<ZegoLivePage>
         ZegoUIKitUser? user,
         Map<String, dynamic> extraInfo,
       ) {
-        return  ValueListenableBuilder(valueListenable: PkController.showPK,
+        return  ValueListenableBuilder(
+            valueListenable: PkController.showPK,
             builder: (context,isShowPK,_){
               return  ZegoSeatForeground(
                 user: user,
@@ -240,7 +241,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
     return Positioned(
       top: 190.zR,
       child: SizedBox(
-        width: maxWidth - 35.zW * 2,
+        width: maxWidth - 20.zW ,
         height: RoomScreen.layoutMode == LayoutMode.hostTopCenter
             ? containerHeight
             : containerHeight + 40.zH,
@@ -312,10 +313,10 @@ class ZegoLivePageState extends State<ZegoLivePage>
     builder: (context,isShowPk,_){
       var listSize = RoomScreen.layoutMode == LayoutMode.hostTopCenter?
       isShowPk ?  Size(
-        600.zR, 485.zR,
+        750.zR, 485.zR,
       ):
-      Size(600.zR, 550.zR,
-      ) :Size(600.zR, 435.zR,
+      Size(700.zR, 550.zR,
+      ) :Size(750.zR, 435.zR,
       );
       if (listSize.width < 54.zR) {
         listSize = Size(54.zR, listSize.height);
@@ -324,7 +325,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
         listSize = Size(listSize.width, 40.zR);
       }
       return Positioned(
-        left: widget.config.inRoomMessageConfig.bottomLeft?.dx ?? 0,
+        right: widget.config.inRoomMessageConfig.bottomLeft?.dx ?? 0,
         bottom: 124.zR + (widget.config.inRoomMessageConfig.bottomLeft?.dy ?? 0),
         child: ConstrainedBox(
           constraints: BoxConstraints.loose(listSize),

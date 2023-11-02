@@ -34,14 +34,11 @@ class UserForgroundCachMidParty extends StatelessWidget {
               return Container();
             }
           }),
-      Positioned(
-        bottom: 0,
-        top: ConfigSize.defaultSize! * 8.8,
-        left: ConfigSize.defaultSize! * 2.5,
-        right: 0,
+      Align(
+        alignment: Alignment.bottomCenter,
         child: SizedBox(
-          width: ConfigSize.defaultSize! * 24,
-          height: ConfigSize.defaultSize! * 12,
+          width: ConfigSize.defaultSize! * 20,
+          height: ConfigSize.defaultSize! *1.5,
           child: GradientTextVip(
             text: user!.name,
             isVip: user!.inRoomAttributes.value['vip'] == ''
@@ -50,12 +47,13 @@ class UserForgroundCachMidParty extends StatelessWidget {
                 ? true
                 : false,
             textStyle: TextStyle(
-                fontSize: AppPadding.p10,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-                fontStyle: FontStyle.italic,
-                overflow: TextOverflow.ellipsis),
-            textAlign: TextAlign.start,
+              fontSize: AppPadding.p10,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              fontStyle: FontStyle.italic,
+              overflow: TextOverflow.ellipsis,
+            ),
+            textAlign: TextAlign.center,
           ),
         ),
       )

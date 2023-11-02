@@ -34,14 +34,11 @@ class UserForgroundCach extends StatelessWidget {
               return Container();
             }
           }),
-      Positioned(
-        bottom: 0,
-        top: ConfigSize.defaultSize! * 9.5,
-        left: ConfigSize.defaultSize! * 0,
-        right: 0,
+      Align(
+       alignment: Alignment.bottomCenter,
         child: SizedBox(
-          width: ConfigSize.defaultSize! * 24,
-          height: ConfigSize.defaultSize! * 12,
+          width: ConfigSize.defaultSize! * 20,
+          height: ConfigSize.defaultSize! *1.5,
           child: GradientTextVip(
             text: user!.name,
             isVip: user!.inRoomAttributes.value['vip'] == ''

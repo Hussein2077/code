@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -12,7 +11,6 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/show_svga.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/top_room_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 
@@ -97,7 +95,7 @@ class HostTopCenterWidget extends StatelessWidget {
                         isVip: topUser!.hasColorName ?? false,
                         textStyle: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20.sp,
+                            fontSize: ConfigSize.defaultSize!,
                             color: Colors.white),
                       )),
                 ),
