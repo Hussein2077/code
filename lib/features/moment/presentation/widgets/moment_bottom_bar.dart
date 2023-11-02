@@ -38,6 +38,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
 
   static MomentType momentType = MomentType.myMoment ;
   static final Map<int, int> giftsOfMomentsMap = {};
+  Stream<String> stream = Stream.periodic(const Duration(seconds: 1), (i) => 'Count: $i');
 
 
   @override
@@ -62,13 +63,41 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                 child: SizedBox(
                   width: ConfigSize.defaultSize! * 6,
                   child: Center(
-                    child: Text(
-                      widget.momentModel.likeNum
-                            .toString(),
-                        style: Theme.of(context).textTheme.bodyLarge),
+                    child: StreamBuilder<int>(
+                      stream: null,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(widget.momentModel.likeNum.toString(),
+                              style: Theme.of(context).textTheme.bodyLarge);
+                        }else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),
+              // InkWell(
+              //   onTap: () {
+              //     bottomDailog(
+              //         context: context,
+              //         widget: MomentsLikesScreen(
+              //           momentId: widget.momentModel.momentId.toString(),
+              //         ),
+              //         color: Colors.white);
+              //   },
+              //   child: SizedBox(
+              //     width: ConfigSize.defaultSize! * 6,
+              //     child: Center(
+              //       child: Text(
+              //         widget.momentModel.likeNum
+              //               .toString(),
+              //           style: Theme.of(context).textTheme.bodyLarge),
+              //     ),
+              //   ),
+              // ),
               InkWell(
                 onTap: () {
                   log("kkkkkk${MomentBottomBarState.momentType}");
@@ -76,8 +105,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       widget.momentModel.momentId;
                   BlocProvider.of<MakeMomentLikeBloc>(context).add(
                       MakeMomentLikeEvent(
-                          momentId:
-                          widget.momentModel.momentId.toString()));
+                          momentId: widget.momentModel.momentId.toString()));
                 },
                 child: SizedBox(
                   width: ConfigSize.defaultSize!*2,
