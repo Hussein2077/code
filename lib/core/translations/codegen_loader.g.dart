@@ -446,6 +446,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.officialAccount : "الحساب الرسمي" ,
     StringManager.toSendMassage: "لأرسال الرساله",
     StringManager.hinttext: "قل شيئا...",
+    StringManager.cantSendGift: "لا يمكنك ارسال هدايا عند تشغيل الرجل الغامض .. اغلق الخاصية اولا",
 
 
 

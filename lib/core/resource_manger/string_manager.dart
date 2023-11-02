@@ -372,10 +372,11 @@ static const String iOSPlatform='IOS';
   static const String totalDaimonds = "Total Diamonds";
   static const String chargeCoins = "Charge Coins";
   static const String chooseTyeps = "Choose Type";
-  static const String mysteriousPerson = "Mysterious Person";
+  static const String mysteriousPerson = "Anonumous Person";
   static const String cancle = "Cancel";
   static const String nameAgency = "Name Agency ";
   static const String Bio = "Bio";
+  static const String cantSendGift = "you can't send gifts in the anonymouns mood .. please go and unactivate it first";
 
   //create room
   static const String enterYourRoomData = "please,Enter your room data";
