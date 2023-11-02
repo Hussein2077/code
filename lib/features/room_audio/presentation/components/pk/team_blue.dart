@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/zego_uikit_prebuilt_live_audio_room.dart';
 
 class TeamBlue extends StatelessWidget {
   const TeamBlue({super.key});
@@ -9,7 +9,7 @@ class TeamBlue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(top: 25.h, right: 0.w, left: 25.w, bottom: 15.h),
+        padding: EdgeInsets.only(top: 25.zH, right: 0.zW, left: 25.zW, ),
         child: Container(
           width: ConfigSize.defaultSize! * 7.1,
           height: ConfigSize.defaultSize! * 7.1,
