@@ -1,31 +1,30 @@
 // Dart imports:
 
-// Flutter imports:
-
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+// Flutter imports:
+
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
- 
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 
-
-
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/defines.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/seat/seat_manager.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/connect/connect_manager.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room_inner_text.dart';
+import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/seat/seat_manager.dart';
 import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/logger_service.dart';
+
 import '../../../zego_uikit/zego_uikit.dart';
 
 
@@ -127,17 +126,20 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
             await widget.seatManager.leaveSeat(showDialog: true);
             break;
           case PopupItemValue.showUserDetails:
-            return bottomDailog(
-                context: context,
-                widget: 
-                GeneralRoomProfile(
-                  myData: widget.myDataModel,
-                  userId:popupItem.data ,
-                  roomData: widget.roomData,
-                  layoutMode:widget.layoutMode ,
-                )
+            return (popupItem.data.toString() != '0')
+                ? bottomDailog(
+                    context: context,
+                    widget: GeneralRoomProfile(
+                      myData: widget.myDataModel,
+                      userId: popupItem.data,
+                      roomData: widget.roomData,
+                      layoutMode: widget.layoutMode,
+                    ))
+                : bottomDailog(
+                    widget: const AnonymousDialog(),
+                    context: context,
+                  );
 
-            );
           case  PopupItemValue.lockSeat :
             BlocProvider.of<OnRoomBloc>(context)
                 .add(LockMicEvent(ownerId: widget.roomData.ownerId.toString(),

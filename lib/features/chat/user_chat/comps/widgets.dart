@@ -221,25 +221,12 @@ class ChatWidgets {
                   height: ConfigSize.defaultSize! * 5,
                 ),
               GestureDetector(
-                  onTap: () async {
-                    await showDialog(
-                      context: context,
-                      builder: (_) => Dialog(
-                        child: InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            padding: EdgeInsets.symmetric(
-                                vertical: ConfigSize.defaultSize!,
-                                horizontal: ConfigSize.defaultSize!),
-                            child: Image.network(
-                              message,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                      ),
+                  onTap: ()  {
+                    showImageViewer(
+                        context,
+                        CachedNetworkImageProvider(
+                        message,
+                    ),
                     );
                   },
                   child: Padding(

@@ -11,10 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/audio_video/audio_room_layout.dart';
@@ -418,6 +420,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
     }
 
     if(popupItems.length==1 && popupItems.contains(popupItem)){
+      log('widge${widget.seatManager.getUserByIndex(index)?.id}');
 
       bottomDailog(
           context: context,
@@ -429,7 +432,8 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
             layoutMode:widget.layoutMode ,
           )
 
-      );
+      )  ;
+
 
       return ;
 

@@ -239,7 +239,11 @@ class ConstentApi {
    required String userId,
    bool? isVisit,
   }) {
-    return "$baseUrl/users/$userId";
+    if(isVisit != null){
+      return "$baseUrl/users/$userId?is_visit=$isVisit";
+    }else {
+      return "$baseUrl/users/$userId";
+    }
   }
 
   String getBackPack(String type) {
