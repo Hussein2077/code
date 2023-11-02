@@ -30,28 +30,28 @@ class DilogForPrivecyScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *1.0),
       ),
       child: Container(
-        height: ConfigSize.defaultSize! *14.5,
+        height: ConfigSize.defaultSize! *18.5,
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background, borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *1.0)),
         width: ConfigSize.screenWidth,
         child: Padding(
-          padding: EdgeInsets.all(ConfigSize.defaultSize! *1.5,),
+          padding: EdgeInsets.all(ConfigSize.defaultSize! *1.6,),
           child: Column(
             children: [
               Text(
                 StringManager.advice.tr(),
-                style: Theme.of(context).textTheme.bodyMedium,),
+                style: Theme.of(context).textTheme.headlineSmall,),
               SizedBox(
-                height: ConfigSize.defaultSize! *1.0,
+                height: ConfigSize.defaultSize! *2.0,
               ),
               Text(
                 text,
                 maxLines: 2,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: ConfigSize.defaultSize! *1.4,),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: ConfigSize.defaultSize! *1.8,),
               ),
               const Spacer(),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! *1.0,),
+                padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! *1.5,),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -61,24 +61,30 @@ class DilogForPrivecyScreen extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: flag
-                              ? ColorManager.mainColor
-                              : ColorManager.gray,
+                          gradient:  LinearGradient(
+                            colors: flag
+                                ? ColorManager.mainColorList
+                                : [Colors.grey,Colors.grey.shade700]
+                          ),
+                          /*color: flag
+                              ? Colors.green
+                              : ColorManager.gray,*/
                           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *0.8,),
                         ),
                         padding: EdgeInsets.symmetric(
-                          vertical:ConfigSize.defaultSize! *0.3,
-                          horizontal: ConfigSize.defaultSize! *0.75,
+                          vertical:ConfigSize.defaultSize! *0.7,
+                          horizontal: ConfigSize.defaultSize! *4,
                         ),
                         child: Text(
                           StringManager.active.tr(),
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
-                              color: Colors.green,
+                              color: Colors.white,
                               fontSize: ConfigSize.defaultSize! *1.5,),
                         ),
                       ),
                     ),
+
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);
@@ -86,19 +92,21 @@ class DilogForPrivecyScreen extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *0.8,),
-                            color: ColorManager.mainColor,
+
                             border: Border.all(
                               color: Colors.grey,
                               width: 1,
                             )),
                         padding: EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: ConfigSize.defaultSize! *0.75,
+                          vertical:ConfigSize.defaultSize! *0.7,
+                          horizontal: ConfigSize.defaultSize! *4,
                         ),
                         child: Text(
                           StringManager.cancle.tr(),
-                          style: const TextStyle(
-                            color: Colors.white),
+                          style:  TextStyle(
+                              fontSize: ConfigSize.defaultSize! *1.5,
+                              fontWeight: FontWeight.w700,
+                            color: Colors.grey),
                         ),
                       ),
                     ),
