@@ -1,0 +1,104 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+// Package imports:
+import 'package:permission_handler/permission_handler.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+
+// Project imports:
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/defines.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/internal/internal.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/screen_util/screen_util.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/services.dart';
+
+/// @nodoc
+/// button used to open/close microphone
+class ZegoToggleMicrophoneButton extends StatefulWidget {
+  const ZegoToggleMicrophoneButton({
+    Key? key,
+    this.normalIcon,
+    this.offIcon,
+    this.onPressed,
+    this.defaultOn = true,
+    this.iconSize,
+    this.buttonSize,
+    this.muteMode = false,
+  }) : super(key: key);
+
+  final ButtonIcon? normalIcon;
+  final ButtonIcon? offIcon;
+
+  ///  You can do what you want after pressed.
+  final void Function(bool isON)? onPressed;
+
+  /// whether to open microphone by default
+  final bool defaultOn;
+
+  /// the size of button's icon
+  final Size? iconSize;
+
+  /// the size of button
+  final Size? buttonSize;
+
+  /// only use mute, will not stop the stream
+  final bool muteMode;
+
+  @override
+  State<ZegoToggleMicrophoneButton> createState() =>
+      _ZegoToggleMicrophoneButtonState();
+}
+
+/// @nodoc
+class _ZegoToggleMicrophoneButtonState
+    extends State<ZegoToggleMicrophoneButton> {
+  @override
+  void initState() {
+    super.initState();
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      /// synchronizing the default status
+      ZegoUIKit().turnMicrophoneOn(widget.defaultOn, muteMode: widget.muteMode);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final containerSize = widget.buttonSize ?? Size(96.zR, 96.zR);
+    final sizeBoxSize = widget.iconSize ?? Size(56.zR, 56.zR);
+
+    /// listen local microphone state changes
+    return ValueListenableBuilder<bool>(
+      valueListenable:
+          ZegoUIKit().getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id),
+      builder: (context, isMicrophoneOn, _) {
+        /// update if microphone state changed
+        return GestureDetector(
+            onTap:  onPressed,
+            child:
+            isMicrophoneOn ?
+            Image.asset(AssetsPath.normalMic , width: 40.zR, height: 40.zR ,)
+            : Image.asset(AssetsPath.mute , width: 40.zR, height: 40.zR ,),);
+      },
+    );
+  }
+
+  void onPressed() {
+    /// get current microphone state
+    final valueNotifier =
+        ZegoUIKit().getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id);
+
+    final targetState = !valueNotifier.value;
+
+    if (targetState) {
+      requestPermission(Permission.microphone);
+    }
+
+    /// reverse current state
+    ZegoUIKit().turnMicrophoneOn(targetState, muteMode: widget.muteMode);
+
+    if (widget.onPressed != null) {
+      widget.onPressed!(targetState);
+    }
+  }
+}

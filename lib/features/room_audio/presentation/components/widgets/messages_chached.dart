@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -19,8 +18,7 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/message_defines.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
 
 class MessagesChached extends StatelessWidget {
   ZegoInRoomMessage message;
@@ -51,19 +49,17 @@ class MessagesChached extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        (message.user.id != "0")
-            ? bottomDailog(
-                context: context,
-                widget: MessageRoomProfile(
-                  myData: myDataModel,
-                  userId: message.user.id.toString(),
-                  roomData: room,
-                  layoutMode: layoutMode,
-                ))
-            : bottomDailog(
-            widget: const AnonymousDialog(), context: context,
-           // height: ConfigSize.screenHeight!*0.3
-        );
+        if(message.user.id != "0" ){
+          bottomDailog(
+            context: context,
+            widget: MessageRoomProfile(
+              myData: myDataModel,
+              userId: message.user.id.toString(),
+              roomData: room,
+              layoutMode: layoutMode,
+            ));
+        }
+      
       },
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -122,7 +118,10 @@ class MessagesChached extends StatelessWidget {
                         const SizedBox(
                           width: 1,
                         ),
-
+                        if ((RoomScreen.usersMessagesRoom[message.user.id]
+                            ?.senderLevelImg ??
+                            '') !=
+                            '')
                           SizedBox(
                             width: ConfigSize.defaultSize! * 4,
                             height: ConfigSize.defaultSize! * 2,
@@ -137,7 +136,10 @@ class MessagesChached extends StatelessWidget {
                         const SizedBox(
                           width: 1,
                         ),
-                      
+                        if ((RoomScreen.usersMessagesRoom[message.user.id]
+                            ?.revicerLevelImg ??
+                            '') !=
+                            '')
                           SizedBox(
                             width: ConfigSize.defaultSize! * 4,
                             height: ConfigSize.defaultSize! * 2,

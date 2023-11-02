@@ -23,12 +23,12 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'profile_room_body_controler.dart';
 import 'widgets/block_button.dart';
 import 'widgets/gift_user_screen.dart';
 import 'widgets/image_with_text.dart';
 import 'widgets/settings_Button.dart';
-import '../../../../../../zego_code_v2/zego_uikit/zego_uikit.dart';
 
 // ignore: must_be_immutable
 class UserProfileInRoom extends StatefulWidget {

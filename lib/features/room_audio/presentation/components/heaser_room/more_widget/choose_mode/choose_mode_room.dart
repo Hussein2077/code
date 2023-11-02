@@ -6,11 +6,10 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 
 import '../../../../../../../core/widgets/warning_dialog.dart';
 
@@ -88,7 +87,7 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
             children: [
               InkWell(
                 onTap: ()async {
-              await    ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
+              await    ZegoLiveAudioRoomManagers().seatManager!
                       .takeOffAllSeat(isPK: false);
                   BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
                       ownerId: widget.ownerId, roomMode: '0'));
@@ -146,7 +145,7 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
               InkWell(
                 onTap: ()async {
                   if(!PkController.isPK.value){
-                 await   ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
+                 await   ZegoLiveAudioRoomManagers().seatManager!
                         .takeOffAllSeat(isPK: false);
                     BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
                         ownerId: widget.ownerId, roomMode: '1'));
@@ -218,7 +217,7 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
               InkWell(
                 onTap: ()async {
                   if(!PkController.isPK.value){
-                 await   ZegoUIKitPrebuiltLiveAudioRoomState.seatManager!
+                 await   ZegoLiveAudioRoomManagers().seatManager!
                         .takeOffAllSeat(isPK: false);
                     BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
                         ownerId: widget.ownerId, roomMode: '2'));

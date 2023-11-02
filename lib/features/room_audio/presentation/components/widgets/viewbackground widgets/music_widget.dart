@@ -13,8 +13,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/dialog_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/media.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/media.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class MusicWidget extends StatelessWidget {
 
@@ -91,7 +91,8 @@ class MusicWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-              ) :const SizedBox();
+              )
+                  :const SizedBox();
             case MediaPlayState.PlayEnded:
               if(MusicWidget.isIPlayerMedia){
                 if ((MusicScreen.nowPlaying! +1) >=  RoomScreen.musicesInRoom.length) {
@@ -165,6 +166,8 @@ class MusicWidget extends StatelessWidget {
                   ],
                 ),
               ) :const SizedBox();
+            case MediaPlayState.LoadReady:
+              return const SizedBox();
           }
         });
   }

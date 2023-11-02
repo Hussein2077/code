@@ -47,15 +47,15 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_states.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/audio_video/defines.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room_config.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room_defines.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/components/message/in_room_message_input.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/command.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/user_defines.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/uikit_service.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_video/defines.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:video_player/video_player.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -85,7 +85,8 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<int> clearTimeNotifier = ValueNotifier(0);
   static ValueNotifier<bool> showMessageButton = ValueNotifier<bool>(true);
   static ValueNotifier<bool> banFromWriteIcon = ValueNotifier<bool>(true);
-  static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMics = ValueNotifier<Map<int, ZegoUIKitUser>>({});
+  static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMics =
+  ValueNotifier<Map<int, ZegoUIKitUser>>({});
   static ValueNotifier<UserDataModel> topUserInRoom = ValueNotifier<UserDataModel>(UserDataModel());
   static ValueNotifier<bool> showBanner = ValueNotifier<bool>(false);
   static ValueNotifier<String> myCoins = ValueNotifier<String>('');
@@ -100,6 +101,8 @@ class RoomScreen extends StatefulWidget {
   static List<YallowBannerData> listofAnimationYallowBanner = [];
   static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
   static ValueNotifier<int> winCircularluckyGift = ValueNotifier<int>(0);
+  static late   LayoutMode layoutMode;
+
 
   const RoomScreen(
       {Key? key,
@@ -121,7 +124,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   late AnimationController controllerEntro; // entro animation
   late Animation<Offset> offsetAnimationEntro;
   late final AnimationController controllerMusice;
-  late LayoutMode layoutMode;
+  VideoPlayerController? mp4Controller;
   ValueNotifier<bool> showPopUp = ValueNotifier<bool>(false);
   String userIdEmojie = ""; // to show emojie
   String giftImg = ""; // to show img gift
@@ -147,10 +150,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Map<String,dynamic> userBannerData =
   { 'gift_banner':'',
     'owner_id_room_banner':'',
-    'is_password_room_banner': false
+    'is_password_room_banner':''
   };
-
-  Map<String, dynamic> DataUser = {"sendDataUser": UserDataModel(), "receiverDataUser": UserDataModel()};
+  UserDataModel? sendDataUser;
+  UserDataModel? receiverDataUser;
   //////
 
   //////
@@ -199,11 +202,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ));
     RoomScreen.isGiftEntroAnimating = false;
     if (widget.room.mode == 1) {
-      layoutMode = LayoutMode.party;
+     RoomScreen.layoutMode = LayoutMode.party;
     } else if (widget.room.mode == 0) {
-      layoutMode = LayoutMode.hostTopCenter;
+      RoomScreen.layoutMode = LayoutMode.hostTopCenter;
     } else if (widget.room.mode == 2) {
-      layoutMode = LayoutMode.seats12;
+      RoomScreen.layoutMode = LayoutMode.seats12;
     }
 
     animationControllerGift = SVGAAnimationController(vsync: this);
@@ -449,11 +452,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       subscriptions
-        ..add(ZegoUIKit.instance
+        ..add(ZegoUIKit()
             .getSignalingPlugin()
             .getInRoomTextMessageReceivedEventStream()
             .listen((event) {}))
-        ..add(ZegoUIKit.instance
+        ..add(ZegoUIKit()
             .getInRoomCommandReceivedStream()
             .listen(onInRoomCommandReceived));
     });
@@ -486,8 +489,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Future<void> loadMp4Gift({required GiftData giftData}) async {
     RoomScreen.isGiftEntroAnimating = true;
     if (giftData.showBanner) {
-      DataUser['sendDataUser'] = giftData.senderData;
-      DataUser['receiverDataUser'] = giftData.reciverData;
+      sendDataUser = giftData.senderData;
+      receiverDataUser = giftData.reciverData;
       userBannerData ['gift_banner']   = giftData.giftBanner;
       giftImg = giftData.giftImg;
       RoomScreen.showBanner.value = giftData.showBanner;
@@ -499,22 +502,22 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     }
 
     if (giftData.localPath == null) {
-      await Methods.instance
+      await Methods()
           .cacheMp4(
               vedioId: int.parse(giftData.giftId), vedioUrl: giftData.giftImg)
           .then((value) async {
         Directory appDocDir = await getApplicationDocumentsDirectory();
         String rootPath = appDocDir.path;
         String path = "$rootPath/${giftData.giftId}.mp4";
-        ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(path))..initialize();
+        mp4Controller = VideoPlayerController.file(File(path))..initialize();
       });
     } else {
-      ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
+      mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
         ..initialize();
     }
 
-    ViewbackgroundWidget.mp4Controller!.addListener(() {
-      if (ViewbackgroundWidget.mp4Controller!.value.position >= ViewbackgroundWidget.mp4Controller!.value.duration) {
+    mp4Controller!.addListener(() {
+      if (mp4Controller!.value.position >= mp4Controller!.value.duration) {
         if (giftData.showBanner && RoomScreen.showBanner.value) {
           RoomScreen.showBanner.value = false;
           controllerBanner.reverse();
@@ -522,14 +525,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
         RoomScreen.isVideoVisible.value = false;
 
-        ViewbackgroundWidget.mp4Controller!.pause();
+        mp4Controller!.pause();
         RoomScreen.isGiftEntroAnimating = false;
         loadMoreAnimationMp4Gifts();
 
         // mp4Controller!.dispose();
       } else {
         RoomScreen.isVideoVisible.value = true;
-        ViewbackgroundWidget.mp4Controller!.play();
+        mp4Controller!.play();
       }
     });
   }
@@ -537,9 +540,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Future<void> loadAnimationGift(GiftData giftData) async {
     RoomScreen.isGiftEntroAnimating = true;
     if (giftData.showBanner) {
-      DataUser['sendDataUser'] = giftData.senderData;
-      DataUser['receiverDataUser'] = giftData.reciverData;
-      userBannerData['gift_banner'] = giftData.giftBanner;
+      sendDataUser = giftData.senderData;
+      receiverDataUser = giftData.reciverData;
+       userBannerData['gift_banner'] = giftData.giftBanner;
       giftImg = giftData.giftImg;
       controllerBanner.forward();
       isPlural['isPlural'] = giftData.isPlural;
@@ -552,7 +555,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     try {
       final videoItem =
-          await Methods.instance.getCachedSvgaImage(giftData.giftId, giftData.img);
+          await Methods().getCachedSvgaImage(giftData.giftId, giftData.img);
 
       animationControllerGift.videoItem = videoItem;
 
@@ -590,7 +593,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           RoomScreen.listOfAnimatingEntros[0].imgUrl);
       RoomScreen.listOfAnimatingEntros.removeAt(0);
     } else {
-
+      log("is empty");
       RoomScreen.isGiftEntroAnimating = false;
     }
   }
@@ -599,7 +602,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     RoomScreen.isGiftEntroAnimating = true;
     try {
       final videoItem =
-          await Methods.instance.getCachedSvgaImage('$imgId$cacheEntroKey', imgUrl);
+          await Methods().getCachedSvgaImage('$imgId$cacheEntroKey', imgUrl);
       animationControllerGift.videoItem = videoItem;
       //  animationControllerGift.videoItem.audios
       animationControllerGift.forward().whenComplete(() {
@@ -663,12 +666,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     });
   }
 
-
-
-
 //massages
-  Future<void> onInRoomCommandReceived(ZegoInRoomCommandReceivedData commandData) async {
+  Future<void> onInRoomCommandReceived(
+      ZegoInRoomCommandReceivedData commandData) async {
     Map<String, dynamic> result = jsonDecode(commandData.command);
+    //log('commandData.command'+commandData.command);
     if (result[messageContent] != null) {
       if (result[messageContent][message] == changeBackground) {
         ChangeBackground(result,roomDataUpdates);
@@ -678,7 +680,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent]['msg'] == 'SHB') {
         if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {
-          ShowPopularBanner(result, DataUser, userBannerData, controllerBanner);
+          ShowPopularBanner(result, sendDataUser, receiverDataUser, userBannerData, controllerBanner);
         }
       }
       else if (result[messageContent][message] == showEmojie) {
@@ -742,21 +744,21 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           widget.room.mode = 0 ;
 
           setState(() {
-            layoutMode = LayoutMode.hostTopCenter;
+           RoomScreen.layoutMode = LayoutMode.hostTopCenter;
             RoomScreen.userOnMics.value.clear();
           });
         } else if (result[messageContent]['mode'] == 'party') {
           widget.room.mode = 1 ;
 
           setState(() {
-            layoutMode = LayoutMode.party;
+            RoomScreen.layoutMode = LayoutMode.party;
             RoomScreen.userOnMics.value.clear();
           });
         } else if (result[messageContent]['mode'] == 'seats12') {
           widget.room.mode = 2 ;
 
           setState(() {
-            layoutMode = LayoutMode.seats12;
+            RoomScreen.layoutMode = LayoutMode.seats12;
             RoomScreen.userOnMics.value.clear();
           });
         }
@@ -801,7 +803,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == 'banDevice') {
         if (result[messageContent]['userId'] == widget.myDataModel.id) {
-          await Methods.instance.exitFromRoom(widget.room.ownerId.toString());
+          await Methods().exitFromRoom(widget.room.ownerId.toString());
           Navigator.pushNamedAndRemoveUntil(context, Routes.login, (route) => false);
         }
       }
@@ -833,9 +835,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           appID: appID,
           appSign: appSign,
           userID: widget.myDataModel.id.toString(),
-          myDataModel: widget.myDataModel,
           roomData: widget.room,
-          roomMode: layoutMode,
           userName: widget.myDataModel.name ?? widget.myDataModel.id.toString(),
           roomID: widget.room.id.toString(),
           config: (widget.isHost
@@ -855,24 +855,23 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             }
             ..seatConfig.showSoundWaveInAudioMode = true
             ..layoutConfig.rowSpacing = 0
-            ..layoutConfig.rowConfigs = rowRoomSeats(layoutMode)
+            ..layoutConfig.rowConfigs = rowRoomSeats(RoomScreen.layoutMode)
             ..layoutConfig.rowSpacing = 10
             ..takeSeatIndexWhenJoining = widget.isHost
                 ? getHostSeatIndex(
-                    layoutMode: layoutMode,
+                    layoutMode:RoomScreen.layoutMode,
                     ownerId: widget.room.ownerId.toString())
                 : -1
             ..hostSeatIndexes = [0]
             ..seatConfig = getSeatConfig()
-            ..viewbackground = ViewbackgroundWidget(
-                room: widget.room,
-                roomDataUpdates: roomDataUpdates,
-                userBannerData: userBannerData,
+            ..viewbackground = ViewbackgroundWidget(room: widget.room,
+                roomDataUpdates: roomDataUpdates, userBannerData: userBannerData,
                 superBox: superBox,
-                layoutMode: layoutMode,
+                layoutMode: RoomScreen.layoutMode,
                 controllerMusice: controllerMusice,
                 animationControllerEntro: animationControllerEntro,
                 animationControllerGift: animationControllerGift,
+                mp4Controller: mp4Controller,
                 yallowBanner: yallowBanner,
                 showYellowBanner: showYellowBanner,
                 userIntroData: userIntroData,
@@ -881,7 +880,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 offsetAnimationYellowBanner: offsetAnimationYellowBanner,
                 yallowBannerSender: yallowBannerSender,
                 isPlural: isPlural,
-                dataUser: DataUser,
+                sendDataUser: sendDataUser,
+                receiverDataUser: receiverDataUser,
                 controllerBanner: controllerBanner,
                 offsetAnimationBanner: offsetAnimationBanner,
                 luckGiftBannderController: luckGiftBannderController,
@@ -889,7 +889,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 showPopUp: showPopUp,
                 popUpData: popUpData,
                 durationKickout: durationKickout)
-            ..background = BackgroundWidget(room: widget.room, layoutMode: layoutMode, isHost: widget.isHost)
+
+            ..background = BackgroundWidget(room: widget.room,
+                layoutMode:RoomScreen.layoutMode, isHost: widget.isHost)
             ..onSeatsChanged = (
               Map<int, ZegoUIKitUser> takenSeats,
               List<int> untakenSeats,
@@ -907,8 +909,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               hostExtendButtons: [
                 const SpeakerButton(),
                 GiftButton(
-                  listUsers: ZegoUIKit.instance.getAudioVideoList(),
-                  listAllUsers: ZegoUIKit.instance.getAllUsers(),
+                  listUsers: ZegoUIKit().getAudioVideoList(),
+                  listAllUsers: ZegoUIKit().getAllUsers(),
                   roomData: widget.room,
                   myDataModel: widget.myDataModel,
                 ),
@@ -920,7 +922,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 BasicToolButton(
                   myDataModel: widget.myDataModel,
                   roomId: widget.room.id.toString(),
-                  layoutMode: layoutMode,
+                  layoutMode:RoomScreen.layoutMode,
                   ownerId: widget.room.ownerId.toString(),
                   isOnMic: true,
                   roomData: widget.room,
@@ -930,8 +932,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               audienceExtendButtons: [
                 const SpeakerButton(),
                 GiftButton(
-                    listUsers: ZegoUIKit.instance.getAudioVideoList(),
-                    listAllUsers: ZegoUIKit.instance.getAllUsers(),
+                    listUsers: ZegoUIKit().getAudioVideoList(),
+                    listAllUsers: ZegoUIKit().getAllUsers(),
                     myDataModel: widget.myDataModel,
                     roomData: widget.room),
                 MassageButton(myDataModel: widget.myDataModel),
@@ -951,8 +953,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               speakerExtendButtons: [
                 const SpeakerButton(),
                 GiftButton(
-                    listUsers: ZegoUIKit.instance.getAudioVideoList(),
-                    listAllUsers: ZegoUIKit.instance.getAllUsers(),
+                    listUsers: ZegoUIKit().getAudioVideoList(),
+                    listAllUsers: ZegoUIKit().getAllUsers(),
                     myDataModel: widget.myDataModel,
                     roomData: widget.room),
                 MassageButton(myDataModel: widget.myDataModel),
@@ -963,7 +965,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 BasicToolButton(
                   myDataModel: widget.myDataModel,
                   roomId: widget.room.id.toString(),
-                  layoutMode: layoutMode,
+                  layoutMode:RoomScreen.layoutMode,
                   ownerId: widget.room.ownerId.toString(),
                   isOnMic: true,
                   roomData: widget.room,
@@ -988,8 +990,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     if (message.timestamp < value) {
                       return const SizedBox.shrink();
                     }
-                    if (message.user.inRoomAttributes.value['sen'] == null &&
-                        RoomScreen.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
+                    if (message.user.inRoomAttributes.value['sen'] == null && RoomScreen.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
                       if (kDebugMode) {
                         log("wait 2 sec to load more in formation about user");
                       }
@@ -1007,7 +1008,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                               frame: message.user.inRoomAttributes.value['frm'] ?? "",
                               sender: message.user.inRoomAttributes.value['sen'] ?? "",
                               receiver: message.user.inRoomAttributes.value['rec'] ?? "",
-                              layoutMode: layoutMode);
+                              layoutMode:RoomScreen.layoutMode);
                       },
                       listener: (BuildContext context, UsersInRoomState state) {
                       if (state is GetUsersInRoomSucssesState){
@@ -1022,8 +1023,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   }
 
   ZegoLiveAudioRoomSeatConfig getSeatConfig() {
-    if (layoutMode == LayoutMode.hostTopCenter) {
-
+    if (RoomScreen.layoutMode == LayoutMode.hostTopCenter) {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
           if (user?.id == null && PkController.showPK.value) {
@@ -1048,7 +1048,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           return Container();
         },
       );
-    } else if (layoutMode == LayoutMode.party) {
+    } else if (RoomScreen.layoutMode == LayoutMode.party) {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
           if (user?.id == null) {
@@ -1063,7 +1063,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           return Container();
         },
       );
-    } else if (layoutMode == LayoutMode.seats12) {
+    } else if (RoomScreen.layoutMode == LayoutMode.seats12) {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
           if (user?.id == null) {

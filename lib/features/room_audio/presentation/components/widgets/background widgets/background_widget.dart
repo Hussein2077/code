@@ -39,12 +39,14 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
         return Stack(
           children: [
             RoomBackground(room: widget.room,),
-            if (widget.layoutMode == LayoutMode.hostTopCenter)
+            if(widget.layoutMode == LayoutMode.hostTopCenter)
               ValueListenableBuilder<UserDataModel>(
                   valueListenable: RoomScreen.topUserInRoom,
                   builder: (context, topUser, _) {
                     return HostTopCenterWidget(
-                      layoutMode: widget.layoutMode, topUser: topUser, room: widget.room, myDataModel: MyDataModel.getInstance(), );
+                      layoutMode: widget.layoutMode,
+                      topUser: topUser, room: widget.room,
+                      myDataModel: MyDataModel.getInstance(), );
                   }),
             ValueListenableBuilder<bool>(
                 valueListenable: PkController.showPK,
