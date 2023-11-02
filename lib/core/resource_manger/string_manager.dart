@@ -444,7 +444,7 @@ static const String iOSPlatform='IOS';
   static const String privacy = "Privacy";
   static const String useTheFeatureAndEnjoyit = "Use The Feature And Enjoy it";
   static const String thisFeatureisNotAvailableForYou =
-      "ThisFeatureisNotAvailableForYou";
+      "This Feature isNot Available For You";
   static const String note = "notes";
   static const String updateRoomName = "update your room name here";
 
