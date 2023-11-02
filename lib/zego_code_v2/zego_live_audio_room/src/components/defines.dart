@@ -59,7 +59,7 @@ class PrebuiltLiveAudioRoomIconUrls {
   static const String im =AssetsPath.toolbarMessages;
   static const String back = 'assets/icons/back.png';
   static const String toolbarSoundEffect = 'assets/icons/toolbar_sound.png';
-  static const String toolbarMicNormal = 'assets/images/toolbar_mic_normal.png';
+ // static const String toolbarMicNormal = 'assets/images/toolbar_mic_normal.png';
   static const String toolbarMicOff = 'assets/icons/toolbar_mic_off.png';
   static const String toolbarMember = 'assets/icons/toolbar_member.png';
   static const String toolbarMore = 'assets/icons/toolbar_more.png';

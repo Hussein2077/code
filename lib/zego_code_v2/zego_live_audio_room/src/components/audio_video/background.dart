@@ -115,48 +115,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatBackground> {
       }
     }
 
-  Widget microphoneOffFlag() {
-    return ValueListenableBuilder<bool>(
-      valueListenable:
-      ZegoUIKit().getMicrophoneStateNotifier(widget.user?.id ?? ""),
-      builder: (context, isMicrophoneEnabled, _) {
-        if (isMicrophoneEnabled) {
-          return Container();
-        }
-        return Positioned(
-          top: avatarPosTop+27.h,
-          left: avatarPosLeft+14.w,
-          child:Stack(
-            children: [
-              CircleAvatar(
-                maxRadius: AppPadding.p26,
-                backgroundImage: NetworkImage(ConstentApi()
-                    .getImage(
-                    RoomScreen.usersInRoom[widget.user!.id]?.profile!.image)),
-              ),
-              Positioned(
-                bottom: AppPadding.p2,
-                left: AppPadding.p2,
-                child: Container(
 
-                  width:  AppPadding.p24,
-                  height: AppPadding.p24,
-                  decoration:const BoxDecoration(
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/muteIcon.png')
-                      )
-                  ),
-
-
-                ),
-              )
-            ],
-          ),
-        );
-      },
-    );
-  }
 
 
   }

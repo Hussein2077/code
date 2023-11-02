@@ -61,8 +61,6 @@ class _ZegoToggleMicrophoneButtonState
       valueListenable:
           ZegoUIKit().getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id),
       builder: (context, isMicrophoneOn, _) {
-        /// update if microphone state changed
-        /// to change ui's icon
         return   GestureDetector(
             onTap:  onPressed,
             child:
