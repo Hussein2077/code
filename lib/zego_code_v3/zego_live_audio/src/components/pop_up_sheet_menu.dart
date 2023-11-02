@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
@@ -175,6 +176,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
       child: Container(
         width: double.infinity,
         height: 100.zR,
+        // color: ColorManager.orang,
         decoration: BoxDecoration(
           border: (index == (widget.popupItems.length - 1))
               ? null
@@ -229,7 +231,7 @@ void showPopUpSheet({
 
   showModalBottomSheet(
     barrierColor: ZegoUIKitDefaultTheme.viewBarrierColor,
-    backgroundColor: const Color(0xff111014),
+    backgroundColor:  ColorManager.orang,
     //ZegoUIKitDefaultTheme.viewBackgroundColor,
     context: context,
     shape: RoundedRectangleBorder(
