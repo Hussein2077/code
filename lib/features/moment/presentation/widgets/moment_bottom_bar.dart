@@ -51,6 +51,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
           //the likes row
           Row(
             children: [
+
               InkWell(
                 onTap: () {
                   bottomDailog(
@@ -63,41 +64,13 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                 child: SizedBox(
                   width: ConfigSize.defaultSize! * 6,
                   child: Center(
-                    child: StreamBuilder<int>(
-                      stream: null,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Text(widget.momentModel.likeNum.toString(),
-                              style: Theme.of(context).textTheme.bodyLarge);
-                        }else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else {
-                          return const CircularProgressIndicator();
-                        }
-                      },
-                    ),
+                    child: Text(
+                      widget.momentModel.likeNum
+                            .toString(),
+                        style: Theme.of(context).textTheme.bodyLarge),
                   ),
                 ),
               ),
-              // InkWell(
-              //   onTap: () {
-              //     bottomDailog(
-              //         context: context,
-              //         widget: MomentsLikesScreen(
-              //           momentId: widget.momentModel.momentId.toString(),
-              //         ),
-              //         color: Colors.white);
-              //   },
-              //   child: SizedBox(
-              //     width: ConfigSize.defaultSize! * 6,
-              //     child: Center(
-              //       child: Text(
-              //         widget.momentModel.likeNum
-              //               .toString(),
-              //           style: Theme.of(context).textTheme.bodyLarge),
-              //     ),
-              //   ),
-              // ),
               InkWell(
                 onTap: () {
                   log("kkkkkk${MomentBottomBarState.momentType}");
