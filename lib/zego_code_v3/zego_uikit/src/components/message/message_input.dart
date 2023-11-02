@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Package imports:
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -17,6 +16,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dar
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/zego_uikit_prebuilt_live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/defines.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/internal/icon_defines.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/widgets/text_icon_button.dart';
@@ -116,11 +116,11 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 15.r),
+      padding: EdgeInsets.symmetric(horizontal: 15.zR, vertical: 15.zR),
       color: widget.backgroundColor ?? const Color(0xff222222).withOpacity(0.8),
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          minHeight: 90.r,
+          minHeight: 90.zR,
         ),
         child: Column(
           children: [
@@ -198,21 +198,21 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                   if (snapshot.hasData) {
                     return Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 15.r, vertical: 15.r),
+                          horizontal: 15.zR, vertical: 15.zR),
                       color: widget.backgroundColor ??
                           const Color(0xff222222).withOpacity(0.8),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
-                          minHeight: 90.r,
+                          minHeight: 90.zR,
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(width: 10.r),
+                            SizedBox(width: 10.zR),
                             messageInput(numPobUp: snapshot.data),
-                            SizedBox(width: 10.r),
+                            SizedBox(width: 10.zR),
                             sendButton(numPobUp: snapshot.data),
-                            SizedBox(width: 10.r),
+                            SizedBox(width: 10.zR),
                           ],
                         ),
                       ),
@@ -220,21 +220,21 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                   } else {
                     return Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 15.r, vertical: 15.r),
+                          horizontal: 15.zR, vertical: 15.zR),
                       color: widget.backgroundColor ??
                           const Color(0xff222222).withOpacity(0.8),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
-                          minHeight: 90.r,
+                          minHeight: 90.zR,
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(width: 10.r),
+                            SizedBox(width: 10.zR),
                             messageInput(numPobUp: '0'),
-                            SizedBox(width: 10.r),
+                            SizedBox(width: 10.zR),
                             sendButton(numPobUp: '0'),
-                            SizedBox(width: 10.r),
+                            SizedBox(width: 10.zR),
                           ],
                         ),
                       ),
@@ -253,21 +253,21 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
         widget.cursorColor ?? const Color(0xffA653ff);
     final messageSendHintStyle = TextStyle(
       color: widget.textHintColor ?? const Color(0xffa4a4a4),
-      fontSize: 28.r,
+      fontSize: 28.zR,
       fontWeight: FontWeight.w400,
     );
     final messageSendInputStyle = TextStyle(
       color: widget.textColor ?? Colors.white,
-      fontSize: 28.r,
+      fontSize: 28.zR,
       fontWeight: FontWeight.w400,
     );
 
     return Expanded(
       child: Container(
-        height: 78.r,
+        height: 78.zR,
         decoration: BoxDecoration(
           color: widget.inputBackgroundColor ?? messageSendBgColor,
-          borderRadius: BorderRadius.circular(16.r),
+          borderRadius: BorderRadius.circular(16.zR),
         ),
         child: TextField(
           enabled: widget.enabled,
@@ -292,8 +292,8 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
           textInputAction: TextInputAction.send,
           onSubmitted: (message) => send(numPobUp: numPobUp),
           cursorColor: messageSendCursorColor,
-          cursorHeight: 30.r,
-          cursorWidth: 3.r,
+          cursorHeight: 30.zR,
+          cursorWidth: 3.zR,
           style: messageSendInputStyle,
           decoration: InputDecoration(
             hintText: (ZegoInRoomMessageInput.activeYallowBanner.value ||
@@ -320,10 +320,10 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
 //   )),
 // ),
             contentPadding: EdgeInsets.only(
-              left: 20.r,
-              top: -5.r,
-              right: 20.r,
-              bottom: 15.r,
+              left: 20.zR,
+              top: -5.zR,
+              right: 20.zR,
+              bottom: 15.zR,
             ),
 // isDense: true,
             border: InputBorder.none,
@@ -355,8 +355,8 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
                 : UIKitImage.asset(StyleIconUrls.iconSend),
             backgroundColor: widget.buttonColor,
           ),
-          iconSize: Size(68.r, 68.r),
-          buttonSize: Size(72.r, 72.r),
+          iconSize: Size(68.zR, 68.zR),
+          buttonSize: Size(72.zR, 72.zR),
         );
       },
     );

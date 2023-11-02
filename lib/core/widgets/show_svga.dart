@@ -63,7 +63,6 @@ class ShowSVGAState extends State<ShowSVGA> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
       return SizedBox(
         width: widget.width,
         height: widget.hieght,

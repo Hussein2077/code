@@ -692,14 +692,6 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
       return false;
     }
 
-    if (isSeatLockedNotifier.value) {
-      ZegoLoggerService.logInfo(
-        'switch seat, seat is locked, ignore',
-        tag: 'audio room',
-        subTag: 'seat manager',
-      );
-      return false;
-    }
 
     final oldSeatIndex = getIndexByUserID(localUserID);
 
