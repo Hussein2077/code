@@ -244,7 +244,7 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
 
   Widget sendDialog(BuildContext context) {
     return Container(
-      height: ConfigSize.defaultSize! * 20.5,
+      height: ConfigSize.screenHeight! * .25,
       width: ConfigSize.defaultSize! * 9,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*1.1),
