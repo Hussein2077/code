@@ -28,8 +28,7 @@ class LinkingScreenBody extends StatefulWidget {
 class _LinkingScreenBodyState extends State<LinkingScreenBody> {
   @override
   Widget build(BuildContext context) {
-    bool isHigh = (widget.myData.isGoogle! && widget.myData.isPhone!);
-    log('kkkkk${widget.myData.isPhone!}');
+    bool isHigh = (MyDataModel.getInstance().isGoogle! && MyDataModel.getInstance().isPhone!);
     return BlocListener<AcountBloc, AccountStates>(
       listener: (context, state) {
         if (state is GoogleAccountSuccessState) {
@@ -82,10 +81,9 @@ class _LinkingScreenBodyState extends State<LinkingScreenBody> {
                   icon: AssetsPath.phoneIcon,
                   title: StringManager.phoneNum.tr(),
                   isBind: widget.myData.isPhone!,
-                  type: "phone",
                   onTap: () {
                     log('hero');
-                    log('hero${widget.myData.isPhone!}');
+                    log('hero${MyDataModel.getInstance().isPhone!}');
                     widget.myData.isPhone!
                         ? Navigator.pushNamed(
                             context, Routes.changePassOrNumberScreen)
@@ -100,7 +98,6 @@ class _LinkingScreenBodyState extends State<LinkingScreenBody> {
                   icon: AssetsPath.googleIcon,
                   title: StringManager.google.tr(),
                   isBind: widget.myData.isGoogle!,
-                  type: "google",
                   onTap: () {},
                 ),
               ],
@@ -118,7 +115,6 @@ Widget linkingRow({
   required String title,
   required void Function() onTap,
   required bool isBind,
-  required String type,
 }) {
   return Row(
     children: [

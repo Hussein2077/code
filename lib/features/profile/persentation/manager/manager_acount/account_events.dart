@@ -28,18 +28,22 @@ class BindGoolgeAccountEvent extends AccountEvents {
 
 }
 class BindNumberAccountEvent extends AccountEvents {
-  final String phoneNumber ;
-  final String password ;
-  final String vrCode ;
+  final String phoneNumber;
 
+  final String password;
 
-  BindNumberAccountEvent({    required this.phoneNumber,required this.password,required this.vrCode});
+  final String vrCode;
+
+  final String credential;
+
+  BindNumberAccountEvent(
+      {required this.phoneNumber,
+      required this.password,
+      required this.vrCode,
+      required this.credential});
 
   @override
-  List<Object?> get props => [  phoneNumber,password,vrCode];
-
-
-
+  List<Object?> get props => [phoneNumber, password, vrCode];
 }
 
 
@@ -47,12 +51,15 @@ class ChangeNumberAccountEvent extends AccountEvents {
   final String currentPhoneNumber;
   final String newtPhoneNumber ;
   final String vrCode;
+  final String credential ;
 
 
   ChangeNumberAccountEvent({
     required this.currentPhoneNumber,
     required this.newtPhoneNumber,
-    required this.vrCode});
+    required this.credential,
+
+  required this.vrCode});
 
   @override
   List<Object?> get props => [  currentPhoneNumber,vrCode,newtPhoneNumber];
