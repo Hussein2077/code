@@ -83,32 +83,33 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
               ),
             ),
           ),
-          Row(
-            children: [
-              InkWell(
-                onTap: ()async {
-              await    ZegoLiveAudioRoomManagers().seatManager!
-                      .takeOffAllSeat(isPK: false);
-                  BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
-                      ownerId: widget.ownerId, roomMode: '0'));
+          Padding(
+            padding: EdgeInsets.only(top: ConfigSize.defaultSize!),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                  onTap: ()async {
+                await    ZegoLiveAudioRoomManagers().seatManager!
+                        .takeOffAllSeat(isPK: false);
+                    BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
+                        ownerId: widget.ownerId, roomMode: '0'));
 
-                  if (selectHost) {
-                    setState(() {
-                      selectHost = false;
-                      selectedParty = false;
-                      selectMidParty =false ;
-                    });
-                  } else {
-                    setState(() {
-                      selectHost = true;
-                      selectedParty = false;
-                      selectMidParty =false ;
-                    });
-                  }
-                  Navigator.pop(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                    if (selectHost) {
+                      setState(() {
+                        selectHost = false;
+                        selectedParty = false;
+                        selectMidParty =false ;
+                      });
+                    } else {
+                      setState(() {
+                        selectHost = true;
+                        selectedParty = false;
+                        selectMidParty =false ;
+                      });
+                    }
+                    Navigator.pop(context);
+                  },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -141,43 +142,40 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                     ],
                   ),
                 ),
-              ),
-              InkWell(
-                onTap: ()async {
-                  if(!PkController.isPK.value){
-                 await   ZegoLiveAudioRoomManagers().seatManager!
-                        .takeOffAllSeat(isPK: false);
-                    BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
-                        ownerId: widget.ownerId, roomMode: '1'));
+                InkWell(
+                  onTap: ()async {
+                    if(!PkController.isPK.value){
+                   await   ZegoLiveAudioRoomManagers().seatManager!
+                          .takeOffAllSeat(isPK: false);
+                      BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
+                          ownerId: widget.ownerId, roomMode: '1'));
 
-                    if (selectedParty) {
-                      setState(() {
-                        selectHost = false;
-                        selectedParty = false;
-                        selectMidParty =false ;
-                      });
-                    }
-                    else {
-                      setState(() {
-                        selectHost = false;
-                        selectedParty = true;
-                        selectMidParty =false ;
-                      });
-                    }
-
-                    Navigator.pop(context);
-                  }else{
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return  WarningDialog(buildContext: context, text: StringManager.youshould.tr(),);
-
+                      if (selectedParty) {
+                        setState(() {
+                          selectHost = false;
+                          selectedParty = false;
+                          selectMidParty =false ;
                         });
-                  }
+                      }
+                      else {
+                        setState(() {
+                          selectHost = false;
+                          selectedParty = true;
+                          selectMidParty =false ;
+                        });
+                      }
 
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                      Navigator.pop(context);
+                    }else{
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return  WarningDialog(buildContext: context, text: StringManager.youshould.tr(),);
+
+                          });
+                    }
+
+                  },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -213,60 +211,57 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                     ],
                   ),
                 ),
-              ),
-              InkWell(
-                onTap: ()async {
-                  if(!PkController.isPK.value){
-                 await   ZegoLiveAudioRoomManagers().seatManager!
-                        .takeOffAllSeat(isPK: false);
-                    BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
-                        ownerId: widget.ownerId, roomMode: '2'));
+                InkWell(
+                  onTap: ()async {
+                    if(!PkController.isPK.value){
+                   await   ZegoLiveAudioRoomManagers().seatManager!
+                          .takeOffAllSeat(isPK: false);
+                      BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
+                          ownerId: widget.ownerId, roomMode: '2'));
 
-                    if (selectMidParty) {
-                      setState(() {
-                        selectHost = false;
-                        selectedParty = false;
-                        selectMidParty =false ;
-                      });
-                    }
-                    else {
-                      setState(() {
-                        selectHost = false;
-                        selectedParty = false;
-                        selectMidParty =true ;
-                      });
-                    }
-                    Navigator.pop(context);
-                  }else{
-                    //todo creat dialog you should close pk
-
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return  WarningDialog(buildContext: context, text: StringManager.youshould.tr(),);
-
+                      if (selectMidParty) {
+                        setState(() {
+                          selectHost = false;
+                          selectedParty = false;
+                          selectMidParty =false ;
                         });
-                    // QuickAlert.show(
-                    //   barrierDismissible: true,
-                    //   width: 20,
-                    //   context: context,
-                    //   type: QuickAlertType.error,
-                    //   text: StringManager.youShoudClosePK.tr(),
-                    //   confirmBtnColor: Colors.white,
-                    //   backgroundColor: ColorManager.secondColor,
-                    //   confirmBtnTextStyle: const TextStyle(
-                    //     color: Colors.black,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    //   barrierColor: Colors.white,
-                    //   titleColor: Colors.white,
-                    //   textColor: Colors.white,
-                    // );
-                  }
+                      }
+                      else {
+                        setState(() {
+                          selectHost = false;
+                          selectedParty = false;
+                          selectMidParty =true ;
+                        });
+                      }
+                      Navigator.pop(context);
+                    }else{
+                      //todo creat dialog you should close pk
 
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return  WarningDialog(buildContext: context, text: StringManager.youshould.tr(),);
+
+                          });
+                      // QuickAlert.show(
+                      //   barrierDismissible: true,
+                      //   width: 20,
+                      //   context: context,
+                      //   type: QuickAlertType.error,
+                      //   text: StringManager.youShoudClosePK.tr(),
+                      //   confirmBtnColor: Colors.white,
+                      //   backgroundColor: ColorManager.secondColor,
+                      //   confirmBtnTextStyle: const TextStyle(
+                      //     color: Colors.black,
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      //   barrierColor: Colors.white,
+                      //   titleColor: Colors.white,
+                      //   textColor: Colors.white,
+                      // );
+                    }
+
+                  },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -299,8 +294,8 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           )
         ],
       ),

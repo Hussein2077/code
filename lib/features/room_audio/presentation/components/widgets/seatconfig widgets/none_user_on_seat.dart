@@ -34,7 +34,7 @@ class NoneUserOnSeat extends StatelessWidget {
               "${extraInfo['index']}",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: AppPadding.p12,
+                  fontSize: AppPadding.p50,
                   fontWeight: FontWeight.w700),
             ),
           ),

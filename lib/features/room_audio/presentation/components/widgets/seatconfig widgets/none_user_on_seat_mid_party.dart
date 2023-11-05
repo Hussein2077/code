@@ -23,7 +23,7 @@ class NoneUserOnSeatMidParty extends StatelessWidget {
             child: Text(
               "${extraInfo['index'] + 1}",
               style: const TextStyle(
-                  color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+                  color: Colors.red, fontSize: 40, fontWeight: FontWeight.w700),
             ),
           ),
           const SizedBox(
