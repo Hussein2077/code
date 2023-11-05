@@ -20,7 +20,7 @@ class MusicWidget extends StatelessWidget {
 
   EnterRoomModel room;
   AnimationController controllerMusice;
-  static bool isIPlayerMedia = false ;
+   static bool isIPlayerMedia = false ;
   MusicWidget({super.key, required this.room, required this.controllerMusice});
 
   @override

@@ -24,6 +24,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_wi
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/invitation_to_mic.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -216,17 +217,9 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 }
 
 Future<void> loadMusice({required String path}) async {
-  // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
-
+  MusicWidget.isIPlayerMedia=false ;
   await ZegoUIKit().playMedia(filePathOrURL: path);
 
-  // await RoomScreen.zegoMediaPlayer?.loadResource(path);
-
-  // await RoomScreen.zegoMediaPlayer!.start();
-  //await   RoomScreen.zegoMediaPlayer!.getPlayVolume();
-  // await RoomScreen.zegoMediaPlayer!.enableAux(true);
-  // await RoomScreen.zegoMediaPlayer!.enableRepeat(true);
-  // log(RoomScreen.zegoMediaPlayer!.getTotalDuration().toString());
 
   MusicScreen.isPlaying.value = true;
 }
@@ -283,6 +276,7 @@ Future<void> clearAll() async {
 }
 
 Future<void> distroyMusic() async {
+  MusicWidget.isIPlayerMedia=false ;
   await ZegoUIKit.instance.stopMedia();
   MusicScreen.isPlaying.value = false;
 }
