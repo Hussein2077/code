@@ -1024,21 +1024,27 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   ZegoLiveAudioRoomSeatConfig getSeatConfig() {
     if (RoomScreen.layoutMode == LayoutMode.hostTopCenter) {
+
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
-          if (user?.id == null && PkController.showPK.value) {
+
+          if (user?.id == '' && PkController.showPK.value) {
             if (PkController.teamRed.contains(extraInfo['index'])) {
               return const  TeamRed();
-            } else if (PkController.teamBlue.contains(extraInfo['index'])) {
+            }
+            else if (PkController.teamBlue.contains(extraInfo['index'])) {
               return const  TeamBlue();
-            } else {
+            }
+            else {
               return Container();
             }
-          } else if (user?.id == null && !PkController.showPK.value) {
+          }
+          else if (user?.id == '' && !PkController.showPK.value) {
             return NoneUserOnSeat(
               extraInfo: extraInfo,
             );
-          } else {
+          }
+          else {
             return UserForgroundCach(user: user);
           }
         },
@@ -1079,6 +1085,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         },
       );
     }
+
     return ZegoLiveAudioRoomSeatConfig(
         //  avatarBuilder: avatarBuilder,
         );

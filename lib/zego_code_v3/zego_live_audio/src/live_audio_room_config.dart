@@ -82,7 +82,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomConfig {
     this.turnOnMicrophoneWhenJoining = true,
     this.useSpeakerWhenJoining = true,
     this.closeSeatsWhenJoining = true,
-    ZegoLiveAudioRoomSeatConfig? seatConfig,
+   ZegoLiveAudioRoomSeatConfig? seatConfig,
     ZegoTopMenuBarConfig? topMenuBarConfig,
     ZegoBottomMenuBarConfig? bottomMenuBarConfig,
     ZegoLiveAudioRoomLayoutConfig? layoutConfig,

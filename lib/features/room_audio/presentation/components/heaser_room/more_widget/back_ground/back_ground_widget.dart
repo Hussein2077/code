@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -76,7 +77,7 @@ class _BackGroundState extends State<BackGround> {
                     return Container(
                         height: ConfigSize.screenHeight! * .5,
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.black,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(AppPadding.p18),
                                 topLeft: Radius.circular(AppPadding.p18))),
@@ -91,9 +92,9 @@ class _BackGroundState extends State<BackGround> {
                                     padding: EdgeInsets.only(
                                         top: ConfigSize.defaultSize!,
                                         bottom: ConfigSize.defaultSize!),
-                                    child: const Center(
+                                    child:  Center(
                                         child: Text(
-                                            StringManager.yourThemeIsUpload)),
+                                            StringManager.yourThemeIsUpload.tr())),
                                   );
                                 } else {
                                   return SizedBox(
@@ -102,7 +103,7 @@ class _BackGroundState extends State<BackGround> {
                                     child: IconButton(
                                         icon: Icon(
                                           Icons.add,
-                                          color: Colors.black,
+                                          color: Theme.of(context).iconTheme.color,
                                           size: ConfigSize.defaultSize! * 3,
                                         ),
                                         onPressed: () async {
