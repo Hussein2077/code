@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 
 // Package imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
@@ -126,13 +127,13 @@ class _ZegoAudioRoomLayoutState extends State<ZegoAudioRoomLayout> {
                   borderRadius: widget.borderRadius,
                   borderColor: Colors.transparent,
                   extraInfo: {layoutGridItemIndexKey: baseIndex + index},
-                  foregroundBuilder: widget.foregroundBuilder,
+                 foregroundBuilder: widget.foregroundBuilder,
                   backgroundBuilder: widget.backgroundBuilder,
                   avatarConfig: ZegoAvatarConfig(
                     showInAudioMode: true,
                     showSoundWavesInAudioMode: true,
                     builder: widget.avatarBuilder,
-                    soundWaveColor: const Color(0xff2254f6),
+                    soundWaveColor: ColorManager.mainColor,
                     size: Size(seatIconWidth, seatIconHeight),
                     verticalAlignment: ZegoAvatarAlignment.start,
                   ),

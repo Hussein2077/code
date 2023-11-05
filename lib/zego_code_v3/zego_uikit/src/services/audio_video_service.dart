@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/audio_video.dart';
@@ -100,6 +102,8 @@ mixin ZegoAudioVideoService {
               orElse: ZegoUIKitCoreUser.empty);
       switch (streamType) {
         case ZegoStreamType.main:
+          log("streamType") ;
+
           return targetUser.mainChannel.view;
         case ZegoStreamType.media:
         case ZegoStreamType.screenSharing:

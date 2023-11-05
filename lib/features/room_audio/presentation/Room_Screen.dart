@@ -977,13 +977,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 valueListenable:
                     ZegoUIKit().getMicrophoneStateNotifier(user!.id),
                 builder: (context, isMicrophoneEnabled, _) {
+
                   return UserAvatar(
                       image: user.inRoomAttributes.value['img'],
                       isMicrophoneEnabled: isMicrophoneEnabled);
                 },
               );
             }
-            ..inRoomMessageViewConfig.itemBuilder = (context, message, extraInfo) {
+            ..inRoomMessageConfig.itemBuilder = (context, message, extraInfo) {
               return ValueListenableBuilder(
                   valueListenable: RoomScreen.clearTimeNotifier,
                   builder: (BuildContext context, dynamic value, Widget? child) {

@@ -60,7 +60,8 @@ class _ZegoAudioVideoViewState extends State<ZegoAudioVideoView> {
       child: Stack(
         children: [
           background(),
-          videoView(),
+       //todo comment that to remove black container
+       //   videoView(),
           foreground(),
         ],
       ),
@@ -100,7 +101,7 @@ class _ZegoAudioVideoViewState extends State<ZegoAudioVideoView> {
                       if (asyncResult.hasData) {
                         /// Do not update ui when ui is building !!!
                         /// use postFrameCallback to update videoSize
-                        WidgetsBinding.instance?.addPostFrameCallback((_) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
                           ///  notify sdk to update video render orientation
                           ZegoUIKit().updateAppOrientation(
                             deviceOrientationMap(asyncResult.data!),
