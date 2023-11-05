@@ -135,6 +135,7 @@ class GroupChatRow extends StatelessWidget {
                   const LinearGradient(colors: ColorManager.mainColorList)),
           child: Text(
             userData.groupMessage!,
+            overflow: TextOverflow.visible,
             style: TextStyle(
                 fontSize: ConfigSize.defaultSize! * 2,
                 color: ColorManager.darkBlack),

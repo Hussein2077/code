@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/message_count_notifecation.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
 
 
 
@@ -33,11 +34,9 @@ class MassageButton extends StatelessWidget {
                     color: ColorManager.whiteColor,
                   ),
                   height: 500,
-                  //TODO change that
-                  child: SizedBox()));
+                  child:const ChatPage()));
         },
-        child: MessageCountNotifcation(widget:                  Image.asset(AssetsPath.messages,width:  AppPadding.p40,height: AppPadding.p40,),
-            )
-    );
+        child:  MessageCountNotifcation(widget:Image.asset(AssetsPath.messages
+    ,width:  AppPadding.p40,height: AppPadding.p40,),));
   }
 }

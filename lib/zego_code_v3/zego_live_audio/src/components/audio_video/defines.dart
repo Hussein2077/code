@@ -57,7 +57,7 @@ enum ZegoLiveAudioRoomLayoutAlignment {
 /// This type is used for the [ZegoUIKitPrebuiltLiveAudioRoomConfig].[layoutConfig].[rowConfigs] property.
 class ZegoLiveAudioRoomLayoutRowConfig {
   ZegoLiveAudioRoomLayoutRowConfig({
-    this.count = 4,
+    this.count = 0,
     this.seatSpacing = 0,
     this.alignment = ZegoLiveAudioRoomLayoutAlignment.spaceAround,
   });

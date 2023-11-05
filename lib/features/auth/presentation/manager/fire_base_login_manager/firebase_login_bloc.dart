@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,28 +29,16 @@ class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState>
         );
       } on FirebaseAuthException catch (e) {
 
-        if (e.code == 'user-not-found') {
+     await createUserFireBase();
 
-          await createUserFireBase();
-
-
-
-        } else if (e.code == 'wrong-password') {
-
-          print('Wrong password provided for that user.');
-        }
-        // Navigator.pushNamedAndRemoveUntil(
-        //     context, Routes.login, (route) => false);
-
-      }
- }
+   }
       Methods().addFireBaseNotifcationId();
       Functions.updateAvailability(MyDataModel.getInstance().id.toString(),
           MyDataModel.getInstance().name.toString(), MyDataModel.getInstance().profile!.image!);
 
 
 
-    });
+    }});
   }
 }
 

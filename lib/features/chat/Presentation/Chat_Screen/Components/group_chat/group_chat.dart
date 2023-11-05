@@ -160,6 +160,9 @@ elevation: 0,
                         children: [
                           Expanded(
                             child: TextFormField(
+                              style: TextStyle(
+                                color: Colors.black
+                              ),
                               controller: massageCotroller,
                               decoration: InputDecoration(
                                   filled: true,

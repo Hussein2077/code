@@ -16,7 +16,7 @@ class ShimmerId extends StatelessWidget {
     Brightness currentBrightness = Theme.of(context).brightness;
     bool isDarkTheme = currentBrightness == Brightness.dark;
     return Shimmer.fromColors(
-     // period: const Duration(microseconds:1 ),
+      period: const Duration(seconds:7 ),
       baseColor: ColorManager.shimmerGold1.withOpacity(0.9),
       highlightColor: isDarkTheme?ColorManager.darkBlack.withOpacity(0.5):ColorManager.whiteColor.withOpacity(0.5),
       child: Text(

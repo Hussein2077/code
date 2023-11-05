@@ -44,7 +44,7 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
 
   @override
   Widget build(BuildContext context) {
- 
+
       BlocProvider.of<GetUserBloc>(context).add(GetuserEvent(userId: widget.userId));
 
 
@@ -52,10 +52,10 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
      listener: (context, state) {
     if (state is SuccessAddAdminRoomState) {
       sucssesToast(context: context, title: StringManager.beComeAdmin.tr());
-  
+
     } else if (state is ErrorAddAdminRoomState) {
       errorToast(context: context, title: state.errorMessage);
-   
+
     }
     },
       child: BlocListener<UsersInRoomBloc, OnUserInRoomStates>(
@@ -92,8 +92,8 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
                   layoutMode: widget.layoutMode
 
               );
-              
-     
+
+
             } else if (state is GetUserErorrState) {
             return InkWell(
                 onTap: () => Navigator.pop(context),
@@ -104,7 +104,7 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
             } else {
                                   return CustomErrorWidget(message: StringManager.unexcepectedError.tr(),);
 
-           
+
             }
           },
         ),
