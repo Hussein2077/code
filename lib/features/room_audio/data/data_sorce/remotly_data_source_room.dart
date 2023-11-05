@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_interpolations, avoid_print
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -9,7 +11,6 @@ import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
-import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/background_model.dart';
@@ -422,7 +423,8 @@ static String uploadImagePrice = "" ;
   @override
   Future<String> upMicrophone(UpMicrophonePramiter upMicrophonePramiter) async{
         Map<String, String> headers = await DioHelper().header();
-  
+
+        print("UP: ${upMicrophonePramiter.position}");
 
     try {
       final response = await Dio()
@@ -431,11 +433,20 @@ static String uploadImagePrice = "" ;
             headers: headers,
           ));
 
-      Map<String, dynamic> jsonData = response.data;
 
-      return jsonData['message'];
+      print("#####################");
+      print(response.data);
+      print("#####################");
+
+      //Map<String, dynamic> jsonData = response.data;
+
+      //return jsonData['message'];
+
+      return '';
 
     } on DioError catch (e) {
+      print("${e.message}");
+      print("####");
       throw DioHelper.handleDioError(dioError: e,endpointName: "up Microphone");
     }
 
@@ -628,7 +639,9 @@ static String uploadImagePrice = "" ;
   @override
   Future<String> leaveMicrophone(UpMicrophonePramiter upMicrophonePramiter)async {
         Map<String, String> headers = await DioHelper().header();
-    final body ={
+        print("LeaveMIC: ${upMicrophonePramiter.ownerId}");
+        print("LeaveMIC: ${upMicrophonePramiter.userId}");
+        final body ={
       'owner_id': upMicrophonePramiter.ownerId,
       'user_id':upMicrophonePramiter.userId
     };
@@ -640,12 +653,13 @@ static String uploadImagePrice = "" ;
           data: body
       );
 
-      Map<String, dynamic> jsonData = response.data;
+      print("#####################");
+      print(response.data);
+      print("#####################");
 
-      return jsonData['message'];
+      return "hiiii";
 
     } on DioError catch (e) {
-
       throw DioHelper.handleDioError(dioError: e,endpointName: "Leave Microphone");
     }
   }
