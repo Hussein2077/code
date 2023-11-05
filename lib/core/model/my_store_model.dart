@@ -4,7 +4,7 @@ import 'dart:convert';
 class MyStoreModel {
   final String? totalCoins;
   final int? coupons;
-  final int? coins;
+  final dynamic coins;
   final int? silverCoin;
   final dynamic diamonds;
   MyStoreModel(
@@ -26,7 +26,7 @@ class MyStoreModel {
     return MyStoreModel(
         totalCoins: map['total_coins'] != null ? map['total_coins'] as String : null,
         coupons: map['coupons'] != null ? map['coupons'] as int : null,
-        coins: map['coins'] != null ? map['coins'] as int : 0,
+        coins: map['coins'] != null ? map['coins'] as dynamic : 0,
         diamonds: map['diamonds'] != null ? map['diamonds'] as dynamic : 0,
         silverCoin: map['silver_coins'] != null ? map['silver_coins'] as int : 0);
   }
