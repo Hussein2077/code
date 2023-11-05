@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -25,7 +26,9 @@ import 'widgets/male_female_buttons.dart';
 
 class AddInfoScreen extends StatefulWidget {
   ThirdPartyAuthModel? Data;
-  AddInfoScreen({ this.Data, super.key});
+
+  AddInfoScreen({this.Data, super.key,});
+
 
   @override
   State<AddInfoScreen> createState() => _AddInfoScreenState();
@@ -33,10 +36,18 @@ class AddInfoScreen extends StatefulWidget {
 
 class _AddInfoScreenState extends State<AddInfoScreen> {
   late TextEditingController nameController;
+
   @override
   void initState() {
+    SnackBar snackBar = SnackBar(
+      content:widget.Data?.isAgeNotComplete == true&&widget.Data?.isBirthdayDateNotComplete == true?
+      const Text(StringManager.pleaseCompleteYourInfoAgeAndCountry):
+        Text(widget.Data?.isAgeNotComplete == true
+          ? StringManager.pleaseCompleteYourInfoAge
+          : StringManager.pleaseCompleteYourInfoCountry),
+    );
     nameController = TextEditingController();
-    if (widget.Data!=null) {
+    if (widget.Data != null) {
       if (widget.Data!.type.toString() == "google") {
         if (widget.Data!.data.displayName != null) {
           nameController.text = widget.Data!.data.displayName!;
@@ -50,8 +61,15 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
     }
 
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (widget.Data?.isAgeNotComplete == true||widget.Data?.isBirthdayDateNotComplete == true) {
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+
+    });
   }
 
+  @override
   @override
   void dispose() {
     nameController.dispose();
@@ -75,7 +93,12 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 1,
               ),
-              AddProFilePic(gooleImageUrl: widget.Data?.type.toString() == "google"? widget.Data?.data.photoUrl : null, quality: 100,),
+              AddProFilePic(
+                gooleImageUrl: widget.Data?.type.toString() == "google"
+                    ? widget.Data?.data.photoUrl
+                    :( MyDataModel.getInstance().profile?.image),
+                quality: 100,
+              ),
               const Spacer(
                 flex: 1,
               ),
@@ -96,11 +119,12 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                           fontSize: ConfigSize.defaultSize! * 1.7),
                       autofocus: false,
                       controller: nameController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
-                          hintText: StringManager.userName,
-                          hintStyle: TextStyle(color: Colors.grey)),
+                          hintText: MyDataModel.getInstance().name ??
+                              StringManager.userName,
+                          hintStyle: const TextStyle(color: Colors.grey)),
                     ),
                   )),
               const Spacer(
@@ -128,7 +152,9 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                             image: AddProFilePic.image == null
                                 ? AddProFilePic.googleImage
                                 : File(AddProFilePic.image!.path),
-                            gender: MaleFemaleButtons.selectedGender=="male"?"1":"0",
+                            gender: MaleFemaleButtons.selectedGender == "male"
+                                ? "1"
+                                : "0",
                             country: CountryWidget.countryFlag!,
                             name: nameController.text,
                             date: DateWidget.selectedDatee,
@@ -183,10 +209,10 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   }
 
   bool valadate() {
-    if (AddProFilePic.googleImage == null && AddProFilePic.image == null) {
+    if (AddProFilePic.googleImage == null && AddProFilePic.image == null&&MyDataModel.getInstance().profile!.image=='') {
       warningToast(context: context, title: StringManager.pleaseAddPhoto);
       return false;
-    } else if (nameController.text.isEmpty) {
+    } else if (nameController.text.isEmpty&& MyDataModel.getInstance().name==null) {
       warningToast(context: context, title: StringManager.pleaseEnterYourName);
       return false;
     } else if (DateWidget.selectedDatee == StringManager.birthdayDate) {
