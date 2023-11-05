@@ -30,11 +30,11 @@ class UserForgroundCachParty extends StatelessWidget {
               url: user!.inRoomAttributes.value['f2'] ?? "",
             )) ,
       //todo use bloc
-      ValueListenableBuilder<Map<String, EmojieData>>(
-          valueListenable: RoomScreen.listOfEmojie,
+      ValueListenableBuilder<int>(
+          valueListenable: RoomScreen.updateEmojie,
           builder: (context, mapEmoji, _) {
-            if (mapEmoji.containsKey(user!.id)) {
-              return ShowSVGA(
+            if (RoomScreen.listOfEmojie.value.containsKey(user!.id)) {
+              return   ShowSVGA(
                 imageId:
                 '${RoomScreen.listOfEmojie.value[user!.id]!.emojieId.toString()}$cacheEmojieKey',
                 url: RoomScreen.listOfEmojie.value[user!.id]!.emojie,
