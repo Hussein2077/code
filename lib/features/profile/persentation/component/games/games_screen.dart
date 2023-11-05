@@ -94,23 +94,26 @@ class GamesScreen extends StatelessWidget {
   void joinToGames(int index, BuildContext context)async {
     String token = await Methods.instance.returnUserToken() ;
     if(index==0){
-      log("url${StringManager.teenPatti}${token}");
+
 
       Navigator.push(context,
-          MaterialPageRoute(builder: ((context) => const ForceRotateWidget(widget: WebViewInRoom(url: 'http://167.172.6.20/Test/Tik-Chat-Seven-full/index.html?token=694|SbQAJQ2rGaE0BVxfa0NC6XGcwFH3EeodH6xaIHE6fa8214a0&sound=0&language=ar',),))));
-     // Navigator.push(context, MaterialPageRoute(builder: ((context) => WebViewInRoom(url: 'http://167.172.6.20/Test/Tik-Chat-Seven-full/index.html?token=694|SbQAJQ2rGaE0BVxfa0NC6XGcwFH3EeodH6xaIHE6fa8214a0&sound=0&language=ar',))));
+          MaterialPageRoute(builder: ((context) =>
+           ForceRotateWidget(widget: WebViewInRoom(url:'${StringManager.teenPattiFull}${token}',),))));
 
     }else if(index ==1){
-      log("url${StringManager.roulette}${token}");
-      Navigator.push(context, MaterialPageRoute(builder: ((context) => WebViewInRoom(url: '${StringManager.roulette}${token}',))));
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) =>
+              ForceRotateWidget(widget: WebViewInRoom(url:'${StringManager.rouletteFull}${token}',),))));
 
     }else if(index==2){
-      log("url${StringManager.carRace}${token}");
-      Navigator.push(context, MaterialPageRoute(builder: ((context) => WebViewInRoom(url: '${StringManager.carRace}${token}',))));
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) =>
+              ForceRotateWidget(widget: WebViewInRoom(url:'${StringManager.carRaceFull}${token}',),))));
 
     }else if (index ==3){
-      log("url${StringManager.updown}${token}");
-      Navigator.push(context, MaterialPageRoute(builder: ((context) => WebViewInRoom(url: '${StringManager.updown}${token}',))));
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) =>
+              ForceRotateWidget(widget: WebViewInRoom(url:'${StringManager.updownFull}${token}',),))));
 
     }else if(index ==4){
       log("url${StringManager.ludo}${token}");

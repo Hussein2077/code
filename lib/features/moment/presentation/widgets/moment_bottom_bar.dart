@@ -38,6 +38,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
 
   static MomentType momentType = MomentType.myMoment ;
   static final Map<int, int> giftsOfMomentsMap = {};
+  Stream<String> stream = Stream.periodic(const Duration(seconds: 1), (i) => 'Count: $i');
 
 
   @override
@@ -50,6 +51,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
           //the likes row
           Row(
             children: [
+
               InkWell(
                 onTap: () {
                   bottomDailog(
@@ -76,8 +78,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       widget.momentModel.momentId;
                   BlocProvider.of<MakeMomentLikeBloc>(context).add(
                       MakeMomentLikeEvent(
-                          momentId:
-                          widget.momentModel.momentId.toString()));
+                          momentId: widget.momentModel.momentId.toString()));
                 },
                 child: SizedBox(
                   width: ConfigSize.defaultSize!*2,

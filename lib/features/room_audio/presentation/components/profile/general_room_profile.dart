@@ -1,3 +1,5 @@
+
+import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,12 +24,11 @@ import 'user_porfile_in_room_body.dart';
 
 // ignore: must_be_immutable
 class GeneralRoomProfile extends StatefulWidget {
-  GeneralRoomProfile(
-      {required this.userId,
-      required this.myData,
-      required this.roomData,
-      required this.layoutMode,
-      super.key});
+  GeneralRoomProfile({required this.userId,
+    required this.myData,
+    required this.roomData,
+    required this.layoutMode,
+    super.key});
 
   MyDataModel myData;
   EnterRoomModel roomData;
@@ -43,6 +44,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
   Widget build(BuildContext context) {
     BlocProvider.of<GetUserBloc>(context)
         .add(GetuserEvent(userId: widget.userId));
+    log('lllllllllll${widget.userId}');
 
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
       listener: (context, state) {
@@ -67,29 +69,37 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
             if (state is GetUserLoddingState) {
               return RoomScreen.usersInRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
-                      height: ConfigSize.defaultSize! * 2,
-                      width: ConfigSize.defaultSize! * 5.2,
-                    )
+                height: ConfigSize.defaultSize! * 2,
+                width: ConfigSize.defaultSize! * 5.2,
+              )
                   : UserProfileInRoom(
-                      myData: widget.myData,
-                      roomData: widget.roomData,
-                      userData: RoomScreen.usersInRoom[widget.userId]!,
-                      layoutMode: widget.layoutMode);
-            } else if (state is GetUserSucssesState) {
+                  myData: widget.myData,
+                  roomData: widget.roomData,
+                  userData: RoomScreen.usersInRoom[widget.userId]!,
+                  layoutMode: widget.layoutMode);}
+            else if (state is GetUserSucssesState) {
               RoomScreen.usersInRoom
-                  .removeWhere((key, value) => key == state.data.id.toString());
+                  .removeWhere((key, value) =>
+              key == state.data.id.toString());
               RoomScreen.usersInRoom
                   .putIfAbsent(state.data.id.toString(), () => state.data);
+              log('kkkkkkkkkk${state.data}');
+
               return UserProfileInRoom(
                   myData: widget.myData,
                   roomData: widget.roomData,
                   userData: state.data,
                   layoutMode: widget.layoutMode);
-            } else if (state is GetUserErorrState) {
+            }
+            else if (state is GetUserErorrState) {
+              log('jak');
               return InkWell(
                 onTap: () => Navigator.pop(context),
                 child: SizedBox(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 2,
                     child: CustomErrorWidget(
                       message: state.error,
                     )),
@@ -97,18 +107,20 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
             } else {
               return RoomScreen.usersInRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
-                      height: ConfigSize.defaultSize! * 2,
-                      width: ConfigSize.defaultSize! * 5.2,
-                    )
+                height: ConfigSize.defaultSize! * 2,
+                width: ConfigSize.defaultSize! * 5.2,
+              )
                   : UserProfileInRoom(
-                      myData: widget.myData,
-                      roomData: widget.roomData,
-                      userData: RoomScreen.usersInRoom[widget.userId]!,
-                      layoutMode: widget.layoutMode,
-                    );
+                myData: widget.myData,
+                roomData: widget.roomData,
+                userData: RoomScreen.usersInRoom[widget.userId]!,
+                layoutMode: widget.layoutMode,
+              );
             }
           },
-        ),
+        )
+
+
       ),
     );
   }

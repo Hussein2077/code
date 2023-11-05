@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
@@ -51,7 +52,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
   Widget build(BuildContext context) {
 
     return Container(
-        height: ConfigSize.defaultSize! * 11,
+        height: ConfigSize.defaultSize! * 12,
         decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
         topRight: Radius.circular(ConfigSize.defaultSize!-2),

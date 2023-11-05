@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 
 /// @nodoc
 const controlBarButtonBackgroundColor = Colors.white;
@@ -18,7 +19,6 @@ class UIKitImage {
   }) {
     return Image.asset(
       name,
-      package: 'zego_uikit',
       width: width,
       height: height,
       fit: fit,
@@ -70,8 +70,8 @@ class StyleIconUrls {
   static const String inviteReject = 'assets/images/invite_reject.png';
 
   static const String iconNavClose = 'assets/icons/nav_close.png';
-  static const String iconSend = 'assets/icons/send.png';
-  static const String iconSendDisable = 'assets/icons/send_disable.png';
+  static const String iconSend = AssetsPath.sendMessage;
+  static const String iconSendDisable = AssetsPath.sendMessage;
 
   static const String iconBack = 'assets/icons/back.png';
 

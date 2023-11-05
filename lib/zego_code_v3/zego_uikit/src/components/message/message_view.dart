@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/defines.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/services.dart';
+import 'dart:ui' as ui;
 
 /// @nodoc
 class ZegoInRoomMessageView extends StatefulWidget {
@@ -64,7 +65,9 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
   Widget build(BuildContext context) {
     messagesNotifier.value = widget.historyMessages;
 
-    return ValueListenableBuilder<List<ZegoInRoomMessage>>(
+    return Directionality(
+        textDirection: ui.TextDirection.rtl,
+        child:  ValueListenableBuilder<List<ZegoInRoomMessage>>(
       valueListenable: messagesNotifier,
       builder: (context, messageList, child) {
         return MediaQuery.removePadding(
@@ -85,7 +88,7 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
           ),
         );
       },
-    );
+    ));
   }
 
   void onMessageUpdate(List<ZegoInRoomMessage> messages) {

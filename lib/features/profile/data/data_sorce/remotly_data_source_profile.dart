@@ -317,13 +317,16 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   @override
   Future<UserDataModel> getUserData(
       {required String userId,bool?isVisit}) async {
+    log(userId.toString()+"xxxxxxx");
 
     Map<String, String> headers = await DioHelper().header();
     try {
       final response = await Dio().get(
           ConstentApi().getUserData(
             userId: userId,
+isVisit: isVisit,
           ),
+
           options: Options(
             headers: headers,
           ));

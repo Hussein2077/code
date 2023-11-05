@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/show_svga.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/screen_util/core/size_extension.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import '../../../../../../core/utils/config_size.dart';
 
@@ -16,11 +17,18 @@ class UserForgroundCachParty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      if (user!.inRoomAttributes.value['frm'].toString() != "0")
-        ShowSVGA(
-          imageId: '${user!.inRoomAttributes.value['frm']}$cacheFrameKey',
-          url: user!.inRoomAttributes.value['f2'] ?? "",
-        ),
+
+      if (user!.inRoomAttributes.value['frm'].toString() != "0"
+          &&user!.inRoomAttributes.value['frm'] != null )
+        Positioned(
+            top: -22.zR,
+            left: -10.zR,
+            right: -10.zR,
+            bottom: -4.zR,
+            child: ShowSVGA(
+              imageId: '${user!.inRoomAttributes.value['frm']}$cacheFrameKey',
+              url: user!.inRoomAttributes.value['f2'] ?? "",
+            )) ,
       //todo use bloc
       ValueListenableBuilder<Map<String, EmojieData>>(
           valueListenable: RoomScreen.listOfEmojie,
@@ -35,14 +43,11 @@ class UserForgroundCachParty extends StatelessWidget {
               return Container();
             }
           }),
-      Positioned(
-        bottom: 0,
-        top: ConfigSize.defaultSize! * 8.8,
-        left: ConfigSize.defaultSize! * 1.0,
-        right: 0,
+      Align(
+        alignment: Alignment.bottomCenter,
         child: SizedBox(
-          width: ConfigSize.defaultSize! * 24,
-          height: ConfigSize.defaultSize! * 12,
+          width: ConfigSize.defaultSize! * 20,
+          height: ConfigSize.defaultSize! *1.5,
           child: GradientTextVip(
             text: user!.name,
             isVip: user!.inRoomAttributes.value['vip'] == ''
@@ -51,11 +56,12 @@ class UserForgroundCachParty extends StatelessWidget {
                 ? true
                 : false,
             textStyle: TextStyle(
-                fontSize: AppPadding.p10,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-                fontStyle: FontStyle.italic,
-                overflow: TextOverflow.ellipsis),
+              fontSize: AppPadding.p10,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              fontStyle: FontStyle.italic,
+              overflow: TextOverflow.ellipsis,
+            ),
             textAlign: TextAlign.center,
           ),
         ),
