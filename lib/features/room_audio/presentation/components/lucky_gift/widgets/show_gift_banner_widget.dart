@@ -54,6 +54,8 @@ class ShowGiftBannerWidget extends StatelessWidget {
                         ownerRoomId: ownerId, myDataModel: MyDataModel.getInstance()));
               }
             }
+          }else{
+
           }
         },
         child: GiftBannerWidget(

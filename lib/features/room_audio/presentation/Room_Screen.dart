@@ -150,10 +150,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Map<String,dynamic> userBannerData =
   { 'gift_banner':'',
     'owner_id_room_banner':'',
-    'is_password_room_banner':''
+    'is_password_room_banner': false,
+    'user_data_sender':UserDataModel(),
+    'user_data_receiver' : UserDataModel()
   };
-  UserDataModel? sendDataUser;
-  UserDataModel? receiverDataUser;
   //////
 
   //////
@@ -489,8 +489,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Future<void> loadMp4Gift({required GiftData giftData}) async {
     RoomScreen.isGiftEntroAnimating = true;
     if (giftData.showBanner) {
-      sendDataUser = giftData.senderData;
-      receiverDataUser = giftData.reciverData;
+      userBannerData['user_data_sender'] = giftData.senderData;
+      userBannerData['user_data_receiver'] = giftData.reciverData;
       userBannerData ['gift_banner']   = giftData.giftBanner;
       giftImg = giftData.giftImg;
       RoomScreen.showBanner.value = giftData.showBanner;
@@ -540,9 +540,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Future<void> loadAnimationGift(GiftData giftData) async {
     RoomScreen.isGiftEntroAnimating = true;
     if (giftData.showBanner) {
-      sendDataUser = giftData.senderData;
-      receiverDataUser = giftData.reciverData;
-       userBannerData['gift_banner'] = giftData.giftBanner;
+      userBannerData['user_data_sender'] = giftData.senderData;
+      userBannerData['user_data_receiver'] = giftData.reciverData;
+      userBannerData['gift_banner'] = giftData.giftBanner;
       giftImg = giftData.giftImg;
       controllerBanner.forward();
       isPlural['isPlural'] = giftData.isPlural;
@@ -680,7 +680,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent]['msg'] == 'SHB') {
         if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {
-          ShowPopularBanner(result, sendDataUser, receiverDataUser, userBannerData, controllerBanner);
+          ShowPopularBanner(result, userBannerData['user_data_sender'], userBannerData['user_data_receiver'], userBannerData, controllerBanner);
         }
       }
       else if (result[messageContent][message] == showEmojie) {
@@ -865,7 +865,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             ..hostSeatIndexes = [0]
             ..seatConfig = getSeatConfig()
             ..viewbackground = ViewbackgroundWidget(room: widget.room,
-                roomDataUpdates: roomDataUpdates, userBannerData: userBannerData,
+                roomDataUpdates: roomDataUpdates,
+                userBannerData: userBannerData,
                 superBox: superBox,
                 layoutMode: RoomScreen.layoutMode,
                 controllerMusice: controllerMusice,
@@ -880,8 +881,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 offsetAnimationYellowBanner: offsetAnimationYellowBanner,
                 yallowBannerSender: yallowBannerSender,
                 isPlural: isPlural,
-                sendDataUser: sendDataUser,
-                receiverDataUser: receiverDataUser,
                 controllerBanner: controllerBanner,
                 offsetAnimationBanner: offsetAnimationBanner,
                 luckGiftBannderController: luckGiftBannderController,
