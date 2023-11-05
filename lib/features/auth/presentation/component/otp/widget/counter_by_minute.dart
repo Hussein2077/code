@@ -20,7 +20,7 @@ class CounterByMinute extends StatefulWidget {
 
 class _CounterByMinuteState extends State<CounterByMinute> {
   late Timer _timer;
-  int _start = 5; // 5 minutes in seconds
+  int _start = 120; // 5 minutes in seconds
   bool isRepeatingTime = true;
   @override
   void initState() {

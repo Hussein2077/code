@@ -43,7 +43,9 @@ class AcountBloc extends Bloc<AccountEvents,AccountStates>{
      emit(NumberAccountLoading());
      final result = await boundPlatformUC.boundNumber(
          BoundNumberPramiter(phoneNumber: event.phoneNumber,
-             password: event.password, vrCode:event.vrCode , ));
+             password: event.password, vrCode:event.vrCode ,
+           credintial: event.credential,
+         ));
 
      result.fold((l) => emit(NumberAccountSuccessState(successMessage: l)),
              (r) => emit(NumberAccountErrorState(errorMessage: DioHelper().getTypeOfFailure(r))));
@@ -55,7 +57,9 @@ class AcountBloc extends Bloc<AccountEvents,AccountStates>{
    final result = await boundPlatformUC.changePhone(
        BoundNumberPramiter(currentPhone: event.currentPhoneNumber,
          phoneNumber: event.newtPhoneNumber,
-         vrCode:event.vrCode , ));
+         vrCode:event.vrCode ,
+       credintial: event.credential,
+       ));
    result.fold((l) => emit(ChangeNumberSuccessState(successMessage: l)),
            (r) => emit(ChangeNumberErrorState(errorMessage: DioHelper().getTypeOfFailure(r))));
 
@@ -67,6 +71,8 @@ class AcountBloc extends Bloc<AccountEvents,AccountStates>{
        BoundNumberPramiter(
          password: event.password,
          phoneNumber: event.phone,
+         credintial: event.credential,
+
        ));
 
    result.fold((l) => emit(ChangePasswordSuccessState(successMessage: l)),
