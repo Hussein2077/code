@@ -235,7 +235,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
         );
       },
       sortAudioVideo: audioVideoViewSorter,
-      avatarBuilder: widget.config.seatConfig.avatarBuilder,
+     avatarBuilder: widget.config.seatConfig.avatarBuilder,
     );
 
     return Positioned(

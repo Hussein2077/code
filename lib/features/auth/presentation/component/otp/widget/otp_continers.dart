@@ -20,6 +20,7 @@ class _OtpContinersState extends State<OtpContiners> {
   @override
   Widget build(BuildContext context) {
     print('${textEditingController.text}huss');
+    print('${OtpContiners.code}huss2');
     return TextFieldPin(
         textController: textEditingController,
         autoFocus: false,

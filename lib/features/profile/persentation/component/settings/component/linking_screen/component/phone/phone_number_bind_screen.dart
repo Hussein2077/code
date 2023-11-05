@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -59,7 +61,8 @@ class _PhoneNumberBindScreenState extends State<PhoneNumberBindScreen> {
 
       
                                 MainButton(onTap: (){  
-
+log('jjjjj${passWordController.text}');
+log('jjjjj${PhoneWithCountry.number.phoneNumber}');
    if (PhoneWithCountry.number.dialCode == null) {
                                warningToast(context: context, title: StringManager.pleaseSelectYourCountry);
 
@@ -72,7 +75,9 @@ class _PhoneNumberBindScreenState extends State<PhoneNumberBindScreen> {
                           arguments: OtbScreenParm(
                               codeCountry: PhoneWithCountry.number.dialCode!,
                               password: passWordController.text,
-                              phone: PhoneWithCountry.number.phoneNumber!));
+                              phone: PhoneWithCountry.number.phoneNumber!,
+                          type: 'bindNumber'
+                          ));
                     } else {
                       warningToast(
                           context: context,

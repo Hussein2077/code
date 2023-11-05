@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -42,9 +43,9 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AcountBloc, AccountStates>(
-      listener: (context, state) async
-    {
+    return BlocConsumer<AcountBloc, AccountStates>(
+        listener: (BuildContext context, AccountStates state) async {
+      log('lllllllllll1');
 
       if (state is ChangeNumberSuccessState) {
         sucssesToast(context: context, title: state.successMessage);
@@ -52,12 +53,10 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
         // Navigator.pop(context);
         // // ignore: use_build_context_synchronously
         // Navigator.pop(context);
-      }
-      else if (state is ChangeNumberErrorState) {
+      } else if (state is ChangeNumberErrorState) {
         log(state.errorMessage);
         errorToast(context: context, title: state.errorMessage);
-      }
-      else if (state is ChangeNumberLoading) {
+      } else if (state is ChangeNumberLoading) {
         //loadingToast(context: context, );
       }
 
@@ -75,129 +74,126 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
       }
 
       else if (state is NumberAccountSuccessState) {
+            log('lllllllllll3');
         sucssesToast(context: context, title: state.successMessage);
         // // ignore: use_build_context_synchronously
         // Navigator.pop(context);
-      }
-      else if (state is NumberAccountLoading) {
-         loadingToast(context: context, );
-      }
-      else if (state is NumberAccountErrorState) {
+      } else if (state is NumberAccountLoading) {
+        log('lllllllllll2');
+
+        //loadingToast(context: context, );
+      } else if (state is NumberAccountErrorState) {
         errorToast(context: context, title: state.errorMessage);
       }
-
-      },
-
-        child :Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          body: Column(
-            children: [
-              const Spacer(
-                flex: 4,
-              ),
-              const HeaderWithOnlyTitle(
-                title: StringManager.enterTheVerificatiOnCode,
-              ),
-              const Spacer(
-                flex: 7,
-              ),
-              Image.asset(
-                AssetsPath.iconApp,
-                scale: 2.5,
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 50,
-                child: Text(StringManager.verificatiCodeWiilBeSent,
-                    style: Theme.of(context).textTheme.titleMedium),
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-              Text(
-                widget.phone??"",
-                style: TextStyle(
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: ConfigSize.defaultSize! + 6),
-              ),
-              const Spacer(
-                flex: 2,
-              ),
-              const OtpContiners(),
-              const ResendCodeWidget(),
-              const Spacer(
-                flex: 7,
-              ),
-              MainButton(
-                  onTap: () async {
-                    var userCredential = await getIt<FireBaseDataSource>()
-                        .verifyOTP(OtpContiners.code, context);
-                    if (userCredential?.user != null) {
-                      if (widget.type == 'bindNumber') {
-
-                        // String? token =
-                        // await userCredential!.user!.getIdToken();
-                        // ignore: use_build_context_synchronously
-                        BlocProvider.of<AcountBloc>(context).add(
-                            BindNumberAccountEvent(
-
-                                phoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
-                                password: widget.password ?? '',
-                                vrCode: code));
-                        // ignore: use_build_context_synchronously
-                        Navigator.pop(context);
-                        // ignore: use_build_context_synchronously
-                        Navigator.pop(context);
-                      }
-                      else if (widget.type == 'changeNumber') {
-
-                        // String? token =
-                        // await userCredential!.user!.getIdToken();
-                        // ignore: use_build_context_synchronously
-                        BlocProvider.of<AcountBloc>(context)
-                            .add(ChangeNumberAccountEvent(
-                          currentPhoneNumber:MyDataModel.getInstance().phone.toString(),
-                          vrCode: code,
-                          newtPhoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
-                        ));
-
-
-                      }
-                      else if (widget.type == 'changePassword') {
-                        String? token =
-                        await
-                        userCredential!.user!.getIdToken();
-                        // ignore: use_build_context_synchronously
-                        BlocProvider.of<AcountBloc>(context)
-                            .add(ChangePasswordAccountEvent(
-                          phone: MyDataModel.getInstance().phone.toString(),
-                          password: widget.password ?? '',
-                          credential: token ?? "",
-                          vrCode: code,
-                        ));
-
-                      }
-                    }
-                    else{
+    }, builder: (BuildContext context, AccountStates state) {
+      log('lllllllllll4');
+      return Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Column(
+          children: [
+            const Spacer(
+              flex: 4,
+            ),
+            const HeaderWithOnlyTitle(
+              title: StringManager.enterTheVerificatiOnCode,
+            ),
+            const Spacer(
+              flex: 7,
+            ),
+            Image.asset(
+              AssetsPath.iconApp,
+              scale: 2.5,
+            ),
+            const Spacer(
+              flex: 1,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 50,
+              child: Text(StringManager.verificatiCodeWiilBeSent,
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+            const Spacer(
+              flex: 1,
+            ),
+            Text(
+              widget.phone ?? "",
+              style: TextStyle(
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: ConfigSize.defaultSize! + 6),
+            ),
+            const Spacer(
+              flex: 2,
+            ),
+            const OtpContiners(),
+            const ResendCodeWidget(),
+            const Spacer(
+              flex: 7,
+            ),
+            MainButton(
+                onTap: () async {
+                  log('llllllll${widget.type}');
+                  var userCredential = await getIt<FireBaseDataSource>()
+                      .verifyOTP(OtpContiners.code, context);
+                  if (userCredential?.user != null) {
+                    String? token = await userCredential!.user!.getIdToken();
+                    if (widget.type == 'bindNumber') {
                       // ignore: use_build_context_synchronously
-                      errorToast(context: context, title: StringManager.theOtp);
-
+                      BlocProvider.of<AcountBloc>(context)
+                          .add(BindNumberAccountEvent(
+                              credential: token ?? '',
+                              phoneNumber: widget.phone.toString(),
+                              //   phoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
+                              password: widget.password ?? '',
+                              vrCode: OtpContiners.code));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
                     }
-                  },
-                  title: StringManager.done),
-              const Spacer(
-                flex: 20,
-              ),
-            ],
-          ),
-        )
+                    else if (widget.type == 'changeNumber') {
 
-    );
+
+                      // ignore: use_build_context_synchronously
+                      BlocProvider.of<AcountBloc>(context)
+                          .add(ChangeNumberAccountEvent(
+                        currentPhoneNumber:
+                            MyDataModel.getInstance().phone.toString(),
+                        vrCode: code,
+                        newtPhoneNumber: ChangeNumberScreenState
+                            .number.phoneNumber
+                            .toString(),
+                        credential: token ?? '',
+                      ));
+                    }
+                    else if (widget.type == 'changePassword') {
+                      log('kkkkkkkk${MyDataModel.getInstance().phone.toString()}');
+                      log('kkkkkkkk${code}');
+                      log('kkkkkkkk changePassword');
+                      log('kkkkkkkk${widget.password}');
+                      String? token = await userCredential.user!.getIdToken();
+                      // ignore: use_build_context_synchronously
+                      BlocProvider.of<AcountBloc>(context)
+                          .add(ChangePasswordAccountEvent(
+                        phone: MyDataModel.getInstance().phone.toString(),
+                        password: widget.password ?? '',
+                        credential: token ?? "",
+                        vrCode: code,
+                      ));
+                    }
+                  } else {
+                    // ignore: use_build_context_synchronously
+                    errorToast(context: context, title: StringManager.theOtp);
+                  }
+                },
+                title: StringManager.done),
+            const Spacer(
+              flex: 20,
+            ),
+          ],
+        ),
+      );
+    });
   }
-
-
 }

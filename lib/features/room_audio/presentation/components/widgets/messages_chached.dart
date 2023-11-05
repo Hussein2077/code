@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -18,6 +19,7 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
 
 class MessagesChached extends StatelessWidget {
@@ -49,17 +51,19 @@ class MessagesChached extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        if(message.user.id != "0" ){
-          bottomDailog(
-            context: context,
-            widget: MessageRoomProfile(
-              myData: myDataModel,
-              userId: message.user.id.toString(),
-              roomData: room,
-              layoutMode: layoutMode,
-            ));
-        }
-      
+        (message.user.id != "0")
+            ? bottomDailog(
+                context: context,
+                widget: MessageRoomProfile(
+                  myData: myDataModel,
+                  userId: message.user.id.toString(),
+                  roomData: room,
+                  layoutMode: layoutMode,
+                ))
+            : bottomDailog(
+            widget: const AnonymousDialog(), context: context,
+           // height: ConfigSize.screenHeight!*0.3
+        );
       },
       child: Padding(
         padding: EdgeInsets.symmetric(
