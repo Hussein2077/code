@@ -433,20 +433,11 @@ static String uploadImagePrice = "" ;
             headers: headers,
           ));
 
+      Map<String, dynamic> jsonData = response.data;
 
-      print("#####################");
-      print(response.data);
-      print("#####################");
-
-      //Map<String, dynamic> jsonData = response.data;
-
-      //return jsonData['message'];
-
-      return '';
+      return jsonData['message'];
 
     } on DioError catch (e) {
-      print("${e.message}");
-      print("####");
       throw DioHelper.handleDioError(dioError: e,endpointName: "up Microphone");
     }
 
@@ -639,8 +630,6 @@ static String uploadImagePrice = "" ;
   @override
   Future<String> leaveMicrophone(UpMicrophonePramiter upMicrophonePramiter)async {
         Map<String, String> headers = await DioHelper().header();
-        print("LeaveMIC: ${upMicrophonePramiter.ownerId}");
-        print("LeaveMIC: ${upMicrophonePramiter.userId}");
         final body ={
       'owner_id': upMicrophonePramiter.ownerId,
       'user_id':upMicrophonePramiter.userId
@@ -653,11 +642,9 @@ static String uploadImagePrice = "" ;
           data: body
       );
 
-      print("#####################");
-      print(response.data);
-      print("#####################");
+      Map<String, dynamic> jsonData = response.data;
 
-      return "hiiii";
+      return jsonData['message'];
 
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: "Leave Microphone");

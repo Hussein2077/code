@@ -79,16 +79,16 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
   /// @nodoc
   @override
   State<ZegoUIKitPrebuiltLiveAudioRoom> createState() =>
-      _ZegoUIKitPrebuiltLiveAudioRoomState();
+      ZegoUIKitPrebuiltLiveAudioRoomState();
 }
 
 /// @nodoc
-class _ZegoUIKitPrebuiltLiveAudioRoomState
+class ZegoUIKitPrebuiltLiveAudioRoomState
     extends State<ZegoUIKitPrebuiltLiveAudioRoom> with WidgetsBindingObserver {
   List<StreamSubscription<dynamic>?> subscriptions = [];
 
   bool isFromMinimizing = false;
-  late ZegoUIKitPrebuiltLiveAudioRoomData prebuiltData;
+  static  ZegoUIKitPrebuiltLiveAudioRoomData? prebuiltData;
 
   @override
   void initState() {
@@ -136,7 +136,7 @@ class _ZegoUIKitPrebuiltLiveAudioRoomState
           ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state();
       if (!isFromMinimizing) {
         ZegoLiveAudioRoomManagers().initPluginAndManagers(
-          prebuiltData: prebuiltData,
+          prebuiltData: prebuiltData!,
         );
       }
       ZegoLiveAudioRoomManagers().updateContextQuery(() {
@@ -198,26 +198,27 @@ class _ZegoUIKitPrebuiltLiveAudioRoomState
   void dispose() {
     super.dispose();
 
+
     WidgetsBinding.instance.removeObserver(this);
-
-    if (LiveAudioRoomMiniOverlayPageState.minimizing !=
-        ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
-      ZegoLiveAudioRoomManagers().unintPluginAndManagers();
-
-      uninitContext();
-
-      widget.controller?.uninitByPrebuilt();
-    } else {
-      ZegoLoggerService.logInfo(
-        'mini machine state is minimizing, room will not be leave',
-        tag: 'audio room',
-        subTag: 'prebuilt',
-      );
-    }
-
-    for (final subscription in subscriptions) {
-      subscription?.cancel();
-    }
+    //
+    // if (LiveAudioRoomMiniOverlayPageState.minimizing !=
+    //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
+    //   ZegoLiveAudioRoomManagers().unintPluginAndManagers();
+    //
+    //   uninitContext();
+    //
+    //   widget.controller?.uninitByPrebuilt();
+    // } else {
+    //   ZegoLoggerService.logInfo(
+    //     'mini machine state is minimizing, room will not be leave',
+    //     tag: 'audio room',
+    //     subTag: 'prebuilt',
+    //   );
+    // }
+    //
+    // for (final subscription in subscriptions) {
+    //   subscription?.cancel();
+    // }
   }
 
   @override
@@ -258,7 +259,8 @@ class _ZegoUIKitPrebuiltLiveAudioRoomState
       popUpManager: ZegoLiveAudioRoomManagers().popUpManager,
       liveDurationManager: ZegoLiveAudioRoomManagers().liveDurationManager!,
       prebuiltController: widget.controller,
-      prebuiltAudioRoomData: prebuiltData, roomData: widget.roomData,
+      prebuiltAudioRoomData: prebuiltData!,
+      roomData: widget.roomData,
     );
   }
 
