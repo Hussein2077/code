@@ -134,10 +134,15 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
               ),
               MainButton(
                   onTap: () async {
+                    log('llllllll${widget.type}');
                     var userCredential = await getIt<FireBaseDataSource>()
                         .verifyOTP(OtpContiners.code, context);
                     if (userCredential?.user != null) {
                       if (widget.type == 'bindNumber') {
+                        log('jjjjj${widget.phone.toString()}');
+                        log('jjjjj${widget.password }');
+                        log('jjjjj${OtpContiners.code}');
+
 
                         // String? token =
                         // await userCredential!.user!.getIdToken();
@@ -145,9 +150,10 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
                         BlocProvider.of<AcountBloc>(context).add(
                             BindNumberAccountEvent(
 
-                                phoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
+                                phoneNumber: widget.phone.toString(),
+                             //   phoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
                                 password: widget.password ?? '',
-                                vrCode: code));
+                                vrCode: OtpContiners.code));
                         // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                         // ignore: use_build_context_synchronously
