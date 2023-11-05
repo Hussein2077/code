@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -67,7 +66,7 @@ class UserRow extends StatelessWidget {
                     ),
                     if(roomVistorModel.type == 0) Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ColorManager.orang),child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                      child: Icon(Icons.home, color: Colors.white, size: 25.sp,),
+                      child: Icon(Icons.home, color: Colors.white, size: ConfigSize.defaultSize!*2,),
                     ),),
                     if(roomVistorModel.type == 1) Image.asset(AssetsPath.adminMark, scale: 2,),
                   ],
