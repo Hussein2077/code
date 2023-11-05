@@ -1,7 +1,6 @@
 
 
 
-import 'dart:developer';
 
 import 'package:tik_chat_v2/core/model/family_data_model.dart';
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
@@ -159,7 +158,6 @@ class UserDataModel {
 
 
   MyDataModel convertToMyDataObject() {
-    log("last active$lastActiveHidden");
     return MyDataModel(
       id: id,
       bubble:bubble,

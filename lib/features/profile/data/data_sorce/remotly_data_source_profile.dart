@@ -1460,6 +1460,7 @@ isVisit: isVisit,
       'phone': boundNumberPramiter.phoneNumber,
       'vr_code': boundNumberPramiter.vrCode,
       'password': boundNumberPramiter.password,
+     'credential':boundNumberPramiter.credintial
     };
     try {
       final response = await Dio().post(

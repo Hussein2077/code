@@ -122,9 +122,11 @@ mixin ZegoUIKitCoreDataMedia {
     mediaState.value = MediaPlayState.LoadReady;
 
     mediaInfo = await currentMediaPlayer!.getMediaInfo();
-
     final pathExtension = path.extension(filePathOrURL);
-    final extension = pathExtension.substring(1); //  remove point
+    var extension = 'mp3';
+    if(pathExtension.length>1){
+      extension = pathExtension.substring(1);
+    }
     if (pureAudioExtensions.contains(extension)) {
       mediaType.value = MediaType.PureAudio;
     } else if (videoExtensions.contains(extension)) {

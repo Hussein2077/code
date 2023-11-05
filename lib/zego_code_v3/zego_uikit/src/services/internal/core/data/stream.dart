@@ -577,7 +577,7 @@ mixin ZegoUIKitCoreDataStream {
         ..destroyTextureRenderer(streamType: streamType)
         ..camera.value = false
         ..cameraMuteMode.value = false
-        ..microphone.value = false
+       // ..microphone.value = false
         ..microphoneMuteMode.value = false;
     }
 

@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -10,7 +8,6 @@ import 'package:tik_chat_v2/core/widgets/show_svga.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/zego_uikit_prebuilt_live_audio_room.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 
 class UserForgroundCach extends StatelessWidget {
   ZegoUIKitUser? user;
