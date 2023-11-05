@@ -146,6 +146,15 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       userId: widget.seatManager.getUserByIndex(index)?.id??'',
       index: index,
     ) ;
+    PopupItem popupItem2 =  PopupItem(
+      PopupItemValue.takeOnSeat,
+      StringManager.takeSeat.tr(),
+      userId: MyDataModel.getInstance().id.toString(),
+      index: index,
+    );
+
+
+
 
     // check mode room
     if(RoomScreen.layoutMode==LayoutMode.hostTopCenter){
@@ -443,7 +452,10 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       return ;
 
     }
+   if(popupItems.length ==1 &&  popupItems.contains(popupItem2)){
 
+     //todo complete that
+   }
     if (popupItems.isEmpty) {
       return;
     }

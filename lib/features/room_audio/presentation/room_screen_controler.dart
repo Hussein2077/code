@@ -216,17 +216,9 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 }
 
 Future<void> loadMusice({required String path}) async {
-  // RoomScreen.zegoMediaPlayer = await ZegoExpressEngine.instance.createMediaPlayer();
 
   await ZegoUIKit().playMedia(filePathOrURL: path);
 
-  // await RoomScreen.zegoMediaPlayer?.loadResource(path);
-
-  // await RoomScreen.zegoMediaPlayer!.start();
-  //await   RoomScreen.zegoMediaPlayer!.getPlayVolume();
-  // await RoomScreen.zegoMediaPlayer!.enableAux(true);
-  // await RoomScreen.zegoMediaPlayer!.enableRepeat(true);
-  // log(RoomScreen.zegoMediaPlayer!.getTotalDuration().toString());
 
   MusicScreen.isPlaying.value = true;
 }
