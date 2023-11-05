@@ -1,4 +1,6 @@
 // Project imports:
+import 'package:easy_localization/easy_localization.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
 
 /// Control the text on the UI.
@@ -306,17 +308,17 @@ class ZegoInnerText {
                 ),
         removeFromSeatDialogInfo = removeFromSeatDialogInfo ??
             ZegoDialogInfo(
-              title: 'Remove the speaker',
-              message: 'Are you sure to remove %0 from the seat?',
-              cancelButtonName: 'Cancel',
-              confirmButtonName: 'OK',
+              title: StringManager.removeTheSpeaker.tr(),
+              message: '${StringManager.areYouSureToRemove}"%0"${StringManager.fromTheSeat}',
+              cancelButtonName: StringManager.cancel.tr(),
+              confirmButtonName: StringManager.ok.tr(),
             ),
         leaveSeatDialogInfo = leaveSeatDialogInfo ??
             ZegoDialogInfo(
-              title: 'Leave the seat',
-              message: 'Are you sure to leave seat?',
-              cancelButtonName: 'Cancel',
-              confirmButtonName: 'OK',
+              title: StringManager.leaveSeat.tr(),
+              message: StringManager.areYouSureLeaveSeat.tr(),
+              cancelButtonName: StringManager.cancel.tr(),
+              confirmButtonName: StringManager.ok.tr(),
             ),
         hostInviteTakeSeatDialog = hostInviteTakeSeatDialog ??
             ZegoDialogInfo(

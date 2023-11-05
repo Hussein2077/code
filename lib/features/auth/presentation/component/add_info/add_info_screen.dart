@@ -12,7 +12,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
-import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';

@@ -20,7 +20,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/defines/message_defines.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
 
 class MessagesChached extends StatelessWidget {
   ZegoInRoomMessage message;
@@ -122,7 +122,10 @@ class MessagesChached extends StatelessWidget {
                         const SizedBox(
                           width: 1,
                         ),
-
+                        if ((RoomScreen.usersMessagesRoom[message.user.id]
+                            ?.senderLevelImg ??
+                            '') !=
+                            '')
                           SizedBox(
                             width: ConfigSize.defaultSize! * 4,
                             height: ConfigSize.defaultSize! * 2,
@@ -137,7 +140,10 @@ class MessagesChached extends StatelessWidget {
                         const SizedBox(
                           width: 1,
                         ),
-                      
+                        if ((RoomScreen.usersMessagesRoom[message.user.id]
+                            ?.revicerLevelImg ??
+                            '') !=
+                            '')
                           SizedBox(
                             width: ConfigSize.defaultSize! * 4,
                             height: ConfigSize.defaultSize! * 2,

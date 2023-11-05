@@ -84,7 +84,7 @@ class MallCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               MainButton(
-                title: StringManager.buy,
+                title: StringManager.buy.tr(),
                 onTap: () {
                   showDialog(
                       context: context,
@@ -109,7 +109,7 @@ class MallCard extends StatelessWidget {
               ),
 
               MainButton(
-                title: StringManager.test,
+                title: StringManager.test.tr(),
                 onTap: onTapTest,
 
                 width: ConfigSize.defaultSize! * 7,

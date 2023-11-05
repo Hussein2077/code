@@ -1,59 +1,52 @@
 // Dart imports:
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-// Package imports:
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-// Flutter imports:
-
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
+
+// Package imports:
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
 
 // Project imports:
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/components/defines.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/connect/connect_manager.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/live_audio_room_inner_text.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_live_audio_room/src/seat/seat_manager.dart';
-import 'package:tik_chat_v2/zego_code_v2/zego_uikit/src/services/logger_service.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/defines.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/pop_up_manager.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/connect/connect_manager.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/seat_manager.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_inner_text.dart';
 
-import '../../../zego_uikit/zego_uikit.dart';
-
-
+/// @nodoc
 class ZegoPopUpSheetMenu extends StatefulWidget {
   const ZegoPopUpSheetMenu({
     Key? key,
     required this.popupItems,
-    required this.roomData,
     required this.innerText,
     required this.seatManager,
     required this.connectManager,
-    required this.myDataModel,
-    required this.layoutMode,
+    required this.roomData,
     this.onPressed,
   }) : super(key: key);
 
   final List<PopupItem> popupItems;
   final ZegoLiveSeatManager seatManager;
   final ZegoLiveConnectManager connectManager;
- final  EnterRoomModel roomData ;
+  final EnterRoomModel roomData ;
   final void Function(PopupItemValue)? onPressed;
   final ZegoInnerText innerText;
-  final MyDataModel myDataModel ;
-  final LayoutMode layoutMode ;
 
   @override
   State<ZegoPopUpSheetMenu> createState() => _ZegoPopUpSheetMenuState();
 }
 
+/// @nodoc
 class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
   @override
   void initState() {
@@ -77,7 +70,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
           itemCount: widget.popupItems.length,
           itemBuilder: (context, index) {
             final popupItem = widget.popupItems[index];
-            return popUpItemWidget(index, popupItem);
+            return popUpItemWidget(index, popupItem,);
           },
         ),
       );
@@ -93,85 +86,85 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
           subTag: 'pop-up sheet',
         );
 
-        Navigator.of(context).pop();
+        Navigator.of(
+          context,
+          rootNavigator: widget.seatManager.config.rootNavigator,
+        ).pop();
 
         switch (popupItem.value) {
           case PopupItemValue.takeOnSeat:
-            // i do not use this condation
-          await  widget.seatManager.takeOnSeat(
-              popupItem.data as int,
+          // i do not use this condation
+            await  widget.seatManager.takeOnSeat(
+              popupItem.index ,
               isForce: false,
               isDeleteAfterOwnerLeft: true,
-              owerId: widget.roomData.ownerId.toString(),
+              ownerId: widget.roomData.ownerId.toString(),
             );
 
-          Future.delayed(const  Duration(seconds: 5),(){
-            if(RoomScreen.listOfMuteSeats.containsKey(popupItem.data)
-                ||RoomScreen.usersHasMute.contains(widget.myDataModel.id.toString())){
-              ZegoUIKit().turnMicrophoneOn(false,userID: widget.myDataModel.id.toString());
-              // return true ;
-            }
-          }) ;
+            Future.delayed(const  Duration(seconds: 5),(){
+              if(RoomScreen.listOfMuteSeats.containsKey(popupItem.index)
+                  ||RoomScreen.usersHasMute.contains(MyDataModel.getInstance().id.toString())){
+                ZegoUIKit().turnMicrophoneOn(false,userID: MyDataModel.getInstance().id.toString());
+                // return true ;
+              }
+            }) ;
 
 
 
             break;
           case PopupItemValue.takeOffSeat:
-            // clear popup sheet info
+          // clear popup sheet info
             widget.seatManager
                 .setKickSeatDialogInfo(KickSeatDialogInfo.empty());
-            await widget.seatManager.kickSeat(popupItem.data as int);
+            await widget.seatManager.kickSeat(popupItem.index , popupItem.userId);
             break;
           case PopupItemValue.leaveSeat:
             await widget.seatManager.leaveSeat(showDialog: true);
             break;
           case PopupItemValue.showUserDetails:
-            return (popupItem.data.toString() != '0')
-                ? bottomDailog(
-                    context: context,
-                    widget: GeneralRoomProfile(
-                      myData: widget.myDataModel,
-                      userId: popupItem.data,
-                      roomData: widget.roomData,
-                      layoutMode: widget.layoutMode,
-                    ))
-                : bottomDailog(
-                    widget: const AnonymousDialog(),
-                    context: context,
-                  );
+            return bottomDailog(
+                context: context,
+                widget:
+                GeneralRoomProfile(
+                  myData: MyDataModel.getInstance(),
+                  userId:popupItem.userId ,
+                  roomData: widget.roomData,
+                  layoutMode:RoomScreen.layoutMode ,
+                )
 
+            );
           case  PopupItemValue.lockSeat :
             BlocProvider.of<OnRoomBloc>(context)
                 .add(LockMicEvent(ownerId: widget.roomData.ownerId.toString(),
-                position: popupItem.data.toString()));
-            RoomScreen.listOfLoskSeats.value.putIfAbsent(popupItem.data, () => popupItem.data);
+                position: popupItem.index.toString()));
+            RoomScreen.listOfLoskSeats.value.putIfAbsent(popupItem.index,
+                    () => popupItem.index);
             break;
           case PopupItemValue.unLoackSeat :
             BlocProvider.of<OnRoomBloc>(context)
                 .add(UnLockMicEvent(ownerId: widget.roomData.ownerId.toString(),
-                position: popupItem.data.toString()));
-            RoomScreen.listOfLoskSeats.value.remove(popupItem.data);
+                position: popupItem.index.toString()));
+            RoomScreen.listOfLoskSeats.value.remove(popupItem.index);
             break ;
           case PopupItemValue.muteMic :
             BlocProvider.of<OnRoomBloc>(context)
                 .add(MuteMicEvent(ownerId: widget.roomData.ownerId.toString(),
-                position:popupItem.data.toString()));
-            RoomScreen.listOfMuteSeats.putIfAbsent(popupItem.data, () => popupItem.data);
+                position:popupItem.index.toString()));
+            RoomScreen.listOfMuteSeats.putIfAbsent(popupItem.index, () => popupItem.index);
             break ;
           case PopupItemValue.unMuteMic :
             BlocProvider.of<OnRoomBloc>(context)
                 .add(UnMuteMicEvent(ownerId: widget.roomData.ownerId.toString(),
-                position:popupItem.data.toString()));
-            RoomScreen.listOfMuteSeats.remove(popupItem.data);
+                position:popupItem.index.toString()));
+            RoomScreen.listOfMuteSeats.remove(popupItem.index);
 
             break ;
           case PopupItemValue.muteSeat:
-            await widget.seatManager.muteSeat(popupItem.data as int);
+            await widget.seatManager.muteSeat(popupItem.index);
             break;
           case PopupItemValue.inviteLink:
             await widget.connectManager.inviteAudienceConnect(
-                ZegoUIKit().getUser(popupItem.data as String? ?? '') ??
-                    ZegoUIKitUser.empty());
+                ZegoUIKit().getUser(popupItem.index as String? ?? ''));
             break;
 
           case PopupItemValue.cancel:
@@ -182,14 +175,15 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
       },
       child: Container(
         width: double.infinity,
-        height: 100.r,
+        height: 100.zR,
+        // color: ColorManager.orang,
         decoration: BoxDecoration(
           border: (index == (widget.popupItems.length - 1))
               ? null
-              : const Border(
+              : Border(
                   bottom: BorderSide(
                     width: 0.5,
-                    color: Colors.white,
+                    color: Colors.white.withOpacity(0.2),
                   ),
                 ),
         ),
@@ -197,8 +191,8 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
           child: Text(
             popupItem.text,
             style: TextStyle(
-              fontSize: 28.r,
-              fontWeight: FontWeight.bold,
+              fontSize: 28.zR,
+              fontWeight: FontWeight.w400,
               color: Colors.white,
             ),
           ),
@@ -215,10 +209,12 @@ void showPopUpSheet({
   required ZegoInnerText innerText,
   required ZegoLiveSeatManager seatManager,
   required ZegoLiveConnectManager connectManager,
-  required EnterRoomModel roomData ,
-  required  MyDataModel myDataModel,
-  required LayoutMode layoutMode
+  required ZegoPopUpManager popUpManager,
+  required EnterRoomModel roomData
 }) {
+  final key = DateTime.now().millisecondsSinceEpoch;
+  popUpManager.addAPopUpSheet(key);
+
   seatManager.setPopUpSheetVisible(true);
 
   final takeOffSeatItemIndex = popupItems
@@ -227,7 +223,7 @@ void showPopUpSheet({
     /// seat user leave, will auto pop this sheet
     seatManager.setKickSeatDialogInfo(
       KickSeatDialogInfo(
-        userIndex: popupItems[takeOffSeatItemIndex].data as int,
+        userIndex: popupItems[takeOffSeatItemIndex].index ,
         userID: userID,
       ),
     );
@@ -235,13 +231,13 @@ void showPopUpSheet({
 
   showModalBottomSheet(
     barrierColor: ZegoUIKitDefaultTheme.viewBarrierColor,
-    backgroundColor: ColorManager.deeporang,
+    backgroundColor:  ColorManager.orang,
     //ZegoUIKitDefaultTheme.viewBackgroundColor,
     context: context,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(32.0.r),
-        topRight: Radius.circular(32.0.r),
+        topLeft: Radius.circular(32.0.zR),
+        topRight: Radius.circular(32.0.zR),
       ),
     ),
     isDismissible: true,
@@ -251,14 +247,14 @@ void showPopUpSheet({
         padding: MediaQuery.of(context).viewInsets,
         duration: const Duration(milliseconds: 50),
         child: Container(
-          height: (popupItems.length * 101).r,
+          height: (popupItems.length * 101).zR,
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           child: ZegoPopUpSheetMenu(
             popupItems: popupItems,
             innerText: innerText,
             seatManager: seatManager,
-            connectManager: connectManager, roomData: roomData,
-            myDataModel: myDataModel, layoutMode: layoutMode  ,
+            connectManager: connectManager,
+            roomData : roomData
           ),
         ),
       );
@@ -284,6 +280,7 @@ void showPopUpSheet({
       }
     }
 
+    popUpManager.removeAPopUpSheet(key);
     seatManager.setPopUpSheetVisible(false);
   });
 }

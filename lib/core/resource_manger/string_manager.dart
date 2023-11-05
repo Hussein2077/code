@@ -445,7 +445,7 @@ static const String iOSPlatform='IOS';
   static const String privacy = "Privacy";
   static const String useTheFeatureAndEnjoyit = "Use The Feature And Enjoy it";
   static const String thisFeatureisNotAvailableForYou =
-      "ThisFeatureisNotAvailableForYou";
+      "This Feature isNot Available For You";
   static const String note = "notes";
   static const String updateRoomName = "update your room name here";
 
@@ -846,6 +846,12 @@ static const String iOSPlatform='IOS';
  static const String carRace = "http://167.172.6.20/CarRacing/index.html?sound=0&language=ar&token=";
  static const String updown = "http://167.172.6.20/SevenUpDown/index.html?sound=0&language=ar&token=";
  static const String ludo = "http://167.172.6.20/Ludo-Game/index.html?sound=0&language=ar&token=";
+
+  static const String teenPattiFull = 'http://167.172.6.20/tik-chat-full/tik-chat-teen-patti-full/index.html?sound=0&language=ar&token=';
+  static const String rouletteFull = "http://167.172.6.20/tik-chat-full/tik-chat-roulette-full/index.html?sound=0&language=ar&token=";
+  static const String carRaceFull = "http://167.172.6.20/tik-chat-full/tik-chat-car-full/index.html?sound=0&language=ar&token=";
+  static const String updownFull = "http://167.172.6.20/tik-chat-full/tik-chat-seven-full/index.html?sound=0&language=ar&token=";
+
 
 
 }

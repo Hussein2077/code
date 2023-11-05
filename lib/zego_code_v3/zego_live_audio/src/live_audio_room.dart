@@ -263,24 +263,24 @@ class _ZegoUIKitPrebuiltLiveAudioRoomState
   }
 
   void correctConfigValue() {
-    if (widget.config.bottomMenuBarConfig.maxCount > 5) {
-      widget.config.bottomMenuBarConfig.maxCount = 5;
-      ZegoLoggerService.logInfo(
-        "menu bar buttons limited count's value is exceeding the maximum limit",
-        tag: 'audio room',
-        subTag: 'prebuilt',
-      );
-    }
+    // if (widget.config.bottomMenuBarConfig.maxCount > 5) {
+    //   widget.config.bottomMenuBarConfig.maxCount = 5;
+    //   ZegoLoggerService.logInfo(
+    //     "menu bar buttons limited count's value is exceeding the maximum limit",
+    //     tag: 'audio room',
+    //     subTag: 'prebuilt',
+    //   );
+    // }
 
     for (final rowConfig in widget.config.layoutConfig.rowConfigs) {
-      if (rowConfig.count < 1) {
-        rowConfig.count = 1;
-        ZegoLoggerService.logInfo(
-          'config column count(${rowConfig.count}) is small than 0, set to 1',
-          tag: 'audio room',
-          subTag: 'prebuilt',
-        );
-      }
+      // if (rowConfig.count < 1) {
+      //   rowConfig.count = 1;
+      //   ZegoLoggerService.logInfo(
+      //     'config column count(${rowConfig.count}) is small than 0, set to 1',
+      //     tag: 'audio room',
+      //     subTag: 'prebuilt',
+      //   );
+      // }
       if (rowConfig.count > 4) {
         rowConfig.count = 4;
         ZegoLoggerService.logInfo(
