@@ -45,14 +45,14 @@ class _AddThemeImageState extends State<AddThemeImage> {
     return Container(
       height: ConfigSize.screenHeight! * .5,
       width: ConfigSize.screenWidth!,
-      color: ColorManager.whiteColor,
+      color:Theme.of(context).colorScheme.secondary,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
             "${RemotlyDataSourceRoom.uploadImagePrice} ${StringManager.coinToUpload.tr()}",
             style: TextStyle(
-                color: Colors.black, fontSize: ConfigSize.defaultSize! * 1.8),
+                fontSize: ConfigSize.defaultSize! * 1.8),
           ),
           InkWell(
             onTap: () async {
@@ -84,6 +84,7 @@ class _AddThemeImageState extends State<AddThemeImage> {
                     width: ConfigSize.defaultSize! * 25,
                     child: Icon(
                       Icons.add,
+                      color: Theme.of(context).iconTheme.color,
                       size: ConfigSize.defaultSize! * 3,
                     )),
           ),
