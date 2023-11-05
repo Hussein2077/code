@@ -217,7 +217,7 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
 }
 
 Future<void> loadMusice({required String path}) async {
-  MusicWidget.isIPlayerMedia=false ;
+  MusicWidget.isIPlayerMedia=true ;
   await ZegoUIKit().playMedia(filePathOrURL: path);
 
 
