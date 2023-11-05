@@ -59,29 +59,17 @@ dependencies:
   firebase_auth: ^4.6.2
   google_sign_in: ^5.4.2
   flutter_facebook_auth: any
-  permission_handler: ^10.2.0
   flutter_cache_manager: ^3.3.1
   flutter_bloc: ^8.1.1
   liquid_pull_to_refresh: ^3.0.1
   shimmer: ^2.0.0
   connectivity_plus: ^3.0.3
   m_toast: ^0.2.2
-  cached_network_image: ^3.2.3
   easy_localization: ^3.0.0
   platform_device_id: ^1.0.1
   url_launcher: ^6.1.11
   svgaplayer_flutter: ^2.2.0
   flutter_screenutil: ^5.6.0
-  flutter_styled_toast: ^2.1.3
-  zego_express_engine: ^3.6.1
-  wakelock: ^0.6.2
-  native_device_orientation: ^1.2.0
-  flutter_logs: ^2.1.10
-  encrypt: ^5.0.1
-  zego_plugin_adapter: ^2.0.1
-  zego_zim: 2.7.1
-  zego_zpns:
-  file_picker: ^5.2.10
   flutter_social_textfield: ^0.1.2
   profanity_filter: ^2.0.0
   flutter_animate: ^2.2.0
@@ -90,7 +78,7 @@ dependencies:
   draggable_float_widget: ^0.0.2
   on_audio_query: any
   text_scroll: ^0.2.0
-  share_plus: ^6.3.4
+  share_plus: ^7.2.1
   blurrycontainer: ^1.0.2
   card_swiper: ^3.0.1
   video_player: ^2.7.0
@@ -110,6 +98,22 @@ dependencies:
   in_app_purchase: ^3.1.11
   keyboard_height_plugin: ^0.0.4
   animated_text_kit: ^4.2.2
+
+# zego package
+  wakelock_plus: ^1.1.3
+  zego_plugin_adapter: ^2.7.4
+  file_picker: any
+  flutter_styled_toast: ^2.1.3
+  cached_network_image: ^3.2.3
+  statemachine: ^3.2.0
+  permission_handler: ^10.2.0
+  zego_express_engine: ^3.6.1
+#  wakelock: ^0.6.2
+  native_device_orientation: ^1.2.0
+  flutter_logs: ^2.1.10
+  encrypt: ^5.0.1
+  zego_zim: 2.11.0
+  zego_zpns:
 
 dev_dependencies:
   flutter_test:

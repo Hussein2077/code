@@ -1,0 +1,105 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+
+// Package imports:
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
+
+// size
+Size get zegoLiveButtonSize => Size(72.zR, 72.zR);
+
+Size get zegoLiveButtonIconSize => Size(40.zR, 40.zR);
+
+SizedBox get zegoLiveButtonPadding =>
+    SizedBox.fromSize(size: Size.fromRadius(8.zR));
+
+/// @nodoc
+enum PopupItemValue {
+  takeOnSeat,
+  takeOffSeat,
+  leaveSeat,
+  muteSeat,
+  inviteLink,
+  muteMic,
+  unMuteMic,
+  showUserDetails,
+  lockSeat,
+  unLoackSeat,
+  cancel,
+}
+
+class PopupItem {
+  final PopupItemValue value;
+  final String text;
+  final int index;
+  final String  userId ;
+
+  const PopupItem(this.value, this.text, { this.index=1 , this.userId = '0' });
+}
+
+/// @nodoc
+class PrebuiltLiveAudioRoomImage {
+  static Image asset(String name) {
+    return Image.asset(name);
+  }
+
+  static AssetImage assetImage(String name) {
+    return AssetImage(name);
+  }
+}
+
+// /// @nodoc
+// class PrebuiltLiveAudioRoomIconUrls {
+//   static const String im =AssetsPath.toolbarMessages;
+//   static const String back = 'assets/icons/back.png';
+//   static const String toolbarSoundEffect = 'assets/icons/toolbar_sound.png';
+//   static const String toolbarMicNormal = 'assets/icons/toolbar_mic_normal.png';
+//   static const String toolbarMicOff = 'assets/icons/toolbar_mic_off.png';
+//   static const String toolbarMember = 'assets/icons/toolbar_member.png';
+//   static const String toolbarMore = 'assets/icons/toolbar_more.png';
+//   static const String minimizing = 'assets/icons/minimizing.png';
+//
+//   static const String memberMore = 'assets/icons/member_more.png';
+//   static const String toolbarAudienceConnect =
+//       'assets/icons/toolbar_audience_connect.png';
+//   static const String toolbarHostLockSeat =
+//       'assets/icons/toolbar_host_unlock_seat.png';
+//   static const String toolbarHostUnLockSeat =
+//       'assets/icons/toolbar_host_lock_seat.png';
+//
+//   static const String topQuit = 'assets/icons/top_quit.png';
+//
+//   static const String seatAdd = 'assets/icons/seat_add.png';
+//   static const String seatEmpty = 'assets/icons/seat_empty.png';
+//   static const String seatHost = 'assets/icons/seat_host.png';
+//   static const String seatCoHost = 'assets/icons/seat_cohost.png';
+//   static const String seatLock = 'assets/icons/seat_lock.png';
+//   static const String seatMicrophoneOff = 'assets/icons/seat_mic_off.png';
+// }
+
+
+class PrebuiltLiveAudioRoomIconUrls {
+  static const String im =AssetsPath.toolbarMessages;
+  static const String back = 'assets/icons/back.png';
+  static const String toolbarSoundEffect = 'assets/icons/toolbar_sound.png';
+  static const String toolbarMicNormal = 'assets/images/toolbar_mic_normal.png';
+  static const String toolbarMicOff = 'assets/icons/toolbar_mic_off.png';
+  static const String toolbarMember = 'assets/icons/toolbar_member.png';
+  static const String toolbarMore = 'assets/icons/toolbar_more.png';
+
+  static const String memberMore = 'assets/icons/member_more.png';
+  static const String toolbarAudienceConnect =
+      'assets/icons/toolbar_audience_connect.png';
+  static const String toolbarHostLockSeat =
+      'assets/icons/toolbar_host_unlock_seat.png';
+  static const String toolbarHostUnLockSeat =
+      'assets/icons/toolbar_host_lock_seat.png';
+
+
+  static const String seatAdd = 'assets/icons/seat_add.png';
+  static const String seatEmpty = 'assets/icons/seat_empty.png';
+  static const String seatHost = 'assets/icons/seat_host.png';
+  static const String seatLock = 'assets/icons/seat_lock.png';
+  static const String seatMicrophoneOff = 'assets/icons/seat_mic_off.png';
+}

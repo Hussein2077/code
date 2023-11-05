@@ -10,7 +10,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
-import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
+import 'package:tik_chat_v2/core/widgets/message_count_notifecation.dart';
 
 
 
@@ -33,63 +33,11 @@ class MassageButton extends StatelessWidget {
                     color: ColorManager.whiteColor,
                   ),
                   height: 500,
-                  child: ChatPage()));
+                  //TODO change that
+                  child: SizedBox()));
         },
-        child: StreamBuilder(
-
-            stream: FirebaseAuth.instance.authStateChanges(),
-
-            builder: (context, snapshot) {
-              if(snapshot.hasData) {
-                return StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Rooms')
-                    .orderBy('last_message_time', descending: true)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  List data = !snapshot.hasData
-                      ? []
-                      : snapshot.data!.docs
-                          .where((element) => element['users']
-                              .toString()
-                              .contains(FirebaseAuth.instance.currentUser!.uid))
-                          .toList();
-
-                  int totalMessages = 0;
-                  int temp = 0;
-                  for (int i = 0; i < data.length; i++) {
-                    if (data[i]['sent_by'] !=
-                        FirebaseAuth.instance.currentUser!.uid) {
-                      totalMessages = data[i]['unRead'];
-                      temp += totalMessages;
-                    }
-                  }
-
-                  return Stack(
-                    children: [
-                      Image.asset(AssetsPath.messages,width:  AppPadding.p40,height: AppPadding.p40,),
-                      if (temp != 0)
-                        Container(
-                           padding:const EdgeInsets.all(4),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.red),
-                          child: Text(
-                            '${temp}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        )
-                    ],
-                  );
-                });
-              }else {
-               return const SizedBox ();
-              }
-          }
-        ));
+        child: MessageCountNotifcation(widget:                  Image.asset(AssetsPath.messages,width:  AppPadding.p40,height: AppPadding.p40,),
+            )
+    );
   }
 }
