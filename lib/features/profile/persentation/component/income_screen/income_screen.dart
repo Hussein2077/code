@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +38,9 @@ class _IncomeScreenState extends State<IncomeScreen> {
         body: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
             if (state is GetMyDataSucssesState) {
+              log(state.myDataModel.myType.toString()+"xxxxxxxxx");
+              log(state.myDataModel.myAgencyModel!.name!.toString());
+
               return Column(
                 children: [
                   SizedBox(height: ConfigSize.defaultSize! / 0.2),

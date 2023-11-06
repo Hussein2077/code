@@ -17,3 +17,4 @@ class getOfficailMsgsEvent extends OfficailMsgEvents{
   List<Object?> get props => [];
 
 }
+

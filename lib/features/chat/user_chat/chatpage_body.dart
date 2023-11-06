@@ -69,7 +69,6 @@ class _ChatPageBodyState extends State<ChatPageBody> {
       // setState(() {
 
       // });
-      log("111111");
     });
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
       _keyboardHeight = height;
