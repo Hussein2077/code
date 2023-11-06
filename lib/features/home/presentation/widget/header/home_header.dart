@@ -29,7 +29,7 @@ class _HomeHeaderState extends State<HomeHeader> {
              Navigator.pushNamed(context, Routes.searchScreen);
             },
             child: Image.asset(AssetsPath.searchIcon, scale: 2.5,)),
-          BlocBuilder<GetMyDataBloc, GetMyDataState>(
+            BlocBuilder<GetMyDataBloc, GetMyDataState>(
             builder: (context, state) {
               return InkWell(
                   onTap: () {
