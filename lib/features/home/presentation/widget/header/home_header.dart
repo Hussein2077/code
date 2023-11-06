@@ -6,7 +6,6 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/header/live_tab_bar.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 
 class HomeHeader extends StatefulWidget {
@@ -29,7 +28,7 @@ class _HomeHeaderState extends State<HomeHeader> {
              Navigator.pushNamed(context, Routes.searchScreen);
             },
             child: Image.asset(AssetsPath.searchIcon, scale: 2.5,)),
-          BlocBuilder<GetMyDataBloc, GetMyDataState>(
+            BlocBuilder<GetMyDataBloc, GetMyDataState>(
             builder: (context, state) {
               return InkWell(
                   onTap: () {

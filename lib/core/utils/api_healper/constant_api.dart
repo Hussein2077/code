@@ -217,7 +217,7 @@ class ConstentApi {
   }
 
   String upMic({required UpMicrophonePramiter upMic}) =>
-      "$baseUrl/rooms/up_microphone?owner_id=${upMic.ownerId}&user_id=${upMic.userId}&position=${upMic.position}";
+      "$baseUrl/rooms/up_microphone?owner_id=${upMic.ownerId}&user_id=${upMic.userId}&position=${upMic.position}&is_swap=${upMic.isSwitch}";
 
   String search({required String keyword}) =>
       "$baseUrl/search?keywords=$keyword";
