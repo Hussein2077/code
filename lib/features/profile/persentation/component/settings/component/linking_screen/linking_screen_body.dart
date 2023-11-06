@@ -28,7 +28,7 @@ class LinkingScreenBody extends StatefulWidget {
 class _LinkingScreenBodyState extends State<LinkingScreenBody> {
   @override
   Widget build(BuildContext context) {
-    bool isHigh = (MyDataModel.getInstance().isGoogle! && MyDataModel.getInstance().isPhone!);
+    bool isHigh = ( widget.myData.isGoogle! && widget.myData.isPhone!);
     return BlocListener<AcountBloc, AccountStates>(
       listener: (context, state) {
         if (state is GoogleAccountSuccessState) {
@@ -82,9 +82,7 @@ class _LinkingScreenBodyState extends State<LinkingScreenBody> {
                   title: StringManager.phoneNum.tr(),
                   isBind: widget.myData.isPhone!,
                   onTap: () {
-                    log('hero');
-                    log('hero${MyDataModel.getInstance().isPhone!}');
-                    widget.myData.isPhone!
+                  widget.myData.isPhone!
                         ? Navigator.pushNamed(
                             context, Routes.changePassOrNumberScreen)
                         : Navigator.pushNamed(context, Routes.phoneBindScreen);

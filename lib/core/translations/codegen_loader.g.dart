@@ -404,7 +404,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.moments: 'اللحظات',
     StringManager.giftBox: 'صندوق الهدايا',
     StringManager.likes: 'المفضل',
-    StringManager.myMomentsTab: 'لك',
+    StringManager.myMomentsTab: 'لحظاتي',
     StringManager.addComment: 'اضف تعليق',
     StringManager.addMoment: 'اضف لحظة',
     StringManager.thisMoment: 'لا يوجد اعجابات ',
@@ -449,7 +449,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.toSendMassage: "لأرسال الرساله",
     StringManager.hinttext: "قل شيئا...",
     StringManager.cantSendGift: "لا يمكنك ارسال هدايا عند تشغيل الرجل الغامض .. اغلق الخاصية اولا",
-    StringManager.enetrMessage:'مراسلة'
+    StringManager.enetrMessage:'مراسلة',
+    StringManager.youDontHaveMoments:'ليس لديك اي لحظات',
+    StringManager.youAreNotFriends:'انتم ليس اصدقاء'
 
 
 
