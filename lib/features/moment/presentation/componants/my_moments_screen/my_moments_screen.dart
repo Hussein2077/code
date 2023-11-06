@@ -60,7 +60,7 @@ class _MyMomentsScreenState extends State<MyMomentsScreen> {
                 tempData = state.data;
                 return state.data!.isEmpty
                     ?EmptyWidget(
-                  message: StringManager.nooneIsAwake.tr(),
+                  message: StringManager.youDontHaveMoments.tr(),
                   backgrpundColor: Colors.transparent,
                   style: Theme.of(context)
                       .textTheme

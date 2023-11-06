@@ -1,4 +1,5 @@
 
+
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -49,6 +50,7 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
     scrollController.addListener(scrollListener);
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
       _keyboardHeight = height;
+      log('_keyboardHeight${_keyboardHeight}');
       showTextFieldmoment.value = !showTextFieldmoment.value;
     });
   }
@@ -66,9 +68,7 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
        resizeToAvoidBottomInset: false,
          body: Column(
            children: [
-             SizedBox(
-               height: ConfigSize.defaultSize!,
-             ),
+             SizedBox(height: ConfigSize.defaultSize!,),
              Row(
                children: [
                  const Spacer(flex: 1,),
@@ -161,9 +161,8 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
                        );
                      }
                      else {
-                       return  Align(
-                           alignment: Alignment.topCenter,
-                           child: LoadingWidget(height: ConfigSize.screenHeight!*.3,width: ConfigSize.screenWidth!*.3,));
+                       return
+                         LoadingWidget(height: ConfigSize.screenHeight!*.3,width: ConfigSize.screenWidth!*.3,);
                      }
                    }
                    else {

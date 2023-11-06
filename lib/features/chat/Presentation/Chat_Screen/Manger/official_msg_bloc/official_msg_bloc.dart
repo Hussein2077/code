@@ -19,7 +19,8 @@ class GetOfficialMsgsBloc extends Bloc<OfficailMsgEvents,getOfficialMsgsStates>{
 
     on<getOfficailMsgsEvent>(getOfficialMsgs);
 
-  }
+
+ }
 
   FutureOr<void> getOfficialMsgs(getOfficailMsgsEvent event, Emitter<getOfficialMsgsStates> emit)  async{
 
@@ -32,4 +33,8 @@ class GetOfficialMsgsBloc extends Bloc<OfficailMsgEvents,getOfficialMsgsStates>{
 
 
   }
+
+
+
+
 }

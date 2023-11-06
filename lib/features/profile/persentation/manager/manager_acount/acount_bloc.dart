@@ -55,7 +55,8 @@ class AcountBloc extends Bloc<AccountEvents,AccountStates>{
  FutureOr<void> changeNubmer(ChangeNumberAccountEvent event, Emitter<AccountStates> emit)  async{
    emit(ChangeNumberLoading());
    final result = await boundPlatformUC.changePhone(
-       BoundNumberPramiter(currentPhone: event.currentPhoneNumber,
+       BoundNumberPramiter(
+         currentPhone: event.currentPhoneNumber,
          phoneNumber: event.newtPhoneNumber,
          vrCode:event.vrCode ,
        credintial: event.credential,
@@ -71,7 +72,6 @@ class AcountBloc extends Bloc<AccountEvents,AccountStates>{
        BoundNumberPramiter(
          password: event.password,
          phoneNumber: event.phone,
-         credintial: event.credential,
 
        ));
 

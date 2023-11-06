@@ -1,15 +1,18 @@
+
+
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/data/model/carousels_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../../core/resource_manger/routs_manger.dart';
 
 class PageViewWidget extends StatefulWidget {
   final List<CarouselsModel> carouselsList;
@@ -34,13 +37,18 @@ class _PageViewWidgetState extends State<PageViewWidget> {
     InkWell(
       onTap: () async {
         if( widget.carouselsList[i].url!="") {
+          log("in url ");
           Navigator.pushNamed(context, Routes.webView,
                 arguments: WebViewPramiter(
-                    url: widget.carouselsList[i].url,
+                    url:'https://www.youtube.com/',
                     title: '',
                     titleColor: Colors.transparent));
+          // if(await canLaunchUrl(Uri.parse(widget.carouselsList[i].url))){
+          //   launchUrl(Uri.parse(widget.carouselsList[i].url)) ;
+          // }
         }
         else if(widget.carouselsList[i].ownerId!=0){
+          log("in room ");
           await Methods().checkIfRoomHasPassword(
             myData: MyDataModel.getInstance(),
             context: context,

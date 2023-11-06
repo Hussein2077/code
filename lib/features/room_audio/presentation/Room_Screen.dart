@@ -895,8 +895,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               Map<int, ZegoUIKitUser> takenSeats,
               List<int> untakenSeats,
             ) {
-              RoomScreen.userOnMics.value = {...takenSeats};
-
+              Map<int, ZegoUIKitUser> mergedMap= {...takenSeats, ...RoomScreen.userOnMics.value};
+              RoomScreen.userOnMics.value = mergedMap ;
               // to handle any use on mic should server know
             }
             ..bottomMenuBarConfig = ZegoBottomMenuBarConfig(
@@ -1040,7 +1040,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             }
           }
           else if (user?.id == '' && !PkController.showPK.value) {
-            return NoneUserOnSeat(
+            return
+              NoneUserOnSeat(
               extraInfo: extraInfo,
             );
           }
@@ -1057,7 +1058,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     } else if (RoomScreen.layoutMode == LayoutMode.party) {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
-          if (user?.id == null) {
+          if (user?.id == '') {
             return NoneUserOnSeatParty(extraInfo: extraInfo);
           } else {
             return UserForgroundCachParty(user: user);
@@ -1069,10 +1070,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           return Container();
         },
       );
-    } else if (RoomScreen.layoutMode == LayoutMode.seats12) {
+    }
+    else if (RoomScreen.layoutMode == LayoutMode.seats12) {
       return ZegoLiveAudioRoomSeatConfig(
         foregroundBuilder: (context, size, user, extraInfo) {
-          if (user?.id == null) {
+          if (user?.id == '') {
             return NoneUserOnSeatMidParty(extraInfo: extraInfo);
           } else {
             return UserForgroundCachMidParty(user: user);

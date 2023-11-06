@@ -23,11 +23,16 @@ class SystemMessagesScreen extends StatefulWidget {
 
 class _SystemMessagesScreenState extends State<SystemMessagesScreen> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     BlocProvider.of<GetOfficialMsgsBloc>(context)
-                        .add( getOfficailMsgsEvent() );
+        .add( getOfficailMsgsEvent() );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
     return BlocBuilder<GetOfficialMsgsBloc,getOfficialMsgsStates>(
-        buildWhen: (previous, current)=> previous.officialMsgsState !=current.officialMsgsState,
         builder: (context,state){
           switch(state.officialMsgsState){
             case RequestState.loaded:

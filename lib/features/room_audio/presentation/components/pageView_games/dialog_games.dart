@@ -23,10 +23,7 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
   @override
   void initState() {
     super.initState();
-    // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.landscapeRight,
-    //   DeviceOrientation.landscapeLeft,
-    // ]);
+
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(Colors.transparent)
@@ -64,12 +61,7 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
 
   @override
   void dispose() {
-    // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.landscapeRight,
-    //   DeviceOrientation.landscapeLeft,
-    //   DeviceOrientation.portraitUp,
-    //   DeviceOrientation.portraitDown,
-    // ]);
+
     controller!.goBack();
 
     controller = null;
