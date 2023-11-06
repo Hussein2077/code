@@ -668,6 +668,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         BlocProvider.of<OnRoomBloc>(contextQuery!()).add(UpMicEvent(
             ownerId: ownerId,
             userId: localUserID,
+            isSwitch: false,
             position: index.toString()));
         ZegoLoggerService.logInfo(
           'room attribute batch success finished',
@@ -903,6 +904,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
       BlocProvider.of<OnRoomBloc>(contextQuery!()).add(UpMicEvent(
           ownerId: ownerId,
           userId: localUserID ,
+          isSwitch: true,
           position: index.toString()));
 
 

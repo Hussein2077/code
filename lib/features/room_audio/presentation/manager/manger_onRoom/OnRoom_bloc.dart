@@ -135,7 +135,9 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
       final result = await upMicUsecase.call(UpMicrophonePramiter(
           ownerId: event.ownerId,
           userId: event.userId,
-          position: event.position));
+          position: event.position,
+          isSwitch:  event.isSwitch
+      ));
       result.fold(
           (l) => emit(UpMicSucssesState(succecMassage: l)),
           (r) => emit(
