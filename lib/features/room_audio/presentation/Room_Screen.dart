@@ -895,8 +895,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               Map<int, ZegoUIKitUser> takenSeats,
               List<int> untakenSeats,
             ) {
-              RoomScreen.userOnMics.value = {...takenSeats};
-
+              Map<int, ZegoUIKitUser> mergedMap= {...takenSeats, ...RoomScreen.userOnMics.value};
+              RoomScreen.userOnMics.value = mergedMap ;
               // to handle any use on mic should server know
             }
             ..bottomMenuBarConfig = ZegoBottomMenuBarConfig(
