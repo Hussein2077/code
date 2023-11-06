@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +44,8 @@ class ChangeNumberScreenState extends State<ChangeNumberScreen> {
       listener: (context, state) {
         if (state is SendCodeSuccesMessageState) {
           Navigator.pushNamed(context, Routes.otpBindScreen,
-              arguments: OtbScreenParm(phone:number.phoneNumber ,codeCountry:number.dialCode ,type:'changeNumber' ),
+              arguments: OtbScreenParm(phone:number.phoneNumber ,codeCountry:number.dialCode
+                  ,type:'changeNumber' ),
 
           );
           // Navigator.pushNamed(context, Routes.oTPForgetPassword,
@@ -98,7 +101,8 @@ class ChangeNumberScreenState extends State<ChangeNumberScreen> {
                             child: InkWell(
                               onTap: () {
 
-
+                                log('kkkkkkkk${ChangeNumberScreenState.number.phoneNumber.toString()}');
+                                log('kkkkkkkk${ChangePhoneWithCountry.number.phoneNumber.toString()}');
                                 if (key.currentState!.validate()) {
                                   if (ChangePhoneWithCountry.number.dialCode == null) {
                                     errorToast(context: context, title: StringManager
