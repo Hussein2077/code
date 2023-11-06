@@ -681,6 +681,111 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
     });
 
   }
+  //
+  // Future<bool> takeOnSeat(
+  //     int index, {
+  //       bool isForce = false,
+  //       bool isUpdateOwner = false,
+  //       bool isDeleteAfterOwnerLeft = false,
+  //       required    String ownerId
+  //     }) async {
+  //   if (!isForce && seatsUserMapNotifier.value.containsKey(index.toString())) {
+  //     ZegoLoggerService.logInfo(
+  //       "take on seat, seat $index is not empty",
+  //       tag: "audio room",
+  //       subTag: "seat manager",
+  //     );
+  //     return false;
+  //   }
+  //
+  //   if(RoomScreen.listOfLoskSeats.value.containsKey(index)
+  //       && RoomScreen.listOfLoskSeats.value[index]!=0&&
+  //       !RoomScreen.adminsInRoom.containsKey(localUserID)&&!isHost){
+  //     //when seat is locked
+  //     return false;
+  //   }
+  //
+  //
+  //
+  //
+  //   if (-1 != getIndexByUserID(localUserID)) {
+  //     ZegoLoggerService.logInfo(
+  //       "take on seat, user is on seat , switch to $index",
+  //       tag: "audio room",
+  //       subTag: "seat manager",
+  //     );
+  //     return switchToSeat(index);
+  //   }
+  //
+  //   if (isRoomAttributesBatching) {
+  //
+  //     ZegoLoggerService.logInfo(
+  //       "take on seat, room attribute is batching, ignore",
+  //       tag: "audio room",
+  //       subTag: "seat manager",
+  //     );
+  //     return false;
+  //   }
+  //
+  //   ZegoLoggerService.logInfo(
+  //     "local user take on seat $index, target room attribute:${{
+  //       index.toString(): localUserID
+  //     }}",
+  //     tag: "audio room",
+  //     subTag: "seat manager",
+  //   );
+  //
+  //   _isRoomAttributesBatching = true;
+  //   ZegoUIKit().getSignalingPlugin().beginRoomPropertiesBatchOperation(
+  //     roomID: roomID,
+  //     isForce: isForce,
+  //     isUpdateOwner: true,
+  //     isDeleteAfterOwnerLeft: true,
+  //   );
+  //
+  //   ZegoUIKit()
+  //       .getSignalingPlugin()
+  //       .updateRoomProperty(key: index.toString(), value: localUserID ,roomID: roomID)
+  //       .then((result) {
+  //     ZegoLoggerService.logInfo(
+  //       "local user take on seat $index result: ",
+  //       tag: "audio room",
+  //       subTag: "seat manager",
+  //     );
+  //     ZegoUIKit().turnMicrophoneOn(false,userID: getUserByIndex(index)?.id.toString());
+  //   });
+  //   await ZegoUIKit()
+  //       .getSignalingPlugin()
+  //       .endRoomPropertiesBatchOperation(roomID: roomID)
+  //       .then((result) {
+  //     _isRoomAttributesBatching = false;
+  //     ZegoLoggerService.logInfo("room attribute batch is finished");
+  //     ZegoLoggerService.logInfo(
+  //       "take on seat result, code:'', message ",
+  //       tag: "audio room",
+  //       subTag: "seat manager",
+  //     );
+  //
+  //     // if (result.code.isNotEmpty) {
+  //     //   showDebugToast("take on seat error, ${result.code} ${result.message}");
+  //     // }
+  //   });
+  //
+  //
+  //
+  //   if(RoomScreen.listOfMuteSeats.containsKey(index)
+  //       ||RoomScreen.usersHasMute.contains(getUserByIndex(index)?.id)){
+  //     //when seat is muted or user has mute
+  //     ZegoUIKit().turnMicrophoneOn(false,userID: getUserByIndex(index)?.id.toString());
+  //   }
+  //   // to my server
+  //   BlocProvider.of<OnRoomBloc>(contextQuery!()).add(UpMicEvent(
+  //       ownerId: ownerId,
+  //       userId: localUserID,
+  //       position: index.toString()));
+  //
+  //   return true;
+  // }
 
   Future<bool> switchToSeat(int index) async {
     if (_isRoomAttributesBatching) {

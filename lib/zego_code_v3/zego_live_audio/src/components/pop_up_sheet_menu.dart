@@ -104,7 +104,8 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
             Future.delayed(const  Duration(seconds: 5),(){
               if(RoomScreen.listOfMuteSeats.containsKey(popupItem.index)
                   ||RoomScreen.usersHasMute.contains(MyDataModel.getInstance().id.toString())){
-                ZegoUIKit().turnMicrophoneOn(false,userID: MyDataModel.getInstance().id.toString());
+                ZegoUIKit().turnMicrophoneOn(false,
+                    userID: MyDataModel.getInstance().id.toString());
                 // return true ;
               }
             }) ;

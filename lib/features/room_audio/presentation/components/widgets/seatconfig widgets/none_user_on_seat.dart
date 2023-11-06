@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
-import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/zego_uikit_prebuilt_live_audio_room.dart';
 
 class NoneUserOnSeat extends StatelessWidget {
   Map<dynamic, dynamic> extraInfo;
@@ -14,10 +14,10 @@ class NoneUserOnSeat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-          top: ConfigSize.defaultSize! * 8.5,
+         top: 110.zH,
           left: extraInfo['index'] == 0
-              ? ConfigSize.defaultSize! * 3.7
-              : ConfigSize.defaultSize! * 0.0),
+              ? 66.zW
+              : 0),
       child: extraInfo['index'] == 0
           ? Image.asset(
         AssetsPath.hostMark,
@@ -29,12 +29,12 @@ class NoneUserOnSeat extends StatelessWidget {
         children: [
           CircleAvatar(
             backgroundColor: colors[1],
-            radius: ConfigSize.defaultSize! * .9,
+            radius: 14.zR,
             child: Text(
               "${extraInfo['index']}",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: AppPadding.p12,
+                  fontSize: 14.zSP,
                   fontWeight: FontWeight.w700),
             ),
           ),
@@ -45,7 +45,7 @@ class NoneUserOnSeat extends StatelessWidget {
             "مقعد",
             style: TextStyle(
                 color: Colors.white,
-                fontSize: AppPadding.p10,
+                fontSize: 16.zSP,
                 fontWeight: FontWeight.w700),
           ),
         ],

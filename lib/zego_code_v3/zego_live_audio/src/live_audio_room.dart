@@ -85,7 +85,7 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
 /// @nodoc
 class ZegoUIKitPrebuiltLiveAudioRoomState
     extends State<ZegoUIKitPrebuiltLiveAudioRoom> with WidgetsBindingObserver {
-  List<StreamSubscription<dynamic>?> subscriptions = [];
+  static  List<StreamSubscription<dynamic>?> subscriptions = [];
 
   bool isFromMinimizing = false;
   static  ZegoUIKitPrebuiltLiveAudioRoomData? prebuiltData;
@@ -198,14 +198,14 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
   void dispose() {
     super.dispose();
 
-
-    WidgetsBinding.instance.removeObserver(this);
     //
+    // WidgetsBinding.instance.removeObserver(this);
+    // //
     // if (LiveAudioRoomMiniOverlayPageState.minimizing !=
     //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
     //   ZegoLiveAudioRoomManagers().unintPluginAndManagers();
     //
-    //   uninitContext();
+    // //  uninitContext();
     //
     //   widget.controller?.uninitByPrebuilt();
     // } else {
