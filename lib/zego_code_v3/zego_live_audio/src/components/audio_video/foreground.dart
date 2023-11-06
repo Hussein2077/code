@@ -127,7 +127,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       },
     );
   }
-  void onClicked() {
+  void onClicked() async {
 
     var index =
         int.tryParse(widget.extraInfo[layoutGridItemIndexKey].toString()) ?? -1;
@@ -140,13 +140,13 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       return;
     }
     List<PopupItem> popupItems = [];
-    PopupItem popupItem =  PopupItem(
+    PopupItem showDetailsItem  =  PopupItem(
       PopupItemValue.showUserDetails,
       StringManager.showDetails.tr(),
       userId: widget.seatManager.getUserByIndex(index)?.id??'',
       index: index,
     ) ;
-    PopupItem popupItem2 =  PopupItem(
+    PopupItem takeSeatItem =  PopupItem(
       PopupItemValue.takeOnSeat,
       StringManager.takeSeat.tr(),
       userId: MyDataModel.getInstance().id.toString(),
@@ -191,12 +191,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
 
               if(!widget.isHost){
                 if(!widget.seatManager.localIsAHost){
-                  popupItems.add(PopupItem(
-                    PopupItemValue.takeOnSeat,
-                    StringManager.takeSeat.tr(),
-                    userId: MyDataModel.getInstance().id.toString(),
-                    index: index,
-                  ));
+                  popupItems.add( takeSeatItem);
                 }
               }
 
@@ -227,11 +222,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
             else{
               // normal user
               if(!widget.isHost){
-                popupItems.add(PopupItem(
-                  PopupItemValue.takeOnSeat,
-                  StringManager.takeSeat.tr(),
-                  index: index,
-                ));
+                popupItems.add(takeSeatItem);
               }
 
             }
@@ -266,7 +257,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
 
       }
       else{
-        popupItems.add(popupItem);
+        popupItems.add(showDetailsItem);
 
         if(widget.seatManager.localIsAHost
             && widget.seatManager.getUserByIndex(index)?.id
@@ -327,11 +318,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       {
         //check if you is host or admin ,than you can do any think
         if(RoomScreen.adminsInRoom.containsKey(ZegoUIKit().getLocalUser().id)||widget.isHost){
-          popupItems.add(PopupItem(
-            PopupItemValue.takeOnSeat,
-            StringManager.takeSeat.tr(),
-            index: index,
-          ));
+          popupItems.add(takeSeatItem);
           RoomScreen.listOfMuteSeats.containsKey(index)
               ? popupItems.add(PopupItem(
             PopupItemValue.unMuteMic,
@@ -362,11 +349,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
             return ;
           }
           // if you normal user you can just set on seat
-          popupItems.add(PopupItem(
-            PopupItemValue.takeOnSeat,
-            StringManager.takeSeat.tr(),
-            index: index,
-          ));
+          popupItems.add(takeSeatItem);
 
           if(-1 !=
               widget.seatManager
@@ -383,7 +366,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
         //seat not empty
 
         //first to any user in room can show userDetails
-        popupItems.add(popupItem);
+        popupItems.add(showDetailsItem);
         if( -1 !=
             widget.seatManager
                 .getIndexByUserID(ZegoUIKit().getLocalUser().id) &&
@@ -435,7 +418,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
 
     }
 
-    if(popupItems.length==1 && popupItems.contains(popupItem)){
+    if(popupItems.length==1 && popupItems.contains(showDetailsItem)){
 
       bottomDailog(
           context: context,
@@ -452,10 +435,25 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       return ;
 
     }
-   if(popupItems.length ==1 &&  popupItems.contains(popupItem2)){
+      if(popupItems.length ==1 &&  popupItems.contains(takeSeatItem)){
+        await  widget.seatManager.takeOnSeat(
+          index,
+          isForce: false,
+          isDeleteAfterOwnerLeft: true,
+          ownerId: widget.roomData.ownerId.toString(),
+        );
 
-     //todo complete that
-   }
+        Future.delayed(const  Duration(seconds: 5),(){
+          if(RoomScreen.listOfMuteSeats.containsKey(index)
+              ||RoomScreen.usersHasMute.contains(MyDataModel.getInstance().id.toString())){
+            ZegoUIKit().turnMicrophoneOn(false,
+                userID: MyDataModel.getInstance().id.toString());
+            // return true ;
+          }
+        }) ;
+        return ;
+      }
+
     if (popupItems.isEmpty) {
       return;
     }
