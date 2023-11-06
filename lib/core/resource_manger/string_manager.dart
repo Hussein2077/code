@@ -839,7 +839,6 @@ static const String iOSPlatform='IOS';
     "لبوة"
   ];
 
-
  //games links
  static const String teenPatti = "http://167.172.6.20/TeenPatti/index.html?sound=0&language=ar&token=";
  static const String roulette = "http://167.172.6.20/Roulette/index.html?sound=0&language=ar&token=";

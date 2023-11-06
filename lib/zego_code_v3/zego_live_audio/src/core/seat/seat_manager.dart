@@ -892,14 +892,18 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
       }else{;
         ZegoUIKit().turnMicrophoneOn(true,userID: getUserByIndex(index)?.id.toString());
       }
-      Future.delayed(Duration.zero,(){
-        BlocProvider.of<OnRoomBloc>(contextQuery!())
-            .add(LeaveMicEvent(ownerId: ownerId, userId: localUserID));
-      }).then((value) =>  BlocProvider.of<OnRoomBloc>(contextQuery!()).add(UpMicEvent(
+      //
+      // Future.delayed(Duration.zero,(){
+      //   BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: localUserID));
+      // }).then((value) =>  BlocProvider.of<OnRoomBloc>(contextQuery!()).add(UpMicEvent(
+      //     ownerId: ownerId,
+      //     userId: localUserID ,
+      //     position: index.toString())));
+
+      BlocProvider.of<OnRoomBloc>(contextQuery!()).add(UpMicEvent(
           ownerId: ownerId,
           userId: localUserID ,
-          position: index.toString())));
-
+          position: index.toString()));
 
 
     });

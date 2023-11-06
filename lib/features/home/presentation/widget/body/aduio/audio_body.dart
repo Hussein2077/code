@@ -72,8 +72,6 @@ class _AduioBodyState extends State<AduioBody> {
                 BlocBuilder<CarouselBloc, CarouselStates>(
                   builder: (context, state) {
                     if (state is GetCarouselSuccesState) {
-
-
                       return PageViewWidget(
                           carouselsList: state.carouselsList,
                         );
