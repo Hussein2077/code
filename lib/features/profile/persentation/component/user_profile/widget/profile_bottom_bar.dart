@@ -42,12 +42,14 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
 
 
           setState(() {});
-        } else if (state is UnFollowSucssesState) {
+        }
+        else if (state is UnFollowSucssesState) {
           ReelsController.follow.value = !ReelsController.follow.value;
           ReelsController.followingMap[widget.userData.id.toString()]=false;
           isFollow = !isFollow;
           setState(() {});
-        }else if (state is  FollowLoadingState){
+        }
+        else if (state is  FollowLoadingState){
           loadingToast(context: context, title: StringManager.loading);
         }
       },

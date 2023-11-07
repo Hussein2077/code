@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -131,6 +133,9 @@ class _ChatPageState extends State<ChatPage> {
                                   .instance.currentUser?.uid??''))
                                   .toList();
                               //  List data = data1.reversed.toList();
+                              log(data.length.toString()+"xxxxxxxxxx");
+                              log(FirebaseAuth
+                                  .instance.currentUser!.uid.toString());
                               return ListView.builder(
                               // reverse: true,
                               itemCount: data.length,

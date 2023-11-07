@@ -71,11 +71,9 @@ class ChangePasswordAccountEvent extends AccountEvents {
   final String? password ;
   final String? phone ;
   final String vrCode ;
-  final String credential ;
 
 
   ChangePasswordAccountEvent({
-    required this.credential,
     required this.password,
     required this.phone,
     required this.vrCode,

@@ -81,7 +81,8 @@ class _WebViewState extends State<WebView>  with AutomaticKeepAliveClientMixin{
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
-              }else{
+              }
+              else{
                 final snackBar =  SnackBar(
                   backgroundColor: Colors.green,
                   content: Text(StringManager.pendingInPayment.tr()),

@@ -136,7 +136,7 @@ static const String iOSPlatform='IOS';
   static const String followingLive = "Following Live";
   static const String messages = "Messages";
   static const String friends = "Friends";
-  static const String youAreNotFriends = "Friends";
+  static const String youAreNotFriends = "YOu are not friends";
   static const String search = "Search";
   static const String coins = "Coins";
   static const String silver = "Silver";
@@ -268,7 +268,7 @@ static const String iOSPlatform='IOS';
   static const String yourThemeIsUpload = "Your theme has been uploaded, please wait for approval within 24 hours";
   static const String yourAgeIsUnder18 = "Your age is under 18";
   static const String anotherAccountLoggedIn ="Account has been logged in from another device,\nYou have no account" ;
-
+  static const String errorInUrl = 'There is Error in this URL' ;
 
   ///INCOME SCREEN 💲💸💰
   static const String instructionsForJoiningAgency =
@@ -547,6 +547,7 @@ static const String iOSPlatform='IOS';
   static const String toSendMassage = "To send Massage";
   static const String hinttext = "Say something...";
   static const String enetrMessage = 'Enter Message';
+  static const String youDontHaveMoments = "you don't have moments yet";
 
 
 
@@ -838,7 +839,6 @@ static const String iOSPlatform='IOS';
     "قحبة",
     "لبوة"
   ];
-
 
  //games links
  static const String teenPatti = "http://167.172.6.20/TeenPatti/index.html?sound=0&language=ar&token=";

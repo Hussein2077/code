@@ -123,10 +123,14 @@ class ZegoLivePageState extends State<ZegoLivePage>
                 return Stack(
                   children: [
                     background(context, constraints.maxHeight),
-                    audioVideoContainer(
-                      constraints.maxWidth,
-                      constraints.maxHeight,
-                    ),
+                    ValueListenableBuilder(
+                        valueListenable: RoomScreen.editAudioVideoContainer,
+                        builder: (context,update,_){
+                          return  audioVideoContainer(
+                            constraints.maxWidth,
+                            constraints.maxHeight,
+                          ) ;
+                        })   ,
                    // topBar(),
                     bottomBar(),
                     messageList(),

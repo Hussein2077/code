@@ -25,10 +25,10 @@ class _HomeHeaderState extends State<HomeHeader> {
         LiveTabBAR(liveController: widget.liveController,),
         InkWell(
             onTap: () async{
-              Navigator.pushNamed(context, Routes.searchScreen);
+             Navigator.pushNamed(context, Routes.searchScreen);
             },
             child: Image.asset(AssetsPath.searchIcon, scale: 2.5,)),
-                 BlocBuilder<GetMyDataBloc, GetMyDataState>(
+            BlocBuilder<GetMyDataBloc, GetMyDataState>(
             builder: (context, state) {
               return InkWell(
                   onTap: () {

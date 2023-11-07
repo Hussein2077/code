@@ -14,7 +14,7 @@ class CodegenLoader extends AssetLoader {
   static const Map<String, dynamic> ar = {
     StringManager.appTitle: "تيك شات",
     StringManager.anotherAccountLoggedIn: "ليس لديك حساب تم تسجيل الدخول من جهاز اخر",
-
+    StringManager.errorInUrl : 'يوجد خطأ في هذا الرابط',
     StringManager.video_size_error: "يرجى تحميل الفيديو أقل من 3 دقائق",
     StringManager.enterPhoneNum: "أدخل رقم هاتفك",
     StringManager.signUp: "سجل",
@@ -406,7 +406,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.moments: 'اللحظات',
     StringManager.giftBox: 'صندوق الهدايا',
     StringManager.likes: 'المفضل',
-    StringManager.myMomentsTab: 'لك',
+    StringManager.myMomentsTab: 'لحظاتي',
     StringManager.addComment: 'اضف تعليق',
     StringManager.addMoment: 'اضف لحظة',
     StringManager.thisMoment: 'لا يوجد اعجابات ',
@@ -451,7 +451,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.toSendMassage: "لأرسال الرساله",
     StringManager.hinttext: "قل شيئا...",
     StringManager.cantSendGift: "لا يمكنك ارسال هدايا عند تشغيل الرجل الغامض .. اغلق الخاصية اولا",
-    StringManager.enetrMessage:'مراسلة'
+    StringManager.enetrMessage:'مراسلة',
+    StringManager.youDontHaveMoments:'ليس لديك اي لحظات',
+    StringManager.youAreNotFriends:'انتم ليس اصدقاء'
 
 
 
