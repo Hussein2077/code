@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 import 'dart:ui' as ui;
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -61,7 +60,7 @@ class _EnterPasswordRoomScreenState extends State<SaveRoomPasswordRoomScreen> {
               ),
             ),
             SizedBox(
-              height: 14.h,
+              height:20,
             ),
             Directionality(
               textDirection: ui.TextDirection.ltr,

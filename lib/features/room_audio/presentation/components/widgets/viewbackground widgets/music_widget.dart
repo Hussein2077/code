@@ -31,7 +31,6 @@ class MusicWidget extends StatelessWidget {
         valueListenable: ZegoUIKit.instance.getMediaPlayStateNotifier(),
         builder: (context, state, _) {
           log('state:${state.toString()}');
-          log("MusicWidget.isIPlayerMedia ")
           switch(state) {
             case MediaPlayState.NoPlay:
               return const SizedBox();
