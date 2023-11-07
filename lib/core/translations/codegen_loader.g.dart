@@ -14,7 +14,7 @@ class CodegenLoader extends AssetLoader {
   static const Map<String, dynamic> ar = {
     StringManager.appTitle: "تيك شات",
     StringManager.anotherAccountLoggedIn: "ليس لديك حساب تم تسجيل الدخول من جهاز اخر",
-
+    StringManager.errorInUrl : 'يوجد خطأ في هذا الرابط',
     StringManager.video_size_error: "يرجى تحميل الفيديو أقل من 3 دقائق",
     StringManager.enterPhoneNum: "أدخل رقم هاتفك",
     StringManager.signUp: "سجل",
