@@ -29,8 +29,10 @@ class UpMicrophonePramiter extends Equatable {
   final String ownerId;
   final String? userId ;
   final String? position ;
+  final bool?  isSwitch ;
 
- const UpMicrophonePramiter({required this.ownerId, this.userId, this.position});
+ const UpMicrophonePramiter({required this.ownerId,
+   this.userId, this.position ,  this.isSwitch});
 
   @override
   List<Object?> get props =>[ownerId,userId,position];

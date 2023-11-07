@@ -98,11 +98,12 @@ class UpMicEvent extends OnRoomEvents {
   final String ownerId;
   final String userId ;
   final String position ;
+  final bool isSwitch ;
 
- const UpMicEvent({required this.ownerId, required this.userId, required this.position});
+ const UpMicEvent({ required this.isSwitch, required this.ownerId, required this.userId, required this.position});
 
   @override
-  List<Object?> get props =>[ownerId,userId,position];
+  List<Object?> get props =>[ownerId,userId,position,isSwitch];
 }
 
 class LeaveMicEvent extends OnRoomEvents {

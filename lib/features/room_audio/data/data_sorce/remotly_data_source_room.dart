@@ -424,8 +424,7 @@ static String uploadImagePrice = "" ;
   Future<String> upMicrophone(UpMicrophonePramiter upMicrophonePramiter) async{
         Map<String, String> headers = await DioHelper().header();
 
-        print("UP: ${upMicrophonePramiter.position}");
-
+ log(" swap : ${upMicrophonePramiter.isSwitch}");
     try {
       final response = await Dio()
           .post(ConstentApi().upMic(upMic:upMicrophonePramiter),
