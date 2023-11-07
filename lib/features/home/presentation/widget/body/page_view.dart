@@ -38,14 +38,14 @@ class _PageViewWidgetState extends State<PageViewWidget> {
       onTap: () async {
         if( widget.carouselsList[i].url!="") {
           log("in url ");
-          Navigator.pushNamed(context, Routes.webView,
-                arguments: WebViewPramiter(
-                    url:'https://www.youtube.com/',
-                    title: '',
-                    titleColor: Colors.transparent));
-          // if(await canLaunchUrl(Uri.parse(widget.carouselsList[i].url))){
-          //   launchUrl(Uri.parse(widget.carouselsList[i].url)) ;
-          // }
+          // Navigator.pushNamed(context, Routes.webView,
+          //       arguments: WebViewPramiter(
+          //           url:widget.carouselsList[i].url,
+          //           title: '',
+          //           titleColor: Colors.transparent));
+          if(await canLaunchUrl(Uri.parse(widget.carouselsList[i].url))){
+            launchUrl(Uri.parse(widget.carouselsList[i].url)) ;
+          }
         }
         else if(widget.carouselsList[i].ownerId!=0){
           log("in room ");
