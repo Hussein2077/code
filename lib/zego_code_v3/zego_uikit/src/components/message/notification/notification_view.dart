@@ -3,6 +3,7 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/defines.dart';
@@ -20,6 +21,7 @@ class ZegoInRoomNotificationView extends StatefulWidget {
   final ZegoNotificationUserItemBuilder? userJoinItemBuilder;
   final ZegoNotificationUserItemBuilder? userLeaveItemBuilder;
   final ZegoNotificationMessageItemBuilder? itemBuilder;
+  final EnterRoomModel room ;
 
   const ZegoInRoomNotificationView({
     Key? key,
@@ -30,6 +32,7 @@ class ZegoInRoomNotificationView extends StatefulWidget {
     this.userJoinItemBuilder,
     this.userLeaveItemBuilder,
     this.itemBuilder,
+    required this.room
   }) : super(key: key);
 
   @override
@@ -109,7 +112,7 @@ class _ZegoInRoomNotificationViewState
               user: message.user,
               message: message.message,
             );
-      },
+      }, room: widget.room,
     );
   }
 

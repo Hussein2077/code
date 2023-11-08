@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/defines.dart';
@@ -14,12 +15,14 @@ class ZegoInRoomChatView extends StatefulWidget {
   final ZegoAvatarBuilder? avatarBuilder;
   final ZegoInRoomMessageItemBuilder? itemBuilder;
   final ScrollController? scrollController;
+  final EnterRoomModel room ;
 
   const ZegoInRoomChatView({
     Key? key,
     this.avatarBuilder,
     this.itemBuilder,
     this.scrollController,
+    required this.room
   }) : super(key: key);
 
   @override
@@ -44,7 +47,7 @@ class _ZegoInRoomChatViewState extends State<ZegoInRoomChatView> {
                 message: message,
               ),
             );
-          },
+          }, room: widget.room,
     );
   }
 }

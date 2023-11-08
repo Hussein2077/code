@@ -13,9 +13,10 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.da
 
 
 class GiftButton extends StatelessWidget {
-  const GiftButton({required this.myDataModel,required this.listAllUsers , required this.listUsers, required this.roomData, super.key});
+  const GiftButton({required this.myDataModel,
+    required this.listAllUsers ,
+    required this.roomData, super.key});
   final MyDataModel myDataModel;
-  final List<ZegoUIKitUser>  listUsers ;
   final List<ZegoUIKitUser>  listAllUsers ;
   final EnterRoomModel? roomData ;
   @override
@@ -29,7 +30,6 @@ class GiftButton extends StatelessWidget {
             context: context,
             widget: GiftScreen(
               listAllUsers:listAllUsers,
-              listUsers:listUsers,
               roomData:roomData!,
               myDataModel: myDataModel,
             )):

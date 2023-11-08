@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 
 // Package imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
@@ -11,11 +12,13 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_con
 class ZegoInRoomLiveMessageView extends StatefulWidget {
   final ZegoInRoomMessageViewConfig? config;
   final ZegoAvatarBuilder? avatarBuilder;
+  final EnterRoomModel room ;
 
   const ZegoInRoomLiveMessageView({
     Key? key,
     this.config,
     this.avatarBuilder,
+    required this.room
   }) : super(key: key);
 
   @override
@@ -59,7 +62,7 @@ class _ZegoInRoomLiveMessageViewState extends State<ZegoInRoomLiveMessageView> {
                     onItemClick: widget.config?.onMessageClick,
                     onItemLongPress: widget.config?.onMessageLongPress,
                   );
-                },
+                }, room: widget.room,
           ),
         ],
       ),
