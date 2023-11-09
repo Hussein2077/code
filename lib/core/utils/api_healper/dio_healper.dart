@@ -145,7 +145,7 @@ class DioHelper {
       case 401:
         throw UnauthorizedException();
       //todo change this
-      case 402:
+      case 5555:
         throw AnotherAccountException();
       default:
         if (response?.data.runtimeType == String) {

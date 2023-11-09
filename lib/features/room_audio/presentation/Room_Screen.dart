@@ -682,7 +682,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent]['msg'] == 'SHB') {
         if (result[messageContent][ownerId].toString() != widget.room.ownerId.toString()) {
-          ShowPopularBanner(result, userBannerData['user_data_sender'], userBannerData['user_data_receiver'], userBannerData, controllerBanner);
+          ShowPopularBanner(result, userBannerData, controllerBanner);
         }
       }
       else if (result[messageContent][message] == showEmojie) {

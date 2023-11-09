@@ -71,7 +71,6 @@ class MomentScreenState extends State<MomentScreen>
   child: BlocListener<MakeMomentLikeBloc, MakeMomentLikeStates>(
       listener: (_, state) {
         if (state is MakeMomentLikeSucssesState) {
-          MomentController.getInstance.likeController(context);
         }
       },
       child: BlocListener<MomentSendGiftBloc, MomentSendGiftStates>(
