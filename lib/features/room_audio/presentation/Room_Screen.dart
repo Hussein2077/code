@@ -309,6 +309,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         } else if (widget.room.seats![i]['id'] != null) {
           UserOnMicModel myDataModel = UserOnMicModel.fromJson(widget.room.seats![i]);
           ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(id: myDataModel.id.toString(), name: myDataModel.name.toString());
+         zegoUIKitUser.inRoomAttributes.value['img'] = myDataModel.img;
+          log("zegoUIKitUser.inRoomAttributes.value['img']${zegoUIKitUser.inRoomAttributes.value['img']}");
           RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
         }
       }
@@ -462,8 +464,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             .getInRoomCommandReceivedStream()
             .listen(onInRoomCommandReceived));
     });
-
-
   }
 
   @override
@@ -900,8 +900,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           GiftUser.userOnMicsForGifts.clear();
 
           takenSeats.forEach((key, value) {
-            GiftUser.userOnMicsForGifts.putIfAbsent(int.parse(value.id),
+            if(value.id!='') {
+              GiftUser.userOnMicsForGifts.putIfAbsent(int.parse(value.id),
                     () => value);
+            }
           });
          GiftUser.updateView.value =
              GiftUser.updateView.value +1 ;
@@ -976,12 +978,13 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               ],
             )
             ..seatConfig.avatarBuilder = (context, size, user, extraInfo) {
-              return ValueListenableBuilder<bool>(
+            return ValueListenableBuilder<bool>(
                 valueListenable:
                     ZegoUIKit().getMicrophoneStateNotifier(user!.id),
                 builder: (context, isMicrophoneEnabled, _) {
 
                   return UserAvatar(
+                      user: user ,
                       image: user.inRoomAttributes.value['img'],
                       isMicrophoneEnabled: isMicrophoneEnabled);
                 },

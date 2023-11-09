@@ -81,8 +81,8 @@ class UpperProfileBody extends StatelessWidget {
                         },
                         child: UserImage(
                             isRoom: (myDataModel.nowRoom?.isnInRoom??false),
-                            frame: (myDataModel.nowRoom?.isnInRoom??false)? myDataModel.frame:"",
-                            frameId: (myDataModel.nowRoom?.isnInRoom??false)? myDataModel.frameId:null,
+                            frame:  myDataModel.frame,
+                            frameId:  myDataModel.frameId,
                             image: myDataModel.profile!.image!,
                             boxFit: BoxFit.cover,
                             imageSize: ConfigSize.defaultSize! * 8),
