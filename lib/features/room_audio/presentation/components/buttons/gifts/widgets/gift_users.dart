@@ -23,8 +23,8 @@ class GiftUser extends StatefulWidget {
   const GiftUser({
   required this.listAllUsers , required this.ownerId, super.key});
   static Map<int,SelecteObject>  userSelected = {};
-  static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMicsForGifts =
-  ValueNotifier<Map<int, ZegoUIKitUser>>({});
+  static Map<int, ZegoUIKitUser> userOnMicsForGifts = {};
+  static ValueNotifier<int> updateView = ValueNotifier<int>(0) ;
   @override
   GiftUserState createState() => GiftUserState();
 }
@@ -48,6 +48,14 @@ class GiftUserState extends State<GiftUser> {
   }
 
   @override
+  void dispose(){
+    GiftUser.updateView.value = 0 ;
+    super.dispose();
+
+
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return  SizedBox(
@@ -60,11 +68,11 @@ class GiftUserState extends State<GiftUser> {
               padding: EdgeInsets.only(top: ConfigSize.defaultSize!),
               height: ConfigSize.defaultSize! * 7,
               child:
-              ValueListenableBuilder<Map<int, ZegoUIKitUser>>(
-                valueListenable: GiftUser.userOnMicsForGifts,
-                builder: (context, users, _) {
+              ValueListenableBuilder<int>(
+                valueListenable: GiftUser.updateView,
+                builder: (context, count, _) {
                   seatsIndex.clear();
-                  GiftUser.userOnMicsForGifts.value.forEach((key, value) {
+                  GiftUser.userOnMicsForGifts.forEach((key, value) {
                     if(!seatsIndex.contains(key) ){
                       seatsIndex.add(key);
                     }
@@ -74,7 +82,7 @@ class GiftUserState extends State<GiftUser> {
                       scrollDirection: Axis.horizontal,
                       itemCount:seatsIndex.length,
                       itemBuilder: (context, index) {
-                        if(users[seatsIndex[index]]?.name
+                        if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.name
                             == StringManager.mysteriousPerson.tr()){
                           return const  SizedBox();
                         }else{
@@ -85,7 +93,7 @@ class GiftUserState extends State<GiftUser> {
                                   GiftUser.userSelected.remove(seatsIndex[index]);
                                 }else{
                                   GiftUser.userSelected.putIfAbsent(index,
-                                          () => SelecteObject(userId:users[index]?.id??'',
+                                          () => SelecteObject(userId:GiftUser.userOnMicsForGifts[index]?.id??'',
                                           selected: true)) ;
                                 }
                               });
@@ -108,10 +116,10 @@ class GiftUserState extends State<GiftUser> {
                                     child: CustoumCachedImage(
                                       radius: ConfigSize.defaultSize!*2,
                                       width: ConfigSize.defaultSize! *3,
-                                      url: users[seatsIndex[index]]?.inRoomAttributes.value['img']??"",
+                                      url: GiftUser.userOnMicsForGifts[seatsIndex[index]]?.inRoomAttributes.value['img']??"",
                                       height: ConfigSize.defaultSize! *3,)
                                 ),
-                                if(RoomScreen.adminsInRoom.containsKey(users[seatsIndex[index]]?.id.toString()))
+                                if(RoomScreen.adminsInRoom.containsKey(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.id.toString()))
                                   Positioned(
                                     top: ConfigSize.defaultSize! * 3,
                                     left: ConfigSize.defaultSize! * 1.3,
@@ -120,7 +128,7 @@ class GiftUserState extends State<GiftUser> {
                                         height: ConfigSize.defaultSize! * 1.5,
                                         child: Image.asset(AssetsPath.adminMark)),
                                   ),
-                                if(users[seatsIndex[index]]?.id.toString() == widget.ownerId.toString())
+                                if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.id.toString() == widget.ownerId.toString())
                                   Positioned(
                                     top: ConfigSize.defaultSize! * 3,
                                     left: ConfigSize.defaultSize! * 1.3,
@@ -130,8 +138,8 @@ class GiftUserState extends State<GiftUser> {
                                         child:Image.asset(AssetsPath.hostMark)
                                     ),
                                   ),
-                                if(users[seatsIndex[index]]?.id.toString() != widget.ownerId.toString()
-                                    &&!RoomScreen.adminsInRoom.containsKey(users[index]?.id.toString()))
+                                if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.id.toString() != widget.ownerId.toString()
+                                    &&!RoomScreen.adminsInRoom.containsKey(GiftUser.userOnMicsForGifts[index]?.id.toString()))
                                   Positioned(
                                     top: ConfigSize.defaultSize! * 3,
                                     left: ConfigSize.defaultSize! * 1.3,

@@ -273,6 +273,7 @@ Future<void> clearAll() async {
   RoomScreen.myCoins.value = "";
   RoomScreen.winCircularluckyGift.value = 0;
   GiftUser.userSelected.clear();
+  GiftUser.userOnMicsForGifts.clear();
 }
 
 Future<void> distroyMusic() async {
