@@ -162,7 +162,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   /////
 
   ////
-  Map<String, dynamic> yallowBanner = {"yallowBannerhasPasswoedRoom": '' , "yallowBannerOwnerRoom" : ''};
+  Map<String, dynamic> yallowBanner = {"yallowBannerhasPasswoedRoom": '' ,
+    "yallowBannerOwnerRoom" : ''};
   ////
 
   ////
