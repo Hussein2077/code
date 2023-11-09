@@ -900,8 +900,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           GiftUser.userOnMicsForGifts.clear();
 
           takenSeats.forEach((key, value) {
-            GiftUser.userOnMicsForGifts.putIfAbsent(int.parse(value.id),
+            if(value.id!='') {
+              GiftUser.userOnMicsForGifts.putIfAbsent(int.parse(value.id),
                     () => value);
+            }
           });
          GiftUser.updateView.value =
              GiftUser.updateView.value +1 ;
