@@ -162,7 +162,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   /////
 
   ////
-  Map<String, dynamic> yallowBanner = {"yallowBannerhasPasswoedRoom": '' , "yallowBannerOwnerRoom" : ''};
+  Map<String, dynamic> yallowBanner = {"yallowBannerhasPasswoedRoom": '' ,
+    "yallowBannerOwnerRoom" : ''};
   ////
 
   ////
@@ -896,12 +897,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               Map<int, ZegoUIKitUser> takenSeats,
               List<int> untakenSeats,
             ) {
-          GiftUser.userOnMicsForGifts.value.clear();
+          GiftUser.userOnMicsForGifts.clear();
+
           takenSeats.forEach((key, value) {
-            GiftUser.userOnMicsForGifts.value.putIfAbsent(int.parse(value.id),
+            GiftUser.userOnMicsForGifts.putIfAbsent(int.parse(value.id),
                     () => value);
           });
-
+         GiftUser.updateView.value =
+             GiftUser.updateView.value +1 ;
             }
             ..bottomMenuBarConfig = ZegoBottomMenuBarConfig(
               maxCount: 10,
