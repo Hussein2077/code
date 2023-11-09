@@ -1,23 +1,16 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:ui' as ui;
-
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
- 
-import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/widgets/Dailog_button.dart';
 import 'package:tik_chat_v2/features/room_audio/data/data_sorce/remotly_data_source_room.dart';
@@ -30,7 +23,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_states.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 
 class GiftBottomBar extends StatefulWidget {
   GiftBottomBar(
@@ -50,21 +42,17 @@ State<GiftBottomBar> createState() => _GiftBottomBarState();
 
 class _GiftBottomBarState extends State<GiftBottomBar>  {
 
-
-
-  static List<String> userSelected = [];
-
   @override
   void initState() {
-    userSelected.clear();
-    GiftUser.userSelected.clear();
     super.initState();
     getUserCoins();
   }
 
-
-
-
+  @override
+  void dispose() {
+    GiftUserOnly.userSelected = "";
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -231,15 +219,6 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
         errorToast(context: context, title: state.errorMessage.tr()) ;
       }
     });
-  }
-
-  @override
-  void dispose() {
-    GiftUserOnly.userSelected = "";
-    // GiftUser.userSelected.clear();
-    // GiftBottomBar.numberOfGift = 1;
-
-    super.dispose();
   }
 
   Widget sendDialog(BuildContext context) {
@@ -410,9 +389,7 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
 
   void sendGift(int? compoNum) {
     List<String> userSelected =[] ;
-    // GiftUser.userSelected.entries.map((e) {
-    //   return e.value.userId;
-    // }).toList();
+
     GiftUser.userSelected.forEach((key, value) {
       userSelected.add(value.userId);
     });
@@ -421,7 +398,6 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
       toUid += '${userSelected[i].toString()},';
     }
 
-
     (userSelected.isEmpty && GiftUserOnly.userSelected == "")
         ? BlocProvider.of<SendGiftBloc>(context).add(SendGiftesEvent(
         ownerId: widget.roomData.ownerId.toString(),
@@ -429,7 +405,6 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
         toUid: "",
         num:
         GiftBottomBar.numberOfGift.toString(),
-
         toZego: "1"))
         : compoNum != null
         ? BlocProvider.of<SendGiftBloc>(context).add(SendGiftesEvent(
@@ -438,8 +413,7 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
         toUid: GiftUserOnly.userSelected == ""
             ? toUid.substring(0, toUid.length - 1)
             : GiftUserOnly.userSelected,
-        num:(compoNum*GiftBottomBar.numberOfGift).toString()
-        ,
+        num:(compoNum*GiftBottomBar.numberOfGift).toString(),
         toZego: "1"))
         : BlocProvider.of<SendGiftBloc>(context).add(SendGiftesEvent(
         ownerId: widget.roomData.ownerId.toString(),
@@ -450,8 +424,6 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
         num:
         GiftBottomBar.numberOfGift.toString(),
         toZego: "1"));
-
-    log(GiftBottomBar.numberOfGift.toString()+"zzzzzzzzzxxxxxxxxzz");
 
   }
 }

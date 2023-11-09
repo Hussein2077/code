@@ -319,14 +319,13 @@ static String uploadImagePrice = "" ;
   @override
   Future<String> sendGifts(GiftPramiter giftPramiter) async {
         Map<String, String> headers = await DioHelper().header();
-  
 
     final body = {
       'owner_id': giftPramiter.ownerId,
       'id': giftPramiter.id,
       'toUid': giftPramiter.toUid,
       'num': giftPramiter.num,
-      // 'to_zego': giftPramiter.toZego,
+      //'to_zego': giftPramiter.toZego,
     };
     try {
 
