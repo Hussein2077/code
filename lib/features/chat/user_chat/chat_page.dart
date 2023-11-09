@@ -33,8 +33,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
-    Functions.updateAvailability(MyDataModel.getInstance().id.toString(),
-        MyDataModel.getInstance().name.toString(), MyDataModel.getInstance().profile!.image!);
+    Functions.updateAvailability();
     Functions.addFireBaseId();
     super.initState();
   }
