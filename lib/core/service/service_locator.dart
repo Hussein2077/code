@@ -66,6 +66,7 @@ import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_like
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/make_moment_like.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/report_moment_usecase.dart';
 import 'package:tik_chat_v2/features/moment/domain/repository/base_repository_moment.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment/add_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
@@ -79,6 +80,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_send_gift/moment_send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
 import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
@@ -544,11 +546,14 @@ class ServerLocator {
 
     getIt.registerFactory(
             () => PostGroupChatBloc(postGroupMassageUseCase:  getIt() ));
+    getIt.registerFactory(
+            () => ReportMomentBloc(reportMomentUseCase:  getIt() ));
 
 
 //usecase
 
     getIt.registerLazySingleton(() => PostGroupMassageUseCase(baseRepositoryChat: getIt()));
+    getIt.registerLazySingleton(() => ReportMomentUseCase( baseRepositoryMoment: getIt(),));
 
     getIt.registerLazySingleton(() => GetGroupMassageUseCase(baseRepositoryChat: getIt()));
 

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_event.dart';
@@ -14,6 +15,7 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_use
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/componants/report_moment_dialog/Report_moment_dialog.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_info_row.dart';
 
 
@@ -149,7 +151,15 @@ abstract class MenuItems {
       BlocProvider.of<GetMomentILikeItBloc>(context).add(LocalDeleteMomentILikedEvent(momentId: momentId ));
 
     } else if (item == report) {
-      //BlocProvider.of<DeleteMomentBloc>(context).add(DeleteMomentEvent(momentId: momentId ));
+log('first tap');
+      bottomDailog(
+          context: context,
+          widget: MomentReportDialog(momentId: momentId),
+          color: Theme
+              .of(context)
+              .colorScheme
+              .background);
+
     }
   }
 }

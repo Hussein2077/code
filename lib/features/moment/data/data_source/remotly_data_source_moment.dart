@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_gift
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_likes_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/report_moment_usecase.dart';
 
 
 abstract class BaseRemotlyDataSourceMoment {
@@ -44,7 +45,7 @@ abstract class BaseRemotlyDataSourceMoment {
   Future<String> momentSendGifts(MomentSendGiftPrameter momentSendGiftPrameter);
   Future<List<MomentGiftsModel>> getMomentGifts(
       GetMomentGiftsPrameter getMomentGiftsPrameter);
-
+Future<String> reportMoment(ReportMomentParam reportMomentParam);
 }
 
 
@@ -292,6 +293,26 @@ class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
       throw DioHelper.handleDioError(dioError: e, endpointName: 'sendGifts');
     }
     
+  }
+
+  @override
+  Future<String> reportMoment(ReportMomentParam reportMomentParam) async{
+    Map<String, String> headers = await DioHelper().header();
+
+    try{
+    final response = await Dio().post(ConstentApi.reportMoment(
+        reportMomentParam.momentId,
+        reportMomentParam.type,
+        reportMomentParam.discreption,
+    ),
+        options: Options(
+          headers: headers,
+        ),
+        );
+    return response.data['message'];
+  }on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e, endpointName: 'reportMoment');
+  }
   }
 
 }

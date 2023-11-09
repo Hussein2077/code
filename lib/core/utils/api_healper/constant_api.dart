@@ -141,6 +141,15 @@ class ConstentApi {
       ) {
     return "$baseUrl/moment?user_id=$userId&type=$type&page=$page";
   }
+  static String reportMoment(
+      String momentid,
+      String type,
+      String discreption,
+
+      ) {
+    //{{base_url}}/moment/79/report?description=nknkj&type=lmk
+    return "$baseUrl/moment/$momentid/report?description=$discreption&type=$type";
+  }
 
   static String addMomentComment(
     String momentId,

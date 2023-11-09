@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_gift
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_likes_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/report_moment_usecase.dart';
 import 'package:tik_chat_v2/features/moment/domain/repository/base_repository_moment.dart';
 
 
@@ -132,5 +133,15 @@ class RepositoryImpMoment extends BaseRepositoryMoment{
      return right(DioHelper.buildFailure(e));
    }
  }
+
+  @override
+  Future<Either<String, Failure>> reportMoment(ReportMomentParam reportMomentParam) async{
+    try {
+      final result = await baseRemotlyDataSourceMoment.reportMoment(reportMomentParam) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
 
 }
