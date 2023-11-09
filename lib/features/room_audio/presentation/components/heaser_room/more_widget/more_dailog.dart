@@ -16,7 +16,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_r
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/more_widget/back_ground/back_ground_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/more_widget/choose_mode/choose_mode_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/time_pk_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/time_PK_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
