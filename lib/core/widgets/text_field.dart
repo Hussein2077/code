@@ -35,7 +35,7 @@ final void Function()? onTap;
 
                       focusedBorder: InputBorder.none,
                       hintText: hintText,
-                      hintStyle:  TextStyle(color: hintColor?? Colors.grey)),
+                      hintStyle:  TextStyle(color: hintColor?? Colors.grey,fontSize: fontSize)),
                 );
   }
 }

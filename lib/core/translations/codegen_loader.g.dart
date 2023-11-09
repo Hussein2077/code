@@ -457,7 +457,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.cantSendGift: "لا يمكنك ارسال هدايا عند تشغيل الرجل الغامض .. اغلق الخاصية اولا",
     StringManager.enetrMessage:'مراسلة',
     StringManager.youDontHaveMoments:'ليس لديك اي لحظات',
-    StringManager.youAreNotFriends:'انتم ليس اصدقاء'
+    StringManager.youAreNotFriends:'انتم ليس اصدقاء',
+
 
 
 

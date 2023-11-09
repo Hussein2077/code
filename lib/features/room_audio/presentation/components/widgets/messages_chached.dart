@@ -128,10 +128,10 @@ class MessagesChached extends StatelessWidget {
                         const SizedBox(
                           width: 1,
                         ),
-                        if ((RoomScreen.usersMessagesRoom[message.user.id]
-                            ?.senderLevelImg ??
-                            '') !=
-                            '')
+                        // if ((RoomScreen.usersMessagesRoom[message.user.id]
+                        //     ?.senderLevelImg ??
+                        //     '') !=
+                        //     '')
                           SizedBox(
                             width: ConfigSize.defaultSize! * 4,
                             height: ConfigSize.defaultSize! * 2,

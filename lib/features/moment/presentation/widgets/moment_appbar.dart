@@ -60,10 +60,10 @@ class _MomentAppBarState extends State<MomentAppBar> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   dropdownDecoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Theme.of(context).colorScheme.background.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
                     border: Border.all(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   items: widget.momentModel.userId == MyDataModel.getInstance().id
@@ -71,7 +71,7 @@ class _MomentAppBarState extends State<MomentAppBar> {
                           ...MenuItems.myItems.map(
                             (item) => DropdownMenuItem<MenuItem>(
                               value: item,
-                              child: MenuItems.buildItem(item),
+                              child: MenuItems.buildItem(item,context),
                             ),
                           ),
                         ]
@@ -79,7 +79,7 @@ class _MomentAppBarState extends State<MomentAppBar> {
                           ...MenuItems.othersItems.map(
                             (item) => DropdownMenuItem<MenuItem>(
                               value: item,
-                              child: MenuItems.buildItem(item),
+                              child: MenuItems.buildItem(item,context),
                             ),
                           ),
                         ],
@@ -122,12 +122,12 @@ abstract class MenuItems {
   static final delete =
       MenuItem(text: StringManager.delete.tr(), icon: Icons.delete_forever);
   static final report = MenuItem(
-      text: StringManager.report.tr(), icon: Icons.report_problem_outlined);
+      text: StringManager.report.tr(), icon: Icons.report_gmailerrorred);
 
-  static Widget buildItem(MenuItem item) {
+  static Widget buildItem(MenuItem item,BuildContext context) {
     return Row(
       children: [
-        Icon(item.icon, color: Colors.red.withOpacity(0.8), size: 22),
+        Icon(item.icon, color: Theme.of(context).colorScheme.primary.withOpacity(0.8), size: 22),
         SizedBox(
           width: ConfigSize.defaultSize!,
         ),
@@ -135,7 +135,7 @@ abstract class MenuItems {
           child: Text(
             item.text,
             style: TextStyle(
-              color: Colors.red.withOpacity(0.8),
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
             ),
           ),
         ),
@@ -151,7 +151,6 @@ abstract class MenuItems {
       BlocProvider.of<GetMomentILikeItBloc>(context).add(LocalDeleteMomentILikedEvent(momentId: momentId ));
 
     } else if (item == report) {
-log('first tap');
       bottomDailog(
           context: context,
           widget: MomentReportDialog(momentId: momentId),

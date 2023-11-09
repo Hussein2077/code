@@ -47,7 +47,7 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: ConfigSize.defaultSize!,),
+              SizedBox(height: ConfigSize.defaultSize!*5,),
               Text(
                 StringManager.typeOfProblem.tr(),
                 style: Theme
@@ -57,7 +57,7 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
               ),
               SizedBox(height: ConfigSize.defaultSize!*2,),
 
-              const ProblemType(),
+               ProblemType(),
               SizedBox(height: ConfigSize.defaultSize!*4,),
 
               Text(
@@ -81,7 +81,7 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
                     maxLines: 4,
                     hintText: StringManager.explainProblem.tr(),
                     controller: detailsController,
-                fontSize: ConfigSize.defaultSize!*0.6,
+                fontSize: ConfigSize.defaultSize!*1.4,
                 ),
               ),
               SizedBox(height: ConfigSize.defaultSize!*5,),
