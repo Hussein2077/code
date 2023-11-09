@@ -245,6 +245,8 @@ Future<void> clearAll() async {
   PkController.scoreTeam1 = 0;
   PkController.winRedTeam = false;
   PkController.winBlueTeam = false;
+  PkController.showPK.value = false;
+  PkController.updatePKNotifier.value = 0;
   if(getIt<SetTimerPK>().timer != null){
     getIt<SetTimerPK>().timer?.cancel();
   }
@@ -262,13 +264,11 @@ Future<void> clearAll() async {
   LuckyBoxVariables.luckyBoxMap['currentBox'] = 1;
   SetTimerLuckyBox.remTimeSuperBox = 0;
   DialogLuckyBox.startTime = false;
-  PkController.showPK.value = false;
   RoomScreen.topUserInRoom.value = UserDataModel();
   RoomScreen.musicesInRoom.clear();
   RoomScreen.usersHasMute.clear();
   RoomScreen.banedUsers.clear();
   RoomScreen.isInviteToMic = false;
-  PkController.updatePKNotifier.value = 0;
   RoomScreen.editRoom.value = 0;
   RoomScreen.updateEmojie.value = 0;
   RoomScreen.updatebuttomBar.value = 0;
@@ -280,7 +280,6 @@ Future<void> clearAll() async {
   GiftUser.userSelected.clear();
   GiftUser.userOnMicsForGifts.clear();
   RoomScreen.showBanner.value = false;
-
 }
 
 Future<void> distroyMusic() async {

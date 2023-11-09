@@ -61,6 +61,7 @@ Hidepk(){
   PkController.showPK.value = false;
   restorePKData();
   PkController.isPK.value = false;
+  PKWidget.isStartPK.value = false;
   PkController.timeSecondPK = 0;
   if(getIt<SetTimerPK>().timer != null){
     getIt<SetTimerPK>().timer!.cancel();
