@@ -34,14 +34,14 @@ class MomentView extends StatelessWidget {
             },
             child: (momentModel.moment.length <= 1500)
                 ? Align(
-                    alignment: Alignment.centerLeft,
+                    alignment:isFirstCharArabic(momentModel.moment)?  Alignment.centerRight:Alignment.centerLeft,
                     child: ExpandableText(
                       momentModel.moment,
                       trimLines: 3,
                     ),
                   )
                 : Align(
-                    alignment: Alignment.centerLeft,
+                    alignment: isFirstCharArabic(momentModel.moment)?  Alignment.centerRight:Alignment.centerLeft,
                     child: ExpandableText(
                       momentModel.moment,
                       trimLines: 3,
@@ -118,4 +118,27 @@ class MomentView extends StatelessWidget {
       ),
     );
   }
+}
+
+
+
+bool isFirstCharArabic(String text) {
+  if(text.isEmpty){
+    return false ;
+  }
+  final firstChar = text.isNotEmpty ? text[0] : '';
+
+
+  // Arabic Unicode character ranges
+  final arabicRangeStart = 0x0600;
+  final arabicRangeEnd = 0x06FF;
+
+  // English Unicode character ranges
+  final englishRangeStart = 0x0041;
+  final englishRangeEnd = 0x007A;
+
+  final firstCharCode = firstChar.runes.first;
+
+  return (firstCharCode >= arabicRangeStart && firstCharCode <= arabicRangeEnd) ||
+      (firstCharCode >= englishRangeStart && firstCharCode <= englishRangeEnd);
 }
