@@ -68,6 +68,7 @@ class SetTimerPK {
     if(PkController.timeMinutePK<1 && PkController.timeSecondPK<1 ){
       if(MyDataModel.getInstance().id.toString() == ownerId){
         BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
+        getIt<SetTimerPK>().timer!.cancel();
       }
       // getIt<SetTimerPK>().timer!.cancel();
       // _timer!.cancel();
