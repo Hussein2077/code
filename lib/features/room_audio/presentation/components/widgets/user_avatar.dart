@@ -7,15 +7,20 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class UserAvatar extends StatelessWidget {
-  String? image;
-  bool isMicrophoneEnabled;
-  UserAvatar({super.key,  this.image, required this.isMicrophoneEnabled});
+ final  String? image;
+ final  bool isMicrophoneEnabled;
+ final  ZegoUIKitUser? user ;
+
+
+  UserAvatar({super.key,this.user,  this.image, required this.isMicrophoneEnabled,});
 
   @override
   Widget build(BuildContext context) {
+    log("hhhhhhh${ConstentApi().getImage(image)}");
     return Stack(
       children: [
         CachedNetworkImage(
@@ -38,7 +43,7 @@ class UserAvatar extends StatelessWidget {
               ),
             ),
           ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          errorWidget: (context, url, error) => Container()
         ),
         if (!isMicrophoneEnabled)
           Positioned(
