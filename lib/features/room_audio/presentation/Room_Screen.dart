@@ -462,8 +462,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             .getInRoomCommandReceivedStream()
             .listen(onInRoomCommandReceived));
     });
-
-
   }
 
   @override

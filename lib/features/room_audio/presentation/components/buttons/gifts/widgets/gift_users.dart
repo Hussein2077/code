@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +10,7 @@ import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 
-
-
-
 class GiftUser extends StatefulWidget {
- // final List<ZegoUIKitUser>  listUsers;
   final List<ZegoUIKitUser> listAllUsers ;
   final String ownerId ;
   const GiftUser({
@@ -31,8 +24,9 @@ class GiftUser extends StatefulWidget {
 
 
 class GiftUserState extends State<GiftUser> {
-  int selectUserIndex =-1 ;
+
   String? selectedValue;
+
   final List<String> type = [
     'ألكل علي المقاعد',
     'ألكل في الغرفة  ',
@@ -82,19 +76,22 @@ class GiftUserState extends State<GiftUser> {
                       scrollDirection: Axis.horizontal,
                       itemCount:seatsIndex.length,
                       itemBuilder: (context, index) {
-                        if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.name
-                            == StringManager.mysteriousPerson.tr()){
+                        if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.name == StringManager.mysteriousPerson.tr()){
                           return const  SizedBox();
                         }else{
                           return InkWell(
                             onTap: (){
                               setState(() {
-                                if( GiftUser.userSelected.containsKey(seatsIndex[index])){
-                                  GiftUser.userSelected.remove(seatsIndex[index]);
+                                if(GiftUser.userSelected.containsKey(index)){
+                                  GiftUser.userSelected.remove(index);
                                 }else{
                                   GiftUser.userSelected.putIfAbsent(index,
-                                          () => SelecteObject(userId:GiftUser.userOnMicsForGifts[index]?.id??'',
+                                          () => SelecteObject(
+                                              userId: GiftUser.userOnMicsForGifts[seatsIndex[index]]?.id??"",
                                           selected: true)) ;
+                                }
+                                if(GiftUser.userSelected.length != GiftUser.userOnMicsForGifts.length){
+                                  selectedValue = "";
                                 }
                               });
                             },
@@ -176,7 +173,6 @@ class GiftUserState extends State<GiftUser> {
                         mainAxisAlignment: item ==type[0] ? MainAxisAlignment.center :MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment:  CrossAxisAlignment.center,
@@ -204,35 +200,43 @@ class GiftUserState extends State<GiftUser> {
 
                         ],
                       )
-                  ))
-                      .toList(),
-               //   value: selectedValue,
+                  )).toList(),
                   onChanged: (value) {
                     if(value == type[0]){
-                      GiftUser.userSelected.clear();
-                      for(int i =0 ; i<RoomScreen.userOnMics.value.length;i++){
-                        GiftUser.userSelected.putIfAbsent(i,
-                                () => SelecteObject(
-                                    userId:RoomScreen.userOnMics.value[i]?.id??'',
-                                    selected: true)) ;
+                      if(GiftUser.userSelected.isEmpty){
+                        setState(() {
+                          selectedValue = value as String;
+                        });
+                        for(int i =0 ; i< GiftUser.userOnMicsForGifts.length; i++){
+                          GiftUser.userSelected.putIfAbsent(i,
+                                  () => SelecteObject(
+                                  userId: GiftUser.userOnMicsForGifts[i]?.id??'',
+                                  selected: true)) ;
+                        }
+                      }else{
+                        setState(() {
+                          selectedValue = "";
+                        });
+                        GiftUser.userSelected.clear();
                       }
-
-
                     }
                     else{
-                             GiftUser.userSelected.clear();
-                             for(int i =0 ; i<widget.listAllUsers.length;i++){
-                               GiftUser.userSelected.putIfAbsent(i,
-                                       () => SelecteObject(userId: widget.listAllUsers[i].id, selected: true)) ;
-                             }
+                      if(GiftUser.userSelected.isEmpty){
+                        setState(() {
+                          selectedValue = value as String;
+                        });
+                        for(int i =0 ; i < widget.listAllUsers.length; i++){
+                          GiftUser.userSelected.putIfAbsent(i,
+                                  () => SelecteObject(userId: widget.listAllUsers[i].id, selected: true)) ;
+                        }
+                      }else{
+                        setState(() {
+                          selectedValue = "";
+                        });
+                        GiftUser.userSelected.clear();
+                      }
                     }
-
-                    setState(() {
-                      selectedValue = value as String;
-                    });
-
                   },
-
                   iconSize: AppPadding.p24,
                   iconEnabledColor: ColorManager.mainColor,
                   iconDisabledColor: Colors.grey,
@@ -269,9 +273,9 @@ class GiftUserState extends State<GiftUser> {
 
 class SelecteObject {
   final String userId ;
+
   final bool selected ;
 
- const SelecteObject({required this.userId, required this.selected});
+  const SelecteObject({required this.userId, required this.selected});
 }
-
 
