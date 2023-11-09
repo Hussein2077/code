@@ -1486,7 +1486,9 @@ isVisit: isVisit,
     final body = {
       'phone': boundNumberPramiter.phoneNumber,
       'vr_code': boundNumberPramiter.vrCode,
-      'password': boundNumberPramiter.password
+      'password': boundNumberPramiter.password,
+      'credential':boundNumberPramiter.credintial
+
     };
     try {
       final response = await Dio().post(
@@ -1510,7 +1512,9 @@ isVisit: isVisit,
     final body = {
       'phone': boundNumberPramiter.phoneNumber,
       'vr_code': boundNumberPramiter.vrCode,
-      'current_phone': boundNumberPramiter.currentPhone
+      'current_phone': boundNumberPramiter.currentPhone,
+      'credential':boundNumberPramiter.credintial
+
     };
     try {
       final response = await Dio().post(

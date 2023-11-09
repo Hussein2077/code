@@ -44,7 +44,6 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
   Widget build(BuildContext context) {
     BlocProvider.of<GetUserBloc>(context)
         .add(GetuserEvent(userId: widget.userId));
-    log('lllllllllll${widget.userId}');
 
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
       listener: (context, state) {
@@ -83,7 +82,6 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
               key == state.data.id.toString());
               RoomScreen.usersInRoom
                   .putIfAbsent(state.data.id.toString(), () => state.data);
-              log('kkkkkkkkkk${state.data}');
 
               return UserProfileInRoom(
                   myData: widget.myData,
@@ -92,7 +90,6 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
                   layoutMode: widget.layoutMode);
             }
             else if (state is GetUserErorrState) {
-              log('jak');
               return InkWell(
                 onTap: () => Navigator.pop(context),
                 child: SizedBox(

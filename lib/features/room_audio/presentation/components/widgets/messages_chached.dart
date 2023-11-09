@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -51,6 +53,10 @@ class MessagesChached extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
+        log('hussin${RoomScreen.usersMessagesRoom[message.user.id]?.senderLevelImg}');
+        log('hussin${RoomScreen.usersMessagesRoom}');
+        log('hussin${sender}');
+
         (message.user.id != "0")
             ? bottomDailog(
                 context: context,
@@ -140,21 +146,21 @@ class MessagesChached extends StatelessWidget {
                         const SizedBox(
                           width: 1,
                         ),
-                        if ((RoomScreen.usersMessagesRoom[message.user.id]
-                            ?.revicerLevelImg ??
-                            '') !=
-                            '')
-                          SizedBox(
-                            width: ConfigSize.defaultSize! * 4,
-                            height: ConfigSize.defaultSize! * 2,
-                            child: LevelContainer(
-                              image: receiver == ""
-                                  ? RoomScreen.usersMessagesRoom[message.user.id]
-                                  ?.revicerLevelImg ??
-                                  ''
-                                  : receiver,
-                            ),
-                          ),
+                        // if ((RoomScreen.usersMessagesRoom[message.user.id]
+                        //     ?.revicerLevelImg ??
+                        //     '') !=
+                        //     '')
+                        //   SizedBox(
+                        //     width: ConfigSize.defaultSize! * 4,
+                        //     height: ConfigSize.defaultSize! * 2,
+                        //     child: LevelContainer(
+                        //       image: receiver == ""
+                        //           ? RoomScreen.usersMessagesRoom[message.user.id]
+                        //           ?.revicerLevelImg ??
+                        //           ''
+                        //           : receiver,
+                        //     ),
+                        //   ),
                       ],
                     ),
 

@@ -13,7 +13,6 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/resend_code_widget.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_number_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_phone_number_text.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/account_events.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/account_states.dart';
@@ -48,7 +47,11 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
         listener: (BuildContext context, AccountStates state) async {
 
       if (state is ChangeNumberSuccessState) {
-        sucssesToast(context: context, title: state.successMessage);
+        final snackBar = SnackBar(
+          content:  Text(state.successMessage),
+          backgroundColor: (Colors.black12),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
         // // ignore: use_build_context_synchronously
         // Navigator.pop(context);
         // // ignore: use_build_context_synchronously
@@ -61,10 +64,13 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
       }
 
       else if (state is ChangePasswordSuccessState) {
-        sucssesToast(context: context, title:
-        state.successMessage);
+        final snackBar = SnackBar(
+          content:  Text(state.successMessage),
+          backgroundColor: (Colors.black12),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
         // // ignore: use_build_context_synchronously
-        // Navigator.pop(context);
+         Navigator.pop(context);
       }
       else if (state is ChangePasswordLoading) {
          loadingToast(context: context, );
@@ -74,9 +80,12 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
       }
 
       else if (state is NumberAccountSuccessState) {
-        sucssesToast(context: context, title: state.successMessage);
-        // // ignore: use_build_context_synchronously
-        // Navigator.pop(context);
+        final snackBar = SnackBar(
+          content:  Text(state.successMessage),
+          backgroundColor: (Colors.black12),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);        // // ignore: use_build_context_synchronously
+         Navigator.pop(context);
       } else if (state is NumberAccountLoading) {
 
         //loadingToast(context: context, );
@@ -84,7 +93,6 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
         errorToast(context: context, title: state.errorMessage);
       }
     }, builder: (BuildContext context, AccountStates state) {
-      log('lllllllllll4');
       return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Column(
@@ -151,7 +159,6 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
                       Navigator.pop(context);
                     }
                     else if (widget.type == 'changeNumber') {
-
                      // ignore: use_build_context_synchronously
                       BlocProvider.of<AcountBloc>(context)
                           .add(ChangeNumberAccountEvent(
