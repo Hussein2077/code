@@ -140,6 +140,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_m
 import 'package:tik_chat_v2/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/notifcation/firebase_messaging_background.dart';
+import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
 // final globalNavigatorKey = GlobalKey<NavigatorState>();
@@ -478,6 +479,7 @@ final  String theme ;
         ),
         BlocProvider(create: (_) => getIt<PostGroupChatBloc>()),
         BlocProvider(create: (_) => getIt<FirebaseLoginBloc>()),
+        BlocProvider(create: (_) => getIt<ReportMomentBloc>()),
 
 
 

@@ -322,6 +322,7 @@ static const String iOSPlatform='IOS';
   static const String other = "Other";
   static const String bullying = "Bullying";
   static const String violence = "Violence";
+
   static const String pleaseAddDetiels = "Please Add Detiels";
   static const String enterYourImage = "Enter Image for more details";
   static const String unFollow = "UnFollow";

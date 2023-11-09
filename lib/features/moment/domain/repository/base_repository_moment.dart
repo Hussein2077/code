@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_gift
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_likes_uc.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/get_moment_use_case.dart';
 import 'package:tik_chat_v2/features/moment/domain/moment_usecse/moment_send_gift.dart';
+import 'package:tik_chat_v2/features/moment/domain/moment_usecse/report_moment_usecase.dart';
 
 
 abstract class BaseRepositoryMoment{
@@ -27,6 +28,7 @@ abstract class BaseRepositoryMoment{
   Future<Either<String, Failure>> momentSendGift(MomentSendGiftPrameter momentSEndGiftPrameter);
   Future<Either<List<MomentLikeModel>,Failure>> getMomentLike(GetMomentLikePrameter getMomentLikePrameter);
   Future<Either<List<MomentGiftsModel>,Failure>> getMomentGifts(GetMomentGiftsPrameter getMomentGiftsPrameter);
+  Future<Either<String,Failure>> reportMoment(ReportMomentParam reportMomentParam);
 
 
 }
