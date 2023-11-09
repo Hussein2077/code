@@ -431,6 +431,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         PkController.updatePKNotifier.value =
             PkController.updatePKNotifier.value + 1;
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
+
       }
       Future.delayed(const Duration(seconds: 3), () async {
         ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
@@ -672,7 +673,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   Future<void> onInRoomCommandReceived(
       ZegoInRoomCommandReceivedData commandData) async {
     Map<String, dynamic> result = jsonDecode(commandData.command);
-    //log('commandData.command'+commandData.command);
     if (result[messageContent] != null) {
       if (result[messageContent][message] == changeBackground) {
         ChangeBackground(result,roomDataUpdates);
@@ -702,19 +702,19 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         KicKout(result, durationKickout, widget.room.ownerId.toString(), widget.myDataModel.id.toString(), context);
 
       }//PK start rtm
-      else if (result[messageContent][message] == showPkKey) {
-        ShowPkKey();
+      else if (result[messageContent][message] == PkController.show_pk) {
+        Showpk();
       }
-      else if (result[messageContent][message] == startPkKey) {
-        StartPkKey(result, widget.room.ownerId.toString(), context);
+      else if (result[messageContent][message] == PkController.start_pk) {
+        Startpk(result, widget.room.ownerId.toString(), context);
       }
-      else if (result[messageContent][message] == hidePkKey) {
-        HidePkKey();
+      else if (result[messageContent][message] == PkController.hide_pk) {
+        Hidepk();
       }
-      else if (result[messageContent][message] == updatePkKey) {
-        UpdatePkKey(result);
+      else if (result[messageContent][message] == PkController.update_pk) {
+        Updatepk(result);
       }
-      else if (result[messageContent][message] == closePkKey) {
+      else if (result[messageContent][message] == PkController.close_pk) {
         ClosePkKey(result);
       }
       //PK end rtm
