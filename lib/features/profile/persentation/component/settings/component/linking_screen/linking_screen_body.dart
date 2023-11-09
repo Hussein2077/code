@@ -28,6 +28,7 @@ class LinkingScreenBody extends StatefulWidget {
 class _LinkingScreenBodyState extends State<LinkingScreenBody> {
   @override
   Widget build(BuildContext context) {
+log('lllll${widget.myData.isPhone}');
     bool isHigh = ( widget.myData.isGoogle! && widget.myData.isPhone!);
     return BlocListener<AcountBloc, AccountStates>(
       listener: (context, state) {

@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +17,14 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.da
 
 
 class GiftUser extends StatefulWidget {
-  final List<ZegoUIKitUser>  listUsers;
+ // final List<ZegoUIKitUser>  listUsers;
   final List<ZegoUIKitUser> listAllUsers ;
   final String ownerId ;
-  const GiftUser({required this.listUsers,
+  const GiftUser({
   required this.listAllUsers , required this.ownerId, super.key});
   static Map<int,SelecteObject>  userSelected = {};
+  static Map<int, ZegoUIKitUser> userOnMicsForGifts = {};
+  static ValueNotifier<int> updateView = ValueNotifier<int>(0) ;
   @override
   GiftUserState createState() => GiftUserState();
 }
@@ -33,24 +37,28 @@ class GiftUserState extends State<GiftUser> {
     'ألكل علي المقاعد',
     'ألكل في الغرفة  ',
   ];
+  final List<int> seatsIndex =[];
   @override
   void initState() {
-   if( widget.listUsers.isEmpty){
+   if( RoomScreen.userOnMics.value.isEmpty){
      GiftUser.userSelected.clear();
    }
-   else{
-     // GiftUser.userSelected.putIfAbsent(0,
-     //         () => selecteObject(userId: widget.listUsers[0].id.toString(),selected: true));
-   }
 
-   // selectUserIndex=0;
     super.initState();
   }
 
   @override
+  void dispose(){
+    GiftUser.updateView.value = 0 ;
+    super.dispose();
+
+
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return  SizedBox(
-      // width: ConfigSize.screenWidth,
       child:Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -59,92 +67,104 @@ class GiftUserState extends State<GiftUser> {
             Container(
               padding: EdgeInsets.only(top: ConfigSize.defaultSize!),
               height: ConfigSize.defaultSize! * 7,
-              // width: ConfigSize.screenWidth!-400,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: widget.listUsers.length,
-                  itemBuilder: (context, index) {
-                    if(widget.listUsers[index].name == StringManager.mysteriousPerson.tr()){
-                       return const  SizedBox();
-                    }else{
-                      return InkWell(
-                        onTap: (){
-                          setState(() {
-                            if( GiftUser.userSelected.containsKey(index)){
-                              GiftUser.userSelected.remove(index);
-                            }else{
-                              GiftUser.userSelected.putIfAbsent(index,
-                                      () => SelecteObject(userId:widget.listUsers[index].id.toString(),
-                                      selected: true)) ;
-                            }
-                          });
-                        },
-                        child: Stack(
-                          children: [
-                            Container(
-                                margin: const EdgeInsets.all(3),
-                                width: ConfigSize.defaultSize! * 4,
-                                height: ConfigSize.defaultSize! *4,
-                                decoration:  BoxDecoration(
-                                 borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*1.5),
-                                  border: Border.all(
-                                    width: GiftUser.userSelected.containsKey(index) ?1.5:0,
-                                    color: GiftUser.userSelected.containsKey(index) ?
-                                    ColorManager.mainColor: Colors.transparent,  // red as border color
-                                  ),
-                                //  shape: BoxShape.circle,
-                                ),
-                                child: CustoumCachedImage(
-                                  radius: ConfigSize.defaultSize!*2,
-                                  width: ConfigSize.defaultSize! *3,
-                                  url: widget.listUsers[index].inRoomAttributes.value['img']??"",
-                                  height: ConfigSize.defaultSize! *3,)
-                            ),
-                            if(RoomScreen.adminsInRoom.containsKey(widget.listUsers[index].id.toString()))
-                              Positioned(
-                                top: ConfigSize.defaultSize! * 3,
-                                left: ConfigSize.defaultSize! * 1.3,
-                                child: SizedBox(
-                                    width: ConfigSize.defaultSize! * 2,
-                                    height: ConfigSize.defaultSize! * 1.5,
-                                    child: Image.asset(AssetsPath.adminMark)),
-                              ),
-                            if(widget.listUsers[index].id.toString() == widget.ownerId.toString())
-                              Positioned(
-                                top: ConfigSize.defaultSize! * 3,
-                                left: ConfigSize.defaultSize! * 1.3,
-                                child: SizedBox(
-                                    width: ConfigSize.defaultSize! * 2,
-                                    height: ConfigSize.defaultSize! * 1.5,
-                                    child:Image.asset(AssetsPath.hostMark)
-                                ),
-                              ),
-                            if(widget.listUsers[index].id.toString() != widget.ownerId.toString()
-                                &&!RoomScreen.adminsInRoom.containsKey(widget.listUsers[index].id.toString()))
-                              Positioned(
-                                top: ConfigSize.defaultSize! * 3,
-                                left: ConfigSize.defaultSize! * 1.3,
-                                child: Container(
-                                    width: ConfigSize.defaultSize! * 2,
-                                    height: ConfigSize.defaultSize! * 1.5,
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: ColorManager.whiteColor),
-                                    child:Center(
-                                      child: Text(
-                                        "${index + 1}",
-                                        style:  TextStyle(fontSize: AppPadding.p8),
-                                      ),
-                                    )
-                                ),
-                              )
-                          ],
-                        ),
-                      );
+              child:
+              ValueListenableBuilder<int>(
+                valueListenable: GiftUser.updateView,
+                builder: (context, count, _) {
+                  seatsIndex.clear();
+                  GiftUser.userOnMicsForGifts.forEach((key, value) {
+                    if(!seatsIndex.contains(key) ){
+                      seatsIndex.add(key);
                     }
+                  });
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount:seatsIndex.length,
+                      itemBuilder: (context, index) {
+                        if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.name
+                            == StringManager.mysteriousPerson.tr()){
+                          return const  SizedBox();
+                        }else{
+                          return InkWell(
+                            onTap: (){
+                              setState(() {
+                                if( GiftUser.userSelected.containsKey(seatsIndex[index])){
+                                  GiftUser.userSelected.remove(seatsIndex[index]);
+                                }else{
+                                  GiftUser.userSelected.putIfAbsent(index,
+                                          () => SelecteObject(userId:GiftUser.userOnMicsForGifts[index]?.id??'',
+                                          selected: true)) ;
+                                }
+                              });
+                            },
+                            child: Stack(
+                              children: [
+                                Container(
+                                    margin: const EdgeInsets.all(3),
+                                    width: ConfigSize.defaultSize! * 4,
+                                    height: ConfigSize.defaultSize! *4,
+                                    decoration:  BoxDecoration(
+                                      borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*1.5),
+                                      border: Border.all(
+                                        width: GiftUser.userSelected.containsKey(index) ?1.5:0,
+                                        color: GiftUser.userSelected.containsKey(index) ?
+                                        ColorManager.mainColor: Colors.transparent,  // red as border color
+                                      ),
+                                      //  shape: BoxShape.circle,
+                                    ),
+                                    child: CustoumCachedImage(
+                                      radius: ConfigSize.defaultSize!*2,
+                                      width: ConfigSize.defaultSize! *3,
+                                      url: GiftUser.userOnMicsForGifts[seatsIndex[index]]?.inRoomAttributes.value['img']??"",
+                                      height: ConfigSize.defaultSize! *3,)
+                                ),
+                                if(RoomScreen.adminsInRoom.containsKey(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.id.toString()))
+                                  Positioned(
+                                    top: ConfigSize.defaultSize! * 3,
+                                    left: ConfigSize.defaultSize! * 1.3,
+                                    child: SizedBox(
+                                        width: ConfigSize.defaultSize! * 2,
+                                        height: ConfigSize.defaultSize! * 1.5,
+                                        child: Image.asset(AssetsPath.adminMark)),
+                                  ),
+                                if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.id.toString() == widget.ownerId.toString())
+                                  Positioned(
+                                    top: ConfigSize.defaultSize! * 3,
+                                    left: ConfigSize.defaultSize! * 1.3,
+                                    child: SizedBox(
+                                        width: ConfigSize.defaultSize! * 2,
+                                        height: ConfigSize.defaultSize! * 1.5,
+                                        child:Image.asset(AssetsPath.hostMark)
+                                    ),
+                                  ),
+                                if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.id.toString() != widget.ownerId.toString()
+                                    &&!RoomScreen.adminsInRoom.containsKey(GiftUser.userOnMicsForGifts[index]?.id.toString()))
+                                  Positioned(
+                                    top: ConfigSize.defaultSize! * 3,
+                                    left: ConfigSize.defaultSize! * 1.3,
+                                    child: Container(
+                                        width: ConfigSize.defaultSize! * 2,
+                                        height: ConfigSize.defaultSize! * 1.5,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: ColorManager.whiteColor),
+                                        child:Center(
+                                          child: Text(
+                                            "${index + 1}",
+                                            style:  TextStyle(fontSize: AppPadding.p8),
+                                          ),
+                                        )
+                                    ),
+                                  )
+                              ],
+                            ),
+                          );
+                        }
 
-                  }),
+                      }) ;
+                }
+              ),
             ),
            DropdownButtonHideUnderline(
                 child: DropdownButton2(
@@ -190,9 +210,11 @@ class GiftUserState extends State<GiftUser> {
                   onChanged: (value) {
                     if(value == type[0]){
                       GiftUser.userSelected.clear();
-                      for(int i =0 ; i<widget.listUsers.length;i++){
+                      for(int i =0 ; i<RoomScreen.userOnMics.value.length;i++){
                         GiftUser.userSelected.putIfAbsent(i,
-                                () => SelecteObject(userId: widget.listUsers[i].id.toString(), selected: true)) ;
+                                () => SelecteObject(
+                                    userId:RoomScreen.userOnMics.value[i]?.id??'',
+                                    selected: true)) ;
                       }
 
 

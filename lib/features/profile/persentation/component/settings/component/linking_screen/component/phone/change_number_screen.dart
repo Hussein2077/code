@@ -101,8 +101,7 @@ class ChangeNumberScreenState extends State<ChangeNumberScreen> {
                             child: InkWell(
                               onTap: () {
 
-                                log('kkkkkkkk${ChangeNumberScreenState.number.phoneNumber.toString()}');
-                                log('kkkkkkkk${ChangePhoneWithCountry.number.phoneNumber.toString()}');
+
                                 if (key.currentState!.validate()) {
                                   if (ChangePhoneWithCountry.number.dialCode == null) {
                                     errorToast(context: context, title: StringManager

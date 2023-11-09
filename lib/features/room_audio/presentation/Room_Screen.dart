@@ -22,6 +22,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/user_on_mic_model.dar
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/basic_tool_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/emojie/emojie_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/gift_button.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/massage_Button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/speakr_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
@@ -161,7 +162,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   /////
 
   ////
-  Map<String, dynamic> yallowBanner = {"yallowBannerhasPasswoedRoom": '' , "yallowBannerOwnerRoom" : ''};
+  Map<String, dynamic> yallowBanner = {"yallowBannerhasPasswoedRoom": '' ,
+    "yallowBannerOwnerRoom" : ''};
   ////
 
   ////
@@ -895,11 +897,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               Map<int, ZegoUIKitUser> takenSeats,
               List<int> untakenSeats,
             ) {
-            log("takenSeats ${takenSeats.toString()}");
-            log("RoomScreen.userOnMics.value ${RoomScreen.userOnMics.value}");
-              Map<int, ZegoUIKitUser> mergedMap= {...takenSeats, ...RoomScreen.userOnMics.value};
-              RoomScreen.userOnMics.value = mergedMap ;
-              // to handle any use on mic should server know
+          GiftUser.userOnMicsForGifts.clear();
+
+          takenSeats.forEach((key, value) {
+            GiftUser.userOnMicsForGifts.putIfAbsent(int.parse(value.id),
+                    () => value);
+          });
+         GiftUser.updateView.value =
+             GiftUser.updateView.value +1 ;
             }
             ..bottomMenuBarConfig = ZegoBottomMenuBarConfig(
               maxCount: 10,
@@ -910,7 +915,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               hostExtendButtons: [
                 const SpeakerButton(),
                 GiftButton(
-                  listUsers: ZegoUIKit().getAudioVideoList(),
                   listAllUsers: ZegoUIKit().getAllUsers(),
                   roomData: widget.room,
                   myDataModel: widget.myDataModel,
@@ -933,7 +937,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               audienceExtendButtons: [
                 const SpeakerButton(),
                 GiftButton(
-                    listUsers: ZegoUIKit().getAudioVideoList(),
                     listAllUsers: ZegoUIKit().getAllUsers(),
                     myDataModel: widget.myDataModel,
                     roomData: widget.room),
@@ -954,7 +957,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               speakerExtendButtons: [
                 const SpeakerButton(),
                 GiftButton(
-                    listUsers: ZegoUIKit().getAudioVideoList(),
                     listAllUsers: ZegoUIKit().getAllUsers(),
                     myDataModel: widget.myDataModel,
                     roomData: widget.room),

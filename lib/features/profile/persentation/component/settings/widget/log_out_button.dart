@@ -12,10 +12,10 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
-import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_state.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'dialog_pop_up.dart';
 
 class LogOutOrDeleteAccountButton extends StatefulWidget {
@@ -45,30 +45,30 @@ class _LogOutOrDeleteAccountButtonState
     return BlocListener<LogOutBloc, LogOutState>(
         listener: (context, state) async {
           if (state is LogOutSucssesState ||
-              state is DeleteAccountSucssesState) {
+              state is DeleteAccountSucssesState||state is LogOutErrorState) {
+            Future.delayed(Duration.zero, () async {
+              if(MainScreen.iskeepInRoom.value){
+                await Methods.instance.exitFromRoom(MainScreen
+                    .roomData!.ownerId
+                    .toString());
+                MainScreen.iskeepInRoom.value = false ;
+              }
+              await FirebaseAuth.instance.signOut();
+              SharedPreferences preference = getIt();
+              preference.remove(StringManager.keepLogin);
+              preference.remove(StringManager.userDataKey);
+              preference.remove(StringManager.userTokenKey);
+              preference.remove(StringManager.deviceToken);
+              MyDataModel.getInstance().clearObject();
+              Methods().removeUserData();
+              // ignore: use_build_context_synchronously
+            }).then((value) =>
+                Navigator.pushNamedAndRemoveUntil(
+                    context, Routes.login, (route) => false));
 
-            await FirebaseAuth.instance.signOut();
-            SharedPreferences preference = getIt();
-            preference.remove(StringManager.keepLogin);
-            preference.remove(StringManager.userDataKey);
-            preference.remove(StringManager.userTokenKey);
-            preference.remove(StringManager.deviceToken);
-            MyDataModel.getInstance().clearObject();
-            Methods().removeUserData();
-
-            // ignore: use_build_context_synchronously
-            Navigator.pushNamedAndRemoveUntil(
-                context, Routes.login, (route) => false);
-          }
-          else if (state is LogOutErrorState) {
-            LogOutOrDeleteAccountButton.isFirstTabInAcceptButton = true;
-            errorToast(context: context, title: state.error);
-
-          }
-          else if (state is LogOutLoadingState ||
+          } else if (state is LogOutLoadingState ||
               state is DeleteAccountLoadingState) {
-          }
-          else if (state is DeleteAccountErrorState) {
+          } else if (state is DeleteAccountErrorState) {
             LogOutOrDeleteAccountButton.isFirstTabInAcceptButton = true;
           }
         },
@@ -83,13 +83,13 @@ class _LogOutOrDeleteAccountButtonState
                         accpetText: () async {
                           if (LogOutOrDeleteAccountButton
                               .isFirstTabInAcceptButton) {
-                            log('One tab');
+
                             setState(() {
                               LogOutOrDeleteAccountButton
                                   .isFirstTabInAcceptButton = false;
                             });
-                            final _googleSignIn = GoogleSignIn();
-                            _googleSignIn.disconnect();
+                            final googleSignIn = GoogleSignIn();
+                            googleSignIn.disconnect();
                             BlocProvider.of<LogOutBloc>(context)
                                 .add(LogOutEvent());
                           }

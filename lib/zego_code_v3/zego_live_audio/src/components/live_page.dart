@@ -24,7 +24,6 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/defines.
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/duration_time_board.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/message/view.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/pop_up_manager.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/top_bar.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/connect/connect_manager.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/live_duration_manager.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/plugins.dart';
@@ -336,6 +335,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
           child: ZegoInRoomLiveMessageView(
             config: widget.config.inRoomMessageViewConfig,
             avatarBuilder: widget.config.seatConfig.avatarBuilder,
+            room: widget.roomData,
           ),
         ),
       );
