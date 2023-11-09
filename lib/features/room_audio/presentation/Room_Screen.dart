@@ -310,7 +310,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           UserOnMicModel myDataModel = UserOnMicModel.fromJson(widget.room.seats![i]);
           ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(id: myDataModel.id.toString(), name: myDataModel.name.toString());
          zegoUIKitUser.inRoomAttributes.value['img'] = myDataModel.img;
-          log("zegoUIKitUser.inRoomAttributes.value['img']${zegoUIKitUser.inRoomAttributes.value['img']}");
           RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
         }
       }

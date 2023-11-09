@@ -20,7 +20,6 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("hhhhhhh${ConstentApi().getImage(image)}");
     return Stack(
       children: [
         CachedNetworkImage(

@@ -43,12 +43,12 @@ class ZegoInRoomMessageView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ZegoInRoomMessageView> createState() => _ZegoInRoomMessageViewState();
+  State<ZegoInRoomMessageView> createState() => ZegoInRoomMessageViewState();
 }
 
 /// @nodoc
-class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
-  late ScrollController _scrollController;
+class ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
+  static ScrollController scrollController = ScrollController();
 
 
   StreamSubscription<dynamic>? streamSubscription;
@@ -61,10 +61,10 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
 
     filter = ProfanityFilter.filterAdditionally(StringManager.arabicBadWords);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      scrollController.jumpTo(scrollController.position.maxScrollExtent);
     });
 
-    _scrollController = widget.scrollController ?? ScrollController();
+    scrollController = widget.scrollController ?? ScrollController();
     streamSubscription = widget.stream.listen(onMessageUpdate);
   }
 
@@ -78,7 +78,7 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
 
   @override
   Widget build(BuildContext context) {
-    messagesNotifier.value = widget.historyMessages;
+   // messagesNotifier.value = widget.historyMessages;
 
     return Directionality(
         textDirection: ui.TextDirection.rtl,
@@ -104,7 +104,7 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
                           : BoxConstraints.loose(Size(650.zR, 550.zR,))
                           : BoxConstraints.loose(Size(650.zR, 435.zR,)),
                       child: SingleChildScrollView(
-                        controller: _scrollController,
+                        controller: scrollController,
                         child: Column(
                           children: [
                             Row(
@@ -186,7 +186,7 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
         return;
       }
 
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    //  _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
     });
   }
 }
