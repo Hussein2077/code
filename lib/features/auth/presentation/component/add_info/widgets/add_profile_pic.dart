@@ -52,7 +52,12 @@ class _AddProFilePicState extends State<AddProFilePic> {
     setState(() {});
    // MyDataModel.getInstance().profile!.image=AddProFilePic.image.path;
   }
-
+@override
+  void dispose() {
+  AddProFilePic.image=null;
+  AddProFilePic.googleImage=null;
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return InkWell(

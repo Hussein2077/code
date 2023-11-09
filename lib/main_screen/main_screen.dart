@@ -23,6 +23,7 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/following/persentation/following_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
@@ -78,7 +79,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-
     Methods.instance.getDependencies(context);
 
     listenToInternet();
@@ -100,114 +100,122 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocListener<GetMyDataBloc, GetMyDataState>(
-  listener: (context, state) {
-    if (state is GetMyDataSucssesState){
-
-
-      if (state.myDataModel.profile!.age==0 || state.myDataModel.profile!.country==""){
-        Navigator.pushNamedAndRemoveUntil(context, Routes.addInfo, (route) => false) ;
-      }
-    }
-  },
-  child: WillPopScope(
-        onWillPop: () async {
-          // showExitDialog() ;
-          return false;
-        },
-        child: Stack(children: [
-          Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            body: BottomNavLayout(
-              pages: [
-                (_) => HomeScreen(
-                      isCachExtra: widget.isCachExtra,
-                      isCachFrame: widget.isCachFrame,
-                      isChachGift: widget.isChachGift,
-                      isUpdate: widget.isUpdate,
-                      isCachEmojie: widget.isCachEmojie,
-                      isCachEntro: widget.isCachEntro,
-                      actionDynamicLink: widget.actionDynamicLink,
-                    ),
-                (_) => const ReelsScreenTaps(),
-                (_) => const FollowingLiveScreen(),
-                (_) => const MomentScreen(),
-                (_) => const ProfileScreen(),
-              ],
-              bottomNavigationBar: (currentIndex, onTap) => BottomBarWidget(
-                currentIndex: currentIndex,
-                onTap: onTap,
+      listener: (context, state) {
+        if (state is GetMyDataSucssesState) {
+          if (state.myDataModel.profile!.age == 0 ||
+              state.myDataModel.profile!.country == "") {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Routes.addInfo, (route) => false,
+                arguments: ThirdPartyAuthModel(
+                  isBirthdayDateNotComplete:
+                      state.myDataModel.profile!.country == "" ? true : false,
+                  isAgeNotComplete:
+                      state.myDataModel.profile!.age == 0 ? true : false,
+                ));
+          }
+        }
+      },
+      child: WillPopScope(
+          onWillPop: () async {
+            // showExitDialog() ;
+            return false;
+          },
+          child: Stack(children: [
+            Scaffold(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              body: BottomNavLayout(
+                pages: [
+                  (_) => HomeScreen(
+                        isCachExtra: widget.isCachExtra,
+                        isCachFrame: widget.isCachFrame,
+                        isChachGift: widget.isChachGift,
+                        isUpdate: widget.isUpdate,
+                        isCachEmojie: widget.isCachEmojie,
+                        isCachEntro: widget.isCachEntro,
+                        actionDynamicLink: widget.actionDynamicLink,
+                      ),
+                  (_) => const ReelsScreenTaps(),
+                  (_) => const FollowingLiveScreen(),
+                  (_) => const MomentScreen(),
+                  (_) => const ProfileScreen(),
+                ],
+                bottomNavigationBar: (currentIndex, onTap) => BottomBarWidget(
+                  currentIndex: currentIndex,
+                  onTap: onTap,
+                ),
+                savePageState: true,
+                lazyLoadPages: true,
+                pageStack:
+                    ReorderToFrontPageStack(initialPage: SplashScreen.initPage),
+                extendBody: false,
+                resizeToAvoidBottomInset: true,
+                pageTransitionData: null,
               ),
-              savePageState: true,
-              lazyLoadPages: true,
-              pageStack:
-                  ReorderToFrontPageStack(initialPage: SplashScreen.initPage),
-              extendBody: false,
-              resizeToAvoidBottomInset: true,
-              pageTransitionData: null,
             ),
-          ),
-          ValueListenableBuilder<bool>(
-              valueListenable: MainScreen.iskeepInRoom,
-              builder: (BuildContext context, bool value, Widget? child) {
-                if (value) {
-                  return DraggableFloatWidget(
-                    config: const DraggableFloatWidgetBaseConfig(
-                      initPositionYInTop: false,
-                      initPositionYMarginBorder: 50,
-                      borderTopContainTopBar: true,
-                      borderBottom: 30,
-                    ),
-                    onTap: () {
-                      RoomScreen.outRoom = false;
-                      Navigator.pushNamed(context, Routes.roomScreen,
-                          arguments: RoomPramiter(
-                              roomModel: MainScreen.roomData!,
-                              myDataModel: MyDataModel.getInstance(),
-                              isHost: MyDataModel.getInstance().id.toString() ==
-                                  MainScreen.roomData!.ownerId.toString()));
-                    },
-                    child: Stack(
-                      children: [
-                        RotationTransition(
-                            turns: animationController,
-                            child: UserImage(
-                              imageSize: ConfigSize.defaultSize! * 14,
-                              image: MainScreen.roomData!.roomCover!,
-                            )),
-                        GestureDetector(
-                          onTap: () async {
-                            bottomDailog(
-                                context: context,
-                                widget: TransparentLoadingWidget(
-                                  height: ConfigSize.defaultSize! * 2,
-                                  width: ConfigSize.defaultSize! * 7.2,
-                                ));
-
-                            await Methods.instance.exitFromRoom(
-                                MainScreen.roomData!.ownerId.toString());
-                            Navigator.pop(context);
-                            MainScreen.iskeepInRoom.value = false;
-                          },
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(20)),
-                              padding: const EdgeInsets.all(4),
-                              child: Icon(
-                                CupertinoIcons.clear,
-                                color: Colors.white,
-                                size: AppPadding.p10,
+            ValueListenableBuilder<bool>(
+                valueListenable: MainScreen.iskeepInRoom,
+                builder: (BuildContext context, bool value, Widget? child) {
+                  if (value) {
+                    return DraggableFloatWidget(
+                      config: const DraggableFloatWidgetBaseConfig(
+                        initPositionYInTop: false,
+                        initPositionYMarginBorder: 50,
+                        borderTopContainTopBar: true,
+                        borderBottom: 30,
+                      ),
+                      onTap: () {
+                        RoomScreen.outRoom = false;
+                        Navigator.pushNamed(context, Routes.roomScreen,
+                            arguments: RoomPramiter(
+                                roomModel: MainScreen.roomData!,
+                                myDataModel: MyDataModel.getInstance(),
+                                isHost: MyDataModel.getInstance()
+                                        .id
+                                        .toString() ==
+                                    MainScreen.roomData!.ownerId.toString()));
+                      },
+                      child: Stack(
+                        children: [
+                          RotationTransition(
+                              turns: animationController,
+                              child: UserImage(
+                                imageSize: ConfigSize.defaultSize! * 14,
+                                image: MainScreen.roomData!.roomCover!,
                               )),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              })
-        ])),
-);
+                          GestureDetector(
+                            onTap: () async {
+                              bottomDailog(
+                                  context: context,
+                                  widget: TransparentLoadingWidget(
+                                    height: ConfigSize.defaultSize! * 2,
+                                    width: ConfigSize.defaultSize! * 7.2,
+                                  ));
+
+                              await Methods.instance.exitFromRoom(
+                                  MainScreen.roomData!.ownerId.toString());
+                              Navigator.pop(context);
+                              MainScreen.iskeepInRoom.value = false;
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(20)),
+                                padding: const EdgeInsets.all(4),
+                                child: Icon(
+                                  CupertinoIcons.clear,
+                                  color: Colors.white,
+                                  size: AppPadding.p10,
+                                )),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                })
+          ])),
+    );
   }
 
   listenToInternet() {

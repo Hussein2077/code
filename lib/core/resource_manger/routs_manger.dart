@@ -193,9 +193,10 @@ class RouteGenerator {
                 ));
       case Routes.addInfo:
         ThirdPartyAuthModel? Data = settings.arguments as ThirdPartyAuthModel?;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
             builder: (_) => AddInfoScreen(
                   Data: Data,
+
                 ));
       case Routes.mainScreen:
         MainPramiter? mainPramiter = settings.arguments as MainPramiter?;

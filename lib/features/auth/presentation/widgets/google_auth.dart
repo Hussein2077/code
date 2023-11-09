@@ -37,7 +37,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
               context,
               Routes.addInfo,
               arguments: ThirdPartyAuthModel(
-                  data: state.userData.userData, type: "google"),
+                  data: state.userData.userData, type: "google",),
               (route) => false,
             );
           } else {
@@ -58,7 +58,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           if (state.userModel.apiUserData.isFirst!) {
             Navigator.pushNamedAndRemoveUntil(
-                context, Routes.addInfo, arguments: ThirdPartyAuthModel(data: state.userModel.userData, type: "apple"), (route) => false);
+                context, Routes.addInfo, arguments: ThirdPartyAuthModel(data: state.userModel.userData, type: "apple", ), (route) => false);
           } else {
             Navigator.pushNamedAndRemoveUntil(
               context,

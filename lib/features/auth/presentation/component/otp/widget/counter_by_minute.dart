@@ -20,7 +20,7 @@ class CounterByMinute extends StatefulWidget {
 
 class _CounterByMinuteState extends State<CounterByMinute> {
   late Timer _timer;
-  int _start = 120; // 5 minutes in seconds
+  int _start = 60; // 5 minutes in seconds
   bool isRepeatingTime = true;
   @override
   void initState() {
@@ -50,7 +50,7 @@ class _CounterByMinuteState extends State<CounterByMinute> {
   void resetTimerAndResendCode() {
     _timer.cancel();
     setState(() {
-      _start = 5;
+      _start = 60;
       isRepeatingTime = true;
       getIt<FireBaseDataSource>()
           .phoneAuthentication(PhoneWithCountry.number.phoneNumber!, context);

@@ -873,7 +873,7 @@ class Methods {
       return 0;
     }
     DateTime currentDate = DateTime.now();
-    DateTime   birthDate=DateTime.parse(date.replaceAll('/', '-'));
+    DateTime   birthDate= DateTime.parse(date.replaceAll('/', '-'));
     int age = currentDate.year - birthDate.year;
     int month1 = currentDate.month;
     int month2 = birthDate.month;
@@ -886,6 +886,7 @@ class Methods {
         age--;
       }
     }
+
     return age;
   }
 

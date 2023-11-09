@@ -101,12 +101,13 @@ class OtpScreen extends StatelessWidget {
                       String? token = await userCredential!.user!.getIdToken();
                       // ignore: use_build_context_synchronously
                       BlocProvider.of<RegisterWithPhoneBloc>(context).add(
-                          RegisterWithPhoneEvent(
+                           RegisterWithPhoneEvent(
                               code: OtpContiners.code,
                               password: password??'',
                               phone: phone??'',
                               credential: token ?? ""));
                     }
+
                     
                   },
                   title: StringManager.done.tr()),

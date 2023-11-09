@@ -73,7 +73,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
               ),
               InkWell(
                 onTap: () {
-                  log("kkkkkk${MomentBottomBarState.momentType}");
+
                   MomentBottomBarState.selectedMoment =
                       widget.momentModel.momentId;
                   BlocProvider.of<MakeMomentLikeBloc>(context).add(
