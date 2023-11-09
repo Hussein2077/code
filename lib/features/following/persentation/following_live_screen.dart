@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/following/persentation/componants/audio_live_box_following.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_state.dart';
@@ -70,7 +71,7 @@ class _FollowingLiveScreenState extends State<FollowingLiveScreen>
                                             crossAxisCount: 2),
                                     itemCount: state.rooms.data!.length,
                                     itemBuilder: (context, index) {
-                                      return VideoLiveBox(
+                                      return AudioLiveBoxFollowing(
                                         room: state.rooms.data![index],
                                       );
                                     }),

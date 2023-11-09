@@ -26,7 +26,12 @@ class SettingsScreen extends StatelessWidget {
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-          HeaderWithOnlyTitle(title: StringManager.settings.tr()),
+          HeaderWithOnlyTitle(
+              title: StringManager.settings.tr(),
+          titleColor: Theme.of(context).colorScheme.primary,
+            arrowColor: Theme.of(context).colorScheme.primary,
+
+          ),
           SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),

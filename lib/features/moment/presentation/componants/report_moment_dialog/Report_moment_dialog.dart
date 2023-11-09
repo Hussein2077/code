@@ -32,7 +32,8 @@ class _MomentReportDialogState extends State<MomentReportDialog> {
     super.initState();
     detailsController = TextEditingController();
     contactController = TextEditingController();
- 
+    BlocProvider.of<ReportMomentBloc>(context).add(
+        IniitialReportMomentEvent());
   }
 
   @override
@@ -44,6 +45,7 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
         height: ConfigSize.screenHeight!*0.6,
         width: ConfigSize.screenWidth!*0.8,
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -57,7 +59,7 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
               ),
               SizedBox(height: ConfigSize.defaultSize!*2,),
 
-               ProblemType(),
+               const ProblemType(),
               SizedBox(height: ConfigSize.defaultSize!*4,),
 
               Text(
