@@ -77,11 +77,7 @@ class MomentView extends StatelessWidget {
                                     child: Text(
                                       overflow: TextOverflow.fade,
                                       momentModel.moment,
-                                      style: const TextStyle(
-                                        fontFamily: 'ElMessiri',
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                      ),
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                     ),
                                   ),
                                 ),

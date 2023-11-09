@@ -58,7 +58,6 @@ class SearchBloc extends Bloc<SearchEvents, SearchStates> {
   // }
 
   FutureOr<void> init(SearchInitEvent event, Emitter<SearchStates> emit) {
-    log("heeeeeeeeeeeeeeeerrr");
         emit(InitialSearchStates());
 
   }

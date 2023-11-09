@@ -42,9 +42,7 @@ class _FamilyProfileScreenState extends State<FamilyProfileScreen> {
         body: BlocBuilder<ShowFamilyBloc, ShowFamilyState>(
           builder: (context, state) {
             if(state is ShowFamilySucssesState){
-              log("amImember ${state.data.amImember!}");
-              log("amIAdmin  ${state.data.amIAdmin!}");
-              log("amIOwner  ${state.data.amIOwner!}");
+
 
               return Column(
               children: [

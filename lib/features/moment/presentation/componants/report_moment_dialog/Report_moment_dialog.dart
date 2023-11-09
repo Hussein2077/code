@@ -32,7 +32,8 @@ class _MomentReportDialogState extends State<MomentReportDialog> {
     super.initState();
     detailsController = TextEditingController();
     contactController = TextEditingController();
- 
+    BlocProvider.of<ReportMomentBloc>(context).add(
+        IniitialReportMomentEvent());
   }
 
   @override
@@ -61,8 +62,8 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
                 ),
                 SizedBox(height: ConfigSize.defaultSize!*2,),
 
-                 ProblemType(),
-                SizedBox(height: ConfigSize.defaultSize!*4,),
+               ProblemType(),
+              SizedBox(height: ConfigSize.defaultSize!*4,),
 
                 Text(
                   StringManager.details.tr(),

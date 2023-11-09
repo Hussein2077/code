@@ -699,7 +699,6 @@ isVisit: isVisit,
   @override
   Future<String> changeUserType(
       String userId, String familyId, String type) async {
-    log('her');
 
     Map<String, String> headers = await DioHelper().header();
 

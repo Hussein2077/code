@@ -33,7 +33,6 @@ class MallTabView extends StatelessWidget {
             crossAxisCount: 2, childAspectRatio: 1),
         itemCount: dataMall.length,
         itemBuilder: (context, index) {
-          log("message");
           return MallCard(
             image: dataMall[index].image,
             id: dataMall[index].id.toString(),

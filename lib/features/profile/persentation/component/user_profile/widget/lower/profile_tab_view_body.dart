@@ -24,7 +24,6 @@ class ProfileTabViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-log( '${userDataModel.id}hhhh');
     List<String> vipNames = [
       StringManager.knight.tr(),
       StringManager.baron.tr(),

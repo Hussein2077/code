@@ -125,7 +125,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   late AnimationController controllerEntro; // entro animation
   late Animation<Offset> offsetAnimationEntro;
   late final AnimationController controllerMusice;
-  VideoPlayerController? mp4Controller;
   ValueNotifier<bool> showPopUp = ValueNotifier<bool>(false);
   String userIdEmojie = ""; // to show emojie
   String giftImg = ""; // to show img gift
@@ -512,15 +511,15 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         Directory appDocDir = await getApplicationDocumentsDirectory();
         String rootPath = appDocDir.path;
         String path = "$rootPath/${giftData.giftId}.mp4";
-        mp4Controller = VideoPlayerController.file(File(path))..initialize();
+        ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(path))..initialize();
       });
     } else {
-      mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
+      ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
         ..initialize();
     }
 
-    mp4Controller!.addListener(() {
-      if (mp4Controller!.value.position >= mp4Controller!.value.duration) {
+    ViewbackgroundWidget.mp4Controller!.addListener(() {
+      if (ViewbackgroundWidget.mp4Controller!.value.position >= ViewbackgroundWidget.mp4Controller!.value.duration) {
         if (giftData.showBanner && RoomScreen.showBanner.value) {
           RoomScreen.showBanner.value = false;
           controllerBanner.reverse();
@@ -528,14 +527,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
         RoomScreen.isVideoVisible.value = false;
 
-        mp4Controller!.pause();
+        ViewbackgroundWidget.mp4Controller!.pause();
         RoomScreen.isGiftEntroAnimating = false;
         loadMoreAnimationMp4Gifts();
 
         // mp4Controller!.dispose();
       } else {
         RoomScreen.isVideoVisible.value = true;
-        mp4Controller!.play();
+        ViewbackgroundWidget.mp4Controller!.play();
       }
     });
   }
@@ -831,7 +830,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    log('jjjjj${widget.myDataModel.level?.senderLevel}');
+
     return Directionality(
         textDirection: TextDirection.ltr,
         child: ZegoUIKitPrebuiltLiveAudioRoom(
@@ -875,7 +874,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 controllerMusice: controllerMusice,
                 animationControllerEntro: animationControllerEntro,
                 animationControllerGift: animationControllerGift,
-                mp4Controller: mp4Controller,
                 yallowBanner: yallowBanner,
                 showYellowBanner: showYellowBanner,
                 userIntroData: userIntroData,
