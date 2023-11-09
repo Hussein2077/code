@@ -33,7 +33,8 @@ class _ReelsTabViewState extends State<ReelsTabView> {
   @override
   void dispose() {
       LowerProfileBody.getUserReels = false ;
-    super.dispose();
+
+      super.dispose();
   }
 
   @override

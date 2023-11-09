@@ -1,6 +1,6 @@
 
 
-import 'dart:developer';
+
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -14,9 +14,13 @@ final GetUserReelsUsecase getUserReelUseCase ;
   bool loadMore = true;
 
   GetUserReelsBloc({required this.getUserReelUseCase}) : super(GetUserReelsInitial(null)) {
+    on<InitialReelEvent>((event,emit){
+      emit(GetUserReelsInitial(null));
+    });
     on<GetUserReelEvent>((event, emit)async {
       page = 1 ; 
     emit(GetUserReelsLoadingState(null));
+
     final result = await getUserReelUseCase.getUserReels(event.id , page.toString() );
     result.fold((l) {
       loadMore = true;

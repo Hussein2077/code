@@ -8,6 +8,8 @@ import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 
 import 'profile_tab_view_body.dart';
 import 'profile_tabs.dart';
@@ -31,13 +33,18 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
   void initState() {
     LowerProfileBody.getUserReels = true ; 
         BlocProvider.of<GiftHistoryBloc>(context).add(GetGiftHistory(id: widget.userDataModel.id.toString()));
-        
+
 
     profileController = TabController(length: 2, vsync: this);
     if(!widget.myProfile){
       profileController.index=1;
     }
     super.initState();
+  }
+  @override
+  void didChangeDependencies() {
+    BlocProvider.of<GetUserReelsBloc>(context).add(const InitialReelEvent());
+    super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
@@ -53,7 +60,6 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
            children: [
             ProfileTabViewBody(userDataModel:widget.userDataModel),
              ReelsTabView(userDataModel: widget.userDataModel,)
-
         ]),
       ),
     ],);

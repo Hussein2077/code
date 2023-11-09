@@ -12,6 +12,10 @@ class GetUserReelEvent extends BaseGetUserReelsEvent {
  final String? id ; 
  const  GetUserReelEvent ({this.id});
   
+}class InitialReelEvent extends BaseGetUserReelsEvent {
+
+ const  InitialReelEvent ( );
+
 }
 
 class LoadMoreUserReelsEvent extends BaseGetUserReelsEvent{

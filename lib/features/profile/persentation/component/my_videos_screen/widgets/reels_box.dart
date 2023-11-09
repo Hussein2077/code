@@ -45,10 +45,12 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
     }
 
     flutterGifController = FlutterGifController(vsync: this);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      flutterGifController.repeat(
-          min: 0,max: 10,   period: const Duration(milliseconds: 1000));
-    });
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        flutterGifController.repeat(
+            min: 0, max: 10, period: const Duration(milliseconds: 2000));
+      });
+
     super.initState();
   }
 
@@ -65,7 +67,6 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
         if (state is GetUserReelsSucssesState) {
           log(ReelsBox.likedVideos.toString());
           ReelsController.getInstance.followMap(state.data!);
-
           ReelsController.getInstance.likesUserMap(state.data!);
           ReelsController.getInstance.likesCountUserMap(state.data!);
           for (int i = 0; i < state.data!.length; i++) {
@@ -87,14 +88,16 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                 child: GridView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
                     controller: widget.scrollController,
-                    itemCount: ReelsBox.loading ? state.data!.length + 1 : state.data!.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    itemCount: ReelsBox.loading
+                        ? state.data!.length + 1
+                        : state.data!.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                             mainAxisSpacing: 20,
                             childAspectRatio: 0.7,
                             crossAxisCount: 3),
                     itemBuilder: (context, index) {
                       if (index < state.data!.length) {
-
                         return InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, Routes.userReelView,
@@ -169,26 +172,26 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                           ),
                         );
                       } else {
-                        if (state.data!.length % 3 != 0 && state.data!.length > 6 && ReelsBox.loading) {
+                        if (state.data!.length % 3 != 0 &&
+                            state.data!.length > 6 &&
+                            ReelsBox.loading) {
                           return Center(
                               child: Text(
                             StringManager.loadingMore.tr(),
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 16),
                           ));
-                        }
-                        else if (state.data!.isEmpty) {
+                        } else if (state.data!.isEmpty) {
                           return Center(
-                              child: Text(
-                                StringManager.noReels.tr(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(fontWeight: FontWeight.bold),
-                              ),
+                            child: Text(
+                              StringManager.noReels.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
                           );
-                        }
-                        else if (ReelsBox.loading && state.data!.length > 6) {
+                        } else if (ReelsBox.loading && state.data!.length > 6) {
                           return const Center(
                               child: CircularProgressIndicator());
                         }
