@@ -50,11 +50,6 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
       } on Exception catch (e) {
         return Right(DioHelper.buildFailure(e));
       }
-
-
-
-
-
 }
 
   @override

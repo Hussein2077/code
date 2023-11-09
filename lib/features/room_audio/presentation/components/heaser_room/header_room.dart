@@ -78,8 +78,7 @@ class HeaderRoom extends StatelessWidget {
                               myDataModel: myDataModel,
                               roomData: room,
                               ownerId: room.ownerId.toString(),
-                              numberOfVistor:
-                                  ZegoUIKit.instance.getAllUsers().length.toString(),
+                              numberOfVistor: ZegoUIKit.instance.getAllUsers().length.toString(),
                               layoutMode: layoutMode,
                             );
                           }),

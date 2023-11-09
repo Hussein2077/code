@@ -12,8 +12,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_roo
 import 'room_vistor_state.dart';
 
 
-class RoomVistorBloc
-    extends Bloc<RoomVistorEvent, RoomVistorState> {
+class RoomVistorBloc extends Bloc<RoomVistorEvent, RoomVistorState> {
       int page = 1 ; 
   final GetAllRoomUserUseCase getAllRoomUserUseCase;
   bool isLoadingMore = false;
