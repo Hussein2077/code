@@ -61,8 +61,7 @@ class _PhoneNumberBindScreenState extends State<PhoneNumberBindScreen> {
 
       
                                 MainButton(onTap: (){  
-log('jjjjj${passWordController.text}');
-log('jjjjj${PhoneWithCountry.number.phoneNumber}');
+
    if (PhoneWithCountry.number.dialCode == null) {
                                warningToast(context: context, title: StringManager.pleaseSelectYourCountry);
 
