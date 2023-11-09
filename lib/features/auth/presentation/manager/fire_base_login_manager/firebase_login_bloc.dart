@@ -33,8 +33,7 @@ class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState>
 
    }
       Methods().addFireBaseNotifcationId();
-      Functions.updateAvailability(MyDataModel.getInstance().id.toString(),
-          MyDataModel.getInstance().name.toString(), MyDataModel.getInstance().profile!.image!);
+      Functions.updateAvailability();
 
 
 
@@ -51,7 +50,7 @@ Future createUserFireBase() async {
       password: "${MyDataModel.getInstance().id}@gmail.com",
     );
     Functions.updateAvailability(
-        MyDataModel.getInstance().id.toString(), MyDataModel.getInstance().name.toString(), MyDataModel.getInstance().profile!.image!);
+       );
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       // ignore: avoid_print
