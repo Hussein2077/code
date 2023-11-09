@@ -11,10 +11,11 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/
 
 
 class CounterPkTimeWidget extends StatefulWidget {
-  final String? ownerId ;
+  final String ownerId ;
   final String? initMunite ;
   final String? initSecond ;
-  const CounterPkTimeWidget({this.initMunite,this.initSecond,this.ownerId,
+  const CounterPkTimeWidget({this.initMunite,this.initSecond,
+    required this.ownerId,
     Key? key}) : super(key: key);
 
   @override
@@ -24,7 +25,7 @@ class CounterPkTimeWidget extends StatefulWidget {
 
 class _CounterPkTimeWidgetState extends State<CounterPkTimeWidget> {
 
-  late Timer timer;
+
 
 
   @override
@@ -54,7 +55,7 @@ class SetTimerPK {
   Timer? _timer;
   // Getters
   Stream<TimeData> get stream => streamController.stream;
-  Timer get timer => _timer! ;
+  Timer? get timer => _timer ;
 
 
   // Setters
@@ -73,11 +74,9 @@ class SetTimerPK {
   void _updateSeconds(BuildContext context,String ownerId) {
     if(PkController.timeMinutePK<1 && PkController.timeSecondPK<1 ){
       if(MyDataModel.getInstance().id.toString() == ownerId){
-        BlocProvider.of<PKBloc>(context).add(
-            ClosePKEvent(ownerId: ownerId,
-            pkId: PKWidget.pkId));
+        BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
       }
-      getIt<SetTimerPK>().timer.cancel() ;
+      getIt<SetTimerPK>().timer!.cancel() ;
       // _timer!.cancel();
       // streamController.done;
     }

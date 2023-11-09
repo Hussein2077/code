@@ -92,6 +92,8 @@ class GiftUserState extends State<GiftUser> {
                                 }
                                 if(GiftUser.userSelected.length != GiftUser.userOnMicsForGifts.length){
                                   selectedValue = "";
+                                }else{
+                                  selectedValue = type[0];
                                 }
                               });
                             },
@@ -210,7 +212,7 @@ class GiftUserState extends State<GiftUser> {
                         for(int i =0 ; i< GiftUser.userOnMicsForGifts.length; i++){
                           GiftUser.userSelected.putIfAbsent(i,
                                   () => SelecteObject(
-                                  userId: GiftUser.userOnMicsForGifts[i]?.id??'',
+                                      userId: GiftUser.userOnMicsForGifts[seatsIndex[i]]?.id??"",
                                   selected: true)) ;
                         }
                       }else{

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, library_private_types_in_public_api
+
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/time_pk_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/time_PK_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_states.dart';
@@ -26,8 +28,8 @@ class PKWidget extends StatefulWidget {
   final bool isHost ;
   final String ownerId ;
   static ValueNotifier<bool>isStartPK =ValueNotifier<bool>(false);
+  static String pkId  ='';
   final Function() notifyRoom;
- static String  pkId = '';
   const PKWidget(
       {required this.scoreBlueTeam,required this.isHost
         ,required this.ownerId,required this.notifyRoom,  required this.scoreRedTem, Key? key})
@@ -51,19 +53,22 @@ class _PKWidgetState extends State<PKWidget> {
   Widget build(BuildContext context) {
 
     return Padding(
+
       padding:  EdgeInsets.only(top:AppPadding.p30,left: AppPadding.p8),
       child: BlocBuilder<PKBloc, PKStates>(
       builder: (context, state) {
         if(state is HidePKStateLoading){
           return const Center(child: CircularProgressIndicator(
-            color: ColorManager.mainColor,
+            color: ColorManager.deepPurble,
           ));
         }else{
           return ValueListenableBuilder<int>(
             valueListenable: PkController.updatePKNotifier,
             builder: (context,scoreTime1,_){
               return Stack(
+                clipBehavior: Clip.none,
                 children: [
+
                  ValueListenableBuilder(
                      valueListenable: PKWidget.isStartPK,
                      builder: (context,isStartPK,_){
@@ -75,7 +80,7 @@ class _PKWidgetState extends State<PKWidget> {
                            height:AppPadding.p45,
                            decoration:BoxDecoration(
                                borderRadius: BorderRadius.circular(10),
-                               gradient: const   LinearGradient(
+                               gradient: const LinearGradient(
                                  begin: Alignment.centerLeft,
                                  end: Alignment.centerRight,
                                  colors: [
@@ -102,6 +107,7 @@ class _PKWidgetState extends State<PKWidget> {
                    }
 
                      }),
+
                   Animate(
                     onPlay: (controller) => controller.repeat(reverse: true),
                     effects:const [ ShimmerEffect(duration: Duration(seconds: 4,)
@@ -130,8 +136,7 @@ class _PKWidgetState extends State<PKWidget> {
                         lineHeight: AppPadding.p20,
                         isRTL: true,
                         animationDuration: 2500,
-                        percent: PkController.precantgeTeam2==0.0?0.1:
-                        PkController.precantgeTeam2==1.0?0.9:PkController.precantgeTeam2,
+                        percent: PkController.precantgeTeam2==0.0?0.1: PkController.precantgeTeam2==1.0?0.9:PkController.precantgeTeam2,
                         backgroundColor: Colors.transparent,
 
                         progressColor: Colors.red,
@@ -188,8 +193,7 @@ class _PKWidgetState extends State<PKWidget> {
                                ),
                                child:  Center(
                                  child: Text(StringManager.start.tr(),style:const TextStyle(color: Colors.white,
-                                     fontSize: 18, fontWeight: FontWeight.w700,fontStyle: FontStyle.italic ),
-                                   textAlign: TextAlign.center, ),
+                                     fontSize: 18, fontWeight: FontWeight.w700,fontStyle: FontStyle.italic ),textAlign: TextAlign.center, ),
                                ),
                              ),
                            ),
@@ -204,16 +208,15 @@ class _PKWidgetState extends State<PKWidget> {
                         child: InkWell(
                           onTap: (){
                       //   restorePKData();
+                            if(getIt<SetTimerPK>().timer !=null){
+                              getIt<SetTimerPK>().timer!.cancel() ;
+                            }
                             BlocProvider.of<PKBloc>(context)
-                                .add(ClosePKEvent(ownerId: widget.ownerId,
-                                pkId: PKWidget.pkId));
+                                .add(ClosePKEvent(ownerId: widget.ownerId, pkId: PKWidget.pkId));
                             BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: widget.ownerId));
                           },
                           child: Icon(Icons.cancel , size: AppPadding.p20, color: Colors.red,),
                         )),
-
-
-
                 ],
               );
             },
@@ -229,56 +232,76 @@ class _PKWidgetState extends State<PKWidget> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
+        return AlertDialog(
+          backgroundColor: Colors.white.withOpacity(0.90),
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(16.0), // Adjust the radius as needed
           ),
-          child: AlertDialog(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            title: Text(
-              StringManager.chooseTimePK.tr(),
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            content: const TimePKWidget(),
-            actions: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  MainButton(onTap: () { Navigator.of(context).pop(); }, title:  StringManager.cancle.tr(),
-                    width: ConfigSize.screenWidth!*0.2,
-                    height: ConfigSize.screenHeight!*0.04,
-                      buttonColornotList: ColorManager.mainColor
+          title: Center(child: Text(StringManager.chooseTimePK.tr())),
+          content: const TimePKWidget(),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: ConfigSize.defaultSize! * 4,
+                  width: ConfigSize.screenWidth!*0.2,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(40),
                   ),
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)
+                    ),
+                    elevation: 8,
+                    color: Colors.white,
+                    padding: EdgeInsets.only(
+                        left: ConfigSize.screenHeight!/100
+                    ),
+                    onPressed: (){
+                      Navigator.of(context).pop();
 
-                  MainButton(
-                    onTap: () async {
-                      widget.notifyRoom();
-                      if(PkController.timeMinutePK !=0){
-                        BlocProvider.of<PKBloc>(context).add(StartPKEvent(
-                            time: PkController.timeMinutePK.toString(),
-                            ownerId: widget.ownerId));
-                        PkController.scoreTeam2 = 0;
-                        PkController.precantgeTeam1 = 0.5;
-                        PkController.precantgeTeam2 = 0.5;
-                        PkController.scoreTeam1 = 0;
-                        PKWidget.isStartPK.value = true;
-                        PkController.updatePKNotifier.value =
-                            PkController.updatePKNotifier.value + 1;
-
-                        Navigator.of(context).pop();
-                      }else{
-                        errorToast(context: context, title: StringManager.selectTimeFirst.tr()) ;
-                      }
                     },
-                    title: StringManager.startBattle.tr(),
-                    width: ConfigSize.screenWidth!*0.3,
-                    height: ConfigSize.screenHeight!*0.04,
+                    child:  Center(
+                      child: Text(
+                        StringManager.cancle.tr(),
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                ),
 
-            ],
-          ),
+                MainButton(
+                  onTap: () async {
+                    widget.notifyRoom();
+                    if(PkController.timeMinutePK !=0){
+                      BlocProvider.of<PKBloc>(context).add(StartPKEvent(
+                          time: PkController.timeMinutePK.toString(),
+                          ownerId: widget.ownerId));
+                      PkController.scoreTeam2 = 0;
+                      PkController.precantgeTeam1 = 0.5;
+                      PkController.precantgeTeam2 = 0.5;
+                      PkController.scoreTeam1 = 0;
+                      PKWidget.isStartPK.value = true;
+                      PkController.updatePKNotifier.value =
+                          PkController.updatePKNotifier.value + 1;
+
+                      Navigator.of(context).pop();
+                    }else{
+                      errorToast(context: context, title: StringManager.selectTimeFirst.tr());
+                    }
+
+                  },
+                  width: ConfigSize.screenWidth!*0.4,
+                  height: ConfigSize.defaultSize! * 4,
+                  title: StringManager.startBattle.tr(),
+                )
+              ],
+            ),
+
+          ],
         );
       },
     );
