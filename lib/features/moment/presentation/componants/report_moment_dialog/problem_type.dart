@@ -58,7 +58,7 @@ class _ProblemTypeState extends State<ProblemType> {
                       : Colors.grey,
                 ),
                 child: Center(
-                  child: Text(ProblemType.types[index]),
+                  child: Text(ProblemType.types[index],style: TextStyle(fontSize: ConfigSize.defaultSize!*1.3),),
                 ),
               ),
             );
