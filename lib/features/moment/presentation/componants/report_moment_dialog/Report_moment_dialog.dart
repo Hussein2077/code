@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,6 +29,7 @@ class _MomentReportDialogState extends State<MomentReportDialog> {
 
   @override
   void initState() {
+    super.initState();
     detailsController = TextEditingController();
     contactController = TextEditingController();
  
@@ -47,6 +47,7 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(height: ConfigSize.defaultSize!,),
               Text(
                 StringManager.typeOfProblem.tr(),
                 style: Theme
@@ -54,8 +55,10 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
                     .textTheme
                     .headlineMedium,
               ),
+              SizedBox(height: ConfigSize.defaultSize!*2,),
 
               const ProblemType(),
+              SizedBox(height: ConfigSize.defaultSize!*4,),
 
               Text(
                 StringManager.details.tr(),
@@ -64,6 +67,7 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
                     .textTheme
                     .headlineMedium,
               ),
+              SizedBox(height: ConfigSize.defaultSize!,),
 
               Container(
                 width: ConfigSize.screenWidth!*0.7,
@@ -76,8 +80,11 @@ color: Theme.of(context).colorScheme.background.withOpacity(0.5),
                 child: TextFieldWidget(
                     maxLines: 4,
                     hintText: StringManager.explainProblem.tr(),
-                    controller: detailsController),
+                    controller: detailsController,
+                fontSize: ConfigSize.defaultSize!*0.6,
+                ),
               ),
+              SizedBox(height: ConfigSize.defaultSize!*5,),
 
               BlocConsumer<ReportMomentBloc, ReportMomentStates>(
                 listener: (context, state) {
