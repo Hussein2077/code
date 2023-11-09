@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -19,6 +20,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
@@ -243,6 +245,11 @@ Future<void> clearAll() async {
   PkController.scoreTeam1 = 0;
   PkController.winRedTeam = false;
   PkController.winBlueTeam = false;
+  PkController.showPK.value = false;
+  PkController.updatePKNotifier.value = 0;
+  if(getIt<SetTimerPK>().timer != null){
+    getIt<SetTimerPK>().timer!.cancel();
+  }
   RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
   RoomScreen.musicesInRoom.clear();
@@ -257,13 +264,11 @@ Future<void> clearAll() async {
   LuckyBoxVariables.luckyBoxMap['currentBox'] = 1;
   SetTimerLuckyBox.remTimeSuperBox = 0;
   DialogLuckyBox.startTime = false;
-  PkController.showPK.value = false;
   RoomScreen.topUserInRoom.value = UserDataModel();
   RoomScreen.musicesInRoom.clear();
   RoomScreen.usersHasMute.clear();
   RoomScreen.banedUsers.clear();
   RoomScreen.isInviteToMic = false;
-  PkController.updatePKNotifier.value = 0;
   RoomScreen.editRoom.value = 0;
   RoomScreen.updateEmojie.value = 0;
   RoomScreen.updatebuttomBar.value = 0;
@@ -275,7 +280,6 @@ Future<void> clearAll() async {
   GiftUser.userSelected.clear();
   GiftUser.userOnMicsForGifts.clear();
   RoomScreen.showBanner.value = false;
-
 }
 
 Future<void> distroyMusic() async {
