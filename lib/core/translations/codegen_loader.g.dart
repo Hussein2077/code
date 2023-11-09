@@ -420,8 +420,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.noReels: 'لا يوجد فيديوهات',
     StringManager.noMoreReels: 'لا يوجد مزيد من الريلز',
     StringManager.games: 'الالعاب',
-    StringManager.readMore: 'المزيد',
-    StringManager.readLess: 'اعرض اقل',
+    StringManager.readMore: '...أقراء المزيد',
+    StringManager.readLess: '  اعرض اقل',
     StringManager.copiedToClipboard: 'تمم النسخ',
     StringManager.thereAreNoEmptySeats: 'لا توجد مقاعد فارغة',
     StringManager.takeSeat: 'اجلس على المقعد',
@@ -457,8 +457,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.cantSendGift: "لا يمكنك ارسال هدايا عند تشغيل الرجل الغامض .. اغلق الخاصية اولا",
     StringManager.enetrMessage:'مراسلة',
     StringManager.youDontHaveMoments:'ليس لديك اي لحظات',
-    StringManager.youAreNotFriends:'انتم ليس اصدقاء',
-
+    StringManager.youAreNotFriends:'انتم ليس اصدقاء' ,
+    StringManager.love : "احببته",
+    StringManager.comment :"تعليق",
 
 
 

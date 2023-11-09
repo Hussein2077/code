@@ -497,6 +497,8 @@ static const String iOSPlatform='IOS';
       'Please wait for the previous video to be uploaded';
   static const String coinToUpload = 'Coin to upload image';
   static const String comments = 'Comments';
+  static const String comment = 'Comment';
+
   static const String noCommentsYet = 'No Comments yet.';
   static const String addAComment = 'Add a comment...';
   static const String reelsView = 'Reels View';
@@ -553,6 +555,7 @@ static const String iOSPlatform='IOS';
   static const String enetrMessage = 'Enter Message';
   static const String youDontHaveMoments = "you don't have moments yet";
 
+  static const String love = "Love";
 
 
 
