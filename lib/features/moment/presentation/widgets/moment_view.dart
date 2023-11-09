@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -36,6 +39,7 @@ class MomentView extends StatelessWidget {
                 ? Align(
                     alignment:isFirstCharArabic(momentModel.moment)?  Alignment.centerRight:Alignment.centerLeft,
                     child: ExpandableText(
+                      textAlign: isFirstCharArabic(momentModel.moment)? TextAlign.right:TextAlign.left,
                       momentModel.moment,
                       trimLines: 3,
                     ),
@@ -43,6 +47,7 @@ class MomentView extends StatelessWidget {
                 : Align(
                     alignment: isFirstCharArabic(momentModel.moment)?  Alignment.centerRight:Alignment.centerLeft,
                     child: ExpandableText(
+                      textAlign: isFirstCharArabic(momentModel.moment)? TextAlign.right:TextAlign.left,
                       momentModel.moment,
                       trimLines: 3,
                       onTap: () {
@@ -123,6 +128,7 @@ class MomentView extends StatelessWidget {
 
 
 bool isFirstCharArabic(String text) {
+  log(text);
   if(text.isEmpty){
     return false ;
   }
@@ -133,12 +139,11 @@ bool isFirstCharArabic(String text) {
   final arabicRangeStart = 0x0600;
   final arabicRangeEnd = 0x06FF;
 
-  // English Unicode character ranges
-  final englishRangeStart = 0x0041;
-  final englishRangeEnd = 0x007A;
+  // // English Unicode character ranges
+  // final englishRangeStart = 0x0041;
+  // final englishRangeEnd = 0x007A;
 
   final firstCharCode = firstChar.runes.first;
-
-  return (firstCharCode >= arabicRangeStart && firstCharCode <= arabicRangeEnd) ||
-      (firstCharCode >= englishRangeStart && firstCharCode <= englishRangeEnd);
+  bool result = (firstCharCode >= arabicRangeStart && firstCharCode <= arabicRangeEnd) ;
+  return result ;
 }

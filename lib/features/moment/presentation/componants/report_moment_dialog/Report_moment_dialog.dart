@@ -38,94 +38,99 @@ class _MomentReportDialogState extends State<MomentReportDialog> {
   @override
   Widget build(BuildContext context) {
 
-    return Center(
-      child: BlurryContainer(
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: EdgeInsets.only(top: ConfigSize.defaultSize!*4.5),
+        child: BlurryContainer(
+
 color: Theme.of(context).colorScheme.background.withOpacity(0.5),
-        height: ConfigSize.screenHeight!*0.6,
-        width: ConfigSize.screenWidth!*0.8,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: ConfigSize.defaultSize!*5,),
-              Text(
-                StringManager.typeOfProblem.tr(),
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineMedium,
-              ),
-              SizedBox(height: ConfigSize.defaultSize!*2,),
-
-               ProblemType(),
-              SizedBox(height: ConfigSize.defaultSize!*4,),
-
-              Text(
-                StringManager.details.tr(),
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineMedium,
-              ),
-              SizedBox(height: ConfigSize.defaultSize!,),
-
-              Container(
-                width: ConfigSize.screenWidth!*0.7,
-                padding:
-                EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
-                decoration: BoxDecoration(
-                    color: ColorManager.lightGray,
-                    borderRadius:
-                    BorderRadius.circular(ConfigSize.defaultSize! * 2)),
-                child: TextFieldWidget(
-                    maxLines: 4,
-                    hintText: StringManager.explainProblem.tr(),
-                    controller: detailsController,
-                fontSize: ConfigSize.defaultSize!*1.4,
+          height: ConfigSize.screenHeight!*0.6,
+          width: ConfigSize.screenWidth!*0.8,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: ConfigSize.defaultSize!*5,),
+                Text(
+                  StringManager.typeOfProblem.tr(),
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headlineMedium,
                 ),
-              ),
-              SizedBox(height: ConfigSize.defaultSize!*5,),
+                SizedBox(height: ConfigSize.defaultSize!*2,),
 
-              BlocConsumer<ReportMomentBloc, ReportMomentStates>(
-                listener: (context, state) {
-                  if (state is ReportMomentSucssesState) {
-                    sucssesToast(context: context, title: state.sucssesMessage);
-                  }
-                  else if (state is ReportMomentErrorState) {
-                  //  errorToast(context: context, title: state.errorMessage);
-                  }
-                },
-                builder: (context, state) {
-                  if (state is ReportMomentSucssesState) {
-                    return const SizedBox();
-                  } else {
-                    return MainButton(
-                        onTap: () {
+                 ProblemType(),
+                SizedBox(height: ConfigSize.defaultSize!*4,),
 
-                          if (detailsController.text.isEmpty) {
-                            errorToast(
-                                context: context,
-                                title: StringManager.pleaseAddDetiels.tr());
-                          } else {
-                            BlocProvider.of<ReportMomentBloc>(context).add(
-                                ReportMomentEvent(
+                Text(
+                  StringManager.details.tr(),
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headlineMedium,
+                ),
+                SizedBox(height: ConfigSize.defaultSize!,),
 
-                                  type: ProblemType.typesArabic[ProblemType.seletedMomentProblem],
-                                  momentId:widget.momentId,
-                                  discreption:detailsController.text,
+                Container(
+                  width: ConfigSize.screenWidth!*0.7,
+                  padding:
+                  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
+                  decoration: BoxDecoration(
+                      color: ColorManager.lightGray,
+                      borderRadius:
+                      BorderRadius.circular(ConfigSize.defaultSize! * 2)),
+                  child: TextFieldWidget(
+                      maxLines: 4,
+                      hintText: StringManager.explainProblem.tr(),
+                      controller: detailsController,
+                  fontSize: ConfigSize.defaultSize!*1.4,
+                  ),
+                ),
+                SizedBox(height: ConfigSize.defaultSize!*5,),
 
-                                ));
-                          }
-                        },
-                        title: StringManager.submit.tr());
-                  }
-                },
-              ),
+                BlocConsumer<ReportMomentBloc, ReportMomentStates>(
+                  listener: (context, state) {
+                    if (state is ReportMomentSucssesState) {
+                      sucssesToast(context: context, title: state.sucssesMessage);
+                    }
+                    else if (state is ReportMomentErrorState) {
+                    //  errorToast(context: context, title: state.errorMessage);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is ReportMomentSucssesState) {
+                      return const SizedBox();
+                    } else {
+                      return MainButton(
+                          onTap: () {
 
-            ],
+                            if (detailsController.text.isEmpty) {
+                              errorToast(
+                                  context: context,
+                                  title: StringManager.pleaseAddDetiels.tr());
+                            } else {
+                              BlocProvider.of<ReportMomentBloc>(context).add(
+                                  ReportMomentEvent(
+
+                                    type: ProblemType.typesArabic[ProblemType.seletedMomentProblem],
+                                    momentId:widget.momentId,
+                                    discreption:detailsController.text,
+
+                                  ));
+                            }
+                          },
+                          title: StringManager.submit.tr());
+                    }
+                  },
+                ),
+
+              ],
+            ),
           ),
-        ),
 
+        ),
       ),
     );
   }

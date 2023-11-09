@@ -15,6 +15,7 @@ import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/mome
 import 'package:tik_chat_v2/features/moment/presentation/componants/likes/moment_likes_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/moment_controller.dart';
 
 class MomentBottomBar extends StatefulWidget {
   final MomentModel momentModel;
@@ -52,19 +53,30 @@ class MomentBottomBarState extends State<MomentBottomBar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
               children: [
-              SizedBox(
-                width: ConfigSize.defaultSize! * 6,
-                child: Center(
-                  child: Text(widget.momentModel.likeNum.toString() ,
-                      style: Theme.of(context).textTheme.bodyMedium),
+              InkWell(
+                child: SizedBox(
+                  width: ConfigSize.defaultSize! * 7,
+                  child: Center(
+                    child: Text(widget.momentModel.likeNum.toString() ,
+                        style: Theme.of(context).textTheme.bodySmall),
+                  ),
                 ),
+                onTap: (){
+                  bottomDailog(
+                      context: context,
+                      widget: MomentsLikesScreen(
+                        momentId: widget.momentModel.momentId.toString(),
+                      ),
+                      color: Colors.white);
+                },
               ),
               Center(
                 child: Text(widget.momentModel.commentNum.toString()+"  " +StringManager.comment.tr(),
-                    style: Theme.of(context).textTheme.bodyMedium),
+                    style: Theme.of(context).textTheme.bodySmall),
               ),
             ],),
           ),
+          SizedBox(height: ConfigSize.defaultSize!*1,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -73,28 +85,10 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                 children: [
                   InkWell(
                     onTap: () {
-                      bottomDailog(
-                          context: context,
-                          widget: MomentsLikesScreen(
-                            momentId: widget.momentModel.momentId.toString(),
-                          ),
-                          color: Colors.white);
-                    },
-                    child:
-                    SizedBox(
-                      width: ConfigSize.defaultSize! * 6,
-                      child: Center(
-                        child: Text(StringManager.love.tr(),
-                            style: Theme.of(context).textTheme.bodyMedium),
-                      ),
-                    ),
-
-
-                  ),
-                  InkWell(
-                    onTap: () {
                       MomentBottomBarState.selectedMoment =
                           widget.momentModel.momentId;
+                      MomentController.getInstance.likeController(context);
+
                       BlocProvider.of<MakeMomentLikeBloc>(context).add(
                           MakeMomentLikeEvent(
                               momentId: widget.momentModel.momentId.toString()));
@@ -104,8 +98,31 @@ class MomentBottomBarState extends State<MomentBottomBar> {
 
                         color: widget.momentModel.isLike
                             ? Colors.red
-                            : Colors.black),
-                  )
+                            : Theme.of(context).colorScheme.primary),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      MomentBottomBarState.selectedMoment =
+                          widget.momentModel.momentId;
+                      MomentController.getInstance.likeController(context);
+
+                      BlocProvider.of<MakeMomentLikeBloc>(context).add(
+                          MakeMomentLikeEvent(
+                              momentId: widget.momentModel.momentId.toString()));
+
+                    },
+                    child:
+                    SizedBox(
+                      width: ConfigSize.defaultSize! * 6,
+                      child: Center(
+                        child: Text(StringManager.love.tr(),
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ),
+                    ),
+
+
+                  ),
+
                 ],
               ),
               InkWell(
@@ -128,7 +145,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                         color: Theme.of(context).colorScheme.primary, scale: 1),
                     Center(
                       child: Text("  " +StringManager.comments.tr(),
-                          style: Theme.of(context).textTheme.bodyMedium),
+                          style: Theme.of(context).textTheme.bodySmall),
                     ),
                   ],
                 ),
@@ -145,10 +162,10 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       //     color: Theme.of(context).colorScheme.background);
                     },
                     child: SizedBox(
-                      width: ConfigSize.defaultSize! * 6,
+                      width: ConfigSize.defaultSize! * 4,
                       child: Center(
                         child: Text(widget.momentModel.giftsCount.toString(),
-                            style: Theme.of(context).textTheme.bodyMedium),
+                            style: Theme.of(context).textTheme.bodySmall),
                       ),
                     ),
                   ),
