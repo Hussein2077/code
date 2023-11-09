@@ -46,6 +46,7 @@ class _UserProfileState extends State<UserProfile> {
       myProfile = true;
   
     }
+
     super.initState();
   }
   @override
@@ -87,6 +88,7 @@ LowerProfileBody.getUserReels = true;
                         myProfile: myProfile!,
                         userDataModel:
                             getIt<MyDataModel>().convertToUserObject(),
+
                       ),
                     ],
                   );
@@ -102,6 +104,7 @@ LowerProfileBody.getUserReels = true;
                     children: [
                       //TODO you should remove this function
                       UpperProfileBody(
+
                           myProfile: myProfile!,
                           myDataModel: widget.userData != null
                               ? widget.userData!.convertToMyDataObject()
