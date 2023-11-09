@@ -35,9 +35,9 @@ class _MomentGiftboxBottomBarState extends State<MomentGiftboxBottomBar>
       return BlurryContainer(
         blur: 8,
         elevation: 0,
-        height: ConfigSize.defaultSize! * 11.421,
+        // height: ConfigSize.defaultSize! * 11.421,
         width: double.infinity,
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black87.withOpacity(0.5),
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(ConfigSize.defaultSize! * 1.4),
             topRight: Radius.circular(ConfigSize.defaultSize! * 1.4)),

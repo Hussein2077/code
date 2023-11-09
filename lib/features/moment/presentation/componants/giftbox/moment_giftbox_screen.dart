@@ -1,6 +1,7 @@
 
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -27,37 +28,43 @@ class MomentGiftboxScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.background,
-      height: ConfigSize.defaultSize! * 45,
+      color: Colors.black87,
+      height: ConfigSize.defaultSize! * 39,
       child: Column(
         children: [
           SizedBox(
             height: ConfigSize.defaultSize!,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Spacer(
-                flex: 1,
+              SizedBox(
+                width: ConfigSize.defaultSize!*1,
               ),
               IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+                icon: const Icon(
+                  CupertinoIcons.xmark,
+                  color:  Colors.white,
+              ),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
-              const Spacer(
-                flex: 4,
-              ),
+             const Spacer(),
               Text(
                 StringManager.giftBox.tr(),
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize:ConfigSize.defaultSize!*1.8
+                ),
               ),
               const Spacer(
-                flex: 5,
+                flex: 1,
               ),
+
+              SizedBox(
+                width: ConfigSize.defaultSize!*7,
+              )
             ],
           ),
           BlocBuilder<GiftBloc, GiftsStates>(builder: (context, state) {
