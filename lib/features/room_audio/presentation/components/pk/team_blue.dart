@@ -10,9 +10,8 @@ class TeamBlue extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.only(
-          top: 40.h,
-          right: 0.w,
-          left: 40.w,
+          top: ConfigSize.defaultSize! * 2.0,
+          left: ConfigSize.defaultSize! * 1.5,
         ),
         child: Container(
           width: ConfigSize.defaultSize! * 7.1,
