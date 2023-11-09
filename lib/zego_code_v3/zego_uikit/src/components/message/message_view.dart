@@ -121,6 +121,7 @@ class _ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
                                       color: ColorManager.roomComment.withOpacity(0.3),
                                     ),
                                     child: Text(
+                                      overflow: TextOverflow.visible,
                                       "${widget.room.roomRule}",
                                       style: TextStyle(color: ColorManager.textRoomComment ,fontSize: 24.zSP),
                                     ),

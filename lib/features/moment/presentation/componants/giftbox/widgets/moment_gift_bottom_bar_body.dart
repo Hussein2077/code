@@ -48,144 +48,143 @@ class _MomtentGiftBottomBarBodyState extends State<MomtentGiftBottomBarBody>
         builder: (context, state) {
       return Directionality(
           textDirection: ui.TextDirection.ltr,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Spacer(
-                  flex: 1,
-                ),
-                InkWell(
-                    onTap: () async {
-                      //    String currentUserCoins = await getUserCoinsString();
-                     // Navigator.pushNamed(context, Routes.wallet);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                              ConfigSize.defaultSize! * 1.3),
-                          color: Colors.black87.withOpacity(0.8)),
-                      padding: EdgeInsets.all(ConfigSize.defaultSize! * 0.3),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  ConfigSize.defaultSize! * 2.3),
-                              child: Image.asset(
-                                AssetsPath.goldCoinIcon,
-                                width: ConfigSize.defaultSize! * 2.4,
-                                height: ConfigSize.defaultSize! * 2.4,
-                              ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Spacer(
+                flex: 1,
+              ),
+              InkWell(
+                  onTap: () async {
+                    //    String currentUserCoins = await getUserCoinsString();
+                   // Navigator.pushNamed(context, Routes.wallet);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                            ConfigSize.defaultSize! * 1.3),
+                        color:  Colors.black87.withOpacity(0.2)
+                    ),
+                    padding: EdgeInsets.all(ConfigSize.defaultSize! * 0.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                ConfigSize.defaultSize! * 2.3),
+                            child: Image.asset(
+                              AssetsPath.goldCoinIcon,
+                              width: ConfigSize.defaultSize! * 2.4,
+                              height: ConfigSize.defaultSize! * 2.4,
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2),
-                              child: ValueListenableBuilder<String>(
-                                valueListenable: RoomScreen.myCoins,
-                                builder: (context, myCoins, _) {
-                                  return Text(
-                                    myCoins,
-                                    style: const TextStyle(
-                                        color: ColorManager.whiteColor,
-                                        fontWeight: FontWeight.w600),
-                                  );
-                                },
-                              ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 2),
+                            child: ValueListenableBuilder<String>(
+                              valueListenable: RoomScreen.myCoins,
+                              builder: (context, myCoins, _) {
+                                return Text(
+                                  myCoins,
+                                  style:  TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
+                                );
+                              },
                             ),
-                            Icon(
-                              CupertinoIcons.right_chevron,
-                              color: ColorManager.whiteColor,
-                              size: ConfigSize.defaultSize! * 1.4,
-                            ),
-                          ]),
-                    )),
-                const Spacer(
-                  flex: 10,
-                ),
-                Container(
-                  width: ConfigSize.defaultSize! * 16.2,
-                  height: ConfigSize.defaultSize! * 4,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: ColorManager.yellow),
-                      borderRadius:
-                          BorderRadius.circular(ConfigSize.defaultSize! * 1.4)),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: InkWell(
-                            onTap: () {
-                              dailogbutton(context, sendDialog(context));
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                          ConfigSize.defaultSize! * 1.2),
-                                      bottomLeft: Radius.circular(
-                                          ConfigSize.defaultSize! * 1.2))),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    MomtentGiftBottomBarBody.numberOfGift
-                                        .toString(),
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                  const Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )),
-                      Expanded(
-                          flex: 1,
+                          ),
+                          Icon(
+                            CupertinoIcons.right_chevron,
+                            color: Colors.white,
+                            size: ConfigSize.defaultSize! * 1.4,
+                          ),
+                        ]),
+                  )),
+              const Spacer(
+                flex: 10,
+              ),
+              Container(
+                width: ConfigSize.defaultSize! * 16.2,
+                height: ConfigSize.defaultSize! * 4,
+                decoration: BoxDecoration(
+                    border: Border.all(color: ColorManager.yellow),
+                    borderRadius:
+                        BorderRadius.circular(ConfigSize.defaultSize! * 1.4)),
+                child: Row(
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: () {
+                            dailogbutton(context, sendDialog(context));
+                          },
                           child: Container(
                             decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    colors: ColorManager.mainColorList),
                                 borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(
+                                    topLeft: Radius.circular(
                                         ConfigSize.defaultSize! * 1.2),
-                                    bottomRight: Radius.circular(
+                                    bottomLeft: Radius.circular(
                                         ConfigSize.defaultSize! * 1.2))),
-                            child: InkWell(
-                              onTap: () {
-                                MomentBottomBarState.selectedMoment=int.parse(widget.momentId);
-                                MomentBottomBarState.giftsNum=MomtentGiftBottomBarBody.numberOfGift;
-                                BlocProvider.of<MomentSendGiftBloc>(context)
-                                    .add(MomentSendGiftEvent(
-                                  momentId: widget.momentId,
-                                  giftNum: MomtentGiftBottomBarBody.numberOfGift,
-                                  giftId: MomentGiftboxScreen.momentGiftId,
-                                ));
-
-                              },
-                              child: Center(
-                                child: Text(
-                                  StringManager.send.tr(),
-                                  style: const TextStyle(
-                                      color: ColorManager.whiteColor,
-                                      fontWeight: FontWeight.w600),
-                                  textAlign: TextAlign.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  MomtentGiftBottomBarBody.numberOfGift
+                                      .toString(),
+                                  style:  const TextStyle(color: Colors.white,),
                                 ),
+                                 Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.white
+
+                                ),
+                              ],
+                            ),
+                          ),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: ColorManager.mainColorList),
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(
+                                      ConfigSize.defaultSize! * 1.2),
+                                  bottomRight: Radius.circular(
+                                      ConfigSize.defaultSize! * 1.2))),
+                          child: InkWell(
+                            onTap: () {
+                              MomentBottomBarState.selectedMoment=int.parse(widget.momentId);
+                              MomentBottomBarState.giftsNum=MomtentGiftBottomBarBody.numberOfGift;
+                              BlocProvider.of<MomentSendGiftBloc>(context)
+                                  .add(MomentSendGiftEvent(
+                                momentId: widget.momentId,
+                                giftNum: MomtentGiftBottomBarBody.numberOfGift,
+                                giftId: MomentGiftboxScreen.momentGiftId,
+                              ));
+
+                            },
+                            child: Center(
+                              child: Text(
+                                StringManager.send.tr(),
+                                style:  TextStyle(
+                                    color:  Colors.white,
+                                    fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
                               ),
                             ),
-                          )),
-                    ],
-                  ),
+                          ),
+                        )),
+                  ],
                 ),
-                const Spacer(
-                  flex: 1,
-                )
-              ],
-            ),
+              ),
+              const Spacer(
+                flex: 1,
+              )
+            ],
           ));
     },
         listener: (context, state) {
@@ -208,7 +207,7 @@ sucssesToast(context: context, title: StringManager.sucsses);
 
   Widget sendDialog(BuildContext context) {
     return Container(
-      height: ConfigSize.defaultSize! * 20.5,
+      height: ConfigSize.defaultSize! * 22.5,
       width: ConfigSize.defaultSize! * 9,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.1),

@@ -80,12 +80,7 @@ class _MomentGiftViewState extends State<MomentGiftView> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
                                     ConfigSize.defaultSize!),
-                                color:
-                               
-                                    Theme.of(context)
-                                        .colorScheme
-                                        .secondary
-                                        .withOpacity(0.5),
+                                color:Colors.black87,
                                 border: Border.all(
                                     color: MomentGiftboxScreen.indexGift == index
                                         ? ColorManager.orang
