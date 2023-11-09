@@ -5,5 +5,5 @@ class ThirdPartyAuthModel{
   String? type;
    bool? isAgeNotComplete;
    bool? isBirthdayDateNotComplete;
-  ThirdPartyAuthModel( { this.data,  this.type,this.isBirthdayDateNotComplete,this.isAgeNotComplete});
+  ThirdPartyAuthModel( {this.data,  this.type,this.isBirthdayDateNotComplete,this.isAgeNotComplete});
 }

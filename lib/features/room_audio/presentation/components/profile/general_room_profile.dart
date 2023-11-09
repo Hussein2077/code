@@ -83,7 +83,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
               key == state.data.id.toString());
               RoomScreen.usersInRoom
                   .putIfAbsent(state.data.id.toString(), () => state.data);
-              log('kkkkkkkkkk${state.data}');
+
 
               return UserProfileInRoom(
                   myData: widget.myData,

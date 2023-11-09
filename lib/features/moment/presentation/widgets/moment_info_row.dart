@@ -17,8 +17,7 @@ class MomentInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('kkkk${momentModel.frameId}');
-    log('kkkk${momentModel.frame}');
+
 
     return InkWell(
       onTap: () {
