@@ -32,7 +32,7 @@ class _MomentReportDialogState extends State<MomentReportDialog> {
   void initState() {
     detailsController = TextEditingController();
     contactController = TextEditingController();
-
+ 
   }
 
   @override
@@ -43,84 +43,80 @@ class _MomentReportDialogState extends State<MomentReportDialog> {
 color: Theme.of(context).colorScheme.background.withOpacity(0.5),
         height: ConfigSize.screenHeight!*0.6,
         width: ConfigSize.screenWidth!*0.8,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-           const Spacer(flex: 1,),
-            Text(
-              StringManager.typeOfProblem.tr(),
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headlineMedium,
-            ),
-            const Spacer(flex: 1,),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                StringManager.typeOfProblem.tr(),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headlineMedium,
+              ),
 
-            const ProblemType(),
-            const Spacer(flex: 1,),
+              const ProblemType(),
 
-            Text(
-              StringManager.details.tr(),
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headlineMedium,
-            ),
-            const Spacer(flex: 1,),
+              Text(
+                StringManager.details.tr(),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headlineMedium,
+              ),
 
-            Container(
-              width: ConfigSize.screenWidth!*0.7,
-              padding:
-              EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
-              decoration: BoxDecoration(
-                  color: ColorManager.lightGray,
-                  borderRadius:
-                  BorderRadius.circular(ConfigSize.defaultSize! * 2)),
-              child: TextFieldWidget(
-                  maxLines: 4,
-                  hintText: StringManager.explainProblem.tr(),
-                  controller: detailsController),
-            ),
-            const Spacer(flex: 1,),
+              Container(
+                width: ConfigSize.screenWidth!*0.7,
+                padding:
+                EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
+                decoration: BoxDecoration(
+                    color: ColorManager.lightGray,
+                    borderRadius:
+                    BorderRadius.circular(ConfigSize.defaultSize! * 2)),
+                child: TextFieldWidget(
+                    maxLines: 4,
+                    hintText: StringManager.explainProblem.tr(),
+                    controller: detailsController),
+              ),
 
-            BlocConsumer<ReportMomentBloc, ReportMomentStates>(
-              listener: (context, state) {
-                if (state is ReportMomentSucssesState) {
-                  sucssesToast(context: context, title: state.sucssesMessage);
-                }
-                else if (state is ReportMomentErrorState) {
-                //  errorToast(context: context, title: state.errorMessage);
-                }
-              },
-              builder: (context, state) {
-                if (state is ReportMomentSucssesState) {
-                  return const SizedBox();
-                } else {
-                  return MainButton(
-                      onTap: () {
+              BlocConsumer<ReportMomentBloc, ReportMomentStates>(
+                listener: (context, state) {
+                  if (state is ReportMomentSucssesState) {
+                    sucssesToast(context: context, title: state.sucssesMessage);
+                  }
+                  else if (state is ReportMomentErrorState) {
+                  //  errorToast(context: context, title: state.errorMessage);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is ReportMomentSucssesState) {
+                    return const SizedBox();
+                  } else {
+                    return MainButton(
+                        onTap: () {
 
-                        if (detailsController.text.isEmpty) {
-                          errorToast(
-                              context: context,
-                              title: StringManager.pleaseAddDetiels.tr());
-                        } else {
-                          BlocProvider.of<ReportMomentBloc>(context).add(
-                              ReportMomentEvent(
+                          if (detailsController.text.isEmpty) {
+                            errorToast(
+                                context: context,
+                                title: StringManager.pleaseAddDetiels.tr());
+                          } else {
+                            BlocProvider.of<ReportMomentBloc>(context).add(
+                                ReportMomentEvent(
 
-                                type: ProblemType.typesArabic[ProblemType.seletedMomentProblem],
-                                momentId:widget.momentId,
-                                discreption:detailsController.text,
+                                  type: ProblemType.typesArabic[ProblemType.seletedMomentProblem],
+                                  momentId:widget.momentId,
+                                  discreption:detailsController.text,
 
-                              ));
-                        }
-                      },
-                      title: StringManager.submit.tr());
-                }
-              },
-            ),
-            const Spacer(flex: 2,),
+                                ));
+                          }
+                        },
+                        title: StringManager.submit.tr());
+                  }
+                },
+              ),
 
-          ],
+            ],
+          ),
         ),
 
       ),
