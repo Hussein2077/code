@@ -89,11 +89,15 @@ class _BackGroundState extends State<BackGround> {
                               builder: (context, state) {
                                 if (state is AddRoomBackgroundSucsses) {
                                   return Padding(
-                                    padding: EdgeInsets.only(
-                                        top: ConfigSize.defaultSize!,
-                                        bottom: ConfigSize.defaultSize!),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: ConfigSize.defaultSize!,
+                                      horizontal: ConfigSize.defaultSize!
+                                    ),
                                     child:  Center(
                                         child: Text(
+                                          style: const TextStyle(
+                                            overflow: TextOverflow.visible
+                                          ),
                                             StringManager.yourThemeIsUpload.tr())),
                                   );
                                 } else {

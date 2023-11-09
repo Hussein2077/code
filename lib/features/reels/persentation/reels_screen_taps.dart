@@ -55,27 +55,44 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                 top: 5
               ),
               child: TabBar(
-                indicator: BoxDecoration(
-                  color: ColorManager.orang,
-                  borderRadius: BorderRadius.circular(
-                      ConfigSize.defaultSize! * 0.8),
-                ),
+                // indicator: BoxDecoration(),
                 isScrollable: true,
+                indicatorColor: Colors.white,
+                labelPadding: EdgeInsets.symmetric(
+                  horizontal: 10
+                ),
+                labelStyle: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.5,
+                  fontWeight: FontWeight.bold
+                ),
+                unselectedLabelColor: Colors.grey,
+
+                indicatorPadding: EdgeInsets.symmetric(
+                    horizontal: ConfigSize.defaultSize!*2.5,
+                  vertical:  -7,
+
+                ),
                 padding: EdgeInsets.symmetric(
-                  vertical: ConfigSize.defaultSize!,
-                    horizontal: ConfigSize.defaultSize! ),
+                  vertical: ConfigSize.defaultSize!*2,
+                     ),
                 controller: _tabController,
                 tabs: [
                   Text(
                     StringManager.reels.tr(),
-                    style:
-                    Theme.of(context).textTheme.headlineSmall,
+                    // style:
+                    // Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    //     // color: Colors.white,
+                    //   fontSize:  ConfigSize.defaultSize! * 1.6
+                    // ),
                   ),
 
                   Text(
                     StringManager.followingReels.tr(),
-                    style:
-                    Theme.of(context).textTheme.headlineSmall,
+                    // style:
+                    // Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    //   // color: Colors.white,
+                    //     fontSize:  ConfigSize.defaultSize! * 1.6
+                    // ),
                   ),
 
 

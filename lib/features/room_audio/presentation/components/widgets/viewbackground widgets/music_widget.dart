@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
+
 import 'package:awesome_ripple_animation/awesome_ripple_animation.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +30,7 @@ class MusicWidget extends StatelessWidget {
     return ValueListenableBuilder<MediaPlayState>(
         valueListenable: ZegoUIKit.instance.getMediaPlayStateNotifier(),
         builder: (context, state, _) {
+          log('state:${state.toString()}');
           switch(state) {
             case MediaPlayState.NoPlay:
               return const SizedBox();
@@ -167,8 +170,79 @@ class MusicWidget extends StatelessWidget {
                 ),
               ) :const SizedBox();
             case MediaPlayState.LoadReady:
-              return const SizedBox();
-          }
+
+              if(MusicWidget.isIPlayerMedia){
+                if ((MusicScreen.nowPlaying! +1) >=  RoomScreen.musicesInRoom.length) {
+                  distroyMusic();
+                  MusicScreen.nowPlaying = 0;
+                  loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                  ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
+                } else {
+                  distroyMusic();
+                  MusicScreen.nowPlaying =MusicScreen.nowPlaying!+1;
+                  loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                  ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
+                }
+              }
+              return MusicWidget.isIPlayerMedia ? DraggableFloatWidget(
+                config: DraggableFloatWidgetBaseConfig(
+                  initPositionYInTop: false,
+                  initPositionYMarginBorder: ConfigSize.screenHeight! - 300,
+                  borderTopContainTopBar: true,
+                  borderBottom: 30,
+                ),
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                            backgroundColor: ColorManager.mainColor,
+                            child: MusicDialog(
+                              ownerId: room.ownerId.toString(),
+                            ));
+                      });
+                },
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: RippleAnimation(
+                          repeat: true,
+                          color: ColorManager.mainColor,
+                          minRadius: 30,
+                          ripplesCount: 6,
+                          child: RotationTransition(
+                              turns: controllerMusice,
+                              child: Container(
+                                  height: ConfigSize.defaultSize! * 7,
+                                  width: ConfigSize.defaultSize! * 7,
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(
+                                          ConfigSize.defaultSize! * 7),
+                                      image: const DecorationImage(
+                                          fit: BoxFit.fitWidth,
+                                          image: AssetImage(AssetsPath.music)))))),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        distroyMusic() ;
+
+                      } ,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: ColorManager.mainColor.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(20)),
+                          padding: const EdgeInsets.all(4),
+                          child: Icon(
+                            CupertinoIcons.clear,
+                            color: Colors.white,
+                            size: AppPadding.p14,
+                          )),
+                    ),
+                  ],
+                ),
+              ) :const SizedBox();          }
         });
   }
 }
