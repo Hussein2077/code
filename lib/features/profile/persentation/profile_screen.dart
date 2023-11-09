@@ -45,7 +45,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       onRefresh: ()async{
       BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-      
               },
         child: SingleChildScrollView(
             child: BlocBuilder<GetMyDataBloc, GetMyDataState>(

@@ -61,8 +61,7 @@ class _EnterPasswordRoomScreenState extends State<SaveRoomPasswordRoomScreen> {
               ),
             ),
             SizedBox(
-              height: 14.h,
-            ),
+              height: ConfigSize.defaultSize!*1.4 ),
             Directionality(
               textDirection: ui.TextDirection.ltr,
               child: TextFieldPin(
