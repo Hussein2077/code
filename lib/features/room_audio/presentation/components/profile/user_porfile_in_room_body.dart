@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +23,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
+
 import 'profile_room_body_controler.dart';
 import 'widgets/block_button.dart';
 import 'widgets/gift_user_screen.dart';
@@ -284,7 +284,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                             widget: GiftUserScreen(
                               roomData: widget.roomData,
                               userId: widget.userData.id.toString(),
-                              myDataModel: widget.myData, userImage: widget.userData.profile?.image??'',
+                              myDataModel: widget.myData,
+                              userImage: widget.userData.profile?.image ?? '',
                             ));
                       },
                       child: const ImageWithText(
@@ -293,25 +294,31 @@ class _UserProfileInRoomState extends State<UserProfileInRoom> {
                       ),
                     ),
 
-                    Container(
-                        // alignment: Alignment.centerRight,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: ConfigSize.defaultSize! * 4.2,
-                          vertical: ConfigSize.defaultSize! * 1.5,
-                        ),
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: AssetImage(
-                                  AssetsPath.chatIconProfile,
-                                ))),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: ConfigSize.defaultSize! * 2.5,
+                    InkWell(
+                      onTap: () {
+                        Methods.instance.checkIfFriends(
+                            userData: widget.userData, context: context);
+                      },
+                      child: Container(
+                          // alignment: Alignment.centerRight,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: ConfigSize.defaultSize! * 4.2,
+                            vertical: ConfigSize.defaultSize! * 1.5,
                           ),
-                          child: const Text(StringManager.talk,
-                              textAlign: TextAlign.right),
-                        )),
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.contain,
+                                  image: AssetImage(
+                                    AssetsPath.chatIconProfile,
+                                  ))),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: ConfigSize.defaultSize! * 2.5,
+                            ),
+                            child: const Text(StringManager.talk,
+                                textAlign: TextAlign.right),
+                          )),
+                    ),
                   ],
                 ),
               ],

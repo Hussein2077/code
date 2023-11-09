@@ -1,21 +1,21 @@
+import 'dart:ui' as ui;
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/chat/user_chat/Logics/functions.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
-import 'dart:ui' as ui;
 class ProfileBottomBar extends StatefulWidget {
   final UserDataModel userData;
+
   const ProfileBottomBar({required this.userData, super.key});
 
   @override
@@ -24,6 +24,7 @@ class ProfileBottomBar extends StatefulWidget {
 
 class _ProfileBottomBarState extends State<ProfileBottomBar> {
   bool isFollow = false;
+
   @override
   void initState() {
     isFollow = widget.userData.isFollow!;
@@ -34,7 +35,6 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
   Widget build(BuildContext context) {
     return BlocListener<FollowBloc, FollowState>(
       listener: (context, state) {
-
         if (state is FollowSucssesState) {
           isFollow = !isFollow;
           ReelsController.followingMap[widget.userData.id.toString()]=true;
@@ -57,28 +57,33 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
         width: MediaQuery.of(context).size.width,
         // height: ConfigSize.screenHeight! * .1,
         decoration:
-            BoxDecoration(color: Theme.of(context).colorScheme.background),
+        BoxDecoration(color: Theme.of(context).colorScheme.background),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             bottomBarColumn(context: context, icon: AssetsPath.chatIconProfile ,onTap:  () async {
-              if (widget.userData.isFriend!) {
-                Functions.addFireBaseId();
-                Navigator.pushNamed(context, Routes.chatPageBody,
-                    arguments: ChatPageBodyPramiter(
-                        unReadMessages: 0,
-                        chatId: widget.userData.chatId!,
-                        name: widget.userData.name!,
-                        yayaId: widget.userData.id.toString(),
-                        image: widget.userData.profile!.image!,
-                        notificationId: widget.userData.notificationId!,
-                        myName: MyDataModel.getInstance().name!));
-              } else {
-                errorToast(context: context, title: StringManager.youAreNotFriends);
-            
-              }
-            },),
+                Methods.instance.checkIfFriends(
+                    userData: widget.userData, context: context);
+                // if (widget.userData.isFriend!) {
+                //
+                //   //checkIfFriends
+                //   Functions.addFireBaseId();
+                //   Navigator.pushNamed(context, Routes.chatPageBody,
+                //       arguments: ChatPageBodyPramiter(
+                //           unReadMessages: 0,
+                //           chatId: widget.userData.chatId!,
+                //           name: widget.userData.name!,
+                //           yayaId: widget.userData.id.toString(),
+                //           image: widget.userData.profile!.image!,
+                //           notificationId: widget.userData.notificationId!,
+                //           myName: MyDataModel.getInstance().name!));
+                // }
+                // else {
+                //   errorToast(context: context, title: StringManager.youAreNotFriends);
+                //
+                // }
+              },),
             // bottomBarColumn(
             //     context: context,
             //     icon: AssetsPath.sendGiftIconProfile,
@@ -92,9 +97,9 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
               title: isFollow ? StringManager.unFollow.tr() : StringManager.follow.tr(),
               onTap: () => isFollow
                   ? BlocProvider.of<FollowBloc>(context)
-                      .add(UnFollowEvent(userId: widget.userData.id.toString()))
+                  .add(UnFollowEvent(userId: widget.userData.id.toString()))
                   : BlocProvider.of<FollowBloc>(context)
-                      .add(FollowEvent(userId: widget.userData.id.toString())),
+                  .add(FollowEvent(userId: widget.userData.id.toString())),
             ),
           ],
         ),
@@ -103,11 +108,10 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
   }
 }
 
-Widget bottomBarColumn(
-    {required BuildContext context,
-    required String icon,
-    String? title,
-    void Function()? onTap}) {
+Widget bottomBarColumn({required BuildContext context,
+  required String icon,
+  String? title,
+  void Function()? onTap}) {
   return InkWell(
     onTap: onTap,
     child: Column(
@@ -115,35 +119,35 @@ Widget bottomBarColumn(
       children: [
         title != null
             ? Image.asset(
-                icon,
-                scale: 2.5,
-              )
+          icon,
+          scale: 2.5,
+        )
             : Container(
-                padding: EdgeInsets.only(
-                    left: ConfigSize.defaultSize! * 6,
-                    top: ConfigSize.defaultSize! * 1.2),
-                width: ConfigSize.defaultSize! * 11,
-                height: ConfigSize.defaultSize! * 5,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                  icon,
-                ))),
-                child: Directionality(
-                  textDirection: ui.TextDirection.ltr,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        StringManager.chatWithDifferentTranslation.tr(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: ConfigSize.defaultSize! * 1.5),
-                      ),
-                    ],
-                  ),
+          padding: EdgeInsets.only(
+              left: ConfigSize.defaultSize! * 6,
+              top: ConfigSize.defaultSize! * 1.2),
+          width: ConfigSize.defaultSize! * 11,
+          height: ConfigSize.defaultSize! * 5,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    icon,
+                  ))),
+          child: Directionality(
+            textDirection: ui.TextDirection.ltr,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  StringManager.chatWithDifferentTranslation.tr(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: ConfigSize.defaultSize! * 1.5),
                 ),
-              ),
+              ],
+            ),
+          ),
+        ),
         if (title != null)
           Text(
             title,

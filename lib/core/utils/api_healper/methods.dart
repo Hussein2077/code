@@ -32,6 +32,7 @@ import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/Logics/functions.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
 import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
@@ -890,4 +891,25 @@ class Methods {
     return age;
   }
 
+
+
+void checkIfFriends(
+    { required UserDataModel userData, required BuildContext context}){
+  if (userData.isFriend!) {
+                Functions.addFireBaseId();
+                Navigator.pushNamed(context, Routes.chatPageBody,
+                    arguments: ChatPageBodyPramiter(
+                        unReadMessages: 0,
+                        chatId: userData.chatId!,
+                        name: userData.name!,
+                        yayaId: userData.id.toString(),
+                        image: userData.profile!.image!,
+                        notificationId: userData.notificationId!,
+                        myName: MyDataModel.getInstance().name!));
+              } else {
+                errorToast(context: context, title: StringManager.youAreNotFriends);
+
+              }
+
+}
 }

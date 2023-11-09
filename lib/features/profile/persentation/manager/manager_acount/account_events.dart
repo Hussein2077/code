@@ -50,7 +50,7 @@ class BindNumberAccountEvent extends AccountEvents {
 class ChangeNumberAccountEvent extends AccountEvents {
   final String currentPhoneNumber;
   final String newtPhoneNumber ;
-  final String vrCode;
+  final String? vrCode;
   final String credential ;
 
 
@@ -59,7 +59,7 @@ class ChangeNumberAccountEvent extends AccountEvents {
     required this.newtPhoneNumber,
     required this.credential,
 
-  required this.vrCode});
+   this.vrCode});
 
   @override
   List<Object?> get props => [  currentPhoneNumber,vrCode,newtPhoneNumber];
