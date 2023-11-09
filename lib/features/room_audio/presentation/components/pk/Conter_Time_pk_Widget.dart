@@ -51,6 +51,7 @@ class _CounterPkTimeWidgetState extends State<CounterPkTimeWidget> {
 class SetTimerPK {
 
   final StreamController<TimeData> streamController = StreamController<TimeData>.broadcast();
+
   Timer? _timer;
   // Getters
   Stream<TimeData> get stream => streamController.stream;
@@ -59,6 +60,7 @@ class SetTimerPK {
 
   // Setters
   void start(BuildContext context, String  ownerId ) {
+
       _timer = Timer.periodic(const Duration(seconds: 1), (_) {
         _updateSeconds(context,ownerId);
       });
