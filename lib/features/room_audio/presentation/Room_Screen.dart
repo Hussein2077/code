@@ -484,6 +484,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     RoomScreen.isGiftEntroAnimating = false;
     yellowBannercontroller.dispose();
     luckGiftBannderController.dispose();
+    RoomScreen.showBanner.value = false;
 
 
     super.dispose();

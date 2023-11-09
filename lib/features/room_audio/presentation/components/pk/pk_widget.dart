@@ -209,8 +209,9 @@ class _PKWidgetState extends State<PKWidget> {
                           onTap: (){
                       //   restorePKData();
                             if(getIt<SetTimerPK>().timer !=null){
-                              getIt<SetTimerPK>().timer!.cancel() ;
+                              getIt<SetTimerPK>().timer!.cancel();
                             }
+
                             BlocProvider.of<PKBloc>(context)
                                 .add(ClosePKEvent(ownerId: widget.ownerId, pkId: PKWidget.pkId));
                             BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: widget.ownerId));

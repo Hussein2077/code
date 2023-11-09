@@ -59,6 +59,10 @@ Hidepk(){
   PkController.showPK.value = false;
   restorePKData();
   PkController.isPK.value = false;
+  PkController.timeSecondPK = 0;
+  if(getIt<SetTimerPK>().timer != null){
+    getIt<SetTimerPK>().timer!.cancel();
+  }
 }
 
 Updatepk(Map<String, dynamic> result){
@@ -85,6 +89,10 @@ ClosePkKey(Map<String, dynamic> result) {
   } else {
     loadAnimationBlueTeam("files/ce611dcb83b465805d552565d0705be4.svga");
     loadAnimationRedTeam("files/091e42c561800ca052493228e2165d70.svga");
+  }
+  PkController.timeSecondPK = 0;
+  if(getIt<SetTimerPK>().timer != null){
+    getIt<SetTimerPK>().timer!.cancel();
   }
 }
 

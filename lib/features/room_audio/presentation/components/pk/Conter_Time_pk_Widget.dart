@@ -50,8 +50,7 @@ class _CounterPkTimeWidgetState extends State<CounterPkTimeWidget> {
 
 class SetTimerPK {
 
-  final StreamController<TimeData> streamController =
-  StreamController<TimeData>.broadcast();
+  final StreamController<TimeData> streamController = StreamController<TimeData>.broadcast();
   Timer? _timer;
   // Getters
   Stream<TimeData> get stream => streamController.stream;
@@ -60,15 +59,9 @@ class SetTimerPK {
 
   // Setters
   void start(BuildContext context, String  ownerId ) {
-      _timer = Timer.periodic(
-          const Duration(seconds: 1), (_) {
-
+      _timer = Timer.periodic(const Duration(seconds: 1), (_) {
         _updateSeconds(context,ownerId);
-
       });
-
-
-
   }
 
   void _updateSeconds(BuildContext context,String ownerId) {
@@ -76,7 +69,7 @@ class SetTimerPK {
       if(MyDataModel.getInstance().id.toString() == ownerId){
         BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
       }
-      getIt<SetTimerPK>().timer!.cancel() ;
+      // getIt<SetTimerPK>().timer!.cancel();
       // _timer!.cancel();
       // streamController.done;
     }
