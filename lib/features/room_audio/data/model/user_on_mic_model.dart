@@ -12,7 +12,7 @@ class UserOnMicModel extends Equatable {
 
 
   factory UserOnMicModel.fromJson(Map<String,dynamic>json ){
-    return    UserOnMicModel(
+    return  UserOnMicModel(
             id:json['id']??0,
             name: json['name']??'',img: json['img']
 

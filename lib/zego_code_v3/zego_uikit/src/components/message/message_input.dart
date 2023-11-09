@@ -383,7 +383,8 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
           message: textController.text));
     }
 
-    ZegoUIKit().sendInRoomMessage(textController.text, false);
+    ZegoUIKit().sendInRoomMessage(textController.text, false).then((value) =>
+    ZegoInRoomMessageViewState.scrollController.jumpTo(ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent));
     textController.clear();
 
     widget.valueNotifier?.value = '';
