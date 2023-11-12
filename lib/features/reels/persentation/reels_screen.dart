@@ -59,9 +59,11 @@ class ReelsScreenState extends State<ReelsScreen>{
             listener: (context, state) {
               if (state is UploadReelsLoadingState) {
                 loadingToast(context: context, title: StringManager.loading.tr());
-              } else if (state is UploadReelsErrorState) {
+              }
+              else if (state is UploadReelsErrorState) {
                 errorToast(context: context, title: state.error);
-              } else if (state is UploadReelsSucssesState) {
+              }
+              else if (state is UploadReelsSucssesState) {
                 BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent(id: null));
                 sucssesToast(context: context, title: state.message);
               }
@@ -154,7 +156,8 @@ class ReelsScreenState extends State<ReelsScreen>{
 
                           for (int i = 0; i < state.data!.length; i++) {
                             if (!ReelsController.thumbnail.containsKey(state.data![i].id.toString())) {
-                              Uint8List thumbnailPath = await ReelsController.getInstance.getVideoThumbnail(state.data![i].url!);
+                              Uint8List thumbnailPath =
+                              await ReelsController.getInstance.getVideoThumbnail(state.data![i].url!);
                               ReelsController.thumbnail.putIfAbsent(state.data![i].id.toString(), () => thumbnailPath);
                             }
                           }

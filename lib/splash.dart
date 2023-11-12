@@ -6,6 +6,7 @@ import 'package:app_links/app_links.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_logs/flutter_logs.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -167,12 +168,23 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> loadResources() async {
     Future.delayed(const Duration(seconds: 1), () async {
       final String defaultLocale = Platform.localeName;
-
-
+      FlutterLogs.logInfo(
+        'log',
+        'init',
+        '========================================== Platform.localeName ',
+      );
       await context.setLocale(Locale(defaultLocale.substring(0,2)));
-
+      FlutterLogs.logInfo(
+        'log',
+        'init',
+        '========================================== context.setLocale',
+      );
       await Methods.instance.saveLocalazitaon(language:defaultLocale.substring(0,2));
-
+      FlutterLogs.logInfo(
+        'log',
+        'init',
+        '========================================== saveLocalazitaon',
+      );
     });
     final result =
         await GetConfigeAppUseCase(homeRepo: getIt()).call(ConfigModelBody(
@@ -183,9 +195,15 @@ class _SplashScreenState extends State<SplashScreen> {
       SplashScreen.appId = l.appId;
       SplashScreen.appSign = l.appSign;
       configModel = l;
-    }, (r) {
-      errorMessage = DioHelper().getTypeOfFailure(r) ;
-      errorToast(context: context, title: errorMessage) ;
+    },(r){
+      errorMessage = DioHelper().getTypeOfFailure(r);
+      errorToast(context: context, title: errorMessage);
     });
+
+    FlutterLogs.logInfo(
+      'log',
+      'init',
+      '========================================== SplashScreen',
+    );
   }
 }
