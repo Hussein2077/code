@@ -108,7 +108,7 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                              //    setState(() {});
                              //    });
                              // }
-                            }
+                          //  }
                             else{
                               if(GiftScreen.numOfGift==index){
                                 setState(() {
