@@ -720,11 +720,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       //PK end rtm
       else if (result[messageContent][message] == leaveMicKey) {
         RoomScreen.userOnMics.value.removeWhere((key, value) => key == result[messageContent]['position']);
-        log(RoomScreen.userOnMics.value.toString());
       }
       else if (result[messageContent][message] == upMicKey) {
         UpMicKey(result);
-        log(RoomScreen.userOnMics.value.toString());
       }
       else if (result[messageContent][message] == muteMicKey) {
         MuteMicKey(result);
