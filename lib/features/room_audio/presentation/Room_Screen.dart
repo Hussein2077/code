@@ -514,7 +514,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(path))..initialize();
       });
     } else {
-      mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
+      ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
         ..initialize();
     }
 
