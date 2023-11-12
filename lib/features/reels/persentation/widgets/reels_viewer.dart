@@ -116,21 +116,12 @@ class _ReelsViewerState extends State<ReelsViewer> {
       }
       else if (notification is ScrollUpdateNotification) {
         // Scrolling
-        if(kDebugMode){
-          log('Scrolling');
-        }
       }
       else if (notification is ScrollEndNotification) {
         if(kDebugMode) {
           log('Scroll ended');
         }
-        if((ReelsPage.videoPlayerController?.value.isPlaying)??false){
-          log("play");
-          ReelsPage.videoPlayerController?.play();
-        }else{
-          log("not play ");
-        }
-
+        ReelsPage.videoPlayerController?.play();
 
 
       }
@@ -146,7 +137,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
                    //padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
                    child: Swiper(
                      itemBuilder: (BuildContext context, int index) {
-
                        return ReelsPage(
                          userView: widget.userView,
                          item: widget.reelsList[index],
