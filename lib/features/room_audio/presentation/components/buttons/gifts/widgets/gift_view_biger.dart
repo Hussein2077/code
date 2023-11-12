@@ -81,8 +81,8 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                             if( checkPermissionGift(myLevel:  widget.myData.vip1?.level==null?0 : widget.myData.vip1!.level! ,
                                 giftLevel: widget.data[index].vipLevel
                             )    ){
-                            // if( widget.data[index].showImg.contains("mp4"))
-                            // {
+                            if( widget.data[index].showImg.contains("mp4"))
+                            {
 
                              if(PageViewGeftWidget.chachedGiftMp4.containsKey(widget.data[index].id.toString())){
                                if(GiftScreen.numOfGift==index){
@@ -101,14 +101,14 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                  });
                                }
                              }
-                             // else{
-                             //    Methods()
-                             //       .cacheMp4(
-                             //       vedioId: widget.data[index].id, vedioUrl: widget.data[index].img).then((value) async {
-                             //    setState(() {});
-                             //    });
-                             // }
-                          //  }
+                             else{
+                                Methods()
+                                   .cacheMp4(
+                                   vedioId: widget.data[index].id, vedioUrl: widget.data[index].img).then((value) async {
+                                setState(() {});
+                                });
+                             }
+                           }
                             else{
                               if(GiftScreen.numOfGift==index){
                                 setState(() {

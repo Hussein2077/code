@@ -519,7 +519,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     }
 
     ViewbackgroundWidget.mp4Controller!.addListener(() {
-      if (ViewbackgroundWidget.mp4Controller!.value.position >= ViewbackgroundWidget.mp4Controller!.value.duration) {
+      if (ViewbackgroundWidget.mp4Controller!.value.position >=
+          ViewbackgroundWidget.mp4Controller!.value.duration) {
         if (giftData.showBanner && RoomScreen.showBanner.value) {
           RoomScreen.showBanner.value = false;
           controllerBanner.reverse();
@@ -533,6 +534,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
         // mp4Controller!.dispose();
       } else {
+        log("heeeeeeeeeeeee");
         RoomScreen.isVideoVisible.value = true;
         ViewbackgroundWidget.mp4Controller!.play();
       }

@@ -550,6 +550,7 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
     if (RoomScreen.isGiftEntroAnimating) {
       RoomScreen.listOfAnimatingMp4Gifts.add(giftData);
     } else {
+      log("ttttt");
       await loadMp4Gift(giftData: giftData);
     }
   } else {
