@@ -27,6 +27,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/view_mus
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/invitation_to_mic.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -226,7 +228,7 @@ Future<void> loadMusice({required String path}) async {
   MusicScreen.isPlaying.value = true;
 }
 
-Future<void> clearAll() async {
+Future<void> clearAll(String ownerId, BuildContext context) async {
   RoomScreen.listOfLoskSeats.value = {0: 0};
   RoomScreen.listOfMuteSeats.clear();
   RoomScreen.clearTimeNotifier = ValueNotifier(0);
@@ -250,6 +252,10 @@ Future<void> clearAll() async {
   if(getIt<SetTimerPK>().timer != null){
     getIt<SetTimerPK>().timer?.cancel();
   }
+  if(ownerId == MyDataModel.getInstance().id.toString()){
+    BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
+    BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: ownerId));
+  }
   RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
   RoomScreen.musicesInRoom.clear();
@@ -257,7 +263,6 @@ Future<void> clearAll() async {
   RoomScreen.usersMessagesRoom.clear();
   RoomScreen.usersMessagesProfileRoom.clear();
   MusicScreen.isPlaying.value = false;
-  RoomScreen.adminsInRoom.clear();
   RoomScreen.usersInRoom.clear();
   LuckyBoxVariables.luckyBoxMap['luckyBoxes'].clear();
   RoomScreen.usersMessagesProfileRoom.clear();
@@ -561,7 +566,7 @@ KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String
   RoomScreen.isKick.value = true;
   Future.delayed(const Duration(seconds: 3), () async {
     Navigator.pop(context);
-    await Methods().exitFromRoom(ownerId);
+    await Methods().exitFromRoom(ownerId, context);
     BlocProvider.of<OnRoomBloc>(context).add(LeaveMicEvent(
         ownerId: ownerId,
         userId: id));
@@ -575,6 +580,9 @@ UpMicKey(Map<String, dynamic> result){
   ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(
       id: result[messageContent]['userId'],
       name: result[messageContent]['userName']);
+  if(result[messageContent]['is_swap']){
+    RoomScreen.userOnMics.value.removeWhere((key, value) => key == result[messageContent]['old_position']);
+  }
   RoomScreen.userOnMics.value.putIfAbsent(
       int.parse(result[messageContent]['position']), () => zegoUIKitUser);
 }

@@ -50,7 +50,7 @@ class _LogOutOrDeleteAccountButtonState
               if(MainScreen.iskeepInRoom.value){
                 await Methods.instance.exitFromRoom(MainScreen
                     .roomData!.ownerId
-                    .toString());
+                    .toString(), context);
                 MainScreen.iskeepInRoom.value = false ;
               }
               await FirebaseAuth.instance.signOut();

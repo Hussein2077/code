@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -11,8 +10,6 @@ import 'dart:ui' as ui ;
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
-
-
 
 
 class ExitWidget extends StatefulWidget {
@@ -86,7 +83,7 @@ class ExitWidgetState extends State<ExitWidget> {
                       MainScreen.iskeepInRoom.value=false;
                       Navigator.pop(context);
                       Navigator.pop(context);
-                      await   Methods.instance.exitFromRoom(widget.roomData.ownerId.toString());
+                      await   Methods.instance.exitFromRoom(widget.roomData.ownerId.toString(), context);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

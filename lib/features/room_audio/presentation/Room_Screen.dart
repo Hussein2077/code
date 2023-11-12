@@ -514,7 +514,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(path))..initialize();
       });
     } else {
-      ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
+      mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
         ..initialize();
     }
 
@@ -718,7 +718,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       //PK end rtm
       else if (result[messageContent][message] == leaveMicKey) {
-        RoomScreen.userOnMics.value.remove(result[messageContent]['position']);
+        RoomScreen.userOnMics.value.removeWhere((key, value) => key == result[messageContent]['position']);
       }
       else if (result[messageContent][message] == upMicKey) {
         UpMicKey(result);
@@ -804,7 +804,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == 'banDevice') {
         if (result[messageContent]['userId'] == widget.myDataModel.id) {
-          await Methods().exitFromRoom(widget.room.ownerId.toString());
+          await Methods().exitFromRoom(widget.room.ownerId.toString(), context);
           Navigator.pushNamedAndRemoveUntil(context, Routes.login, (route) => false);
         }
       }
@@ -978,10 +978,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             )
             ..seatConfig.avatarBuilder = (context, size, user, extraInfo) {
             return ValueListenableBuilder<bool>(
-                valueListenable:
-                    ZegoUIKit().getMicrophoneStateNotifier(user!.id),
+                valueListenable: ZegoUIKit().getMicrophoneStateNotifier(user!.id),
                 builder: (context, isMicrophoneEnabled, _) {
-
                   return UserAvatar(
                       user: user ,
                       image: user.inRoomAttributes.value['img'],
