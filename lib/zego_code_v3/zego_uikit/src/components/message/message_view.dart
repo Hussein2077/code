@@ -79,7 +79,6 @@ class ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
   @override
   Widget build(BuildContext context) {
    // messagesNotifier.value = widget.historyMessages;
-
     return Directionality(
         textDirection: ui.TextDirection.rtl,
         child: ValueListenableBuilder<List<ZegoInRoomMessage>>(
@@ -185,8 +184,10 @@ class ZegoInRoomMessageViewState extends State<ZegoInRoomMessageView> {
       if (messagesNotifier.value.isEmpty) {
         return;
       }
+      if (ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent - ZegoInRoomMessageViewState.scrollController.position.pixels < 270.zH ) {
+        scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      }
 
-    //  _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
     });
   }
 }

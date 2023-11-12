@@ -32,12 +32,13 @@ class GiftUserState extends State<GiftUser> {
     'ألكل في الغرفة  ',
   ];
   final List<int> seatsIndex =[];
+  Map<String, int> mapOfUsersPositions = {};
+
   @override
   void initState() {
    if( RoomScreen.userOnMics.value.isEmpty){
      GiftUser.userSelected.clear();
    }
-
     super.initState();
   }
 
@@ -79,6 +80,11 @@ class GiftUserState extends State<GiftUser> {
                         if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.name == StringManager.mysteriousPerson.tr()){
                           return const  SizedBox();
                         }else{
+
+                          RoomScreen.userOnMics.value.forEach((key, value) {
+                            mapOfUsersPositions.putIfAbsent(value.id, () => key);
+                          });
+
                           return InkWell(
                             onTap: (){
                               setState(() {
@@ -150,7 +156,7 @@ class GiftUserState extends State<GiftUser> {
                                             color: ColorManager.whiteColor),
                                         child:Center(
                                           child: Text(
-                                            "${index + 1}",
+                                            "${mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id]}",
                                             style:  TextStyle(fontSize: AppPadding.p8),
                                           ),
                                         )

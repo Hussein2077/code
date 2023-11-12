@@ -53,10 +53,6 @@ class MessagesChached extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        log('hussin${RoomScreen.usersMessagesRoom[message.user.id]?.senderLevelImg}');
-        log('hussin${RoomScreen.usersMessagesRoom}');
-        log('hussin${sender}');
-
         (message.user.id != "0")
             ? bottomDailog(
                 context: context,

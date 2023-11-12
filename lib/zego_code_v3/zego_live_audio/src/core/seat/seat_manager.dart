@@ -906,8 +906,6 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
           userId: localUserID ,
           isSwitch: true,
           position: index.toString()));
-
-
     });
 
     return true;

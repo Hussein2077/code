@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
 
 import 'dart:convert';
 import 'dart:developer';
@@ -168,7 +168,7 @@ class Methods {
         .removeVideosByCacheKey(StringManager.cachReelsKey);
   }
 
-  Future<void> exitFromRoom(String ownerId) async {
+  Future<void> exitFromRoom(String ownerId, BuildContext context) async {
     ZegoLiveAudioRoomManagers().connectManager?.uninit();
     await ZegoLiveAudioRoomManagers().seatManager?.uninit();
     await ZegoLiveAudioRoomManagers().plugins?.uninit();
@@ -184,19 +184,19 @@ class Methods {
     await ZegoUIKit.instance.uninit();
     await ZegoUIKit.instance.uninit();
     ZegoUIKit.instance.logout();
-    await clearAll();
+    await clearAll(ownerId, context);
     ExistroomUC e = ExistroomUC(roomRepo: getIt());
     await e.call(ownerId);
     PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
     pusher.unsubscribe(channelName: 'presence-room-$ownerId');
   }
 
-  Future<void> checkIfInRoom({required String ownerId}) async {
+  Future<void> checkIfInRoom({required String ownerId, required BuildContext context}) async {
     if (MainScreen.iskeepInRoom.value) {
       MainScreen.iskeepInRoom.value = false;
       await Methods.instance.exitFromRoom(MainScreen.roomData?.ownerId == null
           ? ownerId
-          : MainScreen.roomData!.ownerId.toString());
+          : MainScreen.roomData!.ownerId.toString(), context);
     }
   }
 

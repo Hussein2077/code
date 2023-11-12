@@ -1,13 +1,7 @@
-import 'dart:developer';
-
-import 'dart:math';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -17,7 +11,6 @@ import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
-
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
@@ -190,7 +183,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   ));
 
                               await Methods.instance.exitFromRoom(
-                                  MainScreen.roomData!.ownerId.toString());
+                                  MainScreen.roomData!.ownerId.toString(), context);
                               Navigator.pop(context);
                               MainScreen.iskeepInRoom.value = false;
                             },
