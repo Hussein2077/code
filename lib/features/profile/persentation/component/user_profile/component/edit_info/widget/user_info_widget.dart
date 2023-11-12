@@ -94,6 +94,7 @@ UserInfoWidget.nameController!.dispose();
               bottomDailog(
                   context: context,
                   widget: editDailog(
+                     maxLength: 62,
                       context: context,
                       controller: UserInfoWidget.bioController!,
                       title: StringManager.bio.tr()));
@@ -231,12 +232,12 @@ UserInfoWidget.nameController!.dispose();
                           )),
                       SizedBox(
                           width: ConfigSize.defaultSize! * 0.8),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: ConfigSize.defaultSize! * 2.5,
-                      ),
-                      SizedBox(
-                          width: ConfigSize.defaultSize! * 0.35),
+                      // Icon(
+                      //   Icons.arrow_forward_ios_rounded,
+                      //   size: ConfigSize.defaultSize! * 2.5,
+                      // ),
+                      // SizedBox(
+                      //     width: ConfigSize.defaultSize! * 0.35),
                     ],
                   )
                 ],
@@ -284,16 +285,14 @@ UserInfoWidget.nameController!.dispose();
 
 
 
-   Row(
+          const  Row(
     children:
    
     [
-      const Spacer(flex: 1,),
-     const CountryWidget(),
-           const Spacer(flex: 25,),
+       Spacer(flex: 1,),
+      CountryWidget(),
 
-     Icon(Icons.arrow_forward_ios , color: Theme.of(context).colorScheme.primary,),
-           const Spacer(flex: 1,),
+            Spacer(flex: 1,),
 
    ],)
         ],
@@ -323,10 +322,14 @@ Widget rowWidget(
           const Spacer(flex: 15),
 
           if (subTitle != null)
-            Text(
-              subTitle,
-              style: TextStyle(
-                  color: Colors.grey, fontSize: ConfigSize.defaultSize! * 1.5),
+            SizedBox(
+              width: 280,
+              child: Text(
+                textAlign: TextAlign.right,
+                subTitle,
+                style: TextStyle(
+                    color: Colors.grey, fontSize: ConfigSize.defaultSize! * 1.5 , overflow: TextOverflow.ellipsis),
+              ),
             ),
 
           if (image != null)
@@ -351,7 +354,9 @@ Widget rowWidget(
 Widget editDailog(
     {required BuildContext context,
     required String title,
-    required TextEditingController controller}) {
+    required TextEditingController controller ,
+    int? maxLength}
+    ) {
   return Container(
     color: Theme.of(context).colorScheme.background,
     padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
@@ -367,7 +372,7 @@ Widget editDailog(
                     Border.all(color: Theme.of(context).colorScheme.primary),
                 borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
             width: MediaQuery.of(context).size.width - 50,
-            child: TextFieldWidget(hintText: "", controller: controller))
+            child: TextFieldWidget(hintText: "", controller: controller , maxLength: maxLength,))
       ],
     ),
   );

@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: animated_icon
-      sha256: ae969e5a37e79d616e2af88136dd59b2dea054d5f796b5bb43c2d72323a8f8c9
+      sha256: "20666f00f1718ac2cd4aec47451b1b734774f69811305a9aebbba41494cb4eee"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.4"
   animated_text_kit:
     dependency: "direct main"
     description:
@@ -715,6 +715,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.16"
+  flutter_reaction_button:
+    dependency: "direct main"
+    description:
+      name: flutter_reaction_button
+      sha256: e9ecf6ee0be8c88cfd8c06a638680aa78a359ed0c0d44b63002d7b68bdddc793
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0+2"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -1081,10 +1089,10 @@ packages:
     dependency: transitive
     description:
       name: lottie
-      sha256: b8bdd54b488c54068c57d41ae85d02808da09e2bee8b8dd1f59f441e7efa60cd
+      sha256: "893da7a0022ec2fcaa616f34529a081f617e86cc501105b856e5a3184c58c7c2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "1.4.3"
   m_toast:
     dependency: "direct main"
     description:

@@ -101,6 +101,8 @@ class AssetsPath {
 
 
   //icons
+  static const String verified = "$pathIcon/verified.gif";
+
   static const String pk1 = "$pathIcon/pk2.png";
   static const String gamesIcon = "$pathIcon/games.png";
   static const String appleIcon ="$pathIcon/apple_logo.png" ;

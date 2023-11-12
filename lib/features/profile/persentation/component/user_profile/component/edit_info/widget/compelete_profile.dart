@@ -15,12 +15,13 @@ class CompleteProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Container(
-            padding: EdgeInsets.only(left: ConfigSize.defaultSize! , bottom: ConfigSize.defaultSize!),
-            width: MediaQuery.of(context).size.width - 50,
-            height: ConfigSize.defaultSize! * 10,
+            padding: EdgeInsets.only(left: ConfigSize.defaultSize!*4 , bottom: ConfigSize.defaultSize!),
+            width: MediaQuery.of(context).size.width - 100,
+            height: ConfigSize.defaultSize! * 6,
             decoration: const BoxDecoration(
                 image: DecorationImage(
-              image: AssetImage(AssetsPath.profileCompleteCover),
+                  fit: BoxFit.fill,
+              image: AssetImage(AssetsPath.profileCompleteCover ),
             )),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -30,11 +31,11 @@ class CompleteProfile extends StatelessWidget {
                  " ${StringManager.profileCompleted.tr()} ${percent*100}%",
                   style: TextStyle(
                       color: ColorManager.deeporang,
-                      fontSize: ConfigSize.defaultSize! * 2),
+                      fontSize: ConfigSize.defaultSize! * 1.5),
                 ),
                  LinearPercentIndicator(
                   barRadius: Radius.circular(ConfigSize.defaultSize!),
-                width: MediaQuery.of(context).size.width-100,
+                width: MediaQuery.of(context).size.width-150,
                 lineHeight: ConfigSize.defaultSize!*1.2,
                 percent: percent,
                 backgroundColor: Colors.deepOrange.withOpacity(0.1),
