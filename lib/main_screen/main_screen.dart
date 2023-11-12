@@ -22,6 +22,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
 import 'package:tik_chat_v2/features/following/persentation/following_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/moment_screen.dart';
@@ -133,9 +134,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         actionDynamicLink: widget.actionDynamicLink,
                       ),
                   (_) => const ReelsScreenTaps(),
+            (_) =>  const SafeArea(child: ChatPage()),
                   (_) => const FollowingLiveScreen(),
                   (_) => const MomentScreen(),
                   (_) => const ProfileScreen(),
+
                 ],
                 bottomNavigationBar: (currentIndex, onTap) => BottomBarWidget(
                   currentIndex: currentIndex,

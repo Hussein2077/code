@@ -85,11 +85,11 @@ class Card2 extends StatelessWidget {
 
                       children: [
 
-                        ProfileRowItem(
-                          title: StringManager.chat.tr(),
-                          image: AssetsPath.chatIcon,
-                          onTap: () => Navigator.pushNamed(context, Routes.chatScreen),
-                        ),
+                        // ProfileRowItem(
+                        //   title: StringManager.chat.tr(),
+                        //   image: AssetsPath.chatIcon,
+                        //   onTap: () => Navigator.pushNamed(context, Routes.chatScreen),
+                        // ),
                         if(temp!=0)
                         Container(
                         padding:const EdgeInsets.all(4),

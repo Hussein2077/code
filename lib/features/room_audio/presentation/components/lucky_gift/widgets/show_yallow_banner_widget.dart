@@ -46,25 +46,30 @@ class ShowYallowBannerWidget extends StatelessWidget {
                   },
                   child: Container(
                       padding: EdgeInsets.symmetric(
-                          vertical: ConfigSize.defaultSize! - 4,
-                          horizontal: ConfigSize.defaultSize! - 3),
+                          vertical: ConfigSize.defaultSize! *0.6,
+                          horizontal: ConfigSize.defaultSize!* 0.7),
                       decoration: BoxDecoration(
                           gradient: const LinearGradient(
-                              colors: ColorManager.yellowGrident),
+                              colors: ColorManager.yellowBannerGrident,
+                              begin:Alignment.topLeft,
+                            end: Alignment.bottomRight,
+
+                          ),
                           borderRadius: BorderRadius.circular(20)),
                       margin: EdgeInsets.only(top: ConfigSize.defaultSize! * 10),
                       width: ConfigSize.defaultSize! * 35,
                       height: ConfigSize.defaultSize! * 4,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           UserImage(
-                              imageSize: ConfigSize.defaultSize! * 4,
+                              imageSize: ConfigSize.defaultSize! * 3,
                               image: senderYallowBanner!.isAanonymous!
                                   ? StringManager.imageAnanyomus
                                   : senderYallowBanner!.profile!.image!),
-                          SizedBox(
-                            width: ConfigSize.defaultSize,
-                          ),
+                          // SizedBox(
+                          //   width: ConfigSize.defaultSize!*0.5,
+                          // ),
                           SizedBox(
                             width: ConfigSize.defaultSize! * 23.5,
                             child: TextScroll(
@@ -83,20 +88,22 @@ class ShowYallowBannerWidget extends StatelessWidget {
                               // textAlign: TextAlign.left,
                             ),
                           ),
-                          const Spacer(),
+                         // const Spacer(),
                           Container(
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: ColorManager.gray.withOpacity(0.6)),
-                            child: IconButton(
-                                onPressed: () {
-                                  controllerYallowBanner.reset();
-                                },
-                                icon: const Icon(
-                                  Icons.close,
-                                  color: Colors.black,
-                                  size: 15,
-                                )),
+                            child: Center(
+                              child: IconButton(
+                                  onPressed: () {
+                                    controllerYallowBanner.reset();
+                                  },
+                                  icon: const Icon(
+                                    Icons.close,
+                                    color: Colors.white,
+                                    size: 15,
+                                  )),
+                            ),
                           )
                         ],
                       )),

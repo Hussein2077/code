@@ -153,7 +153,7 @@ class Routes {
   static const String changePassOrNumberScreen = "/ChangePassOrNumberScreen";
   static const String changePassScreen = "/ChangePassScreen";
   static const String privacyPolicyScreen = "/PrivacyPolicyScreen";
-  static const String chatScreen = "/ChatScreen";
+  //static const String chatScreen = "/ChatScreen";
   static const String paymentHistory = "/paymentHistory";
   static const String groupChatScreen = "/GropuChatScreen";
   static const String messages = "/Messages";
@@ -481,16 +481,16 @@ TextEditingController textEditingController = settings.arguments as TextEditingC
           return MaterialPageRoute(
               builder: (_) => const SafeArea(child: PrivacyPolicyScreen()));
         }
-        case Routes.chatScreen:
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
-              builder: (_) =>  SafeArea(child: ChatPage()));
-        } else
-        {
-          return MaterialPageRoute(
-              builder: (_) =>  SafeArea(child: ChatPage()));
-        }
+        // case Routes.chatScreen:
+        // if (Platform.isIOS)
+        // {
+        //   return CupertinoPageRoute (
+        //       builder: (_) =>  SafeArea(child: ChatPage()));
+        // } else
+        // {
+        //   return MaterialPageRoute(
+        //       builder: (_) =>  SafeArea(child: ChatPage()));
+        // }
 
       case Routes.systemmessages:
         if (Platform.isIOS)

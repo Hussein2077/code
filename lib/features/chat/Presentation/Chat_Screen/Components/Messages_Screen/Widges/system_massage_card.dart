@@ -31,7 +31,8 @@ class SystemMaasageCard extends StatelessWidget {
         children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(width: ConfigSize.defaultSize!*4 , height:  ConfigSize.defaultSize!*4, child: const Image(image: AssetImage(AssetsPath.system))),
+          SizedBox(width: ConfigSize.defaultSize!*4 , height:  ConfigSize.defaultSize!*4,
+              child: const Image(image: AssetImage(AssetsPath.system))),
            Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*2),

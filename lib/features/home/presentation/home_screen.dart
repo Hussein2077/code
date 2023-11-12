@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/update_screen.dart';
+
 import 'widget/body/home_body.dart';
 import 'widget/header/home_header.dart';
 
@@ -90,8 +91,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             HomeHeader(
               liveController: liveController,
             ),
-           HomeBody(liveController: liveController),
+            HomeBody(liveController: liveController),
           ],
+        ),
+      ),
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
+        width: ConfigSize.defaultSize! * 5,
+        height: ConfigSize.defaultSize! * 5,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
+          gradient: const LinearGradient(colors: ColorManager.mainColorList),
+        ),
+        child: IconButton(
+          icon: Icon(
+            Icons.edit,
+            color: Theme.of(context).colorScheme.background,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.groupChatScreen);
+          },
         ),
       ),
     );
