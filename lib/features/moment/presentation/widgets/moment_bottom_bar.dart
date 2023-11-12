@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -13,9 +14,11 @@ import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/comments/moment_comments_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/moment_giftbox_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/likes/moment_likes_screen.dart';
+
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/moment_controller.dart';
+
 
 class MomentBottomBar extends StatefulWidget {
   final MomentModel momentModel;
@@ -83,6 +86,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
               //the likes row
               Row(
                 children: [
+
                   InkWell(
                     onTap: () {
                       MomentBottomBarState.selectedMoment =

@@ -46,32 +46,38 @@ class EditInfoScreen extends StatelessWidget {
         body: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
             if (state is GetMyDataSucssesState) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
-                  CompleteProfile(percent: percent),
-                  title(context: context, title: StringManager.personalInfo.tr()),
-                  UserInfoWidget(myDataModel: state.myDataModel),
-                  title(context: context, title: StringManager.addImage.tr()),
-                  const AddProFilePic(
-                    quality: 40,
+              return SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
+                      CompleteProfile(percent: percent),
+                      const AddProFilePic(
+                        quality: 40,
+                      ),
+                      title(context: context, title: StringManager.personalInfo.tr()),
+                      UserInfoWidget(myDataModel: state.myDataModel),
+                      // title(context: context, title: StringManager.addImage.tr()),
+
+                      MainButton(
+                        onTap: () {
+                          BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
+                              bio: UserInfoWidget.bioController!.text,
+                              date: UserInfoWidget.age == null ? null : UserInfoWidget.age!,
+                              gender: UserInfoWidget.gender!.toString(),
+                              country: CountryWidget.countryFlag!,
+                              name: UserInfoWidget.nameController!.text,
+                              image: AddProFilePic.image == null
+                                  ? null
+                                  : File(AddProFilePic.image!.path)));
+                        },
+                        title: StringManager.save.tr(),
+                      )
+                    ],
                   ),
-                  MainButton(
-                    onTap: () {
-                      BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
-                          bio: UserInfoWidget.bioController!.text,
-                          date: UserInfoWidget.age == null ? null : UserInfoWidget.age!,
-                          gender: UserInfoWidget.gender!.toString(),
-                          country: CountryWidget.countryFlag!,
-                          name: UserInfoWidget.nameController!.text,
-                          image: AddProFilePic.image == null
-                              ? null
-                              : File(AddProFilePic.image!.path)));
-                    },
-                    title: StringManager.save.tr(),
-                  )
-                ],
+                ),
               );
             } else {
               return Column(
@@ -79,10 +85,11 @@ class EditInfoScreen extends StatelessWidget {
                 children: [
                   HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
                   CompleteProfile(percent: percent),
+                  const AddProFilePic(quality: 40,),
+
                   title(context: context, title: StringManager.personalInfo.tr()),
                   UserInfoWidget(myDataModel: myDataModel),
-                  title(context: context, title: StringManager.addImage.tr()),
-                  const AddProFilePic(quality: 40,),
+                  // title(context: context, title: StringManager.addImage.tr()),
                   MainButton(
                     onTap: () {},
                     title: StringManager.save.tr(),
