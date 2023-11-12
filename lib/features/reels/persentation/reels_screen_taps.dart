@@ -59,7 +59,7 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                 isScrollable: true,
                 indicatorColor: Colors.white,
                 labelPadding: EdgeInsets.symmetric(
-                  horizontal: 10
+                  horizontal: ConfigSize.defaultSize!
                 ),
                 labelStyle: TextStyle(
                   fontSize: ConfigSize.defaultSize! * 1.5,
@@ -68,8 +68,8 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                 unselectedLabelColor: Colors.grey,
 
                 indicatorPadding: EdgeInsets.symmetric(
-                    horizontal: ConfigSize.defaultSize!*2.5,
-                  vertical:  -7,
+                    horizontal: ConfigSize.defaultSize!*2,
+                  vertical:  ConfigSize.defaultSize!-16,
 
                 ),
                 padding: EdgeInsets.symmetric(
