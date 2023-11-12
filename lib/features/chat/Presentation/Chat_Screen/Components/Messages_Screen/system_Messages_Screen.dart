@@ -39,7 +39,9 @@ class _SystemMessagesScreenState extends State<SystemMessagesScreen> {
               return  Scaffold(
                   body: Stack(
                     children: [
-                      const ChatAppbar(),
+                      const ChatAppbar(
+
+                      ),
                       SizedBox(
                         width: ConfigSize.screenWidth,
                         child: Padding(
@@ -54,7 +56,8 @@ class _SystemMessagesScreenState extends State<SystemMessagesScreen> {
                                   reverse: true,
                                   itemBuilder: (context , index){
 
-                                  return  SystemMaasageCard(img: state.data!.sys![index].img,
+                                  return  SystemMaasageCard(
+                                    img: state.data!.sys![index].img,
                                   content: state.data!.sys![index].content,
                                     title:state.data!.sys![index].title ,
                                     creadet:  state.data!.sys![index].created,

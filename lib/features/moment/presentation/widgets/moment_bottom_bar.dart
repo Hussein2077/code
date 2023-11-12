@@ -73,9 +73,21 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                       color: Colors.white);
                 },
               ),
-              Center(
-                child: Text(widget.momentModel.commentNum.toString()+"  " +StringManager.comment.tr(),
-                    style: Theme.of(context).textTheme.bodySmall),
+              InkWell(
+                onTap: (){
+                  bottomDailog(
+                      context: context,
+                      height: ConfigSize.screenHeight! * .7,
+                      widget: MomentCommentsScreen(
+                        type: widget.type,
+                        momentId: widget.momentModel.momentId.toString(),
+                      ),
+                      color: Theme.of(context).colorScheme.background);
+                },
+                child: Center(
+                  child: Text("${widget.momentModel.commentNum}  ${StringManager.comment.tr()}",
+                      style: Theme.of(context).textTheme.bodySmall),
+                ),
               ),
             ],),
           ),
@@ -89,8 +101,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
 
                   InkWell(
                     onTap: () {
-                      MomentBottomBarState.selectedMoment =
-                          widget.momentModel.momentId;
+                      MomentBottomBarState.selectedMoment = widget.momentModel.momentId;
                       MomentController.getInstance.likeController(context);
 
                       BlocProvider.of<MakeMomentLikeBloc>(context).add(
@@ -148,7 +159,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                     Image.asset(AssetsPath.commentIcon,
                         color: Theme.of(context).colorScheme.primary, scale: 1),
                     Center(
-                      child: Text("  " +StringManager.comments.tr(),
+                      child: Text("  ${StringManager.comments.tr()}",
                           style: Theme.of(context).textTheme.bodySmall),
                     ),
                   ],
