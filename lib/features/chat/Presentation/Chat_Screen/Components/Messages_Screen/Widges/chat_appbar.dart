@@ -32,7 +32,10 @@ class ChatAppbar extends StatelessWidget {
         const  Spacer(
           flex: 1,
         ),
-       Text(StringManager.system.tr(),style: TextStyle(color: Colors.white , fontSize: ConfigSize.defaultSize!*2 ,fontWeight: FontWeight.w600 )),
+       Text(StringManager.system.tr(),style: Theme.of(context)
+           .textTheme
+           .headlineSmall!
+           .copyWith(fontSize: ConfigSize.defaultSize!*2.2,fontWeight: FontWeight.bold),),
         const Spacer(
           flex: 14,
         ),

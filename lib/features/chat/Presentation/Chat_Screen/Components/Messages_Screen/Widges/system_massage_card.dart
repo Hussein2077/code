@@ -63,11 +63,9 @@ class SystemMaasageCard extends StatelessWidget {
                             width: ConfigSize.screenWidth! * 0.7,
                             child: Text(
                               title.toString(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: ConfigSize.defaultSize! * 1.6,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style:Theme.of(context)
+                                  .textTheme.headlineMedium!
+                              ,
                               overflow: TextOverflow.fade,
                             ),
                           ),
@@ -76,9 +74,10 @@ class SystemMaasageCard extends StatelessWidget {
                           ),
                           Text(
                             content,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: ConfigSize.defaultSize! * 1.5),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                ,
                           )
                         ],
                       ),
