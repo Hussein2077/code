@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -9,6 +11,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
@@ -78,9 +81,10 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                             if( checkPermissionGift(myLevel:  widget.myData.vip1?.level==null?0 : widget.myData.vip1!.level! ,
                                 giftLevel: widget.data[index].vipLevel
                             )    ){
-                            if( widget.data[index].showImg.contains("mp4"))
-                            {
-                             if(PageViewGeftWidget.chachedGiftMp4.containsKey( widget.data[index].id.toString())){
+                            // if( widget.data[index].showImg.contains("mp4"))
+                            // {
+
+                             if(PageViewGeftWidget.chachedGiftMp4.containsKey(widget.data[index].id.toString())){
                                if(GiftScreen.numOfGift==index){
                                  setState(() {
                                    GiftScreen.numOfGift =-1 ;
@@ -97,7 +101,14 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                  });
                                }
                              }
-                            }
+                             // else{
+                             //    Methods()
+                             //       .cacheMp4(
+                             //       vedioId: widget.data[index].id, vedioUrl: widget.data[index].img).then((value) async {
+                             //    setState(() {});
+                             //    });
+                             // }
+                          //  }
                             else{
                               if(GiftScreen.numOfGift==index){
                                 setState(() {
