@@ -1,8 +1,6 @@
 
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -49,44 +47,62 @@ class BottomBarWidget extends StatelessWidget {
                                   color: ColorManager.mainColor,
                                 ),
                                 items: [
-                                  BottomNavigationBarItem(
-                                      icon:  const BottomIcon(icon: AssetsPath.unSelectedHomeIcon,),
-                                      activeIcon:  const BottomIcon(icon: AssetsPath.homeIcon,),
-                                      label:StringManager.home.tr(),
-
-                                      
-                                      ),
-                                      
-                                              BottomNavigationBarItem(
-                                      icon:  const BottomIcon(icon: AssetsPath.unSelectedReelsIcon,),
-                                      activeIcon:  const BottomIcon(icon: AssetsPath.reelsIcon,),
-                                      label:StringManager.reels.tr(),
-
-                                      
-                                      ),
-                                               BottomNavigationBarItem(
-                                      icon:  const BottomIcon(icon: AssetsPath.unSelectedFollowingIcon,),
-                                      activeIcon:  const BottomIcon(icon: AssetsPath.followingIcon,),
-                                      label:StringManager.follwoing.tr(),
-
-                                      
-                                      ),
-                            
-                                            BottomNavigationBarItem(
-                                      icon:  const BottomIcon(icon: AssetsPath.unSelectedChatIcon,),
-                                      activeIcon:  const BottomIcon(icon: AssetsPath.chatIcon,),
-                                      label:StringManager.momentTab.tr(),
-
-                                      
-                                      ),
-                                                    BottomNavigationBarItem(
-                                      icon: const MessageCountNotifcation(widget:                                                    BottomIcon(icon: AssetsPath.unselectedprofileIcon,),
-                                          ),
-                                      activeIcon:  const BottomIcon(icon: AssetsPath.profileIcon,),
-                                      label:StringManager.profile.tr(),
-
-                                      
-                                      ),
+            BottomNavigationBarItem(
+              icon: const BottomIcon(
+                icon: AssetsPath.unSelectedHomeIcon,
+              ),
+              activeIcon: const BottomIcon(
+                icon: AssetsPath.homeIcon,
+              ),
+              label: StringManager.home.tr(),
+            ),
+            BottomNavigationBarItem(
+              icon: const BottomIcon(
+                icon: AssetsPath.unSelectedReelsIcon,
+              ),
+              activeIcon: const BottomIcon(
+                icon: AssetsPath.reelsIcon,
+              ),
+              label: StringManager.reels.tr(),
+            ),
+            BottomNavigationBarItem(
+              icon: const BottomIcon(
+                icon: AssetsPath.conversation,
+              ),
+              activeIcon: const BottomIcon(
+                icon: AssetsPath.selectedConversation,
+              ),
+              label: StringManager.chat.tr(),
+            ),
+            BottomNavigationBarItem(
+              icon: const BottomIcon(
+                icon: AssetsPath.unSelectedFollowingIcon,
+              ),
+              activeIcon: const BottomIcon(
+                icon: AssetsPath.followingIcon,
+              ),
+              label: StringManager.follwoing.tr(),
+            ),
+            BottomNavigationBarItem(
+              icon: const BottomIcon(
+                icon: AssetsPath.unSelectedChatIcon,
+              ),
+              activeIcon: const BottomIcon(
+                icon: AssetsPath.chatIcon,
+              ),
+              label: StringManager.momentTab.tr(),
+            ),
+            BottomNavigationBarItem(
+              icon: const MessageCountNotifcation(
+                widget: BottomIcon(
+                  icon: AssetsPath.unselectedprofileIcon,
+                ),
+              ),
+              activeIcon: const BottomIcon(
+                icon: AssetsPath.profileIcon,
+              ),
+              label: StringManager.profile.tr(),
+            ),
                                 ],
                               ),
                             ),

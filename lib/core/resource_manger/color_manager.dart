@@ -66,6 +66,14 @@ class ColorManager {
     Color(0xFFEEB609),
     Color(0xFFDBA514),
   ];
+  static const List<Color> yellowBannerGrident = [
+    Color(0xFFEEB609),
+    Color(0xFFFFF09E),
+    Color(0xFFEEB609),
+    Color(0xFFFFF09E),
+    Color(0xFFEEB609),
+    Color(0xFFFFF09E),
+  ];
 
 
 }

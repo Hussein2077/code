@@ -907,7 +907,8 @@ void checkIfFriends(
                         notificationId: userData.notificationId!,
                         myName: MyDataModel.getInstance().name!));
               } else {
-                errorToast(context: context, title: StringManager.youAreNotFriends);
+                errorToast(context: context,
+                    title: StringManager.youAreNotFriends.tr());
 
               }
 
