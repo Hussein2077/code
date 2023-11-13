@@ -58,9 +58,7 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                 // indicator: BoxDecoration(),
                 isScrollable: true,
                 indicatorColor: Colors.white,
-                labelPadding: EdgeInsets.symmetric(
-                  horizontal: ConfigSize.defaultSize!
-                ),
+
                 labelStyle: TextStyle(
                   fontSize: ConfigSize.defaultSize! * 1.5,
                   fontWeight: FontWeight.bold
@@ -69,11 +67,11 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
 
                 indicatorPadding: EdgeInsets.symmetric(
                     horizontal: ConfigSize.defaultSize!*2,
-                  vertical:  ConfigSize.defaultSize!-16,
+
 
                 ),
                 padding: EdgeInsets.symmetric(
-                  vertical: ConfigSize.defaultSize!*2,
+                  vertical: ConfigSize.defaultSize!*2.5,
                      ),
                 controller: _tabController,
                 tabs: [
