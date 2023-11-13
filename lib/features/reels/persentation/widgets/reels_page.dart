@@ -27,6 +27,7 @@ class ReelsPage extends StatefulWidget {
   final SwiperController swiperController;
   final bool showProgressIndicator;
   final bool userView;
+  final bool play  ;
   static VideoPlayerController? videoPlayerController;
   static bool isFirst = true;
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
@@ -34,6 +35,7 @@ class ReelsPage extends StatefulWidget {
   const ReelsPage(
       {Key? key,
         required this.item,
+        required this.play,
         this.showVerifiedTick = true,
         this.onClickMoreBtn,
         this.onComment,
@@ -74,6 +76,7 @@ class _ReelsPageState extends State<ReelsPage>
   @override
   void initState() {
     super.initState();
+    log("isPlay :${widget.play}");
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
       initializePlayer().then((value) {
@@ -88,6 +91,18 @@ class _ReelsPageState extends State<ReelsPage>
 
   }
 
+  @override
+  void didUpdateWidget(ReelsPage oldWidget) {
+    if (oldWidget.play != widget.play) {
+      if (widget.play) {
+        _videoPlayerController.play();
+        _videoPlayerController.setLooping(true);
+      } else {
+        _videoPlayerController.pause();
+      }
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   Future initializePlayer() async {
 

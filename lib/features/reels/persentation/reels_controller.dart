@@ -35,7 +35,7 @@ class ReelsController {
     }
   }
 
-  Future<Uint8List> getVideoThumbnail(String videoUrl) async {
+  Future<Uint8List?> getVideoThumbnail(String videoUrl) async {
     final uint8list = await VideoThumbnail.thumbnailData(
       video: videoUrl,
       imageFormat: ImageFormat.JPEG,
@@ -44,7 +44,7 @@ class ReelsController {
       quality: 70,
     );
 
-    return uint8list!;
+    return uint8list;
   }
 
   void followMap(List<ReelModel> reels) {
