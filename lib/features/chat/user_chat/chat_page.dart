@@ -64,8 +64,6 @@ class _ChatPageState extends State<ChatPage> {
         Navigator.pushNamed(context, Routes.systemmessages);
       },
     ];
-    Brightness currentBrightness = Theme.of(context).brightness;
-    bool isDarkTheme = currentBrightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
         child:Column(
@@ -132,7 +130,6 @@ class _ChatPageState extends State<ChatPage> {
                                   .instance.currentUser?.uid??''))
                                   .toList();
                               //  List data = data1.reversed.toList();
-                              log(data.length.toString()+"xxxxxxxxxx");
                               log(FirebaseAuth
                                   .instance.currentUser!.uid.toString());
                               return ListView.builder(
@@ -167,11 +164,6 @@ class _ChatPageState extends State<ChatPage> {
                               DateFormat('hh:mm:s a')
                                   .format(
                               DateTime.now())) {
-                              print("${DateFormat('hh:mm:s a')
-                                  .format(data[i][
-                              'last_message_time']
-                                  .toDate())}xxxxxxxxxx${DateFormat('hh:mm:s a')
-                                  .format(DateTime.now())}");
                               }
                               {}
                               return !snap.hasData

@@ -38,9 +38,6 @@ class _IncomeScreenState extends State<IncomeScreen> {
         body: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
             if (state is GetMyDataSucssesState) {
-              log(state.myDataModel.myType.toString()+"xxxxxxxxx");
-              log(state.myDataModel.myAgencyModel!.name!.toString());
-
               return Column(
                 children: [
                   SizedBox(height: ConfigSize.defaultSize! / 0.2),

@@ -66,12 +66,9 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
 
     switch (widget.state) {
       case RequestState.loaded:
-
         return GridView.builder(
           gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
           itemCount: widget.data.length,
-
-
           shrinkWrap: true,
           // itemExtent: 3,
           itemBuilder: (context , index) {
@@ -243,19 +240,6 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>  with TickerProv
                                       ),
                                     ],
                                   ),
-                                if( widget.data[index].showImg.contains('mp4')
-                                    &&!PageViewGeftWidget.chachedGiftMp4.containsKey( widget.data[index].id.toString()))
-                                Container(
-                                  width: double.maxFinite,
-                                  height: double.maxFinite,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                    color: ColorManager.lightGray.withOpacity(0.3)
-                                  ),
-                                  child: const  Icon(Icons.download_outlined,
-                                    color: ColorManager.mainColor,size: 20,) ,
-                                ),
-
                                   if( !checkPermissionGift(myLevel:  widget.myData.vip1?.level==null?0 : widget.myData.vip1!.level! ,
                                       giftLevel: widget.data[index].vipLevel
                                   ))

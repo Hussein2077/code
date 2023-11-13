@@ -182,7 +182,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
               child: ValueListenableBuilder<bool>(
                   valueListenable: RoomScreen.isVideoVisible,
                   builder: (context, isShow, _) {
-
                     if (isShow) {
                       return AspectRatio(
                         aspectRatio: ViewbackgroundWidget.mp4Controller!.value.aspectRatio,

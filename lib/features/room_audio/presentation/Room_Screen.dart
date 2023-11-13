@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -503,21 +504,24 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       RoomScreen.roomGiftsPrice.value = giftData.roomGiftsPrice;
     }
 
-    if (giftData.localPath == null) {
-      await Methods()
-          .cacheMp4(
-              vedioId: int.parse(giftData.giftId), vedioUrl: giftData.giftImg)
-          .then((value) async {
-        Directory appDocDir = await getApplicationDocumentsDirectory();
-        String rootPath = appDocDir.path;
-        String path = "$rootPath/${giftData.giftId}.mp4";
-        ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(path))..initialize();
-      });
-    } else {
-      ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
-        ..initialize();
-    }
+   // if (giftData.localPath == null) {
+    ViewbackgroundWidget.mp4Controller =
+    VideoPlayerController.networkUrl(Uri.parse(ConstentApi().getImage(giftData.giftImg)))..initialize();
 
+    // await Methods()
+    //       .cacheMp4(
+    //           vedioId: int.parse(giftData.giftId), vedioUrl: giftData.giftImg)
+    //       .then((value) async {
+    //     Directory appDocDir = await getApplicationDocumentsDirectory();
+    //     String rootPath = appDocDir.path;
+    //     String path = "$rootPath/${giftData.giftId}.mp4";
+    //     ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(path))..initialize();
+    //   });
+    // } else {
+    //   log('2${giftData.localPath!}');
+    //   ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
+    //     ..initialize();
+    // }
     ViewbackgroundWidget.mp4Controller!.addListener(() {
       if (ViewbackgroundWidget.mp4Controller!.value.position >=
           ViewbackgroundWidget.mp4Controller!.value.duration) {
@@ -534,7 +538,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
         // mp4Controller!.dispose();
       } else {
-        log("heeeeeeeeeeeee");
         RoomScreen.isVideoVisible.value = true;
         ViewbackgroundWidget.mp4Controller!.play();
       }
