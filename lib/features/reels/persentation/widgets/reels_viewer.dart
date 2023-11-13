@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:inview_notifier_list/inview_notifier_list.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -84,7 +85,7 @@ class ReelsViewer extends StatefulWidget {
 class _ReelsViewerState extends State<ReelsViewer> {
 
   SwiperController controller = SwiperController();
-
+   bool isPlay = true ;
 
   @override
   void initState() {
@@ -105,7 +106,57 @@ class _ReelsViewerState extends State<ReelsViewer> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child:NotificationListener<ScrollNotification>(
+        child: // InViewNotifierList(
+        //   scrollDirection: Axis.vertical,
+        //   //  initialInViewIds: ['0'],
+        //   isInViewPortCondition:
+        //       (double deltaTop, double deltaBottom, double viewPortDimension) {
+        //     log("deltaTop:${deltaTop}");
+        //     log('deltaBottom : ${deltaBottom}');
+        //     if(deltaTop < (0.5 * viewPortDimension) &&
+        //         deltaBottom > (0.5 * viewPortDimension)){
+        //       log("ttttttttt");
+        //     }
+        //
+        //     return deltaTop < (0.5 * viewPortDimension) &&
+        //         deltaBottom > (0.5 * viewPortDimension);
+        //   },
+        //   builder: (BuildContext context,index){
+        //     final InViewState? inViewState =
+        //     InViewNotifierList.of(context);
+        //     inViewState?.addContext(context: context, id: '$index');
+        //     return Container(
+        //       width: double.infinity,
+        //       height: ConfigSize.screenHeight!-150,
+        //       alignment: Alignment.center,
+        //       margin:  const EdgeInsets.symmetric(vertical: 10.0),
+        //       child: AnimatedBuilder(
+        //             animation: inViewState!,
+        //             builder: (context, child)  {
+        //               return  ReelsPage(
+        //                 userView: widget.userView,
+        //                 item: widget.reelsList[index],
+        //                 onClickMoreBtn: widget.onClickMoreBtn,
+        //                 onComment: widget.onComment,
+        //                 onFollow: widget.onFollow,
+        //                 onLike: widget.onLike,
+        //                 onShare: widget.onShare,
+        //                 showVerifiedTick: widget.showVerifiedTick,
+        //                 swiperController: controller,
+        //                 showProgressIndicator: widget.showProgressIndicator,
+        //                 play: inViewState.inView('$index')
+        //
+        //               )  ;
+        //             },
+        //
+        //
+        //       ),
+        //     ) ;
+        //   },
+        //   itemCount: 3,
+        //
+        // )
+        NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification notification) {
       // Handle the scroll event here
       if (notification is ScrollStartNotification) {
@@ -115,6 +166,11 @@ class _ReelsViewerState extends State<ReelsViewer> {
         }
       }
       else if (notification is ScrollUpdateNotification) {
+      log("notification ${notification.metrics.axis}");
+      log("notification xd ${notification.dragDetails?.delta.dx}");
+      log("notification xy ${notification.dragDetails?.delta.dy}");
+
+
         // Scrolling
       }
       else if (notification is ScrollEndNotification) {
@@ -128,7 +184,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
       return true;
     },
     child:SizedBox(
-          
+
           child: Stack(
             children: [
               //We need swiper for every content
@@ -148,6 +204,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
                          showVerifiedTick: widget.showVerifiedTick,
                          swiperController: controller,
                          showProgressIndicator: widget.showProgressIndicator,
+                         play: isPlay,
 
                        );
                      },
