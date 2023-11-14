@@ -91,7 +91,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          height: ConfigSize.screenHeight! * .47,
+          height:isAdminOrHost? ConfigSize.screenHeight! * .48:ConfigSize.screenHeight! * .43,
           decoration: BoxDecoration(
               color: const Color(0xFFFFFCE4),
               borderRadius: BorderRadius.only(
@@ -105,16 +105,17 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: ConfigSize.defaultSize! * 1.9,
+            vertical: ConfigSize.defaultSize! * 1.9,
           ),
           child: SizedBox(
-            height: ConfigSize.defaultSize! * 42.4,
+            height:isAdminOrHost? ConfigSize.screenHeight! * .50: ConfigSize.defaultSize! * 41.4,
             width: MediaQuery.of(context).size.width,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 3),
+                  padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 1),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -381,7 +382,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
         Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.only(top: ConfigSize.screenHeight! * 0.05),
+            padding: EdgeInsets.only(top:isAdminOrHost? ConfigSize.screenHeight! * 0.03:ConfigSize.screenHeight! * 0.13),
             child: InkWell(
               onTap: () {
                 Methods.instance.userProfileNvgator(

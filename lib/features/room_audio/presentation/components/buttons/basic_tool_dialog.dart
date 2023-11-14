@@ -149,7 +149,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
               }),
         if(widget.ownerId == widget.userId)
         const  Spacer(flex: 1,),
-        if(widget.ownerId == widget.userId)
+        // if(widget.ownerId == widget.userId)
         InkWell(
           onTap: () async{
             DynamicLinkProvider().createInvetionRoomLink(
