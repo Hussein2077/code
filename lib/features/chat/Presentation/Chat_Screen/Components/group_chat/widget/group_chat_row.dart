@@ -132,7 +132,7 @@ class GroupChatRow extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
               gradient:
-                  const LinearGradient(colors: ColorManager.mainColorList)),
+                   LinearGradient(colors: ColorManager.mainColorListLight)),
           child: Text(
             userData.groupMessage!,
             overflow: TextOverflow.visible,
@@ -141,6 +141,7 @@ class GroupChatRow extends StatelessWidget {
                 color: ColorManager.darkBlack),
           ),
         ),
+
         Text(
           userData.massageCreatedAt!,
           style: TextStyle(

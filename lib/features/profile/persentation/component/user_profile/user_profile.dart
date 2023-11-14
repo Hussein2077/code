@@ -57,95 +57,102 @@ LowerProfileBody.getUserReels = true;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: (widget.userId == null && widget.userData == null)
+    return GestureDetector(
+      onHorizontalDragUpdate: (DragUpdateDetails details) {
+        if (details.delta.dx >10) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: (widget.userId == null && widget.userData == null)
 
-          //MyProfile
-          ? BlocBuilder<GetMyDataBloc, GetMyDataState>(
-              builder: (context, state) {
-                if (state is GetMyDataSucssesState) {
-                  return Column(
-                    children: [
-                      UpperProfileBody(
-                          myDataModel: state.myDataModel,
-                          myProfile: myProfile!),
-                      LowerProfileBody(
+            //MyProfile
+            ? BlocBuilder<GetMyDataBloc, GetMyDataState>(
+                builder: (context, state) {
+                  if (state is GetMyDataSucssesState) {
+                    return Column(
+                      children: [
+                        UpperProfileBody(
+                            myDataModel: state.myDataModel,
+                            myProfile: myProfile!),
+                        LowerProfileBody(
+                            userDataModel:
+                                state.myDataModel.convertToUserObject(),
+                            myProfile: myProfile!),
+                      ],
+                    );
+                  } else if (state is GetMyDataLoadingState) {
+                    return const LoadingWidget();
+                  } else {
+                    return Column(
+                      children: [
+                        UpperProfileBody(
+                            myDataModel: getIt<MyDataModel>(),
+                            myProfile: myProfile!),
+                        LowerProfileBody(
+                          myProfile: myProfile!,
                           userDataModel:
-                              state.myDataModel.convertToUserObject(),
-                          myProfile: myProfile!),
-                    ],
-                  );
-                } else if (state is GetMyDataLoadingState) {
-                  return const LoadingWidget();
-                } else {
-                  return Column(
-                    children: [
-                      UpperProfileBody(
-                          myDataModel: getIt<MyDataModel>(),
-                          myProfile: myProfile!),
-                      LowerProfileBody(
-                        myProfile: myProfile!,
-                        userDataModel:
-                            getIt<MyDataModel>().convertToUserObject(),
+                              getIt<MyDataModel>().convertToUserObject(),
 
-                      ),
-                    ],
-                  );
-                }
-              },
-            )
+                        ),
+                      ],
+                    );
+                  }
+                },
+              )
 
-          //UserProfile
-          : BlocBuilder<GetUserBloc, GetUserState>(
-              builder: (context, state) {
-                if (state is GetUserSucssesState) {
-                  return Column(
-                    children: [
-                      //TODO you should remove this function
-                      UpperProfileBody(
+            //UserProfile
+            : BlocBuilder<GetUserBloc, GetUserState>(
+                builder: (context, state) {
+                  if (state is GetUserSucssesState) {
+                    return Column(
+                      children: [
+                        //TODO you should remove this function
+                        UpperProfileBody(
 
-                          myProfile: myProfile!,
-                          myDataModel: widget.userData != null
-                              ? widget.userData!.convertToMyDataObject()
-                              : state.data.convertToMyDataObject()),
-                      LowerProfileBody(
-                          myProfile: myProfile!,
-                          userDataModel: widget.userData != null
+                            myProfile: myProfile!,
+                            myDataModel: widget.userData != null
+                                ? widget.userData!.convertToMyDataObject()
+                                : state.data.convertToMyDataObject()),
+                        LowerProfileBody(
+                            myProfile: myProfile!,
+                            userDataModel: widget.userData != null
+                                ? widget.userData!
+                                : state.data),
+                        ProfileBottomBar(
+                          userData: widget.userData != null
                               ? widget.userData!
-                              : state.data),
-                      ProfileBottomBar(
-                        userData: widget.userData != null
-                            ? widget.userData!
-                            : state.data,
-                      )
-                    ],
-                  );
-                } else if (state is GetUserLoddingState) {
-                  return const LoadingWidget();
-                } else if (state is GetUserErorrState) {
-                  return CustomErrorWidget(message: state.error);
-                } else {
-                  return widget.userData != null
-                      ? Column(
-                          children: [
-                            UpperProfileBody(
-                                myProfile: myProfile!,
-                                myDataModel:
-                                    widget.userData!.convertToMyDataObject()),
-                            LowerProfileBody(
-                                myProfile: myProfile!,
-                                userDataModel: widget.userData!),
-                            ProfileBottomBar(
-                              userData: widget.userData!,
-                            ),
-                          ],
+                              : state.data,
                         )
-                      : const CustomErrorWidget(
-                          message: StringManager.unexcepectedError);
-                }
-              },
-            ),
+                      ],
+                    );
+                  } else if (state is GetUserLoddingState) {
+                    return const LoadingWidget();
+                  } else if (state is GetUserErorrState) {
+                    return CustomErrorWidget(message: state.error);
+                  } else {
+                    return widget.userData != null
+                        ? Column(
+                            children: [
+                              UpperProfileBody(
+                                  myProfile: myProfile!,
+                                  myDataModel:
+                                      widget.userData!.convertToMyDataObject()),
+                              LowerProfileBody(
+                                  myProfile: myProfile!,
+                                  userDataModel: widget.userData!),
+                              ProfileBottomBar(
+                                userData: widget.userData!,
+                              ),
+                            ],
+                          )
+                        : const CustomErrorWidget(
+                            message: StringManager.unexcepectedError);
+                  }
+                },
+              ),
+      ),
     );
   }
 }

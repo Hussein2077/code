@@ -48,5 +48,20 @@ if(l!=[]){
         // log("pagnation");
       });
     });
+    on<GetGroupChatMessageReelTime>((event, emit) async {
+      var data = state.data ;
+          data!.insert(0, event.message);
+          log(event.message.groupMessage.toString());
+          log(data[0].groupMessage.toString());
+          emit(GetGroupMassageSucsses(data: data));
+
+
+
+
+    });
+
   }
+
+
+
 }

@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_adm
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_states.dart';
 
+import '../../../../../core/widgets/snackbar.dart';
 import 'user_porfile_in_room_body.dart';
 
 // ignore: must_be_immutable
@@ -64,11 +65,15 @@ class _TopRoomProfileState extends State<TopRoomProfile> {
       child: BlocListener<UsersInRoomBloc, OnUserInRoomStates>(
         listener: (context, state) {
     if (state is SuccessKickoutState) {
-      sucssesToast(context: context, title: state.successMessage);
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.successMessage));
+
+      // sucssesToast(context: context, title: state.successMessage);
    
       Navigator.pop(context);
     } else if (state is ErrorKickoutState) {
-      errorToast(context: context, title: state.errorMessage);
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.errorMessage));
+
+      // errorToast(context: context, title: state.errorMessage);
      
     }
     },

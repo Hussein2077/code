@@ -40,6 +40,7 @@ class ReelsScreenState extends State<ReelsScreen>{
 
   @override
   void initState() {
+
     if (SplashScreen.initPage == 1) {
       BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId: MainScreen.reelId));
     }
@@ -58,14 +59,20 @@ class ReelsScreenState extends State<ReelsScreen>{
         body: BlocListener<UploadReelsBloc, UploadReelsState>(
             listener: (context, state) {
               if (state is UploadReelsLoadingState) {
-                loadingToast(context: context, title: StringManager.loading.tr());
-              }
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content:Text(StringManager.loading),
+                ));              }
               else if (state is UploadReelsErrorState) {
-                errorToast(context: context, title: state.error);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content:Text(state.error),
+                ));
               }
               else if (state is UploadReelsSucssesState) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content:Text(state.message),
+                ));
+
                 BlocProvider.of<GetUserReelsBloc>(context).add(const GetUserReelEvent(id: null));
-                sucssesToast(context: context, title: state.message);
               }
             },
             child: Scaffold(

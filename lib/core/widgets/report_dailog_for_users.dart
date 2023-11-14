@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_user_repoert/user_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_user_repoert/user_report_event.dart';
@@ -60,14 +61,21 @@ textEditingController.dispose();
     return BlocConsumer<UserReportBloc, UserReportState>(
       listener: (context, state) {
         if (state is UserReportLoading){
-          loadingToast(context: context, title: StringManager.loading.tr());
+
+          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(StringManager.loading.tr()));
+
+          // loadingToast(context: context, title: StringManager.loading.tr());
     
 
         }else if (state is UserReportSucsses){
-          sucssesToast(context: context, title: StringManager.sucsses.tr());
+          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(StringManager.sucsses.tr()));
+
+          // sucssesToast(context: context, title: StringManager.sucsses.tr());
         
         }else if (state is UserReportError){
-          errorToast(context: context, title: state.error);
+          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.error));
+
+          // errorToast(context: context, title: state.error);
          
 
         }

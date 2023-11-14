@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/service/pusher_service.dart';
@@ -9,11 +10,17 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/update_screen.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/widgets/group_chat_counter_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 
 import 'widget/body/home_body.dart';
 import 'widget/header/home_header.dart';
 
 class HomeScreen extends StatefulWidget {
+  static ValueNotifier<bool> rebuildGroupChatCounter = ValueNotifier<bool>(false);
+  static ValueNotifier<int> groupChatCounter = ValueNotifier<int>(0);
+
+
   final bool? isChachGift ;
   final bool? isCachFrame ;
   final bool? isCachExtra ;
@@ -95,23 +102,83 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ],
         ),
       ),
-      floatingActionButton: Container(
-        margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
-        width: ConfigSize.defaultSize! * 5,
-        height: ConfigSize.defaultSize! * 5,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
-          gradient: const LinearGradient(colors: ColorManager.mainColorList),
-        ),
-        child: IconButton(
-          icon: Icon(
-            Icons.edit,
-            color: Theme.of(context).colorScheme.background,
-          ),
-          onPressed: () {
-            Navigator.pushNamed(context, Routes.groupChatScreen);
+      floatingActionButton: ValueListenableBuilder<bool>(
+        valueListenable: HomeScreen.rebuildGroupChatCounter,
+            builder: (context, isShow, _) {
+          if(isShow){
+          return  InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, Routes.groupChatScreen);
+
+            },
+            child: Stack(
+              children: [
+                InkWell(
+                onTap: (){
+
+                  Navigator.pushNamed(context, Routes.groupChatScreen);
+
           },
-        ),
+            child: Container(
+              margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
+              width: ConfigSize.defaultSize! * 5,
+              height: ConfigSize.defaultSize! * 5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                    ConfigSize.defaultSize! * 5),
+                gradient: const LinearGradient(
+                    colors: ColorManager.mainColorList),
+              ),
+              child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
+
+
+
+
+            ),
+          ),
+                GroupChatCounterWidget()
+              ],
+
+            ),
+          );
+          }else {
+            return
+              InkWell(
+                onTap: (){
+
+                  Navigator.pushNamed(context, Routes.groupChatScreen);
+
+                },
+                child: Container(
+                  margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
+                  width: ConfigSize.defaultSize! * 5,
+                  height: ConfigSize.defaultSize! * 5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                        ConfigSize.defaultSize! * 5),
+                    gradient: const LinearGradient(
+                        colors: ColorManager.mainColorList),
+                  ),
+                  child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
+
+
+                  // IconButton(
+                  //   icon: Icon(
+                  //     Icons.edit,
+                  //     color: Theme
+                  //         .of(context)
+                  //         .colorScheme
+                  //         .background,
+                  //   ),
+                  //   onPressed: () {
+                  //     Navigator.pushNamed(context, Routes.groupChatScreen);
+                  //   },
+                  // ),
+
+                ),
+              );
+          }
+            },
       ),
     );
   }

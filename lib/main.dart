@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -25,6 +28,7 @@ import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/manage
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_bloc.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_events.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_event.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/create_room_manager/create_room_bloc.dart';
@@ -176,6 +180,54 @@ Future<void> main() async {
   tokenDevices = await FirebaseMessaging.instance.getToken();
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  NotificationSettings settings = await _firebaseMessaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  bool groupChatUnReadMessage = await Methods.instance.getLocalGroupChatNotifecation();
+  HomeScreen.rebuildGroupChatCounter.value = groupChatUnReadMessage ;
+
+  // HomeScreen.groupChatCounter = groupChatMessageCount ;
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
+    log("main listner") ;
+    if(jsonDecode(message.data['message-type']) =="group-chat" ){
+    String routeName = "" ;
+    // if(GlobalContextService.navigatorKey.currentContext!=null){
+    //   final route = ModalRoute.of(GlobalContextService.navigatorKey.currentContext!);
+    //    routeName = route!.settings.name!;
+    // }
+
+// if (routeName !=Routes.groupChatScreen ) {
+  HomeScreen.groupChatCounter.value ++;
+  Methods.instance.setLocalGroupChatNotifecation(unReadMessage: true);
+
+  // groupChatMessageCount++;
+
+
+  // Methods.instance.setLocalCounterGroupChatNotifecation(count:groupChatMessageCount );
+  // HomeScreen.groupChatCounter =groupChatMessageCount ;
+  HomeScreen.rebuildGroupChatCounter.value = true;
+//}
+}
+
+
+
+
+
+  });
+
+  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //   log("xxxxxxxxxxxxx");
+  //   log(message.data.toString());
+  //   });
 
   await ServerLocator().init();
 

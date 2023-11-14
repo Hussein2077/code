@@ -7,6 +7,10 @@ class ColorManager {
     Color(0xFFFF382C),
     Color(0xFFFFBB0D),
   ];
+  static  List<Color> mainColorListLight = [
+    Color(0xFFFF382C).withOpacity(0.75),
+    Color(0xFFFFBB0D).withOpacity(0.75),
+  ];
   static const List<Color> bageGriedinet = [
     Color(0xFF9d50bb),
     Color(0xFF6e48aa),

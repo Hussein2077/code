@@ -132,7 +132,6 @@ class _ChatPageState extends State<ChatPage> {
                                   .instance.currentUser?.uid??''))
                                   .toList();
                               //  List data = data1.reversed.toList();
-                              log(data.length.toString()+"xxxxxxxxxx");
                               log(FirebaseAuth
                                   .instance.currentUser!.uid.toString());
                               return ListView.builder(
