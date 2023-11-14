@@ -127,7 +127,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         actionDynamicLink: widget.actionDynamicLink,
                       ),
                   (_) => const ReelsScreenTaps(),
-            (_) =>  const SafeArea(child: ChatPage()),
+                  (_) =>  const SafeArea(child: ChatPage()),
                   (_) => const FollowingLiveScreen(),
                   (_) => const MomentScreen(),
                   (_) => const ProfileScreen(),
@@ -139,8 +139,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 ),
                 savePageState: true,
                 lazyLoadPages: true,
-                pageStack:
-                    ReorderToFrontPageStack(initialPage: SplashScreen.initPage),
+                pageStack: ReorderToFrontPageStack(initialPage: SplashScreen.initPage),
                 extendBody: false,
                 resizeToAvoidBottomInset: true,
                 pageTransitionData: null,

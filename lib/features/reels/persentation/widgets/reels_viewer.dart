@@ -54,7 +54,6 @@ class ReelsViewer extends StatefulWidget {
   final int? startIndex ;
 
   static ReelModel? reelModel   ;
-
    // to know iam in user view or not
   final bool userView; 
 
@@ -84,7 +83,6 @@ class ReelsViewer extends StatefulWidget {
 class _ReelsViewerState extends State<ReelsViewer> {
 
   SwiperController controller = SwiperController();
-   bool isPlay = true ;
 
   @override
   void initState() {
@@ -102,117 +100,58 @@ class _ReelsViewerState extends State<ReelsViewer> {
 
   @override
   Widget build(BuildContext context) {
+    log("in ReelsViewer") ;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: // InViewNotifierList(
-        //   scrollDirection: Axis.vertical,
-        //   //  initialInViewIds: ['0'],
-        //   isInViewPortCondition:
-        //       (double deltaTop, double deltaBottom, double viewPortDimension) {
-        //     log("deltaTop:${deltaTop}");
-        //     log('deltaBottom : ${deltaBottom}');
-        //     if(deltaTop < (0.5 * viewPortDimension) &&
-        //         deltaBottom > (0.5 * viewPortDimension)){
-        //       log("ttttttttt");
-        //     }
-        //
-        //     return deltaTop < (0.5 * viewPortDimension) &&
-        //         deltaBottom > (0.5 * viewPortDimension);
-        //   },
-        //   builder: (BuildContext context,index){
-        //     final InViewState? inViewState =
-        //     InViewNotifierList.of(context);
-        //     inViewState?.addContext(context: context, id: '$index');
-        //     return Container(
-        //       width: double.infinity,
-        //       height: ConfigSize.screenHeight!-150,
-        //       alignment: Alignment.center,
-        //       margin:  const EdgeInsets.symmetric(vertical: 10.0),
-        //       child: AnimatedBuilder(
-        //             animation: inViewState!,
-        //             builder: (context, child)  {
-        //               return  ReelsPage(
-        //                 userView: widget.userView,
-        //                 item: widget.reelsList[index],
-        //                 onClickMoreBtn: widget.onClickMoreBtn,
-        //                 onComment: widget.onComment,
-        //                 onFollow: widget.onFollow,
-        //                 onLike: widget.onLike,
-        //                 onShare: widget.onShare,
-        //                 showVerifiedTick: widget.showVerifiedTick,
-        //                 swiperController: controller,
-        //                 showProgressIndicator: widget.showProgressIndicator,
-        //                 play: inViewState.inView('$index')
-        //
-        //               )  ;
-        //             },
-        //
-        //
-        //       ),
-        //     ) ;
-        //   },
-        //   itemCount: 3,
-        //
-        // )
+        child:
         NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification notification) {
       // Handle the scroll event here
-      if (notification is ScrollStartNotification) {
-        // Scroll started
-        if(kDebugMode){
-          log('Scroll started');
-        }
-      }
-      else if (notification is ScrollUpdateNotification) {
-      log("notification ${notification.metrics.axis}");
-      log("notification xd ${notification.dragDetails?.delta.dx}");
-      log("notification xy ${notification.dragDetails?.delta.dy}");
-
-
+      if (notification is ScrollUpdateNotification){
         // Scrolling
+
       }
       else if (notification is ScrollEndNotification) {
         if(kDebugMode) {
           log('Scroll ended');
         }
-        ReelsPage.videoPlayerController?.play();
-
-
+        controller.notifyListeners();
       }
       return true;
     },
-    child:SizedBox(
+      child:SizedBox(
 
           child: Stack(
             children: [
-              //We need swiper for every content
-            Padding(
-                   padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 0),
-                   //padding: EdgeInsets.only(top: ConfigSize.defaultSize!*6.4),
-                   child: Swiper(
-                     itemBuilder: (BuildContext context, int index) {
-                       return ReelsPage(
-                         userView: widget.userView,
-                         item: widget.reelsList[index],
-                         onClickMoreBtn: widget.onClickMoreBtn,
-                         onComment: widget.onComment,
-                         onFollow: widget.onFollow,
-                         onLike: widget.onLike,
-                         onShare: widget.onShare,
-                         showVerifiedTick: widget.showVerifiedTick,
-                         swiperController: controller,
-                         showProgressIndicator: widget.showProgressIndicator,
-                         play: isPlay,
 
-                       );
-                     },
-                     controller: controller,
-                     itemCount: widget.reelsList.length,
-                     scrollDirection: Axis.vertical,
-                     onIndexChanged: widget.onIndexChanged,
-                   ),
-                 ),
+              //We need swiper for every content
+            SizedBox(
+              height:ConfigSize.screenHeight ,
+              width: ConfigSize.screenWidth,
+              child:Swiper(
+                itemBuilder:(BuildContext context, int index){
+                  return ReelsPage(
+                    userView: widget.userView,
+                    item: widget.reelsList[index],
+                    onClickMoreBtn: widget.onClickMoreBtn,
+                    onComment: widget.onComment,
+                    onFollow: widget.onFollow,
+                    onLike: widget.onLike,
+                    onShare: widget.onShare,
+                    showVerifiedTick: widget.showVerifiedTick,
+                    swiperController: controller,
+                    showProgressIndicator: widget.showProgressIndicator,
+                  );
+                },
+                controller: controller,
+                itemCount: widget.reelsList.length,
+                scrollDirection: Axis.vertical,
+                onIndexChanged: widget.onIndexChanged,
+
+              ) ,
+            )   ,
+
               if (widget.showAppbar)
                 Positioned(
                   right: ConfigSize.defaultSize!*1.5,

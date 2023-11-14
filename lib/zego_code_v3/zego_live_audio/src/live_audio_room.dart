@@ -1,6 +1,7 @@
 // Dart imports:
 import 'dart:async';
 import 'dart:core';
+import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -101,7 +102,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       return context;
     };
     if(!MainScreen.iskeepInRoom.value){
-
+       log("hheeeeeeeeeeeeeee");
       correctConfigValue();
 
       prebuiltData = ZegoUIKitPrebuiltLiveAudioRoomData(
@@ -165,7 +166,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
               tag: 'audio room',
               subTag: 'prebuilt',
             );
-
             ZegoLiveAudioRoomManagers().connectManager?.init();
           });
         });
@@ -190,6 +190,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       );
 
     }
+
   }
 
 
@@ -198,14 +199,15 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
   void dispose() {
     super.dispose();
 
-    //
-    // WidgetsBinding.instance.removeObserver(this);
+
+     WidgetsBinding.instance.removeObserver(this);
+
     // //
     // if (LiveAudioRoomMiniOverlayPageState.minimizing !=
     //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
     //   ZegoLiveAudioRoomManagers().unintPluginAndManagers();
     //
-    // //  uninitContext();
+    //  uninitContext();
     //
     //   widget.controller?.uninitByPrebuilt();
     // } else {
@@ -239,13 +241,15 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
         break;
+      case AppLifecycleState.hidden:
+        // TODO: Handle this case.
+        break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    widget.config.onLeaveConfirmation ??= onLeaveConfirmation;
-
+    //widget.config.onLeaveConfirmation ??= onLeaveConfirmation;
     return ZegoLivePage(
       appID: widget.appID,
       appSign: widget.appSign,
@@ -303,7 +307,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
     }
 
     final totalSeatCount = widget.config.layoutConfig.rowConfigs
-        .fold<int>(0, (totalCount, rowConfig) => totalCount + rowConfig.count);
+        .fold<int>(0,(totalCount, rowConfig) => totalCount + rowConfig.count);
     final isSeatIndexValid = widget.config.takeSeatIndexWhenJoining >= 0 &&
         widget.config.takeSeatIndexWhenJoining < totalSeatCount;
     if (!isSeatIndexValid) {

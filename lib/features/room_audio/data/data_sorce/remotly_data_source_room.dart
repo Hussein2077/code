@@ -632,6 +632,7 @@ static String uploadImagePrice = "" ;
       'owner_id': upMicrophonePramiter.ownerId,
       'user_id':upMicrophonePramiter.userId
     };
+
     try {
       final response = await Dio().post(ConstentApi.leaveMic,
           options: Options(
@@ -641,7 +642,6 @@ static String uploadImagePrice = "" ;
       );
 
       Map<String, dynamic> jsonData = response.data;
-
       return jsonData['message'];
 
     } on DioError catch (e) {

@@ -754,7 +754,6 @@ class Methods {
 
     final cacheManager = getIt<DefaultCacheManager>();
     cacheManager.emptyCache();
-    // ignore: use_build_context_synchronously
     sucssesToast(context: context, title: StringManager.clearDataDone.tr());
   }
 

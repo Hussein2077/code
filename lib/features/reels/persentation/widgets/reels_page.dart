@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/main_screen/components/nav_bar/src/layout.dart';
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
 import '../components/screen_options.dart';
@@ -27,15 +28,13 @@ class ReelsPage extends StatefulWidget {
   final SwiperController swiperController;
   final bool showProgressIndicator;
   final bool userView;
-  final bool play  ;
   static VideoPlayerController? videoPlayerController;
   static bool isFirst = true;
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
 
-  const ReelsPage(
+   ReelsPage(
       {Key? key,
         required this.item,
-        required this.play,
         this.showVerifiedTick = true,
         this.onClickMoreBtn,
         this.onComment,
@@ -48,12 +47,12 @@ class ReelsPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ReelsPage> createState() => _ReelsPageState();
+  State<ReelsPage> createState() => ReelsPageState();
 }
 
-class _ReelsPageState extends State<ReelsPage>
+class ReelsPageState extends State<ReelsPage>
     with SingleTickerProviderStateMixin {
-  late VideoPlayerController _videoPlayerController;
+  VideoPlayerController?   _videoPlayerController  ;
   ChewieController? _chewieController;
   FileInfo? image ;
   bool _liked = false;
@@ -76,37 +75,28 @@ class _ReelsPageState extends State<ReelsPage>
   @override
   void initState() {
     super.initState();
-    log("isPlay :${widget.play}");
+    ReelsPage.isVideoPause.value = false;
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
       initializePlayer().then((value) {
-        ReelsPage.videoPlayerController = _videoPlayerController;
         if(ReelsPage.isFirst) {
-          ReelsPage.videoPlayerController?.play();
+          _videoPlayerController?.play() ;
           ReelsPage.isFirst = false;
         }
       });
     }
+    widget.swiperController.addListener(() {
 
+       _videoPlayerController?.play() ;
+
+    });
 
   }
 
-  @override
-  void didUpdateWidget(ReelsPage oldWidget) {
-    if (oldWidget.play != widget.play) {
-      if (widget.play) {
-        _videoPlayerController.play();
-        _videoPlayerController.setLooping(true);
-      } else {
-        _videoPlayerController.pause();
-      }
-    }
-    super.didUpdateWidget(oldWidget);
-  }
 
   Future initializePlayer() async {
 
-
+    log("widget.item.url ${widget.item.url}");
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
     final cachImage =  await getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
     image = cachImage ;
@@ -119,7 +109,7 @@ class _ReelsPageState extends State<ReelsPage>
       if(kDebugMode){
         log("in cache reels");
       }
-    }else{
+        }else{
       if(kDebugMode){
         log((widget.item.url!.toString()));
         log("in network reels");
@@ -130,10 +120,10 @@ class _ReelsPageState extends State<ReelsPage>
 
 
 
-    _videoPlayerController.setLooping(true);
+    _videoPlayerController?.setLooping(true);
 
     try{
-      await Future.wait([_videoPlayerController.initialize()]);
+      await Future.wait([_videoPlayerController!.initialize()]);
     }catch(e){
       if(kDebugMode){
         log("error in reels path is :${Uri.parse(widget.item.url!+'rr')}");
@@ -144,22 +134,42 @@ class _ReelsPageState extends State<ReelsPage>
 
 
     _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController,
+      videoPlayerController: _videoPlayerController!,
       showControls: false,
       looping: true,
     );
     setState(() {});
-    _videoPlayerController.addListener(() {
-      if (_videoPlayerController.value.position ==
-          _videoPlayerController.value.duration) {
+    _videoPlayerController?.addListener(() {
+      //to handle close reel when make navigate
+       if(BottomNavLayoutState.currentIndex !=1){
+         _videoPlayerController?.pause() ;
+         ReelsPage.isVideoPause.value= true ;
+       }
+
+
+
+      if (_videoPlayerController?.value.position ==
+          _videoPlayerController?.value.duration) {
         //TODO add auto scroll as feature
         // widget.swiperController.next();
       }
-      if (!ModalRoute.of(context)!.isCurrent) {
-        _videoPlayerController.pause();
-        ReelsPage.isVideoPause.value = true;
+
+      if((_videoPlayerController?.value.isPlaying??false) && ReelsPage.isVideoPause.value){
+        ReelsPage.isVideoPause.value = false ;
       }
 
+       if(!(_videoPlayerController?.value.isPlaying??true) && !ReelsPage.isVideoPause.value){
+         _videoPlayerController?.play();
+       }
+      // //to play reel
+      // if(!(_videoPlayerController?.value.isPlaying??true) &&
+      //     !(ReelsPage.isVideoPause.value)){
+      //   _videoPlayerController?.play() ;
+      // }
+
+       // if(ReelsPage.isVideoPause.value){
+       //   ReelsPage.isVideoPause.value=false ;
+       // }
 
     });
   }
@@ -167,10 +177,14 @@ class _ReelsPageState extends State<ReelsPage>
   @override
   void dispose() {
     log("in dispose");
-    _videoPlayerController.dispose();
-    if (_chewieController != null) {
-      _chewieController!.dispose();
-    }
+     log(" dispose vedio") ;
+      _videoPlayerController?.dispose();
+
+if (_chewieController != null) {
+  _chewieController!.dispose();
+}
+
+
 
 
     super.dispose();
@@ -184,16 +198,14 @@ class _ReelsPageState extends State<ReelsPage>
     return getVideoView();
   }
 
-  Widget getVideoView() {
+  Widget getVideoView(){
     return Stack(
       fit: StackFit.expand,
       children: [
         (_chewieController != null &&
             _chewieController!.videoPlayerController.value.isInitialized)
-            ? FittedBox(
-          fit: BoxFit.cover,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
+            ? SizedBox(
+            width: MediaQuery.of(context).size.width ,
             height: MediaQuery.of(context).size.height,
             child: GestureDetector(
               onDoubleTap: () {
@@ -207,17 +219,20 @@ class _ReelsPageState extends State<ReelsPage>
               },
               onTap: () {
                 setState(() {
-                  if (_videoPlayerController.value.isPlaying) {
-                    _videoPlayerController.pause();
+                  if (_videoPlayerController!.value.isPlaying) {
+                    log("heeeeeeeeeeeeeee");
                     ReelsPage.isVideoPause.value = true;
-                  } else {
+                    _videoPlayerController?.pause();
+                  }
+                  else{
                     ReelsPage.isVideoPause.value = false;
-                    _videoPlayerController.play();
+                    _videoPlayerController?.play();
                   }
                 });
               },
               onHorizontalDragEnd: (DragEndDetails details){
                 if(details.primaryVelocity!>0){
+                  _videoPlayerController?.pause();
                   Navigator.push(
                     context,
                     PageRouteBuilder(
@@ -242,8 +257,8 @@ class _ReelsPageState extends State<ReelsPage>
                 controller: _chewieController!,
               ),
             ),
-          ),
-        )
+          )
+
             : ReelLodaingWidget(
           reelId: widget.item.id.toString(),
           userView: widget.userView,
@@ -258,7 +273,7 @@ class _ReelsPageState extends State<ReelsPage>
             bottom: 0,
             width: MediaQuery.of(context).size.width,
             child: VideoProgressIndicator(
-              _videoPlayerController,
+              _videoPlayerController!,
               allowScrubbing: false,
               colors: const VideoProgressColors(
                 backgroundColor: Colors.blueGrey,
@@ -284,7 +299,8 @@ class _ReelsPageState extends State<ReelsPage>
         ValueListenableBuilder(
             valueListenable: ReelsPage.isVideoPause,
             builder: (context, ispause, _) {
-              if (ispause) {
+              if (ispause&&!(_videoPlayerController?.value.isPlaying??true)) {
+                _videoPlayerController?.pause();
                 return IgnorePointer(
                     child: Container(
                       color: Colors.grey.withOpacity(0.2),

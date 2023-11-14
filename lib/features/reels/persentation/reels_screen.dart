@@ -21,7 +21,6 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_ree
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
-import 'package:tik_chat_v2/features/reels/persentation/reel_v2/vedio_list.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
@@ -72,16 +71,6 @@ class ReelsScreenState extends State<ReelsScreen>{
             child: Scaffold(
                 body:
 
-            //
-            //     Center(
-            //       child: Column(
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         children: <Widget>[
-            //           Expanded(child: VideoList()),
-            //         ],
-            //       ),
-            //     ),
-            // )
 
                 SizedBox(
                     width: MediaQuery.of(context).size.width,

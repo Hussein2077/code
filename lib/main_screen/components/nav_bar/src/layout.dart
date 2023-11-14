@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/src/page_stack.dart';
@@ -85,6 +86,7 @@ class BottomNavLayout extends StatefulWidget {
 }
 
 class BottomNavLayoutState extends State<BottomNavLayout> {
+  static int  currentIndex = 0 ;
   /// The main content of the layout.
   /// Respective widget in this list is shown above the bottom navbar.
   ///
@@ -142,14 +144,12 @@ class BottomNavLayoutState extends State<BottomNavLayout> {
     // If something else than current item is selected
     else {
       // Navigate to page
-      if(ReelsPage.videoPlayerController != null){
-        ReelsPage.videoPlayerController!.pause();
-        ReelsPage.isVideoPause.value= true ;
-      }
+
       pageStack.push(index);
 
       // Set state to change the page
       setState(() {});
+
     }
   }
 
@@ -186,7 +186,7 @@ class BottomNavLayoutState extends State<BottomNavLayout> {
   /// If the current page is null, then it needs to be built from the [widget.pageBuilders] before being shown.
   @override
   Widget build(BuildContext context) {
-    var currentIndex = pageStack.peek();
+    BottomNavLayoutState.currentIndex = pageStack.peek();
 
     // If the current page hasn't been initialized.
     if (pages[currentIndex] == null) {
@@ -194,6 +194,12 @@ class BottomNavLayoutState extends State<BottomNavLayout> {
       pages[currentIndex] = widget.pages[currentIndex].call(keys[currentIndex]);
     }
 
+    if(currentIndex != 1){
+      if(ReelsPage.videoPlayerController != null){
+        ReelsPage.videoPlayerController!.pause();
+        ReelsPage.isVideoPause.value= true ;
+      }
+    }
     // Return the view
     return WillPopScope(
       onWillPop: onWillPop,

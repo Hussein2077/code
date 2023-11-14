@@ -237,6 +237,10 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
   RoomScreen.listOfAnimatingEntros.clear();
   RoomScreen.isShowingBanner = false;
   RoomScreen.listOfAnimatingBanner.clear();
+  if(ownerId == MyDataModel.getInstance().id.toString() &&  PkController.showPK.value){
+    BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
+    BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: ownerId));
+  }
   PkController.timeMinutePK = 0;
   PkController.timeSecondPK = 0;
   PkController.isPK.value = false;
@@ -251,10 +255,6 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
   PkController.updatePKNotifier.value = 0;
   if(getIt<SetTimerPK>().timer != null){
     getIt<SetTimerPK>().timer?.cancel();
-  }
-  if(ownerId == MyDataModel.getInstance().id.toString()){
-    BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
-    BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: ownerId));
   }
   RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
