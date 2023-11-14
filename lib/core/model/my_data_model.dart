@@ -55,6 +55,7 @@ class MyDataModel {
   bool? isAanonymous;
   NowRoomModel? nowRoom;
   var isGold;
+  int? unReadMessageCount ;
 
 
   static MyDataModel? _instance;
@@ -107,6 +108,7 @@ class MyDataModel {
       this.visitHidden,
               this.nowRoom,
               this.isGold,
+        this.unReadMessageCount ,
 
       });
 
@@ -150,6 +152,7 @@ class MyDataModel {
         bool? isHideRoom,
         var isGold,
         NowRoomModel? nowRoom,
+        int? unReadMessageCount
 
       
       }) {
@@ -190,6 +193,7 @@ class MyDataModel {
     this.familyDataModel = familyDataModel ?? this.familyDataModel;
     this.isGold = isGold ?? this.isGold;
     this.nowRoom = nowRoom ?? this.nowRoom;
+    this.unReadMessageCount = unReadMessageCount?? this.unReadMessageCount ;
   }
 
   factory MyDataModel.fromMap(Map<String, dynamic> map) {
@@ -264,6 +268,7 @@ class MyDataModel {
         nowRoom:   map['now_room'] != null
               ? NowRoomModel.fromjson(map['now_room'] as Map<String, dynamic>)
               : null,
+        unReadMessageCount: map['unread_message_count']
           
           
           );
@@ -319,7 +324,9 @@ class MyDataModel {
               ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
               : null,
           isGold: map['is_gold_id'],
-          myType: map['type_user'] ?? 0);
+          myType: map['type_user'] ?? 0,
+          unReadMessageCount: map['unread_message_count']
+      );
 
     }
 

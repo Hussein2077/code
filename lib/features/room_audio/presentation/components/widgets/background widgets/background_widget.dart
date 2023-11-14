@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
@@ -83,18 +84,26 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
           bottomDailog(context: context, widget: const DialogLoadingWidget());
         } else if (state is BanUserFromWritingErrorState) {
           Navigator.pop(context);
-          errorToast(context: context, title: state.errorMassage);
+          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.errorMassage));
+
+          // errorToast(context: context, title: state.errorMassage);
         } else if (state is BanUserFromWritingLoadingState) {
           bottomDailog(context: context, widget: const DialogLoadingWidget());
         } else if (state is BanUserFromWritingSuccessState) {
+          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.successMassage));
+
           Navigator.pop(context);
-          sucssesToast(context: context, title: state.successMassage);
+          // sucssesToast(context: context, title: state.successMassage);
         } else if (state is SendPobUpErrorState) {
-          errorToast(context: context, title: state.errorMassage);
+          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.errorMassage));
+
+          // errorToast(context: context, title: state.errorMassage);
         } else if (state is SendPobUpSuccessState) {
-          sucssesToast(context: context, title: state.successMassage) ;
+          // sucssesToast(context: context, title: state.successMassage) ;
         } else if (state is SendYallowBannerErrorState) {
-          errorToast(context: context, title: state.errorMassage);
+          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.errorMassage));
+
+          // errorToast(context: context, title: state.errorMassage);
         }
       },
     );

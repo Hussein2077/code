@@ -59,7 +59,7 @@ class UpperProfileBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Spacer(
-                      flex: 6,
+                      flex: 7,
                     ),
                     HeaderProfile(
                         myProfile: myProfile, myDataModel: myDataModel),

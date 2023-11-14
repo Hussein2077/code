@@ -87,8 +87,10 @@ class _PageViewWidgetState extends State<PageViewWidget> {
     return InkWell(
 
       child: Stack(
-        alignment: Alignment.bottomCenter,
+
+        alignment: Alignment.topCenter,
         children: [
+          SizedBox( height:ConfigSize.defaultSize! * 18 ,),
           SizedBox(
             height: ConfigSize.defaultSize! * 15,
             width: MediaQuery.of(context).size.width - 50,
@@ -117,7 +119,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
           Padding(
             padding: EdgeInsets.only(
 
-                bottom: ConfigSize.defaultSize! * 2),
+                top: ConfigSize.defaultSize! * 14),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: pages.map((page) {
@@ -128,7 +130,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
                   margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: current == index ? Colors.white : Colors.grey,
+                    color: current == index ? Colors.orange : Colors.grey,
                   ),
                 );
               }).toList(),

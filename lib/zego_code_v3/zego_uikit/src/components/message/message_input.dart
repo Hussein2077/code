@@ -102,6 +102,9 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
 
   @override
   void dispose() {
+    ZegoInRoomMessageInput.activePobUp.value = false;
+
+    ZegoInRoomMessageInput.activeYallowBanner.value = false;
     super.dispose();
 
     focusNode

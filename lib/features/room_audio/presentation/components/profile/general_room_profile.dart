@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
@@ -56,11 +57,15 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
       child: BlocListener<UsersInRoomBloc, OnUserInRoomStates>(
         listener: (context, state) {
           if (state is SuccessKickoutState) {
-            sucssesToast(context: context, title: state.successMessage);
+            ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.successMessage));
+
+            // sucssesToast(context: context, title: state.successMessage);
 
             Navigator.pop(context);
           } else if (state is ErrorKickoutState) {
-            errorToast(context: context, title: state.errorMessage);
+            ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.errorMessage));
+
+            // errorToast(context: context, title: state.errorMessage);
           }
         },
         child: BlocBuilder<GetUserBloc, GetUserState>(

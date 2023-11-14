@@ -89,6 +89,26 @@ class Methods {
     preference.remove(StringManager.deviceToken);
   }
 
+  // Future<void> setLocalCounterGroupChatNotifecation({required int count}) async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   preferences.setInt("count", count);
+  // }
+  // Future<int> getLocalCounterGroupChatNotifecation() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   int count = preferences.getInt("count") ??0;
+  //   return count;
+  // }
+  Future<void> setLocalGroupChatNotifecation({required bool unReadMessage}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool("unReadMessage", unReadMessage);
+  }
+  Future<bool> getLocalGroupChatNotifecation() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool unReadMessage = preferences.getBool("unReadMessage") ??false;
+    return unReadMessage;
+  }
+
+
   Future<void> saveLocalazitaon({required String language}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("languagne", language);

@@ -2,6 +2,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
+import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_mydata_usecase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
@@ -17,9 +18,13 @@ class GetMyDataBloc extends Bloc<BaseGetMyDataEvent, GetMyDataState> {
       final result = await getmyDataUsecase.call(const Noparamiter());
 
       result.fold(
-          (l) => emit(GetMyDataSucssesState(
+          (l) {
+            if(l.unReadMessageCount!=0){
+              HomeScreen.rebuildGroupChatCounter.value = true;
+            }
+            emit(GetMyDataSucssesState(
                myDataModel: l,
-              )),
+              ));},
           (r) =>
               emit(GetMyDataErrorState(errorMassage: DioHelper().getTypeOfFailure(r))));
 

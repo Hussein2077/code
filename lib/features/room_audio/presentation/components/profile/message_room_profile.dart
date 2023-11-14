@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
@@ -51,19 +52,27 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
      listener: (context, state) {
     if (state is SuccessAddAdminRoomState) {
-      sucssesToast(context: context, title: StringManager.beComeAdmin.tr());
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(StringManager.beComeAdmin.tr()));
+
+
+
 
     } else if (state is ErrorAddAdminRoomState) {
-      errorToast(context: context, title: state.errorMessage);
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.errorMessage));
+
+
+
 
     }
     },
       child: BlocListener<UsersInRoomBloc, OnUserInRoomStates>(
         listener: (context, state) {
     if (state is SuccessKickoutState) {
-      sucssesToast(context: context, title: state.successMessage);
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.successMessage));
+
+
     } else if (state is ErrorKickoutState) {
-      errorToast(context: context, title: state.errorMessage);
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.errorMessage));
     }
     },
         child: BlocBuilder<GetUserBloc, GetUserState>(

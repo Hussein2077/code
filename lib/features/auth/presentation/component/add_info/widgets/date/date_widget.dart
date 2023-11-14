@@ -31,7 +31,7 @@ class _DateWidgetState extends State<DateWidget> {
           dailogDate(
             context: context,
             widget: Container(
-                height: ConfigSize.defaultSize! * 35,
+                height: ConfigSize.defaultSize! * 40,
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
                     borderRadius:

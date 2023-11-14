@@ -111,7 +111,6 @@ dependencies:
   zego_zim: 2.11.0
   zego_zpns:
   flutter_reaction_button: ^3.0.0
-  inview_notifier_list: ^3.0.0
 
 
 dev_dependencies:

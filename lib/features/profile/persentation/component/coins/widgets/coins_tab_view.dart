@@ -61,7 +61,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
 
   @override
   void dispose() {
-    buyCoinsBloc.close();
+    // buyCoinsBloc.close();
     mSub.cancel();
     super.dispose();
   }
