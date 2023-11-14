@@ -161,15 +161,6 @@ class ReelsPageState extends State<ReelsPage>
        if(!(_videoPlayerController?.value.isPlaying??true) && !ReelsPage.isVideoPause.value){
          _videoPlayerController?.play();
        }
-      // //to play reel
-      // if(!(_videoPlayerController?.value.isPlaying??true) &&
-      //     !(ReelsPage.isVideoPause.value)){
-      //   _videoPlayerController?.play() ;
-      // }
-
-       // if(ReelsPage.isVideoPause.value){
-       //   ReelsPage.isVideoPause.value=false ;
-       // }
 
     });
   }

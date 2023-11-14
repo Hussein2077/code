@@ -1,7 +1,6 @@
 // Dart imports:
 import 'dart:async';
 import 'dart:core';
-import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -86,7 +85,7 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
 /// @nodoc
 class ZegoUIKitPrebuiltLiveAudioRoomState
     extends State<ZegoUIKitPrebuiltLiveAudioRoom> with WidgetsBindingObserver {
-  static  List<StreamSubscription<dynamic>?> subscriptions = [];
+      List<StreamSubscription<dynamic>?> subscriptions = [];
 
   bool isFromMinimizing = false;
   static  ZegoUIKitPrebuiltLiveAudioRoomData? prebuiltData;
@@ -102,7 +101,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       return context;
     };
     if(!MainScreen.iskeepInRoom.value){
-       log("hheeeeeeeeeeeeeee");
       correctConfigValue();
 
       prebuiltData = ZegoUIKitPrebuiltLiveAudioRoomData(

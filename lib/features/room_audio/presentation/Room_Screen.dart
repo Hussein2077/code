@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -143,7 +142,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   String roomBackgroundChached = "";
 
  //////
-  Map<String,String> userIntroData = {'user_name_intro':'','user_image_intro':'' };
+  Map<String,String> userIntroData = {'user_name_intro':'','user_image_intro':''};
  /////
 
   //////

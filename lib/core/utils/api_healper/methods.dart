@@ -195,9 +195,9 @@ class Methods {
     ZegoLiveAudioRoomManagers().unintPluginAndManagers();
     ZegoUIKitPrebuiltLiveAudioRoomState.prebuiltData = null ;
 
-    for (final subscription in ZegoUIKitPrebuiltLiveAudioRoomState.subscriptions) {
-      subscription?.cancel();
-    }
+    // for (final subscription in ZegoUIKitPrebuiltLiveAudioRoomState.subscriptions) {
+    //   subscription?.cancel();
+    // }
     // await ZegoUIKit().resetSoundEffect();
     // await ZegoUIKit().resetBeautyEffect();
     await ZegoUIKit.instance.leaveRoom();
@@ -242,7 +242,6 @@ class Methods {
                 ));
           });
     } else {
-      // ignore: use_build_context_synchronously
 
       Navigator.pop(context);
       // MainScreen.iskeepInRoom.value=true ;

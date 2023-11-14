@@ -100,12 +100,10 @@ class _ReelsViewerState extends State<ReelsViewer> {
 
   @override
   Widget build(BuildContext context) {
-    log("in ReelsViewer") ;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child:
-        NotificationListener<ScrollNotification>(
+        child: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification notification) {
       // Handle the scroll event here
       if (notification is ScrollUpdateNotification){
@@ -124,9 +122,8 @@ class _ReelsViewerState extends State<ReelsViewer> {
 
           child: Stack(
             children: [
-
               //We need swiper for every content
-            SizedBox(
+               SizedBox(
               height:ConfigSize.screenHeight ,
               width: ConfigSize.screenWidth,
               child:Swiper(
@@ -179,7 +176,8 @@ class _ReelsViewerState extends State<ReelsViewer> {
           ),
         ),
       ),
-    ));
+    )
+    );
   }
 
 
