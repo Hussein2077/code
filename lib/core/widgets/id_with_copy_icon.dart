@@ -34,6 +34,7 @@ class IdWithCopyIcon extends StatelessWidget {
               : Text(
                   'ID: ${userData.uuid.toString()}',
                   style: TextStyle(
+                    color: Colors.black,
                     fontSize: ConfigSize.defaultSize! * 1.9,
                   ),
                 ),

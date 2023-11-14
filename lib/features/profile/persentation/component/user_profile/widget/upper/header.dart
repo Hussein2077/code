@@ -10,12 +10,15 @@ class HeaderProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        headerIcon(icon: Icons.arrow_back_ios ,onTap: () => Navigator.pop(context), ),
-        myProfile?
-        headerIcon(icon: Icons.edit ,onTap: () => Navigator.pushNamed(context, Routes.editInfo , arguments: myDataModel), ):const SizedBox(width: 10,)],
+    return Padding(
+      padding:  EdgeInsets.only(top: ConfigSize.defaultSize!*3),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          headerIcon(icon: Icons.arrow_back_ios ,onTap: () => Navigator.pop(context), ),
+          myProfile?
+          headerIcon(icon: Icons.edit ,onTap: () => Navigator.pushNamed(context, Routes.editInfo , arguments: myDataModel), ):const SizedBox(width: 10,)],
+      ),
     );
   }
 }
