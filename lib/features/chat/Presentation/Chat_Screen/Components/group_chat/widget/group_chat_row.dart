@@ -22,133 +22,136 @@ class GroupChatRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                BlocBuilder<GetMyDataBloc, GetMyDataState>(
-                  builder: (context, state) {
-                    if(state is GetMyDataSucssesState){
-    return InkWell(
-                      onTap: () {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width-50,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  BlocBuilder<GetMyDataBloc, GetMyDataState>(
+                    builder: (context, state) {
+                      if(state is GetMyDataSucssesState){
+      return InkWell(
+                        onTap: () {
 
 
-                        Methods().userProfileNvgator(context: context , userId: userData.id.toString() );
+                          Methods().userProfileNvgator(context: context , userId: userData.id.toString() );
 
 
-                      },
-                      child: UserImage(
-                        image: userData.profile!.image!,
-                       imageSize:  ConfigSize.defaultSize! * 5.3,
+                        },
+                        child: UserImage(
+                          image: userData.profile!.image!,
+                         imageSize:  ConfigSize.defaultSize! * 5.3,
 
-                      ),
-                    );
-                    }else {
-                          return InkWell(
-                      onTap: () {
-                        Methods().userProfileNvgator(context: context , userId: userData.id.toString() );
+                        ),
+                      );
+                      }else {
+                            return InkWell(
+                        onTap: () {
+                          Methods().userProfileNvgator(context: context , userId: userData.id.toString() );
 
-                      },
-                            child: UserImage(
-                              image: userData.profile!.image!,
-                              imageSize:  ConfigSize.defaultSize! * 5.3,
+                        },
+                              child: UserImage(
+                                image: userData.profile!.image!,
+                                imageSize:  ConfigSize.defaultSize! * 5.3,
 
-                            ),
-                    );
-                    }
-                
-                  },
-                ),
-                ShowSVGA(
-                  hieght: ConfigSize.defaultSize! * 7.3,
-                  width: ConfigSize.defaultSize! * 7.3,
-                  imageId: '${userData.frameId}$cacheFrameKey',
-                  url: userData.frame!,
-                ),
-              ],
+                              ),
+                      );
+                      }
+
+                    },
+                  ),
+                  ShowSVGA(
+                    hieght: ConfigSize.defaultSize! * 7.3,
+                    width: ConfigSize.defaultSize! * 7.3,
+                    imageId: '${userData.frameId}$cacheFrameKey',
+                    url: userData.frame!,
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GradientTextVip(
+                  isVip:    userData.hasColorName??false,
+                    text: userData.name!,
+                    textStyle: TextStyle(
+                        fontSize: ConfigSize.defaultSize! * 1.5,
+                        color: const Color(0xff262628)),
+                  ),
+                  Padding(
+                      padding:
+                          EdgeInsets.only(top: ConfigSize.defaultSize! * 0.7),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: ConfigSize.defaultSize! * 0.3,
+                          ),
+                          if(userData.level!.senderImage != '')
+                            LevelContainer(
+                             height: ConfigSize.defaultSize! * 2.2,
+                              width: ConfigSize.defaultSize! * 4.1,
+                            image:
+                                userData.level!.senderImage!,
+                          ),
+                          SizedBox(
+                            width: ConfigSize.defaultSize! * 0.3,
+                          ),
+                          if(userData.level!.receiverImage != '')
+                            LevelContainer(
+                              height: ConfigSize.defaultSize! * 2.2,
+                              width: ConfigSize.defaultSize! * 4.1,
+                            image: userData.level!.receiverImage!,
+                          ),
+                          SizedBox(
+                            width: ConfigSize.defaultSize! * 0.3,
+                          ),
+                          // if (userData.vip1 != null ||
+                          //     userData.vip1!.level != null)
+                          //   VipContainer(
+                          //       hight: ConfigSize.defaultSize! * 1.6,
+                          //       width: ConfigSize.defaultSize! * 4,
+                          //       vip: userData.vip1!.level!)
+
+
+                          if (userData.vipLevel!= null )
+                            AristocracyLevel(
+                              level:userData.vipLevel! ,
+                               )
+                        ],
+                      )),
+                ],
+              ),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(left: ConfigSize.defaultSize!),
+            padding: EdgeInsets.all(ConfigSize.defaultSize!),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+                gradient:
+                     LinearGradient(colors: ColorManager.mainColorListLight)),
+            child: Text(
+              userData.groupMessage!,
+              overflow: TextOverflow.fade,
+              style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 2,
+                  color: ColorManager.darkBlack),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GradientTextVip(
-                isVip:    userData.hasColorName??false,
-                  text: userData.name!,
-                  textStyle: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.5,
-                      color: const Color(0xff262628)),
-                ),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: ConfigSize.defaultSize! * 0.7),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: ConfigSize.defaultSize! * 0.3,
-                        ),
-                        if(userData.level!.senderImage != '')
-                          LevelContainer(
-                           height: ConfigSize.defaultSize! * 2.2,
-                            width: ConfigSize.defaultSize! * 4.1,
-                          image:
-                              userData.level!.senderImage!,
-                        ),
-                        SizedBox(
-                          width: ConfigSize.defaultSize! * 0.3,
-                        ),
-                        if(userData.level!.receiverImage != '')
-                          LevelContainer(
-                            height: ConfigSize.defaultSize! * 2.2,
-                            width: ConfigSize.defaultSize! * 4.1,
-                          image: userData.level!.receiverImage!,
-                        ),
-                        SizedBox(
-                          width: ConfigSize.defaultSize! * 0.3,
-                        ),
-                        // if (userData.vip1 != null ||
-                        //     userData.vip1!.level != null)
-                        //   VipContainer(
-                        //       hight: ConfigSize.defaultSize! * 1.6,
-                        //       width: ConfigSize.defaultSize! * 4,
-                        //       vip: userData.vip1!.level!)
+          ),
 
-
-                        if (userData.vipLevel!= null )
-                          AristocracyLevel(
-                            level:userData.vipLevel! ,
-                             )
-                      ],
-                    )),
-              ],
-            ),
-          ],
-        ),
-        Container(
-          margin: EdgeInsets.only(left: ConfigSize.defaultSize!),
-          padding: EdgeInsets.all(ConfigSize.defaultSize!),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-              gradient:
-                   LinearGradient(colors: ColorManager.mainColorListLight)),
-          child: Text(
-            userData.groupMessage!,
-            overflow: TextOverflow.visible,
+          Text(
+            userData.massageCreatedAt!,
             style: TextStyle(
-                fontSize: ConfigSize.defaultSize! * 2,
+                fontSize: ConfigSize.defaultSize!,
                 color: ColorManager.darkBlack),
           ),
-        ),
-
-        Text(
-          userData.massageCreatedAt!,
-          style: TextStyle(
-              fontSize: ConfigSize.defaultSize!,
-              color: ColorManager.darkBlack),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

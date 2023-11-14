@@ -549,6 +549,8 @@ final  String theme ;
             onGenerateRoute: RouteGenerator.getRoute,
             locale:  context.locale,
             initialRoute: Routes.splash,
+
+
           );
           }else if (state is DarkThemeState){
             return MaterialApp(

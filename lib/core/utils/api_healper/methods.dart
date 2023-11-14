@@ -872,7 +872,11 @@ class Methods {
         BlocProvider.of<GetFollowingUserMomentBloc>(context).add(const GetFollowingMomentEvent());
         BlocProvider.of<GetMomentILikeItBloc>(context).add(const GetMomentIliKEitEvent());
         BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(userId: MyDataModel.getInstance().id.toString(),));
-        BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+        if(MainScreen.reelId == null || MainScreen.reelId == ''){
+          log("heeeeeer");
+          BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+
+        }
         BlocProvider.of<GetFollowingReelsBloc>(context).add(GetFollowingReelsEvent());
         BlocProvider.of<GetFollwersRoomBloc>(context).add(const GetFollwersRoomEvent(type: "5"));
         BlocProvider.of<GetRoomsBloc>(context).add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));

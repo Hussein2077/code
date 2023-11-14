@@ -452,7 +452,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.system: "النظام",
     StringManager.appTeam: "فريق تيك شات",
     StringManager.officialAccount : "الحساب الرسمي" ,
-    StringManager.toSendMassage: "لأرسال الرساله",
+    StringManager.toSendMassage: "عمله لأرسال الرساله",
     StringManager.hinttext: "قل شيئا...",
     StringManager.cantSendGift: "لا يمكنك ارسال هدايا عند تشغيل الرجل الغامض .. اغلق الخاصية اولا",
     StringManager.enetrMessage:'مراسلة',
