@@ -215,6 +215,7 @@ elevation: 0,
                           children: [
                             Expanded(
                               child: TextFormField(
+                                maxLength: 170,
                                 style: TextStyle(
                                   color: Colors.black
                                 ),
@@ -343,6 +344,8 @@ elevation: 0,
                               children: [
                                 Expanded(
                                   child: TextFormField(
+                                    maxLength: 170,
+
                                     controller: massageCotroller,
                                     decoration: InputDecoration(
                                         filled: true,
