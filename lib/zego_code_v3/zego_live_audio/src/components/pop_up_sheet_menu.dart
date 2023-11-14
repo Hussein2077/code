@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/user_porfile_in_room_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
@@ -41,6 +42,7 @@ class ZegoPopUpSheetMenu extends StatefulWidget {
   final EnterRoomModel roomData ;
   final void Function(PopupItemValue)? onPressed;
   final ZegoInnerText innerText;
+  static Map<int, int> listOfMuteSeats = {};
 
   @override
   State<ZegoPopUpSheetMenu> createState() => _ZegoPopUpSheetMenuState();
@@ -102,7 +104,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
             );
 
             Future.delayed(const  Duration(seconds: 5),(){
-              if(RoomScreen.listOfMuteSeats.containsKey(popupItem.index)
+              if(ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(popupItem.index)
                   ||RoomScreen.usersHasMute.contains(MyDataModel.getInstance().id.toString())){
                 ZegoUIKit().turnMicrophoneOn(false,
                     userID: MyDataModel.getInstance().id.toString());

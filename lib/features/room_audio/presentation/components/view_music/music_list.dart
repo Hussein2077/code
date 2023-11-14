@@ -8,7 +8,6 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 
 class MusicListWidget extends StatefulWidget {
@@ -46,8 +45,8 @@ class MusicListWidgetState extends State<MusicListWidget> {
               uri: mapChachedMusic[widget.ownerId][i]['uri'],
               name: mapChachedMusic[widget.ownerId][i]['name'],
               duration: mapChachedMusic[widget.ownerId][i]['duration']);
-          if (!RoomScreen.musicesInRoom.contains(musicObject)) {
-            RoomScreen.musicesInRoom.add(musicObject);
+          if (!MusicScreen.musicesInRoom.contains(musicObject)) {
+            MusicScreen.musicesInRoom.add(musicObject);
           }
         }
       }
@@ -110,27 +109,27 @@ class MusicListWidgetState extends State<MusicListWidget> {
                       subtitle: Text(item.data![index].artist ?? "No Artist"),
                       trailing: InkWell(
                         onTap: () async {
-                          if (RoomScreen.musicesInRoom.contains(MusicObject(
+                          if (MusicScreen.musicesInRoom.contains(MusicObject(
                               duration: item.data![index].duration!,
                               name: item.data![index].title,
                               uri: item.data![index].uri!))) {
 
                           } else {
                             setState(() {
-                              RoomScreen.musicesInRoom.add(MusicObject(
+                              MusicScreen.musicesInRoom.add(MusicObject(
                                   duration: item.data![index].duration!,
                                   name: item.data![index].title,
                                   uri: item.data![index].uri!));
                               if (mapChachedMusic.containsKey(widget.ownerId)) {
                                 mapChachedMusic.update(widget.ownerId,
-                                    (value) => RoomScreen.musicesInRoom);
+                                    (value) => MusicScreen.musicesInRoom);
                               } else {
                                 mapChachedMusic.putIfAbsent(widget.ownerId,
-                                    () => RoomScreen.musicesInRoom);
+                                    () => MusicScreen.musicesInRoom);
                               }
                             });
 
-                            MusicScreen.musicController.sink.add(RoomScreen.musicesInRoom);
+                            MusicScreen.musicController.sink.add(MusicScreen.musicesInRoom);
 
                             Methods.instance.setCachingMusic(cachingMusic: mapChachedMusic);
                           }
@@ -139,7 +138,7 @@ class MusicListWidgetState extends State<MusicListWidget> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                              color: RoomScreen.musicesInRoom.contains(
+                              color: MusicScreen.musicesInRoom.contains(
                                       MusicObject(
                                           duration: item.data![index].duration!,
                                           name: item.data![index].title,
@@ -150,7 +149,7 @@ class MusicListWidgetState extends State<MusicListWidget> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 6, horizontal: 20),
                           child: Text(
-                            RoomScreen.musicesInRoom.contains(MusicObject(
+                            MusicScreen.musicesInRoom.contains(MusicObject(
                                     duration: item.data![index].duration!,
                                     name: item.data![index].title,
                                     uri: item.data![index].uri!))

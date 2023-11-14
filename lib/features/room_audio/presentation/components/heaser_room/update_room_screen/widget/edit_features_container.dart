@@ -28,6 +28,7 @@ class EditFeaturesContainer extends StatefulWidget{
   final String ownerId;
   final int modeRoom;
   final String userId;
+  static bool roomIsLoked = false;
 
   const EditFeaturesContainer(
       {required this.roomId,
@@ -49,7 +50,7 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
 
     List<String> roomFeaturesTitles = [
       StringManager.clearChat.tr(),
-      RoomScreen.roomIsLoked ? StringManager.unlockRoom.tr() : StringManager.lockRoom.tr(),
+      EditFeaturesContainer.roomIsLoked ? StringManager.unlockRoom.tr() : StringManager.lockRoom.tr(),
       StringManager.music2.tr(),
       StringManager.admin.tr(),
       StringManager.theme.tr(),
@@ -64,7 +65,7 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
         ,
       ),
       Image.asset(
-        RoomScreen.roomIsLoked ? AssetsPath.lockRoom : AssetsPath.openLock,
+        EditFeaturesContainer.roomIsLoked ? AssetsPath.lockRoom : AssetsPath.openLock,
         color: Theme.of(context).colorScheme.primary,
       ),
       Image.asset(
@@ -99,10 +100,10 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
       },
 
           () {
-            if (RoomScreen.roomIsLoked) {
+            if (EditFeaturesContainer.roomIsLoked) {
               BlocProvider.of<OnRoomBloc>(context).add(RemovePassRoomEvent(ownerId: widget.ownerId));
               setState(() {
-                RoomScreen.roomIsLoked = false;
+                EditFeaturesContainer.roomIsLoked = false;
               });
             } else {
               Navigator.pop(context);
@@ -149,7 +150,7 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
      listener: (context, state) {
        if (state is UpdateRoomSucsseState) {
          setState(() {
-           RoomScreen.roomIsLoked = true;
+           EditFeaturesContainer.roomIsLoked = true;
          });
        }
      },

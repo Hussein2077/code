@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:developer';
-
 import 'package:awesome_ripple_animation/awesome_ripple_animation.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +10,6 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/dialog_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
@@ -98,15 +96,15 @@ class MusicWidget extends StatelessWidget {
                   :const SizedBox();
             case MediaPlayState.PlayEnded:
               if(MusicWidget.isIPlayerMedia){
-                if ((MusicScreen.nowPlaying! +1) >=  RoomScreen.musicesInRoom.length) {
+                if ((MusicScreen.nowPlaying! +1) >=  MusicScreen.musicesInRoom.length) {
                   distroyMusic();
                   MusicScreen.nowPlaying = 0;
-                  loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                  loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                   ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                 } else {
                   distroyMusic();
                   MusicScreen.nowPlaying =MusicScreen.nowPlaying!+1;
-                  loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                  loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                   ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                 }
               }
@@ -172,15 +170,15 @@ class MusicWidget extends StatelessWidget {
             case MediaPlayState.LoadReady:
 
               if(MusicWidget.isIPlayerMedia){
-                if ((MusicScreen.nowPlaying! +1) >=  RoomScreen.musicesInRoom.length) {
+                if ((MusicScreen.nowPlaying! +1) >=  MusicScreen.musicesInRoom.length) {
                   distroyMusic();
                   MusicScreen.nowPlaying = 0;
-                  loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                  loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                   ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                 } else {
                   distroyMusic();
                   MusicScreen.nowPlaying =MusicScreen.nowPlaying!+1;
-                  loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                  loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                   ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                 }
               }

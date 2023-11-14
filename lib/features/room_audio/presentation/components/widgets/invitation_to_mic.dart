@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 
 class InvitationToMicDialog extends StatelessWidget {
   final Function onClick;
+  static bool isInviteToMic = false;
   const InvitationToMicDialog({super.key, required this.onClick});
 
   @override
@@ -46,7 +46,7 @@ class InvitationToMicDialog extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    RoomScreen.isInviteToMic = false;
+                    InvitationToMicDialog.isInviteToMic = false;
                     Navigator.pop(context);
                   },
                   child:Text(StringManager.cancle.tr(),style:Theme.of(context).textTheme.bodyLarge  ,)
@@ -61,7 +61,7 @@ class InvitationToMicDialog extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     onClick();
-                    RoomScreen.isInviteToMic = false;
+                    InvitationToMicDialog.isInviteToMic = false;
                   },
                   child: Text(StringManager.cancle.tr(),
                     style:Theme.of(context).textTheme.bodyLarge!.copyWith(color: const Color(0xff008751))  ,)

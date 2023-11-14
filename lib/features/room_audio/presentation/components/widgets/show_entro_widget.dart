@@ -12,11 +12,12 @@ class ShowEntroWidget extends StatelessWidget {
   Map<String,String> userIntroData;
   var offsetAnimationEntro;
   ShowEntroWidget({super.key, required this.userIntroData, this.offsetAnimationEntro});
+  static ValueNotifier<bool> showEntro = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 8)).then((value) {
-      RoomScreen.showEntro.value = false;
+      ShowEntroWidget.showEntro.value = false;
     });
 
     return Positioned(

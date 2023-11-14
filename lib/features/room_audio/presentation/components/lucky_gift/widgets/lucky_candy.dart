@@ -26,6 +26,7 @@ class LuckyCandy extends StatefulWidget {
   const LuckyCandy({
     this.luckGiftBannderController,
     required this.roomData, Key? key}) : super(key: key);
+  static ValueNotifier<int> winCircularluckyGift = ValueNotifier<int>(0);
 
   @override
   _LuckyCandyState createState() => _LuckyCandyState();
@@ -123,7 +124,7 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
 
     widget.luckGiftBannderController!.reverse().then((value) {});
     Future.delayed(const Duration(seconds: 1),()=>GiftBottomBar.typeCandy.value = TypeCandy.non)  ;
-    Future.delayed(const Duration(seconds: 1),()=>RoomScreen.winCircularluckyGift.value = 0)  ;
+    Future.delayed(const Duration(seconds: 1),()=>LuckyCandy.winCircularluckyGift.value = 0)  ;
   }
 
   void sendGift() {

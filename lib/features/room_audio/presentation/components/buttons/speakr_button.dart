@@ -5,8 +5,6 @@ import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 
-
-
 class SpeakerButton extends StatefulWidget {
   const SpeakerButton({super.key});
   @override
@@ -26,16 +24,15 @@ class _SpeakerButtonState extends State<SpeakerButton> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: (() {
+            if(mute){
+              ZegoUIKit.instance.startPlayAllAudioVideo() ;
+            }else{
+              ZegoUIKit.instance.stopPlayAllAudioVideo();
+            }
 
-          if(mute){
-            ZegoUIKit.instance.startPlayAllAudioVideo() ;
-          }else{
-            ZegoUIKit.instance.stopPlayAllAudioVideo();
-          }
-
-          setState(() {
-            mute = !mute;
-          });
+            setState(() {
+              mute = !mute;
+            });
         }),
         child: mute
               ? Image.asset(AssetsPath.muteLocal,width:  AppPadding.p40,height: AppPadding.p40)

@@ -1,14 +1,11 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
-
-
 
 
 class MusicDialog extends StatefulWidget {
@@ -50,7 +47,7 @@ late  bool isPlay  ;
                 valueListenable: ZegoUIKit.instance.getMediaCurrentProgressNotifier(),
                 builder: (BuildContext context, dynamic value, Widget? child){
                   return Text(
-                    RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].name.toString(),
+                    MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].name.toString(),
                     style: const TextStyle(color: Colors.white),overflow: TextOverflow.ellipsis,);
                 },
               ),
@@ -97,12 +94,12 @@ late  bool isPlay  ;
 
                           distroyMusic();
                           MusicScreen.nowPlaying = MusicScreen.nowPlaying! - 1;
-                          loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                          loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
 
                         } else {
                           distroyMusic();
-                          MusicScreen.nowPlaying = RoomScreen.musicesInRoom.length - 1;
-                          loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                          MusicScreen.nowPlaying = MusicScreen.musicesInRoom.length - 1;
+                          loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                         }
                         ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                         setState(() {
@@ -140,14 +137,14 @@ late  bool isPlay  ;
                   InkWell(
                     child: const Icon(Icons.skip_next, color: Colors.white),
                     onTap: ()  async{
-                      if ((MusicScreen.nowPlaying! +1) >=  RoomScreen.musicesInRoom.length) {
+                      if ((MusicScreen.nowPlaying! +1) >=  MusicScreen.musicesInRoom.length) {
                         distroyMusic();
                         MusicScreen.nowPlaying = 0;
-                        loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                        loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                       } else {
                         distroyMusic();
                         MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
-                        loadMusice(path: RoomScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                        loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
                       }
                       ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
                       setState(() {

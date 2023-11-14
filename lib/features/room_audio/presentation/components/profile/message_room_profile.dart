@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -34,6 +35,7 @@ class MessageRoomProfile extends StatefulWidget {
   EnterRoomModel roomData;
   String userId;
   LayoutMode layoutMode;
+  static Map<String, UserDataModel> usersMessagesProfileRoom = {};
 
   @override
   State<MessageRoomProfile> createState() => _MessageRoomProfileState();
@@ -69,20 +71,20 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
         child: BlocBuilder<GetUserBloc, GetUserState>(
           builder: (context, state) {
             if (state is GetUserLoddingState) {
-              return  RoomScreen.usersMessagesProfileRoom[widget.userId] == null
+              return  MessageRoomProfile.usersMessagesProfileRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
                 height: ConfigSize.defaultSize!*2,
                 width: ConfigSize.defaultSize!*5.2,
               ) : UserProfileInRoom(
                   myData: widget.myData,
                   roomData: widget.roomData,
-                  userData: RoomScreen.usersMessagesProfileRoom[widget.userId]!,
+                  userData: MessageRoomProfile.usersMessagesProfileRoom[widget.userId]!,
                   layoutMode: widget.layoutMode
               );
 
             } else if (state is GetUserSucssesState) {
-              RoomScreen.usersMessagesProfileRoom.removeWhere((key, value) => key == state.data.id.toString());
-              RoomScreen.usersMessagesProfileRoom.putIfAbsent(state.data.id.toString(), () => state.data);
+              MessageRoomProfile.usersMessagesProfileRoom.removeWhere((key, value) => key == state.data.id.toString());
+              MessageRoomProfile.usersMessagesProfileRoom.putIfAbsent(state.data.id.toString(), () => state.data);
 
 
               return UserProfileInRoom(

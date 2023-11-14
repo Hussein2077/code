@@ -15,6 +15,7 @@ class MusicScreen extends StatefulWidget {
   static ValueNotifier<bool> isPlaying = ValueNotifier<bool>(false);
   static int? nowPlaying;
   final String ownerId;
+  static List<MusicObject> musicesInRoom = [];
 
   static StreamController<List<MusicObject>> musicController =
       StreamController.broadcast();
@@ -43,9 +44,9 @@ class _MusicScreenState extends State<MusicScreen> {
               uri: mapChachedMusic[widget.ownerId][i]['uri'],
               name: mapChachedMusic[widget.ownerId][i]['name'],
               duration: mapChachedMusic[widget.ownerId][i]['duration']);
-          if (!RoomScreen.musicesInRoom.contains(musicObject)) {
+          if (!MusicScreen.musicesInRoom.contains(musicObject)) {
             setState(() {
-              RoomScreen.musicesInRoom.add(musicObject);
+              MusicScreen.musicesInRoom.add(musicObject);
             });
           }
         }
@@ -93,10 +94,10 @@ class _MusicScreenState extends State<MusicScreen> {
                                         MusicScreen.nowPlaying = index;
                                       });
                                       setState(() {
-                                        RoomScreen.musicesInRoom.removeAt(index);
+                                        MusicScreen.musicesInRoom.removeAt(index);
                                       });
                                       Map<String, dynamic> mapChachedMusic = await Methods.instance.getCachingMusic();
-                                      mapChachedMusic.update(widget.ownerId, (value) => RoomScreen.musicesInRoom);
+                                      mapChachedMusic.update(widget.ownerId, (value) => MusicScreen.musicesInRoom);
                                       Methods.instance.setCachingMusic(cachingMusic: mapChachedMusic);
                                       Navigator.pop(context);
                                     },
@@ -116,7 +117,7 @@ class _MusicScreenState extends State<MusicScreen> {
                   children: [
                     Expanded(
                         child: Text(
-                      RoomScreen.musicesInRoom[index].name,
+                          MusicScreen.musicesInRoom[index].name,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -126,7 +127,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     IconButton(
                         onPressed: () async {
                           if (!MusicScreen.isPlaying.value) {
-                            await loadMusice(path: RoomScreen.musicesInRoom[index].uri);
+                            await loadMusice(path: MusicScreen.musicesInRoom[index].uri);
                             MusicScreen.nowPlaying = index;
                             setState(() {});
                           } else if (MusicScreen.isPlaying.value && MusicScreen.nowPlaying == index) {
@@ -135,7 +136,7 @@ class _MusicScreenState extends State<MusicScreen> {
                             setState(() {});
                           } else if (MusicScreen.isPlaying.value && MusicScreen.nowPlaying != index) {
                             distroyMusic();
-                            await loadMusice(path: RoomScreen.musicesInRoom[index].uri);
+                            await loadMusice(path: MusicScreen.musicesInRoom[index].uri);
                             MusicScreen.nowPlaying = index;
                             setState(() {});
                           }
@@ -163,7 +164,7 @@ class _MusicScreenState extends State<MusicScreen> {
               ),
             );
           },
-          itemCount: RoomScreen.musicesInRoom.length),
+          itemCount: MusicScreen.musicesInRoom.length),
     );
   }
 }

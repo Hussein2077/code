@@ -1,12 +1,10 @@
 // ignore_for_file: must_be_immutable
 
-
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
@@ -19,7 +17,6 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
@@ -35,6 +32,7 @@ class MessagesChached extends StatelessWidget {
   LayoutMode layoutMode;
   EnterRoomModel room;
   MessagesChached({super.key, required this.message, required this.vip, required this.sender, required this.receiver, required this.bubble, required this.frame, required this.myDataModel, required this.layoutMode, required this.room});
+  static Map<String, RoomUserMesseagesModel> usersMessagesRoom = {};
 
   List<TextSpan> spans = [];
 
@@ -81,7 +79,7 @@ class MessagesChached extends StatelessWidget {
                   child: UserImage(
 
                       image: message.user.inRoomAttributes.value['img'] ??
-                          RoomScreen.usersMessagesRoom[message.user.id]?.image ??
+                          MessagesChached.usersMessagesRoom[message.user.id]?.image ??
                           ""),
                 ),
                 SizedBox(width: ConfigSize.defaultSize,),
@@ -117,7 +115,7 @@ class MessagesChached extends StatelessWidget {
                             : const SizedBox(),
                         AristocracyLevel(
                             level: vip == ""
-                                ? RoomScreen.usersMessagesRoom[message.user.id]
+                                ? MessagesChached.usersMessagesRoom[message.user.id]
                                 ?.vipLevel ??
                                 0
                                 : int.parse(vip)),
@@ -134,7 +132,7 @@ class MessagesChached extends StatelessWidget {
                             child: LevelContainer(
                               image:
                               sender == ""
-                                  ? RoomScreen.usersMessagesRoom[message.user.id]
+                                  ? MessagesChached.usersMessagesRoom[message.user.id]
                                   ?.senderLevelImg ??
                                   ''
                                   :
@@ -216,7 +214,7 @@ class MessagesChached extends StatelessWidget {
                   right: AppPadding.p2),
               child: CachedNetworkImage(
                   imageUrl: ConstentApi().getImage(bubble == ""
-                      ? RoomScreen.usersMessagesRoom[message.user.id]?.bubble
+                      ? MessagesChached.usersMessagesRoom[message.user.id]?.bubble
                       : bubble),
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(

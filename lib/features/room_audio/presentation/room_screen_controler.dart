@@ -18,15 +18,24 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/owner_room/owner_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/user_porfile_in_room_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/room_background.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/invitation_to_mic.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/viewbackground_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
@@ -34,6 +43,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_use
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/splash.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/live_page.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
@@ -235,8 +245,6 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
   RoomScreen.isGiftEntroAnimating = false;
   RoomScreen.listOfAnimatingGifts.clear();
   RoomScreen.listOfAnimatingEntros.clear();
-  RoomScreen.isShowingBanner = false;
-  RoomScreen.listOfAnimatingBanner.clear();
   if(ownerId == MyDataModel.getInstance().id.toString() &&  PkController.showPK.value){
     BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
     BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: ownerId));
@@ -258,30 +266,28 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
   }
   RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
-  RoomScreen.musicesInRoom.clear();
+  MusicScreen.musicesInRoom.clear();
   RoomScreen.adminsInRoom.clear();
-  RoomScreen.usersMessagesRoom.clear();
-  RoomScreen.usersMessagesProfileRoom.clear();
+  MessagesChached.usersMessagesRoom.clear();
   MusicScreen.isPlaying.value = false;
   RoomScreen.usersInRoom.clear();
   LuckyBoxVariables.luckyBoxMap['luckyBoxes'].clear();
-  RoomScreen.usersMessagesProfileRoom.clear();
+  MessageRoomProfile.usersMessagesProfileRoom.clear();
   LuckyBoxVariables.luckyBoxMap['currentBox'] = 1;
   SetTimerLuckyBox.remTimeSuperBox = 0;
   DialogLuckyBox.startTime = false;
   RoomScreen.topUserInRoom.value = UserDataModel();
-  RoomScreen.musicesInRoom.clear();
   RoomScreen.usersHasMute.clear();
   RoomScreen.banedUsers.clear();
-  RoomScreen.isInviteToMic = false;
-  RoomScreen.editRoom.value = 0;
+  InvitationToMicDialog.isInviteToMic = false;
+  OwnerOfRoom.editRoom.value = 0;
   RoomScreen.updateEmojie.value = 0;
-  RoomScreen.updatebuttomBar.value = 0;
-  RoomScreen.imgbackground.value = "";
-  RoomScreen.isKick.value = false;
+  UserProfileInRoom.updatebuttomBar.value = 0;
+  RoomBackground.imgbackground.value = "";
+  ViewbackgroundWidget.isKick.value = false;
   RoomScreen.showBanner.value = false;
   RoomScreen.myCoins.value = "";
-  RoomScreen.winCircularluckyGift.value = 0;
+  LuckyCandy.winCircularluckyGift.value = 0;
   GiftUser.userSelected.clear();
   GiftUser.userOnMicsForGifts.clear();
   RoomScreen.showBanner.value = false;
@@ -431,13 +437,13 @@ class YallowBannerData {
 
 
 ChangeBackground(Map<String, dynamic> result, Map<String,String> roomDataUpdates ){
-  RoomScreen.imgbackground.value = result[messageContent][imgBackgroundKey] ?? "";
+  RoomBackground.imgbackground.value = result[messageContent][imgBackgroundKey] ?? "";
   roomDataUpdates['room_img'] = result[messageContent][roomImgKey];
    roomDataUpdates['room_intro']  = result[messageContent][roomIntroKey];
   roomDataUpdates['room_name'] = result[messageContent][roomNameKey];
   roomDataUpdates['room_type'] = result[messageContent]['room_type'] ?? "";
-  RoomScreen.roomIsLoked = result[messageContent]['is_locked'];
-  RoomScreen.editRoom.value = RoomScreen.editRoom.value + 1;
+  EditFeaturesContainer.roomIsLoked = result[messageContent]['is_locked'];
+  OwnerOfRoom.editRoom.value = OwnerOfRoom.editRoom.value + 1;
 }
 
 UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Future<void> Function(String imgId, String imgUrl) loadAnimationEntro)async{
@@ -445,7 +451,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
     userIntroData['user_name_intro']  = result[messageContent][userName];
     userIntroData['user_image_intro']   = result[messageContent][userImge];
     if (result[messageContent]['vip'] == null ? false : result[messageContent]['vip'] > 0) {
-      RoomScreen.showEntro.value = true;
+      ShowEntroWidget.showEntro.value = true;
 
     }
 
@@ -461,7 +467,7 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
       userIntroData['user_name_intro']  = result[messageContent][userName];
       userIntroData['user_image_intro']  = result[messageContent][userImge];
       if ( result[messageContent]['vip'] ) {
-        RoomScreen.showEntro.value = true;
+        ShowEntroWidget.showEntro.value = true;
       }
 
     }
@@ -564,7 +570,7 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
 
 KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String id, BuildContext context){
   durationKickout = result[messageContent]['duration'];
-  RoomScreen.isKick.value = true;
+  ViewbackgroundWidget.isKick.value = true;
   Future.delayed(const Duration(seconds: 3), () async {
     Navigator.pop(context);
     await Methods().exitFromRoom(ownerId, context);
@@ -572,7 +578,7 @@ KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String
         ownerId: ownerId,
         userId: id));
     BlocProvider.of<OnRoomBloc>(context).add(InitRoomEvent());
-    RoomScreen.isKick.value = false;
+    ViewbackgroundWidget.isKick.value = false;
   });
 }
 
@@ -592,31 +598,31 @@ MuteMicKey(Map<String, dynamic> result){
   RoomScreen.listOfMuteSeats.putIfAbsent(
       int.parse(result[messageContent]['position']),
           () => int.parse(result[messageContent]['position']));
-  RoomScreen.editAudioVideoContainer.value =
-      RoomScreen.editAudioVideoContainer.value + 1;
+  ZegoLivePage.editAudioVideoContainer.value =
+      ZegoLivePage.editAudioVideoContainer.value + 1;
 }
 
 UnMuteMicKey(Map<String, dynamic> result){
   RoomScreen.listOfMuteSeats
       .remove(int.parse(result[messageContent]['position']));
 
-  RoomScreen.editAudioVideoContainer.value =
-      RoomScreen.editAudioVideoContainer.value + 1;
+  ZegoLivePage.editAudioVideoContainer.value =
+      ZegoLivePage.editAudioVideoContainer.value + 1;
 }
 
 LockMicKey(Map<String, dynamic> result){
   RoomScreen.listOfLoskSeats.value.putIfAbsent(
       int.parse(result[messageContent]['position']),
           () => int.parse(result[messageContent]['position']));
-  RoomScreen.editAudioVideoContainer.value =
-      RoomScreen.editAudioVideoContainer.value + 1;
+  ZegoLivePage.editAudioVideoContainer.value =
+      ZegoLivePage.editAudioVideoContainer.value + 1;
 }
 
 UnLockMicKey(Map<String, dynamic> result){
   RoomScreen.listOfLoskSeats.value
       .remove(int.parse(result[messageContent]['position']));
-  RoomScreen.editAudioVideoContainer.value =
-      RoomScreen.editAudioVideoContainer.value + 1;
+  ZegoLivePage.editAudioVideoContainer.value =
+      ZegoLivePage.editAudioVideoContainer.value + 1;
 }
 
 TopUserKey(Map<String, dynamic> result)async{
@@ -681,13 +687,13 @@ MuteUserKey(Map<String, dynamic> result){
   } else {
     RoomScreen.usersHasMute.remove(result[messageContent][idUser]);
   }
-  RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value + 1;
+  UserProfileInRoom.updatebuttomBar.value = UserProfileInRoom.updatebuttomBar.value + 1;
 }
 
 InviteToSeatKey(Map<String, dynamic> result, String id, String ownerId, BuildContext context){
   if (result[messageContent][idUser] == id) {
-    if (RoomScreen.isInviteToMic == false) {
-      RoomScreen.isInviteToMic = true;
+    if (InvitationToMicDialog.isInviteToMic == false) {
+      InvitationToMicDialog.isInviteToMic = true;
       invitationDialog(context, ownerId, result[messageContent]['index']);
     }
     //todo update this show
