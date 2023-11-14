@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -9,6 +7,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
 
 class OwnerOfRoom extends StatefulWidget {
   final EnterRoomModel roomData;
@@ -24,6 +23,7 @@ class OwnerOfRoom extends StatefulWidget {
       required this.roomImg,
       Key? key, })
       : super(key: key);
+  static ValueNotifier<int> editRoom = ValueNotifier<int>(0);
 
   @override
   OwnerOfRoomState createState() => OwnerOfRoomState();
@@ -104,9 +104,9 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
                       ),
 
                         ValueListenableBuilder(
-                            valueListenable: RoomScreen.editRoom,
+                            valueListenable: OwnerOfRoom.editRoom,
                             builder: (context,_, Widget? widget){
-                              if( RoomScreen.roomIsLoked){
+                              if( EditFeaturesContainer.roomIsLoked){
                                 return  Icon(Icons.lock_outline ,size:AppPadding.p14 ,color: ColorManager.mainColor) ;
                               }else{
                                 return const SizedBox();

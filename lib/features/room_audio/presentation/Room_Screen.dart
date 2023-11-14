@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -25,12 +24,12 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/massage_Button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/speakr_button.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/background_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
@@ -64,44 +63,28 @@ class RoomScreen extends StatefulWidget {
   final MyDataModel myDataModel;
   final bool isHost;
   static bool isGiftEntroAnimating = false;
-  static bool isShowingBanner = false;
-  static bool isInviteToMic = false;
-  static bool roomIsLoked = false;
   static late bool outRoom;
   static List<GiftData> listOfAnimatingGifts = [];
   static List<GiftData> listOfAnimatingMp4Gifts = [];
   static List<EntroData> listOfAnimatingEntros = [];
-  static List<String> listOfAnimatingBanner = [];
-  static List<MusicObject> musicesInRoom = [];
-  static List<String> usersHasMute = [];
   static Map<int, int> listOfMuteSeats = {};
+  static List<String> usersHasMute = [];
   static ValueNotifier<Map<String, EmojieData>> listOfEmojie = ValueNotifier({});
   static ValueNotifier<int> updateEmojie = ValueNotifier(0);
   static Map<String, String> adminsInRoom = {};
   static Map<String, String> banedUsers = {};
-  static Map<String, UserDataModel> usersMessagesProfileRoom = {};
-  static Map<String, RoomUserMesseagesModel> usersMessagesRoom = {};
   static Map<String, UserDataModel> usersInRoom = {};
   static ValueNotifier<int> clearTimeNotifier = ValueNotifier(0);
   static ValueNotifier<bool> showMessageButton = ValueNotifier<bool>(true);
   static ValueNotifier<bool> banFromWriteIcon = ValueNotifier<bool>(true);
-  static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMics =
-  ValueNotifier<Map<int, ZegoUIKitUser>>({});
+  static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMics = ValueNotifier<Map<int, ZegoUIKitUser>>({});
   static ValueNotifier<UserDataModel> topUserInRoom = ValueNotifier<UserDataModel>(UserDataModel());
   static ValueNotifier<bool> showBanner = ValueNotifier<bool>(false);
   static ValueNotifier<String> myCoins = ValueNotifier<String>('');
-  static ValueNotifier<bool> showEntro = ValueNotifier<bool>(false);
   static ValueNotifier<String> roomGiftsPrice = ValueNotifier<String>("");
-  static ValueNotifier<bool> isKick = ValueNotifier<bool>(false);
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
-  static ValueNotifier<int> editRoom = ValueNotifier<int>(0);
-  static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
-  static ValueNotifier<int> updatebuttomBar = ValueNotifier<int>(0);
-  static ValueNotifier<String> imgbackground = ValueNotifier<String>("");
-  static List<YallowBannerData> listofAnimationYallowBanner = [];
   static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
-  static ValueNotifier<int> winCircularluckyGift = ValueNotifier<int>(0);
-  static late   LayoutMode layoutMode;
+  static late LayoutMode layoutMode;
 
 
   const RoomScreen(
@@ -291,7 +274,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     RoomScreen.myCoins.value =
         widget.myDataModel.myStore?.coins.toString() ?? '';
     if (!MainScreen.iskeepInRoom.value) {
-      RoomScreen.roomIsLoked = widget.room.roomPassStatus!;
+      EditFeaturesContainer.roomIsLoked = widget.room.roomPassStatus!;
 
       if (widget.room.showPk == 1) {
         PkController.showPK.value = true;
@@ -781,7 +764,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == removeChatKey) {
         RoomScreen.clearTimeNotifier.value = DateTime.now().millisecondsSinceEpoch;
-        RoomScreen.usersMessagesRoom.clear();
+        MessagesChached.usersMessagesRoom.clear();
       }
       else if (result[messageContent][message] == showLuckyBoxKey) {
         show_lucky_box(result);
@@ -998,7 +981,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     if (message.timestamp < value) {
                       return const SizedBox.shrink();
                     }
-                    if (message.user.inRoomAttributes.value['sen'] == null && RoomScreen.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
+                    if (message.user.inRoomAttributes.value['sen'] == null && MessagesChached.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
                       if (kDebugMode) {
                         log("wait 2 sec to load more in formation about user");
                       }
@@ -1020,8 +1003,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                       },
                       listener: (BuildContext context, UsersInRoomState state) {
                       if (state is GetUsersInRoomSucssesState){
-                        RoomScreen.usersMessagesRoom.removeWhere((key, value) => key == state.data![0].id.toString());
-                        RoomScreen.usersMessagesRoom.putIfAbsent(state.data![0].id.toString(), () => state.data![0]);
+                        MessagesChached.usersMessagesRoom.removeWhere((key, value) => key == state.data![0].id.toString());
+                        MessagesChached.usersMessagesRoom.putIfAbsent(state.data![0].id.toString(), () => state.data![0]);
                       }
                     },
                     );

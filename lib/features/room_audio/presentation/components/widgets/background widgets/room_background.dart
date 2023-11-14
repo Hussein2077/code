@@ -10,19 +10,20 @@ import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 class RoomBackground extends StatelessWidget {
   EnterRoomModel room;
   RoomBackground({super.key, required this.room});
+  static ValueNotifier<String> imgbackground = ValueNotifier<String>("");
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<String>(
-      valueListenable: RoomScreen.imgbackground,
+      valueListenable: RoomBackground.imgbackground,
       builder: (context, edit, _) {
         return CachedNetworkImage(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           fit: BoxFit.cover,
-          imageUrl: (ConstentApi().getImage(RoomScreen.imgbackground.value == ""
+          imageUrl: (ConstentApi().getImage(RoomBackground.imgbackground.value == ""
               ? room.roomBackground
-              : RoomScreen.imgbackground.value)),
+              : RoomBackground.imgbackground.value)),
           placeholder: (context, url) => Shimmer.fromColors(
             baseColor: Colors.grey[850]!,
             highlightColor: Colors.grey[800]!,

@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/pop_up_sheet_menu.dart';
 
 // Package imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
@@ -67,7 +68,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatBackground> {
         left: avatarPosLeft+11.zW ,
         child: Image.asset(AssetsPath.lockSeat, width:seatIconWidth , height: seatIconWidth ,),
       );
-    }else if(RoomScreen.listOfMuteSeats.containsKey(widget.extraInfo['index'])){
+    }else if(ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(widget.extraInfo['index'])){
       return  Positioned(
           top:  RoomScreen.layoutMode == LayoutMode.party  ? avatarPosTop+15.zH :
           avatarPosTop+25.zH,

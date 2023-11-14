@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
@@ -15,6 +14,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_bottom_bar.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/header_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/owner_room/owner_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
@@ -88,6 +88,7 @@ class ViewbackgroundWidget extends StatefulWidget {
     required this.popUpData,
     required this.durationKickout,
   });
+  static ValueNotifier<bool> isKick = ValueNotifier<bool>(false);
 
   @override
   State<ViewbackgroundWidget> createState() => _ViewbackgroundWidgetState();
@@ -130,7 +131,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         right: 0, bottom: ConfigSize.defaultSize! * 2),
                     child: const PageViewGames())),
             ValueListenableBuilder(
-                valueListenable: RoomScreen.editRoom,
+                valueListenable: OwnerOfRoom.editRoom,
                 builder: (context, editValue, _) {
                   return HeaderRoom(
                     roomName: widget.roomDataUpdates['room_name']??'' ,
@@ -199,7 +200,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 left: ConfigSize.defaultSize! * 7,
                 child: SVGAImage(widget.animationControllerEntro)),
             ValueListenableBuilder<bool>(
-                valueListenable: RoomScreen.showEntro,
+                valueListenable: ShowEntroWidget.showEntro,
                 builder: (context, isShow, _) {
                   if (isShow) {
                     return ShowEntroWidget(userIntroData: widget.userIntroData, offsetAnimationEntro: widget.offsetAnimationEntro);
@@ -249,8 +250,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   if (state.data.isWin && !state.data.isPopular) {
                     ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
                     LuckyGiftWinCircle.winCoin = state.data.winCoin;
-                    RoomScreen.winCircularluckyGift.value =
-                        RoomScreen.winCircularluckyGift.value + 1;
+                    LuckyCandy.winCircularluckyGift.value =
+                        LuckyCandy.winCircularluckyGift.value + 1;
                   } else if (state.data.isWin && state.data.isPopular) {
                     ZegoUIKit().sendInRoomMessage(state.data.message, true);
                     ZegoUIKit()
@@ -340,7 +341,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   }),
             ),
             ValueListenableBuilder<bool>(
-              valueListenable: RoomScreen.isKick,
+              valueListenable: ViewbackgroundWidget.isKick,
               builder: (context, isKicked, _) {
                 if (isKicked) {
                   return Positioned(
@@ -358,7 +359,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             ),
             IgnorePointer(
               child: ValueListenableBuilder<int>(
-                  valueListenable: RoomScreen.winCircularluckyGift,
+                  valueListenable: LuckyCandy.winCircularluckyGift,
                   builder: (context, sohw, _) {
                     if (sohw != 0) {
                       Future.delayed(const Duration(seconds: 1)).then((value) {

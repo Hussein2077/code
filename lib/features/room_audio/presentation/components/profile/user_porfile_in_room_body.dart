@@ -49,6 +49,7 @@ class UserProfileInRoom extends StatefulWidget {
       required this.userData,
       required this.layoutMode,
       super.key});
+  static ValueNotifier<int> updatebuttomBar = ValueNotifier<int>(0);
 
   @override
   State<UserProfileInRoom> createState() => _UserProfileInRoomState();
@@ -151,16 +152,14 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                               myProfrile: myProfile),
                           if (isAdminOrHost && isOnMic)
                             ValueListenableBuilder<int>(
-                                valueListenable: RoomScreen.updatebuttomBar,
+                                valueListenable: UserProfileInRoom.updatebuttomBar,
                                 builder: (context, mute, _) {
                                   return IconButton(
                                       onPressed: () {
-                                        if (RoomScreen.usersHasMute.contains(
-                                            widget.userData.id.toString())) {
+                                        if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())) {
                                           sendMuteUserMessage(
                                               mute: false,
-                                              userId: widget.userData.id
-                                                  .toString());
+                                              userId: widget.userData.id.toString());
                                         } else {
                                           if (!(widget.roomData.ownerId !=
                                                   widget.myData.id &&
@@ -407,10 +406,10 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
     if (mute) {
       ZegoUIKit.instance.turnMicrophoneOn(false, userID: userId);
       RoomScreen.usersHasMute.add(userId);
-      RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value + 1;
+      UserProfileInRoom.updatebuttomBar.value = UserProfileInRoom.updatebuttomBar.value + 1;
     } else {
       RoomScreen.usersHasMute.remove(userId);
-      RoomScreen.updatebuttomBar.value = RoomScreen.updatebuttomBar.value + 1;
+      UserProfileInRoom.updatebuttomBar.value = UserProfileInRoom.updatebuttomBar.value + 1;
     }
 
     var mapInformation = {

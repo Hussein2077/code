@@ -69,6 +69,7 @@ class ZegoLivePage extends StatefulWidget {
   final ZegoLiveAudioRoomController? prebuiltController;
   final ZegoPrebuiltPlugins? plugins;
   final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltAudioRoomData;
+  static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
 
   @override
   State<ZegoLivePage> createState() => ZegoLivePageState();
@@ -123,7 +124,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
                   children: [
                     background(context, constraints.maxHeight),
                     ValueListenableBuilder(
-                        valueListenable: RoomScreen.editAudioVideoContainer,
+                        valueListenable: ZegoLivePage.editAudioVideoContainer,
                         builder: (context,update,_){
                           return  audioVideoContainer(
                             constraints.maxWidth,

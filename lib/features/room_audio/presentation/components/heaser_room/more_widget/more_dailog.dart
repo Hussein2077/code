@@ -15,8 +15,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_ro
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/admins_room/admins_room_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/more_widget/back_ground/back_ground_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/more_widget/choose_mode/choose_mode_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/time_PK_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
@@ -27,13 +27,11 @@ class MoreDailogWidget extends StatefulWidget {
   final int roomId;
   final bool passwordStatus;
   final String ownerId;
-  final Function() notifyRoom;
   final int modeRoom;
   final String userId;
 
   const MoreDailogWidget(
       {required this.roomId,
-      required this.notifyRoom,
       required this.ownerId,
       required this.userId,
       required this.modeRoom,
@@ -42,12 +40,10 @@ class MoreDailogWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   MoreDailogWidgetState createState() => MoreDailogWidgetState();
 }
 
 class MoreDailogWidgetState extends State<MoreDailogWidget> {
-  // late bool roomIsLoked;
 
   @override
   void initState() {
@@ -188,12 +184,12 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
                       ),
                       InkWell(
                         onTap: () {
-                          if (RoomScreen.roomIsLoked) {
+                          if (EditFeaturesContainer.roomIsLoked) {
                             BlocProvider.of<OnRoomBloc>(context).add(
                                 RemovePassRoomEvent(ownerId: widget.ownerId));
 
                             setState(() {
-                              RoomScreen.roomIsLoked = false;
+                              EditFeaturesContainer.roomIsLoked = false;
                             });
                           } else {
                             Navigator.pop(context);
@@ -218,7 +214,7 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
                         },
                         child: Column(
                           children: [
-                            RoomScreen.roomIsLoked
+                            EditFeaturesContainer.roomIsLoked
                                 ? Image(
                                     width: ConfigSize.defaultSize! * 6.9,
                                     height: ConfigSize.defaultSize! * 6.9,
@@ -474,42 +470,10 @@ class MoreDailogWidgetState extends State<MoreDailogWidget> {
         listener: (context, state) {
       if (state is UpdateRoomSucsseState) {
         setState(() {
-          RoomScreen.roomIsLoked = true;
+          EditFeaturesContainer.roomIsLoked = true;
         });
       }
     }
-    );
-  }
-
-  Future<void> stopPK() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(StringManager.chooseTimePK.tr()),
-          content: const TimePKWidget(),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                StringManager.cancle.tr(),
-                style: const TextStyle(color: Colors.black),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(StringManager.startBattle.tr(),
-                  style: const TextStyle(color: Colors.black)),
-              onPressed: () {
-                widget.notifyRoom();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 

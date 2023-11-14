@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_gift_win_circle.dart';
 
 class LuckyWinCircleWithOverlay extends StatelessWidget {
@@ -26,7 +26,7 @@ class LuckyWinCircleWithOverlay extends StatelessWidget {
     }
 
     return ValueListenableBuilder<int>(
-        valueListenable: RoomScreen.winCircularluckyGift,
+        valueListenable: LuckyCandy.winCircularluckyGift,
         builder: (context, sohw, _) {
           if (sohw != 0) {
             Future.delayed(const Duration(seconds: 1)).then((value) {

@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/user_porfile_in_room_body.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_inner_text.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 
@@ -196,7 +197,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
               }
 
 
-              RoomScreen.listOfMuteSeats.containsKey(index)
+              ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)
                   ? popupItems.add(PopupItem(
                 PopupItemValue.unMuteMic,
                 StringManager.unMuteMic.tr(),
@@ -229,7 +230,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
           }
         }
         else{
-          RoomScreen.listOfMuteSeats.containsKey(index)
+          ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)
               ? popupItems.add(PopupItem(
             PopupItemValue.unMuteMic,
             StringManager.unMuteMic.tr(),
@@ -319,7 +320,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
         //check if you is host or admin ,than you can do any think
         if(RoomScreen.adminsInRoom.containsKey(ZegoUIKit().getLocalUser().id)||widget.isHost){
           popupItems.add(takeSeatItem);
-          RoomScreen.listOfMuteSeats.containsKey(index)
+          ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)
               ? popupItems.add(PopupItem(
             PopupItemValue.unMuteMic,
             StringManager.unMuteMic.tr(),
@@ -444,7 +445,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
         );
 
         Future.delayed(const  Duration(seconds: 5),(){
-          if(RoomScreen.listOfMuteSeats.containsKey(index)
+          if(ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)
               ||RoomScreen.usersHasMute.contains(MyDataModel.getInstance().id.toString())){
             ZegoUIKit().turnMicrophoneOn(false,
                 userID: MyDataModel.getInstance().id.toString());
