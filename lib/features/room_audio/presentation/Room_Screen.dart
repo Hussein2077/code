@@ -59,7 +59,6 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:video_player/video_player.dart';
-import 'package:path_provider/path_provider.dart';
 
 class RoomScreen extends StatefulWidget {
   final EnterRoomModel room;
