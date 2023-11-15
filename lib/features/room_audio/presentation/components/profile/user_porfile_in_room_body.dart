@@ -92,7 +92,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          height:isAdminOrHost? ConfigSize.screenHeight! * .48:ConfigSize.screenHeight! * .43,
+          height:isAdminOrHost? ConfigSize.screenHeight! * .45:ConfigSize.screenHeight! * .45,
           decoration: BoxDecoration(
               color: const Color(0xFFFFFCE4),
               borderRadius: BorderRadius.only(
@@ -104,9 +104,11 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                   ))),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: ConfigSize.defaultSize! * 1.9,
-            vertical: ConfigSize.defaultSize! * 1.9,
+          padding: EdgeInsets.only(
+            top: ConfigSize.defaultSize! * 1.9,
+            left: ConfigSize.defaultSize! * 1.9,
+            right: ConfigSize.defaultSize! * 1.9,
+            bottom: ConfigSize.defaultSize! * 1,
           ),
           child: SizedBox(
             height:isAdminOrHost? ConfigSize.screenHeight! * .50: ConfigSize.defaultSize! * 41.4,
@@ -209,9 +211,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                     IdWithCopyIcon(
                       userData: widget.userData,
                     ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 0.5,
-                    ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -236,7 +236,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                       ],
                     ),
                     SizedBox(height: ConfigSize.defaultSize! * 2),
-                    if (widget.userData.familyData != null)
+                    widget.userData.familyData != null?
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(
@@ -245,8 +245,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                         },
                         child: Container(
                             padding: EdgeInsets.symmetric(
-                                vertical: ConfigSize.defaultSize! * 0.2,
-                                horizontal: ConfigSize.defaultSize! * 1),
+                                vertical:   ConfigSize.defaultSize! * 0.2,
+                                horizontal: ConfigSize.defaultSize! * 1   ),
                             decoration: BoxDecoration(
                                 gradient: const LinearGradient(
                                     colors: ColorManager.mainColorList),
@@ -260,7 +260,10 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                                     .toString()),
                               ],
                             )),
-                      ),
+                      ):SizedBox(
+                       height: ConfigSize.defaultSize! * 3,
+                       width:  ConfigSize.defaultSize! * 3
+                    )
                   ],
                 ),
                  SizedBox(
@@ -381,7 +384,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
         Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.only(top:isAdminOrHost? ConfigSize.screenHeight! * 0.03:ConfigSize.screenHeight! * 0.13),
+            padding: EdgeInsets.only(top:isAdminOrHost? ConfigSize.screenHeight! * 0.08:ConfigSize.screenHeight! * 0.09),
             child: InkWell(
               onTap: () {
                 Methods.instance.userProfileNvgator(

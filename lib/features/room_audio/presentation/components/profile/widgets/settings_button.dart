@@ -17,38 +17,40 @@ import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_control
 class SettingsButton extends StatefulWidget {
   final UserDataModel userData;
   final EnterRoomModel roomData;
-    final LayoutMode layoutMode;
-  final    bool isOnMic ;
-  final bool myProfrile ; 
+  final LayoutMode layoutMode;
+  final bool isOnMic;
+
+  final bool myProfrile;
 
   final bool isAdminOrHost;
 
   const SettingsButton(
-      {required this.roomData, required this.userData,required this.layoutMode , required this.isAdminOrHost , required this.isOnMic , required this.myProfrile ,    super.key});
+      {required this.roomData,
+      required this.userData,
+      required this.layoutMode,
+      required this.isAdminOrHost,
+      required this.isOnMic,
+      required this.myProfrile,
+      super.key});
 
   @override
   State<SettingsButton> createState() => _SettingsButtonState();
 }
 
 class _SettingsButtonState extends State<SettingsButton> {
-  
   @override
   Widget build(BuildContext context) {
     final List<String> items = [
-    StringManager.mention.tr(),
-    if(!widget.myProfrile)
-    StringManager.reports.tr(),
-    if (widget.isAdminOrHost)
-    StringManager.admin.tr(),
-    if (widget.isAdminOrHost)
-        RoomScreen.banedUsers.containsKey(widget.userData.id.toString())?
-
-   StringManager.writeUnBan.tr() :StringManager.writeBan.tr() ,
-    if (widget.isAdminOrHost&&widget.isOnMic==false)
-    StringManager.inviteFriend.tr(),
-
-  
-  ];
+      StringManager.mention.tr(),
+      if (!widget.myProfrile) StringManager.reports.tr(),
+      if (widget.userData.id == widget.roomData.ownerId) StringManager.admin.tr(),
+      if (widget.isAdminOrHost)
+        RoomScreen.banedUsers.containsKey(widget.userData.id.toString())
+            ? StringManager.writeUnBan.tr()
+            : StringManager.writeBan.tr(),
+      if (widget.isAdminOrHost && widget.isOnMic == false)
+        StringManager.inviteFriend.tr(),
+    ];
     return Container(
       width: ConfigSize.defaultSize! * 8.0,
       height: ConfigSize.defaultSize! * 2.7,
@@ -90,31 +92,37 @@ class _SettingsButtonState extends State<SettingsButton> {
                   roomData: widget.roomData,
                   userData: widget.userData);
             }
+
             if (value == StringManager.admin.tr()) {
               BlocProvider.of<AdminRoomBloc>(context).add(AddAdminEvent(
                   ownerId: widget.roomData.ownerId.toString(),
                   userId: widget.userData.id.toString()));
             }
-              if (value == StringManager.reports.tr()) {
-      repoertsAction(context: context , userData: widget.userData);
+            if (value == StringManager.reports.tr()) {
+              repoertsAction(context: context, userData: widget.userData);
             }
-                 if (value ==  StringManager.writeBan.tr()) {
-                  Navigator.pop(context);
-      banFromWriteAction(context: context , userData: widget.userData , roomData: widget.roomData);
+            if (value == StringManager.writeBan.tr()) {
+              Navigator.pop(context);
+              banFromWriteAction(
+                  context: context,
+                  userData: widget.userData,
+                  roomData: widget.roomData);
             }
-                        if (value ==  StringManager.writeUnBan.tr()) {
-                                            Navigator.pop(context);
+            if (value == StringManager.writeUnBan.tr()) {
+              Navigator.pop(context);
 
-      banFromWriteAction(context: context , userData: widget.userData , roomData: widget.roomData);
+              banFromWriteAction(
+                  context: context,
+                  userData: widget.userData,
+                  roomData: widget.roomData);
             }
-                         if (value ==  StringManager.inviteFriend.tr()) {
-     chooseSeatToInvatation(
-                                    widget.layoutMode,
-                                    context,
-                                    widget.roomData.ownerId.toString(),
-                                    widget.userData.id.toString());            }
-
-            
+            if (value == StringManager.inviteFriend.tr()) {
+              chooseSeatToInvatation(
+                  widget.layoutMode,
+                  context,
+                  widget.roomData.ownerId.toString(),
+                  widget.userData.id.toString());
+            }
           },
           icon: Icon(Icons.settings,
               color: ColorManager.gray, size: ConfigSize.defaultSize! * 1.8),
