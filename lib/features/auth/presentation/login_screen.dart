@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
@@ -23,13 +21,9 @@ import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widget
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_state.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
-import 'package:tik_chat_v2/main.dart';
-import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'widgets/google_auth.dart';
 import 'widgets/phone_wtih_country.dart';
 import 'widgets/privcy_text_widget.dart';
@@ -231,7 +225,6 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) async {
         if (state is LoginWithPhoneSuccesMessageState) {
           Methods.instance.clearAuthData();
-          await Methods.instance.addFireBaseNotifcationId();
           //todo check this event if still here or not
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           Navigator.pushNamedAndRemoveUntil(

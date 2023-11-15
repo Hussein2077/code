@@ -14,10 +14,8 @@ import 'package:tik_chat_v2/features/chat/user_chat/Logics/functions.dart';
 class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState> {
   FirebaseLoginBloc() : super(FirebaseLoginInitial()) {
     on<FireBaseLoginEvent>((event, emit) async{
-      log("1");
       await FirebaseAuth.instance.signOut();
-      log("2");
-    if (kDebugMode){
+    if (!kDebugMode){
 
      await FirebaseAuth.instance.signInWithEmailAndPassword(
        email: "eelhamody@gmail.com",
@@ -27,20 +25,15 @@ class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState>
  }else {
 
    try {
-     log("3");
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: "${MyDataModel.getInstance().id}@gmail.com",
             password:"${MyDataModel.getInstance().id}@gmail.com"
         );
-     log("4");
       } on FirebaseAuthException catch (e) {
         await createUserFireBase();
    }
-   log("5");
       Methods().addFireBaseNotifcationId();
-   log("6");
       Functions.updateAvailability();
-   log("7");
     }});
   }
 }

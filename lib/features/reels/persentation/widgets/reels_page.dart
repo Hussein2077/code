@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/src/layout.dart';
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
@@ -111,7 +112,8 @@ class ReelsPageState extends State<ReelsPage>
       if(kDebugMode){
         log("in cache reels");
       }
-        }else{
+        }
+    else{
       if(kDebugMode){
         log((widget.item.url!.toString()));
         log("in network reels");
@@ -160,8 +162,9 @@ class ReelsPageState extends State<ReelsPage>
         ReelsPage.isVideoPause.value = false ;
       }
 
-       if(!(_videoPlayerController?.value.isPlaying??true) && !ReelsPage.isVideoPause.value){
-        // _videoPlayerController?.play();
+       if(!(_videoPlayerController?.value.isPlaying??true)&&
+           !ReelsPage.isVideoPause.value){
+         _videoPlayerController?.play();
        }
 
     });
@@ -195,21 +198,13 @@ if (_chewieController != null) {
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
       case AppLifecycleState.hidden:
-        log("tttttttttttttttttt");
       _videoPlayerController?.pause();
       ReelsPage.isVideoPause.value =true;
         break;
     }
   }
 
-  @override
-  void didUpdateWidget(covariant ReelsPage oldWidget) {
-    log("1");
-    if(oldWidget.index != widget.index){
-      log("in didUpdateWidget") ;
-    }
-    super.didUpdateWidget(oldWidget);
-  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -140,7 +140,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
                     swiperController: controller,
                     showProgressIndicator: widget.showProgressIndicator,
                     index: index,
-
                   );
                 },
                 controller: controller,
