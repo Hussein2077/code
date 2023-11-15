@@ -119,74 +119,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 1),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      myProfile//for the blockbutto
-                          ? SizedBox(width: ConfigSize.defaultSize! * 8)
-                          : Padding(
-                              padding: EdgeInsets.only(
-                                left: ConfigSize.defaultSize! * 1.5,
-                              ),
-                              child: Column(
-                                children: [
-                                  isAdminOrHost
-                                      ? BlockButton(
-                                          roomData: widget.roomData,
-                                          userData: widget.userData,
-                                        )
-                                      : SizedBox(
-                                          width: ConfigSize.defaultSize! * 8)
-                                ],
-                              ),
-                            ),
 
-                      //column for setting and mute buttons
-                      Column(
-                        children: [
-                          SettingsButton(
-                              roomData: widget.roomData,
-                              userData: widget.userData,
-                              layoutMode: widget.layoutMode,
-                              isAdminOrHost: isAdminOrHost,
-                              isOnMic: isOnMic,
-                              myProfrile: myProfile),
-                          if (isAdminOrHost && isOnMic)
-                            ValueListenableBuilder<int>(
-                                valueListenable: UserProfileInRoom.updatebuttomBar,
-                                builder: (context, mute, _) {
-                                  return IconButton(
-                                      onPressed: () {
-                                        if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())) {
-                                          sendMuteUserMessage(
-                                              mute: false,
-                                              userId: widget.userData.id.toString(), ownerId: widget.roomData.ownerId.toString());
-                                        } else {
-                                          if (!(widget.roomData.ownerId != widget.myData.id && RoomScreen.adminsInRoom.containsKey(widget.userData.id.toString()))) {
-                                            //admin can't make mute to admin
-                                            sendMuteUserMessage(
-                                                mute: true,
-                                                userId: widget.userData.id.toString(), ownerId: widget.roomData.ownerId.toString());
-                                          }
-                                        }
-                                      },
-                                      icon: Icon(
-                                        RoomScreen.usersHasMute.contains(
-                                                widget.userData.id.toString())
-                                            ? Icons.mic_off
-                                            : Icons.mic_rounded,
-                                        color: Colors.black,
-                                      ));
-                                })
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
+                 Column(
                   children: [
                     SizedBox(
                       height: ConfigSize.defaultSize! * 3,
@@ -377,6 +311,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
             ),
           ),
         ),
+
         Align(
           alignment: Alignment.center,
           child: Padding(
@@ -394,6 +329,93 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                 image: widget.userData.profile!.image!,
               ),
             ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 18,
+              left:ConfigSize.defaultSize!*2,
+              right:  ConfigSize.defaultSize!*2),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+
+                children: [
+                  myProfile//for the blockbutto
+                      ? SizedBox(width: ConfigSize.defaultSize! * 8)
+                      : isAdminOrHost
+                      ? BlockButton(
+                    roomData: widget.roomData,
+                    userData: widget.userData,
+                  )
+                      : SizedBox(
+                      width: ConfigSize.defaultSize! * 8),
+
+                  SizedBox(
+                    height: ConfigSize.defaultSize! * 5,
+                  ),
+                ],
+              ),
+
+
+              //column for setting and mute buttons
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                   if(isOnMic)
+                    SizedBox(
+                      height:isAdminOrHost? ConfigSize.defaultSize! * 5:0,
+                    ),
+                  SettingsButton(
+                      roomData: widget.roomData,
+                      userData: widget.userData,
+                      layoutMode: widget.layoutMode,
+                      isAdminOrHost: isAdminOrHost,
+                      isOnMic: isOnMic,
+                      myProfrile: myProfile),
+                   if (isAdminOrHost && isOnMic)
+                  ValueListenableBuilder<int>(
+                      valueListenable: UserProfileInRoom.updatebuttomBar,
+                      builder: (context, mute, _) {
+                        return IconButton(
+                            onPressed: () {
+                              if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())) {
+                                sendMuteUserMessage(
+                                    mute: false,
+                                    userId: widget.userData.id.toString());
+                              } else {
+                                if (!(widget.roomData.ownerId !=
+                                    widget.myData.id &&
+                                    RoomScreen.adminsInRoom
+                                        .containsKey(widget
+                                        .userData.id
+                                        .toString()))) {
+                                  //admin can't make mute to admin
+                                  sendMuteUserMessage(
+                                      mute: true,
+                                      userId: widget.userData.id
+                                          .toString());
+                                }
+                              }
+                            },
+                            icon: Icon(
+                              RoomScreen.usersHasMute.contains(
+                                  widget.userData.id.toString())
+                                  ? Icons.mic_off
+                                  : Icons.mic_rounded,
+                              color: Colors.black,
+                            ));
+                      }),
+
+                  if(!isOnMic)
+                    SizedBox(
+                      height: ConfigSize.defaultSize! * 5,
+                    ),
+                ],
+              ),
+            ],
           ),
         ),
       ],
