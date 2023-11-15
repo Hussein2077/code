@@ -364,10 +364,10 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   if(isOnMic)
-                    SizedBox(
-                      height:isAdminOrHost? ConfigSize.defaultSize! * 5:0,
-                    ),
+                  if(isAdminOrHost)
+                  SizedBox(
+                    height: ConfigSize.defaultSize! * 4,
+                  ),
                   SettingsButton(
                       roomData: widget.roomData,
                       userData: widget.userData,
@@ -407,9 +407,9 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                                   : Icons.mic_rounded,
                               color: Colors.black,
                             ));
+
                       }),
 
-                  if(!isOnMic)
                     SizedBox(
                       height: ConfigSize.defaultSize! * 5,
                     ),

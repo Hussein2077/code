@@ -11,10 +11,14 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/widget/dialog_pop_up.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/widget/log_out_button.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/account_states.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
 
 class LinkingScreenBody extends StatefulWidget {
   final MyDataModel myData;
@@ -97,6 +101,36 @@ class _LinkingScreenBodyState extends State<LinkingScreenBody> {
                   title: StringManager.google.tr(),
                   isBind: widget.myData.isGoogle!,
                   onTap: () {},
+
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 3.5,
+                ),
+                linkingRowAccount(
+                  context: context,
+                  icon: AssetsPath.deleteAccout,
+
+                  title: StringManager.deleteAccount.tr(),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return DialogPopUp(
+                              headerText: StringManager.wanaDeletAccout.tr(),
+                              accpetText: () async {
+                                if (LogOutOrDeleteAccountButton
+                                    .isFirstTabInAcceptButton) {
+                                  log('One tab');
+                                  setState(() {
+                                    LogOutOrDeleteAccountButton
+                                        .isFirstTabInAcceptButton = false;
+                                  });
+                                  BlocProvider.of<LogOutBloc>(context)
+                                      .add(DeleteAccountEvent());
+                                }
+                              });
+                        });
+                  },
                 ),
               ],
             ),
@@ -142,6 +176,59 @@ Widget linkingRow({
         titleSize: ConfigSize.defaultSize! * 1.6,
         buttonColor:
             isBind ?   ColorManager.bageGriedinet:ColorManager.yellowGrident,
+      ),
+
+//the old ontap in the second mainbutton
+      // type == "google"
+      //     ? () {
+      //         BlocProvider.of<AcountBloc>(context)
+      //             .add(BindGoolgeAccountEvent());
+      //       }
+      //     : () {
+      //         Navigator.pop(context);
+      //         Navigator.pushNamed(context, Routes.phoneBindScreen);
+      //       },
+
+      const Spacer(
+        flex: 1,
+      ),
+    ],
+  );
+}
+
+Widget linkingRowAccount({
+  required BuildContext context,
+  required String title,
+  required String icon,
+  required void Function() onTap,
+}) {
+  return Row(
+    children: [
+      const Spacer(
+        flex: 1,
+      ),
+      Image.asset(
+        icon,
+        scale: 2,
+      ),
+      const Spacer(
+        flex: 1,
+      ),
+      Text(
+        title,
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
+      const Spacer(
+        flex: 15,
+      ),
+
+      MainButton(
+        onTap: onTap,
+        title: StringManager.delete.tr() ,
+        width: ConfigSize.defaultSize! * 7,
+        height: ConfigSize.defaultSize! * 3,
+        titleSize: ConfigSize.defaultSize! * 1.6,
+        buttonColor: const [Colors.red,Colors.red]
       ),
 
 //the old ontap in the second mainbutton
