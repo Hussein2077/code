@@ -384,7 +384,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                               if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())) {
                                 sendMuteUserMessage(
                                     mute: false,
-                                    userId: widget.userData.id.toString());
+                                    userId: widget.userData.id.toString(),  ownerId: widget.roomData.ownerId.toString());
                               } else {
                                 if (!(widget.roomData.ownerId !=
                                     widget.myData.id &&
@@ -396,7 +396,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                                   sendMuteUserMessage(
                                       mute: true,
                                       userId: widget.userData.id
-                                          .toString());
+                                          .toString(), ownerId: widget.roomData.ownerId.toString());
                                 }
                               }
                             },
