@@ -222,3 +222,23 @@ class SendYallowBannerEvent extends OnRoomEvents{
   @override
   List<Object?> get props => [ownerId,message];
 }
+
+class MuteUserMicEvent extends OnRoomEvents {
+  final String ownerId;
+  final String userId ;
+
+  const MuteUserMicEvent({required  this.userId, required this.ownerId});
+
+  @override
+  List<Object?> get props => [userId, ownerId];
+}
+
+class UnMuteUserMicEvent extends OnRoomEvents {
+  final String ownerId;
+  final String userId ;
+
+  const UnMuteUserMicEvent({required  this.userId, required this.ownerId});
+
+  @override
+  List<Object?> get props => [userId, ownerId];
+}

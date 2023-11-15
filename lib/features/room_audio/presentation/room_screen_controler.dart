@@ -569,7 +569,7 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
 }
 
 KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String id, BuildContext context){
-  durationKickout = result[messageContent]['duration'];
+  durationKickout['durationKickout'] = int.parse(result[messageContent]['duration']);
   ViewbackgroundWidget.isKick.value = true;
   Future.delayed(const Duration(seconds: 3), () async {
     Navigator.pop(context);

@@ -62,7 +62,7 @@ class ViewbackgroundWidget extends StatefulWidget {
   Animation<Offset> offsetLuckGiftAnimationBanner;
   ValueNotifier<bool> showPopUp;
   Map <String , dynamic>? popUpData;
-  Map<String, dynamic> durationKickout;
+  Map<String, int> durationKickout;
   ViewbackgroundWidget({super.key,
     required this.room,
     required this.roomDataUpdates,
@@ -349,7 +349,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                       left: AppPadding.p30,
                       right: AppPadding.p36,
                       child: KickOutUserWidget(
-                        durationKickout: widget.durationKickout['durationKickout'],
+                        durationKickout: widget.durationKickout,
                         isKick: isKicked,
                       ));
                 } else {

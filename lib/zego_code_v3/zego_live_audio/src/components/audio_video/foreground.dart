@@ -197,7 +197,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
               }
 
 
-              ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)
+              RoomScreen.listOfMuteSeats.containsKey(index)
                   ? popupItems.add(PopupItem(
                 PopupItemValue.unMuteMic,
                 StringManager.unMuteMic.tr(),
@@ -230,7 +230,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
           }
         }
         else{
-          ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)
+          RoomScreen.listOfMuteSeats.containsKey(index)
               ? popupItems.add(PopupItem(
             PopupItemValue.unMuteMic,
             StringManager.unMuteMic.tr(),
@@ -320,7 +320,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
         //check if you is host or admin ,than you can do any think
         if(RoomScreen.adminsInRoom.containsKey(ZegoUIKit().getLocalUser().id)||widget.isHost){
           popupItems.add(takeSeatItem);
-          ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)
+          RoomScreen.listOfMuteSeats.containsKey(index)
               ? popupItems.add(PopupItem(
             PopupItemValue.unMuteMic,
             StringManager.unMuteMic.tr(),
@@ -445,7 +445,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
         );
 
         Future.delayed(const  Duration(seconds: 5),(){
-          if(ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)
+          if(RoomScreen.listOfMuteSeats.containsKey(index)
               ||RoomScreen.usersHasMute.contains(MyDataModel.getInstance().id.toString())){
             ZegoUIKit().turnMicrophoneOn(false,
                 userID: MyDataModel.getInstance().id.toString());

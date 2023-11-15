@@ -5,7 +5,6 @@ import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
-import 'package:tik_chat_v2/features/home/domin/use_case/get_top_usecase.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/room_audio/data/data_sorce/remotly_data_source_room.dart';
@@ -13,7 +12,6 @@ import 'package:tik_chat_v2/features/room_audio/data/model/background_model.dart
 import 'package:tik_chat_v2/features/room_audio/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/data/model/get_room_users_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/lucky_gift_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
@@ -23,6 +21,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/enter_room.dart'
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/kickout_pramiter_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_box_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_pob_up_uc.dart';
@@ -454,6 +453,28 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
   Future<Either<List<RoomUserMesseagesModel>, Failure>> getUsersInRoon(String userId) async{
     try {
       final result = await baseRemotlyDataSourceRoom.getUsersInRoon(userId);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> muteUserMic(MuteUserMicPramiter muteUserMicPramiter) async {
+    try {
+      final result =
+      await baseRemotlyDataSourceRoom.muteUserMic(muteUserMicPramiter);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter) async {
+    try {
+      final result =
+      await baseRemotlyDataSourceRoom.unMuteUserMic(muteUserMicPramiter);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));
