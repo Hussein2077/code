@@ -153,16 +153,30 @@ class _SplashScreenState extends State<SplashScreen> {
     final Uri? deepLink = data;
     final String? action = deepLink?.queryParameters['action'];
     final String? reelId = deepLink?.queryParameters['reel_id'];
+    final String? momentId = deepLink?.queryParameters['moment_Id'];
+
+
 
     if (action == 'show_reel') {
       log("handleDeepLink reelId $reelId");
       showReelDynamicLink(reelId: reelId);
     }
+    if(action == "show_moment" ){
+
+      showMomentDynamicLink(momentId: momentId);
+    }
   }
+
+
+
 
   void showReelDynamicLink({String? reelId}) {
     MainScreen.reelId = reelId ?? '';
     SplashScreen.initPage = 1;
+  }
+  void showMomentDynamicLink({String? momentId}) {
+    MainScreen.momentId = momentId ;
+    SplashScreen.initPage = 4;
   }
 
   Future<void> loadResources() async {

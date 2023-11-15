@@ -49,6 +49,8 @@ class MainScreen extends StatefulWidget {
   static EnterRoomModel? roomData;
 
   static String reelId = '';
+  static String? momentId ;
+
 
   const MainScreen(
       {this.isCachFrame,

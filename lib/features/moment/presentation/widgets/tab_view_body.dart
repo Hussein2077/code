@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_appbar.dart';
@@ -26,33 +28,46 @@ class TabViewBody extends StatelessWidget {
         itemCount: momentModelList.length,
         itemBuilder: (context, i) {
 
-          return Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+          return InkWell(
+            onTap: (){
+              log(momentModelList[i].momentId.toString()+"xxxxxx");
+              DynamicLinkProvider()
+                  .showMomentLink(
+                momentId: momentModelList[i].momentId.toString(),
+                momentImage: momentModelList[i].momentImage.toString(),
+              )
+                  .then((value) {
+                Share.share(value);
+              });
+            },
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                  child: Column(
+                    children: [
+                      MomentAppBar(
+                        momentModel: momentModelList[i],
+                      ),
+                      MomentView(
+                        momentModel: momentModelList[i],
+                      ),
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 1.5,
+                      ),
+                      MomentBottomBar(
+                        momentModel: momentModelList[i],
+                      ),
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 1.5,
+                      ),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    MomentAppBar(
-                      momentModel: momentModelList[i],
-                    ),
-                    MomentView(
-                      momentModel: momentModelList[i],
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 1.5,
-                    ),
-                    MomentBottomBar(
-                      momentModel: momentModelList[i],
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 1.5,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

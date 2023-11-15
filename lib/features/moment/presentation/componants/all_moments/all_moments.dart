@@ -16,6 +16,8 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/tab_view_body.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
+import 'package:tik_chat_v2/splash.dart';
 
 class AllMomentsScreen extends StatefulWidget {
   const AllMomentsScreen({super.key});
@@ -31,6 +33,9 @@ class _AllMomentsScreenState extends State<AllMomentsScreen> {
 
   @override
   void initState() {
+    if (SplashScreen.initPage == 4) {
+      BlocProvider.of<GetMomentallBloc>(context)
+          .add( GetMomentAllEvent(momentId:MainScreen.momentId ));    }
     scrollController.addListener(scrollListner);
     MomentBottomBarState.momentType = MomentType.allMoments;
     super.initState();
@@ -44,7 +49,7 @@ class _AllMomentsScreenState extends State<AllMomentsScreen> {
       showChildOpacityTransition: false,
       onRefresh: () async {
         BlocProvider.of<GetMomentallBloc>(context)
-            .add(const GetMomentAllEvent());
+            .add( GetMomentAllEvent());
       },
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),

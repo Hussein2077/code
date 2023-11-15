@@ -258,6 +258,7 @@ class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
     final timeZone=await Methods.instance.getCurrentTimeZone();
     headers.addAll({'tz':timeZone});
     try {
+
       final response = await Dio().get(
         ConstentApi.getMoments(pram.userId??'',pram.type,pram.page,),
         options: Options(
@@ -265,8 +266,20 @@ class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
         ),
       );
       Map<String, dynamic> resultData = response.data;
-      return List<MomentModel>.from(
+      List<MomentModel> data = List<MomentModel>.from(
           resultData['data'].map((x) => MomentModel.fromJson(x)));
+      if(pram.momentId!=null ){
+        final response = await Dio().get(
+          ConstentApi.getOneMoment(pram.momentId!),
+          options: Options(
+            headers: headers,
+          ),
+        );
+        data.insert(0, MomentModel.fromJson(response.data['data']));
+      }
+
+      return  data ;
+
 
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getMoment');

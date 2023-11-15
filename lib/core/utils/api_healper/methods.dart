@@ -879,7 +879,11 @@ class Methods {
         BlocProvider.of<GetFollowingReelsBloc>(context).add(GetFollowingReelsEvent());
         BlocProvider.of<GetFollwersRoomBloc>(context).add(const GetFollwersRoomEvent(type: "5"));
         BlocProvider.of<GetRoomsBloc>(context).add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
-        BlocProvider.of<GetMomentallBloc>(context).add(const GetMomentAllEvent());
+        if(MainScreen.momentId == null || MainScreen.momentId == ''){
+          BlocProvider.of<GetMomentallBloc>(context).add( GetMomentAllEvent());
+
+        }
+
         BlocProvider.of<JoinFamilyBloc>(context)
             .add(InitJoinFamilyEvent() );
         BlocProvider.of<FirebaseLoginBloc>(context).add(const FireBaseLoginEvent());

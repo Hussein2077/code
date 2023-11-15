@@ -66,9 +66,9 @@ class BottomBarWidget extends StatelessWidget {
               label: StringManager.reels.tr(),
             ),
             BottomNavigationBarItem(
-              icon: const BottomIcon(
+              icon:const MessageCountNotifcation(widget:BottomIcon(
                 icon: AssetsPath.conversation,
-              ),
+              ), )   ,
               activeIcon: const BottomIcon(
                 icon: AssetsPath.selectedConversation,
               ),
@@ -93,10 +93,8 @@ class BottomBarWidget extends StatelessWidget {
               label: StringManager.momentTab.tr(),
             ),
             BottomNavigationBarItem(
-              icon: const MessageCountNotifcation(
-                widget: BottomIcon(
-                  icon: AssetsPath.unselectedprofileIcon,
-                ),
+              icon: const BottomIcon(
+                icon: AssetsPath.unselectedprofileIcon,
               ),
               activeIcon: const BottomIcon(
                 icon: AssetsPath.profileIcon,
