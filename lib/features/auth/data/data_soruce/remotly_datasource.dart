@@ -206,11 +206,9 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       Map<String, dynamic> resultData = response.data;
 
+      MyDataModel userData = MyDataModel.fromMap(resultData['data']);
 
-      
-        MyDataModel userData = MyDataModel.fromMap(resultData['data']);
-
-        Methods.instance.saveUserToken(authToken: userData.authToken);
+      Methods.instance.saveUserToken(authToken: userData.authToken);
 
         return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );
       }on DioError catch (e){

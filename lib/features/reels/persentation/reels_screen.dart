@@ -156,7 +156,8 @@ class ReelsScreenState extends State<ReelsScreen>{
                         }
                         else if (state is GetReelsErrorState) {
                           return CustomErrorWidget(message: state.errorMassage);
-                        } else {
+                        }
+                        else {
                           return CustomErrorWidget(
                               message: StringManager.unexcepectedError.tr());
                         }

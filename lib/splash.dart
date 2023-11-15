@@ -180,26 +180,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> loadResources() async {
-    // Future.delayed(const Duration(seconds: 1), () async {
-    //   // final String defaultLocale = Platform.localeName;
-    //   // FlutterLogs.logInfo(
-    //   //   'log',
-    //   //   'init',
-    //   //   '========================================== Platform.localeName ',
-    //   // );
-    //   // await context.setLocale(Locale(defaultLocale.substring(0,2)));
-    //   // FlutterLogs.logInfo(
-    //   //   'log',
-    //   //   'init',
-    //   //   '========================================== context.setLocale',
-    //   // );
-    //   // await Methods.instance.saveLocalazitaon(language:defaultLocale.substring(0,2));
-    //   // FlutterLogs.logInfo(
-    //   //   'log',
-    //   //   'init',
-    //   //   '========================================== saveLocalazitaon',
-    //   // );
-    // });
+
+
     final result =
         await GetConfigeAppUseCase(homeRepo: getIt()).call(ConfigModelBody(
       appVersion: StringManager.versionApp.toString(),
@@ -220,4 +202,6 @@ class _SplashScreenState extends State<SplashScreen> {
       '========================================== SplashScreen',
     );
   }
+
+
 }

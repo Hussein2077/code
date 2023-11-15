@@ -28,9 +28,11 @@ class ReelsPage extends StatefulWidget {
   final SwiperController swiperController;
   final bool showProgressIndicator;
   final bool userView;
+  final int index ;
   static VideoPlayerController? videoPlayerController;
   static bool isFirst = true;
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
+
 
    ReelsPage(
       {Key? key,
@@ -41,6 +43,7 @@ class ReelsPage extends StatefulWidget {
         this.onFollow,
         this.onLike,
         this.onShare,
+        required this.index,
         this.showProgressIndicator = true,
         required this.swiperController,
         required this.userView})
@@ -51,7 +54,7 @@ class ReelsPage extends StatefulWidget {
 }
 
 class ReelsPageState extends State<ReelsPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin ,  WidgetsBindingObserver  {
   VideoPlayerController?   _videoPlayerController  ;
   ChewieController? _chewieController;
   FileInfo? image ;
@@ -63,7 +66,8 @@ class ReelsPageState extends State<ReelsPage>
     duration: const Duration(milliseconds: 2000),
     vsync: this,
   )..repeat(reverse: false);
-  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+  late final Animation<Offset> _offsetAnimation =
+  Tween<Offset>(
     begin: Offset.zero,
     end: const Offset(0.0, 0.0),
   ).animate(CurvedAnimation(
@@ -75,7 +79,6 @@ class ReelsPageState extends State<ReelsPage>
   @override
   void initState() {
     super.initState();
-    ReelsPage.isVideoPause.value = false;
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
       initializePlayer().then((value) {
@@ -90,13 +93,13 @@ class ReelsPageState extends State<ReelsPage>
        _videoPlayerController?.play() ;
 
     });
+    WidgetsBinding.instance.addObserver(this);
 
   }
 
 
   Future initializePlayer() async {
 
-    log("widget.item.url ${widget.item.url}");
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
     final cachImage =  await getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
     image = cachImage ;
@@ -104,7 +107,6 @@ class ReelsPageState extends State<ReelsPage>
     if(file?.file !=null){
 
 
-      ReelsPage.isVideoPause.value = false ;
       _videoPlayerController = VideoPlayerController.file(file!.file);
       if(kDebugMode){
         log("in cache reels");
@@ -159,7 +161,7 @@ class ReelsPageState extends State<ReelsPage>
       }
 
        if(!(_videoPlayerController?.value.isPlaying??true) && !ReelsPage.isVideoPause.value){
-         _videoPlayerController?.play();
+        // _videoPlayerController?.play();
        }
 
     });
@@ -167,22 +169,47 @@ class ReelsPageState extends State<ReelsPage>
 
   @override
   void dispose() {
-    log("in dispose");
-     log(" dispose vedio") ;
-      _videoPlayerController?.dispose();
+
+    _videoPlayerController?.dispose();
 
 if (_chewieController != null) {
   _chewieController!.dispose();
 }
 
-
+    WidgetsBinding.instance.removeObserver(this);
 
 
     super.dispose();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
 
 
+    switch (state) {
+      case AppLifecycleState.resumed:
+        _videoPlayerController?.play();
+        break;
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+      case AppLifecycleState.hidden:
+        log("tttttttttttttttttt");
+      _videoPlayerController?.pause();
+      ReelsPage.isVideoPause.value =true;
+        break;
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant ReelsPage oldWidget) {
+    log("1");
+    if(oldWidget.index != widget.index){
+      log("in didUpdateWidget") ;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {

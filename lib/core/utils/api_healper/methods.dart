@@ -814,7 +814,9 @@ class Methods {
   }
 
   Future addFireBaseNotifcationId() async {
+    log("51");
     String token = await Methods.instance.returnUserToken();
+    log("52");
     String? tokenn = FirebaseAuth.instance.currentUser?.uid.toString();
 
     await Dio().post(
@@ -831,6 +833,7 @@ class Methods {
         },
       ),
     );
+    log("53");
   }
   Future<String> getCurrentTimeZone() async {
     DateTime dateTimeNow = DateTime.now();

@@ -139,6 +139,8 @@ class _ReelsViewerState extends State<ReelsViewer> {
                     showVerifiedTick: widget.showVerifiedTick,
                     swiperController: controller,
                     showProgressIndicator: widget.showProgressIndicator,
+                    index: index,
+
                   );
                 },
                 controller: controller,

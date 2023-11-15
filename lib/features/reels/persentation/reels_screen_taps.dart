@@ -16,8 +16,10 @@ class ReelsScreenTaps extends StatefulWidget {
 }
 
 class ReelsScreenTapsState extends State<ReelsScreenTaps>
-    with TickerProviderStateMixin   {
+    with TickerProviderStateMixin {
   late TabController _tabController;
+
+
 
 
   @override
