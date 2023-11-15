@@ -1,7 +1,6 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 
@@ -19,14 +18,14 @@ class KickOutUserWidget extends StatelessWidget {
       opacity: isKick ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 500),
       child: Container(
-        height: 50.h,
-        width: 200.w,
+        height: 50,
+        width: 200,
 
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         // ignore: sort_child_properties_last
         child: Center(
             child: Text(
-              StringManager().bloc( durationKickout: durationKickout['durationKickout'].toString(),).tr(),
+              StringManager().bloc( durationKickout: durationKickout['durationKickout'].toString(),).toString().tr(),
               style: const TextStyle(color: ColorManager.whiteColor),
             )),
 

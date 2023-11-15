@@ -264,6 +264,7 @@ class AssetsPath {
   static const String isRoomGIF = "$pathIcon/is_room.gif";
   static const String conversation = "$pathIcon/conversation.png";
   static const String selectedConversation = "$pathIcon/selectedconversation.png";
+  static const String shareMomentIcon = "$pathIcon/sharemomenticon.png";
 
 
 
