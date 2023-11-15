@@ -141,6 +141,12 @@ class ConstentApi {
       ) {
     return "$baseUrl/moment?user_id=$userId&type=$type&page=$page";
   }
+  static String getOneMoment(
+    String momentId
+
+      ) {
+    return "$baseUrl/moment/$momentId";
+  }
   static String reportMoment(
       String momentid,
       String type,

@@ -17,7 +17,7 @@ class GetMomentallBloc
       page = 1;
       emit(GetMomentAllLoadingState(null));
       final result = await getMomenttUseCase
-          .call(GetMomentPrameter(page: page.toString(), userId: MyDataModel.getInstance().id.toString(),type: "4"));
+          .call(GetMomentPrameter(momentId: event.momentId, page: page.toString(), userId: MyDataModel.getInstance().id.toString(),type: "4"));
       result.fold(
           (l) => emit(GetMomentAllSucssesState(data: l)),
           (r) => emit(GetMomentAllErrorState(

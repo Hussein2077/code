@@ -9,8 +9,8 @@ abstract class BaseGetMomentAllEvent extends Equatable {
 }
 
 class GetMomentAllEvent extends BaseGetMomentAllEvent {
-   
-  const GetMomentAllEvent();
+   String? momentId ;
+   GetMomentAllEvent({this.momentId});
 }
 
 

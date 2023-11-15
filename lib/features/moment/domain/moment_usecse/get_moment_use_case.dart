@@ -25,8 +25,9 @@ class GetMomentUseCase extends BaseUseCase<List<MomentModel>,GetMomentPrameter>{
 class GetMomentPrameter {
   final String page ;
   final String? userId ;
-  final String type ; 
-  const GetMomentPrameter({required this.page ,  this.userId , required this.type});
+  final String type ;
+  final String? momentId ;
+  const GetMomentPrameter({this.momentId ,  required this.page ,  this.userId , required this.type});
   
   
 }
