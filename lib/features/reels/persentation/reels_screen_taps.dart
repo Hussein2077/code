@@ -46,8 +46,9 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
             TabBarView(
               controller: _tabController,
               children: const [
-                ReelsScreen(),
                 FollowingReelsScreen(),
+                ReelsScreen(),
+
               ],
             ),
             Padding(
@@ -76,6 +77,14 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                 controller: _tabController,
                 tabs: [
                   Text(
+                    StringManager.followingReels.tr(),
+                    // style:
+                    // Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    //   // color: Colors.white,
+                    //     fontSize:  ConfigSize.defaultSize! * 1.6
+                    // ),
+                  ),
+                  Text(
                     StringManager.reels.tr(),
                     // style:
                     // Theme.of(context).textTheme.headlineSmall!.copyWith(
@@ -84,14 +93,7 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                     // ),
                   ),
 
-                  Text(
-                    StringManager.followingReels.tr(),
-                    // style:
-                    // Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    //   // color: Colors.white,
-                    //     fontSize:  ConfigSize.defaultSize! * 1.6
-                    // ),
-                  ),
+
 
 
                 ],

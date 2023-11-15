@@ -765,6 +765,7 @@ class Methods {
   Future<void> clearCachData(BuildContext context) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.remove(StringManager.chachGifts);
+    await sharedPreferences.remove(StringManager.chachGifts);
     await sharedPreferences.remove(StringManager.lastTimeCacheGift);
     await sharedPreferences.remove(StringManager.lastTimeCacheEntro);
     await sharedPreferences.remove(StringManager.lastTimeCacheExtra);
@@ -775,6 +776,24 @@ class Methods {
     cacheManager.emptyCache();
     sucssesToast(context: context, title: StringManager.clearDataDone.tr());
   }
+
+ /* Future<void> sizeOfCacheManger(BuildContext context) async {
+
+    DefaultCacheManager cacheManager = DefaultCacheManager();
+
+    // Open the cache
+    await cacheManager.open();
+
+    // Get the size of the cache
+    int cacheSize = await cacheManager.c;
+
+    print('Cache size: $cacheSize bytes');
+
+    // Close the cache (optional)
+    await cacheManager.close();
+  }
+*/
+
 
   Future<void> removeFileFromChach({required String key}) async {
     final cacheManager = getIt<DefaultCacheManager>();
