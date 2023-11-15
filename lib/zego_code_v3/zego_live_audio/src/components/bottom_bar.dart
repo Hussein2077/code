@@ -356,7 +356,7 @@ class _ZegoBottomBarState extends State<ZegoBottomBar> {
                 PrebuiltLiveAudioRoomIconUrls.toolbarMicOff),
             backgroundColor: Colors.white,
           ),
-          defaultOn: microphoneDefaultOn,
+          defaultOn: microphoneDefaultOn, zegoLiveSeatManager: widget.seatManager,
         );
       case ZegoMenuBarButtonName.leaveButton:
         return ZegoLeaveAudioRoomButton(

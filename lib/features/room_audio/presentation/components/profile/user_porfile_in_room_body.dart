@@ -27,6 +27,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 import 'profile_room_body_controler.dart';
@@ -161,19 +163,13 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                                         if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())) {
                                           sendMuteUserMessage(
                                               mute: false,
-                                              userId: widget.userData.id.toString());
+                                              userId: widget.userData.id.toString(), ownerId: widget.roomData.ownerId.toString());
                                         } else {
-                                          if (!(widget.roomData.ownerId !=
-                                                  widget.myData.id &&
-                                              RoomScreen.adminsInRoom
-                                                  .containsKey(widget
-                                                      .userData.id
-                                                      .toString()))) {
+                                          if (!(widget.roomData.ownerId != widget.myData.id && RoomScreen.adminsInRoom.containsKey(widget.userData.id.toString()))) {
                                             //admin can't make mute to admin
                                             sendMuteUserMessage(
                                                 mute: true,
-                                                userId: widget.userData.id
-                                                    .toString());
+                                                userId: widget.userData.id.toString(), ownerId: widget.roomData.ownerId.toString());
                                           }
                                         }
                                       },
@@ -404,17 +400,17 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
     );
   }
 
-  Future<void> sendMuteUserMessage(
-      {required bool mute, required String userId}) async {
+  Future<void> sendMuteUserMessage({required bool mute, required String userId, required String ownerId}) async {
     if (mute) {
       ZegoUIKit.instance.turnMicrophoneOn(false, userID: userId);
+      BlocProvider.of<OnRoomBloc>(context).add(MuteUserMicEvent(userId: userId, ownerId: ownerId));
       RoomScreen.usersHasMute.add(userId);
       UserProfileInRoom.updatebuttomBar.value = UserProfileInRoom.updatebuttomBar.value + 1;
     } else {
       RoomScreen.usersHasMute.remove(userId);
+      BlocProvider.of<OnRoomBloc>(context).add(UnMuteUserMicEvent(userId: userId, ownerId: ownerId));
       UserProfileInRoom.updatebuttomBar.value = UserProfileInRoom.updatebuttomBar.value + 1;
     }
-
     var mapInformation = {
       "messageContent": {"message": "muteUser", 'mute': mute, 'id_user': userId}
     };

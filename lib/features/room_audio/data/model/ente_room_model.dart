@@ -1,10 +1,10 @@
+// ignore_for_file: must_be_immutable
 
 import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/pk_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/room_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
-
 
 class EnterRoomModel extends Equatable {
   final int? id ;
@@ -66,6 +66,7 @@ class EnterRoomModel extends Equatable {
   final String? roomRule;
   final bool? isUsersBaned ;
   final int? timePK ;
+  final String? mutedUsers ;
 
 
 
@@ -129,6 +130,7 @@ class EnterRoomModel extends Equatable {
         this.roomFamily,
         this.showPk , 
         this.roomRule,
+        this.mutedUsers,
 
       });
 
@@ -196,7 +198,7 @@ class EnterRoomModel extends Equatable {
       seats:  jsonData['microphones'] ,
       topUser:jsonData['top_user']==null ? null : UserDataModel.fromMap(jsonData['top_user']),
        roomFamily:jsonData['room_family'] ==null ? null: RoomFamilyModel.fromJson( jsonData['room_family']),
-
+      mutedUsers: jsonData['muted_users'],
     );
   }
 
@@ -246,7 +248,8 @@ class EnterRoomModel extends Equatable {
     roomVisitorCount,
     roomPassStatus,
     seats,
-    topUser
+    topUser,
+    mutedUsers
   ];
 }
 

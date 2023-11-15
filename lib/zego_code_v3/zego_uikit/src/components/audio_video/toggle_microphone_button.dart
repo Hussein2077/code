@@ -5,10 +5,11 @@ import 'package:flutter/scheduler.dart';
 // Package imports:
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/seat_manager.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/internal/internal.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/screen_util/screen_util.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/services.dart';
 
@@ -24,6 +25,7 @@ class ZegoToggleMicrophoneButton extends StatefulWidget {
     this.iconSize,
     this.buttonSize,
     this.muteMode = false,
+    required  this.zegoLiveSeatManager,
   }) : super(key: key);
 
   final ButtonIcon? normalIcon;
@@ -43,6 +45,7 @@ class ZegoToggleMicrophoneButton extends StatefulWidget {
 
   /// only use mute, will not stop the stream
   final bool muteMode;
+  final ZegoLiveSeatManager zegoLiveSeatManager;
 
   @override
   State<ZegoToggleMicrophoneButton> createState() =>
@@ -64,8 +67,6 @@ class _ZegoToggleMicrophoneButtonState
 
   @override
   Widget build(BuildContext context) {
-    final containerSize = widget.buttonSize ?? Size(96.zR, 96.zR);
-    final sizeBoxSize = widget.iconSize ?? Size(56.zR, 56.zR);
 
     /// listen local microphone state changes
     return ValueListenableBuilder<bool>(
@@ -85,20 +86,45 @@ class _ZegoToggleMicrophoneButtonState
 
   void onPressed() {
     /// get current microphone state
-    final valueNotifier =
-        ZegoUIKit().getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id);
 
-    final targetState = !valueNotifier.value;
+    if(RoomScreen.listOfMuteSeats.containsKey(widget.zegoLiveSeatManager.getIndexByUserID(ZegoUIKit().getLocalUser().id))||
+        RoomScreen.usersHasMute.contains(ZegoUIKit().getLocalUser().id) ){
+      // to handle mute seat
+    }else{
+      var valueNotifier =
+      ZegoUIKit().getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id);
 
-    if (targetState) {
-      requestPermission(Permission.microphone);
-    }
+      var targetState = !valueNotifier.value;
 
-    /// reverse current state
-    ZegoUIKit().turnMicrophoneOn(targetState, muteMode: widget.muteMode);
+      if (targetState) {
+        requestPermission(Permission.microphone);
+      }
 
-    if (widget.onPressed != null) {
-      widget.onPressed!(targetState);
+      /// reverse current state
+      ZegoUIKit().turnMicrophoneOn(targetState);
+
+      if (widget.onPressed != null) {
+        widget.onPressed!(targetState);
+      }
     }
   }
+
+  // void onPressed() {
+  //   /// get current microphone state
+  //   final valueNotifier =
+  //       ZegoUIKit().getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id);
+  //
+  //   final targetState = !valueNotifier.value;
+  //
+  //   if (targetState) {
+  //     requestPermission(Permission.microphone);
+  //   }
+  //
+  //   /// reverse current state
+  //   ZegoUIKit().turnMicrophoneOn(targetState, muteMode: widget.muteMode);
+  //
+  //   if (widget.onPressed != null) {
+  //     widget.onPressed!(targetState);
+  //   }
+  // }
 }

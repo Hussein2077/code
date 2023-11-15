@@ -128,6 +128,8 @@ class ConstentApi {
   static  String makeMomentLikes(String momentID) => "$baseUrl/moment/$momentID/like";
   static   String momentSendGift({required String momentID}) =>"$baseUrl/moment/$momentID/gift";
   static const  String privacyPolicy ="https://test.dragon-chat.co/page/privacy-policy";
+  static const String muteUserMic = "$baseUrl/rooms/mute_user";
+  static const String unMuteUserMic = "$baseUrl/rooms/unmute_user";
 
 
 

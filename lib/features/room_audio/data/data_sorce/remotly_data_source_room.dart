@@ -22,6 +22,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/lucky_gift_model.dart
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/update_room_usecase.dart';
@@ -78,6 +79,8 @@ abstract class BaseRemotlyDataSourceRoom {
 
   Future<List<RoomUserMesseagesModel>> getUsersInRoon(String? userId);
 
+  Future<String> muteUserMic(MuteUserMicPramiter muteUserMicPramiter);
+  Future<String> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter);
 
 
 }
@@ -1184,6 +1187,60 @@ Future<LuckyGiftModel> sendLuckyGift(GiftPramiter giftPramiter) async{
     return LuckyGiftModel.fromJosn(response.data);
   } on DioError catch (e) {
     throw DioHelper.handleDioError(dioError: e, endpointName: 'sendLuckyGift');
+  }
+}
+
+@override
+Future<String> muteUserMic(MuteUserMicPramiter muteUserMicPramiter)async {
+  Map<String, String> headers = await DioHelper().header();
+
+
+  final body ={
+    'user_id': muteUserMicPramiter.userId,
+    'owner_id': muteUserMicPramiter.ownerId,
+  };
+
+  try {
+    final response = await Dio().post(ConstentApi.muteUserMic,
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+
+    Map<String, dynamic> jsonData = response.data;
+
+    return jsonData['message'];
+
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "Mute User Microphone");
+  }
+}
+
+@override
+Future<String> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter)async {
+  Map<String, String> headers = await DioHelper().header();
+
+
+  final body ={
+    'user_id': muteUserMicPramiter.userId,
+    'owner_id': muteUserMicPramiter.ownerId,
+  };
+
+  try {
+    final response = await Dio().post(ConstentApi.unMuteUserMic,
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+
+    Map<String, dynamic> jsonData = response.data;
+
+    return jsonData['message'];
+
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "Mute User Microphone");
   }
 }
 

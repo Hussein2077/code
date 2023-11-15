@@ -42,7 +42,6 @@ class ZegoPopUpSheetMenu extends StatefulWidget {
   final EnterRoomModel roomData ;
   final void Function(PopupItemValue)? onPressed;
   final ZegoInnerText innerText;
-  static Map<int, int> listOfMuteSeats = {};
 
   @override
   State<ZegoPopUpSheetMenu> createState() => _ZegoPopUpSheetMenuState();
@@ -104,7 +103,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
             );
 
             Future.delayed(const  Duration(seconds: 5),(){
-              if(ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(popupItem.index)
+              if(RoomScreen.listOfMuteSeats.containsKey(popupItem.index)
                   ||RoomScreen.usersHasMute.contains(MyDataModel.getInstance().id.toString())){
                 ZegoUIKit().turnMicrophoneOn(false,
                     userID: MyDataModel.getInstance().id.toString());

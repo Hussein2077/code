@@ -254,6 +254,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/leave_mic_uc.dar
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/lock_unLock_mic_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_unmute_mic_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_unmute_use_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/pickup_box_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/remove_admin_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/remove_pass_room_UC.dart';
@@ -265,6 +266,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_pob_up_uc.d
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_yallow_banner_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/show_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_pk_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/unmute_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/update_room_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
@@ -318,12 +320,13 @@ class ServerLocator {
                 upMicUsecase: getIt(),
                 emojieUseCase:getIt() ,
                 existroomUC: getIt() ,
-
                 removePassRoomUC: getIt() ,
                 updateRoomUsecase: getIt() ,
                 disposeHideRoomUseCase: getIt(),
                 hideRoomUseCase: getIt() , 
-                sendYallowBannerUC: getIt()));
+                sendYallowBannerUC: getIt(),
+                muteUserMicUsecase: getIt(),
+              unMuteUserMicUsecase: getIt(),));
     getIt.registerFactory(
             () => SendGiftBloc(giftUseCase: getIt()));
     getIt.registerFactory(
@@ -582,6 +585,8 @@ class ServerLocator {
     getIt.registerLazySingleton(() => GetTopRoomUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(() => SendYallowBannerUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => MuteUserMicUsecase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => UnMuteUserMicUsecase(roomRepo: getIt()));
 
     getIt.registerLazySingleton(() => BuyCoinsUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(

@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/data/model/get_room_users_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 
 
@@ -281,4 +280,32 @@ class SendYallowBannerErrorState extends OnRoomStates {
 class SendYallowBannerSuccessState extends OnRoomStates {
   final String successMassage;
   const SendYallowBannerSuccessState({required this.successMassage});
+}
+
+class MuteUserMicLoadingState extends OnRoomStates{
+
+}
+
+class MuteUserMicErrorState extends OnRoomStates {
+  final String errorMassage;
+  const MuteUserMicErrorState({required this.errorMassage});
+}
+
+class MuteUserMicSuccessState extends OnRoomStates {
+  final String successMassage;
+  const MuteUserMicSuccessState({required this.successMassage});
+}
+
+class UnMuteUserMicLoadingState extends OnRoomStates{
+
+}
+
+class UnMuteUserMicErrorState extends OnRoomStates {
+  final String errorMassage;
+  const UnMuteUserMicErrorState({required this.errorMassage});
+}
+
+class UnMuteUserMicSuccessState extends OnRoomStates {
+  final String successMassage;
+  const UnMuteUserMicSuccessState({required this.successMassage});
 }

@@ -63,8 +63,8 @@ class InvitationToMicDialog extends StatelessWidget {
                     onClick();
                     InvitationToMicDialog.isInviteToMic = false;
                   },
-                  child: Text(StringManager.cancle.tr(),
-                    style:Theme.of(context).textTheme.bodyLarge!.copyWith(color: const Color(0xff008751))  ,)
+                  child: Text(StringManager.accept.tr(),
+                    style:Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white)  ,)
 
                 ),
               ],

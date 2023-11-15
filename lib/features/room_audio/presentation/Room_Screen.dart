@@ -114,8 +114,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   late Animation<Offset> offsetLuckGiftAnimationBanner;
 
 
-
-
   ///////
   Map<String,String>   roomDataUpdates =
   {'room_intro': '','room_name':'',
@@ -139,7 +137,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   //////
 
   //////
-  Map<String, dynamic> durationKickout = {"durationKickout": ""};
+  Map<String, int> durationKickout = {"durationKickout": 0};
   /////
 
   ////
@@ -167,6 +165,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
 
     super.initState();
+
+    RoomScreen.usersHasMute = widget.room.mutedUsers!.split(', ');
+
+    print(RoomScreen.usersHasMute.toString() + "!!!!!!!!!!!!");
 
     luckGiftBannderController = AnimationController(
       duration: const Duration(seconds: 2),
