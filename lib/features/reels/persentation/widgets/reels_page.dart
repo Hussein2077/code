@@ -211,7 +211,6 @@ if (_chewieController != null) {
               onTap: () {
                 setState(() {
                   if (_videoPlayerController!.value.isPlaying) {
-                    log("heeeeeeeeeeeeeee");
                     ReelsPage.isVideoPause.value = true;
                     _videoPlayerController?.pause();
                   }

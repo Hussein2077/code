@@ -872,7 +872,6 @@ class Methods {
         BlocProvider.of<GetMomentILikeItBloc>(context).add(const GetMomentIliKEitEvent());
         BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(userId: MyDataModel.getInstance().id.toString(),));
         if(MainScreen.reelId == null || MainScreen.reelId == ''){
-          log("heeeeeer");
           BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
 
         }

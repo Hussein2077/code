@@ -388,7 +388,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         LuckyBoxVariables.updateLuckyBox.value = LuckyBoxVariables.updateLuckyBox.value + 1;
       });
       //topUserCached
-      if (widget.room.topUser!.id != null) {
+      if (widget.room.topUser!.id != null){
         Future.delayed(Duration.zero, () async {
           final topUser = await RemotlyDataSourceProfile()
               .getUserData(userId: widget.room.topUser!.id.toString());
@@ -411,7 +411,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         PkController.updatePKNotifier.value =
             PkController.updatePKNotifier.value + 1;
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
-
       }
       Future.delayed(const Duration(seconds: 3), () async {
         ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);

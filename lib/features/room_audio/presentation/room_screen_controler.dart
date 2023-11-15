@@ -239,6 +239,7 @@ Future<void> loadMusice({required String path}) async {
 }
 
 Future<void> clearAll(String ownerId, BuildContext context) async {
+
   RoomScreen.listOfLoskSeats.value = {0: 0};
   RoomScreen.listOfMuteSeats.clear();
   RoomScreen.clearTimeNotifier = ValueNotifier(0);

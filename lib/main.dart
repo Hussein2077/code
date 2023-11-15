@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -147,7 +145,6 @@ import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
-// final globalNavigatorKey = GlobalKey<NavigatorState>();
 
 class GlobalContextService {
   static GlobalKey<NavigatorState> navigatorKey =
@@ -194,28 +191,12 @@ Future<void> main() async {
   bool groupChatUnReadMessage = await Methods.instance.getLocalGroupChatNotifecation();
   HomeScreen.rebuildGroupChatCounter.value = groupChatUnReadMessage ;
 
-  // HomeScreen.groupChatCounter = groupChatMessageCount ;
-
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
-    log("main listner") ;
     if(jsonDecode(message.data['message-type']) =="group-chat" ){
-    String routeName = "" ;
-    // if(GlobalContextService.navigatorKey.currentContext!=null){
-    //   final route = ModalRoute.of(GlobalContextService.navigatorKey.currentContext!);
-    //    routeName = route!.settings.name!;
-    // }
-
-// if (routeName !=Routes.groupChatScreen ) {
   HomeScreen.groupChatCounter.value ++;
   Methods.instance.setLocalGroupChatNotifecation(unReadMessage: true);
 
-  // groupChatMessageCount++;
-
-
-  // Methods.instance.setLocalCounterGroupChatNotifecation(count:groupChatMessageCount );
-  // HomeScreen.groupChatCounter =groupChatMessageCount ;
   HomeScreen.rebuildGroupChatCounter.value = true;
-//}
 }
 
 
@@ -224,10 +205,6 @@ Future<void> main() async {
 
   });
 
-  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  //   log("xxxxxxxxxxxxx");
-  //   log(message.data.toString());
-  //   });
 
   await ServerLocator().init();
 

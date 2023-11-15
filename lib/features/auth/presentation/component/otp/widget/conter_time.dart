@@ -41,7 +41,6 @@ class _CounterTimeWidgetState extends State<CounterTimeWidget> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-  log("heeeeeeeeeeeeeeeeeeeeeeee");
     if(widget.isRepeting??false){
       seconds =widget.second;
       minute =widget.minute ;
