@@ -28,46 +28,33 @@ class TabViewBody extends StatelessWidget {
         itemCount: momentModelList.length,
         itemBuilder: (context, i) {
 
-          return InkWell(
-            onTap: (){
-              log(momentModelList[i].momentId.toString()+"xxxxxx");
-              DynamicLinkProvider()
-                  .showMomentLink(
-                momentId: momentModelList[i].momentId.toString(),
-                momentImage: momentModelList[i].momentImage.toString(),
-              )
-                  .then((value) {
-                Share.share(value);
-              });
-            },
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
-                  ),
-                  child: Column(
-                    children: [
-                      MomentAppBar(
-                        momentModel: momentModelList[i],
-                      ),
-                      MomentView(
-                        momentModel: momentModelList[i],
-                      ),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 1.5,
-                      ),
-                      MomentBottomBar(
-                        momentModel: momentModelList[i],
-                      ),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 1.5,
-                      ),
-                    ],
-                  ),
+          return Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
                 ),
-              ],
-            ),
+                child: Column(
+                  children: [
+                    MomentAppBar(
+                      momentModel: momentModelList[i],
+                    ),
+                    MomentView(
+                      momentModel: momentModelList[i],
+                    ),
+                    SizedBox(
+                      height: ConfigSize.defaultSize! * 1.5,
+                    ),
+                    MomentBottomBar(
+                      momentModel: momentModelList[i],
+                    ),
+                    SizedBox(
+                      height: ConfigSize.defaultSize! * 1.5,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           );
         },
       ),

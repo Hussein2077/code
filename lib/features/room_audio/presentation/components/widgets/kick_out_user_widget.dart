@@ -20,11 +20,12 @@ class KickOutUserWidget extends StatelessWidget {
       child: Container(
         height: 50,
         width: 200,
+
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         // ignore: sort_child_properties_last
         child: Center(
             child: Text(
-              StringManager().bloc( durationKickout: durationKickout['durationKickout'].toString(),).tr(),
+              StringManager().bloc( durationKickout: durationKickout['durationKickout'].toString(),).toString().tr(),
               style: const TextStyle(color: ColorManager.whiteColor),
             )),
 

@@ -1,17 +1,13 @@
-
-
-
+import 'dart:developer';
 
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 
 class DynamicLinkProvider {
-
-
-  Future <String> createInvetionRoomLink({
-    required int refCod,
-    required bool password,
-    required String ownerImage
+  Future<String> createInvetionRoomLink(
+      {required int refCod,
+      required bool password,
+      required String ownerImage
 
   }) async{
     int isPass =0 ;
@@ -125,16 +121,16 @@ class DynamicLinkProvider {
     required String momentImage
 
   }) async{
-
-    final String url = "https://com.tikkchat.app?action=show_moment&&moment_Id=$momentId&&moment_Image=$momentImage";
+    log('kkkkkkkkkkkk${Uri.parse(ConstentApi().getImage(momentImage))}');
+    final String url =
+        "https://com.tikkchat.app?action=show_moment&&moment_Id=$momentId&&moment_Image=$momentImage";
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       link: Uri.parse(url),
       socialMetaTagParameters: SocialMetaTagParameters(
           description: 'I\'am playing Tik,come and let\'s have some fun',
           title: 'Tik Chat',
-          imageUrl: Uri.parse(ConstentApi().getImage(momentImage))
-      ),
+          imageUrl: Uri.parse(ConstentApi().getImage(momentImage))),
       androidParameters: const AndroidParameters(
         packageName: 'com.tikkchat.app',
         minimumVersion: 0,

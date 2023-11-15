@@ -1,16 +1,21 @@
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/comments/moment_comments_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/moment_giftbox_screen.dart';
+import 'package:tik_chat_v2/features/moment/presentation/componants/giftbox/moment_sent_gifts_screen.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/likes/moment_likes_screen.dart';
 
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
@@ -167,12 +172,12 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                 children: [
                   InkWell(
                     onTap: () {
-                      // bottomDailog(
-                      //     context: context,
-                      //     widget: MommentSentGiftScreen(
-                      //       momentId: widget.momentModel.momentId.toString(),
-                      //     ),
-                      //     color: Theme.of(context).colorScheme.background);
+                      bottomDailog(
+                          context: context,
+                          widget: MommentSentGiftScreen(
+                            momentId: widget.momentModel.momentId.toString(),
+                          ),
+                          color: Theme.of(context).colorScheme.background);
                     },
                     child: SizedBox(
                       width: ConfigSize.defaultSize! * 4,
@@ -195,6 +200,30 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                     child: Image.asset(AssetsPath.giftMoment, scale: 1),
                   ),
                 ],
+              ),
+              InkWell(
+                onTap: () {
+                  log('llll${widget.momentModel.momentImage.toString()}');
+                  DynamicLinkProvider()
+                      .showMomentLink(
+                    momentId: widget.momentModel.momentId.toString(),
+                    momentImage: (widget.momentModel.momentImage.toString()=='')?'tik-logo.png':widget.momentModel.momentImage.toString(),
+                  )
+                      .then((value) {
+                    Share.share(value);
+                  });
+                },
+                child: Row(
+                  //share row
+                  children: [
+                    Image.asset(AssetsPath.shareMomentIcon,
+                        color: Theme.of(context).colorScheme.primary, scale: 22),
+                    Center(
+                      child: Text(StringManager.share.tr(),
+                          style: Theme.of(context).textTheme.bodySmall),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
