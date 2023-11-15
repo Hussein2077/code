@@ -196,8 +196,7 @@ static const String iOSPlatform='IOS';
   static const String member = "Member";
   static const String typeOfProblem = "Type of problem";
   static const String details = "Details";
-  static const String explainProblem =
-      "Please explain your problem in detail, so that our customer service staff can understand and deal with it";
+  static const String explainProblem = "Please explain your problem in detail, so that our customer service staff can understand and deal with it";
   static const String screenshot = "Screenshot";
   static const String submit = "Submit";
   static const String linkingAccount = "Linking Account";
