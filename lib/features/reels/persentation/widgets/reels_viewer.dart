@@ -135,7 +135,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
                 onPageChanged: (int value){
                   ReelsScreenState.currentIndex = value ;
                   pageController.notifyListeners();
-                  if (widget.reelsList.length - value < 5) {
+                  if (widget.reelsList.length - value < 5){
                     if (widget.userDataModel.id ==
                         MyDataModel.getInstance().id) {
                       BlocProvider.of<GetUserReelsBloc>(context)
