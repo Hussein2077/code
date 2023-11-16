@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,9 +39,11 @@ class ReelsScreen extends StatefulWidget {
 }
 
 class ReelsScreenState extends State<ReelsScreen>{
+  late TextEditingController report  ;
 
   @override
   void initState() {
+    report = TextEditingController();
 
     if (SplashScreen.initPage == 1) {
       BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent(reelId: MainScreen.reelId));
@@ -50,6 +54,9 @@ class ReelsScreenState extends State<ReelsScreen>{
 
   @override
   void dispose() {
+    report.dispose();
+
+
     super.dispose();
   }
 
@@ -126,17 +133,11 @@ class ReelsScreenState extends State<ReelsScreen>{
                             onClickMoreBtn: (id, userData) {
                               bottomDailog(
                                   context: context,
-                                  widget: SingleChildScrollView(
-                                    padding: EdgeInsets.only(
-                                      bottom: MediaQuery.of(context)
-                                          .viewInsets
-                                          .bottom,
-                                    ),
-                                    child: MoreDialog(
-                                      userId: userData.toString(),
-                                      id: id.toString(),
-                                    ),
-                                  ));
+                                  widget: MoreDialog(
+                                  report:report ,
+                                  userId: userData.toString(),
+                              id: id.toString(),
+                              ));
                             },
                             onClickBackArrow: () {
                               Navigator.pop(context);

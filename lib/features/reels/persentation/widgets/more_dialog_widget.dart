@@ -8,12 +8,13 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/more_report_dialog_icon.dart';
 
 class MoreDialog extends StatelessWidget {
-
+ TextEditingController report ;
   String id;
   String userId;
-  MoreDialog({super.key, required this.id, required this.userId});
+  MoreDialog({super.key, required this.id, required this.userId , required this.report});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +23,12 @@ class MoreDialog extends StatelessWidget {
           vertical: ConfigSize.defaultSize!,
           horizontal: ConfigSize.defaultSize!),
       width: MediaQuery.of(context).size.width,
-      height: ConfigSize.defaultSize! * 35,
+      height: MediaQuery.of(context).size.height-200,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-      child: moreReportDialogIcon(
-        context: context,
+      child: MoreReportDialogIcon(
+        report: report,
         title: StringManager.report.tr(),
         onTap: () => BlocProvider.of<ReportRealsBloc>(context).add(ReportReals(
             reportedId: userId, realId: id, description: report.text)),

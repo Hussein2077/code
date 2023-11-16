@@ -18,6 +18,8 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class ReelsBox extends StatefulWidget {
   final ScrollController scrollController;
@@ -100,6 +102,9 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                       if (index < state.data!.length) {
                         return InkWell(
                           onTap: () {
+                            MainScreen.canNotPlayOutOfReelMainScreen = false ;
+                            ReelsPage.isFirst = true ;
+
                             Navigator.pushNamed(context, Routes.userReelView,
                                 arguments: ReelsUserPramiter(
                                     startIndex: index,

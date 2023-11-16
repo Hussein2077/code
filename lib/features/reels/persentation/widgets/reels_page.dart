@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/src/layout.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
 import '../components/screen_options.dart';
@@ -99,12 +100,18 @@ class ReelsPageState extends State<ReelsPage>
 
 
   Future initializePlayer() async {
+    log("heeeeeeer1");
+    log(ReelsPage.isVideoPause.value.toString()+"1111");
+
 
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
     final cachImage =  await getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
     image = cachImage ;
 
     if(file?.file !=null){
+
+      log(ReelsPage.isVideoPause.value.toString()+"22222");
+
 
 
       _videoPlayerController = VideoPlayerController.file(file!.file);
@@ -114,6 +121,8 @@ class ReelsPageState extends State<ReelsPage>
         }
     else{
       if(kDebugMode){
+        log(ReelsPage.isVideoPause.value.toString()+"33333");
+
         log((widget.item.url!.toString()));
         log("in network reels");
       }
@@ -126,6 +135,8 @@ class ReelsPageState extends State<ReelsPage>
     _videoPlayerController?.setLooping(true);
 
     try{
+      log(ReelsPage.isVideoPause.value.toString()+"444444");
+
       await Future.wait([_videoPlayerController!.initialize()]);
     }catch(e){
       if(kDebugMode){
@@ -152,10 +163,13 @@ class ReelsPageState extends State<ReelsPage>
     });
     _videoPlayerController?.addListener(() {
       //to handle close reel when make navigate
-       if(BottomNavLayoutState.currentIndex !=1){
-         _videoPlayerController?.pause() ;
-         ReelsPage.isVideoPause.value= true ;
-       }
+      if (MainScreen.canNotPlayOutOfReelMainScreen && BottomNavLayoutState.currentIndex !=1) {
+        log(MainScreen.canNotPlayOutOfReelMainScreen.toString()+"xxxxxxx");
+       log(ReelsPage.isVideoPause.value.toString()+"66666");
+
+       _videoPlayerController?.pause() ;
+       ReelsPage.isVideoPause.value= true ;
+      }
 
 
 
@@ -189,6 +203,7 @@ if (_chewieController != null) {
 }
 
     WidgetsBinding.instance.removeObserver(this);
+
 
 
     super.dispose();

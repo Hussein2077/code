@@ -44,6 +44,8 @@ class MainScreen extends StatefulWidget {
 
   final Uri? actionDynamicLink;
 
+  static bool canNotPlayOutOfReelMainScreen = true ;
+
   static ValueNotifier<bool> iskeepInRoom = ValueNotifier<bool>(false);
 
   static EnterRoomModel? roomData;

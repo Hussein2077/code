@@ -57,14 +57,16 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
       log(message.data.toString());
 
 
+     if (context.mounted){
+       if(jsonDecode(message.data['message-type']) =="group-chat" ){
+         Map<String , dynamic> data2 = jsonDecode(message.data["data"]) ;
+         GroupChatModel data = GroupChatModel.fromJson(data2  );
 
-      if(jsonDecode(message.data['message-type']) =="group-chat" ){
-        Map<String , dynamic> data2 = jsonDecode(message.data["data"]) ;
-        GroupChatModel data = GroupChatModel.fromJson(data2  );
+         BlocProvider.of<GetGroupMassageBloc>(context)
+             .add(GetGroupChatMessageReelTime(message:data ));
+       }
+     }
 
-        BlocProvider.of<GetGroupMassageBloc>(context)
-            .add(GetGroupChatMessageReelTime(message:data ));
-      }
 
 
 
