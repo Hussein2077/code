@@ -377,7 +377,8 @@ class ZegoLivePageState extends State<ZegoLivePage>
       tag: 'live audio',
       subTag: 'live page',
     );
-    if (canMicrophoneTurnOnByOthers) {
+    //todo add this condation to handle mute user in minimize
+    if (canMicrophoneTurnOnByOthers ) {
       ZegoUIKit().turnMicrophoneOn(true);
     }
   }

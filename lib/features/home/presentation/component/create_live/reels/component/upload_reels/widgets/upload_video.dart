@@ -7,6 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/trim_view.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:path_provider/path_provider.dart';
@@ -32,29 +33,34 @@ class UploadVideoState extends State<UploadVideo> {
     return  InkWell(
       onTap: ()async{
        try {
+
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.video,
     );
     
     if (result != null) {
-      log("sucsses");
+
       String? filePath = result.files.single.path;
       if (filePath != null) {
+        //todo replce by routs
+
              Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) {
                     return TrimmerView(file:  File(result.files.single.path!) ,);
                   }),
                 );
+
+           //  ReelsPage.isVideoPause.notifyListeners() ;
     _generateThumbnail(filePath);
-      } else {
       }
-    } else {
+    }
+    else {
       // User canceled the file picking
 
     }
   } catch (error) {
     // Handle error
-    log('Failed to pick video. Error: $error');
+    log('Failed to pick video. Error:$error');
   }
       },
       child: 
@@ -76,6 +82,7 @@ class UploadVideoState extends State<UploadVideo> {
           )),
     );
   }
+
    Future<void> _generateThumbnail(String videoPath) async {
     try {
       final thumbnailPath = await VideoThumbnail.thumbnailFile(
