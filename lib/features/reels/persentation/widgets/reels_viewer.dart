@@ -83,6 +83,7 @@ class ReelsViewer extends StatefulWidget {
 class _ReelsViewerState extends State<ReelsViewer> {
 
   SwiperController controller = SwiperController();
+  
 
   @override
   void initState() {
@@ -156,6 +157,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
                   top: ConfigSize.defaultSize!*1.5,
                   child: InkWell(
                     onTap: () {
+
                       Navigator.pushNamed(context, Routes.uploadReels);
                     },
                     child: Container(

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
 
-  static const int versionApp = 41;
+  static const int versionApp = 42;
 static const String androidPlatform='Android';
 static const String iOSPlatform='IOS';
   //updates

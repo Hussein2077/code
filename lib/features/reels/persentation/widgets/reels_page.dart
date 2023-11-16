@@ -11,7 +11,6 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/src/layout.dart';
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
@@ -141,6 +140,7 @@ class ReelsPageState extends State<ReelsPage>
       videoPlayerController: _videoPlayerController!,
       showControls: false,
       looping: true,
+        isLive:true
     );
     setState(() {});
     _videoPlayerController?.addListener(() {
@@ -162,8 +162,7 @@ class ReelsPageState extends State<ReelsPage>
         ReelsPage.isVideoPause.value = false ;
       }
 
-       if(!(_videoPlayerController?.value.isPlaying??true)&&
-           !ReelsPage.isVideoPause.value){
+       if(!(_videoPlayerController?.value.isPlaying??true)&& !ReelsPage.isVideoPause.value){
          _videoPlayerController?.play();
        }
 

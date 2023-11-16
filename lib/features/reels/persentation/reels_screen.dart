@@ -151,7 +151,8 @@ class ReelsScreenState extends State<ReelsScreen>{
                             showVerifiedTick: false,
                             showAppbar: true,
                           );
-                        } else if (state is GetReelsLoadingState) {
+                        }
+                        else if (state is GetReelsLoadingState) {
                           return const LoadingWidget();
                         }
                         else if (state is GetReelsErrorState) {

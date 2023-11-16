@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,7 @@ class FirebaseLoginBloc extends Bloc<BaseFirebaseLoginEvent, FirebaseLoginState>
   FirebaseLoginBloc() : super(FirebaseLoginInitial()) {
     on<FireBaseLoginEvent>((event, emit) async{
       await FirebaseAuth.instance.signOut();
-    if (!kDebugMode){
+    if (kDebugMode){
 
      await FirebaseAuth.instance.signInWithEmailAndPassword(
        email: "eelhamody@gmail.com",

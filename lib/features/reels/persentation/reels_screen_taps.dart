@@ -26,6 +26,7 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
   void initState() {
     _tabController = TabController(
       length: 2,
+      initialIndex: 1,
       vsync: this, // Provide a TickerProvider
     );
 
@@ -61,13 +62,11 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                 // indicator: BoxDecoration(),
                 isScrollable: true,
                 indicatorColor: Colors.white,
-
                 labelStyle: TextStyle(
                   fontSize: ConfigSize.defaultSize! * 1.5,
                   fontWeight: FontWeight.bold
                 ),
                 unselectedLabelColor: Colors.grey,
-
                 indicatorPadding: EdgeInsets.symmetric(
                     horizontal: ConfigSize.defaultSize!*2,
 
