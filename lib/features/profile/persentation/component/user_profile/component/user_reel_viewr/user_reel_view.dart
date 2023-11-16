@@ -12,10 +12,8 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
-import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/problem_customers_services.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_delete_reel/delete_reel_bloc.dart';
@@ -24,17 +22,11 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_delete
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
-
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
-import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
-import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_event.dart';
-import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
-import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
-import 'package:tik_chat_v2/features/reels/persentation/widgets/more_report_dialog_icon.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 
 class UserReelView extends StatefulWidget {
@@ -167,23 +159,7 @@ class UserReelViewState extends State<UserReelView> {
                 onClickBackArrow: () {
                   log('======> Clicked on back arrow <======');
                 },
-                onIndexChanged: (index) {
-                  if (state.data!.length - index < 5) {
-                    if (widget.userDataModel.id ==
-                        MyDataModel
-                            .getInstance()
-                            .id) {
-                      BlocProvider.of<GetUserReelsBloc>(context)
-                          .add(const LoadMoreUserReelsEvent(id: null));
-                    } else {
-                      BlocProvider.of<GetUserReelsBloc>(context).add(
-                          LoadMoreUserReelsEvent(
-                              id: widget.userDataModel.id.toString()));
-                    }
-                  }
-                  log(state.data!.length.toString());
-                  log('======> Current Index ======> $index <========');
-                },
+
                 showProgressIndicator: false,
                 showVerifiedTick: false,
                 showAppbar: true,
