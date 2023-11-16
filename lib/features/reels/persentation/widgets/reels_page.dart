@@ -142,7 +142,7 @@ class ReelsPageState extends State<ReelsPage>
       if(kDebugMode){
         log("error in reels path is :${Uri.parse(widget.item.url!+'rr')}");
       }
-      // widget.swiperController.next();
+      widget.swiperController.next();
 
     }
 
