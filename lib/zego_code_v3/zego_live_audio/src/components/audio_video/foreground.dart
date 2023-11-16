@@ -444,7 +444,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
           ownerId: widget.roomData.ownerId.toString(),
         );
 
-        Future.delayed(const  Duration(seconds: 5),(){
+        Future.delayed(const  Duration(seconds: 3),(){
           if(RoomScreen.listOfMuteSeats.containsKey(index)
               ||RoomScreen.usersHasMute.contains(MyDataModel.getInstance().id.toString())){
             ZegoUIKit().turnMicrophoneOn(false,

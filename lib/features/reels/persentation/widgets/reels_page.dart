@@ -244,8 +244,7 @@ if (_chewieController != null) {
                   if (_videoPlayerController!.value.isPlaying) {
                     ReelsPage.isVideoPause.value = true;
                     _videoPlayerController?.pause();
-                  }
-                  else{
+                  } else{
                     ReelsPage.isVideoPause.value = false;
                     _videoPlayerController?.play();
                   }

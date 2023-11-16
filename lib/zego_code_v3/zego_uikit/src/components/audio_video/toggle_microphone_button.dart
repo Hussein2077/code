@@ -6,6 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/seat_manager.dart';
 
 // Project imports:
@@ -58,11 +59,14 @@ class _ZegoToggleMicrophoneButtonState
   @override
   void initState() {
     super.initState();
+  //todo add contadtion here to handle minimize room
+    if(!MainScreen.iskeepInRoom.value){
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        /// synchronizing the default status
+        ZegoUIKit().turnMicrophoneOn(widget.defaultOn, muteMode: widget.muteMode);
+      });
+    }
 
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      /// synchronizing the default status
-      ZegoUIKit().turnMicrophoneOn(widget.defaultOn, muteMode: widget.muteMode);
-    });
   }
 
   @override
