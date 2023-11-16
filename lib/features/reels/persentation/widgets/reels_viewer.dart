@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 
 class ReelsViewer extends StatefulWidget {
@@ -95,6 +96,9 @@ class _ReelsViewerState extends State<ReelsViewer> {
 
   @override
   void dispose() {
+    MainScreen.canNotPlayOutOfReelMainScreen = true ;
+
+
     controller.dispose();
     super.dispose();
   }

@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_state.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'widget/lower/lower_body.dart';
 import 'widget/profile_bottom_bar.dart';
 import 'widget/upper/upper_body.dart';
@@ -51,7 +52,8 @@ class _UserProfileState extends State<UserProfile> {
   }
   @override
   void dispose() {
-LowerProfileBody.getUserReels = true;
+
+    LowerProfileBody.getUserReels = true;
     super.dispose();
   }
 
