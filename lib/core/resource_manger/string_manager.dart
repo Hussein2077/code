@@ -555,6 +555,8 @@ static const String iOSPlatform='IOS';
   static const String youDontHaveMoments = "you don't have moments yet";
 
   static const String love = "Love";
+  static const String oneHashtag = "You should at least use one hashtag";
+
 
 
 

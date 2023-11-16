@@ -59,8 +59,8 @@ class ReelsScreenState extends State<ReelsScreen>{
         body: BlocListener<UploadReelsBloc, UploadReelsState>(
             listener: (context, state) {
               if (state is UploadReelsLoadingState) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content:Text(StringManager.loading),
+                ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                  content:Text(StringManager.loading.tr()),
                 ));              }
               else if (state is UploadReelsErrorState) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
