@@ -108,6 +108,8 @@ class GetMomentBloc extends Bloc<BaseGetMomentEvent, GetMomentUserState> {
     });
 
     on<LocalGiftMoment>((event,emit)async{
+      log('sentgift5');
+
       state.data!.firstWhere((element) {
         if(element.momentId.toString()==event.momentId.toString()){
           element.giftsCount=element.giftsCount+event.giftsNum;

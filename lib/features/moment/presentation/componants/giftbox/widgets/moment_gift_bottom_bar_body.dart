@@ -86,7 +86,7 @@ class _MomtentGiftBottomBarBodyState extends State<MomtentGiftBottomBarBody>
                               builder: (context, myCoins, _) {
                                 return Text(
                                   myCoins,
-                                  style:  TextStyle(
+                                  style:  const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600),
                                 );
@@ -133,7 +133,7 @@ class _MomtentGiftBottomBarBodyState extends State<MomtentGiftBottomBarBody>
                                       .toString(),
                                   style:  const TextStyle(color: Colors.white,),
                                 ),
-                                 Icon(
+                                 const Icon(
                                   Icons.arrow_drop_down,
                                   color: Colors.white
 
@@ -170,7 +170,7 @@ class _MomtentGiftBottomBarBodyState extends State<MomtentGiftBottomBarBody>
                             child: Center(
                               child: Text(
                                 StringManager.send.tr(),
-                                style:  TextStyle(
+                                style:  const TextStyle(
                                     color:  Colors.white,
                                     fontWeight: FontWeight.w600),
                                 textAlign: TextAlign.center,
