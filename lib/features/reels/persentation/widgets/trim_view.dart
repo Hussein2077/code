@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:ui' as ui;
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
@@ -14,7 +16,7 @@ import 'package:tik_chat_v2/features/home/presentation/component/create_live/ree
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
-import 'dart:ui' as ui;
+
 import 'trim/trim_viewer.dart';
 import 'trim/trimmer.dart';
 import 'trim/video_viewer.dart';
@@ -39,12 +41,13 @@ class TrimmerView extends StatefulWidget {
 
 class _TrimmerViewState extends State<TrimmerView> {
   late TextEditingController reelsNameController;
-
-
-
+  double _keyboardHeight = 0;
+  final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
+  static ValueNotifier<bool> showTextFieldReel = ValueNotifier<bool>(false);
 
   @override
   void dispose() {
+    showTextFieldReel.value=false;
     TrimmerView.selectedIntrest = [];
     TrimmerView.selectedTopics = [];
     reelsNameController.dispose();
@@ -106,10 +109,13 @@ class _TrimmerViewState extends State<TrimmerView> {
 
   @override
   void initState() {
-
-    ReelsPage.isVideoPause.value = true ;
+    ReelsPage.isVideoPause.value = true;
     reelsNameController = TextEditingController();
-
+    _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
+      _keyboardHeight = height;
+      log('_keyboardHeight${_keyboardHeight}');
+      showTextFieldReel.value = !showTextFieldReel.value;
+    });
 
     super.initState();
 
@@ -119,6 +125,7 @@ class _TrimmerViewState extends State<TrimmerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
         // appBar: AppBar(
         //     leading: IconButton(
@@ -139,171 +146,186 @@ class _TrimmerViewState extends State<TrimmerView> {
         //           }
         //         },
         //         icon: const Icon(Icons.arrow_back_ios))),
-        body: SingleChildScrollView(
-
-          child: Builder(
-            builder: (context) {
-              return Stack(
-                children: [
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: VideoViewer(trimmer: _trimmer)),
-
-Padding(
-  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/2 , horizontal: MediaQuery.of(context).size.width/2.7 ),
-  child:      TextButton(
-  child: _isPlaying
-      ? const Icon(
-    Icons.pause,
-    size: 80.0,
-    color: Colors.white,
-  )
-      : const Icon(
+        body: Builder(builder: (context) {
+          return Stack(
+            children: [
+              SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: VideoViewer(trimmer: _trimmer)),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height / 2,
+                    horizontal: MediaQuery.of(context).size.width / 2.7),
+                child: TextButton(
+                  child: _isPlaying
+                      ? const Icon(
+                          Icons.pause,
+                          size: 80.0,
+                          color: Colors.white,
+                        )
+                      : const Icon(
     Icons.play_arrow,
     size: 80.0,
     color: Colors.white,
   ),
-  onPressed: () async {
-    bool playbackState = await _trimmer.videoPlaybackControl(
-      startValue: _startValue,
-      endValue: _endValue,
-    );
-    setState(() {
-      _isPlaying = playbackState;
-    });
-  },
-),),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only( top: ConfigSize.defaultSize!*4.5),
-                          child: Container(
-                            // width: ConfigSize.defaultSize!*2,
-                            // height: ConfigSize.defaultSize!*2,
-                            // padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(shape: BoxShape.circle , color: Colors.grey),
-                            child: IconButton(onPressed: (){
+                  onPressed: () async {
+                    bool playbackState = await _trimmer.videoPlaybackControl(
+                      startValue: _startValue,
+                      endValue: _endValue,
+                    );
+                    setState(() {
+                      _isPlaying = playbackState;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: ConfigSize.defaultSize! * 4.5),
+                      child: Container(
+                        // width: ConfigSize.defaultSize!*2,
+                        // height: ConfigSize.defaultSize!*2,
+                        // padding: EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.grey),
+                        child: IconButton(
+                            onPressed: () {
                               Navigator.pop(context);
-                            }, icon: Icon(Icons.close_rounded , color: Colors.white, size: ConfigSize.defaultSize!*2.5,)),
-                          ),
+                            },
+                            icon: Icon(
+                              Icons.close_rounded,
+                              color: Colors.white,
+                              size: ConfigSize.defaultSize! * 2.5,
+                            )),
+                      ),
+                    ),
+                    SizedBox(
+                      height: ConfigSize.defaultSize,
+                    ),
+                    Directionality(
+                      textDirection: ui.TextDirection.ltr,
+                      child: TrimViewer(
+                        trimmer: _trimmer,
+                        viewerHeight: 50.0,
+                        viewerWidth: MediaQuery.of(context).size.width,
+                        maxVideoLength: const Duration(minutes: 3),
+                        onChangeStart: (value) => _startValue = value,
+                        onChangeEnd: (value) => _endValue = value,
+                        onChangePlaybackState: (value) =>
+                            setState(() => _isPlaying = value),
+                      ),
+                    ),
+                    Spacer(),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * 2,
                         ),
-                  SizedBox(height: ConfigSize.defaultSize,),
-
-                       Directionality(
-                            textDirection: ui.TextDirection.ltr,
-                            child: TrimViewer(
-                              trimmer: _trimmer,
-                              viewerHeight: 50.0,
-                              viewerWidth: MediaQuery.of(context).size.width,
-                              maxVideoLength: const Duration(minutes: 3),
-                              onChangeStart: (value) => _startValue = value,
-                              onChangeEnd: (value) => _endValue = value,
-                              onChangePlaybackState: (value) =>
-                                  setState(() => _isPlaying = value),
-
-                          ),
-                        ),
-Spacer(),
-                        Row(children: [
-                          SizedBox(width:  ConfigSize.defaultSize!*2,),
-
-                          Container(
+                        Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: ConfigSize.defaultSize!),
                           decoration: BoxDecoration(
                               color: Colors.black,
-                              borderRadius:
-                              BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                              borderRadius: BorderRadius.circular(
+                                  ConfigSize.defaultSize! * 2),
                               border: Border.all(color: Colors.white)),
                           width: MediaQuery.of(context).size.width - 100,
                           child: TextFieldWidget(
-
                               textColor: Colors.white,
                               controller: reelsNameController,
                               hintText: StringManager.videoDescription.tr()),
                         ),
-                          SizedBox(width:  ConfigSize.defaultSize!*2,),
-                          CircleAvatar(
-                            backgroundColor: Colors.green,
-                            radius: 23,
-                            child: IconButton(
-                                onPressed: () async {
-                          await _saveVideo().then((outputPath) {
-
-
-
-                            // final snackBar = SnackBar(
-                            //     content: Text(StringManager.sucsses.tr()));
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   snackBar,
-                            // );
-                          });
-
-
-                        },
-                                icon: const Icon(
-                                  Icons.send,
-                                  size: 26,
-                                  color: Colors.white,
-                                )),
-                          ),
-                        ],),
-                        Container(
-                          color: Colors.black.withOpacity(0.6),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: ConfigSize.defaultSize,),
-                              reelRowWidget(
-
-                                context: context,
-                                icon: AssetsPath.hashTagIcon,
-                                title: StringManager.chooseTheTopic.tr(),
-                                widget: const ChooseTopicDailog(),
-                              ),
-                              ValueListenableBuilder<bool>(
-                                valueListenable: TrimmerView.hashtag,
-                                builder: (context, b, _) {
-                                  return SizedBox(
-                                    height: ConfigSize.defaultSize!*11,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: GridView.builder(
-                                        itemCount: TrimmerView.selectedTopics.length,
-                                        gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                            mainAxisSpacing: 6,
-                                            childAspectRatio: 4,
-                                            crossAxisCount: 3 ,
-                                            crossAxisSpacing: 20
-                                        ),
-                                        itemBuilder: (context, index) {
-                                          return Text(
-                                            "  ${TrimmerView.selectedTopics[index]}#",
-                                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white),
-                                          );
-                                        }),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * 2,
+                        ),
+                        CircleAvatar(
+                          backgroundColor: Colors.green,
+                          radius: 23,
+                          child: IconButton(
+                              onPressed: () async {
+                                await _saveVideo().then((outputPath) {
+                                  // final snackBar = SnackBar(
+                                  //     content: Text(StringManager.sucsses.tr()));
+                                  // ScaffoldMessenger.of(context).showSnackBar(
+                                  //   snackBar,
+                                  // );
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.send,
+                                size: 26,
+                                color: Colors.white,
+                              )),
                         ),
                       ],
                     ),
-                  ),
-
-
-
-                ],
-              );
-            }
-          ),
-        )
+                    ValueListenableBuilder<bool>(
+                        valueListenable: showTextFieldReel,
+                        builder: (context, isShow, _) {
+                          if (isShow) {
+                            return SizedBox(height:_keyboardHeight==0.0?0: _keyboardHeight-ConfigSize.defaultSize!*15);
+                          } else {
+                            return const SizedBox(
+                              height: 0,
+                            );
+                          }
+                        }),
+                    Container(
+                      color: Colors.black.withOpacity(0.6),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: ConfigSize.defaultSize,
+                          ),
+                          reelRowWidget(
+                            context: context,
+                            icon: AssetsPath.hashTagIcon,
+                            title: StringManager.chooseTheTopic.tr(),
+                            widget: const ChooseTopicDailog(),
+                          ),
+                          ValueListenableBuilder<bool>(
+                            valueListenable: TrimmerView.hashtag,
+                            builder: (context, b, _) {
+                              return SizedBox(
+                                height: ConfigSize.defaultSize! * 11,
+                                width: MediaQuery.of(context).size.width,
+                                child: GridView.builder(
+                                    itemCount:
+                                        TrimmerView.selectedTopics.length,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            mainAxisSpacing: 6,
+                                            childAspectRatio: 4,
+                                            crossAxisCount: 3,
+                                            crossAxisSpacing: 20),
+                                    itemBuilder: (context, index) {
+                                      return Text(
+                                        "  ${TrimmerView.selectedTopics[index]}#",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(color: Colors.white),
+                                      );
+                                    }),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        })
 
         // Builder(
         //   builder: (context) => Center(
