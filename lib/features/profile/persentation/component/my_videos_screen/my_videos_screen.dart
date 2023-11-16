@@ -39,10 +39,8 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
         leading: IconButton(onPressed: (){
           Navigator.pop(context);
         }, icon: Icon(Icons.arrow_back_ios_outlined , color: Theme.of(context).colorScheme.primary, )),
-        actions: [
-          // IconButton(onPressed: (){
-          //   Navigator.pushNamed(context, Routes.uploadVideo);
-          // }, icon: Icon(Icons.add , color: Theme.of(context).colorScheme.primary, ))
+        actions: const [
+
           UploadVideo()
         ],
         backgroundColor: Theme.of(context).colorScheme.background,

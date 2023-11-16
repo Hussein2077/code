@@ -32,6 +32,8 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_r
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/more_report_dialog_icon.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 
 class UserReelView extends StatefulWidget {
@@ -48,10 +50,19 @@ class UserReelView extends StatefulWidget {
   State<UserReelView> createState() => UserReelViewState();
 }
 
-TextEditingController report = TextEditingController();
 
 
 class UserReelViewState extends State<UserReelView> {
+  late TextEditingController report  ;
+
+  @override
+  void initState() {
+    report = TextEditingController();
+    // TODO: implement initState
+    super.initState();
+  }
+
+
 
   @override
   void dispose() {
@@ -135,6 +146,7 @@ class UserReelViewState extends State<UserReelView> {
                   bottomDailog(
                       context: context,
                       widget: moreDilog(
+                        report: report,
                         userId:userId.toString(),
                           context: context,
                           yourReels: userId ==
@@ -169,7 +181,8 @@ class UserReelViewState extends State<UserReelView> {
 }
 
 Widget moreDilog(
-    {required BuildContext context,
+    {required TextEditingController report ,
+      required BuildContext context,
     required bool yourReels,
     required String id,
     required String userId,
@@ -178,7 +191,7 @@ Widget moreDilog(
     padding: EdgeInsets.symmetric(
         vertical: ConfigSize.defaultSize!, horizontal: ConfigSize.defaultSize!),
     width: MediaQuery.of(context).size.width,
-    height:yourReels ? ConfigSize.defaultSize! * 12:ConfigSize.defaultSize! * 35,
+    height:yourReels ? ConfigSize.defaultSize! * 12:null,
     decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
@@ -192,12 +205,10 @@ Widget moreDilog(
         title: StringManager.delete.tr(),
         onTap: () => BlocProvider.of<DeleteReelBloc>(context)
             .add(DeleteReelEvent(id: id)),
-      ): moreReportDialogIcon(
-      context: context,
-      title:  StringManager.report.tr(),
-      onTap: () => BlocProvider.of<ReportRealsBloc>(context)
-          .add(ReportReals(reportedId: userId,realId: id,description: report.text)),
-    ),
+      ):MoreDialog(id : id ,userId: userId,report: report, )
+
+
+
   );
 }
 
@@ -228,41 +239,4 @@ Widget moreDilogIcon(
     ),
   );
 }
-Widget moreReportDialogIcon(
-    {required BuildContext context,
-    required String title,
-    void Function()? onTap}) {
-  return BlocListener<ReportRealsBloc, ReportRealsState>(
-  listener: (context, state) {
-    if(state is ReportReelsLoadingState){
-      loadingToast(context: context, title: StringManager.loading.tr());
-    }else if(state is ReportReelsSucssesState){
-      sucssesToast(context: context, title: state.message);
-    }else if(state is ReportReelsErrorState){
-      sucssesToast(context: context, title: state.error);
-    }
-  },
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Text(
-       title,
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
 
-       ProblemTextFormField(
-        textEditingController:report ,
-      ),
-
-      MainButton(
-        onTap: onTap!,
-        title: StringManager.report.tr(),
-        width: MediaQuery.of(context).size.width,
-
-      )
-
-    ],
-  ),
-);
-}

@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/src/layout.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
 import '../components/screen_options.dart';
@@ -46,7 +47,6 @@ class ReelsPage extends StatefulWidget {
         required this.reelIndex,
         this.showProgressIndicator = true,
         required this.pageController,
-       // required this.swiperController,
         required this.userView})
       : super(key: key);
 
@@ -139,7 +139,6 @@ class ReelsPageState extends State<ReelsPage>
       }
       widget.pageController.nextPage(duration: const Duration(milliseconds: 100),
       curve:Curves.easeIn ) ;
-    //  widget.swiperController.next();
 
     }
 
@@ -160,9 +159,9 @@ class ReelsPageState extends State<ReelsPage>
     });
     _videoPlayerController?.addListener(() {
       //to handle close reel when make navigate
-       if(BottomNavLayoutState.currentIndex !=1){
-         ReelsPage.isVideoPause.value= true ;
-       }
+      if (MainScreen.canNotPlayOutOfReelMainScreen && BottomNavLayoutState.currentIndex !=1) {
+       ReelsPage.isVideoPause.value= true ;
+      }
 
 
 
@@ -199,6 +198,7 @@ if (_chewieController != null) {
 }
 
     WidgetsBinding.instance.removeObserver(this);
+
 
 
     super.dispose();

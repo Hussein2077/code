@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
+import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 
 class ReelsViewer extends StatefulWidget {
@@ -94,7 +95,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
 
   @override
   void dispose() {
-   // controller.dispose();
+    MainScreen.canNotPlayOutOfReelMainScreen = true ;
     pageController.dispose() ;
     super.dispose();
   }
@@ -164,24 +165,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
                   top: ConfigSize.defaultSize!*1.5,
                   child:const UploadVideo()
 
-
-                  // InkWell(
-                  //   onTap: () {
-                  //     Navigator.pushNamed(context, Routes.uploadVideo);
-                  //   },
-                  //   child: Container(
-                  //       width: ConfigSize.defaultSize! * 3,
-                  //       height: ConfigSize.defaultSize! * 3,
-                  //       decoration: BoxDecoration(
-                  //           color: ColorManager.mainColor.withOpacity(0.5),
-                  //           borderRadius: BorderRadius.circular(
-                  //               ConfigSize.defaultSize! * 3)),
-                  //       child: Icon(
-                  //         Icons.add,
-                  //         color: Colors.white,
-                  //         size: ConfigSize.defaultSize! * 3,
-                  //       )),
-                  // ),
                 )
 
             ],

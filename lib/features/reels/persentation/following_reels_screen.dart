@@ -29,14 +29,19 @@ class FollowingReelsScreen extends StatefulWidget {
 }
 
 class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
+  late TextEditingController report  ;
+
 
   @override
   void initState() {
+    report = TextEditingController();
+
     super.initState();
   }
 
   @override
   void dispose() {
+    report.dispose();
     super.dispose();
   }
 
@@ -90,6 +95,7 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
                                 .bottom,
                           ),
                           child: MoreDialog(
+                            report: report,
                             userId: userData.toString(),
                             id: id.toString(),
                           ),
