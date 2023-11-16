@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/moment/presentation/componants/all_moments/all_moments.dart';
@@ -42,10 +45,30 @@ class MomentScreenState extends State<MomentScreen>
 
   @override
   void initState() {
+    MomentBottomBarState.momentType = MomentType.allMoments;
+
     _tabController = TabController(
       length: 4,
       vsync: this, // Provide a TickerProvider
     );
+    _tabController.addListener(() {
+      log(_tabController.index.toString());
+      if(_tabController.index == 0 ){
+        MomentBottomBarState.momentType = MomentType.allMoments;
+
+      }else if (_tabController.index == 1){
+        MomentBottomBarState.momentType = MomentType.followingMoment;
+
+      }else if (_tabController.index == 2){
+        MomentBottomBarState.momentType = MomentType.myMoment;
+
+      }
+      else if (_tabController.index == 3){
+        MomentBottomBarState.momentType = MomentType.likedMoment;
+
+      }
+
+    });
 
     super.initState();
   }

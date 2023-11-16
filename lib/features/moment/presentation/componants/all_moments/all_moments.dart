@@ -37,7 +37,7 @@ class _AllMomentsScreenState extends State<AllMomentsScreen> {
       BlocProvider.of<GetMomentallBloc>(context)
           .add( GetMomentAllEvent(momentId:MainScreen.momentId ));    }
     scrollController.addListener(scrollListner);
-    MomentBottomBarState.momentType = MomentType.allMoments;
+    // MomentBottomBarState.momentType = MomentType.allMoments;
     super.initState();
   }
 

@@ -33,7 +33,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
   @override
   void initState() {
     scrollController.addListener(scrollListner);
-    MomentBottomBarState.momentType = MomentType.followingMoment ;
+    // MomentBottomBarState.momentType = MomentType.followingMoment ;
     super.initState();
   }
 

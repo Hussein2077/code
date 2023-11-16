@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_al
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_all_intersted/get_all_intersted_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_intersed/get_user_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_intersed/get_user_intersted_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/trim_view.dart';
 
 class ChooseTopicDailog extends StatefulWidget {
   const ChooseTopicDailog({super.key});
@@ -57,17 +58,17 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
                       return InkWell(
                         onTap: () {
                           setState(() {
-                              if (UploadReelsScreenState.selectedIntrest.contains( state.data[index].id)){
-                            UploadReelsScreenState.selectedIntrest.removeWhere((element) => element== state.data[index].id);
-                            UploadReelsScreenState.selectedTopics.removeWhere((element) => element== state.data[index].name);
+                              if (TrimmerView.selectedIntrest.contains( state.data[index].id)){
+                                TrimmerView.selectedIntrest.removeWhere((element) => element== state.data[index].id);
+                                TrimmerView.selectedTopics.removeWhere((element) => element== state.data[index].name);
                           }else {
-                            UploadReelsScreenState.selectedIntrest.add(state.data[index].id!);
-                            UploadReelsScreenState.selectedTopics.add(state.data[index].name!);
+                                TrimmerView.selectedIntrest.add(state.data[index].id!);
+                                TrimmerView.selectedTopics.add(state.data[index].name!);
                               }
                           });
 
                         },
-                        child: topicRow(context: context, title: state.data[index].name! , selected:UploadReelsScreenState.selectedIntrest.contains( state.data[index].id) ));
+                        child: topicRow(context: context, title: state.data[index].name! , selected:TrimmerView.selectedIntrest.contains( state.data[index].id) ));
                     });
                   }else if (state is GetAllInterstedLoadingState) {
                     return const LoadingWidget();
@@ -84,7 +85,7 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
             child: MainButton(onTap: (){
-              UploadReelsScreenState.hashtag.value = !UploadReelsScreenState.hashtag.value;
+              TrimmerView.hashtag.value = !TrimmerView.hashtag.value;
               Navigator.pop(context);
             }, title: StringManager.done.tr()),
           )

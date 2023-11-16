@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 
@@ -153,23 +154,26 @@ class _ReelsViewerState extends State<ReelsViewer> {
                 Positioned(
                   right: ConfigSize.defaultSize!*1.5,
                   top: ConfigSize.defaultSize!*1.5,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.uploadReels);
-                    },
-                    child: Container(
-                        width: ConfigSize.defaultSize! * 3,
-                        height: ConfigSize.defaultSize! * 3,
-                        decoration: BoxDecoration(
-                            color: ColorManager.mainColor.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(
-                                ConfigSize.defaultSize! * 3)),
-                        child: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: ConfigSize.defaultSize! * 3,
-                        )),
-                  ),
+                  child:           UploadVideo()
+
+
+                  // InkWell(
+                  //   onTap: () {
+                  //     Navigator.pushNamed(context, Routes.uploadVideo);
+                  //   },
+                  //   child: Container(
+                  //       width: ConfigSize.defaultSize! * 3,
+                  //       height: ConfigSize.defaultSize! * 3,
+                  //       decoration: BoxDecoration(
+                  //           color: ColorManager.mainColor.withOpacity(0.5),
+                  //           borderRadius: BorderRadius.circular(
+                  //               ConfigSize.defaultSize! * 3)),
+                  //       child: Icon(
+                  //         Icons.add,
+                  //         color: Colors.white,
+                  //         size: ConfigSize.defaultSize! * 3,
+                  //       )),
+                  // ),
                 )
 
             ],
