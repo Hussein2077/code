@@ -168,8 +168,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     RoomScreen.usersHasMute = widget.room.mutedUsers!.split(', ');
 
-    print(RoomScreen.usersHasMute.toString() + "!!!!!!!!!!!!");
-
     luckGiftBannderController = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
