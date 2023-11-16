@@ -28,7 +28,6 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
   TextEditingController agencyId = TextEditingController();
   TextEditingController number = TextEditingController();
   final formGlobalKey = GlobalKey<FormState>();
-  bool showButton = true ; 
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +35,14 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: BlocListener<JoinToAgencieBloc, JoinToAgencieState>(
         listener: (context, state) {
-if (state is JoinToAgencieLoadingState){
-   loadingToast(context: context, title: StringManager.loading);
-}else if (state is JoinToAgencieErrorState){
-  errorToast(context: context, title: state.error);
-}   else if (state is JoinToAgencieSucssesState){
-sucssesToast(context: context, title: StringManager.done);
-showButton = false  ; 
-setState(() {
-  
-});
-
-}
-
-     },
+          if (state is JoinToAgencieLoadingState) {
+            loadingToast(context: context, title: StringManager.loading);
+          } else if (state is JoinToAgencieErrorState) {
+            errorToast(context: context, title: state.error);
+          } else if (state is JoinToAgencieSucssesState) {
+            sucssesToast(context: context, title: StringManager.done);
+          }
+        },
         child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
             if (state is GetMyDataSucssesState) {
@@ -112,9 +105,10 @@ setState(() {
                                     height: ConfigSize.defaultSize! * 1.0,
                                   ),
                                   GradientTextVip(
-                                    text:state.myDataModel.name!,
-                                    textStyle:Theme.of(context).textTheme.headlineLarge!,
-
+                                    text: state.myDataModel.name!,
+                                    textStyle: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge!,
                                     isVip: state.myDataModel.hasColorName!,
                                   ),
                                   SizedBox(
@@ -140,7 +134,6 @@ setState(() {
                                 height: ConfigSize.defaultSize! * 1.0,
                               ),
                               TextFormFieldWidget(
-                                
                                 textEditingController: id,
                                 hintText: state.myDataModel.uuid!,
                                 readOnly: true,
@@ -167,9 +160,9 @@ setState(() {
                                       ConfigSize.defaultSize! * 2),
                                 ),
                                 child: TextFieldWidget(
-                                  textColor: Theme.of(context).colorScheme.primary,
-                                                                    type: TextInputType.number,
-
+                                  textColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  type: TextInputType.number,
                                   controller: agencyId,
                                   hintText:
                                       StringManager.enterAgencyIDHere.tr(),
@@ -206,29 +199,24 @@ setState(() {
                               SizedBox(
                                 height: ConfigSize.defaultSize! * 15,
                               ),
-                              if (showButton)
-                              MainButton(
-                                onTap: () {
-                                  if (agencyId.text.isEmpty) {
-                                    errorToast(
-                                        context: context,
-                                        title:
-                                            StringManager.pleaseEnterAgencyID);
-                                  } else if (number.text.isEmpty) {
-                                    errorToast(
-                                        context: context,
-                                        title:
-                                            StringManager.pleaseEnterPhoneNum);
-                                  } else {
-                                    BlocProvider.of<JoinToAgencieBloc>(context)
-                                        .add(JoinToAgencieEvent(
-                                            agencieId: agencyId.text,
-                                            whatsAppNum: number.text));
-                                  }
-                                },
-                                title: StringManager.applicationToJoinAnAgency
-                                    .tr(),
-                              ),
+                                MainButton(
+                                  onTap: () {
+                                    if (agencyId.text.isEmpty) {
+                                      errorToast(
+                                          context: context,
+                                          title: StringManager.pleaseEnterAgencyID);
+                                    } else if (number.text.isEmpty) {
+                                      errorToast(
+                                          context: context,
+                                          title: StringManager.pleaseEnterPhoneNum);
+                                    } else {
+                                      BlocProvider.of<JoinToAgencieBloc>(context).add(JoinToAgencieEvent(
+                                              agencieId: agencyId.text,
+                                              whatsAppNum: number.text));
+                                    }
+                                  },
+                                  title: StringManager.applicationToJoinAnAgency.tr(),
+                                ),
                             ],
                           ),
                         ),
