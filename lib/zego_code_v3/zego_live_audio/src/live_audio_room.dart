@@ -238,9 +238,9 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.hidden:
-        // TODO: Handle this case.
+      //   break;
+      // case AppLifecycleState.hidden:
+      //   // TODO: Handle this case.
         break;
     }
   }

@@ -114,6 +114,7 @@ class Methods {
     preferences.setString("languagne", language);
   }
 
+
   Future<String> getLocalization() async {
     final String defaultLocale = Platform.localeName;
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -953,8 +954,18 @@ void checkIfFriends(
               } else {
                 errorToast(context: context,
                     title: StringManager.youAreNotFriends.tr());
-
               }
 
 }
+
+  Future<void> saveShowCase({required bool isFirst}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool("is_first", isFirst);
+  }
+  Future<bool> getShowCase() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool isFirst = preferences.getBool("is_first")??true;
+    return isFirst;
+  }
+
 }

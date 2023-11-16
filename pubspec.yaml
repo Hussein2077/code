@@ -113,7 +113,7 @@ dependencies:
   flutter_reaction_button: ^3.0.0
   transparent_image: ^2.0.1
   ffmpeg_kit_flutter: ^6.0.3
-
+  showcaseview: ^2.0.3
 
 dev_dependencies:
   flutter_test:
