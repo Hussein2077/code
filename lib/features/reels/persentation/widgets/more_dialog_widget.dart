@@ -18,20 +18,28 @@ class MoreDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: ConfigSize.defaultSize!,
-          horizontal: ConfigSize.defaultSize!),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height-200,
-      decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
-          borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-      child: MoreReportDialogIcon(
-        report: report,
-        title: StringManager.report.tr(),
-        onTap: () => BlocProvider.of<ReportRealsBloc>(context).add(ReportReals(
-            reportedId: userId, realId: id, description: report.text)),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title:  Text(
+          StringManager.report.tr(),
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(
+            vertical: ConfigSize.defaultSize!,
+            horizontal: ConfigSize.defaultSize!),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
+        child: MoreReportDialogIcon(
+          report: report,
+          onTap: () => BlocProvider.of<ReportRealsBloc>(context).add(ReportReals(
+              reportedId: userId, realId: id, description: report.text)),
+        ),
       ),
     );
   }

@@ -27,7 +27,6 @@ class ReelsPage extends StatefulWidget {
   final Function(int, int)? onClickMoreBtn;
   final Function(String, bool)? onFollow;
   final int reelIndex ;
- // final SwiperController swiperController;
   final PageController  pageController;
   final bool showProgressIndicator;
   final bool userView;

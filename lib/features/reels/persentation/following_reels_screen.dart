@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -86,20 +87,16 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
                   onComment: (comment) {
                   },
                   onClickMoreBtn: (id, userData) {
-                    bottomDailog(
-                        context: context,
-                        widget: SingleChildScrollView(
-                          padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context)
-                                .viewInsets
-                                .bottom,
-                          ),
-                          child: MoreDialog(
-                            report: report,
-                            userId: userData.toString(),
+
+                    Navigator.pushNamed(context, Routes.reportReelsScreen,
+                        arguments: ReportReelsScreenPramiter(
                             id: id.toString(),
-                          ),
-                        ));
+                            userId: userData.toString(),
+                            report: report
+
+                        )
+                    );
+
                   },
                   onClickBackArrow: () {
                     Navigator.pop(context);
