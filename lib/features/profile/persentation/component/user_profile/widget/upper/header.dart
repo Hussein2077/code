@@ -20,12 +20,12 @@ class HeaderProfile extends StatelessWidget {
           headerIcon(icon: Icons.arrow_back_ios ,onTap: () => Navigator.pop(context), ),
           myProfile?
           headerIcon(icon: Icons.edit ,onTap: () => Navigator.pushNamed(context, Routes.editInfo , arguments: myDataModel), ):
-           IconButton(onPressed: (){
-            return repoertsAction(
+          headerIcon(icon: Icons.report_problem_outlined ,onTap: () =>   repoertsAction(
               context: context,
               userData: myDataModel.convertToUserObject()
-            );
-          }, icon:const Icon(Icons.report_problem_outlined) )],
+          ))
+
+          ],
       ),
     );
   }

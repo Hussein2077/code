@@ -89,16 +89,9 @@ class UserReelViewState extends State<UserReelView> {
         child: Scaffold(body: BlocBuilder<GetUserReelsBloc, GetUserReelsState>(
           builder: (context, state) {
             if (state is GetUserReelsSucssesState) {
-              // for (int i = 0; i < state.data!.length; i++) {
-              //   state.data![i].userId = widget.userDataModel.id;
-              //   state.data![i].userImage = widget.userDataModel.profile!.image;
-              //   state.data![i].userName = widget.userDataModel.name;
-              //   if (state.data![i].likeExists == true &&
-              //       !unLikedVideo.contains(state.data![i].id)) {
-              //     likedVideos.add(state.data![i].id!);
-              //   }
-              // }
+             
               return ReelsViewer(
+                userData:widget.userDataModel ,
                 userView: true,
                 startIndex: widget.startIndex,
                 reelsList: state.data!,

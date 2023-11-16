@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
@@ -17,6 +18,9 @@ import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 
 class ReelsViewer extends StatefulWidget {
+
+  //user data of reel owner
+  final UserDataModel? userData ;
   /// use reel model and provide list of reels, list contains reels object, object contains url and other parameters
   final List<ReelModel> reelsList;
 
@@ -60,6 +64,7 @@ class ReelsViewer extends StatefulWidget {
    const ReelsViewer({
     Key? key,
     required this.reelsList,
+     this.userData ,
     this.showVerifiedTick = true,
     this.onClickMoreBtn,
     this.onComment,
@@ -136,21 +141,27 @@ class _ReelsViewerState extends State<ReelsViewer> {
                 onPageChanged: (int value){
                   ReelsScreenState.currentIndex = value ;
                   pageController.notifyListeners();
-                  if (widget.reelsList.length - value < 5){
-                    if (widget.userDataModel.id ==
-                        MyDataModel.getInstance().id) {
-                      BlocProvider.of<GetUserReelsBloc>(context)
-                          .add(const LoadMoreUserReelsEvent(id: null));
-                    } else {
-                      BlocProvider.of<GetUserReelsBloc>(context).add(
-                          LoadMoreUserReelsEvent(
-                              id: widget.userDataModel.id.toString()));
+                  if(widget.userView){
+                    if (widget.reelsList.length - value < 5){
+                      if (widget.userData!.id ==
+                          MyDataModel.getInstance().id) {
+                        BlocProvider.of<GetUserReelsBloc>(context)
+                            .add(const LoadMoreUserReelsEvent(id: null));
+                      } else {
+                        BlocProvider.of<GetUserReelsBloc>(context).add(
+                            LoadMoreUserReelsEvent(
+                                id: widget.userData!.id.toString()));
+                      }
                     }
+                  }else{
+                    if (widget.reelsList.length - value == 4) {
+                      BlocProvider.of<GetReelsBloc>(context)
+                          .add(LoadMoreReelsEvent());
+                    }
+
                   }
-                  if (widget.reelsList.length - value == 4) {
-                    BlocProvider.of<GetReelsBloc>(context)
-                        .add(LoadMoreReelsEvent());
-                  }
+
+
 
                 },
                 controller: pageController
