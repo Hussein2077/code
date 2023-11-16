@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -10,16 +9,12 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
-import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/upload_reels_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/chose_topic_dailog.dart';
-
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_event.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
-
+import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'dart:ui' as ui;
-
 import 'trim/trim_viewer.dart';
 import 'trim/trimmer.dart';
 import 'trim/video_viewer.dart';
@@ -46,6 +41,8 @@ class _TrimmerViewState extends State<TrimmerView> {
   late TextEditingController reelsNameController;
 
 
+
+
   @override
   void dispose() {
     TrimmerView.selectedIntrest = [];
@@ -60,7 +57,7 @@ class _TrimmerViewState extends State<TrimmerView> {
   double _endValue = 0.0;
 
   bool _isPlaying = false;
-  bool _progressVisibility = false;
+
 
   Future<String?> _saveVideo() async {
 
@@ -109,10 +106,8 @@ class _TrimmerViewState extends State<TrimmerView> {
 
   @override
   void initState() {
-    // UploadVideoState.video =  widget.file.path;
-    log(UploadVideoState.video.toString()+"initxxxxxx");
 
-
+    ReelsPage.isVideoPause.value = true ;
     reelsNameController = TextEditingController();
 
 

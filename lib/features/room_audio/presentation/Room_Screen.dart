@@ -817,7 +817,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     return Directionality(
         textDirection: TextDirection.ltr,
         child: ZegoUIKitPrebuiltLiveAudioRoom(

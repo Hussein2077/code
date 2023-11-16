@@ -1,12 +1,9 @@
 
 
 import 'dart:developer';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
@@ -156,7 +153,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
                 Positioned(
                   right: ConfigSize.defaultSize!*1.5,
                   top: ConfigSize.defaultSize!*1.5,
-                  child:           UploadVideo()
+                  child:const UploadVideo()
 
 
                   // InkWell(

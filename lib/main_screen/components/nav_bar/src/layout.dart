@@ -194,12 +194,7 @@ class BottomNavLayoutState extends State<BottomNavLayout> {
       pages[currentIndex] = widget.pages[currentIndex].call(keys[currentIndex]);
     }
 
-    if(currentIndex != 1){
-      if(ReelsPage.videoPlayerController != null){
-        ReelsPage.videoPlayerController!.pause();
-        ReelsPage.isVideoPause.value= true ;
-      }
-    }
+
     // Return the view
     return WillPopScope(
       onWillPop: onWillPop,

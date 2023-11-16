@@ -29,9 +29,9 @@ class ReelsPage extends StatefulWidget {
   final bool showProgressIndicator;
   final bool userView;
   final int index ;
-  static VideoPlayerController? videoPlayerController;
   static bool isFirst = true;
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
+  //static ValueNotifier<bool> isVideoCurrentContext = ValueNotifier<bool>(true);
 
 
    ReelsPage(
@@ -143,6 +143,13 @@ class ReelsPageState extends State<ReelsPage>
         isLive:true
     );
     setState(() {});
+    ReelsPage.isVideoPause.addListener(() {
+      if(ReelsPage.isVideoPause.value && !(_videoPlayerController?.value.isPlaying??true)){
+        _videoPlayerController?.play();
+      }else if(ReelsPage.isVideoPause.value){
+        _videoPlayerController?.pause();
+      }
+    });
     _videoPlayerController?.addListener(() {
       //to handle close reel when make navigate
        if(BottomNavLayoutState.currentIndex !=1){
@@ -158,13 +165,16 @@ class ReelsPageState extends State<ReelsPage>
         // widget.swiperController.next();
       }
 
-      if((_videoPlayerController?.value.isPlaying??false) && ReelsPage.isVideoPause.value){
+      if((_videoPlayerController?.value.isPlaying??false) &&
+          ReelsPage.isVideoPause.value){
         ReelsPage.isVideoPause.value = false ;
       }
 
        if(!(_videoPlayerController?.value.isPlaying??true)&& !ReelsPage.isVideoPause.value){
          _videoPlayerController?.play();
        }
+
+
 
     });
   }
@@ -311,7 +321,6 @@ if (_chewieController != null) {
             valueListenable: ReelsPage.isVideoPause,
             builder: (context, ispause, _) {
               if (ispause&&!(_videoPlayerController?.value.isPlaying??true)) {
-                _videoPlayerController?.pause();
                 return IgnorePointer(
                     child: Container(
                       color: Colors.grey.withOpacity(0.2),
