@@ -291,10 +291,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         } else if (widget.room.seats![i]['id'] != null) {
           UserOnMicModel myDataModel = UserOnMicModel.fromJson(widget.room.seats![i]);
           if(myDataModel.seatCondition == "locked"){
-            log("heeeeeeee111");
             RoomScreen.listOfLoskSeats.value.putIfAbsent(i, () => i);
           }else if(myDataModel.seatCondition == "muted"){
-            log("heeeeeeee");
             RoomScreen.listOfMuteSeats.putIfAbsent(i, () => i);
           }
           ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(id: myDataModel.id.toString(), name: myDataModel.name.toString());
