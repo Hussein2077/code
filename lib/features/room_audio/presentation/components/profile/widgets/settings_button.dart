@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -16,6 +19,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_control
 
 class SettingsButton extends StatefulWidget {
   final UserDataModel userData;
+  final MyDataModel myDataModel;
   final EnterRoomModel roomData;
   final LayoutMode layoutMode;
   final bool isOnMic;
@@ -31,7 +35,7 @@ class SettingsButton extends StatefulWidget {
       required this.isAdminOrHost,
       required this.isOnMic,
       required this.myProfrile,
-      super.key});
+      super.key, required this.myDataModel});
 
   @override
   State<SettingsButton> createState() => _SettingsButtonState();
@@ -40,10 +44,12 @@ class SettingsButton extends StatefulWidget {
 class _SettingsButtonState extends State<SettingsButton> {
   @override
   Widget build(BuildContext context) {
+    log("User ID  ${widget.userData.id}");
+    log("Owner ID ${widget.roomData.ownerId}");
     final List<String> items = [
       StringManager.mention.tr(),
       if (!widget.myProfrile) StringManager.reports.tr(),
-      if (widget.userData.id == widget.roomData.ownerId) StringManager.admin.tr(),
+      if (widget.userData.id != widget.myDataModel.id && widget.userData.id != widget.roomData.ownerId) StringManager.admin.tr(),
       if (widget.isAdminOrHost)
         RoomScreen.banedUsers.containsKey(widget.userData.id.toString())
             ? StringManager.writeUnBan.tr()

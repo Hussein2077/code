@@ -21,9 +21,9 @@ class GroupChatCounterWidget extends StatelessWidget {
           return
             Container(
               padding: const EdgeInsets.all(4),
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.purple),
+                  color: Colors.red.shade900),
               child: Text(
                 HomeScreen.groupChatCounter.value == 0 ? "  " :
                 '${HomeScreen.groupChatCounter.value}',

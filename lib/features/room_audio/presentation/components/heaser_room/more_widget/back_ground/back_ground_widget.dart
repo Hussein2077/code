@@ -77,7 +77,7 @@ class _BackGroundState extends State<BackGround> {
                     return Container(
                         height: ConfigSize.screenHeight! * .5,
                         decoration: BoxDecoration(
-                            color: Colors.black,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(AppPadding.p18),
                                 topLeft: Radius.circular(AppPadding.p18))),
@@ -95,9 +95,9 @@ class _BackGroundState extends State<BackGround> {
                                     ),
                                     child:  Center(
                                         child: Text(
-                                          style: const TextStyle(
-                                            overflow: TextOverflow.visible
-                                          ),
+                                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                fontSize: ConfigSize.defaultSize! * 1.3,
+                                          overflow: TextOverflow.visible,),
                                             StringManager.yourThemeIsUpload.tr())),
                                   );
                                 } else {
