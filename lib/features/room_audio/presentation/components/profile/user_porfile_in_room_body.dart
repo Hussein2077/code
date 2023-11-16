@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/settings_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
@@ -35,7 +37,6 @@ import 'profile_room_body_controler.dart';
 import 'widgets/block_button.dart';
 import 'widgets/gift_user_screen.dart';
 import 'widgets/image_with_text.dart';
-import 'widgets/settings_Button.dart';
 
 // ignore: must_be_immutable
 class UserProfileInRoom extends StatefulWidget {
@@ -307,6 +308,9 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                     ),
                   ],
                 ),
+                SizedBox(
+                    height: ConfigSize.defaultSize!*1
+                ),
               ],
             ),
           ),
@@ -364,21 +368,20 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if(isAdminOrHost)
-                  SizedBox(
-                    height: ConfigSize.defaultSize! * 4,
-                  ),
+
                   SettingsButton(
                       roomData: widget.roomData,
                       userData: widget.userData,
+                      myDataModel: widget.myData,
                       layoutMode: widget.layoutMode,
                       isAdminOrHost: isAdminOrHost,
                       isOnMic: isOnMic,
                       myProfrile: myProfile),
-                   if (isAdminOrHost && isOnMic)
+                    (isAdminOrHost && isOnMic)?
                   ValueListenableBuilder<int>(
                       valueListenable: UserProfileInRoom.updatebuttomBar,
                       builder: (context, mute, _) {
+                        log("Mic $isOnMic");
                         return IconButton(
                             onPressed: () {
                               if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())) {
@@ -408,11 +411,11 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                               color: Colors.black,
                             ));
 
-                      }),
+                      }):
+                        SizedBox(
+                          height: ConfigSize.defaultSize!*4,
+                        )
 
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 5,
-                    ),
                 ],
               ),
             ],
