@@ -38,7 +38,6 @@ class OtpScreen extends StatelessWidget {
       listener: (context, state)async {
        if (state is RegisterPhoneSuccesMessageState) {
         Methods.instance.clearAuthData();
-        await    Methods.instance.addFireBaseNotifcationId();
 
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.addInfo, (route) => false);

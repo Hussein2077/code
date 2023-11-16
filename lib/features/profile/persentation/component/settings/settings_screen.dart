@@ -106,9 +106,9 @@ class SettingsScreen extends StatelessWidget {
           //     }, title: StringManager.logOut.tr());
           //   },
           // ),
-          LogOutOrDeleteAccountButton(logOut: true,
+          LogOutOrDeleteAccountButton(
+            logOut: true,
             text: StringManager.logOut.tr(),
-
             image: const Icon(Icons.delete_forever,color: Colors.red,),
 
           ),
@@ -116,10 +116,10 @@ class SettingsScreen extends StatelessWidget {
             height: ConfigSize.defaultSize! * 1.6,
           ),
 
-            LogOutOrDeleteAccountButton(logOut: false,
+      /*      LogOutOrDeleteAccountButton(logOut: false,
             text: StringManager.deleteAccount.tr(),
             image: const Icon(Icons.delete_forever,color: Colors.red,),
-          ),
+          ),*/
 
           const Spacer(),
 

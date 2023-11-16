@@ -460,6 +460,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.youAreNotFriends:'انتم ليس اصدقاء' ,
     StringManager.love : "احببته",
     StringManager.comment :"تعليق",
+    StringManager.oneHashtag : "يجب علي الاقل وضع هاشتاج واحد"
 
 
 

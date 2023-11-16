@@ -67,10 +67,10 @@ class BottomBarWidget extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon:const MessageCountNotifcation(widget:BottomIcon(
-                icon: AssetsPath.conversation,
+                icon: AssetsPath.chatIconDissActive,
               ), )   ,
               activeIcon: const BottomIcon(
-                icon: AssetsPath.selectedConversation,
+                icon: AssetsPath.chatIconActive,
               ),
               label: StringManager.chat.tr(),
             ),
@@ -88,7 +88,7 @@ class BottomBarWidget extends StatelessWidget {
                 icon: AssetsPath.unSelectedChatIcon,
               ),
               activeIcon: const BottomIcon(
-                icon: AssetsPath.chatIcon,
+                icon: AssetsPath.chatIconDissActive,
               ),
               label: StringManager.momentTab.tr(),
             ),

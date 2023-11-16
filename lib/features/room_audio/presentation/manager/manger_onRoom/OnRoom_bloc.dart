@@ -10,14 +10,15 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/change_room_mode
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/dispose_hide_room_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/emojie_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/exist_room_uc.dart';
-import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_room_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/leave_mic_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/lock_unLock_mic_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_unmute_mic_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/remove_pass_room_UC.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_pob_up_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_yallow_banner_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/unmute_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/update_room_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
@@ -41,6 +42,8 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
   final HideRoomUseCase hideRoomUseCase ;
   final DisposeHideRoomUseCase disposeHideRoomUseCase ;
     final SendYallowBannerUC sendYallowBannerUC ;
+    final MuteUserMicUsecase muteUserMicUsecase ;
+    final UnMuteUserMicUsecase unMuteUserMicUsecase ;
 
 
 
@@ -63,7 +66,10 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
       required this.leaveMicUC,
       required this.muteUnMuteMicUC,
       required this.lockUnLockMicUC ,
-      required this.sendYallowBannerUC})
+      required this.sendYallowBannerUC,
+      required this.muteUserMicUsecase,
+      required this.unMuteUserMicUsecase,
+      })
       : super(const OnRoomInitialState()) {
     on<UpdateRoom>((event, emit) async {
       emit(const OnRoomLoadingState());
@@ -248,6 +254,28 @@ class OnRoomBloc extends Bloc<OnRoomEvents, OnRoomStates> {
               (l) => emit(SendYallowBannerSuccessState(successMassage: StringManager.successfulOperation.tr())),
               (r) => emit(SendYallowBannerErrorState(
               errorMassage: DioHelper().getTypeOfFailure(r))));
+    }));
+
+    on<MuteUserMicEvent>(((event, emit) async {
+      emit(MuteUserMicLoadingState());
+      final result = await muteUserMicUsecase.call(MuteUserMicPramiter(
+        ownerId: event.ownerId,
+        userId: event.userId
+      ));
+      result.fold(
+              (l) => emit(MuteUserMicSuccessState(successMassage: l)),
+              (r) => emit(MuteUserMicErrorState(errorMassage: DioHelper().getTypeOfFailure(r))));
+    }));
+
+    on<UnMuteUserMicEvent>(((event, emit) async {
+      emit(UnMuteUserMicLoadingState());
+      final result = await unMuteUserMicUsecase.call(MuteUserMicPramiter(
+          ownerId: event.ownerId,
+          userId: event.userId
+      ));
+      result.fold(
+              (l) => emit(UnMuteUserMicSuccessState(successMassage: l)),
+              (r) => emit(UnMuteUserMicErrorState(errorMassage: DioHelper().getTypeOfFailure(r))));
     }));
   }
 }

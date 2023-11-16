@@ -6,8 +6,8 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 
 class ConstentApi {
- // static const String baseUrl = 'https://tik-chat.com/api' ;
-  static const String baseUrl = 'https://test.tik-chat.com/api' ;
+  static const String baseUrl = 'https://tik-chat.com/api' ;
+ // static const String baseUrl = 'https://test.tik-chat.com/api' ;
   static const String getBoxes = "$baseUrl/box/list";
   static const String inAppPurchase = "$baseUrl/purchased";
   static const String sendBox = "$baseUrl/box/send";
@@ -128,6 +128,8 @@ class ConstentApi {
   static  String makeMomentLikes(String momentID) => "$baseUrl/moment/$momentID/like";
   static   String momentSendGift({required String momentID}) =>"$baseUrl/moment/$momentID/gift";
   static const  String privacyPolicy ="https://test.dragon-chat.co/page/privacy-policy";
+  static const String muteUserMic = "$baseUrl/rooms/mute-user";
+  static const String unMuteUserMic = "$baseUrl/rooms/unmute-user";
 
 
 

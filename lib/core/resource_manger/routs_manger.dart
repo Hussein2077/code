@@ -22,6 +22,7 @@ import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/chatpage_body.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/create_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/upload_reels_screen.dart';
+import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/search/search_screen.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/agency_screen.dart';
@@ -110,7 +111,7 @@ class Routes {
   static const String familyRequests = "/FamilyRequests";
   static const String familyMembers = "/FamilyMembers";
   static const String createLive = "/CreateLive";
-  static const String uploadReels = "/UploadReels";
+  // static const String uploadReels = "/UploadReels";
   static const String signUp = "/SignUp";
   static const String musicList = "/musicList";
   static const String deleteFamily = "/DeleteFamily";
@@ -159,6 +160,9 @@ class Routes {
   static const String messages = "/Messages";
   static const String systemmessages = "/systemmessages";
   static const String chatPageBody = "/chatPageBody";
+
+
+
 
 
 
@@ -317,8 +321,8 @@ class RouteGenerator {
                 ));
       case Routes.createLive:
         return MaterialPageRoute(builder: (_) => const CreateLiveScreen());
-      case Routes.uploadReels:
-        return MaterialPageRoute(builder: (_) => const UploadReelsScreen());
+      // case Routes.uploadReels:
+      //   return MaterialPageRoute(builder: (_) => const UploadReelsScreen());
       case Routes.signUp:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case Routes.deleteFamily:
@@ -435,13 +439,11 @@ class RouteGenerator {
 
                      case Routes.trimmerView:
         File pram = settings.arguments as File;
-TextEditingController textEditingController = settings.arguments as TextEditingController;
 
         return MaterialPageRoute(
             builder: (_) => SafeArea(
                     child: TrimmerView(
                      file:pram , 
-                     reelsNameController:textEditingController ,
 
 
                 )));
@@ -553,6 +555,16 @@ TextEditingController textEditingController = settings.arguments as TextEditingC
                     myName: chatPageBodyPramiter.myName,
                   )));
         }
+
+      // case Routes.uploadVideo:
+      //   if (Platform.isIOS)
+      //   {
+      //     return CupertinoPageRoute (
+      //         builder: (_) => const SafeArea(child: UploadVideo()));
+      //   } else {
+      //     return MaterialPageRoute(
+      //         builder: (_) => const SafeArea(child: UploadVideo()));
+      //   }
 
 
 

@@ -34,7 +34,7 @@ class _MyMomentsScreenState extends State<MyMomentsScreen> {
   List<MomentModel>? tempData = [];
    @override
    void initState() {
-     MomentBottomBarState.momentType = MomentType.myMoment ;
+     // MomentBottomBarState.momentType = MomentType.myMoment ;
 
      scrollController.addListener(scrollListner);
      super.initState();

@@ -37,6 +37,7 @@ class _ChatPageState extends State<ChatPage> {
     Functions.addFireBaseId();
     super.initState();
   }
+
   static  List<String> chatScreenTitles = [
     StringManager.groupChat.tr(),
     StringManager.appTeam.tr(),

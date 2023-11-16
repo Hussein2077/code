@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:app_links/app_links.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -12,7 +10,6 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -79,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.login, (route) => false,
             arguments:
-                const LoginPramiter(isForceUpdate: false, isUpdate: false));
+            const LoginPramiter(isForceUpdate: false, isUpdate: false));
       } else if ((configModel!.isAuth ?? false)) {
         await initDynamicLinks();
         if (kDebugMode) {
@@ -180,28 +177,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> loadResources() async {
-    // Future.delayed(const Duration(seconds: 1), () async {
-    //   // final String defaultLocale = Platform.localeName;
-    //   // FlutterLogs.logInfo(
-    //   //   'log',
-    //   //   'init',
-    //   //   '========================================== Platform.localeName ',
-    //   // );
-    //   // await context.setLocale(Locale(defaultLocale.substring(0,2)));
-    //   // FlutterLogs.logInfo(
-    //   //   'log',
-    //   //   'init',
-    //   //   '========================================== context.setLocale',
-    //   // );
-    //   // await Methods.instance.saveLocalazitaon(language:defaultLocale.substring(0,2));
-    //   // FlutterLogs.logInfo(
-    //   //   'log',
-    //   //   'init',
-    //   //   '========================================== saveLocalazitaon',
-    //   // );
-    // });
+
+
     final result =
-        await GetConfigeAppUseCase(homeRepo: getIt()).call(ConfigModelBody(
+    await GetConfigeAppUseCase(homeRepo: getIt()).call(ConfigModelBody(
       appVersion: StringManager.versionApp.toString(),
       devicePlatform: SplashScreen.devicePlatform,
     ));
@@ -220,5 +199,6 @@ class _SplashScreenState extends State<SplashScreen> {
       '========================================== SplashScreen',
     );
   }
+
 
 }

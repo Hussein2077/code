@@ -6,14 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/user_porfile_in_room_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/pop_up_sheet_menu.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/co_host_mixin.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
-
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/dialogs.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/permissions.dart';
@@ -661,10 +658,10 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         _connectManager?.updateAudienceConnectState(ConnectState.idle);
       } else {
         _connectManager?.updateAudienceConnectState(ConnectState.connected);
-        if(ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)
-            ||RoomScreen.usersHasMute.contains(getUserByIndex(index)?.id)){
+
+        if(RoomScreen.listOfMuteSeats.containsKey(index) ||RoomScreen.usersHasMute.contains(getUserByIndex(index)?.id)){
           //when seat is muted or user has mute
-          ZegoUIKit().turnMicrophoneOn(false,userID: getUserByIndex(index)?.id.toString());
+          ZegoUIKit().turnMicrophoneOn(false, userID: getUserByIndex(index)?.id.toString());
         }
         // to my server
         BlocProvider.of<OnRoomBloc>(contextQuery!()).add(UpMicEvent(
@@ -889,7 +886,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
           subTag: 'seat manager',
         );
       }
-      if(ZegoPopUpSheetMenu.listOfMuteSeats.containsKey(index)||RoomScreen.usersHasMute.contains(getUserByIndex(index)?.id)){
+      if(RoomScreen.listOfMuteSeats.containsKey(index)||RoomScreen.usersHasMute.contains(getUserByIndex(index)?.id)){
 
         ZegoUIKit().turnMicrophoneOn(false,userID: getUserByIndex(index)?.id.toString());
       }else{;
@@ -1166,8 +1163,8 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         if (targetUser.id == ZegoUIKit().getLocalUser().id) {
           _connectManager?.updateAudienceConnectState(ConnectState.idle);
         }
-        BlocProvider.of<OnRoomBloc>(contextQuery!())
-            .add(LeaveMicEvent(ownerId: ownerId, userId: localUserID));
+
+        BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: localUserID));
 
         ZegoLoggerService.logInfo(
           'take off seat success',

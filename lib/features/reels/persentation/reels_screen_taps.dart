@@ -16,14 +16,17 @@ class ReelsScreenTaps extends StatefulWidget {
 }
 
 class ReelsScreenTapsState extends State<ReelsScreenTaps>
-    with TickerProviderStateMixin   {
+    with TickerProviderStateMixin {
   late TabController _tabController;
+
+
 
 
   @override
   void initState() {
     _tabController = TabController(
       length: 2,
+      initialIndex: 1,
       vsync: this, // Provide a TickerProvider
     );
 
@@ -46,8 +49,9 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
             TabBarView(
               controller: _tabController,
               children: const [
-                ReelsScreen(),
                 FollowingReelsScreen(),
+                ReelsScreen(),
+
               ],
             ),
             Padding(
@@ -58,13 +62,11 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                 // indicator: BoxDecoration(),
                 isScrollable: true,
                 indicatorColor: Colors.white,
-
                 labelStyle: TextStyle(
                   fontSize: ConfigSize.defaultSize! * 1.5,
                   fontWeight: FontWeight.bold
                 ),
                 unselectedLabelColor: Colors.grey,
-
                 indicatorPadding: EdgeInsets.symmetric(
                     horizontal: ConfigSize.defaultSize!*2,
 
@@ -76,6 +78,14 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                 controller: _tabController,
                 tabs: [
                   Text(
+                    StringManager.followingReels.tr(),
+                    // style:
+                    // Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    //   // color: Colors.white,
+                    //     fontSize:  ConfigSize.defaultSize! * 1.6
+                    // ),
+                  ),
+                  Text(
                     StringManager.reels.tr(),
                     // style:
                     // Theme.of(context).textTheme.headlineSmall!.copyWith(
@@ -84,14 +94,7 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                     // ),
                   ),
 
-                  Text(
-                    StringManager.followingReels.tr(),
-                    // style:
-                    // Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    //   // color: Colors.white,
-                    //     fontSize:  ConfigSize.defaultSize! * 1.6
-                    // ),
-                  ),
+
 
 
                 ],
