@@ -121,7 +121,6 @@ class DynamicLinkProvider {
     required String momentImage
 
   }) async{
-    log('kkkkkkkkkkkk${Uri.parse(ConstentApi().getImage(momentImage))}');
     final String url =
         "https://com.tikkchat.app?action=show_moment&&moment_Id=$momentId&&moment_Image=$momentImage";
 
