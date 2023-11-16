@@ -38,6 +38,8 @@ class ReelsScreen extends StatefulWidget {
 
 class ReelsScreenState extends State<ReelsScreen>{
 
+
+  static int currentIndex = 0 ;
   @override
   void initState() {
 
@@ -93,7 +95,6 @@ class ReelsScreenState extends State<ReelsScreen>{
                           return ReelsViewer(
                             userView: false,
                             reelsList: state.data!,
-                            //appbarTitle: StringManager.reels.tr(),
                             onShare: (reel) {
                               DynamicLinkProvider()
                                   .showReelLink(
@@ -140,12 +141,6 @@ class ReelsScreenState extends State<ReelsScreen>{
                             },
                             onClickBackArrow: () {
                               Navigator.pop(context);
-                            },
-                            onIndexChanged: (index) {
-                              if (state.data!.length - index == 4) {
-                                BlocProvider.of<GetReelsBloc>(context)
-                                    .add(LoadMoreReelsEvent());
-                              }
                             },
                             showProgressIndicator: false,
                             showVerifiedTick: false,

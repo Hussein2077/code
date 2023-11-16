@@ -12,12 +12,10 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
-import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
-import 'package:tik_chat_v2/features/reels/persentation/widgets/more_report_dialog_icon.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 
@@ -35,18 +33,10 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
   @override
   void initState() {
     super.initState();
-    // ReelsController.likedVideos = {};
-    // ReelsController.likedVideoCount = {};
-    // ReelsController.followingMap = {};
   }
 
   @override
   void dispose() {
-    // MoreReportDialogIcon.report.dispose();
-    // ReelsController.likedVideos.clear();
-    // ReelsController.likedVideoCount.clear();
-    // ReelsController.followingMap.clear();
-    // ReelsController.thumbnail.clear();
     super.dispose();
   }
 
@@ -107,13 +97,6 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
                   },
                   onClickBackArrow: () {
                     Navigator.pop(context);
-                  },
-                  onIndexChanged: (index) {
-                    if (state.data!.length - index == 4) {
-                      BlocProvider.of<GetFollowingReelsBloc>(context)
-                          .add(LoadMoreFollowingReelsEvent());
-                    }
-
                   },
                   showProgressIndicator: false,
                   showVerifiedTick: false,

@@ -163,7 +163,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   void initState() {
 
 
-
     super.initState();
 
     RoomScreen.usersHasMute = widget.room.mutedUsers!.split(', ');
@@ -287,8 +286,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         }
         else if (widget.room.seats![i] == "muted") {
           RoomScreen.listOfMuteSeats.putIfAbsent(i, () => i);
-        } else if (widget.room.seats![i] == "empty") {
-        } else if (widget.room.seats![i]['id'] != null) {
+        }
+        else if (widget.room.seats![i] == "empty") {
+        }
+        else if (widget.room.seats![i]['id'] != null) {
           UserOnMicModel myDataModel = UserOnMicModel.fromJson(widget.room.seats![i]);
           if(myDataModel.seatCondition == "locked"){
             RoomScreen.listOfLoskSeats.value.putIfAbsent(i, () => i);

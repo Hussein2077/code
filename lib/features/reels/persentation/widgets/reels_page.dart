@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:card_swiper/card_swiper.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +10,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/src/layout.dart';
 import 'package:video_player/video_player.dart';
 import '../components/like_icon.dart';
@@ -25,13 +25,13 @@ class ReelsPage extends StatefulWidget {
   final Function(String)? onComment;
   final Function(int, int)? onClickMoreBtn;
   final Function(String, bool)? onFollow;
-  final SwiperController swiperController;
+  final int reelIndex ;
+ // final SwiperController swiperController;
+  final PageController  pageController;
   final bool showProgressIndicator;
   final bool userView;
-  final int index ;
-  static bool isFirst = true;
+   static bool isFirst = true;
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
-  //static ValueNotifier<bool> isVideoCurrentContext = ValueNotifier<bool>(true);
 
 
    ReelsPage(
@@ -43,9 +43,10 @@ class ReelsPage extends StatefulWidget {
         this.onFollow,
         this.onLike,
         this.onShare,
-        required this.index,
+        required this.reelIndex,
         this.showProgressIndicator = true,
-        required this.swiperController,
+        required this.pageController,
+       // required this.swiperController,
         required this.userView})
       : super(key: key);
 
@@ -86,13 +87,18 @@ class ReelsPageState extends State<ReelsPage>
           _videoPlayerController?.play() ;
           ReelsPage.isFirst = false;
         }
+
       });
     }
-    widget.swiperController.addListener(() {
 
-       _videoPlayerController?.play() ;
+    widget.pageController.addListener(() {
+ if(widget.reelIndex == ReelsScreenState.currentIndex){
+   _videoPlayerController?.play() ;
+ }
+
 
     });
+
     WidgetsBinding.instance.addObserver(this);
 
   }
@@ -131,7 +137,9 @@ class ReelsPageState extends State<ReelsPage>
       if(kDebugMode){
         log("error in reels path is :${Uri.parse(widget.item.url!+'rr')}");
       }
-      widget.swiperController.next();
+      widget.pageController.nextPage(duration: const Duration(milliseconds: 100),
+      curve:Curves.easeIn ) ;
+    //  widget.swiperController.next();
 
     }
 
@@ -153,7 +161,6 @@ class ReelsPageState extends State<ReelsPage>
     _videoPlayerController?.addListener(() {
       //to handle close reel when make navigate
        if(BottomNavLayoutState.currentIndex !=1){
-         _videoPlayerController?.pause() ;
          ReelsPage.isVideoPause.value= true ;
        }
 
@@ -171,7 +178,10 @@ class ReelsPageState extends State<ReelsPage>
       }
 
        if(!(_videoPlayerController?.value.isPlaying??true)&& !ReelsPage.isVideoPause.value){
-         _videoPlayerController?.play();
+         if(widget.reelIndex == ReelsScreenState.currentIndex){
+           _videoPlayerController?.play() ;
+         }
+
        }
 
 
@@ -243,8 +253,8 @@ if (_chewieController != null) {
                 setState(() {
                   if (_videoPlayerController!.value.isPlaying) {
                     ReelsPage.isVideoPause.value = true;
-                    _videoPlayerController?.pause();
-                  } else{
+                  }
+                  else{
                     ReelsPage.isVideoPause.value = false;
                     _videoPlayerController?.play();
                   }
@@ -252,7 +262,7 @@ if (_chewieController != null) {
               },
               onHorizontalDragEnd: (DragEndDetails details){
                 if(details.primaryVelocity!>0){
-                  _videoPlayerController?.pause();
+                  ReelsPage.isVideoPause.value = true;
                   Navigator.push(
                     context,
                     PageRouteBuilder(

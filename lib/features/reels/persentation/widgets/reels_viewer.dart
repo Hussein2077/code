@@ -1,12 +1,17 @@
 
 
-import 'dart:developer';
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 
 
@@ -25,10 +30,6 @@ class ReelsViewer extends StatefulWidget {
 
   /// function invoke when user click on comment btn and return reel comment
   final Function(String)? onComment;
-
-
-  /// function invoke when reel change and return current index
-  final Function(int)? onIndexChanged;
 
   /// function invoke when user click on more options btn
   final Function(int,int)? onClickMoreBtn;
@@ -67,7 +68,6 @@ class ReelsViewer extends StatefulWidget {
     this.appbarTitle,
     this.showAppbar = true,
     this.onClickBackArrow,
-    this.onIndexChanged,
     this.showProgressIndicator =true,
     this.startIndex ,
    required this.userView,
@@ -80,19 +80,22 @@ class ReelsViewer extends StatefulWidget {
 
 class _ReelsViewerState extends State<ReelsViewer> {
 
-  SwiperController controller = SwiperController();
+  late  PageController  pageController ;
 
 
   @override
   void initState() {
-   controller.index = widget.startIndex??0;
+    pageController = PageController(
+        initialPage:widget.startIndex??0
+    );
     super.initState();
   }
 
 
   @override
   void dispose() {
-    controller.dispose();
+   // controller.dispose();
+    pageController.dispose() ;
     super.dispose();
   }
 
@@ -102,22 +105,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: NotificationListener<ScrollNotification>(
-        onNotification: (ScrollNotification notification) {
-      // Handle the scroll event here
-      if (notification is ScrollUpdateNotification){
-        // Scrolling
-
-      }
-      else if (notification is ScrollEndNotification) {
-        if(kDebugMode) {
-          log('Scroll ended');
-        }
-        controller.notifyListeners();
-      }
-      return true;
-    },
-      child:SizedBox(
+        child: SizedBox(
 
           child: Stack(
             children: [
@@ -125,29 +113,50 @@ class _ReelsViewerState extends State<ReelsViewer> {
                SizedBox(
               height:ConfigSize.screenHeight ,
               width: ConfigSize.screenWidth,
-              child:Swiper(
-                itemBuilder:(BuildContext context, int index){
-                  return ReelsPage(
-                    userView: widget.userView,
-                    item: widget.reelsList[index],
-                    onClickMoreBtn: widget.onClickMoreBtn,
-                    onComment: widget.onComment,
-                    onFollow: widget.onFollow,
-                    onLike: widget.onLike,
-                    onShare: widget.onShare,
-                    showVerifiedTick: widget.showVerifiedTick,
-                    swiperController: controller,
-                    showProgressIndicator: widget.showProgressIndicator,
-                    index: index,
-                  );
-                },
-                controller: controller,
-                itemCount: widget.reelsList.length,
-                scrollDirection: Axis.vertical,
-                onIndexChanged: widget.onIndexChanged,
+              child:PageView.builder(
+                  itemBuilder: (BuildContext context, int index){
+                        return ReelsPage(
+                          userView: widget.userView,
+                          item: widget.reelsList[index],
+                          onClickMoreBtn: widget.onClickMoreBtn,
+                          onComment: widget.onComment,
+                          onFollow: widget.onFollow,
+                          onLike: widget.onLike,
+                          onShare: widget.onShare,
+                          showVerifiedTick: widget.showVerifiedTick,
+                         // swiperController: controller,
+                          showProgressIndicator: widget.showProgressIndicator,
+                          reelIndex: index,
+                          pageController: pageController,
+                        );
+                  },
+                itemCount:widget.reelsList.length ,
+                scrollDirection:Axis.vertical ,
+                onPageChanged: (int value){
+                  ReelsScreenState.currentIndex = value ;
+                  pageController.notifyListeners();
+                  if (widget.reelsList.length - value < 5) {
+                    if (widget.userDataModel.id ==
+                        MyDataModel.getInstance().id) {
+                      BlocProvider.of<GetUserReelsBloc>(context)
+                          .add(const LoadMoreUserReelsEvent(id: null));
+                    } else {
+                      BlocProvider.of<GetUserReelsBloc>(context).add(
+                          LoadMoreUserReelsEvent(
+                              id: widget.userDataModel.id.toString()));
+                    }
+                  }
+                  if (widget.reelsList.length - value == 4) {
+                    BlocProvider.of<GetReelsBloc>(context)
+                        .add(LoadMoreReelsEvent());
+                  }
 
-              ) ,
-            )   ,
+                },
+                controller: pageController
+                ,
+              )
+
+            ),
 
               if (widget.showAppbar)
                 Positioned(
@@ -178,7 +187,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
             ],
           ),
         ),
-      ),
+
     )
     );
   }

@@ -146,21 +146,6 @@ class UserReelViewState extends State<UserReelView> {
                 onClickBackArrow: () {
                   log('======> Clicked on back arrow <======');
                 },
-                onIndexChanged: (index) {
-                  if (state.data!.length - index < 5) {
-                    if (widget.userDataModel.id ==
-                        MyDataModel.getInstance().id) {
-                      BlocProvider.of<GetUserReelsBloc>(context)
-                          .add(const LoadMoreUserReelsEvent(id: null));
-                    } else {
-                      BlocProvider.of<GetUserReelsBloc>(context).add(
-                          LoadMoreUserReelsEvent(
-                              id: widget.userDataModel.id.toString()));
-                    }
-                  }
-                  log(state.data!.length.toString());
-                  log('======> Current Index ======> $index <========');
-                },
                 showProgressIndicator: false,
                 showVerifiedTick: false,
                 showAppbar: true,

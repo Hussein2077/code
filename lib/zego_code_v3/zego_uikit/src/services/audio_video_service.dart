@@ -102,8 +102,6 @@ mixin ZegoAudioVideoService {
               orElse: ZegoUIKitCoreUser.empty);
       switch (streamType) {
         case ZegoStreamType.main:
-          log("streamType") ;
-
           return targetUser.mainChannel.view;
         case ZegoStreamType.media:
         case ZegoStreamType.screenSharing:
