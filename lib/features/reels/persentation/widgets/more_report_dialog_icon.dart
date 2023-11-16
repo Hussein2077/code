@@ -13,10 +13,8 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_r
 
 class MoreReportDialogIcon extends StatelessWidget {
   TextEditingController report ;
-
-  String title;
   void Function()? onTap;
-  MoreReportDialogIcon({super.key, required this.title, required this.onTap , required this.report });
+  MoreReportDialogIcon({super.key,required this.onTap , required this.report });
 
 
   @override
@@ -31,30 +29,22 @@ class MoreReportDialogIcon extends StatelessWidget {
           errorToast(context: context, title: state.error);
         }
       },
-      child: Padding(
-        padding:
-        EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            SizedBox(height: ConfigSize.defaultSize!,),
-            ProblemTextFormField(
-              textEditingController: report,
-            ),
-            SizedBox(height: ConfigSize.defaultSize!*2,),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: ConfigSize.defaultSize!,),
+          ProblemTextFormField(
+            textEditingController: report,
+          ),
+          SizedBox(height: ConfigSize.defaultSize!*2,),
 
-            MainButton(
-              onTap: onTap!,
-              title: StringManager.report.tr(),
-              width: MediaQuery.of(context).size.width,
-            ),
-          ],
-        ),
+          MainButton(
+            onTap: onTap!,
+            title: StringManager.report.tr(),
+            width: MediaQuery.of(context).size.width,
+          ),
+        ],
       ),
     );
   }

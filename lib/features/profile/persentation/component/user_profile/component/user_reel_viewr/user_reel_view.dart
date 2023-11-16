@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -51,9 +52,8 @@ class UserReelView extends StatefulWidget {
 }
 
 
-
 class UserReelViewState extends State<UserReelView> {
-  late TextEditingController report  ;
+  late TextEditingController report;
 
   @override
   void initState() {
@@ -61,7 +61,6 @@ class UserReelViewState extends State<UserReelView> {
     // TODO: implement initState
     super.initState();
   }
-
 
 
   @override
@@ -75,12 +74,11 @@ class UserReelViewState extends State<UserReelView> {
   Widget build(BuildContext context) {
     return BlocListener<UploadReelsBloc, UploadReelsState>(
       listener: (context, state) {
-         if (state is UploadReelsLoadingState) {
+        if (state is UploadReelsLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
         } else if (state is UploadReelsErrorState) {
           errorToast(context: context, title: state.error);
         } else if (state is UploadReelsSucssesState) {
-
           sucssesToast(context: context, title: state.message);
         }
       },
@@ -127,12 +125,13 @@ class UserReelViewState extends State<UserReelView> {
                 onLike: (id) {
                   BlocProvider.of<MakeReelLikeBloc>(context)
                       .add(MakeReelLikeEvent(reelId: id.toString()));
-               setState(() {
-                            ReelsBox.likedVideos[id.toString()] =
-                                !ReelsBox.likedVideos[id.toString()]!;
-                            ReelsController.getInstance.changeLikeUserCount(id.toString());
-                          });
-                          log( ReelsBox.likedVideos.toString());
+                  setState(() {
+                    ReelsBox.likedVideos[id.toString()] =
+                    !ReelsBox.likedVideos[id.toString()]!;
+                    ReelsController.getInstance.changeLikeUserCount(id
+                        .toString());
+                  });
+                  log(ReelsBox.likedVideos.toString());
                 },
                 onFollow: (userId, isFollow) {
                   BlocProvider.of<FollowBloc>(context)
@@ -141,17 +140,27 @@ class UserReelViewState extends State<UserReelView> {
                 onComment: (comment) {
                   log('Comment on reel ==> $comment');
                 },
-                onClickMoreBtn: (id,userId) {
+                onClickMoreBtn: (id, userId) {
+                  if (userId == MyDataModel.getInstance().id) {
+                    return bottomDailog(
+                        context: context,
+                        widget: moreDilog(
+                            report: report,
+                            userId: userId.toString(),
+                            context: context,
+                            id: id.toString()));
+                  } else {
+                    Navigator.pushNamed(context, Routes.reportReelsScreen,
+                        arguments: ReportReelsScreenPramiter(
+                            id: id.toString(),
+                            userId: userId.toString(),
+                            report: report
 
-                  bottomDailog(
-                      context: context,
-                      widget: moreDilog(
-                        report: report,
-                        userId:userId.toString(),
-                          context: context,
-                          yourReels: userId ==
-                              MyDataModel.getInstance().id,
-                          id: id.toString()));
+                        )
+                    );
+                  }
+                  /*MoreDialog(id : id ,userId: userId,report: report, )*/
+
 
                   log('======> Clicked on more option <======');
                 },
@@ -161,7 +170,9 @@ class UserReelViewState extends State<UserReelView> {
                 onIndexChanged: (index) {
                   if (state.data!.length - index < 5) {
                     if (widget.userDataModel.id ==
-                        MyDataModel.getInstance().id) {
+                        MyDataModel
+                            .getInstance()
+                            .id) {
                       BlocProvider.of<GetUserReelsBloc>(context)
                           .add(const LoadMoreUserReelsEvent(id: null));
                     } else {
@@ -195,43 +206,49 @@ class UserReelViewState extends State<UserReelView> {
   }
 }
 
-Widget moreDilog(
-    {required TextEditingController report ,
-      required BuildContext context,
-    required bool yourReels,
-    required String id,
-    required String userId,
-    }) {
+Widget moreDilog({required TextEditingController report,
+  required BuildContext context,
+  required String id,
+  required String userId,
+}) {
   return Container(
-    padding: EdgeInsets.symmetric(
-        vertical: ConfigSize.defaultSize!, horizontal: ConfigSize.defaultSize!),
-    width: MediaQuery.of(context).size.width,
-    height:yourReels ? ConfigSize.defaultSize! * 12:null,
-    decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
-        borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-    child: yourReels?
-      moreDilogIcon(
+      padding: EdgeInsets.symmetric(
+          vertical: ConfigSize.defaultSize!,
+          horizontal: ConfigSize.defaultSize!),
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height:  ConfigSize.defaultSize! * 12,
+      decoration: BoxDecoration(
+          color: Theme
+              .of(context)
+              .colorScheme
+              .background,
+          borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
+      child: moreDilogIcon(
         context: context,
         widget: Icon(
           Icons.delete,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme
+              .of(context)
+              .colorScheme
+              .background,
         ),
         title: StringManager.delete.tr(),
-        onTap: () => BlocProvider.of<DeleteReelBloc>(context)
-            .add(DeleteReelEvent(id: id)),
-      ):MoreDialog(id : id ,userId: userId,report: report, )
-
+        onTap: () =>
+            BlocProvider.of<DeleteReelBloc>(context)
+                .add(DeleteReelEvent(id: id)),
+      )
 
 
   );
 }
 
-Widget moreDilogIcon(
-    {required BuildContext context,
-    required Widget widget,
-    required String title,
-    void Function()? onTap}) {
+Widget moreDilogIcon({required BuildContext context,
+  required Widget widget,
+  required String title,
+  void Function()? onTap}) {
   return InkWell(
     onTap: onTap,
     child: Column(
@@ -240,7 +257,10 @@ Widget moreDilogIcon(
           width: ConfigSize.defaultSize! * 4,
           height: ConfigSize.defaultSize! * 4,
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme
+                  .of(context)
+                  .colorScheme
+                  .primary,
               shape: BoxShape.circle),
           child: Center(
             child: widget,
@@ -248,7 +268,10 @@ Widget moreDilogIcon(
         ),
         Text(
           title,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme
+              .of(context)
+              .textTheme
+              .bodyMedium,
         )
       ],
     ),
