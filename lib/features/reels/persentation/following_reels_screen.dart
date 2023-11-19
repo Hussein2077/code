@@ -61,6 +61,7 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
                 ReelsController.getInstance.followMap(state.data!);
                 return ReelsViewer(
                   userView: false,
+                  isFromVideo: false,
                   reelsList: state.data!,
                   //appbarTitle: StringManager.reels.tr(),
                   onShare: (reel) {

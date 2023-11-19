@@ -155,7 +155,7 @@ class UserReelViewState extends State<UserReelView> {
 
                 showProgressIndicator: false,
                 showVerifiedTick: false,
-                showAppbar: true,
+                showAppbar: true, isFromVideo: false,
               );
             } else if (state is GetUserReelsLoadingState) {
               return const LoadingWidget();
