@@ -112,7 +112,9 @@ class ReelsScreenState extends State<ReelsScreen>{
                   ReelsController.getInstance.likesCountMap(state.data!);
                   ReelsController.getInstance.followMap(state.data!);
                   return ReelsViewer(
-                    userView: false,
+                    followingOrReels: false,
+
+                    // userView: false,
                     reelsList: state.data!,
                     //appbarTitle: StringManager.reels.tr(),
                     onShare: (reel) {
@@ -157,12 +159,12 @@ class ReelsScreenState extends State<ReelsScreen>{
                     onClickBackArrow: () {
                       Navigator.pop(context);
                     },
-                    onIndexChanged: (index) {
-                      if (state.data!.length - index == 4) {
-                        BlocProvider.of<GetReelsBloc>(context)
-                            .add(LoadMoreReelsEvent());
-                      }
-                    },
+                    // onIndexChanged: (index) {
+                    //   if (state.data!.length - index == 4) {
+                    //     BlocProvider.of<GetReelsBloc>(context)
+                    //         .add(LoadMoreReelsEvent());
+                    //   }
+                    // },
                     showProgressIndicator: false,
                     showVerifiedTick: false,
                     showAppbar: true,

@@ -45,7 +45,8 @@ dynamic loadingToast ({required BuildContext context ,  String? title , String? 
 			widget: const SizedBox(
 				width: 30,
 					height:30,
-					child:  CircularProgressIndicator(
+					child:
+					CircularProgressIndicator(
 						color: Colors.green,
 					)),
 

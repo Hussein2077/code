@@ -14,6 +14,8 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/user_reels_controller.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/user_reels_viewer.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_delete_reel/delete_reel_bloc.dart';
@@ -26,8 +28,6 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_ree
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_state.dart';
-import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
-import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 
 class UserReelView extends StatefulWidget {
   final UserDataModel userDataModel;
@@ -89,10 +89,9 @@ class UserReelViewState extends State<UserReelView> {
         child: Scaffold(body: BlocBuilder<GetUserReelsBloc, GetUserReelsState>(
           builder: (context, state) {
             if (state is GetUserReelsSucssesState) {
-             
-              return ReelsViewer(
+              return UserReelsViewer(
                 userData:widget.userDataModel ,
-                userView: true,
+                //userView: true,
                 startIndex: widget.startIndex,
                 reelsList: state.data!,
                 appbarTitle: StringManager.reels,
@@ -113,7 +112,7 @@ class UserReelViewState extends State<UserReelView> {
                   setState(() {
                     ReelsBox.likedVideos[id.toString()] =
                     !ReelsBox.likedVideos[id.toString()]!;
-                    ReelsController.getInstance.changeLikeUserCount(id
+                    UserReelsController.getInstance.changeLikeUserCount(id
                         .toString());
                   });
                   log(ReelsBox.likedVideos.toString());

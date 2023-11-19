@@ -29,7 +29,6 @@ class ScreenOptions extends StatelessWidget {
   final Function(String)? onComment;
   final Function(int, int)? onClickMoreBtn;
   final Function(String, bool)? onFollow;
-  final bool? userView;
   final bool? isFollowed;
 
   const ScreenOptions(
@@ -41,7 +40,6 @@ class ScreenOptions extends StatelessWidget {
       this.onFollow,
       this.onLike,
       this.onShare,
-      this.userView,
       this.isFollowed})
       : super(key: key);
 
@@ -76,7 +74,6 @@ class ScreenOptions extends StatelessWidget {
                     SizedBox(height: ConfigSize.defaultSize),
                     Column(
                       children: [
-                        if (userView == false)
                           if (onLike != null)
                             if (!ReelsController.likedVideos[item.id.toString()]!)
                               IconButton(
@@ -88,18 +85,7 @@ class ScreenOptions extends StatelessWidget {
                                 onPressed: () => onLike!(item.id!),
                               ),
                         //User View
-                        if (userView == true)
-                          if (onLike != null)
-                            if (!ReelsBox.likedVideos[item.id.toString()]!)
-                              IconButton(
-                                icon: Icon(
-                                  CupertinoIcons.heart_solid,
-                                  color: Colors.white,
-                                  size: ConfigSize.defaultSize! * 4,
-                                ),
-                                onPressed: () => onLike!(item.id!),
-                              ),
-                        if (userView == false)
+
                           if (ReelsController.likedVideos[item.id.toString()]!)
                             IconButton(
                               icon: Icon(
@@ -110,41 +96,25 @@ class ScreenOptions extends StatelessWidget {
                               onPressed: () => onLike!(item.id!),
                             ),
                         //User View
-                        if (userView == true)
-                          if (ReelsBox.likedVideos[item.id.toString()]!)
-                            IconButton(
-                              icon: Icon(
-                                CupertinoIcons.heart_solid,
-                                color: Colors.red,
-                                size: ConfigSize.defaultSize! * 4,
-                              ),
-                              onPressed: () => onLike!(item.id!),
-                            ),
-                        userView == false
-                            ? Text(
+
+                      Text(
                             NumbersToShort.convertNumToShort(ReelsController
                                 .likedVideoCount[item.id.toString()]!),
-                            style: const TextStyle(color: Colors.white))
-                            : Text(
-                            NumbersToShort.convertNumToShort(
-                                ReelsBox.likedVideoCount[item.id.toString()]!),
                             style: const TextStyle(color: Colors.white)),
+
+
                         SizedBox(height: ConfigSize.defaultSize),
                         IconButton(
                           icon: const Icon(CupertinoIcons.chat_bubble_text_fill,
                               color: Colors.white),
                           onPressed: () {
-                            log('incomment1');
                             if (onComment != null) {
-                              log('incomment2');
                               if (commentListtemp == null) {
-                                log('incomment3');
 
                                 BlocProvider.of<GetReelCommentsBloc>(context).add(
                                     GetReelsCommentsEvent(
                                         reelId: item.id.toString()));
                               }
-                              log('incomment4');
 
                               showModalBottomSheet(
                                   barrierColor: Colors.transparent,
@@ -155,7 +125,6 @@ class ScreenOptions extends StatelessWidget {
                                       if (state
                                       is GetReelsCommentsSucssesState) {
                                         commentListtemp = state.data;
-                                        log('incomment5');
 
                                         return CommentBottomSheet(
                                             reelId: item.id.toString(),
@@ -188,7 +157,6 @@ class ScreenOptions extends StatelessWidget {
                                     },
                                   ));
                             }
-                            log('incomment6');
 
                           },
                         ),

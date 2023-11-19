@@ -5,16 +5,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
+import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
@@ -41,8 +40,6 @@ class ReelsViewer extends StatefulWidget {
   /// function invoke when user click on comment btn and return reel comment
   final Function(String)? onComment;
 
-  /// function invoke when reel change and return current index
-  final Function(int)? onIndexChanged;
 
   /// function invoke when user click on more options btn
   final Function(int,int)? onClickMoreBtn;
@@ -63,13 +60,14 @@ class ReelsViewer extends StatefulWidget {
   final Function()? onClickBackArrow;
 
   // StartIndex 
-  final int? startIndex ;
+//  final int? startIndex ;
 
   static ReelModel? reelModel;
 
   // to know iam in user view or not
-  final bool userView;
+  //final bool userView;
   final bool isFromVideo;
+  final bool followingOrReels;
 
    const ReelsViewer({
     Key? key,
@@ -81,13 +79,14 @@ class ReelsViewer extends StatefulWidget {
     this.onFollow,
     this.onLike,
     this.onShare,
+     required this.followingOrReels,
     this.appbarTitle,
     this.showAppbar = true,
     this.onClickBackArrow,
-    this.onIndexChanged,
     this.showProgressIndicator = true,
-    this.startIndex,
-    required this.userView, required this.isFromVideo,
+   // this.startIndex,
+   // required this.userView,
+     required this.isFromVideo,
   }) : super(key: key);
 
   @override
@@ -106,7 +105,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
   @override
   void initState() {
     pageController = PageController(
-        initialPage:widget.startIndex??0
+       // initialPage:widget.startIndex??0
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) async{
@@ -150,7 +149,7 @@ if(isFirst&&widget.isFromVideo) {
               child:PageView.builder(
                   itemBuilder: (BuildContext context, int index){
                         return ReelsPage(
-                          userView: widget.userView,
+                         // userView: widget.userView,
                           item: widget.reelsList[index],
                           onClickMoreBtn: widget.onClickMoreBtn,
                           onComment: widget.onComment,
@@ -169,25 +168,37 @@ if(isFirst&&widget.isFromVideo) {
                 onPageChanged: (int value){
                   ReelsScreenState.currentIndex = value ;
                   pageController.notifyListeners();
-                  if(widget.userView){
-                    if (widget.reelsList.length - value < 5){
-                      if (widget.userData!.id ==
-                          MyDataModel.getInstance().id) {
-                        BlocProvider.of<GetUserReelsBloc>(context)
-                            .add(const LoadMoreUserReelsEvent(id: null));
-                      } else {
-                        BlocProvider.of<GetUserReelsBloc>(context).add(
-                            LoadMoreUserReelsEvent(
-                                id: widget.userData!.id.toString()));
-                      }
+                  // if(widget.userView){
+                  //   if (widget.reelsList.length - value < 5){
+                  //     if (widget.userData!.id ==
+                  //         MyDataModel.getInstance().id) {
+                  //       BlocProvider.of<GetUserReelsBloc>(context)
+                  //           .add(const LoadMoreUserReelsEvent(id: null));
+                  //     } else {
+                  //       BlocProvider.of<GetUserReelsBloc>(context).add(
+                  //           LoadMoreUserReelsEvent(
+                  //               id: widget.userData!.id.toString()));
+                  //     }
+                  //   }
+                  // }else{
+                  //   if (widget.reelsList.length - value == 4) {
+                  //     BlocProvider.of<GetReelsBloc>(context)
+                  //         .add(LoadMoreReelsEvent());
+                  //   }
+                  //
+                  // }
+                  if(widget.followingOrReels) {
+                    if (widget.reelsList.length - value == 4) {
+                      BlocProvider.of<GetFollowingReelsBloc>(context)
+                          .add(LoadMoreFollowingReelsEvent());
                     }
-                  }else{
+                  } else{
                     if (widget.reelsList.length - value == 4) {
                       BlocProvider.of<GetReelsBloc>(context)
                           .add(LoadMoreReelsEvent());
                     }
-
                   }
+
                 },
                 controller: pageController
                 ,

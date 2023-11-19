@@ -1,23 +1,21 @@
 import 'dart:developer';
 import 'dart:typed_data';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gif/flutter_gif.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
-import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/user_reels_controller.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/lower/lower_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_state.dart';
-import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
@@ -68,12 +66,12 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
       listener: (context, state) async {
         if (state is GetUserReelsSucssesState) {
           log(ReelsBox.likedVideos.toString());
-          ReelsController.getInstance.followMap(state.data!);
-          ReelsController.getInstance.likesUserMap(state.data!);
-          ReelsController.getInstance.likesCountUserMap(state.data!);
+          UserReelsController.getInstance.followMap(state.data!);
+          UserReelsController.getInstance.likesUserMap(state.data!);
+          UserReelsController.getInstance.likesCountUserMap(state.data!);
           for (int i = 0; i < state.data!.length; i++) {
             if (!ReelsBox.thumbnail.containsKey(state.data![i].id.toString())) {
-              Uint8List thumbnailPath = await ReelsController.getInstance
+              Uint8List thumbnailPath = await UserReelsController.getInstance
                   .getVideoThumbnail(state.data![i].url!);
               ReelsBox.thumbnail.putIfAbsent(
                   state.data![i].id.toString(), () => thumbnailPath);
