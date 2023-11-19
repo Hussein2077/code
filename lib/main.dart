@@ -169,8 +169,6 @@ Future<void> main() async {
 
   );
 
-
-
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
@@ -516,7 +514,7 @@ final  String theme ;
       child:  BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           if (state is LightThemeState )  {
-   return MaterialApp(
+         return MaterialApp(
 
             debugShowCheckedModeBanner: false,
             theme: lightTheme ,

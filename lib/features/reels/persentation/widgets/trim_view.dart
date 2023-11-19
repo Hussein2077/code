@@ -113,12 +113,10 @@ class _TrimmerViewState extends State<TrimmerView> {
     reelsNameController = TextEditingController();
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
       _keyboardHeight = height;
-      log('_keyboardHeight${_keyboardHeight}');
       showTextFieldReel.value = !showTextFieldReel.value;
     });
 
     super.initState();
-
     _loadVideo();
   }
 
@@ -189,10 +187,7 @@ class _TrimmerViewState extends State<TrimmerView> {
                       padding:
                           EdgeInsets.only(top: ConfigSize.defaultSize! * 4.5),
                       child: Container(
-                        // width: ConfigSize.defaultSize!*2,
-                        // height: ConfigSize.defaultSize!*2,
-                        // padding: EdgeInsets.all(2),
-                        decoration: BoxDecoration(
+                        decoration: const  BoxDecoration(
                             shape: BoxShape.circle, color: Colors.grey),
                         child: IconButton(
                             onPressed: () {

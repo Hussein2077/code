@@ -160,9 +160,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
                     }
 
                   }
-
-
-
                 },
                 controller: pageController
                 ,
