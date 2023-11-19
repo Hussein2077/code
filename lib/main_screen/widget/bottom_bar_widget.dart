@@ -70,7 +70,7 @@ class BottomBarWidget extends StatelessWidget {
                 icon: AssetsPath.chatIconDissActive,
               ), )   ,
               activeIcon: const BottomIcon(
-                icon: AssetsPath.chatIconActive,
+                icon: AssetsPath.chatIcon,
               ),
               label: StringManager.chat.tr(),
             ),

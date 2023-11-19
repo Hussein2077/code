@@ -9,7 +9,8 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class LevelContainer extends StatelessWidget {
   final String image ;
-  const LevelContainer({required this.image ,  super.key, this.width, this.height});
+  final BoxFit? fit;
+  const LevelContainer({required this.image ,this.fit,  super.key, this.width, this.height});
 final double? width;
 final double? height;
   @override
@@ -20,7 +21,7 @@ final double? height;
 decoration: BoxDecoration(
     image: DecorationImage(
     image:CachedNetworkImageProvider(
-                    ConstentApi().getImage(image)) ,fit: BoxFit.contain )),
+                    ConstentApi().getImage(image)) ,fit:fit?? BoxFit.contain )),
     );
   }
 }

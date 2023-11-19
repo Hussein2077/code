@@ -57,10 +57,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     List<Function()> chatScreenOntaps = [
       () {
-
-        ScaffoldMessenger.of(context).showSnackBar(loadingSnackBar(context));
-
-        //Navigator.pushNamed(context, Routes.groupChatScreen);
+      Navigator.pushNamed(context, Routes.groupChatScreen);
       },
       () {
         Navigator.pushNamed(context, Routes.messages);

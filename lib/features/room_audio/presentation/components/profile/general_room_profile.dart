@@ -56,13 +56,13 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
       child: BlocListener<UsersInRoomBloc, OnUserInRoomStates>(
         listener: (context, state) {
           if (state is SuccessKickoutState) {
-            ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.successMessage));
+            ScaffoldMessenger.of(context).showSnackBar(successSnackBar(context,state.successMessage));
 
             // sucssesToast(context: context, title: state.successMessage);
 
             Navigator.pop(context);
           } else if (state is ErrorKickoutState) {
-            ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.errorMessage));
+            ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,state.errorMessage));
 
             // errorToast(context: context, title: state.errorMessage);
           }

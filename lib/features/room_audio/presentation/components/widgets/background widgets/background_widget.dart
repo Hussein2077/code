@@ -84,24 +84,24 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
           bottomDailog(context: context, widget: const DialogLoadingWidget());
         } else if (state is BanUserFromWritingErrorState) {
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.errorMassage));
+          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,state.errorMassage));
 
           // errorToast(context: context, title: state.errorMassage);
         } else if (state is BanUserFromWritingLoadingState) {
           bottomDailog(context: context, widget: const DialogLoadingWidget());
         } else if (state is BanUserFromWritingSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.successMassage));
+          ScaffoldMessenger.of(context).showSnackBar(successSnackBar(context,state.successMassage));
 
           Navigator.pop(context);
           // sucssesToast(context: context, title: state.successMassage);
         } else if (state is SendPobUpErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.errorMassage));
+          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,state.errorMassage));
 
           // errorToast(context: context, title: state.errorMassage);
         } else if (state is SendPobUpSuccessState) {
           // sucssesToast(context: context, title: state.successMassage) ;
         } else if (state is SendYallowBannerErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.errorMassage));
+          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,state.errorMassage));
 
           // errorToast(context: context, title: state.errorMassage);
         }

@@ -11,7 +11,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_top
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_top_inroom/topin_room_events.dart';
 
 class CustomContainRoom extends StatelessWidget {
-  final IconData icon;
   final String text;
   final String ownerId;
 
@@ -28,7 +27,6 @@ class CustomContainRoom extends StatelessWidget {
       Key? key,
       required this.myData,
       required this.roomData,
-      required this.icon,
       required this.ownerId,
       required this.text})
       : super(key: key);
@@ -70,11 +68,12 @@ class CustomContainRoom extends StatelessWidget {
                 height: ConfigSize.defaultSize! * 2,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                  image: AssetImage(AssetsPath.cup),
+                  image: AssetImage(AssetsPath.goldCoin),
+                  //image: AssetImage(AssetsPath.cup),
                 )),
               ),
               Text(
-                text,
+                ' '+text,
                 style: TextStyle(
                     color: Colors.white, fontSize: ConfigSize.defaultSize! + 2),
               ),

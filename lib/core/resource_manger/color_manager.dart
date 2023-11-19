@@ -78,6 +78,25 @@ class ColorManager {
     Color(0xFFEEB609),
     Color(0xFFFFF09E),
   ];
+//03fc0b
 
+  static const List<Color> greenSuccessList = [
+    Color(0xFF03fc0b),
+    Color(0xFFffffff),
+    Color(0xFF03fc0b),
+
+  ];
+  static const List<Color> redErrorList = [
+    Color(0xFFfc0303),//#fc0303
+    Color(0xFFffffff),
+    Color(0xFFfc0303),
+
+  ];
+  static const List<Color> blueloadingList = [
+    Color(0xFF03a9fc),
+    Color(0xFFffffff),
+    Color(0xFF03a9fc),
+
+  ];
 
 }

@@ -68,8 +68,8 @@ class HeaderRoom extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(
-                        width: 10,
+                       SizedBox(
+                        width: ConfigSize.defaultSize!,
                       ),
                       StreamBuilder<List<ZegoUIKitUser>>(
                           stream: ZegoUIKit.instance.getUserListStream(),
@@ -148,7 +148,7 @@ class HeaderRoom extends StatelessWidget {
 
             ],
           ),
-          SizedBox(height: ConfigSize.defaultSize! - 3),
+          SizedBox(height: ConfigSize.defaultSize!*1.5),
           Row(
             children: [
               ValueListenableBuilder<String>(
@@ -156,7 +156,6 @@ class HeaderRoom extends StatelessWidget {
                   builder: (context, price, _) {
                     return CustomContainRoom(
                       id: myDataModel.id!,
-                      icon: Icons.diamond,
                       text: price,
                       ownerId: room.ownerId.toString(),
                       roomData: room,
