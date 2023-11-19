@@ -87,8 +87,8 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
                       pauseBetween:const  Duration(milliseconds: 1000),
                       style:  TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: AppPadding.p16,
+                        fontWeight: FontWeight.w700,
+                        fontSize:ConfigSize.defaultSize!*1.5,
                       ),
                       textDirection: TextDirection.ltr,
                     ),

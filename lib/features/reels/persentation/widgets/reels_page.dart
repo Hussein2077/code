@@ -216,7 +216,9 @@ if (_chewieController != null) {
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-     _videoPlayerController?.pause();
+      case AppLifecycleState.hidden:
+
+        _videoPlayerController?.pause();
       ReelsPage.isVideoPause.value =true;
         break;
     }
