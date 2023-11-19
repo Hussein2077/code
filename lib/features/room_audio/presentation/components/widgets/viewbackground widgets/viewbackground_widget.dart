@@ -123,6 +123,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             SizedBox(
               width: ConfigSize.defaultSize! * 92.5,
               height: ConfigSize.defaultSize! * 92.5,
+              //height: ConfigSize.defaultSize! * 92.5,
             ),
             Align(
                 alignment: Alignment.bottomLeft,
@@ -210,7 +211,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 }),
             if (widget.showYellowBanner['showYellowBanner']!)
               Positioned(
-                  top: -30,
+                  top: -48,
                   left: AppPadding.p30,
                   child: ShowYallowBannerWidget(
                       cureentRoomId: widget.room.ownerId!,

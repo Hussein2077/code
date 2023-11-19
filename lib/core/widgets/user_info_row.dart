@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'package:tik_chat_v2/core/widgets/shimmer_id.dart';
+
 import 'user_country_icon.dart';
 import 'user_image.dart';
 
@@ -83,23 +84,35 @@ class UserInfoRow extends StatelessWidget {
                       Row(
                         children: [
                           MaleFemaleIcon(
+                            width: ConfigSize.defaultSize! * 3.7,
+                            height: ConfigSize.defaultSize! * 1.5,
                             maleOrFeamle: userData.profile!.gender,
                             age: userData.profile!.age,
                           ),
                           SizedBox(width: ConfigSize.defaultSize! * 0.4),
-                          if (!userData.isCountryHiden!)
-                            UserCountryIcon(country: userData.profile!.country),
+                          if (!userData.isCountryHiden! &&
+                              userData.profile!.country != '')
+                            UserCountryIcon(
+                                width: ConfigSize.defaultSize! * 3.5,
+                                height: ConfigSize.defaultSize! * 1.5,
+                                fontSize: ConfigSize.defaultSize! * 1.5,
+                                country: userData.profile!.country),
+                          SizedBox(width: ConfigSize.defaultSize! * 0.4),
+
                           LevelContainer(
+                            fit: BoxFit.fill,
+                            width: ConfigSize.defaultSize! * 4,
+                            height: ConfigSize.defaultSize! * 1.5,
                             image: userData.level!.receiverImage!,
                           ),
                           AristocracyLevel(
                             level: userData.vip1!.level!,
                           ),
                           SizedBox(
-                            width: ConfigSize.defaultSize!*.5,
+                            width: ConfigSize.defaultSize! * .5,
                           ),
-                          idOrNot!=null ?
-                          idOrNot!:
+                          idOrNot != null
+                              ? idOrNot!:
                               userData.isGold?
                           ShimmerId(id: userData.uuid.toString(),style: Theme.of(context).textTheme.titleSmall,)
                               :

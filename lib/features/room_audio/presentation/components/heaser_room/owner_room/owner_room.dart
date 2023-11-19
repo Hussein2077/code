@@ -34,8 +34,9 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
   Widget build(BuildContext context) {
 
     return  Padding(
-      padding: EdgeInsets.only(top: AppPadding.p20),
+      padding: EdgeInsets.only(top: ConfigSize.defaultSize!*0),
       child: Container(
+        width: ConfigSize.defaultSize!*13.5,
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors:
@@ -47,14 +48,14 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
           ),
 
         ),
-        padding: EdgeInsets.all(AppPadding.p2),
+        padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*0.2),
         child: Row(
           children: [
             Container(
               margin: EdgeInsets.only(left: ConfigSize.defaultSize! ,
-                  top: AppPadding.p4 , bottom: AppPadding.p4),
-              width: AppPadding.p36,
-              height: AppPadding.p36,
+                  top: ConfigSize.defaultSize!*0.6 , bottom:  ConfigSize.defaultSize!*0.6),
+              width: ConfigSize.defaultSize!*3.9,
+              height: ConfigSize.defaultSize!*3.9,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppPadding.p16),
                 image: widget.roomData.roomCover == null
@@ -77,7 +78,7 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: ConfigSize.defaultSize! * 10.5,
+                    width: ConfigSize.defaultSize! * 7,
                     child: TextScroll(
                       widget.roomName == ""
                           ? widget.roomData.roomName!

@@ -62,18 +62,18 @@ textEditingController.dispose();
       listener: (context, state) {
         if (state is UserReportLoading){
 
-          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,StringManager.loading.tr()));
+          ScaffoldMessenger.of(context).showSnackBar(loadingSnackBar(context,));
 
           // loadingToast(context: context, title: StringManager.loading.tr());
     
 
         }else if (state is UserReportSucsses){
-          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,StringManager.sucsses.tr()));
+          ScaffoldMessenger.of(context).showSnackBar(successSnackBar(context,StringManager.sucsses.tr()));
 
           // sucssesToast(context: context, title: StringManager.sucsses.tr());
         
         }else if (state is UserReportError){
-          ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.error));
+          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,state.error));
 
           // errorToast(context: context, title: state.error);
          
