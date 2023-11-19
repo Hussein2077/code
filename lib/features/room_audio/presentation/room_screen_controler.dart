@@ -119,10 +119,9 @@ const String inviteToSeatKey = "inviteToSeat";
 const String muteUserKey = 'muteUser';
 const String mute = 'mute';
 const String showYallowBanner = "yellowBanner";
+String appSign = SplashScreen.appSign ?? "";
+int appID = SplashScreen.appId ?? 0;
 
-String appSign = SplashScreen.appSign ?? "bb61a6e81736c136dac6e2afc46e71642e8eaf35cdbe713d0ced6aa139ac3faa";
-
-int appID = SplashScreen.appId ?? 1442956895;
 
 class GiftData {
   final String giftId;

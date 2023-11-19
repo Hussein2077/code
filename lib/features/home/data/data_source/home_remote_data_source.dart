@@ -182,7 +182,6 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
   Future<String> createRoom(
       {required CreateRoomPramiter creatRoomPramiter}) async {
     Map<String, String> headers = await DioHelper().header();
-    log("PASSSOERD ${creatRoomPramiter.roomPassword}");
     FormData formData;
     if (creatRoomPramiter.roomCover == null) {
       formData = FormData.fromMap({

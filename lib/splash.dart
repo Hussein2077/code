@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 import 'package:app_links/app_links.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_logs/flutter_logs.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -44,9 +44,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    if (defaultTargetPlatform == TargetPlatform.android) {
+    if (Platform.isAndroid) {
       SplashScreen.devicePlatform = StringManager.androidPlatform;
-    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+    } else if (Platform.isIOS) {
       SplashScreen.devicePlatform = StringManager.iOSPlatform;
     }
 
@@ -193,11 +193,7 @@ class _SplashScreenState extends State<SplashScreen> {
       errorToast(context: context, title: errorMessage);
     });
 
-    FlutterLogs.logInfo(
-      'log',
-      'init',
-      '========================================== SplashScreen',
-    );
+ log(" SplashScreen.appId${ SplashScreen.appId}") ;
   }
 
 

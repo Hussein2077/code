@@ -186,7 +186,6 @@ if(isFirst&&widget.isFromVideo) {
                       BlocProvider.of<GetReelsBloc>(context)
                           .add(LoadMoreReelsEvent());
                     }
-
                   }
                 },
                 controller: pageController
