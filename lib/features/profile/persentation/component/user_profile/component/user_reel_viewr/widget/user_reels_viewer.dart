@@ -2,7 +2,6 @@
 
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -16,8 +15,6 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
-import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/custom_show_case.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
@@ -171,25 +168,6 @@ class _UserReelsViewerState extends State<UserReelsViewer> {
                       onPageChanged: (int value){
                         ReelsScreenState.currentIndex = value ;
                         pageController.notifyListeners();
-                        // if(widget.userView){
-                        //   if (widget.reelsList.length - value < 5){
-                        //     if (widget.userData!.id ==
-                        //         MyDataModel.getInstance().id) {
-                        //       BlocProvider.of<GetUserReelsBloc>(context)
-                        //           .add(const LoadMoreUserReelsEvent(id: null));
-                        //     } else {
-                        //       BlocProvider.of<GetUserReelsBloc>(context).add(
-                        //           LoadMoreUserReelsEvent(
-                        //               id: widget.userData!.id.toString()));
-                        //     }
-                        //   }
-                        // }else{
-                        //   if (widget.reelsList.length - value == 4) {
-                        //     BlocProvider.of<GetReelsBloc>(context)
-                        //         .add(LoadMoreReelsEvent());
-                        //   }
-                        //
-                        // }
                         if (widget.reelsList.length - value < 5){
                           if (widget.userData!.id ==
                               MyDataModel.getInstance().id) {
@@ -238,7 +216,7 @@ class _UserReelsViewerState extends State<UserReelsViewer> {
                     top: ConfigSize.screenHeight! * .55,
                     child: CustomShowcaseWidget(
                       globalKey: _three,
-                      textInContainer:StringManager.tabToFollow.tr() ,
+                      textInContainer:StringManager.tabToSwapToFollowing.tr() ,
                       child: const SizedBox(
                         height: 3,
                         width: 3,
