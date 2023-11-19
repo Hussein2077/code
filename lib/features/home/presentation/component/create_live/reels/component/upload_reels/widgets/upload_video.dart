@@ -34,10 +34,11 @@ class UploadVideoState extends State<UploadVideo> {
       onTap: ()async{
        try {
 
+
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.video,
     );
-    
+
     if (result != null) {
 
       String? filePath = result.files.single.path;
@@ -63,7 +64,7 @@ class UploadVideoState extends State<UploadVideo> {
     log('Failed to pick video. Error:$error');
   }
       },
-      child: 
+      child:
       // _thumbnailPath != null
       //       ? Image.file(File(_thumbnailPath!))
       //       :

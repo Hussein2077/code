@@ -210,14 +210,14 @@ if (_chewieController != null) {
 
     switch (state) {
       case AppLifecycleState.resumed:
-        _videoPlayerController?.play();
+        // _videoPlayerController?.play();
         break;
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-      // case AppLifecycleState.hidden:
-      // _videoPlayerController?.pause();
-      // ReelsPage.isVideoPause.value =true;
+      case AppLifecycleState.hidden:
+      _videoPlayerController?.pause();
+      ReelsPage.isVideoPause.value =true;
         break;
     }
   }

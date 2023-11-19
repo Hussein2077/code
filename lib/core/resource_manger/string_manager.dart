@@ -562,6 +562,7 @@ static const String iOSPlatform='IOS';
   static const String oneHashtag = "You should at least use one hashtag";
 
 
+  static const String topicHasBeenChosen = "The topic has been chosen";
 
 
 

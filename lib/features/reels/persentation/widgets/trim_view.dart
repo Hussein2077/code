@@ -28,8 +28,9 @@ import 'trim/video_viewer.dart';
 class TrimmerView extends StatefulWidget {
   final File file;
   static List<int> selectedIntrest = [];
-  static List<String> selectedTopics = [];
+  // static List<String> selectedTopics = [];
   static ValueNotifier<bool> hashtag = ValueNotifier<bool>(false);
+  static bool showTextField = false ;
 
   TrimmerView({
     required this.file,
@@ -49,7 +50,6 @@ class _TrimmerViewState extends State<TrimmerView> {
   void dispose() {
     showTextFieldReel.value=false;
     TrimmerView.selectedIntrest = [];
-    TrimmerView.selectedTopics = [];
     reelsNameController.dispose();
     super.dispose();
   }
@@ -109,11 +109,23 @@ class _TrimmerViewState extends State<TrimmerView> {
 
   @override
   void initState() {
-    ReelsPage.isVideoPause.value = true;
+    // ReelsPage.isVideoPause.value = true;
+    TrimmerView.showTextField = false ;
     reelsNameController = TextEditingController();
+
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
-      _keyboardHeight = height;
-      showTextFieldReel.value = !showTextFieldReel.value;
+
+        if(height !=0 ){
+          showTextFieldReel.value = true;
+
+        }else {
+          showTextFieldReel.value = false;
+
+        }
+        _keyboardHeight = height;
+
+
+
     });
 
     super.initState();
@@ -125,25 +137,7 @@ class _TrimmerViewState extends State<TrimmerView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
-        // appBar: AppBar(
-        //     leading: IconButton(
-        //         onPressed: () async {
-        //           final videoInfo = FlutterVideoInfo();
-        //           String videoFilePath = widget.file.path;
-        //           var info = await videoInfo.getVideoInfo(videoFilePath);
-        //
-        //           if (info!.duration! / 60000 > 3.0) {
-        //             final snackBar = SnackBar(
-        //                 content: Text(StringManager.video_size_error.tr()));
-        //             ScaffoldMessenger.of(context).showSnackBar(
-        //               snackBar,
-        //             );
-        //           } else {
-        //             UploadVideoState.video = widget.file.path;
-        //             Navigator.pop(context);
-        //           }
-        //         },
-        //         icon: const Icon(Icons.arrow_back_ios))),
+
         body: Builder(builder: (context) {
           return Stack(
             children: [
@@ -151,33 +145,35 @@ class _TrimmerViewState extends State<TrimmerView> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: VideoViewer(trimmer: _trimmer)),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height / 2,
-                    horizontal: MediaQuery.of(context).size.width / 2.7),
-                child: TextButton(
-                  child: _isPlaying
-                      ? const Icon(
-                          Icons.pause,
-                          size: 80.0,
-                          color: Colors.white,
-                        )
-                      : const Icon(
-    Icons.play_arrow,
-    size: 80.0,
-    color: Colors.white,
-  ),
-                  onPressed: () async {
-                    bool playbackState = await _trimmer.videoPlaybackControl(
-                      startValue: _startValue,
-                      endValue: _endValue,
-                    );
-                    setState(() {
-                      _isPlaying = playbackState;
-                    });
-                  },
+              InkWell(
+                onTap: ()async {
+                  log("heeeeeeer");
+                  bool playbackState = await _trimmer.videoPlaybackControl(
+                    startValue: _startValue,
+                    endValue: _endValue,
+                  );
+                  setState(() {
+                    _isPlaying = playbackState;
+                  });
+                },
+                child: Center(
+
+
+                    child: _isPlaying
+                        ? const Icon(
+                      Icons.pause,
+                      size: 80.0,
+                      color: Colors.white,
+                    )
+                        : const Icon(
+                      Icons.play_arrow,
+                      size: 80.0,
+                      color: Colors.white,
+                    ),
+
+                  ),
                 ),
-              ),
+
               SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: Column(
@@ -187,8 +183,8 @@ class _TrimmerViewState extends State<TrimmerView> {
                       padding:
                           EdgeInsets.only(top: ConfigSize.defaultSize! * 4.5),
                       child: Container(
-                        decoration: const  BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.grey),
+                        decoration:   BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.black.withOpacity(0.5)),
                         child: IconButton(
                             onPressed: () {
                               Navigator.pop(context);
@@ -203,17 +199,19 @@ class _TrimmerViewState extends State<TrimmerView> {
                     SizedBox(
                       height: ConfigSize.defaultSize,
                     ),
-                    Directionality(
-                      textDirection: ui.TextDirection.ltr,
-                      child: TrimViewer(
-                        trimmer: _trimmer,
-                        viewerHeight: 50.0,
-                        viewerWidth: MediaQuery.of(context).size.width,
-                        maxVideoLength: const Duration(minutes: 3),
-                        onChangeStart: (value) => _startValue = value,
-                        onChangeEnd: (value) => _endValue = value,
-                        onChangePlaybackState: (value) =>
-                            setState(() => _isPlaying = value),
+                    Center(
+                      child: Directionality(
+                        textDirection: ui.TextDirection.ltr,
+                        child: TrimViewer(
+                          trimmer: _trimmer,
+                          viewerHeight: 50.0,
+                          viewerWidth: MediaQuery.of(context).size.width-20,
+                          maxVideoLength: const Duration(minutes: 3),
+                          onChangeStart: (value) => _startValue = value,
+                          onChangeEnd: (value) => _endValue = value,
+                          onChangePlaybackState: (value) =>
+                              setState(() => _isPlaying = value),
+                        ),
                       ),
                     ),
                     Spacer(),
@@ -264,7 +262,7 @@ class _TrimmerViewState extends State<TrimmerView> {
                         valueListenable: showTextFieldReel,
                         builder: (context, isShow, _) {
                           if (isShow) {
-                            return SizedBox(height:_keyboardHeight==0.0?0: _keyboardHeight-ConfigSize.defaultSize!*15);
+                            return SizedBox(height:_keyboardHeight==0.0?0: _keyboardHeight-ConfigSize.defaultSize!*4);
                           } else {
                             return const SizedBox(
                               height: 0,
@@ -279,37 +277,29 @@ class _TrimmerViewState extends State<TrimmerView> {
                           SizedBox(
                             height: ConfigSize.defaultSize,
                           ),
-                          reelRowWidget(
-                            context: context,
-                            icon: AssetsPath.hashTagIcon,
-                            title: StringManager.chooseTheTopic.tr(),
-                            widget: const ChooseTopicDailog(),
-                          ),
+
                           ValueListenableBuilder<bool>(
                             valueListenable: TrimmerView.hashtag,
                             builder: (context, b, _) {
-                              return SizedBox(
-                                height: ConfigSize.defaultSize! * 11,
-                                width: MediaQuery.of(context).size.width,
-                                child: GridView.builder(
-                                    itemCount:
-                                        TrimmerView.selectedTopics.length,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                            mainAxisSpacing: 6,
-                                            childAspectRatio: 4,
-                                            crossAxisCount: 3,
-                                            crossAxisSpacing: 20),
-                                    itemBuilder: (context, index) {
-                                      return Text(
-                                        "  ${TrimmerView.selectedTopics[index]}#",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(color: Colors.white),
-                                      );
-                                    }),
-                              );
+
+                              if(TrimmerView.selectedIntrest.isEmpty ){
+                               return  reelRowWidget(
+                                  context: context,
+                                  icon: AssetsPath.hashTagIcon,
+                                  title: StringManager.chooseTheTopic.tr(),
+                                  widget: const ChooseTopicDailog(),
+                                );
+                              }else {
+                              return  reelRowWidget(
+                                  context: context,
+                                  icon: AssetsPath.hashTagIcon,
+                                  title: StringManager.topicHasBeenChosen.tr(),
+                                  widget: const ChooseTopicDailog(),
+                                );
+                              }
+
+
+
                             },
                           ),
                         ],
@@ -318,6 +308,8 @@ class _TrimmerViewState extends State<TrimmerView> {
                   ],
                 ),
               ),
+
+
             ],
           );
         })
@@ -429,9 +421,8 @@ Widget reelRowWidget(
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
       child: Container(
-        width: ConfigSize.defaultSize!*12,
         decoration: BoxDecoration(
-          color: Colors.grey,
+          color: Colors.white.withOpacity(0.5),
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! ),
           border: Border.all(color: Colors.black),
         ),

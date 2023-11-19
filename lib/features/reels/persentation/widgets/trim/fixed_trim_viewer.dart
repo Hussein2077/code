@@ -441,7 +441,7 @@ class _FixedTrimViewerState extends State<FixedTrimViewer>
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
                                   ConfigSize.defaultSize!),
-                              color: Colors.grey),
+                              color: Colors.black.withOpacity(0.5)),
                           padding: EdgeInsets.all(3),
                           child: Text(
                             Duration(milliseconds: _videoStartPos.toInt())
@@ -455,7 +455,7 @@ class _FixedTrimViewerState extends State<FixedTrimViewer>
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
                                   ConfigSize.defaultSize!),
-                              color: Colors.grey),
+                              color: Colors.black.withOpacity(0.5)),
                           padding: EdgeInsets.all(3),
                           child:Text(
                             Duration(milliseconds: _currentPosition.toInt())
@@ -468,7 +468,7 @@ class _FixedTrimViewerState extends State<FixedTrimViewer>
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
                                   ConfigSize.defaultSize!),
-                              color: Colors.grey),
+                              color: Colors.black.withOpacity(0.5)),
                           padding: EdgeInsets.all(3),
                           child: Text(
                             Duration(milliseconds: _videoEndPos.toInt())
