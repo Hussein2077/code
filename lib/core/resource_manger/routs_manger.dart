@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/widgets/web_view_widget.dart';
+import 'package:tik_chat_v2/core/widgets/white_empty_screen.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/Privacy_Policy/privacy_policy_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
@@ -162,6 +163,8 @@ class Routes {
   static const String systemmessages = "/systemmessages";
   static const String chatPageBody = "/chatPageBody";
   static const String reportReelsScreen = "/reportReelsScreen";
+  static const String whiteEmptyScreen = "/whiteEmptyScreen";
+
 
 
 
@@ -566,6 +569,17 @@ class RouteGenerator {
                     myName: chatPageBodyPramiter.myName,
                   )));
         }
+
+      case Routes.whiteEmptyScreen:
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => const SafeArea(child: WhiteEmptyScreen()));
+        } else {
+          return MaterialPageRoute(
+              builder: (_) => const SafeArea(child: WhiteEmptyScreen()));
+        }
+
 
       // case Routes.uploadVideo:
       //   if (Platform.isIOS)

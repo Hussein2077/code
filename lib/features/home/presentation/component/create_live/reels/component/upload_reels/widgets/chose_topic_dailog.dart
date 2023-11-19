@@ -60,10 +60,8 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
                           setState(() {
                               if (TrimmerView.selectedIntrest.contains( state.data[index].id)){
                                 TrimmerView.selectedIntrest.removeWhere((element) => element== state.data[index].id);
-                                TrimmerView.selectedTopics.removeWhere((element) => element== state.data[index].name);
                           }else {
                                 TrimmerView.selectedIntrest.add(state.data[index].id!);
-                                TrimmerView.selectedTopics.add(state.data[index].name!);
                               }
                           });
 
