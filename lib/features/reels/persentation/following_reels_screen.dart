@@ -73,10 +73,7 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
                   },
                   child: ReelsViewer(
                     followingOrReels: true,
-                   // userView: false,
-                    isFromVideo: false,
                     reelsList: state.data!,
-                    //appbarTitle: StringManager.reels.tr(),
                     onShare: (reel) {
                       DynamicLinkProvider().showReelLink(
                         reelId: reel.id!,

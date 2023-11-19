@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_foll
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_screen_taps.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/custom_show_case.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dart';
@@ -55,7 +58,6 @@ class ReelsViewer extends StatefulWidget {
 
   /// function invoke when user click on back btn
   final Function()? onClickBackArrow;
-
   // StartIndex 
 //  final int? startIndex ;
 
@@ -63,10 +65,9 @@ class ReelsViewer extends StatefulWidget {
 
   // to know iam in user view or not
   //final bool userView;
-  final bool isFromVideo;
   final bool followingOrReels;
 
-   const ReelsViewer({
+     const ReelsViewer({
     Key? key,
     required this.reelsList,
      this.userData ,
@@ -81,40 +82,27 @@ class ReelsViewer extends StatefulWidget {
     this.showAppbar = true,
     this.onClickBackArrow,
     this.showProgressIndicator = true,
-   // this.startIndex,
-   // required this.userView,
-     required this.isFromVideo,
-  }) : super(key: key);
+        }) : super(key: key);
 
   @override
   State<ReelsViewer> createState() => _ReelsViewerState();
 }
 
 class _ReelsViewerState extends State<ReelsViewer> {
-  final GlobalKey _one = GlobalKey();
-  final GlobalKey _two = GlobalKey();
-  final GlobalKey _three = GlobalKey();
 
-  bool isFirst=true;
+
 
   late  PageController  pageController ;
-
 
   @override
   void initState() {
     pageController = PageController(
        // initialPage:widget.startIndex??0
     );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
-      isFirst=await  Methods.instance.getShowCase();
-      Future.delayed(const Duration(seconds: 2), ()async {
-        if(isFirst&&widget.isFromVideo&&BottomNavLayoutState.currentIndex ==1) {
-          ShowCaseWidget.of(context).startShowCase([_one, _two,_three]);
-        }
-      });
-
-    });
+//start tutorial for reels
+Future.delayed(Duration.zero,()async{
+  ReelsScreenTaps.isFirst=await Methods.instance.getShowCase();
+});
 
     super.initState();
   }
@@ -125,12 +113,10 @@ class _ReelsViewerState extends State<ReelsViewer> {
     pageController.dispose() ;
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
 
-
-    return Scaffold(
+     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: SizedBox(
@@ -143,7 +129,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
               child:PageView.builder(
                   itemBuilder: (BuildContext context, int index){
                         return ReelsPage(
-                         // userView: widget.userView,
+
                           item: widget.reelsList[index],
                           onClickMoreBtn: widget.onClickMoreBtn,
                           onComment: widget.onComment,
@@ -151,7 +137,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
                           onLike: widget.onLike,
                           onShare: widget.onShare,
                           showVerifiedTick: widget.showVerifiedTick,
-                         // swiperController: controller,
                           showProgressIndicator: widget.showProgressIndicator,
                           reelIndex: index,
                           pageController: pageController,
@@ -162,25 +147,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
                 onPageChanged: (int value){
                   ReelsScreenState.currentIndex = value ;
                   pageController.notifyListeners();
-                  // if(widget.userView){
-                  //   if (widget.reelsList.length - value < 5){
-                  //     if (widget.userData!.id ==
-                  //         MyDataModel.getInstance().id) {
-                  //       BlocProvider.of<GetUserReelsBloc>(context)
-                  //           .add(const LoadMoreUserReelsEvent(id: null));
-                  //     } else {
-                  //       BlocProvider.of<GetUserReelsBloc>(context).add(
-                  //           LoadMoreUserReelsEvent(
-                  //               id: widget.userData!.id.toString()));
-                  //     }
-                  //   }
-                  // }else{
-                  //   if (widget.reelsList.length - value == 4) {
-                  //     BlocProvider.of<GetReelsBloc>(context)
-                  //         .add(LoadMoreReelsEvent());
-                  //   }
-                  //
-                  // }
                   if(widget.followingOrReels) {
                     if (widget.reelsList.length - value == 4) {
                       BlocProvider.of<GetFollowingReelsBloc>(context)
@@ -199,25 +165,24 @@ class _ReelsViewerState extends State<ReelsViewer> {
               )
 
             ),
-
               if (widget.showAppbar)
                 Positioned(
                   right: ConfigSize.defaultSize! * 1.5,
                   top: ConfigSize.defaultSize! * 1.5,
-                  child:  (isFirst&&widget.isFromVideo)? CustomShowcaseWidget(
-                      globalKey: _one,
+                  child:  (ReelsScreenTaps.isFirst)? CustomShowcaseWidget(
+                      globalKey: keyForUploadVideo,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       textInContainer: StringManager.tabToUpload.tr(),
                       child: const UploadVideo()):const UploadVideo(),
 
 
                 ),
-              if(isFirst&&widget.isFromVideo)
+              if(ReelsScreenTaps.isFirst)
                 Positioned(
                   left: ConfigSize.screenWidth! * .7,
                   top: ConfigSize.screenHeight! * .4,
                   child: CustomShowcaseWidget(
-                    globalKey: _two,
+                    globalKey: keyForSwapInCenter,
                     isSwap: true,
                     disableMovingAnimation: true,
                     textInContainer:StringManager.swapToGo.tr() ,
@@ -227,12 +192,12 @@ class _ReelsViewerState extends State<ReelsViewer> {
                     ),
                   ),
                 ),
-              if(isFirst&&widget.isFromVideo)
+              if(ReelsScreenTaps.isFirst)
                 Positioned(
                   left: ConfigSize.screenWidth! * .7,
                   top: ConfigSize.screenHeight! * .75,
                   child: CustomShowcaseWidget(
-                    globalKey: _three,
+                    globalKey: keyForSwapInBottom,
                     isSwap: true,
                     disableMovingAnimation: true,
                     textInContainer:StringManager.tabToSwapToFollowing.tr() ,

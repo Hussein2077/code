@@ -1,5 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/reels_screen_taps.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/src/page_stack.dart';
 import 'package:flutter/material.dart';
@@ -132,6 +135,8 @@ class BottomNavLayoutState extends State<BottomNavLayout> {
   /// If the selected page is the current page, pops the page until it reaches it's root route.
   /// If the selected page is not the current page, navigates to that page.
   void onPageSelected(int index) {
+
+    ReelsScreenState.currentIndexNavBar.value=index;
     if (index >= pages.length)
       throw ArgumentError(
           "There is no page corresponding to the selected navbar item at index $index.");
