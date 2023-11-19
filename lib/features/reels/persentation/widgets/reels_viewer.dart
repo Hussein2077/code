@@ -1,7 +1,6 @@
 
 
 import 'dart:developer';
-import 'package:card_swiper/card_swiper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +118,6 @@ if(isFirst&&widget.isFromVideo) {
 
     });
 
-    controller.index = widget.startIndex ?? 0;
     super.initState();
   }
 
