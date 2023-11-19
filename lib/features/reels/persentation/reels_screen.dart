@@ -5,8 +5,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
@@ -104,64 +106,76 @@ class ReelsScreenState extends State<ReelsScreen>{
                   ReelsController.getInstance.likesMap(state.data!);
                   ReelsController.getInstance.likesCountMap(state.data!);
                   ReelsController.getInstance.followMap(state.data!);
-                  return ReelsViewer(
-                    followingOrReels: false,
+                  return LiquidPullToRefresh(
+                    color: ColorManager.bage,
+                    backgroundColor: ColorManager.loadingColor,
+                    showChildOpacityTransition : false,
 
-                    // userView: false,
-                    reelsList: state.data!,
-                    //appbarTitle: StringManager.reels.tr(),
-                    onShare: (reel) {
-                      DynamicLinkProvider()
-                          .showReelLink(
-                        reelId: reel.id!,
-                        reelImage: reel.userImage!,
-                      )
-                          .then((value) {
-                        Share.share(value);
-                      });
-                    },
-                    onLike: (id) {
-                      BlocProvider.of<MakeReelLikeBloc>(context)
-                          .add(MakeReelLikeEvent(reelId: id.toString()));
-                      setState(() {
-                        ReelsController.likedVideos[id.toString()] =
-                            !ReelsController.likedVideos[id.toString()]!;
-                        ReelsController.getInstance
-                            .changeLikeCount(id.toString());
-                      });
-                    },
-                    onFollow: (userId, isFollow) {
-                      setState(() {
-                        ReelsController.followingMap[userId] =
-                            !ReelsController.followingMap[userId]!;
-                      });
-                      BlocProvider.of<FollowBloc>(context)
-                          .add(FollowEvent(userId: userId));
-                    },
-                    onComment: (comment) {},
-                    onClickMoreBtn: (id, userData) {
-                      Navigator.pushNamed(context, Routes.reportReelsScreen,
-                          arguments: ReportReelsScreenPramiter(
-                              id: id.toString(),
-                              userId: userData.toString(),
-                              report: report
 
-                          )
-                      );
+                    onRefresh: () async{
+                      
+                      BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
+
                     },
-                    onClickBackArrow: () {
-                      Navigator.pop(context);
-                    },
-                    // onIndexChanged: (index) {
-                    //   if (state.data!.length - index == 4) {
-                    //     BlocProvider.of<GetReelsBloc>(context)
-                    //         .add(LoadMoreReelsEvent());
-                    //   }
-                    // },
-                    showProgressIndicator: false,
-                    showVerifiedTick: false,
-                    showAppbar: true,
-                    isFromVideo: true,
+                    child: ReelsViewer(
+                      followingOrReels: false,
+
+                      // userView: false,
+                      reelsList: state.data!,
+                      //appbarTitle: StringManager.reels.tr(),
+                      onShare: (reel) {
+                        DynamicLinkProvider()
+                            .showReelLink(
+                          reelId: reel.id!,
+                          reelImage: reel.userImage!,
+                        )
+                            .then((value) {
+                          Share.share(value);
+                        });
+                      },
+                      onLike: (id) {
+                        BlocProvider.of<MakeReelLikeBloc>(context)
+                            .add(MakeReelLikeEvent(reelId: id.toString()));
+                        setState(() {
+                          ReelsController.likedVideos[id.toString()] =
+                              !ReelsController.likedVideos[id.toString()]!;
+                          ReelsController.getInstance
+                              .changeLikeCount(id.toString());
+                        });
+                      },
+                      onFollow: (userId, isFollow) {
+                        setState(() {
+                          ReelsController.followingMap[userId] =
+                              !ReelsController.followingMap[userId]!;
+                        });
+                        BlocProvider.of<FollowBloc>(context)
+                            .add(FollowEvent(userId: userId));
+                      },
+                      onComment: (comment) {},
+                      onClickMoreBtn: (id, userData) {
+                        Navigator.pushNamed(context, Routes.reportReelsScreen,
+                            arguments: ReportReelsScreenPramiter(
+                                id: id.toString(),
+                                userId: userData.toString(),
+                                report: report
+
+                            )
+                        );
+                      },
+                      onClickBackArrow: () {
+                        Navigator.pop(context);
+                      },
+                      // onIndexChanged: (index) {
+                      //   if (state.data!.length - index == 4) {
+                      //     BlocProvider.of<GetReelsBloc>(context)
+                      //         .add(LoadMoreReelsEvent());
+                      //   }
+                      // },
+                      showProgressIndicator: false,
+                      showVerifiedTick: false,
+                      showAppbar: true,
+                      isFromVideo: true,
+                    ),
                   );
                 } else if (state is GetReelsLoadingState) {
                   return const LoadingWidget();

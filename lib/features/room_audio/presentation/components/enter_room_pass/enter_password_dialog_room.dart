@@ -43,13 +43,17 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
           borderRadius: BorderRadius.circular(20),
           color: Colors.white),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+
         children: [
-          SizedBox(
-            height: ConfigSize.defaultSize!*0.8,
-          ),
+
+          Text(StringManager.passwordProtected.tr() ,style: Theme.of(context).textTheme.bodyMedium,),
+          Padding(padding:EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!) , child: Text(StringManager.youCanOptanPassword.tr() , style: Theme.of(context).textTheme.bodySmall ,overflow: TextOverflow.fade,)),
+
+
           Container(
-            margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*3.5
-            ),
+            // margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*3.5
+            // ),
             width: ConfigSize.defaultSize!*10.18,
             height: ConfigSize.defaultSize!*10.18,
             decoration: const BoxDecoration(
@@ -60,9 +64,9 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
               ),
             ),
           ),
-          SizedBox(
-            height: AppPadding.p14,
-          ),
+          // SizedBox(
+          //   height: AppPadding.p14,
+          // ),
           Directionality(
             textDirection: ui.TextDirection.ltr,
             child: TextFieldPin(
@@ -91,9 +95,9 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
                   });
                 }),
           ),
-          SizedBox(
-            height: ConfigSize.defaultSize!*0.14,
-          ),
+          // SizedBox(
+          //   height: ConfigSize.defaultSize!*0.14,
+          // ),
           InkWell(
             onTap: () async {
               if(widget.isInRoom??false){
@@ -121,9 +125,9 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
               child: Center(child: Text(StringManager.done.tr())),
             ),
           ),
-          SizedBox(
-            height: ConfigSize.defaultSize! * 0.18,
-          ),
+          // SizedBox(
+          //   height: ConfigSize.defaultSize! * 0.18,
+          // ),
         ],
       ),
     );

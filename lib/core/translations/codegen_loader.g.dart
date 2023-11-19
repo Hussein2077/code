@@ -466,7 +466,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.tabToSwapToFollowing :"اسحب الي اليمين او اليسار للتنقل بين الصفحات",
     StringManager.tabToUpload :"اضغط هنا لرفع الفيديو الخاص بك",
     StringManager.swapToGo :"اسحب الي اليمين للدخول الي الصفحة الشخصية",
+    StringManager.passwordProtected :"هذه الغرفة محمية بكلمة مرور",
 
+    StringManager.youCanOptanPassword :"يمكنك الحصول عليها من خلال احد الاعضاء المشاركين داخل الغرفة",
 
 
 
