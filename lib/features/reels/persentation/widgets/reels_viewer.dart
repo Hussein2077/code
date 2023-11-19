@@ -1,8 +1,4 @@
-
-
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -20,6 +16,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel
 import 'package:tik_chat_v2/features/reels/persentation/reels_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/custom_show_case.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
+import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class ReelsViewer extends StatefulWidget {
@@ -98,6 +95,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
   final GlobalKey _one = GlobalKey();
   final GlobalKey _two = GlobalKey();
   final GlobalKey _three = GlobalKey();
+
   bool isFirst=true;
 
   late  PageController  pageController ;
@@ -111,10 +109,11 @@ class _ReelsViewerState extends State<ReelsViewer> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async{
       isFirst=await  Methods.instance.getShowCase();
-      log('${isFirst}isFirst&&');
-if(isFirst&&widget.isFromVideo) {
-  ShowCaseWidget.of(context).startShowCase([_one, _two,_three]);
-}
+      Future.delayed(const Duration(seconds: 2), ()async {
+        if(isFirst&&widget.isFromVideo&&BottomNavLayoutState.currentIndex ==1) {
+          ShowCaseWidget.of(context).startShowCase([_one, _two,_three]);
+        }
+      });
 
     });
 
@@ -130,17 +129,12 @@ if(isFirst&&widget.isFromVideo) {
 
   @override
   Widget build(BuildContext context) {
-    // if(widget.isFromVideo){
-    //   Future.delayed(const Duration(seconds: 1), ()async {
-    //     if(isFirst) {
-    //     }
-    //   });
-    // }
+
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: SizedBox(
-
           child: Stack(
             children: [
               //We need swiper for every content
@@ -201,6 +195,7 @@ if(isFirst&&widget.isFromVideo) {
                   top: ConfigSize.defaultSize! * 1.5,
                   child:  (isFirst&&widget.isFromVideo)? CustomShowcaseWidget(
                       globalKey: _one,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       textInContainer: StringManager.tabToUpload.tr(),
                       child: const UploadVideo()):const UploadVideo(),
 
@@ -208,10 +203,12 @@ if(isFirst&&widget.isFromVideo) {
                 ),
               if(isFirst&&widget.isFromVideo)
                 Positioned(
-                  left: ConfigSize.screenWidth! * .5,
-                  top: ConfigSize.screenHeight! * .5,
+                  left: ConfigSize.screenWidth! * .7,
+                  top: ConfigSize.screenHeight! * .4,
                   child: CustomShowcaseWidget(
                     globalKey: _two,
+                    isSwap: true,
+                    disableMovingAnimation: true,
                     textInContainer:StringManager.swapToGo.tr() ,
                     child: const SizedBox(
                       height: 3,
@@ -221,11 +218,13 @@ if(isFirst&&widget.isFromVideo) {
                 ),
               if(isFirst&&widget.isFromVideo)
                 Positioned(
-                  left: ConfigSize.defaultSize!*3,
-                  top: ConfigSize.screenHeight! * .55,
+                  left: ConfigSize.screenWidth! * .7,
+                  top: ConfigSize.screenHeight! * .75,
                   child: CustomShowcaseWidget(
                     globalKey: _three,
-                    textInContainer:StringManager.tabToFollow.tr() ,
+                    isSwap: true,
+                    disableMovingAnimation: true,
+                    textInContainer:StringManager.tabToSwapToFollowing.tr() ,
                     child: const SizedBox(
                       height: 3,
                       width: 3,

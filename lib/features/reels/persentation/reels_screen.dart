@@ -87,18 +87,10 @@ class ReelsScreenState extends State<ReelsScreen>{
 
 
           onComplete: (index,key){
-            log('onComplete: $index, $key');
-            if (index == 2) {
-              // SystemChrome.setSystemUIOverlayStyle(
-              //   SystemUiOverlayStyle.light.copyWith(
-              //     statusBarIconBrightness: Brightness.dark,
-              //     statusBarColor: Colors.white,
-              //   ),
-              // );
-              isFirst=false;
-              Methods.instance.saveShowCase(isFirst: isFirst);
-              log('${isFirst}isFirstone');
-            }
+            // if (index == 2) {
+            //   isFirst=false;
+            //   Methods.instance.saveShowCase(isFirst: isFirst);
+            // }
           },
       builder: Builder(builder: (context) {
         return SizedBox(

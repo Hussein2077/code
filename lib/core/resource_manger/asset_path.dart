@@ -97,6 +97,8 @@ class AssetsPath {
   static const String updown = "$pathImage/7-Up-7-Down-New.png";
   static const String ludo = "$pathImage/Ludo-Arabic-.png";
   static const String openLock = "$pathImage/open_lock.png";
+  static const String hand = "$pathImage/hand.png.png";
+  static const String hand2 = "$pathImage/hand.png";
 
 
 

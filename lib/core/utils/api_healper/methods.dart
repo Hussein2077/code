@@ -964,8 +964,9 @@ void checkIfFriends(
   }
   Future<bool> getShowCase() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool isFirst = preferences.getBool("is_first")??true;
-    return isFirst;
+    // bool isFirst = preferences.getBool("is_first")??true;
+
+    return true;
   }
 
 }
