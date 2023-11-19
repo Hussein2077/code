@@ -167,7 +167,7 @@ class ReelsScreenState extends State<ReelsScreen> {
                             showProgressIndicator: false,
                             showVerifiedTick: false,
                             showAppbar: true,
-                          );
+                          ));
                         } else if (state is GetReelsLoadingState) {
                           return const LoadingWidget();
                         } else if (state is GetReelsErrorState) {
@@ -192,7 +192,7 @@ class ReelsScreenState extends State<ReelsScreen> {
                           }
                         }
                       },
-                    ))))));
+                    )))));
   }
   Future<bool?> startShowCase(BuildContext context) async {
     // todo remove one of them
