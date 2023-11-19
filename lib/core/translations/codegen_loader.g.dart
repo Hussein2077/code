@@ -463,7 +463,10 @@ class CodegenLoader extends AssetLoader {
     StringManager.comment :"تعليق",
     StringManager.oneHashtag : "يجب علي الاقل وضع هاشتاج واحد",
     StringManager.topicHasBeenChosen : "تم اختيار الموضوع",
-
+    StringManager.tabToSwapToFollowing :"اسحب الي اليمين او اليسار للتنقل بين الصفحات",
+    StringManager.tabToUpload :"اضغط هنا لرفع الفيديو الخاص بك",
+    StringManager.swapToGo :"اسحب الي اليمين للدخول الي الصفحة الشخصية",
+    StringManager.oneHashtag : "يجب علي الاقل وضع هاشتاج واحد",
 
 
 
