@@ -216,8 +216,7 @@ if (_chewieController != null) {
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-      case AppLifecycleState.hidden:
-      _videoPlayerController?.pause();
+     _videoPlayerController?.pause();
       ReelsPage.isVideoPause.value =true;
         break;
     }
@@ -292,7 +291,7 @@ if (_chewieController != null) {
             : ReelLodaingWidget(
           reelId: widget.item.id.toString(),
          // userView: widget.userView,
-          image:image ,
+          image:image,
         ),
         if (_liked)
           const Center(
