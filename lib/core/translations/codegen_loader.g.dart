@@ -28,7 +28,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.areYouSureLeaveSeat: "هل أنت متأكد من مغادرة المقعد؟",
     StringManager.and: "و",
     StringManager.age: "العمر",
-    StringManager.videos: "فيديو",
+    StringManager.videos: "فيديوهات",
     StringManager.yourAgeIsUnder18: "عمرك اقل من 18",
     StringManager.selectTimeFirst: 'اختر الوقت اولا',
     StringManager.yourThemeIsUpload: 'تم تحميل الخلفية من فضلك انتظر حتي يتم الموافقة في خلال 24 ساعة',
@@ -112,7 +112,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.youCanNotModify:
         "لا يمكنك تعديل تاريخ الميلاد والجنس بعد التحديد",
     StringManager.home: "الصفحة الرئيسية",
-    StringManager.reels: "لك",
+    StringManager.reels: "ريلز",
     StringManager.followingTab: "اتابعهم",
     StringManager.follwoing: "اتابعهم",
     StringManager.followers: "المعجبين",
@@ -469,6 +469,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.passwordProtected :"هذه الغرفة محمية بكلمة مرور",
 
     StringManager.youCanOptanPassword :"يمكنك الحصول عليها من خلال احد الاعضاء المشاركين داخل الغرفة",
+    StringManager.forYou :"لك",
 
 
 

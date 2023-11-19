@@ -101,7 +101,7 @@ class ReelsScreenTapsState extends State<ReelsScreenTaps>
                           // ),
                         ),
                         Text(
-                          StringManager.videos.tr(),
+                          StringManager.forYou.tr(),
                           // style:
                           // Theme.of(context).textTheme.headlineSmall!.copyWith(
                           //     // color: Colors.white,

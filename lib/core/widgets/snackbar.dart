@@ -37,17 +37,14 @@ SnackBar custoumSnackBar(BuildContext context, String content) {
       width: ConfigSize.defaultSize! * 2,
       height: ConfigSize.screenHeight! * 0.04,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: ColorManager.blueloadingList,
-          end: Alignment.bottomRight,
-          begin: Alignment.topLeft,
-        ),
+       color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
       ),
       child: Center(
         child: Text(
           content,
           style: TextStyle(
+            color: Theme.of(context).colorScheme.background,
             fontSize: ConfigSize.defaultSize! * 1.5,
           ),
         ),
@@ -88,7 +85,7 @@ SnackBar loadingSnackBar(BuildContext context) {
             Text(
               StringManager.loading.tr(),
               style: TextStyle(
-                color: Theme.of(context).colorScheme.background,
+                color: Colors.black,
                 fontSize: ConfigSize.defaultSize! * 1.5,
               ),
             ),
@@ -98,8 +95,8 @@ SnackBar loadingSnackBar(BuildContext context) {
             SizedBox(
               height: ConfigSize.screenHeight! * 0.02,
               width: ConfigSize.screenHeight! * 0.02,
-              child: CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.background,
+              child: const CircularProgressIndicator(
+                color: Colors.black,
               ),
             ),
             const Spacer(
@@ -139,7 +136,7 @@ SnackBar errorSnackBar(BuildContext context, String content) {
         child: Text(
           content,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.background,
+            color: Colors.black,
             fontSize: ConfigSize.defaultSize! * 1.5,
           ),
         ),
@@ -174,7 +171,7 @@ SnackBar successSnackBar(BuildContext context, String content) {
         child: Text(
           content,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.background,
+            color: Colors.black,
             fontSize: ConfigSize.defaultSize! * 1.5,
           ),
         ),

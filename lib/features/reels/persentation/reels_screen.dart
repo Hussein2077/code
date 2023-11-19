@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
@@ -75,17 +76,14 @@ class ReelsScreenState extends State<ReelsScreen> {
         body: BlocListener<UploadReelsBloc, UploadReelsState>(
             listener: (context, state) {
               if (state is UploadReelsLoadingState) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(StringManager.loading.tr()),
-                ));
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(loadingSnackBar(context));
               } else if (state is UploadReelsErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(state.error),
-                ));
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(errorSnackBar(context, state.error));
               } else if (state is UploadReelsSucssesState) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(state.message),
-                ));
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(successSnackBar(context, state.message));
 
                 BlocProvider.of<GetUserReelsBloc>(context)
                     .add(const GetUserReelEvent(id: null));
