@@ -193,6 +193,7 @@ static const String iOSPlatform='IOS';
   static const String requestToJoin = "Request to join";
   static const String familyMember = "Family Members screen";
   static const String more = "More";
+  static const String error = "Error";
   static const String owner = "owner";
   static const String admin = "admin";
   static const String member = "Member";

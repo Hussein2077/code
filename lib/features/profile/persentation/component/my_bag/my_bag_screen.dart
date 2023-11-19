@@ -23,6 +23,9 @@ class MyBagScreen extends StatefulWidget {
   final MyDataModel myDataModel;
   const MyBagScreen({required this.myDataModel, super.key});
 
+  static List <String> isUsed = [] ;
+
+
   @override
   State<MyBagScreen> createState() => _MyBagScreenState();
 }
@@ -43,6 +46,8 @@ class _MyBagScreenState extends State<MyBagScreen>
 
   @override
   void dispose() {
+    MyBagScreen.isUsed=[];
+
     bagController.dispose();
     super.dispose();
   }

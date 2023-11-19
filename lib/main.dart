@@ -107,6 +107,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bloc/send_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
@@ -261,6 +262,11 @@ final  String theme ;
         ),
         BlocProvider(
           create: (context) => getIt<MallBuyBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<SendBloc>(),
+
+          //familybloc
         ),
         BlocProvider(
           create: (context) => getIt<MyBagBloc>()

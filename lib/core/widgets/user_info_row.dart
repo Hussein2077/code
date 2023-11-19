@@ -1,6 +1,12 @@
+import 'dart:developer';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
@@ -8,7 +14,10 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'package:tik_chat_v2/core/widgets/shimmer_id.dart';
-
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bloc/send_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bloc/send_event.dart';
 import 'user_country_icon.dart';
 import 'user_image.dart';
 
@@ -24,6 +33,9 @@ class UserInfoRow extends StatelessWidget {
   final double? underNameWidth;
   final Widget? idOrNot;
 
+  final String? flag;
+  final String? itemId;
+
   final void Function()? onTap;
 
   const UserInfoRow(
@@ -34,6 +46,8 @@ class UserInfoRow extends StatelessWidget {
       this.underName,
       this.imageSize,
       this.idOrNot,
+      this.flag,
+      this.itemId,
       super.key});
 
   @override
@@ -79,7 +93,7 @@ class UserInfoRow extends StatelessWidget {
                   isVip: userData.hasColorName!,
                 ),
                 SizedBox(
-                  width: underNameWidth ?? ConfigSize.screenWidth! - 150,
+                  width: underNameWidth ?? ConfigSize.screenWidth! - 240,
                   child: underName ??
                       Row(
                         children: [
@@ -136,6 +150,44 @@ class UserInfoRow extends StatelessWidget {
             const Spacer(
               flex: 1,
             ),
+            if(flag != null)
+              InkWell(
+                onTap: () {
+                  if(flag == 'vip'){
+                    BlocProvider.of<BuyOrSendVipBloc>(
+                        context)
+                        .add(BuyOrSendVipEvent(
+                        type: "1",
+                        vipId: itemId!,
+                        toUId:
+                        userData.uuid!));
+
+                    Navigator.pop(context);
+                  }else if(flag == 'myLook'){
+
+                    BlocProvider.of<SendBloc>(context)
+                        .add(sendItemEvent(
+                        packId: itemId!,
+                        touId: userData.uuid!));
+                    log('myLook');
+                    Navigator.pop(context);
+                  }
+                },
+                child: Container(
+                  width: ConfigSize.defaultSize! * 8.1,
+                  height: ConfigSize.defaultSize! * 3.1,
+                  decoration: BoxDecoration(
+                      gradient:
+                      const LinearGradient(colors: ColorManager.mainColorList),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Center(
+                    child: Text(
+                      StringManager.send.tr(),
+                      style: const TextStyle(color: ColorManager.whiteColor),
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

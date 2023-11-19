@@ -141,6 +141,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usec
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/send_item_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/show_agnecy_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/show_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/time_data_report_uc.dart';
@@ -200,6 +201,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipP
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bloc/send_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 
 
@@ -415,6 +417,7 @@ class ServerLocator {
           followOrUnFollowUsecase: getIt(),
         ));
 
+    getIt.registerFactory(() => SendBloc(sendItemUsecase: getIt()));
 
 
     getIt.registerFactory(
@@ -598,7 +601,8 @@ class ServerLocator {
  getIt.registerLazySingleton(
             () => MakeReelCommentUseCase(baseRepositoryReel: getIt()));
 
-
+    getIt.registerLazySingleton(
+            () => SendItemUsecase(baseRepositoryProfile: getIt()));
 
  getIt.registerLazySingleton(
             () => GetReelCommentUseCase(baseRepositoryReel: getIt()));
