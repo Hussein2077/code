@@ -4,7 +4,9 @@ import 'package:flutter/scheduler.dart';
 
 // Package imports:
 import 'package:permission_handler/permission_handler.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/seat_manager.dart';
@@ -26,12 +28,13 @@ class ZegoToggleMicrophoneButton extends StatefulWidget {
     this.iconSize,
     this.buttonSize,
     this.muteMode = false,
+    required this.roomData,
     required  this.zegoLiveSeatManager,
   }) : super(key: key);
 
   final ButtonIcon? normalIcon;
   final ButtonIcon? offIcon;
-
+  final EnterRoomModel roomData ;
   ///  You can do what you want after pressed.
   final void Function(bool isON)? onPressed;
 
@@ -90,9 +93,25 @@ class _ZegoToggleMicrophoneButtonState
 
   void onPressed() {
     /// get current microphone state
+   if(widget.roomData.ownerId == MyDataModel.getInstance().id){
+     var valueNotifier =
+     ZegoUIKit().getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id);
 
-    if(RoomScreen.listOfMuteSeats.containsKey(widget.zegoLiveSeatManager.getIndexByUserID(ZegoUIKit().getLocalUser().id))||
-        RoomScreen.usersHasMute.contains(ZegoUIKit().getLocalUser().id) ){
+     var targetState = !valueNotifier.value;
+
+     if (targetState) {
+       requestPermission(Permission.microphone);
+     }
+
+     /// reverse current state
+     ZegoUIKit().turnMicrophoneOn(targetState);
+
+     if (widget.onPressed != null) {
+       widget.onPressed!(targetState);
+     }
+   }
+   else if(RoomScreen.listOfMuteSeats.containsKey(widget.zegoLiveSeatManager.getIndexByUserID(ZegoUIKit().getLocalUser().id))||
+        RoomScreen.usersHasMute.contains(ZegoUIKit().getLocalUser().id)  ){
       // to handle mute seat
     }else{
       var valueNotifier =
