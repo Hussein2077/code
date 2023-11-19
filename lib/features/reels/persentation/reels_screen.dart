@@ -129,9 +129,7 @@ class ReelsScreenState extends State<ReelsScreen>{
                               BlocProvider.of<FollowBloc>(context)
                                   .add(FollowEvent(userId: userId));
                             },
-                            onComment: (comment) {
-                              
-                            },
+                            onComment: (comment) {},
                             onClickMoreBtn: (id, userData) {
                               bottomDailog(
                                   context: context,
