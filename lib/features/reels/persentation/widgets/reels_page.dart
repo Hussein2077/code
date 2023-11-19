@@ -26,55 +26,54 @@ class ReelsPage extends StatefulWidget {
   final Function(String)? onComment;
   final Function(int, int)? onClickMoreBtn;
   final Function(String, bool)? onFollow;
-  final int reelIndex ;
-  final PageController  pageController;
+  final int reelIndex;
+
+  final PageController pageController;
   final bool showProgressIndicator;
- // final bool userView;
-   static bool isFirst = true;
+
+  // final bool userView;
+  static bool isFirst = true;
   static ValueNotifier<bool> isVideoPause = ValueNotifier<bool>(false);
 
-
-   ReelsPage(
-      {Key? key,
-        required this.item,
-        this.showVerifiedTick = true,
-        this.onClickMoreBtn,
-        this.onComment,
-        this.onFollow,
-        this.onLike,
-        this.onShare,
-        required this.reelIndex,
-        this.showProgressIndicator = true,
-        required this.pageController,
-        //required this.userView
-      })
-      : super(key: key);
+  ReelsPage({
+    Key? key,
+    required this.item,
+    this.showVerifiedTick = true,
+    this.onClickMoreBtn,
+    this.onComment,
+    this.onFollow,
+    this.onLike,
+    this.onShare,
+    required this.reelIndex,
+    this.showProgressIndicator = true,
+    required this.pageController,
+    //required this.userView
+  }) : super(key: key);
 
   @override
   State<ReelsPage> createState() => ReelsPageState();
 }
 
 class ReelsPageState extends State<ReelsPage>
-    with SingleTickerProviderStateMixin ,  WidgetsBindingObserver  {
-  VideoPlayerController?   _videoPlayerController  ;
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+  VideoPlayerController? _videoPlayerController;
+
   ChewieController? _chewieController;
-  FileInfo? image ;
+  FileInfo? image;
+
   bool _liked = false;
   double? videoWidth;
   double? videoHeight;
-  late final AnimationController _controller =
-  AnimationController(
+  late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 2000),
     vsync: this,
   )..repeat(reverse: false);
-  late final Animation<Offset> _offsetAnimation =
-  Tween<Offset>(
+  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: Offset.zero,
     end: const Offset(0.0, 0.0),
   ).animate(CurvedAnimation(
     parent: _controller,
-    curve: Curves.bounceIn
-    ,
+    curve: Curves.bounceIn,
   ));
 
   @override
@@ -83,87 +82,75 @@ class ReelsPageState extends State<ReelsPage>
     if (!UrlChecker.isImageUrl(widget.item.url!) &&
         UrlChecker.isValid(widget.item.url!)) {
       initializePlayer().then((value) {
-        if(ReelsPage.isFirst) {
-          _videoPlayerController?.play() ;
+        if (ReelsPage.isFirst) {
+          _videoPlayerController?.play();
           ReelsPage.isFirst = false;
         }
-
       });
     }
 
     widget.pageController.addListener(() {
- if(widget.reelIndex == ReelsScreenState.currentIndex){
-   _videoPlayerController?.play() ;
- }
-
-
+      if (widget.reelIndex == ReelsScreenState.currentIndex) {
+        _videoPlayerController?.play();
+      }
     });
 
     WidgetsBinding.instance.addObserver(this);
-
   }
 
-
   Future initializePlayer() async {
+    final file =
+        await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
+    final cachImage =
+        await getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
+    image = cachImage;
 
-    final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
-    final cachImage =  await getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
-    image = cachImage ;
-
-    if(file?.file !=null){
-
-
+    if (file?.file != null) {
       _videoPlayerController = VideoPlayerController.file(file!.file);
-      if(kDebugMode){
+      if (kDebugMode) {
         log("in cache reels");
       }
-        }
-    else{
-      if(kDebugMode){
+    } else {
+      if (kDebugMode) {
         log((widget.item.url!.toString()));
         log("in network reels");
       }
-      _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
+      _videoPlayerController =
+          VideoPlayerController.networkUrl(Uri.parse(widget.item.url!));
     }
-
-
-
 
     _videoPlayerController?.setLooping(true);
 
-    try{
+    try {
       await Future.wait([_videoPlayerController!.initialize()]);
-    }catch(e){
-      if(kDebugMode){
-        log("error in reels path is :${Uri.parse(widget.item.url!+'rr')}");
+    } catch (e) {
+      if (kDebugMode) {
+        log("error in reels path is :${Uri.parse(widget.item.url! + 'rr')}");
       }
-      widget.pageController.nextPage(duration: const Duration(milliseconds: 100),
-      curve:Curves.easeIn ) ;
-
+      widget.pageController.nextPage(
+          duration: const Duration(milliseconds: 100), curve: Curves.easeIn);
     }
 
-
     _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController!,
-      showControls: false,
-      looping: true,
-        isLive:true
-    );
+        videoPlayerController: _videoPlayerController!,
+        showControls: false,
+        looping: true,
+        isLive: true);
     setState(() {});
     ReelsPage.isVideoPause.addListener(() {
-      if(ReelsPage.isVideoPause.value && !(_videoPlayerController?.value.isPlaying??true)){
+      if (ReelsPage.isVideoPause.value &&
+          !(_videoPlayerController?.value.isPlaying ?? true)) {
         _videoPlayerController?.play();
-      }else if(ReelsPage.isVideoPause.value){
+      } else if (ReelsPage.isVideoPause.value) {
         _videoPlayerController?.pause();
       }
     });
     _videoPlayerController?.addListener(() {
       //to handle close reel when make navigate
-      if (MainScreen.canNotPlayOutOfReelMainScreen && BottomNavLayoutState.currentIndex !=1) {
-       ReelsPage.isVideoPause.value= true ;
+      if (MainScreen.canNotPlayOutOfReelMainScreen &&
+          BottomNavLayoutState.currentIndex != 1) {
+        ReelsPage.isVideoPause.value = true;
       }
-
-
 
       if (_videoPlayerController?.value.position ==
           _videoPlayerController?.value.duration) {
@@ -171,35 +158,29 @@ class ReelsPageState extends State<ReelsPage>
         // widget.swiperController.next();
       }
 
-      if((_videoPlayerController?.value.isPlaying??false) &&
-          ReelsPage.isVideoPause.value){
-        ReelsPage.isVideoPause.value = false ;
+      if ((_videoPlayerController?.value.isPlaying ?? false) &&
+          ReelsPage.isVideoPause.value) {
+        ReelsPage.isVideoPause.value = false;
       }
 
-       if(!(_videoPlayerController?.value.isPlaying??true)&& !ReelsPage.isVideoPause.value){
-         if(widget.reelIndex == ReelsScreenState.currentIndex){
-           _videoPlayerController?.play() ;
-         }
-
-       }
-
-
-
+      if (!(_videoPlayerController?.value.isPlaying ?? true) &&
+          !ReelsPage.isVideoPause.value) {
+        if (widget.reelIndex == ReelsScreenState.currentIndex) {
+          _videoPlayerController?.play();
+        }
+      }
     });
   }
 
   @override
   void dispose() {
-
     _videoPlayerController?.dispose();
 
-if (_chewieController != null) {
-  _chewieController!.dispose();
-}
+    if (_chewieController != null) {
+      _chewieController!.dispose();
+    }
 
     WidgetsBinding.instance.removeObserver(this);
-
-
 
     super.dispose();
   }
@@ -208,7 +189,6 @@ if (_chewieController != null) {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
-
     switch (state) {
       case AppLifecycleState.resumed:
         // _videoPlayerController?.play();
@@ -216,83 +196,106 @@ if (_chewieController != null) {
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-     _videoPlayerController?.pause();
-      ReelsPage.isVideoPause.value =true;
+        _videoPlayerController?.pause();
+        ReelsPage.isVideoPause.value = true;
         break;
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return getVideoView();
   }
 
-  Widget getVideoView(){
+  Widget getVideoView() {
     return Stack(
       fit: StackFit.expand,
       children: [
         (_chewieController != null &&
-            _chewieController!.videoPlayerController.value.isInitialized)
+                _chewieController!.videoPlayerController.value.isInitialized)
             ? SizedBox(
-            width: MediaQuery.of(context).size.width ,
-            height: MediaQuery.of(context).size.height,
-            child: GestureDetector(
-              onDoubleTap: () {
-                if (!widget.item.likeExists!) {
-                  _liked = true;
-                  if (widget.onLike != null) {
-                    widget.onLike!(widget.item.id!);
-                  }
-                  setState(() {});
-                }
-              },
-              onTap: () {
-                setState(() {
-                  if (_videoPlayerController!.value.isPlaying) {
-                    ReelsPage.isVideoPause.value = true;
-                  }
-                  else{
-                    ReelsPage.isVideoPause.value = false;
-                    _videoPlayerController?.play();
-                  }
-                });
-              },
-              onHorizontalDragEnd: (DragEndDetails details){
-                if(details.primaryVelocity!>0){
-                  ReelsPage.isVideoPause.value = true;
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder:
-                          (context, animation, secondaryAnimation) =>
-                          SlideTransition(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: GestureDetector(
+                  onDoubleTap: () {
+                    if (!widget.item.likeExists!) {
+                      _liked = true;
+                      if (widget.onLike != null) {
+                        widget.onLike!(widget.item.id!);
+                      }
+                      setState(() {});
+                    }
+                  },
+                  onTap: () {
+                    setState(() {
+                      if (_videoPlayerController!.value.isPlaying) {
+                        ReelsPage.isVideoPause.value = true;
+                      } else {
+                        ReelsPage.isVideoPause.value = false;
+                        _videoPlayerController?.play();
+                      }
+                    });
+                  },
+                  onHorizontalDragUpdate: (DragUpdateDetails details) {
+                    double screenHeight = MediaQuery.of(context).size.height;
+                    double screenWidth = MediaQuery.of(context).size.width;
+                    double middleY = screenHeight / 2;
+                    double middleX = screenWidth / 2;
+
+                    if (details.globalPosition.dy < middleY &&
+                        details.globalPosition.dx < middleX+100) {
+                      ReelsPage.isVideoPause.value = true;
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  SlideTransition(
                             position: _offsetAnimation,
                             child: UserProfile(
-                              userId:
-                              MyDataModel.getInstance().id.toString() ==
-                                  widget.item.userId.toString()
+                              userId: MyDataModel.getInstance().id.toString() ==
+                                      widget.item.userId.toString()
                                   ? null
                                   : widget.item.userId.toString(),
                             ),
                           ),
-                    ),
-                  );
-                }
-              },
+                        ),
+                      );
+                    }
+                  },
+                  // onHorizontalDragEnd: (DragEndDetails details){
+                  //   if(details.primaryVelocity!>0){
+                  //     ReelsPage.isVideoPause.value = true;
+                  //     Navigator.push(
+                  //       context,
+                  //       PageRouteBuilder(
+                  //         pageBuilder:
+                  //             (context, animation, secondaryAnimation) =>
+                  //             SlideTransition(
+                  //               position: _offsetAnimation,
+                  //               child: UserProfile(
+                  //                 userId:
+                  //                 MyDataModel.getInstance().id.toString() ==
+                  //                     widget.item.userId.toString()
+                  //                     ? null
+                  //                     : widget.item.userId.toString(),
+                  //               ),
+                  //             ),
+                  //       ),
+                  //     );
+                  //   }
+                  // },
 
-              child: Chewie(
-                controller: _chewieController!,
-              ),
-            ),
-          )
-
+                  child: Chewie(
+                    controller: _chewieController!,
+                  ),
+                ),
+              )
             : ReelLodaingWidget(
-          reelId: widget.item.id.toString(),
-         // userView: widget.userView,
-          image:image,
-        ),
+                reelId: widget.item.id.toString(),
+                // userView: widget.userView,
+                image: image,
+              ),
         if (_liked)
           const Center(
             child: LikeIcon(),
@@ -327,17 +330,18 @@ if (_chewieController != null) {
         ValueListenableBuilder(
             valueListenable: ReelsPage.isVideoPause,
             builder: (context, ispause, _) {
-              if (ispause&&!(_videoPlayerController?.value.isPlaying??true)) {
+              if (ispause &&
+                  !(_videoPlayerController?.value.isPlaying ?? true)) {
                 return IgnorePointer(
                     child: Container(
-                      color: Colors.grey.withOpacity(0.2),
-                      alignment: Alignment.center,
-                      child: Icon(
-                        CupertinoIcons.play_fill,
-                        size: ConfigSize.defaultSize! * 11.5,
-                        color: Colors.white.withOpacity(0.7),
-                      ),
-                    ));
+                  color: Colors.grey.withOpacity(0.2),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    CupertinoIcons.play_fill,
+                    size: ConfigSize.defaultSize! * 11.5,
+                    color: Colors.white.withOpacity(0.7),
+                  ),
+                ));
               } else {
                 return const SizedBox();
               }
