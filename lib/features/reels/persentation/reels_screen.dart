@@ -87,10 +87,11 @@ class ReelsScreenState extends State<ReelsScreen>{
 
 
           onComplete: (index,key){
-            // if (index == 2) {
-            //   isFirst=false;
-            //   Methods.instance.saveShowCase(isFirst: isFirst);
-            // }
+
+            if (index == 2) {
+              isFirst=false;
+              Methods.instance.saveShowCase(isFirst: isFirst);
+            }
           },
       builder: Builder(builder: (context) {
         return SizedBox(
