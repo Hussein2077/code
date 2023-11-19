@@ -1,4 +1,5 @@
 
+
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -201,9 +202,9 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                   ),
                 ],
               ),
+              //share row
               InkWell(
                 onTap: () {
-                  log('llll${widget.momentModel.momentImage.toString()}');
                   DynamicLinkProvider()
                       .showMomentLink(
                     momentId: widget.momentModel.momentId.toString(),
@@ -214,7 +215,6 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                   });
                 },
                 child: Row(
-                  //share row
                   children: [
                     Image.asset(AssetsPath.shareMomentIcon,
                         color: Theme.of(context).colorScheme.primary, scale: 22),

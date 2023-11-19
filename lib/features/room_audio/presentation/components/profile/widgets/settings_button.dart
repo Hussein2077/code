@@ -44,8 +44,6 @@ class SettingsButton extends StatefulWidget {
 class _SettingsButtonState extends State<SettingsButton> {
   @override
   Widget build(BuildContext context) {
-    log("User ID  ${widget.userData.id}");
-    log("Owner ID ${widget.roomData.ownerId}");
     final List<String> items = [
       StringManager.mention.tr(),
       if (!widget.myProfrile) StringManager.reports.tr(),

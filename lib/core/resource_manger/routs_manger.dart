@@ -70,6 +70,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/vip/vip_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/my_videos_screen.dart';
+import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/trim_view.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
@@ -160,6 +161,7 @@ class Routes {
   static const String messages = "/Messages";
   static const String systemmessages = "/systemmessages";
   static const String chatPageBody = "/chatPageBody";
+  static const String reportReelsScreen = "/reportReelsScreen";
 
 
 
@@ -463,6 +465,15 @@ class RouteGenerator {
 
             ));
 
+        case Routes.reportReelsScreen:
+          ReportReelsScreenPramiter reportReelsScreen =settings.arguments as ReportReelsScreenPramiter;
+        return MaterialPageRoute(
+            builder: (_) =>  MoreDialog(
+              id: reportReelsScreen.id!,
+              userId:reportReelsScreen.userId!,
+              report: reportReelsScreen.report!,
+            ));
+
       case Routes.changeNumberScreen:
         return MaterialPageRoute(
             builder: (_) => const ChangeNumberScreen());
@@ -602,6 +613,14 @@ class LoginPramiter {
 
   const LoginPramiter(
       { this.isForceUpdate,  this.isUpdate, this.isLoginFromAnotherAccountAndBuildFailure=false, Key? key});
+}
+class ReportReelsScreenPramiter {
+  final TextEditingController? report;
+  final String? id;
+  final String? userId;
+
+  const ReportReelsScreenPramiter(
+      { this.report,  this.id, this.userId, Key? key});
 }
 
 class MainPramiter {

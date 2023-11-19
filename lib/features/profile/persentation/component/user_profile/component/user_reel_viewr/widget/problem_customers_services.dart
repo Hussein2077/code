@@ -27,6 +27,9 @@ class _ProblemTextFormFieldState extends State<ProblemTextFormField> {
     controller: widget.textEditingController,
     keyboardType: TextInputType.text,
     textAlignVertical: TextAlignVertical.top,
+    style: TextStyle(
+       color: Colors.black
+    ),
     validator: (value) {
       if (value == null || value.isEmpty) {
         return StringManager.cantBeEmpty.tr();
@@ -35,6 +38,7 @@ class _ProblemTextFormFieldState extends State<ProblemTextFormField> {
     },
       scrollPadding:EdgeInsets.only(bottom:bottomInsets + 40.0) ,
     decoration: InputDecoration(
+
         hintMaxLines: 3,
 
         focusedBorder: const OutlineInputBorder(
@@ -58,9 +62,10 @@ class _ProblemTextFormFieldState extends State<ProblemTextFormField> {
         alignLabelWithHint: true,
         filled: true,
         hintStyle: TextStyle(
-            color: const Color(0xff999999),
+            color:  Colors.black,
             fontSize: ConfigSize.defaultSize! * 1.5,
             fontWeight: FontWeight.w400),
+
         fillColor: const Color(0xffFBFBFB),
         hintText: StringManager.pleaseExplain.tr(),
         border: const OutlineInputBorder(

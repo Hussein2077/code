@@ -163,12 +163,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   void initState() {
 
 
-
     super.initState();
 
     RoomScreen.usersHasMute = widget.room.mutedUsers!.split(', ');
-
-    print(RoomScreen.usersHasMute.toString() + "!!!!!!!!!!!!");
 
     luckGiftBannderController = AnimationController(
       duration: const Duration(seconds: 2),
@@ -286,11 +283,19 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       for (int i = 0; i < widget.room.seats!.length; i++) {
         if (widget.room.seats![i] == "locked") {
           RoomScreen.listOfLoskSeats.value.putIfAbsent(i, () => i);
-        } else if (widget.room.seats![i] == "muted") {
+        }
+        else if (widget.room.seats![i] == "muted") {
           RoomScreen.listOfMuteSeats.putIfAbsent(i, () => i);
-        } else if (widget.room.seats![i] == "empty") {
-        } else if (widget.room.seats![i]['id'] != null) {
+        }
+        else if (widget.room.seats![i] == "empty") {
+        }
+        else if (widget.room.seats![i]['id'] != null) {
           UserOnMicModel myDataModel = UserOnMicModel.fromJson(widget.room.seats![i]);
+          if(myDataModel.seatCondition == "locked"){
+            RoomScreen.listOfLoskSeats.value.putIfAbsent(i, () => i);
+          }else if(myDataModel.seatCondition == "muted"){
+            RoomScreen.listOfMuteSeats.putIfAbsent(i, () => i);
+          }
           ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(id: myDataModel.id.toString(), name: myDataModel.name.toString());
          zegoUIKitUser.inRoomAttributes.value['img'] = myDataModel.img;
           RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
@@ -817,7 +822,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     return Directionality(
         textDirection: TextDirection.ltr,
         child: ZegoUIKitPrebuiltLiveAudioRoom(

@@ -76,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.login, (route) => false,
             arguments:
-                const LoginPramiter(isForceUpdate: false, isUpdate: false));
+            const LoginPramiter(isForceUpdate: false, isUpdate: false));
       } else if ((configModel!.isAuth ?? false)) {
         await initDynamicLinks();
         if (kDebugMode) {
@@ -180,7 +180,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
     final result =
-        await GetConfigeAppUseCase(homeRepo: getIt()).call(ConfigModelBody(
+    await GetConfigeAppUseCase(homeRepo: getIt()).call(ConfigModelBody(
       appVersion: StringManager.versionApp.toString(),
       devicePlatform: SplashScreen.devicePlatform,
     ));
