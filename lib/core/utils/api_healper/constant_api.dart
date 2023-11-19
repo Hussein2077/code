@@ -7,7 +7,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 class ConstentApi {
   // static const String baseUrl = 'https://tik-chat.com/api' ;
- static const String baseUrl = 'https://test.tik-chat.com/api' ;
+  static const String baseUrl = 'https://test.tik-chat.com/api' ;
   static const String getBoxes = "$baseUrl/box/list";
   static const String inAppPurchase = "$baseUrl/purchased";
   static const String sendBox = "$baseUrl/box/send";
@@ -100,7 +100,6 @@ class ConstentApi {
       "$baseUrl/rooms/request-background-image";
   static const String getGroupChat = "$baseUrl/group-chat";
   static const String senGroupChat = "$baseUrl/group-chat/send";
-
   static const String getMyBackGround = "$baseUrl/backgrounds/me";
   static const String userReporet = "$baseUrl/relations/report_user";
   static const String getConfigKey = "$baseUrl/config/keys-values";

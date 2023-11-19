@@ -25,10 +25,6 @@ class SplashScreen extends StatefulWidget {
 
   const SplashScreen({super.key});
 
-  static String? appSign;
-
-  static int? appId;
-
   static late String devicePlatform;
 
   @override
@@ -185,15 +181,12 @@ class _SplashScreenState extends State<SplashScreen> {
       devicePlatform: SplashScreen.devicePlatform,
     ));
     result.fold((l) {
-      SplashScreen.appId = l.appId;
-      SplashScreen.appSign = l.appSign;
       configModel = l;
     },(r){
       errorMessage = DioHelper().getTypeOfFailure(r);
       errorToast(context: context, title: errorMessage);
     });
 
- log(" SplashScreen.appId${ SplashScreen.appId}") ;
   }
 
 

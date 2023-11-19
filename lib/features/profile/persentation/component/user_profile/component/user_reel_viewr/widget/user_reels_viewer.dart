@@ -157,7 +157,6 @@ class _UserReelsViewerState extends State<UserReelsViewer> {
                           onLike: widget.onLike,
                           onShare: widget.onShare,
                           showVerifiedTick: widget.showVerifiedTick,
-                          // swiperController: controller,
                           showProgressIndicator: widget.showProgressIndicator,
                           reelIndex: index,
                           pageController: pageController,

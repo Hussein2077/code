@@ -42,7 +42,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_use
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
-import 'package:tik_chat_v2/splash.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/live_page.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
@@ -119,8 +118,8 @@ const String inviteToSeatKey = "inviteToSeat";
 const String muteUserKey = 'muteUser';
 const String mute = 'mute';
 const String showYallowBanner = "yellowBanner";
-String appSign = SplashScreen.appSign ?? "";
-int appID = SplashScreen.appId ?? 0;
+String appSign =  "";
+int appID =  0;
 
 
 class GiftData {

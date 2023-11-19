@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/pk_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/room_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 
 class EnterRoomModel extends Equatable {
   final int? id ;
@@ -136,6 +137,8 @@ class EnterRoomModel extends Equatable {
 
 
   factory EnterRoomModel.fromJson(Map<String,dynamic> jsonData){
+    appID = jsonData ['zego_keys']['zego_app_id'];
+    appSign = jsonData ['zego_keys']['app_sign'];
 
     return EnterRoomModel(
       id: jsonData['id'],
@@ -190,8 +193,7 @@ class EnterRoomModel extends Equatable {
       audioNum:jsonData['audio_num'],
       strtoTime:jsonData['strto_time'],
       showPk: jsonData['show_pk'],
-            roomRule: jsonData['room_rule']??"",
-
+     roomRule: jsonData['room_rule']??"",
      ownerFamliy: jsonData['owner_family']==null?null:ShowFamilyModel.fromJson( jsonData['owner_family']),
      isPK:  jsonData['is_pk'],
         pkModel:jsonData['pk']==null? null: PKModel.fromJson(jsonData['pk']),
