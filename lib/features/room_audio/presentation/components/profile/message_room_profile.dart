@@ -54,13 +54,13 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
      listener: (context, state) {
     if (state is SuccessAddAdminRoomState) {
-      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(StringManager.beComeAdmin.tr()));
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,StringManager.beComeAdmin.tr()));
 
 
 
 
     } else if (state is ErrorAddAdminRoomState) {
-      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.errorMessage));
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.errorMessage));
 
 
 
@@ -70,11 +70,11 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
       child: BlocListener<UsersInRoomBloc, OnUserInRoomStates>(
         listener: (context, state) {
     if (state is SuccessKickoutState) {
-      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.successMessage));
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.successMessage));
 
 
     } else if (state is ErrorKickoutState) {
-      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(state.errorMessage));
+      ScaffoldMessenger.of(context).showSnackBar(custoumSnackBar(context,state.errorMessage));
     }
     },
         child: BlocBuilder<GetUserBloc, GetUserState>(

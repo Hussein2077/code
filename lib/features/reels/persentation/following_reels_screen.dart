@@ -7,7 +7,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
-import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
@@ -16,7 +15,6 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_foll
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
-import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_page.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dart';
 
@@ -60,7 +58,8 @@ class _FollowingReelsScreenState extends State<FollowingReelsScreen> {
                 ReelsController.getInstance.likesCountMap(state.data!);
                 ReelsController.getInstance.followMap(state.data!);
                 return ReelsViewer(
-                  userView: false,
+                  followingOrReels: true,
+                 // userView: false,
                   isFromVideo: false,
                   reelsList: state.data!,
                   //appbarTitle: StringManager.reels.tr(),

@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/widgets/arrow_back.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/Logics/functions.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/comps/styles.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/comps/widgets.dart';
@@ -56,7 +57,10 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     List<Function()> chatScreenOntaps = [
       () {
-        Navigator.pushNamed(context, Routes.groupChatScreen);
+
+        ScaffoldMessenger.of(context).showSnackBar(loadingSnackBar(context));
+
+        //Navigator.pushNamed(context, Routes.groupChatScreen);
       },
       () {
         Navigator.pushNamed(context, Routes.messages);

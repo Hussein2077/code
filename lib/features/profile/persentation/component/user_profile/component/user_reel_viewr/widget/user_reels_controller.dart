@@ -5,9 +5,9 @@ import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_sc
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
-class ReelsController {
+class UserReelsController {
 
-  static get getInstance => ReelsController();
+  static get getInstance => UserReelsController();
   static ValueNotifier<bool> follow = ValueNotifier<bool>(false);
   static Map<String, Uint8List> thumbnail = {};
   static Map<String, bool> likedVideos = {};
