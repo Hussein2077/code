@@ -418,32 +418,30 @@ Widget reelRowWidget(
     onTap: () {
       bottomDailog(context: context, widget: widget);
     },
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(ConfigSize.defaultSize! ),
-          border: Border.all(color: Colors.black),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(ConfigSize.defaultSize! ),
+        border: Border.all(color: Colors.black),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
+          children: [
 
-              Image.asset(
-                icon,
-                scale: 4,
-              ),
+            Image.asset(
+              icon,
+              scale: 4,
+            ),
 
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
-              ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
+            ),
 
-            ],
-          ),
+          ],
         ),
       ),
     ),

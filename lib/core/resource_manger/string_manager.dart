@@ -564,6 +564,13 @@ static const String iOSPlatform='IOS';
 
   static const String topicHasBeenChosen = "The topic has been chosen";
 
+  static const String passwordProtected = "This room is password protected";
+  static const String youCanOptanPassword = "You can obtain it through one of the participating members within the room";
+
+
+
+
+
 
 
 

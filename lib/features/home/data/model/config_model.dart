@@ -42,8 +42,7 @@ class ConfigModel extends Equatable {
         updateGiftCache: json['cache_update']['gifts'],
         updateEmojieCach: json['cache_update']['emoji'],
         updateEntroCach: json['cache_update']['intro'],
-        appId: json['keys']['zego_app_id'],
-        appSign: json['keys']['app_sign'],
+
       );
 
   @override
