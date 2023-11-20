@@ -50,7 +50,9 @@ class MyProfilPropertyRow extends StatelessWidget {
                   ),
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.headlineMedium,
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      fontSize: ConfigSize.defaultSize!*1.5
+                    ),
                   ),
                 if(descriptiontitle!=null)
                   Row(
