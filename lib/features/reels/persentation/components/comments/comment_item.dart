@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/components/user_profile_image.dart';
@@ -18,19 +19,26 @@ class CommentItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                //TODO repleace  this widget with yours
-                UserProfileImage(profileUrl: commentItem.userProfilePic),
-                 SizedBox(width: ConfigSize.defaultSize!*0.7),
-                Flexible(
-                  child: Container(
-                    padding:
-                         EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!*0.7, horizontal: ConfigSize.defaultSize!),
-                    decoration:  BoxDecoration(
-                      color: const Color.fromARGB(225, 239, 239, 239),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(ConfigSize.defaultSize!*1.5),
-                      ),
+              InkWell(
+                  onTap: () {
+                    Methods.instance.userProfileNvgator(
+                        context: context,
+                        userId: commentItem.userId.toString());
+                  },
+                  child:
+                      UserProfileImage(profileUrl: commentItem.userProfilePic)),
+              SizedBox(width: ConfigSize.defaultSize! * 0.7),
+              Flexible(
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: ConfigSize.defaultSize! * 0.7,
+                      horizontal: ConfigSize.defaultSize!),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(225, 239, 239, 239),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(ConfigSize.defaultSize! * 1.5),
                     ),
+                  ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
