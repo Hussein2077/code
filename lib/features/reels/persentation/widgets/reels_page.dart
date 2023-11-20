@@ -243,11 +243,7 @@ class ReelsPageState extends State<ReelsPage>
                     double screenWidth = MediaQuery.of(context).size.width;
                     double middleY = screenHeight / 1.7;
                     double middleX = screenWidth / 1.8;
-                      log('${details.delta.direction}details.localPosition.dx');
-                      log('${details.globalPosition.dy }details.globalPosition.dy');
-                      log('${details.globalPosition.dx }details.globalPosition.dx ');
-                      log('${middleY }middleY');
-                      log('${middleX }middleX');
+
                     if (details.globalPosition.dy < middleY &&details.delta.direction==0.0&&
                         details.globalPosition.dx < middleX+100) {
                       ReelsPage.isVideoPause.value = true;

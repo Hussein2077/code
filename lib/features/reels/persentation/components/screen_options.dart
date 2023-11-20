@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,20 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/utils/convert_numbers_to_short.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/see_more_text.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_comment_model.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-import 'package:tik_chat_v2/core/utils/convert_numbers_to_short.dart';
 import 'package:tik_chat_v2/features/reels/persentation/components/comments/comment_bottomsheet.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_event.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_state.dart';
 import 'package:tik_chat_v2/features/reels/persentation/reels_controller.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/user_image_reel.dart';
-import 'dart:ui' as ui;
 
 class ScreenOptions extends StatelessWidget {
   final ReelModel item;
@@ -116,46 +115,21 @@ class ScreenOptions extends StatelessWidget {
                                         reelId: item.id.toString()));
                               }
 
-                              showModalBottomSheet(
-                                  barrierColor: Colors.transparent,
-                                  context: context,
-                                  builder: (ctx) => BlocBuilder<GetReelCommentsBloc,
-                                      GetReelsCommentsState>(
-                                    builder: (context, state) {
-                                      if (state
-                                      is GetReelsCommentsSucssesState) {
-                                        commentListtemp = state.data;
+                              bottomDailog(
+                                context: context,
+                               // color: Colors.white,
+                                height: ConfigSize.screenHeight!*0.7,
+                                color: Theme.of(context).colorScheme.background.withOpacity(0.7),
+                                widget:
 
-                                        return CommentBottomSheet(
-                                            reelId: item.id.toString(),
-                                            commentList: commentListtemp ??
-                                                state.data ??
-                                                [],
-                                            onComment: onComment);
-                                      } else if (state
-                                      is GetReelsCommentsLoadingState) {
-                                        if (commentListtemp == null) {
-                                          return const LoadingWidget();
-                                        } else {
-                                          return CommentBottomSheet(
-                                              reelId: item.id.toString(),
-                                              commentList:
-                                              commentListtemp ?? [],
-                                              onComment: onComment);
-                                        }
-                                      } else if (state
-                                      is GetReelsCommentsErrorState) {
-                                        return CustomErrorWidget(
-                                            message: state.errorMassage);
-                                      } else {
-                                        return CustomErrorWidget(
-                                          message: StringManager
-                                              .unexcepectedError
-                                              .tr(),
-                                        );
-                                      }
-                                    },
-                                  ));
+                                  CommentBottomSheet(
+                                                        reelId: item.id.toString(),
+                                                        //commentList: commentListtemp ?? state.data ?? [],
+                                                        onComment: onComment),
+                                                  );
+
+
+
                             }
 
                           },
