@@ -143,7 +143,7 @@ class MusicListWidgetState extends State<MusicListWidget> {
                                           duration: item.data![index].duration!,
                                           name: item.data![index].title,
                                           uri: item.data![index].uri!))
-                                  ? ColorManager.lightGray
+                                  ? ColorManager.gray
                                   : ColorManager.mainColor,
                               borderRadius: BorderRadius.circular(8)),
                           padding: const EdgeInsets.symmetric(
