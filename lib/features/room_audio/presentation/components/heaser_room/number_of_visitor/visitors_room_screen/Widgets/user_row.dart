@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -11,7 +13,6 @@ import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
 
 class UserRow extends StatelessWidget {
@@ -19,7 +20,8 @@ class UserRow extends StatelessWidget {
   final LayoutMode layoutMode ;
   final EnterRoomModel roomData ;
 
-  const UserRow({super.key, required this.roomVistorModel, required this.layoutMode, required this.roomData});
+  const UserRow({super.key, required this.roomVistorModel,
+  required this.layoutMode, required this.roomData});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,6 @@ class UserRow extends StatelessWidget {
           bottomDailog(
               context: context,
               widget: GeneralRoomProfile(
-
                   userId:roomVistorModel.id.toString() ,
                   myData:MyDataModel.getInstance(),
                   roomData:roomData,

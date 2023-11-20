@@ -28,7 +28,6 @@ class VisitorsRoomScreen extends StatefulWidget {
   final EnterRoomModel roomData;
   final int numberOfVistor;
   final LayoutMode layoutMode;
-  static ValueNotifier<List<String?>> usersPlayMedia = ValueNotifier<List<String?>>([]);
 
   @override
   State<VisitorsRoomScreen> createState() => _VisitorsRoomScreenState();
@@ -69,17 +68,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
                   }),
             )
 
-            // Expanded(
-            //     child: SingleChildScrollView(
-            //       controller: scrollController,
-            //       physics: const AlwaysScrollableScrollPhysics(),
-            //         child: VisitorsScreenRoomBody(
-            //           data: state.getRoomUsersEntite,
-            //           roomData: roomData,
-            //           myDataModel: myDataModel,
-            //           layoutMode: layoutMode,
-            //         ))
-            //         )
+
           ]),
         );
       } else if (state is GetRoomVistorLoadinglState) {
