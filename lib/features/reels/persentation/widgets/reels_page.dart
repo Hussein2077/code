@@ -241,10 +241,14 @@ class ReelsPageState extends State<ReelsPage>
                   onHorizontalDragUpdate: (DragUpdateDetails details) {
                     double screenHeight = MediaQuery.of(context).size.height;
                     double screenWidth = MediaQuery.of(context).size.width;
-                    double middleY = screenHeight / 2;
-                    double middleX = screenWidth / 2;
-
-                    if (details.globalPosition.dy < middleY &&
+                    double middleY = screenHeight / 1.7;
+                    double middleX = screenWidth / 1.8;
+                      log('${details.delta.direction}details.localPosition.dx');
+                      log('${details.globalPosition.dy }details.globalPosition.dy');
+                      log('${details.globalPosition.dx }details.globalPosition.dx ');
+                      log('${middleY }middleY');
+                      log('${middleX }middleX');
+                    if (details.globalPosition.dy < middleY &&details.delta.direction==0.0&&
                         details.globalPosition.dx < middleX+100) {
                       ReelsPage.isVideoPause.value = true;
                       Navigator.push(
@@ -266,7 +270,13 @@ class ReelsPageState extends State<ReelsPage>
                     }
                   },
                   // onHorizontalDragEnd: (DragEndDetails details){
-                  //   if(details.primaryVelocity!>0){
+                  //     double screenHeight = MediaQuery.of(context).size.height;
+                  //     double screenWidth = MediaQuery.of(context).size.width;
+                  //     double middleY = screenHeight / 2;
+                  //     double middleX = screenWidth / 2;
+                  //   log('${details.velocity.pixelsPerSecond.dx}details.velocity.pixelsPerSecond.dx');
+                  //   log('${details.velocity.pixelsPerSecond.dy}details.velocity.pixelsPerSecond.dy');
+                  //   if(details.velocity.pixelsPerSecond.dx>0&&details.velocity.pixelsPerSecond.dy>middleY){
                   //     ReelsPage.isVideoPause.value = true;
                   //     Navigator.push(
                   //       context,

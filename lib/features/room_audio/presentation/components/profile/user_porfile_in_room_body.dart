@@ -372,7 +372,6 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                   SettingsButton(
                       roomData: widget.roomData,
                       userData: widget.userData,
-                      myDataModel: widget.myData,
                       layoutMode: widget.layoutMode,
                       isAdminOrHost: isAdminOrHost,
                       isOnMic: isOnMic,
