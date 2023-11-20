@@ -32,6 +32,9 @@ class GiftButton extends StatelessWidget {
               listAllUsers:listAllUsers,
               roomData:roomData!,
               myDataModel: myDataModel,
+              isSingleUser: false,
+              userId: null,
+              userImage: null,
             )):
         showDialog(  context: context, builder: (BuildContext context) { return AnonymounsDialogGifts(); })
         ;

@@ -52,7 +52,9 @@ class GiftUserState extends State<GiftUser> {
 
   @override
   Widget build(BuildContext context) {
-
+    RoomScreen.userOnMics.value.forEach((key, value) {
+      mapOfUsersPositions.putIfAbsent(value.id, () => key);
+    });
     return  SizedBox(
       child:Padding(
         padding: const EdgeInsets.all(8.0),
@@ -75,16 +77,11 @@ class GiftUserState extends State<GiftUser> {
                   return ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount:seatsIndex.length,
+                      itemCount: seatsIndex.length,
                       itemBuilder: (context, index) {
                         if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.name == StringManager.mysteriousPerson.tr()){
                           return const  SizedBox();
                         }else{
-
-                          RoomScreen.userOnMics.value.forEach((key, value) {
-                            mapOfUsersPositions.putIfAbsent(value.id, () => key);
-                          });
-
                           return InkWell(
                             onTap: (){
                               setState(() {
@@ -156,7 +153,7 @@ class GiftUserState extends State<GiftUser> {
                                             color: ColorManager.whiteColor),
                                         child:Center(
                                           child: Text(
-                                            "${mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id]}",
+                                            mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id] == null ? "0" : "${mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id]}",
                                             style:  TextStyle(fontSize: AppPadding.p8),
                                           ),
                                         )

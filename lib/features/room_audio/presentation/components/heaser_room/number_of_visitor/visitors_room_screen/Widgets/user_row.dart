@@ -44,7 +44,7 @@ class UserRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(width:ConfigSize.defaultSize! ,),
-            UserImage(image: roomVistorModel.image,boxFit: BoxFit.cover,frame: roomVistorModel.frame,
+            UserImage(image: roomVistorModel.image!,boxFit: BoxFit.cover,frame: roomVistorModel.frame,
               frameId: roomVistorModel.frameId,
               imageSize: ConfigSize.defaultSize! * 5,
             ),
@@ -58,9 +58,9 @@ class UserRow extends StatelessWidget {
                 Row(
                   children: [
                     GradientTextVip(
-                      text: roomVistorModel.name,
+                      text: roomVistorModel.name!,
                       textStyle: Theme.of(context).textTheme.bodyLarge!,
-                      isVip: roomVistorModel.hasColorName,
+                      isVip: roomVistorModel.hasColorName!,
                     ),
                     SizedBox(
                       width: ConfigSize.defaultSize! * 2,
@@ -78,7 +78,7 @@ class UserRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       LevelContainer(
-                        image: roomVistorModel.revicerLevelImg,
+                        image: roomVistorModel.revicerLevelImg!,
                         width: ConfigSize.defaultSize!*5,
                         height: ConfigSize.defaultSize!*2,
                       ),
@@ -86,10 +86,10 @@ class UserRow extends StatelessWidget {
                       LevelContainer(
                         width: ConfigSize.defaultSize!*5,
                         height: ConfigSize.defaultSize!*2,
-                         image: roomVistorModel.senderLevelImg,
+                         image: roomVistorModel.senderLevelImg!,
                       ),             SizedBox(width:ConfigSize.defaultSize! ,),
                       AristocracyLevel(
-                        level: roomVistorModel.vipLevel,
+                        level: roomVistorModel.vipLevel!,
                       ),
                     ],
                   ),

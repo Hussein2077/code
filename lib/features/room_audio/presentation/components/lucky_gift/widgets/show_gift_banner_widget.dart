@@ -2,18 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
-import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/gift_banner_widget.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class ShowGiftBannerWidget extends StatelessWidget {
 
-  UserDataModel sendDataUser;
-  UserDataModel receiverDataUser;
+  RoomVistorModel sendDataUser;
+  RoomVistorModel receiverDataUser;
   String giftImage;
   String ownerId;
   bool isPlural;
