@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,15 +25,14 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/settings_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
-
 import 'profile_room_body_controler.dart';
 import 'widgets/block_button.dart';
-import 'widgets/gift_user_screen.dart';
 import 'widgets/image_with_text.dart';
 
 // ignore: must_be_immutable
@@ -268,11 +265,13 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                         Navigator.pop(context);
                         bottomDailog(
                             context: context,
-                            widget: GiftUserScreen(
+                            widget: GiftScreen(
                               roomData: widget.roomData,
                               userId: widget.userData.id.toString(),
                               myDataModel: widget.myData,
                               userImage: widget.userData.profile?.image ?? '',
+                              listAllUsers: null,
+                              isSingleUser: true,
                             ));
                       },
                       child: const ImageWithText(
@@ -381,7 +380,6 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                   ValueListenableBuilder<int>(
                       valueListenable: UserProfileInRoom.updatebuttomBar,
                       builder: (context, mute, _) {
-                        log("Mic $isOnMic");
                         return IconButton(
                             onPressed: () {
                               if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())) {

@@ -11,7 +11,6 @@ import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
 
 class UserRow extends StatelessWidget {
@@ -43,7 +42,7 @@ class UserRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(width:ConfigSize.defaultSize! ,),
-            UserImage(image: roomVistorModel.image,boxFit: BoxFit.cover,frame: roomVistorModel.frame,
+            UserImage(image: roomVistorModel.image!,boxFit: BoxFit.cover,frame: roomVistorModel.frame,
               frameId: roomVistorModel.frameId,
               imageSize: ConfigSize.defaultSize! * 5,
             ),
@@ -57,9 +56,9 @@ class UserRow extends StatelessWidget {
                 Row(
                   children: [
                     GradientTextVip(
-                      text: roomVistorModel.name,
+                      text: roomVistorModel.name!,
                       textStyle: Theme.of(context).textTheme.bodyLarge!,
-                      isVip: roomVistorModel.hasColorName,
+                      isVip: roomVistorModel.hasColorName!,
                     ),
                     SizedBox(
                       width: ConfigSize.defaultSize! * 2,
@@ -77,7 +76,7 @@ class UserRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       LevelContainer(
-                        image: roomVistorModel.revicerLevelImg,
+                        image: roomVistorModel.revicerLevelImg!,
                         width: ConfigSize.defaultSize!*5,
                         height: ConfigSize.defaultSize!*2,
                       ),
@@ -85,10 +84,10 @@ class UserRow extends StatelessWidget {
                       LevelContainer(
                         width: ConfigSize.defaultSize!*5,
                         height: ConfigSize.defaultSize!*2,
-                         image: roomVistorModel.senderLevelImg,
+                         image: roomVistorModel.senderLevelImg!,
                       ),             SizedBox(width:ConfigSize.defaultSize! ,),
                       AristocracyLevel(
-                        level: roomVistorModel.vipLevel,
+                        level: roomVistorModel.vipLevel!,
                       ),
                     ],
                   ),

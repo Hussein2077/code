@@ -16,6 +16,9 @@ import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
+import 'package:tik_chat_v2/features/room_audio/data/data_sorce/remotly_data_source_room.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/owner_room/owner_room.dart';
@@ -125,8 +128,8 @@ int appID =  0;
 class GiftData {
   final String giftId;
   final String img;
-  final UserDataModel senderData;
-  final UserDataModel reciverData;
+  final RoomVistorModel? senderData;
+  final RoomVistorModel? reciverData;
   final String giftBanner;
   final String giftImg;
   final String numberOfGift;
@@ -502,46 +505,42 @@ ShowPopularBanner(Map<String, dynamic> result, Map<String,dynamic>  userBannerDa
   RoomScreen.showBanner.value = true;
 }
 
-ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({required GiftData giftData}) loadMp4Gift, Future<void> Function(GiftData giftData) loadAnimationGift)async{
+ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({required GiftData giftData}) loadMp4Gift, Future<void> Function(GiftData giftData) loadAnimationGift, String roomOwnerId)async{
   String sendId = result[messageContent][sendIdKey].toString();
   String receiverId = result[messageContent][receiverIdKey].toString();
   if (sendId == id) {
     RoomScreen.myCoins.value = result[messageContent]['coins'];
   }
-  UserDataModel sendData = UserDataModel();
-  UserDataModel receiverData = UserDataModel();
+  List<RoomVistorModel> sendData = [];
+  List<RoomVistorModel> receiverData = [];
   if (result[messageContent][isExpensive]) {
     if (RoomScreen.usersInRoom[sendId] == null) {
-      sendData =
-          await RemotlyDataSourceProfile().getUserData(userId: sendId);
-      RoomScreen.usersInRoom.putIfAbsent(sendId, () => sendData);
+      sendData = await RemotlyDataSourceRoom().getRoomUser(pram: GetAlluserPram(roomOwnerId, "1", [sendId]));
+      RoomScreen.usersInRoom.putIfAbsent(sendId, () => sendData[0]);
     } else {
-      sendData = RoomScreen.usersInRoom[sendId]!;
+      sendData.add(RoomScreen.usersInRoom[sendId]!);
     }
 
     if (RoomScreen.usersInRoom[receiverId] == null) {
-      receiverData = await RemotlyDataSourceProfile()
-          .getUserData(userId: receiverId);
-      RoomScreen.usersInRoom.putIfAbsent(receiverId, () => receiverData);
+      receiverData = await RemotlyDataSourceRoom().getRoomUser(pram: GetAlluserPram(roomOwnerId, "1", [receiverId]));
+      RoomScreen.usersInRoom.putIfAbsent(receiverId, () => receiverData[0]);
     } else {
-      receiverData = RoomScreen.usersInRoom[receiverId]!;
+      receiverData.add(RoomScreen.usersInRoom[receiverId]!);
     }
   }
   Map<String, dynamic> cachedGifts = {};
   if (result[messageContent]['showGift'].contains("mp4")) {
-    cachedGifts =
-        await Methods().getCachingVideo(key: StringManager.cachGiftKey);
+    cachedGifts = await Methods().getCachingVideo(key: StringManager.cachGiftKey);
   }
 
   GiftData giftData = GiftData(
-      localPath: cachedGifts
-          .containsKey(result[messageContent]['gift_id'].toString())
+      localPath: cachedGifts.containsKey(result[messageContent]['gift_id'].toString())
           ? cachedGifts[result[messageContent]['gift_id'].toString()]
           : null,
       giftId: result[messageContent]['gift_id'].toString(),
       img: result[messageContent][showGiftKey],
-      senderData: sendData,
-      reciverData: receiverData,
+      senderData: sendData.isNotEmpty? sendData[0] : null,
+      reciverData: receiverData.isNotEmpty? receiverData[0] : null,
       giftBanner: result[messageContent][giftImgKey].toString(),
       giftImg: result[messageContent][showGiftKey],
       numberOfGift: result[messageContent][numGift].toString(),
@@ -549,22 +548,20 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
       result[messageContent][roomGiftsPriceKey].toString(),
       isPlural: result[messageContent][plural],
       showBanner: result[messageContent][isExpensive]);
-  if (cachedGifts
-      .containsKey(result[messageContent]['gift_id'].toString())) {
-    // RoomScreen.isGiftEntroAnimating = true;
-    if (RoomScreen.isGiftEntroAnimating) {
-      RoomScreen.listOfAnimatingMp4Gifts.add(giftData);
-    } else {
-      log("ttttt");
-      await loadMp4Gift(giftData: giftData);
-    }
-  } else {
-    if (RoomScreen.isGiftEntroAnimating) {
-      RoomScreen.listOfAnimatingGifts.add(giftData);
-    } else {
-      await loadAnimationGift(giftData);
-    }
-  }
+      if (cachedGifts.containsKey(result[messageContent]['gift_id'].toString())) {
+        // RoomScreen.isGiftEntroAnimating = true;
+        if (RoomScreen.isGiftEntroAnimating) {
+          RoomScreen.listOfAnimatingMp4Gifts.add(giftData);
+        } else {
+          await loadMp4Gift(giftData: giftData);
+        }
+      } else {
+        if (RoomScreen.isGiftEntroAnimating) {
+          RoomScreen.listOfAnimatingGifts.add(giftData);
+        } else {
+          await loadAnimationGift(giftData);
+        }
+      }
 }
 
 KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String id, BuildContext context){

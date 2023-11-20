@@ -1,17 +1,17 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 
 class GiftBannerWidget extends StatelessWidget {
-  UserDataModel sendDataUser;
-  UserDataModel receiverDataUser;
+  RoomVistorModel sendDataUser;
+  RoomVistorModel receiverDataUser;
   String giftImage;
   AnimationController controllerBanner;
   Animation<Offset> offsetAnimationBanner;
@@ -42,7 +42,7 @@ class GiftBannerWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     UserImage(
-                        image: sendDataUser.profile!.image!,
+                        image: sendDataUser.image!,
                         imageSize: AppPadding.p26),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -70,15 +70,15 @@ class GiftBannerWidget extends StatelessWidget {
                                         )),
                                   overflow: TextOverflow.ellipsis),
                             ),
-                            if (sendDataUser.level!.receiverImage! != '')
+                            if (sendDataUser.revicerLevelImg! != '')
                               LevelContainer(
-                                  image: sendDataUser.level!.receiverImage!),
-                            if (sendDataUser.level!.senderImage! != '')
+                                  image: sendDataUser.revicerLevelImg!),
+                            if (sendDataUser.senderLevelImg! != '')
                               LevelContainer(
-                                  image: sendDataUser.level!.senderImage!),
-                            if (sendDataUser.vip1 != null)
+                                  image: sendDataUser.senderLevelImg!),
+                            if (sendDataUser.vipLevel != null)
                               AristocracyLevel(
-                                level: sendDataUser.vip1!.level!,
+                                level: sendDataUser.vipLevel!,
                               )
                           ],
                         ),
@@ -121,7 +121,7 @@ class GiftBannerWidget extends StatelessWidget {
                       ],
                     ),
                     UserImage(
-                        image: receiverDataUser.profile!.image!,
+                        image: receiverDataUser.image!,
                         imageSize: AppPadding.p26),
                   ],
                 ),

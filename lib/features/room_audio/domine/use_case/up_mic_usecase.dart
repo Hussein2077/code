@@ -35,7 +35,7 @@ class UpMicrophonePramiter extends Equatable {
    this.userId, this.position ,  this.isSwitch});
 
   @override
-  List<Object?> get props =>[ownerId,userId,position];
+  List<Object?> get props =>[ownerId,userId,position,isSwitch];
 
 
 }

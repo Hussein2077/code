@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_bottom_bar.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_view_biger.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_user_only.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_states.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
@@ -19,11 +20,17 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.da
 class GiftScreen extends StatefulWidget {
   final MyDataModel  myDataModel;
   final EnterRoomModel roomData;
-  final List<ZegoUIKitUser> listAllUsers;
+  final List<ZegoUIKitUser>? listAllUsers;
+  final bool isSingleUser;
+  final String? userId;
+  final String? userImage;
   const GiftScreen(
       {required this.myDataModel,
       required this.listAllUsers,
       required this.roomData,
+      required this.isSingleUser,
+      required this.userId,
+      required this.userImage,
       super.key});
   static int giftId = 0;
   static int giftPrice = 0;
@@ -79,10 +86,14 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GiftUser(
-                        listAllUsers: widget.listAllUsers,
-                        ownerId: widget.roomData.ownerId.toString(),
-                      ),
+                widget.isSingleUser ? GiftUserOnly(
+                  userId: widget.userId!,
+                  ownerId: widget.roomData.ownerId.toString(),
+                  userImage: widget.userImage!,
+                ) : GiftUser(
+                  listAllUsers: widget.listAllUsers!,
+                  ownerId: widget.roomData.ownerId.toString(),
+                ),
                 TabBar(
                   isScrollable: true,
                     indicatorSize: TabBarIndicatorSize.label,
