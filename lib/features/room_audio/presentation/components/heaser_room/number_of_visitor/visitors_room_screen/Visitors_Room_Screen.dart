@@ -28,6 +28,7 @@ class VisitorsRoomScreen extends StatefulWidget {
   final EnterRoomModel roomData;
   final int numberOfVistor;
   final LayoutMode layoutMode;
+  static ValueNotifier<List<String?>> usersPlayMedia = ValueNotifier<List<String?>>([]);
 
   @override
   State<VisitorsRoomScreen> createState() => _VisitorsRoomScreenState();

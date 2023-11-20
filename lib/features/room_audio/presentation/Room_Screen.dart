@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
@@ -57,6 +58,9 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:video_player/video_player.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/data/event_handler.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
+
 
 class RoomScreen extends StatefulWidget {
   final EnterRoomModel room;
@@ -822,6 +826,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Directionality(
         textDirection: TextDirection.ltr,
         child: ZegoUIKitPrebuiltLiveAudioRoom(
