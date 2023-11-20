@@ -19,7 +19,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_control
 
 class SettingsButton extends StatefulWidget {
   final UserDataModel userData;
-  final MyDataModel myDataModel;
   final EnterRoomModel roomData;
   final LayoutMode layoutMode;
   final bool isOnMic;
@@ -35,7 +34,7 @@ class SettingsButton extends StatefulWidget {
       required this.isAdminOrHost,
       required this.isOnMic,
       required this.myProfrile,
-      super.key, required this.myDataModel});
+      super.key,});
 
   @override
   State<SettingsButton> createState() => _SettingsButtonState();
@@ -47,7 +46,7 @@ class _SettingsButtonState extends State<SettingsButton> {
     final List<String> items = [
       StringManager.mention.tr(),
       if (!widget.myProfrile) StringManager.reports.tr(),
-      if (widget.userData.id != widget.myDataModel.id && widget.userData.id != widget.roomData.ownerId) StringManager.admin.tr(),
+      if (widget.userData.id != MyDataModel.getInstance().id && widget.userData.id != widget.roomData.ownerId&&MyDataModel.getInstance().id==widget.roomData.ownerId) StringManager.admin.tr(),
       if (widget.isAdminOrHost)
         RoomScreen.banedUsers.containsKey(widget.userData.id.toString())
             ? StringManager.writeUnBan.tr()
