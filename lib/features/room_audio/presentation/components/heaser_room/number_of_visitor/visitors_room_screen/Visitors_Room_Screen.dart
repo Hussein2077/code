@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,9 +47,21 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
 
     super.initState();
   }
+  // ZegoUIKit().getMediaListStream()
+  // StreamBuilder<List<ZegoUIKitUser>>(
+  // stream: ZegoUIKit().getMediaListStream(),
+  // builder: (context, snapshot) {
+  // final mediaUsers = ZegoUIKit().getMediaList();
 
   @override
   Widget build(BuildContext context) {
+    final mediaUsers = ZegoUIKit().getMediaList();
+    final mediaUsers1 = ZegoUIKit().getMediaListStream();
+    log('${mediaUsers}mediaUsers[i]');
+    // for(int i =0; i<mediaUsers.length;i++){
+    //   log('${mediaUsers[i]}mediaUsers[i]');
+    // }
+    log('${mediaUsers1.toList().toString()}hhhhhhhh \n${mediaUsers1}');
     return BlocBuilder<RoomVistorBloc, RoomVistorState>(
         builder: (context, state) {
       if (state is GetRoomVistorSucssesState) {
@@ -64,6 +78,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
                       roomVistorModel: state.data![index],
                       layoutMode: widget.layoutMode,
                       roomData: widget.roomData,
+
                     );
                   }),
             )

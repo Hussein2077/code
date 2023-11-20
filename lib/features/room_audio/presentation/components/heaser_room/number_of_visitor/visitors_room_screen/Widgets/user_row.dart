@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -13,13 +16,15 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class UserRow extends StatelessWidget {
   final RoomVistorModel roomVistorModel;
   final LayoutMode layoutMode ;
   final EnterRoomModel roomData ;
 
-  const UserRow({super.key, required this.roomVistorModel, required this.layoutMode, required this.roomData});
+  const UserRow({super.key, required this.roomVistorModel, required this.layoutMode, required this.roomData,});
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +37,10 @@ class UserRow extends StatelessWidget {
               context: context,
               widget: GeneralRoomProfile(
 
-                  userId:roomVistorModel.id.toString() ,
-                  myData:MyDataModel.getInstance(),
-                  roomData:roomData,
-                  layoutMode:layoutMode,
+                userId:roomVistorModel.id.toString() ,
+                myData:MyDataModel.getInstance(),
+                roomData:roomData,
+                layoutMode:layoutMode,
               )
           );
         },
@@ -69,6 +74,23 @@ class UserRow extends StatelessWidget {
                       child: Icon(Icons.home, color: Colors.white, size: ConfigSize.defaultSize!*2,),
                     ),),
                     if(roomVistorModel.type == 1) Image.asset(AssetsPath.adminMark, scale: 2,),
+
+                          StreamBuilder<List<ZegoUIKitUser>>(
+                              stream: ZegoUIKit().getMediaListStream(),
+                              builder: (BuildContext context, AsyncSnapshot<List<ZegoUIKitUser>> snapshot){
+                                return Row(
+                                  children: [
+                                    if(snapshot.hasData)
+                                      for(int i =0; i<snapshot.data!.length;i++)
+                                        if(snapshot.data![i].id==roomVistorModel.id.toString())
+                                    const Icon(
+                                        Icons.music_note
+                                    ),
+                                  ],
+                                );
+                              }
+                          ),
+
                   ],
                 ),
                 SizedBox(
@@ -85,7 +107,7 @@ class UserRow extends StatelessWidget {
                       LevelContainer(
                         width: ConfigSize.defaultSize!*5,
                         height: ConfigSize.defaultSize!*2,
-                         image: roomVistorModel.senderLevelImg,
+                        image: roomVistorModel.senderLevelImg,
                       ),             SizedBox(width:ConfigSize.defaultSize! ,),
                       AristocracyLevel(
                         level: roomVistorModel.vipLevel,
