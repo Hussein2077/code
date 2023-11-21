@@ -31,8 +31,6 @@ class UserRow extends StatefulWidget {
 class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
   final mediaUsers = ZegoUIKit().getMediaList();
   bool isPlayingMusic =false;
-  late AnimationController controller;
-  late Animation<double> animation;
   @override
   void initState() {
 
