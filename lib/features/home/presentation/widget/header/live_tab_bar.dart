@@ -29,7 +29,7 @@ class _LiveTabBARState extends State<LiveTabBAR> {
       // width: ConfigSize.defaultSize! * 22,
       width: ConfigSize.defaultSize! * 15,
       child: TabBar(
-        indicatorSize: TabBarIndicatorSize.label,
+          indicatorSize: TabBarIndicatorSize.label,
         indicatorColor: ColorManager.whiteColor,
         indicatorPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
         controller: widget.liveController,
@@ -44,7 +44,7 @@ class _LiveTabBARState extends State<LiveTabBAR> {
                     AssetsPath.iconApp,
                     scale: 12,
                   )
-               
+
           ],
         ),
             // Row(

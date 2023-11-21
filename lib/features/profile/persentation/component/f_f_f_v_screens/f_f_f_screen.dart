@@ -48,7 +48,7 @@ class _FFFScreenState extends State<FFFScreen> {
       body: Column(
         children: [
           SizedBox(
-            height: ConfigSize.defaultSize! * 3.2,
+            height: ConfigSize.defaultSize! * 0.8,
           ),
           HeaderWithOnlyTitle(title: widget.title,titleColor: Colors.black,),
           BlocBuilder<GetFollowerOrFollowingBloc, GetFollowerOrFollowingState>(

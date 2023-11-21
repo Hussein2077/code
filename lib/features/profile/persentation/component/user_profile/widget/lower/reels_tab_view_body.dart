@@ -39,7 +39,7 @@ class _ReelsTabViewState extends State<ReelsTabView> {
 
   @override
   Widget build(BuildContext context) {
-    return ReelsBox(userDataModel: widget.userDataModel, scrollController: scrollController,);
+    return ReelsBox(isMyVideos: false,userDataModel: widget.userDataModel, scrollController: scrollController,);
 
   }
    void scrollListener() {
