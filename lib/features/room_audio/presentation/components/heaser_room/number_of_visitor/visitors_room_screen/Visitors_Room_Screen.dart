@@ -47,21 +47,9 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
 
     super.initState();
   }
-  // ZegoUIKit().getMediaListStream()
-  // StreamBuilder<List<ZegoUIKitUser>>(
-  // stream: ZegoUIKit().getMediaListStream(),
-  // builder: (context, snapshot) {
-  // final mediaUsers = ZegoUIKit().getMediaList();
 
   @override
   Widget build(BuildContext context) {
-    final mediaUsers = ZegoUIKit().getMediaList();
-    final mediaUsers1 = ZegoUIKit().getMediaListStream();
-    log('${mediaUsers}mediaUsers[i]');
-    // for(int i =0; i<mediaUsers.length;i++){
-    //   log('${mediaUsers[i]}mediaUsers[i]');
-    // }
-    log('${mediaUsers1.toList().toString()}hhhhhhhh \n${mediaUsers1}');
     return BlocBuilder<RoomVistorBloc, RoomVistorState>(
         builder: (context, state) {
       if (state is GetRoomVistorSucssesState) {
