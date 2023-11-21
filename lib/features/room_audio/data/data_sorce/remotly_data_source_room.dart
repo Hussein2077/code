@@ -157,12 +157,13 @@ static String uploadImagePrice = "" ;
     Map<String, String> headers = await DioHelper().header();
     String? users;
     final body;
-    log(pram.ownerId);
+
     if (pram.usersId != null) {
       users = pram.usersId!.join(',');
     }
     if (pram.usersId != null) {
-      body = {'page': pram.page, 'owner_id': pram.ownerId,
+      body = {
+        'page': pram.page, 'owner_id': pram.ownerId,
         "users": users
       };
     } else {

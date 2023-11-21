@@ -129,18 +129,13 @@ class AduioLiveRow extends StatelessWidget {
                       Row(
                         children: [
                           RoomTypeWidget(
-                              style: style, type: room.type!.name ?? ""),
+                              style: style, type: room.type!.name),
                           SizedBox(
                             width: ConfigSize.defaultSize,
                           ),
                           Text(room.country!,style: TextStyle(
                             fontSize: ConfigSize.defaultSize!*1.7
                           )),
-                     /*CachedNetworkImage(
-                            imageUrl: room.country!,
-                            width: ConfigSize.defaultSize! * 2.4,
-                            height: ConfigSize.defaultSize! * 2.4,
-                          ),*/
                         ],
                       )
                     ],

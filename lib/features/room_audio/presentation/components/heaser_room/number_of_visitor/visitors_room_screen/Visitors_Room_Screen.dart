@@ -59,6 +59,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
             Expanded(
               child: ListView.builder(
                   itemCount: state.data!.length,
+                  controller: scrollController,
                   itemBuilder: (context, index) {
                     return UserRow(
                       roomVistorModel: state.data![index],

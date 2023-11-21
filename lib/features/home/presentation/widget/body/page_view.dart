@@ -10,10 +10,10 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/home/data/model/carousels_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -52,15 +52,29 @@ class _PageViewWidgetState extends State<PageViewWidget> {
 
         }
         else if(widget.carouselsList[i].ownerId!=0){
-          await Methods().checkIfRoomHasPassword(
-            myData: MyDataModel.getInstance(),
-            context: context,
-            hasPassword: widget.carouselsList[i].hasPassword,
-            ownerId:
-            widget.carouselsList[i].ownerId.toString(),
-          );
-        }
 
+          if (widget.carouselsList[i].hasPassword) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return Dialog(
+                    insetPadding: EdgeInsets.symmetric(
+                        horizontal: ConfigSize.defaultSize! * 5),
+                    backgroundColor: Colors.transparent,
+                    child: EnterPasswordRoomDialog(
+                      myData: MyDataModel.getInstance(),
+                      ownerId: widget.carouselsList[i].ownerId.toString(),
+                    ),
+                  );
+                });
+          } else {
+            Navigator.pushNamed(context, Routes.roomHandler,
+                arguments: RoomHandlerPramiter(
+                    ownerRoomId: widget.carouselsList[i].ownerId.toString(),
+                    myDataModel: MyDataModel.getInstance()));
+          }
+
+        }
           },
           child: Container(
             decoration: BoxDecoration(
