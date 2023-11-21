@@ -53,8 +53,8 @@ class OtpScreen extends StatelessWidget {
               const Spacer(
                 flex: 4,
               ),
-              const HeaderWithOnlyTitle(
-                title: StringManager.enterTheVerificatiOnCode,
+               HeaderWithOnlyTitle(
+                title: StringManager.enterTheVerificatiOnCode.tr(),
               ),
               const Spacer(
                 flex: 7,

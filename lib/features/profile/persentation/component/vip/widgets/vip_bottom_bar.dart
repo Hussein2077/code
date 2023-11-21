@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/Dailog_Method.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/vip/widgets/send_item_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_event.dart';
 
@@ -52,7 +54,7 @@ class VipBottomBar extends StatelessWidget {
             width: ConfigSize.defaultSize! * 7,
             height: ConfigSize.defaultSize! * 3,
             onTap: () {
-              // bottomDailog(context: context, widget: widget)
+              showSendDialog(context, itemId: id);
             },
             title: StringManager.send.tr(),
             buttonColor: ColorManager.bageGriedinet,
@@ -86,5 +88,20 @@ class VipBottomBar extends StatelessWidget {
         ],
       ),
     );
+  }
+  showSendDialog(
+      BuildContext context, {
+        required String itemId,
+
+      }) {
+    return dailogRoom(
+        context: context,
+        widget: SizedBox(
+          height: ConfigSize.defaultSize! * 45.0,
+          child: SendItemWidgetVip(
+            itemId: itemId,
+          ),
+        ),
+        color: ColorManager.darkBlack);
   }
 }

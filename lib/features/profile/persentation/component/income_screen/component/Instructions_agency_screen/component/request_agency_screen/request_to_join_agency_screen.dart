@@ -36,11 +36,11 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
       body: BlocListener<JoinToAgencieBloc, JoinToAgencieState>(
         listener: (context, state) {
           if (state is JoinToAgencieLoadingState) {
-            loadingToast(context: context, title: StringManager.loading);
+            loadingToast(context: context, title: StringManager.loading.tr());
           } else if (state is JoinToAgencieErrorState) {
             errorToast(context: context, title: state.error);
           } else if (state is JoinToAgencieSucssesState) {
-            sucssesToast(context: context, title: StringManager.done);
+            sucssesToast(context: context, title: StringManager.done.tr());
           }
         },
         child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
@@ -204,11 +204,11 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                     if (agencyId.text.isEmpty) {
                                       errorToast(
                                           context: context,
-                                          title: StringManager.pleaseEnterAgencyID);
+                                          title: StringManager.pleaseEnterAgencyID.tr());
                                     } else if (number.text.isEmpty) {
                                       errorToast(
                                           context: context,
-                                          title: StringManager.pleaseEnterPhoneNum);
+                                          title: StringManager.pleaseEnterPhoneNum.tr());
                                     } else {
                                       BlocProvider.of<JoinToAgencieBloc>(context).add(JoinToAgencieEvent(
                                               agencieId: agencyId.text,

@@ -77,11 +77,11 @@ class _LoginScreenState extends State<LoginScreen> {
             context: context,
             builder: (context) {
               return PopUpDialog(
-                headerText: StringManager.anotherAccountLoggedIn,
+                headerText: StringManager.anotherAccountLoggedIn.tr(),
                 accpetText: () {
                   Navigator.pop(context);
                 },
-                accpettitle: StringManager.ok,
+                accpettitle: StringManager.ok.tr(),
               );
             });
       });

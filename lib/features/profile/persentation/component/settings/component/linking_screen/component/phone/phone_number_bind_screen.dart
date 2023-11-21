@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -42,7 +43,7 @@ class _PhoneNumberBindScreenState extends State<PhoneNumberBindScreen> {
           children: [
             const Spacer(flex: 1,),
          
-         Text(StringManager.pleaseEnterNewPhoneNum , style: Theme.of(context).textTheme.bodyLarge,),
+         Text(StringManager.pleaseEnterNewPhoneNum.tr() , style: Theme.of(context).textTheme.bodyLarge,),
                   const Spacer(flex: 1,),
 
       const PhoneWithCountry(),
@@ -55,7 +56,7 @@ class _PhoneNumberBindScreenState extends State<PhoneNumberBindScreen> {
                             width: MediaQuery.of(context).size.width - 140,
                             child: TextFieldWidget(
                                 hintColor: Colors.black.withOpacity(0.6),
-                                hintText: StringManager.password,
+                                hintText: StringManager.password.tr(),
                                 controller: passWordController))),
                                             const Spacer(flex: 3,),
 
@@ -63,7 +64,7 @@ class _PhoneNumberBindScreenState extends State<PhoneNumberBindScreen> {
                                 MainButton(onTap: (){  
 
    if (PhoneWithCountry.number.dialCode == null) {
-                               warningToast(context: context, title: StringManager.pleaseSelectYourCountry);
+                               warningToast(context: context, title: StringManager.pleaseSelectYourCountry.tr());
 
                                   } else {
                                     if (PhoneWithCountry.phoneIsValid &&
@@ -80,12 +81,12 @@ class _PhoneNumberBindScreenState extends State<PhoneNumberBindScreen> {
                     } else {
                       warningToast(
                           context: context,
-                          title: StringManager.pleaseEnterPassword);
+                          title: StringManager.pleaseEnterPassword.tr());
                     }
                   }
 
                                 
-                                }, title: StringManager.done),
+                                }, title: StringManager.done.tr()),
                                             const Spacer(flex: 5,),
 
            

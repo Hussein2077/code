@@ -36,7 +36,7 @@ class OwnerAgencyBody extends StatelessWidget {
 
                 agencyCard(
                   context: context ,
-                  title: StringManager.reports.tr() ,
+                  title: StringManager.report.tr() ,
                   widget: const Icon(Icons.report,color: Colors.amber),
                   onTap: () => Navigator.pushNamed(context, Routes.agencyRepoertsScreen),),
 

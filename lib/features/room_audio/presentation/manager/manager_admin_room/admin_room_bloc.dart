@@ -28,7 +28,7 @@ class AdminRoomBloc extends Bloc<AdminRoomEvents,AdminRoomStates>{
     emit(LoadindAddAdminRoomState());
     final result =await addAdminUC.call(event.ownerId, event.userId);
 
-    result.fold((l) => emit(SuccessAddAdminRoomState()),
+    result.fold((l) => emit(SuccessAddAdminRoomState(sussesMessage: l)),
             (r) => emit(ErrorAddAdminRoomState(errorMessage: DioHelper().getTypeOfFailure(r))));
   }
 
