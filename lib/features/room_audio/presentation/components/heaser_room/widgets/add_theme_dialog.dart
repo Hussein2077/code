@@ -91,7 +91,7 @@ class _AddThemeImageState extends State<AddThemeImage> {
           MainButton(
             onTap: () {
               if (AddThemeImage.xFile == null) {
-                errorToast(context: context, title: StringManager.pleaseAddPhoto);
+                errorToast(context: context, title: StringManager.pleaseAddPhoto.tr());
               } else if (AddThemeImage.xFile != null) {
                 BlocProvider.of<AddRoomBackgroundBloc>(context)
                     .add(AddRoomBackgroundEvent(roomBackGround: _image!));

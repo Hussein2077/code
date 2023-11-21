@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -57,7 +58,7 @@ Future<UserCredential?> verifyOTP(String otp,BuildContext context )async{
 
     return credential ;
   }catch(e) {
-                              errorToast(context: context, title: StringManager.wrongCode);
+                              errorToast(context: context, title: StringManager.wrongCode.tr());
 
   
   }

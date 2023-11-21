@@ -101,7 +101,7 @@ class MomentScreenState extends State<MomentScreen>
           if (state is MomentSendGiftSucssesState) {
 
             MomentController.getInstance.giftController(context);
-            sucssesToast(context: context, title: StringManager.sucsses);
+            sucssesToast(context: context, title: state.sucssesMessage);
           }
           else if (state is MomentSEndGiftErrorState) {
 

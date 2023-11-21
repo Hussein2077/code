@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:persian_linear_date_picker/persian_linear_date_picker.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -11,7 +12,7 @@ import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widget
 
 class DateWidget extends StatefulWidget {
   const DateWidget({super.key});
-  static String selectedDatee = StringManager.birthdayDate;
+  static String selectedDatee = StringManager.birthdayDate.tr();
 
   @override
   State<DateWidget> createState() => _DateWidgetState();
@@ -67,7 +68,7 @@ class _DateWidgetState extends State<DateWidget> {
                           rebuild();
                    },
                    
-                   title: StringManager.done,
+                   title: StringManager.done.tr(),
                    )
                   ],
                 )),

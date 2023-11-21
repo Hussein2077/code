@@ -43,7 +43,7 @@ class UserProfileInRoom extends StatefulWidget {
   final LayoutMode layoutMode;
 
 
-  const UserProfileInRoom(
+   UserProfileInRoom(
       {required this.roomData,
       required this.myData,
       required this.userData,
@@ -94,7 +94,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
         Container(
           height:isAdminOrHost? ConfigSize.screenHeight! * .45:ConfigSize.screenHeight! * .45,
           decoration: BoxDecoration(
-              color: const Color(0xFFFFFCE4),
+              color:  Color(0xFFFFFCE4),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(
                     ConfigSize.defaultSize! * 2.0,
@@ -176,7 +176,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                                 vertical:   ConfigSize.defaultSize! * 0.2,
                                 horizontal: ConfigSize.defaultSize! * 1   ),
                             decoration: BoxDecoration(
-                                gradient: const LinearGradient(
+                                gradient:  LinearGradient(
                                     colors: ColorManager.mainColorList),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Row(
@@ -232,7 +232,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                           if (isShow) {
                             return GifImage(
                               controller: flutterGifController,
-                              image: const AssetImage(AssetsPath.verified),
+                              image:  AssetImage(AssetsPath.verified),
                               width: ConfigSize.defaultSize!*4,
                               height: ConfigSize.defaultSize!*4,
                             );
@@ -255,7 +255,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                     //   text: StringManager.follow,
                     // ),
                     // //Friend REQUEST ICON
-                    // const IconWithText(
+                    //  IconWithText(
                     //   image: AssetsPath.friendRequestIconProfile,
                     //   text: StringManager.addFriend,
                     // ),
@@ -274,9 +274,9 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                               isSingleUser: true,
                             ));
                       },
-                      child: const ImageWithText(
+                      child:  ImageWithText(
                         image: AssetsPath.sendGiftIconProfile,
-                        text: StringManager.sendGift,
+                        text: StringManager.sendGift.tr(),
                       ),
                     ),
 
@@ -291,7 +291,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                             horizontal: ConfigSize.defaultSize! * 4.2,
                             vertical: ConfigSize.defaultSize! * 1.5,
                           ),
-                          decoration: const BoxDecoration(
+                          decoration:  BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.contain,
                                   image: AssetImage(
@@ -301,7 +301,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                             padding: EdgeInsets.only(
                               left: ConfigSize.defaultSize! * 2.5,
                             ),
-                            child: const Text(StringManager.talk,
+                            child:  Text(StringManager.talk.tr(),
                                 textAlign: TextAlign.right),
                           )),
                     ),
@@ -443,7 +443,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
   void Function()? follow (){
     flutterGifController.reset();
     flutterGifController.repeat(
-        min: 0,max: 30,   period: const Duration(milliseconds: 2000));
+        min: 0,max: 30,   period:  Duration(milliseconds: 2000));
     followAneimate.value = !followAneimate.value;
 
     localisFollow
@@ -452,7 +452,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
       : BlocProvider.of<FollowBloc>(context)
       .add(FollowEvent(userId: widget.userData.id.toString()));
     localisFollow = !localisFollow ;
-    Future.delayed(const Duration(milliseconds:1800 ), () async {
+    Future.delayed( Duration(milliseconds:1800 ), () async {
       flutterGifController.stop();
       followAneimate.value = !followAneimate.value;
 

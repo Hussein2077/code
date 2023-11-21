@@ -63,7 +63,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: MediaQuery.of(context).size.width - 140,
                   child: TextFieldWidget(
                       hintColor: Colors.black.withOpacity(0.6),
-                      hintText: StringManager.password,
+                      hintText: StringManager.password.tr(),
                       controller: passwordController))),
           const Spacer(
             flex: 2,
@@ -73,7 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               if (PhoneWithCountry.number.dialCode == null) {
                 warningToast(
                     context: context,
-                    title: StringManager.pleaseSelectYourCountry);
+                    title: StringManager.pleaseSelectYourCountry.tr());
               } else {
                 if (PhoneWithCountry.phoneIsValid) {
                   getIt<FireBaseDataSource>().phoneAuthentication(
@@ -85,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           phone: PhoneWithCountry.number.phoneNumber!));
                 } else {
                   warningToast(
-                      context: context, title: StringManager.enterPhoneNum);
+                      context: context, title: StringManager.enterPhoneNum.tr());
                 }
               }
             },

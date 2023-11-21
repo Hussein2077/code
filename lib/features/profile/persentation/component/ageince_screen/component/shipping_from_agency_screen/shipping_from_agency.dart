@@ -58,7 +58,7 @@ class _CharchingDolarsForUsersState extends State<CharchingDolarsForUsers> {
     return BlocListener<ChargeDolarsForUserBloc, ChargeDolarsForUserState>(
       listener: (context, state) {
         if (state is ChargeDolarsForUserLoadingState) {
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         } else if (state is ChargeDolarsForUserSucssesState) {
           sucssesToast(context: context, title: state.message);
           BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
@@ -210,11 +210,11 @@ class _CharchingDolarsForUsersState extends State<CharchingDolarsForUsers> {
                                 if (userID.text.isEmpty) {
                                   errorToast(
                                       context: context,
-                                      title: StringManager.pleaseEnterID);
+                                      title: StringManager.pleaseEnterID.tr());
                                 } else if (withdrawalAmount.text.isEmpty) {
                                   errorToast(
                                       context: context,
-                                      title: StringManager.pleaseEnterquantity);
+                                      title: StringManager.pleaseEnterquantity.tr());
                                 } else {
                                   BlocProvider.of<ChargeDolarsForUserBloc>(context).add(
                                       ChargeDolarsForUserEvent(

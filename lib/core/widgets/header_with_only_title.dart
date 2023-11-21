@@ -22,15 +22,13 @@ class HeaderWithOnlyTitle extends StatelessWidget {
           icon: Icon(
             Icons.arrow_back_ios,
             size: ConfigSize.defaultSize! * 3,
-            color: arrowColor??Colors.black,
+              color: Theme.of(context).iconTheme.color,
           ),
           color: titleColor ?? Colors.white,
         ),
         titleColor == null
-            ? Text(title, style: TextStyle(
-          color: Colors.black,
-          fontSize:  ConfigSize.defaultSize!*2,
-        ))
+            ? Text(title, style:Theme.of(context).textTheme.headlineMedium
+        )
             : Text(title,
                 style: TextStyle(
                     color: titleColor, fontSize: ConfigSize.defaultSize! * 2)),

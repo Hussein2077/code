@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -40,7 +41,7 @@ String? countryName ;
             Row(
               children: [
                                     CountryWidget.countryFlag == null
-                                        ? Text(StringManager.selectyourCountry,
+                                        ? Text(StringManager.selectyourCountry.tr(),
                                             style: TextStyle(
                                               color: Colors.grey,
                                                 fontSize: ConfigSize.defaultSize!*1.8))

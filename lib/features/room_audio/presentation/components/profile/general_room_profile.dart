@@ -48,7 +48,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
       listener: (context, state) {
         if (state is SuccessAddAdminRoomState) {
-          sucssesToast(context: context, title: StringManager.beComeAdmin.tr());
+          sucssesToast(context: context, title:state.sussesMessage);
         } else if (state is ErrorAddAdminRoomState) {
           errorToast(context: context, title: state.errorMessage);
         }

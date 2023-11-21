@@ -48,7 +48,7 @@ class _BackGroundState extends State<BackGround> {
       listener: (context, state) {
         if (state is AddRoomBackgroundSucsses) {
           sucssesToast(
-              context: context, title: StringManager.yourThemeIsUpload);
+              context: context, title: StringManager.yourThemeIsUpload.tr());
 
           Future.delayed(const Duration(milliseconds: 200), () {
             Navigator.pop(context);

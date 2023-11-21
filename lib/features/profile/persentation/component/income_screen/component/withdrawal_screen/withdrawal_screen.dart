@@ -29,7 +29,7 @@ class CashWithdrawal extends StatelessWidget {
     return BlocListener<ChargeToBloc, ChargeToState>(
       listener: (context, state) {
         if (state is ChargeToLoadingState) {
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         } else if (state is ChargeToSuccessState) {
           sucssesToast(context: context, title: state.chargeToModel.message);
           BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
@@ -162,7 +162,7 @@ class CashWithdrawal extends StatelessWidget {
                         } else if (withdrawalAmount.text.isEmpty) {
                           errorToast(
                               context: context,
-                              title: StringManager.pleaseEnterquantity);
+                              title: StringManager.pleaseEnterquantity.tr());
                         } else {
                           BlocProvider.of<ChargeToBloc>(context).add(SendCharge(
                               uId: userID.text, usd: withdrawalAmount.text));
