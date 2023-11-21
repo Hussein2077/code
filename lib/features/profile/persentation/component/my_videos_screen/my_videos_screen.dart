@@ -38,6 +38,7 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
 
 
       body: ReelsBox(
+        isMyVideos: true,
           userDataModel: widget.userDataModel,
           scrollController: scrollController),
     );

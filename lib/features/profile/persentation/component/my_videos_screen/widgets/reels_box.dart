@@ -28,9 +28,10 @@ class ReelsBox extends StatefulWidget {
   static Map<String, bool> likedVideos = {};
   static Map<String, int> likedVideoCount = {};
   static bool loading = false;
+  final bool isMyVideos ;
 
   const ReelsBox(
-      {super.key, required this.userDataModel, required this.scrollController});
+      {super.key, required this.userDataModel,required this.isMyVideos, required this.scrollController});
 
   @override
   State<ReelsBox> createState() => _ReelsBoxState();
@@ -86,6 +87,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
           ReelsBox.loading = state.loadMore;
           return Column(
             children: [
+              if(widget.isMyVideos)
               SizedBox(
                 width: ConfigSize.screenWidth,
                 height: ConfigSize.defaultSize!*5,

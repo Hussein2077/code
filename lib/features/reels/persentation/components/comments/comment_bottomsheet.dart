@@ -99,6 +99,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                   if (state.data!.isNotEmpty)
                     Expanded(
                       child: ListView.builder(
+                        reverse:true ,
                         controller: scrollController,
                         padding: EdgeInsets.only(
                             left: ConfigSize.defaultSize! * 1.6,
@@ -196,6 +197,8 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                     if (commentListtemp.isNotEmpty)
                       Expanded(
                         child: ListView.builder(
+                          reverse:true ,
+
                           controller: scrollController,
                           padding: EdgeInsets.only(
                               left: ConfigSize.defaultSize! * 1.6,

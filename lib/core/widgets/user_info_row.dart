@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_sen
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_buy_send_vip/bloc/buy_or_send_vip_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bloc/send_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bloc/send_event.dart';
+
 import 'user_country_icon.dart';
 import 'user_image.dart';
 
@@ -93,12 +94,13 @@ class UserInfoRow extends StatelessWidget {
                   isVip: userData.hasColorName!,
                 ),
                 SizedBox(
-                  width: underNameWidth ?? ConfigSize.screenWidth! - 240,
+                  width: underNameWidth ??
+                      ConfigSize.screenWidth! - ConfigSize.defaultSize! * 16,
                   child: underName ??
                       Row(
                         children: [
                           MaleFemaleIcon(
-                            width: ConfigSize.defaultSize! * 3.7,
+                            width: ConfigSize.defaultSize! * 4,
                             height: ConfigSize.defaultSize! * 1.5,
                             maleOrFeamle: userData.profile!.gender,
                             age: userData.profile!.age,
@@ -112,25 +114,30 @@ class UserInfoRow extends StatelessWidget {
                                 fontSize: ConfigSize.defaultSize! * 1.5,
                                 country: userData.profile!.country),
                           SizedBox(width: ConfigSize.defaultSize! * 0.4),
-
-                          LevelContainer(
-                            fit: BoxFit.fill,
-                            width: ConfigSize.defaultSize! * 4,
-                            height: ConfigSize.defaultSize! * 1.5,
-                            image: userData.level!.receiverImage!,
-                          ),
-                          AristocracyLevel(
-                            level: userData.vip1!.level!,
-                          ),
+                          if (userData.level!.receiverImage != '')
+                            LevelContainer(
+                              fit: BoxFit.fill,
+                              width: ConfigSize.defaultSize! * 4,
+                              height: ConfigSize.defaultSize! * 1.5,
+                              image: userData.level!.receiverImage!,
+                            ),
+                          if (userData.vip1!.level != 0)
+                            AristocracyLevel(
+                              level: userData.vip1!.level!,
+                            ),
                           SizedBox(
                             width: ConfigSize.defaultSize! * .5,
                           ),
                           idOrNot != null
-                              ? idOrNot!:
-                              userData.isGold?
-                          ShimmerId(id: userData.uuid.toString(),style: Theme.of(context).textTheme.titleSmall,)
-                              :
-                              Text(
+                              ? idOrNot!
+                              : userData.isGold
+                                  ? ShimmerId(
+                                      id: userData.uuid.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    )
+                                  : Text(
                                 "ID ${userData.uuid.toString()}",
                                 style: Theme.of(context).textTheme.titleSmall,
                               )
