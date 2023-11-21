@@ -31,6 +31,7 @@ import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dar
 import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 final GlobalKey keyForUploadVideo = GlobalKey();
 final GlobalKey keyForSwapInCenter = GlobalKey();
@@ -52,6 +53,7 @@ class ReelsScreenState extends State<ReelsScreen> {
   @override
   void initState() {
     report = TextEditingController();
+    WakelockPlus.enable();
     if (SplashScreen.initPage == 1) {
       BlocProvider.of<GetReelsBloc>(context)
           .add(GetReelsEvent(reelId: MainScreen.reelId));
@@ -66,7 +68,7 @@ class ReelsScreenState extends State<ReelsScreen> {
   @override
   void dispose() {
     report.dispose();
-
+    WakelockPlus.disable();
     super.dispose();
   }
 
