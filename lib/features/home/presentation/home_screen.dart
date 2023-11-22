@@ -130,13 +130,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     colors: ColorManager.mainColorList),
               ),
               child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
-
-
-
-
             ),
           ),
-                GroupChatCounterWidget()
+                const GroupChatCounterWidget()
               ],
 
             ),

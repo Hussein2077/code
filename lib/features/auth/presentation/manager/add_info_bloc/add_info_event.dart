@@ -17,11 +17,10 @@ class AddInfoEvent extends BaseAddInfoEvent {
   final String? date ;
   final File? image ;
   final String gender ;
-  final String country;
-  final String? countryCode ;
+  final int? countryID ;
   final String? age ;
 
-   const AddInfoEvent({ this.bio ,  required  this.gender, required this.country
-    ,required  this.name,  this.date, this.countryCode,
+   const AddInfoEvent( { this.bio ,  required  this.gender
+    ,required  this.name,  this.date, this.countryID,
     this.image, this.age});
 }

@@ -27,7 +27,7 @@ class ConstentApi {
   static const String enterRoom = "$baseUrl/rooms/enter_room";
   static const String exitRoom = "$baseUrl/rooms/quit_room";
   static const String getAllMainClasses = "$baseUrl/room_category/classes";
-  static const String getCountryUrl = "$baseUrl/countries";
+  static const String getCountryUrl = "$baseUrl/room-countries";
   static const String getAllRoomTypes = "$baseUrl/room_category/types";
   static const String getBcakground = "$baseUrl/backgrounds";
   static const String getOfficialMsgs = "$baseUrl/community/official_messages";
@@ -41,6 +41,7 @@ class ConstentApi {
   static const String emptyHistory = "$baseUrl/search/clean_search_history";
   static const String removePassRoom = "$baseUrl/rooms/remove_pass";
   static const String deleteAccount = "$baseUrl/account/delete";
+  static const String getAllCountries = "$baseUrl/auth/all-countries";
   static const String boundAccount = "$baseUrl/account/bind";
   static const String changePassword = "$baseUrl/account/reset_password";
   static const String changePhone = "$baseUrl/account/change_phone";

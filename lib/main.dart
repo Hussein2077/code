@@ -15,6 +15,7 @@ import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_policy/privacy_policy_bloc.dart';
@@ -509,6 +510,7 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<PostGroupChatBloc>()),
         BlocProvider(create: (_) => getIt<FirebaseLoginBloc>()),
         BlocProvider(create: (_) => getIt<ReportMomentBloc>()),
+        BlocProvider(create: (_) => getIt<GetAllCountriesBloc>()),
 
 
 

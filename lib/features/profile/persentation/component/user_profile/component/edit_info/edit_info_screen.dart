@@ -67,11 +67,10 @@ class EditInfoScreen extends StatelessWidget {
                               bio: UserInfoWidget.bioController!.text,
                               date: UserInfoWidget.age == null ? null : UserInfoWidget.age!,
                               gender: UserInfoWidget.gender!.toString(),
-                              country: CountryWidget.countryFlag!,
                               name: UserInfoWidget.nameController!.text,
                               image: AddProFilePic.image == null
                                   ? null
-                                  : File(AddProFilePic.image!.path)));
+                                  : File(AddProFilePic.image!.path), countryID: 0));
                         },
                         title: StringManager.save.tr(),
                       )

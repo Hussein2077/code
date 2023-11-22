@@ -113,6 +113,7 @@ dependencies:
   transparent_image: ^2.0.1
   ffmpeg_kit_flutter: ^6.0.3
   showcaseview: ^2.0.3
+  dropdown_search: ^5.0.6
 
 dev_dependencies:
   flutter_test:

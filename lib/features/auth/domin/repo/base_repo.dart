@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
+import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
@@ -32,5 +33,6 @@ abstract class BaseRepository {
        );
   Future<Either<String, Failure>> privacyPolicy();
   Future<Either<String, Failure>> deleteAccount();
+  Future<Either<GetAllCountriesBase, Failure>> getAllCountries();
 
 }
