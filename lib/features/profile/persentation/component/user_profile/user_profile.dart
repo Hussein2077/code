@@ -38,7 +38,8 @@ class _UserProfileState extends State<UserProfile> {
       BlocProvider.of<GetUserBloc>(context)
           .add(GetuserEvent(userId: widget.userId!,isVisit: true));
  
-    } else if (widget.userData != null) {
+    }
+    else if (widget.userData != null) {
 
       
       myProfile = false;
@@ -52,7 +53,6 @@ class _UserProfileState extends State<UserProfile> {
   }
   @override
   void dispose() {
-
     LowerProfileBody.getUserReels = true;
     super.dispose();
   }

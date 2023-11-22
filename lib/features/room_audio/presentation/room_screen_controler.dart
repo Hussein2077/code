@@ -505,7 +505,10 @@ ShowPopularBanner(Map<String, dynamic> result, Map<String,dynamic>  userBannerDa
   RoomScreen.showBanner.value = true;
 }
 
-ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({required GiftData giftData}) loadMp4Gift, Future<void> Function(GiftData giftData) loadAnimationGift, String roomOwnerId)async{
+ShowGifts(Map<String, dynamic> result, String id,
+    Future<void> Function({required GiftData giftData}) loadMp4Gift,
+    Future<void> Function(GiftData giftData) loadAnimationGift,
+    String roomOwnerId)async{
   String sendId = result[messageContent][sendIdKey].toString();
   String receiverId = result[messageContent][receiverIdKey].toString();
   if (sendId == id) {
@@ -548,7 +551,8 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
       result[messageContent][roomGiftsPriceKey].toString(),
       isPlural: result[messageContent][plural],
       showBanner: result[messageContent][isExpensive]);
-      if (cachedGifts.containsKey(result[messageContent]['gift_id'].toString())) {
+      if (cachedGifts.containsKey(result[messageContent]['gift_id'].toString())||
+          result[messageContent]['showGift'].contains("mp4"))  {
         // RoomScreen.isGiftEntroAnimating = true;
         if (RoomScreen.isGiftEntroAnimating) {
           RoomScreen.listOfAnimatingMp4Gifts.add(giftData);
@@ -558,7 +562,8 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
       } else {
         if (RoomScreen.isGiftEntroAnimating) {
           RoomScreen.listOfAnimatingGifts.add(giftData);
-        } else {
+        }
+        else {
           await loadAnimationGift(giftData);
         }
       }

@@ -684,6 +684,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             timeEmojie: result[messageContent]['t_length']);
       }
       else if (result[messageContent][message] == showGifts) {
+
         ShowGifts(result, widget.myDataModel.id.toString(), loadMp4Gift, loadAnimationGift, widget.room.ownerId.toString());
       }
       else if (result[messageContent][message] == kicKoutKey) {
@@ -985,7 +986,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     if (message.timestamp < value) {
                       return const SizedBox.shrink();
                     }
-                    if (message.user.inRoomAttributes.value['sen'] == null && MessagesChached.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
+                    if (message.user.inRoomAttributes.value['sen'] == null &&
+                        MessagesChached.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
                       if (kDebugMode) {
                         log("wait 2 sec to load more in formation about user");
                       }
