@@ -62,6 +62,7 @@ class GiftUserState extends State<GiftUser> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
+              width: ConfigSize.defaultSize!*33,
               padding: EdgeInsets.only(top: ConfigSize.defaultSize!),
               height: ConfigSize.defaultSize! * 7,
               child:
@@ -153,8 +154,8 @@ class GiftUserState extends State<GiftUser> {
                                             color: ColorManager.whiteColor),
                                         child:Center(
                                           child: Text(
-                                            mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id] == null ? "0" : "${mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id]}",
-                                            style:  TextStyle(fontSize: AppPadding.p8),
+                                            mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id] == null ? "0" : "${mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id]!+1}",
+                                            style:  TextStyle(fontSize: AppPadding.p8,color: Colors.black),
                                           ),
                                         )
                                     ),

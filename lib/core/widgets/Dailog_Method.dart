@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 Future<void> dailogRoom({
   required BuildContext context,
@@ -8,9 +9,7 @@ Future<void> dailogRoom({
   return showGeneralDialog(
       context: context,
       barrierLabel: "",
-      barrierDismissible: true,
       transitionDuration: const Duration(milliseconds: 400),
-      barrierColor: Colors.transparent,
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return fromBottom(animation, secondaryAnimation, child);
       },
@@ -18,6 +17,11 @@ Future<void> dailogRoom({
         return Align(
           alignment: const Alignment(0, 1),
           child: Material(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
+              side: const BorderSide(color: Colors.blue, width: 1),
+            ),
+            color: color ?? Colors.white,
             type: MaterialType.transparency,
             child: widget,
           ),

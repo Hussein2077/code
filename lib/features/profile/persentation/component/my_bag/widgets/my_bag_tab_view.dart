@@ -7,6 +7,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -54,8 +55,10 @@ class MyBagTabView extends StatelessWidget {
           },
           builder: (context, state) {
             return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, childAspectRatio: 1.2),
+              padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 3),
+                gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                  mainAxisSpacing: ConfigSize.defaultSize! * 1,
+                    crossAxisCount: 2, childAspectRatio: 1.15),
                 itemCount: myBagData.length,
                 itemBuilder: (context, index) {
                   log(myBagData[0].type);

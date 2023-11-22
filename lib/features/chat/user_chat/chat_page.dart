@@ -85,12 +85,13 @@ class _ChatPageState extends State<ChatPage> {
                 ),
               ],
             ),
-            SizedBox(height: ConfigSize.defaultSize,),
+            // SizedBox(height: ConfigSize.defaultSize,),
 
             ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 3,
+                padding: EdgeInsets.zero,
                 itemBuilder: (context, i) {
                   return MyProfilPropertyRow(
                     iconPath: chatScreenIcons[i],

@@ -25,11 +25,11 @@ class MyProfilPropertyRow extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: ConfigSize.defaultSize! * 5,
+
           width: ConfigSize.defaultSize! * 40,
-          margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 0.8),
+          // margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 0.5),
           padding:
-              EdgeInsets.symmetric(horizontal: ConfigSize.screenWidth! * 0.02),
+              EdgeInsets.symmetric(horizontal: ConfigSize.screenWidth! * 0.02,vertical:ConfigSize.defaultSize! * 0.8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
             // image: const DecorationImage(
@@ -44,7 +44,7 @@ class MyProfilPropertyRow extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(iconPath,color:iconPath==AssetsPath.groupChat?ColorManager.yellow:null ,),
+                  Image.asset(iconPath,color:iconPath==AssetsPath.groupChat?ColorManager.yellow:null,scale: ConfigSize.defaultSize!*0.3),
                   const Spacer(
                     flex: 1,
                   ),

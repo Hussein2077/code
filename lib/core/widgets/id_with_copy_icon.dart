@@ -11,7 +11,8 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 
 class IdWithCopyIcon extends StatefulWidget {
   var userData;
-  IdWithCopyIcon({required this.userData, super.key});
+  Color? color;
+  IdWithCopyIcon({required this.userData,this.color, super.key});
 
   @override
   State<IdWithCopyIcon> createState() => _IdWithCopyIconState();
@@ -36,13 +37,16 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
               ? ShimmerId(
                   id: widget.userData.uuid.toString(),
                   style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.9,
+
+                    color: Colors.black,
+
+                    fontSize: ConfigSize.defaultSize! * 1.6,
                   ),
                 )
               : Text(
                   'ID: ${widget.userData.uuid.toString()}',
                   style: TextStyle(
-                    color: isDarkTheme?Colors.white:Colors.black,
+                    color: isDarkTheme?widget.color?? Colors.white: widget.color??Colors.black,
                     fontSize: ConfigSize.defaultSize! * 1.9,
                   ),
                 ),

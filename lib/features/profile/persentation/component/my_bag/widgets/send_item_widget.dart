@@ -50,9 +50,11 @@ class _SendItemWidgetState extends State<SendItemWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: ColorManager.whiteColor,
       body: Column(
         children: [
+          SizedBox(
+            height: ConfigSize.defaultSize! * 2.0,
+          ),
           Text(
             StringManager.enterUserID.tr(),
             style: const TextStyle(color: ColorManager.gray),
@@ -62,7 +64,8 @@ class _SendItemWidgetState extends State<SendItemWidget> {
           ),
           Container(
             decoration: BoxDecoration(
-                color: ColorManager.gray,
+                color: Theme.of(context).scaffoldBackgroundColor,
+                border: Border.all(width: 1,color: Colors.blue),
                 borderRadius: BorderRadius.circular(10)),
             margin: EdgeInsets.symmetric(
                 vertical: ConfigSize.defaultSize! * 0.8,
@@ -75,14 +78,17 @@ class _SendItemWidgetState extends State<SendItemWidget> {
               }),
               controller: idController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
                 disabledBorder: InputBorder.none,
+                hintText: StringManager.pleaseEnterID.tr(),
                 focusedBorder: InputBorder.none,
               ),
               style: TextStyle(
+                color: Theme.of(context).textTheme.titleMedium!.color,
                   fontWeight: FontWeight.normal,
-                  fontSize: ConfigSize.defaultSize! * 1.9),
+                  fontSize: ConfigSize.defaultSize! * 1.5),
               cursorColor: ColorManager.mainColor,
             ),
           ),
@@ -96,8 +102,7 @@ class _SendItemWidgetState extends State<SendItemWidget> {
                   GetFollowerOrFollowingState>(
                 builder: (context, state) {
                   if (state is GetFollowerOrFollowingSucssesState) {
-                    return SizedBox(
-                      height: MediaQuery.of(context).size.height - 50,
+                    return Expanded(
                       child: ListView.builder(
                         controller: scrollController,
                         itemCount: context
@@ -110,6 +115,7 @@ class _SendItemWidgetState extends State<SendItemWidget> {
                         itemBuilder: (context, index) {
                           if (index < state.data!.length) {
                             return UserInfoRow(
+                              underNameWidth: ConfigSize.screenWidth! - ConfigSize.defaultSize! * 20,
                               userData: UserDataModel(
                                 id: state.data![index].id,
                                 isGold: state.data![index].isGold,
@@ -288,33 +294,20 @@ class _SendItemWidgetState extends State<SendItemWidget> {
           BlocBuilder<SearchBloc, SearchStates>(
             builder: (context, state) {
               if (state is SuccessSearchStates) {
-                return SizedBox(
-                  height: ConfigSize.defaultSize! * 19.1,
+                return Expanded(
                   child: ListView.builder(
                       itemCount: state.data.userModel.length,
+                      shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            const Spacer(
-                              flex: 1,
-                            ),
-                            CustomAvtare(
-                              image: state.data.userModel[index].profile!.image!,
-                              size: ConfigSize.defaultSize! * 6.1,
-                            ),
-                            const Spacer(
-                              flex: 1,
-                            ),
-                            Text(
-                              state.data.userModel[index].name!,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: ConfigSize.defaultSize! * 1.7),
-                            ),
-                            const Spacer(
-                              flex: 10,
-                            ),
-                          ],
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 2),
+                          child: UserInfoRow(
+                            underNameWidth: ConfigSize.screenWidth! - ConfigSize.defaultSize! * 20,
+                            userData: state.data.userModel[index],
+                            flag: 'myLook',
+                            itemId: widget.itemId,
+
+                          ),
                         );
                       }),
                 );
@@ -326,60 +319,7 @@ class _SendItemWidgetState extends State<SendItemWidget> {
           SizedBox(
             height: ConfigSize.defaultSize! * 1.9,
           ),
-          Row(
-            children: [
-              const Spacer(
-                flex: 1,
-              ),
-              InkWell(
-                onTap: () {
-                  // widget._key.currentState!.setstate();
-                  BlocProvider.of<SendBloc>(context).add(sendItemEvent(
-                      packId: widget.itemId, touId: idController!.text));
 
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  width: ConfigSize.defaultSize! * 14.1,
-                  height: ConfigSize.defaultSize! * 4.1,
-                  decoration: BoxDecoration(
-                      gradient:
-                          const LinearGradient(colors: ColorManager.mainColorList),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Center(
-                    child: Text(
-                      StringManager.confirm.tr(),
-                      style: const TextStyle(color: ColorManager.whiteColor),
-                    ),
-                  ),
-                ),
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  width: ConfigSize.defaultSize! * 14.8,
-                  height: ConfigSize.defaultSize! * 4.1,
-                  decoration: BoxDecoration(
-                      color: ColorManager.gray,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Center(
-                    child: Text(
-                      StringManager.cancle.tr(),
-                      style: const TextStyle(color:Colors.black),
-                    ),
-                  ),
-                ),
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-            ],
-          ),
         ],
       ),
     );
