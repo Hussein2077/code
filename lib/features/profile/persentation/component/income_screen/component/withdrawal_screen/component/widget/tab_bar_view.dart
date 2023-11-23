@@ -24,25 +24,22 @@ class TabBarViewDetailsScreen extends StatelessWidget {
     
   
 
-    return Column(
-            children: [
-              SizedBox(
-                height: ConfigSize.defaultSize! * 4.0,
-              ),
-              ListView.builder(
-                itemBuilder: (context, index) {
-                  return  ItemInvoiceDetails(
-                    date: data!.data![index].time.toString(),
-                    userID: flag=="sent"? data!.data![index].receiver!.uid.toString():data!.data![index].sender!.uid.toString(),
-                    withdrawalAmount:data!.data![index].value!.toString(),
-                    type:flag=="sent"?"":data!.data![index].sender!.type.toString(), 
+    return ListView.builder(
+      primary: true,
+      padding: EdgeInsets.only(
+        top: ConfigSize.defaultSize!*2
+      ),
+      itemBuilder: (context, index) {
+        return  ItemInvoiceDetails(
+          date: data!.data![index].time.toString(),
+          userID: flag=="sent"? data!.data![index].receiver!.uid.toString():data!.data![index].sender!.uid.toString(),
+          withdrawalAmount:data!.data![index].value!.toString(),
+          type:flag=="sent"?"":data!.data![index].sender!.type.toString(),
 
-                  );
-                },
-                shrinkWrap: true,
-                itemCount: data!.data!.length,
-              ),
-            ],
-          );
+        );
+      },
+      shrinkWrap: true,
+      itemCount: data!.data!.length,
+    );
   }
 }

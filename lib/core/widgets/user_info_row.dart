@@ -61,7 +61,7 @@ class UserInfoRow extends StatelessWidget {
           },
       child: Padding(
         padding:
-            EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.5),
+            EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.1),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +77,7 @@ class UserInfoRow extends StatelessWidget {
               image: userData.profile!.image!,
             ),
             SizedBox(
-              width: ConfigSize.defaultSize! * 0.5,
+              width: ConfigSize.defaultSize! * 0.2,
             ),
             const Spacer(
               flex: 4,
@@ -93,62 +93,59 @@ class UserInfoRow extends StatelessWidget {
                       ),
                   isVip: userData.hasColorName!,
                 ),
-                SizedBox(
-                  width: underNameWidth ??
-                      ConfigSize.screenWidth! - ConfigSize.defaultSize! * 16,
-                  child: underName ??
-                      Row(
-                        children: [
-                          MaleFemaleIcon(
+                underName ??
+                    Row(
+                      children: [
+                        MaleFemaleIcon(
+                          width: ConfigSize.defaultSize! * 4,
+                          height: ConfigSize.defaultSize! * 1.5,
+                          maleOrFeamle: userData.profile!.gender,
+                          age: userData.profile!.age,
+                        ),
+                        SizedBox(width: ConfigSize.defaultSize! * 0.2),
+                        if (!userData.isCountryHiden! &&
+                            userData.profile!.country != '')
+                          UserCountryIcon(
+                              width: ConfigSize.defaultSize! * 3.5,
+                              height: ConfigSize.defaultSize! * 1.5,
+                              fontSize: ConfigSize.defaultSize! * 1.5,
+                              country: userData.profile!.country),
+                        SizedBox(width: ConfigSize.defaultSize! * 0.2),
+                        if (userData.level!.receiverImage != '')
+                          LevelContainer(
+                            fit: BoxFit.fill,
                             width: ConfigSize.defaultSize! * 4,
                             height: ConfigSize.defaultSize! * 1.5,
-                            maleOrFeamle: userData.profile!.gender,
-                            age: userData.profile!.age,
+                            image: userData.level!.receiverImage!,
                           ),
-                          SizedBox(width: ConfigSize.defaultSize! * 0.4),
-                          if (!userData.isCountryHiden! &&
-                              userData.profile!.country != '')
-                            UserCountryIcon(
-                                width: ConfigSize.defaultSize! * 3.5,
-                                height: ConfigSize.defaultSize! * 1.5,
-                                fontSize: ConfigSize.defaultSize! * 1.5,
-                                country: userData.profile!.country),
-                          SizedBox(width: ConfigSize.defaultSize! * 0.4),
-                          if (userData.level!.receiverImage != '')
-                            LevelContainer(
-                              fit: BoxFit.fill,
-                              width: ConfigSize.defaultSize! * 4,
-                              height: ConfigSize.defaultSize! * 1.5,
-                              image: userData.level!.receiverImage!,
-                            ),
-                          if (userData.vip1!.level != 0)
-                            AristocracyLevel(
-                              level: userData.vip1!.level!,
-                            ),
-                          SizedBox(
-                            width: ConfigSize.defaultSize! * .5,
+                        if (userData.vip1!.level != 0)
+                          AristocracyLevel(
+                            level: userData.vip1!.level!,
                           ),
-                          idOrNot != null
-                              ? idOrNot!
-                              : userData.isGold
-                                  ? ShimmerId(
-                                      id: userData.uuid.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    )
-                                  : Text(
-                                "ID ${userData.uuid.toString()}",
-                                style: Theme.of(context).textTheme.titleSmall,
-                              )
-                        ],
-                      ),
-                )
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * .2,
+                        ),
+                        idOrNot != null
+                            ? idOrNot!
+                            : userData.isGold
+                                ? ShimmerId(
+                                    id: userData.uuid.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall,
+                                  )
+                                : Text(
+                              "ID ${userData.uuid.toString()}",
+                              style: Theme.of(context).textTheme.titleSmall,
+                            )
+                      ],
+                    )
               ],
             ),
             const Spacer(
               flex: 20,
             ),
+            if(flag == null)
             endIcon ??
                 Image.asset(
                   AssetsPath.chatWithUserIcon,

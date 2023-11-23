@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class ShimmerId extends StatelessWidget {
   final TextStyle? style;
@@ -13,12 +14,15 @@ class ShimmerId extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Brightness currentBrightness = Theme.of(context).brightness;
-    bool isDarkTheme = currentBrightness == Brightness.dark;
-    return Shimmer.fromColors(
-      period: const Duration(seconds:7 ),
-      baseColor: ColorManager.shimmerGold1.withOpacity(0.9),
-      highlightColor: isDarkTheme?ColorManager.darkBlack.withOpacity(0.5):ColorManager.whiteColor.withOpacity(0.5),
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: ConfigSize.defaultSize! * 0.8,
+      ),
+      decoration:  BoxDecoration(
+       borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1),
+       gradient:   const LinearGradient(colors: ColorManager.goldList),
+      ),
       child: Text(
         'ID: $id',
         style: style ?? Theme.of(context).textTheme.titleSmall,

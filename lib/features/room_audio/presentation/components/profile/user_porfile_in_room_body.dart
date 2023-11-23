@@ -139,6 +139,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                         fontWeight: FontWeight.w400), ),
                     IdWithCopyIcon(
                       userData: widget.userData,
+                      color: Colors.black,
                     ),
 
                     Row(

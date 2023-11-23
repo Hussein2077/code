@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,13 +31,12 @@ class MyBagCard extends StatefulWidget {
   final int viewIndex;
   final int isFirst;
   final int index;
-   bool? isTrue;
+  bool? isTrue;
 
-   MyBagCard(
-
+  MyBagCard(
       {required this.viewIndex,
       required this.id,
-        this.isTrue,
+      this.isTrue,
       required this.image,
       required this.index,
       required this.name,
@@ -56,10 +54,10 @@ class _MyBagCardState extends State<MyBagCard> {
   Widget build(BuildContext context) {
     return BlocListener<UseItemBloc, UseItemState>(
       listener: (context, state) {
-        if(state is UseItemLoadingState){
-          widget.isTrue=false;
+        if (state is UseItemLoadingState) {
+          widget.isTrue = false;
           loadingToast(context: context, title: StringManager.loading.tr());
-        }else if (state is UseItemSuccseesState) {
+        } else if (state is UseItemSuccseesState) {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           MyBagScreen.isUsed.add(state.data.targetId.toString());
 
@@ -90,15 +88,15 @@ class _MyBagCardState extends State<MyBagCard> {
           sucssesToast(context: context, title: state.massage);
         } else if (state is UnusedErrorState) {
           errorToast(context: context, title: state.massage);
-        }else if(state is UnusedloadingState){
+        } else if (state is UnusedloadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
         }
       },
       child: Container(
         margin: EdgeInsets.only(
-            left: ConfigSize.defaultSize!,
-            right: ConfigSize.defaultSize!,
-            bottom: ConfigSize.defaultSize! -5),
+          left: ConfigSize.defaultSize!,
+          right: ConfigSize.defaultSize!,
+        ),
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
@@ -118,76 +116,73 @@ class _MyBagCardState extends State<MyBagCard> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             Text(
-                widget.time=='0'? '': Methods.instance.formatDateTime(dateTime:   widget.time,locale: context.locale.languageCode),
+              widget.time == '0'
+                  ? ''
+                  : Methods.instance.formatDateTime(
+                      dateTime: widget.time,
+                      locale: context.locale.languageCode),
               style: Theme.of(context).textTheme.bodySmall,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-
                 children: [
                   (MyBagCard.frameUsed.toString() != widget.targetId &&
                           MyBagCard.entriesUsed.toString() != widget.targetId &&
                           MyBagCard.bublesUsed.toString() != widget.targetId)
                       ? Expanded(
-                        child: MainButtonForMyBag(
+                          child: MainButtonForMyBag(
                             title: StringManager.use.tr(),
                             onTap: () {
                               BlocProvider.of<UseItemBloc>(context)
                                   .add(UserItemsEvent(id: widget.id));
                             },
-
-
                             titleSize: ConfigSize.defaultSize! * 1.4,
                           ),
-                      )
+                        )
                       : Expanded(
-                        child: MainButtonForMyBag(
-                          buttonColor: ColorManager.bageGriedinet,
+                          child: MainButtonForMyBag(
+                            buttonColor: ColorManager.bageGriedinet,
                             title: StringManager.takeOff.tr(),
                             onTap: () {
                               if (widget.viewIndex == 0) {
                                 BlocProvider.of<UseItemBloc>(context)
                                     .add(const UnUsedItemEvent(id: "1"));
                               } else if (widget.viewIndex == 1) {
-
-                                  BlocProvider.of<UseItemBloc>(context)
+                                BlocProvider.of<UseItemBloc>(context)
                                     .add(const UnUsedItemEvent(id: "3"));
                               } else if (widget.viewIndex == 2) {
-                                    BlocProvider.of<UseItemBloc>(context)
+                                BlocProvider.of<UseItemBloc>(context)
                                     .add(const UnUsedItemEvent(id: "2"));
                               }
                             },
-
-
-                    titleSize: ConfigSize.defaultSize! * 1.4,
+                            titleSize: ConfigSize.defaultSize! * 1.4,
                           ),
-                      ),
-                    SizedBox(width: ConfigSize.defaultSize!),
-                  (widget.isFirst == 1 || MyBagScreen.isUsed.contains(widget.targetId))
+                        ),
+                  SizedBox(width: ConfigSize.defaultSize!),
+                  (widget.isFirst == 1 ||
+                          MyBagScreen.isUsed.contains(widget.targetId))
                       ? const SizedBox()
                       : Expanded(
-                        child: MainButtonForMyBag(
-                    buttonColor: ColorManager.bageGriedinet,
-                    title: StringManager.send.tr(),
-                    onTap: () {
-                        dailogRoom(
-                            context: context,
-                            widget: SizedBox(
-                                height:
-                                ConfigSize.defaultSize! * 63.5,
-                                child: SendItemWidget(
-                                  itemId: widget.id
-                                )),
-                            color: Colors.black);
-                         MyBagTabView.itemIndex = widget.index;
-                    },
-                    // width: ConfigSize.defaultSize! * 18,
+                          child: MainButtonForMyBag(
+                            buttonColor: ColorManager.bageGriedinet,
+                            title: StringManager.send.tr(),
+                            onTap: () {
+                              dailogRoom(
+                                  context: context,
+                                color: Theme.of(context).colorScheme.onBackground,
 
-                    titleSize: ConfigSize.defaultSize! * 1.4,
-                  ),
-                      ),
+                                widget: SizedBox(
+                                      height: ConfigSize.defaultSize! * 63.5,
+                                      child: SendItemWidget(itemId: widget.id)),
+                                  );
+                              MyBagTabView.itemIndex = widget.index;
+                            },
+                            // width: ConfigSize.defaultSize! * 18,
 
+                            titleSize: ConfigSize.defaultSize! * 1.4,
+                          ),
+                        ),
                 ],
               ),
             )
