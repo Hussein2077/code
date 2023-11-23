@@ -589,7 +589,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     }
   }
 
-  Future<void> loadAnimationEntro(String imgId, String imgUrl) async {
+  Future<void> loadAnimationEntro(String imgId, String imgUrl) async  {
     RoomScreen.isGiftEntroAnimating = true;
     try {
       final videoItem =
