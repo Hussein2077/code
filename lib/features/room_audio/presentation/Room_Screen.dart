@@ -1,17 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
-
+import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -58,6 +59,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.da
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:video_player/video_player.dart';
 
+
 class RoomScreen extends StatefulWidget {
   final EnterRoomModel room;
   final MyDataModel myDataModel;
@@ -73,7 +75,7 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<int> updateEmojie = ValueNotifier(0);
   static Map<String, String> adminsInRoom = {};
   static Map<String, String> banedUsers = {};
-  static Map<String, UserDataModel> usersInRoom = {};
+  static Map<String, dynamic> usersInRoom = {};
   static ValueNotifier<int> clearTimeNotifier = ValueNotifier(0);
   static ValueNotifier<bool> showMessageButton = ValueNotifier<bool>(true);
   static ValueNotifier<bool> banFromWriteIcon = ValueNotifier<bool>(true);
@@ -297,7 +299,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             RoomScreen.listOfMuteSeats.putIfAbsent(i, () => i);
           }
           ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(id: myDataModel.id.toString(), name: myDataModel.name.toString());
-         zegoUIKitUser.inRoomAttributes.value['img'] = myDataModel.img;
+          zegoUIKitUser.inRoomAttributes.value['img'] = myDataModel.img;
           RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
         }
       }
@@ -491,24 +493,19 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       RoomScreen.roomGiftsPrice.value = giftData.roomGiftsPrice;
     }
 
-   // if (giftData.localPath == null) {
-    ViewbackgroundWidget.mp4Controller =
-    VideoPlayerController.networkUrl(Uri.parse(ConstentApi().getImage(giftData.giftImg)))..initialize();
+   if (giftData.localPath == null) {
+     await Methods().cacheMp4(
+         vedioId: int.parse(giftData.giftId), vedioUrl: giftData.giftImg)
+         .then((value) async {
+       Directory appDocDir = await getApplicationDocumentsDirectory();
+       String rootPath = appDocDir.path;
+       String path = "$rootPath/${giftData.giftId}.mp4";
+       ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(path))..initialize();
+     });
+   }else{
+     ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(giftData.localPath!))..initialize();
+   }
 
-    // await Methods()
-    //       .cacheMp4(
-    //           vedioId: int.parse(giftData.giftId), vedioUrl: giftData.giftImg)
-    //       .then((value) async {
-    //     Directory appDocDir = await getApplicationDocumentsDirectory();
-    //     String rootPath = appDocDir.path;
-    //     String path = "$rootPath/${giftData.giftId}.mp4";
-    //     ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(path))..initialize();
-    //   });
-    // } else {
-    //   log('2${giftData.localPath!}');
-    //   ViewbackgroundWidget.mp4Controller = VideoPlayerController.file(File(giftData.localPath!))
-    //     ..initialize();
-    // }
     ViewbackgroundWidget.mp4Controller!.addListener(() {
       if (ViewbackgroundWidget.mp4Controller!.value.position >=
           ViewbackgroundWidget.mp4Controller!.value.duration) {
@@ -687,7 +684,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             timeEmojie: result[messageContent]['t_length']);
       }
       else if (result[messageContent][message] == showGifts) {
-        ShowGifts(result, widget.myDataModel.id.toString(), loadMp4Gift, loadAnimationGift);
+
+        ShowGifts(result, widget.myDataModel.id.toString(), loadMp4Gift, loadAnimationGift, widget.room.ownerId.toString());
       }
       else if (result[messageContent][message] == kicKoutKey) {
         KicKout(result, durationKickout, widget.room.ownerId.toString(), widget.myDataModel.id.toString(), context);
@@ -822,6 +820,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Directionality(
         textDirection: TextDirection.ltr,
         child: ZegoUIKitPrebuiltLiveAudioRoom(
@@ -986,7 +986,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     if (message.timestamp < value) {
                       return const SizedBox.shrink();
                     }
-                    if (message.user.inRoomAttributes.value['sen'] == null && MessagesChached.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
+                    if (message.user.inRoomAttributes.value['sen'] == null &&
+                        MessagesChached.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
                       if (kDebugMode) {
                         log("wait 2 sec to load more in formation about user");
                       }

@@ -887,19 +887,10 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         );
       }
       if(RoomScreen.listOfMuteSeats.containsKey(index)||RoomScreen.usersHasMute.contains(getUserByIndex(index)?.id)){
-
         ZegoUIKit().turnMicrophoneOn(false,userID: getUserByIndex(index)?.id.toString());
-      }else{;
+      }else{
         ZegoUIKit().turnMicrophoneOn(true,userID: getUserByIndex(index)?.id.toString());
       }
-      //
-      // Future.delayed(Duration.zero,(){
-      //   BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: localUserID));
-      // }).then((value) =>  BlocProvider.of<OnRoomBloc>(contextQuery!()).add(UpMicEvent(
-      //     ownerId: ownerId,
-      //     userId: localUserID ,
-      //     position: index.toString())));
-
       BlocProvider.of<OnRoomBloc>(contextQuery!()).add(UpMicEvent(
           ownerId: ownerId,
           userId: localUserID ,

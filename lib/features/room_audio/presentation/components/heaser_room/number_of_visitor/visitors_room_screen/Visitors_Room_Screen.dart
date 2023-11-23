@@ -59,6 +59,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
             Expanded(
               child: ListView.builder(
                   itemCount: state.data!.length,
+                  controller: scrollController,
                   itemBuilder: (context, index) {
                     return UserRow(
                       roomVistorModel: state.data![index],
@@ -68,17 +69,7 @@ class _VisitorsRoomScreenState extends State<VisitorsRoomScreen> {
                   }),
             )
 
-            // Expanded(
-            //     child: SingleChildScrollView(
-            //       controller: scrollController,
-            //       physics: const AlwaysScrollableScrollPhysics(),
-            //         child: VisitorsScreenRoomBody(
-            //           data: state.getRoomUsersEntite,
-            //           roomData: roomData,
-            //           myDataModel: myDataModel,
-            //           layoutMode: layoutMode,
-            //         ))
-            //         )
+
           ]),
         );
       } else if (state is GetRoomVistorLoadinglState) {

@@ -24,7 +24,7 @@ class ProfileTabs extends StatelessWidget {
         unselectedLabelStyle:TextStyle(fontSize: ConfigSize.defaultSize!*1.6) ,
         tabs: [
         Text(StringManager.profile.tr(), ),
-              Text(StringManager.reels.tr(),)
+              Text(StringManager.videos.tr(),)
     
     
       ]),

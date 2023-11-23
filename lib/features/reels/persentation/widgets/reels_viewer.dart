@@ -179,8 +179,8 @@ Future.delayed(Duration.zero,()async{
                 ),
               if(ReelsScreenTaps.isFirst)
                 Positioned(
-                  left: ConfigSize.screenWidth! * .7,
-                  top: ConfigSize.screenHeight! * .4,
+                  left: ConfigSize.screenWidth! * .5,
+                  top: ConfigSize.screenHeight! * .3,
                   child: CustomShowcaseWidget(
                     globalKey: keyForSwapInCenter,
                     isSwap: true,

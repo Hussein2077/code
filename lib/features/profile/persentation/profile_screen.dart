@@ -53,9 +53,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             tempData = state.myDataModel ;
              return  ProfileBody(myData: state.myDataModel);
          } else if (state is GetMyDataErrorState){
-
           //todo show toast here to show error
-          return  ProfileBody(myData: getIt<MyDataModel>());
+          return  ProfileBody(myData:getIt<MyDataModel>());
           }
          else if(state is GetMyDataLoadingState){
           return tempData==null? const LoadingWidget() :

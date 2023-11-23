@@ -1,5 +1,6 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -18,7 +19,7 @@ class LoginWithPhoneBloc extends Bloc<BaseLoginWithPhoneEvent, LoginWithPhoneSta
 
     sendOrFailur.fold(
         (l) => emit( LoginWithPhoneSuccesMessageState(
-            myDataModel: l, succesMessage: StringManager.loginSuccesfully)),
+            myDataModel: l, succesMessage: StringManager.loginSuccesfully.tr())),
         (r) => emit( LoginWithPhoneErrorMessageState(
             errorMessage: DioHelper().getTypeOfFailure(r))));
     });

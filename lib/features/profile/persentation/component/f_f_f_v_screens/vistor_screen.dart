@@ -40,7 +40,7 @@ class _VistorScreenState extends State<VistorScreen> {
       body: Column(
         children: [
           SizedBox(
-            height: ConfigSize.defaultSize! * 3.2,
+            height: ConfigSize.defaultSize! * 0.8,
           ),
           HeaderWithOnlyTitle(title: StringManager.vistors.tr()),
           BlocBuilder<VistorsBloc, VistorsState>(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -22,6 +24,7 @@ class _ReelsTabViewState extends State<ReelsTabView> {
     @override
      void initState() {
     if(LowerProfileBody.getUserReels){
+      log("hhhhhhhh");
        BlocProvider.of<GetUserReelsBloc>(context).add(GetUserReelEvent(id:  widget.userDataModel.id.toString()));
     }
      
@@ -39,7 +42,7 @@ class _ReelsTabViewState extends State<ReelsTabView> {
 
   @override
   Widget build(BuildContext context) {
-    return ReelsBox(userDataModel: widget.userDataModel, scrollController: scrollController,);
+    return ReelsBox(isMyVideos: false,userDataModel: widget.userDataModel, scrollController: scrollController,);
 
   }
    void scrollListener() {

@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -40,10 +41,10 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   void initState() {
     SnackBar snackBar = SnackBar(
       content:widget.Data?.isAgeNotComplete == true&&widget.Data?.isBirthdayDateNotComplete == true?
-      const Text(StringManager.pleaseCompleteYourInfoAgeAndCountry):
+       Text(StringManager.pleaseCompleteYourInfoAgeAndCountry.tr()):
         Text(widget.Data?.isAgeNotComplete == true
-          ? StringManager.pleaseCompleteYourInfoAge
-          : StringManager.pleaseCompleteYourInfoCountry),
+          ? StringManager.pleaseCompleteYourInfoAge.tr()
+          : StringManager.pleaseCompleteYourInfoCountry.tr()),
     );
     nameController = TextEditingController();
     if (widget.Data != null) {
@@ -86,8 +87,8 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 2,
               ),
-              const HeaderWithOnlyTitle(
-                title: StringManager.completeYourAccount,
+               HeaderWithOnlyTitle(
+                title: StringManager.completeYourAccount.tr(),
               ),
               const Spacer(
                 flex: 1,
@@ -102,7 +103,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                 flex: 1,
               ),
               Text(
-                StringManager.postYourBestPhoto,
+                StringManager.postYourBestPhoto.tr(),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const Spacer(
@@ -122,7 +123,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           hintText: MyDataModel.getInstance().name ??
-                              StringManager.userName,
+                              StringManager.userName.tr(),
                           hintStyle: const TextStyle(color: Colors.grey)),
                     ),
                   )),
@@ -161,12 +162,12 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                       } else {
                         errorToast(
                           context: context,
-                          title: StringManager.yourAgeIsUnder18,
+                          title: StringManager.yourAgeIsUnder18.tr(),
                         );
                       }
                     }
                   },
-                  title: StringManager.done),
+                  title: StringManager.done.tr()),
               const Spacer(
                 flex: 1,
               ),
@@ -184,7 +185,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 50,
                     child: Text(
-                      StringManager.youCanNotModify,
+                      StringManager.youCanNotModify.tr(),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   )
@@ -209,19 +210,19 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
 
   bool valadate() {
     if (AddProFilePic.googleImage == null && AddProFilePic.image == null&&MyDataModel.getInstance().profile!.image=='') {
-      warningToast(context: context, title: StringManager.pleaseAddPhoto);
+      warningToast(context: context, title: StringManager.pleaseAddPhoto.tr());
       return false;
     } else if (nameController.text.isEmpty&& MyDataModel.getInstance().name==null) {
-      warningToast(context: context, title: StringManager.pleaseEnterYourName);
+      warningToast(context: context, title: StringManager.pleaseEnterYourName.tr());
       return false;
-    } else if (DateWidget.selectedDatee == StringManager.birthdayDate) {
+    } else if (DateWidget.selectedDatee == StringManager.birthdayDate.tr()) {
       warningToast(
-          context: context, title: StringManager.pleaseEnterYourBirthDate);
+          context: context, title: StringManager.pleaseEnterYourBirthDate.tr());
 
       return false;
     } else if (CountryWidget.countryFlag == null) {
       warningToast(
-          context: context, title: StringManager.pleaseSelectYourCountry);
+          context: context, title: StringManager.pleaseSelectYourCountry.tr());
       return false;
     } else {
       return true;

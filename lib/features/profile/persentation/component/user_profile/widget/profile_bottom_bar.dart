@@ -50,7 +50,7 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
           setState(() {});
         }
         else if (state is  FollowLoadingState){
-          loadingToast(context: context, title: StringManager.loading);
+          loadingToast(context: context, title: StringManager.loading.tr());
         }
       },
       child: Container(

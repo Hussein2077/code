@@ -40,7 +40,7 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
             height: ConfigSize.defaultSize! * 2,
           ),
           Text(
-            StringManager.chooseTheTopic,
+            StringManager.chooseTheTopic.tr(),
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           CustomHorizntalDvider(
@@ -66,7 +66,9 @@ class _ChooseTopicDailogState extends State<ChooseTopicDailog> {
                           });
 
                         },
-                        child: topicRow(context: context, title: state.data[index].name! , selected:TrimmerView.selectedIntrest.contains( state.data[index].id) ));
+                        child: topicRow(context: context, title: state.data[index].name! ,
+                            selected:TrimmerView.selectedIntrest.contains(
+                                state.data[index].id) ));
                     });
                   }else if (state is GetAllInterstedLoadingState) {
                     return const LoadingWidget();

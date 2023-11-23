@@ -32,7 +32,6 @@ class _CustomShowcaseWidgetState extends State<CustomShowcaseWidget> with Ticker
   late Animation<Offset> _animation;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 2000),
@@ -61,11 +60,6 @@ if(!widget.isSwap){
       key: widget.globalKey,
       height: ConfigSize.defaultSize! * 7,
       width:widget.isSwap? ConfigSize.defaultSize! * 15: ConfigSize.defaultSize! * 7,
-      // descTextStyle: const TextStyle(`
-      //   color: Colors.black,
-      //   fontWeight: FontWeight.bold,
-      //   fontSize: 10,
-      // ),
       disableMovingAnimation: widget.disableMovingAnimation,
       overlayColor: Colors.transparent,
       container: Builder(

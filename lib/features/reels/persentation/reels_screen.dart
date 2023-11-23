@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
@@ -30,6 +31,7 @@ import 'package:tik_chat_v2/features/reels/persentation/widgets/reels_viewer.dar
 import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/splash.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 final GlobalKey keyForUploadVideo = GlobalKey();
 final GlobalKey keyForSwapInCenter = GlobalKey();
@@ -51,6 +53,7 @@ class ReelsScreenState extends State<ReelsScreen> {
   @override
   void initState() {
     report = TextEditingController();
+    WakelockPlus.enable();
     if (SplashScreen.initPage == 1) {
       BlocProvider.of<GetReelsBloc>(context)
           .add(GetReelsEvent(reelId: MainScreen.reelId));
@@ -65,7 +68,7 @@ class ReelsScreenState extends State<ReelsScreen> {
   @override
   void dispose() {
     report.dispose();
-
+    WakelockPlus.disable();
     super.dispose();
   }
 
@@ -75,17 +78,14 @@ class ReelsScreenState extends State<ReelsScreen> {
         body: BlocListener<UploadReelsBloc, UploadReelsState>(
             listener: (context, state) {
               if (state is UploadReelsLoadingState) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(StringManager.loading.tr()),
-                ));
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(loadingSnackBar(context));
               } else if (state is UploadReelsErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(state.error),
-                ));
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(errorSnackBar(context, state.error));
               } else if (state is UploadReelsSucssesState) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(state.message),
-                ));
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(successSnackBar(context, state.message));
 
                 BlocProvider.of<GetUserReelsBloc>(context)
                     .add(const GetUserReelEvent(id: null));

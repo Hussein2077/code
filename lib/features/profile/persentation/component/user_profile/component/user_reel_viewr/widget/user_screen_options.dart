@@ -156,9 +156,7 @@ class UserScreenOptions extends StatelessWidget {
 
                                           return CommentBottomSheet(
                                               reelId: item.id.toString(),
-                                              commentList: commentListtemp ??
-                                                  state.data ??
-                                                  [],
+                                             // commentList: commentListtemp ?? state.data ?? [],
                                               onComment: onComment);
                                         } else if (state
                                         is GetReelsCommentsLoadingState) {
@@ -167,8 +165,7 @@ class UserScreenOptions extends StatelessWidget {
                                           } else {
                                             return CommentBottomSheet(
                                                 reelId: item.id.toString(),
-                                                commentList:
-                                                commentListtemp ?? [],
+                                               // commentList: commentListtemp ?? [],
                                                 onComment: onComment);
                                           }
                                         } else if (state

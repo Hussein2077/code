@@ -73,14 +73,14 @@ class _ChatPageState extends State<ChatPage> {
           children: [
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children:  [
                 if(ModalRoute.of(context)!.canPop) const ArrowBack(color: ColorManager.darkBlack,),
                 Text(StringManager.chat.tr(),
                   style: TextStyle(
                     color: ColorManager.darkBlack,
                     fontWeight: FontWeight.bold,
-                    fontSize:  ConfigSize.defaultSize!*2.5,
+                    fontSize:  ConfigSize.defaultSize!*1.8,
                   ),
                 ),
               ],

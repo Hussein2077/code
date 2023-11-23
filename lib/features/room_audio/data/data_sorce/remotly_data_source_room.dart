@@ -157,12 +157,13 @@ static String uploadImagePrice = "" ;
     Map<String, String> headers = await DioHelper().header();
     String? users;
     final body;
-    log(pram.ownerId);
+
     if (pram.usersId != null) {
       users = pram.usersId!.join(',');
     }
     if (pram.usersId != null) {
-      body = {'page': pram.page, 'owner_id': pram.ownerId,
+      body = {
+        'page': pram.page, 'owner_id': pram.ownerId,
         "users": users
       };
     } else {
@@ -426,7 +427,6 @@ static String uploadImagePrice = "" ;
   Future<String> upMicrophone(UpMicrophonePramiter upMicrophonePramiter) async{
         Map<String, String> headers = await DioHelper().header();
 
- log(" swap : ${upMicrophonePramiter.isSwitch}");
     try {
       final response = await Dio()
           .post(ConstentApi().upMic(upMic:upMicrophonePramiter),
@@ -1135,8 +1135,6 @@ static String uploadImagePrice = "" ;
             headers: headers,
           ),
           data: body);
-          log("sucsses");
-
       return response.data['message'];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'yellowBanner');

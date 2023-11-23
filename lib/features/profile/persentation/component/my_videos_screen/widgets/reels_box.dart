@@ -11,7 +11,9 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/user_reels_controller.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/lower/lower_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
@@ -26,9 +28,10 @@ class ReelsBox extends StatefulWidget {
   static Map<String, bool> likedVideos = {};
   static Map<String, int> likedVideoCount = {};
   static bool loading = false;
+  final bool isMyVideos ;
 
   const ReelsBox(
-      {super.key, required this.userDataModel, required this.scrollController});
+      {super.key, required this.userDataModel,required this.isMyVideos, required this.scrollController});
 
   @override
   State<ReelsBox> createState() => _ReelsBoxState();
@@ -84,6 +87,20 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
           ReelsBox.loading = state.loadMore;
           return Column(
             children: [
+              if(widget.isMyVideos)
+              SizedBox(
+                width: ConfigSize.screenWidth,
+                height: ConfigSize.defaultSize!*5,
+                child: Row(
+                  children: [
+                    SizedBox(
+                        width: ConfigSize.screenWidth!-ConfigSize.defaultSize!*5,
+                        height: ConfigSize.defaultSize!*5,
+                        child: HeaderWithOnlyTitle(title: StringManager.myVideos.tr(),)),
+                    const UploadVideo(),
+                  ],
+                ),
+              ),
               Expanded(
                 child: GridView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),

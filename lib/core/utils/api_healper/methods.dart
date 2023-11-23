@@ -560,12 +560,12 @@ class Methods {
     List<GiftsModel> normalGift = await getGifts(1);
     List<GiftsModel> hotGift = await getGifts(2);
     List<GiftsModel> ciuntryGift = await getGifts(3);
-    List<GiftsModel> luckyGift = await getGifts(6);
+    List<GiftsModel> famousGift = await getGifts(5);
 
     await initDownloadPath(normalGift);
     await initDownloadPath(hotGift);
     await initDownloadPath(ciuntryGift);
-    await initDownloadPath(luckyGift);
+    await initDownloadPath(famousGift);
     setLastTimeCache(TypesCache.gift);
   }
 
@@ -602,12 +602,8 @@ class Methods {
     }
   }
 
-  _download(
-      {required String img, required int giftId, required String path}) async {
-    Map<String, dynamic> chachedMp4Gifts =
-        await Methods.instance.getCachingVideo(key: StringManager.cachGiftKey);
-
-    PageViewGeftWidget.chachedGiftMp4 = chachedMp4Gifts;
+  _download({required String img, required int giftId, required String path}) async {
+    Map<String, dynamic> chachedMp4Gifts = await Methods.instance.getCachingVideo(key: StringManager.cachGiftKey);
 
     if (!chachedMp4Gifts.containsKey(giftId.toString())) {
       if (kDebugMode) {
@@ -624,16 +620,11 @@ class Methods {
       if (kDebugMode) {
         log('loaded$giftId');
       }
-      PageViewGeftWidget.chachedGiftMp4
-          .putIfAbsent(giftId.toString(), () => path);
       chachedMp4Gifts.putIfAbsent(giftId.toString(), () => path);
-      if (kDebugMode) {
-        log(PageViewGeftWidget.chachedGiftMp4.toString());
-      }
     }
 
     await setCachingVideo(
-        cachingVideos: PageViewGeftWidget.chachedGiftMp4,
+        cachingVideos: chachedMp4Gifts,
         key: StringManager.cachGiftKey);
   }
 

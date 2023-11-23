@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
  import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
@@ -107,6 +108,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bloc/send_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
@@ -233,6 +235,7 @@ final  String theme ;
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -261,6 +264,11 @@ final  String theme ;
         ),
         BlocProvider(
           create: (context) => getIt<MallBuyBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<SendBloc>(),
+
+          //familybloc
         ),
         BlocProvider(
           create: (context) => getIt<MyBagBloc>()

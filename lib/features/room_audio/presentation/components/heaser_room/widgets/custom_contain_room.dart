@@ -63,14 +63,9 @@ class CustomContainRoom extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: ConfigSize.defaultSize! * 2,
-                height: ConfigSize.defaultSize! * 2,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                  image: AssetImage(AssetsPath.goldCoin),
-                  //image: AssetImage(AssetsPath.cup),
-                )),
+              Padding(
+                padding:  EdgeInsets.all(ConfigSize.defaultSize!-5),
+                child: const Icon(Icons.diamond, color: Colors.blue),
               ),
               Text(
                 ' '+text,

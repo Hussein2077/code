@@ -18,6 +18,9 @@ class LoadindAddAdminRoomState extends AdminRoomStates{
 
 }
 class SuccessAddAdminRoomState extends AdminRoomStates{
+  String sussesMessage ;
+
+  SuccessAddAdminRoomState({required this.sussesMessage});
   @override
   List<Object?> get props => [];
 

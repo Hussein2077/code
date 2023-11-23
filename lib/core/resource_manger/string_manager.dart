@@ -1,21 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
+  static const int versionApp = 45;
+  static const String androidPlatform = 'Android';
+  static const String iOSPlatform = 'IOS';
 
-  static const int versionApp = 43;
-static const String androidPlatform='Android';
-static const String iOSPlatform='IOS';
   //updates
   static const String updateApp = 'Update TikChat APP';
-  static const String updateText =
-      "Tik Chat recommends that you update to the latest version You can keep enjoy the app while downloading the update";
-
+  static const String updateText = "Tik Chat recommends that you update to the latest version You can keep enjoy the app while downloading the update";
   // cach keys
   static const String cacheFrameKey = 'Frame';
   static const String hasJoin = "has joined";
   static const String games = "Games";
   static const String gameroom = "Game Room";
-
   static const String cacheEmojieKey = 'Emojie';
   static const String cacheEntroKey = 'Entro';
   static const String cachExtraKey = 'Extra';
@@ -24,7 +21,6 @@ static const String iOSPlatform='IOS';
   static const String cachReelsKey = 'cachReelsKey';
   static const String video = 'Video';
   static const String age = 'Age';
-
 //shared
   static const String selectTimeFirst = 'Select time frist';
   static const String appGift = "App Gift";
@@ -47,7 +43,6 @@ static const String iOSPlatform='IOS';
   static const String deleteAccount = "delete account";
   static const String wanaLogeOut = "Do you want to log out?";
   static const String wanaDeletAccout = "Do you want to Delete Account?";
-
   ////
   static const String youWillSpend = 'You will Spend';
   static const String errorInPayment = 'Error in your payment';
@@ -66,8 +61,7 @@ static const String iOSPlatform='IOS';
   static const String areYouSure = "Are you sure you want to delete chat?";
   static const String noDaimonsNow = "No Diamonds Now";
   static const String diamondsContribution = "Diamonds contribution";
-  static const String giftbar =
-      "When you send this kind of this of gift , it will be shown in other rooms";
+  static const String giftbar = "When you send this kind of this of gift , it will be shown in other rooms";
   static const String pk = "PK";
   static const String share = "Share";
   static const String pepoleOnline = "people in room";
@@ -90,31 +84,28 @@ static const String iOSPlatform='IOS';
   static const String signUp = "Sign Up";
   static const String login = "Login";
   static const String orLoginWith = "Or Login with";
-  static const String bySigningOrLogin =
-      "By Signing up/Logging in, you agree to";
+  static const String bySigningOrLogin = "By Signing up/Logging in, you agree to";
   static const String privacyPolicy = "$appTitle Privacy Policy";
-  static const String win = 'Win' ;
+  static const String win = 'Win';
   static const String and = "and";
   static const String termsOfService = "Terms of Service";
   static const String enterTheVerificatiOnCode = "Enter the verification code";
-  static const String verificatiCodeWiilBeSent =
-      "A verification code will be sent to you on this number";
+  static const String verificatiCodeWiilBeSent = "A verification code will be sent to you on this number";
   static const String reSend = "Resend";
   static const String done = "Done";
   static const String updatTikChatApp = "Update TikChat App";
   static const String completeYourAccount = "Complete your account";
   static const String postYourBestPhoto = "Post your best photo!";
-  static const String broadcastYourMoment =
-      "Broadcast your moment with the world and spread happiness";
+  static const String broadcastYourMoment = "Broadcast your moment with the world and spread happiness";
   static const String userName = "User Name";
   static const String birthdayDate = "Birthdate";
   static const String selectyourCountry = "Select your Country 🌍";
   static const String male = "Male";
   static const String female = "Female";
-  static const String youCanNotModify =
-      "You cannot modify the date of birth and gender after selection. Please fill it in carefully";
+  static const String youCanNotModify = "You cannot modify the date of birth and gender after selection. Please fill it in carefully";
   static const String home = "Home";
-  static const String reels = "For You";
+  static const String reels = "reels";
+  static const String forYou = "for you";
   static const String videos = "Videos";
   static const String followingReels = "Following";
   static const String follwoing = "Follwoing";
@@ -192,6 +183,7 @@ static const String iOSPlatform='IOS';
   static const String requestToJoin = "Request to join";
   static const String familyMember = "Family Members screen";
   static const String more = "More";
+  static const String error = "Error";
   static const String owner = "owner";
   static const String admin = "admin";
   static const String member = "Member";
@@ -231,10 +223,8 @@ static const String iOSPlatform='IOS';
   static const String upload = "Upload";
   static const String newReel = "New Reel";
   static const String videoDescription = "Video description";
-  static const String shareYourMoment =
-      "Share your moment with the world at reels";
-  static const String yourVideoWillPublished =
-      "Your video will be published on the reels page";
+  static const String shareYourMoment = "Share your moment with the world at reels";
+  static const String yourVideoWillPublished = "Your video will be published on the reels page";
   static const String mentionYourFriends = "Mention your friends";
   static const String chooseTheTopic = "Choose the topic";
   static const String postTheVideo = "Post the video";
@@ -261,8 +251,7 @@ static const String iOSPlatform='IOS';
   static const String accept = "Accept";
   static const String youWillBuy = "You Will Buy";
   static const String takeOff = "take off";
-  static const String theNumberOfPoints =
-      "The number of points you need to upgrade";
+  static const String theNumberOfPoints = "The number of points you need to upgrade";
   static const String comingSoon = "Coming Soon";
   static const String income = "Income";
   static const String startBattle = "Start Battale";
@@ -270,27 +259,18 @@ static const String iOSPlatform='IOS';
   static const String receiverLevel = "Receiver Level";
   static const String yourThemeIsUpload = "Your theme has been uploaded, please wait for approval within 24 hours";
   static const String yourAgeIsUnder18 = "Your age is under 18";
-  static const String anotherAccountLoggedIn ="Account has been logged in from another device,\nYou have no account" ;
-  static const String errorInUrl = 'There is Error in this URL' ;
-
-  ///INCOME SCREEN 💲💸💰
-  static const String instructionsForJoiningAgency =
-      "Instructions for joining an agency";
+  static const String anotherAccountLoggedIn = "Account has been logged in from another device,\nYou have no account";
+  static const String errorInUrl = 'There is Error in this URL';
+  ///INCOME zCREEN 💲💸💰
+  static const String instructionsForJoiningAgency = "Instructions for joining an agency";
   static const String goToJoin = "Go to join";
-  static const String firstInstructions =
-      "1- To apply for the agency, you need to provide us with all the information correctly, such as your phone number and name";
-  static const String secondInstructions =
-      "2- We need to prove your identity before we start accepting you to the agency, and please ensure that all the parameters provided are completely correct.";
-  static const String thirdInstructions =
-      "3 - After your application has been denied again, your application has been rejected again, again, again";
-  static const String fourthInstructions =
-      "3- When you accept the agency, please avoid any login to your account from another device and prevent anyone other than you from using your account, and if this is discovered, your account will be banned from using the application";
-  static const String fifthInstructions =
-      "4- The Live Agency room will be available to you by the management of Tik Chat, and please follow the usual rules in the room, such as not publishing inappropriate materials and messages, and if this is explored, your membership in the agency will be canceled and you will not be able to join the agency again";
-  static const String agreedToTheRegulations =
-      "After reading the instructions means that you have agreed to the regulations";
-  static const String areYouSureDeleteFamily =
-      "Are you sure do you want delete Family";
+  static const String firstInstructions = "1- To apply for the agency, you need to provide us with all the information correctly, such as your phone number and name";
+  static const String secondInstructions = "2- We need to prove your identity before we start accepting you to the agency, and please ensure that all the parameters provided are completely correct.";
+  static const String thirdInstructions = "3 - After your application has been denied again, your application has been rejected again, again, again";
+  static const String fourthInstructions = "3- When you accept the agency, please avoid any login to your account from another device and prevent anyone other than you from using your account, and if this is discovered, your account will be banned from using the application";
+  static const String fifthInstructions = "4- The Live Agency room will be available to you by the management of Tik Chat, and please follow the usual rules in the room, such as not publishing inappropriate materials and messages, and if this is explored, your membership in the agency will be canceled and you will not be able to join the agency again";
+  static const String agreedToTheRegulations = "After reading the instructions means that you have agreed to the regulations";
+  static const String areYouSureDeleteFamily = "Are you sure do you want delete Family";
   static const String no = "No";
   static const String yes = "Yes";
   static const String showProfile = "Show Profile";
@@ -301,13 +281,11 @@ static const String iOSPlatform='IOS';
   static const String liveReport = "live Report";
   static const String withdrawal = "Withdrawal";
   static const String whatIsAgency = "What is Agency";
-  static const String enterTheAgencyYouWishToJoin =
-      'Enter the agency you wish to join';
+  static const String enterTheAgencyYouWishToJoin = 'Enter the agency you wish to join';
   static const String enterYourWhatsAppNumber = 'Enter your WhatsApp number';
   static const String enterAgencyIDHere = 'Enter agency ID here';
   static const String enterYourNumberHere = 'Enter your number here';
-  static const String applicationToJoinAnAgency =
-      'Application to join an agency';
+  static const String applicationToJoinAnAgency = 'Application to join an agency';
   static const String cantBeEmpty = "Can't be Empty";
   static const String diamond = "Diamond";
   static const String hours = "Hours";
@@ -322,13 +300,11 @@ static const String iOSPlatform='IOS';
   static const String other = "Other";
   static const String bullying = "Bullying";
   static const String violence = "Violence";
-
   static const String pleaseAddDetiels = "Please Add Detiels";
   static const String enterYourImage = "Enter Image for more details";
   static const String unFollow = "UnFollow";
   static const String sucsses = "Sucsses";
-  static const String video_size_error =
-      "Please Upload Video Less Than 3 Minutes";
+  static const String video_size_error = "Please Upload Video Less Than 3 Minutes";
   static const String linked = "Linked";
   static const String pleaseEnterNewPhoneNum = 'Please Enter New Phone Number';
   static const String pleaseEnterPassword = 'Please Enter Password';
@@ -354,11 +330,9 @@ static const String iOSPlatform='IOS';
   static const String clearDataDone = 'Your Data is removed';
   static const String clearData = "Clear your Data";
   static const String exchangeDaimond = "Exchange Daimond";
-  static const String areYouSureYouWantToExchange =
-      "Are You Sure You Want To Exchange";
+  static const String areYouSureYouWantToExchange = "Are You Sure You Want To Exchange";
   static const String daimondTo = "Daimond To";
-  static const String pleaseAcceptTheRegulations =
-      "Please accept the regulations";
+  static const String pleaseAcceptTheRegulations = "Please accept the regulations";
   static const String pleaseEnterAgencyID = "Please Enter Agency ID";
   static const String pleaseEnterPhoneNum = "please Enter Phone Number";
   static const String dolars = "Dolars";
@@ -367,8 +341,7 @@ static const String iOSPlatform='IOS';
   static const String agencyMembersRank = "Agency Member Rank";
   static const String reports = "Reports";
   static const String shippingFromTheAgency = "Shipping from the agency";
-  static const String chargingFromTheSystem =
-      "Charging from the charging system";
+  static const String chargingFromTheSystem = "Charging from the charging system";
   static const String agencyOwner = "Agency Owner";
   static const String members = "Members";
   static const String years = "Years";
@@ -381,27 +354,19 @@ static const String iOSPlatform='IOS';
   static const String nameAgency = "Name Agency ";
   static const String Bio = "Bio";
   static const String cantSendGift = "you can't send gifts in the anonymouns mood .. please go and unactivate it first";
-
   //create room
   static const String enterYourRoomData = "please,Enter your room data";
-
   static const String enterYourRoomName = "please,Enter your room name";
-
   static const String enterYourRoomImage = "please,Enter your room image";
-
   static const String enterYourRoomType = "please,Enter your room type";
-
-  static const String youCanEnterAfter =
-      "You have been kicked out of this ROM, you may log in yet";
-
+  static const String youCanEnterAfter = "You have been kicked out of this ROM, you may log in yet";
   String get({required String reming}) => "${youCanEnterAfter.tr()} $reming";
   static const String checkYourInternet = "Check Your Internet";
   static const String noDataFoundHere = "No Data Found Here";
   static const String totalUsd = "Total Usd";
   static const String ownerUsd = "Owner Usd";
   static const String type = "Type";
-  static const String chooseTopic =
-      "Choose the topics that are most important to you!";
+  static const String chooseTopic = "Choose the topics that are most important to you!";
   static const String hideRoom = "Hide Your Room";
   static const String sendToLuckyBox = "Send to Lucky box";
   static const String quantity = "Quantity";
@@ -435,21 +400,16 @@ static const String iOSPlatform='IOS';
   static const String fromTheSeat = 'from the seat?';
   static const String leaveTheSeat = 'Leave the seat';
   static const String areYouSureToLeaveSeat = 'Are you sure to leave seat?';
-
   static const String minute = "munit";
   static const String thisGiftForbiden = "this Gift for vip";
-  static const String levelOfThe = "level of the VIP";
-  static const String contribute = "Contribute";
   static const String talk = "Talk";
-  static const String ban = "Ban";
   static const String youshould = 'you should close pk frist';
   static const String cantopen = 'can\'t open in this mood';
   static const String cantclosepk = 'can\'t close the pk';
   static const String beComeAdmin = "Be come admin";
   static const String privacy = "Privacy";
   static const String useTheFeatureAndEnjoyit = "Use The Feature And Enjoy it";
-  static const String thisFeatureisNotAvailableForYou =
-      "This Feature isNot Available For You";
+  static const String thisFeatureisNotAvailableForYou = "This Feature isNot Available For You";
   static const String note = "notes";
   static const String updateRoomName = "update your room name here";
 
@@ -459,8 +419,7 @@ static const String iOSPlatform='IOS';
   static const String description = "Description";
   static const String mustNotBeEmpty = "must not be empty";
   static const String submission = "Submission";
-  static const String pleaseExplain =
-      'Please explain your problem in detail so that our customer service staff can understand and deal with it';
+  static const String pleaseExplain = 'Please explain your problem in detail so that our customer service staff can understand and deal with it';
   static const String fiveMin = '5 minute ';
   static const String fiftyMin = '15 minute';
   static const String thirtyMin = '30 minute';
@@ -484,52 +443,43 @@ static const String iOSPlatform='IOS';
   static const String confirm = "confirm";
   static const String pleaseChosseVideo = "Please Choose Video";
   static const String specialBar = 'Special Bar';
-
   static const String imageAnanyomus = 'anonymous_icon.jpg';
-
   static const String nameAnayoums = 'Mysterious Person';
-
   static const String myVideos = 'My Videos';
   static const String loadingMore = "Loading More";
   static const String noFamily = 'this person doesn\'t belong to any family';
-
-  static const String pleaseWaitReel =
-      'Please wait for the previous video to be uploaded';
+  static const String pleaseWaitReel = 'Please wait for the previous video to be uploaded';
   static const String coinToUpload = 'Coin to upload image';
   static const String comments = 'Comments';
   static const String comment = 'Comment';
-
   static const String noCommentsYet = 'No Comments yet.';
   static const String addAComment = 'Add a comment...';
   static const String reelsView = 'Reels View';
   static const String empty = 'Empty';
   static const String coinsIsEmpty = 'Coins is Empty';
   static const String nowInRoom = "Now In Room";
-
-    static const String theOtp = 'the otp you have entered is wrong';
- static const String inputPhonenum = "Input your phone number";
- static const String pleaseEnterYourPassword = "Please Enter your Password";
- static const String enterNewPassword = "Enter New Password";
- static const String changePhone = "Change Phone";
- static const String changePassword = "Change Password";
- static const String pleaseEnterYourPhone = "Please Enter your phone";
- static const String enterYourPhone = "Enter your phone";
- static const String pleaseAddYourCountry = "Please Add Your Country";
- static const String thePrivecyPolicy = "the Privacy Policy";
- static const String moments = "Moments";
- static const String giftBox = "GiftBox";
- static const String addComment = "Add comment";
- static const String addMoment = "Add Moment";
- static const String addMoment1 = "Add moment ...";
- static const String thisMoment = "this moment has no likes yet";
- static const String thisMomentc = "this moment has no comments yet";
-
+  static const String theOtp = 'the otp you have entered is wrong';
+  static const String inputPhonenum = "Input your phone number";
+  static const String pleaseEnterYourPassword = "Please Enter your Password";
+  static const String enterNewPassword = "Enter New Password";
+  static const String changePhone = "Change Phone";
+  static const String changePassword = "Change Password";
+  static const String pleaseEnterYourPhone = "Please Enter your phone";
+  static const String enterYourPhone = "Enter your phone";
+  static const String pleaseAddYourCountry = "Please Add Your Country";
+  static const String thePrivecyPolicy = "the Privacy Policy";
+  static const String moments = "Moments";
+  static const String giftBox = "GiftBox";
+  static const String addComment = "Add comment";
+  static const String addMoment = "Add Moment";
+  static const String addMoment1 = "Add moment ...";
+  static const String thisMoment = "this moment has no likes yet";
+  static const String thisMomentc = "this moment has no comments yet";
   static const String momentTab = "Moments";
   static const String likes = "Likes";
   static const String followingTab = "Following";
   static const String myMomentsTab = "My moments";
   static const String trendingTab = "Trending";
-
   static const String noReels = "No Reels";
   static const String noMoreReels = "No More Reels";
   static const String readMore = "... read more";
@@ -554,31 +504,14 @@ static const String iOSPlatform='IOS';
   static const String hinttext = "Say something...";
   static const String enetrMessage = 'Enter Message';
   static const String youDontHaveMoments = "you don't have moments yet";
-
   static const String love = "Love";
   static const String tabToSwapToFollowing = "Swap to move to another tab";
   static const String tabToUpload = "Tab here to upload video";
   static const String swapToGo = "Swap left to go to this profile";
   static const String oneHashtag = "You should at least use one hashtag";
-
-
   static const String topicHasBeenChosen = "The topic has been chosen";
-
   static const String passwordProtected = "This room is password protected";
   static const String youCanOptanPassword = "You can obtain it through one of the participating members within the room";
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   static Map<int, bool> userType = {
     0: false,
@@ -860,18 +793,24 @@ static const String iOSPlatform='IOS';
     "لبوة"
   ];
 
- //games links
- static const String teenPatti = "http://167.172.6.20/TeenPatti/index.html?sound=0&language=ar&token=";
- static const String roulette = "http://167.172.6.20/Roulette/index.html?sound=0&language=ar&token=";
- static const String carRace = "http://167.172.6.20/CarRacing/index.html?sound=0&language=ar&token=";
- static const String updown = "http://167.172.6.20/SevenUpDown/index.html?sound=0&language=ar&token=";
- static const String ludo = "http://167.172.6.20/Ludo-Game/index.html?sound=0&language=ar&token=";
+  //games links
+  static const String teenPatti =
+      "http://167.172.6.20/TeenPatti/index.html?sound=0&language=ar&token=";
+  static const String roulette =
+      "http://167.172.6.20/Roulette/index.html?sound=0&language=ar&token=";
+  static const String carRace =
+      "http://167.172.6.20/CarRacing/index.html?sound=0&language=ar&token=";
+  static const String updown =
+      "http://167.172.6.20/SevenUpDown/index.html?sound=0&language=ar&token=";
+  static const String ludo =
+      "http://167.172.6.20/Ludo-Game/index.html?sound=0&language=ar&token=";
 
-  static const String teenPattiFull = 'http://167.172.6.20/tik-chat-full/tik-chat-teen-patti-full/index.html?sound=0&language=ar&token=';
-  static const String rouletteFull = "http://167.172.6.20/tik-chat-full/tik-chat-roulette-full/index.html?sound=0&language=ar&token=";
-  static const String carRaceFull = "http://167.172.6.20/tik-chat-full/tik-chat-car-full/index.html?sound=0&language=ar&token=";
-  static const String updownFull = "http://167.172.6.20/tik-chat-full/tik-chat-seven-full/index.html?sound=0&language=ar&token=";
-
-
-
+  static const String teenPattiFull =
+      'http://167.172.6.20/tik-chat-full/tik-chat-teen-patti-full/index.html?sound=0&language=ar&token=';
+  static const String rouletteFull =
+      "http://167.172.6.20/tik-chat-full/tik-chat-roulette-full/index.html?sound=0&language=ar&token=";
+  static const String carRaceFull =
+      "http://167.172.6.20/tik-chat-full/tik-chat-car-full/index.html?sound=0&language=ar&token=";
+  static const String updownFull =
+      "http://167.172.6.20/tik-chat-full/tik-chat-seven-full/index.html?sound=0&language=ar&token=";
 }

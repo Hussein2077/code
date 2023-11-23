@@ -35,24 +35,10 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back_ios_outlined , color: Theme.of(context).colorScheme.primary, )),
-        actions: const [
 
-          UploadVideo()
-        ],
-        backgroundColor: Theme.of(context).colorScheme.background,
-        title: Text(
-          StringManager.myVideos.tr(),
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(fontSize: ConfigSize.defaultSize! * 2 , ),
-        ),
-      ),
+
       body: ReelsBox(
+        isMyVideos: true,
           userDataModel: widget.userDataModel,
           scrollController: scrollController),
     );

@@ -44,7 +44,7 @@ class PrivacyAndServiceTextWidget extends StatelessWidget {
                   Navigator.pushNamed(context, Routes.privacyPolicyScreen);
                 },
                 child: Text(
-                  StringManager.privacyPolicy,
+                  StringManager.privacyPolicy.tr(),
                   style: style2,
                 ),
               ),
@@ -54,7 +54,7 @@ class PrivacyAndServiceTextWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                StringManager.and,
+                StringManager.and.tr(),
                 style: style,
               ),
               const SizedBox(
@@ -63,7 +63,7 @@ class PrivacyAndServiceTextWidget extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Text(
-                  StringManager.termsOfService,
+                  StringManager.termsOfService.tr(),
                   style: style2,
                 ),
               )

@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/chose_topic_dailog.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
@@ -70,23 +71,20 @@ class _TrimmerViewState extends State<TrimmerView> {
     await _trimmer
         .saveTrimmedVideo(
             onSave: (s) async {
-              log(s.toString()+"11111111");
               UploadVideoState.video = s ;
             },
             startValue: _startValue,
             endValue: _endValue)
         .then((value) {
       if(TrimmerView.selectedIntrest.isEmpty){
-        final snackBar = SnackBar(
-            content: Text(StringManager.oneHashtag.tr()));
+
         ScaffoldMessenger.of(context).showSnackBar(
-          snackBar,
+          errorSnackBar(context,StringManager.oneHashtag.tr()),
         );
       }else {
-        final snackBar = SnackBar(
-            content: Text(StringManager.loading.tr()));
+
         ScaffoldMessenger.of(context).showSnackBar(
-          snackBar,
+          loadingSnackBar(context),
         );
         Future.delayed(const Duration(seconds: 3), () async {
           BlocProvider.of<UploadReelsBloc>(context).add(

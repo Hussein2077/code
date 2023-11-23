@@ -26,9 +26,7 @@ class ProfileBody extends StatelessWidget {
       color1: isDarkTheme ? Colors.black : ColorManager.lightGray,
       child: Column(
         children: [
-          const Spacer(
-            flex: 2,
-          ),
+       SizedBox(height: ConfigSize.defaultSize!*1.5,),
           UserInfoRow(
          
             imageSize: ConfigSize.defaultSize! * 6,
@@ -47,42 +45,35 @@ class ProfileBody extends StatelessWidget {
             ),
             userData: myData.convertToUserObject(),
           ),
-          const Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: ConfigSize.defaultSize!*1.5,),
+
           FFFVRow(
             myDataModel: myData,
           ),
-          const Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: ConfigSize.defaultSize!*1.5,),
+
           GoldSilverButton(
             myDataModel: myData,
           ),
-          const Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: ConfigSize.defaultSize!*3.5,),
+
           Card1(
             isDarkTheme: isDarkTheme,
             myData: myData,
           ),
-          const Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: ConfigSize.defaultSize!*3.5,),
+
           Card2(
             isDarkTheme: isDarkTheme,
             myData: myData,
           ),
-          const Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: ConfigSize.defaultSize!*3.5,),
+
           Card3(
             isDarkTheme: isDarkTheme,
             myData: myData,
           ),
-          const Spacer(
-            flex: 1,
-          ),
+
         ],
       ),
     );

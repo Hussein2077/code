@@ -691,12 +691,12 @@ PODS:
   - FBSDKCoreKit_Basics (16.0.1)
   - FBSDKLoginKit (16.0.1):
     - FBSDKCoreKit (= 16.0.1)
-  - ffmpeg-kit-ios-https (5.1.LTS)
-  - ffmpeg_kit_flutter (5.1.0.LTS):
-    - ffmpeg_kit_flutter/https-lts (= 5.1.0.LTS)
+  - ffmpeg-kit-ios-https (6.0)
+  - ffmpeg_kit_flutter (6.0.3):
+    - ffmpeg_kit_flutter/https (= 6.0.3)
     - Flutter
-  - ffmpeg_kit_flutter/https-lts (5.1.0.LTS):
-    - ffmpeg-kit-ios-https (= 5.1.LTS)
+  - ffmpeg_kit_flutter/https (6.0.3):
+    - ffmpeg-kit-ios-https (= 6.0)
     - Flutter
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
@@ -1216,8 +1216,8 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 2cb033464b2134af0138f87d20b859eb3f9be359
   FBSDKCoreKit_Basics: d37280da2e65872f0e931d15f45d97ea324fec37
   FBSDKLoginKit: c47a3b90920702487b10b647c63520dc2676dad9
-  ffmpeg-kit-ios-https: 9e50ffa7eaa6272a0021829e054ef241f2ecffb2
-  ffmpeg_kit_flutter: fb5bee3a6038231463ee99e30f97a5763e0ae40f
+  ffmpeg-kit-ios-https: f9c838aa5400a6c5ba12324c6b798f52197ba354
+  ffmpeg_kit_flutter: b4ca70cac3fc1d8ac14cdc660754b60870358732
   file_picker: 15fd9539e4eb735dc54bae8c0534a7a9511a03de
   Firebase: 66043bd4579e5b73811f96829c694c7af8d67435
   firebase_auth: b62e99e6ece589afe88ebe8919eb9563b52c384c

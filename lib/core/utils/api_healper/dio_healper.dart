@@ -52,7 +52,7 @@ class DioHelper {
   ) {
     switch (failure.runtimeType) {
       case ServerFailure:
-        return Strings.serverFailureMessage;
+        return Strings.serverFailureMessage.tr();
       case UnauthorizedFailure:
         Navigator.pushNamedAndRemoveUntil(
             GlobalContextService.navigatorKey.currentContext!,
