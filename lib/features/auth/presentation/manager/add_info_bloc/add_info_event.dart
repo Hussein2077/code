@@ -22,6 +22,6 @@ class AddInfoEvent extends BaseAddInfoEvent {
     final String? email ;
 
    const AddInfoEvent({ this.bio ,    this.gender
-    ,  this.name,  this.date, this.countryID, this.email
+    ,  this.name,  this.date, this.countryID, this.email,
     this.image, this.age});
 }

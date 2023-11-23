@@ -10,7 +10,6 @@ import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/add_profile_pic.dart';
-import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/country_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_state.dart';
