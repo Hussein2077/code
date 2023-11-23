@@ -65,6 +65,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
     flutterGifController = FlutterGifController(vsync: this);
 
 
+
     super.initState();
   }
   @override
@@ -230,9 +231,10 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                         valueListenable: followAneimate,
                         builder: (context, isShow, _) {
                           if (isShow) {
-                            return GifImage(
+                            return
+                              GifImage(
                               controller: flutterGifController,
-                              image:  AssetImage(AssetsPath.verified),
+                              image:const   AssetImage(AssetsPath.verified),
                               width: ConfigSize.defaultSize!*4,
                               height: ConfigSize.defaultSize!*4,
                             );
@@ -291,7 +293,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                             horizontal: ConfigSize.defaultSize! * 4.2,
                             vertical: ConfigSize.defaultSize! * 1.5,
                           ),
-                          decoration:  BoxDecoration(
+                          decoration:const  BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.contain,
                                   image: AssetImage(
@@ -443,7 +445,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
   void Function()? follow (){
     flutterGifController.reset();
     flutterGifController.repeat(
-        min: 0,max: 30,   period:  Duration(milliseconds: 2000));
+        min: 0,max: 30,   period: const  Duration(milliseconds: 2000));
     followAneimate.value = !followAneimate.value;
 
     localisFollow
@@ -452,7 +454,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
       : BlocProvider.of<FollowBloc>(context)
       .add(FollowEvent(userId: widget.userData.id.toString()));
     localisFollow = !localisFollow ;
-    Future.delayed( Duration(milliseconds:1800 ), () async {
+    Future.delayed(const Duration(milliseconds:1800 ), () async {
       flutterGifController.stop();
       followAneimate.value = !followAneimate.value;
 

@@ -1,10 +1,9 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
-
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -13,7 +12,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_state.dart';
-import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'widget/lower/lower_body.dart';
 import 'widget/profile_bottom_bar.dart';
 import 'widget/upper/upper_body.dart';
@@ -51,9 +49,17 @@ class _UserProfileState extends State<UserProfile> {
 
     super.initState();
   }
+
+  @override
+  void didChangeDependencies() {
+    BlocProvider.of<GetUserBloc>(context)
+        .add( const InituserEvent());
+    super.didChangeDependencies();
+  }
+
   @override
   void dispose() {
-    LowerProfileBody.getUserReels = true;
+
     super.dispose();
   }
 
@@ -149,8 +155,7 @@ class _UserProfileState extends State<UserProfile> {
                               ),
                             ],
                           )
-                        : const CustomErrorWidget(
-                            message: StringManager.unexcepectedError);
+                        : const LoadingWidget();
                   }
                 },
               ),

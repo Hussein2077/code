@@ -119,7 +119,6 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                           onTap: () {
                             MainScreen.canNotPlayOutOfReelMainScreen = false ;
                             ReelsPage.isFirst = true ;
-
                             Navigator.pushNamed(context, Routes.userReelView,
                                 arguments: ReelsUserPramiter(
                                     startIndex: index,
@@ -194,7 +193,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                       } else {
                         if (state.data!.length % 3 != 0 &&
                             state.data!.length > 6 &&
-                            ReelsBox.loading) {
+                            ReelsBox.loading){
                           return Center(
                               child: Text(
                             StringManager.loadingMore.tr(),
