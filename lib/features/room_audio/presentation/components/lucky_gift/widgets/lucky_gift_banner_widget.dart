@@ -26,7 +26,7 @@ class LuckGiftBannerWidget extends StatelessWidget {
               offset: offsetAnimationBanner.value,
               child: Container(
                 height: ConfigSize.defaultSize! * 5.5,
-                width: ConfigSize.screenWidth !* 0.51,
+                width: ConfigSize.screenWidth !* 0.6,
                 decoration: BoxDecoration(
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular( ConfigSize.defaultSize! * 4),

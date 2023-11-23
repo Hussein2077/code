@@ -284,7 +284,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                           controllerBanner: widget.luckGiftBannderController,
                           offsetAnimationBanner: widget.offsetLuckGiftAnimationBanner));
                 } else {
-                  log("hhhhhhhhhhhhhh");
                   return const SizedBox();
                 }
               },
