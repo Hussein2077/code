@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -30,11 +32,14 @@ class LinkingScreen extends StatelessWidget {
       child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
         builder: (context, state) {
           if (state is GetMyDataSucssesState) {
+            log(state.myDataModel.isPhone.toString()+"xxxxx");
             tempMyData = state.myDataModel;
             return LinkingScreenBody(
               myData: state.myDataModel,
             );
           } else {
+            log(tempMyData!.isPhone.toString()+"zzzzzz");
+
             return LinkingScreenBody(
               myData: tempMyData!,
             );

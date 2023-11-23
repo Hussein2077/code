@@ -199,28 +199,29 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                               SizedBox(
                                 height: ConfigSize.defaultSize! * 15,
                               ),
-                                MainButton(
-                                  onTap: () {
-                                    if (agencyId.text.isEmpty) {
-                                      errorToast(
-                                          context: context,
-                                          title: StringManager.pleaseEnterAgencyID);
-                                    } else if (number.text.isEmpty) {
-                                      errorToast(
-                                          context: context,
-                                          title: StringManager.pleaseEnterPhoneNum);
-                                    } else {
-                                      BlocProvider.of<JoinToAgencieBloc>(context).add(JoinToAgencieEvent(
-                                              agencieId: agencyId.text,
-                                              whatsAppNum: number.text));
-                                    }
-                                  },
-                                  title: StringManager.applicationToJoinAnAgency.tr(),
-                                ),
+
                             ],
                           ),
                         ),
-                      )
+                      ),
+                      MainButton(
+                        onTap: () {
+                          if (agencyId.text.isEmpty) {
+                            errorToast(
+                                context: context,
+                                title: StringManager.pleaseEnterAgencyID);
+                          } else if (number.text.isEmpty) {
+                            errorToast(
+                                context: context,
+                                title: StringManager.pleaseEnterPhoneNum);
+                          } else {
+                            BlocProvider.of<JoinToAgencieBloc>(context).add(JoinToAgencieEvent(
+                                agencieId: agencyId.text,
+                                whatsAppNum: number.text));
+                          }
+                        },
+                        title: StringManager.applicationToJoinAnAgency.tr(),
+                      ),
                     ],
                   ),
                 ),
