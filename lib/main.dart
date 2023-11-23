@@ -149,8 +149,7 @@ import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_p
 
 
 class GlobalContextService {
-  static GlobalKey<NavigatorState> navigatorKey =
-  GlobalKey<NavigatorState>();
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }
 
 Future<void> main() async {

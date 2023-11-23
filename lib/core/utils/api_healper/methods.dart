@@ -64,7 +64,6 @@ import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/exist_room_uc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_view_biger.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';

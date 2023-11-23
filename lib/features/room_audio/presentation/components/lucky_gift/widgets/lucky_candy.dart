@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_user_only.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_event.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import '../../../../../../../core/utils/config_size.dart';
 
 
@@ -25,6 +26,8 @@ class LuckyCandy extends StatefulWidget {
     this.luckGiftBannderController,
     required this.roomData, Key? key}) : super(key: key);
   static ValueNotifier<int> winCircularluckyGift = ValueNotifier<int>(0);
+  static int winCounter = 0;
+  static String recieverName = "";
 
   @override
   _LuckyCandyState createState() => _LuckyCandyState();
@@ -123,6 +126,8 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
     widget.luckGiftBannderController!.reverse().then((value) {});
     Future.delayed(const Duration(seconds: 1),()=>GiftBottomBar.typeCandy.value = TypeCandy.non)  ;
     Future.delayed(const Duration(seconds: 1),()=>LuckyCandy.winCircularluckyGift.value = 0)  ;
+    if(LuckyCandy.winCounter != 0) ZegoUIKit().sendInRoomMessage("${StringManager.luckyGiftMessage.tr()} ${LuckyCandy.winCounter} ${StringManager.to.tr()} ${LuckyCandy.recieverName}", false);
+    LuckyCandy.winCounter = 0;
   }
 
   void sendGift() {

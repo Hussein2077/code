@@ -33,6 +33,7 @@ class LuckyGiftBannerBloc
     });
 
     on<EndBannerEvent>((event, emit) {
+      emit(LuckyGiftBannerInitial());
       giftNum = 0;
       isFrist =0 ;
     });

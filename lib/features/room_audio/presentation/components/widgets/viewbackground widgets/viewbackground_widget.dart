@@ -20,6 +20,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_bo
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_gift_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_gift_win_circle.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_gift_with_overlay.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_gift_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_lucky_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_yallow_banner_widget.dart';
@@ -248,18 +249,19 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             BlocConsumer<LuckyGiftBannerBloc, LuckyGiftBannerState>(
               listener: (context, state) {
                 if (state is SendLuckyGiftSucssesState) {
+                  LuckyCandy.recieverName = state.data.receiverName;
+                  LuckyCandy.winCounter = LuckyCandy.winCounter + 1;
                   if (state.data.isWin && !state.data.isPopular) {
-                    ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
+                   // ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
                     LuckyGiftWinCircle.winCoin = state.data.winCoin;
-                    LuckyCandy.winCircularluckyGift.value =
-                        LuckyCandy.winCircularluckyGift.value + 1;
+                    LuckyCandy.winCircularluckyGift.value = LuckyCandy.winCircularluckyGift.value + 1;
                   } else if (state.data.isWin && state.data.isPopular) {
-                    ZegoUIKit().sendInRoomMessage(state.data.message, true);
-                    ZegoUIKit()
-                        .sendInRoomMessage(state.data.coomentMesasge, false);
+                      ZegoUIKit().sendInRoomMessage(state.data.message, true);
+                  //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
+                  //   LuckyCandy.recieverName = state.data.receiverName;
+                  //   LuckyCandy.winPopularCounter = LuckyCandy.winPopularCounter + 1;
                   } else {
-                    ZegoUIKit()
-                        .sendInRoomMessage(state.data.coomentMesasge, false);
+                  //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
                   }
                   if (state.isFirst == 1) {
                     widget.luckGiftBannderController.forward();
@@ -272,7 +274,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
               builder: (context, state) {
                 if (state is SendLuckyGiftSucssesState) {
                   return Positioned(
-                      top: ConfigSize.defaultSize! * 40.5,
+                      top: ConfigSize.defaultSize! * 50,
                       left: 0,
                       child: LuckGiftBannerWidget(
                           reciverName: state.data.receiverName,
@@ -373,6 +375,9 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                       return const SizedBox();
                     }
                   }),
+            ),
+            const IgnorePointer(
+              child:  LuckyGiftWithOverlay(),
             ),
           ]);
         }, listener: (context, state) {
