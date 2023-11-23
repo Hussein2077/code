@@ -12,6 +12,8 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_state.dart';
@@ -28,7 +30,8 @@ class GoogleAndAppleAuth extends StatelessWidget {
       listener: (context, state) async{
         if(state is SiginWithGoogleSuccesMessageState){
           Methods.instance.clearAuthData();
-          //todo check this event if still here or not
+          BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
+              email: state.userData.userData.email));
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           if (state.userData.apiUserData.isFirst!) {
             Navigator.pushNamedAndRemoveUntil(

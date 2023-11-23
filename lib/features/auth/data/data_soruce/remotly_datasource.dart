@@ -120,7 +120,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   
   @override
   Future<MyDataModel> addInformation(InformationPramiter informationPramiter)async {
-    log("addInformation") ;
      FormData formData;
     if (informationPramiter.image == null) {
       formData = FormData.fromMap({
@@ -130,6 +129,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ConstentApi.gender: informationPramiter.gender,
         ConstentApi.country: informationPramiter.country,
         'country_phone_code': informationPramiter.countryCode,
+        if(informationPramiter.email != null) "email": informationPramiter.email
       });
     }
     else {
