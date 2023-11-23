@@ -36,11 +36,11 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
       body: BlocListener<JoinToAgencieBloc, JoinToAgencieState>(
         listener: (context, state) {
           if (state is JoinToAgencieLoadingState) {
-            loadingToast(context: context, title: StringManager.loading.tr());
+            loadingToast(context: context, title: StringManager.loading);
           } else if (state is JoinToAgencieErrorState) {
             errorToast(context: context, title: state.error);
           } else if (state is JoinToAgencieSucssesState) {
-            sucssesToast(context: context, title: StringManager.done.tr());
+            sucssesToast(context: context, title: StringManager.done);
           }
         },
         child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
@@ -199,28 +199,29 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                               SizedBox(
                                 height: ConfigSize.defaultSize! * 15,
                               ),
-                                MainButton(
-                                  onTap: () {
-                                    if (agencyId.text.isEmpty) {
-                                      errorToast(
-                                          context: context,
-                                          title: StringManager.pleaseEnterAgencyID.tr());
-                                    } else if (number.text.isEmpty) {
-                                      errorToast(
-                                          context: context,
-                                          title: StringManager.pleaseEnterPhoneNum.tr());
-                                    } else {
-                                      BlocProvider.of<JoinToAgencieBloc>(context).add(JoinToAgencieEvent(
-                                              agencieId: agencyId.text,
-                                              whatsAppNum: number.text));
-                                    }
-                                  },
-                                  title: StringManager.applicationToJoinAnAgency.tr(),
-                                ),
+
                             ],
                           ),
                         ),
-                      )
+                      ),
+                      MainButton(
+                        onTap: () {
+                          if (agencyId.text.isEmpty) {
+                            errorToast(
+                                context: context,
+                                title: StringManager.pleaseEnterAgencyID);
+                          } else if (number.text.isEmpty) {
+                            errorToast(
+                                context: context,
+                                title: StringManager.pleaseEnterPhoneNum);
+                          } else {
+                            BlocProvider.of<JoinToAgencieBloc>(context).add(JoinToAgencieEvent(
+                                agencieId: agencyId.text,
+                                whatsAppNum: number.text));
+                          }
+                        },
+                        title: StringManager.applicationToJoinAnAgency.tr(),
+                      ),
                     ],
                   ),
                 ),

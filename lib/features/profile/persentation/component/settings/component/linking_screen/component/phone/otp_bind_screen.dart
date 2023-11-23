@@ -14,6 +14,8 @@ import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/resend_code_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_phone_number_text.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/account_events.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/account_states.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/acount_bloc.dart';
@@ -80,16 +82,23 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
       }
 
       else if (state is NumberAccountSuccessState) {
+        log("Sucsses");
+
+        BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
         final snackBar = SnackBar(
           content:  Text(state.successMessage),
           backgroundColor: (Colors.black12),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);        // // ignore: use_build_context_synchronously
-         Navigator.pop(context);
+         // Navigator.pop(context);
       } else if (state is NumberAccountLoading) {
 
         //loadingToast(context: context, );
       } else if (state is NumberAccountErrorState) {
+        log("error");
+
+        BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+
         errorToast(context: context, title: state.errorMessage);
       }
     }, builder: (BuildContext context, AccountStates state) {
@@ -153,10 +162,7 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
                               //   phoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
                               password: widget.password ?? '',
                               vrCode: OtpContiners.code));
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context);
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context);
+
                     }
                     else if (widget.type == 'changeNumber') {
                      // ignore: use_build_context_synchronously
