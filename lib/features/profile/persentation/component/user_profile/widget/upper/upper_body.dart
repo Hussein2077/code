@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/main_screen/main_screen.dart';
 class UpperProfileBody extends StatelessWidget {
   final MyDataModel myDataModel;
   final bool myProfile;
+
   const UpperProfileBody(
       {required this.myProfile, required this.myDataModel, super.key});
 
@@ -39,14 +40,16 @@ class UpperProfileBody extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * .3995,
           decoration: BoxDecoration(
-            image: myDataModel.profile!.image != null ? DecorationImage(
-              image: CachedNetworkImageProvider(
-                  ConstentApi().getImage(myDataModel.profile!.image)),
-              fit: BoxFit.cover,
-            ): const DecorationImage(
-              image: AssetImage(AssetsPath.defaultImage),
-              fit: BoxFit.cover,
-            ),
+            image: myDataModel.profile!.image != null
+                ? DecorationImage(
+                    image: CachedNetworkImageProvider(
+                        ConstentApi().getImage(myDataModel.profile!.image)),
+                    fit: BoxFit.cover,
+                  )
+                : const DecorationImage(
+                    image: AssetImage(AssetsPath.defaultImage),
+                    fit: BoxFit.cover,
+                  ),
           ),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
@@ -66,28 +69,25 @@ class UpperProfileBody extends StatelessWidget {
                     const Spacer(
                       flex: 6,
                     ),
-                      InkWell(
-                        onTap: () {
-                          if(myDataModel.nowRoom?.isnInRoom??false){
-                            Methods.instance.checkIfRoomHasPassword(
-                                myData: MyDataModel.getInstance(),
-                                context: context,
-                                hasPassword:
-                                myDataModel.nowRoom!.roomstatus!,
-                                ownerId:
-                                myDataModel.nowRoom!.uid.toString(),
-                                isInRoom: MainScreen.iskeepInRoom.value);
-                          }
-                        },
-                        child: UserImage(
-                            isRoom: (myDataModel.nowRoom?.isnInRoom??false),
-                            frame:  myDataModel.frame,
-                            frameId:  myDataModel.frameId,
-                            image: myDataModel.profile!.image!,
-                            boxFit: BoxFit.cover,
-                            imageSize: ConfigSize.defaultSize! * 8),
-                      ),
-
+                    InkWell(
+                      onTap: () {
+                        if (myDataModel.nowRoom?.isnInRoom ?? false) {
+                          Methods.instance.checkIfRoomHasPassword(
+                              myData: MyDataModel.getInstance(),
+                              context: context,
+                              hasPassword: myDataModel.nowRoom!.roomstatus!,
+                              ownerId: myDataModel.nowRoom!.uid.toString(),
+                              isInRoom: MainScreen.iskeepInRoom.value);
+                        }
+                      },
+                      child: UserImage(
+                          isRoom: (myDataModel.nowRoom?.isnInRoom ?? false),
+                          frame: myDataModel.frame,
+                          frameId: myDataModel.frameId,
+                          image: myDataModel.profile!.image!,
+                          boxFit: BoxFit.cover,
+                          imageSize: ConfigSize.defaultSize! * 8),
+                    ),
                     const Spacer(
                       flex: 1,
                     ),
@@ -120,12 +120,17 @@ class UpperProfileBody extends StatelessWidget {
                         SizedBox(
                           width: ConfigSize.defaultSize!,
                         ),
-                        if (!myDataModel.isCountryHiden!)
-                          Text(
-                            myDataModel.profile!.country,
-                            style: TextStyle(
-                                fontSize: ConfigSize.defaultSize! * 1.8),
-                          ),
+                        if (!myDataModel.isCountryHiden! &&
+                            myDataModel.country != null)
+                          myDataModel.country!.flag == ''
+                              ? const SizedBox()
+                              : CachedNetworkImage(
+                                  imageUrl: ConstentApi().getImage(
+                                    myDataModel.country!.flag,
+                                  ),
+                                  width: ConfigSize.defaultSize! * 2.4,
+                                  height: ConfigSize.defaultSize! * 2.4,
+                                ),
                         SizedBox(
                           width: ConfigSize.defaultSize!,
                         ),
@@ -135,14 +140,17 @@ class UpperProfileBody extends StatelessWidget {
                         SizedBox(
                           width: ConfigSize.defaultSize!,
                         ),
-                        myDataModel.isGold?
-                        ShimmerId(id: myDataModel.uuid.toString(),style: TextStyle(
-                            color: Colors.white,
-                            fontSize: ConfigSize.defaultSize! * 1.2,
-                            fontWeight: FontWeight.w700),):
-                        itemContiner(
-                          title: "ID ${myDataModel.uuid}",
-                        ),
+                        myDataModel.isGold
+                            ? ShimmerId(
+                                id: myDataModel.uuid.toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: ConfigSize.defaultSize! * 1.2,
+                                    fontWeight: FontWeight.w700),
+                              )
+                            : itemContiner(
+                                title: "ID ${myDataModel.uuid}",
+                              ),
 
                         SizedBox(
                           width: ConfigSize.defaultSize!,

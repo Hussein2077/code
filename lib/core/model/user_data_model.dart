@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/model/my_store_model.dart';
 import 'package:tik_chat_v2/core/model/now_room_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
+import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 
 class UserDataModel {
   final int? id;
@@ -36,7 +37,7 @@ class UserDataModel {
   final String? uuid;
   final String? notificationId;
   final String? bio ;
-
+  GetAllCountriesModel? country;
   final int? userType ;
   int? numberOfFans;
   int? numberOfFollowings;
@@ -93,6 +94,7 @@ class UserDataModel {
         this.lastActiveHidden,
         this.visitTime ,
         this.isGold ,
+        this.country,
       });
 
 
@@ -145,6 +147,7 @@ class UserDataModel {
         visitHidden:map['visit_hidden']??false,
         roomHidden: map['room_hidden']??false,
         isGold: map['is_gold_id']??false,
+        country:  map['country'] == '' ? null:map['country'] == null?null : GetAllCountriesModel.fromJson(map['country']),
 
         familyData: map['family_data']==null? null:  FamilyDataModel.fromjosn(
             map['family_data']),
@@ -189,7 +192,7 @@ class UserDataModel {
         numberOfFollowings: numberOfFollowings ,
         numberOfFriends: numberOfFriends,
         profileVisotrs:profileVisotrs,
-
+country: country,
       notificationId: notificationId,
       level: LevelDataModel(
           senderImage: level?.senderImage,

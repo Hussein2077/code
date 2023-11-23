@@ -25,6 +25,8 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/country_drop_down_search.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'widgets/add_profile_pic.dart';
 import 'widgets/continer_with_icons.dart';
 import 'widgets/date/date_widget.dart';
@@ -49,11 +51,11 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   void initState() {
     SnackBar snackBar = SnackBar(
       content: widget.Data?.isAgeNotComplete == true &&
-              widget.Data?.isBirthdayDateNotComplete == true
-          ? const Text(StringManager.pleaseCompleteYourInfoAgeAndCountry)
+              widget.Data?.isCountryNotComplete == true
+          ?  Text(StringManager.pleaseCompleteYourInfoAgeAndCountry.tr())
           : Text(widget.Data?.isAgeNotComplete == true
-              ? StringManager.pleaseCompleteYourInfoAge
-              : StringManager.pleaseCompleteYourInfoCountry),
+              ? StringManager.pleaseCompleteYourInfoAge.tr()
+              : StringManager.pleaseCompleteYourInfoCountry.tr()),
     );
     nameController = TextEditingController();
     if (widget.Data != null) {
@@ -72,7 +74,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.Data?.isAgeNotComplete == true ||
-          widget.Data?.isBirthdayDateNotComplete == true) {
+          widget.Data?.isCountryNotComplete == true) {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
@@ -97,8 +99,8 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 2,
               ),
-              const HeaderWithOnlyTitle(
-                title: StringManager.completeYourAccount,
+               HeaderWithOnlyTitle(
+                title: StringManager.completeYourAccount.tr(),
               ),
               const Spacer(
                 flex: 1,
@@ -113,7 +115,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                 flex: 1,
               ),
               Text(
-                StringManager.postYourBestPhoto,
+                StringManager.postYourBestPhoto.tr(),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const Spacer(
@@ -133,7 +135,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           hintText: MyDataModel.getInstance().name ??
-                              StringManager.userName,
+                              StringManager.userName.tr(),
                           hintStyle: const TextStyle(color: Colors.grey)),
                     ),
                   )),
@@ -209,7 +211,9 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
       },
       listener: (context, state) {
         if (state is AddInfoSuccesMessageState) {
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           Navigator.pushNamed(context, Routes.mainScreen);
+
         } else if (state is AddInfoErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
         }

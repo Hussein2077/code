@@ -1,4 +1,4 @@
-
+import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +15,9 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_ro
 
 class AduioLiveRow extends StatelessWidget {
   final int style;
-  final RoomModelOfAll room ; 
-  const AduioLiveRow({required this.room , required this.style, super.key});
+  final RoomModelOfAll room;
 
-
+  const AduioLiveRow({required this.room, required this.style, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,18 +62,18 @@ class AduioLiveRow extends StatelessWidget {
                                 image: AssetImage(AssetsPath.yellowBackGround))
                             : const DecorationImage(
                                 image: AssetImage(AssetsPath.pinkBackGround)),
-                    borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2)),
+                    borderRadius:
+                        BorderRadius.circular(ConfigSize.defaultSize! * 2)),
                 margin: EdgeInsetsDirectional.only(
                     bottom: ConfigSize.defaultSize! * 2,
                     start: ConfigSize.defaultSize! * 2.5),
-                width: ConfigSize.defaultSize! *33,
+                width: ConfigSize.defaultSize! * 33,
                 height: ConfigSize.defaultSize! * 10,
               )),
               Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(
-                        top: ConfigSize.defaultSize! * 1.2),
+                    margin: EdgeInsets.only(top: ConfigSize.defaultSize! * 1.2),
                     width: ConfigSize.defaultSize! * 8.6,
                     height: ConfigSize.defaultSize! * 7.6,
                     decoration: BoxDecoration(
@@ -88,11 +87,14 @@ class AduioLiveRow extends StatelessWidget {
                               spreadRadius: 1,
                               blurRadius: 20),
                         ],
-                        image: room.cover != null? DecorationImage(
-                            image: CachedNetworkImageProvider(ConstentApi().getImage(room.cover)),
-                            fit: BoxFit.fill) : const DecorationImage(
-                            image: AssetImage(AssetsPath.defaultImage),
-                            fit: BoxFit.fill),
+                        image: room.cover != null
+                            ? DecorationImage(
+                                image: CachedNetworkImageProvider(
+                                    ConstentApi().getImage(room.cover)),
+                                fit: BoxFit.fill)
+                            : const DecorationImage(
+                                image: AssetImage(AssetsPath.defaultImage),
+                                fit: BoxFit.fill),
                         borderRadius:
                             BorderRadius.circular(ConfigSize.defaultSize! * 2)),
                   ),
@@ -104,7 +106,7 @@ class AduioLiveRow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: ConfigSize.defaultSize!*19,
+                        width: ConfigSize.defaultSize! * 19,
                         child: Text(
                           room.name ?? '',
                           overflow: TextOverflow.ellipsis,
@@ -133,37 +135,45 @@ class AduioLiveRow extends StatelessWidget {
                           SizedBox(
                             width: ConfigSize.defaultSize,
                           ),
-                          Text(room.country!,style: TextStyle(
-                            fontSize: ConfigSize.defaultSize!*1.7
-                          )),
-                     /*CachedNetworkImage(
-                            imageUrl: room.country!,
-                            width: ConfigSize.defaultSize! * 2.4,
-                            height: ConfigSize.defaultSize! * 2.4,
-                          ),*/
+                          // Text(room.country!,style: TextStyle(
+                          //   fontSize: ConfigSize.defaultSize!*1.7
+                          // )),
+                          room.country== ''
+                              ? const SizedBox()
+                              : CachedNetworkImage(
+                                  imageUrl:
+                                      ConstentApi().getImage(room.country!),
+                                  width: ConfigSize.defaultSize! * 2.4,
+                                  height: ConfigSize.defaultSize! * 2.4,
+                                ),
                         ],
                       )
                     ],
                   ),
-
                   Padding(
                     padding: EdgeInsetsDirectional.only(
-                        top: room.passwordStatus!? ConfigSize.defaultSize! * 2 : ConfigSize.defaultSize! * 5,
+                        top: room.passwordStatus!
+                            ? ConfigSize.defaultSize! * 2
+                            : ConfigSize.defaultSize! * 5,
                         end: ConfigSize.defaultSize! * 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        if(room.passwordStatus!) Image.asset(AssetsPath.lock, color: ColorManager.orang,),
-                        if(room.passwordStatus!) SizedBox(
-                          height: ConfigSize.defaultSize,
-                        ),
+                        if (room.passwordStatus!)
+                          Image.asset(
+                            AssetsPath.lock,
+                            color: ColorManager.orang,
+                          ),
+                        if (room.passwordStatus!)
+                          SizedBox(
+                            height: ConfigSize.defaultSize,
+                          ),
                         NumVistor(
                           numOfVistor: room.visitorsCount.toString(),
                         ),
                       ],
                     ),
                   ),
-
                 ],
               )
             ],

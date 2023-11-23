@@ -251,6 +251,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.pleaseEnterYourBirthDate: 'يرجى إدخال تاريخ ميلادك',
     StringManager.pleaseSelectYourCountry: 'يرجى اختيار بلدك',
     StringManager.pleaseCompleteYourInfoCountry: 'يرجى اضافة بلدك',
+    StringManager.pleaseAddYourCountry: 'يرجى اضافة بلدك',
     StringManager.pleaseCompleteYourInfoAge: 'يرجى اضافة عمرك',
     StringManager.pleaseCompleteYourInfoAgeAndCountry: ' يرجى اضافة عمرك ودولتك',
 

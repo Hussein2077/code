@@ -122,10 +122,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   
   @override
   Future<MyDataModel> addInformation(InformationPramiter informationPramiter)async {
-    log("addInformation") ;
      FormData formData;
     if (informationPramiter.image == null) {
-      log('${informationPramiter.countryID}informationPramiter.countryID,');
       formData = FormData.fromMap({
         'bio' : informationPramiter.bio,
         ConstentApi.name: informationPramiter.name,
@@ -135,7 +133,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       });
     }
     else {
-      log('${informationPramiter.countryID}informationPramiter.countryID,');
       File file = informationPramiter.image!;
       String fileName = file.path.split('/').last;
 

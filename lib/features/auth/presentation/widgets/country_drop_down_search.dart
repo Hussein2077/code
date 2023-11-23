@@ -16,9 +16,9 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_b
 
 class CountryDropDownSearch extends StatelessWidget {
   const CountryDropDownSearch({
-    super.key,
+    super.key, this.width,
   });
-
+final double? width;
   static GetAllCountriesModel? selectedItem;
 
   @override
@@ -28,10 +28,9 @@ class CountryDropDownSearch extends StatelessWidget {
         if (state is GetAllCountriesSuccessState) {
           return SizedBox(
             height: ConfigSize.defaultSize! * 7,
-            width: ConfigSize.screenWidth! * .8,
+            width:width?? ConfigSize.screenWidth! * .8,
             child: DropdownSearch<GetAllCountriesModel>(
               asyncItems: (filter) async {
-
                 return state.getAllCountriesModel.allCountiesSearch;
               },
               compareFn: (i, s) => i.name == (s.name),
