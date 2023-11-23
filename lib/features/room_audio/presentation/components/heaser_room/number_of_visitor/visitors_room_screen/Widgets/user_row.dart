@@ -103,7 +103,7 @@ class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
                       ),),
                       if(widget.roomVistorModel.type == 1) Image.asset(AssetsPath.adminMark, scale: 2,),
                       const Spacer(),
-                            StreamBuilder<List<ZegoUIKitUser>>(
+                      StreamBuilder<List<ZegoUIKitUser>>(
                                 stream: ZegoUIKit().getMediaListStream(),
                                 builder: (BuildContext context, AsyncSnapshot<List<ZegoUIKitUser>> snapshot){
                                   return Row(
