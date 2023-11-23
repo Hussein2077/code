@@ -130,6 +130,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ConstentApi.birthday: informationPramiter.date,
         ConstentApi.gender: informationPramiter.gender,
         'country_id':informationPramiter.countryID,
+        if(informationPramiter.email != null) "email": informationPramiter.email
+
       });
     }
     else {
@@ -144,6 +146,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ConstentApi.birthday: informationPramiter.date,
         ConstentApi.gender: informationPramiter.gender,
         'country_id':informationPramiter.countryID,
+        if(informationPramiter.email != null) "email": informationPramiter.email
+
       });
     }
 

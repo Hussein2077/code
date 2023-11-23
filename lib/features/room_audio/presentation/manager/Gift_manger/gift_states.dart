@@ -1,115 +1,82 @@
 import 'package:equatable/equatable.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 
 
 
-class GiftsStates extends Equatable {
-  final List<GiftsModel> dataNormal;
-  final RequestState normalState;
-  final String normalMessage;
-  final List<GiftsModel> dataHot;
-  final RequestState hotState;
-  final String hotMessage;
-  final List<GiftsModel> dataCountry;
-  final RequestState countryState;
-  final String countryMessage;
-  final List<GiftsModel> dataFamous;
-  final RequestState famousState;
-  final String famousMessage;
-  final List<GiftsModel> dataLucky;
-  final RequestState luckyState;
-  final String luckyMessage;
-  final List<GiftsModel> momentGifts;
-  final RequestState momentGiftsState;
-  final String momentGiftsMessage;
-
-  const GiftsStates(
-      {this.hotMessage = "",
-        this.dataNormal = const [],
-        this.normalState = RequestState.loading,
-        this.normalMessage = "",
-        this.dataHot = const [],
-        this.hotState = RequestState.loading,
-        this.countryMessage = "",
-        this.countryState = RequestState.loading,
-        this.dataCountry = const [],
-        this.dataFamous = const [],
-        this.famousState = RequestState.loading,
-        this.famousMessage = "",
-        this.dataLucky = const [],
-        this.luckyMessage = '',
-        this.luckyState = RequestState.loading,
-  this.momentGifts = const [],
-  this.momentGiftsState = RequestState.loading,
-  this.momentGiftsMessage = "",
-
-      });
-
-  GiftsStates copyWith({
-    List<GiftsModel>? dataNormal,
-    RequestState? normalState,
-    String? normalMessage,
-    List<GiftsModel>? dataHot,
-    RequestState? hotState,
-    String? hotMessage,
-    List<GiftsModel>? dataCountry,
-    RequestState? countryState,
-    String? countryMessage,
-    List<GiftsModel>? dataFamous,
-    RequestState? famousState,
-    String? famousMessage,
-    List<GiftsModel>? dataLucky,
-    RequestState? luckyState,
-    String? luckyMessage,
-    List<GiftsModel>? momentGifts,
-    RequestState? momentGiftsState,
-    String? momentGiftsMessage,
-
-  }) {
-    return GiftsStates(
-        dataHot: dataHot ?? this.dataHot,
-        dataNormal: dataNormal ?? this.dataNormal,
-        hotMessage: hotMessage ?? this.hotMessage,
-        normalMessage: normalMessage ?? this.hotMessage,
-        normalState: normalState ?? this.normalState,
-        hotState: hotState ?? this.hotState,
-        dataCountry: dataCountry ?? this.dataCountry,
-        countryMessage: countryMessage ?? this.countryMessage,
-        countryState: countryState ?? this.countryState,
-        dataFamous: dataFamous ?? this.dataFamous,
-        famousMessage: famousMessage?? this.famousMessage ,
-        famousState: famousState ?? this.famousState ,
-        dataLucky: dataLucky ?? this.dataLucky ,
-        luckyMessage: luckyMessage ?? this.luckyMessage ,
-        luckyState:  luckyState ?? this.luckyState,
-      momentGifts: momentGifts ?? this.momentGifts,
-      momentGiftsMessage: momentGiftsMessage ?? this.momentGiftsMessage,
-      momentGiftsState: momentGiftsState ?? this.momentGiftsState,
-
-
-    );
-  }
+abstract class GiftsState extends Equatable {
+  const GiftsState();
 
   @override
-  List<Object?> get props => [
-    dataNormal,
-    normalState,
-    normalMessage,
-    dataHot,
-    hotState,
-    hotMessage,
-    countryState,
-    countryMessage,
-    dataCountry,
-    famousMessage ,
-    famousState ,
-    dataFamous,
-    dataLucky,
-    luckyState,
-    luckyMessage,
-    momentGifts,
-    momentGiftsMessage,
-    momentGiftsState
-  ];
+  List<Object> get props => [];
+}
+
+class GetGiftInitial extends GiftsState {}
+
+
+class GetNormalGifLoading extends GiftsState {}
+
+class GetNormalGifSucsses extends GiftsState {
+  final List<GiftsModel> data;
+  const GetNormalGifSucsses({required this.data});
+}
+class GetNormalGifError extends GiftsState {
+  final String error ;
+  const GetNormalGifError ({required this.error});
+}
+
+
+class GetHotGifLoading extends GiftsState {}
+
+class GetHotGifSucsses extends GiftsState {
+  final List<GiftsModel> data;
+  const GetHotGifSucsses({required this.data});
+}
+class GetHotGifError extends GiftsState {
+  final String error ;
+  const GetHotGifError ({required this.error});
+}
+
+
+class GetCountryGifLoading extends GiftsState {}
+
+class GetCountryGifSucsses extends GiftsState {
+  final List<GiftsModel> data;
+  const GetCountryGifSucsses({required this.data});
+}
+class GetCountryGifError extends GiftsState {
+  final String error ;
+  const GetCountryGifError ({required this.error});
+}
+
+class GetFamousGifLoading extends GiftsState {}
+
+class GetFamousGifSucsses extends GiftsState {
+  final List<GiftsModel> data;
+  const GetFamousGifSucsses({required this.data});
+}
+class GetFamousGifError extends GiftsState {
+  final String error ;
+  const GetFamousGifError ({required this.error});
+}
+
+class GetLuckyGifLoading extends GiftsState {}
+
+class GetLuckyGifSucsses extends GiftsState {
+  final List<GiftsModel> data;
+  const GetLuckyGifSucsses({required this.data});
+}
+class GetLuckyGifError extends GiftsState {
+  final String error ;
+  const GetLuckyGifError ({required this.error});
+}
+
+class GetMomentGifLoading extends GiftsState {}
+
+class GetMomentGifSucsses extends GiftsState {
+  final List<GiftsModel> data;
+  const GetMomentGifSucsses({required this.data});
+}
+class GetMomentGifError extends GiftsState {
+  final String error ;
+  const GetMomentGifError ({required this.error});
 }

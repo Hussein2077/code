@@ -21,26 +21,18 @@ class AddInFormationUC extends BaseUseCase<MyDataModel, InformationPramiter> {
 }
 
 class InformationPramiter extends Equatable {
-  final String? bio;
+   final String? bio ; 
+  final String? name ;
+  final String? date ;
+  final File? image ;
+  final String? gender ;
+   final int? countryID;
+  final String? email;
 
-  final String name;
 
-  final String? date;
-
-  final File? image;
-
-  final String gender;
-  final int? countryID;
-
-  const InformationPramiter({
-    this.bio,
-    required this.gender,
-    this.image,
-    this.date,
-    required this.name,
-      this.countryID,
-  });
+  const InformationPramiter({ this.bio , this.gender,
+   this.image , this.countryID,this.date , this.name, this.email,});
 
   @override
-  List<Object?> get props => [name, date, image, gender,countryID];
+  List<Object?> get props => [countryID,name ,date ,image,gender ,country,countryCode,email];
 }

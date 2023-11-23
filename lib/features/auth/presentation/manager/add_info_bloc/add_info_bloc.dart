@@ -14,8 +14,9 @@ class AddInfoBloc extends Bloc<BaseAddInfoEvent, AddInfoState> {
           bio: event.bio,
           gender: event.gender,
           date: event.date,
-
-          name: event.name, countryID: event.countryID));
+          email: event.email,
+          name: event.name,
+          countryID: event.countryID));
       result.fold(
           (l) => emit(AddInfoSuccesMessageState(myDataModel: l)),
           (r) => emit(AddInfoErrorMessageState(

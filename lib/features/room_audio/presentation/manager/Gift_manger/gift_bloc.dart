@@ -1,23 +1,22 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/getGiftes_useCase.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_states.dart';
 
 
 
-class GiftBloc extends Bloc<GiftEvent,GiftsStates>
+class GiftBloc extends Bloc<GiftEvent,GiftsState>
 {
 
   final GiftsUseCase giftsUseCase ;
 
 
-  GiftBloc({required this.giftsUseCase}): super(const GiftsStates()){
+  GiftBloc({required this.giftsUseCase}): super(GetGiftInitial()){
 
-    on<GiftesNormalEvent>(gethotGift);
-    on<GiftesHotEvent>(getNormalGift);
+    on<GiftesNormalEvent>(getNormalGift);
+    on<GiftesHotEvent>(gethotGift);
     on<GiftesCountryEvent>(getCountryGift);
     on<GiftesFamousEvent>(getFamousGift);
     on<GiftesLuckyEvent>(getLuckyGift) ;
@@ -25,53 +24,54 @@ class GiftBloc extends Bloc<GiftEvent,GiftsStates>
 
   }
 
-  FutureOr<void> gethotGift(GiftesNormalEvent event, Emitter<GiftsStates> emit)async {
+  FutureOr<void> gethotGift(GiftesHotEvent event, emit)async {
+
+    emit(GetHotGifLoading());
 
     final result = await giftsUseCase.call(event.type);
 
-    result.fold((l) => emit(state.copyWith(dataNormal: l,normalState: RequestState.loaded)),
-            (r) => emit(state.copyWith(normalMessage: DioHelper().getTypeOfFailure(r),normalState: RequestState.error)));
+    result.fold((l) => emit(GetHotGifSucsses(data: l)),
+            (r) => emit(GetHotGifError(error: DioHelper().getTypeOfFailure(r))));
 
   }
 
-  FutureOr<void> getNormalGift(GiftesHotEvent event, Emitter<GiftsStates> emit)async {
+  FutureOr<void> getNormalGift(GiftesNormalEvent event, emit)async {
+    emit(GetNormalGifLoading());
 
     final result = await giftsUseCase.call(event.type);
 
-    result.fold((l) => emit(state.copyWith(dataHot: l,hotState: RequestState.loaded)),
-            (r) => emit(state.copyWith(hotMessage: DioHelper().getTypeOfFailure(r),hotState: RequestState.error)));
+    result.fold((l) => emit(GetNormalGifSucsses(data: l)),
+            (r) => emit(GetNormalGifError(error: DioHelper().getTypeOfFailure(r))));
 
   }
 
-
-
-
-  FutureOr<void> getCountryGift(GiftesCountryEvent event, Emitter<GiftsStates> emit)async {
+  FutureOr<void> getCountryGift(GiftesCountryEvent event, emit)async {
+    emit(GetCountryGifLoading());
     final result = await giftsUseCase.call(event.type);
-    result.fold((l) => emit(state.copyWith(dataCountry: l,countryState: RequestState.loaded)),
-            (r) => emit(state.copyWith(countryMessage: DioHelper().getTypeOfFailure(r),countryState: RequestState.error)));
+    result.fold((l) => emit(GetCountryGifSucsses(data: l)),
+            (r) => emit(GetCountryGifError(error: DioHelper().getTypeOfFailure(r))));
   }
 
-  FutureOr<void> getFamousGift(GiftesFamousEvent event, Emitter<GiftsStates> emit)async {
+  FutureOr<void> getFamousGift(GiftesFamousEvent event, emit)async {
+    emit(GetFamousGifLoading());
     final result = await giftsUseCase.call(event.type);
-    result.fold((l) => emit(state.copyWith(dataFamous: l,famousState: RequestState.loaded)),
-            (r) => emit(state.copyWith(famousMessage: DioHelper().getTypeOfFailure(r),famousState: RequestState.error)));
-  }
-  FutureOr<void> getLuckyGift(GiftesLuckyEvent event, Emitter<GiftsStates> emit)async {
-    final result = await giftsUseCase.call(event.type);
-    result.fold((l) => emit(state.copyWith(dataLucky: l,luckyState: RequestState.loaded)),
-            (r) => emit(state.copyWith(luckyMessage: DioHelper().getTypeOfFailure(r),luckyState: RequestState.error)));
+    result.fold((l) => emit(GetFamousGifSucsses(data: l)),
+            (r) => emit(GetFamousGifError(error: DioHelper().getTypeOfFailure(r))));
   }
 
-  FutureOr<void> getMomentGift(
-      GiftesMomentEvent event, Emitter<GiftsStates> emit) async {
+  FutureOr<void> getLuckyGift(GiftesLuckyEvent event, emit)async {
+    emit(GetLuckyGifLoading());
+    final result = await giftsUseCase.call(event.type);
+    result.fold((l) => emit(GetLuckyGifSucsses(data: l)),
+            (r) => emit(GetLuckyGifError(error: DioHelper().getTypeOfFailure(r))));
+  }
+
+  FutureOr<void> getMomentGift(GiftesMomentEvent event, emit) async {
+    emit(GetMomentGifLoading());
     final result = await giftsUseCase.call(event.type);
     result.fold(
-            (l) => emit(state.copyWith(
-            momentGifts: l, momentGiftsState: RequestState.loaded)),
-            (r) => emit(state.copyWith(
-            momentGiftsMessage: DioHelper().getTypeOfFailure(r),
-            momentGiftsState: RequestState.error)));
+            (l) => emit(GetMomentGifSucsses(data: l)),
+            (r) => emit(GetMomentGifError(error: DioHelper().getTypeOfFailure(r))));
   }
 
 
