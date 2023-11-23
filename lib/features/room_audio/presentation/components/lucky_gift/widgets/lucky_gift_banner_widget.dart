@@ -5,9 +5,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-
 import 'dart:ui' as ui;
-
 
 
 class LuckGiftBannerWidget extends StatelessWidget {
@@ -28,7 +26,7 @@ class LuckGiftBannerWidget extends StatelessWidget {
               offset: offsetAnimationBanner.value,
               child: Container(
                 height: ConfigSize.defaultSize! * 5.5,
-                width: ConfigSize.screenWidth !* 0.8,
+                width: ConfigSize.screenWidth !* 0.51,
                 decoration: BoxDecoration(
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular( ConfigSize.defaultSize! * 4),
@@ -41,9 +39,6 @@ class LuckGiftBannerWidget extends StatelessWidget {
                       UserImage(
                         imageSize: ConfigSize.defaultSize! * 3,
                         image: MyDataModel.getInstance().profile!.image??"",),
-                      SizedBox(
-                        width: ConfigSize.defaultSize! ,
-                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,28 +50,28 @@ class LuckGiftBannerWidget extends StatelessWidget {
                                 fontSize: ConfigSize.defaultSize! ),
                           ),
                           Text(
-                            "ارسل الي ${reciverName} ",
+                            "ارسل الي $reciverName ",
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: ConfigSize.defaultSize! * 1.3),
+                                fontSize: ConfigSize.defaultSize! * 1),
                           ),
                         ],
                       ),
                       SizedBox(
-                        width: ConfigSize.defaultSize,
+                        width: ConfigSize.defaultSize! * .5,
                       ),
                       UserImage(
                         image: giftImage,
-                        imageSize: ConfigSize.defaultSize! * 3 ,
+                        imageSize: ConfigSize.defaultSize! * 2 ,
 
                       ),
                       SizedBox(
-                        width: ConfigSize.defaultSize,
+                        width: ConfigSize.defaultSize! * .5,
                       ),
 
                       Text("${giftNum.toString()}x" ,
                         style: TextStyle(color: Colors.black , fontWeight: FontWeight.bold ,
-                            fontSize: ConfigSize.defaultSize!*4),)
+                            fontSize: ConfigSize.defaultSize!*2),)
 
                     ],
                   ),

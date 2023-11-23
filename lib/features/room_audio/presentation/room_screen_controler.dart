@@ -45,6 +45,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_use
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/main.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/live_page.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
@@ -248,8 +249,14 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
   RoomScreen.listOfAnimatingGifts.clear();
   RoomScreen.listOfAnimatingEntros.clear();
   if(ownerId == MyDataModel.getInstance().id.toString() &&  PkController.showPK.value){
-    BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
-    BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: ownerId));
+    if(context.mounted){
+      BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
+      BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: ownerId));
+    }else{
+      BlocProvider.of<PKBloc>(GlobalContextService.navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
+      BlocProvider.of<PKBloc>(GlobalContextService.navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
+    }
+
   }
   PkController.timeMinutePK = 0;
   PkController.timeSecondPK = 0;

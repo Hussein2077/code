@@ -1021,7 +1021,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.chargeCoins: "سکے کی چارجنگ",
     StringManager.empty: 'خالی',
     StringManager.chooseTopic: 'آپ کے لئے سب سے اہم موضوعات منتخب کریں',
-    StringManager.nowInRoom: 'کمرے میں داخل ہو رہے ہیں'
+    StringManager.nowInRoom: 'کمرے میں داخل ہو رہے ہیں',
+    StringManager.luckyGiftMessage: 'ارسل هدية حظ  عددها',
+    StringManager.to: 'الي',
   };
   static const Map<String, dynamic> chs = {
     StringManager.appTitle: "Tik Chat",
