@@ -1,4 +1,3 @@
-
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
@@ -25,8 +24,8 @@ class GoogleAndAppleAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInWithPlatformBloc, SignInWithPlatformState>(
-      listener: (context, state) async{
-        if(state is SiginWithGoogleSuccesMessageState){
+      listener: (context, state) async {
+        if (state is SiginWithGoogleSuccesMessageState) {
           Methods.instance.clearAuthData();
           //todo check this event if still here or not
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
@@ -35,7 +34,9 @@ class GoogleAndAppleAuth extends StatelessWidget {
               context,
               Routes.addInfo,
               arguments: ThirdPartyAuthModel(
-                  data: state.userData.userData, type: "google",),
+                data: state.userData.userData,
+                type: "google",
+              ),
               (route) => false,
             );
           } else {
@@ -51,34 +52,37 @@ class GoogleAndAppleAuth extends StatelessWidget {
           loadingToast(context: context);
         }
 
-        if(state is SiginWithAppleSuccesMessageState){
+        if (state is SiginWithAppleSuccesMessageState) {
           Methods.instance.clearAuthData();
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           if (state.userModel.apiUserData.isFirst!) {
             Navigator.pushNamedAndRemoveUntil(
-                context, Routes.addInfo, arguments: ThirdPartyAuthModel(data: state.userModel.userData, type: "apple", ), (route) => false);
+                context,
+                Routes.addInfo,
+                arguments: ThirdPartyAuthModel(
+                  data: state.userModel.userData,
+                  type: "apple",
+                ),
+                (route) => false);
           } else {
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.mainScreen,
-                  (route) => false,
+              (route) => false,
             );
           }
-        }else if (state is SiginWithGoogleErrorMessageState){
+        } else if (state is SiginWithGoogleErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
-        }else {
-
-        }
+        } else {}
       },
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
-              onTap: (){
-
-
-                BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginGoogleEvent());
+              onTap: () {
+                BlocProvider.of<SignInWithPlatformBloc>(context)
+                    .add(SiginGoogleEvent());
               },
               child: SizedBox(
                   width: ConfigSize.defaultSize! * 5,
@@ -87,14 +91,13 @@ class GoogleAndAppleAuth extends StatelessWidget {
                     child: Image.asset(AssetsPath.googleIcon),
                   )),
             ),
-            if(Platform.isIOS)
+            if (Platform.isIOS)
               InkWell(
                 onTap: () {
-
-                  BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginAppleEvent());
-
+                  BlocProvider.of<SignInWithPlatformBloc>(context)
+                      .add(SiginAppleEvent());
                 },
-                child:  CircleAvatar(
+                child: CircleAvatar(
                   radius: ConfigSize.defaultSize! * 2.8,
                   backgroundColor: ColorManager.whiteColor,
                   child: Center(

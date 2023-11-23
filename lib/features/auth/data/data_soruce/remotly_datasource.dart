@@ -16,6 +16,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
+import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
@@ -34,6 +35,7 @@ abstract class BaseRemotlyDataSource {
   Future<String> logOut();
   Future<String> privacyPolicy();
   Future<String> deleteAccount();
+  Future<GetAllCountriesBase> getAllCountries();
 
 
 }
@@ -120,7 +122,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   
   @override
   Future<MyDataModel> addInformation(InformationPramiter informationPramiter)async {
-    log("addInformation") ;
      FormData formData;
     if (informationPramiter.image == null) {
       formData = FormData.fromMap({
@@ -128,8 +129,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ConstentApi.name: informationPramiter.name,
         ConstentApi.birthday: informationPramiter.date,
         ConstentApi.gender: informationPramiter.gender,
-        ConstentApi.country: informationPramiter.country,
-        'country_phone_code': informationPramiter.countryCode,
+        'country_id':informationPramiter.countryID,
       });
     }
     else {
@@ -143,8 +143,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ConstentApi.name: informationPramiter.name,
         ConstentApi.birthday: informationPramiter.date,
         ConstentApi.gender: informationPramiter.gender,
-        ConstentApi.country: informationPramiter.country,
-        'country_phone_code': informationPramiter.countryCode
+        'country_id':informationPramiter.countryID,
       });
     }
 
@@ -157,9 +156,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
           headers:headers
         ),
       );
-
-
-
       MyDataModel userData = MyDataModel.fromMap(response.data[ConstentApi.data]);
 
       Methods.instance.saveMyData();
@@ -387,6 +383,25 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'delete account');
     }
   }
+
+  @override
+  Future<GetAllCountriesBase> getAllCountries() async{
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.getAllCountries,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      List< dynamic> jsonData = response.data;
+      return GetAllCountriesBase.fromJson(jsonData);
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'Get All Countries');
+    }
+  }
+
 
 }
 

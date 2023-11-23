@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -77,7 +78,7 @@ class _MaleFemaleButtonsState extends State<MaleFemaleButtons> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  StringManager.female,
+                  StringManager.female.tr(),
                   style: TextStyle(
                       color: MaleFemaleButtons.selectedGender == "female"
                           ? ColorManager.pink

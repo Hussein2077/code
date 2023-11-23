@@ -6,38 +6,41 @@ import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 
+class AddInFormationUC extends BaseUseCase<MyDataModel, InformationPramiter> {
+  BaseRepository baseRepository;
 
-
-
-class AddInFormationUC extends BaseUseCase<MyDataModel,InformationPramiter>{
-
- BaseRepository baseRepository ;
-
-
-  AddInFormationUC({ required this.baseRepository});
+  AddInFormationUC({required this.baseRepository});
 
   @override
-  Future<Either<MyDataModel, Failure>> call(InformationPramiter parameter) async {
+  Future<Either<MyDataModel, Failure>> call(
+      InformationPramiter parameter) async {
+    final result = await baseRepository.addInformation(parameter);
 
-    final result = await baseRepository.addInformation(parameter) ;
-
-    return result ;
+    return result;
   }
 }
 
 class InformationPramiter extends Equatable {
-   final String? bio ; 
-  final String name ;
-  final String? date ;
-  final File? image ;
-  final String gender ;
-  final String country ;
-  final String? countryCode;
+  final String? bio;
 
+  final String name;
 
-  const InformationPramiter({ this.bio , required this.gender,
-    required this.country,  this.image , this.date , this.countryCode,required this.name});
+  final String? date;
+
+  final File? image;
+
+  final String gender;
+  final int? countryID;
+
+  const InformationPramiter({
+    this.bio,
+    required this.gender,
+    this.image,
+    this.date,
+    required this.name,
+      this.countryID,
+  });
 
   @override
-  List<Object?> get props => [name ,date ,image,gender ,country,countryCode];
+  List<Object?> get props => [name, date, image, gender,countryID];
 }

@@ -40,7 +40,7 @@ class ProfileRoomModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'image': image,
+      'image': image??"",
       'gender': gender,
       'birthday': birthday,
       'country': country,

@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -10,6 +13,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/add_country_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
@@ -44,15 +48,14 @@ class MainScreen extends StatefulWidget {
 
   final Uri? actionDynamicLink;
 
-  static bool canNotPlayOutOfReelMainScreen = true ;
+  static bool canNotPlayOutOfReelMainScreen = true;
 
   static ValueNotifier<bool> iskeepInRoom = ValueNotifier<bool>(false);
 
   static EnterRoomModel? roomData;
 
   static String reelId = '';
-  static String? momentId ;
-
+  static String? momentId;
 
   const MainScreen(
       {this.isCachFrame,
@@ -98,17 +101,28 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return BlocListener<GetMyDataBloc, GetMyDataState>(
       listener: (context, state) {
         if (state is GetMyDataSucssesState) {
-          if (state.myDataModel.profile!.age == 0 ||
-              state.myDataModel.profile!.country == "") {
+          if (state.myDataModel.profile!.age == 0 &&
+              state.myDataModel.country == null) {
             Navigator.pushNamedAndRemoveUntil(
                 context, Routes.addInfo, (route) => false,
                 arguments: ThirdPartyAuthModel(
-                  isBirthdayDateNotComplete:
-                      state.myDataModel.profile!.country == "" ? true : false,
-                  isAgeNotComplete:
-                      state.myDataModel.profile!.age == 0 ? true : false,
-                ));
+                    isCountryNotComplete:
+                        state.myDataModel.country == null ? true : false,
+                    isAgeNotComplete:
+                        state.myDataModel.profile!.age == 0 ? true : false));
           }
+          else  if (state.myDataModel.country?.id == null ) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return WillPopScope(
+                        child: const AddCountryDialog(),
+                        onWillPop: () async {
+                          return false;
+                        });
+                  });
+            }
+
         }
       },
       child: WillPopScope(
@@ -131,11 +145,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         actionDynamicLink: widget.actionDynamicLink,
                       ),
                   (_) => const ReelsScreenTaps(),
-                  (_) =>  const SafeArea(child: ChatPage()),
+                  (_) => const SafeArea(child: ChatPage()),
                   (_) => const FollowingLiveScreen(),
                   (_) => const MomentScreen(),
                   (_) => const ProfileScreen(),
-
                 ],
                 bottomNavigationBar: (currentIndex, onTap) => BottomBarWidget(
                   currentIndex: currentIndex,
@@ -143,7 +156,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 ),
                 savePageState: true,
                 lazyLoadPages: true,
-                pageStack: ReorderToFrontPageStack(initialPage: SplashScreen.initPage),
+                pageStack:
+                    ReorderToFrontPageStack(initialPage: SplashScreen.initPage),
                 extendBody: false,
                 resizeToAvoidBottomInset: true,
                 pageTransitionData: null,
@@ -189,7 +203,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   ));
 
                               await Methods.instance.exitFromRoom(
-                                  MainScreen.roomData!.ownerId.toString(), context);
+                                  MainScreen.roomData!.ownerId.toString(),
+                                  context);
                               Navigator.pop(context);
                               MainScreen.iskeepInRoom.value = false;
                             },

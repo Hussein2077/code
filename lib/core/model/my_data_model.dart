@@ -7,6 +7,7 @@ import 'package:tik_chat_v2/core/model/now_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
+import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'profile_room_model.dart';
 import 'vip_center_model.dart';
 
@@ -40,23 +41,21 @@ class MyDataModel {
   String? notificationId;
   String? bio;
   bool? hasRoom;
-
   bool? isFacebook;
   bool? isGoogle;
   bool? isPhone;
   int? myType;
-
   bool? isHideRoom;
-  final String? onlineTime;
-  final bool? isCountryHiden;
-  final bool? lastActiveHidden;
-  final bool? visitHidden;
+  String? onlineTime;
+  bool? isCountryHiden;
+  bool? lastActiveHidden;
+  bool? visitHidden;
   bool? hasColorName;
   bool? isAanonymous;
   NowRoomModel? nowRoom;
   var isGold;
   int? unReadMessageCount ;
-
+  GetAllCountriesModel? country;
 
   static MyDataModel? _instance;
 
@@ -109,7 +108,7 @@ class MyDataModel {
               this.nowRoom,
               this.isGold,
         this.unReadMessageCount ,
-
+        this.country,
       });
 
   setNewMyData(
@@ -152,9 +151,10 @@ class MyDataModel {
         bool? isHideRoom,
         var isGold,
         NowRoomModel? nowRoom,
-        int? unReadMessageCount
+        int? unReadMessageCount,
+           GetAllCountriesModel? country,
 
-      
+
       }) {
     this.id = id ?? this.id;
     this.chatId = chatId ?? this.chatId;
@@ -191,6 +191,7 @@ class MyDataModel {
     this.isHideRoom = isHideRoom ?? this.isHideRoom;
     this.familyId = familyId ?? this.familyId;
     this.familyDataModel = familyDataModel ?? this.familyDataModel;
+    this.country = country ?? this.country;
     this.isGold = isGold ?? this.isGold;
     this.nowRoom = nowRoom ?? this.nowRoom;
     this.unReadMessageCount = unReadMessageCount?? this.unReadMessageCount ;
@@ -247,6 +248,7 @@ class MyDataModel {
           isCountryHiden: map['country_hidden']??false,
           lastActiveHidden :map['anonymous']??false,
           visitHidden:map['visit_hidden']??false,
+          country:  map['country'] == '' ? null:map['country'] == null?null : GetAllCountriesModel.fromJson(map['country']),
           profile: map['profile'] != null
               ? ProfileRoomModel.fromMap(map['profile'] as Map<String, dynamic>)
               : null,
@@ -306,7 +308,6 @@ class MyDataModel {
                     nowRoom: map['now_room'] == null ? null : NowRoomModel.fromjson(map['vip']),
 
 
-
           profile: map['profile'] != null
               ? ProfileRoomModel.fromMap(map['profile'] as Map<String, dynamic>)
               : null,
@@ -316,6 +317,8 @@ class MyDataModel {
           myStore: map['my_store'] != null
               ? MyStoreModel.fromMap(map['my_store'] as Map<String, dynamic>)
               : null,
+          country:  map['country'] == '' ? null:map['country'] == null?null : GetAllCountriesModel.fromJson(map['country']),
+
           myAgencyModel:  map['agency'] != null ?
       map['agency'].isNotEmpty
           ? MyAgencyModel.fromjson(map["agency"])
@@ -384,10 +387,7 @@ class MyDataModel {
         numberOfFriends: numberOfFriends,
         isGold: isGold,
         profileVisotrs: profileVisotrs,
-
-     
-        
-        
+        country: country,
         );
   }
 }

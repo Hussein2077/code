@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/features/auth/data/data_soruce/remotly_datasource.da
 import 'package:tik_chat_v2/features/auth/data/repo_imp/repo_imp.dart';
 import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
+import 'package:tik_chat_v2/features/auth/domin/use_case/get_all_country_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/google_sign_in_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/log_out_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/login_with_phone_usecase.dart';
@@ -19,6 +20,7 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_apple_us.dart
 import 'package:tik_chat_v2/features/auth/domin/use_case/send_code_usecase.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_policy/privacy_policy_bloc.dart';
@@ -351,6 +353,7 @@ class ServerLocator {
     getIt.registerFactory(() => MallBuyBloc(buyUseCase: getIt()));
 
     getIt.registerFactory(() => MyBagBloc(getBackPackUseCase: getIt()));
+    getIt.registerFactory(() => GetAllCountriesBloc(getAllCountriesUC: getIt()));
     getIt.registerFactory(
         () => UseItemBloc(useItemUseCase: getIt(), unusedItemUsecase: getIt()));
     getIt.registerFactory(() => VipCenterBloc(
@@ -613,6 +616,8 @@ getIt.registerLazySingleton(
 
     getIt.registerLazySingleton(
             () => KickoutUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(
+            () => GetAllCountriesUC(baseRepository: getIt()));
 
     getIt.registerLazySingleton(
             () => RemoveAdminUC(roomRepo: getIt()));

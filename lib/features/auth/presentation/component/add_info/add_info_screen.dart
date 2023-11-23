@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable, non_constant_identifier_names, prefer_typing_uninitialized_variables
 
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,21 +17,28 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_state.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_event.dart';
+import 'package:tik_chat_v2/features/auth/presentation/widgets/country_drop_down_search.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'widgets/add_profile_pic.dart';
 import 'widgets/continer_with_icons.dart';
-import 'widgets/country_widget.dart';
 import 'widgets/date/date_widget.dart';
 import 'widgets/male_female_buttons.dart';
 
 class AddInfoScreen extends StatefulWidget {
   ThirdPartyAuthModel? Data;
 
-  AddInfoScreen({this.Data, super.key,});
-
+  AddInfoScreen({
+    this.Data,
+    super.key,
+  });
 
   @override
   State<AddInfoScreen> createState() => _AddInfoScreenState();
@@ -40,11 +50,12 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   @override
   void initState() {
     SnackBar snackBar = SnackBar(
-      content:widget.Data?.isAgeNotComplete == true&&widget.Data?.isBirthdayDateNotComplete == true?
-       Text(StringManager.pleaseCompleteYourInfoAgeAndCountry.tr()):
-        Text(widget.Data?.isAgeNotComplete == true
-          ? StringManager.pleaseCompleteYourInfoAge.tr()
-          : StringManager.pleaseCompleteYourInfoCountry.tr()),
+      content: widget.Data?.isAgeNotComplete == true &&
+              widget.Data?.isCountryNotComplete == true
+          ?  Text(StringManager.pleaseCompleteYourInfoAgeAndCountry.tr())
+          : Text(widget.Data?.isAgeNotComplete == true
+              ? StringManager.pleaseCompleteYourInfoAge.tr()
+              : StringManager.pleaseCompleteYourInfoCountry.tr()),
     );
     nameController = TextEditingController();
     if (widget.Data != null) {
@@ -59,13 +70,13 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
         }
       }
     }
-
+    BlocProvider.of<GetAllCountriesBloc>(context).add(GetAllCountriesEvent());
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (widget.Data?.isAgeNotComplete == true||widget.Data?.isBirthdayDateNotComplete == true) {
+      if (widget.Data?.isAgeNotComplete == true ||
+          widget.Data?.isCountryNotComplete == true) {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
-
     });
   }
 
@@ -75,6 +86,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
     nameController.dispose();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +108,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               AddProFilePic(
                 gooleImageUrl: widget.Data?.type.toString() == "google"
                     ? widget.Data?.data.photoUrl
-                    :( MyDataModel.getInstance().profile?.image),
+                    : (MyDataModel.getInstance().profile?.image),
                 quality: 100,
               ),
               const Spacer(
@@ -134,7 +146,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 1,
               ),
-              const CountryWidget(),
+              const CountryDropDownSearch(),
               const Spacer(
                 flex: 1,
               ),
@@ -155,10 +167,9 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                             gender: MaleFemaleButtons.selectedGender == "male"
                                 ? "1"
                                 : "0",
-                            country: CountryWidget.countryFlag!,
                             name: nameController.text,
                             date: DateWidget.selectedDatee,
-                            countryCode: CountryWidget.codeContry!));
+                            countryID:CountryDropDownSearch. selectedItem!.id));
                       } else {
                         errorToast(
                           context: context,
@@ -200,7 +211,9 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
       },
       listener: (context, state) {
         if (state is AddInfoSuccesMessageState) {
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           Navigator.pushNamed(context, Routes.mainScreen);
+
         } else if (state is AddInfoErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
         }
@@ -209,23 +222,29 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   }
 
   bool valadate() {
-    if (AddProFilePic.googleImage == null && AddProFilePic.image == null&&MyDataModel.getInstance().profile!.image=='') {
+    if (AddProFilePic.googleImage == null &&
+        AddProFilePic.image == null &&
+       (MyDataModel.getInstance().profile==null?true: MyDataModel.getInstance().profile!.image == '')) {
       warningToast(context: context, title: StringManager.pleaseAddPhoto.tr());
       return false;
-    } else if (nameController.text.isEmpty&& MyDataModel.getInstance().name==null) {
-      warningToast(context: context, title: StringManager.pleaseEnterYourName.tr());
-      return false;
-    } else if (DateWidget.selectedDatee == StringManager.birthdayDate.tr()) {
+    } else if (nameController.text.isEmpty &&
+        MyDataModel.getInstance().name == null) {
       warningToast(
-          context: context, title: StringManager.pleaseEnterYourBirthDate.tr());
+          context: context, title: StringManager.pleaseEnterYourName.tr());
+      return false;
+    } else if (DateWidget.selectedDatee == StringManager.birthdayDate) {
+      warningToast(
+          context: context, title: StringManager.pleaseEnterYourBirthDate);
 
       return false;
-    } else if (CountryWidget.countryFlag == null) {
+    } else if (CountryDropDownSearch.selectedItem == null) {
       warningToast(
-          context: context, title: StringManager.pleaseSelectYourCountry.tr());
+          context: context, title: StringManager.pleaseSelectYourCountry);
       return false;
     } else {
       return true;
     }
   }
+
+
 }
