@@ -1,7 +1,4 @@
-import 'package:animated_icon/animate_icon.dart';
-import 'package:animated_icon/animate_icons.dart';
-import 'dart:developer';
-
+import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -76,7 +73,8 @@ class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(width:ConfigSize.defaultSize! ,),
-            UserImage(image: widget.roomVistorModel.image,boxFit: BoxFit.cover,frame: widget.roomVistorModel.frame,
+            UserImage(image: widget.roomVistorModel.image??'',
+              boxFit: BoxFit.cover,frame: widget.roomVistorModel.frame,
               frameId: widget.roomVistorModel.frameId,
               imageSize: ConfigSize.defaultSize! * 5,
             ),
@@ -92,9 +90,9 @@ class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
                   child: Row(
                     children: [
                       GradientTextVip(
-                        text: widget.roomVistorModel.name,
+                        text: widget.roomVistorModel.name??'',
                         textStyle: Theme.of(context).textTheme.bodyLarge!,
-                        isVip: widget.roomVistorModel.hasColorName,
+                        isVip: widget.roomVistorModel.hasColorName??false,
                       ),
                       SizedBox(
                         width: ConfigSize.defaultSize! * 2,
@@ -130,7 +128,7 @@ class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       LevelContainer(
-                        image: widget.roomVistorModel.revicerLevelImg,
+                        image: widget.roomVistorModel.revicerLevelImg??'',
                         width: ConfigSize.defaultSize!*5,
                         height: ConfigSize.defaultSize!*2,
                       ),
@@ -138,10 +136,10 @@ class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
                       LevelContainer(
                         width: ConfigSize.defaultSize!*5,
                         height: ConfigSize.defaultSize!*2,
-                        image: widget.roomVistorModel.senderLevelImg,
+                        image: widget.roomVistorModel.senderLevelImg??'',
                       ),             SizedBox(width:ConfigSize.defaultSize! ,),
                       AristocracyLevel(
-                        level: widget.roomVistorModel.vipLevel,
+                        level: widget.roomVistorModel.vipLevel??0,
                       ),
                     ],
                   ),
