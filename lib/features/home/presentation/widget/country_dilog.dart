@@ -36,6 +36,7 @@ class _CountryDialogState extends State<CountryDialog> {
   }
 
   List<CountryModel>? tempData;
+  int isFirst = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,7 @@ class _CountryDialogState extends State<CountryDialog> {
           child: BlocBuilder<CounrtyBloc, CountryStates>(
             builder: (context, state) {
               if (state is CountrySuccesMessageState) {
+                isFirst++;
                 tempData = state.countrys;
                 return SizedBox(
                   width: ConfigSize.defaultSize! * 10,
@@ -110,7 +112,10 @@ class _CountryDialogState extends State<CountryDialog> {
                           })),
                 );
               } else if (state is CountryLoadingState) {
-                return SizedBox(
+                if (isFirst == 0) {
+                  return const LoadingWidget();
+                } else {
+                  return SizedBox(
                   width: ConfigSize.defaultSize! * 10,
                   height: ConfigSize.defaultSize! * 14,
                   child: Padding(
@@ -163,6 +168,7 @@ class _CountryDialogState extends State<CountryDialog> {
                             );
                           })),
                 );
+                }
               } else if (state is CountryErrorMessageState) {
                 return CustomErrorWidget(
                   message: state.errorMessage,
