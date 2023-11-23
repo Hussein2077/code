@@ -132,7 +132,8 @@ class CallDurationTimeBoardState extends State<LiveDurationTimeBoard> {
 
         return elapsedTime.inSeconds <= 0
             ? Container()
-            : Stack(
+            : Container();
+             /*Stack(
                 children: [
                   const Positioned.fill(
                     child: ColoredBox(
@@ -149,7 +150,7 @@ class CallDurationTimeBoardState extends State<LiveDurationTimeBoard> {
                     ),
                   ),
                 ],
-              );
+              );*/
       },
     );
   }

@@ -950,6 +950,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         await takeOffSeat(index, isForce: true,userId: userId);
       },
     );
+    //BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: localUserID));
   }
 
   Future<bool> leaveSeat({bool showDialog = true}) async {
@@ -1040,9 +1041,11 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
       for (int i = 0; i < userOnMic.length; i++) {
         if(RoomScreen.userOnMics.value[userOnMic[i]]!.id.toString() == ownerId && isPK){
 
-          continue ;
+        }else{
+          BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: RoomScreen.userOnMics.value[userOnMic[i]]!.id.toString()));
 
         }
+
         ZegoUIKit()
             .getSignalingPlugin()
             .deleteRoomProperties(
@@ -1071,6 +1074,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
       return true ;
     }
   }
+
   Future<bool> takeOffSeat(int index, {bool isForce = false,required String  userId})
   async {
     final targetUser = getUserByIndex(index);
@@ -1155,7 +1159,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
           _connectManager?.updateAudienceConnectState(ConnectState.idle);
         }
 
-        BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: localUserID));
+        BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: targetUser.id));
 
         ZegoLoggerService.logInfo(
           'take off seat success',
