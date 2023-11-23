@@ -31,7 +31,7 @@ class _MomentGiftboxBottomBarState extends State<MomentGiftboxBottomBar>
   }
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GiftBloc, GiftsStates>(builder: (context, state) {
+    return BlocBuilder<GiftBloc, GiftsState>(builder: (context, state) {
       return BlurryContainer(
         blur: 8,
         elevation: 0,
