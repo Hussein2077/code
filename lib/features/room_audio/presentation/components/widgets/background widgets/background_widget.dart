@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -76,7 +77,7 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
         if (state is UpdateRoomSucsseState) {
           MainScreen.roomData = state.data;
           Navigator.pop(context);
-          sucssesToast(context: context, title: StringManager.successfulOperation);
+          sucssesToast(context: context, title: StringManager.successfulOperation.tr());
         } else if (state is UpdateRoomErrorState) {
           Navigator.pop(context);
           errorToast(context: context, title: state.errorMassage);
