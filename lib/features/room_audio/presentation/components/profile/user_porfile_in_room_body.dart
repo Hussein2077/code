@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,11 +27,13 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/anonymous_dialog_gifts.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/contaner_vip_or_contribute.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/settings_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
+
 import 'profile_room_body_controler.dart';
 import 'widgets/block_button.dart';
 import 'widgets/image_with_text.dart';
@@ -266,16 +269,23 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);
-                        bottomDailog(
-                            context: context,
-                            widget: GiftScreen(
-                              roomData: widget.roomData,
-                              userId: widget.userData.id.toString(),
-                              myDataModel: widget.myData,
-                              userImage: widget.userData.profile?.image ?? '',
-                              listAllUsers: null,
-                              isSingleUser: true,
-                            ));
+                        widget.myData.isAanonymous == false
+                            ? bottomDailog(
+                                context: context,
+                                widget: GiftScreen(
+                                  roomData: widget.roomData,
+                                  userId: widget.userData.id.toString(),
+                                  myDataModel: widget.myData,
+                                  userImage:
+                                      widget.userData.profile?.image ?? '',
+                                  listAllUsers: null,
+                                  isSingleUser: true,
+                                ))
+                            : showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AnonymounsDialogGifts();
+                                });
                       },
                       child:  ImageWithText(
                         image: AssetsPath.sendGiftIconProfile,
@@ -294,7 +304,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                             horizontal: ConfigSize.defaultSize! * 4.2,
                             vertical: ConfigSize.defaultSize! * 1.5,
                           ),
-                          decoration:const  BoxDecoration(
+                          decoration:  const BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.contain,
                                   image: AssetImage(
