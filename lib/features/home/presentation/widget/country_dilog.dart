@@ -7,7 +7,9 @@ import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/home/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
+import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_event.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_state.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
@@ -28,6 +30,14 @@ class CountryDialog extends StatefulWidget {
 
 class _CountryDialogState extends State<CountryDialog> {
   @override
+  void initState() {
+    BlocProvider.of<CounrtyBloc>(context).add(GetAllCountryEvent());
+    super.initState();
+  }
+
+  List<CountryModel>? tempData;
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -42,13 +52,8 @@ class _CountryDialogState extends State<CountryDialog> {
                   topRight: Radius.circular(ConfigSize.defaultSize! * 1.5))),
           child: BlocBuilder<CounrtyBloc, CountryStates>(
             builder: (context, state) {
-              if (state is CountryLoadingState) {
-                return SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: const LoadingWidget(),
-                );
-              } else if (state is CountrySuccesMessageState) {
+              if (state is CountrySuccesMessageState) {
+                tempData = state.countrys;
                 return SizedBox(
                   width: ConfigSize.defaultSize! * 10,
                   height: ConfigSize.defaultSize! * 14,
@@ -69,7 +74,8 @@ class _CountryDialogState extends State<CountryDialog> {
                                   AduioBody.type = StringManager.popular;
                                   AduioBody.countryId = null;
                                   CountryDialog.flag = AssetsPath.fireIcon;
-                                  CountryDialog.name = StringManager.popular.tr();
+                                  CountryDialog.name =
+                                      StringManager.popular.tr();
                                   BlocProvider.of<GetRoomsBloc>(context).add(
                                       GetRoomsEvent(
                                           typeGetRooms: TypeGetRooms.popular));
@@ -100,6 +106,60 @@ class _CountryDialogState extends State<CountryDialog> {
                                       color: Colors.grey.withOpacity(0.6),
                                       flag: state.countrys[index - 1].flag,
                                       name: state.countrys[index - 1].name),
+                            );
+                          })),
+                );
+              } else if (state is CountryLoadingState) {
+                return SizedBox(
+                  width: ConfigSize.defaultSize! * 10,
+                  height: ConfigSize.defaultSize! * 14,
+                  child: Padding(
+                      padding: EdgeInsets.all(ConfigSize.defaultSize!),
+                      child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 5,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 10),
+                          itemCount: tempData!.length + 1,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return InkWell(
+                              onTap: () {
+                                if (index == 0) {
+                                  AduioBody.type = StringManager.popular;
+                                  AduioBody.countryId = null;
+                                  CountryDialog.flag = AssetsPath.fireIcon;
+                                  CountryDialog.name =
+                                      StringManager.popular.tr();
+                                  BlocProvider.of<GetRoomsBloc>(context).add(
+                                      GetRoomsEvent(
+                                          typeGetRooms: TypeGetRooms.popular));
+                                } else {
+                                  AduioBody.type = "country_id";
+                                  AduioBody.countryId = tempData![index - 1].id;
+                                  CountryDialog.flag =
+                                      tempData![index - 1].flag;
+                                  CountryDialog.name =
+                                      tempData![index - 1].name;
+                                  BlocProvider.of<GetRoomsBloc>(context).add(
+                                      GetRoomsEvent(
+                                          countryId: tempData![index - 1].id));
+                                }
+
+                                CountryDialog.selectedCountry.value =
+                                    !CountryDialog.selectedCountry.value;
+                                Navigator.pop(context);
+                              },
+                              child: index == 0
+                                  ? CountryIcon(
+                                      color: Colors.grey.withOpacity(0.6),
+                                      flag: AssetsPath.fireIcon,
+                                      name: StringManager.popular.tr())
+                                  : CountryIcon(
+                                      color: Colors.grey.withOpacity(0.6),
+                                      flag: tempData![index - 1].flag,
+                                      name: tempData![index - 1].name),
                             );
                           })),
                 );
