@@ -28,7 +28,6 @@ class _AddCountryDialogState extends State<AddCountryDialog> {
   @override
   Widget build(BuildContext context) {
     return  Dialog(
-      backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1),
       ),
@@ -44,7 +43,6 @@ class _AddCountryDialogState extends State<AddCountryDialog> {
             SizedBox(height: ConfigSize.defaultSize! * 5,),
             MainButton(
                 onTap: () {
-
                   if (CountryDropDownSearch.selectedItem != null) {
                     BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
                         gender: MyDataModel.getInstance()

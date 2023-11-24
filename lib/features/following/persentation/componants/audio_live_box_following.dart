@@ -61,12 +61,15 @@ class AudioLiveBoxFollowing extends StatelessWidget {
               SizedBox(
                 width: ConfigSize.defaultSize!,
               ),
-              Text(room.country!, style: const TextStyle(fontSize: 17)),
-              /*  CachedNetworkImage(
-                        imageUrl: ConstentApi().getImage(room.country),
-                        width: ConfigSize.defaultSize!*2.4,
-                        height: ConfigSize.defaultSize!*2.4,
-                      ),*/
+              // Text(room.country!, style: const TextStyle(fontSize: 17)),
+              room.country== ''
+                  ? const SizedBox()
+                  : CachedNetworkImage(
+                imageUrl:
+                ConstentApi().getImage(room.country!),
+                width: ConfigSize.defaultSize! * 2.4,
+                height: ConfigSize.defaultSize! * 2.4,
+              ),
               SizedBox(
                 width: ConfigSize.defaultSize!,
               ),
