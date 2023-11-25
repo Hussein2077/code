@@ -40,7 +40,7 @@ class _MaleFemaleButtonsState extends State<MaleFemaleButtons> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  StringManager.male,
+                  StringManager.male.tr(),
                   style: TextStyle(
                       color: MaleFemaleButtons.selectedGender == "male"
                           ? ColorManager.blue

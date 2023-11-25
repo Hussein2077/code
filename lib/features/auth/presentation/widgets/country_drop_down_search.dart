@@ -37,11 +37,11 @@ final double? width;
               popupProps: PopupProps.menu(
                 showSelectedItems: true,
                 showSearchBox: true,
+
                 searchFieldProps:   TextFieldProps(
                     decoration:InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
-
                       ),
                         hintText:StringManager.search.tr()
                     )
@@ -49,14 +49,15 @@ final double? width;
                 itemBuilder: _customPopupItemBuilderExample2,
               ),
               dropdownBuilder: dropdownBuilder,
-
-
               dropdownDecoratorProps: DropDownDecoratorProps(
                 dropdownSearchDecoration: InputDecoration(
+
                     labelText: StringManager.country.tr(),
+                    labelStyle: Theme.of(context).textTheme.bodyMedium,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
                           ConfigSize.defaultSize! * 3,
+
                         ),
                         gapPadding: 3)),
               ),
@@ -70,8 +71,8 @@ final double? width;
         }
         if (state is GetAllCountriesLoading) {
           return SizedBox(
-              height: ConfigSize.defaultSize! * 10,
-              width: ConfigSize.screenWidth! * .8,
+              height: ConfigSize.defaultSize! * 7,
+              width: ConfigSize.defaultSize! * 5,
               child: const LoadingWidget());
         }
         if (state is GetAllCountriesError) {
@@ -92,15 +93,15 @@ final double? width;
       decoration: !isSelected
           ? null
           : BoxDecoration(
-        border: Border.all(color: ColorManager.orange),
+        border: Border.all(color: ColorManager.darkBlack),
         borderRadius: BorderRadius.circular(
           ConfigSize.defaultSize! * .5,
         ),
-        color: Colors.white,
+        color:isSelected?Colors.grey: Colors.white,
       ),
       child: ListTile(
           selected: isSelected,
-          title: Text(item.name),
+          title: Text(item.name,style: Theme.of(context).textTheme.bodyMedium,),
           subtitle: Text(item.eName.toString()),
           leading: BlocBuilder<GetAllCountriesBloc, GetAllCountriesStates>(
             builder: (context, state) {
@@ -114,8 +115,8 @@ final double? width;
               }
               if (state is GetAllCountriesLoading) {
                 return SizedBox(
-                    height: ConfigSize.defaultSize! * 10,
-                    width: ConfigSize.screenWidth! * .8,
+                    height: ConfigSize.defaultSize! * 3,
+                    width: ConfigSize.defaultSize! * 3,
                     child: const LoadingWidget());
               }
               if (state is GetAllCountriesError) {

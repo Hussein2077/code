@@ -156,6 +156,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               ),
               MainButton(
                   onTap: () {
+                    log('${CountryDropDownSearch.selectedItem}CountryDropDownSearch.selectedItem');
                     bool result = valadate();
                     if (result) {
                       if (Methods().calculateAge(DateWidget.selectedDatee) >=
