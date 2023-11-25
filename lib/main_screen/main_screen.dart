@@ -101,17 +101,18 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return BlocListener<GetMyDataBloc, GetMyDataState>(
       listener: (context, state) {
         if (state is GetMyDataSucssesState) {
-          if (state.myDataModel.profile!.age == 0 &&
-              state.myDataModel.country == null) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, Routes.addInfo, (route) => false,
-                arguments: ThirdPartyAuthModel(
-                    isCountryNotComplete:
-                        state.myDataModel.country == null ? true : false,
-                    isAgeNotComplete:
-                        state.myDataModel.profile!.age == 0 ? true : false));
-          }
-          else  if (state.myDataModel.country?.id == null ) {
+          // if (state.myDataModel.profile!.age == 0 &&
+          //     state.myDataModel.country == null) {
+          //   Navigator.pushNamedAndRemoveUntil(
+          //       context, Routes.addInfo, (route) => false,
+          //       arguments: ThirdPartyAuthModel(
+          //           isCountryNotComplete:
+          //               state.myDataModel.country == null ? true : false,
+          //           isAgeNotComplete:
+          //               state.myDataModel.profile!.age == 0 ? true : false));
+          // }
+          // else
+            if (state.myDataModel.country?.id == null ) {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
