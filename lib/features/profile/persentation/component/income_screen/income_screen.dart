@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +71,8 @@ class _IncomeScreenState extends State<IncomeScreen> {
                   title: StringManager.withdrawal.tr(),
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                  if (state.myDataModel.myAgencyModel!.name=="")
+                 // if (state.myDataModel.myAgencyModel!.name=="")
+                  if(state.myDataModel.myType!=1)
                 MainButton(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.exchangeForGoldScreen);
