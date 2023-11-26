@@ -55,7 +55,7 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
             if(state.room.remainingTime==null){
 
               if(MyDataModel.getInstance().isAanonymous??false){
-                String anonymousId = '${MyDataModel.getInstance().id}${'-1'}';
+                String anonymousId = '${'-1'}${MyDataModel.getInstance().id}';
                 MyDataModel activeMysteriousUser =
                 MyDataModel(
                     id:  int.parse(anonymousId),
