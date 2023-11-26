@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/user_on_mic_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/basic_tool_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/emojie/emojie_button.dart';
@@ -133,8 +134,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   { 'gift_banner':'',
     'owner_id_room_banner':'',
     'is_password_room_banner': false,
-    'user_data_sender':UserDataModel(),
-    'user_data_receiver' : UserDataModel()
+    'user_data_sender': RoomVistorModel(),
+    'user_data_receiver' : RoomVistorModel()
   };
   //////
 
@@ -545,8 +546,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     }
 
     try {
-      final videoItem =
-          await Methods().getCachedSvgaImage(giftData.giftId, giftData.img);
+      final videoItem = await Methods().getCachedSvgaImage(giftData.giftId, giftData.img);
 
       animationControllerGift.videoItem = videoItem;
 
@@ -559,6 +559,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         return animationControllerGift.videoItem = null;
       });
     } catch (e) {
+      print(e.runtimeType.toString() + "######");
       RoomScreen.isGiftEntroAnimating = false;
     }
   }
