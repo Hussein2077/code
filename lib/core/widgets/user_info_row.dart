@@ -103,13 +103,13 @@ class UserInfoRow extends StatelessWidget {
                           age: userData.profile!.age,
                         ),
                         SizedBox(width: ConfigSize.defaultSize! * 0.2),
-                        if (!userData.isCountryHiden! &&
-                            userData.profile!.country != '')
+                        if (!userData.isCountryHiden!
+                            )
                           UserCountryIcon(
                               width: ConfigSize.defaultSize! * 3.5,
                               height: ConfigSize.defaultSize! * 1.5,
                               fontSize: ConfigSize.defaultSize! * 1.5,
-                              country: userData.profile!.country),
+                              country: userData.country?.flag??""),
                         SizedBox(width: ConfigSize.defaultSize! * 0.2),
                         if (userData.level!.receiverImage != '')
                           LevelContainer(

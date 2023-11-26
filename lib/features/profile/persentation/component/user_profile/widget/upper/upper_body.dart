@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -120,8 +121,7 @@ class UpperProfileBody extends StatelessWidget {
                         SizedBox(
                           width: ConfigSize.defaultSize!,
                         ),
-                        if (!myDataModel.isCountryHiden! &&
-                            myDataModel.country != null)
+                        if (!myDataModel.isCountryHiden!)
                           myDataModel.country!.flag == ''
                               ? const SizedBox()
                               : CachedNetworkImage(

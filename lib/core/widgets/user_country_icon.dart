@@ -1,6 +1,8 @@
 
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class UserCountryIcon extends StatelessWidget {
@@ -16,15 +18,15 @@ class UserCountryIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
-      width:width,
-      height:height,
-      decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-      child: Center(
-        child: Text(country, style: TextStyle(
-            color: Colors.black, fontSize:fontSize?? ConfigSize.defaultSize! * 0.8),),
+    return Center(
+      child: country == ''
+          ? const SizedBox()
+          : CachedNetworkImage(
+        imageUrl: ConstentApi().getImage(
+            country
+        ),
+        width: ConfigSize.defaultSize! * 2.4,
+        height: ConfigSize.defaultSize! * 2.4,
       ),
     );
   }

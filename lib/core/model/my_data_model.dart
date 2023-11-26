@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:tik_chat_v2/core/model/family_data_model.dart';
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
@@ -10,8 +11,8 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'profile_room_model.dart';
 import 'vip_center_model.dart';
+ class MyDataModel {
 
-class MyDataModel {
   int? id;
   String? chatId;
   String? name;
@@ -54,108 +55,106 @@ class MyDataModel {
   bool? isAanonymous;
   NowRoomModel? nowRoom;
   var isGold;
-  int? unReadMessageCount ;
+  int? unReadMessageCount;
+
   GetAllCountriesModel? country;
 
   static MyDataModel? _instance;
 
-  void clearObject (){
-    _instance = null ;
-
+  void clearObject() {
+    _instance = null;
   }
+  MyDataModel({
+    this.isFirst,
+    this.bubbleId,
+    this.introId,
+    this.frameId,
+    this.isAanonymous,
+    this.hasRoom,
+    this.profileVisotrs,
+    this.id,
+    this.chatId,
+    this.name,
+    this.email,
+    this.phone,
+    this.numberOfFans,
+    this.numberOfFollowings,
+    this.numberOfFriends,
+    this.profile,
+    this.level,
+    this.vip1,
+    this.myStore,
+    this.authToken,
+    this.intro,
+    this.frame,
+    this.myAgencyModel,
+    this.isAgencyRequest,
+    this.familyId,
+    this.uuid,
+    this.notificationId,
+    this.bio,
+    this.bubble,
+    this.isFacebook,
+    this.isGoogle,
+    this.isPhone,
+    this.hasColorName,
+    this.myType,
+    this.isHideRoom,
+    this.isCountryHiden,
+    this.lastActiveHidden,
+    this.onlineTime,
+    this.familyDataModel,
+    this.visitHidden,
+    this.nowRoom,
+    this.isGold,
+    this.unReadMessageCount,
+    this.country,
+  });
 
-  MyDataModel(
-      {this.isFirst,
-      this.bubbleId,
-      this.introId,
-      this.frameId,
-      this.isAanonymous,
-      this.hasRoom,
-      this.profileVisotrs,
-      this.id,
-      this.chatId,
-      this.name,
-      this.email,
-      this.phone,
-      this.numberOfFans,
-      this.numberOfFollowings,
-      this.numberOfFriends,
-      this.profile,
-      this.level,
-      this.vip1,
-      this.myStore,
-      this.authToken,
-      this.intro,
-      this.frame,
-      this.myAgencyModel,
-      this.isAgencyRequest,
-      this.familyId,
-      this.uuid,
-      this.notificationId,
-      this.bio,
-      this.bubble,
-      this.isFacebook,
-      this.isGoogle,
-      this.isPhone,
-      this.hasColorName,
-      this.myType,
-      this.isHideRoom,
-      this.isCountryHiden,
-      this.lastActiveHidden,
-      this.onlineTime,
-        this.familyDataModel,
-      this.visitHidden,
-              this.nowRoom,
-              this.isGold,
-        this.unReadMessageCount ,
-        this.country,
-      });
-
-  setNewMyData(
-      {int? id,
-      String? chatId,
-      String? name,
-      String? email,
-      String? phone,
-      int? numberOfFans,
-      int? numberOfFollowings,
-      int? numberOfFriends,
-      int? profileVisotrs,
-      ProfileRoomModel? profile,
-      LevelDataModel? level,
-      FamilyDataModel? familyDataModel,
-      MyStoreModel? myStore,
-      String? authToken,
-      String? frame,
-      String? intro,
-      int? frameId,
-      int? introId,
-      int? bubbleId,
-      String? bubble,
-      MyAgencyModel? myAgencyModel,
-      bool? isAgencyRequest,
-      bool? isFirst,
-      int? familyId,
-      String? familyName,
-      String? uuid,
-      String? notificationId,
-      String? bio,
-      bool? hasRoom,
-      bool? hasColorName,
-      bool? isAanonymous,
-      bool? isFacebook,
-      bool? isGoogle,
-      VipCenterModel? vip1,
-      bool? isPhone,
-      int? myType,
-        bool? isHideRoom,
-        var isGold,
-        NowRoomModel? nowRoom,
-        int? unReadMessageCount,
-           GetAllCountriesModel? country,
-
-
-      }) {
+  setNewMyData({
+    int? id,
+    String? chatId,
+    String? name,
+    String? email,
+    String? phone,
+    int? numberOfFans,
+    int? numberOfFollowings,
+    int? numberOfFriends,
+    int? profileVisotrs,
+    ProfileRoomModel? profile,
+    LevelDataModel? level,
+    FamilyDataModel? familyDataModel,
+    MyStoreModel? myStore,
+    String? authToken,
+    String? frame,
+    String? intro,
+    int? frameId,
+    int? introId,
+    int? bubbleId,
+    String? bubble,
+    MyAgencyModel? myAgencyModel,
+    bool? isAgencyRequest,
+    bool? isFirst,
+    int? familyId,
+    String? familyName,
+    String? uuid,
+    String? notificationId,
+    String? bio,
+    bool? hasRoom,
+    bool? hasColorName,
+    bool? isAanonymous,
+    bool? isFacebook,
+    bool? isGoogle,
+    VipCenterModel? vip1,
+    bool? isPhone,
+    int? myType,
+    bool? isCountryHiden,
+    bool? isHideRoom,
+    var isGold,
+    NowRoomModel? nowRoom,
+    int? unReadMessageCount,
+    GetAllCountriesModel? country,
+  }) {
     this.id = id ?? this.id;
     this.chatId = chatId ?? this.chatId;
     this.name = name ?? this.name;
@@ -194,21 +193,20 @@ class MyDataModel {
     this.country = country ?? this.country;
     this.isGold = isGold ?? this.isGold;
     this.nowRoom = nowRoom ?? this.nowRoom;
-    this.unReadMessageCount = unReadMessageCount?? this.unReadMessageCount ;
+    this.unReadMessageCount = unReadMessageCount ?? this.unReadMessageCount;
+    this.isCountryHiden = isCountryHiden ?? this.isCountryHiden;
   }
 
   factory MyDataModel.fromMap(Map<String, dynamic> map) {
-        StringManager.userType.forEach((key, value) {
-  
-       StringManager.userType.update(key, (value) => false);
-   
-      });
+    StringManager.userType.forEach((key, value) {
+      StringManager.userType.update(key, (value) => false);
+    });
 
-       StringManager.userType.forEach((key, value) {
-      if(map['type_user']==key){
-       StringManager.userType.update(key, (value) => true);
+    StringManager.userType.forEach((key, value) {
+      if (map['type_user'] == key) {
+        StringManager.userType.update(key, (value) => true);
       }
-      });
+    });
     //check singleton pattern
     if (_instance == null) {
       //create to frist time
@@ -230,8 +228,8 @@ class MyDataModel {
           hasRoom: map['has_room'],
           isFacebook: map['facebook_bind'],
           isGoogle: map['google_bind'],
-          isPhone: map['phone_bind']??false,
-          isHideRoom: map['room_hidden']??false,
+          isPhone: map['phone_bind'] ?? false,
+          isHideRoom: map['room_hidden'] ?? false,
           vip1: map['vip'] == null ? null : VipCenterModel.fromJson(map['vip']),
           familyId: map['family_id'],
           uuid: map['uuid'] != null ? map['uuid'] as String : "0",
@@ -241,14 +239,17 @@ class MyDataModel {
           numberOfFollowings: map['number_of_followings'],
           numberOfFriends: map['number_of_friends'],
           profileVisotrs: map['profile_visitors'],
-
-          onlineTime: map['online_time']??'',
-          hasColorName: map['has_color_name']??false,
-          isAanonymous :map['anonymous']??false,
-          isCountryHiden: map['country_hidden']??false,
-          lastActiveHidden :map['anonymous']??false,
-          visitHidden:map['visit_hidden']??false,
-          country:  map['country'] == '' ? null:map['country'] == null?null : GetAllCountriesModel.fromJson(map['country']),
+          onlineTime: map['online_time'] ?? '',
+          hasColorName: map['has_color_name'] ?? false,
+          isAanonymous: map['anonymous'] ?? false,
+          isCountryHiden: map['country_hidden'] ?? false,
+          lastActiveHidden: map['anonymous'] ?? false,
+          visitHidden: map['visit_hidden'] ?? false,
+          country: map['country'] == ''
+              ? null
+              : map['country'] == null
+                  ? null
+                  : GetAllCountriesModel.fromJson(map['country']),
           profile: map['profile'] != null
               ? ProfileRoomModel.fromMap(map['profile'] as Map<String, dynamic>)
               : null,
@@ -258,22 +259,21 @@ class MyDataModel {
           myStore: map['my_store'] != null
               ? MyStoreModel.fromMap(map['my_store'] as Map<String, dynamic>)
               : null,
-        myAgencyModel:  map['agency'] != null ?
-        map['agency'].isNotEmpty
-            ? MyAgencyModel.fromjson(map["agency"])
-            : MyAgencyModel(img: "" , name: "" , notice: ""): MyAgencyModel(img: "" , name: "" , notice: ""),
+          myAgencyModel: map['agency'] != null
+              ? map['agency'].isNotEmpty
+                  ? MyAgencyModel.fromjson(map["agency"])
+                  : MyAgencyModel(img: "", name: "", notice: "")
+              : MyAgencyModel(img: "", name: "", notice: ""),
           familyDataModel: map['family_data'] != null
-              ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
+              ? FamilyDataModel.fromjosn(
+                  map['family_data'] as Map<String, dynamic>)
               : null,
           myType: map['type_user'] ?? 0,
-        isGold:map['is_gold_id']??false,
-        nowRoom:   map['now_room'] != null
+          isGold: map['is_gold_id'] ?? false,
+          nowRoom: map['now_room'] != null
               ? NowRoomModel.fromjson(map['now_room'] as Map<String, dynamic>)
               : null,
-        unReadMessageCount: map['unread_message_count']
-          
-          
-          );
+          unReadMessageCount: map['unread_message_count']);
     } else {
       _instance?.setNewMyData(
           id: map['id'],
@@ -286,6 +286,7 @@ class MyDataModel {
           intro: map['intro'],
           bubbleId: map['bubble_id'],
           bubble: map['bubble'],
+          isCountryHiden: map['country_hidden'] ?? false,
           hasColorName: map['has_color_name'],
           frameId: map['frame_id'],
           introId: map['intro_id'],
@@ -305,9 +306,9 @@ class MyDataModel {
           numberOfFollowings: map['number_of_followings'],
           numberOfFriends: map['number_of_friends'],
           profileVisotrs: map['profile_visitors'],
-                    nowRoom: map['now_room'] == null ? null : NowRoomModel.fromjson(map['vip']),
-
-
+          nowRoom: map['now_room'] == null
+              ? null
+              : NowRoomModel.fromjson(map['vip']),
           profile: map['profile'] != null
               ? ProfileRoomModel.fromMap(map['profile'] as Map<String, dynamic>)
               : null,
@@ -317,24 +318,28 @@ class MyDataModel {
           myStore: map['my_store'] != null
               ? MyStoreModel.fromMap(map['my_store'] as Map<String, dynamic>)
               : null,
-          country:  map['country'] == '' ? null:map['country'] == null?null : GetAllCountriesModel.fromJson(map['country']),
-
-          myAgencyModel:  map['agency'] != null ?
-      map['agency'].isNotEmpty
-          ? MyAgencyModel.fromjson(map["agency"])
-          : MyAgencyModel(img: "" , name: "" , notice: ""): MyAgencyModel(img: "" , name: "" , notice: ""),
+          country: map['country'] == ''
+              ? null
+              : map['country'] == null
+                  ? null
+                  : GetAllCountriesModel.fromJson(map['country']),
+          myAgencyModel: map['agency'] != null
+              ? map['agency'].isNotEmpty
+                  ? MyAgencyModel.fromjson(map["agency"])
+                  : MyAgencyModel(img: "", name: "", notice: "")
+              : MyAgencyModel(img: "", name: "", notice: ""),
           familyDataModel: map['family_data'] != null
-              ? FamilyDataModel.fromjosn(map['family_data'] as Map<String, dynamic>)
+              ? FamilyDataModel.fromjosn(
+                  map['family_data'] as Map<String, dynamic>)
               : null,
           isGold: map['is_gold_id'],
           myType: map['type_user'] ?? 0,
-          unReadMessageCount: map['unread_message_count']
-      );
-
+          unReadMessageCount: map['unread_message_count']);
     }
 
     return _instance!;
   }
+
 
   static MyDataModel getInstance() {
     return _instance ?? MyDataModel();
@@ -342,52 +347,52 @@ class MyDataModel {
 
   UserDataModel convertToUserObject() {
     return UserDataModel(
-        id: id,
-        bubble: bubble,
-        bubbleId: bubbleId,
-        intro: intro,
-        introId: introId,
-        frame: frame,
-        familyId: familyId,
-        frameId: frameId,
-        bio: bio,
-        uuid: uuid,
-        familyData: FamilyDataModel(
-          img: familyDataModel?.img,
-          maxNum: familyDataModel?.maxNum,
-          memberNum: familyDataModel?.memberNum,
-          name: familyDataModel?.name,
-          ownerFamilyId: familyDataModel?.ownerFamilyId,
-        ),
-        myStore: MyStoreModel(
-            totalCoins: myStore?.totalCoins,
-            coins: myStore?.coins,
-            coupons: myStore?.coupons,
-            silverCoin: myStore?.silverCoin,
-            diamonds: myStore?.diamonds),
-        profile: ProfileRoomModel(
-          image: profile?.image ?? '',
-          gender: profile?.gender ?? 1,
-          age: profile?.age ?? 0,
-        ),
-        name: name,
-        chatId: chatId,
-        hasColorName: hasColorName,
-        notificationId: notificationId,
-        level: LevelDataModel(
-            senderLevel:level!.senderLevel,
-            senderImage: level?.senderImage,
-            receiverImage: level?.receiverImage),
-        vip1: VipCenterModel(level: vip1?.level,id: vip1?.id),
-
-
-        userType: myType,
-        numberOfFans: numberOfFans,
-        numberOfFollowings: numberOfFollowings,
-        numberOfFriends: numberOfFriends,
-        isGold: isGold,
-        profileVisotrs: profileVisotrs,
-        country: country,
-        );
+      id: id,
+      bubble: bubble,
+      bubbleId: bubbleId,
+      intro: intro,
+      introId: introId,
+      frame: frame,
+      familyId: familyId,
+      frameId: frameId,
+      bio: bio,
+      uuid: uuid,
+      familyData: FamilyDataModel(
+        img: familyDataModel?.img,
+        maxNum: familyDataModel?.maxNum,
+        memberNum: familyDataModel?.memberNum,
+        name: familyDataModel?.name,
+        ownerFamilyId: familyDataModel?.ownerFamilyId,
+      ),
+      isCountryHiden: isCountryHiden,
+      myStore: MyStoreModel(
+          totalCoins: myStore?.totalCoins,
+          coins: myStore?.coins,
+          coupons: myStore?.coupons,
+          silverCoin: myStore?.silverCoin,
+          diamonds: myStore?.diamonds),
+      profile: ProfileRoomModel(
+        image: profile?.image ?? '',
+        gender: profile?.gender ?? 1,
+        age: profile?.age ?? 0,
+      ),
+      name: name,
+      chatId: chatId,
+      hasColorName: hasColorName,
+      notificationId: notificationId,
+      level: LevelDataModel(
+          senderLevel: level!.senderLevel,
+          senderImage: level?.senderImage,
+          receiverImage: level?.receiverImage),
+      vip1: VipCenterModel(level: vip1?.level, id: vip1?.id),
+      userType: myType,
+      numberOfFans: numberOfFans,
+      numberOfFollowings: numberOfFollowings,
+      numberOfFriends: numberOfFriends,
+      isGold: isGold,
+      profileVisotrs: profileVisotrs,
+      country: country,
+    );
   }
 }
+

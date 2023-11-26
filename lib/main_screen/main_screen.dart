@@ -107,7 +107,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         state.myDataModel.country == null ? true : false,
                     isAgeNotComplete:
                         state.myDataModel.profile!.age == 0 ? true : false));
-          } else if (state.myDataModel.country == null) {
+          } else
+
+            if (state.myDataModel.country == null) {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {

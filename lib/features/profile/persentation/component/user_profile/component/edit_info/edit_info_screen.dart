@@ -118,8 +118,8 @@ Widget title({required BuildContext context, required String title}) {
 double completeProfile({required MyDataModel myDataModel}) {
   double name = (myDataModel.name == "" || myDataModel.name == null) ? 0 : 0.2;
   double bio = (myDataModel.bio == "" || myDataModel.bio == null) ? 0 : 0.2;
-  double country = (myDataModel.profile!.country == "" ||
-          myDataModel.profile!.country == null)
+  double country = (myDataModel.country?.flag == "" ||
+          myDataModel.country == null)
       ? 0
       : 0.2;
   double image =
