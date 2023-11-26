@@ -71,7 +71,8 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GiftBloc, GiftsStates>(builder: (context, state) {
+    return BlocBuilder<GiftBloc, GiftsStates>(
+        builder: (context, state) {
       return BlurryContainer(
         blur: 8,
         elevation: 0,
