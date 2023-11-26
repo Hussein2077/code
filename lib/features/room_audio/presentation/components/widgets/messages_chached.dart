@@ -51,7 +51,7 @@ class MessagesChached extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        (message.user.id.endsWith('-1'))
+        (message.user.id.startsWith('-1'))
             ? bottomDailog(
           widget: const AnonymousDialog(), context: context,
           // height: ConfigSize.screenHeight!*0.3

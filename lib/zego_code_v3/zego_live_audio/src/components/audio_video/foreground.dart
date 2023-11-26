@@ -10,7 +10,7 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/user_porfile_in_room_body.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_inner_text.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 
@@ -421,17 +421,25 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
 
     if(popupItems.length==1 && popupItems.contains(showDetailsItem)){
 
-      bottomDailog(
+      if(widget.seatManager.getUserByIndex(index)!.id.startsWith('-1')){
+        bottomDailog(
+          widget: const AnonymousDialog(),
           context: context,
-          widget:
-          GeneralRoomProfile(
-            myData:MyDataModel.getInstance(),
-            userId:widget.seatManager.getUserByIndex(index)?.id??'' ,
-            roomData: widget.roomData,
-            layoutMode:RoomScreen.layoutMode,
-          )
+        );
+      }else{
+        bottomDailog(
+            context: context,
+            widget:
+            GeneralRoomProfile(
+              myData:MyDataModel.getInstance(),
+              userId: widget.seatManager.getUserByIndex(index)?.id??'' ,
+              roomData: widget.roomData,
+              layoutMode:RoomScreen.layoutMode,
+            )
 
-      );
+        );
+      }
+
 
       return ;
 
