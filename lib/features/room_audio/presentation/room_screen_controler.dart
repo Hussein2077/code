@@ -122,6 +122,7 @@ const String inviteToSeatKey = "inviteToSeat";
 const String muteUserKey = 'muteUser';
 const String mute = 'mute';
 const String showYallowBanner = "yellowBanner";
+const String anonymousKey ='anonymous';
 String appSign =  "";
 int appID =  0;
 

@@ -51,7 +51,7 @@ class MessagesChached extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        (message.user.id != "0")
+        (message.user.id.contains(''))
             ? bottomDailog(
                 context: context,
                 widget: MessageRoomProfile(

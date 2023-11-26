@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_states.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import '../../../../../core/resource_manger/routs_manger.dart';
 
 
@@ -54,20 +55,20 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
             if(state.room.remainingTime==null){
 
               if(MyDataModel.getInstance().isAanonymous??false){
+                String anonymousId = '${MyDataModel.getInstance().id}${'-1'}';
                 MyDataModel activeMysteriousUser =
                 MyDataModel(
-                    id: 0,
-                    uuid: MyDataModel.getInstance().uuid,
+                    id:  int.parse(anonymousId),
+                    uuid:'${MyDataModel.getInstance().uuid}${anonymousKey}',
                     name: StringManager.mysteriousPerson.tr(),
-                    profile:ProfileRoomModel(image:'hide.png') ,intro: "");
+                    profile:ProfileRoomModel(image:'hide.png'),intro: "");
                 Navigator.pushReplacementNamed(context,Routes.roomScreen,
                     arguments:RoomPramiter(
                     roomModel: state.room,
                     isHost: false,
-                        myDataModel: activeMysteriousUser) ) ;
+                        myDataModel: activeMysteriousUser));
               }
               else{
-
                 Navigator.pushReplacementNamed(context,Routes.roomScreen,
                     arguments:RoomPramiter(roomModel: state.room,
                         myDataModel: MyDataModel.getInstance() ,
