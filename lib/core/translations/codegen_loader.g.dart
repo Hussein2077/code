@@ -465,11 +465,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.forYou :"لك",
     StringManager.luckyGiftMessage: 'ارسل هدية حظ  عددها',
     StringManager.to: 'الي',
-
-
-
-
+    StringManager.nameAnayoums: 'الرجل الغامض',
   };
+
   static const Map<String, dynamic> tr = {
     StringManager.appTitle: "Tikchat",
     StringManager.enterPhoneNum: "Telefon numaranızı girin",

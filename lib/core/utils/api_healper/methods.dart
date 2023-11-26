@@ -244,7 +244,7 @@ class Methods {
     } else {
 
       Navigator.pop(context);
-      // MainScreen.iskeepInRoom.value=true ;
+      MainScreen.iskeepInRoom.value = true;
       Navigator.pushNamed(context, Routes.roomHandler,
           arguments: RoomHandlerPramiter(
               ownerRoomId: ownerId, myDataModel: MyDataModel.getInstance()));
