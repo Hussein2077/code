@@ -11,7 +11,6 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
@@ -42,7 +41,6 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget> {
   @override
   void initState() {
     GiftScreen.numOfGift = -1;
-    Methods().getCachingVideo(key: StringManager.cachGiftKey);
     super.initState();
   }
 
