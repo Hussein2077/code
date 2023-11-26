@@ -56,19 +56,29 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     liveController = TabController(length: 1, vsync: this);
     if((widget.isChachGift??false)){
+      Future.delayed(const Duration(seconds: 60), (){
       Methods.instance.chachGiftInRoom();
+      });
     }
     if((widget.isCachExtra??false)){
-      Methods.instance.getAndLoadExtraData();
+      Future.delayed(const Duration(seconds: 90), (){
+        Methods.instance.getAndLoadExtraData();
+      });
     }
     if((widget.isCachFrame??false)){
-      Methods.instance.getAndLoadFrames();
+      Future.delayed(const Duration(seconds: 120), (){
+        Methods.instance.getAndLoadFrames();
+      });
     }
     if((widget.isCachEntro??false)){
-      Methods.instance.getAndLoadEntro();
+      Future.delayed(const Duration(seconds: 150), (){
+        Methods.instance.getAndLoadEntro();
+      });
     }
     if((widget.isCachEmojie??false)){
-      Methods.instance.getAndLoadEmojie();
+      Future.delayed(const Duration(seconds: 180), (){
+        Methods.instance.getAndLoadEmojie();
+      });
     }
     if((widget.isUpdate??false)){
       SchedulerBinding.instance.addPostFrameCallback((_) {

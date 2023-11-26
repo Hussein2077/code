@@ -545,8 +545,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     }
 
     try {
-      final videoItem =
-          await Methods().getCachedSvgaImage(giftData.giftId, giftData.img);
+      final videoItem = await Methods().getCachedSvgaImage(giftData.giftId, giftData.img);
 
       animationControllerGift.videoItem = videoItem;
 
@@ -559,6 +558,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         return animationControllerGift.videoItem = null;
       });
     } catch (e) {
+      print(e.runtimeType.toString() + "######");
       RoomScreen.isGiftEntroAnimating = false;
     }
   }
