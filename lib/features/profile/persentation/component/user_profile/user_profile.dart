@@ -54,6 +54,7 @@ class _UserProfileState extends State<UserProfile> {
   void didChangeDependencies() {
     BlocProvider.of<GetUserBloc>(context)
         .add( const InituserEvent());
+    LowerProfileBody.getUserReels= false ;
     super.didChangeDependencies();
   }
 

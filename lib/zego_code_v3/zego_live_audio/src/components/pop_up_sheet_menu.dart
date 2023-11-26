@@ -9,7 +9,7 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/user_porfile_in_room_body.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
@@ -124,7 +124,12 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
             await widget.seatManager.leaveSeat(showDialog: true);
             break;
           case PopupItemValue.showUserDetails:
-            return bottomDailog(
+            return  popupItem.userId.startsWith('-1')?
+            bottomDailog(
+              widget: const AnonymousDialog(),
+              context: context,
+            ):
+             bottomDailog(
                 context: context,
                 widget:
                 GeneralRoomProfile(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -83,7 +85,6 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
               key == state.data.id.toString());
               RoomScreen.usersInRoom
                   .putIfAbsent(state.data.id.toString(), () => state.data);
-
 
               return UserProfileInRoom(
                   myData: widget.myData,

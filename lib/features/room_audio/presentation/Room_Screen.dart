@@ -418,27 +418,27 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         PKWidget.pkId = widget.room.pkModel!.pkId.toString();
         PKWidget.isStartPK.value = true;
         PkController.updatePKNotifier.value =
-            PkController.updatePKNotifier.value + 1;
+        PkController.updatePKNotifier.value + 1;
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
-        ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
-
-        if(widget.myDataModel.intro! != ""){
-          Map<String,dynamic>    mapZego = {
-            "messageContent" : {
-              "message" : "userEntro" ,
-              "entroImg"  :  widget.myDataModel.intro ,
-              "entroImgId" : widget.myDataModel.introId ,
-              'userName'   : widget.myDataModel.name,
-              'userImge'   : widget.myDataModel.profile?.image,
-              'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
-            }
-          };
-          UserEntro(mapZego, userIntroData ,loadAnimationEntro);
-          String map = jsonEncode(mapZego);
-          ZegoUIKit.instance.sendInRoomCommand(map,[]);
-
+        if(!widget.myDataModel.id.toString().startsWith('-1')){
+          ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
+          if(widget.myDataModel.intro! != ""){
+            Map<String,dynamic>    mapZego = {
+              "messageContent" : {
+                "message" : "userEntro" ,
+                "entroImg"  :  widget.myDataModel.intro ,
+                "entroImgId" : widget.myDataModel.introId ,
+                'userName'   : widget.myDataModel.name,
+                'userImge'   : widget.myDataModel.profile?.image,
+                'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
+              }
+            };
+            UserEntro(mapZego, userIntroData ,loadAnimationEntro);
+            String map = jsonEncode(mapZego);
+            ZegoUIKit.instance.sendInRoomCommand(map,[]);
+          }
         }
       });
     }

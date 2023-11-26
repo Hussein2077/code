@@ -55,7 +55,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                 const Spacer(
                   flex: 4,
                 ),
-                if (state.myDataModel.myAgencyModel!.name=="")
+                if (state.myDataModel.myAgencyModel!.name==""||state.myDataModel.myType ==0)
                 MainButton(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.instructionsScreen);

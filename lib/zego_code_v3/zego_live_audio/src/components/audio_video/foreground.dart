@@ -1,6 +1,7 @@
 // Dart imports:
 
 // Flutter imports:
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -146,7 +147,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       StringManager.showDetails.tr(),
       userId: widget.seatManager.getUserByIndex(index)?.id??'',
       index: index,
-    ) ;
+    );
     PopupItem takeSeatItem =  PopupItem(
       PopupItemValue.takeOnSeat,
       StringManager.takeSeat.tr(),
@@ -300,7 +301,6 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
       if (ZegoUIKit().getLocalUser().id ==
           widget.seatManager.getUserByIndex(index)?.id &&
           !widget.isHost){
-
         /// speaker can local leave seat , && !host
         popupItems.add(PopupItem(
           PopupItemValue.leaveSeat,
@@ -372,7 +372,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
             widget.seatManager
                 .getIndexByUserID(ZegoUIKit().getLocalUser().id) &&
             widget.seatManager.getUserByIndex(index)!.id.toString() ==
-                MyDataModel.getInstance().id.toString() ){
+                ZegoUIKit().getLocalUser().id){
           popupItems.add(PopupItem(
             PopupItemValue.leaveSeat,
             StringManager.areYouSureLeaveSeat.tr(),
