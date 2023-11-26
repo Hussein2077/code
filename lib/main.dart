@@ -446,12 +446,12 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<AddRoomBackgroundBloc>()),
         BlocProvider(
             create: (_) => getIt<GiftBloc>()
-              // ..add(GiftesNormalEvent(type: 1))
-              // ..add(GiftesHotEvent(type: 2))
-              // ..add(GiftesCountryEvent(type: 3))
-              // ..add(GiftesFamousEvent(type: 5))
-              // ..add(GiftesLuckyEvent(type: 6))
-              // ..add(GiftesMomentEvent(type: 4)),
+              ..add(GiftesNormalEvent(type: 1))
+              ..add(GiftesHotEvent(type: 2))
+              ..add(GiftesCountryEvent(type: 3))
+              ..add(GiftesFamousEvent(type: 5))
+              ..add(GiftesLuckyEvent(type: 6))
+              ..add(GiftesMomentEvent(type: 4)),
         ),
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
         BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),

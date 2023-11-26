@@ -16,15 +16,11 @@ class LuckyWinCircleWithOverlay extends StatelessWidget {
             padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
             child: widget),
       );
-
       overlayState.insert(overlayEntry);
-
-      //to remove overlay after a certain time, use:
       Future.delayed(const Duration(seconds: 2)).then((value) {
         overlayEntry.remove();
       });
     }
-
     return ValueListenableBuilder<int>(
         valueListenable: LuckyCandy.winCircularluckyGift,
         builder: (context, sohw, _) {
