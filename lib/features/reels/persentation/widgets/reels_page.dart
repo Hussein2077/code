@@ -196,7 +196,7 @@ class ReelsPageState extends State<ReelsPage>
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-      case AppLifecycleState.hidden:
+      // case AppLifecycleState.hidden:
 
         _videoPlayerController?.pause();
       ReelsPage.isVideoPause.value =true;

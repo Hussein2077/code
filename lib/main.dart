@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
- import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/dark_theme.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/light_theme.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -148,14 +148,11 @@ import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
-
 class GlobalContextService {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }
 
 Future<void> main() async {
-
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await EasyLocalization.ensureInitialized();
@@ -163,12 +160,10 @@ Future<void> main() async {
   await Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
-
     }
   });
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-
   );
 
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
@@ -188,23 +183,18 @@ Future<void> main() async {
     provisional: false,
     sound: true,
   );
-  bool groupChatUnReadMessage = await Methods.instance.getLocalGroupChatNotifecation();
-  HomeScreen.rebuildGroupChatCounter.value = groupChatUnReadMessage ;
+  bool groupChatUnReadMessage =
+      await Methods.instance.getLocalGroupChatNotifecation();
+  HomeScreen.rebuildGroupChatCounter.value = groupChatUnReadMessage;
 
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
-    if(jsonDecode(message.data['message-type']) =="group-chat" ){
-  HomeScreen.groupChatCounter.value ++;
-  Methods.instance.setLocalGroupChatNotifecation(unReadMessage: true);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    if (jsonDecode(message.data['message-type']) == "group-chat") {
+      HomeScreen.groupChatCounter.value++;
+      Methods.instance.setLocalGroupChatNotifecation(unReadMessage: true);
 
-  HomeScreen.rebuildGroupChatCounter.value = true;
-}
-
-
-
-
-
+      HomeScreen.rebuildGroupChatCounter.value = true;
+    }
   });
-
 
   await ServerLocator().init();
 
@@ -223,15 +213,14 @@ Future<void> main() async {
     assetLoader: const CodegenLoader(),
     path: 'lib/core/translations/',
     saveLocale: true,
-    child:  MyApp(theme: theme),
+    child: MyApp(theme: theme),
   ));
-
-
 }
 
 class MyApp extends StatelessWidget {
-final  String theme ;
-  const MyApp({required this.theme ,   super.key});
+  final String theme;
+
+  const MyApp({required this.theme, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -346,8 +335,7 @@ final  String theme ;
           create: (context) => getIt<AcountBloc>(),
         ),
         BlocProvider(
-          create: (context) => getIt<GetFollwersRoomBloc>()
-          ,
+          create: (context) => getIt<GetFollwersRoomBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<CarouselBloc>()..add(GetCarouselEvent()),
@@ -444,15 +432,14 @@ final  String theme ;
                 getIt<MangerGetVipPrevBloc>()..add(getVipPrevEvent())),
         BlocProvider(create: (_) => getIt<GetMyBackgroundBloc>()),
         BlocProvider(create: (_) => getIt<AddRoomBackgroundBloc>()),
-        BlocProvider(
-            create: (_) => getIt<GiftBloc>()
-              // ..add(GiftesNormalEvent(type: 1))
-              // ..add(GiftesHotEvent(type: 2))
-              // ..add(GiftesCountryEvent(type: 3))
-              // ..add(GiftesFamousEvent(type: 5))
-              // ..add(GiftesLuckyEvent(type: 6))
-              // ..add(GiftesMomentEvent(type: 4)),
-        ),
+        BlocProvider(create: (_) => getIt<GiftBloc>()
+            // ..add(GiftesNormalEvent(type: 1))
+            // ..add(GiftesHotEvent(type: 2))
+            // ..add(GiftesCountryEvent(type: 3))
+            // ..add(GiftesFamousEvent(type: 5))
+            // ..add(GiftesLuckyEvent(type: 6))
+            // ..add(GiftesMomentEvent(type: 4)),
+            ),
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
         BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),
         BlocProvider(create: (_) => getIt<PKBloc>()),
@@ -473,7 +460,9 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
         BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
-        BlocProvider(create: (_) => getIt<GetUserReelsBloc>()..add(const GetUserReelEvent())),
+        BlocProvider(
+            create: (_) =>
+                getIt<GetUserReelsBloc>()..add(const GetUserReelEvent())),
         BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
         BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),
@@ -510,59 +499,53 @@ final  String theme ;
         BlocProvider(create: (_) => getIt<GetGroupMassageBloc>()),
         BlocProvider(
           create: (context) =>
-          getIt<GetOfficialMsgsBloc>()..add(getOfficailMsgsEvent()),
+              getIt<GetOfficialMsgsBloc>()..add(getOfficailMsgsEvent()),
         ),
         BlocProvider(create: (_) => getIt<PostGroupChatBloc>()),
         BlocProvider(create: (_) => getIt<FirebaseLoginBloc>()),
         BlocProvider(create: (_) => getIt<ReportMomentBloc>()),
         BlocProvider(create: (_) => getIt<GetAllCountriesBloc>()),
-
-
-
       ],
-      child:  BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
-          if (state is LightThemeState )  {
-         return MaterialApp(
-
+      child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
+        if (state is LightThemeState) {
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: lightTheme ,
-     navigatorKey: GlobalContextService.navigatorKey, // set property
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
-            onGenerateRoute: RouteGenerator.getRoute,
-            locale:  context.locale,
-            initialRoute: Routes.splash,
-
-
-          );
-          }else if (state is DarkThemeState){
-            return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: darkTheme ,
-              navigatorKey: GlobalContextService.navigatorKey, // set property
+            theme: lightTheme,
+            navigatorKey: GlobalContextService.navigatorKey,
+            // set property
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
             locale: context.locale,
             initialRoute: Routes.splash,
           );
-          }
-       else {
-        return MaterialApp(
+        } else if (state is DarkThemeState) {
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: theme=="dark"?darkTheme: lightTheme ,
-          navigatorKey: GlobalContextService.navigatorKey, // set property
-
-          supportedLocales: context.supportedLocales,
+            theme: darkTheme,
+            navigatorKey: GlobalContextService.navigatorKey,
+            // set property
+            supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             onGenerateRoute: RouteGenerator.getRoute,
             locale: context.locale,
             initialRoute: Routes.splash,
           );
-       }
+        } else {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: theme == "dark" ? darkTheme : lightTheme,
+            navigatorKey: GlobalContextService.navigatorKey,
+            // set property
+
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            onGenerateRoute: RouteGenerator.getRoute,
+            locale: context.locale,
+            initialRoute: Routes.splash,
+          );
         }
-      ),
+      }),
     );
   }
 }
