@@ -156,7 +156,6 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               ),
               MainButton(
                   onTap: () {
-                    log('${CountryDropDownSearch.selectedItem}CountryDropDownSearch.selectedItem');
                     bool result = valadate();
                     if (result) {
                       if (Methods().calculateAge(DateWidget.selectedDatee) >=
@@ -235,12 +234,12 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
       return false;
     } else if (DateWidget.selectedDatee == StringManager.birthdayDate) {
       warningToast(
-          context: context, title: StringManager.pleaseEnterYourBirthDate);
+          context: context, title: StringManager.pleaseEnterYourBirthDate.tr());
 
       return false;
     } else if (CountryDropDownSearch.selectedItem == null) {
       warningToast(
-          context: context, title: StringManager.pleaseSelectYourCountry);
+          context: context, title: StringManager.pleaseSelectYourCountry.tr());
       return false;
     } else {
       return true;
