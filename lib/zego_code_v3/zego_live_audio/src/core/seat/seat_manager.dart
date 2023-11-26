@@ -1017,6 +1017,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
     }
     return true;
   }
+
   Future<bool> takeOffAllSeat({required bool isPK}) async {
     if(  RoomScreen.userOnMics.value.isNotEmpty)
     {

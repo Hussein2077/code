@@ -559,7 +559,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         return animationControllerGift.videoItem = null;
       });
     } catch (e) {
-      print(e.runtimeType.toString() + "######");
       RoomScreen.isGiftEntroAnimating = false;
     }
   }

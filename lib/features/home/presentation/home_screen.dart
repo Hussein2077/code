@@ -114,94 +114,96 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
    },
   builder: (context, state) {
-    return Scaffold(
-      body: ScreenColorBackGround(
-        color: ColorManager.mainColorList,
-        child: Column(
-          children: [
-            SizedBox(
-              height: ConfigSize.defaultSize! * 1.2,
-            ),
-            HomeHeader(
-              liveController: liveController,
-            ),
-            HomeBody(liveController: liveController),
-          ],
-        ),
-      ),
-      floatingActionButton: ValueListenableBuilder<bool>(
-        valueListenable: HomeScreen.rebuildGroupChatCounter,
-            builder: (context, isShow, _) {
-          if(isShow){
-          return  InkWell(
-            onTap: (){
-              Navigator.pushNamed(context, Routes.groupChatScreen);
-
-            },
-            child: Stack(
-              children: [
-                InkWell(
-                onTap: (){
-
-                  Navigator.pushNamed(context, Routes.groupChatScreen);
-
-          },
-            child: Container(
-              margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
-              width: ConfigSize.defaultSize! * 5,
-              height: ConfigSize.defaultSize! * 5,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                    ConfigSize.defaultSize! * 5),
-                gradient: const LinearGradient(
-                    colors: ColorManager.mainColorList),
+    return SafeArea(
+      child: Scaffold(
+        body: ScreenColorBackGround(
+          color: ColorManager.mainColorList,
+          child: Column(
+            children: [
+              SizedBox(
+                height: ConfigSize.defaultSize! * 1.2,
               ),
-              child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
-            ),
+              HomeHeader(
+                liveController: liveController,
+              ),
+              HomeBody(liveController: liveController),
+            ],
           ),
-                const GroupChatCounterWidget()
-              ],
+        ),
+        floatingActionButton: ValueListenableBuilder<bool>(
+          valueListenable: HomeScreen.rebuildGroupChatCounter,
+              builder: (context, isShow, _) {
+            if(isShow){
+            return  InkWell(
+              onTap: (){
+                Navigator.pushNamed(context, Routes.groupChatScreen);
 
-            ),
-          );
-          }else {
-            return
-              InkWell(
-                onTap: (){
+              },
+              child: Stack(
+                children: [
+                  InkWell(
+                  onTap: (){
 
-                  Navigator.pushNamed(context, Routes.groupChatScreen);
+                    Navigator.pushNamed(context, Routes.groupChatScreen);
 
-                },
-                child: Container(
-                  margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
-                  width: ConfigSize.defaultSize! * 5,
-                  height: ConfigSize.defaultSize! * 5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        ConfigSize.defaultSize! * 5),
-                    gradient: const LinearGradient(
-                        colors: ColorManager.mainColorList),
-                  ),
-                  child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
-
-
-                  // IconButton(
-                  //   icon: Icon(
-                  //     Icons.edit,
-                  //     color: Theme
-                  //         .of(context)
-                  //         .colorScheme
-                  //         .background,
-                  //   ),
-                  //   onPressed: () {
-                  //     Navigator.pushNamed(context, Routes.groupChatScreen);
-                  //   },
-                  // ),
-
-                ),
-              );
-          }
             },
+              child: Container(
+                margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
+                width: ConfigSize.defaultSize! * 5,
+                height: ConfigSize.defaultSize! * 5,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      ConfigSize.defaultSize! * 5),
+                  gradient: const LinearGradient(
+                      colors: ColorManager.mainColorList),
+                ),
+                child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
+              ),
+            ),
+                  const GroupChatCounterWidget()
+                ],
+
+              ),
+            );
+            }else {
+              return
+                InkWell(
+                  onTap: (){
+
+                    Navigator.pushNamed(context, Routes.groupChatScreen);
+
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
+                    width: ConfigSize.defaultSize! * 5,
+                    height: ConfigSize.defaultSize! * 5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          ConfigSize.defaultSize! * 5),
+                      gradient: const LinearGradient(
+                          colors: ColorManager.mainColorList),
+                    ),
+                    child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
+
+
+                    // IconButton(
+                    //   icon: Icon(
+                    //     Icons.edit,
+                    //     color: Theme
+                    //         .of(context)
+                    //         .colorScheme
+                    //         .background,
+                    //   ),
+                    //   onPressed: () {
+                    //     Navigator.pushNamed(context, Routes.groupChatScreen);
+                    //   },
+                    // ),
+
+                  ),
+                );
+            }
+              },
+        ),
       ),
     );
   },
