@@ -13,51 +13,47 @@ import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widget
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/male_female_widget.dart';
 
 class UserInfoWidget extends StatefulWidget {
-    static TextEditingController? bioController;
+  static TextEditingController? bioController;
   static TextEditingController? nameController;
   static String? age;
   static int? gender;
   final MyDataModel myDataModel;
-    const UserInfoWidget({required this.myDataModel, super.key});
+
+  const UserInfoWidget({required this.myDataModel, super.key});
 
   @override
   State<UserInfoWidget> createState() => _UserInfoWidgetState();
 }
 
 class _UserInfoWidgetState extends State<UserInfoWidget> {
-
   Color btnmale = ColorManager.whiteColor;
   Color btnfemale = ColorManager.whiteColor;
   Color btnmaleicon = ColorManager.gray;
   Color btnfemaleicon = ColorManager.gray;
   bool? maleAndFemaleFlag;
 
-
   @override
   void initState() {
-    CountryWidget.countryFlag = widget.myDataModel.profile!.country;
-    UserInfoWidget.bioController = TextEditingController(text: widget.myDataModel.bio);
-    UserInfoWidget.nameController = TextEditingController(text: widget.myDataModel.name);
+    UserInfoWidget.bioController =
+        TextEditingController(text: widget.myDataModel.bio);
+    UserInfoWidget.nameController =
+        TextEditingController(text: widget.myDataModel.name);
     UserInfoWidget.gender = widget.myDataModel.profile!.gender;
     maleAndFemaleFlag = widget.myDataModel.profile!.gender == 0 ? false : true;
     onbuttontap();
     UserInfoWidget.bioController!.addListener(() {
-      setState(() {
-        
-      });
-      });
-      UserInfoWidget.nameController!.addListener(() {
-      setState(() {
-        
-      });
-      });
+      setState(() {});
+    });
+    UserInfoWidget.nameController!.addListener(() {
+      setState(() {});
+    });
     super.initState();
   }
-@override
+
+  @override
   void dispose() {
-UserInfoWidget.bioController!.dispose();
-UserInfoWidget.nameController!.dispose();
- CountryWidget.countryFlag="";
+    UserInfoWidget.bioController!.dispose();
+    UserInfoWidget.nameController!.dispose();
 
     super.dispose();
   }
@@ -80,7 +76,6 @@ UserInfoWidget.nameController!.dispose();
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       height: ConfigSize.defaultSize! * 30,
       child: Column(
@@ -89,24 +84,23 @@ UserInfoWidget.nameController!.dispose();
           rowWidget(
             context: context,
             title: StringManager.bio.tr(),
-            subTitle:UserInfoWidget.bioController!.text,
+            subTitle: UserInfoWidget.bioController!.text,
             onTap: () {
               bottomDailog(
                   context: context,
                   widget: editDailog(
-                     maxLength: 62,
+                      maxLength: 62,
                       context: context,
                       controller: UserInfoWidget.bioController!,
                       title: StringManager.bio.tr()));
             },
           ),
           rowWidget(
-              context: context,
-              title: StringManager.interests.tr(),
-              subTitle: "",
-              onTap: () => Navigator.pushNamed(context, Routes.interstedScreen),
-
-              ),
+            context: context,
+            title: StringManager.interests.tr(),
+            subTitle: "",
+            onTap: () => Navigator.pushNamed(context, Routes.interstedScreen),
+          ),
           rowWidget(
             context: context,
             title: StringManager.userName.tr(),
@@ -120,7 +114,6 @@ UserInfoWidget.nameController!.dispose();
                       title: StringManager.userName.tr()));
             },
           ),
-
           InkWell(
             onTap: () {
               dailogDate(
@@ -141,23 +134,19 @@ UserInfoWidget.nameController!.dispose();
                           child: PersianLinearDatePicker(
                             showLabels: false,
 
-                            dateChangeListener:
-                                (String selectedDate) {
-                                  UserInfoWidget.age = selectedDate;
+                            dateChangeListener: (String selectedDate) {
+                              UserInfoWidget.age = selectedDate;
                             },
                             showMonthName: true,
-                            columnWidth:
-                            ConfigSize.defaultSize! * 12.7,
+                            columnWidth: ConfigSize.defaultSize! * 12.7,
 
                             //  labelStyle:
                             //      const TextStyle(fontFamily: 'DIN', color: Colors.blue),
                             selectedRowStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize:
-                                ConfigSize.defaultSize! * 2.3),
+                                fontSize: ConfigSize.defaultSize! * 2.3),
                             unselectedRowStyle: TextStyle(
-                                fontSize:
-                                ConfigSize.defaultSize! * 2.3,
+                                fontSize: ConfigSize.defaultSize! * 2.3,
                                 fontWeight: FontWeight.w100,
                                 color: ColorManager.gray),
                             isPersian: false,
@@ -167,8 +156,8 @@ UserInfoWidget.nameController!.dispose();
                             height: ConfigSize.defaultSize! * 5.55,
                             color: ColorManager.blue,
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.circular(ConfigSize.defaultSize!*3),
+                              borderRadius: BorderRadius.circular(
+                                  ConfigSize.defaultSize! * 3),
                             ),
                             onPressed: () {
                               Navigator.pop(context);
@@ -177,16 +166,14 @@ UserInfoWidget.nameController!.dispose();
                             child: SizedBox(
                               width: ConfigSize.defaultSize! * 31.1,
                               child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     StringManager.confirm.tr(),
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: ConfigSize
-                                            .defaultSize! *
-                                            2.5),
+                                        fontSize:
+                                            ConfigSize.defaultSize! * 2.5),
                                   ),
                                 ],
                               ),
@@ -196,7 +183,7 @@ UserInfoWidget.nameController!.dispose();
               );
             },
             child: Container(
-         padding:
+              padding:
                   EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1),
               decoration: BoxDecoration(
                 // color: const Color(0xffF5F5F5),
@@ -215,7 +202,7 @@ UserInfoWidget.nameController!.dispose();
                         fontFamily: 'NotoKufiArabic',
                       )),
                   SizedBox(
-                      width: ConfigSize.screenWidth! * 0.489,
+                    width: ConfigSize.screenWidth! * 0.489,
                   ),
                   Row(
                     children: [
@@ -230,8 +217,7 @@ UserInfoWidget.nameController!.dispose();
                             fontWeight: FontWeight.w400,
                             fontFamily: 'NotoKufiArabic',
                           )),
-                      SizedBox(
-                          width: ConfigSize.defaultSize! * 0.8),
+                      SizedBox(width: ConfigSize.defaultSize! * 0.8),
                       // Icon(
                       //   Icons.arrow_forward_ios_rounded,
                       //   size: ConfigSize.defaultSize! * 2.5,
@@ -244,8 +230,6 @@ UserInfoWidget.nameController!.dispose();
               ),
             ),
           ),
-
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -254,8 +238,7 @@ UserInfoWidget.nameController!.dispose();
                     setState(() {
                       maleAndFemaleFlag = true;
                       onbuttontap();
-                      UserInfoWidget.gender= 1;
-
+                      UserInfoWidget.gender = 1;
                     });
                   },
                   child: MaleFemale(
@@ -269,8 +252,7 @@ UserInfoWidget.nameController!.dispose();
                     setState(() {
                       maleAndFemaleFlag = false;
                       onbuttontap();
-                      UserInfoWidget.gender=0;
-
+                      UserInfoWidget.gender = 0;
                     });
                   },
                   child: MaleFemale(
@@ -280,21 +262,6 @@ UserInfoWidget.nameController!.dispose();
                       icon: Icons.woman)),
             ],
           ),
-
-
-
-
-
-          const  Row(
-    children:
-   
-    [
-       Spacer(flex: 1,),
-      CountryWidget(),
-
-            Spacer(flex: 1,),
-
-   ],)
         ],
       ),
     );
@@ -317,18 +284,20 @@ Widget rowWidget(
           Text(
             title,
             style: TextStyle(
-                color: Colors.grey, fontSize: ConfigSize.defaultSize! * 1.7),
+                color: Colors.grey, fontSize: ConfigSize.defaultSize! * 1.5),
           ),
           const Spacer(flex: 15),
 
           if (subTitle != null)
             SizedBox(
-              width: 280,
+              width: ConfigSize.screenWidth!*.4,
               child: Text(
                 textAlign: TextAlign.right,
                 subTitle,
                 style: TextStyle(
-                    color: Colors.grey, fontSize: ConfigSize.defaultSize! * 1.5 , overflow: TextOverflow.ellipsis),
+                    color: Colors.grey,
+                    fontSize: ConfigSize.defaultSize! * 1.5,
+                    overflow: TextOverflow.ellipsis),
               ),
             ),
 
@@ -342,7 +311,6 @@ Widget rowWidget(
           Icon(
             Icons.arrow_forward_ios,
             color: Theme.of(context).colorScheme.primary,
-
           ),
           // const Spacer(flex: 1),
         ],
@@ -354,9 +322,8 @@ Widget rowWidget(
 Widget editDailog(
     {required BuildContext context,
     required String title,
-    required TextEditingController controller ,
-    int? maxLength}
-    ) {
+    required TextEditingController controller,
+    int? maxLength}) {
   return Container(
     color: Theme.of(context).colorScheme.background,
     padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
@@ -372,7 +339,11 @@ Widget editDailog(
                     Border.all(color: Theme.of(context).colorScheme.primary),
                 borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
             width: MediaQuery.of(context).size.width - 50,
-            child: TextFieldWidget(hintText: "", controller: controller , maxLength: maxLength,))
+            child: TextFieldWidget(
+              hintText: "",
+              controller: controller,
+              maxLength: maxLength,
+            ))
       ],
     ),
   );

@@ -98,7 +98,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
         Container(
           height:isAdminOrHost? ConfigSize.screenHeight! * .45:ConfigSize.screenHeight! * .45,
           decoration: BoxDecoration(
-              color:  Color(0xFFFFFCE4),
+              color:  const Color(0xFFFFFCE4),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(
                     ConfigSize.defaultSize! * 2.0,
@@ -148,8 +148,9 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        if(!widget.userData.isCountryHiden!)
                         UserCountryIcon(
-                            country: widget.userData.profile!.country),
+                            country: widget.userData.country?.flag??""),
                         SizedBox(width: ConfigSize.defaultSize! * 0.5),
                         MaleFemaleIcon(
                           maleOrFeamle: widget.userData.profile!.gender,

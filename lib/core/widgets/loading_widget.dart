@@ -5,9 +5,10 @@ import 'tik_tok_animition.dart';
 
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({super.key, this.height, this.width});
+  const LoadingWidget({super.key, this.height, this.width, this.padding});
 final double? height;
 final double? width;
+final double? padding;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,7 +20,7 @@ final double? width;
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                    Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*18.0),
+                    padding:  EdgeInsets.symmetric(horizontal:padding?? ConfigSize.defaultSize!*18.0),
                     child: SizedBox(
                       height: ConfigSize.defaultSize!*3,
 

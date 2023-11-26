@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -98,7 +100,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return BlocListener<GetMyDataBloc, GetMyDataState>(
       listener: (context, state) {
         if (state is GetMyDataSucssesState) {
-          if (state.myDataModel.profile!.age == null &&
+          log('${state.myDataModel.country}state.myDataModel.country');
+          if (state.myDataModel.profile!.age == 0 &&
               state.myDataModel.country == null) {
             Navigator.pushNamedAndRemoveUntil(
                 context, Routes.addInfo, (route) => false,
@@ -107,7 +110,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         state.myDataModel.country == null ? true : false,
                     isAgeNotComplete:
                         state.myDataModel.profile!.age == 0 ? true : false));
-          } else if (state.myDataModel.country == null) {
+          } else  if (state.myDataModel.country == null) {
+          Future.delayed(const Duration(seconds: 1),(){
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -117,6 +121,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         return false;
                       });
                 });
+          });
           }
         }
       },

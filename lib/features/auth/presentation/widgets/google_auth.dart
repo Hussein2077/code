@@ -29,8 +29,8 @@ class GoogleAndAppleAuth extends StatelessWidget {
       listener: (context, state) async {
         if (state is SiginWithGoogleSuccesMessageState) {
           Methods.instance.clearAuthData();
-          BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
-              email: state.userData.userData.email));
+
+
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           if (state.userData.apiUserData.isFirst!) {
             Navigator.pushNamedAndRemoveUntil(

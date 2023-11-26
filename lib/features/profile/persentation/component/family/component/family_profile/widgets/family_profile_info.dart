@@ -279,7 +279,8 @@ Widget familyInfo({
           ),
           Row(
             children: [
-              const UserCountryIcon(country: ""),
+              if(!MyDataModel.getInstance().isCountryHiden!)
+                UserCountryIcon(country: MyDataModel.getInstance().country?.flag??""),
               SizedBox(
                 width: ConfigSize.defaultSize!,
               ),
