@@ -9,7 +9,6 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/widget/text_form_fild.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
@@ -24,7 +23,6 @@ class JoinToAgencyScreen extends StatefulWidget {
 }
 
 class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
-  TextEditingController id = TextEditingController();
   TextEditingController agencyId = TextEditingController();
   TextEditingController number = TextEditingController();
   final formGlobalKey = GlobalKey<FormState>();
@@ -53,12 +51,12 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: ConfigSize.defaultSize! * 30.5,
+                        height: ConfigSize.screenHeight! * .32,
                         child: Stack(
                           children: [
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              height: ConfigSize.defaultSize! * 20.5,
+                              height: ConfigSize.screenHeight! * .2,
                               decoration: BoxDecoration(
                                   gradient: const LinearGradient(
                                       colors: ColorManager.mainColorList),
@@ -99,11 +97,9 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                 children: [
                                   UserImage(
                                     image: state.myDataModel.profile!.image!,
-                                    imageSize: ConfigSize.defaultSize! * 9.5,
+                                    imageSize: ConfigSize.screenHeight! * .12,
                                   ),
-                                  SizedBox(
-                                    height: ConfigSize.defaultSize! * 1.0,
-                                  ),
+
                                   GradientTextVip(
                                     text: state.myDataModel.name!,
                                     textStyle: Theme.of(context)
@@ -111,9 +107,22 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                         .headlineLarge!,
                                     isVip: state.myDataModel.hasColorName!,
                                   ),
-                                  SizedBox(
-                                      height: ConfigSize.defaultSize! * 2.0)
                                 ],
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width:  ConfigSize.defaultSize! *8,
+                                  child: Text('ID : ${state.myDataModel.uuid!}',
+                                      style:
+                                      Theme.of(context).textTheme.bodySmall!.copyWith(
+                                        fontSize:  ConfigSize.defaultSize! *1.5,
+                                        fontWeight: FontWeight.w500,
+                                      )),
+                                ),
                               ),
                             )
                           ],
@@ -127,17 +136,15 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('ID',
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium),
-                              SizedBox(
-                                height: ConfigSize.defaultSize! * 1.0,
-                              ),
-                              TextFormFieldWidget(
-                                textEditingController: id,
-                                hintText: state.myDataModel.uuid!,
-                                readOnly: true,
-                              ),
+
+                              // SizedBox(
+                              //   height: ConfigSize.defaultSize! * 1.0,
+                              // ),
+                              // TextFormFieldWidget(
+                              //   textEditingController: id,
+                              //   hintText: state.myDataModel.uuid!,
+                              //   readOnly: true,
+                              // ),
                               SizedBox(
                                 height: ConfigSize.defaultSize! * 1.0,
                               ),
@@ -151,7 +158,7 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: ConfigSize.defaultSize!),
                                 width: MediaQuery.of(context).size.width - 50,
-                                height: ConfigSize.defaultSize! * 6,
+                                height: ConfigSize.defaultSize! * 5,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: ColorManager.mainColor,
@@ -166,6 +173,7 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                   controller: agencyId,
                                   hintText:
                                       StringManager.enterAgencyIDHere.tr(),
+                                  fontSize: ConfigSize.defaultSize! *1.5 ,
                                 ),
                               ),
                               SizedBox(
@@ -181,7 +189,7 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: ConfigSize.defaultSize!),
                                 width: MediaQuery.of(context).size.width - 50,
-                                height: ConfigSize.defaultSize! * 6,
+                                height: ConfigSize.defaultSize! * 5,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: ColorManager.mainColor,
@@ -191,13 +199,14 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                 ),
                                 child: TextFieldWidget(
                                   type: TextInputType.number,
+                                  fontSize: ConfigSize.defaultSize! *1.5 ,
                                   controller: number,
                                   hintText:
                                       StringManager.enterYourNumberHere.tr(),
                                 ),
                               ),
                               SizedBox(
-                                height: ConfigSize.defaultSize! * 15,
+                                height: ConfigSize.defaultSize! * 5,
                               ),
 
                             ],

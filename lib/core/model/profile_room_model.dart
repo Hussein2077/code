@@ -8,7 +8,6 @@ class ProfileRoomModel {
   final int ? gender;
   final String? imageId;
   final dynamic? birthday;
-  final dynamic? country;
   final int? age;
 
   ProfileRoomModel({
@@ -16,7 +15,6 @@ class ProfileRoomModel {
     this.gender,
     this.imageId,
     this.birthday,
-    this.country,
     this.age,
   });
 
@@ -27,14 +25,12 @@ class ProfileRoomModel {
     dynamic? birthday,
     dynamic? province,
     dynamic? city,
-    dynamic? country,
   }) {
     return ProfileRoomModel(
       image: image ?? this.image,
       gender: gender ?? this.gender,
       imageId: imageId ?? this.imageId,
       birthday: birthday ?? this.birthday,
-      country: country ?? this.country,
     );
   }
 
@@ -43,7 +39,6 @@ class ProfileRoomModel {
       'image': image??"",
       'gender': gender,
       'birthday': birthday,
-      'country': country,
     };
   }
 
@@ -53,7 +48,6 @@ class ProfileRoomModel {
       imageId: map['image_id'],
       gender: map['gender'],
       birthday: map['birthday'],
-      country: map['country'],
       age: map['age'],
     );
   }

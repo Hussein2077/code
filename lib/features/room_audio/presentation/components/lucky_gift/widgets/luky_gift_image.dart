@@ -45,7 +45,7 @@ class _LukyGiftImageState extends State<LukyGiftImage>
       }
     });
     offsetAnimation = Tween(
-        begin: const Offset(0, -650),
+        begin: const Offset(0, 250),
         end: const  Offset(0,10))
         .animate(CurvedAnimation(
       parent: controllerAnimationTransform,

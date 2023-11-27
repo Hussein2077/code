@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
-  static const int versionApp = 47;
+  static const int versionApp = 48;
   static const String androidPlatform = 'Android';
   static const String iOSPlatform = 'IOS';
 
@@ -10,6 +10,7 @@ class StringManager {
   static const String updateText = "Tik Chat recommends that you update to the latest version You can keep enjoy the app while downloading the update";
   // cach keys
   static const String cacheFrameKey = 'Frame';
+
   static const String hasJoin = "has joined";
   static const String games = "Games";
   static const String gameroom = "Game Room";

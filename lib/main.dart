@@ -224,7 +224,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(

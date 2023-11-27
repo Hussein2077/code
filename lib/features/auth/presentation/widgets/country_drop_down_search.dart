@@ -16,9 +16,11 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_b
 
 class CountryDropDownSearch extends StatelessWidget {
   const CountryDropDownSearch({
-    super.key, this.width,
+    super.key,
+    this.width,
   });
-final double? width;
+
+  final double? width;
   static GetAllCountriesModel? selectedItem;
 
   @override
@@ -28,7 +30,7 @@ final double? width;
         if (state is GetAllCountriesSuccessState) {
           return SizedBox(
             height: ConfigSize.defaultSize! * 7,
-            width:width?? ConfigSize.screenWidth! * .8,
+            width: width ?? ConfigSize.screenWidth! * .8,
             child: DropdownSearch<GetAllCountriesModel>(
               asyncItems: (filter) async {
                 return state.getAllCountriesModel.allCountiesSearch;
@@ -37,33 +39,33 @@ final double? width;
               popupProps: PopupProps.menu(
                 showSelectedItems: true,
                 showSearchBox: true,
-
-                searchFieldProps:   TextFieldProps(
-                    decoration:InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                      ),
-                        hintText:StringManager.search.tr()
-                    )
-                ),
+                searchFieldProps: TextFieldProps(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                              ConfigSize.defaultSize! * 2),
+                        ),
+                        hintText: StringManager.search.tr())),
                 itemBuilder: _customPopupItemBuilderExample2,
               ),
               dropdownBuilder: dropdownBuilder,
               dropdownDecoratorProps: DropDownDecoratorProps(
                 dropdownSearchDecoration: InputDecoration(
-
                     labelText: StringManager.country.tr(),
                     labelStyle: Theme.of(context).textTheme.bodyMedium,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
                           ConfigSize.defaultSize! * 3,
-
                         ),
                         gapPadding: 3)),
               ),
               onChanged: (print) {
                 CountryDropDownSearch.selectedItem = print;
-                CountryDropDownSearch.selectedItem=state.getAllCountriesModel.allCounties.firstWhere((element) => element.name==  CountryDropDownSearch.selectedItem!.name);
+                CountryDropDownSearch.selectedItem = state
+                    .getAllCountriesModel.allCounties
+                    .firstWhere((element) =>
+                        element.name ==
+                        CountryDropDownSearch.selectedItem!.name);
               },
               selectedItem: CountryDropDownSearch.selectedItem,
             ),
@@ -71,9 +73,10 @@ final double? width;
         }
         if (state is GetAllCountriesLoading) {
           return SizedBox(
-              height: ConfigSize.defaultSize! * 7,
-              width: ConfigSize.defaultSize! * 5,
-              child: const LoadingWidget());
+            height: ConfigSize.screenHeight! * .1,
+            width: ConfigSize.screenWidth! * .5,
+            child:   LoadingWidget(padding: ConfigSize.defaultSize!*8,),
+          );
         }
         if (state is GetAllCountriesError) {
           return ErrorWidget('');
@@ -84,8 +87,8 @@ final double? width;
     );
   }
 
-  Widget _customPopupItemBuilderExample2(BuildContext context, GetAllCountriesModel item,
-      bool isSelected) {
+  Widget _customPopupItemBuilderExample2(
+      BuildContext context, GetAllCountriesModel item, bool isSelected) {
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: ConfigSize.defaultSize! * .8,
@@ -93,25 +96,30 @@ final double? width;
       decoration: !isSelected
           ? null
           : BoxDecoration(
-        border: Border.all(color: ColorManager.darkBlack),
-        borderRadius: BorderRadius.circular(
-          ConfigSize.defaultSize! * .5,
-        ),
-        color:isSelected?Colors.grey: Colors.white,
-      ),
+              border: Border.all(color: ColorManager.darkBlack),
+              borderRadius: BorderRadius.circular(
+                ConfigSize.defaultSize! * .5,
+              ),
+              color: isSelected ? Colors.grey : Colors.white,
+            ),
       child: ListTile(
           selected: isSelected,
-          title: Text(item.name,style: Theme.of(context).textTheme.bodyMedium,),
+          title: Text(
+            item.name,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
           subtitle: Text(item.eName.toString()),
           leading: BlocBuilder<GetAllCountriesBloc, GetAllCountriesStates>(
             builder: (context, state) {
-              if(state is GetAllCountriesSuccessState) {
-
+              if (state is GetAllCountriesSuccessState) {
                 return CustoumCachedImage(
-                url:state.getAllCountriesModel.allCounties.firstWhere((element) => element.name==item.name).flag??"" ,
-                height: ConfigSize.defaultSize! * 3,
-                width: ConfigSize.defaultSize! * 3,
-              );
+                  url: state.getAllCountriesModel.allCounties
+                          .firstWhere((element) => element.name == item.name)
+                          .flag ??
+                      "",
+                  height: ConfigSize.defaultSize! * 3,
+                  width: ConfigSize.defaultSize! * 3,
+                );
               }
               if (state is GetAllCountriesLoading) {
                 return SizedBox(
@@ -129,8 +137,8 @@ final double? width;
     );
   }
 
-  Widget dropdownBuilder(BuildContext context,
-      GetAllCountriesModel? getAllCountriesModel) {
+  Widget dropdownBuilder(
+      BuildContext context, GetAllCountriesModel? getAllCountriesModel) {
     return getAllCountriesModel == null
         ? const Text('')
         : Text('${getAllCountriesModel.eName} - ${getAllCountriesModel.name}');

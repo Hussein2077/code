@@ -176,7 +176,7 @@ class UserDataModel {
         image:profile?.image??'',
         gender: profile?.gender??1,
         age: profile?.age??0,
-        country: profile?.country
+
 
       ),
       myStore: MyStoreModel(

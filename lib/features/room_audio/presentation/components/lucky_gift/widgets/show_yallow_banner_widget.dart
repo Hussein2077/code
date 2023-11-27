@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -18,9 +19,9 @@ class ShowYallowBannerWidget extends StatelessWidget {
   AnimationController controllerYallowBanner;
   Animation<Offset> offsetAnimationYallowBanner;
   UserDataModel? senderYallowBanner;
-  var hasPassword;
+  Map<String, dynamic> hasPassword;
   MyDataModel myData;
-  var ownerId;
+  Map<String, dynamic> ownerId;
   int cureentRoomId;
   ShowYallowBannerWidget({super.key, required this.controllerYallowBanner, required this.offsetAnimationYallowBanner, this.senderYallowBanner, required this.hasPassword, required this.myData, required this.ownerId, required this.cureentRoomId});
 
@@ -74,9 +75,8 @@ class ShowYallowBannerWidget extends StatelessWidget {
                             width: ConfigSize.defaultSize! * 23.5,
                             child: TextScroll(
                               textDirection: ui.TextDirection.rtl,
-
                               senderYallowBanner!.isAanonymous!
-                                  ? "${StringManager.nameAnayoums} : ${ZegoInRoomMessageInput.messageYallowBanner}"
+                                  ? "${StringManager.nameAnayoums.tr()} : ${ZegoInRoomMessageInput.messageYallowBanner}"
                                   : "${senderYallowBanner!.name} : ${ZegoInRoomMessageInput.messageYallowBanner}",
                               mode: TextScrollMode.endless,
                               velocity:

@@ -59,7 +59,7 @@ class PrivacySettingState extends State<PrivacySetting> {
               isFirst++;
               tempData = state.data;
 
-              print('${state.data[5].title!}huss');
+
               return Scaffold(
                 body: Column(
                   children: [
