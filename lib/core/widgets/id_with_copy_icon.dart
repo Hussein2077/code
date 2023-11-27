@@ -39,8 +39,8 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
                   style: TextStyle(
 
                     color: Colors.black,
-
-                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.bold,
+                    fontSize: ConfigSize.defaultSize! * 1.5,
                   ),
                 )
               : Text(

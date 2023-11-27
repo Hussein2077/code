@@ -144,9 +144,10 @@ class UpperProfileBody extends StatelessWidget {
                             ? ShimmerId(
                                 id: myDataModel.uuid.toString(),
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
+
                                     fontSize: ConfigSize.defaultSize! * 1.2,
-                                    fontWeight: FontWeight.w700),
+                                    fontWeight: FontWeight.bold),
                               )
                             : itemContiner(
                                 title: "ID ${myDataModel.uuid}",
