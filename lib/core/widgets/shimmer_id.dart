@@ -15,17 +15,34 @@ class ShimmerId extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: ConfigSize.defaultSize! * 0.8,
-      ),
-      decoration:  BoxDecoration(
-       borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1),
-       gradient:   const LinearGradient(colors: ColorManager.goldList),
-      ),
-      child: Text(
-        'ID: $id',
-        style: style ?? Theme.of(context).textTheme.titleSmall,
+    return SizedBox(
+      width: ConfigSize.defaultSize!*10.8,
+      height: ConfigSize.defaultSize!*2.8,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+
+          Shimmer(
+            gradient: const LinearGradient(colors: ColorManager.goldList),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: ConfigSize.defaultSize! * 0.8,
+              ),
+              decoration:  BoxDecoration(
+
+               borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1),
+                gradient:   const LinearGradient(colors: ColorManager.goldList),
+
+              ),
+            ),
+          ),
+          Text(
+            'ID: $id',
+            style: style ?? TextStyle(
+                color: Colors.white
+            ),
+          ),
+        ],
       ),
     );
   }
