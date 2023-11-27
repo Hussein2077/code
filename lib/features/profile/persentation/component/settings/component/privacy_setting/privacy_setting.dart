@@ -58,8 +58,6 @@ class PrivacySettingState extends State<PrivacySetting> {
             if (state is GetVipPrevSucssesState) {
               isFirst++;
               tempData = state.data;
-
-              print('${state.data[5].title!}huss');
               return Scaffold(
                 body: Column(
                   children: [
