@@ -122,7 +122,7 @@ class UpperProfileBody extends StatelessWidget {
                           width: ConfigSize.defaultSize!,
                         ),
                         if (!myDataModel.isCountryHiden!)
-                          myDataModel.country!.flag == ''
+                          myDataModel.country?.flag == null
                               ? const SizedBox()
                               : CachedNetworkImage(
                                   imageUrl: ConstentApi().getImage(
