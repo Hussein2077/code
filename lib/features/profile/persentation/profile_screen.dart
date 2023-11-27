@@ -1,6 +1,3 @@
-
-
-
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -27,43 +24,42 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  MyDataModel ? tempData ;
-
+  MyDataModel? tempData;
 
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-     
+    return Scaffold(
       body: LiquidPullToRefresh(
         color: ColorManager.bage,
         backgroundColor: ColorManager.loadingColor,
-        showChildOpacityTransition : false,
-
-      onRefresh: ()async{
-      BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-              },
+        showChildOpacityTransition: false,
+        onRefresh: () async {
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+        },
         child: SingleChildScrollView(
             child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
-         if (state is GetMyDataSucssesState){
-
-            tempData = state.myDataModel ;
-             return  ProfileBody(myData: state.myDataModel);
-         } else if (state is GetMyDataErrorState){
-          //todo show toast here to show error
-          return  ProfileBody(myData:getIt<MyDataModel>());
-          }
-         else if(state is GetMyDataLoadingState){
-          return tempData==null? const LoadingWidget() :
-          ProfileBody(myData: tempData!);
-         }else {
-           //todo update this ui
-          return  CustomErrorWidget(message: StringManager.unexcepectedError.tr(),);
-         }
+            if (state is GetMyDataSucssesState) {
+              tempData = state.myDataModel;
+              return ProfileBody(myData: state.myDataModel);
+            } else if (state is GetMyDataErrorState) {
+              //todo show toast here to show error
+              return ProfileBody(myData: getIt<MyDataModel>());
+            } else if (state is GetMyDataLoadingState) {
+              return tempData == null
+                  ? const LoadingWidget()
+                  : ProfileBody(myData: tempData!);
+            } else {
+              //todo update this ui
+              return CustomErrorWidget(
+                message: StringManager.unexcepectedError.tr(),
+              );
+            }
           },
         )),
       ),
