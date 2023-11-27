@@ -100,7 +100,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return BlocListener<GetMyDataBloc, GetMyDataState>(
       listener: (context, state) {
         if (state is GetMyDataSucssesState) {
-          log('${state.myDataModel.country}state.myDataModel.country');
           if (state.myDataModel.profile!.age == 0 &&
               state.myDataModel.country == null) {
             Navigator.pushNamedAndRemoveUntil(

@@ -9,7 +9,6 @@ import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/widget/text_form_fild.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
@@ -117,23 +116,12 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: SizedBox(
                                   width:  ConfigSize.defaultSize! *8,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text('ID : ',
-                                          style:
-                                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                            fontSize:  ConfigSize.defaultSize! *1.5,
-                                            fontWeight: FontWeight.w500,
-                                          )),
-                                      Text(state.myDataModel.uuid!,
-                                          style:
-                                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                            fontWeight: FontWeight.w500,
-
-                                          )),
-                                    ],
-                                  ),
+                                  child: Text('ID : ${state.myDataModel.uuid!}',
+                                      style:
+                                      Theme.of(context).textTheme.bodySmall!.copyWith(
+                                        fontSize:  ConfigSize.defaultSize! *1.5,
+                                        fontWeight: FontWeight.w500,
+                                      )),
                                 ),
                               ),
                             )
