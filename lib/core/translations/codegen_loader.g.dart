@@ -466,6 +466,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.luckyGiftMessage: 'ارسل هدية حظ  عددها',
     StringManager.to: 'الي',
     StringManager.nameAnayoums: 'الرجل الغامض',
+    StringManager.forShippingAgent: 'تبديل الدولارات لي وكلاء الشحن',
+    StringManager.notChargeToAgancy: 'ملحوظه: لا يمكنك تبديل الدولارات سوى لنفسك أو وكيل الشحن',
+    StringManager.changeDollars: 'تبديل الدولارات لنفسك',
   };
 
   static const Map<String, dynamic> tr = {
