@@ -184,7 +184,21 @@ class _SplashScreenState extends State<SplashScreen> {
       configModel = l;
     },(r){
       errorMessage = DioHelper().getTypeOfFailure(r);
-      errorToast(context: context, title: errorMessage);
+      Future.delayed(Duration(seconds: 1),(){
+        log("0");
+        errorToast(context: context, title: errorMessage);
+        log("1");
+      }).then((value) {
+        log("2");
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.login, (route) => false,
+            arguments:
+            const LoginPramiter(isForceUpdate: false, isUpdate: false));
+        log("3");
+      } );
+
+
+
     });
 
   }
