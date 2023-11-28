@@ -36,9 +36,7 @@ class GiftUserState extends State<GiftUser> {
 
   @override
   void initState() {
-   if( RoomScreen.userOnMics.value.isEmpty){
      GiftUser.userSelected.clear();
-   }
     super.initState();
   }
 
