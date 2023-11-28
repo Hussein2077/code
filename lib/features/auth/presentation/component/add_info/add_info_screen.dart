@@ -215,7 +215,6 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
         if (state is AddInfoSuccesMessageState) {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           Navigator.pushNamed(context, Routes.mainScreen);
-
         } else if (state is AddInfoErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
         }

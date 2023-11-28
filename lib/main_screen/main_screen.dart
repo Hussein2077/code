@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -12,7 +10,6 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/add_country_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
@@ -100,8 +97,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return BlocListener<GetMyDataBloc, GetMyDataState>(
       listener: (context, state) {
         if (state is GetMyDataSucssesState) {
-          if (state.myDataModel.profile!.age == 0 &&
-              state.myDataModel.country == null) {
+          if (state.myDataModel.profile!.age == 0 && state.myDataModel.country == null) {
             Navigator.pushNamedAndRemoveUntil(
                 context, Routes.addInfo, (route) => false,
                 arguments: ThirdPartyAuthModel(
@@ -109,18 +105,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         state.myDataModel.country == null ? true : false,
                     isAgeNotComplete:
                         state.myDataModel.profile!.age == 0 ? true : false));
-          } else  if (state.myDataModel.country == null) {
-          Future.delayed(const Duration(seconds: 1),(){
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return WillPopScope(
-                      child: const AddCountryDialog(),
-                      onWillPop: () async {
-                        return false;
-                      });
-                });
-          });
           }
         }
       },
