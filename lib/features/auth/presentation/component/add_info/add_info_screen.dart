@@ -170,7 +170,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                 : "0",
                             name: nameController.text,
                             date: DateWidget.selectedDatee,
-                            // email:widget.Data!.email??"",
+                            email: widget.Data!.data.email.toString(),
                             countryID:CountryDropDownSearch. selectedItem!.id));
                       } else {
                         errorToast(
