@@ -47,6 +47,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/family/famil
 import 'package:tik_chat_v2/features/profile/persentation/component/games/games_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/component/request_agency_screen/request_to_join_agency_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/instruction.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/all_shipping_agents/all_shipping_agents_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/exchange_for_gold_screen/exchange_for_gold.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/live_report_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/details_screen.dart';
@@ -164,6 +165,7 @@ class Routes {
   static const String chatPageBody = "/chatPageBody";
   static const String reportReelsScreen = "/reportReelsScreen";
   static const String whiteEmptyScreen = "/whiteEmptyScreen";
+  static const String allShippingAgent = "/AllShippingAgent";
 
 
 
@@ -263,7 +265,7 @@ class RouteGenerator {
                 child: HandlerRoomScreen(roomPramiter: roomHandlerPramiter)));
       case Routes.videoRoomHandler:
         return MaterialPageRoute(
-            builder: (_) => VideoHandlerRoomScreen());
+            builder: (_) => const VideoHandlerRoomScreen());
       case Routes.roomScreen:
         RoomPramiter roomPramiter = settings.arguments as RoomPramiter;
         return MaterialPageRoute(
@@ -578,6 +580,15 @@ class RouteGenerator {
         } else {
           return MaterialPageRoute(
               builder: (_) => const SafeArea(child: WhiteEmptyScreen()));
+        }
+        case Routes.allShippingAgent:
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => const AllShippingAgent());
+        } else {
+          return MaterialPageRoute(
+              builder: (_) => const AllShippingAgent());
         }
 
 
