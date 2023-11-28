@@ -164,8 +164,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-
     super.initState();
 
     RoomScreen.usersHasMute = widget.room.mutedUsers!.split(', ');
