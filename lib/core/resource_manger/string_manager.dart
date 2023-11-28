@@ -518,6 +518,7 @@ class StringManager {
   static const String luckyGiftMessage = "Send a Lucky Gift Of";
   static const String to = "To";
   static const String notChargeToAgancy = "You can only withdraw dollars for yourself or a shipping agent.";
+  static const String pleseSelectUser = "Please Select User";
 
   static Map<int, bool> userType = {
     0: false,

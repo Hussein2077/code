@@ -185,9 +185,7 @@ class RouteGenerator {
       case Routes.login:
         LoginPramiter? loginPramiter = settings.arguments as LoginPramiter?;
 
-          return MaterialPageRoute(
-            settings: settings,
-
+        return MaterialPageRoute(
             builder: (_) => LoginScreen(
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
@@ -643,7 +641,7 @@ class RouteGenerator {
         if (Platform.isIOS)
         {
           return CupertinoPageRoute (
-              builder: (_) => const AllShippingAgent());
+              builder: (_) =>   AllShippingAgent());
         } else {
            return MaterialPageRoute(
             settings: settings,
