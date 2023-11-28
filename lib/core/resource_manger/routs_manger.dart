@@ -585,10 +585,10 @@ class RouteGenerator {
         if (Platform.isIOS)
         {
           return CupertinoPageRoute (
-              builder: (_) => const AllShippingAgent());
+              builder: (_) =>   AllShippingAgent());
         } else {
           return MaterialPageRoute(
-              builder: (_) => const AllShippingAgent());
+              builder: (_) =>  AllShippingAgent());
         }
 
 

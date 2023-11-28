@@ -10,7 +10,10 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/all_shipping_agents/all_shipping_agents_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/widget/container_of_cash_withdrawal.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_all_shipping_agents_manager/get_all_shipping_agents_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_all_shipping_agents_manager/get_all_shipping_agents_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_charge_to/charge_to_state.dart';
@@ -20,6 +23,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_sto
 
 // ignore: must_be_immutable
 class CashWithdrawal extends StatefulWidget {
+
+  static String userId='' ;
+
   CashWithdrawal({Key? key}) : super(key: key);
 
   @override
@@ -34,6 +40,23 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
   final formGlobalKey = GlobalKey<FormState>();
 
   String usd = " ";
+
+  @override
+  void dispose() {
+    CashWithdrawal.userId = '';
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+
+  @override
+  void initState() {
+    CashWithdrawal.  userId = '';
+    BlocProvider.of<AllShippingAgentsBloc>(context).add(GetAllShippingAgentsEvents());
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   bool isActive = false ;
   bool isActive2 = false ;
@@ -115,35 +138,7 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
                   visible: isActive,
                   child: Column(
                     children: [
-                      /*    Text(
-                        StringManager.userID.tr(),
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 1.0,
-                      ),
-                      ///TextField User Id
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ConfigSize.defaultSize!),
-                        width: MediaQuery.of(context).size.width - 50,
-                        height: ConfigSize.defaultSize! * 6,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: ColorManager.mainColor,
-                          ),
-                          borderRadius:
-                              BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                        ),
-                        child: TextFieldWidget(
-                          type: TextInputType.number,
-                          controller: userID,
-                          hintText: StringManager.enterUserID.tr(),
-                        ),
-                      ),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 2.0,
-                      ),*/
+
                       /// Text Withdrawal
                       Text(
                         StringManager.withdrawal.tr(),
@@ -180,10 +175,18 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
                       activeColor: ColorManager.mainColor,
                         value: isActive,
                         onChanged: (value){
+                        if(value){
+                          CashWithdrawal.userId =MyDataModel.getInstance().uuid.toString();
+                          log("User Id ${CashWithdrawal.userId}");
+                        }else{
+                          CashWithdrawal.userId = '';
+                          log("User  ${CashWithdrawal.userId}");
+
+                        }
                         setState(() {});
                         isActive=value;
                         isActive2=false;
-                        log("QWERTY$isActive");
+
 
                     }),
                      Text(StringManager.changeDollars.tr()),
@@ -198,10 +201,17 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
                         activeColor: ColorManager.mainColor,
                         value: isActive2,
                         onChanged: (value){
-                          setState(() {});
-                          isActive2=value;
-                          isActive= false;
-                          log("QWERTY$isActive2");
+                          setState(() {
+                            isActive2=value;
+                            isActive= false;
+                          });
+                          if(isActive==false){
+                            CashWithdrawal.userId = '';
+                          }if(isActive2==false){
+                            CashWithdrawal.userId = '';
+
+                          }
+                          log("User Switch 2 $CashWithdrawal.userId");
 
                         }),
                      Text(StringManager.forShippingAgent.tr()),
@@ -209,82 +219,58 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
                 ),
                 Visibility(
                   visible: isActive2,
-                  child: Column(
-                    children: [
-                          Text(
-                        StringManager.userID.tr(),
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 1.0,
-                      ),
-                      ///TextField User Id
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ConfigSize.defaultSize!),
-                        width: MediaQuery.of(context).size.width - 50,
-                        height: ConfigSize.defaultSize! * 6,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: ColorManager.mainColor,
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          StringManager.withdrawal.tr(),
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        SizedBox(
+                          height: ConfigSize.defaultSize! * 1.0,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ConfigSize.defaultSize!),
+                          width: MediaQuery.of(context).size.width - 50,
+                          height: ConfigSize.defaultSize! * 6,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: ColorManager.mainColor,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(ConfigSize.defaultSize! * 2),
                           ),
-                          borderRadius:
-                              BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                        ),
-                        child: TextFieldWidget(
-                          type: TextInputType.number,
-                          controller: userID,
-                          hintText: StringManager.enterUserID.tr(),
-                        ),
-                      ),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 2.0,
-                      ),
-                      /// Text Withdrawal
-                      /*Text(
-                        StringManager.withdrawal.tr(),
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 1.0,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ConfigSize.defaultSize!),
-                        width: MediaQuery.of(context).size.width - 50,
-                        height: ConfigSize.defaultSize! * 6,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: ColorManager.mainColor,
+                          child: TextFieldWidget(
+                            type: TextInputType.number,
+                            controller: withdrawalAmount,
+                            hintText: StringManager.enterQuantityHere.tr(),
                           ),
-                          borderRadius:
-                          BorderRadius.circular(ConfigSize.defaultSize! * 2),
                         ),
-                        child: TextFieldWidget(
-                          type: TextInputType.number,
-                          controller: withdrawalAmount,
-                          hintText: StringManager.enterQuantityHere.tr(),
+                         AllShippingAgent(
+
                         ),
-                      ),*/
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-                const Spacer(
-                  flex: 6,
+                SizedBox(
+                  height: ConfigSize.defaultSize!*1,
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (userID.text.isEmpty) {
+                    if (CashWithdrawal.userId.toString()=='') {
                       errorToast(
                           context: context,
-                          title: StringManager.pleaseEnterID);
+                          title: StringManager.pleseSelectUser.tr());
                     } else if (withdrawalAmount.text.isEmpty) {
                       errorToast(
                           context: context,
                           title: StringManager.pleaseEnterquantity.tr());
                     } else {
                       BlocProvider.of<ChargeToBloc>(context).add(SendCharge(
-                          uId: MyDataModel.getInstance().uuid.toString(), usd: withdrawalAmount.text));
+                          uId: CashWithdrawal.userId, usd: withdrawalAmount.text));
+                      log("Agabcy ${CashWithdrawal.userId}");
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -299,7 +285,9 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
-                const Spacer(),
+                SizedBox(
+                  height: ConfigSize.defaultSize!*2,
+                ),
               ],
             ),
           ),
