@@ -242,8 +242,9 @@ class Methods {
                 ));
           });
     } else {
-
-      Navigator.pop(context);
+     if( Navigator.canPop(context)){
+       Navigator.pop(context);
+     }
       if((isInRoom??false)){
         MainScreen.iskeepInRoom.value = true;
       }

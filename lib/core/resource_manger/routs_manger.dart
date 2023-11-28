@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/widgets/web_view_widget.dart';
 import 'package:tik_chat_v2/core/widgets/white_empty_screen.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
@@ -19,11 +18,8 @@ import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/Messages_Screen/official_massage_screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/Messages_Screen/system_Messages_Screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/group_chat/group_chat.dart';
-import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/chatpage_body.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/create_live_screen.dart';
-import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/upload_reels_screen.dart';
-import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/search/search_screen.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/ageince_screen/agency_screen.dart';
@@ -183,11 +179,15 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => const SplashScreen());
       case Routes.login:
         LoginPramiter? loginPramiter = settings.arguments as LoginPramiter?;
 
-        return MaterialPageRoute(
+          return MaterialPageRoute(
+            settings: settings,
+
             builder: (_) => LoginScreen(
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
@@ -196,7 +196,9 @@ class RouteGenerator {
       case Routes.otp:
         OtbScreenParm otbScreenParm =
             settings.arguments as OtbScreenParm;
-        return MaterialPageRoute(
+          return MaterialPageRoute(
+            settings: settings,
+
             builder: (_) => OtpScreen(
                   codeCountry: otbScreenParm.codeCountry,
                   phone: otbScreenParm.phone,
@@ -204,14 +206,16 @@ class RouteGenerator {
                 ));
       case Routes.addInfo:
         ThirdPartyAuthModel? Data = settings.arguments as ThirdPartyAuthModel?;
-         return MaterialPageRoute(
+           return MaterialPageRoute(
+            settings: settings,
             builder: (_) => AddInfoScreen(
                   Data: Data,
 
                 ));
       case Routes.mainScreen:
         MainPramiter? mainPramiter = settings.arguments as MainPramiter?;
-        return MaterialPageRoute(
+          return MaterialPageRoute(
+            settings: settings,
             builder: (_) => MainScreen(
                   isChachGift: mainPramiter?.isChachGift,
                   isCachFrame: mainPramiter?.isCachFrame,
@@ -222,12 +226,15 @@ class RouteGenerator {
                   actionDynamicLink: mainPramiter?.actionDynamicLink,
                 ));
       case Routes.topUsersScreen:
-        return MaterialPageRoute(builder: (_) => const TopUsersScreen());
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => const TopUsersScreen());
       case Routes.userProfile:
         UserProfilePreamiter? pram =
             settings.arguments as UserProfilePreamiter?;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => UserProfile(
                   userId: pram?.userId,
                   userData: pram?.userData,
@@ -235,40 +242,47 @@ class RouteGenerator {
       case Routes.giftGallery:
         int? userId = settings.arguments as int?;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => GiftGallery(
                   userId: userId,
                 ));
       case Routes.editInfo:
         MyDataModel myDataModel = settings.arguments as MyDataModel;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => EditInfoScreen(
                   myDataModel: myDataModel,
                 ));
       case Routes.fff:
         String title = settings.arguments as String;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => FFFScreen(
                   title: title,
                 ));
       case Routes.coins:
         String type = settings.arguments as String;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => CoinsScreen(
                   type: type,
                 ));
       case Routes.roomHandler:
         RoomHandlerPramiter roomHandlerPramiter =
             settings.arguments as RoomHandlerPramiter;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => SafeArea(
                 child: HandlerRoomScreen(roomPramiter: roomHandlerPramiter)));
       case Routes.videoRoomHandler:
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => const VideoHandlerRoomScreen());
       case Routes.roomScreen:
         RoomPramiter roomPramiter = settings.arguments as RoomPramiter;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => SafeArea(
                     child: RoomScreen(
                   room: roomPramiter.roomModel,
@@ -277,44 +291,55 @@ class RouteGenerator {
                 )));
       case Routes.myBag:
         MyDataModel myDataModel = settings.arguments as MyDataModel;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => MyBagScreen(
                   myDataModel: myDataModel,
                 ));
       case Routes.mall:
-        return MaterialPageRoute(builder: (_) => const MallScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const MallScreen());
       case Routes.level:
-        return MaterialPageRoute(builder: (_) => const LevelScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const LevelScreen());
       case Routes.vip:
-        return MaterialPageRoute(builder: (_) => const VipScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const VipScreen());
       case Routes.familyRanking:
-        return MaterialPageRoute(builder: (_) => const FamilyRankingScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const FamilyRankingScreen());
       case Routes.familyProfile:
         int familyId = settings.arguments as int;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => FamilyProfileScreen(
                   familyId: familyId,
                 ));
       case Routes.custoumService:
         int myId = settings.arguments as int;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => CustoumServiceScreen(
                   myId: myId,
                 ));
 
       case Routes.settings:
-        return MaterialPageRoute(builder: (_) => const SettingsScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const SettingsScreen());
       case Routes.language:
-        return MaterialPageRoute(builder: (_) => const LanguageScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const LanguageScreen());
       case Routes.mode:
         String select =
         settings.arguments as String;
-        return MaterialPageRoute(builder: (_) =>  ModeScreen(select: select,));
+         return MaterialPageRoute(
+            settings: settings,builder: (_) =>  ModeScreen(select: select,));
       case Routes.familyRequests:
         String familyId = settings.arguments as String;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => FamilyRequestsScreen(
                   familyId: familyId,
                 ));
@@ -322,104 +347,131 @@ class RouteGenerator {
       case Routes.familyMembers:
         MemberFamilyDataModel ownerData =
             settings.arguments as MemberFamilyDataModel;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => FamilyMemberScreen(
                   owner: ownerData,
                 ));
       case Routes.createLive:
-        return MaterialPageRoute(builder: (_) => const CreateLiveScreen());
-      // case Routes.uploadReels:
-      //   return MaterialPageRoute(builder: (_) => const UploadReelsScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const CreateLiveScreen());
+
       case Routes.signUp:
-        return MaterialPageRoute(builder: (_) => const SignUpScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const SignUpScreen());
       case Routes.deleteFamily:
-        return MaterialPageRoute(builder: (_) => const DeleteScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const DeleteScreen());
 
       case Routes.instructionsScreen:
-        return MaterialPageRoute(builder: (_) => const InstructionsScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const InstructionsScreen());
 
       case Routes.incomeScreen:
-        return MaterialPageRoute(builder: (_) => const IncomeScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const IncomeScreen());
 
       case Routes.joinToAgencyScreen:
-        return MaterialPageRoute(builder: (_) => const JoinToAgencyScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const JoinToAgencyScreen());
 
       case Routes.liveReportScreen:
         MyDataModel myDataModel = settings.arguments as MyDataModel;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => LiveReportScreen(
                   myData: myDataModel,
                 ));
 
       case Routes.exchangeForGoldScreen:
-        return MaterialPageRoute(builder: (_) => const ExchangeForGoldScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const ExchangeForGoldScreen());
       case Routes.vistorScreen:
-        return MaterialPageRoute(builder: (_) => VistorScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => VistorScreen());
       case Routes.phoneBindScreen:
-        return MaterialPageRoute(builder: (_) => const PhoneNumberBindScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const PhoneNumberBindScreen());
       case Routes.searchScreen:
-        return MaterialPageRoute(builder: (_) => const SearchScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const SearchScreen());
       case Routes.cashWithdrawal:
-        return MaterialPageRoute(builder: (_) => CashWithdrawal());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => CashWithdrawal());
 
       case Routes.detailsWithdrawal:
-        return MaterialPageRoute(builder: (_) => const DetailsScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const DetailsScreen());
 
       case Routes.games:
-        return MaterialPageRoute(builder: (_) => GamesScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => GamesScreen());
 
       case Routes.agencyScreen:
         MyDataModel myData = settings.arguments as MyDataModel;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => AgenceScreen(
                   mydata: myData,
                 ));
       case Routes.agencyMemberScreen:
-        return MaterialPageRoute(builder: (_) => const AgencyMembersScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const AgencyMembersScreen());
       case Routes.agencyRequestsScreen:
-        return MaterialPageRoute(builder: (_) => const AgencyRequestsScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const AgencyRequestsScreen());
       case Routes.agencyRepoertsScreen:
-        return MaterialPageRoute(builder: (_) => ReportsScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => ReportsScreen());
       case Routes.charchingCoinsForUsers:
-        return MaterialPageRoute(builder: (_) => CharchingCoinsForUsers());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => CharchingCoinsForUsers());
       case Routes.musicList:
         MusicPramiter pramiter = settings.arguments as MusicPramiter;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => SafeArea(
                 child: MusicListWidget(
                     ownerId: pramiter.ownerId,)));
       case Routes.music:
         MusicPramiter pramiter = settings.arguments as MusicPramiter;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => SafeArea(
                     child: MusicScreen(
                   ownerId: pramiter.ownerId)));
 
       case Routes.charchingDolarsForUsers:
-        return MaterialPageRoute(builder: (_) => CharchingDolarsForUsers());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => CharchingDolarsForUsers());
 
       case Routes.chargeFromSystemHistory:
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => const ChargeFromSystemHistory());
 
       case Routes.chargeAgencyOwnerHistory:
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => const ChargeAgencyOwnerHistory());
       case Routes.interstedScreen:
-        return MaterialPageRoute(builder: (_) => const InterstedScreen());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const InterstedScreen());
       case Routes.privacySettings:
         MyDataModel userData = settings.arguments as MyDataModel;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => SafeArea(
                     child: PrivacySetting(
                   myData: userData,
                 )));
       case Routes.webView:
         WebViewPramiter webViewPramiter = settings.arguments as WebViewPramiter;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => WebView(
                   url: webViewPramiter.url,
                   title: webViewPramiter.title,
@@ -429,7 +481,8 @@ class RouteGenerator {
       case Routes.userReelView:
         ReelsUserPramiter pram = settings.arguments as ReelsUserPramiter;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => SafeArea(
                     child: UserReelView(
                   userDataModel: pram.userDataModel,
@@ -438,7 +491,8 @@ class RouteGenerator {
       case Routes.myVideosScreen:
         UserDataModel pram = settings.arguments as UserDataModel;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => SafeArea(
                     child: MyVideosScreen(
                   userDataModel: pram,
@@ -447,7 +501,8 @@ class RouteGenerator {
                      case Routes.trimmerView:
         File pram = settings.arguments as File;
 
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => SafeArea(
                     child: TrimmerView(
                      file:pram , 
@@ -456,12 +511,14 @@ class RouteGenerator {
                 )));
 
       case Routes.paymentHistory:
-        return MaterialPageRoute(builder: (_) => const PaymentHistory());
+         return MaterialPageRoute(
+            settings: settings,builder: (_) => const PaymentHistory());
 
 
       case Routes.otpBindScreen:
         OtbScreenParm otbScreenParm =settings.arguments as OtbScreenParm;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) =>  OtpBindScreen(
               type: otbScreenParm.type,
               phone: otbScreenParm.phone,
@@ -472,7 +529,8 @@ class RouteGenerator {
 
         case Routes.reportReelsScreen:
           ReportReelsScreenPramiter reportReelsScreen =settings.arguments as ReportReelsScreenPramiter;
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) =>  MoreDialog(
               id: reportReelsScreen.id!,
               userId:reportReelsScreen.userId!,
@@ -480,14 +538,17 @@ class RouteGenerator {
             ));
 
       case Routes.changeNumberScreen:
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => const ChangeNumberScreen());
       case Routes.changePassOrNumberScreen:
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => const ChangePassOrNumberScreen());
 
       case Routes.changePassScreen:
-        return MaterialPageRoute(
+         return MaterialPageRoute(
+            settings: settings,
             builder: (_) => const ChangePassScreen());
       case Routes.privacyPolicyScreen:
         if (Platform.isIOS)
@@ -496,19 +557,11 @@ class RouteGenerator {
               builder: (_) => const SafeArea(child: PrivacyPolicyScreen()));
         } else
         {
-          return MaterialPageRoute(
+           return MaterialPageRoute(
+            settings: settings,
               builder: (_) => const SafeArea(child: PrivacyPolicyScreen()));
         }
-        // case Routes.chatScreen:
-        // if (Platform.isIOS)
-        // {
-        //   return CupertinoPageRoute (
-        //       builder: (_) =>  SafeArea(child: ChatPage()));
-        // } else
-        // {
-        //   return MaterialPageRoute(
-        //       builder: (_) =>  SafeArea(child: ChatPage()));
-        // }
+
 
       case Routes.systemmessages:
         if (Platform.isIOS)
@@ -516,7 +569,8 @@ class RouteGenerator {
           return CupertinoPageRoute (
               builder: (_) => const SafeArea(child: SystemMessagesScreen()));
         } else {
-          return MaterialPageRoute(
+           return MaterialPageRoute(
+            settings: settings,
               builder: (_) => const SafeArea(child: SystemMessagesScreen()));
         }
 
@@ -526,7 +580,8 @@ class RouteGenerator {
           return CupertinoPageRoute (
               builder: (_) => SafeArea(child: GroupChatScreen()));
         } else {
-          return MaterialPageRoute(
+           return MaterialPageRoute(
+            settings: settings,
               builder: (_) => SafeArea(child: GroupChatScreen()));
         }
 
@@ -536,7 +591,8 @@ class RouteGenerator {
           return CupertinoPageRoute (
               builder: (_) => const SafeArea(child: OfficialMessagesScreen()));
         } else {
-          return MaterialPageRoute(
+           return MaterialPageRoute(
+            settings: settings,
               builder: (_) => const SafeArea(child: OfficialMessagesScreen()));
         }
 
@@ -559,7 +615,8 @@ class RouteGenerator {
                     myName: chatPageBodyPramiter.myName,
                   )));
         } else {
-          return MaterialPageRoute(
+           return MaterialPageRoute(
+            settings: settings,
               builder: (_) => SafeArea(
                   child: ChatPageBody(
                     unReadMessages: chatPageBodyPramiter.unReadMessages,
@@ -578,7 +635,8 @@ class RouteGenerator {
           return CupertinoPageRoute (
               builder: (_) => const SafeArea(child: WhiteEmptyScreen()));
         } else {
-          return MaterialPageRoute(
+           return MaterialPageRoute(
+            settings: settings,
               builder: (_) => const SafeArea(child: WhiteEmptyScreen()));
         }
         case Routes.allShippingAgent:
@@ -587,20 +645,13 @@ class RouteGenerator {
           return CupertinoPageRoute (
               builder: (_) => const AllShippingAgent());
         } else {
-          return MaterialPageRoute(
+           return MaterialPageRoute(
+            settings: settings,
               builder: (_) => const AllShippingAgent());
         }
 
 
-      // case Routes.uploadVideo:
-      //   if (Platform.isIOS)
-      //   {
-      //     return CupertinoPageRoute (
-      //         builder: (_) => const SafeArea(child: UploadVideo()));
-      //   } else {
-      //     return MaterialPageRoute(
-      //         builder: (_) => const SafeArea(child: UploadVideo()));
-      //   }
+
 
 
 
@@ -610,7 +661,7 @@ class RouteGenerator {
   }
 
   static Route<dynamic> unDefinedRoute() {
-    return MaterialPageRoute(
+     return MaterialPageRoute(
         // ignore: prefer_const_constructors
         builder: (context) => Container());
   }
