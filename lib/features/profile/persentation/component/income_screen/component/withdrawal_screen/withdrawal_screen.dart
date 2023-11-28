@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -16,13 +19,24 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_sto
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_state.dart';
 
 // ignore: must_be_immutable
-class CashWithdrawal extends StatelessWidget {
+class CashWithdrawal extends StatefulWidget {
   CashWithdrawal({Key? key}) : super(key: key);
 
+  @override
+  State<CashWithdrawal> createState() => _CashWithdrawalState();
+}
+
+class _CashWithdrawalState extends State<CashWithdrawal> {
   final TextEditingController userID = TextEditingController();
+
   final TextEditingController withdrawalAmount = TextEditingController();
+
   final formGlobalKey = GlobalKey<FormState>();
-                        String usd = " " ; 
+
+  String usd = " ";
+
+  bool isActive = false ;
+  bool isActive2 = false ;
 
   @override
   Widget build(BuildContext context) {
@@ -39,151 +53,254 @@ class CashWithdrawal extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: ConfigSize.defaultSize! * 4.5,
-                  right: ConfigSize.defaultSize! * 1.5,
-                  left: ConfigSize.defaultSize! * 1.5),
-              child: Form(
-                key: formGlobalKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        body: Padding(
+          padding: EdgeInsets.only(
+              top: ConfigSize.defaultSize! * 4.5,
+              right: ConfigSize.defaultSize! * 1.5,
+              left: ConfigSize.defaultSize! * 1.5),
+          child: Form(
+            key: formGlobalKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Icon(Icons.arrow_back_ios)),
-                        Text(
-                          StringManager.cashWithdrawal.tr(),
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, Routes.detailsWithdrawal);
-                          },
-                          child: Text(
-                            StringManager.details.tr(),
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 2.0,
-                    ),
-                     BlocBuilder<MyStoreBloc, MyStoreState>(
-                      builder: (context, state) {
-                        if(state is MyStoreSucssesState){
-                          usd = state.myStore.usd.toString() ; 
-      return  ContainerWithdrawal(
-                          usd:state.myStore.usd.toString(),
-                        );
-                        }else {
-                     return  ContainerWithdrawal(
-                          usd:usd,
-                        );
-                        }
-                  
-                      },
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 2.0,
-                    ),
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(Icons.arrow_back_ios)),
                     Text(
-                      StringManager.userID.tr(),
+                      StringManager.cashWithdrawal.tr(),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 1.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ConfigSize.defaultSize!),
-                      width: MediaQuery.of(context).size.width - 50,
-                      height: ConfigSize.defaultSize! * 6,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: ColorManager.mainColor,
-                        ),
-                        borderRadius:
-                            BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                      ),
-                      child: TextFieldWidget(
-                        type: TextInputType.number,
-                        controller: userID,
-                        hintText: StringManager.enterUserID.tr(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 2.0,
-                    ),
-                    Text(
-                      StringManager.withdrawal.tr(),
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 1.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ConfigSize.defaultSize!),
-                      width: MediaQuery.of(context).size.width - 50,
-                      height: ConfigSize.defaultSize! * 6,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: ColorManager.mainColor,
-                        ),
-                        borderRadius:
-                            BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                      ),
-                      child: TextFieldWidget(
-                        type: TextInputType.number,
-                        controller: withdrawalAmount,
-                        hintText: StringManager.enterQuantityHere.tr(),
-                      ),
-                    ),
-                    const Spacer(
-                      flex: 6,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (userID.text.isEmpty) {
-                          errorToast(
-                              context: context,
-                              title: StringManager.pleaseEnterID);
-                        } else if (withdrawalAmount.text.isEmpty) {
-                          errorToast(
-                              context: context,
-                              title: StringManager.pleaseEnterquantity.tr());
-                        } else {
-                          BlocProvider.of<ChargeToBloc>(context).add(SendCharge(
-                              uId: userID.text, usd: withdrawalAmount.text));
-                        }
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, Routes.detailsWithdrawal);
                       },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  ConfigSize.defaultSize! * 1.2)),
-                          backgroundColor: ColorManager.mainColor,
-                          fixedSize: Size(MediaQuery.of(context).size.width,
-                              ConfigSize.defaultSize! * 6.0)),
                       child: Text(
-                        StringManager.withdrawal.tr(),
+                        StringManager.details.tr(),
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
-                    const Spacer(),
                   ],
                 ),
-              ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 2.0,
+                ),
+                BlocBuilder<MyStoreBloc, MyStoreState>(
+                  builder: (context, state) {
+                    if (state is MyStoreSucssesState) {
+                      usd = state.myStore.usd.toString();
+                      return ContainerWithdrawal(
+                        usd: state.myStore.usd.toString(),
+                      );
+                    } else {
+                      return ContainerWithdrawal(
+                        usd: usd,
+                      );
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 1.0,
+                ),
+                Text(StringManager.notChargeToAgancy.tr(),overflow: TextOverflow.visible),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 2.0,
+                ),
+                Visibility(
+                  visible: isActive,
+                  child: Column(
+                    children: [
+                      /*    Text(
+                        StringManager.userID.tr(),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 1.0,
+                      ),
+                      ///TextField User Id
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ConfigSize.defaultSize!),
+                        width: MediaQuery.of(context).size.width - 50,
+                        height: ConfigSize.defaultSize! * 6,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.mainColor,
+                          ),
+                          borderRadius:
+                              BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                        ),
+                        child: TextFieldWidget(
+                          type: TextInputType.number,
+                          controller: userID,
+                          hintText: StringManager.enterUserID.tr(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 2.0,
+                      ),*/
+                      /// Text Withdrawal
+                      Text(
+                        StringManager.withdrawal.tr(),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 1.0,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ConfigSize.defaultSize!),
+                        width: MediaQuery.of(context).size.width - 50,
+                        height: ConfigSize.defaultSize! * 6,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.mainColor,
+                          ),
+                          borderRadius:
+                          BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                        ),
+                        child: TextFieldWidget(
+                          type: TextInputType.number,
+                          controller: withdrawalAmount,
+                          hintText: StringManager.enterQuantityHere.tr(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+
+                    Switch(
+                      activeColor: ColorManager.mainColor,
+                        value: isActive,
+                        onChanged: (value){
+                        setState(() {});
+                        isActive=value;
+                        isActive2=false;
+                        log("QWERTY$isActive");
+
+                    }),
+                     Text(StringManager.changeDollars.tr()),
+                  ],
+                ),
+
+
+                Row(
+                  children: [
+
+                    Switch(
+                        activeColor: ColorManager.mainColor,
+                        value: isActive2,
+                        onChanged: (value){
+                          setState(() {});
+                          isActive2=value;
+                          isActive= false;
+                          log("QWERTY$isActive2");
+
+                        }),
+                     Text(StringManager.forShippingAgent.tr()),
+                  ],
+                ),
+                Visibility(
+                  visible: isActive2,
+                  child: Column(
+                    children: [
+                          Text(
+                        StringManager.userID.tr(),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 1.0,
+                      ),
+                      ///TextField User Id
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ConfigSize.defaultSize!),
+                        width: MediaQuery.of(context).size.width - 50,
+                        height: ConfigSize.defaultSize! * 6,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.mainColor,
+                          ),
+                          borderRadius:
+                              BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                        ),
+                        child: TextFieldWidget(
+                          type: TextInputType.number,
+                          controller: userID,
+                          hintText: StringManager.enterUserID.tr(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 2.0,
+                      ),
+                      /// Text Withdrawal
+                      /*Text(
+                        StringManager.withdrawal.tr(),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 1.0,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ConfigSize.defaultSize!),
+                        width: MediaQuery.of(context).size.width - 50,
+                        height: ConfigSize.defaultSize! * 6,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.mainColor,
+                          ),
+                          borderRadius:
+                          BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                        ),
+                        child: TextFieldWidget(
+                          type: TextInputType.number,
+                          controller: withdrawalAmount,
+                          hintText: StringManager.enterQuantityHere.tr(),
+                        ),
+                      ),*/
+                    ],
+                  ),
+                ),
+                const Spacer(
+                  flex: 6,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (userID.text.isEmpty) {
+                      errorToast(
+                          context: context,
+                          title: StringManager.pleaseEnterID);
+                    } else if (withdrawalAmount.text.isEmpty) {
+                      errorToast(
+                          context: context,
+                          title: StringManager.pleaseEnterquantity.tr());
+                    } else {
+                      BlocProvider.of<ChargeToBloc>(context).add(SendCharge(
+                          uId: MyDataModel.getInstance().uuid.toString(), usd: withdrawalAmount.text));
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              ConfigSize.defaultSize! * 1.2)),
+                      backgroundColor: ColorManager.mainColor,
+                      fixedSize: Size(MediaQuery.of(context).size.width,
+                          ConfigSize.defaultSize! * 6.0)),
+                  child: Text(
+                    StringManager.withdrawal.tr(),
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
+                const Spacer(),
+              ],
             ),
           ),
         ),
