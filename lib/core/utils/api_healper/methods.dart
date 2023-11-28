@@ -224,6 +224,7 @@ class Methods {
       {required BuildContext context,
       required bool hasPassword,
       bool? isInRoom,
+      bool isBanner = false,
       required String ownerId,
       required MyDataModel myData}) async {
     if (hasPassword) {
@@ -238,6 +239,7 @@ class Methods {
                 content: EnterPasswordRoomDialog(
                   ownerId: ownerId,
                   myData: myData,
+                  isBanner: isBanner,
                   isInRoom: isInRoom,
                 ));
           });

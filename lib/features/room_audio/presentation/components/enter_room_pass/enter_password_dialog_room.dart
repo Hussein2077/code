@@ -5,7 +5,6 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/main.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'dart:ui' as ui;
 import '../../../../../../core/model/my_data_model.dart';
@@ -15,9 +14,10 @@ class EnterPasswordRoomDialog extends StatefulWidget {
   final String ownerId;
   final MyDataModel myData;
   final bool? isInRoom ;
+  final bool? isBanner ;
 
   const EnterPasswordRoomDialog(
-      {required this.ownerId, required this.myData,this.isInRoom, Key? key})
+      {required this.ownerId, required this.myData,this.isInRoom, this.isBanner = false, Key? key})
       : super(key: key);
 
   @override
@@ -86,6 +86,9 @@ class _EnterPasswordRoomDilogeState extends State<EnterPasswordRoomDialog> {
             onTap: () async {
               if((widget.isInRoom??false)){
                 MainScreen.iskeepInRoom.value = true;
+              }
+              if(widget.isBanner!){
+                Navigator.pop(context);
               }
               Navigator.pushReplacementNamed(
                   context, Routes.roomHandler,
