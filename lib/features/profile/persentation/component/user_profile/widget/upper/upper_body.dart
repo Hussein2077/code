@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -14,6 +15,7 @@ import 'package:tik_chat_v2/core/widgets/shimmer_id.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/upper/header.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
+import 'package:tik_chat_v2/main.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class UpperProfileBody extends StatelessWidget {
@@ -73,6 +75,16 @@ class UpperProfileBody extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         if (myDataModel.nowRoom?.isnInRoom ?? false) {
+                          if(MainScreen.iskeepInRoom.value){
+                            Navigator.pop(context);
+                            log("${ModalRoute.of(context)?.settings.name.toString()}" + "#######@@");
+                            if (ModalRoute.of(context)?.settings.name != Routes.mainScreen) {
+                              Navigator.pop(context);
+                            } else {
+                              print('Already on the second screen');
+                            }
+                          }
+
                           Methods.instance.checkIfRoomHasPassword(
                               myData: MyDataModel.getInstance(),
                               context: context,

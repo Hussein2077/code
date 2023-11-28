@@ -51,7 +51,7 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
         },
         listener: (context,state )async{
           if (state is EnterRoomSuccesMessageState){
-          await  Methods.instance.checkIfInRoom(ownerId:state.room.ownerId.toString(), context: context);
+            await  Methods.instance.checkIfInRoom(ownerId:state.room.ownerId.toString(), context: context);
             if(state.room.remainingTime==null){
 
               if(MyDataModel.getInstance().isAanonymous??false){
