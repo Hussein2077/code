@@ -76,15 +76,10 @@ class UpperProfileBody extends StatelessWidget {
                       onTap: () {
                         if (myDataModel.nowRoom?.isnInRoom ?? false) {
                           if(MainScreen.iskeepInRoom.value){
-                            Navigator.pop(context);
-                            log("${ModalRoute.of(context)?.settings.name.toString()}" + "#######@@");
-                            if (ModalRoute.of(context)?.settings.name != Routes.mainScreen) {
-                              Navigator.pop(context);
-                            } else {
-                              print('Already on the second screen');
-                            }
+                            Navigator.popUntil(context, (route){
+                              return route.settings.name == Routes.mainScreen ;
+                            });
                           }
-
                           Methods.instance.checkIfRoomHasPassword(
                               myData: MyDataModel.getInstance(),
                               context: context,

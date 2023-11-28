@@ -20,7 +20,7 @@ class MainButtonForMyBag extends StatelessWidget {
       onTap: onTap,
       child: Container(
 
-        padding: EdgeInsets.all(ConfigSize.defaultSize!-9),
+        padding: EdgeInsets.all(ConfigSize.defaultSize!*0.3),
         decoration: BoxDecoration(
           color: buttonColornotList,
             gradient: buttonColornotList==null? LinearGradient(colors:buttonColor?? ColorManager.mainColorList):null,
