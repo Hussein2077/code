@@ -229,7 +229,7 @@ class Methods {
     if (hasPassword) {
       showDialog(
           context: context,
-          builder: (BuildContext context) {
+          builder: (BuildContext Newcontext) {
             return AlertDialog(
                 backgroundColor: Colors.transparent,
                 insetPadding: EdgeInsets.symmetric(
