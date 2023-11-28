@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/widgets/empty_screen.dart';
 import 'package:tik_chat_v2/core/widgets/web_view_widget.dart';
 import 'package:tik_chat_v2/core/widgets/white_empty_screen.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
@@ -663,7 +664,7 @@ class RouteGenerator {
   static Route<dynamic> unDefinedRoute() {
      return MaterialPageRoute(
         // ignore: prefer_const_constructors
-        builder: (context) => Container());
+        builder: (context) => EmptyScreen());
   }
 }
 
