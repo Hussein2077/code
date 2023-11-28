@@ -129,8 +129,9 @@ class ConstentApi {
   static const  String privacyPolicy ="https://test.dragon-chat.co/page/privacy-policy";
   static const String muteUserMic = "$baseUrl/rooms/mute-user";
   static const String unMuteUserMic = "$baseUrl/rooms/unmute-user";
-
-
+  static String getAllShippingAgents(String? page){
+    return "$baseUrl/users/charger_agency?page=$page";
+  }
 
   static const String reportReals = "$baseUrl/report";
 
