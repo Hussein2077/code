@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,10 @@ class _CounterByMinuteState extends State<CounterByMinute> {
       children: [
         InkWell(
           onTap: () async {
-            resetTimerAndResendCode();
+            log('${isRepeatingTime}isRepeatingTime');
+            if(!isRepeatingTime) {
+              resetTimerAndResendCode();
+            }
           },
           child: Text(
             StringManager.reSend.tr(),

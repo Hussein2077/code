@@ -918,7 +918,8 @@ isVisit: isVisit,
   @override
   Future<ChargeHistoryModel> getChargeHistory(String type) async {
     Map<String, String> headers = await DioHelper().header();
-
+    final timeZone=await Methods.instance.getCurrentTimeZone();
+    headers.addAll({'tz':timeZone});
     final body = {
       'type': type,
     };
