@@ -28,10 +28,6 @@ class UpperProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // if(ReelsPage.videoPlayerController != null){
-        //   ReelsPage.videoPlayerController!.pause();
-        //   ReelsPage.isVideoPause.value= true ;
-        // }
         showImageViewer(
             context,
             CachedNetworkImageProvider(
