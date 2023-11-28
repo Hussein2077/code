@@ -15,7 +15,6 @@ import 'package:tik_chat_v2/core/widgets/shimmer_id.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/upper/header.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
-import 'package:tik_chat_v2/main.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class UpperProfileBody extends StatelessWidget {
