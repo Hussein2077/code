@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -18,7 +17,6 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_palt
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
-import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class GoogleAndAppleAuth extends StatelessWidget {
   const GoogleAndAppleAuth({super.key});
@@ -29,8 +27,6 @@ class GoogleAndAppleAuth extends StatelessWidget {
       listener: (context, state) async {
         if (state is SiginWithGoogleSuccesMessageState) {
           Methods.instance.clearAuthData();
-
-
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           if (state.userData.apiUserData.isFirst!) {
             Navigator.pushNamedAndRemoveUntil(
@@ -43,6 +39,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
               (route) => false,
             );
           } else {
+            BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(email: state.userData.userData.email.toString()));
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.mainScreen,
@@ -54,7 +51,6 @@ class GoogleAndAppleAuth extends StatelessWidget {
         } else if (state is SiginWithPlatFormLoadingState) {
           loadingToast(context: context);
         }
-
         if (state is SiginWithAppleSuccesMessageState) {
           Methods.instance.clearAuthData();
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
