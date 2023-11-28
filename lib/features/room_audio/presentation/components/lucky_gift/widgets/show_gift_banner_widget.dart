@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
@@ -31,28 +32,12 @@ class ShowGiftBannerWidget extends StatelessWidget {
         onTap: () async {
           if (roomOwnerId != ownerId) {
             if (!showGift) {
-              if (isPassword) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                          insetPadding: EdgeInsets.symmetric(
-                              horizontal: ConfigSize.defaultSize! * 0.8),
-                          backgroundColor: Colors.transparent,
-                          title: const Text(StringManager.enterPassword),
-                          content: EnterPasswordRoomDialog(
-                            ownerId: ownerId,
-                            myData: MyDataModel.getInstance(),
-                            isInRoom: true,
-                          ));
-                    });
-              } else {
-                Navigator.pop(context);
-                MainScreen.iskeepInRoom.value = true;
-                Navigator.pushNamed(context, Routes.roomHandler,
-                    arguments: RoomHandlerPramiter(
-                        ownerRoomId: ownerId, myDataModel: MyDataModel.getInstance()));
-              }
+              Methods.instance.checkIfRoomHasPassword(
+                  context: context,
+                  isInRoom: true,
+                  hasPassword: isPassword,
+                  ownerId: ownerId.toString(),
+                  myData: MyDataModel.getInstance());
             }
           }else{
 

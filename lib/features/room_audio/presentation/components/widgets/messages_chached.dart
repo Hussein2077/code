@@ -51,8 +51,12 @@ class MessagesChached extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        (message.user.id != "0")
+        (message.user.id.startsWith('-1'))
             ? bottomDailog(
+          widget: const AnonymousDialog(), context: context,
+          // height: ConfigSize.screenHeight!*0.3
+        ):
+        bottomDailog(
                 context: context,
                 widget: MessageRoomProfile(
                   myData: myDataModel,
@@ -60,10 +64,7 @@ class MessagesChached extends StatelessWidget {
                   roomData: room,
                   layoutMode: layoutMode,
                 ))
-            : bottomDailog(
-            widget: const AnonymousDialog(), context: context,
-           // height: ConfigSize.screenHeight!*0.3
-        );
+             ;
       },
       child: Padding(
         padding: EdgeInsets.symmetric(

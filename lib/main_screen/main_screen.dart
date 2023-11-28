@@ -5,7 +5,6 @@ import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -110,19 +109,19 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         state.myDataModel.country == null ? true : false,
                     isAgeNotComplete:
                         state.myDataModel.profile!.age == 0 ? true : false));
+          } else  if (state.myDataModel.country == null) {
+          Future.delayed(const Duration(seconds: 1),(){
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return WillPopScope(
+                      child: const AddCountryDialog(),
+                      onWillPop: () async {
+                        return false;
+                      });
+                });
+          });
           }
-          else  if (state.myDataModel.country?.id == null ) {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return WillPopScope(
-                        child: const AddCountryDialog(),
-                        onWillPop: () async {
-                          return false;
-                        });
-                  });
-            }
-
         }
       },
       child: WillPopScope(
@@ -191,7 +190,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                               turns: animationController,
                               child: UserImage(
                                 imageSize: ConfigSize.defaultSize! * 14,
-                                image: MainScreen.roomData!.roomCover!,
+                                image: MainScreen.roomData?.roomCover??'',
                               )),
                           GestureDetector(
                             onTap: () async {

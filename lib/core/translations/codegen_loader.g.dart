@@ -463,13 +463,14 @@ class CodegenLoader extends AssetLoader {
     StringManager.passwordProtected :"هذه الغرفة محمية بكلمة مرور",
     StringManager.youCanOptanPassword :"يمكنك الحصول عليها من خلال احد الاعضاء المشاركين داخل الغرفة",
     StringManager.forYou :"لك",
-
-
-
-
-
-
+    StringManager.luckyGiftMessage: 'ارسل هدية حظ  عددها',
+    StringManager.to: 'الي',
+    StringManager.nameAnayoums: 'الرجل الغامض',
+    StringManager.forShippingAgent: 'تبديل الدولارات لي وكلاء الشحن',
+    StringManager.notChargeToAgancy: 'ملحوظه: لا يمكنك تبديل الدولارات سوى لنفسك أو وكيل الشحن',
+    StringManager.changeDollars: 'تبديل الدولارات لنفسك',
   };
+
   static const Map<String, dynamic> tr = {
     StringManager.appTitle: "Tikchat",
     StringManager.enterPhoneNum: "Telefon numaranızı girin",
@@ -1022,8 +1023,6 @@ class CodegenLoader extends AssetLoader {
     StringManager.empty: 'خالی',
     StringManager.chooseTopic: 'آپ کے لئے سب سے اہم موضوعات منتخب کریں',
     StringManager.nowInRoom: 'کمرے میں داخل ہو رہے ہیں',
-    StringManager.luckyGiftMessage: 'ارسل هدية حظ  عددها',
-    StringManager.to: 'الي',
   };
   static const Map<String, dynamic> chs = {
     StringManager.appTitle: "Tik Chat",

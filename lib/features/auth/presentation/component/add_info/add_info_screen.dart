@@ -25,6 +25,7 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/country_drop_down_search.dart';
+import 'package:tik_chat_v2/features/auth/presentation/widgets/google_auth.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'widgets/add_profile_pic.dart';
@@ -169,6 +170,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                 : "0",
                             name: nameController.text,
                             date: DateWidget.selectedDatee,
+                            // email:widget.Data!.email??"",
                             countryID:CountryDropDownSearch. selectedItem!.id));
                       } else {
                         errorToast(
@@ -234,12 +236,12 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
       return false;
     } else if (DateWidget.selectedDatee == StringManager.birthdayDate) {
       warningToast(
-          context: context, title: StringManager.pleaseEnterYourBirthDate);
+          context: context, title: StringManager.pleaseEnterYourBirthDate.tr());
 
       return false;
     } else if (CountryDropDownSearch.selectedItem == null) {
       warningToast(
-          context: context, title: StringManager.pleaseSelectYourCountry);
+          context: context, title: StringManager.pleaseSelectYourCountry.tr());
       return false;
     } else {
       return true;

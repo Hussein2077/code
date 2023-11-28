@@ -235,9 +235,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
             message: state.errorMassage,
           );
         } else {
-          return CustomErrorWidget(
-            message: StringManager.unexcepectedError.tr(),
-          );
+          return const  SizedBox();
         }
       },
     );

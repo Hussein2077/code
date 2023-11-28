@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
@@ -955,6 +956,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
 
   Future<bool> leaveSeat({bool showDialog = true}) async {
     /// take off seat when leave room
+
     final localSeatIndex = getIndexByUserID(ZegoUIKit().getLocalUser().id);
     if (-1 == localSeatIndex) {
       ZegoLoggerService.logInfo(
@@ -1017,6 +1019,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
     }
     return true;
   }
+
   Future<bool> takeOffAllSeat({required bool isPK}) async {
     if(  RoomScreen.userOnMics.value.isNotEmpty)
     {
@@ -1077,8 +1080,11 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
 
   Future<bool> takeOffSeat(int index, {bool isForce = false,required String  userId})
   async {
+    log("ttttttttttt") ;
     final targetUser = getUserByIndex(index);
+    log("1") ;
     if (null == targetUser) {
+      log("2") ;
       ZegoLoggerService.logInfo(
         'take off seat $index user id is empty',
         tag: 'audio room',
@@ -1093,6 +1099,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         tag: 'audio room',
         subTag: 'seat manager',
       );
+      log("3") ;
       return false;
     }
 

@@ -9,6 +9,8 @@ import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_state.dart';
@@ -43,6 +45,7 @@ class PrivacySettingState extends State<PrivacySetting> {
       listener: (context, state) {
         if (state is SucssesState) {
           BlocProvider.of<MangerGetVipPrevBloc>(context).add(getVipPrevEvent());
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
         } else if (state is ErrorState) {
           errorToast(context: context, title: state.massege.tr());
         } else if (state is LoadingState) {
@@ -56,7 +59,7 @@ class PrivacySettingState extends State<PrivacySetting> {
               isFirst++;
               tempData = state.data;
 
-              print('${state.data[5].title!}huss');
+
               return Scaffold(
                 body: Column(
                   children: [

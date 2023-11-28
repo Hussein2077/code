@@ -25,7 +25,8 @@ class GiftButton extends StatelessWidget {
     return GestureDetector(
       onTap: ()  {
 
-        myDataModel.id.toString()!='0'?
+        myDataModel.id.toString().startsWith('-1')?
+        showDialog(  context: context, builder: (BuildContext context) { return AnonymounsDialogGifts(); }) :
         bottomDailog(
             context: context,
             widget: GiftScreen(
@@ -35,9 +36,7 @@ class GiftButton extends StatelessWidget {
               isSingleUser: false,
               userId: null,
               userImage: null,
-            )):
-        showDialog(  context: context, builder: (BuildContext context) { return AnonymounsDialogGifts(); })
-        ;
+            ));
       },
       child:  Image(
           width:  ConfigSize.defaultSize!*5.7,

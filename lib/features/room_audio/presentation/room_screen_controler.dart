@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
@@ -122,6 +121,7 @@ const String inviteToSeatKey = "inviteToSeat";
 const String muteUserKey = 'muteUser';
 const String mute = 'mute';
 const String showYallowBanner = "yellowBanner";
+const String anonymousKey ='anonymous';
 String appSign =  "";
 int appID =  0;
 
@@ -256,7 +256,6 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
       BlocProvider.of<PKBloc>(GlobalContextService.navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
       BlocProvider.of<PKBloc>(GlobalContextService.navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
     }
-
   }
   PkController.timeMinutePK = 0;
   PkController.timeSecondPK = 0;
@@ -484,27 +483,22 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
 }
 
 ShowPopularBanner(Map<String, dynamic> result, Map<String,dynamic>  userBannerData , var controllerBanner){
-  UserDataModel sendData;
+  userBannerData ['user_data_sender']  = RoomVistorModel(
+    image: result[messageContent]['si'],
+    name: result[messageContent]['sn'],
+    revicerLevelImg: result[messageContent]['srl'],
+    senderLevelImg: result[messageContent]['ssl'],
+    vipLevel: result[messageContent]['sv'],
+  );
 
-  sendData = UserDataModel(
-      profile: ProfileRoomModel(image: result[messageContent]['si']),
-      name: result[messageContent]['sn'],
-      level: LevelDataModel(
-          senderImage: result[messageContent]['ssl'],
-          receiverImage: result[messageContent]['srl']),
-      vip1: VipCenterModel(level: result[messageContent]['sv']));
+  userBannerData['user_data_receiver'] =  RoomVistorModel(
+    image: result[messageContent]['ri'],
+    name: result[messageContent]['rn'],
+    revicerLevelImg: result[messageContent]['rrl'],
+    senderLevelImg: result[messageContent]['rsl'],
+    vipLevel: result[messageContent]['rv'],
+  );
 
-  UserDataModel receiverData;
-  receiverData = UserDataModel(
-      profile: ProfileRoomModel(image: result[messageContent]['ri']),
-      name: result[messageContent]['rn'],
-      level: LevelDataModel(
-          senderImage: result[messageContent]['rsl'],
-          receiverImage: result[messageContent]['rrl']),
-      vip1: VipCenterModel(level: result[messageContent]['rv']));
-
-  userBannerData['user_data_sender'] = sendData;
-  userBannerData['user_data_receiver'] = receiverData;
   userBannerData['gift_banner']  = result[messageContent][giftImgKey].toString();
   userBannerData['is_password_room_banner']  = result[messageContent]['isPass'];
   userBannerData['owner_id_room_banner']  = result[messageContent]['oId'].toString();

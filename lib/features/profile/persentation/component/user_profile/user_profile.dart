@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -54,6 +56,7 @@ class _UserProfileState extends State<UserProfile> {
   void didChangeDependencies() {
     BlocProvider.of<GetUserBloc>(context)
         .add( const InituserEvent());
+    LowerProfileBody.getUserReels= false ;
     super.didChangeDependencies();
   }
 

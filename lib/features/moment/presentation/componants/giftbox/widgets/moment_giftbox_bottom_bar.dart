@@ -1,5 +1,3 @@
-
-
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,31 +9,25 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger
 
 class MomentGiftboxBottomBar extends StatefulWidget {
 
-  const MomentGiftboxBottomBar(
-      {
- 
-      super.key, required this.momentId,
-    });
- final String momentId;
+  const MomentGiftboxBottomBar({super.key, required this.momentId,});
+  final String momentId;
 
   @override
   State<MomentGiftboxBottomBar> createState() => _MomentGiftboxBottomBarState();
 }
-class _MomentGiftboxBottomBarState extends State<MomentGiftboxBottomBar>
-     {
+class _MomentGiftboxBottomBarState extends State<MomentGiftboxBottomBar> {
 
   @override
   void initState() {
     super.initState();
-  
   }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GiftBloc, GiftsState>(builder: (context, state) {
+    return BlocBuilder<GiftBloc, GiftsStates>(builder: (context, state) {
       return BlurryContainer(
         blur: 8,
         elevation: 0,
-        // height: ConfigSize.defaultSize! * 11.421,
         width: double.infinity,
         color: Colors.black87.withOpacity(0.5),
         borderRadius: BorderRadius.only(

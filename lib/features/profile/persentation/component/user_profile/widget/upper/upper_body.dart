@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -26,10 +28,6 @@ class UpperProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // if(ReelsPage.videoPlayerController != null){
-        //   ReelsPage.videoPlayerController!.pause();
-        //   ReelsPage.isVideoPause.value= true ;
-        // }
         showImageViewer(
             context,
             CachedNetworkImageProvider(
@@ -72,6 +70,11 @@ class UpperProfileBody extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         if (myDataModel.nowRoom?.isnInRoom ?? false) {
+                          if(MainScreen.iskeepInRoom.value){
+                            Navigator.popUntil(context, (route){
+                              return route.settings.name == Routes.mainScreen ;
+                            });
+                          }
                           Methods.instance.checkIfRoomHasPassword(
                               myData: MyDataModel.getInstance(),
                               context: context,
@@ -120,9 +123,8 @@ class UpperProfileBody extends StatelessWidget {
                         SizedBox(
                           width: ConfigSize.defaultSize!,
                         ),
-                        if (!myDataModel.isCountryHiden! &&
-                            myDataModel.country != null)
-                          myDataModel.country!.flag == ''
+                        if (!myDataModel.isCountryHiden!)
+                          myDataModel.country?.flag == null
                               ? const SizedBox()
                               : CachedNetworkImage(
                                   imageUrl: ConstentApi().getImage(
@@ -144,9 +146,10 @@ class UpperProfileBody extends StatelessWidget {
                             ? ShimmerId(
                                 id: myDataModel.uuid.toString(),
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
+
                                     fontSize: ConfigSize.defaultSize! * 1.2,
-                                    fontWeight: FontWeight.w700),
+                                    fontWeight: FontWeight.bold),
                               )
                             : itemContiner(
                                 title: "ID ${myDataModel.uuid}",

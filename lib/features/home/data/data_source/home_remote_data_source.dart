@@ -85,7 +85,7 @@ class HomeRemoteDataSoursImp implements HomeRemoteDataSours {
           options: Options(
             headers: headers,
           ));
-      return List<CountryModel>.from((response.data as List).map(
+      return List<CountryModel>.from((response.data["data"]).map(
             (e) => CountryModel.fromJson(e),
       ));
     }on DioError catch(e){

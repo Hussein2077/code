@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/user_on_mic_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/basic_tool_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/emojie/emojie_button.dart';
@@ -133,8 +134,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   { 'gift_banner':'',
     'owner_id_room_banner':'',
     'is_password_room_banner': false,
-    'user_data_sender':UserDataModel(),
-    'user_data_receiver' : UserDataModel()
+    'user_data_sender': RoomVistorModel(),
+    'user_data_receiver' : RoomVistorModel()
   };
   //////
 
@@ -163,8 +164,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-
-
     super.initState();
 
     RoomScreen.usersHasMute = widget.room.mutedUsers!.split(', ');
@@ -418,30 +417,34 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         PKWidget.pkId = widget.room.pkModel!.pkId.toString();
         PKWidget.isStartPK.value = true;
         PkController.updatePKNotifier.value =
-            PkController.updatePKNotifier.value + 1;
+        PkController.updatePKNotifier.value + 1;
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
-        ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
-
-        if(widget.myDataModel.intro! != ""){
-          Map<String,dynamic>    mapZego = {
-            "messageContent" : {
-              "message" : "userEntro" ,
-              "entroImg"  :  widget.myDataModel.intro ,
-              "entroImgId" : widget.myDataModel.introId ,
-              'userName'   : widget.myDataModel.name,
-              'userImge'   : widget.myDataModel.profile?.image,
-              'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
-            }
-          };
-          UserEntro(mapZego, userIntroData ,loadAnimationEntro);
-          String map = jsonEncode(mapZego);
-          ZegoUIKit.instance.sendInRoomCommand(map,[]);
-
+        if(!widget.myDataModel.id.toString().startsWith('-1')){
+          ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
+          if(widget.myDataModel.intro! != ""){
+            Map<String,dynamic>    mapZego = {
+              "messageContent" : {
+                "message" : "userEntro" ,
+                "entroImg"  :  widget.myDataModel.intro ,
+                "entroImgId" : widget.myDataModel.introId ,
+                'userName'   : widget.myDataModel.name,
+                'userImge'   : widget.myDataModel.profile?.image,
+                'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
+              }
+            };
+            UserEntro(mapZego, userIntroData ,loadAnimationEntro);
+            String map = jsonEncode(mapZego);
+            ZegoUIKit.instance.sendInRoomCommand(map,[]);
+          }
         }
       });
     }
+
+    Future.delayed(const Duration(milliseconds: 1500) ,(){
+      MainScreen.iskeepInRoom.value = true;
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       subscriptions
@@ -545,8 +548,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     }
 
     try {
-      final videoItem =
-          await Methods().getCachedSvgaImage(giftData.giftId, giftData.img);
+      final videoItem = await Methods().getCachedSvgaImage(giftData.giftId, giftData.img);
 
       animationControllerGift.videoItem = videoItem;
 
