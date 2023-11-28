@@ -646,7 +646,7 @@ class RouteGenerator {
         } else {
            return MaterialPageRoute(
             settings: settings,
-              builder: (_) => const AllShippingAgent());
+              builder: (_) =>  AllShippingAgent());
         }
 
 
