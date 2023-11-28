@@ -97,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return BlocConsumer<AddInfoBloc, AddInfoState>(
   listener: (context, state) {
     if (state is AddInfoSuccesMessageState) {
+      log("heeeer");
       BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
       Navigator.pop(context);
     } else if (state is AddInfoErrorMessageState) {
