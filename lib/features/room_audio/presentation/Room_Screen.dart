@@ -444,6 +444,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       });
     }
 
+    Future.delayed(const Duration(milliseconds: 1500) ,(){
+      MainScreen.iskeepInRoom.value = true;
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       subscriptions
         ..add(ZegoUIKit()

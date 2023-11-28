@@ -690,7 +690,6 @@ class MusicPramiter {
 
 class UserProfilePreamiter {
   String? userId;
-
   UserDataModel? userData;
 
   UserProfilePreamiter(this.userData, this.userId);
