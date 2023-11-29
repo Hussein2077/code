@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dic_game.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
 
 class MessagesChached extends StatelessWidget {
@@ -78,7 +79,6 @@ class MessagesChached extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 2),
                   child: UserImage(
-
                       image: message.user.inRoomAttributes.value['img'] ??
                           MessagesChached.usersMessagesRoom[message.user.id]?.image ??
                           ""),
@@ -167,6 +167,11 @@ class MessagesChached extends StatelessWidget {
                 ),
               ],
             ),
+            if(message.message=='hhhh')
+                SizedBox(
+                  height: ConfigSize.defaultSize!*5,
+                  width: ConfigSize.defaultSize!*5,
+                  child: const DiceGame()),
             (bubble == "" && changeTheme == false)
                 ? Padding(
               padding: EdgeInsets.only(

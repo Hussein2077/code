@@ -99,6 +99,7 @@ class AssetsPath {
   static const String openLock = "$pathImage/open_lock.png";
   static const String hand = "$pathImage/hand.png.png";
   static const String hand2 = "$pathImage/hand.png";
+  static const String dicSVGA = "$pathImage/room_default_dice.svga";
 
 
 

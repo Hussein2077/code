@@ -7,9 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/show_svga.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
@@ -27,6 +29,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gi
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_yallow_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dic_game.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
@@ -40,19 +43,18 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.d
 import 'package:video_player/video_player.dart';
 
 class ViewbackgroundWidget extends StatefulWidget {
-
   EnterRoomModel room;
-  Map<String,String> roomDataUpdates;
-  Map<String,dynamic> userBannerData;
+  Map<String, String> roomDataUpdates;
+  Map<String, dynamic> userBannerData;
   Map<String, dynamic> superBox;
   LayoutMode layoutMode;
   AnimationController controllerMusice;
   SVGAAnimationController animationControllerEntro;
   SVGAAnimationController animationControllerGift;
- static VideoPlayerController? mp4Controller;
+  static VideoPlayerController? mp4Controller;
   Map<String, dynamic> yallowBanner;
   Map<String, bool> showYellowBanner;
-  Map<String,String> userIntroData;
+  Map<String, String> userIntroData;
   Animation<Offset> offsetAnimationEntro;
   AnimationController yellowBannercontroller;
   Animation<Offset> offsetAnimationYellowBanner;
@@ -63,9 +65,11 @@ class ViewbackgroundWidget extends StatefulWidget {
   AnimationController luckGiftBannderController;
   Animation<Offset> offsetLuckGiftAnimationBanner;
   ValueNotifier<bool> showPopUp;
-  Map <String , dynamic>? popUpData;
+  Map<String, dynamic>? popUpData;
   Map<String, int> durationKickout;
-  ViewbackgroundWidget({super.key,
+
+  ViewbackgroundWidget({
+    super.key,
     required this.room,
     required this.roomDataUpdates,
     required this.userBannerData,
@@ -90,6 +94,7 @@ class ViewbackgroundWidget extends StatefulWidget {
     required this.popUpData,
     required this.durationKickout,
   });
+
   static ValueNotifier<bool> isKick = ValueNotifier<bool>(false);
 
   @override
@@ -97,16 +102,16 @@ class ViewbackgroundWidget extends StatefulWidget {
 }
 
 class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
-
   bool showGift = false; // to show gift
 
   showOverlay(Widget widget) {
     OverlayState overlayState = Overlay.of(context);
     overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
-      builder: (context) => Padding(
-          padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
-          child: widget),
+      builder: (context) =>
+          Padding(
+              padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
+              child: widget),
     );
 
     overlayState.insert(overlayEntry);
@@ -133,21 +138,37 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                     padding: EdgeInsets.only(
                         right: 0, bottom: ConfigSize.defaultSize! * 2),
                     child: const PageViewGames())),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                    padding: EdgeInsets.only(
+                        right: 0, bottom: ConfigSize.defaultSize! * 10),
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      color: Colors.red,
+                      child:InkWell(
+                          onTap: (){
+                            ZegoUIKit.instance.sendInRoomMessage("hhhh", false);
+
+                          },
+                          child: const SizedBox()),
+                    ))),
             ValueListenableBuilder(
                 valueListenable: OwnerOfRoom.editRoom,
                 builder: (context, editValue, _) {
                   return HeaderRoom(
-                    roomName: widget.roomDataUpdates['room_name']??'' ,
+                    roomName: widget.roomDataUpdates['room_name'] ?? '',
                     room: widget.room,
                     myDataModel: MyDataModel.getInstance(),
-                    introRoom: widget.roomDataUpdates['room_intro']??'' ,
-                    roomImg: widget.roomDataUpdates['room_img']??'',
+                    introRoom: widget.roomDataUpdates['room_intro'] ?? '',
+                    roomImg: widget.roomDataUpdates['room_img'] ?? '',
                     roomMode: widget.layoutMode == LayoutMode.hostTopCenter
                         ? 0
                         : widget.layoutMode == LayoutMode.party
                         ? 1
                         : 2,
-                    roomType: widget.roomDataUpdates['room_type']??''  ,
+                    roomType: widget.roomDataUpdates['room_type'] ?? '',
                     layoutMode: widget.layoutMode,
                   );
                 }),
@@ -156,12 +177,16 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 builder: (context, edit, _) {
                   if (LuckyBoxVariables.luckyBoxMap['luckyBoxes'].isNotEmpty) {
                     return LuckyBox(
-                        luckyBoxRemovecontroller: LuckyBoxVariables.luckyBoxRemovecontroller);
+                        luckyBoxRemovecontroller:
+                        LuckyBoxVariables.luckyBoxRemovecontroller);
                   } else {
                     return const SizedBox();
                   }
                 }),
-            MusicWidget(room: widget.room, controllerMusice: widget.controllerMusice,),
+            MusicWidget(
+              room: widget.room,
+              controllerMusice: widget.controllerMusice,
+            ),
             Positioned(
                 top: ConfigSize.defaultSize! * 35,
                 bottom: ConfigSize.defaultSize! * 7,
@@ -180,15 +205,15 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 child: SVGAImage(
                   PkController.animationControllerBlueTeam,
                 )),
-            Positioned(
-                child: SVGAImage(widget.animationControllerGift)),
+            Positioned(child: SVGAImage(widget.animationControllerGift)),
             IgnorePointer(
               child: ValueListenableBuilder<bool>(
                   valueListenable: RoomScreen.isVideoVisible,
                   builder: (context, isShow, _) {
                     if (isShow) {
                       return AspectRatio(
-                        aspectRatio: ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
+                        aspectRatio:
+                        ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
                         child: VideoPlayer(ViewbackgroundWidget.mp4Controller!),
                       );
                     } else {
@@ -206,7 +231,9 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 valueListenable: ShowEntroWidget.showEntro,
                 builder: (context, isShow, _) {
                   if (isShow) {
-                    return ShowEntroWidget(userIntroData: widget.userIntroData, offsetAnimationEntro: widget.offsetAnimationEntro);
+                    return ShowEntroWidget(
+                        userIntroData: widget.userIntroData,
+                        offsetAnimationEntro: widget.offsetAnimationEntro);
                   } else {
                     return const SizedBox();
                   }
@@ -218,7 +245,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   child: ShowYallowBannerWidget(
                       cureentRoomId: widget.room.ownerId!,
                       controllerYallowBanner: widget.yellowBannercontroller,
-                      offsetAnimationYallowBanner: widget.offsetAnimationYellowBanner,
+                      offsetAnimationYallowBanner:
+                      widget.offsetAnimationYellowBanner,
                       senderYallowBanner: widget.yallowBannerSender,
                       hasPassword: widget.yallowBanner,
                       myData: MyDataModel.getInstance(),
@@ -232,13 +260,19 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         left: AppPadding.p36,
                         child: ShowGiftBannerWidget(
                           isPlural: widget.isPlural['isPlural']!,
-                          sendDataUser: widget.userBannerData['user_data_sender'],
-                          receiverDataUser: widget.userBannerData['user_data_receiver'],
+                          sendDataUser: widget
+                              .userBannerData['user_data_sender'],
+                          receiverDataUser:
+                          widget.userBannerData['user_data_receiver'],
                           giftImage: widget.userBannerData['gift_banner'] ?? '',
-                          ownerId: widget.userBannerData['owner_id_room_banner'] == '' ? widget.room.ownerId.toString() : widget.userBannerData['owner_id_room_banner'],
+                          ownerId:
+                          widget.userBannerData['owner_id_room_banner'] == ''
+                              ? widget.room.ownerId.toString()
+                              : widget.userBannerData['owner_id_room_banner'],
                           controllerBanner: widget.controllerBanner,
                           offsetAnimationBanner: widget.offsetAnimationBanner,
-                          isPassword: widget.userBannerData['is_password_room_banner'],
+                          isPassword:
+                          widget.userBannerData['is_password_room_banner'],
                           roomOwnerId: widget.room.ownerId.toString(),
                           showGift: showGift,
                           roomIntro: widget.room.roomIntro!,
@@ -253,22 +287,22 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   LuckyCandy.recieverName = state.data.receiverName;
                   LuckyCandy.winCounter = LuckyCandy.winCounter + 1;
                   if (state.data.isWin && !state.data.isPopular) {
-                   // ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
+                    // ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
                     LuckyGiftWinCircle.winCoin = state.data.winCoin;
-                    LuckyCandy.winCircularluckyGift.value = LuckyCandy.winCircularluckyGift.value + 1;
+                    LuckyCandy.winCircularluckyGift.value =
+                        LuckyCandy.winCircularluckyGift.value + 1;
                   } else if (state.data.isWin && state.data.isPopular) {
-                      ZegoUIKit().sendInRoomMessage(state.data.message, true);
-                  //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
-                  //   LuckyCandy.recieverName = state.data.receiverName;
-                  //   LuckyCandy.winPopularCounter = LuckyCandy.winPopularCounter + 1;
+                    ZegoUIKit().sendInRoomMessage(state.data.message, true);
+                    //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
+                    //   LuckyCandy.recieverName = state.data.receiverName;
+                    //   LuckyCandy.winPopularCounter = LuckyCandy.winPopularCounter + 1;
                   } else {
-                  //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
+                    //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
                   }
                   if (state.isFirst == 1) {
                     widget.luckGiftBannderController.forward();
                   }
-                }
-                else if (state is SendLuckyGiftErrorStateState) {
+                } else if (state is SendLuckyGiftErrorStateState) {
                   errorToast(context: context, title: state.error);
                 }
               },
@@ -282,7 +316,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                           giftNum: state.giftNum,
                           giftImage: state.data.giftImage,
                           controllerBanner: widget.luckGiftBannderController,
-                          offsetAnimationBanner: widget.offsetLuckGiftAnimationBanner));
+                          offsetAnimationBanner:
+                          widget.offsetLuckGiftAnimationBanner));
                 } else {
                   return const SizedBox();
                 }
@@ -297,7 +332,11 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         left: ConfigSize.defaultSize! * 5.78,
                         child: ShowLuckyBannerWidget(
                           sendDataUser: LuckyBoxVariables.sendSuperBox!,
-                          superBox: widget.superBox, showBannerLuckyBox: LuckyBoxVariables.showBannerLuckyBox, ownerId: widget.room.ownerId.toString(),));
+                          superBox: widget.superBox,
+                          showBannerLuckyBox: LuckyBoxVariables
+                              .showBannerLuckyBox,
+                          ownerId: widget.room.ownerId.toString(),
+                        ));
                   } else {
                     return const SizedBox();
                   }
@@ -305,8 +344,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             ValueListenableBuilder<bool>(
                 valueListenable: widget.showPopUp,
                 builder: (context, isShow, _) {
-
-
                   return AnimatedPositioned(
                     duration: const Duration(seconds: 10),
                     curve: Curves.linear,
@@ -321,11 +358,16 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                         width: ConfigSize.defaultSize! * 40.5,
                         height: ConfigSize.defaultSize! * 40.5,
                         child: PopUpWidget(
-                            ownerDataModel: widget.popUpData?['pop_up_sender']??MyDataModel.getInstance().convertToUserObject() ,
+                            ownerDataModel: widget
+                                .popUpData?['pop_up_sender'] ??
+                                MyDataModel.getInstance().convertToUserObject(),
                             massage: ZegoInRoomMessageInput.messagePonUp,
                             enterRoomModel: widget.room,
-                            vip: widget.popUpData?['pop_up_sender']==null ? 0:  widget.popUpData!['pop_up_sender'].vip1!.level!
-                                // == null ? 8 : widget.pobUpSender!.vip1!.level!
+                            vip: widget.popUpData?['pop_up_sender'] == null
+                                ? 0
+                                : widget.popUpData!['pop_up_sender'].vip1!
+                                .level!
+                          // == null ? 8 : widget.pobUpSender!.vip1!.level!
                         )),
                   );
                 }),
@@ -338,7 +380,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                     if (typeCabdy == TypeCandy.luckyCandy) {
                       return LuckyCandy(
                           roomData: widget.room,
-                          luckGiftBannderController: widget.luckGiftBannderController);
+                          luckGiftBannderController:
+                          widget.luckGiftBannderController);
                     } else {
                       return const IgnorePointer(child: SizedBox());
                     }
@@ -367,9 +410,9 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   builder: (context, sohw, _) {
                     if (sohw != 0) {
                       Future.delayed(const Duration(seconds: 1)).then((value) {
-                        return showOverlay( const Align(
+                        return showOverlay(const Align(
                             alignment: Alignment.topCenter,
-                                      child: LuckyGiftWinCircle()));
+                            child: LuckyGiftWinCircle()));
                       });
                       return const SizedBox();
                     } else {
@@ -378,17 +421,14 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   }),
             ),
             const IgnorePointer(
-              child:  LuckyGiftWithOverlay(),
+              child: LuckyGiftWithOverlay(),
             ),
           ]);
         }, listener: (context, state) {
       if (state is ErrorSendGiftStates) {
         errorToast(context: context, title: state.errorMessage);
       } else if (state is SuccessSendGiftStates) {
-
-
         ZegoUIKit().sendInRoomMessage(state.successMessage, false);
-
       }
     });
   }
