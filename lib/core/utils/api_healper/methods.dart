@@ -244,7 +244,7 @@ class Methods {
                 ));
           });
     } else {
-     if( Navigator.canPop(context)){
+     if(Navigator.canPop(context)){
        Navigator.pop(context);
      }
       if((isInRoom??false)){
