@@ -27,14 +27,15 @@ class SettingsButton extends StatefulWidget {
 
   final bool isAdminOrHost;
 
-  const SettingsButton(
-      {required this.roomData,
-      required this.userData,
-      required this.layoutMode,
-      required this.isAdminOrHost,
-      required this.isOnMic,
-      required this.myProfrile,
-      super.key,});
+  const SettingsButton({
+    required this.roomData,
+    required this.userData,
+    required this.layoutMode,
+    required this.isAdminOrHost,
+    required this.isOnMic,
+    required this.myProfrile,
+    super.key,
+  });
 
   @override
   State<SettingsButton> createState() => _SettingsButtonState();
@@ -46,7 +47,10 @@ class _SettingsButtonState extends State<SettingsButton> {
     final List<String> items = [
       StringManager.mention.tr(),
       if (!widget.myProfrile) StringManager.reports.tr(),
-      if (widget.userData.id != MyDataModel.getInstance().id && widget.userData.id != widget.roomData.ownerId&&MyDataModel.getInstance().id==widget.roomData.ownerId) StringManager.admin.tr(),
+      if (widget.userData.id != MyDataModel.getInstance().id &&
+          widget.userData.id != widget.roomData.ownerId &&
+          MyDataModel.getInstance().id == widget.roomData.ownerId)
+        StringManager.admin.tr(),
       if (widget.isAdminOrHost)
         RoomScreen.banedUsers.containsKey(widget.userData.id.toString())
             ? StringManager.writeUnBan.tr()

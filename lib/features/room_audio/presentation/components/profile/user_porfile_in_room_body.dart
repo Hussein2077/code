@@ -145,7 +145,6 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                         userData: widget.userData,
                         color: Colors.black,
                       ),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
