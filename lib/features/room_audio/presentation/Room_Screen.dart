@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
@@ -441,6 +440,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         }
       });
     }
+
+    Future.delayed(const Duration(milliseconds: 1500) ,(){
+      MainScreen.iskeepInRoom.value = true;
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       subscriptions

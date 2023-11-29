@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class StringManager {
-  static const int versionApp = 49;
+  static const int versionApp = 50;
   static const String androidPlatform = 'Android';
   static const String iOSPlatform = 'IOS';
 
@@ -107,7 +107,9 @@ class StringManager {
   static const String home = "Home";
   static const String reels = "reels";
   static const String forYou = "for you";
+  static const String changeDollars = "Change Dollars for your self";
   static const String videos = "Videos";
+  static const String forShippingAgent = "Change Dollars for Shipping Agent";
   static const String followingReels = "Following";
   static const String follwoing = "Follwoing";
   static const String followers = "Followers";
@@ -515,6 +517,8 @@ class StringManager {
   static const String youCanOptanPassword = "You can obtain it through one of the participating members within the room";
   static const String luckyGiftMessage = "Send a Lucky Gift Of";
   static const String to = "To";
+  static const String notChargeToAgancy = "You can only withdraw dollars for yourself or a shipping agent.";
+  static const String pleseSelectUser = "Please Select User";
 
   static Map<int, bool> userType = {
     0: false,

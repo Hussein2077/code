@@ -118,6 +118,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/family_take_action_u
 import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/follow_unfollow_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_all_intersted_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_all_shipping_agents_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_data_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_member_usecase.dart';
@@ -155,6 +156,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_all_shipping_agents_manager/get_all_shipping_agents_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
@@ -557,6 +559,8 @@ class ServerLocator {
             () => PostGroupChatBloc(postGroupMassageUseCase:  getIt() ));
     getIt.registerFactory(
             () => ReportMomentBloc(reportMomentUseCase:  getIt() ));
+    getIt.registerFactory(
+            () => AllShippingAgentsBloc(getAllShippingAgentsUseCase:  getIt() ));
 
 
 //usecase
@@ -847,6 +851,7 @@ getIt.registerLazySingleton(
         () => ReportRealsUseCases(baseRepositoryReel: getIt()));
 
     getIt.registerLazySingleton(() => GetFollowingReelUseCase(baseRepositoryReel: getIt()));
+    getIt.registerLazySingleton(() => GetAllShippingAgentsUseCase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(() => FirebaseLoginBloc());
 

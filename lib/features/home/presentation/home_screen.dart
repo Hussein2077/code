@@ -1,9 +1,5 @@
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -13,13 +9,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/update_screen.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_state.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/widgets/group_chat_counter_widget.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
-
 import 'widget/body/home_body.dart';
 import 'widget/header/home_header.dart';
 
@@ -104,36 +94,25 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddInfoBloc, AddInfoState>(
-  listener: (context, state) {
-    if (state is AddInfoSuccesMessageState) {
-      BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-      Navigator.pop(context);
-    } else if (state is AddInfoErrorMessageState) {
-     }
-
-   },
-  builder: (context, state) {
-    return SafeArea(
-      child: Scaffold(
-        body: ScreenColorBackGround(
-          color: ColorManager.mainColorList,
-          child: Column(
-            children: [
-              SizedBox(
-                height: ConfigSize.defaultSize! * 1.2,
-              ),
-              HomeHeader(
-                liveController: liveController,
-              ),
-              HomeBody(liveController: liveController),
-            ],
-          ),
+    return Scaffold(
+      body: ScreenColorBackGround(
+        color: ColorManager.mainColorList,
+        child: Column(
+          children: [
+            SizedBox(
+              height: ConfigSize.defaultSize! * 1.2,
+            ),
+            HomeHeader(
+              liveController: liveController,
+            ),
+            HomeBody(liveController: liveController),
+          ],
         ),
-        floatingActionButton: ValueListenableBuilder<bool>(
-          valueListenable: HomeScreen.rebuildGroupChatCounter,
-              builder: (context, isShow, _) {
-            if(isShow){
+      ),
+      floatingActionButton: ValueListenableBuilder<bool>(
+        valueListenable: HomeScreen.rebuildGroupChatCounter,
+        builder: (context, isShow, _) {
+          if(isShow){
             return  InkWell(
               onTap: (){
                 Navigator.pushNamed(context, Routes.groupChatScreen);
@@ -142,72 +121,69 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               child: Stack(
                 children: [
                   InkWell(
-                  onTap: (){
+                    onTap: (){
 
-                    Navigator.pushNamed(context, Routes.groupChatScreen);
+                      Navigator.pushNamed(context, Routes.groupChatScreen);
 
-            },
-              child: Container(
-                margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
-                width: ConfigSize.defaultSize! * 5,
-                height: ConfigSize.defaultSize! * 5,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                      ConfigSize.defaultSize! * 5),
-                  gradient: const LinearGradient(
-                      colors: ColorManager.mainColorList),
-                ),
-                child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
-              ),
-            ),
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
+                      width: ConfigSize.defaultSize! * 5,
+                      height: ConfigSize.defaultSize! * 5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                            ConfigSize.defaultSize! * 5),
+                        gradient: const LinearGradient(
+                            colors: ColorManager.mainColorList),
+                      ),
+                      child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
+                    ),
+                  ),
                   const GroupChatCounterWidget()
                 ],
 
               ),
             );
-            }else {
-              return
-                InkWell(
-                  onTap: (){
+          }else {
+            return
+              InkWell(
+                onTap: (){
 
-                    Navigator.pushNamed(context, Routes.groupChatScreen);
+                  Navigator.pushNamed(context, Routes.groupChatScreen);
 
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
-                    width: ConfigSize.defaultSize! * 5,
-                    height: ConfigSize.defaultSize! * 5,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                          ConfigSize.defaultSize! * 5),
-                      gradient: const LinearGradient(
-                          colors: ColorManager.mainColorList),
-                    ),
-                    child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
-
-
-                    // IconButton(
-                    //   icon: Icon(
-                    //     Icons.edit,
-                    //     color: Theme
-                    //         .of(context)
-                    //         .colorScheme
-                    //         .background,
-                    //   ),
-                    //   onPressed: () {
-                    //     Navigator.pushNamed(context, Routes.groupChatScreen);
-                    //   },
-                    // ),
-
+                },
+                child: Container(
+                  margin: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 3),
+                  width: ConfigSize.defaultSize! * 5,
+                  height: ConfigSize.defaultSize! * 5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                        ConfigSize.defaultSize! * 5),
+                    gradient: const LinearGradient(
+                        colors: ColorManager.mainColorList),
                   ),
-                );
-            }
-              },
-        ),
+                  child: Image.asset(AssetsPath.groupChat , color: Colors.white, scale: 2.5,),
+
+
+                  // IconButton(
+                  //   icon: Icon(
+                  //     Icons.edit,
+                  //     color: Theme
+                  //         .of(context)
+                  //         .colorScheme
+                  //         .background,
+                  //   ),
+                  //   onPressed: () {
+                  //     Navigator.pushNamed(context, Routes.groupChatScreen);
+                  //   },
+                  // ),
+
+                ),
+              );
+          }
+        },
       ),
     );
-  },
-);
   }
 
 

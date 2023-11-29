@@ -12,7 +12,7 @@ import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
-import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_confige_uc.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
@@ -48,8 +48,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
     loadResources().then((value) async {
       if (configModel == null) {
-        errorToast(
-            context: context, title: StringManager.unexcepectedError.tr());
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.login, (route) => false,
+            arguments:
+            const LoginPramiter(isForceUpdate: false, isUpdate: false));
       } else if ((configModel!.isForce ?? false)) {
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.login, (route) => false,
@@ -184,7 +186,9 @@ class _SplashScreenState extends State<SplashScreen> {
       configModel = l;
     },(r){
       errorMessage = DioHelper().getTypeOfFailure(r);
-      errorToast(context: context, title: errorMessage);
+      ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,errorMessage));
+
+
     });
 
   }

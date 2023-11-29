@@ -224,12 +224,13 @@ class Methods {
       {required BuildContext context,
       required bool hasPassword,
       bool? isInRoom,
+      bool isBanner = false,
       required String ownerId,
       required MyDataModel myData}) async {
     if (hasPassword) {
       showDialog(
           context: context,
-          builder: (BuildContext context) {
+          builder: (BuildContext Newcontext) {
             return AlertDialog(
                 backgroundColor: Colors.transparent,
                 insetPadding: EdgeInsets.symmetric(
@@ -238,12 +239,14 @@ class Methods {
                 content: EnterPasswordRoomDialog(
                   ownerId: ownerId,
                   myData: myData,
+                  isBanner: isBanner,
                   isInRoom: isInRoom,
                 ));
           });
     } else {
-
-      Navigator.pop(context);
+     if(Navigator.canPop(context)){
+       Navigator.pop(context);
+     }
       if((isInRoom??false)){
         MainScreen.iskeepInRoom.value = true;
       }
