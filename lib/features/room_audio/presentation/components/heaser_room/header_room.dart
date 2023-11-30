@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/admin_more_dailog/admin_more_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/exit_secreen/exit_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/number_of_visitor/number_visitor.dart';
@@ -16,7 +17,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_r
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/show_ditails_screen/ShowDitailsScreen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/update_room_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/widgets/custom_contain_room.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/add_users_screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
@@ -125,21 +126,25 @@ class HeaderRoom extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () async {
+                          // bottomDailog(
+                          //     context: context,
+                          //     widget: GestureDetector(
+                          //       onTap: () {
+                          //         Navigator.pop(context);
+                          //       },
+                          //       child: ExitWidget(
+                          //         roomData: room,
+                          //         myDataModel: myDataModel,
+                          //       ),
+                          //     ));
+
                           bottomDailog(
                               context: context,
-                              widget: GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: ExitWidget(
-                                  roomData: room,
-                                  myDataModel: myDataModel,
-                                ),
-                              ));
+                              widget: const SpinWheelGameScreen());
 
                           // bottomDailog(
                           //     context: context,
-                          //     widget: AddUsersScreen());
+                          //     widget: const LuckyDrawGameScreen());
                         },
                         child: Padding(
                             padding: EdgeInsets.symmetric(

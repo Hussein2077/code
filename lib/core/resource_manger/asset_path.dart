@@ -99,7 +99,21 @@ class AssetsPath {
   static const String openLock = "$pathImage/open_lock.png";
   static const String hand = "$pathImage/hand.png.png";
   static const String hand2 = "$pathImage/hand.png";
-
+  static const String spinWheelGameExiteIcon = "$pathImage/room_turntable_close_icon 1.png";
+  static const String spinWheelGameHeaderImage = "$pathImage/room_turntable_top_bg 1.png";
+  static const String spinWheelGameDeleteIcon = "$pathImage/room_turntable_delete_icon 1.png";
+  static const String spinWheelGameBottonImage = "$pathImage/room_turntable_bottom_bg 1.png";
+  static const String spinWheelGameBtnIcon = "$pathImage/room_lottery_btn_yellow 2.png";
+  static const String spinWheelGameFrameIcon = "$pathImage/room_turntable_bg 1.png";
+  static const String spinWheelGameFrameBgIcon = "$pathImage/room_turntable_console_bottom_bg 1.png";
+  static const String spinWheelGameIndicatorIcon1 = "$pathImage/room_turntable_arrow_icon 1.png";
+  static const String spinWheelGameIndicatorIcon2 = "$pathImage/room_turntable_center_icon 1.png";
+  static const String luckyDrawGameArrow = "$pathImage/room_lottery_arrow_icon 1.png";
+  static const String luckyDrawGameHeader = "$pathImage/Group 1.png";
+  static const String luckyDrawGameBottom = "$pathImage/room_lottery_bottom_bg 1.png";
+  static const String luckyDrawGameGrayBtn = "$pathImage/room_lottery_btn_gray 2.png";
+  static const String luckyDrawGameBody = "$pathImage/room_lottery_center_bg 2.png";
+  static const String luckyDrawGameExite = "$pathImage/room_lottery_close_icon 1.png";
 
 
   //icons
@@ -270,7 +284,6 @@ class AssetsPath {
   static const String deleteAccout = "$pathIcon/delet_account.png";
   static const String chatIconActive = "$pathIcon/chat.png";
   static const String chatIconDissActive = "$pathIcon/chat_ww.png";
-
 
 
 

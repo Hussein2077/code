@@ -382,6 +382,12 @@ class StringManager {
   static const String goodLuck = "good luck you get";
   static const String chooseTimePK = "Choose PK time";
   static const String start = "Start";
+  static const String chooseContent = "Please Choose The Content";
+  static const String removeResult = "Remove the result of each round of the rotating wheel.";
+  static const String rangeOfUsers = "Range of saved users";
+  static const String usersOnMic = "Users on the Microphone";
+  static const String usersInRoom = "All users in the room";
+  static const String numberOfLuckyUsers = "Number of lucky users";
 
 //zego
   static const String thereAreNoEmptySeats = 'There are no empty seats';
@@ -518,6 +524,8 @@ class StringManager {
   static const String luckyGiftMessage = "Send a Lucky Gift Of";
   static const String to = "To";
   static const String notChargeToAgancy = "You can only withdraw dollars for yourself or a shipping agent.";
+  static const String spin = "Spin The Wheel";
+  static const String end = "End";
   static const String pleseSelectUser = "Please Select User";
 
   static Map<int, bool> userType = {
