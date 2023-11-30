@@ -17,16 +17,16 @@ class EmptyScreen extends StatelessWidget {
         child: Center(
             child: Column(
           children: [
-            Spacer(),
+            const Spacer(),
             Text(StringManager.unexcepectedError.tr()),
-            SizedBox(height: ConfigSize.defaultSize!*5,),
+            const SizedBox(height: 25,),
             MainButton(
                 onTap: () {
                   Navigator.pushNamedAndRemoveUntil(
                       context, Routes.login, (route) => false);
                 },
                 title: StringManager.logOut),
-            Spacer()
+            const Spacer()
 
           ],
         )),

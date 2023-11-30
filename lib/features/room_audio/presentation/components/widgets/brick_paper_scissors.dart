@@ -3,22 +3,22 @@ import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
-class DiceGame extends StatefulWidget {
-  const DiceGame({super.key, required this.randomNum});
+class BrickPaperScissorsGame extends StatefulWidget {
+  const BrickPaperScissorsGame({super.key, required this.randomNum});
 
   final int randomNum;
 
   @override
-  State<DiceGame> createState() => _DiceGameState();
+  State<BrickPaperScissorsGame> createState() => _BrickPaperScissorsGameState();
 }
 
-class _DiceGameState extends State<DiceGame> with TickerProviderStateMixin {
+class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with TickerProviderStateMixin {
   late SVGAAnimationController animationController;
-  bool showResultDicGame = false;
+  bool showResultGame = false;
 
   void loadAnimation() async {
     final videoItem =
-        await SVGAParser.shared.decodeFromAssets(AssetsPath.dicSVGA);
+    await SVGAParser.shared.decodeFromAssets(AssetsPath.fingerGuessing);
     animationController.videoItem = videoItem;
     animationController
         .repeat() // Try to use .forward() .reverse()
@@ -36,10 +36,10 @@ class _DiceGameState extends State<DiceGame> with TickerProviderStateMixin {
 
   @override
   void didChangeDependencies() {
-    Future.delayed(const Duration(seconds: 7), () {
+    Future.delayed(const Duration(seconds: 4), () {
       animationController.videoItem = null;
       setState(() {
-        showResultDicGame = true;
+        showResultGame = true;
       });
     });
     super.didChangeDependencies();
@@ -51,13 +51,10 @@ class _DiceGameState extends State<DiceGame> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  List<String> dicNum = [
-    AssetsPath.dic1,
-    AssetsPath.dic2,
-    AssetsPath.dic3,
-    AssetsPath.dic4,
-    AssetsPath.dic5,
-    AssetsPath.dic6,
+  List<String> brickPaperNum = [
+    AssetsPath.brick,
+    AssetsPath.paper,
+    AssetsPath.scissors,
   ];
 
   @override
@@ -65,8 +62,8 @@ class _DiceGameState extends State<DiceGame> with TickerProviderStateMixin {
     return SizedBox(
       height: ConfigSize.defaultSize! * 7,
       width: ConfigSize.defaultSize! * 7,
-      child: showResultDicGame
-          ? Image.asset(dicNum[widget.randomNum])
+      child: showResultGame
+          ? Image.asset(brickPaperNum[widget.randomNum])
           : SVGAImage(animationController),
     );
   }
