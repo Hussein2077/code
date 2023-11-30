@@ -13,7 +13,7 @@ class LuckyDrawGameScreen extends StatefulWidget {
   @override
   State<LuckyDrawGameScreen> createState() => _LuckyDrawGameScreenState();
 
-  static Map<int,SelecteObject>  userSelected = {};
+  static Map<int,SelecteUsers>  userSelected = {};
 }
 
 class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
@@ -82,20 +82,27 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
 
                               for(int i =0 ; i < GiftUser.userOnMicsForGifts.length; i++) {
                                 LuckyDrawGameScreen.userSelected.putIfAbsent(i,
-                                        () => SelecteObject(
-                                            userId: GiftUser.userOnMicsForGifts[i]?.id ?? "",
-                                            selected: true));
+                                        () => SelecteUsers(
+                                          userId: GiftUser.userOnMicsForGifts[i]?.id ?? "",
+                                          selected: true,
+                                          name: GiftUser.userOnMicsForGifts[i]?.name?? "",
+                                          image: GiftUser.userOnMicsForGifts[i]?.inRoomAttributes.value['img']?? "",
+                                        ),
+                                );
 
                               }
 
                             } else{
 
                               for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteObject(userId: ZegoUIKit().getAllUsers()[i].id, selected: true)) ;
+                                LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteUsers(
+                                    userId: ZegoUIKit().getAllUsers()[i].id,
+                                    selected: true,
+                                    name: ZegoUIKit().getAllUsers()[i].name,
+                                    image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
+                                ),
+                                );
                               }
-
-                              //ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "
-
                             }
 
                             setState(() {
@@ -151,7 +158,8 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
               InkWell(
                 onTap: (){
                   if(selected1 != -1 && selected2 != -1){
-                    ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
+                    ZegoUIKit.instance.sendInRoomMessage("lucky draw", false);
+                    Navigator.pop(context);
                   }else{
 
                   }
@@ -170,4 +178,12 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
       ),
     );
   }
+}
+
+class SelecteUsers {
+  final String userId ;
+  final String image ;
+  final String name ;
+  final bool selected ;
+  const SelecteUsers({required this.userId, required this.image, required this.name, required this.selected});
 }

@@ -138,13 +138,13 @@ class HeaderRoom extends StatelessWidget {
                           //       ),
                           //     ));
 
-                          bottomDailog(
-                              context: context,
-                              widget: const SpinWheelGameScreen());
-
                           // bottomDailog(
                           //     context: context,
-                          //     widget: const LuckyDrawGameScreen());
+                          //     widget: const SpinWheelGameScreen());
+
+                          bottomDailog(
+                              context: context,
+                              widget: const LuckyDrawGameScreen());
                         },
                         child: Padding(
                             padding: EdgeInsets.symmetric(
