@@ -126,25 +126,25 @@ class HeaderRoom extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () async {
-                          // bottomDailog(
-                          //     context: context,
-                          //     widget: GestureDetector(
-                          //       onTap: () {
-                          //         Navigator.pop(context);
-                          //       },
-                          //       child: ExitWidget(
-                          //         roomData: room,
-                          //         myDataModel: myDataModel,
-                          //       ),
-                          //     ));
+                          bottomDailog(
+                              context: context,
+                              widget: GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: ExitWidget(
+                                  roomData: room,
+                                  myDataModel: myDataModel,
+                                ),
+                              ));
 
                           // bottomDailog(
                           //     context: context,
                           //     widget: const SpinWheelGameScreen());
 
-                          bottomDailog(
-                              context: context,
-                              widget: const LuckyDrawGameScreen());
+                          // bottomDailog(
+                          //     context: context,
+                          //     widget: const LuckyDrawGameScreen());
                         },
                         child: Padding(
                             padding: EdgeInsets.symmetric(
