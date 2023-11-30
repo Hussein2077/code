@@ -469,6 +469,11 @@ class CodegenLoader extends AssetLoader {
     StringManager.forShippingAgent: 'تبديل الدولارات لي وكلاء الشحن',
     StringManager.notChargeToAgancy: 'ملحوظه: لا يمكنك تبديل الدولارات سوى لنفسك أو وكيل الشحن',
     StringManager.changeDollars: 'تبديل الدولارات لنفسك',
+    StringManager.fixedTarget: 'التارجت الثابت',
+    StringManager.momentTarget: 'تارجت اللحظات',
+    StringManager.reelTarget: 'تارجت الريلز',
+    StringManager.youHaveReached: 'لقد حصلت علي ',
+    StringManager.daimonds: 'الماسات',
   };
 
   static const Map<String, dynamic> tr = {

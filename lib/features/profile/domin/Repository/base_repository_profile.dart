@@ -17,6 +17,7 @@ import 'package:tik_chat_v2/features/profile/data/model/charge_to_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/fixed_target_report.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
@@ -212,4 +213,7 @@ abstract class BaseRepositoryProfile {
   
   Future<Either<InAppPurchaseMode, Failure>> inAppPurchase({required String user_id ,required String product_id});
   Future<Either<List<UserDataModel>, Failure>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
+  Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport();
+
+
 }
