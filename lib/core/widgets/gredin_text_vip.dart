@@ -1,10 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class GradientTextVip extends StatelessWidget {
   final bool isVip;
   final String text;
+  final int? typeUser;
   final TextStyle textStyle;
   final TextAlign? textAlign ; 
 
@@ -12,6 +15,7 @@ class GradientTextVip extends StatelessWidget {
       {Key? key,
       required this.text,
       required this.textStyle,
+        this.typeUser,
       required this.isVip,
       this.textAlign
       })
@@ -19,17 +23,25 @@ class GradientTextVip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isVip
-        ?  GradientText(
-      text,
-      style:textStyle,
-      colors: const [Colors.blue, Colors.purple],
-              textAlign: textAlign,
+    return Row(
+      children: [
+        isVip ?  GradientText(
+          text,
+          style:textStyle,
+          colors: const [Colors.blue, Colors.purple],
+                  textAlign: textAlign,
 
-    ) :Text(
-        text,
-        style: textStyle,
-        textAlign: textAlign,
+        ) :Text(
+            text,
+            style: textStyle,
+            textAlign: textAlign,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4),
+          child: typeUser ==2? Image.asset(AssetsPath.agent,scale: ConfigSize.defaultSize!*2,):typeUser ==3?
+          Image.asset(AssetsPath.shippingAgent,scale: ConfigSize.defaultSize!*2,):const SizedBox(),
+        ),
+      ],
     );
   }
 }

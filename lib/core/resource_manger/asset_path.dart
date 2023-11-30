@@ -284,6 +284,8 @@ class AssetsPath {
   static const String deleteAccout = "$pathIcon/delet_account.png";
   static const String chatIconActive = "$pathIcon/chat.png";
   static const String chatIconDissActive = "$pathIcon/chat_ww.png";
+  static const String shippingAgent = "$pathIcon/shipping_agent.png";
+  static const String agent = "$pathIcon/agent.png";
 
 
 

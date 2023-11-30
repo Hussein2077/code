@@ -43,6 +43,7 @@ class _MemberAgencyBodyState extends State<MemberAgencyBody> {
         ownerCard(
             context: context,
             id: widget.owner.uuid!,
+            userType: widget.owner.userType!,
             iVip: widget.owner.hasColorName!,
             image: widget.owner.profile!.image!,
             name: widget.owner.name!),
@@ -114,6 +115,7 @@ Widget ownerCard(
     required String image,
     required bool iVip,
     required String name,
+    required int userType,
     required String id}) {
   return Card(
       elevation: 2,
@@ -153,6 +155,7 @@ Widget ownerCard(
 
                 GradientTextVip(
                   text:name,
+                  typeUser: userType,
                   textStyle:TextStyle(color: Colors.black , fontSize: ConfigSize.defaultSize!*1.7),
 
                   isVip: iVip,

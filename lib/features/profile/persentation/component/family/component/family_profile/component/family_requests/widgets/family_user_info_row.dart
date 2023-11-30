@@ -74,6 +74,7 @@ class FamilyUserInforow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GradientTextVip(
+                  typeUser: userData.userType??0,
                   text: userData.name ?? "",
                   textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: ConfigSize.defaultSize! * 1.6,

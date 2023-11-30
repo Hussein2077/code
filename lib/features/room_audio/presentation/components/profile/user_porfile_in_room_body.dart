@@ -131,6 +131,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                       ),
                       GradientTextVip(
                         text: widget.userData.name!,
+                        typeUser: widget.userData.userType??0,
                         textStyle: TextStyle(
                             fontSize: ConfigSize.defaultSize! * 1.6,
                             color: ColorManager.darkBlack,
