@@ -85,7 +85,6 @@ class MessagesChached extends StatelessWidget {
                 ),
                 SizedBox(width: ConfigSize.defaultSize,),
 
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -167,6 +166,8 @@ class MessagesChached extends StatelessWidget {
                 ),
               ],
             ),
+
+
             (bubble == "" && changeTheme == false)
                 ? Padding(
               padding: EdgeInsets.only(
