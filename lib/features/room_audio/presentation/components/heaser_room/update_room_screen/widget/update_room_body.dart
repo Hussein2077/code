@@ -176,8 +176,6 @@ class _UpdateRoomBodyState extends State<UpdateRoomBody> {
                                   activeColor: ColorManager.mainColor,
                                   value: reslt.isActive!,
                                   onChanged: (value) {
-                                    log(reslt.isActive!.toString());
-                                    log(reslt.key!.toString());
                                     if (reslt.isActive == false) {
                                       setState(() {
                                         showDialog(
@@ -205,8 +203,7 @@ class _UpdateRoomBodyState extends State<UpdateRoomBody> {
                                             });
                                       });
                                     } else {
-                                      BlocProvider.of<PrivacyBloc>(context)
-                                          .add(DisposeePrev(type: reslt.key!));
+                                      BlocProvider.of<PrivacyBloc>(context).add(DisposeePrev(type: reslt.key!));
                                     }
                                   })
                             ],
@@ -220,8 +217,7 @@ class _UpdateRoomBodyState extends State<UpdateRoomBody> {
                                   activeColor: ColorManager.mainColor,
                                   value: MyDataModel.getInstance().isHideRoom!,
                                   onChanged: (value) {
-                                    if (!(MyDataModel.getInstance()
-                                        .isHideRoom!)) {
+                                    if (!(MyDataModel.getInstance().isHideRoom!)) {
                                     } else {}
                                   })
                             ],

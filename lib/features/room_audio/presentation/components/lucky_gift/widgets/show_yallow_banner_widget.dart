@@ -8,7 +8,6 @@ import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'dart:ui' as ui;
-
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
@@ -40,6 +39,7 @@ class ShowYallowBannerWidget extends StatelessWidget {
                       Methods.instance.checkIfRoomHasPassword(
                           context: context,
                           isInRoom: true,
+                          isBanner: true,
                           hasPassword: hasPassword['yallowBannerhasPasswoedRoom'],
                           ownerId: ownerId['yallowBannerOwnerRoom'].toString(),
                           myData: myData);

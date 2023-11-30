@@ -14,6 +14,12 @@ class CodegenLoader extends AssetLoader {
   static const Map<String, dynamic> ar = {
     StringManager.appTitle: "تيك شات",
     StringManager.anotherAccountLoggedIn: "ليس لديك حساب تم تسجيل الدخول من جهاز اخر",
+    StringManager.chooseContent: "يرجي اختيار المحتوي",
+    StringManager.removeResult: "ازاله نتيجه كل جوله من العجله الدواره",
+    StringManager.rangeOfUsers: "نطاق المستخدمين المحفوظين",
+    StringManager.usersOnMic: "المستخمون علي المايك",
+    StringManager.usersInRoom: "جميع المستخدمين في الغرفة",
+    StringManager.numberOfLuckyUsers: "عدد المستخدمين المحظوظين",
     StringManager.errorInUrl : 'يوجد خطأ في هذا الرابط',
     StringManager.video_size_error: "يرجى تحميل الفيديو أقل من 3 دقائق",
     StringManager.enterPhoneNum: "أدخل رقم هاتفك",
@@ -469,6 +475,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.forShippingAgent: 'تبديل الدولارات لي وكلاء الشحن',
     StringManager.notChargeToAgancy: 'ملحوظه: لا يمكنك تبديل الدولارات سوى لنفسك أو وكيل الشحن',
     StringManager.changeDollars: 'تبديل الدولارات لنفسك',
+    StringManager.spin: 'لف العجله',
+    StringManager.end: 'انهاء',
+    StringManager.pleseSelectUser: 'الرجاء اختيار المستخدم',
   };
 
   static const Map<String, dynamic> tr = {
