@@ -67,40 +67,40 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.pop(context);
-            //    bottomDailog(
-            //         context: context,
-            //          widget: Padding(
-            //            padding:   EdgeInsets.only(bottom: ConfigSize.defaultSize!*7),
-            //            child: const ActivityGamesDialog(),
-            //          ),
-            //       );
-            //
-            //   },
-            //   child: Column(
-            //     children: [
-            //       SizedBox(
-            //         height: ConfigSize.defaultSize!,
-            //       ),
-            //       Icon(
-            //         Icons.games,
-            //         size: ConfigSize.defaultSize! * 4,
-            //         color: Colors.redAccent,
-            //       ),
-            //       SizedBox(
-            //         height: ConfigSize.defaultSize!,
-            //       ),
-            //       Text(StringManager.games.tr(),
-            //           style: TextStyle(
-            //               fontSize: ConfigSize.defaultSize! + 2,
-            //               color: Colors.black,
-            //               fontStyle: FontStyle.italic,
-            //               fontWeight: FontWeight.w600))
-            //     ],
-            //   ),
-            // ),
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+               bottomDailog(
+                    context: context,
+                     widget: Padding(
+                       padding:   EdgeInsets.only(bottom: ConfigSize.defaultSize!*7),
+                       child: const ActivityGamesDialog(),
+                     ),
+                  );
+
+              },
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: ConfigSize.defaultSize!,
+                  ),
+                  Icon(
+                    Icons.games,
+                    size: ConfigSize.defaultSize! * 4,
+                    color: Colors.redAccent,
+                  ),
+                  SizedBox(
+                    height: ConfigSize.defaultSize!,
+                  ),
+                  Text(StringManager.games.tr(),
+                      style: TextStyle(
+                          fontSize: ConfigSize.defaultSize! + 2,
+                          color: Colors.black,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w600))
+                ],
+              ),
+            ),
             InkWell(
               onTap: () {
                 Navigator.pop(context);
