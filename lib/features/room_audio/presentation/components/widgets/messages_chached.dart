@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +18,12 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/brick_paper_scissors.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dic_game.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
+
 
 class MessagesChached extends StatelessWidget {
   ZegoInRoomMessage message;
@@ -199,11 +198,11 @@ class MessagesChached extends StatelessWidget {
                             )
                           : BrickPaperScissorsGame(
                               randomNum: int.parse(message.message[0]))),
-            (bubble == "" && changeTheme == false && !isGame)?
+            (bubble == "" && changeTheme == false && !isGame)
 
-            message.message == "lucky draw" ? CommentBody(room: room) :
+            // message.message == "lucky draw" ? CommentBody(room: room) :
 
-            (bubble == "" && changeTheme == false)
+            // (bubble == "" && changeTheme == false)
                 ? Padding(
                     padding: EdgeInsets.only(
                         left: AppPadding.p24,
