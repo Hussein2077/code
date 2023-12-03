@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/remotly_datasource.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
+import 'package:tik_chat_v2/features/auth/data/model/auth_with_huawei_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
@@ -80,6 +81,17 @@ class RepositoryImp extends BaseRepository {
        return Right(DioHelper.buildFailure(e));
      }
  
+  }
+
+  @override
+  Future<Either<AuthWithHuaweiModel, Failure>> sigInWithHuawei() async{
+    try {
+      final result = await baseRemotlyDataSource.sigInWithHuawei();
+      return Left(result);
+    } on Exception catch(e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+
   }
   
   @override

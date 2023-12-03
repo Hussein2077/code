@@ -13,16 +13,11 @@ import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_card.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_method_dialog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_state.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_states.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_state.dart';
 
@@ -61,7 +56,6 @@ class _CoinsTabViewState extends State<CoinsTabView> {
 
   @override
   void dispose() {
-    // buyCoinsBloc.close();
     mSub.cancel();
     super.dispose();
   }
@@ -109,16 +103,18 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                               ? BlocListener<BuyCoinsBloc, BuyCoinsState>(
                                   child: InkWell(
                                     onTap: () {
-                                      if (Platform.isIOS) {
-                                        if(productsMap[state.data[index].coin.toString()] == ""){
-                                          warningToast(context: context, title: "Loading Products Please try again");
-                                        }else{
+                                      if(productsMap[state.data[index].coin.toString()] == ""){
+                                        warningToast(context: context, title: "Loading Products Please try again");
+                                      }else{
+                                        if (Platform.isIOS) {
                                           CoinsTabView.productId = state.data[index].id;
                                           buyProduct(productsMap[state.data[index].coin.toString()]);
+                                        } else {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(),),
+                                          );
                                         }
-                                        
-                                      } else {
-                                        BlocProvider.of<BuyCoinsBloc>(context).add(BuyCoins(buyCoinsParameter: BuyCoinsParameter(coinsID: state.data[index].id.toString(), paymentMethod: 'opay')));
                                       }
                                     },
                                     child: Column(

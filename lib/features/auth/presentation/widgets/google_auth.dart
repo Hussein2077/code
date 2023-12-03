@@ -19,7 +19,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 
 class GoogleAndAppleAuth extends StatelessWidget {
-  const GoogleAndAppleAuth({super.key});
+  bool isGoogle;
+  bool isHuawei;
+  GoogleAndAppleAuth({super.key, required this.isGoogle, required this.isHuawei});
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +80,10 @@ class GoogleAndAppleAuth extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(
+
+            if(isGoogle) InkWell(
               onTap: () {
-                BlocProvider.of<SignInWithPlatformBloc>(context)
-                    .add(SiginGoogleEvent());
+                BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginGoogleEvent());
               },
               child: SizedBox(
                   width: ConfigSize.defaultSize! * 5,
@@ -90,8 +92,23 @@ class GoogleAndAppleAuth extends StatelessWidget {
                     child: Image.asset(AssetsPath.googleIcon),
                   )),
             ),
-            if (Platform.isIOS)
-              InkWell(
+            if(isHuawei) InkWell(
+              onTap: () {
+                BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginHuaweiEvent());
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: ConfigSize.defaultSize! * 2.5,
+                child: SizedBox(
+                    width: ConfigSize.defaultSize! * 5,
+                    height: ConfigSize.defaultSize! * 5,
+                    child: Center(
+                      child: Image.asset(AssetsPath.huaweiIcon),
+                    )),
+              ),
+            ),
+
+            if (Platform.isIOS) InkWell(
                 onTap: () {
                   BlocProvider.of<SignInWithPlatformBloc>(context)
                       .add(SiginAppleEvent());

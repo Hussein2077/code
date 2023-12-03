@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/privacy_policy_use_case
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_apple_us.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/send_code_usecase.dart';
+import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_huawei_use_case.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
@@ -341,7 +342,7 @@ class ServerLocator {
             () => CreateRoomBloc(createRoomUsecase:getIt(),
                 getAllRoomTypesUC: getIt() ));
     getIt.registerFactory(
-        () => SignInWithPlatformBloc(signInWithGoogleUC: getIt(), signInWithAppleUC: getIt(),));
+        () => SignInWithPlatformBloc(signInWithGoogleUC: getIt(), signInWithAppleUC: getIt(), signInWithHuaweiUC: getIt(),));
     getIt.registerFactory(() => AddInfoBloc(addInFormationUC: getIt()));
     getIt.registerFactory(
         () => RegisterWithPhoneBloc(registerWithPhoneUsecase: getIt()));
@@ -645,6 +646,8 @@ getIt.registerLazySingleton(
 
     getIt.registerLazySingleton(
             () => SignInWithAppleUC(baseRepository: getIt()));
+    getIt.registerLazySingleton(
+            () => SignInWithHuaweiUC(baseRepository: getIt()));
     getIt.registerLazySingleton(
             () => PickupBoxUC(roomRepo: getIt()));
     getIt.registerLazySingleton(
