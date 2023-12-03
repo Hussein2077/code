@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'dart:ui' as ui;
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,10 +9,14 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/f_f_f_v_screens/logic_follow_unfollow.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/user_reels_controller.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_state.dart';
+
+
+
 class ProfileBottomBar extends StatefulWidget {
   final UserDataModel userData;
 
@@ -37,17 +41,27 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
       listener: (context, state) {
         if (state is FollowSucssesState) {
           isFollow = !isFollow;
-          UserReelsController.followingMap[widget.userData.id.toString()]=true;
+
+          UserReelsController.followingMap[widget.userData.id.toString()] =
+              true;
           UserReelsController.follow.value = !UserReelsController.follow.value;
 
-
           setState(() {});
+          // LogicFollowUnfollow.followUnfollowController(
+          //     LogicFollowUnfollow.userId,
+          //     LogicFollowUnfollow
+          //         .theFollowedUsersMap[LogicFollowUnfollow.userId]!);
         }
         else if (state is UnFollowSucssesState) {
           UserReelsController.follow.value = !UserReelsController.follow.value;
-          UserReelsController.followingMap[widget.userData.id.toString()]=false;
+          UserReelsController.followingMap[widget.userData.id.toString()] =
+              false;
           isFollow = !isFollow;
           setState(() {});
+          // LogicFollowUnfollow.followUnfollowController(
+          //     LogicFollowUnfollow.userId,
+          //     LogicFollowUnfollow
+          //         .theFollowedUsersMap[LogicFollowUnfollow.userId]!);
         }
         else if (state is  FollowLoadingState){
           loadingToast(context: context, title: StringManager.loading.tr());
@@ -92,15 +106,25 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
             // bottomBarColumn(context: context , icon: AssetsPath.friendRequestIconProfile ,title: StringManager.addFriend),
 
             bottomBarColumn(
-              context: context,
-              icon: isFollow ? AssetsPath.unfollowIcon : AssetsPath.followIcon,
-              title: isFollow ? StringManager.unFollow.tr() : StringManager.follow.tr(),
-              onTap: () => isFollow
-                  ? BlocProvider.of<FollowBloc>(context)
-                  .add(UnFollowEvent(userId: widget.userData.id.toString()))
-                  : BlocProvider.of<FollowBloc>(context)
-                  .add(FollowEvent(userId: widget.userData.id.toString())),
-            ),
+                context: context,
+                icon:
+                    isFollow ? AssetsPath.unfollowIcon : AssetsPath.followIcon,
+                title: isFollow
+                    ? StringManager.unFollow.tr()
+                    : StringManager.follow.tr(),
+                onTap: () {
+                  log('1');
+                  LogicFollowUnfollow.userId = widget.userData.id!;
+                  log('2');
+
+                  isFollow
+                      ? BlocProvider.of<FollowBloc>(context).add(
+                          UnFollowEvent(userId: widget.userData.id.toString()))
+                      : BlocProvider.of<FollowBloc>(context).add(
+                          FollowEvent(userId: widget.userData.id.toString()));
+                  log('3');
+
+                }),
           ],
         ),
       ),
