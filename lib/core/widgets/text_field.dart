@@ -15,14 +15,16 @@ class TextFieldWidget extends StatelessWidget {
  final int? maxLength ;
  final Function(String)? onChanged ;
 final void Function()? onTap;
+final void Function(String)? onSubmitted;
  final double? fontSize;
-  const TextFieldWidget({this.maxLength ,  this.obscureText , this.fontSize, this.onChanged, this.type, this.hintColor, this.textColor ,this.readOnly, this.maxLines, required this.hintText, required this.controller, super.key, this.onTap});
+  const TextFieldWidget({this.maxLength ,  this.obscureText , this.fontSize, this.onChanged, this.type, this.hintColor, this.textColor ,this.readOnly, this.maxLines, required this.hintText, required this.controller, super.key, this.onTap, this.onSubmitted});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       maxLength: maxLength,
       onChanged:onChanged ,
+                  onSubmitted: onSubmitted,
     
                   style:  TextStyle(color: textColor?? Colors.grey , fontSize: ConfigSize.defaultSize!*1.7),
                   autofocus: false,

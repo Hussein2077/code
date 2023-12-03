@@ -80,6 +80,7 @@ class AdminsRoomWidget extends StatelessWidget {
                                             color: Colors.black),
 
                                         isVip:state.admins[index].hasColorName!,
+                                        typeUser: state.admins[index].userType??0,
                                       ),
                                       SizedBox(
                                         height: ConfigSize.defaultSize! * 0.8,

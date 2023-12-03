@@ -31,5 +31,6 @@ class SiginFacebookException implements Exception {}
 
 class SiginGoogleException implements Exception {}
 class SiginAppleException implements Exception {}
+class SiginHuaweiException implements Exception {}
 
 class InternetException implements Exception {}

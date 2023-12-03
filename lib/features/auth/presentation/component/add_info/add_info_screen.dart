@@ -170,7 +170,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                 : "0",
                             name: nameController.text,
                             date: DateWidget.selectedDatee,
-                            // email:widget.Data!.email??"",
+                            email: widget.Data!.data.email.toString(),
                             countryID:CountryDropDownSearch. selectedItem!.id));
                       } else {
                         errorToast(
@@ -215,7 +215,6 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
         if (state is AddInfoSuccesMessageState) {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           Navigator.pushNamed(context, Routes.mainScreen);
-
         } else if (state is AddInfoErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
         }

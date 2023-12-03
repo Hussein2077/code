@@ -25,6 +25,7 @@ class ProfileBody extends StatelessWidget {
     return ScreenColorBackGround(
       color1: isDarkTheme ? Colors.black : ColorManager.lightGray,
       child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
          SizedBox(height: ConfigSize.defaultSize!*3,),

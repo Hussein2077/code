@@ -137,7 +137,7 @@ class UserDataModel {
         nowRoom: map['now_room'] != null
             ? NowRoomModel.fromjson(map["now_room"] as Map<String, dynamic>)
             : null,
-        userType: map['type_user'],
+        userType: map['type_user']??0,
 
         onlineTime: map['online_time']??'',
         hasColorName: map['has_color_name']??false,
@@ -198,7 +198,7 @@ country: country,
           senderImage: level?.senderImage,
           receiverImage: level?.receiverImage),
       vip1: VipCenterModel(level: vip1?.level),
-      myType: userType,
+      myType: userType??0,
 
       isHideRoom: roomHidden,
       visitHidden: visitHidden,

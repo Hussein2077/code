@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -98,6 +97,7 @@ class UpperProfileBody extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GradientTextVip(
+                          typeUser: myDataModel.myType??0,
                           text: myDataModel.name!,
                           textStyle: TextStyle(
                               color: Colors.white,

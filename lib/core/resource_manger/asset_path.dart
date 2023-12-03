@@ -99,6 +99,32 @@ class AssetsPath {
   static const String openLock = "$pathImage/open_lock.png";
   static const String hand = "$pathImage/hand.png.png";
   static const String hand2 = "$pathImage/hand.png";
+  static const String spinWheelGameExiteIcon = "$pathImage/room_turntable_close_icon 1.png";
+  static const String spinWheelGameHeaderImage = "$pathImage/room_turntable_top_bg 1.png";
+  static const String spinWheelGameDeleteIcon = "$pathImage/room_turntable_delete_icon 1.png";
+  static const String spinWheelGameBottonImage = "$pathImage/room_turntable_bottom_bg 1.png";
+  static const String spinWheelGameBtnIcon = "$pathImage/room_lottery_btn_yellow 2.png";
+  static const String spinWheelGameFrameIcon = "$pathImage/room_turntable_bg 1.png";
+  static const String spinWheelGameFrameBgIcon = "$pathImage/room_turntable_console_bottom_bg 1.png";
+  static const String spinWheelGameIndicatorIcon1 = "$pathImage/room_turntable_arrow_icon 1.png";
+  static const String spinWheelGameIndicatorIcon2 = "$pathImage/room_turntable_center_icon 1.png";
+  static const String luckyDrawGameArrow = "$pathImage/room_lottery_arrow_icon 1.png";
+  static const String luckyDrawGameHeader = "$pathImage/Group 1.png";
+  static const String luckyDrawGameBottom = "$pathImage/room_lottery_bottom_bg 1.png";
+  static const String luckyDrawGameGrayBtn = "$pathImage/room_lottery_btn_gray 2.png";
+  static const String luckyDrawGameBody = "$pathImage/room_lottery_center_bg 2.png";
+  static const String luckyDrawGameExite = "$pathImage/room_lottery_close_icon 1.png";
+  static const String dicSVGA = "$pathImage/room_default_dice.svga";
+  static const String fingerGuessing = "$pathImage/room_finger_guessing.svga";
+  static const String dic1 = "$pathImage/1.png";
+  static const String dic2 = "$pathImage/2.png";
+  static const String dic3 = "$pathImage/3.png";
+  static const String dic4 = "$pathImage/4.png";
+  static const String dic5 = "$pathImage/5.png";
+  static const String dic6 = "$pathImage/6.png";
+  static const String brick = "$pathImage/img_1.png";
+  static const String paper = "$pathImage/img_2.png";
+  static const String scissors = "$pathImage/img_3.png";
 
 
 
@@ -270,7 +296,8 @@ class AssetsPath {
   static const String deleteAccout = "$pathIcon/delet_account.png";
   static const String chatIconActive = "$pathIcon/chat.png";
   static const String chatIconDissActive = "$pathIcon/chat_ww.png";
-
+  static const String shippingAgent = "$pathIcon/shipping_agent.png";
+  static const String agent = "$pathIcon/agent.png";
 
 
 

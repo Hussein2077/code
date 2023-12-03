@@ -277,9 +277,7 @@ class GiftUserState extends State<GiftUser> {
 
 class SelecteObject {
   final String userId ;
-
   final bool selected ;
-
   const SelecteObject({required this.userId, required this.selected});
 }
 

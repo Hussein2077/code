@@ -80,6 +80,8 @@ class DioHelper {
                 isLoginFromAnotherAccountAndBuildFailure:
                 isLoginFromAnotherAccountAndBuildFailure = true));
         return Strings.anotherAccountLoggedIn;
+       case SiginHuaweiFailure:
+        return Strings.signinHuaweiFailureMessage ;
       default:
         return failure.errorMessage ?? StringManager.unexcepectedError.tr();
     }
@@ -101,8 +103,11 @@ class DioHelper {
         return InternetFailure();
       case AnotherAccountException:
         return AnotherAccountMessageFailure();
-      case ErrorModelException:
+      case SiginHuaweiException :
+        return SiginHuaweiFailure() ;
+        case ErrorModelException:
         return ErrorMessageFailure(message: e.errorMessage);
+
 
       default:
         return ErrorMessageFailure(message: e.toString());

@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/widgets/empty_screen.dart';
 import 'package:tik_chat_v2/core/widgets/web_view_widget.dart';
 import 'package:tik_chat_v2/core/widgets/white_empty_screen.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
@@ -187,9 +188,7 @@ class RouteGenerator {
       case Routes.login:
         LoginPramiter? loginPramiter = settings.arguments as LoginPramiter?;
 
-          return MaterialPageRoute(
-            settings: settings,
-
+        return MaterialPageRoute(
             builder: (_) => LoginScreen(
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
@@ -645,11 +644,11 @@ class RouteGenerator {
         if (Platform.isIOS)
         {
           return CupertinoPageRoute (
-              builder: (_) => const AllShippingAgent());
+              builder: (_) =>   AllShippingAgent());
         } else {
            return MaterialPageRoute(
             settings: settings,
-              builder: (_) => const AllShippingAgent());
+              builder: (_) =>  AllShippingAgent());
         }
       case Routes.fixedTargetScreen:
         MyDataModel myDataModel = settings.arguments as MyDataModel;
@@ -670,7 +669,7 @@ class RouteGenerator {
   static Route<dynamic> unDefinedRoute() {
      return MaterialPageRoute(
         // ignore: prefer_const_constructors
-        builder: (context) => Container());
+        builder: (context) => EmptyScreen());
   }
 }
 

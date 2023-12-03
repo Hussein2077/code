@@ -62,6 +62,7 @@ class _FFFScreenState extends State<FFFScreen> {
                       itemBuilder: (context, index) {
                         return UserInfoRow(
                           userData: state.data![index],
+
                           endIcon: Icon(
                             Icons.arrow_forward_ios,
                             color: Theme.of(context).colorScheme.primary,
