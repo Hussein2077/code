@@ -14,11 +14,9 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/message_count_notifecation.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
 
-
-
-
 class MassageButton extends StatelessWidget {
   final MyDataModel myDataModel;
+
   const MassageButton({required this.myDataModel, super.key});
 
   @override
@@ -28,16 +26,19 @@ class MassageButton extends StatelessWidget {
           bottomDailog(
               context: context,
               widget: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: ColorManager.gold, width: 1),
                     color: ColorManager.whiteColor,
                   ),
-                  height:ConfigSize.defaultSize! * 65,
-                  child:const ChatPage()));
+                  height: ConfigSize.defaultSize! * 65,
+                  child: const ChatPage()));
         },
-        child:  MessageCountNotifcation(widget:Image.asset(AssetsPath.messages
-    ,width:  AppPadding.p40,height: AppPadding.p40,),));
+        child: MessageCountNotifcation(
+          widget: Image.asset(
+            AssetsPath.messages,
+            width: AppPadding.p40,
+            height: AppPadding.p40,
+          ),
+        ));
   }
 }
