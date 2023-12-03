@@ -25,145 +25,85 @@ class ChatWidgets {
       }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3.0),
-      child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
-          elevation: 0,
-          child: InkWell(
-            onTap: onTap,
-            child: Row(
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+          children: [
+            InkWell(
+              onTap: () {
+                showImageViewer(
+                    context,
+                    CachedNetworkImageProvider(
+                      ConstentApi().getImage(image),
+                    ),
+                    swipeDismissible: false);
+              },
+              child: UserImage(
+                  image: image, imageSize: ConfigSize.defaultSize! * 4),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InkWell(
-                  onTap: () {
-                    showImageViewer(
-                        context,
-                        CachedNetworkImageProvider(
-                          ConstentApi().getImage(image),
-                        ),
-                        swipeDismissible: false);
-                  },
-                  child: UserImage(
-                      image: image, imageSize: ConfigSize.defaultSize! * 6),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
+                Text(
+                  title,
+                  style: TextStyle(
 
-                          color:Colors.white ,
-                        fontSize: ConfigSize.defaultSize!*1.8
-                      ),
-                    ),
-                    SizedBox(
-                      width: ConfigSize.screenWidth!*0.5,
-                      child: Text(
-                        subtitle,
-                        style: TextStyle(
-
-                            color:Colors.white ,
-                            fontSize: ConfigSize.defaultSize!*1.4
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
+                      color:Colors.black ,
+                    fontSize: ConfigSize.defaultSize!,fontWeight: FontWeight.w600
+                  ),
                 ),
-                const Spacer(
-                  flex: 5,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (unReadMessages != 0 &&
-                        sentby != FirebaseAuth.instance.currentUser!.uid)
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.red),
-                        child: Text(
-                          '${unReadMessages}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize!,
+                SizedBox(
+                  width: ConfigSize.screenWidth!*0.5,
+                  child: Text(
+                    subtitle,
+                    style: TextStyle(
+                        color:Colors.black.withOpacity(.5) ,
+                        fontSize: ConfigSize.defaultSize!*1.4
                     ),
-                    Text(
-                      time,
-                      style: (unReadMessages != 0 &&
-                              sentby != FirebaseAuth.instance.currentUser!.uid)
-                          ? const TextStyle(color: Colors.red, fontSize: 12)
-                          : const TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-                const Spacer(
-                  flex: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
-          )
-
-          // ListTile(
-          //     onTap: onTap,
-          //     contentPadding: const EdgeInsets.all(5),
-          //     leading:
-          //     InkWell(
-          //       onTap: (){
-          //
-          //         showImageViewer(
-          //             context,
-          //             CachedNetworkImageProvider(
-          //               ConstentApi().getImage(image),
-          //             ),
-          //             swipeDismissible: false);
-          //       },
-          //       child: UserImage(
-          //           image:image,
-          //           imageSize: ConfigSize.defaultSize! * 7),
-          //     ),
-          //     title: Text( title,style: Theme.of(context).textTheme.bodyLarge!,),
-          //     subtitle: subtitle != null ? Text(subtitle) : null,
-          //     trailing:
-          //     Column(
-          //       mainAxisAlignment: MainAxisAlignment.end,
-          //       children: [
-          //         if (unReadMessages != 0 &&
-          //             sentby != FirebaseAuth.instance.currentUser!.uid)
-          //           Container(
-          //             padding: const EdgeInsets.all(4),
-          //             decoration: const BoxDecoration(
-          //                 shape: BoxShape.circle, color: Colors.red),
-          //             child: Text(
-          //               '${unReadMessages}',
-          //               style: const TextStyle(
-          //                 color: Colors.white,
-          //                 fontSize: 12,
-          //               ),
-          //               textAlign: TextAlign.center,
-          //             ),
-          //           ),
-          //         SizedBox(
-          //           height: ConfigSize.defaultSize!,
-          //         ),
-          //         Text(
-          //           time,
-          //           style: (unReadMessages != 0 &&
-          //                   sentby != FirebaseAuth.instance.currentUser!.uid)
-          //               ? const TextStyle(color: Colors.red, fontSize: 12)
-          //               : const TextStyle(color: Colors.black),
-          //         ),
-          //       ],
-          //     )),
-          ),
+            const Spacer(
+              flex: 5,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (unReadMessages != 0 &&
+                    sentby != FirebaseAuth.instance.currentUser!.uid)
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.red),
+                    child: Text(
+                      '$unReadMessages',
+                      style:   TextStyle(
+                        color: Colors.black,
+                        fontSize: ConfigSize.defaultSize!,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                SizedBox(
+                  height: ConfigSize.defaultSize!,
+                ),
+                Text(
+                  time,
+                  style: (unReadMessages != 0 &&
+                          sentby != FirebaseAuth.instance.currentUser!.uid)
+                      ?   TextStyle(color: Colors.red, fontSize: ConfigSize.defaultSize!*1.2)
+                      :  TextStyle(color: Colors.black,fontSize: ConfigSize.defaultSize!),
+                ),
+              ],
+            ),
+            const Spacer(
+              flex: 1,
+            ),
+          ],
+        ),
+      ),
     );
   }
 

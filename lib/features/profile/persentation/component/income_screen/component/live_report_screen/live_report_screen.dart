@@ -92,6 +92,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 children: [
                                   GradientTextVip(
                                     text: widget.myData.name!,
+                                    typeUser: widget.myData.myType??0,
                                     textStyle: Theme.of(context)
                                         .textTheme
                                         .bodyMedium!,

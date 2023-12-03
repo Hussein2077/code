@@ -101,7 +101,9 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                   ),
 
                                   GradientTextVip(
+
                                     text: state.myDataModel.name!,
+                                    typeUser: state.myDataModel.myType??0,
                                     textStyle: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!,

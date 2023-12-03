@@ -97,6 +97,7 @@ class UpperProfileBody extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GradientTextVip(
+                          typeUser: myDataModel.myType??0,
                           text: myDataModel.name!,
                           textStyle: TextStyle(
                               color: Colors.white,

@@ -4,6 +4,9 @@ class StringManager {
   static const int versionApp = 50;
   static const String androidPlatform = 'Android';
   static const String iOSPlatform = 'IOS';
+//keys
+  static const String diceGameKey='DicGameSVGA@#%';
+  static const String rpsGameKey='BrickPaperGameSVGA@#%';
 
   //updates
   static const String updateApp = 'Update TikChat APP';
@@ -526,7 +529,13 @@ class StringManager {
   static const String notChargeToAgancy = "You can only withdraw dollars for yourself or a shipping agent.";
   static const String spin = "Spin The Wheel";
   static const String end = "End";
+  static const String result = "Result";
   static const String pleseSelectUser = "Please Select User";
+  static const String diceGame = "Dice";
+  static const String rps = "RPS";
+  static const String luckyNumber = "lucky number";
+  static const String luckyPull = "lucky pull";
+  static const String turntable = "turntable";
 
   static Map<int, bool> userType = {
     0: false,

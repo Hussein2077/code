@@ -114,6 +114,18 @@ class AssetsPath {
   static const String luckyDrawGameGrayBtn = "$pathImage/room_lottery_btn_gray 2.png";
   static const String luckyDrawGameBody = "$pathImage/room_lottery_center_bg 2.png";
   static const String luckyDrawGameExite = "$pathImage/room_lottery_close_icon 1.png";
+  static const String dicSVGA = "$pathImage/room_default_dice.svga";
+  static const String fingerGuessing = "$pathImage/room_finger_guessing.svga";
+  static const String dic1 = "$pathImage/1.png";
+  static const String dic2 = "$pathImage/2.png";
+  static const String dic3 = "$pathImage/3.png";
+  static const String dic4 = "$pathImage/4.png";
+  static const String dic5 = "$pathImage/5.png";
+  static const String dic6 = "$pathImage/6.png";
+  static const String brick = "$pathImage/img_1.png";
+  static const String paper = "$pathImage/img_2.png";
+  static const String scissors = "$pathImage/img_3.png";
+
 
 
   //icons
@@ -284,6 +296,13 @@ class AssetsPath {
   static const String deleteAccout = "$pathIcon/delet_account.png";
   static const String chatIconActive = "$pathIcon/chat.png";
   static const String chatIconDissActive = "$pathIcon/chat_ww.png";
+  static const String shippingAgent = "$pathIcon/shipping_agent.png";
+  static const String agent = "$pathIcon/agent.png";
+  static const String diceIcon = "$pathIcon/dice_icon.png";
+  static const String guessingIcon = "$pathIcon/guessing_icon.png";
+  static const String lotteryIcon = "$pathIcon/lottery_icon.png";
+  static const String luckyNumberIcon = "$pathIcon/lucky_number_icon.png";
+  static const String turntableIcon = "$pathIcon/turntable_icon.png";
 
 
 
