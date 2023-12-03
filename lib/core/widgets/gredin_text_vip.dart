@@ -29,12 +29,12 @@ class GradientTextVip extends StatelessWidget {
           text,
           style:textStyle,
           colors: const [Colors.blue, Colors.purple],
-                  textAlign: textAlign,
+                  textAlign: textAlign,overflow: TextOverflow.ellipsis,
 
         ) :Text(
             text,
             style: textStyle,
-            textAlign: textAlign,
+            textAlign: textAlign,overflow: TextOverflow.ellipsis,
         ),
         Padding(
           padding: const EdgeInsets.all(4),

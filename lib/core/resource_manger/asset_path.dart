@@ -298,6 +298,12 @@ class AssetsPath {
   static const String chatIconDissActive = "$pathIcon/chat_ww.png";
   static const String shippingAgent = "$pathIcon/shipping_agent.png";
   static const String agent = "$pathIcon/agent.png";
+  static const String diceIcon = "$pathIcon/dice_icon.png";
+  static const String guessingIcon = "$pathIcon/guessing_icon.png";
+  static const String lotteryIcon = "$pathIcon/lottery_icon.png";
+  static const String luckyNumberIcon = "$pathIcon/lucky_number_icon.png";
+  static const String turntableIcon = "$pathIcon/turntable_icon.png";
+  static const String activityGamesIcon = "$pathIcon/games_icon.png";
 
 
 

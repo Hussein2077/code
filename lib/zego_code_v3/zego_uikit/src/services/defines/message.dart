@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 
 // Package imports:
 import 'package:zego_express_engine/zego_express_engine.dart';
@@ -26,6 +27,7 @@ class ZegoInRoomMessage {
   /// message content.
   String message;
 
+  GamesInRoom games ;
   bool? changeTheme ;
   /// The timestamp at which the message was sent.
   /// You can format the timestamp, which is in milliseconds since epoch, using DateTime.fromMillisecondsSinceEpoch(timestamp).
@@ -38,7 +40,8 @@ class ZegoInRoomMessage {
     required this.message,
     required this.timestamp,
     required this.messageID,
-    this.changeTheme
+    this.changeTheme,
+    this.games=GamesInRoom.normal,
   });
 
   ZegoInRoomMessage.fromBroadcastMessage(ZegoBroadcastMessageInfo message)

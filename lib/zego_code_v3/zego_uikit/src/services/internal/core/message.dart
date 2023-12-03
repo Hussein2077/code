@@ -1,6 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 import 'dart:async';
 
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
 import 'package:zego_express_engine/zego_express_engine.dart';
@@ -37,7 +38,7 @@ class ZegoUIKitCoreMessage {
     streamControllerMessageList.add(List<ZegoInRoomMessage>.from(messageList));
   }
 
-  Future<bool> sendBroadcastMessage(String message,bool? changeTheme) async {
+  Future<bool> sendBroadcastMessage(String message,bool? changeTheme,{GamesInRoom games=GamesInRoom.normal}) async {
     localMessageId = localMessageId - 1;
 
     final messageItem = ZegoInRoomMessage(
@@ -45,6 +46,7 @@ class ZegoUIKitCoreMessage {
       messageID: localMessageId,
       user: ZegoUIKitCore.shared.coreData.localUser.toZegoUikitUser(),
       message: message,
+      games:games,
       timestamp:
           ZegoUIKitCore.shared.coreData.networkDateTime_.millisecondsSinceEpoch,
     );

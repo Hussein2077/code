@@ -4,7 +4,6 @@ class StringManager {
   static const int versionApp = 50;
   static const String androidPlatform = 'Android';
   static const String iOSPlatform = 'IOS';
-
   //updates
   static const String updateApp = 'Update TikChat APP';
   static const String updateText = "Tik Chat recommends that you update to the latest version You can keep enjoy the app while downloading the update";
@@ -533,6 +532,11 @@ class StringManager {
   static const String end = "End";
   static const String result = "Result";
   static const String pleseSelectUser = "Please Select User";
+  static const String diceGame = "Dice";
+  static const String rps = "RPS";
+  static const String luckyNumber = "lucky number";
+  static const String luckyPull = "lucky pull";
+  static const String turntable = "turntable";
 
   static Map<int, bool> userType = {
     0: false,

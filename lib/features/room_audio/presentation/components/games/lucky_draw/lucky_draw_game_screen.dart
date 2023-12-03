@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/selection_widget.dart';
@@ -159,7 +160,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
               InkWell(
                 onTap: (){
                   if(selected1 != -1 && selected2 != -1){
-                    ZegoUIKit.instance.sendInRoomMessage("lucky draw", false);
+                    ZegoUIKit.instance.sendInRoomMessage('', false,games:GamesInRoom.luckyDrawGame);
                     Navigator.pop(context);
                   }else{
 

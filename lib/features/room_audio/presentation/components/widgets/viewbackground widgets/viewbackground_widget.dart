@@ -30,7 +30,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gi
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_yallow_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dic_game.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dic_game.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
@@ -138,24 +138,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 padding: EdgeInsets.only(
                     right: 0, bottom: ConfigSize.defaultSize! * 2),
                 child: const PageViewGames())),
-        Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-                padding: EdgeInsets.only(
-                    right: 0, bottom: ConfigSize.defaultSize! * 10),
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.red,
-                  child: InkWell(
-                      onTap: () {
-                        // ZegoUIKit.instance.sendInRoomMessage(
-                        //     "${Random().nextInt(6)}DicGameSVGA@#%", false);
-                        ZegoUIKit.instance.sendInRoomMessage(
-                            "${Random().nextInt(3)}BrickPaperGameSVGA@#%", false);
-                      },
-                      child: const SizedBox()),
-                ))),
         ValueListenableBuilder(
             valueListenable: OwnerOfRoom.editRoom,
             builder: (context, editValue, _) {

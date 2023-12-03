@@ -1,4 +1,5 @@
 
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
 
@@ -27,8 +28,8 @@ mixin ZegoMessageService {
 
   /// send in-room message
   /// @return Error code, please refer to the error codes document https://docs.zegocloud.com/en/5548.html for details.
-  Future<bool> sendInRoomMessage(String message,bool? changeTheme) async {
-    return ZegoUIKitCore.shared.coreMessage.sendBroadcastMessage(message,changeTheme);
+  Future<bool> sendInRoomMessage(String message,bool? changeTheme ,{GamesInRoom games=GamesInRoom.normal}) async {
+    return ZegoUIKitCore.shared.coreMessage.sendBroadcastMessage(message,changeTheme,games: games);
   }
 
   /// re-send in-room message

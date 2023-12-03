@@ -16,14 +16,12 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
-import 'package:tik_chat_v2/features/auth/data/model/auth_with_huawei_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-//import 'package:huawei_account/huawei_account.dart';
 
 
 abstract class BaseRemotlyDataSource {

@@ -3,22 +3,22 @@ import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
-class BrickPaperScissorsGame extends StatefulWidget {
-  const BrickPaperScissorsGame({super.key, required this.randomNum});
+class DiceGame extends StatefulWidget {
+  const DiceGame({super.key, required this.randomNum});
 
   final int randomNum;
 
   @override
-  State<BrickPaperScissorsGame> createState() => _BrickPaperScissorsGameState();
+  State<DiceGame> createState() => _DiceGameState();
 }
 
-class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with TickerProviderStateMixin {
+class _DiceGameState extends State<DiceGame> with TickerProviderStateMixin {
   late SVGAAnimationController animationController;
-  bool showResultGame = false;
+  bool showResultDicGame = false;
 
   void loadAnimation() async {
     final videoItem =
-    await SVGAParser.shared.decodeFromAssets(AssetsPath.fingerGuessing);
+        await SVGAParser.shared.decodeFromAssets(AssetsPath.dicSVGA);
     animationController.videoItem = videoItem;
     animationController
         .repeat() // Try to use .forward() .reverse()
@@ -36,10 +36,10 @@ class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with Ti
 
   @override
   void didChangeDependencies() {
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 3), () {
       animationController.videoItem = null;
       setState(() {
-        showResultGame = true;
+        showResultDicGame = true;
       });
     });
     super.didChangeDependencies();
@@ -51,10 +51,13 @@ class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with Ti
     super.dispose();
   }
 
-  List<String> brickPaperNum = [
-    AssetsPath.brick,
-    AssetsPath.paper,
-    AssetsPath.scissors,
+  List<String> dicNum = [
+    AssetsPath.dic1,
+    AssetsPath.dic2,
+    AssetsPath.dic3,
+    AssetsPath.dic4,
+    AssetsPath.dic5,
+    AssetsPath.dic6,
   ];
 
   @override
@@ -62,8 +65,8 @@ class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with Ti
     return SizedBox(
       height: ConfigSize.defaultSize! * 7,
       width: ConfigSize.defaultSize! * 7,
-      child: showResultGame
-          ? Image.asset(brickPaperNum[widget.randomNum])
+      child: showResultDicGame
+          ? Image.asset(dicNum[widget.randomNum])
           : SVGAImage(animationController),
     );
   }
