@@ -33,37 +33,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: LiquidPullToRefresh(
-          color: ColorManager.bage,
-          backgroundColor: ColorManager.loadingColor,
-          showChildOpacityTransition: false,
-          onRefresh: () async {
-            BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+    return Scaffold(
+      body: LiquidPullToRefresh(
+        color: ColorManager.bage,
+        backgroundColor: ColorManager.loadingColor,
+        showChildOpacityTransition: false,
+        onRefresh: () async {
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+        },
+        child: SingleChildScrollView(
+            child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
+          builder: (context, state) {
+            if (state is GetMyDataSucssesState) {
+              tempData = state.myDataModel;
+              return ProfileBody(myData: state.myDataModel);
+            } else if (state is GetMyDataErrorState) {
+              //todo show toast here to show error
+              return ProfileBody(myData: getIt<MyDataModel>());
+            } else if (state is GetMyDataLoadingState) {
+              return tempData == null
+                  ? const LoadingWidget()
+                  : ProfileBody(myData: tempData!);
+            } else {
+              //todo update this ui
+              return CustomErrorWidget(
+                message: StringManager.unexcepectedError.tr(),
+              );
+            }
           },
-          child: SingleChildScrollView(
-              child: BlocBuilder<GetMyDataBloc, GetMyDataState>(
-            builder: (context, state) {
-              if (state is GetMyDataSucssesState) {
-                tempData = state.myDataModel;
-                return ProfileBody(myData: state.myDataModel);
-              } else if (state is GetMyDataErrorState) {
-                //todo show toast here to show error
-                return ProfileBody(myData: getIt<MyDataModel>());
-              } else if (state is GetMyDataLoadingState) {
-                return tempData == null
-                    ? const LoadingWidget()
-                    : ProfileBody(myData: tempData!);
-              } else {
-                //todo update this ui
-                return CustomErrorWidget(
-                  message: StringManager.unexcepectedError.tr(),
-                );
-              }
-            },
-          )),
-        ),
+        )),
       ),
     );
   }

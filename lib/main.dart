@@ -511,41 +511,47 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: lightTheme,
-            navigatorKey: GlobalContextService.navigatorKey,
-            // set property
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
-            onGenerateRoute: RouteGenerator.getRoute,
-            locale: context.locale,
-            initialRoute: Routes.splash,
+          return SafeArea(
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: lightTheme,
+              navigatorKey: GlobalContextService.navigatorKey,
+              // set property
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              onGenerateRoute: RouteGenerator.getRoute,
+              locale: context.locale,
+              initialRoute: Routes.splash,
+            ),
           );
         } else if (state is DarkThemeState) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: darkTheme,
-            navigatorKey: GlobalContextService.navigatorKey,
-            // set property
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
-            onGenerateRoute: RouteGenerator.getRoute,
-            locale: context.locale,
-            initialRoute: Routes.splash,
+          return SafeArea(
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: darkTheme,
+              navigatorKey: GlobalContextService.navigatorKey,
+              // set property
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              onGenerateRoute: RouteGenerator.getRoute,
+              locale: context.locale,
+              initialRoute: Routes.splash,
+            ),
           );
         } else {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: theme == "dark" ? darkTheme : lightTheme,
-            navigatorKey: GlobalContextService.navigatorKey,
-            // set property
+          return SafeArea(
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: theme == "dark" ? darkTheme : lightTheme,
+              navigatorKey: GlobalContextService.navigatorKey,
+              // set property
 
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
-            onGenerateRoute: RouteGenerator.getRoute,
-            locale: context.locale,
-            initialRoute: Routes.splash,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              onGenerateRoute: RouteGenerator.getRoute,
+              locale: context.locale,
+              initialRoute: Routes.splash,
+            ),
           );
         }
       }),

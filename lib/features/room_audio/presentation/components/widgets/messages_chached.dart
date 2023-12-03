@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -19,12 +18,12 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/brick_paper_scissors.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dic_game.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dic_game.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
-
 
 class MessagesChached extends StatelessWidget {
   ZegoInRoomMessage message;
@@ -56,9 +55,11 @@ class MessagesChached extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool changeTheme = message.changeTheme ?? false;
-    bool isGame = message.message == '${message.message[0]}${StringManager.diceGameKey}' ||
-        message.message == '${message.message[0]}${StringManager.rpsGameKey}';
-
+    bool isGame = message.games != GamesInRoom.normal;
+    // bool isGame = message.message ==
+    //         '${message.message[0]}${StringManager.diceGameKey}' ||
+    //     message.message == '${message.message[0]}${StringManager.rpsGameKey}' ||
+    //     message.message == StringManager.luckyDrawGameKey;
     List<String> words = message.message.split(" ");
     for (String word in words) {
       if (word.startsWith("@")) {
@@ -189,21 +190,20 @@ class MessagesChached extends StatelessWidget {
               ],
             ),
             if (isGame)
-              SizedBox(
-                  height: ConfigSize.defaultSize! * 5,
-                  width: ConfigSize.defaultSize! * 5,
-                  child:
-                      message.message == '${message.message[0]}${StringManager.diceGameKey}'
+              message.games == GamesInRoom.luckyDrawGame
+                  ? CommentBody(room: room)
+                  : SizedBox(
+                      height: ConfigSize.defaultSize! * 5,
+                      width: ConfigSize.defaultSize! * 5,
+                      child: message.games == GamesInRoom.dicGame
                           ? DiceGame(
                               randomNum: int.parse(message.message[0]),
                             )
-                          : BrickPaperScissorsGame(
-                              randomNum: int.parse(message.message[0]))),
+                          : message.games == GamesInRoom.rpsGame
+                              ? BrickPaperScissorsGame(
+                                  randomNum: int.parse(message.message[0]))
+                              : const SizedBox()),
             (bubble == "" && changeTheme == false && !isGame)
-
-            // message.message == "lucky draw" ? CommentBody(room: room) :
-
-            // (bubble == "" && changeTheme == false)
                 ? Padding(
                     padding: EdgeInsets.only(
                         left: AppPadding.p24,

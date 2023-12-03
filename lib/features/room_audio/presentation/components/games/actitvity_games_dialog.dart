@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class ActivityGamesDialog extends StatelessWidget {
@@ -15,28 +19,38 @@ class ActivityGamesDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> gamesColumnList = [
       gamesColumn(
-          image: AssetsPath.diceIcon, name: StringManager.diceGame.tr(),
-      onTap: (){
+          image: AssetsPath.diceIcon,
+          name: StringManager.diceGame.tr(),
+          onTap: () {
             Navigator.pop(context);
             ZegoUIKit.instance.sendInRoomMessage(
-                "${Random().nextInt(6)}${StringManager.diceGameKey}", false);
-
-      }
-      ),
-      gamesColumn(image: AssetsPath.guessingIcon, name: StringManager.rps.tr(),onTap: (){
-        Navigator.pop(context);
-        ZegoUIKit.instance.sendInRoomMessage(
-            "${Random().nextInt(3)}${StringManager.rpsGameKey}", false);
-
-      }),
+                "${Random().nextInt(6)}", false,games:GamesInRoom.dicGame);
+          }),
+      gamesColumn(
+          image: AssetsPath.guessingIcon,
+          name: StringManager.rps.tr(),
+          onTap: () {
+            Navigator.pop(context);
+            ZegoUIKit.instance.sendInRoomMessage(
+                "${Random().nextInt(3)}", false,games:GamesInRoom.rpsGame);
+          }),
       gamesColumn(
           image: AssetsPath.luckyNumberIcon,
           name: StringManager.luckyNumber.tr()),
       gamesColumn(
-          image: AssetsPath.lotteryIcon, name: StringManager.luckyPull.tr()),
-
+          image: AssetsPath.lotteryIcon,
+          name: StringManager.luckyPull.tr(),
+          onTap: () {
+            Navigator.pop(context);
+            bottomDailog(context: context, widget: const LuckyDrawGameScreen());
+          }),
       gamesColumn(
-          image: AssetsPath.turntableIcon, name: StringManager.turntable.tr()),
+          image: AssetsPath.turntableIcon,
+          name: StringManager.turntable.tr(),
+          onTap: () {
+            Navigator.pop(context);
+            bottomDailog(context: context, widget: const SpinWheelGameScreen());
+          }),
     ];
     return Container(
       height: ConfigSize.screenHeight! * .35,

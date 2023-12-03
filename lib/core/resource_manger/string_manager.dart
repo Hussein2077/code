@@ -4,10 +4,6 @@ class StringManager {
   static const int versionApp = 50;
   static const String androidPlatform = 'Android';
   static const String iOSPlatform = 'IOS';
-//keys
-  static const String diceGameKey='DicGameSVGA@#%';
-  static const String rpsGameKey='BrickPaperGameSVGA@#%';
-
   //updates
   static const String updateApp = 'Update TikChat APP';
   static const String updateText = "Tik Chat recommends that you update to the latest version You can keep enjoy the app while downloading the update";
