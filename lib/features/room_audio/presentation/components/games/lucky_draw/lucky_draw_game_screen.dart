@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/selection_widget.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
@@ -13,7 +13,7 @@ class LuckyDrawGameScreen extends StatefulWidget {
   @override
   State<LuckyDrawGameScreen> createState() => _LuckyDrawGameScreenState();
 
-  static Map<int,SelecteObject>  userSelected = {};
+  static Map<int,SelecteUsers>  userSelected = {};
 }
 
 class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
@@ -27,6 +27,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
   @override
   void initState() {
     LuckyDrawGameScreen.userSelected.clear();
+    print(RoomScreen.userOnMics.toString());
     super.initState();
   }
 
@@ -80,22 +81,29 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
 
                             if(index == 0){
 
-                              for(int i =0 ; i < GiftUser.userOnMicsForGifts.length; i++) {
+                              for(int i =0 ; i < RoomScreen.userOnMics.value.length; i++) {
                                 LuckyDrawGameScreen.userSelected.putIfAbsent(i,
-                                        () => SelecteObject(
-                                            userId: GiftUser.userOnMicsForGifts[i]?.id ?? "",
-                                            selected: true));
+                                        () => SelecteUsers(
+                                          userId: RoomScreen.userOnMics.value[i]?.id ?? "",
+                                          selected: true,
+                                          name: RoomScreen.userOnMics.value[i]?.name?? "",
+                                          image: RoomScreen.userOnMics.value[i]?.inRoomAttributes.value['img']?? "",
+                                        ),
+                                );
 
                               }
 
                             } else{
 
                               for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteObject(userId: ZegoUIKit().getAllUsers()[i].id, selected: true)) ;
+                                LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteUsers(
+                                    userId: ZegoUIKit().getAllUsers()[i].id,
+                                    selected: true,
+                                    name: ZegoUIKit().getAllUsers()[i].name,
+                                    image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
+                                ),
+                                );
                               }
-
-                              //ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "
-
                             }
 
                             setState(() {
@@ -151,7 +159,8 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
               InkWell(
                 onTap: (){
                   if(selected1 != -1 && selected2 != -1){
-                    ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
+                    ZegoUIKit.instance.sendInRoomMessage("lucky draw", false);
+                    Navigator.pop(context);
                   }else{
 
                   }
@@ -170,4 +179,12 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
       ),
     );
   }
+}
+
+class SelecteUsers {
+  final String userId ;
+  final String image ;
+  final String name ;
+  final bool selected ;
+  const SelecteUsers({required this.userId, required this.image, required this.name, required this.selected});
 }

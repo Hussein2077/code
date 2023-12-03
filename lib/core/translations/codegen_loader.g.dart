@@ -477,6 +477,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.changeDollars: 'تبديل الدولارات لنفسك',
     StringManager.spin: 'لف العجله',
     StringManager.end: 'انهاء',
+    StringManager.result: 'النتيجه',
     StringManager.pleseSelectUser: 'الرجاء اختيار المستخدم',
   };
 

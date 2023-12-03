@@ -526,6 +526,7 @@ class StringManager {
   static const String notChargeToAgancy = "You can only withdraw dollars for yourself or a shipping agent.";
   static const String spin = "Spin The Wheel";
   static const String end = "End";
+  static const String result = "Result";
   static const String pleseSelectUser = "Please Select User";
 
   static Map<int, bool> userType = {
