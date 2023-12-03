@@ -81,17 +81,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
               },
               child: Column(
                 children: [
-                  SizedBox(
-                    height: ConfigSize.defaultSize!,
-                  ),
-                  Icon(
-                    Icons.games,
-                    size: ConfigSize.defaultSize! * 4,
-                    color: Colors.redAccent,
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize!,
-                  ),
+                 Image.asset(AssetsPath.activityGamesIcon,scale: 2.1,),
                   Text(StringManager.games.tr(),
                       style: TextStyle(
                           fontSize: ConfigSize.defaultSize! + 2,
