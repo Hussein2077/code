@@ -303,6 +303,7 @@ class AssetsPath {
   static const String lotteryIcon = "$pathIcon/lottery_icon.png";
   static const String luckyNumberIcon = "$pathIcon/lucky_number_icon.png";
   static const String turntableIcon = "$pathIcon/turntable_icon.png";
+  static const String activityGamesIcon = "$pathIcon/games_icon.png";
 
 
 

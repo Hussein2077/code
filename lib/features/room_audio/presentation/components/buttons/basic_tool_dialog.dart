@@ -14,7 +14,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/actitvity_games_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/actitvity_games_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
@@ -67,40 +67,30 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.pop(context);
-            //    bottomDailog(
-            //         context: context,
-            //          widget: Padding(
-            //            padding:   EdgeInsets.only(bottom: ConfigSize.defaultSize!*7),
-            //            child: const ActivityGamesDialog(),
-            //          ),
-            //       );
-            //
-            //   },
-            //   child: Column(
-            //     children: [
-            //       SizedBox(
-            //         height: ConfigSize.defaultSize!,
-            //       ),
-            //       Icon(
-            //         Icons.games,
-            //         size: ConfigSize.defaultSize! * 4,
-            //         color: Colors.redAccent,
-            //       ),
-            //       SizedBox(
-            //         height: ConfigSize.defaultSize!,
-            //       ),
-            //       Text(StringManager.games.tr(),
-            //           style: TextStyle(
-            //               fontSize: ConfigSize.defaultSize! + 2,
-            //               color: Colors.black,
-            //               fontStyle: FontStyle.italic,
-            //               fontWeight: FontWeight.w600))
-            //     ],
-            //   ),
-            // ),
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+               bottomDailog(
+                    context: context,
+                     widget: Padding(
+                       padding:   EdgeInsets.only(bottom: ConfigSize.defaultSize!*7),
+                       child: const ActivityGamesDialog(),
+                     ),
+                  );
+
+              },
+              child: Column(
+                children: [
+                 Image.asset(AssetsPath.activityGamesIcon,scale: 2.1,),
+                  Text(StringManager.games.tr(),
+                      style: TextStyle(
+                          fontSize: ConfigSize.defaultSize! + 2,
+                          color: Colors.black,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w600))
+                ],
+              ),
+            ),
             InkWell(
               onTap: () {
                 Navigator.pop(context);

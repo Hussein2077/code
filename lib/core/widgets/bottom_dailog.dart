@@ -16,14 +16,16 @@ Future<void> bottomDailog({
         return fromBottom(animation, secondaryAnimation, child);
       },
       pageBuilder: (context, animation, secondaryAnimation) {
-        return Align(
-          alignment: const Alignment(0, 1),
-          child: SizedBox(
-            height: height,
+        return SafeArea(
+          child: Align(
+            alignment: const Alignment(0, 1),
+            child: SizedBox(
+              height: height,
 
-            child: Material(
-              type: MaterialType.transparency,
-              child: widget,
+              child: Material(
+                type: MaterialType.transparency,
+                child: widget,
+              ),
             ),
           ),
         );
