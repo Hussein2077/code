@@ -31,58 +31,62 @@ class _InputWidgetState extends State<InputWidget> {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: ConfigSize.defaultSize! * 3,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFieldWidget(
-                          onChanged: (v) {
-                            setState(() {
-                            });
-                          },
-                          onSubmitted: (text){
-                            SpinWheelGameScreen.peoples.add(text);
-                          },
-                          maxLines: 1,
-                          hintColor: const Color.fromRGBO(149, 159, 225, 1),
-                          hintText: StringManager.add.tr(),
-                          controller: controller),
-                    ),
-                    if(widget.index > 1) Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: InkWell(
-                        onTap: (){
-                          print(widget.numberOfInputs);
-                          widget.numberOfInputs.remove(widget.numberOfInputs[widget.index]);
-                          SpinWheelGameScreen.updateList.value += 1;
-                          print(widget.numberOfInputs);
-                        },
-                        child: Image.asset(AssetsPath.spinWheelGameDeleteIcon, scale: .8,),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // SizedBox(
+              //   height: ConfigSize.defaultSize! * 3,
+              //   child: Row(
+              //     children: [
+              //       Text(StringManager.chooseContent.tr(), style: const TextStyle(color: Color.fromRGBO(149, 159, 225, 1)),),
+              //
+              //
+              //     ],
+              //   ),
+              // ),
               SizedBox(height: ConfigSize.defaultSize!,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
+                  Row(crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Icon(Icons.edit, color: Color.fromRGBO(149, 159, 225, 1), size: 20,),
                       SizedBox(width: ConfigSize.defaultSize! / 2,),
-                      Text(StringManager.chooseContent.tr(), style: const TextStyle(color: Color.fromRGBO(149, 159, 225, 1)),),
+                      SizedBox(
+                        width:widget.index > 1?ConfigSize.screenWidth!*0.65:ConfigSize.screenWidth!*0.75 ,
+                        height: ConfigSize.screenHeight!*0.05,
+                        child: TextFieldWidget(
+                          maxLength: 20,
+                            onChanged: (v) {
+                              setState(() {
+                              });
+                            },
+                            onSubmitted: (text){
+                              SpinWheelGameScreen.peoples.add(text);
+                            },
+                            maxLines: 1,
+                            hintColor: const Color.fromRGBO(149, 159, 225, 1),
+                            hintText: StringManager.chooseContent.tr(),
+                            controller: controller),
+                      ),
+                      if(widget.index > 1) Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: InkWell(
+                          onTap: (){
+                            widget.numberOfInputs.remove(widget.numberOfInputs[widget.index]);
+                            SpinWheelGameScreen.updateList.value += 1;
+                          },
+                          child: Image.asset(AssetsPath.spinWheelGameDeleteIcon, scale: .8,),
+                        ),
+                      ),
                     ],
                   ),
 
-                  Row(
-                    children: [
-                      Text(controller.text.length.toString(), style: const TextStyle(color: Colors.white),),
-                      const Text("/20", style: TextStyle(color: Color.fromRGBO(149, 159, 225, 1)),),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Text(controller.text.length.toString(), style: const TextStyle(color: Colors.white),),
+                  //     const Text("/20", style: TextStyle(color: Color.fromRGBO(149, 159, 225, 1)),),
+                  //   ],
+                  // ),
 
                 ],
               ),
