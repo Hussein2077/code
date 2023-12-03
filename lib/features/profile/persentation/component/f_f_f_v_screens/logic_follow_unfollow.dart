@@ -27,17 +27,13 @@ class LogicFollowUnfollow {
   static void followUnfollowController(
 
       int userId, bool isFollow) {
-    log('4');
-    log('44444${userId}');
 
 
     if (isFollow) {
-      log('5555${userId}');
 
       LogicFollowUnfollow.theFollowedUsersMap[userId] = false;
       LogicFollowUnfollow.followUnfollowNotifier.value++;
     } else {
-      log('66666${userId}');
 
       LogicFollowUnfollow.theFollowedUsersMap[userId] = true;
       LogicFollowUnfollow.followUnfollowNotifier.value++;
