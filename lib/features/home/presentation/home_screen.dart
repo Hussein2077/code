@@ -95,18 +95,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScreenColorBackGround(
-        color: ColorManager.mainColorList,
-        child: Column(
-          children: [
-            SizedBox(
-              height: ConfigSize.defaultSize! * 1.2,
-            ),
-            HomeHeader(
-              liveController: liveController,
-            ),
-            HomeBody(liveController: liveController),
-          ],
+      body: SafeArea(
+        child: ScreenColorBackGround(
+          color: ColorManager.mainColorList,
+          child: Column(
+            children: [
+              SizedBox(
+                height: ConfigSize.defaultSize! * 1.2,
+              ),
+              HomeHeader(
+                liveController: liveController,
+              ),
+              HomeBody(liveController: liveController),
+            ],
+          ),
         ),
       ),
       floatingActionButton: ValueListenableBuilder<bool>(

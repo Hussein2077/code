@@ -479,6 +479,12 @@ class CodegenLoader extends AssetLoader {
     StringManager.end: 'انهاء',
     StringManager.result: 'النتيجه',
     StringManager.pleseSelectUser: 'الرجاء اختيار المستخدم',
+    StringManager.diceGame: 'ألنرد',
+    StringManager.rps: 'حجر ورقة مقص',
+    StringManager.luckyNumber: 'رقم الحظ',
+    StringManager.luckyPull: 'سحب الحظ',
+    StringManager.turntable: 'روليت عشوائي',
+
   };
 
   static const Map<String, dynamic> tr = {

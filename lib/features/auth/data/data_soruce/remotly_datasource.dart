@@ -23,7 +23,6 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart'
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:huawei_account/huawei_account.dart';
 
 
 abstract class BaseRemotlyDataSource {
@@ -34,7 +33,7 @@ abstract class BaseRemotlyDataSource {
   Future<MyDataModel> sigInWithFacebook();
   Future<AuthWithAppleModel> sigInWithApple();
   Future<AuthWithGoogleModel> sigInWithGoogle();
-  Future<AuthWithHuaweiModel> sigInWithHuawei();
+  // Future<AuthWithHuaweiModel> sigInWithHuawei();
   Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
   Future<String> privacyPolicy();
@@ -311,53 +310,53 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     
   }
 
-  @override
-  Future<AuthWithHuaweiModel> sigInWithHuawei() async{
-    final devicedata = await DioHelper().initPlatformState();
-    Map<String, String> headers = await DioHelper().header();
-     AccountAuthService _authService;
-    final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
-      ..setProfile()
-      ..setAccessToken();
-    final AccountAuthParams authParams = authParamsHelper.createParams();
-    _authService = AccountAuthManager.getService(authParams);
-     try {
-       final AuthAccount account = await _authService.signIn();
-
-       final body =    {
-         //todo change that
-         ConstentApi.type: "google",
-         ConstentApi.name: account.displayName,
-         "google_id": account.idToken,
-         'device_token':devicedata
-       };
-       try{
-
-         final response = await Dio().post(
-           ConstentApi.loginUrl,
-           data: body,
-           options: Options(
-             headers: headers,
-           ),
-         );
-
-         Map<String, dynamic> resultData = response.data;
-
-         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
-
-         Methods.instance.saveUserToken(authToken: userData.authToken);
-
-         return AuthWithHuaweiModel(apiUserData:userData , userData:account  );
-       }on DioError catch (e){
-         throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithGoogle");
-       }
-
-
-     } on Exception catch (e) {
-       throw SiginGoogleException();
-     }
-
-  }
+  // @override
+  // Future<AuthWithHuaweiModel> sigInWithHuawei() async{
+  //   final devicedata = await DioHelper().initPlatformState();
+  //   Map<String, String> headers = await DioHelper().header();
+  //    AccountAuthService _authService;
+  //   final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
+  //     ..setProfile()
+  //     ..setAccessToken();
+  //   final AccountAuthParams authParams = authParamsHelper.createParams();
+  //   _authService = AccountAuthManager.getService(authParams);
+  //    try {
+  //      final AuthAccount account = await _authService.signIn();
+  //
+  //      final body =    {
+  //        //todo change that
+  //        ConstentApi.type: "google",
+  //        ConstentApi.name: account.displayName,
+  //        "google_id": account.idToken,
+  //        'device_token':devicedata
+  //      };
+  //      try{
+  //
+  //        final response = await Dio().post(
+  //          ConstentApi.loginUrl,
+  //          data: body,
+  //          options: Options(
+  //            headers: headers,
+  //          ),
+  //        );
+  //
+  //        Map<String, dynamic> resultData = response.data;
+  //
+  //        MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+  //
+  //        Methods.instance.saveUserToken(authToken: userData.authToken);
+  //
+  //        return AuthWithHuaweiModel(apiUserData:userData , userData:account  );
+  //      }on DioError catch (e){
+  //        throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithGoogle");
+  //      }
+  //
+  //
+  //    } on Exception catch (e) {
+  //      throw SiginGoogleException();
+  //    }
+  //
+  // }
   @override
   Future<String> forgetPassword(forgetPasswordPramiter) async{
   final body = {

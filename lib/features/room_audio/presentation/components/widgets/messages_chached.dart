@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
@@ -55,8 +56,8 @@ class MessagesChached extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool changeTheme = message.changeTheme ?? false;
-    bool isGame = message.message == '${message.message[0]}DicGameSVGA@#%' ||
-        message.message == '${message.message[0]}BrickPaperGameSVGA@#%';
+    bool isGame = message.message == '${message.message[0]}${StringManager.diceGameKey}' ||
+        message.message == '${message.message[0]}${StringManager.rpsGameKey}';
 
     List<String> words = message.message.split(" ");
     for (String word in words) {
@@ -192,7 +193,7 @@ class MessagesChached extends StatelessWidget {
                   height: ConfigSize.defaultSize! * 5,
                   width: ConfigSize.defaultSize! * 5,
                   child:
-                      message.message == '${message.message[0]}DicGameSVGA@#%'
+                      message.message == '${message.message[0]}${StringManager.diceGameKey}'
                           ? DiceGame(
                               randomNum: int.parse(message.message[0]),
                             )
