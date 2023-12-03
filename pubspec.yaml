@@ -146,7 +146,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - shorebird.yaml
+
 
    
 
