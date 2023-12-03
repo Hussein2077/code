@@ -190,19 +190,7 @@ class MessagesChached extends StatelessWidget {
               ],
             ),
             if (isGame)
-              message.games == GamesInRoom.luckyDrawGame
-                  ? CommentBody(room: room)
-                  : SizedBox(
-                      height: ConfigSize.defaultSize! * 5,
-                      width: ConfigSize.defaultSize! * 5,
-                      child: message.games == GamesInRoom.dicGame
-                          ? DiceGame(
-                              randomNum: int.parse(message.message[0]),
-                            )
-                          : message.games == GamesInRoom.rpsGame
-                              ? BrickPaperScissorsGame(
-                                  randomNum: int.parse(message.message[0]))
-                              : const SizedBox()),
+              isGamesWidget(message),
             (bubble == "" && changeTheme == false && !isGame)
                 ? Padding(
                     padding: EdgeInsets.only(
@@ -294,5 +282,29 @@ class MessagesChached extends StatelessWidget {
         ),
       ),
     );
+  }
+  Widget isGamesWidget(ZegoInRoomMessage message){
+    switch (message.games) {
+      case GamesInRoom.luckyDrawGame:
+        return CommentBody(room: room);
+      case GamesInRoom.dicGame:
+        return SizedBox(
+          height: ConfigSize.defaultSize! * 5,
+          width: ConfigSize.defaultSize! * 5,
+          child: DiceGame(
+            randomNum: int.parse(message.message[0]),
+          ),
+        );
+      case GamesInRoom.rpsGame:
+        return SizedBox(
+          height: ConfigSize.defaultSize! * 5,
+          width: ConfigSize.defaultSize! * 5,
+          child: BrickPaperScissorsGame(
+            randomNum: int.parse(message.message[0]),
+          ),
+        );
+      default:
+        return const SizedBox();
+    }
   }
 }
