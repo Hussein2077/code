@@ -20,7 +20,7 @@ class MainButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width ?? MediaQuery.of(context).size.width - 50,
-        height: height ?? ConfigSize.defaultSize! * 5.5,
+        height: height ??  ConfigSize.defaultSize! * 5.5,
         decoration: BoxDecoration(
           color: buttonColornotList,
             gradient: buttonColornotList==null? LinearGradient(colors:buttonColor?? ColorManager.mainColorList):null,
