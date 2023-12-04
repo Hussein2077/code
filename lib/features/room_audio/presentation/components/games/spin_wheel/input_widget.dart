@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -22,79 +20,66 @@ class InputWidget extends StatefulWidget {
 class _InputWidgetState extends State<InputWidget> {
 
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: ConfigSize.defaultSize!*8,
+margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 0.5),
         decoration: BoxDecoration(
           color: const Color.fromRGBO(55, 47, 148, .84),
           border: Border.all(color: const Color.fromRGBO(149, 159, 225, 1)),
-          borderRadius: BorderRadius.circular(13),
+          borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.3),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.only(top:ConfigSize.defaultSize!*0.5),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: ConfigSize.defaultSize! * 3,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFieldWidget(
-                          onChanged: (v) {
-                            log("ءءءءءءءءءءءءءءءءءءء");
-                            SpinWheelGameScreen.textFieldValues.putIfAbsent(widget.index!, () => v);
+                width: ConfigSize.screenWidth! * 0.75,
+                height: ConfigSize.screenHeight! * 0.05,
+                child: TextFieldWidget(
+                    suffixIcon: widget.index! > 1
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: InkWell(
+                              onTap: () {
+                                SpinWheelGameScreen.textFieldWidget
+                                    .removeAt(widget.index!);
+                                SpinWheelGameScreen.textFieldValues =
+                                    removeFromMap<String>(
+                                        SpinWheelGameScreen.textFieldValues,
+                                        widget.index!);
+                                SpinWheelGameScreen.updateList.value += 1;
+                              },
+                              child: Image.asset(
+                                AssetsPath.spinWheelGameDeleteIcon,
+                                scale: .8,
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                    prefixIcon: const Icon(Icons.edit,
+                        color: Color.fromRGBO(149, 159, 225, 1)),
+                    maxLength: 20,
+                    onChanged: (v) {
+                      SpinWheelGameScreen.textFieldValues
+                          .putIfAbsent(widget.index!, () => v);
 
-                            SpinWheelGameScreen.textFieldValues.update(widget.index!, (value) => v) ;
-                            setState(() {
-                            });
-                          },
-                          onSubmitted: (text){
-                            SpinWheelGameScreen.peoples.add(text);
-                          },
-                          maxLines: 1,
-                          hintColor: const Color.fromRGBO(149, 159, 225, 1),
-                          hintText: StringManager.add.tr(),
-                          controller: widget.controller!),
-                    ),
-                    if(widget.index! > 1) Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: InkWell(
-                        onTap: (){
-                           SpinWheelGameScreen.textFieldWidget.removeAt(widget.index!);
-                           SpinWheelGameScreen.textFieldValues = removeFromMap<String>(SpinWheelGameScreen.textFieldValues, widget.index!);
-                           SpinWheelGameScreen.updateList.value += 1;
-                        },
-                        child: Image.asset(AssetsPath.spinWheelGameDeleteIcon, scale: .8,),
-                      ),
-                    ),
-                  ],
-                ),
+                      SpinWheelGameScreen.textFieldValues
+                          .update(widget.index!, (value) => v);
+                      setState(() {});
+                    },
+                    onSubmitted: (text) {
+                      SpinWheelGameScreen.peoples.add(text);
+                    },
+                    maxLines: 1,
+                    hintColor: const Color.fromRGBO(149, 159, 225, 1),
+                    hintText: StringManager.chooseContent.tr(),
+                    controller: widget.controller!),
               ),
-              SizedBox(height: ConfigSize.defaultSize!,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.edit, color: Color.fromRGBO(149, 159, 225, 1), size: 20,),
-                      SizedBox(width: ConfigSize.defaultSize! / 2,),
-                      Text(StringManager.chooseContent.tr(), style: const TextStyle(color: Color.fromRGBO(149, 159, 225, 1)),),
-                    ],
-                  ),
 
-                  Row(
-                    children: [
-                      Text(widget.controller!.text.length.toString(), style: const TextStyle(color: Colors.white),),
-                      const Text("/20", style: TextStyle(color: Color.fromRGBO(149, 159, 225, 1)),),
-                    ],
-                  ),
-
-                ],
-              ),
             ],
           ),
         )
@@ -103,8 +88,6 @@ class _InputWidgetState extends State<InputWidget> {
 
 
   Map<int, T> removeFromMap<T>(Map<int, T> map, int index) {
-    log(map.toString()+"xxxxxxxxx");
-    log(index.toString() +"xxxxxxxxxx");
     var list = map.entries.map((e) => e.value).toList();
     list.removeAt(index);
     var newIndex = 0;

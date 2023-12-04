@@ -112,12 +112,13 @@ class UserInfoRow extends StatelessWidget {
                               fontSize: ConfigSize.defaultSize! * 1.5,
                               country: userData.country?.flag??""),
                         SizedBox(width: ConfigSize.defaultSize! * 0.2),
-                        if (userData.level!.receiverImage != '')
+                        if (userData.level!.senderImage != '')
                           LevelContainer(
                             fit: BoxFit.fill,
                             width: ConfigSize.defaultSize! * 4,
                             height: ConfigSize.defaultSize! * 1.5,
-                            image: userData.level!.receiverImage!,
+                            image: userData.level!.senderImage
+                            !,
                           ),
                         if (userData.vip1!.level != 0)
                           AristocracyLevel(

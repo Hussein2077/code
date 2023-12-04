@@ -17,7 +17,7 @@ class SpinWheelGameScreen extends StatefulWidget {
   State<SpinWheelGameScreen> createState() => _SpinWheelGameScreenState();
   static ValueNotifier<int> updateList = ValueNotifier(0);
   static List<String> peoples = [];
-static  Map<int , String> textFieldValues = {};
+  static  Map<int , String> textFieldValues = {};
 
   static List<Widget> textFieldWidget = [InputWidget() , InputWidget()];
 }
@@ -116,10 +116,10 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset(AssetsPath.spinWheelGameExiteIcon, scale: 1,),
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(AssetsPath.spinWheelGameExiteIcon, scale: 1,),
                   ),
                 ),
               ],
@@ -127,77 +127,77 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
           ),
 
           Positioned(
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  SizedBox(
-                    width: ConfigSize.screenWidth,
-                    height: ConfigSize.defaultSize! * 11,
-                  ),
-                  Container(
-                      width: ConfigSize.screenWidth,
-                      height: ConfigSize.defaultSize! * 9,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(AssetsPath.spinWheelGameBottonImage),
-                          fit: BoxFit.cover
-                        ),
-                      ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                            width: ConfigSize.screenWidth! * .55,
-                            child: Text(StringManager.removeResult.tr(), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17),overflow:  TextOverflow.fade,),
-                        ),
-
-                        SizedBox(
-                          height: ConfigSize.defaultSize! * 10,
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: (){
-                                  Navigator.pop(context);
-                                  bottomDailog(
-                                      context: context,
-                                      widget: SpinScreen(list: SpinWheelGameScreen.peoples, isActive: isActive,));
-                                },
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset(AssetsPath.spinWheelGameBtnIcon),
-                                    Text(StringManager.save.tr(), style: TextStyle(color: const Color.fromRGBO(149, 72, 72, 1), fontWeight: FontWeight.w600, fontSize: ConfigSize.defaultSize! * 2),),
-                                  ],
-                                ),
-                              ),
-
-                              Switch(
-                                  activeColor: ColorManager.mainColor,
-                                  value: isActive,
-                                  onChanged: (value) {
-                                    if (isActive == false) {
-                                        isActive = true;
-                                    } else {
-                                        isActive = false;
-                                    }
-                                    setState(() {
-
-                                    });
-                                  },
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ],
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                SizedBox(
+                  width: ConfigSize.screenWidth,
+                  height: ConfigSize.defaultSize! * 11,
+                ),
+                Container(
+                  width: ConfigSize.screenWidth,
+                  height: ConfigSize.defaultSize! * 9,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(AssetsPath.spinWheelGameBottonImage),
+                        fit: BoxFit.cover
                     ),
                   ),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        width: ConfigSize.screenWidth! * .55,
+                        child: Text(StringManager.removeResult.tr(), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17),overflow:  TextOverflow.fade,),
+                      ),
+
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 10,
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onTap: (){
+                                Navigator.pop(context);
+                                bottomDailog(
+                                    context: context,
+                                    widget: SpinScreen(list: SpinWheelGameScreen.peoples, isActive: isActive,));
+                              },
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Image.asset(AssetsPath.spinWheelGameBtnIcon),
+                                  Text(StringManager.save.tr(), style: TextStyle(color: const Color.fromRGBO(149, 72, 72, 1), fontWeight: FontWeight.w600, fontSize: ConfigSize.defaultSize! * 2),),
+                                ],
+                              ),
+                            ),
+
+                            Switch(
+                              activeColor: ColorManager.mainColor,
+                              value: isActive,
+                              onChanged: (value) {
+                                if (isActive == false) {
+                                  isActive = true;
+                                } else {
+                                  isActive = false;
+                                }
+                                setState(() {
+
+                                });
+                              },
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
 
         ],

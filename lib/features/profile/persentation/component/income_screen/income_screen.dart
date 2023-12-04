@@ -63,25 +63,27 @@ class _IncomeScreenState extends State<IncomeScreen> {
                   title: StringManager.joinRequests.tr(),
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                  if ((state.myDataModel.myAgencyModel!.name!="")&&(state.myDataModel.myType ==1))
-                Column(
-                  children: [
-                    MainButton(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.cashWithdrawal);
-                      },
-                      title: StringManager.withdrawal.tr(),
-                    ),
-                    SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                    MainButton(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.fixedTargetScreen, arguments: state.myDataModel);
-                      },
-                      title: StringManager.fixedTarget.tr(),
-                    ),
-                    SizedBox(height: ConfigSize.defaultSize! / 0.4),
-
-                  ],
+                  if ((state.myDataModel.myAgencyModel!.name != "") &&
+                      ((state.myDataModel.myType == 1) ||
+                          ((state.myDataModel.myType == 6) ||
+                              ((state.myDataModel.myType == 2)))))
+                    Column(
+                      children: [
+                        MainButton(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.cashWithdrawal);
+                          },
+                          title: StringManager.withdrawal.tr(),
+                        ),
+                        SizedBox(height: ConfigSize.defaultSize! / 0.4),
+                        // MainButton(
+                        //   onTap: () {
+                        //     Navigator.pushNamed(context, Routes.fixedTargetScreen, arguments: state.myDataModel);
+                        //   },
+                        //   title: StringManager.fixedTarget.tr(),
+                        // ),
+                        // SizedBox(height: ConfigSize.defaultSize! / 0.4),
+                      ],
                 ),
 
                  // if (state.myDataModel.myAgencyModel!.name=="")

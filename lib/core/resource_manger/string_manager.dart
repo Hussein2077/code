@@ -538,6 +538,14 @@ class StringManager {
   static const String luckyPull = "lucky pull";
   static const String turntable = "turntable";
 
+  ///List Type Users
+  //0 normal user,
+  //مضيف 1
+  //وكيل مضيفين 2
+  //وكيل شحن 3
+  //وكيل شحن و وكيل مضيفين 4
+  //اداري 5
+  //6  مضيف و وكيل شحن
   static Map<int, bool> userType = {
     0: false,
     1: false,

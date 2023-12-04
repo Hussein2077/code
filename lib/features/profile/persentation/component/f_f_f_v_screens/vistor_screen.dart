@@ -84,12 +84,16 @@ class _VistorScreenState extends State<VistorScreen> {
                               state.data![index].id!,
                                   () => state.data![index].isFollow!);
                           return UserInfoRow(
-                            idOrNot: Text(
-                              " ${Methods.instance.formatDateTime(dateTime: state.data![index].visitTime ?? '', locale: context.locale.languageCode)}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(fontSize: 10),
+                            idOrNot: SizedBox(
+                              width: ConfigSize.defaultSize!*10,
+
+                              child: Text(
+                                " ${Methods.instance.formatDateTime(dateTime: state.data![index].visitTime ?? '', locale: context.locale.languageCode)}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(fontSize: 10,overflow: TextOverflow.fade),
+                              ),
                             ),
                             userData: state.data![index],
                             endIcon: ValueListenableBuilder(
