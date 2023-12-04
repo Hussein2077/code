@@ -42,9 +42,12 @@ Map<String, dynamic> productsMap = {
   Future<void> _queryProducts() async {
     final ProductDetailsResponse response = await _connection.queryProductDetails(_productIds);
     if (response.error == null) {
-        for(int i = 0; i < response.productDetails.length; i++){
+      print(response.productDetails.length);
+      for(int i = 0; i < response.productDetails.length; i++){
           productsMap[response.productDetails[i].id] = response.productDetails[i];
-        }
+      }
+    }else{
+      print(response.error!.message);
     }
   }
 

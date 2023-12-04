@@ -4,6 +4,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart';
 
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
+import 'package:tik_chat_v2/features/auth/data/model/auth_with_huawei_model.dart';
 
 abstract class SignInWithPlatformState extends Equatable {
   const SignInWithPlatformState();
@@ -47,7 +48,6 @@ final AuthWithGoogleModel userData ;
 class SiginWithAppleSuccesMessageState extends SignInWithPlatformState{
   final String succesMessage ;
   final AuthWithAppleModel userModel ;
-
   const SiginWithAppleSuccesMessageState({ required this.userModel, required this.succesMessage});
 
 }
@@ -56,4 +56,15 @@ class SiginWithAppleErrorMessageState extends SignInWithPlatformState{
 
   const SiginWithAppleErrorMessageState({required this.errorMessage});
 
+}
+
+class SiginWithHuaweiSuccesMessageState extends SignInWithPlatformState{
+  final String succesMessage ;
+  final AuthWithHuaweiModel userModel ;
+  const SiginWithHuaweiSuccesMessageState({ required this.userModel, required this.succesMessage});
+}
+
+class SiginWithHuaweiErrorMessageState extends SignInWithPlatformState{
+  final String errorMessage ;
+  const SiginWithHuaweiErrorMessageState({required this.errorMessage});
 }
