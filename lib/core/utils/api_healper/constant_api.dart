@@ -376,5 +376,6 @@ class ConstentApi {
   }
 
   static String activeNotification = "$baseUrl/reals/user-followers";
+  static String getFixedTargetReport = "$baseUrl/reals/user-followers";
 
 }

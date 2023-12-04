@@ -24,6 +24,7 @@ import 'package:tik_chat_v2/features/profile/data/model/charge_to_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/fixed_target_report.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
@@ -1002,6 +1003,18 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));
     }
+  }
+
+  @override
+  Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport() async{
+
+    try {
+      final result = await baseRemotlyDataSourceProfile.getFixedTargetReport();
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+
   }
 
 }

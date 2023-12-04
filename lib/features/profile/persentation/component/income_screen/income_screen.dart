@@ -64,13 +64,26 @@ class _IncomeScreenState extends State<IncomeScreen> {
                 ),
                 SizedBox(height: ConfigSize.defaultSize! / 0.4),
                   if ((state.myDataModel.myAgencyModel!.name!="")&&(state.myDataModel.myType ==1))
-                MainButton(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.cashWithdrawal);
-                  },
-                  title: StringManager.withdrawal.tr(),
+                Column(
+                  children: [
+                    MainButton(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.cashWithdrawal);
+                      },
+                      title: StringManager.withdrawal.tr(),
+                    ),
+                    SizedBox(height: ConfigSize.defaultSize! / 0.4),
+                    MainButton(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.fixedTargetScreen, arguments: state.myDataModel);
+                      },
+                      title: StringManager.fixedTarget.tr(),
+                    ),
+                    SizedBox(height: ConfigSize.defaultSize! / 0.4),
+
+                  ],
                 ),
-                SizedBox(height: ConfigSize.defaultSize! / 0.4),
+
                  // if (state.myDataModel.myAgencyModel!.name=="")
                   if(state.myDataModel.myType!=1)
                 MainButton(

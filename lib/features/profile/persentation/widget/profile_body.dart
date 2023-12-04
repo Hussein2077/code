@@ -28,7 +28,7 @@ class ProfileBody extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
-         SizedBox(height: ConfigSize.defaultSize!*1.5,),
+         SizedBox(height: ConfigSize.defaultSize!*3,),
             UserInfoRow(
               imageSize: ConfigSize.defaultSize! * 6,
               underName: IdWithCopyIcon(userData: myData),

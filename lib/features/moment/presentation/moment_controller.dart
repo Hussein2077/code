@@ -69,7 +69,6 @@ class MomentController {
       BlocProvider.of<GetMomentBloc>(context).add(LocalGiftMoment(
           giftsNum: MomentBottomBarState.giftsNum,
           momentId: MomentBottomBarState.selectedMoment.toString()));
-      // (momentId:MomentBottomBarState.selectedMoment.toString() ));
     } else if (MomentBottomBarState.momentType == MomentType.likedMoment) {
       BlocProvider.of<GetMomentILikeItBloc>(context).add(LocalGiftILikedMoment(
           giftsNum: MomentBottomBarState.giftsNum,

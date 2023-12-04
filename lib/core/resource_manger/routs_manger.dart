@@ -46,6 +46,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/Instructions_agency_screen/instruction.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/all_shipping_agents/all_shipping_agents_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/exchange_for_gold_screen/exchange_for_gold.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/fixed_target_repoerts/fixed_target_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/live_report_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/details_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/withdrawal_screen.dart';
@@ -126,6 +127,7 @@ class Routes {
   static const String otpBindScreen = "/otpBindScreen";
   static const String searchScreen = "/SearchScreen";
   static const String cashWithdrawal = "/cashWithdrawal";
+  static const String fixedTargetScreen = "/FixedTargetScreen";
   static const String detailsWithdrawal = "/detailsWithdrawal";
   static const String agencyScreen = "/agenceScreen";
   static const String roomScreen = "/roomScreen";
@@ -648,6 +650,11 @@ class RouteGenerator {
             settings: settings,
               builder: (_) =>  AllShippingAgent());
         }
+      case Routes.fixedTargetScreen:
+        MyDataModel myDataModel = settings.arguments as MyDataModel;
+
+        return MaterialPageRoute(
+            settings: settings,builder: (_) => FixedTargetScreen(myData:myDataModel ,));
 
 
 

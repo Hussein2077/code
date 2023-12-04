@@ -282,6 +282,9 @@ class StringManager {
   static const String diamondsEarned = "Diamonds earned";
   static const String liveReport = "live Report";
   static const String withdrawal = "Withdrawal";
+  static const String fixedTarget = "Fixed Target";
+  static const String momentTarget = "Moment Target";
+  static const String reelTarget = "Reel Target";
   static const String whatIsAgency = "What is Agency";
   static const String enterTheAgencyYouWishToJoin = 'Enter the agency you wish to join';
   static const String enterYourWhatsAppNumber = 'Enter your WhatsApp number';
@@ -349,6 +352,8 @@ class StringManager {
   static const String years = "Years";
   static const String mounth = "Mounth";
   static const String totalDaimonds = "Total Diamonds";
+  static const String daimonds = "Diamonds";
+  static const String youHaveReached = "you have reached ";
   static const String chargeCoins = "Charge Coins";
   static const String chooseTyeps = "Choose Type";
   static const String mysteriousPerson = "Anonumous Person";

@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: Column(
           children: [
             SizedBox(
-              height: ConfigSize.defaultSize! * 1.2,
+              height: ConfigSize.defaultSize! * 3.6,
             ),
             HomeHeader(
               liveController: liveController,

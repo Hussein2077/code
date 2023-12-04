@@ -32,7 +32,7 @@ abstract class BaseRemotlyDataSource {
   Future<MyDataModel> sigInWithFacebook();
   Future<AuthWithAppleModel> sigInWithApple();
   Future<AuthWithGoogleModel> sigInWithGoogle();
-  // Future<AuthWithHuaweiModel> sigInWithHuawei();
+ // Future<AuthWithHuaweiModel> sigInWithHuawei();
   Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
   Future<String> privacyPolicy();
@@ -356,7 +356,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   //    }
   //
   // }
-
   @override
   Future<String> forgetPassword(forgetPasswordPramiter) async{
   final body = {
