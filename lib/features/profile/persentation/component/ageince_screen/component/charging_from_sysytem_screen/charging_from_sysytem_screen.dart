@@ -33,8 +33,6 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
   late final TextEditingController withdrawalAmount;
   late final TextEditingController userID;
 
-
-
   @override
   void dispose() {
     searchContainerVisible = false;
@@ -53,7 +51,7 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
 
   final formGlobalKey = GlobalKey<FormState>();
 
-  String coins = " " ;
+  String coins = " ";
 
   @override
   Widget build(BuildContext context) {
@@ -110,23 +108,24 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
                     SizedBox(
                       height: ConfigSize.defaultSize! * 2.0,
                     ),
-                     BlocBuilder<MyStoreBloc, MyStoreState>(
+                    BlocBuilder<MyStoreBloc, MyStoreState>(
                       builder: (context, state) {
-                        if(state is MyStoreSucssesState){
-                          coins = state.myStore.coins.toString() ;
-      return  ContainerWithdrawal(
-                          usd:state.myStore.coins.toString(),
-                          icon:  Image.asset(AssetsPath.goldCoinIcon, scale: 8),
-                          title: StringManager.coins.tr(),
-                        );
-                        }else {
-                     return  ContainerWithdrawal(
-                          usd:coins,
-                          icon:  Image.asset(AssetsPath.goldCoinIcon, scale: 8),
-                          title: StringManager.coins.tr(),
-                        );
+                        if (state is MyStoreSucssesState) {
+                          coins = state.myStore.coins.toString();
+                          return ContainerWithdrawal(
+                            usd: state.myStore.coins.toString(),
+                            icon:
+                                Image.asset(AssetsPath.goldCoinIcon, scale: 8),
+                            title: StringManager.coins.tr(),
+                          );
+                        } else {
+                          return ContainerWithdrawal(
+                            usd: coins,
+                            icon:
+                                Image.asset(AssetsPath.goldCoinIcon, scale: 8),
+                            title: StringManager.coins.tr(),
+                          );
                         }
-
                       },
                     ),
                     SizedBox(
@@ -155,16 +154,15 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
                         type: TextInputType.number,
                         controller: userID,
                         hintText: StringManager.enterUserID.tr(),
-                        onChanged: (value){
+                        onChanged: (value) {
                           Future.delayed(const Duration(milliseconds: 1000),
-                                  () {
-                                BlocProvider.of<SearchBloc>(context)
-                                    .add(SearchEvent(keyWord: userID.text));
-                              });
+                              () {
+                            BlocProvider.of<SearchBloc>(context)
+                                .add(SearchEvent(keyWord: userID.text));
+                          });
                           setState(() {
                             searchContainerVisible = true;
                           });
-
                         },
                         onTap: () {
                           if (!searchContainerVisible) {
@@ -208,10 +206,43 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
                     const Spacer(
                       flex: 6,
                     ),
+
                     BlocBuilder<ChargeCoinForUserBloc, ChargeCoinForUserState>(
                       builder: (BuildContext context, state) {
-                        if(state is ChargeCoinForUserLoadingState){
+                        if (state is ChargeCoinForUserLoadingState) {
                           return const SizedBox();
+                        } else if (state is ChargeCoinForUserSucssesState) {
+                          return ElevatedButton(
+                            onPressed: () {
+                              if (userID.text.isEmpty) {
+                                errorToast(
+                                    context: context,
+                                    title: StringManager.pleaseEnterID.tr());
+                              } else if (withdrawalAmount.text.isEmpty) {
+                                errorToast(
+                                    context: context,
+                                    title:
+                                        StringManager.pleaseEnterquantity.tr());
+                              } else {
+                                BlocProvider.of<ChargeCoinForUserBloc>(context)
+                                    .add(ChargeCoinForUserEvent(
+                                        id: userID.text,
+                                        amount: withdrawalAmount.text));
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        ConfigSize.defaultSize! * 1.2)),
+                                backgroundColor: ColorManager.mainColor,
+                                fixedSize: Size(
+                                    MediaQuery.of(context).size.width,
+                                    ConfigSize.defaultSize! * 6.0)),
+                            child: Text(
+                              StringManager.withdrawal.tr(),
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          );
                         }else{
                           return ElevatedButton(
                             onPressed: () {
@@ -222,10 +253,13 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
                               } else if (withdrawalAmount.text.isEmpty) {
                                 errorToast(
                                     context: context,
-                                    title: StringManager.pleaseEnterquantity.tr());
+                                    title:
+                                    StringManager.pleaseEnterquantity.tr());
                               } else {
-                                BlocProvider.of<ChargeCoinForUserBloc>(context).add(ChargeCoinForUserEvent(
-                                    id: userID.text, amount: withdrawalAmount.text));
+                                BlocProvider.of<ChargeCoinForUserBloc>(context)
+                                    .add(ChargeCoinForUserEvent(
+                                    id: userID.text,
+                                    amount: withdrawalAmount.text));
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -233,7 +267,8 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
                                     borderRadius: BorderRadius.circular(
                                         ConfigSize.defaultSize! * 1.2)),
                                 backgroundColor: ColorManager.mainColor,
-                                fixedSize: Size(MediaQuery.of(context).size.width,
+                                fixedSize: Size(
+                                    MediaQuery.of(context).size.width,
                                     ConfigSize.defaultSize! * 6.0)),
                             child: Text(
                               StringManager.withdrawal.tr(),

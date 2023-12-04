@@ -62,15 +62,15 @@ class DioHelper {
                 isLoginFromAnotherAccountAndBuildFailure:
                 isLoginFromAnotherAccountAndBuildFailure = false));
 
-        return Strings.unauthorizedFailureMassage;
+        return Strings.unauthorizedFailureMassage.tr();
       case SiginGoogleFailure:
-        return Strings.signinGoogleFailureMessage;
+        return Strings.signinGoogleFailureMessage.tr();
       case SiginFacebookFailure:
-        return Strings.signinFacebookFailureMessage;
+        return Strings.signinFacebookFailureMessage.tr();
       case SiginAppleFailure:
-        return Strings.signinAppleFailureMessage;
+        return Strings.signinAppleFailureMessage.tr();
       case InternetFailure:
-        return Strings.checkYourInternet;
+        return Strings.checkYourInternet.tr();
       case AnotherAccountMessageFailure:
         Navigator.pushNamedAndRemoveUntil(
             GlobalContextService.navigatorKey.currentContext!,
@@ -79,9 +79,9 @@ class DioHelper {
             arguments: LoginPramiter(
                 isLoginFromAnotherAccountAndBuildFailure:
                 isLoginFromAnotherAccountAndBuildFailure = true));
-        return Strings.anotherAccountLoggedIn;
+        return Strings.anotherAccountLoggedIn.tr();
        case SiginHuaweiFailure:
-        return Strings.signinHuaweiFailureMessage ;
+        return Strings.signinHuaweiFailureMessage.tr() ;
       default:
         return failure.errorMessage ?? StringManager.unexcepectedError.tr();
     }

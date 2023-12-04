@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:tik_chat_v2/core/error/failures_string.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 
 class CodegenLoader extends AssetLoader {
@@ -479,6 +480,14 @@ class CodegenLoader extends AssetLoader {
     StringManager.end: 'انهاء',
     StringManager.result: 'النتيجه',
     StringManager.pleseSelectUser: 'الرجاء اختيار المستخدم',
+
+    Strings.signinGoogleFailureMessage : ' خطاء اثناء تسجيل الدخول بجوجل',
+    Strings.signinFacebookFailureMessage : 'خطاء اثناء تسجيل الدخول بفيس بوك',
+    Strings.serverFailureMessage: 'هناك خطاء في الخدمه يرجي المحاوله في وقت لاحق',
+    Strings.unauthorizedFailureMassage: 'ليس لديك حسابك',
+    Strings.unEexpectedFailureMessage: 'هناك خطاء في الخدمه يرجي المحاوله في وقت لاحق',
+    Strings.signinAppleFailureMessage : "هناك خطاء اثناء تسجيل الدخول بأبل",
+
   };
 
   static const Map<String, dynamic> tr = {
