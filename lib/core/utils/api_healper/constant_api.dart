@@ -84,7 +84,7 @@ class ConstentApi {
   static const String feedBack = "$baseUrl/tickets/open";
   static const String getGoldData = "$baseUrl/coins/list";
   static const String sentToZego = "$baseUrl/send_to_zego";
-  static const String getExtraData = "$baseUrl/images";
+
   static const  String getUsersCommenstInRoom ="$baseUrl/rooms/users";
   static const String banUserFromWriting =
       "$baseUrl/rooms/ban_user_from_writing";
@@ -134,7 +134,7 @@ class ConstentApi {
   }
 
   static const String reportReals = "$baseUrl/report";
-
+ static   String getExtraData (int type)=> "$baseUrl/images?type=$type";
   static String getMoments(
       String userId,
       String type,

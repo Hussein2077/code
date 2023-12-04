@@ -240,6 +240,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/add_admin_uc.dar
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/add_room_back_ground_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/background_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/ban_user_from_writing_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/cache_games_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/change_room_mode.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/close_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/dispose_hide_room_uc.dart';
@@ -278,6 +279,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/update_room_usec
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
@@ -523,6 +525,7 @@ class ServerLocator {
 
 
     getIt.registerFactory(() => BuyCoinsBloc(buyCoinsUseCase: getIt()));
+    getIt.registerFactory(() => CacheGamesBloc(cacheGamesUS: getIt()));
 
         getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
         getIt.registerFactory(() => GetUserReelsBloc(getUserReelUseCase: getIt()));
@@ -771,6 +774,7 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton(() => GetCarouselsUsecase(repoHome: getIt()));
     getIt.registerLazySingleton(() => GetCountryUseCase(repoHome: getIt()));
     getIt.registerLazySingleton(() => AllRoomsUsecase(repoHome: getIt()));
+    getIt.registerLazySingleton(() => CacheGamesUc(roomRepo: getIt()));
 
     getIt.registerLazySingleton(
         () => SearchUseCase(baseRepositoryProfile: getIt()));

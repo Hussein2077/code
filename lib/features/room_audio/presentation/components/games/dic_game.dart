@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/show_svga.dart';
+import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/state.dart';
 
 class DiceGame extends StatefulWidget {
   const DiceGame({super.key, required this.randomNum});
@@ -13,42 +17,21 @@ class DiceGame extends StatefulWidget {
 }
 
 class _DiceGameState extends State<DiceGame> with TickerProviderStateMixin {
-  late SVGAAnimationController animationController;
   bool showResultDicGame = false;
-
-  void loadAnimation() async {
-    final videoItem =
-        await SVGAParser.shared.decodeFromAssets(AssetsPath.dicSVGA);
-    animationController.videoItem = videoItem;
-    animationController
-        .repeat() // Try to use .forward() .reverse()
-        .whenComplete(() {
-      return animationController.videoItem = null;
-    });
-  }
 
   @override
   void initState() {
-    animationController = SVGAAnimationController(vsync: this);
-    loadAnimation();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    Future.delayed(const Duration(seconds: 3), () {
-      animationController.videoItem = null;
+    Future.delayed(const Duration(seconds: 4), () {
       setState(() {
         showResultDicGame = true;
       });
     });
     super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
   }
 
   List<String> dicNum = [
@@ -59,15 +42,51 @@ class _DiceGameState extends State<DiceGame> with TickerProviderStateMixin {
     AssetsPath.dic5,
     AssetsPath.dic6,
   ];
+  int isFirst = 0;
+  SvgaDataModel? tempData;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: ConfigSize.defaultSize! * 7,
-      width: ConfigSize.defaultSize! * 7,
-      child: showResultDicGame
-          ? Image.asset(dicNum[widget.randomNum])
-          : SVGAImage(animationController),
+    return BlocBuilder<CacheGamesBloc, CacheStates>(
+      builder: (context, state) {
+        if (state is ExtraDataSuccess) {
+          tempData = state.svgaDataModel;
+          isFirst++;
+          return SizedBox(
+            height: ConfigSize.defaultSize! * 7,
+            width: ConfigSize.defaultSize! * 7,
+            child: showResultDicGame
+                ? Image.asset(dicNum[widget.randomNum])
+                : ShowSVGA(
+                    imageId: state.svgaDataModel.diceModel.id.toString(),
+                    url: state.svgaDataModel.diceModel.image.toString()),
+          );
+        } else if (state is ExtraDataLoading) {
+          if (isFirst == 0) {
+            return SizedBox(
+              height: ConfigSize.defaultSize! * 7,
+              width: ConfigSize.defaultSize! * 7,
+            );
+          } else {
+            return SizedBox(
+              height: ConfigSize.defaultSize! * 7,
+              width: ConfigSize.defaultSize! * 7,
+              child: showResultDicGame
+                  ? Image.asset(dicNum[widget.randomNum])
+                  : ShowSVGA(
+                      imageId: tempData!.diceModel.id.toString(),
+                      url: tempData!.diceModel.image.toString()),
+            );
+          }
+        } else if (state is ExtraDataError) {
+          return SizedBox(
+              height: ConfigSize.defaultSize! * 7,
+              width: ConfigSize.defaultSize! * 7,
+              child: ErrorWidget(state.error));
+        } else {
+          return const SizedBox();
+        }
+      },
     );
   }
 }

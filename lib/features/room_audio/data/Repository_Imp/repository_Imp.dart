@@ -4,6 +4,8 @@ import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
+import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
@@ -475,6 +477,15 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
     try {
       final result =
       await baseRemotlyDataSourceRoom.unMuteUserMic(muteUserMicPramiter);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+  @override
+  Future<Either<SvgaDataModel, Failure>> cacheGames(int type) async{
+    try {
+      final result = await Methods.instance.getExtraData(type);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));
