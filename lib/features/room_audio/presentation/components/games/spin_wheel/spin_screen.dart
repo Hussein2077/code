@@ -27,6 +27,7 @@ class _SpinScreenState extends State<SpinScreen> {
   String selectedItem = "";
 
   @override
+
   void dispose() {
     _wheelNotifier.close();
     SpinWheelGameScreen.peoples.clear();

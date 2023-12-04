@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -15,11 +17,34 @@ class SpinWheelGameScreen extends StatefulWidget {
   State<SpinWheelGameScreen> createState() => _SpinWheelGameScreenState();
   static ValueNotifier<int> updateList = ValueNotifier(0);
   static List<String> peoples = [];
+static  Map<int , String> textFieldValues = {};
+
+  static List<Widget> textFieldWidget = [InputWidget() , InputWidget()];
 }
 
 class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
+  late TextEditingController controller ;
+  @override
+  void initState() {
+    SpinWheelGameScreen.textFieldWidget = [InputWidget() , InputWidget()];
+    SpinWheelGameScreen.textFieldValues.clear();
+    SpinWheelGameScreen.textFieldValues.putIfAbsent(0, () => "");
+    SpinWheelGameScreen.textFieldValues.putIfAbsent(1, () => "");
 
-  List<int> numberOfInputs = [0, 1, 2];
+
+
+    controller = TextEditingController();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.clear() ;
+    super.dispose();
+  }
+
+
   bool isActive = false;
 
   @override
@@ -42,14 +67,16 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                   ValueListenableBuilder<int>(
                     valueListenable: SpinWheelGameScreen.updateList,
                     builder: (context, edit, _) {
+                      log(SpinWheelGameScreen.textFieldValues.toString()+"براااااااااااااه");
+
                       return ListView.separated(
                         itemBuilder: (context, index){
-                          return InputWidget(index: index, numberOfInputs: numberOfInputs);
-                        },
+
+                          return SpinWheelGameScreen.textFieldWidget[index] = InputWidget(index: index , controller: TextEditingController(text:SpinWheelGameScreen.textFieldValues[index]??""),);                        },
                         separatorBuilder: (BuildContext context, int index) {
                           return SizedBox(height: ConfigSize.defaultSize! / 2,);
                         },
-                        itemCount: numberOfInputs.length,
+                        itemCount: SpinWheelGameScreen.textFieldWidget.length,
                         shrinkWrap: true,
                         padding: EdgeInsets.all(ConfigSize.defaultSize! * 2.5),
                         physics: const NeverScrollableScrollPhysics(),
@@ -59,8 +86,10 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
 
                   InkWell(
                     onTap: (){
-                      numberOfInputs.add(numberOfInputs.last + 1);
+                      SpinWheelGameScreen.textFieldWidget.add(InputWidget());
                       SpinWheelGameScreen.updateList.value += 1;
+                      SpinWheelGameScreen.textFieldValues.putIfAbsent(SpinWheelGameScreen.textFieldWidget.length-1, () => "");
+
                     },
                     child: CircleAvatar(
                       backgroundColor: const Color.fromRGBO(149, 159, 225, 1),

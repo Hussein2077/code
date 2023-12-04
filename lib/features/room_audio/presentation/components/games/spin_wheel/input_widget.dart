@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -9,16 +11,20 @@ import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
 
 class InputWidget extends StatefulWidget {
-  int index;
-  List<int> numberOfInputs;
-  InputWidget({super.key, required this.index, required this.numberOfInputs});
+  int? index;
+  TextEditingController? controller ;
+  InputWidget({super.key,  this.index, this.controller });
 
   @override
   State<InputWidget> createState() => _InputWidgetState();
 }
 
 class _InputWidgetState extends State<InputWidget> {
-  late TextEditingController controller = TextEditingController();
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +45,10 @@ class _InputWidgetState extends State<InputWidget> {
                     Expanded(
                       child: TextFieldWidget(
                           onChanged: (v) {
+                            log("ءءءءءءءءءءءءءءءءءءء");
+                            SpinWheelGameScreen.textFieldValues.putIfAbsent(widget.index!, () => v);
+
+                            SpinWheelGameScreen.textFieldValues.update(widget.index!, (value) => v) ;
                             setState(() {
                             });
                           },
@@ -48,16 +58,15 @@ class _InputWidgetState extends State<InputWidget> {
                           maxLines: 1,
                           hintColor: const Color.fromRGBO(149, 159, 225, 1),
                           hintText: StringManager.add.tr(),
-                          controller: controller),
+                          controller: widget.controller!),
                     ),
-                    if(widget.index > 1) Padding(
+                    if(widget.index! > 1) Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: InkWell(
                         onTap: (){
-                          print(widget.numberOfInputs);
-                          widget.numberOfInputs.remove(widget.numberOfInputs[widget.index]);
-                          SpinWheelGameScreen.updateList.value += 1;
-                          print(widget.numberOfInputs);
+                           SpinWheelGameScreen.textFieldWidget.removeAt(widget.index!);
+                           SpinWheelGameScreen.textFieldValues = removeFromMap<String>(SpinWheelGameScreen.textFieldValues, widget.index!);
+                           SpinWheelGameScreen.updateList.value += 1;
                         },
                         child: Image.asset(AssetsPath.spinWheelGameDeleteIcon, scale: .8,),
                       ),
@@ -79,7 +88,7 @@ class _InputWidgetState extends State<InputWidget> {
 
                   Row(
                     children: [
-                      Text(controller.text.length.toString(), style: const TextStyle(color: Colors.white),),
+                      Text(widget.controller!.text.length.toString(), style: const TextStyle(color: Colors.white),),
                       const Text("/20", style: TextStyle(color: Color.fromRGBO(149, 159, 225, 1)),),
                     ],
                   ),
@@ -90,5 +99,18 @@ class _InputWidgetState extends State<InputWidget> {
           ),
         )
     );
+  }
+
+
+  Map<int, T> removeFromMap<T>(Map<int, T> map, int index) {
+    log(map.toString()+"xxxxxxxxx");
+    log(index.toString() +"xxxxxxxxxx");
+    var list = map.entries.map((e) => e.value).toList();
+    list.removeAt(index);
+    var newIndex = 0;
+
+
+    return Map.fromIterable(list,
+        key: (item) => newIndex++, value: (item) => item);
   }
 }
