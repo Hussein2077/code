@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:huawei_account/huawei_account.dart';
 import 'package:tik_chat_v2/core/error/exceptions.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
@@ -16,6 +17,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
+import 'package:tik_chat_v2/features/auth/data/model/auth_with_huawei_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
@@ -32,7 +34,7 @@ abstract class BaseRemotlyDataSource {
   Future<MyDataModel> sigInWithFacebook();
   Future<AuthWithAppleModel> sigInWithApple();
   Future<AuthWithGoogleModel> sigInWithGoogle();
- // Future<AuthWithHuaweiModel> sigInWithHuawei();
+  Future<AuthWithHuaweiModel> sigInWithHuawei();
   Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
   Future<String> privacyPolicy();
@@ -309,53 +311,53 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     
   }
 
-  // @override
-  // Future<AuthWithHuaweiModel> sigInWithHuawei() async{
-  //   final devicedata = await DioHelper().initPlatformState();
-  //   Map<String, String> headers = await DioHelper().header();
-  //    AccountAuthService _authService;
-  //   final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
-  //     ..setProfile()
-  //     ..setAccessToken();
-  //   final AccountAuthParams authParams = authParamsHelper.createParams();
-  //   _authService = AccountAuthManager.getService(authParams);
-  //    try {
-  //      final AuthAccount account = await _authService.signIn();
-  //
-  //      final body =    {
-  //        //todo change that
-  //        ConstentApi.type: "google",
-  //        ConstentApi.name: account.displayName,
-  //        "google_id": account.idToken,
-  //        'device_token':devicedata
-  //      };
-  //      try{
-  //
-  //        final response = await Dio().post(
-  //          ConstentApi.loginUrl,
-  //          data: body,
-  //          options: Options(
-  //            headers: headers,
-  //          ),
-  //        );
-  //
-  //        Map<String, dynamic> resultData = response.data;
-  //
-  //        MyDataModel userData = MyDataModel.fromMap(resultData['data']);
-  //
-  //        Methods.instance.saveUserToken(authToken: userData.authToken);
-  //
-  //        return AuthWithHuaweiModel(apiUserData:userData , userData:account  );
-  //      }on DioError catch (e){
-  //        throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithGoogle");
-  //      }
-  //
-  //
-  //    } on Exception catch (e) {
-  //      throw SiginGoogleException();
-  //    }
-  //
-  // }
+  @override
+  Future<AuthWithHuaweiModel> sigInWithHuawei() async{
+    final devicedata = await DioHelper().initPlatformState();
+    Map<String, String> headers = await DioHelper().header();
+     AccountAuthService _authService;
+    final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
+      ..setProfile()
+      ..setAccessToken();
+    final AccountAuthParams authParams = authParamsHelper.createParams();
+    _authService = AccountAuthManager.getService(authParams);
+     try {
+       final AuthAccount account = await _authService.signIn();
+
+       final body =    {
+         //todo change that
+         ConstentApi.type: "google",
+         ConstentApi.name: account.displayName,
+         "google_id": account.idToken,
+         'device_token':devicedata
+       };
+       try{
+
+         final response = await Dio().post(
+           ConstentApi.loginUrl,
+           data: body,
+           options: Options(
+             headers: headers,
+           ),
+         );
+
+         Map<String, dynamic> resultData = response.data;
+
+         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+
+         Methods.instance.saveUserToken(authToken: userData.authToken);
+
+         return AuthWithHuaweiModel(apiUserData:userData , userData:account  );
+       }on DioError catch (e){
+         throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithGoogle");
+       }
+
+
+     } on Exception catch (e) {
+       throw SiginGoogleException();
+     }
+
+  }
   @override
   Future<String> forgetPassword(forgetPasswordPramiter) async{
   final body = {
