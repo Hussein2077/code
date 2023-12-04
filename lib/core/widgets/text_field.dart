@@ -17,7 +17,9 @@ class TextFieldWidget extends StatelessWidget {
 final void Function()? onTap;
 final void Function(String)? onSubmitted;
  final double? fontSize;
-  const TextFieldWidget({this.maxLength ,  this.obscureText , this.fontSize, this.onChanged, this.type, this.hintColor, this.textColor ,this.readOnly, this.maxLines, required this.hintText, required this.controller, super.key, this.onTap, this.onSubmitted});
+ final Widget? prefixIcon;
+ final Widget? suffixIcon;
+  const TextFieldWidget({this.maxLength ,this.suffixIcon, this.prefixIcon, this.obscureText , this.fontSize, this.onChanged, this.type, this.hintColor, this.textColor ,this.readOnly, this.maxLines, required this.hintText, required this.controller, super.key, this.onTap, this.onSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,8 @@ final void Function(String)? onSubmitted;
                   onTap: onTap,
                   decoration:  InputDecoration(
                       border: InputBorder.none,
-
+prefixIcon: prefixIcon,
+                      suffixIcon:suffixIcon,
                       focusedBorder: InputBorder.none,
                       hintText: hintText,
                       hintStyle:  TextStyle(color: hintColor?? Colors.grey,fontSize: fontSize)),
