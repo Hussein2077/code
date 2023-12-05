@@ -225,6 +225,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.2"
+  cometchat_chat_uikit:
+    dependency: "direct main"
+    description:
+      name: cometchat_chat_uikit
+      sha256: "4097be59ad500f4d06e9ec42811ff8f9c38d920ab097b20607153654de4b0a48"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.5"
+  cometchat_sdk:
+    dependency: transitive
+    description:
+      name: cometchat_sdk
+      sha256: ce90191bfa691581ad37db63bfec8e575248f9b0ee1c07549ac50adf33f0ae2e
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.3"
+  cometchat_uikit_shared:
+    dependency: transitive
+    description:
+      name: cometchat_uikit_shared
+      sha256: "0c6c62c78b1f359382f687866f326cfcceab92b9596c3bdd302e9cec21354b7f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.5"
   connectivity_plus:
     dependency: "direct main"
     description:
@@ -726,6 +750,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.6"
+  flutter_image:
+    dependency: transitive
+    description:
+      name: flutter_image
+      sha256: "0fd3090d50f3bb5619905102f4e61995cce14cae8af8d116d55ae03ea744a1e4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.10"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -861,6 +893,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+  get:
+    dependency: transitive
+    description:
+      name: get
+      sha256: e4e7335ede17452b391ed3b2ede016545706c01a02292a6c97619705e7d2a85e
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.6.6"
   get_it:
     dependency: "direct main"
     description:
@@ -2100,4 +2140,4 @@ packages:
     version: "2.5.1-alpha"
 sdks:
   dart: ">=3.1.0-185.0.dev <4.0.0"
-  flutter: ">=3.10.0"
+  flutter: ">=3.13.0"

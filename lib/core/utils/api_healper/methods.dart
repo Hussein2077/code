@@ -29,6 +29,9 @@ import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_event.dart';
+
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
@@ -886,7 +889,14 @@ class Methods {
 
     getDependencies(BuildContext context){
         log('getTheNewData${MyDataModel.getInstance().id.toString()}');
-        BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+        // BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+        Future.delayed(Duration.zero, () async {
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+        }).then((value) => BlocProvider.of<LoginChatBloc>(context)
+            .add( LoginChatEvent(name: MyDataModel.getInstance().name??"",
+            avatar: ConstentApi().getImage(MyDataModel.getInstance().profile!.image),
+           // id: '3')));
+           id: MyDataModel.getInstance().id.toString())));
         BlocProvider.of<GetFollowingUserMomentBloc>(context).add(const GetFollowingMomentEvent());
         BlocProvider.of<GetMomentILikeItBloc>(context).add(const GetMomentIliKEitEvent());
         BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(userId: MyDataModel.getInstance().id.toString(),));

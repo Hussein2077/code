@@ -20,6 +20,8 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_apple_us.dart
 import 'package:tik_chat_v2/features/auth/domin/use_case/send_code_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_huawei_use_case.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
@@ -858,6 +860,12 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton(() => GetAllShippingAgentsUseCase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(() => FirebaseLoginBloc());
+    getIt.registerLazySingleton(() => LoginChatBloc());
+    getIt.registerFactory(() => LogOutChatBloc());
+
+
+
+
 
 
 //repo

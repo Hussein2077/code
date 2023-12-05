@@ -12,6 +12,8 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_state.dart';
@@ -46,6 +48,8 @@ class _LogOutOrDeleteAccountButtonState
         listener: (context, state) async {
           if (state is LogOutSucssesState ||
               state is DeleteAccountSucssesState||state is LogOutErrorState) {
+            BlocProvider.of<LogOutChatBloc>(context).add(LogOutChatEvent());
+
             Future.delayed(Duration.zero, () async {
               if(MainScreen.iskeepInRoom.value){
                 await Methods.instance.exitFromRoom(MainScreen
