@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -30,11 +28,8 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
     SpinWheelGameScreen.textFieldValues.clear();
     SpinWheelGameScreen.textFieldValues.putIfAbsent(0, () => "");
     SpinWheelGameScreen.textFieldValues.putIfAbsent(1, () => "");
-
-
-
     controller = TextEditingController();
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -83,6 +78,8 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                     },
                   ),
 
+                  SizedBox(height: ConfigSize.defaultSize! * 2,),
+
                   InkWell(
                     onTap: (){
                       SpinWheelGameScreen.textFieldWidget.add(InputWidget());
@@ -100,6 +97,8 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                       ),
                     ),
                   ),
+
+                  SizedBox(height: ConfigSize.defaultSize! * 18,),
 
                 ],
               ),

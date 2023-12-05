@@ -23,8 +23,8 @@ class _InputWidgetState extends State<InputWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ConfigSize.defaultSize!*8,
-margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 0.5),
+        height: ConfigSize.defaultSize!*8,
+        margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 0.5),
         decoration: BoxDecoration(
           color: const Color.fromRGBO(55, 47, 148, .84),
           border: Border.all(color: const Color.fromRGBO(149, 159, 225, 1)),
@@ -45,12 +45,8 @@ margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 0.5),
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: InkWell(
                               onTap: () {
-                                SpinWheelGameScreen.textFieldWidget
-                                    .removeAt(widget.index!);
-                                SpinWheelGameScreen.textFieldValues =
-                                    removeFromMap<String>(
-                                        SpinWheelGameScreen.textFieldValues,
-                                        widget.index!);
+                                SpinWheelGameScreen.textFieldWidget.removeAt(widget.index!);
+                                SpinWheelGameScreen.textFieldValues = removeFromMap<String>(SpinWheelGameScreen.textFieldValues, widget.index!);
                                 SpinWheelGameScreen.updateList.value += 1;
                               },
                               child: Image.asset(
