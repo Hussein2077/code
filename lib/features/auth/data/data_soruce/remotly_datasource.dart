@@ -319,16 +319,17 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
       ..setProfile()
       ..setAccessToken();
+
     final AccountAuthParams authParams = authParamsHelper.createParams();
+
     _authService = AccountAuthManager.getService(authParams);
-     try {
+    try {
        final AuthAccount account = await _authService.signIn();
 
        final body =    {
-         //todo change that
-         ConstentApi.type: "google",
+         ConstentApi.type: "huawei",
          ConstentApi.name: account.displayName,
-         "google_id": account.idToken,
+         "huawei_id": account.idToken,
          'device_token':devicedata
        };
        try{
@@ -354,6 +355,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
 
      } on Exception catch (e) {
+      print(e.toString() + "########");
        throw SiginGoogleException();
      }
 
