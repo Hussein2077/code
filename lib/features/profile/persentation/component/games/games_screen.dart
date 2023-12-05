@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously, unnecessary_brace_in_string_interps
 
 import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -19,6 +20,7 @@ class GamesScreen extends StatelessWidget {
     AssetsPath.roulette,
     AssetsPath.carRace,
     AssetsPath.updown,
+    AssetsPath.ludo,
     AssetsPath.ludo,
   ];
 
@@ -115,10 +117,22 @@ class GamesScreen extends StatelessWidget {
           MaterialPageRoute(builder: ((context) =>
               ForceRotateWidget(widget: WebViewInRoom(url:'${StringManager.updownFull}${token}',),))));
 
-    }else if(index ==4){
+    }else if (index == 4) {
       log("url${StringManager.ludo}${token}");
-      Navigator.push(context, MaterialPageRoute(builder: ((context) => WebViewInRoom(url: '${StringManager.ludo}${token}',))));
-
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => WebViewInRoom(
+                    url: '${StringManager.ludo}${token}',
+                  ))));
+    } else if (index == 5) {
+      log("url${StringManager.ludo}${token}");
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => WebViewInRoom(
+                    url: '${StringManager.fruitGame}${token}',
+                  ))));
     }
   }
 

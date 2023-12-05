@@ -837,6 +837,8 @@ class StringManager {
       "http://167.172.6.20/SevenUpDown/index.html?sound=0&language=ar&token=";
   static const String ludo =
       "http://167.172.6.20/Ludo-Game/index.html?sound=0&language=ar&token=";
+  static const String fruitGame =
+      "http://167.172.6.20/FruitGame/index.html?sound=0&language=ar&token=";
 
   static const String teenPattiFull =
       'http://167.172.6.20/tik-chat-full/tik-chat-teen-patti-full/index.html?sound=0&language=ar&token=';
