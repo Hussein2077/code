@@ -1,12 +1,14 @@
-// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
-
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variable
+import 'dart:developer';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/shimmer_id.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 
 class IdWithCopyIcon extends StatefulWidget {
@@ -24,6 +26,7 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
     Brightness currentBrightness = Theme.of(context).brightness;
 
     bool isDarkTheme = currentBrightness == Brightness.dark;
+
     return InkWell(
       onTap: () {
         Clipboard.setData(ClipboardData(text: widget.userData.uuid.toString()));
@@ -33,23 +36,31 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          widget.userData.isGold!
-              ? ShimmerId(
-                  id: widget.userData.uuid.toString(),
-                  style: TextStyle(
+          widget.userData.imageIdModel==null||widget.userData.imageIdModel?.image==""?
 
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: ConfigSize.defaultSize! * 1.5,
-                  ),
-                )
-              : Text(
-                  'ID: ${widget.userData.uuid.toString()}',
-                  style: TextStyle(
-                    color: isDarkTheme?widget.color?? Colors.white: widget.color??Colors.black,
-                    fontSize: ConfigSize.defaultSize! * 1.9,
-                  ),
-                ),
+          SizedBox(
+            width: ConfigSize.defaultSize,
+          ):
+          Image(image: CachedNetworkImageProvider(
+              scale: 7,
+              ConstentApi().getImage(widget.userData.imageIdModel?.image??'')),
+          ),
+
+          widget.userData.imageIdModel==null||widget.userData.imageIdModel?.color==''?
+          Text(
+            'ID: ${widget.userData.uuid.toString()}',
+            style: Theme.of(context).textTheme.labelMedium!.copyWith(
+              fontSize: ConfigSize.defaultSize!*1.6
+            ),
+          ):
+          Text(
+            'ID: ${widget.userData.uuid.toString()}',
+            style: TextStyle(
+              color:HexColor(widget.userData.imageIdModel?.color),
+              fontSize: ConfigSize.defaultSize! * 1.9,
+            ),
+          ),
+
           SizedBox(
             width: ConfigSize.defaultSize,
           ),

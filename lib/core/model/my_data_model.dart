@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:tik_chat_v2/core/model/family_data_model.dart';
+import 'package:tik_chat_v2/core/model/image_id_model.dart';
 import 'package:tik_chat_v2/core/model/level_data_model.dart';
 import 'package:tik_chat_v2/core/model/my_agency_model.dart';
 import 'package:tik_chat_v2/core/model/my_store_model.dart';
@@ -26,6 +27,7 @@ import 'vip_center_model.dart';
   LevelDataModel? level;
   VipCenterModel? vip1;
   FamilyDataModel? familyDataModel;
+
   MyStoreModel? myStore;
   String? authToken;
   String? frame;
@@ -58,6 +60,7 @@ import 'vip_center_model.dart';
   int? unReadMessageCount;
 
   GetAllCountriesModel? country;
+  ImageIdModel? imageIdModel;
 
   static MyDataModel? _instance;
 
@@ -109,6 +112,7 @@ import 'vip_center_model.dart';
     this.isGold,
     this.unReadMessageCount,
     this.country,
+    this.imageIdModel
   });
 
   setNewMyData({
@@ -154,6 +158,7 @@ import 'vip_center_model.dart';
     NowRoomModel? nowRoom,
     int? unReadMessageCount,
     GetAllCountriesModel? country,
+    ImageIdModel? imageIdModel,
   }) {
     this.id = id ?? this.id;
     this.chatId = chatId ?? this.chatId;
@@ -195,6 +200,7 @@ import 'vip_center_model.dart';
     this.nowRoom = nowRoom ?? this.nowRoom;
     this.unReadMessageCount = unReadMessageCount ?? this.unReadMessageCount;
     this.isCountryHiden = isCountryHiden ?? this.isCountryHiden;
+    this.imageIdModel = imageIdModel ?? this.imageIdModel;
   }
 
   factory MyDataModel.fromMap(Map<String, dynamic> map) {
@@ -245,6 +251,9 @@ import 'vip_center_model.dart';
           isCountryHiden: map['country_hidden'] ?? false,
           lastActiveHidden: map['anonymous'] ?? false,
           visitHidden: map['visit_hidden'] ?? false,
+          imageIdModel: map['image_color'] != null
+              ? ImageIdModel.fromMap(map["image_color"] as Map<String, dynamic>)
+              : null,
           country: map['country'] == ''
               ? null
               : map['country'] == null
@@ -306,6 +315,9 @@ import 'vip_center_model.dart';
           numberOfFollowings: map['number_of_followings'],
           numberOfFriends: map['number_of_friends'],
           profileVisotrs: map['profile_visitors'],
+          imageIdModel: map['image_color'] != null
+              ? ImageIdModel.fromMap(map["image_color"] as Map<String, dynamic>)
+              : null,
           nowRoom: map['now_room'] == null
               ? null
               : NowRoomModel.fromjson(map['vip']),
@@ -357,6 +369,11 @@ import 'vip_center_model.dart';
       frameId: frameId,
       bio: bio,
       uuid: uuid,
+      imageIdModel: ImageIdModel(
+        color: imageIdModel?.color??'',
+        id: imageIdModel?.id??0,
+        image: imageIdModel?.image??'',
+      ),
       familyData: FamilyDataModel(
         img: familyDataModel?.img,
         maxNum: familyDataModel?.maxNum,
