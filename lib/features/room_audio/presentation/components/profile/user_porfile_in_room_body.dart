@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gif/flutter_gif.dart';
+//import 'package:flutter_gif/flutter_gif.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -59,13 +59,13 @@ class UserProfileInRoom extends StatefulWidget {
 }
 
 class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProviderStateMixin  {
-  late FlutterGifController flutterGifController;
+ // late FlutterGifController flutterGifController;
 
 
   @override
   void initState() {
     localisFollow = widget.userData.isFollow! ;
-    flutterGifController = FlutterGifController(vsync: this);
+   // flutterGifController = FlutterGifController(vsync: this);
 
 
 
@@ -73,7 +73,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
   }
   @override
   void dispose() {
-    flutterGifController.dispose();
+   // flutterGifController.dispose();
 
     super.dispose();
   }
@@ -237,13 +237,13 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                           valueListenable: followAneimate,
                           builder: (context, isShow, _) {
                             if (isShow) {
-                              return
-                                GifImage(
-                                controller: flutterGifController,
-                                image:const   AssetImage(AssetsPath.verified),
-                                width: ConfigSize.defaultSize!*4,
-                                height: ConfigSize.defaultSize!*4,
-                              );
+                              return SizedBox();
+                              //   GifImage(
+                              //   controller: flutterGifController,
+                              //   image:const   AssetImage(AssetsPath.verified),
+                              //   width: ConfigSize.defaultSize!*4,
+                              //   height: ConfigSize.defaultSize!*4,
+                              // );
                             } else {
                               return   bottomBarColumn(
                                 context: context,
@@ -455,9 +455,9 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
   }
 
   void Function()? follow (){
-    flutterGifController.reset();
-    flutterGifController.repeat(
-        min: 0,max: 30,   period: const  Duration(milliseconds: 2000));
+    // flutterGifController.reset();
+    // flutterGifController.repeat(
+    //     min: 0,max: 30,   period: const  Duration(milliseconds: 2000));
     followAneimate.value = !followAneimate.value;
 
     localisFollow
@@ -467,7 +467,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
       .add(FollowEvent(userId: widget.userData.id.toString()));
     localisFollow = !localisFollow ;
     Future.delayed(const Duration(milliseconds:1800 ), () async {
-      flutterGifController.stop();
+   //   flutterGifController.stop();
       followAneimate.value = !followAneimate.value;
 
 
