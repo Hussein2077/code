@@ -89,6 +89,7 @@ class ExitWidgetState extends State<ExitWidget> {
                   curve: Curves.easeInOut,
                   child: InkWell(
                     onTap: ()async{
+
                       MainScreen.iskeepInRoom.value=false;
                       Navigator.pop(context);
                       Navigator.pop(context);

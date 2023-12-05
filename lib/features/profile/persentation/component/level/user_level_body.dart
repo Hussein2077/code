@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -11,7 +12,9 @@ import 'widgets/lower_body.dart';
 import 'widgets/upper_body.dart';
 
 class UserLevelBody extends StatelessWidget {
-  const UserLevelBody({super.key});
+  UserDataModel? userData ;
+
+   UserLevelBody({this.userData ,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +29,11 @@ class UserLevelBody extends StatelessWidget {
               builder: (context, state) {
                 if(state is GetMyDataSucssesState){
                                return  LeveUpperBody(
-level: state.myDataModel.level!.senderLevel.toString(),
-nextLevel: state.myDataModel.level!.nextSenderLevel.toString(),
-percent: state.myDataModel.level!.senderPer!,
-userImage: state.myDataModel.profile!.image!,
-levelRemining: state.myDataModel.level!.remSenderLevel.toString(),
+level: userData==null ?   state.myDataModel.level!.senderLevel.toString(): userData!.level!.senderLevel.toString(),
+nextLevel: userData==null ? state.myDataModel.level!.nextSenderLevel.toString() : userData!.level!.nextSenderLevel.toString(),
+percent: userData==null ? state.myDataModel.level!.senderPer! : userData!.level!.senderPer!,
+userImage: userData==null ? state.myDataModel.profile!.image! : userData!.profile!.image!,
+levelRemining: userData==null ? state.myDataModel.level!.remSenderLevel.toString() : userData!.level!.remSenderLevel.toString(),
 
 
                                );

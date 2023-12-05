@@ -22,6 +22,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/owner_room/owner_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/host_time_counter/host_timer_counter_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
@@ -38,6 +39,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/viewbackground_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
@@ -241,7 +244,7 @@ Future<void> loadMusice({required String path}) async {
 }
 
 Future<void> clearAll(String ownerId, BuildContext context) async {
-
+  getIt<CounterBloc>().resetCounter();
   RoomScreen.listOfLoskSeats.value = {0: 0};
   RoomScreen.listOfMuteSeats.clear();
   RoomScreen.clearTimeNotifier = ValueNotifier(0);
@@ -252,7 +255,15 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
     if(context.mounted){
       BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
       BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: ownerId));
+
+
+      // Methods.instance.hostTimeOnMic(context:context);
+
+
     }else{
+
+      // Methods.instance.hostTimeOnMic(context:GlobalContextService.navigatorKey.currentContext!);
+
       BlocProvider.of<PKBloc>(GlobalContextService.navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
       BlocProvider.of<PKBloc>(GlobalContextService.navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
     }

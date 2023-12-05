@@ -4,11 +4,18 @@ import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/host_time_counter/host_timer_counter_controller.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/main.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/co_host_mixin.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
@@ -636,7 +643,11 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
           subTag: 'seat manager',
         );
       } else {
-        ZegoLoggerService.logInfo(
+
+        //Todo start timer
+        getIt<CounterBloc>().startCounter();
+        RoomScreen.startTimeOnSeatMic = DateTime.now().millisecondsSinceEpoch;
+     ZegoLoggerService.logInfo(
           'local user take on seat $index success',
           tag: 'audio room',
           subTag: 'seat manager',
@@ -1080,11 +1091,10 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
 
   Future<bool> takeOffSeat(int index, {bool isForce = false,required String  userId})
   async {
-    log("ttttttttttt") ;
+
     final targetUser = getUserByIndex(index);
-    log("1") ;
+
     if (null == targetUser) {
-      log("2") ;
       ZegoLoggerService.logInfo(
         'take off seat $index user id is empty',
         tag: 'audio room',
@@ -1099,7 +1109,6 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         tag: 'audio room',
         subTag: 'seat manager',
       );
-      log("3") ;
       return false;
     }
 
@@ -1166,7 +1175,10 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
           _connectManager?.updateAudienceConnectState(ConnectState.idle);
         }
 
-        BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: targetUser.id));
+        //Todo close timer and add enevet to server ;
+        getIt<CounterBloc>().pauseCounter();
+        // Methods.instance.hostTimeOnMic(context: GlobalContextService.navigatorKey.currentContext!);
+
 
         ZegoLoggerService.logInfo(
           'take off seat success',

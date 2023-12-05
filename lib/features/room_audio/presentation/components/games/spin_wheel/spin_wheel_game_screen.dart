@@ -67,7 +67,6 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                   ValueListenableBuilder<int>(
                     valueListenable: SpinWheelGameScreen.updateList,
                     builder: (context, edit, _) {
-                      log(SpinWheelGameScreen.textFieldValues.toString()+"براااااااااااااه");
 
                       return ListView.separated(
                         itemBuilder: (context, index){

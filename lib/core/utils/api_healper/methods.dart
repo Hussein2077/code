@@ -64,8 +64,12 @@ import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/exist_room_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_event.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
@@ -961,6 +965,31 @@ void checkIfFriends(
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool isFirst = preferences.getBool("is_first")??true;
     return isFirst;
+  }
+
+
+
+  void hostTimeOnMic ({required BuildContext context}){
+    if(RoomScreen.startTimeOnSeatMic != 0){
+      var result = (DateTime.now().millisecondsSinceEpoch - RoomScreen.startTimeOnSeatMic)/1000;
+      RoomScreen.startTimeOnSeatMic = 0 ;
+      BlocProvider.of<HostOnMicTimeBloc>(context).add(HostOnMicTimeEvent(totalTime:result.toInt() ));
+    }
+
+
+  }
+
+
+  String formatSecondsTime(int seconds) {
+    int hours = seconds ~/ 3600;
+    int minutes = (seconds % 3600) ~/ 60;
+    int remainingSeconds = seconds % 60;
+
+    String hoursText = hours.toString().padLeft(2, '0');
+    String minutesText = minutes.toString().padLeft(2, '0');
+    String secondsText = remainingSeconds.toString().padLeft(2, '0');
+
+    return '$hoursText:$minutesText:$secondsText';
   }
 
 }

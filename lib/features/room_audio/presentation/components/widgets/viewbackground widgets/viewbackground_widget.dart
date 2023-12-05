@@ -10,7 +10,9 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/show_svga.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
@@ -19,6 +21,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_bottom_bar.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/header_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/owner_room/owner_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/host_time_counter/host_timer_counter_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
@@ -39,6 +42,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_luck
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_states.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:video_player/video_player.dart';
@@ -103,6 +107,7 @@ class ViewbackgroundWidget extends StatefulWidget {
 }
 
 class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
+
   bool showGift = false; // to show gift
 
   showOverlay(Widget widget) {
@@ -131,6 +136,20 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
           width: ConfigSize.defaultSize! * 92.5,
           height: ConfigSize.defaultSize! * 92.5,
           //height: ConfigSize.defaultSize! * 92.5,
+        ),
+        Container(
+          padding: EdgeInsets.all(5),
+          margin: EdgeInsets.only(top: ConfigSize.defaultSize! , left: MediaQuery.of(context).size.width/2.5),
+          decoration: BoxDecoration(color: Colors.white.withOpacity(0.5), borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
+        child:    StreamBuilder<int>(
+          stream: getIt<CounterBloc>().counterStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(Methods.instance.formatSecondsTime(snapshot.data??0));
+            }
+            return Text(Methods.instance.formatSecondsTime(getIt<CounterBloc>().counter));
+          },
+        ),
         ),
         Align(
             alignment: Alignment.bottomLeft,

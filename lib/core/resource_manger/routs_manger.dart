@@ -301,8 +301,10 @@ class RouteGenerator {
          return MaterialPageRoute(
             settings: settings,builder: (_) => const MallScreen());
       case Routes.level:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const LevelScreen());
+        UserDataModel? userData = settings.arguments as UserDataModel?;
+
+        return MaterialPageRoute(
+            settings: settings,builder: (_) =>  LevelScreen(userData: userData,));
       case Routes.vip:
          return MaterialPageRoute(
             settings: settings,builder: (_) => const VipScreen());
