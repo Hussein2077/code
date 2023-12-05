@@ -88,4 +88,5 @@ dependencies {
     implementation 'com.android.support:multidex:2.0.1'
     implementation ("androidx.webkit:webkit:1.2.0")
     implementation 'androidx.browser:browser:1.2.0'
+    implementation 'com.google.android.gms:play-services-wallet:19.2.1'
 }

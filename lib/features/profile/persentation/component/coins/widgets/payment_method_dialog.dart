@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pay/pay.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_tab_view.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_buttons.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
 import '../../../../../../core/utils/config_size.dart';
@@ -13,7 +16,8 @@ class PaymentMethodDialog extends StatefulWidget {
 
   var coinPackageId;
   String coin;
-  PaymentMethodDialog({super.key, required this.coinPackageId, required this.coin});
+  String price;
+  PaymentMethodDialog({super.key, required this.coinPackageId, required this.coin, required this.price});
 
   @override
   State<PaymentMethodDialog> createState() => _PaymentMethodDialogState();
@@ -29,7 +33,7 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
       child: Container(
         width: double.infinity,
-        height: ConfigSize.defaultSize! * 23,
+        height: ConfigSize.defaultSize! * 25,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white
@@ -40,12 +44,12 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text("Payment Method", style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-            const SizedBox(height: 30,),
+            SizedBox(height: ConfigSize.defaultSize! * 3.5,),
 
-            InkWell(
+            if (Platform.isAndroid) InkWell(
               onTap: (){
                 BlocProvider.of<BuyCoinsBloc>(context).add(
-                    BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID: widget.coinPackageId , paymentMethod: 'opay')));
+                    BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID: widget.coinPackageId.toString(), paymentMethod: 'opay')));
               },
               child: Container(
                 height: ConfigSize.defaultSize! * 5,
@@ -67,7 +71,21 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
               ),
             ),
 
-            const SizedBox(height: 15,),
+            if (Platform.isAndroid) SizedBox(height: ConfigSize.defaultSize!,),
+
+            // SizedBox(
+            //   width: double.infinity,
+            //   child: PaymentButtons(
+            //     paymentItems: [
+            //       PaymentItem(
+            //         amount: widget.price,
+            //         label: widget.coin,
+            //         status: PaymentItemStatus.final_price,
+            //         type: PaymentItemType.item,
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             InkWell(
               onTap: (){
