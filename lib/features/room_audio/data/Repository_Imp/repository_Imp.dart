@@ -481,4 +481,15 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
     }
   }
 
+  @override
+  Future<Either<String, Failure>> hostTimeOnMic(int time)async {
+    try {
+      final result =
+          await baseRemotlyDataSourceRoom.hostTimeOnMic(time);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
 }

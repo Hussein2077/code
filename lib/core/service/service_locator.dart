@@ -276,6 +276,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_pk_uc.dart
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/unmute_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/update_room_usecase.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/host_time_counter/host_timer_counter_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
@@ -912,6 +913,11 @@ getIt.registerLazySingleton(
 
     SetTimerLuckyBox setTimer = SetTimerLuckyBox();
     getIt.registerLazySingleton(() => setTimer);
+
+
+
+    getIt.registerSingleton<CounterBloc>(CounterBloc());
+
 
     //extarnal
 

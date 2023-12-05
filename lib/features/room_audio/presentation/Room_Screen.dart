@@ -87,6 +87,10 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
   static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
   static late LayoutMode layoutMode;
+  static int startTimeOnSeatMic = 0 ;
+
+
+
 
 
   const RoomScreen(

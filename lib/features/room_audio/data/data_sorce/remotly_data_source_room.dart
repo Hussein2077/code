@@ -81,6 +81,7 @@ abstract class BaseRemotlyDataSourceRoom {
 
   Future<String> muteUserMic(MuteUserMicPramiter muteUserMicPramiter);
   Future<String> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter);
+  Future<String> hostTimeOnMic(int time);
 
 
 }
@@ -1241,5 +1242,32 @@ Future<String> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter)async {
     throw DioHelper.handleDioError(dioError: e,endpointName: "Mute User Microphone");
   }
 }
+
+  @override
+  Future<String> hostTimeOnMic(int time)async {
+    Map<String, String> headers = await DioHelper().header();
+
+
+    final body ={
+      'time': time
+
+    };
+
+    try {
+      final response = await Dio().post(ConstentApi.unMuteUserMic,
+          options: Options(
+            headers: headers,
+          ),
+          data: body
+      );
+
+      Map<String, dynamic> jsonData = response.data;
+
+      return jsonData['message'];
+
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName: "HostTimeOnMic");
+    }
+  }
 
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/user_data_model.dart';
 
 import 'package:tik_chat_v2/features/profile/persentation/component/level/host_level_body.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/user_level_body.dart';
@@ -7,7 +8,8 @@ import 'widgets/header_with_tabs.dart';
 
 
 class LevelScreen extends StatefulWidget {
-  const LevelScreen({super.key});
+  UserDataModel? userData ;
+   LevelScreen({this.userData, super.key});
 
   @override
   State<LevelScreen> createState() => _LevelScreenState();
@@ -36,9 +38,9 @@ levelController.dispose();
           child: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
               controller: levelController,
-              children: const [
-             UserLevelBody(),
-             HostLevelBody()
+              children:  [
+             UserLevelBody(userData: widget.userData),
+              HostLevelBody(userData: widget.userData)
               ],
             ),
         )

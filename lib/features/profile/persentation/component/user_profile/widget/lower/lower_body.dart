@@ -58,7 +58,7 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
         child: TabBarView(
           controller: profileController,
            children: [
-            ProfileTabViewBody(userDataModel:widget.userDataModel),
+            ProfileTabViewBody(userDataModel:widget.userDataModel , myProfile: widget.myProfile),
             ReelsTabView(userDataModel: widget.userDataModel,)
         ]),
       ),

@@ -19,8 +19,10 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_m
 
 class ProfileTabViewBody extends StatelessWidget {
   final UserDataModel userDataModel;
+  final bool myProfile;
 
-  const ProfileTabViewBody({required this.userDataModel, super.key});
+
+  const ProfileTabViewBody({required this.myProfile ,  required this.userDataModel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class ProfileTabViewBody extends StatelessWidget {
               title: StringManager.level.tr(),
               num: "lvl ${userDataModel.level!.senderLevel.toString()}",
               image: AssetsPath.leveCover,
-              onTap: () => Navigator.pushNamed(context, Routes.level),
+              onTap: () => Navigator.pushNamed(context, Routes.level , arguments: myProfile==true ? null : userDataModel  ),
             ),
             userDataModel.vip1!.level==0?
             cover(

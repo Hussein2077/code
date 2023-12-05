@@ -77,4 +77,8 @@ abstract class BaseRepositoryRoom {
   Future<Either<String,Failure>> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter) ;
 
 
+  Future<Either<String,Failure>> hostTimeOnMic(int time);
+
+
+
 }
