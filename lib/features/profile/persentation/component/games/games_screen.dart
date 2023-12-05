@@ -21,7 +21,7 @@ class GamesScreen extends StatelessWidget {
     AssetsPath.carRace,
     AssetsPath.updown,
     AssetsPath.ludo,
-    AssetsPath.ludo,
+    AssetsPath.fruitsGame,
   ];
 
   @override
@@ -72,19 +72,19 @@ class GamesScreen extends StatelessWidget {
                 ),
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  padding: EdgeInsets.zero,
-                  decoration: BoxDecoration(
-                      color: const Color(0xff1B181F),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Center(
-                    heightFactor: 1.9,
-                    child: Image.asset(fit: BoxFit.cover, AssetsPath.comingSoon),
-                  ),
-                ),
-              )
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Container(
+              //     padding: EdgeInsets.zero,
+              //     decoration: BoxDecoration(
+              //         color: const Color(0xff1B181F),
+              //         borderRadius: BorderRadius.circular(15)),
+              //     child: Center(
+              //       heightFactor: 1.9,
+              //       child: Image.asset(fit: BoxFit.cover, AssetsPath.comingSoon),
+              //     ),
+              //   ),
+              // )
 
             ],
           ),
