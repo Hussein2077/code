@@ -628,6 +628,18 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - agconnect_core (0.0.1):
+    - Flutter
+  - "agconnect_crash (1.9.0+300)":
+    - AGConnectCrash (= 1.9.0.300)
+    - Flutter
+    - HiAnalytics
+  - AGConnectCore (1.9.0.300):
+    - HMFoundation (~> 1.4)
+  - AGConnectCrash (1.9.0.300):
+    - AGConnectCredential (~> 1.4)
+  - AGConnectCredential (1.9.0.300):
+    - AGConnectCore (~> 1.4)
   - app_links (0.0.1):
     - Flutter
   - AppAuth (1.6.2):
@@ -919,6 +931,9 @@ PODS:
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (2.3.0)
+  - HiAnalytics (6.10.0.311):
+    - AGConnectCredential
+  - HMFoundation (1.9.0.300)
   - image_picker_ios (0.0.1):
     - Flutter
   - in_app_purchase_storekit (0.0.1):
@@ -958,6 +973,8 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - pay_ios (0.0.1):
+    - Flutter
   - permission_handler_apple (9.1.1):
     - Flutter
   - PhoneNumberKit (3.7.4):
@@ -1021,6 +1038,8 @@ PODS:
   - ZPNs (2.5.0)
 
 DEPENDENCIES:
+  - agconnect_core (from `.symlinks/plugins/agconnect_core/ios`)
+  - agconnect_crash (from `.symlinks/plugins/agconnect_crash/ios`)
   - app_links (from `.symlinks/plugins/app_links/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
@@ -1047,6 +1066,7 @@ DEPENDENCIES:
   - on_audio_query_ios (from `.symlinks/plugins/on_audio_query_ios/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - pay_ios (from `.symlinks/plugins/pay_ios/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - platform_device_id (from `.symlinks/plugins/platform_device_id/ios`)
   - pusher_channels_flutter (from `.symlinks/plugins/pusher_channels_flutter/ios`)
@@ -1067,6 +1087,9 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - abseil
+    - AGConnectCore
+    - AGConnectCrash
+    - AGConnectCredential
     - AppAuth
     - BoringSSL-GRPC
     - DKImagePickerController
@@ -1098,6 +1121,8 @@ SPEC REPOS:
     - gRPC-Core
     - GTMAppAuth
     - GTMSessionFetcher
+    - HiAnalytics
+    - HMFoundation
     - leveldb-library
     - libwebp
     - nanopb
@@ -1117,6 +1142,10 @@ SPEC REPOS:
     - ZPNs
 
 EXTERNAL SOURCES:
+  agconnect_core:
+    :path: ".symlinks/plugins/agconnect_core/ios"
+  agconnect_crash:
+    :path: ".symlinks/plugins/agconnect_crash/ios"
   app_links:
     :path: ".symlinks/plugins/app_links/ios"
   cloud_firestore:
@@ -1169,6 +1198,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  pay_ios:
+    :path: ".symlinks/plugins/pay_ios/ios"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   platform_device_id:
@@ -1204,6 +1235,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
+  agconnect_core: e81b9d5787637897487580e43676c93e7f63448a
+  agconnect_crash: c8208065bb3c7c8626b8303f65ba0f05305b25ab
+  AGConnectCore: f07ea0cd4aefe5c467b8336ea9fa9474c348a028
+  AGConnectCrash: f22b6931eaa19686a96ba2b8df027fc3b791ad4c
+  AGConnectCredential: 50729e5d8fe6bbee87e053ead56e8b4427e276eb
   app_links: 5ef33d0d295a89d9d16bb81b0e3b0d5f70d6c875
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
@@ -1253,6 +1289,8 @@ SPEC CHECKSUMS:
   gRPC-Core: 17108291d84332196d3c8466b48f016fc17d816d
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  HiAnalytics: 07a774c560885f699db1d25af9e0cfc3fcf315e3
+  HMFoundation: 37a598de63a67de3ce428ced640bc6123048097b
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   in_app_purchase_storekit: 4fb7ee9e824b1f09107fbfbbce8c4b276366dc43
   keyboard_height_plugin: 43fa8bba20fd5c4fdeed5076466b8b9d43cc6b86
@@ -1265,6 +1303,7 @@ SPEC CHECKSUMS:
   on_audio_query_ios: e5afb0d4b42cfa3e8762d8ec1953540cb4f02100
   package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  pay_ios: 8c7beb9c61d885f3f51b61f75f8793023fc8843a
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   PhoneNumberKit: e3c4dc9f65bc2036639898095c2ab1ef89348f64
   platform_device_id: 81b3e2993881f87d0c82ef151dc274df4869aef5
