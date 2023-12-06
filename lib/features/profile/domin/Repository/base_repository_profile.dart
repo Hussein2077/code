@@ -213,7 +213,7 @@ abstract class BaseRepositoryProfile {
   
   Future<Either<InAppPurchaseMode, Failure>> inAppPurchase({required String user_id ,required String product_id});
   Future<Either<List<UserDataModel>, Failure>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
-  Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport();
+  Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport(String date);
 
 
 }

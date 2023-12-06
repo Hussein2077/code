@@ -196,7 +196,7 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<bool> activeNotification();
   Future<InAppPurchaseMode> inAppPurchase({required String user_id ,required String product_id});
   Future<List<UserDataModel>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
-  Future<FixedTargetReportModel> getFixedTargetReport();
+  Future<FixedTargetReportModel> getFixedTargetReport(String date);
 
 }
 
@@ -2152,13 +2152,13 @@ isVisit: isVisit,
 
 
   @override
-  Future<FixedTargetReportModel> getFixedTargetReport() async {
+  Future<FixedTargetReportModel> getFixedTargetReport(String date) async {
     Map<String, String> headers = await DioHelper().header();
 
 
     try {
       final response = await Dio().get(
-        ConstentApi.getFixedTargetReport,
+        ConstentApi.getFixedTargetReport(date),
         options: Options(
           headers: headers,
         ),
@@ -2167,7 +2167,7 @@ isVisit: isVisit,
       FixedTargetReportModel data = FixedTargetReportModel.fromJason(resultData["data"]);
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getTimeDataReport');
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'FixedTargetReportModel');
     }
   }
 }

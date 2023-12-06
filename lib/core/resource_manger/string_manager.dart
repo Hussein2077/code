@@ -537,6 +537,7 @@ class StringManager {
   static const String luckyNumber = "lucky number";
   static const String luckyPull = "lucky pull";
   static const String turntable = "turntable";
+  static const String choosemonth = "choose month";
 
   ///List Type Users
   //0 normal user,
