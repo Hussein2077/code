@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -52,8 +54,9 @@ class _GiftButtonState extends State<GiftButton> with TickerProviderStateMixin{
   }
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
+        log('fffffffffff');
         widget.myDataModel.id.toString().startsWith('-1')
             ? showDialog(
                 context: context,
