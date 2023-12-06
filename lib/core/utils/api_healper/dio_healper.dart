@@ -14,8 +14,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/main.dart';
 
 class DioHelper {
-  bool? isLoginFromAnotherAccountAndBuildFailure = false;
-
   Future<Map<String, String>> header() async {
     String key = await Methods.instance.getLocalization();
     String token = await Methods.instance.returnUserToken();
@@ -58,9 +56,9 @@ class DioHelper {
             GlobalContextService.navigatorKey.currentContext!,
             Routes.login,
             (Route<dynamic> route) => false,
-            arguments: LoginPramiter(
+            arguments: const LoginPramiter(
                 isLoginFromAnotherAccountAndBuildFailure:
-                isLoginFromAnotherAccountAndBuildFailure = false));
+              false));
 
         return Strings.unauthorizedFailureMassage;
       case SiginGoogleFailure:
@@ -76,9 +74,9 @@ class DioHelper {
             GlobalContextService.navigatorKey.currentContext!,
             Routes.login,
                 (Route<dynamic> route) => false,
-            arguments: LoginPramiter(
+            arguments: const LoginPramiter(
                 isLoginFromAnotherAccountAndBuildFailure:
-                isLoginFromAnotherAccountAndBuildFailure = true));
+                true));
         return Strings.anotherAccountLoggedIn;
        case SiginHuaweiFailure:
         return Strings.signinHuaweiFailureMessage ;

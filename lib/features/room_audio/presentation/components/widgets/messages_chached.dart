@@ -56,10 +56,6 @@ class MessagesChached extends StatelessWidget {
   Widget build(BuildContext context) {
     bool changeTheme = message.changeTheme ?? false;
     bool isGame = message.games != GamesInRoom.normal;
-    // bool isGame = message.message ==
-    //         '${message.message[0]}${StringManager.diceGameKey}' ||
-    //     message.message == '${message.message[0]}${StringManager.rpsGameKey}' ||
-    //     message.message == StringManager.luckyDrawGameKey;
     List<String> words = message.message.split(" ");
     for (String word in words) {
       if (word.startsWith("@")) {
@@ -308,3 +304,5 @@ class MessagesChached extends StatelessWidget {
     }
   }
 }
+// string    [s,t,r,]
+// string[1]
