@@ -1,7 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class FixedTargetCard extends StatelessWidget {
@@ -19,7 +17,7 @@ class FixedTargetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double percent =( int.parse(subTitle)/int.parse(target))*100;
+   // double percent =( int.parse(target)/int.parse(subTitle))*100;
     Brightness currentBrightness = Theme.of(context).brightness;
     bool isDarkTheme = currentBrightness == Brightness.dark;
     return Column(
@@ -73,23 +71,23 @@ class FixedTargetCard extends StatelessWidget {
             ),
           ),
         ),
-        Row(
-          children: [
-            Text(
-              StringManager.youHaveReached.tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium,
-            ),
-            Text(
-             '${percent.toString()} %',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: ColorManager.mainColor),
-            ),
-          ],
-        )
+        // Row(
+        //   children: [
+        //     Text(
+        //       StringManager.youHaveReached.tr(),
+        //       style: Theme.of(context)
+        //           .textTheme
+        //           .bodyMedium,
+        //     ),
+        //     Text(
+        //      '${percent.toString()} %',
+        //       style: Theme.of(context)
+        //           .textTheme
+        //           .bodyMedium!
+        //           .copyWith(color: ColorManager.mainColor),
+        //     ),
+        //   ],
+        // )
       ],
     );
   }

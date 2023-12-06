@@ -13,9 +13,9 @@ class FixedTargetReportUseCase {
 
   FixedTargetReportUseCase({required this.FixedTargetReportReport});
 
-  Future<Either<FixedTargetReportModel, Failure>> call() async {
+  Future<Either<FixedTargetReportModel, Failure>> call(String date) async {
 
-    final result = await FixedTargetReportReport.getFixedTargetReport();
+    final result = await FixedTargetReportReport.getFixedTargetReport(date);
 
     return result;
 

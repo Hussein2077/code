@@ -1,27 +1,27 @@
 import 'package:equatable/equatable.dart';
 
 class FixedTargetReportModel extends Equatable {
-  final int diamonds;
-  final int days;
-  final int momentNum;
-  final int reelNum;
+  final String diamonds;
+  final String days;
+  final int totalDiamond;
+  final int totalUsd;
   final String hours;
 
   const FixedTargetReportModel({
     required this.diamonds,
     required this.days,
     required this.hours,
-    required this.momentNum,
-    required this.reelNum,
+    required this.totalDiamond,
+    required this.totalUsd,
   });
 
   factory FixedTargetReportModel.fromJason(Map<String, dynamic> jason) {
     return FixedTargetReportModel(
-      days: jason['days'],
+      days: jason['current_total_day'],
       diamonds: jason['diamonds'],
-      hours: jason['hours'],
-      momentNum: jason['moment-num'],
-      reelNum: jason['reel-num'],
+      hours: jason['current_total_hour'],
+      totalDiamond: jason['total_diamond'],
+      totalUsd: jason['total_usd'],
     );
   }
 
@@ -30,7 +30,7 @@ class FixedTargetReportModel extends Equatable {
         diamonds,
         days,
         hours,
-        momentNum,
-        reelNum,
+        totalDiamond,
+        totalUsd,
       ];
 }

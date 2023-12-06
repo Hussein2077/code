@@ -1006,10 +1006,10 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport() async{
+  Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport(String date) async{
 
     try {
-      final result = await baseRemotlyDataSourceProfile.getFixedTargetReport();
+      final result = await baseRemotlyDataSourceProfile.getFixedTargetReport(date);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));

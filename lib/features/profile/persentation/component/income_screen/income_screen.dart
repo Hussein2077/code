@@ -76,24 +76,28 @@ class _IncomeScreenState extends State<IncomeScreen> {
                           title: StringManager.withdrawal.tr(),
                         ),
                         SizedBox(height: ConfigSize.defaultSize! / 0.4),
-                        // MainButton(
-                        //   onTap: () {
-                        //     Navigator.pushNamed(context, Routes.fixedTargetScreen, arguments: state.myDataModel);
-                        //   },
-                        //   title: StringManager.fixedTarget.tr(),
-                        // ),
-                        // SizedBox(height: ConfigSize.defaultSize! / 0.4),
+                        MainButton(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.fixedTargetScreen, arguments: state.myDataModel);
+                          },
+                          title: StringManager.fixedTarget.tr(),
+                        ),
+                        SizedBox(height: ConfigSize.defaultSize! / 0.4),
                       ],
                 ),
 
                  // if (state.myDataModel.myAgencyModel!.name=="")
-                  if(state.myDataModel.myType!=1)
-                MainButton(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.exchangeForGoldScreen);
-                  },
-                  title: StringManager.exchangeDaimond.tr(),
-                ),
+                  if (state.myDataModel.myType == 0 ||
+                      state.myDataModel.myType == 3 ||
+                      state.myDataModel.myType == 5
+                      )
+                    MainButton(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, Routes.exchangeForGoldScreen);
+                      },
+                      title: StringManager.exchangeDaimond.tr(),
+                    ),
                 const Spacer()
               ],
             );

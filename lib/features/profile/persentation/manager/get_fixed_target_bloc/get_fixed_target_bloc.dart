@@ -12,7 +12,7 @@ class GetFixedTargetBloc
       : super(GetFixedTargetInitial(null)) {
     on<GetFixedTargetEvent>((event, emit) async {
       emit(GetFixedTargetLoadingState(null));
-      final result = await fixedTargetReportUseCase.call();
+      final result = await fixedTargetReportUseCase.call(event.date);
       result.fold((l) => emit(GetFixedTargetSucssesState(data: l)),
               (r) => emit(GetFixedTargetErrorState(null, DioHelper().getTypeOfFailure(r))));
 
