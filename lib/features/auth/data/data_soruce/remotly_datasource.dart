@@ -315,18 +315,21 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   Future<AuthWithHuaweiModel> sigInWithHuawei() async{
     final devicedata = await DioHelper().initPlatformState();
     Map<String, String> headers = await DioHelper().header();
+    log("11111111111");
      AccountAuthService _authService;
     final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
       ..setProfile()
       ..setAccessToken();
-
+    log("2222222222");
     final AccountAuthParams authParams = authParamsHelper.createParams();
-
+    log("3333333333");
     _authService = AccountAuthManager.getService(authParams);
+    log("4444444");
     try {
+      log("5");
        final AuthAccount account = await _authService.signIn();
-
-       final body =    {
+      log("6");
+       final body =  {
          ConstentApi.type: "huawei",
          ConstentApi.name: account.displayName,
          "huawei_id": account.idToken,
@@ -348,7 +351,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
          Methods.instance.saveUserToken(authToken: userData.authToken);
 
-         return AuthWithHuaweiModel(apiUserData:userData , userData:account  );
+         return AuthWithHuaweiModel(apiUserData:userData , userData:account);
        }on DioError catch (e){
          throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithGoogle");
        }
