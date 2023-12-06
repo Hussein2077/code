@@ -474,7 +474,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.to: 'الي',
     StringManager.nameAnayoums: 'الرجل الغامض',
     StringManager.forShippingAgent: 'تبديل الدولارات لي وكلاء الشحن',
-    StringManager.notChargeToAgancy: 'ملحوظه: لا يمكنك تبديل الدولارات سوى لنفسك أو وكيل الشحن',
+    StringManager.notChargeToAgancy: 'ملحوظه: سوف تحول دولاراتك الي كوينز',
     StringManager.changeDollars: 'تبديل الدولارات لنفسك',
     StringManager.spin: 'لف العجله',
     StringManager.end: 'انهاء',

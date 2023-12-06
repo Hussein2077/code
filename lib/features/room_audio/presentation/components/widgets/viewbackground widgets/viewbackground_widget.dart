@@ -243,7 +243,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
         if (widget.showYellowBanner['showYellowBanner']!)
           Positioned(
               top: -48,
-              left: AppPadding.p30,
               child: ShowYallowBannerWidget(
                   cureentRoomId: widget.room.ownerId!,
                   controllerYallowBanner: widget.yellowBannercontroller,

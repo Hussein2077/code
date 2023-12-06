@@ -57,8 +57,8 @@ class ShowYallowBannerWidget extends StatelessWidget {
 
                           ),
                           borderRadius: BorderRadius.circular(20)),
-                      margin: EdgeInsets.only(top: ConfigSize.defaultSize! * 10),
-                      width: ConfigSize.defaultSize! * 35,
+                      margin: EdgeInsets.only(top: ConfigSize.defaultSize! * 10,right: ConfigSize.defaultSize! * 10),
+
                       height: ConfigSize.defaultSize! * 4,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -71,13 +71,15 @@ class ShowYallowBannerWidget extends StatelessWidget {
                           // SizedBox(
                           //   width: ConfigSize.defaultSize!*0.5,
                           // ),
+                          Text(senderYallowBanner!.isAanonymous!?StringManager.nameAnayoums.tr():"${senderYallowBanner!.name}"
+                              ,style: const TextStyle(color: Colors.black),),
+                          SizedBox(width:ConfigSize.defaultSize! * 1 ),
                           SizedBox(
                             width: ConfigSize.defaultSize! * 23.5,
                             child: TextScroll(
                               textDirection: ui.TextDirection.rtl,
-                              senderYallowBanner!.isAanonymous!
-                                  ? "${StringManager.nameAnayoums.tr()} : ${ZegoInRoomMessageInput.messageYallowBanner}"
-                                  : "${senderYallowBanner!.name} : ${ZegoInRoomMessageInput.messageYallowBanner}",
+                                  ZegoInRoomMessageInput.messageYallowBanner,
+
                               mode: TextScrollMode.endless,
                               velocity:
                               const Velocity(pixelsPerSecond: Offset(70, 0)),
