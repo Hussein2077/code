@@ -130,7 +130,7 @@ Widget agencyCommanWidget(
     required String bio,
     required String image}) {
   return Container(
-    height: ConfigSize.defaultSize!*20.2,
+
     width: MediaQuery.of(context).size.width/1.1,
     padding: EdgeInsets.symmetric(
         vertical: ConfigSize.defaultSize!*0.0,

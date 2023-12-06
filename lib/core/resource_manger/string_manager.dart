@@ -527,7 +527,7 @@ class StringManager {
   static const String youCanOptanPassword = "You can obtain it through one of the participating members within the room";
   static const String luckyGiftMessage = "Send a Lucky Gift Of";
   static const String to = "To";
-  static const String notChargeToAgancy = "You can only withdraw dollars for yourself or a shipping agent.";
+  static const String notChargeToAgancy = "Note: Your dollars will be converted into coins";
   static const String spin = "Spin The Wheel";
   static const String end = "End";
   static const String result = "Result";

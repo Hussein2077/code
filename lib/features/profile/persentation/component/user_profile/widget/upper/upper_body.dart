@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
+import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/shimmer_id.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/upper/header.dart';
@@ -142,18 +143,7 @@ class UpperProfileBody extends StatelessWidget {
                         SizedBox(
                           width: ConfigSize.defaultSize!,
                         ),
-                        myDataModel.isGold
-                            ? ShimmerId(
-                                id: myDataModel.uuid.toString(),
-                                style: TextStyle(
-                                    color: Colors.black,
-
-                                    fontSize: ConfigSize.defaultSize! * 1.2,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            : itemContiner(
-                                title: "ID ${myDataModel.uuid}",
-                              ),
+                        IdWithCopyIcon(userData: myDataModel),
 
                         SizedBox(
                           width: ConfigSize.defaultSize!,

@@ -119,7 +119,7 @@ dependencies:
   google_huawei_availability: ^1.4.0
   huawei_account: ^6.12.0+300
   pay: ^1.1.2
-
+  hexcolor: ^3.0.1
 
 dev_dependencies:
   flutter_test:
