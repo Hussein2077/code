@@ -39,7 +39,7 @@ class _PhoneWithCountryState extends State<PhoneWithCountry> {
           color: ColorManager.whiteColor,
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 6)),
       width: MediaQuery.of(context).size.width - 50,
-      height: ConfigSize.defaultSize! * 7.8,
+      height: ConfigSize.defaultSize! * 7.5,
       child: InternationalPhoneNumberInput(
         inputBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
@@ -65,6 +65,13 @@ class _PhoneWithCountryState extends State<PhoneWithCountry> {
             ),
           ),
           focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: const BorderSide(
+              width: 1,
+              color: ColorManager.whiteColor,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
             borderSide: const BorderSide(
               width: 1,

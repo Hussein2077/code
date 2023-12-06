@@ -120,7 +120,7 @@ class HeaderRoom extends StatelessWidget {
                                       ));
                                 }
                               },
-                              icon: Image.asset(AssetsPath.settingRoom))),
+                              icon: Image.asset(AssetsPath.settingRoom,scale: 2,))),
                       const SizedBox(
                         width: 5,
                       ),
