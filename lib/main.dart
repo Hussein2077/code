@@ -30,6 +30,7 @@ import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/get_gr
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/manager_post_group_Chat/post_group_chat_bloc.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_bloc.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_events.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/update_user_data/update_user_data_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
@@ -530,6 +531,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<AllShippingAgentsBloc>()),
         BlocProvider(create: (_) => getIt<LoginChatBloc>()),
         BlocProvider(create: (_) => getIt<LogOutChatBloc>()),
+        BlocProvider(create: (_) => getIt<UpdateUserDataBloc>()),
+
+
 
 
 

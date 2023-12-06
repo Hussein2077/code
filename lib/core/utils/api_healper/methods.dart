@@ -3,9 +3,10 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,7 @@ import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
+
 
 class Methods {
 
@@ -837,22 +839,22 @@ class Methods {
 
   Future addFireBaseNotifcationId() async {
     String token = await Methods.instance.returnUserToken();
-    String? tokenn = FirebaseAuth.instance.currentUser?.uid.toString();
+    // String? tokenn = FirebaseAuth.instance.currentUser?.uid.toString();
 
-    await Dio().post(
-      ConstentApi.editeUrl,
-      data: {
-        "chat_id": tokenn,
-        "notification_id": await FirebaseMessaging.instance.getToken()
-      },
-      options: Options(
-        headers: {
-          // 'X-localization': lang,
-          // 'Accept': 'application/json',
-          'Authorization': 'Bearer $token'
-        },
-      ),
-    );
+    // await Dio().post(
+    //   ConstentApi.editeUrl,
+    //   data: {
+    //     "chat_id": tokenn,
+    //     "notification_id": await FirebaseMessaging.instance.getToken()
+    //   },
+    //   options: Options(
+    //     headers: {
+    //       // 'X-localization': lang,
+    //       // 'Accept': 'application/json',
+    //       'Authorization': 'Bearer $token'
+    //     },
+    //   ),
+    // );
   }
   Future<String> getCurrentTimeZone() async {
     DateTime dateTimeNow = DateTime.now();
@@ -950,20 +952,27 @@ class Methods {
 void checkIfFriends(
     { required UserDataModel userData, required BuildContext context}){
   if (userData.isFriend!) {
-                Functions.addFireBaseId();
-                Navigator.pushNamed(context, Routes.chatPageBody,
-                    arguments: ChatPageBodyPramiter(
-                        unReadMessages: 0,
-                        chatId: userData.chatId!,
-                        name: userData.name!,
-                        yayaId: userData.id.toString(),
-                        image: userData.profile!.image!,
-                        notificationId: userData.notificationId!,
-                        myName: MyDataModel.getInstance().name!));
-              } else {
-                errorToast(context: context,
-                    title: StringManager.youAreNotFriends.tr());
-              }
+    User _user = User(
+
+      name: userData.name!,
+      uid: userData.id.toString(),
+      avatar:
+      ConstentApi().getImage(userData.profile!.image),
+    );
+
+
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) =>  CometChatConversationsWithMessages(
+
+
+      user: _user,
+    ))
+    );
+
+  } else {
+    errorToast(context: context, title: StringManager.youAreNotFriends);
+
+  }
 
 }
 

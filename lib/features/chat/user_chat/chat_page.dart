@@ -4,18 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/widgets/arrow_back.dart';
-import 'package:tik_chat_v2/core/widgets/snackbar.dart';
+
 import 'package:tik_chat_v2/features/chat/user_chat/Logics/functions.dart';
-import 'package:tik_chat_v2/features/chat/user_chat/comps/styles.dart';
-import 'package:tik_chat_v2/features/chat/user_chat/comps/widgets.dart';
+
 
 import '../../../core/utils/config_size.dart';
 import 'widgets/myprofile_property_row.dart';
@@ -62,6 +58,8 @@ class _ChatPageState extends State<ChatPage> {
         Navigator.pushNamed(context, Routes.systemmessages);
       },
     ];
+
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
