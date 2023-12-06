@@ -126,6 +126,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart'
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_data_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_member_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_request_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_fixed_target_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_friends_or_followers.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_gold_coin_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_mydata_usecase.dart';
@@ -160,6 +161,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase
 import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_all_shipping_agents_manager/get_all_shipping_agents_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_fixed_target_bloc/get_fixed_target_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
@@ -565,10 +567,13 @@ class ServerLocator {
             () => ReportMomentBloc(reportMomentUseCase:  getIt() ));
     getIt.registerFactory(
             () => AllShippingAgentsBloc(getAllShippingAgentsUseCase:  getIt() ));
+    getIt.registerFactory(
+            () => GetFixedTargetBloc(fixedTargetReportUseCase:  getIt() ));
 
 
 //usecase
 
+    getIt.registerLazySingleton(() => FixedTargetReportUseCase(FixedTargetReportReport: getIt()));
     getIt.registerLazySingleton(() => PostGroupMassageUseCase(baseRepositoryChat: getIt()));
     getIt.registerLazySingleton(() => ReportMomentUseCase( baseRepositoryMoment: getIt(),));
 

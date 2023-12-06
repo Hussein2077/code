@@ -8,7 +8,7 @@ abstract class BaseGetFixedTargetEvent {
 
 
 class GetFixedTargetEvent extends BaseGetFixedTargetEvent {
-
-  const GetFixedTargetEvent();
+final String date;
+  const GetFixedTargetEvent({required this.date});
 }
 

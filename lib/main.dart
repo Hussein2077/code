@@ -71,6 +71,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manger_show_family/bloc/show_family_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_all_shipping_agents_manager/get_all_shipping_agents_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_fixed_target_bloc/get_fixed_target_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_follwers_or_following_manger/bloc/get_follower_or_following_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
@@ -530,6 +531,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<AllShippingAgentsBloc>()),
         BlocProvider(create: (_) => getIt<LoginChatBloc>()),
         BlocProvider(create: (_) => getIt<LogOutChatBloc>()),
+        BlocProvider(create: (_) => getIt<GetFixedTargetBloc>()),
 
 
 
