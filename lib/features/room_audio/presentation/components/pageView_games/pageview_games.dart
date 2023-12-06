@@ -37,6 +37,8 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
     AssetsPath.carRace,
     AssetsPath.updown,
     AssetsPath.ludo,
+    AssetsPath.fruitsGame,
+
   ];
 
   @override
@@ -202,6 +204,13 @@ class _PageViewGamesState extends State<PageViewGames>  with SingleTickerProvide
           widget: WebViewInRoom(url: '${StringManager.ludo}${token}',)
       );
 
+    }else if (index == 5) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => WebViewInRoom(
+                url: '${StringManager.fruitGame}${token}',
+              ))));
     }
   }
 

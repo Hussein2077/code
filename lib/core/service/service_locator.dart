@@ -20,6 +20,8 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_apple_us.dart
 import 'package:tik_chat_v2/features/auth/domin/use_case/send_code_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_huawei_use_case.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
@@ -31,6 +33,7 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_palt
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/get_group_massage/get_group_massage_bloc.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/manager_post_group_Chat/post_group_chat_bloc.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_bloc.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/update_user_data/update_user_data_bloc.dart';
 import 'package:tik_chat_v2/features/chat/data/data_source/remoted_dataSource_chat.dart';
 import 'package:tik_chat_v2/features/chat/data/repository_imp/repository_imp.dart';
 import 'package:tik_chat_v2/features/chat/domine/repository/base_repository_chat.dart';
@@ -858,6 +861,13 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton(() => GetAllShippingAgentsUseCase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(() => FirebaseLoginBloc());
+    getIt.registerLazySingleton(() => LoginChatBloc());
+    getIt.registerFactory(() => LogOutChatBloc());
+    getIt.registerFactory(() => UpdateUserDataBloc());
+
+
+
+
 
 
 //repo

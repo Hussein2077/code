@@ -9,6 +9,8 @@ import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/update_user_data/update_user_data_bloc.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/update_user_data/update_user_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
@@ -79,7 +81,12 @@ class _UserProfileState extends State<UserProfile> {
         body: (widget.userId == null && widget.userData == null)
 
             //MyProfile
-            ? BlocBuilder<GetMyDataBloc, GetMyDataState>(
+            ? BlocConsumer<GetMyDataBloc, GetMyDataState>(
+          listener: (context, state) {
+            if (state is GetMyDataSucssesState){
+              BlocProvider.of<UpdateUserDataBloc>(context).add(UpdateUserDataEvent(avatar:state.myDataModel.profile!.image! , name: state.myDataModel.name!));
+            }
+          },
                 builder: (context, state) {
                   if (state is GetMyDataSucssesState) {
                     return Column(

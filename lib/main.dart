@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -14,6 +15,8 @@ import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
@@ -27,6 +30,7 @@ import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/get_gr
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/manager_post_group_Chat/post_group_chat_bloc.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_bloc.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/official_msg_bloc/official_msg_events.dart';
+import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/update_user_data/update_user_data_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/manager/country_manager/counrty_bloc.dart';
@@ -196,6 +200,23 @@ Future<void> main() async {
       HomeScreen.rebuildGroupChatCounter.value = true;
     }
   });
+  UIKitSettings uiKitSettings = (UIKitSettingsBuilder()
+    ..subscriptionType = CometChatSubscriptionType.allUsers
+    ..autoEstablishSocketConnection = true
+    ..region = "US"//Replace with your region
+    ..appId = "248798bc476786ae" //replace with your app Id
+    ..authKey = "0229e2e04b923cc623de62bb48f51a8bec521639"
+    ..extensions = CometChatUIKitChatExtensions.getDefaultExtensions()//replace this with empty array you want to disable all extensions
+  )//replace with your auth Key
+      .build();
+
+  CometChatUIKit.init( uiKitSettings: uiKitSettings,
+      onSuccess: (String successMessage){
+        debugPrint("Initialization completed successfully  $successMessage");
+      },
+      onError: (CometChatException e) {
+        debugPrint("Initialization failed with exception: ${e.message}");
+      });
 
   await ServerLocator().init();
 
@@ -508,6 +529,16 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<ReportMomentBloc>()),
         BlocProvider(create: (_) => getIt<GetAllCountriesBloc>()),
         BlocProvider(create: (_) => getIt<AllShippingAgentsBloc>()),
+        BlocProvider(create: (_) => getIt<LoginChatBloc>()),
+        BlocProvider(create: (_) => getIt<LogOutChatBloc>()),
+        BlocProvider(create: (_) => getIt<UpdateUserDataBloc>()),
+
+
+
+
+
+
+
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {

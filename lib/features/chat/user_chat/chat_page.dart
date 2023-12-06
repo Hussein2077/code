@@ -1,20 +1,17 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/widgets/arrow_back.dart';
-import 'package:tik_chat_v2/core/widgets/snackbar.dart';
+
 import 'package:tik_chat_v2/features/chat/user_chat/Logics/functions.dart';
-import 'package:tik_chat_v2/features/chat/user_chat/comps/styles.dart';
-import 'package:tik_chat_v2/features/chat/user_chat/comps/widgets.dart';
+
 
 import '../../../core/utils/config_size.dart';
 import 'widgets/myprofile_property_row.dart';
@@ -61,6 +58,8 @@ class _ChatPageState extends State<ChatPage> {
         Navigator.pushNamed(context, Routes.systemmessages);
       },
     ];
+
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,109 +116,113 @@ class _ChatPageState extends State<ChatPage> {
               ),
             ],
           ),
-          Expanded(
-            child: Container(
-              decoration: Styles.friendsBox(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: StreamBuilder(
-                          stream: firestore
-                              .collection('Rooms')
-                              .orderBy('last_message_time', descending: true)
-                              .snapshots(),
-                          builder:
-                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                            List data = !snapshot.hasData
-                                ? []
-                                : snapshot.data!.docs
-                                    .where((element) => element['users']
-                                        .toString()
-                                        .contains(FirebaseAuth
-                                                .instance.currentUser?.uid ??
-                                            ''))
-                                    .toList();
-                            //  List data = data1.reversed.toList();
-                            log(FirebaseAuth.instance.currentUser!.uid
-                                .toString());
-                            return ListView.builder(
-                              // reverse: true,
-                              itemCount: data.length,
-                              padding: EdgeInsets.zero,
-                              itemBuilder: (context, i) {
-                                List users = data[i]['users'];
-                                var friend = users.where((element) =>
-                                    element !=
-                                    FirebaseAuth.instance.currentUser?.uid);
-                                var user = friend.isNotEmpty
-                                    ? friend.first
-                                    : users
-                                        .where((element) =>
-                                            element ==
-                                            FirebaseAuth
-                                                .instance.currentUser!.uid)
-                                        .first;
-                                return FutureBuilder(
-                                    future: firestore
-                                        .collection('Users')
-                                        .doc(user)
-                                        .get(),
-                                    builder: (context, AsyncSnapshot snap) {
-                                      if (data[i]['sent_by'] !=
-                                              FirebaseAuth
-                                                  .instance.currentUser?.uid &&
-                                          DateFormat('hh:mm:s a').format(data[i]
-                                                      ['last_message_time']
-                                                  .toDate()) ==
-                                              DateFormat('hh:mm:s a')
-                                                  .format(DateTime.now())) {}
-                                      {}
-                                      return !snap.hasData
-                                          ? Container()
-                                          : ChatWidgets.card(
-                                              unReadMessages: data[i]['unRead'],
-                                              sentby: data[i]['sent_by'],
-                                              cheakRead: data[i]['Read'],
-                                              image: snap.data['image'],
-                                              title: snap.data['name'],
-                                              subtitle: data[i]['last_message'],
-                                              time: DateFormat('hh:mm a')
-                                                  .format(data[i]
-                                                          ['last_message_time']
-                                                      .toDate()),
-                                              onTap: () async {
-                                                Navigator.pushNamed(context,
-                                                    Routes.chatPageBody,
-                                                    arguments:
-                                                        ChatPageBodyPramiter(
-                                                      chatId: user,
-                                                      name: snap.data['name'],
-                                                      yayaId: snap.data['id'],
-                                                      image: snap.data['image'],
-                                                      notificationId: snap
-                                                          .data['deviceToken'],
-                                                      myName: MyDataModel
-                                                              .getInstance()
-                                                          .name!,
-                                                      unReadMessages: data[i]
-                                                          ['unRead'],
-                                                    ));
-                                              },
-                                              context: context,
-                                            );
-                                    });
-                              },
-                            );
-                          }),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // Expanded(
+          //   child: Container(
+          //     decoration: Styles.friendsBox(),
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Expanded(
+          //           child: Padding(
+          //             padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          //             child: StreamBuilder(
+          //                 stream: firestore
+          //                     .collection('Rooms')
+          //                     .orderBy('last_message_time', descending: true)
+          //                     .snapshots(),
+          //                 builder:
+          //                     (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          //                   List data = !snapshot.hasData
+          //                       ? []
+          //                       : snapshot.data!.docs
+          //                           .where((element) => element['users']
+          //                               .toString()
+          //                               .contains(FirebaseAuth
+          //                                       .instance.currentUser?.uid ??
+          //                                   ''))
+          //                           .toList();
+          //                   //  List data = data1.reversed.toList();
+          //                   log(FirebaseAuth.instance.currentUser!.uid
+          //                       .toString());
+          //                   return ListView.builder(
+          //                     // reverse: true,
+          //                     itemCount: data.length,
+          //                     padding: EdgeInsets.zero,
+          //                     itemBuilder: (context, i) {
+          //                       List users = data[i]['users'];
+          //                       var friend = users.where((element) =>
+          //                           element !=
+          //                           FirebaseAuth.instance.currentUser?.uid);
+          //                       var user = friend.isNotEmpty
+          //                           ? friend.first
+          //                           : users
+          //                               .where((element) =>
+          //                                   element ==
+          //                                   FirebaseAuth
+          //                                       .instance.currentUser!.uid)
+          //                               .first;
+          //                       return FutureBuilder(
+          //                           future: firestore
+          //                               .collection('Users')
+          //                               .doc(user)
+          //                               .get(),
+          //                           builder: (context, AsyncSnapshot snap) {
+          //                             if (data[i]['sent_by'] !=
+          //                                     FirebaseAuth
+          //                                         .instance.currentUser?.uid &&
+          //                                 DateFormat('hh:mm:s a').format(data[i]
+          //                                             ['last_message_time']
+          //                                         .toDate()) ==
+          //                                     DateFormat('hh:mm:s a')
+          //                                         .format(DateTime.now())) {}
+          //                             {}
+          //                             return !snap.hasData
+          //                                 ? Container()
+          //                                 : ChatWidgets.card(
+          //                                     unReadMessages: data[i]['unRead'],
+          //                                     sentby: data[i]['sent_by'],
+          //                                     cheakRead: data[i]['Read'],
+          //                                     image: snap.data['image'],
+          //                                     title: snap.data['name'],
+          //                                     subtitle: data[i]['last_message'],
+          //                                     time: DateFormat('hh:mm a')
+          //                                         .format(data[i]
+          //                                                 ['last_message_time']
+          //                                             .toDate()),
+          //                                     onTap: () async {
+          //                                       Navigator.pushNamed(context,
+          //                                           Routes.chatPageBody,
+          //                                           arguments:
+          //                                               ChatPageBodyPramiter(
+          //                                             chatId: user,
+          //                                             name: snap.data['name'],
+          //                                             yayaId: snap.data['id'],
+          //                                             image: snap.data['image'],
+          //                                             notificationId: snap
+          //                                                 .data['deviceToken'],
+          //                                             myName: MyDataModel
+          //                                                     .getInstance()
+          //                                                 .name!,
+          //                                             unReadMessages: data[i]
+          //                                                 ['unRead'],
+          //                                           ));
+          //                                     },
+          //                                     context: context,
+          //                                   );
+          //                           });
+          //                     },
+          //                   );
+          //                 }),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height-170,
+              child: CometChatConversationsWithMessages())
         ],
       ),
     );

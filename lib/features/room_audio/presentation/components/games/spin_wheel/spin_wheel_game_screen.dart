@@ -15,19 +15,21 @@ class SpinWheelGameScreen extends StatefulWidget {
   State<SpinWheelGameScreen> createState() => _SpinWheelGameScreenState();
   static ValueNotifier<int> updateList = ValueNotifier(0);
   static List<String> peoples = [];
-  static  Map<int , String> textFieldValues = {};
+  static Map<int, String> textFieldValues = {};
 
-  static List<Widget> textFieldWidget = [InputWidget() , InputWidget()];
+  static List<Widget> textFieldWidget = [InputWidget(), InputWidget()];
 }
 
 class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
-  late TextEditingController controller ;
+  late TextEditingController controller;
+
   @override
   void initState() {
-    SpinWheelGameScreen.textFieldWidget = [InputWidget() , InputWidget()];
+    SpinWheelGameScreen.textFieldWidget = [InputWidget(), InputWidget()];
     SpinWheelGameScreen.textFieldValues.clear();
     SpinWheelGameScreen.textFieldValues.putIfAbsent(0, () => "");
     SpinWheelGameScreen.textFieldValues.putIfAbsent(1, () => "");
+
     controller = TextEditingController();
 
     super.initState();
@@ -35,10 +37,9 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
 
   @override
   void dispose() {
-    controller.clear() ;
+    controller.clear();
     super.dispose();
   }
-
 
   bool isActive = false;
 
@@ -58,17 +59,24 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-
                   ValueListenableBuilder<int>(
                     valueListenable: SpinWheelGameScreen.updateList,
                     builder: (context, edit, _) {
-
                       return ListView.separated(
-                        itemBuilder: (context, index){
-
-                          return SpinWheelGameScreen.textFieldWidget[index] = InputWidget(index: index , controller: TextEditingController(text:SpinWheelGameScreen.textFieldValues[index]??""),);                        },
+                        itemBuilder: (context, index) {
+                          return SpinWheelGameScreen.textFieldWidget[index] =
+                              InputWidget(
+                            index: index,
+                            controller: TextEditingController(
+                                text: SpinWheelGameScreen
+                                        .textFieldValues[index] ??
+                                    ""),
+                          );
+                        },
                         separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(height: ConfigSize.defaultSize! / 2,);
+                          return SizedBox(
+                            height: ConfigSize.defaultSize! / 2,
+                          );
                         },
                         itemCount: SpinWheelGameScreen.textFieldWidget.length,
                         shrinkWrap: true,
@@ -81,11 +89,12 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                   SizedBox(height: ConfigSize.defaultSize! * 2,),
 
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       SpinWheelGameScreen.textFieldWidget.add(InputWidget());
                       SpinWheelGameScreen.updateList.value += 1;
-                      SpinWheelGameScreen.textFieldValues.putIfAbsent(SpinWheelGameScreen.textFieldWidget.length-1, () => "");
-
+                      SpinWheelGameScreen.textFieldValues.putIfAbsent(
+                          SpinWheelGameScreen.textFieldWidget.length - 1,
+                          () => "");
                     },
                     child: CircleAvatar(
                       backgroundColor: const Color.fromRGBO(149, 159, 225, 1),
@@ -93,7 +102,11 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                       child: CircleAvatar(
                         backgroundColor: const Color.fromRGBO(80, 68, 213, 1.0),
                         radius: ConfigSize.defaultSize! * 1.85,
-                        child: Icon(Icons.add, color: Colors.white, size: ConfigSize.defaultSize! * 3.5,),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: ConfigSize.defaultSize! * 3.5,
+                        ),
                       ),
                     ),
                   ),
@@ -104,26 +117,30 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
               ),
             ),
           ),
-
           Positioned(
             top: 0,
             child: Stack(
               alignment: Alignment.bottomLeft,
               children: [
-                Image.asset(AssetsPath.spinWheelGameHeaderImage, scale: .9,),
+                Image.asset(
+                  AssetsPath.spinWheelGameHeaderImage,
+                  scale: .9,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Image.asset(AssetsPath.spinWheelGameExiteIcon, scale: 1,),
+                    child: Image.asset(
+                      AssetsPath.spinWheelGameExiteIcon,
+                      scale: 1,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-
           Positioned(
             child: Stack(
               alignment: Alignment.bottomCenter,
@@ -138,8 +155,7 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(AssetsPath.spinWheelGameBottonImage),
-                        fit: BoxFit.cover
-                    ),
+                        fit: BoxFit.cover),
                   ),
                 ),
                 Padding(
@@ -150,29 +166,44 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                     children: [
                       SizedBox(
                         width: ConfigSize.screenWidth! * .55,
-                        child: Text(StringManager.removeResult.tr(), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17),overflow:  TextOverflow.fade,),
+                        child: Text(
+                          StringManager.removeResult.tr(),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 17),
+                          overflow: TextOverflow.fade,
+                        ),
                       ),
-
                       SizedBox(
                         height: ConfigSize.defaultSize! * 10,
                         child: Column(
                           children: [
                             InkWell(
-                              onTap: (){
+                              onTap: () {
                                 Navigator.pop(context);
                                 bottomDailog(
                                     context: context,
-                                    widget: SpinScreen(list: SpinWheelGameScreen.peoples, isActive: isActive,));
+                                    widget: SpinScreen(
+                                      list: SpinWheelGameScreen.peoples,
+                                      isActive: isActive,
+                                    ));
                               },
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
                                   Image.asset(AssetsPath.spinWheelGameBtnIcon),
-                                  Text(StringManager.save.tr(), style: TextStyle(color: const Color.fromRGBO(149, 72, 72, 1), fontWeight: FontWeight.w600, fontSize: ConfigSize.defaultSize! * 2),),
+                                  Text(
+                                    StringManager.save.tr(),
+                                    style: TextStyle(
+                                        color: const Color.fromRGBO(
+                                            149, 72, 72, 1),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: ConfigSize.defaultSize! * 2),
+                                  ),
                                 ],
                               ),
                             ),
-
                             Switch(
                               activeColor: ColorManager.mainColor,
                               value: isActive,
@@ -182,12 +213,9 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                                 } else {
                                   isActive = false;
                                 }
-                                setState(() {
-
-                                });
+                                setState(() {});
                               },
                             ),
-
                           ],
                         ),
                       ),
@@ -197,7 +225,6 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
               ],
             ),
           ),
-
         ],
       ),
     );
