@@ -28,7 +28,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     final result = await inviteToGameUC.call(InviteToGamePramiter(
         ownerId: event.inviteToGamePramiter.ownerId,
         userId: event.inviteToGamePramiter.userId,
-        coins: event.inviteToGamePramiter.coins
+        coins: event.inviteToGamePramiter.coins,
+        game_id: event.inviteToGamePramiter.game_id,
     ));
     result.fold((l) => emit(InviteToGameSuccessState(message: l)),
             (r) => emit(InviteToGameErrorState(error: DioHelper().getTypeOfFailure(r))));

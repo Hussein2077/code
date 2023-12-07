@@ -1285,7 +1285,7 @@ Future<String> inviteToGame(InviteToGamePramiter inviteToGamePramiter)async {
     'player_two_id': inviteToGamePramiter.userId,
     'owner_id': inviteToGamePramiter.ownerId,
     'coins': inviteToGamePramiter.coins,
-    "game_id":"1",
+    "game_id": inviteToGamePramiter.game_id,
   };
 
   try {

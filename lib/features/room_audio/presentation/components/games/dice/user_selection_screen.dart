@@ -15,15 +15,15 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manage
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
-class UserSelectionScreen extends StatefulWidget {
+class UserSelectionDiceScreen extends StatefulWidget {
   final EnterRoomModel roomData;
-  const UserSelectionScreen({super.key, required this.roomData});
+  const UserSelectionDiceScreen({super.key, required this.roomData});
 
   @override
-  State<UserSelectionScreen> createState() => _UserSelectionScreenState();
+  State<UserSelectionDiceScreen> createState() => _UserSelectionScreenDiceState();
 }
 
-class _UserSelectionScreenState extends State<UserSelectionScreen> {
+class _UserSelectionScreenDiceState extends State<UserSelectionDiceScreen> {
 
   String selected_user_id = "";
   late TextEditingController controller ;
@@ -169,7 +169,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(AssetsPath.guessingIcon, scale: .7,),
+                Image.asset(AssetsPath.diceIcon, scale: .7,),
               ],
             ),
           ),
@@ -182,7 +182,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                     ownerId: widget.roomData.ownerId.toString(),
                     userId: selected_user_id,
                     coins: controller.text,
-                    game_id: "1",
+                    game_id: "2",
                   )));
                 }else{
 

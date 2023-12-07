@@ -18,7 +18,8 @@ class AcceptOrCancelDialog extends StatelessWidget {
    String senderName;
    String toId;
    String gameRecordId;
-   AcceptOrCancelDialog({super.key, required this.coins, required this.senderImage, required this.senderName, required this.toId, required this.gameRecordId});
+   String gameId;
+   AcceptOrCancelDialog({super.key, required this.coins, required this.senderImage, required this.senderName, required this.toId, required this.gameRecordId, required this.gameId});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class AcceptOrCancelDialog extends StatelessWidget {
             Padding(
                 padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
                 child: Text(
-                  "${StringManager.rps.tr()} ${StringManager.games.tr()}",
+                  "${(gameId == "1"? StringManager.rps.tr() : StringManager.diceGame.tr() )} ${StringManager.games.tr()}",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: ConfigSize.defaultSize! * 1.7,
@@ -53,10 +54,6 @@ class AcceptOrCancelDialog extends StatelessWidget {
               image: senderImage,
             ),
 
-            // CircleAvatar(
-            //   radius: ConfigSize.defaultSize! * 3,
-            //   //TODO Add User Image
-            // ),
             SizedBox(height: ConfigSize.defaultSize!,),
             Text(
               senderName,

@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
+import 'dart:math';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/user_on_mic_model.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/basic_tool_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/emojie/emojie_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/gift_button.dart';
@@ -46,6 +47,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/user_avatar.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/viewbackground_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_states.dart';
@@ -575,7 +578,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       loadMp4Gift(giftData: RoomScreen.listOfAnimatingMp4Gifts[0]);
       RoomScreen.listOfAnimatingMp4Gifts.removeAt(0);
     } else {
-      log("is MP4 empty");
       RoomScreen.isGiftEntroAnimating = false;
     }
   }
@@ -591,7 +593,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           RoomScreen.listOfAnimatingEntros[0].imgUrl);
       RoomScreen.listOfAnimatingEntros.removeAt(0);
     } else {
-      log("is empty");
       RoomScreen.isGiftEntroAnimating = false;
     }
   }
@@ -624,7 +625,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     } else if (RoomScreen.listOfAnimatingGifts.isNotEmpty) {
       loadMoreAnimationGifts();
     } else {
-      log("is empty");
+
     }
   }
 
@@ -656,12 +657,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     });
     //  }
 
-    Future.delayed(const Duration(minutes: 7), () {
-      //ckeck if there are other banner ;
-      yellowBannercontroller.reverse().then((value) =>
-
-          log("don"));
-    });
   }
 
 //massages
@@ -764,7 +759,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         RoomScreen.adminsInRoom.clear();
         List<String> admins =
             List<String>.from(result[messageContent]['admins'].map((x) => x));
-        log(admins.toString());
 
         for (var element in admins) {
           RoomScreen.adminsInRoom.putIfAbsent(element, () => element);
@@ -826,7 +820,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           showDialog(
             context: context,
             builder: (context) {
-              return AcceptOrCancelDialog(coins: result[messageContent]['coins'].toString(), senderImage: result[messageContent]['user_image'].toString(), senderName: result[messageContent]['user_name'].toString(), toId: result[messageContent]['to_id'].toString(), gameRecordId: result[messageContent]['game_record_id'].toString());
+              return AcceptOrCancelDialog(coins: result[messageContent]['coins'].toString(), senderImage: result[messageContent]['user_image'].toString(), senderName: result[messageContent]['user_name'].toString(), toId: result[messageContent]['to_id'].toString(), gameRecordId: result[messageContent]['game_record_id'].toString(), gameId: result[messageContent]['game_id'].toString(),);
             });
         }else if(result[messageContent]['user_id'].toString() == MyDataModel.getInstance().id.toString()){
           Navigator.pop(context);
@@ -841,11 +835,20 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString() || result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
           if(result[messageContent]["result"].toString() == "accepted"){
             Navigator.pop(context);
-            showDialog(
+            if(result[messageContent]['game_id'].toString() == "1") {
+              showDialog(
                 context: context,
                 builder: (context) {
                   return GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
                 });
+            }else if(result[messageContent]['game_id'].toString() == "2"){
+              int answer = Random().nextInt(6);
+              BlocProvider.of<GameBloc>(context).add(SendGameChoise(sendGameChoisePramiter: SendGameChoisePramiter(
+                  gameId: result[messageContent]['game_record_id'].toString(),
+                  answer: answer.toString()
+              )));
+              ZegoUIKit.instance.sendInRoomMessage("$answer", false,games:GamesInRoom.dicGame);
+            }
           }else{
             Navigator.pop(context);
           }
@@ -1024,9 +1027,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     }
                     if (message.user.inRoomAttributes.value['sen'] == null &&
                         MessagesChached.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
-                      if (kDebugMode) {
-                        log("wait 2 sec to load more in formation about user");
-                      }
                       BlocProvider.of<GetUsersInRoomBloc>(context).add(GetUsersInRoomEvents(userId: message.user.id));
                     }
 

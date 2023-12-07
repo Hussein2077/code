@@ -21,8 +21,9 @@ class InviteToGamePramiter {
   final String ownerId;
   final String userId ;
   final String coins;
+  final String game_id;
 
-  const InviteToGamePramiter({required this.ownerId, required this.userId, required this.coins});
+  const InviteToGamePramiter({required this.ownerId, required this.userId, required this.coins, required this.game_id});
 
 
 }
