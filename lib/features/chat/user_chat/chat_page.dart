@@ -225,8 +225,15 @@ class _ChatPageState extends State<ChatPage> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height - 170,
               child: CometChatConversationsWithMessages(
+
+                messageConfiguration: MessageConfiguration(
+
+                ),
                 conversationsConfiguration: const ConversationsConfiguration(
-                    showBackButton: false, title: '', appBarOptions: []),
+                    showBackButton: false, title: '', appBarOptions: [],
+
+
+                ),
                 theme:
                     CometChatTheme(palette: _palette, typography: _typography),
               )),

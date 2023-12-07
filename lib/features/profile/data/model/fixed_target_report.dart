@@ -18,7 +18,7 @@ class FixedTargetReportModel extends Equatable {
   factory FixedTargetReportModel.fromJason(Map<String, dynamic> jason) {
     return FixedTargetReportModel(
       days: jason['current_total_day'],
-      diamonds: jason['diamonds'],
+      diamonds: jason['diamond'],
       hours: jason['current_total_hour'],
       totalDiamond: jason['total_diamond'],
       totalUsd: jason['total_usd'],
