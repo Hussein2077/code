@@ -116,9 +116,9 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
                 BlocBuilder<MyStoreBloc, MyStoreState>(
                   builder: (context, state) {
                     if (state is MyStoreSucssesState) {
-                      usd = state.myStore.usd.toString();
+                      usd = state.myStore.userUsd.toString();
                       return ContainerWithdrawal(
-                        usd: state.myStore.usd.toString(),
+                        usd: state.myStore.userUsd.toString(),
                       );
                     } else {
                       return ContainerWithdrawal(

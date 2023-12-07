@@ -111,9 +111,9 @@ class _CharchingDolarsForUsersState extends State<CharchingDolarsForUsers> {
                     BlocBuilder<MyStoreBloc, MyStoreState>(
                       builder: (context, state) {
                         if (state is MyStoreSucssesState) {
-                          ownerUsd = state.myStore.usd.toString();
+                          ownerUsd = state.myStore.hostUsd.toString();
                           return ContainerWithdrawal(
-                            usd: state.myStore.usd.toString(),
+                            usd: state.myStore.hostUsd.toString(),
                           );
                         } else {
                           return ContainerWithdrawal(

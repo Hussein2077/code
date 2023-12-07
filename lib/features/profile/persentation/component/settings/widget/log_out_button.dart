@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
@@ -73,6 +74,12 @@ class _LogOutOrDeleteAccountButtonState
           } else if (state is LogOutLoadingState ||
               state is DeleteAccountLoadingState) {
           } else if (state is DeleteAccountErrorState) {
+
+            ScaffoldMessenger.of(context).showSnackBar(
+                errorSnackBar(context,state.error));
+
+
+
             LogOutOrDeleteAccountButton.isFirstTabInAcceptButton = true;
           }
         },

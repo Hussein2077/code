@@ -1,9 +1,9 @@
 import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 
 class AgencyHistoryModle {
- final int? sumAgencyDaiomd ;
- final int? sumAgencyUsd ;
-  final int? totalOwnerUsd ;
+ final dynamic? sumAgencyDaiomd ;
+ final dynamic? sumAgencyUsd ;
+  final dynamic? totalOwnerUsd ;
   List <AgencyMemberModel>? users ;
 
   AgencyHistoryModle({this.sumAgencyUsd , this.totalOwnerUsd, this.sumAgencyDaiomd , this.users});

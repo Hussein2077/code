@@ -21,7 +21,7 @@ class FixedTargetReportModel extends Equatable {
       diamonds: jason['diamond'],
       hours: jason['current_total_hour'],
       totalDiamond: jason['total_diamond'],
-      totalUsd: jason['total_usd'],
+      totalUsd: jason['total_usd'].toInt(),
     );
   }
 

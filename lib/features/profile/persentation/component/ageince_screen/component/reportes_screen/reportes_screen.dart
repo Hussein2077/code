@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -159,12 +161,14 @@ class _ReportsScreenState extends State<ReportsScreen> {
                             }))
                   ]),
                 );
-              } else if (state is AgencyTimeLoadingState) {
+              }
+              else if (state is AgencyTimeLoadingState) {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height / 2.7,
                   child: const LoadingWidget(),
                 );
-              } else if (state is AgencyTimeErrorState) {
+              }
+              else if (state is AgencyTimeErrorState) {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height / 2.7,
                   child: CustomErrorWidget(message: state.error),

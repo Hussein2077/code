@@ -846,11 +846,14 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   Future<Either<AgencyHistoryModle, Failure>> agencyHistory({required String month, required String year , String? page})async {
     try {
       final result =
-      await baseRemotlyDataSourceProfile.getAgencyHistory(month: month , year: year , page: page );
+      await baseRemotlyDataSourceProfile.getAgencyHistory(month: month ,
+          year: year , page: page );
       return Left(result);
     } catch (e) {
       return right(DioHelper.buildFailure(e));
     }
+
+
   }
   
   @override
