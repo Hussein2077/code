@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/message_count_comet_chat.dart';
 import 'package:tik_chat_v2/core/widgets/message_count_notifecation.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
 
@@ -33,7 +34,7 @@ class MassageButton extends StatelessWidget {
                   height: ConfigSize.defaultSize! * 65,
                   child: const ChatPage()));
         },
-        child: MessageCountNotifcation(
+        child: ChatCountMessageCometChat(
           widget: Image.asset(
             AssetsPath.messages,
             width: AppPadding.p40,

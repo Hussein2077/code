@@ -113,6 +113,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               avatar: ConstentApi().getImage(state.myDataModel.profile!.image),
 
               id: state.myDataModel.id.toString()));
+
+
           if (state.myDataModel.profile!.age == 0 && state.myDataModel.country == null) {
             Navigator.pushNamedAndRemoveUntil(
                 context, Routes.addInfo, (route) => false,
