@@ -1,11 +1,9 @@
-import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
@@ -13,7 +11,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/games/br
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dice/user_selection_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class ActivityGamesDialog extends StatelessWidget {
   final EnterRoomModel roomData;
@@ -28,7 +25,6 @@ class ActivityGamesDialog extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
             bottomDailog(context: context, widget: UserSelectionDiceScreen(roomData: roomData));
-            // ZegoUIKit.instance.sendInRoomMessage("${Random().nextInt(6)}", false,games:GamesInRoom.dicGame);
           }),
       gamesColumn(
           image: AssetsPath.guessingIcon,
@@ -37,9 +33,9 @@ class ActivityGamesDialog extends StatelessWidget {
             Navigator.pop(context);
             bottomDailog(context: context, widget: UserSelectionScreen(roomData: roomData));
           }),
-      gamesColumn(
-          image: AssetsPath.luckyNumberIcon,
-          name: StringManager.luckyNumber.tr()),
+      // gamesColumn(
+      //     image: AssetsPath.luckyNumberIcon,
+      //     name: StringManager.luckyNumber.tr()),
       gamesColumn(
           image: AssetsPath.lotteryIcon,
           name: StringManager.luckyPull.tr(),

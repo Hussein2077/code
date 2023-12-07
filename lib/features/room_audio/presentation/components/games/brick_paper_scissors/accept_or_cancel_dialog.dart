@@ -21,6 +21,9 @@ class AcceptOrCancelDialog extends StatelessWidget {
    String gameId;
    AcceptOrCancelDialog({super.key, required this.coins, required this.senderImage, required this.senderName, required this.toId, required this.gameRecordId, required this.gameId});
 
+   bool cancel = false;
+   bool accept = false;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -77,9 +80,12 @@ class AcceptOrCancelDialog extends StatelessWidget {
                 children: [
                     InkWell(
                         onTap: () {
-                          BlocProvider.of<GameBloc>(context).add(CancelGame(cancelGamePramiter: CancelGamePramiter(
-                              gameId: gameRecordId
-                          )));
+                          if(!cancel){
+                            cancel = true;
+                            BlocProvider.of<GameBloc>(context).add(CancelGame(cancelGamePramiter: CancelGamePramiter(
+                                gameId: gameRecordId
+                            )));
+                          }
                         },
                         child: Text(
                           StringManager.cancel.tr(),
@@ -91,9 +97,12 @@ class AcceptOrCancelDialog extends StatelessWidget {
                         )),
                   InkWell(
                       onTap: () {
-                        BlocProvider.of<GameBloc>(context).add(StartGame(startGamePramiter: StartGamePramiter(
-                            gameId: gameRecordId
-                        )));
+                        if(!accept){
+                          accept = true;
+                          BlocProvider.of<GameBloc>(context).add(StartGame(startGamePramiter: StartGamePramiter(
+                              gameId: gameRecordId
+                          )));
+                        }
                       },
                       child: Text(
                         StringManager.accept.tr(),
