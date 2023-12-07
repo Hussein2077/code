@@ -30,7 +30,7 @@ class GameDialog extends StatefulWidget {
 
 class _GameDialogState extends State<GameDialog> {
 
-  int selected_index = -1;
+  int selected_index = 0;
 
   bool isTimerFinished = false;
   int start = 10;
@@ -43,19 +43,12 @@ class _GameDialogState extends State<GameDialog> {
         setState(() {
           timer.cancel();
           isTimerFinished = true;
-          if(selected_index != -1){
-            BlocProvider.of<GameBloc>(context).add(SendGameChoise(sendGameChoisePramiter: SendGameChoisePramiter(
-                gameId: widget.gameRecordId,
-                answer: selected_index.toString()
-            )));
-            ZegoUIKit.instance.sendInRoomMessage("$selected_index", false, games: GamesInRoom.rpsGame);
-          }else{
-            BlocProvider.of<GameBloc>(context).add(SendGameChoise(sendGameChoisePramiter: SendGameChoisePramiter(
-                gameId: widget.gameRecordId,
-                answer: "0"
-            )));
-            ZegoUIKit.instance.sendInRoomMessage("0", false, games: GamesInRoom.rpsGame);
-          }
+          BlocProvider.of<GameBloc>(context).add(SendGameChoise(sendGameChoisePramiter: SendGameChoisePramiter(
+              gameId: widget.gameRecordId,
+              answer: selected_index.toString()
+          )));
+          Navigator.pop(context);
+          ZegoUIKit.instance.sendInRoomMessage("$selected_index", false, games: GamesInRoom.rpsGame);
         });
       } else {
         if(mounted){
