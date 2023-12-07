@@ -3,18 +3,22 @@ import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart' as cometchat;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 //import 'package:flutter_chat_ui_kit/flutter_chat_ui_kit.dart' as cometchat;
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_state.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/Logics/functions.dart';
 
 import '../../../core/utils/config_size.dart';
+import '../../auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
 import 'widgets/myprofile_property_row.dart';
 
 class ChatPage extends StatefulWidget {
+
   const ChatPage({key}) : super(key: key);
 
   @override
@@ -45,9 +49,9 @@ class _ChatPageState extends State<ChatPage> {
 
   // cometchat.Typography _typography = fl.Typography.fromDefault(
   //     name: FontStyle(fontSize: 22, fontWeight: FontWeight.w400));
-  final Palette _palette = const Palette(
-      accent: PaletteModel(light: Colors.red, dark: Colors.green));
-  final cometchat.Typography _typography = cometchat.Typography.fromDefault();
+  // final Palette _palette = const Palette(
+  //     accent: PaletteModel(light: Colors.red, dark: Colors.green));
+  // final cometchat.Typography _typography = cometchat.Typography.fromDefault();
 
   @override
   Widget build(BuildContext context) {
@@ -223,15 +227,23 @@ class _ChatPageState extends State<ChatPage> {
           //     ),
           //   ),
           // ),
-          SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height - 170,
-              child: CometChatConversationsWithMessages(
-                conversationsConfiguration: const ConversationsConfiguration(
-                    showBackButton: false, title: '', appBarOptions: []),
-                theme:
-                    CometChatTheme(palette: _palette, typography: _typography),
-              )),
+                Expanded(
+
+    child: const CometChatConversationsWithMessages(
+
+    conversationsConfiguration: ConversationsConfiguration(
+
+
+
+    showBackButton: false, title: '', appBarOptions: []),
+    // theme:
+    //     CometChatTheme(palette: _palette, typography: _typography),
+    )),
+
+
+
+
+
         ],
       ),
     );
