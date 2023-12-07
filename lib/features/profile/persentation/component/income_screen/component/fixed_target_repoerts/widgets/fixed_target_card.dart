@@ -5,13 +5,11 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 class FixedTargetCard extends StatelessWidget {
   final String mainTitle;
   final String target;
-  final String subTitle;
   final double width;
 
   const FixedTargetCard(
       {super.key,
       required this.mainTitle,
-      required this.subTitle,
       required this.width,
       required this.target});
 
@@ -55,18 +53,11 @@ class FixedTargetCard extends StatelessWidget {
                 SizedBox(
                   height: ConfigSize.defaultSize! * 0.4,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      '$target / ',
-                      style: const TextStyle(color: ColorManager.mainColor),
-                    ),
-                    Text(
-                      subTitle,
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                  ],
+                Text(
+                  target,
+                  style: const TextStyle(color: ColorManager.gray),
                 ),
+
               ],
             ),
           ),
