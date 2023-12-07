@@ -844,7 +844,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           showDialog(
               context: context,
               builder: (context) {
-                return const GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
+                return GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
               });
         }else{
           Navigator.pop(context);
