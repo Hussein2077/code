@@ -127,6 +127,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   @override
   Future<MyDataModel> addInformation(InformationPramiter informationPramiter)async {
      FormData formData;
+
     if (informationPramiter.image == null) {
       formData = FormData.fromMap({
         'bio' : informationPramiter.bio,
@@ -134,7 +135,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ConstentApi.birthday: informationPramiter.date,
         ConstentApi.gender: informationPramiter.gender,
         'country_id':informationPramiter.countryID,
-        if(informationPramiter.email != null) "email": informationPramiter.email
+        if(informationPramiter.email != null) "email": informationPramiter.email.toString()
 
       });
     }
@@ -315,13 +316,10 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   Future<AuthWithHuaweiModel> sigInWithHuawei() async{
     final devicedata = await DioHelper().initPlatformState();
     Map<String, String> headers = await DioHelper().header();
-    log("11111111111");
 
   AccountAuthParamsHelper  accountAuthParamsHelper =     AccountAuthParamsHelper(AccountAuthParams.defaultAuthRequestParam);
-    log("22222222");
 
     accountAuthParamsHelper.setProfile() ;
-    log("22222222");
 
     accountAuthParamsHelper.setAccessToken() ;
 
@@ -331,20 +329,12 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     AccountAuthService  accountAuthService =  AccountAuthManager.getService(mAuthParam);
 
     AuthAccount account = await  accountAuthService.signIn() ;
-     log("""
-      token : ${account.idToken}
-      email : ${account.email},
-      displayName : ${account.displayName}
-       authCode : ${account.authorizationCode}
-       ${account.openId}
-       ${account.carrierId}
-       ${account.accessToken}
-      """);
+
     try {
        final body =  {
          ConstentApi.type: "huawei",
          ConstentApi.name: account.displayName,
-         "huawei_id": account.idToken,
+         "huawei_id": account.accessToken,
          'device_token':devicedata
        };
        try{
@@ -365,7 +355,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
          return AuthWithHuaweiModel(apiUserData:userData , userData:account);
        }on DioError catch (e){
-         throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithGoogle");
+         throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithHuawei");
        }
 
 

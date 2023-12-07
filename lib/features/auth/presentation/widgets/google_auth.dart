@@ -74,7 +74,30 @@ class GoogleAndAppleAuth extends StatelessWidget {
           }
         } else if (state is SiginWithGoogleErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
-        } else {}
+        } else if (state is SiginWithHuaweiSuccesMessageState){
+          Methods.instance.clearAuthData();
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+          if (state.userModel.apiUserData.isFirst!) {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.addInfo,
+              arguments: ThirdPartyAuthModel(
+                data: state.userModel.userData,
+                type: "huawei",
+              ),
+                  (route) => false,
+            );
+          } else {
+            BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(email: state.userModel.userData.email.toString()));
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.mainScreen,
+                  (route) => false,
+            );
+          }
+        } else if (state is SiginWithHuaweiErrorMessageState) {
+          errorToast(context: context, title: state.errorMessage);
+        }
       },
       builder: (context, state) {
         return Row(
@@ -97,14 +120,11 @@ class GoogleAndAppleAuth extends StatelessWidget {
                 BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginHuaweiEvent());
               },
               child: CircleAvatar(
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.red,
                 radius: ConfigSize.defaultSize! * 2.5,
-                child: SizedBox(
-                    width: ConfigSize.defaultSize! * 5,
-                    height: ConfigSize.defaultSize! * 5,
-                    child: Center(
-                      child: Image.asset(AssetsPath.huaweiIcon),
-                    )),
+                child: Center(
+                  child: Image.asset(AssetsPath.huaweiIcon, color: ColorManager.whiteColor, scale: 20,),
+                ),
               ),
             ),
 

@@ -3,8 +3,6 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_huawei_availability/google_huawei_availability.dart';
 import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
@@ -19,7 +17,6 @@ import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/core/widgets/update_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/continer_with_icons.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_event.dart';
@@ -133,19 +130,16 @@ class _LoginScreenState extends State<LoginScreen> {
               image: AssetsPath.loginBackGround,
               child: Column(
                 children: [
-                  const Spacer(
-                    flex: 20,
-                  ),
                   Image.asset(
                     AssetsPath.iconAppWithTitle,
                     scale: 2.5,
                   ),
                   const Spacer(
-                    flex: 20,
+                    flex: 5,
                   ),
                   const PhoneWithCountry(),
                   const Spacer(
-                    flex: 2,
+                    flex: 1,
                   ),
                   ContinerWithIcons(
                       color: Colors.white,
