@@ -819,6 +819,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         if(result[messageContent]['to_id'].toString() == MyDataModel.getInstance().id.toString()) {
           showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) {
               return AcceptOrCancelDialog(coins: result[messageContent]['coins'].toString(), senderImage: result[messageContent]['user_image'].toString(), senderName: result[messageContent]['user_name'].toString(), toId: result[messageContent]['to_id'].toString(), gameRecordId: result[messageContent]['game_record_id'].toString(), gameId: result[messageContent]['game_id'].toString(),);
             });

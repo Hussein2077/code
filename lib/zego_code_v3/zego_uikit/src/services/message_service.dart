@@ -28,8 +28,8 @@ mixin ZegoMessageService {
 
   /// send in-room message
   /// @return Error code, please refer to the error codes document https://docs.zegocloud.com/en/5548.html for details.
-  Future<bool> sendInRoomMessage(String message,bool? changeTheme ,{GamesInRoom games=GamesInRoom.normal}) async {
-    return ZegoUIKitCore.shared.coreMessage.sendBroadcastMessage(message,changeTheme,games: games);
+  Future<bool> sendInRoomMessage(String message,bool? changeTheme ,{GamesInRoom? games}) async {
+    return ZegoUIKitCore.shared.coreMessage.sendBroadcastMessage(message,changeTheme,games: games??GamesInRoom.normal);
   }
 
   /// re-send in-room message
