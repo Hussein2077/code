@@ -316,19 +316,31 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     final devicedata = await DioHelper().initPlatformState();
     Map<String, String> headers = await DioHelper().header();
     log("11111111111");
-     AccountAuthService _authService;
-    final AccountAuthParamsHelper authParamsHelper = AccountAuthParamsHelper()
-      ..setProfile()
-      ..setAccessToken();
-    log("2222222222");
-    final AccountAuthParams authParams = authParamsHelper.createParams();
-    log("3333333333");
-    _authService = AccountAuthManager.getService(authParams);
-    log("4444444");
+
+  AccountAuthParamsHelper  accountAuthParamsHelper =     AccountAuthParamsHelper(AccountAuthParams.defaultAuthRequestParam);
+    log("22222222");
+
+    accountAuthParamsHelper.setProfile() ;
+    log("22222222");
+
+    accountAuthParamsHelper.setAccessToken() ;
+
+
+    AccountAuthParams mAuthParam = accountAuthParamsHelper.createParams();
+
+    AccountAuthService  accountAuthService =  AccountAuthManager.getService(mAuthParam);
+
+    AuthAccount account = await  accountAuthService.signIn() ;
+     log("""
+      token : ${account.idToken}
+      email : ${account.email},
+      displayName : ${account.displayName}
+       authCode : ${account.authorizationCode}
+       ${account.openId}
+       ${account.carrierId}
+       ${account.accessToken}
+      """);
     try {
-      log("5");
-       final AuthAccount account = await _authService.signIn();
-      log("6");
        final body =  {
          ConstentApi.type: "huawei",
          ConstentApi.name: account.displayName,
