@@ -234,7 +234,6 @@ class _ChatPageState extends State<ChatPage> {
                 conversationsConfiguration: const ConversationsConfiguration(
                     showBackButton: false, title: '', appBarOptions: [],
 
-
                 ),
                 theme:
                     CometChatTheme(palette: _palette, typography: _typography),

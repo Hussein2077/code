@@ -1698,8 +1698,7 @@ isVisit: isVisit,
 
       final result =
           AgencyMyStoreModel.fromJson(response.data["data"]['my_store']);
-
-      return result ; 
+      return result ;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'myStore' );
     }
