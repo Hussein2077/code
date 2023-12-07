@@ -241,6 +241,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/add_admin_uc.dar
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/add_room_back_ground_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/background_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/ban_user_from_writing_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/change_room_mode.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/close_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/dispose_hide_room_uc.dart';
@@ -255,6 +256,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dar
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_user_in_room_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_room_use_case.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/leave_mic_uc.dart';
@@ -267,11 +269,13 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/remove_admin_uc.
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/remove_pass_room_UC.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/room_admins_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_box_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_lucky_gift_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_pob_up_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_yallow_banner_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/show_pk_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/unmute_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
@@ -280,6 +284,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/host_tim
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
@@ -563,6 +568,8 @@ class ServerLocator {
             () => ReportMomentBloc(reportMomentUseCase:  getIt() ));
     getIt.registerFactory(
             () => AllShippingAgentsBloc(getAllShippingAgentsUseCase:  getIt() ));
+    getIt.registerFactory(
+            () => GameBloc(inviteToGameUC:  getIt(), cancelGameUC: getIt(), startGameUC: getIt(), sendGameChoiseUC: getIt() ));
 
 
 //usecase
@@ -856,6 +863,10 @@ getIt.registerLazySingleton(
 
     getIt.registerLazySingleton(() => GetFollowingReelUseCase(baseRepositoryReel: getIt()));
     getIt.registerLazySingleton(() => GetAllShippingAgentsUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => InviteToGameUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => CancelGameUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => StartGameUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => SendGameChoiseUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(() => FirebaseLoginBloc());
 

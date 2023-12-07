@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -103,35 +102,10 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                               ? BlocListener<BuyCoinsBloc, BuyCoinsState>(
                                   child: InkWell(
                                     onTap: () {
-                                      // if(productsMap[state.data[index].coin.toString()] == ""){
-                                      //   warningToast(context: context, title: "Loading Products Please try again");
-                                      // }else{
-                                      //   if (Platform.isIOS) {
-                                      //     showDialog(
-                                      //       context: context,
-                                      //       builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
-                                      //     );
-                                      //   } else {
-                                      //     showDialog(
-                                      //       context: context,
-                                      //       builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
-                                      //     );
-                                      //   }
-                                      // }
-
-                                      if(productsMap[state.data[index].coin.toString()] == ""){
-                                        warningToast(context: context, title: "Loading Products Please try again");
-                                      }else{
-                                        if (Platform.isIOS) {
-                                          CoinsTabView.productId = state.data[index].id;
-                                          buyProduct(productsMap[state.data[index].coin.toString()]);
-                                        } else {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
-                                          );
-                                        }
-                                      }
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
+                                      );
                                     },
                                     child: Column(
                                       children: [

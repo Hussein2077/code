@@ -17,14 +17,18 @@ import 'package:tik_chat_v2/features/room_audio/data/model/lucky_gift_model.dart
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/Repository/Base_Repository_Profile.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/ban_user_from_writing_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/enter_room.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_box_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_pob_up_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/update_room_usecase.dart';
 
@@ -486,6 +490,46 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
     try {
       final result =
           await baseRemotlyDataSourceRoom.hostTimeOnMic(time);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> inviteToGame(InviteToGamePramiter inviteToGamePramiter) async {
+    try {
+      final result = await baseRemotlyDataSourceRoom.inviteToGame(inviteToGamePramiter);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> cancelGame(CancelGamePramiter cancelGamePramiter) async {
+    try {
+      final result = await baseRemotlyDataSourceRoom.cancelGame(cancelGamePramiter);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> startGame(StartGamePramiter startGamePramiter) async {
+    try {
+      final result = await baseRemotlyDataSourceRoom.startGame(startGamePramiter);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> sendGameChoise(SendGameChoisePramiter sendGameChoisePramiter) async {
+    try {
+      final result = await baseRemotlyDataSourceRoom.sendGameChoise(sendGameChoisePramiter);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));

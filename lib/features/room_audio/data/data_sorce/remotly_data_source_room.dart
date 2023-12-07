@@ -20,10 +20,14 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/lucky_gift_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_user_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_gift_use_case.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/update_room_usecase.dart';
 import '../../domine/use_case/kickout_pramiter_uc.dart';
@@ -82,7 +86,10 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> muteUserMic(MuteUserMicPramiter muteUserMicPramiter);
   Future<String> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter);
   Future<String> hostTimeOnMic(int time);
-
+  Future<String> inviteToGame(InviteToGamePramiter inviteToGamePramiter);
+  Future<String> cancelGame(CancelGamePramiter cancelGamePramiter);
+  Future<String> startGame(StartGamePramiter startGamePramiter);
+  Future<String> sendGameChoise(SendGameChoisePramiter sendGameChoisePramiter);
 
 }
 
@@ -1269,5 +1276,103 @@ Future<String> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter)async {
       throw DioHelper.handleDioError(dioError: e,endpointName: "HostTimeOnMic");
     }
   }
+
+@override
+Future<String> inviteToGame(InviteToGamePramiter inviteToGamePramiter)async {
+  Map<String, String> headers = await DioHelper().header();
+
+  final body ={
+    'palyer_two_id': inviteToGamePramiter.userId,
+    'owner_id': inviteToGamePramiter.ownerId,
+    'coins': inviteToGamePramiter.coins,
+    "game_id":"1",
+  };
+
+  try {
+    final response = await Dio().post(
+        ConstentApi.inviteToGame,
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+    Map<String, dynamic> jsonData = response.data;
+    return jsonData['message'];
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "invite user to game");
+  }
+}
+
+@override
+Future<String> cancelGame(CancelGamePramiter cancelGamePramiter)async {
+  Map<String, String> headers = await DioHelper().header();
+
+  final body ={
+    'game_record_id': cancelGamePramiter.gameId,
+    'status': "reject"
+  };
+
+  try {
+    final response = await Dio().post(
+        ConstentApi.acceptOrCancelGame,
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+    Map<String, dynamic> jsonData = response.data;
+    return jsonData['message'];
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "cancel game");
+  }
+}
+
+@override
+Future<String> startGame(StartGamePramiter startGamePramiter)async {
+  Map<String, String> headers = await DioHelper().header();
+
+  final body ={
+    'game_record_id': startGamePramiter.gameId,
+    'status': "accept"
+  };
+
+  try {
+    final response = await Dio().post(
+        ConstentApi.acceptOrCancelGame,
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+    Map<String, dynamic> jsonData = response.data;
+    return jsonData['message'];
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "start game");
+  }
+}
+
+@override
+Future<String> sendGameChoise(SendGameChoisePramiter sendGameChoisePramiter)async {
+  Map<String, String> headers = await DioHelper().header();
+
+  final body ={
+    'game_record_id': sendGameChoisePramiter.gameId,
+    'answer': sendGameChoisePramiter.answer
+  };
+
+  try {
+    final response = await Dio().post(
+        ConstentApi.sendGameChoise,
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+    Map<String, dynamic> jsonData = response.data;
+    return jsonData['message'];
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "send game choise");
+  }
+}
 
 }

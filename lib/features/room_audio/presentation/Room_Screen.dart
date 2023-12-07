@@ -25,6 +25,9 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/massage_Button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/speakr_button.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/accept_or_cancel_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/waiting_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
@@ -88,7 +91,6 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
   static late LayoutMode layoutMode;
   static int startTimeOnSeatMic = 0 ;
-
 
 
 
@@ -819,6 +821,34 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           hasPasswoedRoom: result[messageContent]['ps'],
           ownerId: result[messageContent]['oid'],
         );
+      }
+      else if (result[messageContent][message] == "requestDiceGame") {
+        if(result[messageContent]['to_id'].toString() == MyDataModel.getInstance().id.toString()) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AcceptOrCancelDialog(coins: result[messageContent]['coins'].toString(), senderImage: result[messageContent]['user_image'].toString(), senderName: result[messageContent]['user_name'].toString(), toId: result[messageContent]['to_id'].toString(), gameRecordId: result[messageContent]['game_record_id'].toString());
+            });
+        }else if(result[messageContent]['user_id'].toString() == MyDataModel.getInstance().id.toString()){
+          Navigator.pop(context);
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const WaitingDialog();
+              });
+        }
+      }
+      else if (result[messageContent][message] == "requestResultFromOther") {
+        if(result[messageContent][message].toString() == "accepted"){
+          Navigator.pop(context);
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
+              });
+        }else{
+          Navigator.pop(context);
+        }
       }
     }
   }
