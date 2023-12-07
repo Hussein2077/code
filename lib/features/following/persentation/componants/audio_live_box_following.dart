@@ -50,7 +50,7 @@ class AudioLiveBoxFollowing extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2),
               image: DecorationImage(
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   image: CachedNetworkImageProvider(
                       ConstentApi().getImage(room.cover))),
             ),
