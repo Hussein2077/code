@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
+import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/info_with_container_blue.dart';
@@ -42,15 +43,18 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
           backgroundColor: Theme.of(context).colorScheme.background,
           body: SingleChildScrollView(
             child: Column(
+
               children: [
                 CustoumCachedImage(
-                  height: ConfigSize.defaultSize! * 30,
+                  height: ConfigSize.defaultSize! * 32,
                   url:widget.myData.profile!.image!,
                   width: MediaQuery.of(context).size.width,
                   boxFit: BoxFit.cover,
                   widget: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                     child: Column(
+
+
                       children: [
                         SizedBox(
                           height: ConfigSize.defaultSize! * 1,
@@ -66,6 +70,8 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                   color: Colors.white,
                                 ))),
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             InkWell(
 
@@ -83,34 +89,30 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                             const SizedBox(
                               height: 1,
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Column(
-                                children: [
-                                  GradientTextVip(
-                                    text: widget.myData.name!,
-                                    typeUser: widget.myData.myType??0,
-                                    textStyle: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                GradientTextVip(
+                                  text: widget.myData.name!,
+                                  textAlign:TextAlign.center,
+                                  typeUser: widget.myData.myType??0,
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!,
 
-                                    isVip:  widget.myData.hasColorName!,
-                                  ),
-                                  /* Text(widget.ownerDataModel.name!,
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: ConfigSize.defaultSize! *2.2,fontWeight: FontWeight.bold)),*/
-                                  SizedBox(
-                                    height: ConfigSize.defaultSize! * 0.5,
-                                  ),
-                                  Text('ID :${widget.myData.uuid}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium),
-                                ],
-                              ),
+                                  isVip:  widget.myData.hasColorName!,
+                                ),
+                                /* Text(widget.ownerDataModel.name!,
+                                        style:
+                                        TextStyle(color: Colors.white, fontSize: ConfigSize.defaultSize! *2.2,fontWeight: FontWeight.bold)),*/
+                                SizedBox(
+                                  height: ConfigSize.defaultSize! * 0.5,
+                                ),
+                                IdWithCopyIcon(
+                                  userData: widget.myData,
+                                )
+                              ],
                             ),
                           ],
                         ),

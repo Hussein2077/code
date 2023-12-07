@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
+import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'package:tik_chat_v2/core/widgets/shimmer_id.dart';
@@ -129,18 +130,7 @@ class UserInfoRow extends StatelessWidget {
                         ),
                         idOrNot != null
                             ? idOrNot!
-                            : userData.isGold
-                                ? ShimmerId(
-                                    id: userData.uuid.toString(),
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: ConfigSize.defaultSize! * 1.2,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                : Text(
-                              "ID ${userData.uuid.toString()}",
-                              style: Theme.of(context).textTheme.titleSmall,
-                            )
+                            :IdWithCopyIcon(userData: userData,)
                       ],
                     )
               ],

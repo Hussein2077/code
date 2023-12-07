@@ -14,7 +14,8 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 class IdWithCopyIcon extends StatefulWidget {
   var userData;
   Color? color;
-  IdWithCopyIcon({required this.userData,this.color, super.key});
+  MainAxisAlignment? mainAxisAlignment;
+  IdWithCopyIcon({required this.userData,this.color, super.key,this.mainAxisAlignment});
 
   @override
   State<IdWithCopyIcon> createState() => _IdWithCopyIconState();
@@ -23,9 +24,6 @@ class IdWithCopyIcon extends StatefulWidget {
 class _IdWithCopyIconState extends State<IdWithCopyIcon> {
   @override
   Widget build(BuildContext context) {
-    Brightness currentBrightness = Theme.of(context).brightness;
-
-    bool isDarkTheme = currentBrightness == Brightness.dark;
 
     return InkWell(
       onTap: () {
@@ -34,7 +32,7 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
             context: context, title: StringManager.theTextHasBeenCopied.tr());
       },
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment:widget.mainAxisAlignment?? MainAxisAlignment.center,
         children: [
           widget.userData.imageIdModel==null||widget.userData.imageIdModel?.image==""?
 
