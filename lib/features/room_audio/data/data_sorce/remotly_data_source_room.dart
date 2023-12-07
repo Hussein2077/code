@@ -1282,7 +1282,7 @@ Future<String> inviteToGame(InviteToGamePramiter inviteToGamePramiter)async {
   Map<String, String> headers = await DioHelper().header();
 
   final body ={
-    'palyer_two_id': inviteToGamePramiter.userId,
+    'player_two_id': inviteToGamePramiter.userId,
     'owner_id': inviteToGamePramiter.ownerId,
     'coins': inviteToGamePramiter.coins,
     "game_id":"1",

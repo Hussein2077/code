@@ -70,6 +70,11 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
           nameController.text = widget.Data!.data.givenName!;
         }
       }
+      if (widget.Data!.type.toString() == "huawei") {
+        if (widget.Data!.data.givenName != null) {
+          nameController.text = widget.Data!.data.givenName!;
+        }
+      }
     }
     BlocProvider.of<GetAllCountriesBloc>(context).add(GetAllCountriesEvent());
     super.initState();
@@ -157,7 +162,6 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               ),
               MainButton(
                   onTap: () {
-                    log('kkkkkk${widget.Data?.data}');
                     bool result = valadate();
                     if (result) {
                       if (Methods().calculateAge(DateWidget.selectedDatee) >=
@@ -171,7 +175,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                 : "0",
                             name: nameController.text,
                             date: DateWidget.selectedDatee,
-                            email: widget.Data?.data==null?null:widget.Data?.data.email.toString(),
+                            email: widget.Data?.data == null ? null : widget.Data?.data.email,
                             countryID:CountryDropDownSearch. selectedItem!.id));
                       } else {
                         errorToast(

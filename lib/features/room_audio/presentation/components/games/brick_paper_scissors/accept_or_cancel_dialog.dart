@@ -48,8 +48,8 @@ class AcceptOrCancelDialog extends StatelessWidget {
                 )),
 
             CachedNetworkImgeCircular(
-              hight: ConfigSize.defaultSize! * 3,
-              width: ConfigSize.defaultSize! * 3,
+              hight: ConfigSize.defaultSize! * 6,
+              width: ConfigSize.defaultSize! * 6,
               image: senderImage,
             ),
 
