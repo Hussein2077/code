@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 import 'package:app_links/app_links.dart';
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+    makeUISettings();
+
     if (Platform.isAndroid) {
       SplashScreen.devicePlatform = StringManager.androidPlatform;
     } else if (Platform.isIOS) {
@@ -100,7 +103,48 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  @override
+
+  makeUISettings() {
+    UIKitSettings uiKitSettings = (UIKitSettingsBuilder()
+      ..subscriptionType = CometChatSubscriptionType.allUsers
+      ..autoEstablishSocketConnection = true
+      ..region = "US" //Replace with your region
+      ..appId = "248798bc476786ae" //replace with your app Id
+      ..authKey = "0229e2e04b923cc623de62bb48f51a8bec521639"
+      ..extensions = CometChatUIKitChatExtensions.getDefaultExtensions()
+      ..aiFeature = AIEnabler(
+        aiFeatureList: [
+          AISmartRepliesExtension(),
+          AIConversationStarterExtension(),
+        ],
+      )
+        //replace this with empty array you want to disable all extensions
+    ) //replace with your auth Key
+        .build();
+
+    CometChatUIKit.init(
+      uiKitSettings: uiKitSettings,
+      onSuccess: (successMessage) {
+        try {
+          CometChat.setDemoMetaInfo(jsonObject: {
+            "name": "com.tikkchat.app",
+            "type": "release app",
+            "version": "1.5.0",
+            "bundle": Platform.isAndroid
+                ? "com.tikkchat.app"
+                : "com.cometchat.cometchatFlutterSampleApp",
+            "platform": "Flutter",
+          });
+        } catch (e) {
+          if (kDebugMode) {
+            debugPrint("setDemoMetaInfo ended with error");
+          }
+        }
+      },
+    );
+  }
+
+    @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
 

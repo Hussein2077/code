@@ -303,8 +303,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
 
                       InkWell(
                         onTap: () {
-                          Methods.instance.checkIfFriends(
-                              userData: widget.userData, context: context);
+                          // Methods.instance.checkIfFriends(
+                          //     userData: widget.userData, context: context);
                         },
                         child: Container(
                             // alignment: Alignment.centerRight,

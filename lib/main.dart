@@ -203,23 +203,7 @@ Future<void> main() async {
       HomeScreen.rebuildGroupChatCounter.value = true;
     }
   });
-  UIKitSettings uiKitSettings = (UIKitSettingsBuilder()
-    ..subscriptionType = CometChatSubscriptionType.allUsers
-    ..autoEstablishSocketConnection = true
-    ..region = "US"//Replace with your region
-    ..appId = "248798bc476786ae" //replace with your app Id
-    ..authKey = "0229e2e04b923cc623de62bb48f51a8bec521639"
-    ..extensions = CometChatUIKitChatExtensions.getDefaultExtensions()//replace this with empty array you want to disable all extensions
-  )//replace with your auth Key
-      .build();
 
-  CometChatUIKit.init( uiKitSettings: uiKitSettings,
-      onSuccess: (String successMessage){
-        debugPrint("Initialization completed successfully  $successMessage");
-      },
-      onError: (CometChatException e) {
-        debugPrint("Initialization failed with exception: ${e.message}");
-      });
 
   await ServerLocator().init();
 

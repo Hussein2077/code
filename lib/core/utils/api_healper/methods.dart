@@ -892,13 +892,10 @@ class Methods {
     getDependencies(BuildContext context){
         log('getTheNewData${MyDataModel.getInstance().id.toString()}');
         // BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-        Future.delayed(Duration.zero, () async {
+
+
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-        }).then((value) => BlocProvider.of<LoginChatBloc>(context)
-            .add( LoginChatEvent(name: MyDataModel.getInstance().name??"",
-            avatar: ConstentApi().getImage(MyDataModel.getInstance().profile!.image),
-           // id: '3')));
-           id: MyDataModel.getInstance().id.toString())));
+
         BlocProvider.of<GetFollowingUserMomentBloc>(context).add(const GetFollowingMomentEvent());
         BlocProvider.of<GetMomentILikeItBloc>(context).add(const GetMomentIliKEitEvent());
         BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(userId: MyDataModel.getInstance().id.toString(),));
@@ -950,7 +947,7 @@ class Methods {
 
 
 void checkIfFriends(
-    { required UserDataModel userData, required BuildContext context}){
+    { required UserDataModel userData, required BuildContext context , required CometChatConversationsWithMessagesController config}){
   if (userData.isFriend!) {
     User _user = User(
 
@@ -961,13 +958,7 @@ void checkIfFriends(
     );
 
 
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) =>  CometChatConversationsWithMessages(
-
-
-      user: _user,
-    ))
-    );
+    config.navigateToMessagesScreen(context: context , user:_user );
 
   } else {
     errorToast(context: context, title: StringManager.youAreNotFriends);

@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:ui' as ui;
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,9 +29,15 @@ class ProfileBottomBar extends StatefulWidget {
 
 class _ProfileBottomBarState extends State<ProfileBottomBar> {
   bool isFollow = false;
+  late CometChatConversationsWithMessagesController
+  _cometChatConversationsWithMessagesController;
 
   @override
   void initState() {
+    _cometChatConversationsWithMessagesController =        CometChatConversationsWithMessagesController(
+
+
+    );
     isFollow = widget.userData.isFollow!;
     super.initState();
   }
@@ -78,7 +85,7 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
           children: [
             bottomBarColumn(context: context, icon: AssetsPath.chatIconProfile ,onTap:  () async {
                 Methods.instance.checkIfFriends(
-                    userData: widget.userData, context: context);
+                    userData: widget.userData, context: context , config:_cometChatConversationsWithMessagesController );
                 // if (widget.userData.isFriend!) {
                 //
                 //   //checkIfFriends
