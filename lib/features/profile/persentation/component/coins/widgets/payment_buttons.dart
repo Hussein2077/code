@@ -3,7 +3,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/payment_config.dart';
+import 'package:tik_chat_v2/core/service/payment_config.dart';
 
 class PaymentButtons extends StatelessWidget {
 
@@ -17,9 +17,11 @@ class PaymentButtons extends StatelessWidget {
       paymentItems: paymentItems,
       style: ApplePayButtonStyle.black,
       width: double.infinity,
-      height: 50,
       type: ApplePayButtonType.buy,
-      onPaymentResult: (result) => debugPrint('Payment Result $result'),
+      onPaymentResult: (result) {
+        debugPrint('Payment Result $result');
+        callBack();
+      },
       onError: (e) => debugPrint('Payment error $e'),
       loadingIndicator: const Center(
         child: CircularProgressIndicator(),
@@ -29,11 +31,20 @@ class PaymentButtons extends StatelessWidget {
       paymentItems: paymentItems,
       type: GooglePayButtonType.buy,
       margin: const EdgeInsets.only(top: 15.0),
-      onPaymentResult: (result) => debugPrint('Payment Result $result'),
+      onPaymentResult: (result) {
+        debugPrint('Payment Result $result');
+        callBack();
+      },
       onError: (e) => debugPrint('Payment error $e'),
       loadingIndicator: const Center(
         child: CircularProgressIndicator(),
       ),
     );
   }
+
+  Future<void> callBack()async {
+    //TODO add end point
+
+  }
+
 }

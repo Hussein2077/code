@@ -8,12 +8,15 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/user_selection_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class ActivityGamesDialog extends StatelessWidget {
-  const ActivityGamesDialog({super.key});
+  final EnterRoomModel roomData;
+  const ActivityGamesDialog({super.key, required this.roomData});
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +26,14 @@ class ActivityGamesDialog extends StatelessWidget {
           name: StringManager.diceGame.tr(),
           onTap: () {
             Navigator.pop(context);
-            ZegoUIKit.instance.sendInRoomMessage(
-                "${Random().nextInt(6)}", false,games:GamesInRoom.dicGame);
+            ZegoUIKit.instance.sendInRoomMessage("${Random().nextInt(6)}", false,games:GamesInRoom.dicGame);
           }),
       gamesColumn(
           image: AssetsPath.guessingIcon,
           name: StringManager.rps.tr(),
           onTap: () {
             Navigator.pop(context);
-            ZegoUIKit.instance.sendInRoomMessage(
-                "${Random().nextInt(3)}", false,games:GamesInRoom.rpsGame);
+            bottomDailog(context: context, widget: UserSelectionScreen(roomData: roomData));
           }),
       gamesColumn(
           image: AssetsPath.luckyNumberIcon,

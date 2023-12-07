@@ -135,6 +135,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/event.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
@@ -543,6 +544,7 @@ class MyApp extends StatelessWidget {
 
 
 
+        BlocProvider(create: (_) => getIt<GameBloc>()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {

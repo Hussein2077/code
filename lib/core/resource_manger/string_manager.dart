@@ -425,6 +425,8 @@ class StringManager {
   static const String thisFeatureisNotAvailableForYou = "This Feature isNot Available For You";
   static const String note = "notes";
   static const String updateRoomName = "update your room name here";
+  static const String next = "Next";
+  static const String numberOfCoins = "Number Of Coins";
 
   //وضع جميع اللغات
   static const String report = "Report";

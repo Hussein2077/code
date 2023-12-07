@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pay/pay.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchase.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_tab_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_buttons.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
@@ -73,43 +71,17 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
 
             if (Platform.isAndroid) SizedBox(height: ConfigSize.defaultSize!,),
 
-            // SizedBox(
-            //   width: double.infinity,
-            //   child: PaymentButtons(
-            //     paymentItems: [
-            //       PaymentItem(
-            //         amount: widget.price,
-            //         label: widget.coin,
-            //         status: PaymentItemStatus.final_price,
-            //         type: PaymentItemType.item,
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-            InkWell(
-              onTap: (){
-                CoinsTabView.productId = widget.coinPackageId;
-                buyProduct(productsMap[widget.coin.toString()]);
-              },
-              child: Container(
-                height: ConfigSize.defaultSize! * 5,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*2),
-                  border: Border.all(color: Colors.black),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Pay With Google", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
-                      Image.asset(AssetsPath.googleIcon),
-                    ],
+            SizedBox(
+              width: double.infinity,
+              child: PaymentButtons(
+                paymentItems: [
+                  PaymentItem(
+                    amount: widget.price,
+                    label: widget.coin,
+                    status: PaymentItemStatus.final_price,
+                    type: PaymentItemType.item,
                   ),
-                ),
+                ],
               ),
             ),
           ],

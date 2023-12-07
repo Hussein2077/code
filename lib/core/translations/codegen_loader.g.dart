@@ -498,6 +498,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.luckyNumber: 'رقم الحظ',
     StringManager.luckyPull: 'سحب الحظ',
     StringManager.turntable: 'روليت عشوائي',
+    StringManager.next: 'التالي',
+    StringManager.numberOfCoins: 'عدد العملات',
     StringManager.choosemonth: 'اختر الشهر',
 
   };
