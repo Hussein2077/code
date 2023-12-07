@@ -12,7 +12,6 @@ import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchase.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_method_dialog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
@@ -39,7 +38,6 @@ class _CoinsTabViewState extends State<CoinsTabView> {
 
   @override
   void initState() {
-    initialize(context);
     buyCoinsBloc = BlocProvider.of<BuyCoinsBloc>(context);
     mSub = buyCoinsBloc.stream.listen((state) {
       if (state is BuyCoinsSuccessState) {
