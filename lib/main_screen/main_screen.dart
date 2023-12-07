@@ -112,7 +112,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               .add( LoginChatEvent(name:state.myDataModel.name??"",
               avatar: ConstentApi().getImage(state.myDataModel.profile!.image),
 
-              id: state.myDataModel.id.toString()));
+              id: state.myDataModel.id.toString() , notificationId: state.myDataModel.notificationId!));
 
 
           if (state.myDataModel.profile!.age == 0 && state.myDataModel.country == null) {
