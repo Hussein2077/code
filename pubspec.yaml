@@ -88,7 +88,6 @@ dependencies:
   webview_flutter: ^4.4.1
   easy_image_viewer: ^1.2.1
   app_links: ^3.4.3
-#  flutter_gif: ^0.0.4
   sign_in_with_apple:
   dots_indicator: ^2.1.0
   flutter_video_info: ^1.3.1
@@ -115,6 +114,7 @@ dependencies:
   dropdown_search: ^5.0.6
   device_preview: ^1.1.0
   flutter_fortune_wheel: ^1.3.0
+  gif:
   agconnect_core: ^1.9.0+300
   google_huawei_availability: ^1.4.0
   huawei_account: ^6.12.0+300

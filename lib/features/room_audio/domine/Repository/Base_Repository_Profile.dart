@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
@@ -75,7 +76,7 @@ abstract class BaseRepositoryRoom {
 
   Future<Either<String,Failure>> muteUserMic(MuteUserMicPramiter muteUserMicPramiter) ;
   Future<Either<String,Failure>> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter) ;
-
+  Future<Either<SvgaDataModel, Failure>> cacheGames(int type);
 
   Future<Either<String,Failure>> hostTimeOnMic(int time);
 

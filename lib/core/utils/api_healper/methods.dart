@@ -379,31 +379,31 @@ class Methods {
   }
 
   //cache extraf
-  Future<SvgaDataModel> getExtraData() async {
+  Future<SvgaDataModel> getExtraData(int type) async {
     String token = await Methods.instance.returnUserToken();
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
     };
     try {
       final response = await Dio().get(
-        ConstentApi.getExtraData,
+        ConstentApi.getExtraData(type),
         options: Options(
           headers: headers,
         ),
+
       );
       Map<String, dynamic> jsonData = response.data;
 
       SvgaDataModel svgaDataModel = SvgaDataModel.fromJason(jsonData['data']);
       log(svgaDataModel.toString());
-
       return svgaDataModel;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: "getExtraData");
     }
   }
 
-  Future<void> getAndLoadExtraData() async {
-    SvgaDataModel svgaDataModel = await getExtraData();
+  Future<void> getAndLoadExtraData({int type=1}) async {
+    SvgaDataModel svgaDataModel = await getExtraData(type);
     // removeCacheSvgaExtra(svgaDataModel: svgaDataModel) ;
     await cacheSvgaExtraData(svgaDataModel: svgaDataModel);
   }

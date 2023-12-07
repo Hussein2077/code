@@ -133,6 +133,8 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_r
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
@@ -529,6 +531,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<ReportMomentBloc>()),
         BlocProvider(create: (_) => getIt<GetAllCountriesBloc>()),
         BlocProvider(create: (_) => getIt<AllShippingAgentsBloc>()),
+        BlocProvider(create: (_) => getIt<CacheGamesBloc>()..add(const FetchExtraDataEvent(2))),
         BlocProvider(create: (_) => getIt<LoginChatBloc>()),
         BlocProvider(create: (_) => getIt<LogOutChatBloc>()),
         BlocProvider(create: (_) => getIt<UpdateUserDataBloc>()),

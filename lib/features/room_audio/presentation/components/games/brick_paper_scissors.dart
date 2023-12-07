@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/show_svga.dart';
+import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/state.dart';
 
 class BrickPaperScissorsGame extends StatefulWidget {
   const BrickPaperScissorsGame({super.key, required this.randomNum});
@@ -12,32 +17,14 @@ class BrickPaperScissorsGame extends StatefulWidget {
   State<BrickPaperScissorsGame> createState() => _BrickPaperScissorsGameState();
 }
 
-class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with TickerProviderStateMixin {
+class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame>
+    with TickerProviderStateMixin {
   late SVGAAnimationController animationController;
   bool showResultGame = false;
 
-  void loadAnimation() async {
-    final videoItem =
-    await SVGAParser.shared.decodeFromAssets(AssetsPath.fingerGuessing);
-    animationController.videoItem = videoItem;
-    animationController
-        .repeat() // Try to use .forward() .reverse()
-        .whenComplete(() {
-      return animationController.videoItem = null;
-    });
-  }
-
-  @override
-  void initState() {
-    animationController = SVGAAnimationController(vsync: this);
-    loadAnimation();
-    super.initState();
-  }
-
   @override
   void didChangeDependencies() {
-    Future.delayed(const Duration(seconds: 3), () {
-      animationController.videoItem = null;
+    Future.delayed(const Duration(seconds: 4), () {
       setState(() {
         showResultGame = true;
       });
@@ -45,26 +32,56 @@ class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with Ti
     super.didChangeDependencies();
   }
 
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
   List<String> brickPaperNum = [
     AssetsPath.brick,
     AssetsPath.paper,
     AssetsPath.scissors,
   ];
+  int isFirst = 0;
+  SvgaDataModel? tempData;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: ConfigSize.defaultSize! * 7,
-      width: ConfigSize.defaultSize! * 7,
-      child: showResultGame
-          ? Image.asset(brickPaperNum[widget.randomNum])
-          : SVGAImage(animationController),
+    return BlocBuilder<CacheGamesBloc, CacheStates>(
+      builder: (context, state) {
+        if (state is ExtraDataSuccess) {
+          tempData = state.svgaDataModel;
+          isFirst++;
+          return SizedBox(
+            height: ConfigSize.defaultSize! * 7,
+            width: ConfigSize.defaultSize! * 7,
+            child: showResultGame
+                ? Image.asset(brickPaperNum[widget.randomNum])
+                : ShowSVGA(
+                    imageId: state.svgaDataModel.rpsModel.id.toString(),
+                    url: state.svgaDataModel.rpsModel.image.toString()),
+          );
+        } else if (state is ExtraDataLoading) {
+          if (isFirst == 0) {
+            return SizedBox(
+              height: ConfigSize.defaultSize! * 7,
+              width: ConfigSize.defaultSize! * 7,
+            );
+          } else {
+            return SizedBox(
+              height: ConfigSize.defaultSize! * 7,
+              width: ConfigSize.defaultSize! * 7,
+              child: showResultGame
+                  ? Image.asset(brickPaperNum[widget.randomNum])
+                  : ShowSVGA(
+                      imageId: tempData!.rpsModel.id.toString(),
+                      url: tempData!.rpsModel.image.toString()),
+            );
+          }
+        } else if (state is ExtraDataError) {
+          return SizedBox(
+              height: ConfigSize.defaultSize! * 7,
+              width: ConfigSize.defaultSize! * 7,
+              child: ErrorWidget(state.error));
+        } else {
+          return const SizedBox();
+        }
+      },
     );
   }
 }

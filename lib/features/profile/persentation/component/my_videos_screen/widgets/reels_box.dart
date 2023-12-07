@@ -1,10 +1,9 @@
 import 'dart:developer';
 import 'dart:typed_data';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-//import 'package:flutter_gif/flutter_gif.dart';
+import 'package:gif/gif.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -28,17 +27,20 @@ class ReelsBox extends StatefulWidget {
   static Map<String, bool> likedVideos = {};
   static Map<String, int> likedVideoCount = {};
   static bool loading = false;
-  final bool isMyVideos ;
+  final bool isMyVideos;
 
   const ReelsBox(
-      {super.key, required this.userDataModel,required this.isMyVideos, required this.scrollController});
+      {super.key,
+      required this.userDataModel,
+      required this.isMyVideos,
+      required this.scrollController});
 
   @override
   State<ReelsBox> createState() => _ReelsBoxState();
 }
 
 class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
- // late FlutterGifController flutterGifController;
+  late GifController _controller;
 
   @override
   void initState() {
@@ -46,20 +48,14 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
       ReelsBox.likedVideos.clear();
       ReelsBox.likedVideoCount.clear();
     }
-
- //   flutterGifController = FlutterGifController(vsync: this);
-
-      // WidgetsBinding.instance.addPostFrameCallback((_) {
-      //   flutterGifController.repeat(
-      //       min: 0, max: 10, period: const Duration(milliseconds: 2000));
-      // });
+    _controller = GifController(vsync: this);
 
     super.initState();
   }
 
   @override
   void dispose() {
-   // flutterGifController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -87,20 +83,23 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
           ReelsBox.loading = state.loadMore;
           return Column(
             children: [
-              if(widget.isMyVideos)
-              SizedBox(
-                width: ConfigSize.screenWidth,
-                height: ConfigSize.defaultSize!*5,
-                child: Row(
-                  children: [
-                    SizedBox(
-                        width: ConfigSize.screenWidth!-ConfigSize.defaultSize!*5,
-                        height: ConfigSize.defaultSize!*5,
-                        child: HeaderWithOnlyTitle(title: StringManager.myVideos.tr(),)),
-                    const UploadVideo(),
-                  ],
+              if (widget.isMyVideos)
+                SizedBox(
+                  width: ConfigSize.screenWidth,
+                  height: ConfigSize.defaultSize! * 5,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                          width: ConfigSize.screenWidth! -
+                              ConfigSize.defaultSize! * 5,
+                          height: ConfigSize.defaultSize! * 5,
+                          child: HeaderWithOnlyTitle(
+                            title: StringManager.myVideos.tr(),
+                          )),
+                      const UploadVideo(),
+                    ],
+                  ),
                 ),
-              ),
               Expanded(
                 child: GridView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -117,8 +116,8 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                       if (index < state.data!.length) {
                         return InkWell(
                           onTap: () {
-                            MainScreen.canNotPlayOutOfReelMainScreen = false ;
-                            ReelsPage.isFirst = true ;
+                            MainScreen.canNotPlayOutOfReelMainScreen = false;
+                            ReelsPage.isFirst = true;
                             Navigator.pushNamed(context, Routes.userReelView,
                                 arguments: ReelsUserPramiter(
                                     startIndex: index,
@@ -128,10 +127,24 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                             margin: const EdgeInsets.symmetric(horizontal: 5),
                             child: Stack(
                               children: [
-                                // GifImage(
-                                //     controller: flutterGifController,
-                                //     image: NetworkImage(ConstentApi().getImage(
-                                //         state.data![index].subVideo))),
+                                Gif(
+                                  image: NetworkImage(ConstentApi()
+                                      .getImage(state.data![index].subVideo)),
+                                  controller: _controller,
+                                  // if duration and fps is null, original gif fps will be used.
+                                  // fps: 5,
+                                  duration: const Duration(seconds: 3),
+                                  autostart: Autostart.loop,
+                                  placeholder: (context) => Center(
+                                    child: SizedBox(
+                                        height: ConfigSize.defaultSize! * 3,
+                                        width: ConfigSize.defaultSize! * 8,
+                                        child: LoadingWidget(
+                                          padding: ConfigSize.defaultSize!,
+                                        )),
+                                  ),
+                                  onFetchCompleted: () {},
+                                ),
                                 Padding(
                                   padding: EdgeInsets.only(
                                       bottom: ConfigSize.defaultSize! * 2),
@@ -193,7 +206,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                       } else {
                         if (state.data!.length % 3 != 0 &&
                             state.data!.length > 6 &&
-                            ReelsBox.loading){
+                            ReelsBox.loading) {
                           return Center(
                               child: Text(
                             StringManager.loadingMore.tr(),
@@ -235,7 +248,7 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
             message: state.errorMassage,
           );
         } else {
-          return const  SizedBox();
+          return const SizedBox();
         }
       },
     );
