@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/dynamic_link.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
@@ -74,7 +73,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                     context: context,
                      widget: Padding(
                        padding:   EdgeInsets.only(bottom: ConfigSize.defaultSize!*7),
-                       child: const ActivityGamesDialog(),
+                       child: ActivityGamesDialog(roomData: widget.roomData),
                      ),
                   );
 
@@ -158,8 +157,7 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                                 .takeOffAllSeat(isPK: true);
                             Navigator.pop(context);
                             activePK();
-                            BlocProvider.of<PKBloc>(context)
-                                .add(ShowPKEvent(ownerId: widget.ownerId));
+                            BlocProvider.of<PKBloc>(context).add(ShowPKEvent(ownerId: widget.ownerId));
                           }
                         },
                         child: Column(

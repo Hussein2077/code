@@ -839,15 +839,17 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         }
       }
       else if (result[messageContent][message] == "requestResultFromOther") {
-        if(result[messageContent][message].toString() == "accepted"){
-          Navigator.pop(context);
-          showDialog(
-              context: context,
-              builder: (context) {
-                return GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
-              });
-        }else{
-          Navigator.pop(context);
+        if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString() || result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
+          if(result[messageContent][message].toString() == "accepted"){
+            Navigator.pop(context);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
+                });
+          }else{
+            Navigator.pop(context);
+          }
         }
       }
     }

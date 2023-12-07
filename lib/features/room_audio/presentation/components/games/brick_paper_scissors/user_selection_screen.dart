@@ -9,13 +9,15 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class UserSelectionScreen extends StatefulWidget {
-  const UserSelectionScreen({super.key});
+  final EnterRoomModel roomData;
+  const UserSelectionScreen({super.key, required this.roomData});
 
   @override
   State<UserSelectionScreen> createState() => _UserSelectionScreenState();
@@ -114,7 +116,8 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                   child: ListView.builder(
                       itemCount: ZegoUIKit().getAllUsers().length,
                       itemBuilder: (context, index){
-                        return InkWell(
+                        if(ZegoUIKit().getAllUsers()[index].id.toString() != MyDataModel.getInstance().id.toString()) {
+                          return InkWell(
                           onTap: (){
                             setState(() {
                               selected_user_id = ZegoUIKit().getAllUsers()[index].id;
@@ -152,6 +155,9 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                             ),
                           ),
                         );
+                        }else{
+                          return const SizedBox();
+                        }
                       }
                   ),
                 ),
@@ -173,7 +179,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
               onTap: (){
                 if(selected_user_id != "" && controller.text != ""){
                   BlocProvider.of<GameBloc>(context).add(InviteToGame(inviteToGamePramiter: InviteToGamePramiter(
-                    ownerId: MyDataModel.getInstance().id.toString(),
+                    ownerId: widget.roomData.ownerId.toString(),
                     userId: selected_user_id,
                     coins: controller.text,
                   )));

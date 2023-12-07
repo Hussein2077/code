@@ -17,10 +17,10 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dic_game.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
 
@@ -294,9 +294,7 @@ class MessagesChached extends StatelessWidget {
         return SizedBox(
           height: ConfigSize.defaultSize! * 5,
           width: ConfigSize.defaultSize! * 5,
-          child: BrickPaperScissorsGame(
-            randomNum: int.parse(message.message[0]),
-          ),
+          child: Image.asset(GameDialog.brickPaperNum[int.parse(message.message[0])]),
         );
       case GamesInRoom.spinGame:
         return SizedBox(
