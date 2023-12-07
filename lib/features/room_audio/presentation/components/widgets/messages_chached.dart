@@ -294,7 +294,7 @@ class MessagesChached extends StatelessWidget {
         return SizedBox(
           height: ConfigSize.defaultSize! * 5,
           width: ConfigSize.defaultSize! * 5,
-          child: Image.asset(GameDialog.brickPaperNum[int.parse(message.message[0])]),
+          child: Image.asset(GameDialog.brickPaperNum[int.parse(message.message)]),
         );
       case GamesInRoom.spinGame:
         return SizedBox(
