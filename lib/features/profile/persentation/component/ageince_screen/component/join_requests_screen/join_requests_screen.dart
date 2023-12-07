@@ -45,7 +45,8 @@ class _AgencyRequestsScreenState extends State<AgencyRequestsScreen> {
                 BlocProvider.of<AgencyRequestsBloc>(context).add((AgencyRequestsEvent()));
 
             sucssesToast(context: context, title: state.message);
-          }else if (state is AgencyRequestsActionErrorState){
+          }
+          else if (state is AgencyRequestsActionErrorState){
 
             errorToast(context: context, title: state.error);
           }
@@ -147,8 +148,8 @@ class _AgencyRequestsScreenState extends State<AgencyRequestsScreen> {
                 );
               }
             } else {
-              return const CustomErrorWidget(
-                  message: StringManager.unexcepectedError);
+              return  CustomErrorWidget(
+                  message: StringManager.unexcepectedError.tr());
             }
           },
         ),

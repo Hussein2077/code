@@ -115,7 +115,8 @@ class _CharchingDolarsForUsersState extends State<CharchingDolarsForUsers> {
                           return ContainerWithdrawal(
                             usd: state.myStore.hostUsd.toString(),
                           );
-                        } else {
+                        }
+                        else {
                           return ContainerWithdrawal(
                             usd: ownerUsd,
                           );

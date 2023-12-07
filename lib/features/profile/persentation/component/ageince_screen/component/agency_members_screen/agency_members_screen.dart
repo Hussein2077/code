@@ -81,8 +81,8 @@ class _AgencyMembersScreenState extends State<AgencyMembersScreen> {
               } else {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height / 2.4,
-                  child: const CustomErrorWidget(
-                      message: StringManager.unexcepectedError),
+                  child: CustomErrorWidget(
+                      message: StringManager.unexcepectedError.tr()),
                 );
               }
             },
