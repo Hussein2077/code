@@ -23,7 +23,7 @@ class ContainerVipOrContribute extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: ConfigSize.defaultSize! * 0.5,
-        horizontal: ConfigSize.defaultSize! * 0.7,
+        horizontal: ConfigSize.defaultSize! * 0.5,
       ),
 
       decoration: BoxDecoration(
