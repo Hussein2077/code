@@ -9,6 +9,8 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/message_count_notifecation.dart';
 import 'package:tik_chat_v2/main_screen/widget/bottom_bar_icon.dart';
 
+import '../../core/widgets/message_count_comet_chat.dart';
+
 class BottomBarWidget extends StatelessWidget {
   final int currentIndex ; 
   final dynamic Function(int) onTap ; 
@@ -66,12 +68,18 @@ class BottomBarWidget extends StatelessWidget {
               label: StringManager.reels.tr(),
             ),
             BottomNavigationBarItem(
-              icon:const MessageCountNotifcation(widget:BottomIcon(
+              icon: const ChatCountMessageCometChat(widget:BottomIcon(
                 icon: AssetsPath.chatIconDissActive,
-              ), )   ,
-              activeIcon: const BottomIcon(
-                icon: AssetsPath.chatIconActive,
+                   ), ),
+
+              activeIcon: const ChatCountMessageCometChat(
+                widget: BottomIcon(
+                    icon: AssetsPath.chatIconActive,
+                  ),
+
               ),
+
+
               label: StringManager.chat.tr(),
             ),
             BottomNavigationBarItem(
