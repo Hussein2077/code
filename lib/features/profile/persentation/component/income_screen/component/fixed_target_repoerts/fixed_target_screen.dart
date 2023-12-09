@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
+import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/fixed_target_repoerts/widgets/date_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/fixed_target_repoerts/widgets/fixed_target_card.dart';
@@ -81,7 +82,6 @@ class _FixedTargetScreenState extends State<FixedTargetScreen> {
                             height: 1,
                           ),
                           Container(
-                            width: ConfigSize.screenWidth! * 0.35,
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
                                 color: Theme.of(context)
@@ -98,9 +98,10 @@ class _FixedTargetScreenState extends State<FixedTargetScreen> {
                                       Theme.of(context).textTheme.bodyMedium!,
                                   isVip: widget.myData.hasColorName!,
                                 ),
-                                Text('ID :${widget.myData.uuid}',
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium),
+                                IdWithCopyIcon(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  userData:widget.myData,
+                                ),
                               ],
                             ),
                           ),

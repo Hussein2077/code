@@ -49,7 +49,7 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: ConfigSize.screenHeight! * .32,
+                      height: ConfigSize.screenHeight! * .36,
                       child: Stack(
                         children: [
                           Container(
@@ -107,19 +107,14 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
                                       .headlineLarge!,
                                   isVip: state.myDataModel.hasColorName!,
                                 ),
+                                IdWithCopyIcon(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  userData:state.myDataModel,
+                                ),
                               ],
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child:IdWithCopyIcon(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                userData:state.myDataModel,
-                              ),
-                            ),
-                          )
+
                         ],
                       ),
                     ),
