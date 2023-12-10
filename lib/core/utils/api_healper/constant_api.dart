@@ -7,6 +7,9 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 class ConstentApi {
    // static const String baseUrl = 'https://tik-chat.com/api' ;
   static const String baseUrl = 'https://test.tik-chat.com/api' ;
+  static const String signUpUrl = "$baseUrl/sign-up";
+  static const String resendCodeUrl = "$baseUrl/sign-up-resend-verification";
+  static const String registerVerificationUrl = "$baseUrl/sign-up-verification";
   static const String getBoxes = "$baseUrl/box/list";
   static const String inviteToGame = "$baseUrl/game-challange/send-reuest-paly";
   static const String acceptOrCancelGame = "$baseUrl/game-challange/other-side-opinion";
@@ -317,6 +320,7 @@ class ConstentApi {
   static const String relations = "$baseUrl/relations";
   static const String follow = "$relations/follow";
   static const String unFollow = "$relations/un-follow";
+  static const String testGooglePay = "$baseUrl/test-google-pay";
   //User
   static const String data = "data";
   static const String id = "id";
@@ -382,5 +386,9 @@ class ConstentApi {
   static String getFixedTargetReport(String date){
    return "$baseUrl/user-statistics?date=$date";
   }
+
+  static const String encryptionKey = "L9:65W&+nG@g";
+  static const String merchantId = "BCR2DN4T3GPIDDAG";
+  static const String merchantName = "software";
 
 }

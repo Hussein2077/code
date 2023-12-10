@@ -14,7 +14,7 @@ class RegisterWithPhoneBloc extends Bloc<BaseRegisterWithPhoneEvent, RegisterWit
     on<RegisterWithPhoneEvent>((event, emit) async{
         emit( RegisterPhoneLoadingMessageState());
     final sendOrFailur = await registerWithPhoneUsecase.call(
-        AuthPramiter(phone: event.phone,password: event.password,code: event.code, credential: event.credential));
+        AuthPramiter(phone: event.phone,password: event.password,code: event.code));
     sendOrFailur.fold(
             (l) => emit( RegisterPhoneSuccesMessageState(
             myDataModel: l, succesMessage: StringManager.loginSuccesfully)),

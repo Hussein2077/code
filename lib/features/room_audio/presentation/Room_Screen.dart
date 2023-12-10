@@ -854,6 +854,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             Navigator.pop(context);
           }
         }
+      }else if(result[messageContent][message] == "ResultOfGame"){
+        if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
+          if(result[messageContent]['game_id'].toString() == "1"){
+           ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false, games:GamesInRoom.rpsGameResult);
+          }else if(result[messageContent]['game_id'].toString() == "2"){
+            ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false, games:GamesInRoom.dicGameResult);
+          }
+        }
       }
     }
   }

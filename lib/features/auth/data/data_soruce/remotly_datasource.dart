@@ -1,12 +1,7 @@
-
-
-
-
 import 'dart:developer';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:huawei_account/huawei_account.dart';
@@ -22,13 +17,15 @@ import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
+import 'package:tik_chat_v2/features/auth/domin/use_case/register_verification_us.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 
 abstract class BaseRemotlyDataSource {
-  Future<Unit> sendCode(String phoneNumber);
   Future<MyDataModel> registerWithCodeAndPhone(AuthPramiter authPramiter);
+  Future<Unit> resendCode(String uuid);
+  Future<Unit> registerVerification(RegisterVerificationModel registerVerificationModel);
   Future<MyDataModel> loginWithPassAndPhone(AuthPramiter authPramiter);
   Future<MyDataModel> addInformation(InformationPramiter informationPramiter);
   Future<MyDataModel> sigInWithFacebook();
@@ -48,52 +45,63 @@ abstract class BaseRemotlyDataSource {
 
 class RemotlyDataSource extends BaseRemotlyDataSource {
 
-
   @override
-  Future<Unit> sendCode(String phoneNumber) async{
-     final body = {ConstentApi.phone: phoneNumber};
+  Future<Unit> resendCode(String uuid) async {
+    final body = {"uuid": uuid};
     try {
       await Dio().post(
-        ConstentApi.sendCodeUrl,
+        ConstentApi.resendCodeUrl,
         data: body,
       );
-      if(kDebugMode){
-        
-        ConstentApi.sendCodeUrl;
-
-      }
       return Future.value(unit);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:"sendCode");
+      throw DioHelper.handleDioError(dioError: e, endpointName: "resendCode");
     }
   }
 
-    @override
-  Future<MyDataModel> registerWithCodeAndPhone(
-      AuthPramiter authPramiter) async {
-
-    final devicedata = await DioHelper().initPlatformState();
-       final body =     {
-       ConstentApi.type: ConstentApi.phonePass,
+  @override
+  Future<MyDataModel> registerWithCodeAndPhone(AuthPramiter authPramiter) async {
+    final body = {
       ConstentApi.phone: authPramiter.phone,
       ConstentApi.password: authPramiter.password,
       ConstentApi.code: authPramiter.code,
-      'credential':authPramiter.credential,
-       'device_token':devicedata
-      };// to get information device
+    };
     try {
       final response = await Dio().post(
-        ConstentApi.registerUrl,
+        ConstentApi.signUpUrl,
         data: body,
       );
       Map<String, dynamic> jsonData = response.data;
 
-      MyDataModel userData = MyDataModel.fromMap(jsonData['data']);
-      Methods.instance.saveUserToken(authToken: userData.authToken);
-      
+      MyDataModel userData = MyDataModel.fromMap(jsonData);
       return userData;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:"registerWithCodeAndPhone");
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "registerWithCodeAndPhone");
+    }
+  }
+
+  @override
+  Future<Unit> registerVerification(RegisterVerificationModel registerVerificationModel) async {
+    String? deviceID = await DioHelper().initPlatformState();
+
+    final body = {
+      "uuid": registerVerificationModel.uuid,
+      'code': registerVerificationModel.code,
+      'device_id': deviceID ?? "",
+    };
+    try {
+      final resonse = await Dio().post(
+        ConstentApi.registerVerificationUrl,
+        data: body,
+      );
+      Map<String, dynamic> jsonDate = resonse.data;
+      log('${jsonDate['token']} jacklien');
+      Methods.instance.saveUserToken(authToken: jsonDate['token']);
+      return Future.value(unit);
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "registerVerification");
     }
   }
   
@@ -317,7 +325,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     final devicedata = await DioHelper().initPlatformState();
     Map<String, String> headers = await DioHelper().header();
 
-  AccountAuthParamsHelper  accountAuthParamsHelper =     AccountAuthParamsHelper(AccountAuthParams.defaultAuthRequestParam);
+  AccountAuthParamsHelper accountAuthParamsHelper = AccountAuthParamsHelper(AccountAuthParams.defaultAuthRequestParam);
 
     accountAuthParamsHelper.setProfile() ;
 
@@ -326,9 +334,9 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
     AccountAuthParams mAuthParam = accountAuthParamsHelper.createParams();
 
-    AccountAuthService  accountAuthService =  AccountAuthManager.getService(mAuthParam);
+    AccountAuthService accountAuthService = AccountAuthManager.getService(mAuthParam);
 
-    AuthAccount account = await  accountAuthService.signIn() ;
+    AuthAccount account = await accountAuthService.signIn() ;
 
     try {
        final body =  {
@@ -357,14 +365,12 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
        }on DioError catch (e){
          throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithHuawei");
        }
-
-
      } on Exception catch (e) {
-      print(e.toString() + "########");
        throw SiginGoogleException();
      }
 
   }
+
   @override
   Future<String> forgetPassword(forgetPasswordPramiter) async{
   final body = {
@@ -463,7 +469,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'Get All Countries');
     }
   }
-
 
 }
 

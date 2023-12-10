@@ -1,16 +1,18 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:developer';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/payment_config.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 
 class PaymentButtons extends StatelessWidget {
 
   List<PaymentItem> paymentItems;
-  PaymentButtons({super.key, required this.paymentItems});
+  int productId;
+  PaymentButtons({super.key, required this.paymentItems, required this.productId});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,19 @@ class PaymentButtons extends StatelessWidget {
       width: double.infinity,
       type: ApplePayButtonType.buy,
       onPaymentResult: (result) {
-        debugPrint('Payment Result $result');
-        callBack();
+        Map <String, dynamic> map = {
+          "merchantInfo": {
+            "merchantId": ConstentApi.merchantId,
+            "merchantName": ConstentApi.merchantName
+          },
+          "processInfo": {
+            "item_id": productId.toString(),
+            "cost": paymentItems[0].amount,
+            "cardDetails": result['paymentMethodData']['info']['cardDetails'],
+            "cardNetwork": result['paymentMethodData']['info']['cardNetwork']
+          }
+        };
+        callBack(map);
       },
       onError: (e) => debugPrint('Payment error $e'),
       loadingIndicator: const Center(
@@ -33,12 +46,20 @@ class PaymentButtons extends StatelessWidget {
       paymentItems: paymentItems,
       type: GooglePayButtonType.buy,
       margin: const EdgeInsets.only(top: 15.0),
-      onPressed: (){
-        callBack();
-      },
       onPaymentResult: (result) {
-        log(result["paymentMethodData"]["tokenizationData"]['token']);
-        callBack();
+        Map <String, dynamic> map = {
+          "merchantInfo": {
+            "merchantId": ConstentApi.merchantId,
+            "merchantName": ConstentApi.merchantName
+          },
+          "processInfo": {
+            "item_id": productId.toString(),
+            "cost": paymentItems[0].amount,
+            "cardDetails": result['paymentMethodData']['info']['cardDetails'],
+            "cardNetwork": result['paymentMethodData']['info']['cardNetwork']
+          }
+        };
+        callBack(map);
       },
       onError: (e) => debugPrint('Payment error $e'),
       loadingIndicator: const Center(
@@ -47,25 +68,25 @@ class PaymentButtons extends StatelessWidget {
     );
   }
 
-  String encryptMessage(String message) {
-    final plainText = '{item_id:1}';
-    final key = encrypt.Key.fromLength(32);
-    final iv = encrypt.IV.fromLength(16);
+  String encryptMap(Map<String, dynamic> map, String key) {
+    String jsonString = json.encode(map);
+    List<int> inputBytes = utf8.encode(jsonString);
+    List<int> keyBytes = utf8.encode(key);
 
-    final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    for (int i = 0; i < inputBytes.length; i++) {
+      inputBytes[i] ^= keyBytes[i % keyBytes.length];
+    }
 
-    final encrypted = encrypter.encrypt(plainText, iv: iv);
-    final decrypted = encrypter.decrypt(encrypted, iv: iv);
-
-    print(decrypted);
-    print(encrypted.base16);
-    return encrypted.base64;
+    return base64.encode(inputBytes);
   }
 
-  Future<void> callBack()async {
+
+
+  Future<void> callBack(Map <String, dynamic> map)async {
     //TODO add end point
 
-    log(encryptMessage("{item_id:1}"));
-  }
+    final encryptedData = encryptMap(map, "${MyDataModel.getInstance().id}-${ConstentApi.encryptionKey}");
 
+    print(encryptedData);
+  }
 }

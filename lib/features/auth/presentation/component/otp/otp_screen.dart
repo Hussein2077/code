@@ -103,8 +103,7 @@ class OtpScreen extends StatelessWidget {
                            RegisterWithPhoneEvent(
                               code: OtpContiners.code,
                               password: password??'',
-                              phone: phone??'',
-                              credential: token ?? ""));
+                              phone: phone??''));
                     }
 
                     

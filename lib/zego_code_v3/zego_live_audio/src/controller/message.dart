@@ -1,5 +1,6 @@
 //part of 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_controller.dart';
 
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
 
 /// @nodoc
@@ -16,8 +17,8 @@ class ZegoLiveAudioRoomMessageController {
   /// @return Error code, please refer to the error codes document https://docs.zegocloud.com/en/5548.html for details.
   ///
   /// @return A `Future` that representing whether the request was successful.
-  Future<bool> send(String message,bool? changeTheme ) async {
-    return ZegoUIKit().sendInRoomMessage(message,changeTheme);
+  Future<bool> send(String message,bool? changeTheme, {GamesInRoom? games}) async {
+    return ZegoUIKit().sendInRoomMessage(message,changeTheme, games: games??GamesInRoom.normal);
   }
 
   /// Retrieves a list of chat messages that already exist in the room.

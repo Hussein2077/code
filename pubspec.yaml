@@ -119,7 +119,6 @@ dependencies:
   pay: ^1.1.2
   hexcolor: ^3.0.1
   cometchat_chat_uikit: ^4.0.5
-  encrypt: ^5.0.3
 
 dev_dependencies:
   flutter_test:

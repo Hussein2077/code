@@ -7,4 +7,4 @@ enum MomentType {myMoment,followingMoment,likedMoment,allMoments}
 enum TypeCandy {non,luckyCandy,normalCandy}
 enum TypeGift {normal,lucky,spical,famous,country}
 enum LayoutMode { hostTopCenter, party, seats12 }
-enum GamesInRoom {normal, dicGame, rpsGame, luckyDrawGame, spinGame }
+enum GamesInRoom {normal, dicGame, rpsGame, luckyDrawGame, spinGame, dicGameResult, rpsGameResult }

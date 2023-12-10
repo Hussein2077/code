@@ -32,8 +32,7 @@ class ZegoInRoomMessage {
   /// The timestamp at which the message was sent.
   /// You can format the timestamp, which is in milliseconds since epoch, using DateTime.fromMillisecondsSinceEpoch(timestamp).
   int timestamp;
-  var state =
-      ValueNotifier<ZegoInRoomMessageState>(ZegoInRoomMessageState.success);
+  var state = ValueNotifier<ZegoInRoomMessageState>(ZegoInRoomMessageState.success);
 
   ZegoInRoomMessage({
     required this.user,
@@ -41,7 +40,7 @@ class ZegoInRoomMessage {
     required this.timestamp,
     required this.messageID,
     this.changeTheme,
-    this.games=GamesInRoom.normal,
+    this.games = GamesInRoom.normal,
   });
 
   ZegoInRoomMessage.fromBroadcastMessage(ZegoBroadcastMessageInfo message)

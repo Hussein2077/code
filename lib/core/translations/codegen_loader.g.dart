@@ -500,6 +500,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.next: 'التالي',
     StringManager.numberOfCoins: 'عدد العملات',
     StringManager.choosemonth: 'اختر الشهر',
+    StringManager.freePlay: 'لعب مجاني',
+    StringManager.PaidPlay: 'اللعب المدفوع',
 
   };
 

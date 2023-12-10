@@ -82,6 +82,7 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
                     type: PaymentItemType.item,
                   ),
                 ],
+                productId: widget.coinPackageId,
               ),
             ),
           ],
