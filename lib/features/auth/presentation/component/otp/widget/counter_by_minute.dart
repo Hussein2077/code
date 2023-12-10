@@ -62,7 +62,7 @@ class _CounterByMinuteState extends State<CounterByMinute> {
           .toString()
           .replaceAll(
           PhoneWithCountry.number.dialCode.toString(), '');
-      if(widget.uuid!=null) {
+      if(widget.uuid != null) {
         BlocProvider.of<SendCodeBloc>(context)
             .add(SendPhoneEvent(uuid: widget.uuid!));
       }
