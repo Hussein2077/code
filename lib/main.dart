@@ -528,6 +528,7 @@ class MyApp extends StatelessWidget {
 
 
 
+
         BlocProvider(create: (_) => getIt<GameBloc>()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
