@@ -215,5 +215,4 @@ abstract class BaseRepositoryProfile {
   Future<Either<List<UserDataModel>, Failure>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
   Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport(String date);
 
-
 }

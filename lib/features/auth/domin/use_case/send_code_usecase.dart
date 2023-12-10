@@ -16,7 +16,7 @@ class SendCodeUseCase extends BaseUseCase<Unit,String>{
   @override
   Future<Either<Unit, Failure>> call(String  parameter) async {
 
-    final result = await baseRepository.sendCode(parameter) ;
+    final result = await baseRepository.resendCode(parameter) ;
 
     return result ;
   }

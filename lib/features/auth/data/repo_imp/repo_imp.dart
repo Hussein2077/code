@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
+import 'package:tik_chat_v2/features/auth/domin/use_case/register_verification_us.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 
 class RepositoryImp extends BaseRepository {
@@ -22,20 +23,33 @@ class RepositoryImp extends BaseRepository {
       {required this.baseRemotlyDataSource});
 
   @override
-  Future<Either<Unit, Failure>> sendCode(String phoneNumber)async {
+  Future<Either<Unit, Failure>> resendCode(String uuid) async {
     try {
-      await baseRemotlyDataSource.sendCode(phoneNumber);
+      await baseRemotlyDataSource.resendCode(uuid);
       return const Left(unit);
-    }  on Exception catch (e) {
+    } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
     }
   }
 
   @override
-  Future<Either<MyDataModel, Failure>> registerWithPhone(AuthPramiter authPramiter)async {
-   try {
+  Future<Either<Unit, Failure>> registerVerification(
+      RegisterVerificationModel registerVerificationModel) async {
+    try {
+      await baseRemotlyDataSource
+          .registerVerification(registerVerificationModel);
+      return const Left(unit);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<MyDataModel, Failure>> registerWithPhone(
+      AuthPramiter authPramiter) async {
+    try {
       final result =
-          await baseRemotlyDataSource.registerWithCodeAndPhone(authPramiter);
+      await baseRemotlyDataSource.registerWithCodeAndPhone(authPramiter);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));

@@ -1,11 +1,13 @@
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
+
 const String defaultApplePay = '''{
   "provider": "apple_pay",
   "data": {
     "environment": "TEST",
     "apiVersion": 2,
     "apiVersionMinor": 0,
-    "merchantIdentifier": "example",
-    "displayName": "Example Name",
+    "merchantIdentifier": "merchant.com.tikkchat.app",
+    "displayName": "for apple pay",
     "merchantCapabilities": ["3DS", "debit", "credit"],
     "supportedNetworks": ["amex", "visa", "discover", "masterCard"],
     "countryCode": "US",
@@ -42,8 +44,8 @@ const String defaultGooglePay = '''{
       }
     ],
     "merchantInfo": {
-      "merchantId": "BCR2DN4T3GPIDDAG",
-      "merchantName": "software"
+      "merchantId": "${ConstentApi.merchantId}",
+      "merchantName": "${ConstentApi.merchantName}"
     },
     "transactionInfo": {
       "countryCode": "US",

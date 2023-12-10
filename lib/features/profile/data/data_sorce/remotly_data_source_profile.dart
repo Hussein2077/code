@@ -197,7 +197,6 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<InAppPurchaseMode> inAppPurchase({required String user_id ,required String product_id});
   Future<List<UserDataModel>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
   Future<FixedTargetReportModel> getFixedTargetReport(String date);
-
 }
 
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {

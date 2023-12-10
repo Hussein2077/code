@@ -26,13 +26,13 @@ class RegisterWithPhoneUsecase extends BaseUseCase<MyDataModel,AuthPramiter>{
 
 class AuthPramiter extends Equatable{
 
- final  String phone ;
- final  String? password;
- final  String? code;
- final String? credential ;
+  final  String phone ;
+  final  String? password;
+  final  String? code;
+  final String? credential ;
 
 
- const AuthPramiter({required this.phone, this.password, this.code, this.credential});
+  const AuthPramiter({required this.phone, this.password, this.code, this.credential});
 
   @override
   List<Object?> get props => [phone ,password,code,credential];

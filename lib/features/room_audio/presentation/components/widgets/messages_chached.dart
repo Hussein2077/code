@@ -307,6 +307,28 @@ class MessagesChached extends StatelessWidget {
             ],
           ),
         );
+      case GamesInRoom.dicGameResult:
+        return SizedBox(
+          child: Row(
+            children: [
+              SelectableText.rich(
+                TextSpan(children: spans),
+              ),
+              Image.asset(AssetsPath.diceIcon, scale: 2,),
+            ],
+          ),
+        );
+      case GamesInRoom.rpsGameResult:
+        return SizedBox(
+          child: Row(
+            children: [
+              SelectableText.rich(
+                TextSpan(children: spans),
+              ),
+              Image.asset(AssetsPath.guessingIcon, scale: 2,),
+            ],
+          ),
+        );
       default:
         return const SizedBox();
     }
