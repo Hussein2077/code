@@ -9,7 +9,8 @@ class StringManager {
   static const String updateText = "Tik Chat recommends that you update to the latest version You can keep enjoy the app while downloading the update";
   // cach keys
   static const String cacheFrameKey = 'Frame';
-
+  static const String passwordMustBe = "The password must contain 8 characters";
+  static const String forgetPassword = "Forget Password?  ";
   static const String hasJoin = "has joined";
   static const String games = "Games";
   static const String gameroom = "Game Room";

@@ -58,6 +58,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.done: "تم",
     StringManager.win: "فوز",
     StringManager.updateApp: 'تحديث تطبيق تيك شات',
+    StringManager.passwordMustBe: "يجب ان تحتوي كلمة السر علي ٨ حروف",
+    StringManager.forgetPassword: "هل نسيت كلمة السر؟",
     StringManager.updateText:
         'توصي Tik Chat بالتحديث إلى أحدث إصدار. يمكنك الاستمرار في الاستمتاع بالتطبيق أثناء تنزيل التحديث',
     StringManager.completeYourAccount: "أكمل حسابك",

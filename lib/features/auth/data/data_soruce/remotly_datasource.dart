@@ -16,10 +16,12 @@ import 'package:tik_chat_v2/features/auth/data/model/auth_with_huawei_model.dart
 import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
+import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_check_code_us.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_verification_us.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:tik_chat_v2/features/auth/domin/use_case/reset_password_uc.dart';
 
 
 abstract class BaseRemotlyDataSource {
@@ -32,12 +34,13 @@ abstract class BaseRemotlyDataSource {
   Future<AuthWithAppleModel> sigInWithApple();
   Future<AuthWithGoogleModel> sigInWithGoogle();
   Future<AuthWithHuaweiModel> sigInWithHuawei();
-  Future<String> forgetPassword(ForgetPasswordPramiter forgetPasswordPramiter);
   Future<String> logOut();
   Future<String> privacyPolicy();
   Future<String> deleteAccount();
   Future<GetAllCountriesBase> getAllCountries();
-
+  Future<String> forgetPassword(String phone);
+  Future<String> forgetPasswordCheckCode(ForgetPasswordCheckCodeParameters forgetPasswordCheckCodeParameters);
+  Future<String> resetPassword(ResetPasswordPramiter resetPasswordPramiter);
 
 }
 
@@ -370,30 +373,6 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
      }
 
   }
-
-  @override
-  Future<String> forgetPassword(forgetPasswordPramiter) async{
-  final body = {
-      ConstentApi.phone: forgetPasswordPramiter.phone,
-      ConstentApi.password: forgetPasswordPramiter.password,
-      'vr_code': forgetPasswordPramiter.vrCode,
-    'credential':forgetPasswordPramiter.credential,
-    };
-    try {
-      final response = await Dio().post(
-        'https://dragon-chat-app.com/api/v2/auth/forget_password',
-        data: body,
-      );
-      Map<String, dynamic> jsonData = response.data;
-
-      // ignore: unused_local_variable
-      bool succes = jsonData[ConstentApi.succes];
-
-      return jsonData[ConstentApi.message];
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'forgetPassword');
-    }
-  }
   
   @override
   Future<String> logOut() async{
@@ -467,6 +446,64 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       return GetAllCountriesBase.fromJson(jsonData);
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'Get All Countries');
+    }
+  }
+
+  @override
+  Future<String> forgetPassword(String phone) async {
+    final body = {
+      ConstentApi.phone: phone,
+    };
+    try {
+      final response = await Dio().post(
+        ConstentApi.forgetPassword,
+        data: body,
+      );
+      Map<String, dynamic> jsonData = response.data;
+
+      return jsonData[ConstentApi.message]??"";
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'forgetPassword');
+    }
+  }
+
+  @override
+  Future<String> forgetPasswordCheckCode(ForgetPasswordCheckCodeParameters forgetPasswordCheckCodeParameters) async {
+    final body = {
+      ConstentApi.phone: forgetPasswordCheckCodeParameters.phone,
+      'code': forgetPasswordCheckCodeParameters.code
+    };
+    try {
+      final response = await Dio().post(
+        ConstentApi.forgetPasswordCheckCode,
+        data: body,
+      );
+      Map<String, dynamic> jsonData = response.data;
+      return jsonData['message']??"";
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'forget Password check code');
+    }
+  }
+
+  @override
+  Future<String> resetPassword(ResetPasswordPramiter resetPasswordPramiter) async {
+    final body = {
+      ConstentApi.phone: resetPasswordPramiter.phone,
+      'code': resetPasswordPramiter.code,
+      'password': resetPasswordPramiter.password,
+    };
+    try {
+      final response = await Dio().post(
+        ConstentApi.resetPassword,
+        data: body,
+      );
+      Map<String, dynamic> jsonData = response.data;
+      return jsonData[ConstentApi.message];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'reset Password');
     }
   }
 

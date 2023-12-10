@@ -10,6 +10,9 @@ class ConstentApi {
   static const String signUpUrl = "$baseUrl/sign-up";
   static const String resendCodeUrl = "$baseUrl/sign-up-resend-verification";
   static const String registerVerificationUrl = "$baseUrl/sign-up-verification";
+  static const String forgetPassword = "$baseUrl/forgot-password-send-code";
+  static const String forgetPasswordCheckCode = "$baseUrl/forgot-password-check-code";
+  static const String resetPassword = "$baseUrl/reset-password";
   static const String getBoxes = "$baseUrl/box/list";
   static const String inviteToGame = "$baseUrl/game-challange/send-reuest-paly";
   static const String acceptOrCancelGame = "$baseUrl/game-challange/other-side-opinion";
@@ -50,7 +53,6 @@ class ConstentApi {
   static const String boundAccount = "$baseUrl/account/bind";
   static const String changePassword = "$baseUrl/account/reset_password";
   static const String changePhone = "$baseUrl/account/change_phone";
-  static const String forgetPassword = "$baseUrl/auth/forget_password";
   static const String joinToAgencies = "$baseUrl/agencies/join_request";
   static const String buy = "$baseUrl/mall/buy";
   static const String sendItem = "$baseUrl/send_pack";

@@ -7,13 +7,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/widgets/empty_screen.dart';
 import 'package:tik_chat_v2/core/widgets/web_view_widget.dart';
 import 'package:tik_chat_v2/core/widgets/white_empty_screen.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/Privacy_Policy/privacy_policy_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
+import 'package:tik_chat_v2/features/auth/presentation/component/forget_password/forget_password.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
+import 'package:tik_chat_v2/features/auth/presentation/component/reset_password/reset_password.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/Messages_Screen/official_massage_screen.dart';
@@ -84,6 +87,8 @@ import '../../features/home/presentation/component/top_users/top_user_screen.dar
 
 class Routes {
   static const String splash = "/Splash";
+  static const String resetPassword = "/resetPassword";
+  static const String forgetPassword = "/forgetPassword";
   static const String login = "/login";
   static const String otp = "/Otp";
   static const String addInfo = "/AddInfo";
@@ -193,15 +198,14 @@ class RouteGenerator {
               isLoginFromAnotherAccountAndBuildFailure: loginPramiter?.isLoginFromAnotherAccountAndBuildFailure??false,
                 ));
       case Routes.otp:
-        OtbScreenParm otbScreenParm =
-            settings.arguments as OtbScreenParm;
+        OtbScreenParm otbScreenParm = settings.arguments as OtbScreenParm;
           return MaterialPageRoute(
             settings: settings,
 
             builder: (_) => OtpScreen(
-                  codeCountry: otbScreenParm.codeCountry,
-                  phone: otbScreenParm.phone,
-                  password: otbScreenParm.password,
+              uuid: otbScreenParm.uuid,
+              phone: otbScreenParm.phone,
+              otpFrom: otbScreenParm.otpFrom!,
                 ));
       case Routes.addInfo:
         ThirdPartyAuthModel? Data = settings.arguments as ThirdPartyAuthModel?;
@@ -211,6 +215,18 @@ class RouteGenerator {
                   Data: Data,
 
                 ));
+      case Routes.resetPassword:
+        ResetPasswordParm resetPasswordParm =
+        settings.arguments as ResetPasswordParm;
+        return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => ResetPassword(
+              phone: resetPasswordParm.phone,
+              code: resetPasswordParm.code,
+            ));
+      case Routes.forgetPassword:
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const ForgetPassword());
       case Routes.mainScreen:
         MainPramiter? mainPramiter = settings.arguments as MainPramiter?;
           return MaterialPageRoute(
@@ -649,13 +665,16 @@ class OtbScreenParm {
   final String? password;
   final String? codeCountry;
   final String? type;
+  final String? uuid;
+  final OtpFrom? otpFrom;
 
   OtbScreenParm(
       { this.codeCountry,
         this.phone,
         this.password,
         this.type,
-
+        this.uuid,
+        this.otpFrom,
       });
 }
 
@@ -754,6 +773,11 @@ class ReelsUserPramiter {
       {required this.startIndex, required this.userDataModel, Key? key});
 }
 
+class ResetPasswordParm {
+  final String phone;
+  final String code;
 
+  ResetPasswordParm({required this.phone, required this.code});
+}
 
 
