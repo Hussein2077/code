@@ -74,8 +74,8 @@ class ExchangeForGoldScreen extends StatelessWidget {
               } else if (state is ReplaceWithGoldErrorState) {
                 return CustomErrorWidget(message: state.error);
               } else {
-                return const CustomErrorWidget(
-                    message: StringManager.unexcepectedError);
+                return CustomErrorWidget(
+                    message: StringManager.unexcepectedError.tr());
               }
             },
           )

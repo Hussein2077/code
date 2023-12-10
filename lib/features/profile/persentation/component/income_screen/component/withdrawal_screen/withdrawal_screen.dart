@@ -53,7 +53,7 @@ class _CashWithdrawalState extends State<CashWithdrawal> {
   void initState() {
     CashWithdrawal.  userId = '';
     BlocProvider.of<AllShippingAgentsBloc>(context).add(GetAllShippingAgentsEvents());
-
+    BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
     // TODO: implement initState
     super.initState();
   }

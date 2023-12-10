@@ -35,11 +35,11 @@ class _JoinToAgencyScreenState extends State<JoinToAgencyScreen> {
       body: BlocListener<JoinToAgencieBloc, JoinToAgencieState>(
         listener: (context, state) {
           if (state is JoinToAgencieLoadingState) {
-            loadingToast(context: context, title: StringManager.loading);
+            loadingToast(context: context, title: StringManager.loading.tr());
           } else if (state is JoinToAgencieErrorState) {
             errorToast(context: context, title: state.error);
           } else if (state is JoinToAgencieSucssesState) {
-            sucssesToast(context: context, title: StringManager.done);
+            sucssesToast(context: context, title: StringManager.done.tr());
           }
         },
         child: BlocBuilder<GetMyDataBloc, GetMyDataState>(

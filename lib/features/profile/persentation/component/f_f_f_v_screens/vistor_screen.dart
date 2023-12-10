@@ -134,8 +134,8 @@ class _VistorScreenState extends State<VistorScreen> {
                     message: state.errorMassage,
                   );
                 } else {
-                  return const CustomErrorWidget(
-                    message: StringManager.unexcepectedError,
+                  return CustomErrorWidget(
+                    message: StringManager.unexcepectedError.tr(),
                   );
                 }
               },
