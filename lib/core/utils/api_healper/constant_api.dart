@@ -382,5 +382,7 @@ class ConstentApi {
   static String getFixedTargetReport(String date){
    return "$baseUrl/user-statistics?date=$date";
   }
+  static const String hostOnMicTime = "$baseUrl/rooms/liveTime";
+
 
 }

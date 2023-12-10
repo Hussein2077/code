@@ -961,7 +961,7 @@ void checkIfFriends(
     config.navigateToMessagesScreen(context: context , user:_user );
 
   } else {
-    errorToast(context: context, title: StringManager.youAreNotFriends);
+    errorToast(context: context, title: StringManager.youAreNotFriends.tr());
 
   }
 

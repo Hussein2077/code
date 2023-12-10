@@ -53,7 +53,6 @@ class _DateWidgetState extends State<DateWidget> {
                         dateChangeListener: (String selectedDate) {
                           FixedTargetScreen.selectedDate =
                               selectedDate.replaceAll('/', '-');
-                          log('uuuuuuuuuuuuuuuuuu${FixedTargetScreen.selectedDate}');
 
                           BlocProvider.of<GetFixedTargetBloc>(context).add(
                               GetFixedTargetEvent(

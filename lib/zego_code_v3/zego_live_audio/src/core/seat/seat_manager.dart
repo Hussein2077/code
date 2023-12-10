@@ -1177,8 +1177,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
 
         //Todo close timer and add enevet to server ;
         getIt<CounterBloc>().pauseCounter();
-        // Methods.instance.hostTimeOnMic(context: GlobalContextService.navigatorKey.currentContext!);
-
+        Methods.instance.hostTimeOnMic(context: GlobalContextService.navigatorKey.currentContext!);
 
         ZegoLoggerService.logInfo(
           'take off seat success',
