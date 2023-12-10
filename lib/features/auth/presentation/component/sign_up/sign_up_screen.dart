@@ -76,13 +76,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     title: StringManager.pleaseSelectYourCountry.tr());
               } else {
                 if (PhoneWithCountry.phoneIsValid) {
-                  getIt<FireBaseDataSource>().phoneAuthentication(
-                      PhoneWithCountry.number.phoneNumber!, context);
-                  Navigator.pushNamed(context, Routes.otp,
-                      arguments: OtbScreenParm(
-                          codeCountry: PhoneWithCountry.number.dialCode!,
-                          password: passwordController.text,
-                          phone: PhoneWithCountry.number.phoneNumber!));
+            // todo
+
+
                 } else {
                   warningToast(
                       context: context, title: StringManager.enterPhoneNum.tr());

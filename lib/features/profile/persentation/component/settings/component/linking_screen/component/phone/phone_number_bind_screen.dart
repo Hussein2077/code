@@ -69,8 +69,7 @@ class _PhoneNumberBindScreenState extends State<PhoneNumberBindScreen> {
                                   } else {
                                     if (PhoneWithCountry.phoneIsValid &&
                         passWordController.text.isNotEmpty) {
-                      getIt<FireBaseDataSource>().phoneAuthentication(
-                          PhoneWithCountry.number.phoneNumber!, context);
+                 //todo
                       Navigator.pushNamed(context, Routes.otpBindScreen,
                           arguments: OtbScreenParm(
                               codeCountry: PhoneWithCountry.number.dialCode!,

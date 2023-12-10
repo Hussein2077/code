@@ -19,7 +19,6 @@ import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/Messages_Screen/official_massage_screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/Messages_Screen/system_Messages_Screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/group_chat/group_chat.dart';
-import 'package:tik_chat_v2/features/chat/user_chat/chatpage_body.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/create_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/search/search_screen.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
@@ -161,7 +160,6 @@ class Routes {
   static const String groupChatScreen = "/GropuChatScreen";
   static const String messages = "/Messages";
   static const String systemmessages = "/systemmessages";
-  static const String chatPageBody = "/chatPageBody";
   static const String reportReelsScreen = "/reportReelsScreen";
   static const String whiteEmptyScreen = "/whiteEmptyScreen";
   static const String allShippingAgent = "/AllShippingAgent";
@@ -601,36 +599,7 @@ class RouteGenerator {
 
 
 
-      case Routes.chatPageBody:
-        ChatPageBodyPramiter chatPageBodyPramiter =
-        settings.arguments as ChatPageBodyPramiter;
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
-              builder: (_) => SafeArea(
-                  child: ChatPageBody(
-                    unReadMessages: chatPageBodyPramiter.unReadMessages,
-                    id: chatPageBodyPramiter.chatId,
-                    name: chatPageBodyPramiter.name,
-                    yayaId: chatPageBodyPramiter.yayaId,
-                    image: chatPageBodyPramiter.image,
-                    deviceTocke: chatPageBodyPramiter.notificationId,
-                    myName: chatPageBodyPramiter.myName,
-                  )));
-        } else {
-           return MaterialPageRoute(
-            settings: settings,
-              builder: (_) => SafeArea(
-                  child: ChatPageBody(
-                    unReadMessages: chatPageBodyPramiter.unReadMessages,
-                    id: chatPageBodyPramiter.chatId,
-                    name: chatPageBodyPramiter.name,
-                    yayaId: chatPageBodyPramiter.yayaId,
-                    image: chatPageBodyPramiter.image,
-                    deviceTocke: chatPageBodyPramiter.notificationId,
-                    myName: chatPageBodyPramiter.myName,
-                  )));
-        }
+
 
       case Routes.whiteEmptyScreen:
         if (Platform.isIOS)
@@ -787,26 +756,4 @@ class ReelsUserPramiter {
 
 
 
-class ChatPageBodyPramiter {
-  final String chatId;
 
-  final String name;
-
-  final String yayaId;
-  final int unReadMessages;
-
-  final String image;
-
-  final String notificationId;
-
-  final String myName;
-
-  ChatPageBodyPramiter(
-      {required this.unReadMessages,
-        required this.chatId,
-        required this.name,
-        required this.yayaId,
-        required this.image,
-        required this.notificationId,
-        required this.myName});
-}

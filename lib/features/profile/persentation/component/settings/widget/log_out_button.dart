@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -58,7 +57,6 @@ class _LogOutOrDeleteAccountButtonState
                     .toString(), context);
                 MainScreen.iskeepInRoom.value = false ;
               }
-              await FirebaseAuth.instance.signOut();
               SharedPreferences preference = getIt();
               preference.remove(StringManager.keepLogin);
               preference.remove(StringManager.userDataKey);

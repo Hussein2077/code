@@ -148,16 +148,15 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
             ),
             MainButton(
                 onTap: () async {
-                  var userCredential = await getIt<FireBaseDataSource>()
-                      .verifyOTP(OtpContiners.code, context);
-                  if (userCredential?.user != null) {
-                    String? token = await userCredential!.user!.getIdToken();
+              //todo
+                  if (true) {
+                    //todo
                     if (widget.type == 'bindNumber') {
 
                       // ignore: use_build_context_synchronously
                       BlocProvider.of<AcountBloc>(context)
                           .add(BindNumberAccountEvent(
-                              credential: token ?? '',
+                              credential: "token" ?? '',
                               phoneNumber: widget.phone.toString(),
                               //   phoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
                               password: widget.password ?? '',
@@ -173,7 +172,7 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
                         vrCode: OtpContiners.code,
                         newtPhoneNumber: ChangePhoneWithCountry.number.phoneNumber.toString(),
                        // newtPhoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
-                        credential: token ?? '',
+                        credential: "token" ?? '',
                       ));
                     }
                     else if (widget.type == 'changePassword') {

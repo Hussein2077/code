@@ -16,7 +16,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/fire_base_login_manager/firebase_login_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
@@ -512,7 +511,6 @@ class MyApp extends StatelessWidget {
               getIt<GetOfficialMsgsBloc>()..add(getOfficailMsgsEvent()),
         ),
         BlocProvider(create: (_) => getIt<PostGroupChatBloc>()),
-        BlocProvider(create: (_) => getIt<FirebaseLoginBloc>()),
         BlocProvider(create: (_) => getIt<ReportMomentBloc>()),
         BlocProvider(create: (_) => getIt<GetAllCountriesBloc>()),
         BlocProvider(create: (_) => getIt<AllShippingAgentsBloc>()),

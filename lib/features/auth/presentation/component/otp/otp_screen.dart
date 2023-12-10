@@ -92,20 +92,7 @@ class OtpScreen extends StatelessWidget {
               ),
               MainButton(
                   onTap: () async {
-                    var userCredential = await getIt<FireBaseDataSource>()
-                        .verifyOTP(OtpContiners.code, context);
-                        log(userCredential.toString());
-
-                    if (userCredential?.user != null) {
-                      String? token = await userCredential!.user!.getIdToken();
-                      // ignore: use_build_context_synchronously
-                      BlocProvider.of<RegisterWithPhoneBloc>(context).add(
-                           RegisterWithPhoneEvent(
-                              code: OtpContiners.code,
-                              password: password??'',
-                              phone: phone??'',
-                              credential: token ?? ""));
-                    }
+                //todo
 
                     
                   },

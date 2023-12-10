@@ -53,8 +53,7 @@ class _CounterByMinuteState extends State<CounterByMinute> {
     setState(() {
       _start = 60;
       isRepeatingTime = true;
-      getIt<FireBaseDataSource>()
-          .phoneAuthentication(PhoneWithCountry.number.phoneNumber!, context);
+//todo
       // Reset to 5 minutes
     });
     startTimer();

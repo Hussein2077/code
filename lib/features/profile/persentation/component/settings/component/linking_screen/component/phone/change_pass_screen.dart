@@ -194,9 +194,7 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                               log("jako${passwordController.text}");
 
                               if (passwordController.text.isNotEmpty) {
-                                getIt<FireBaseDataSource>().phoneAuthentication(
-                                    MyDataModel.getInstance().phone.toString(),
-                                    context);
+                                //todo
                                 Navigator.pushNamed(
                                     context, Routes.otpBindScreen,
                                     arguments: OtbScreenParm(

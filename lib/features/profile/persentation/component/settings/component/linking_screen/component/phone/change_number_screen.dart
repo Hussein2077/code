@@ -108,7 +108,7 @@ class ChangeNumberScreenState extends State<ChangeNumberScreen> {
                                         .pleaseAddYourCountry
                                         .tr());
                                   } else if (ChangePhoneWithCountry.phoneIsValid) {
-                                    getIt<FireBaseDataSource>().phoneAuthentication(ChangePhoneWithCountry.number.phoneNumber!, context);
+                                    //todo
                                     Navigator.pushNamed(context, Routes.otpBindScreen,
                                         arguments: OtbScreenParm(
                                             type: 'changeNumber',
