@@ -101,6 +101,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.delete: "مسح",
     StringManager.invitation: 'دعوة علي المايك',
     StringManager.youHaveInvitiontoMic: "دعوة إلى الميك",
+    StringManager.youHaveInvitiontoMicDic: "لقد تم دعوتك الي الميك",
     StringManager.enterPassword: 'أدخل كلمة المرور',
     StringManager.updateYourIntro: "تحديث المقدمة الخاصة بك",
     StringManager.update: "تحديث",

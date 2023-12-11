@@ -34,7 +34,7 @@ class InvitationToMicDialog extends StatelessWidget {
             SizedBox(height: ConfigSize.defaultSize!*1.9,),
             SizedBox(
                 height: ConfigSize.defaultSize!*4.25,
-                child: Text(StringManager.youHaveInvitiontoMic.tr(),
+                child: Text(StringManager.youHaveInvitiontoMicDic.tr(),
                   style:   Theme.of(context).textTheme.bodyLarge,)
             ),
             Divider(

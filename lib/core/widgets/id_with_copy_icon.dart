@@ -48,7 +48,8 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
           Text(
             'ID: ${widget.userData.uuid.toString()}',
             style: Theme.of(context).textTheme.labelMedium!.copyWith(
-              fontSize: ConfigSize.defaultSize!*1.6
+              fontSize: ConfigSize.defaultSize!*1.6,
+              color: widget.color??Colors.black
             ),
           ):
           Text(

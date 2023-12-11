@@ -73,6 +73,7 @@ class StringManager {
   static const String updateYourIntro = "update your intro here";
   static const String enterPassword = "Enter password";
   static const String youHaveInvitiontoMic = "Invite to Mic";
+  static const String youHaveInvitiontoMicDic = "You have been invited to the mic";
   static const String invitation = 'invitation';
   static const String delete = "delete";
   static const String songs = "Songs";

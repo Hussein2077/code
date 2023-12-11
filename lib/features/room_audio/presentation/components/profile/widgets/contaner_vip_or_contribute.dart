@@ -22,14 +22,14 @@ class ContainerVipOrContribute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: ConfigSize.defaultSize! * 0.5,
-        horizontal: ConfigSize.defaultSize! * 0.5,
+        vertical: ConfigSize.defaultSize! * 0.4,
+        horizontal: ConfigSize.defaultSize! * 0.4,
       ),
 
       decoration: BoxDecoration(
           color:colors,
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5)),
-      height: ConfigSize.defaultSize! * 7,
+
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
