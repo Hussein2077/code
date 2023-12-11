@@ -33,50 +33,11 @@ class ProfileBottomBar extends StatefulWidget {
 
 class _ProfileBottomBarState extends State<ProfileBottomBar> {
   bool isFollow = false;
-  late CometChatConversationsWithMessagesController
-  _cometChatConversationsWithMessagesController;
+
 
   @override
   void initState() {
-    _cometChatConversationsWithMessagesController =        CometChatConversationsWithMessagesController(
-      messageConfiguration: MessageConfiguration(
-          // theme: CometChatTheme(
-          //     palette: ChatThemeIntegration.palette,
-          //     typography: ChatThemeIntegration.typography),
-          messageListConfiguration: const MessageListConfiguration(
-              messageListStyle: MessageListStyle(
 
-
-              )),
-          hideDetails: false,
-          messageHeaderConfiguration: MessageHeaderConfiguration(
-            appBarOptions: (user, group, context) {
-              return [
-                IconButton(onPressed: (){
-                  Navigator.pushNamed(context, Routes.profileChatDetails,arguments: widget.userData);
-                }, icon: const Icon(Icons.more_vert_outlined)),
-
-              ];
-            },
-            backButton: (context) {
-              return IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.arrow_back_ios));
-            },
-            messageHeaderStyle: MessageHeaderStyle(
-                height: ConfigSize.defaultSize! * 6,
-                backButtonIconTint: ColorManager.mainColor,
-                typingIndicatorTextStyle: const TextStyle(
-                  color: ColorManager.whiteColor,
-                ),
-                gradient:
-                    const LinearGradient(colors: ColorManager.mainColorList)),
-
-            //backButton: (context) => const SizedBox(),
-          )),
-    );
     isFollow = widget.userData.isFollow!;
     super.initState();
   }
@@ -126,7 +87,7 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
           children: [
             bottomBarColumn(context: context, icon: AssetsPath.chatIconProfile ,onTap:  () async {
                 Methods.instance.checkIfFriends(
-                    userData: widget.userData, context: context , config:_cometChatConversationsWithMessagesController );
+                    userData: widget.userData, context: context ,  );
                 // if (widget.userData.isFriend!) {
                 //
                 //   //checkIfFriends

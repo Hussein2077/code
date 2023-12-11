@@ -20,6 +20,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/video_cache_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/cach_manager.dart';
@@ -28,6 +29,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/chat-ui.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
@@ -837,22 +839,20 @@ class Methods {
 
   Future addFireBaseNotifcationId() async {
     String token = await Methods.instance.returnUserToken();
-    // String? tokenn = FirebaseAuth.instance.currentUser?.uid.toString();
-
-    // await Dio().post(
-    //   ConstentApi.editeUrl,
-    //   data: {
-    //     "chat_id": tokenn,
-    //     "notification_id": await FirebaseMessaging.instance.getToken()
-    //   },
-    //   options: Options(
-    //     headers: {
-    //       // 'X-localization': lang,
-    //       // 'Accept': 'application/json',
-    //       'Authorization': 'Bearer $token'
-    //     },
-    //   ),
-    // );
+    String? NotifecationId = await FirebaseMessaging.instance.getToken() ;
+    await Dio().post(
+      ConstentApi.editeUrl,
+      data: {
+        "notification_id": NotifecationId
+      },
+      options: Options(
+        headers: {
+          // 'X-localization': lang,
+          // 'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+      ),
+    );
   }
   Future<String> getCurrentTimeZone() async {
     DateTime dateTimeNow = DateTime.now();
@@ -917,6 +917,10 @@ class Methods {
         CountryDialog.name = StringManager.popular.tr();
         CountryDialog.selectedCountry.value =
         !CountryDialog.selectedCountry.value;
+
+
+        Methods.instance.addFireBaseNotifcationId();
+
       }
 
   int calculateAge(String date) {
@@ -944,25 +948,63 @@ class Methods {
 
 
 void checkIfFriends(
-    { required UserDataModel userData, required BuildContext context , required CometChatConversationsWithMessagesController config}){
+    { required UserDataModel userData, required BuildContext context ,}){
   if (userData.isFriend!) {
-    User _user = User(
-
-      name: userData.name!,
-      uid: userData.id.toString(),
-      avatar:
-      ConstentApi().getImage(userData.profile!.image),
-    );
-
-
-    config.navigateToMessagesScreen(context: context , user:_user );
-
+    navigatorToUserChat(context: context, userData: userData);
   } else {
-    errorToast(context: context, title: StringManager.youAreNotFriends.tr());
-
+    errorToast(context: context, title: StringManager.youAreNotFriends);
   }
 
 }
+  void navigatorToUserChat(
+
+      {required BuildContext context, required UserDataModel userData }) {
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context)
+        =>
+            CometChatMessages(
+
+                messageListConfiguration: (MessageListConfiguration(showAvatar: true ,theme: CometChatTheme(palette:ChatUi().palette , typography:ChatUi().typography  ) ) ),
+                user: User(uid: userData.id.toString(),
+                  name: userData.name!,
+                  avatar:ConstentApi().getImage( userData.profile!.image),),
+
+                messageHeaderConfiguration: MessageHeaderConfiguration(
+                  appBarOptions: (user, group, context) {
+                    return [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, Routes.profileChatDetails,
+                                arguments: userData);
+                          },
+                          icon: const Icon(Icons.more_horiz)),
+                    ];
+                  },
+                  backButton: (context) {
+                    return IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.arrow_back_ios));
+                  },
+                  avatarStyle: const AvatarStyle(
+                    height: 0,
+                    width: 0,
+
+                  ),
+
+                    messageHeaderStyle: MessageHeaderStyle(
+                      height: ConfigSize.defaultSize! * 6,
+                      backButtonIconTint: ColorManager.mainColor,
+                      typingIndicatorTextStyle: const TextStyle(
+                        color: ColorManager.whiteColor,
+                      ),
+
+                )))));
+  }
 
   Future<void> saveShowCase({required bool isFirst}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
