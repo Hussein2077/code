@@ -120,7 +120,10 @@ class _ChatPageState extends State<ChatPage> {
 
     child: const CometChatConversationsWithMessages(
 
+
+
     conversationsConfiguration: ConversationsConfiguration(
+
 
 
 

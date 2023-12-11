@@ -45,6 +45,8 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return BlocListener<FollowBloc, FollowState>(
       listener: (context, state) {
         if (state is FollowSucssesState) {
