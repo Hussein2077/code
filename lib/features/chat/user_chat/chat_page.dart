@@ -168,13 +168,23 @@ class _ChatPageState extends State<ChatPage> {
       ),
 
       conversationsConfiguration: ConversationsConfiguration(
+
+          theme: CometChatTheme(
+              palette: Palette(
+                accent:PaletteModel(light: Theme.of(context).colorScheme.secondary, dark: Colors.white),
+              ), typography: ChatUi().typography
+
+          ),
+
           badgeStyle: BadgeStyle(
               background: Colors.red,
               textStyle: TextStyle(
                   fontSize: ConfigSize.defaultSize! * 1.3)),
           dateStyle: DateStyle(
               border: Border.all(color: Colors.transparent),
-           ),
+              background:  Theme.of(context).colorScheme.background
+
+          ),
           conversationsStyle: ConversationsStyle(
 
           ),

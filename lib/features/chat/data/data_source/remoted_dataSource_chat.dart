@@ -14,6 +14,7 @@ abstract class BaseDataSourceChat {
   Future<OfficialSystemModel> getOfficailMsgs();
     Future<String> postGroupMassage(String massage);
         Future<List<GroupChatModel>> getGroupMassage(String?page);
+  Future<bool> blockUnblock(String userId);
 
 
 }
@@ -118,4 +119,24 @@ class RemotedDataSourceChat extends BaseDataSourceChat {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getGroupMassage' );
     }
   }
+    @override
+    Future<bool> blockUnblock(String userId) async{
+      Map<String, String> headers = await DioHelper().header();
+      try {
+        final response = await Dio().get(
+          ConstentApi.checkBlockUnblock(userId),
+          options: Options(
+            headers: headers,
+          ),
+        );
+
+        bool jsonData = response.data['data']['is_blocked'];
+
+        return jsonData;
+      } on DioError catch (e) {
+        throw DioHelper.handleDioError(
+            dioError: e, endpointName: 'checkBlockUnblock');
+      }
+
+    }
 }
