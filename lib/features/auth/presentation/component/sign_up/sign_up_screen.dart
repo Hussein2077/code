@@ -10,9 +10,7 @@ import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/continer_with_icons.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_event.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_state.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -39,17 +37,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterWithPhoneBloc, RegisterWithPhoneState>(
-      listener: (BuildContext context, RegisterWithPhoneState state) {
-        if (state is RegisterPhoneSuccesMessageState) {
+    return BlocConsumer<SendCodeBloc, SendCodeState>(
+      listener: (BuildContext context, SendCodeState state) {
+        if (state is SendCodeSuccesMessageState) {
           Navigator.pushNamed(context, Routes.otp,
               arguments: OtbScreenParm(
                   phone: PhoneWithCountry.number.phoneNumber!,
-                  uuid: state.myDataModel.uuid,
+                  password: passwordController.text,
                   otpFrom: OtpFrom.register));
         }
       },
-      builder: (BuildContext context, RegisterWithPhoneState state) {
+      builder: (BuildContext context, SendCodeState state) {
         return Scaffold(
             body: ScreenBackGround(
               image: AssetsPath.loginBackGround,
@@ -89,12 +87,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             title: StringManager.pleaseSelectYourCountry.tr());
                       } else {
                         if (PhoneWithCountry.phoneIsValid) {
-                          String phone =  PhoneWithCountry.number.phoneNumber.toString().replaceAll(PhoneWithCountry.number.dialCode.toString(), '');
-                          BlocProvider.of<RegisterWithPhoneBloc>(context).add(
-                              RegisterWithPhoneEvent(
-                                  code: PhoneWithCountry.number.dialCode.toString(),
-                                  password: passwordController.text,
-                                  phone: phone));
+                          BlocProvider.of<SendCodeBloc>(context).add(
+                              SendPhoneEvent(
+                                  phone: PhoneWithCountry.number.phoneNumber!));
 
                         } else {
                           warningToast(

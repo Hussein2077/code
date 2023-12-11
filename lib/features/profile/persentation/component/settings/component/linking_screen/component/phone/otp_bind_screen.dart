@@ -142,7 +142,7 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
               flex: 2,
             ),
             const OtpContiners(),
-            const ResendCodeWidget(),
+            ResendCodeWidget(phone: widget.phone!),
             const Spacer(
               flex: 7,
             ),

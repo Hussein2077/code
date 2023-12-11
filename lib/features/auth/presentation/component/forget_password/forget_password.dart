@@ -10,9 +10,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_event.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_state.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
 
 class ForgetPassword extends StatefulWidget {
@@ -33,18 +31,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ForgetPasswordBloc, ForgetPasswordState>(
-      listener: (context, state) {
-        if (state is ForgetPasswordSuccessState) {
+    return BlocConsumer<SendCodeBloc, SendCodeState>(
+      listener: (BuildContext context, SendCodeState state) {
+        if (state is SendCodeSuccesMessageState) {
           Navigator.pushNamed(context, Routes.otp,
-              arguments:
-                  OtbScreenParm(otpFrom: OtpFrom.forgetPassword, phone: phone));
-        }
-        if (state is ForgetPasswordErrorState) {
-          errorToast(context: context, title: state.errorMessage);
+              arguments: OtbScreenParm(
+                  phone: PhoneWithCountry.number.phoneNumber!,
+                  otpFrom: OtpFrom.forgetPassword));
         }
       },
-      builder: (context, state) {
+      builder: (BuildContext context, SendCodeState state) {
         return Scaffold(
           body: ScreenBackGround(
             image: AssetsPath.loginBackGround,
@@ -68,12 +64,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         title: StringManager.pleaseEnterPhoneNum.tr());
                   } else {
                     if (PhoneWithCountry.phoneIsValid) {
-                      phone = PhoneWithCountry.number.phoneNumber
-                          .toString()
-                          .replaceAll(
-                              PhoneWithCountry.number.dialCode.toString(), '');
-                      BlocProvider.of<ForgetPasswordBloc>(context)
-                          .add(ForgetPasswordEvent(phone!));
+                      BlocProvider.of<SendCodeBloc>(context).add(
+                          SendPhoneEvent(
+                              phone: PhoneWithCountry.number.phoneNumber!));
                     } else {
                       warningToast(
                           context: context,

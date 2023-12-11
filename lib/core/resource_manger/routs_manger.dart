@@ -203,9 +203,9 @@ class RouteGenerator {
             settings: settings,
 
             builder: (_) => OtpScreen(
-              uuid: otbScreenParm.uuid,
               phone: otbScreenParm.phone,
               otpFrom: otbScreenParm.otpFrom!,
+              password: otbScreenParm.password,
                 ));
       case Routes.addInfo:
         ThirdPartyAuthModel? Data = settings.arguments as ThirdPartyAuthModel?;
@@ -665,7 +665,6 @@ class OtbScreenParm {
   final String? password;
   final String? codeCountry;
   final String? type;
-  final String? uuid;
   final OtpFrom? otpFrom;
 
   OtbScreenParm(
@@ -673,7 +672,6 @@ class OtbScreenParm {
         this.phone,
         this.password,
         this.type,
-        this.uuid,
         this.otpFrom,
       });
 }

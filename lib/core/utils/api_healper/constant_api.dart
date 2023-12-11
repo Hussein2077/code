@@ -7,12 +7,10 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 class ConstentApi {
    // static const String baseUrl = 'https://tik-chat.com/api' ;
   static const String baseUrl = 'https://test.tik-chat.com/api' ;
-  static const String signUpUrl = "$baseUrl/sign-up";
-  static const String resendCodeUrl = "$baseUrl/sign-up-resend-verification";
-  static const String registerVerificationUrl = "$baseUrl/sign-up-verification";
-  static const String forgetPassword = "$baseUrl/forgot-password-send-code";
-  static const String forgetPasswordCheckCode = "$baseUrl/forgot-password-check-code";
-  static const String resetPassword = "$baseUrl/reset-password";
+  static const String signUpUrl = "$baseUrl/auth/register";
+  static const String sendCodeUrl = "$baseUrl/auth/send-code";
+  static const String forgetPassword = "$baseUrl/auth/forget_password";
+  static const String forgetPasswordCodeVerification = "$baseUrl/auth/verify-code";
   static const String getBoxes = "$baseUrl/box/list";
   static const String inviteToGame = "$baseUrl/game-challange/send-reuest-paly";
   static const String acceptOrCancelGame = "$baseUrl/game-challange/other-side-opinion";
@@ -22,7 +20,6 @@ class ConstentApi {
   static const String pickUpBoxes = "$baseUrl/box/pickup";
   static const String levelUrl = "$baseUrl/level_center";
   static const String useItem = "$baseUrl/user_info/use_pack_item";
-  static const String sendCodeUrl = "$baseUrl/auth/send-code";
   static const String loginUrl = "$baseUrl/auth/login";
   static const String registerUrl = "$baseUrl/auth/register";
   static const String editeUrl = "$baseUrl/profile/update";

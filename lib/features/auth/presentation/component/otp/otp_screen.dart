@@ -13,48 +13,40 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_state.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/register_verification_bloc/Register_verification_event.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/register_verification_bloc/register_verification_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/register_verification_bloc/register_verification_states.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_event.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_state.dart';
 import 'widget/otp_continers.dart';
 import 'widget/resend_code_widget.dart';
 
 class OtpScreen extends StatelessWidget {
   final String? phone;
-  final String? uuid;
+  final String? password;
   final OtpFrom otpFrom;
 
-  const OtpScreen({this.phone, super.key, this.uuid, required this.otpFrom});
+  const OtpScreen({this.phone, super.key, this.password, required this.otpFrom});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterVerificationBloc, RegisterVerificationState>(
-      listener: (context, state)async {
-        if (state is RegisterVerificationSuccessMessageState) {
-          switch (otpFrom) {
-            case OtpFrom.forgetPassword:
-              break;
-            case OtpFrom.register:
-              Methods.instance.clearAuthData();
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Routes.addInfo, (route) => false);
-              break;
-            default:
-          }
-        } else if (state is RegisterVerificationErrorMessageState) {
+    return BlocConsumer<RegisterWithPhoneBloc, RegisterWithPhoneState>(
+      listener: (context, state) {
+        if (state is RegisterPhoneSuccesMessageState) {
+          Methods.instance.clearAuthData();
+          Navigator.pushNamedAndRemoveUntil(context, Routes.addInfo, (route) => false);
+        } else if (state is RegisterPhoneErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
         }
       },
       builder: (context, state) {
         return BlocConsumer<ForgetPasswordBloc, ForgetPasswordState>(
           listener: (context, state) {
-            if (state is CheckCodeForgetPasswordSuccessState) {
+            if (state is ForgetPasswordCodeVerificationSuccessState) {
               if (otpFrom == OtpFrom.forgetPassword) {
                 Navigator.pushNamed(context, Routes.resetPassword,
-                    arguments: ResetPasswordParm(phone: phone!,code:  OtpContiners.code,));
+                    arguments: ResetPasswordParm(phone: phone!, code:  OtpContiners.code,));
               }
             }
-            if (state is CheckCodeForgetPasswordErrorState) {
+            if (state is ForgetPasswordCodeVerificationErrorState) {
               errorToast(context: context, title: state.errorMessage);
             }
           },
@@ -99,9 +91,7 @@ class OtpScreen extends StatelessWidget {
                     flex: 2,
                   ),
                   const OtpContiners(),
-                  ResendCodeWidget(
-                    uuid: uuid,
-                  ),
+                  ResendCodeWidget(phone: phone!),
                   const Spacer(
                     flex: 7,
                   ),
@@ -109,18 +99,17 @@ class OtpScreen extends StatelessWidget {
                       onTap: () async {
                         switch (otpFrom) {
                           case OtpFrom.forgetPassword:
-                            BlocProvider.of<ForgetPasswordBloc>(context)
-                                .add(CheckCodeForgetPasswordEvent(
+                            BlocProvider.of<ForgetPasswordBloc>(context).add(forgetPasswordCodeVerificationEvent(
                               code: OtpContiners.code,
                               phone: phone!,
                             ));
                             break;
                           case OtpFrom.register:
-                            BlocProvider.of<RegisterVerificationBloc>(context)
-                                .add(RegisterVerificationEvent(
-                                code: OtpContiners.code,
-                                uuid: uuid ?? '',
-                                deviceID: ''));
+                            BlocProvider.of<RegisterWithPhoneBloc>(context).add(RegisterWithPhoneEvent(
+                              code: OtpContiners.code,
+                              phone: phone!,
+                              password: password!,
+                            ));
                             break;
                           case OtpFrom.changePhone:
                           // TODO: Handle this case.

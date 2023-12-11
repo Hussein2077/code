@@ -5,21 +5,18 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/cach_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
-import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/data/data_soruce/remotly_datasource.dart';
 import 'package:tik_chat_v2/features/auth/data/repo_imp/repo_imp.dart';
 import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
-import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_check_code_us.dart';
+import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_code_verification_uc.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/get_all_country_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/google_sign_in_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/log_out_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/login_with_phone_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/privacy_policy_use_case.dart';
-import 'package:tik_chat_v2/features/auth/domin/use_case/register_verification_us.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
-import 'package:tik_chat_v2/features/auth/domin/use_case/reset_password_uc.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_apple_us.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/send_code_usecase.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/sign_with_huawei_use_case.dart';
@@ -31,7 +28,6 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_b
 import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_policy/privacy_policy_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/register_verification_bloc/register_verification_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
@@ -577,15 +573,11 @@ class ServerLocator {
     getIt.registerFactory(
             () => GetFixedTargetBloc(fixedTargetReportUseCase:  getIt() ));
     getIt.registerFactory(
-            () => RegisterVerificationBloc(registerVerificationUseCase:  getIt() ));
-    getIt.registerFactory(
-            () => ForgetPasswordBloc(forgetPasswordUc:  getIt() ,forgetPasswordCheckCodeUc: getIt(), resetPasswordUC:  getIt()));
+            () => ForgetPasswordBloc(forgetPasswordUc:  getIt(), forgetPasswordCodeVerificationUc: getIt()));
 
 //usecase
-    getIt.registerLazySingleton(() => RegisterVerificationUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => ForgetPasswordUc(baseRepository: getIt()));
-    getIt.registerLazySingleton(() => ForgetPasswordCheckCodeUc(baseRepository: getIt()));
-    getIt.registerLazySingleton(() => ResetPasswordUc(baseRepository: getIt()));
+    getIt.registerLazySingleton(() => ForgetPasswordCodeVerificationUc(baseRepository: getIt()));
 
     getIt.registerLazySingleton(() => FixedTargetReportUseCase(FixedTargetReportReport: getIt()));
     getIt.registerLazySingleton(() => PostGroupMassageUseCase(baseRepositoryChat: getIt()));

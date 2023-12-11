@@ -21,7 +21,6 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/l
 import 'package:tik_chat_v2/features/auth/presentation/manager/login_with_phone_manager/login_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_policy/privacy_policy_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/manager_privacy_policy/privacy_policy_event.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/register_verification_bloc/register_verification_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/register_with_phone_manager/register_with_phone_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_bloc.dart';
@@ -246,7 +245,6 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<RegisterWithPhoneBloc>(),
         ),
         BlocProvider(create: (_) => getIt<SendCodeBloc>()),
-        BlocProvider(create: (_) => getIt<RegisterVerificationBloc>()),
         BlocProvider(
           create: (context) => getIt<LoginWithPhoneBloc>(),
         ),

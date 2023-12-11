@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +7,8 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 
 import '../../../../../../../../../core/utils/config_size.dart';
@@ -191,19 +189,15 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                         Center(
                           child: InkWell(
                             onTap: () {
-                              log("jako${passwordController.text}");
-
                               if (passwordController.text.isNotEmpty) {
-                                //todo
                                 Navigator.pushNamed(
                                     context, Routes.otpBindScreen,
                                     arguments: OtbScreenParm(
-                                      password:
-                                          passwordController.text.toString(),
-                                      type: 'changePassword',
+                                      password: passwordController.text.toString(),
+                                        otpFrom: OtpFrom.changePassword,
+                                      phone: MyDataModel.getInstance().phone
                                     ));
                               }
-                              log("jako${MyDataModel().phone.toString()}");
                             },
                             child: Container(
                               width: ConfigSize.defaultSize! * 26,

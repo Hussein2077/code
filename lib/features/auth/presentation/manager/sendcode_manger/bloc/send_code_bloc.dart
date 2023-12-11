@@ -11,7 +11,7 @@ class SendCodeBloc extends Bloc<SendCodeEvent, SendCodeState> {
   SendCodeBloc({required this.sendCodeUseCase}) : super(SendCodeInitial()) {
     on<SendPhoneEvent>((event, emit)async {
       emit(SendCodeLoadingState());
-    final sendOrFailur = await sendCodeUseCase(event.uuid);
+    final sendOrFailur = await sendCodeUseCase(event.phone);
    sendOrFailur.fold((l) => emit(
           const SendCodeSuccesMessageState(succesMessage: ConstentApi.seccessSendPhoneRequest)),
            (r) => emit( SendCodeErrorMessageState(

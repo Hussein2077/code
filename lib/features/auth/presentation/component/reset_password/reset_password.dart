@@ -44,13 +44,12 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return BlocConsumer<ForgetPasswordBloc, ForgetPasswordState>(
       listener: (context, state) {
-        if (state is ResetPasswordSuccessState) {
+        if (state is ForgetPasswordSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
             custoumSnackBar(context,state.message),
           );
-            Navigator.pushNamedAndRemoveUntil(context, Routes.login,(route) => false);
-
-        } else if (state is ResetPasswordErrorState) {
+          Navigator.pushNamedAndRemoveUntil(context, Routes.login,(route) => false);
+        } else if (state is ForgetPasswordErrorState) {
           errorToast(context: context, title: state.errorMessage);
         }
       },
@@ -88,11 +87,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                           title: StringManager.pleaseEnterPassword.tr());
                     } else {
                       if (passwordController.text.length >=8) {
-                        BlocProvider.of<ForgetPasswordBloc>(context).add(
-                            ResetPasswordEvent(
-                                phone: widget.phone,
-                                code: widget.code,
-                                password: passwordController.text));
+                        BlocProvider.of<ForgetPasswordBloc>(context).add(ForgetPasswordEvent(
+                          code: widget.code,
+                          phone: widget.phone,
+                          password: passwordController.text,
+                        ));
                       } else if (passwordController.text.length<8){
                         warningToast(
                             context: context,

@@ -9,8 +9,8 @@ abstract class SendCodeEvent extends Equatable {
 
 
 class SendPhoneEvent extends SendCodeEvent{
-  final String uuid ;
-  const SendPhoneEvent({required this.uuid});
+  final String phone ;
+  const SendPhoneEvent({required this.phone});
 
 
 }
