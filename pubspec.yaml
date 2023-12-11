@@ -119,6 +119,7 @@ dependencies:
   pay: ^1.1.2
   hexcolor: ^3.0.1
   cometchat_chat_uikit: ^4.0.5
+  huawei_iap: ^6.13.0+300
 
 dev_dependencies:
   flutter_test:

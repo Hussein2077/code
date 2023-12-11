@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_huawei_availability/google_huawei_availability.dart';
+import 'package:huawei_iap/huawei_iap.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -12,6 +14,7 @@ import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/huawei_in_app_purchases.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_method_dialog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
@@ -26,6 +29,8 @@ class CoinsTabView extends StatefulWidget {
 
   static int productId = 0;
 
+  static List<ProductInfo> list = [];
+
   @override
   State<CoinsTabView> createState() => _CoinsTabViewState();
 }
@@ -35,6 +40,18 @@ class _CoinsTabViewState extends State<CoinsTabView> {
   late BuyCoinsBloc buyCoinsBloc;
 
   late StreamSubscription mSub;
+
+  bool isHuawei = false;
+
+  void GoogleHuawei() async {
+    isHuawei = (await GoogleHuaweiAvailability.isHuaweiServiceAvailable)!;
+    setState(() {
+
+    });
+    if(isHuawei){
+      getConsumableProducts();
+    }
+  }
 
   @override
   void initState() {
@@ -48,6 +65,8 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                 titleColor: Colors.green));
       }
     });
+    GoogleHuawei();
+
     super.initState();
   }
 
@@ -100,10 +119,21 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                               ? BlocListener<BuyCoinsBloc, BuyCoinsState>(
                                   child: InkWell(
                                     onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
-                                      );
+                                      if(isHuawei){
+                                        if(CoinsTabView.list.isNotEmpty){
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString()),
+                                          );
+                                        }else{
+                                          errorToast(context: context, title: StringManager.wait.tr());
+                                        }
+                                      }else{
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
+                                        );
+                                      }
                                     },
                                     child: Column(
                                       children: [

@@ -334,6 +334,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
     accountAuthParamsHelper.setAccessToken() ;
 
+    accountAuthParamsHelper.setEmail() ;
+
 
     AccountAuthParams mAuthParam = accountAuthParamsHelper.createParams();
 

@@ -933,6 +933,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.12.0+300"
+  huawei_iap:
+    dependency: "direct main"
+    description:
+      name: huawei_iap
+      sha256: fbf98345db8dadc9d104843332adccf6eafafddd21619e4297f235e9b24079bd
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.13.0+300"
   id3:
     dependency: transitive
     description:

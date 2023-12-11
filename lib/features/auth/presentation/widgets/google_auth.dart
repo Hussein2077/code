@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,6 +89,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
                   (route) => false,
             );
           } else {
+            log(state.userModel.userData.email.toString() + "######");
             BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(email: state.userModel.userData.email.toString()));
             Navigator.pushNamedAndRemoveUntil(
               context,

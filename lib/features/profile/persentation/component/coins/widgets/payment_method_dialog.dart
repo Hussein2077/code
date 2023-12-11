@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_huawei_availability/google_huawei_availability.dart';
+import 'package:huawei_iap/huawei_iap.dart';
 import 'package:pay/pay.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/huawei_in_app_purchases.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_buttons.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
@@ -22,6 +26,21 @@ class PaymentMethodDialog extends StatefulWidget {
 }
 
 class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
+
+  bool isHuawei = true;
+
+  void GoogleHuawei()async{
+    isHuawei = (await GoogleHuaweiAvailability.isHuaweiServiceAvailable)!;
+    setState(() {
+
+    });
+  }
+
+  @override
+  void initState() {
+    GoogleHuawei();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +63,7 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
             const Text("Payment Method", style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
             SizedBox(height: ConfigSize.defaultSize! * 3.5,),
 
-            if (Platform.isAndroid) InkWell(
+            if (Platform.isAndroid && isHuawei) InkWell(
               onTap: (){
                 BlocProvider.of<BuyCoinsBloc>(context).add(
                     BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID: widget.coinPackageId.toString(), paymentMethod: 'opay')));
@@ -69,9 +88,42 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
               ),
             ),
 
-            if (Platform.isAndroid) SizedBox(height: ConfigSize.defaultSize!,),
+            if (Platform.isAndroid || isHuawei) SizedBox(height: ConfigSize.defaultSize!,),
 
-            SizedBox(
+            if(isHuawei) InkWell(
+              onTap: (){
+                IapClient.isEnvReady().then((res) {
+                  purchaseConsumableProduct(widget.coin).then((res) {
+                    log(res.toString());
+                    // switch (res!.returnCode) {
+                    //   case 0:
+                    //     log("purchaseConsumableProduct: " + productId + " success");
+                    //     break;
+                    // }
+                  });
+                });
+              },
+              child: Container(
+                height: ConfigSize.defaultSize! * 5,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*2),
+                  color: Colors.red,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Pay With Huawei", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
+                      Image.asset(AssetsPath.huaweiIcon, color: Colors.white,),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            if(!isHuawei) SizedBox(
               width: double.infinity,
               child: PaymentButtons(
                 paymentItems: [
