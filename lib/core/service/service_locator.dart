@@ -252,6 +252,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dar
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_user_in_room_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_room_use_case.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/host_time_on_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/kickout_pramiter_uc.dart';
@@ -282,6 +283,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conte
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
@@ -570,10 +572,13 @@ class ServerLocator {
             () => GameBloc(inviteToGameUC:  getIt(), cancelGameUC: getIt(), startGameUC: getIt(), sendGameChoiseUC: getIt() ));
     getIt.registerFactory(
             () => GetFixedTargetBloc(fixedTargetReportUseCase:  getIt() ));
+    getIt.registerFactory(
+            () => HostOnMicTimeBloc(hostOnMicTimeUseCase:  getIt() ));
 
 
 //usecase
 
+    getIt.registerLazySingleton(() => HostOnMicTimeUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(() => FixedTargetReportUseCase(FixedTargetReportReport: getIt()));
     getIt.registerLazySingleton(() => PostGroupMassageUseCase(baseRepositoryChat: getIt()));
     getIt.registerLazySingleton(() => ReportMomentUseCase( baseRepositoryMoment: getIt(),));

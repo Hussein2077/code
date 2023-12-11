@@ -19,6 +19,8 @@ import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/Messages_Screen/official_massage_screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/Messages_Screen/system_Messages_Screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Components/group_chat/group_chat.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/chatpage_body.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/widgets/profile_details.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/create_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/search/search_screen.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
@@ -163,6 +165,7 @@ class Routes {
   static const String reportReelsScreen = "/reportReelsScreen";
   static const String whiteEmptyScreen = "/whiteEmptyScreen";
   static const String allShippingAgent = "/AllShippingAgent";
+  static const String profileChatDetails = "/ProfileChatDetails";
 
 
 
@@ -626,6 +629,11 @@ class RouteGenerator {
 
         return MaterialPageRoute(
             settings: settings,builder: (_) => FixedTargetScreen(myData:myDataModel ,));
+  case Routes.profileChatDetails:
+
+    UserDataModel userData=settings.arguments as UserDataModel;
+        return MaterialPageRoute(
+            settings: settings,builder: (_) => ProfileChatDetails(userData: userData,));
 
 
 

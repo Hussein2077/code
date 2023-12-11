@@ -1253,15 +1253,13 @@ Future<String> unMuteUserMic(MuteUserMicPramiter muteUserMicPramiter)async {
   @override
   Future<String> hostTimeOnMic(int time)async {
     Map<String, String> headers = await DioHelper().header();
-
-
     final body ={
-      'time': time
+      'sec': time
 
     };
 
     try {
-      final response = await Dio().post(ConstentApi.unMuteUserMic,
+      final response = await Dio().post(ConstentApi.hostOnMicTime,
           options: Options(
             headers: headers,
           ),

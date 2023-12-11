@@ -501,6 +501,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.choosemonth: 'اختر الشهر',
     StringManager.freePlay: 'لعب مجاني',
     StringManager.PaidPlay: 'اللعب المدفوع',
+    StringManager.viewProfile: 'الصفحة الشخصية',
 
   };
 

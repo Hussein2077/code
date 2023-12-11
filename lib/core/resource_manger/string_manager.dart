@@ -541,6 +541,7 @@ class StringManager {
   static const String choosemonth = "choose month";
   static const String freePlay = "Free Play";
   static const String PaidPlay = "Paid Play";
+  static const String viewProfile = "View Profile";
 
   ///List Type Users
   //0 normal user,

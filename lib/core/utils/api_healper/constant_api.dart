@@ -386,6 +386,8 @@ class ConstentApi {
   static String getFixedTargetReport(String date){
    return "$baseUrl/user-statistics?date=$date";
   }
+  static const String hostOnMicTime = "$baseUrl/rooms/liveTime";
+
 
   static const String encryptionKey = "L9:65W&+nG@g";
   static const String merchantId = "BCR2DN4T3GPIDDAG";
