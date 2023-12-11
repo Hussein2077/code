@@ -40,15 +40,12 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
   void initState() {
     _cometChatConversationsWithMessagesController =        CometChatConversationsWithMessagesController(
       messageConfiguration: MessageConfiguration(
-          // theme: CometChatTheme(
-          //     palette: ChatThemeIntegration.palette,
-          //     typography: ChatThemeIntegration.typography),
+
           messageListConfiguration: const MessageListConfiguration(
               messageListStyle: MessageListStyle(
 
 
               )),
-          hideDetails: false,
           messageHeaderConfiguration: MessageHeaderConfiguration(
             appBarOptions: (user, group, context) {
               return [
@@ -75,7 +72,8 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
                     const LinearGradient(colors: ColorManager.mainColorList)),
 
             //backButton: (context) => const SizedBox(),
-          )),
+          )
+      ),
     );
     isFollow = widget.userData.isFollow!;
     super.initState();
