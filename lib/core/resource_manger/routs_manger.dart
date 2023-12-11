@@ -674,6 +674,7 @@ class LoginPramiter {
   const LoginPramiter(
       { this.isForceUpdate,  this.isUpdate, this.isLoginFromAnotherAccountAndBuildFailure=false, Key? key});
 }
+
 class ReportReelsScreenPramiter {
   final TextEditingController? report;
   final String? id;
