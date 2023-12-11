@@ -27,7 +27,7 @@ class PaymentMethodDialog extends StatefulWidget {
 
 class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
 
-  bool isHuawei = true;
+  bool isHuawei = false;
 
   void GoogleHuawei()async{
     isHuawei = (await GoogleHuaweiAvailability.isHuaweiServiceAvailable)!;
@@ -63,7 +63,7 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
             const Text("Payment Method", style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
             SizedBox(height: ConfigSize.defaultSize! * 3.5,),
 
-            if (Platform.isAndroid && isHuawei) InkWell(
+            if (Platform.isAndroid || isHuawei) InkWell(
               onTap: (){
                 BlocProvider.of<BuyCoinsBloc>(context).add(
                     BuyCoins(buyCoinsParameter:BuyCoinsParameter(coinsID: widget.coinPackageId.toString(), paymentMethod: 'opay')));
