@@ -1,19 +1,23 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_event.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
 
 class CounterByMinute extends StatefulWidget {
   const CounterByMinute({
     super.key,
+    required this.uuid,
   });
+
+  final String? uuid;
 
   @override
   State<CounterByMinute> createState() => _CounterByMinuteState();
@@ -23,6 +27,7 @@ class _CounterByMinuteState extends State<CounterByMinute> {
   late Timer _timer;
   int _start = 60; // 5 minutes in seconds
   bool isRepeatingTime = true;
+  String? phone;
   @override
   void initState() {
     super.initState();
@@ -53,7 +58,18 @@ class _CounterByMinuteState extends State<CounterByMinute> {
     setState(() {
       _start = 60;
       isRepeatingTime = true;
-//todo
+      phone = PhoneWithCountry.number.phoneNumber
+          .toString()
+          .replaceAll(
+          PhoneWithCountry.number.dialCode.toString(), '');
+      if(widget.uuid != null) {
+        BlocProvider.of<SendCodeBloc>(context)
+            .add(SendPhoneEvent(uuid: widget.uuid!));
+      }
+      else{
+        BlocProvider.of<ForgetPasswordBloc>(context)
+            .add(ForgetPasswordEvent(phone!));
+      }
       // Reset to 5 minutes
     });
     startTimer();

@@ -156,11 +156,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   MainButton(
                     onTap: () {
-                      // final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-                      // print(keyboardHeight);
-                      //
-                      // print(_keyboardHeight);
-
                       if (PhoneWithCountry.phoneIsValid) {
                         BlocProvider.of<LoginWithPhoneBloc>(context).add(
                             LoginWithPhoneEvent(
@@ -192,6 +187,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     flex: 1,
                   ),
                   GoogleAndAppleAuth(isGoogle: isGoogle, isHuawei: isHuawei),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.pushNamed(context, Routes.forgetPassword);
+                    },
+                    child: Text(
+                      StringManager.forgetPassword.tr(),
+                      style: TextStyle(
+                          fontSize: ConfigSize.defaultSize! + 4,
+                          color: ColorManager.whiteColor),
+                    ),
+                  ),
                   const Spacer(
                     flex: 1,
                   ),
@@ -238,7 +247,6 @@ class _LoginScreenState extends State<LoginScreen> {
             Routes.mainScreen,
             (route) => false,
           );
-          //to do getmy data
         }
         else if (state is LoginWithPhoneErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
