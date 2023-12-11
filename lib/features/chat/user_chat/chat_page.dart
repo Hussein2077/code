@@ -62,58 +62,55 @@ class _ChatPageState extends State<ChatPage> {
 
     return Scaffold(
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
 
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(colors: ColorManager.mainColorList)
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: ColorManager.mainColorList)
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: ConfigSize.screenHeight!*.020,
                 ),
-                child: Column(
-                  children: [
-                    Center(
-                      child: Text(
-                        StringManager.chat.tr(),
-                        style: TextStyle(
-                          color: ColorManager.darkBlack,
-                          fontWeight: FontWeight.bold,
-                          fontSize: ConfigSize.defaultSize! * 1.2,
-                        ),
-                      ),
+                Center(
+                  child: Text(
+                    StringManager.chat.tr(),
+                    style: TextStyle(
+                      color: ColorManager.darkBlack,
+                      fontWeight: FontWeight.bold,
+                      fontSize: ConfigSize.defaultSize! * 1.5,
                     ),
-                    SizedBox(
-                        width: ConfigSize.screenWidth!-3,
-                        height: ConfigSize.screenHeight!*.06,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: 3,
-                              scrollDirection: Axis.horizontal,
-                              padding: EdgeInsets.zero,
-                              itemBuilder: (context, i) {
-                                return MyProfilPropertyRow(
-                                  iconPath: chatScreenIcons[i],
-                                  title: chatScreenTitles[i],
-                                  onTap: chatScreenOntaps[i],
-                                  showIcon: false,
-                                  descriptiontitle: (i != 1)
-                                      ? null
-                                      : StringManager.officialAccount.tr(),
-                                );
-                              }),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+
+                SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: ConfigSize.screenHeight!*.05,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 3,
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, i) {
+                            return MyProfilPropertyRow(
+                              iconPath: chatScreenIcons[i],
+                              title: chatScreenTitles[i],
+                              onTap: chatScreenOntaps[i],
+                              showIcon: false,
+
+                            );
+                          }),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
           ),
 
                 Expanded(

@@ -91,7 +91,7 @@ class AduioLiveRow extends StatelessWidget {
                             ? DecorationImage(
                                 image: CachedNetworkImageProvider(
                                     ConstentApi().getImage(room.cover)),
-                                fit: BoxFit.fill)
+                                fit: BoxFit.cover)
                             : const DecorationImage(
                                 image: AssetImage(AssetsPath.defaultImage),
                                 fit: BoxFit.fill),
