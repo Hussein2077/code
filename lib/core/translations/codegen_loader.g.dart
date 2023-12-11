@@ -499,6 +499,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.next: 'التالي',
     StringManager.numberOfCoins: 'عدد العملات',
     StringManager.choosemonth: 'اختر الشهر',
+    StringManager.viewProfile: 'الصفحة الشخصية',
 
   };
 
