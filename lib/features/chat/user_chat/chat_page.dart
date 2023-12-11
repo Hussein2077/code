@@ -47,12 +47,6 @@ class _ChatPageState extends State<ChatPage> {
   final firestore = FirebaseFirestore.instance;
   bool open = false;
 
-  // cometchat.Typography _typography = fl.Typography.fromDefault(
-  //     name: FontStyle(fontSize: 22, fontWeight: FontWeight.w400));
-  // final Palette _palette = const Palette(
-  //     accent: PaletteModel(light: Colors.red, dark: Colors.green));
-  // final cometchat.Typography _typography = cometchat.Typography.fromDefault();
-
   @override
   Widget build(BuildContext context) {
     List<Function()> chatScreenOntaps = [
@@ -70,59 +64,55 @@ class _ChatPageState extends State<ChatPage> {
 
     return Scaffold(
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
 
-            children: [
-              // if(ModalRoute.of(context)!.canPop) const ArrowBack(color: ColorManager.darkBlack,),
-              Container(
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(colors: ColorManager.mainColorList)
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: ColorManager.mainColorList)
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: ConfigSize.screenHeight!*.020,
                 ),
-                child: Column(
-                  children: [
-                    Center(
-                      child: Text(
-                        StringManager.chat.tr(),
-                        style: TextStyle(
-                          color: ColorManager.darkBlack,
-                          fontWeight: FontWeight.bold,
-                          fontSize: ConfigSize.defaultSize! * 1.2,
-                        ),
-                      ),
+                Center(
+                  child: Text(
+                    StringManager.chat.tr(),
+                    style: TextStyle(
+                      color: ColorManager.darkBlack,
+                      fontWeight: FontWeight.bold,
+                      fontSize: ConfigSize.defaultSize! * 1.5,
                     ),
-                    SizedBox(
-                        width: ConfigSize.screenWidth!-3,
-                        height: ConfigSize.screenHeight!*.06,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: 3,
-                              scrollDirection: Axis.horizontal,
-                              padding: EdgeInsets.zero,
-                              itemBuilder: (context, i) {
-                                return MyProfilPropertyRow(
-                                  iconPath: chatScreenIcons[i],
-                                  title: chatScreenTitles[i],
-                                  onTap: chatScreenOntaps[i],
-                                  showIcon: false,
-                                  descriptiontitle: (i != 1)
-                                      ? null
-                                      : StringManager.officialAccount.tr(),
-                                );
-                              }),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+
+                SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: ConfigSize.screenHeight!*.05,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 3,
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, i) {
+                            return MyProfilPropertyRow(
+                              iconPath: chatScreenIcons[i],
+                              title: chatScreenTitles[i],
+                              onTap: chatScreenOntaps[i],
+                              showIcon: false,
+
+                            );
+                          }),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
           ),
           // Expanded(
           //   child: Container(
