@@ -11,8 +11,7 @@ class GetAllCountriesUC
   GetAllCountriesUC({required this.baseRepository});
 
   @override
-  Future<Either<GetAllCountriesBase, Failure>> call(
-      Noparamiter parameter) async {
+  Future<Either<GetAllCountriesBase, Failure>> call(Noparamiter parameter) async {
     final result = await baseRepository.getAllCountries();
     return result;
   }

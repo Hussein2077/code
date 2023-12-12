@@ -19,7 +19,7 @@ class DioHelper {
     String token = await Methods.instance.returnUserToken();
 
     if (kDebugMode) {
-      log(token);
+      log(token + "######");
 
     }
     final devicedata = await initPlatformState();

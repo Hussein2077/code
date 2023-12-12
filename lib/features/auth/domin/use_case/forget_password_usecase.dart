@@ -5,20 +5,14 @@ import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 
 
 
-class ForgetPasswordUc extends BaseUseCase<String,String>{
-
+class ForgetPasswordUc {
 
   BaseRepository baseRepository ;
-
-
   ForgetPasswordUc({ required this.baseRepository});
 
   @override
-  Future<Either<String, Failure>> call(String parameter)async {
-    final result =await baseRepository.forgetPassword(parameter);
+  Future<Either<String, Failure>> call({required String phone, required String password, required String code})async {
+    final result = await baseRepository.forgetPassword(phone: phone, password: password, code: code);
     return result ;
   }
-
-
-
 }

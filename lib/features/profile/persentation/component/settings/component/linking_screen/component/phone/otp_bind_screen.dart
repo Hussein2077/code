@@ -1,19 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/resend_code_widget.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_phone_number_text.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_acount/account_events.dart';
@@ -26,79 +20,35 @@ class OtpBindScreen extends StatefulWidget {
   final String? codePhone;
   final String? type;
 
-  const OtpBindScreen(
-      {
-        this.password,
-        this.codePhone ,
-        this.type ,
-
-        this.phone,
-        super.key,
-      });
+  const OtpBindScreen({
+    this.password,
+    this.codePhone,
+    this.type,
+    this.phone,
+    super.key,
+  });
 
   @override
   State<OtpBindScreen> createState() => _OtpBindScreenState();
 }
 
 class _OtpBindScreenState extends State<OtpBindScreen> {
-  String code = "";
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AcountBloc, AccountStates>(
         listener: (BuildContext context, AccountStates state) async {
-
-      if (state is ChangeNumberSuccessState) {
-        final snackBar = SnackBar(
-          content:  Text(state.successMessage),
-          backgroundColor: (Colors.black12),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        // // ignore: use_build_context_synchronously
-        // Navigator.pop(context);
-        // // ignore: use_build_context_synchronously
-        // Navigator.pop(context);
-      } else if (state is ChangeNumberErrorState) {
-        log(state.errorMessage);
-        errorToast(context: context, title: state.errorMessage);
-      } else if (state is ChangeNumberLoading) {
-        //loadingToast(context: context, );
-      }
-
-      else if (state is ChangePasswordSuccessState) {
-        final snackBar = SnackBar(
-          content:  Text(state.successMessage),
-          backgroundColor: (Colors.black12),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        // // ignore: use_build_context_synchronously
-         Navigator.pop(context);
-      }
-      else if (state is ChangePasswordLoading) {
-         loadingToast(context: context, );
-      }
-      else if (state is ChangePasswordErrorState) {
-        errorToast(context: context, title: state.errorMessage);
-      }
-
-      else if (state is NumberAccountSuccessState) {
-        log("Sucsses");
-
+      if (state is NumberAccountSuccessState) {
         BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
         final snackBar = SnackBar(
-          content:  Text(state.successMessage),
+          content: Text(state.successMessage),
           backgroundColor: (Colors.black12),
         );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);        // // ignore: use_build_context_synchronously
-         // Navigator.pop(context);
-      } else if (state is NumberAccountLoading) {
-
-        //loadingToast(context: context, );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.pop(context);
       } else if (state is NumberAccountErrorState) {
-        log("error");
-
-        BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-
         errorToast(context: context, title: state.errorMessage);
       }
     }, builder: (BuildContext context, AccountStates state) {
@@ -142,52 +92,19 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
               flex: 2,
             ),
             const OtpContiners(),
-            const ResendCodeWidget(),
+            ResendCodeWidget(phone: widget.phone!),
             const Spacer(
               flex: 7,
             ),
             MainButton(
                 onTap: () async {
-              //todo
-                  if (true) {
-                    //todo
-                    if (widget.type == 'bindNumber') {
-
-                      // ignore: use_build_context_synchronously
-                      BlocProvider.of<AcountBloc>(context)
-                          .add(BindNumberAccountEvent(
-                              credential: "token" ?? '',
-                              phoneNumber: widget.phone.toString(),
-                              //   phoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
-                              password: widget.password ?? '',
-                              vrCode: OtpContiners.code));
-
-                    }
-                    else if (widget.type == 'changeNumber') {
-                     // ignore: use_build_context_synchronously
-                      BlocProvider.of<AcountBloc>(context)
-                          .add(ChangeNumberAccountEvent(
-                        currentPhoneNumber:
-                            MyDataModel.getInstance().phone.toString(),
-                        vrCode: OtpContiners.code,
-                        newtPhoneNumber: ChangePhoneWithCountry.number.phoneNumber.toString(),
-                       // newtPhoneNumber: ChangeNumberScreenState.number.phoneNumber.toString(),
-                        credential: "token" ?? '',
-                      ));
-                    }
-                    else if (widget.type == 'changePassword') {
-                      // ignore: use_build_context_synchronously
-                      BlocProvider.of<AcountBloc>(context)
-                          .add(ChangePasswordAccountEvent(
-                        phone: MyDataModel.getInstance().phone.toString(),
+                  if (widget.type == 'bindNumber') {
+                    BlocProvider.of<AcountBloc>(context)
+                        .add(BindNumberAccountEvent(
+                        credential: "token",
+                        phoneNumber: widget.phone.toString(),
                         password: widget.password ?? '',
-                        //credential: token ?? "",
-                        vrCode: OtpContiners.code,
-                      ));
-                    }
-                  } else {
-                    // ignore: use_build_context_synchronously
-                    errorToast(context: context, title: StringManager.theOtp);
+                        vrCode: OtpContiners.code));
                   }
                 },
                 title: StringManager.done),

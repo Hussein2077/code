@@ -1,8 +1,11 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable
 
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -15,7 +18,9 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.d
 class SpinScreen extends StatefulWidget {
   List<String> list;
   bool isActive;
-  SpinScreen({super.key, required this.list, required this.isActive});
+  bool isFree;
+  int? winner;
+  SpinScreen({super.key, required this.list, required this.isActive, required this.isFree, this.winner});
 
   @override
   State<SpinScreen> createState() => _SpinScreenState();
@@ -28,7 +33,14 @@ class _SpinScreenState extends State<SpinScreen> {
   String selectedItem = "";
 
   @override
+  void initState() {
+    if(!widget.isFree){
+      _wheelNotifier.add(widget.winner!);
+    }
+    super.initState();
+  }
 
+  @override
   void dispose() {
     _wheelNotifier.close();
     SpinWheelGameScreen.peoples.clear();
@@ -58,7 +70,7 @@ class _SpinScreenState extends State<SpinScreen> {
                   height: ConfigSize.screenHeight! * .4,
                   child: FortuneWheel(
                     selected: _wheelNotifier.stream,
-                    animateFirst: false, //start animation when open screen
+                    animateFirst: false,
                     indicators: [
                       FortuneIndicator(
                           child: SizedBox(
@@ -109,7 +121,15 @@ class _SpinScreenState extends State<SpinScreen> {
           InkWell(
             onTap: (){
               if(!_isSpinning){
-                _wheelNotifier.add(Fortune.randomInt(0, widget.list.length));
+                if(widget.isFree){
+                  int winner = Fortune.randomInt(0, widget.list.length);
+                  _wheelNotifier.add(winner);
+                  ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
+                      MyDataModel.getInstance().id.toString(),
+                      winner,
+                      widget.list
+                  ), []);
+                }
               }
             },
             child: Stack(
@@ -153,5 +173,16 @@ class _SpinScreenState extends State<SpinScreen> {
       color.withOpacity(opacity),
       background,
     );
+  }
+
+  String getMessagaRealTime(String ownerId, int winner, List<String> items){
+    var mapInformation = {"messageContent":{
+      "message": "freeSpinGame",
+      "ownerId": ownerId,
+      "winner": winner,
+      "items": items,
+    }} ;
+    String map = jsonEncode(mapInformation);
+    return map ;
   }
 }

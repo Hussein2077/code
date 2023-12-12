@@ -12,11 +12,7 @@ import 'package:tik_chat_v2/features/auth/data/model/auth_with_huawei_model.dart
 import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/repo/base_repo.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
-import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_check_code_us.dart';
-import 'package:tik_chat_v2/features/auth/domin/use_case/forget_password_usecase.dart';
-import 'package:tik_chat_v2/features/auth/domin/use_case/register_verification_us.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
-import 'package:tik_chat_v2/features/auth/domin/use_case/reset_password_uc.dart';
 
 class RepositoryImp extends BaseRepository {
   final BaseRemotlyDataSource baseRemotlyDataSource;
@@ -28,18 +24,6 @@ class RepositoryImp extends BaseRepository {
   Future<Either<Unit, Failure>> resendCode(String uuid) async {
     try {
       await baseRemotlyDataSource.resendCode(uuid);
-      return const Left(unit);
-    } on Exception catch (e) {
-      return right(DioHelper.buildFailure(e));
-    }
-  }
-
-  @override
-  Future<Either<Unit, Failure>> registerVerification(
-      RegisterVerificationModel registerVerificationModel) async {
-    try {
-      await baseRemotlyDataSource
-          .registerVerification(registerVerificationModel);
       return const Left(unit);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
@@ -166,9 +150,9 @@ class RepositoryImp extends BaseRepository {
   }
 
   @override
-  Future<Either<String, Failure>> forgetPassword(String phone) async {
+  Future<Either<String, Failure>> forgetPassword({required String phone, required String password, required String code}) async {
     try {
-      final result = await baseRemotlyDataSource.forgetPassword(phone);
+      final result = await baseRemotlyDataSource.forgetPassword(phone: phone, password: password, code: code);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
@@ -176,24 +160,13 @@ class RepositoryImp extends BaseRepository {
   }
 
   @override
-  Future<Either<String, Failure>> forgetPasswordCheckCode(ForgetPasswordCheckCodeParameters forgetPasswordCheckCodeParameters) async {
+  Future<Either<String, Failure>> forgetPasswordCodeVerification({required String phone, required String code}) async {
     try {
-      final result = await baseRemotlyDataSource
-          .forgetPasswordCheckCode(forgetPasswordCheckCodeParameters);
+      final result = await baseRemotlyDataSource.forgetPasswordCodeVerification(phone: phone, code: code);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
     }
   }
 
-  @override
-  Future<Either<String, Failure>> resetPassword(ResetPasswordPramiter resetPasswordPramiter) async {
-    try {
-      final result =
-      await baseRemotlyDataSource.resetPassword(resetPasswordPramiter);
-      return Left(result);
-    } on Exception catch (e) {
-      return right(DioHelper.buildFailure(e));
-    }
-  }
 }

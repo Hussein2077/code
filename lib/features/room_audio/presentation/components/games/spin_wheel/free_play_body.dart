@@ -157,6 +157,7 @@ class _FreePlayBodyState extends State<FreePlayBody> {
                                   widget: SpinScreen(
                                     list: SpinWheelGameScreen.peoples,
                                     isActive: isActive,
+                                    isFree: true,
                                   ));
                             },
                             child: Stack(

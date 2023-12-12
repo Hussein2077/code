@@ -6,18 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/forget_password/forget_pass_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
 
 class CounterByMinute extends StatefulWidget {
-  const CounterByMinute({
+  String phone;
+  CounterByMinute({
     super.key,
-    required this.uuid,
+    required this.phone
   });
-
-  final String? uuid;
 
   @override
   State<CounterByMinute> createState() => _CounterByMinuteState();
@@ -62,14 +59,11 @@ class _CounterByMinuteState extends State<CounterByMinute> {
           .toString()
           .replaceAll(
           PhoneWithCountry.number.dialCode.toString(), '');
-      if(widget.uuid != null) {
         BlocProvider.of<SendCodeBloc>(context)
-            .add(SendPhoneEvent(uuid: widget.uuid!));
-      }
-      else{
-        BlocProvider.of<ForgetPasswordBloc>(context)
-            .add(ForgetPasswordEvent(phone!));
-      }
+            .add(SendPhoneEvent(phone: widget.phone));
+
+        // BlocProvider.of<ForgetPasswordBloc>(context)
+        //     .add(ForgetPasswordEvent(phone!));
       // Reset to 5 minutes
     });
     startTimer();

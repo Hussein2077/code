@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +7,8 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 
 import '../../../../../../../../../core/utils/config_size.dart';
@@ -22,12 +20,12 @@ class ChangePassScreen extends StatefulWidget {
   State<ChangePassScreen> createState() => _ChangePassScreenState();
 }
 
-bool visablePassword = true;
-TextEditingController passwordController = TextEditingController();
-
-final key = GlobalKey<FormState>();
-
 class _ChangePassScreenState extends State<ChangePassScreen> {
+
+  TextEditingController passwordController = TextEditingController();
+  bool visablePassword = true;
+  final key = GlobalKey<FormState>();
+
   @override
   void initState() {
     passwordController.clear();
@@ -40,7 +38,6 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
     passwordController.clear();
     super.dispose();
   }
-  bool phoneIsValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,36 +45,17 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
       listener: (context, state) async {
         if (state is SendCodeSuccesMessageState) {
           Navigator.pushNamed(
-            context,
-            Routes.otpBindScreen,
-            arguments: OtbScreenParm(
-                password: passwordController.text, type: 'changePassword'),
-          );
-          // Navigator.pushNamed(context, Routes.oTPForgetPassword,
-          //     arguments: OtbScreenParm(
-          //       slectedCountry:slectedCountry ,
-          //       slectedflag:slectedflag ,
-          //         password: passwordController.text,
-          //         phone: phoneController.text));
+              context, Routes.otp,
+              arguments: OtbScreenParm(
+                  password: passwordController.text.toString(),
+                  otpFrom: OtpFrom.changePassword,
+                  phone: MyDataModel.getInstance().phone
+              ));
         }
         if (state is SendCodeErrorMessageState) {
           errorToast(context: context, title: state.errorMessage.tr());
         }
       },
-
-      // {
-      //   if (state is SendCodeSuccesMessageState) {
-      //     // Navigator.pushNamed(context, Routes.oTPForgetPassword,
-      //     //     arguments: OtbScreenParm(
-      //     //       slectedCountry:slectedCountry ,
-      //     //       slectedflag:slectedflag ,
-      //     //         password: passwordController.text,
-      //     //         phone: phoneController.text));
-      //   }
-      //   if (state is SendCodeErrorMessageState) {
-      //     errorToast(context: context, title: state.errorMessage.tr());
-      //   }
-      // },
       builder: (context, state) {
         return GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -191,19 +169,13 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                         Center(
                           child: InkWell(
                             onTap: () {
-                              log("jako${passwordController.text}");
-
                               if (passwordController.text.isNotEmpty) {
-                                //todo
-                                Navigator.pushNamed(
-                                    context, Routes.otpBindScreen,
-                                    arguments: OtbScreenParm(
-                                      password:
-                                          passwordController.text.toString(),
-                                      type: 'changePassword',
-                                    ));
+                                BlocProvider.of<SendCodeBloc>(context).add(
+                                    SendPhoneEvent(
+                                        phone: MyDataModel.getInstance().phone!,
+                                    ),
+                                );
                               }
-                              log("jako${MyDataModel().phone.toString()}");
                             },
                             child: Container(
                               width: ConfigSize.defaultSize! * 26,

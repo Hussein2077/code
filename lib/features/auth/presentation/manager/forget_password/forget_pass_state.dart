@@ -22,33 +22,18 @@ class ForgetPasswordErrorState extends ForgetPasswordState {
 }
 
 class ForgetPasswordLoadingState extends ForgetPasswordState {}
-///###################################
-///check the otp code before reset password
-class CheckCodeForgetPasswordSuccessState extends ForgetPasswordState {
+
+
+class ForgetPasswordCodeVerificationSuccessState extends ForgetPasswordState {
   final String message;
 
-  const CheckCodeForgetPasswordSuccessState({required this.message});
+  const ForgetPasswordCodeVerificationSuccessState({required this.message});
 }
 
-class CheckCodeForgetPasswordErrorState extends ForgetPasswordState {
+class ForgetPasswordCodeVerificationErrorState extends ForgetPasswordState {
   final String errorMessage;
 
-  const CheckCodeForgetPasswordErrorState({required this.errorMessage});
+  const ForgetPasswordCodeVerificationErrorState({required this.errorMessage});
 }
 
-class CheckCodeForgetPasswordLoadingState extends ForgetPasswordState {}
-///###################################
-///reset password
-class ResetPasswordSuccessState extends ForgetPasswordState {
-  final String message;
-
-  const ResetPasswordSuccessState({required this.message});
-}
-
-class ResetPasswordErrorState extends ForgetPasswordState {
-  final String errorMessage;
-
-  const ResetPasswordErrorState({required this.errorMessage});
-}
-
-class ResetPasswordLoadingState extends ForgetPasswordState {}
+class ForgetPasswordCodeVerificationLoadingState extends ForgetPasswordState {}

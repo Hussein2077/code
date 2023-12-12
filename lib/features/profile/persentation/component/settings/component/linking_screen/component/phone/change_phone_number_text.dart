@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -12,7 +10,8 @@ class ChangePhoneWithCountry extends StatefulWidget {
   static PhoneNumber number = PhoneNumber(isoCode: 'EG');
   static bool phoneIsValid = false;
 
-  const ChangePhoneWithCountry({super.key});
+  String? hintText;
+  ChangePhoneWithCountry({super.key, this.hintText});
 
   @override
   State<ChangePhoneWithCountry> createState() => _ChangePhoneWithCountryState();
@@ -71,7 +70,7 @@ class _ChangePhoneWithCountryState extends State<ChangePhoneWithCountry> {
             ),
             filled: true,
             fillColor: Colors.white,
-            hintText: StringManager.inputPhonenum.tr(),
+            hintText: widget.hintText??StringManager.inputPhonenum.tr(),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25),
               borderSide: const BorderSide(

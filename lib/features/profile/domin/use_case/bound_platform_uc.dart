@@ -55,9 +55,11 @@ class  BoundNumberPramiter extends Equatable{
   final String? vrCode ;
   final String? currentPhone ;
   final String? credintial ;
+  final String? oldCode ;
+  final String? newCode ;
 
 
-  const BoundNumberPramiter({  this.credintial, this.phoneNumber, this.currentPhone, this.password, this.vrCode});
+  const BoundNumberPramiter({this.credintial, this.phoneNumber, this.currentPhone, this.password, this.vrCode, this.oldCode, this.newCode});
 
   @override
   List<Object?> get props => [  phoneNumber,password,vrCode];
