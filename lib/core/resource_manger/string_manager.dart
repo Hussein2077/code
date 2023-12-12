@@ -542,6 +542,9 @@ class StringManager {
   static const String freePlay = "Free Play";
   static const String PaidPlay = "Paid Play";
   static const String viewProfile = "View Profile";
+  static const String changeThemeApproval ="Do you approve to change this theme for ";
+
+
 
   ///List Type Users
   //0 normal user,

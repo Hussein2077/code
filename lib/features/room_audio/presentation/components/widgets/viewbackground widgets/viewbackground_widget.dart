@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +12,6 @@ import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
@@ -36,8 +34,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/pop_up_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
@@ -136,20 +132,28 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
       //height: ConfigSize.defaultSize! * 92.5,
     ),
     Container(
-      padding: const EdgeInsets.all(5),
-      margin: EdgeInsets.only(
-          top: ConfigSize.defaultSize!,
-          left: MediaQuery.of(context).size.width / 2.5),
-      decoration: BoxDecoration(color: Colors.white.withOpacity(0.5), borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-        child:    StreamBuilder<int>(
-    stream: getIt<CounterBloc>().counterStream,
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        return Text(Methods.instance.formatSecondsTime(snapshot.data??0));
-      }
-      return Text(Methods.instance.formatSecondsTime(getIt<CounterBloc>().counter));
-    },
-        ),
+      padding: const EdgeInsets.all(2),
+          margin: EdgeInsets.only(
+              top: ConfigSize.defaultSize!,
+              left: MediaQuery.of(context).size.width / 2.355),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+          ),
+          child: StreamBuilder<int>(
+            stream: getIt<CounterBloc>().counterStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(
+                  Methods.instance.formatSecondsTime(snapshot.data ?? 0),
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w700),
+                );
+              }
+              return Text(Methods.instance
+                  .formatSecondsTime(getIt<CounterBloc>().counter));
+            },
+          ),
         ),
         Align(
       alignment: Alignment.bottomLeft,
