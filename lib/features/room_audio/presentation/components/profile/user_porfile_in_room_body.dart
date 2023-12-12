@@ -331,7 +331,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                 ],
               ),
             ),
-          ),
+          
 
           Align(
             alignment: Alignment.topCenter,
