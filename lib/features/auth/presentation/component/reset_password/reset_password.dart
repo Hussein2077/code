@@ -45,9 +45,6 @@ class _ResetPasswordState extends State<ResetPassword> {
     return BlocConsumer<ForgetPasswordBloc, ForgetPasswordState>(
       listener: (context, state) {
         if (state is ForgetPasswordSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            custoumSnackBar(context,state.message),
-          );
           Navigator.pushNamedAndRemoveUntil(context, Routes.login,(route) => false);
         } else if (state is ForgetPasswordErrorState) {
           errorToast(context: context, title: state.errorMessage);

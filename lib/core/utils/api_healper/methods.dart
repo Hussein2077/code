@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -892,7 +893,6 @@ class Methods {
         BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(userId: MyDataModel.getInstance().id.toString(),));
         if(MainScreen.reelId == null || MainScreen.reelId == ''){
           BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
-
         }
         BlocProvider.of<GetFollowingReelsBloc>(context).add(GetFollowingReelsEvent());
         BlocProvider.of<GetFollwersRoomBloc>(context).add(const GetFollwersRoomEvent(type: "5"));
