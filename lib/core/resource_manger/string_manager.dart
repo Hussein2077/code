@@ -839,11 +839,11 @@ class StringManager {
 
   // roomGameKeys
 
-  static String diceGameKeyy = "${RoomScreen.differentCommentKey}dice";
-  static String rpsGameKeyy = "${RoomScreen.differentCommentKey}rps";
-  static String spinGameKeyy = "${RoomScreen.differentCommentKey}spin";
-  static String  luckyDrawGameKeyy  = "${RoomScreen.differentCommentKey}draw";
-  static String luckyGiftCommentKeyy = "${RoomScreen.differentCommentKey}lucky_gift";
+  static String diceGameKeyyy = "${RoomScreen.differentCommentKey} dice";
+  static String rpsGameKeyyy = "${RoomScreen.differentCommentKey} rps";
+  static String spinGameKeyyy = "${RoomScreen.differentCommentKey} spin";
+  static String  luckyDrawGameKeyyy  = "${RoomScreen.differentCommentKey} draw";
+  static String luckyGiftCommentKeyyy = "${RoomScreen.differentCommentKey} lucky_gift";
 
 
 
