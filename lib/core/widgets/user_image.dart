@@ -58,6 +58,7 @@ class UserImage extends StatelessWidget {
                 image: DecorationImage(
                     fit: boxFit ?? BoxFit.fill,
                     image: CachedNetworkImageProvider(
+                      image.contains("https")? image:
                         ConstentApi().getImage(image)))),
             child: child,
           ),
