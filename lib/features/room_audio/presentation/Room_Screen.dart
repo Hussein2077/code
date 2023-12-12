@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:path_provider/path_provider.dart';
@@ -895,7 +894,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     gameId: result[messageContent]['game_record_id'].toString(),
                     answer: answer.toString()
                 )));
-                ZegoUIKit.instance.sendInRoomMessage("$answer", false,games:GamesInRoom.dicGame);
+                ZegoUIKit.instance.sendInRoomMessage("$answer", false,null);
               }
             }else{
               Navigator.pop(context);
