@@ -61,6 +61,7 @@ class ColorManager {
   static const Color blueContributeContanierText = Color(0xFF0091E3);
   static const Color giftColors = Color(0x1FFFB800);
     static const Color giftback = Color(0xFF110B15);
+    static const Color succesColor = Color(0xFF9FE2BF);
         static const Color loadingColor = Color.fromARGB(255, 255, 114, 44);
 
 
@@ -85,10 +86,10 @@ class ColorManager {
 //03fc0b
 
   static const List<Color> greenSuccessList = [
+    Color(0xFFffffff),
     Color(0xFF03fc0b),
     Color(0xFFffffff),
     Color(0xFF03fc0b),
-
   ];
   static const List<Color> redErrorList = [
     Color(0xFFfc0303),//#fc0303
