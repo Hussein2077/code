@@ -69,7 +69,7 @@ class MessagesChached extends StatelessWidget {
             text: "$word ", style: const TextStyle(color: Colors.white)));
       }
     }
-    return message.timestamp==100 ? Container(margin: EdgeInsets.all(20), color: Colors.red, height:  200, width:  200,):
+    return message.message.contains("dicGame") ? Container(margin: EdgeInsets.all(20), color: Colors.red, height:  200, width:  200,):
       InkWell(
       onTap: () {
         (message.user.id.startsWith('-1'))

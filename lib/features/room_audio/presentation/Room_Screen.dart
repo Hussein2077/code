@@ -851,7 +851,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                   gameId: result[messageContent]['game_record_id'].toString(),
                   answer: answer.toString()
               )));
-              ZegoUIKit.instance.sendInRoomMessage("$answer", false ,  GamesInRoom.dicGame);
+              ZegoUIKit.instance.sendInRoomMessage("dicGame"+"$answer", false ,  GamesInRoom.dicGame);
             }
           }else{
             Navigator.pop(context);
