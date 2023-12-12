@@ -53,7 +53,8 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
       case RequestState.loaded:
         return GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3),
+              childAspectRatio: 0.8,
+                crossAxisCount: 5),
             itemCount: widget.data.length,
             shrinkWrap: true,
             // itemExtent: 3,
@@ -85,7 +86,7 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
                 child: Container(
                     margin: EdgeInsets.symmetric(
                         horizontal: ConfigSize.defaultSize!,
-                        vertical: ConfigSize.defaultSize! - 4),
+                        vertical: ConfigSize.defaultSize! - 2),
                     decoration: BoxDecoration(
                       borderRadius:
                       BorderRadius.circular(ConfigSize.defaultSize!),
@@ -107,8 +108,8 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
                                 ? Container(
                               color: Colors.black87,
                               padding: EdgeInsets.only(
-                                  top: ConfigSize.defaultSize! * 2),
-                              height: ConfigSize.defaultSize! * 9,
+                                  top: ConfigSize.defaultSize! * 0),
+
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(
                                       AppPadding.p6),
@@ -139,8 +140,8 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
                                 : Container(
                               color: Colors.black87,
                               padding: EdgeInsets.only(
-                                  top: ConfigSize.defaultSize! * 2),
-                              height: ConfigSize.defaultSize! * 9,
+                                  top: ConfigSize.defaultSize! * 0),
+
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(
                                       AppPadding.p6),
@@ -171,7 +172,7 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
                                   )),
                             ),
                             SizedBox(
-                              height: ConfigSize.defaultSize! * 0.55,
+                              height: ConfigSize.defaultSize! * 0.0,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -185,9 +186,7 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
                                     height: AppPadding.p12,
                                   ),
                                 ),
-                                SizedBox(
-                                  width: AppPadding.p4,
-                                ),
+
                                 Text(
                                   widget.data[index].price.toString(),
                                   style: TextStyle(

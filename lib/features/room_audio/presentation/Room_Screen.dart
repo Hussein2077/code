@@ -32,6 +32,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/games/br
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/waiting_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/all_users_spin_view.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
@@ -819,42 +820,86 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         );
       }
       else if (result[messageContent][message] == "requestDiceGame") {
-        if(result[messageContent]['to_id'].toString() == MyDataModel.getInstance().id.toString()) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) {
-              return AcceptOrCancelDialog(coins: result[messageContent]['coins'].toString(), senderImage: result[messageContent]['user_image'].toString(), senderName: result[messageContent]['user_name'].toString(), toId: result[messageContent]['to_id'].toString(), gameRecordId: result[messageContent]['game_record_id'].toString(), gameId: result[messageContent]['game_id'].toString(),);
-            });
-        }else if(result[messageContent]['user_id'].toString() == MyDataModel.getInstance().id.toString()){
-          Navigator.pop(context);
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const WaitingDialog();
-              });
+        if(result[messageContent]['game_id'].toString() == "3"){
+          for(int i = 0; i < result[messageContent]['to_id'].length; i++ ){
+            if(result[messageContent]['to_id'][i].toString() == MyDataModel.getInstance().id.toString()) {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return AcceptOrCancelDialog(coins: result[messageContent]['coins'].toString(), senderImage: result[messageContent]['user_image'].toString(), senderName: result[messageContent]['user_name'].toString(), toId: result[messageContent]['to_id'][i].toString(), gameRecordId: result[messageContent]['game_record_id'].toString(), gameId: result[messageContent]['game_id'].toString(),);
+                  });
+            }
+          }
+          if(result[messageContent]['user_id'].toString() == MyDataModel.getInstance().id.toString()){
+            Navigator.pop(context);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return const WaitingDialog();
+                });
+          }
+        }else{
+          if(result[messageContent]['to_id'].toString() == MyDataModel.getInstance().id.toString()) {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return AcceptOrCancelDialog(coins: result[messageContent]['coins'].toString(), senderImage: result[messageContent]['user_image'].toString(), senderName: result[messageContent]['user_name'].toString(), toId: result[messageContent]['to_id'].toString(), gameRecordId: result[messageContent]['game_record_id'].toString(), gameId: result[messageContent]['game_id'].toString(),);
+                });
+          }else if(result[messageContent]['user_id'].toString() == MyDataModel.getInstance().id.toString()){
+            Navigator.pop(context);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return const WaitingDialog();
+                });
+          }
         }
       }
       else if (result[messageContent][message] == "requestResultFromOther") {
-        if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString() || result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
-          if(result[messageContent]["result"].toString() == "accepted"){
+        if(result[messageContent]['game_id'].toString() == "3" && result[messageContent]['type'].toString() == "finished"){
+          if(result[messageContent]["player_owner"].toString() == MyDataModel.getInstance().id.toString()){
             Navigator.pop(context);
-            if(result[messageContent]['game_id'].toString() == "1") {
-              showDialog(
+            showDialog(
                 context: context,
                 builder: (context) {
-                  return GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
+                  return SpinScreen(list: result[messageContent]['palyersName'], isActive: false, isFree: false, winner: int.parse(result[messageContent]['randomNumber']),);
                 });
-            }else if(result[messageContent]['game_id'].toString() == "2"){
-              int answer = Random().nextInt(6);
-              BlocProvider.of<GameBloc>(context).add(SendGameChoise(sendGameChoisePramiter: SendGameChoisePramiter(
-                  gameId: result[messageContent]['game_record_id'].toString(),
-                  answer: answer.toString()
-              )));
-              ZegoUIKit.instance.sendInRoomMessage("dicGame"+"$answer", false ,  GamesInRoom.dicGame);
-            }
           }else{
-            Navigator.pop(context);
+            for(int i = 0; i < result[messageContent]['palyersIds'].length; i++){
+              if(result[messageContent]['palyersIds'][i].toString() == MyDataModel.getInstance().id.toString()){
+                Navigator.pop(context);
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AllUsersSpinView(list: result[messageContent]['palyersName'], winner: int.parse(result[messageContent]['randomNumber']),);
+                    });
+              }
+            }
+          }
+
+        }else if(result[messageContent]['game_id'].toString() == "1" || result[messageContent]['game_id'].toString() == "2"){
+          if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString() || result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
+            if(result[messageContent]["result"].toString() == "accepted"){
+              Navigator.pop(context);
+              if(result[messageContent]['game_id'].toString() == "1") {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
+                    });
+              }else if(result[messageContent]['game_id'].toString() == "2"){
+                int answer = Random().nextInt(6);
+                BlocProvider.of<GameBloc>(context).add(SendGameChoise(sendGameChoisePramiter: SendGameChoisePramiter(
+                    gameId: result[messageContent]['game_record_id'].toString(),
+                    answer: answer.toString()
+                )));
+                ZegoUIKit.instance.sendInRoomMessage("$answer", false,games:GamesInRoom.dicGame);
+              }
+            }else{
+              Navigator.pop(context);
+            }
           }
         }
       }
@@ -884,8 +929,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Directionality(
         textDirection: TextDirection.ltr,
         child: ZegoUIKitPrebuiltLiveAudioRoom(

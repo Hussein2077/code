@@ -52,3 +52,23 @@ class SendGameChoiseSuccessState extends GameState {
   final String message;
   SendGameChoiseSuccessState({required this.message});
 }
+
+class InviteToGameNewErrorState extends GameState {
+  final String error;
+  InviteToGameNewErrorState({required this.error});
+}
+
+class InviteToGameNewSuccessState extends GameState {
+  final String message;
+  InviteToGameNewSuccessState({required this.message});
+}
+
+class OtherPlayerActionErrorState extends GameState {
+  final String error;
+  OtherPlayerActionErrorState({required this.error});
+}
+
+class OtherPlayerActionSuccessState extends GameState {
+  final String message;
+  OtherPlayerActionSuccessState({required this.message});
+}

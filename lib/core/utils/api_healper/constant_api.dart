@@ -13,6 +13,8 @@ class ConstentApi {
   static const String forgetPasswordCodeVerification = "$baseUrl/auth/verify-code";
   static const String getBoxes = "$baseUrl/box/list";
   static const String inviteToGame = "$baseUrl/game-challange/send-reuest-paly";
+  static const String inviteToGameNew = "$baseUrl/room-game/send-request-play";
+  static const String otherSideGameActionNew = "$baseUrl/room-game/other-side-opinion";
   static const String acceptOrCancelGame = "$baseUrl/game-challange/other-side-opinion";
   static const String sendGameChoise = "$baseUrl/game-challange/challange-result";
   static const String inAppPurchase = "$baseUrl/purchased";

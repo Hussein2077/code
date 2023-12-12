@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/other_side_game_action_new.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
@@ -15,12 +17,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   CancelGameUC cancelGameUC;
   StartGameUC startGameUC;
   SendGameChoiseUC sendGameChoiseUC;
+  InviteToGameNewUC inviteToGameNewUC;
+  OtherSideGameActionNewUC otherSideGameActionNewUC;
 
-  GameBloc({required this.inviteToGameUC, required this.cancelGameUC, required this.startGameUC, required this.sendGameChoiseUC}) : super(GameInitial()) {
+  GameBloc({required this.inviteToGameUC, required this.cancelGameUC, required this.startGameUC, required this.sendGameChoiseUC, required this.inviteToGameNewUC, required this.otherSideGameActionNewUC}) : super(GameInitial()) {
     on<InviteToGame>(inviteToGame);
     on<CancelGame>(cancelGame);
     on<StartGame>(startGame);
     on<SendGameChoise>(sendGameChoise);
+    on<InviteToGameNew>(inviteToGameNew);
+    on<OtherPlayerAction>(otherPlayerAction);
   }
 
   FutureOr<void> inviteToGame(InviteToGame event, emit) async {
@@ -64,6 +70,31 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
     result.fold((l) => emit(SendGameChoiseSuccessState(message: l)),
             (r) => emit(SendGameChoiseErrorState(error: DioHelper().getTypeOfFailure(r))));
+
+  }
+
+  FutureOr<void> inviteToGameNew(InviteToGameNew event, emit) async {
+    emit(InviteToGameLoadingState());
+    final result = await inviteToGameNewUC.call(InviteToGameNewPramiter(
+      ownerId: event.inviteToGamePramiter.ownerId,
+      coins: event.inviteToGamePramiter.coins,
+      game_id: event.inviteToGamePramiter.game_id,
+      players: event.inviteToGamePramiter.players,
+      round_num: event.inviteToGamePramiter.round_num,
+    ));
+    result.fold((l) => emit(InviteToGameNewSuccessState(message: l)),
+            (r) => emit(InviteToGameNewErrorState(error: DioHelper().getTypeOfFailure(r))));
+
+  }
+
+  FutureOr<void> otherPlayerAction(OtherPlayerAction event, emit) async {
+    emit(StartGameLoadingState());
+    final result = await otherSideGameActionNewUC.call(OtherSideGameActionNewPramiter(
+        gameId: event.otherSideGameActionNewPramiter.gameId,
+        status: event.otherSideGameActionNewPramiter.status,
+    ));
+    result.fold((l) => emit(OtherPlayerActionSuccessState(message: l)),
+            (r) => emit(OtherPlayerActionErrorState(error: DioHelper().getTypeOfFailure(r))));
 
   }
 }

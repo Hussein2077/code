@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class AllUsersSpinView extends StatefulWidget {
-  List<String> list;
+  List<dynamic> list;
   int winner;
   AllUsersSpinView({super.key, required this.list, required this.winner});
 
@@ -54,7 +54,9 @@ class _AllUsersSpinViewState extends State<AllUsersSpinView> {
                 ),
               ),
             ],
-            onAnimationEnd: () {},
+            onAnimationEnd: () {
+              Navigator.pop(context);
+            },
             items: [
               for (var it in widget.list) FortuneItem(child: Text(it), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(it), widget.list.length))),
             ],

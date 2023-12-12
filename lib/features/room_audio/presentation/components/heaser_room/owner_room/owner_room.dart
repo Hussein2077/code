@@ -53,7 +53,7 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
             Container(
               margin: EdgeInsets.only(left: ConfigSize.defaultSize! ,
                   top: ConfigSize.defaultSize!*0.6 , bottom:  ConfigSize.defaultSize!*0.6),
-              width: ConfigSize.defaultSize!*3.9,
+
               height: ConfigSize.defaultSize!*3.9,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppPadding.p16),
