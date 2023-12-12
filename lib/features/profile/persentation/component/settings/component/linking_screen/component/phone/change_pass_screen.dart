@@ -20,12 +20,12 @@ class ChangePassScreen extends StatefulWidget {
   State<ChangePassScreen> createState() => _ChangePassScreenState();
 }
 
-bool visablePassword = true;
-TextEditingController passwordController = TextEditingController();
-
-final key = GlobalKey<FormState>();
-
 class _ChangePassScreenState extends State<ChangePassScreen> {
+
+  TextEditingController passwordController = TextEditingController();
+  bool visablePassword = true;
+  final key = GlobalKey<FormState>();
+
   @override
   void initState() {
     passwordController.clear();
@@ -38,7 +38,6 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
     passwordController.clear();
     super.dispose();
   }
-  bool phoneIsValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,36 +45,17 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
       listener: (context, state) async {
         if (state is SendCodeSuccesMessageState) {
           Navigator.pushNamed(
-            context,
-            Routes.otpBindScreen,
-            arguments: OtbScreenParm(
-                password: passwordController.text, type: 'changePassword'),
-          );
-          // Navigator.pushNamed(context, Routes.oTPForgetPassword,
-          //     arguments: OtbScreenParm(
-          //       slectedCountry:slectedCountry ,
-          //       slectedflag:slectedflag ,
-          //         password: passwordController.text,
-          //         phone: phoneController.text));
+              context, Routes.otp,
+              arguments: OtbScreenParm(
+                  password: passwordController.text.toString(),
+                  otpFrom: OtpFrom.changePassword,
+                  phone: MyDataModel.getInstance().phone
+              ));
         }
         if (state is SendCodeErrorMessageState) {
           errorToast(context: context, title: state.errorMessage.tr());
         }
       },
-
-      // {
-      //   if (state is SendCodeSuccesMessageState) {
-      //     // Navigator.pushNamed(context, Routes.oTPForgetPassword,
-      //     //     arguments: OtbScreenParm(
-      //     //       slectedCountry:slectedCountry ,
-      //     //       slectedflag:slectedflag ,
-      //     //         password: passwordController.text,
-      //     //         phone: phoneController.text));
-      //   }
-      //   if (state is SendCodeErrorMessageState) {
-      //     errorToast(context: context, title: state.errorMessage.tr());
-      //   }
-      // },
       builder: (context, state) {
         return GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -190,13 +170,11 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                           child: InkWell(
                             onTap: () {
                               if (passwordController.text.isNotEmpty) {
-                                Navigator.pushNamed(
-                                    context, Routes.otpBindScreen,
-                                    arguments: OtbScreenParm(
-                                      password: passwordController.text.toString(),
-                                        otpFrom: OtpFrom.changePassword,
-                                      phone: MyDataModel.getInstance().phone
-                                    ));
+                                BlocProvider.of<SendCodeBloc>(context).add(
+                                    SendPhoneEvent(
+                                        phone: MyDataModel.getInstance().phone!,
+                                    ),
+                                );
                               }
                             },
                             child: Container(

@@ -138,6 +138,7 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                                     widget: SpinScreen(
                                       list: SpinWheelGameScreen.peoples,
                                       isActive: false,
+                                      isFree: false,
                                     ));
                               }
                             },

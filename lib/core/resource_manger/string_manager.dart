@@ -475,6 +475,8 @@ class StringManager {
   static const String nowInRoom = "Now In Room";
   static const String theOtp = 'the otp you have entered is wrong';
   static const String inputPhonenum = "Input your phone number";
+  static const String enterOldPhone = "Enter your old phone number";
+  static const String enterNewPhone = "Enter your new phone number";
   static const String pleaseEnterYourPassword = "Please Enter your Password";
   static const String enterNewPassword = "Enter New Password";
   static const String changePhone = "Change Phone";

@@ -29,6 +29,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/accept_or_cancel_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/waiting_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/all_users_spin_view.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
@@ -854,13 +855,22 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             Navigator.pop(context);
           }
         }
-      }else if(result[messageContent][message] == "ResultOfGame"){
+      }
+      else if(result[messageContent][message] == "ResultOfGame"){
         if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
           if(result[messageContent]['game_id'].toString() == "1"){
            ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false, games:GamesInRoom.rpsGameResult);
           }else if(result[messageContent]['game_id'].toString() == "2"){
             ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false, games:GamesInRoom.dicGameResult);
           }
+        }
+      }
+      else if(result[messageContent][message] == "freeSpinGame"){
+        if(result[messageContent]["ownerId"].toString() != MyDataModel.getInstance().id.toString()){
+          AllUsersSpinView(
+            list: result[messageContent]["items"],
+            winner: result[messageContent]["winner"],
+          );
         }
       }
     }

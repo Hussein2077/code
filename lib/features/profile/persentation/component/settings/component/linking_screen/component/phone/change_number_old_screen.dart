@@ -1,26 +1,22 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/auth/data/data_soruce/fire_base_datasource.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_phone_number_text.dart';
 
 
-class ChangeNumberScreen extends StatefulWidget {
-  const ChangeNumberScreen({super.key});
+class ChangeNumberOldScreen extends StatefulWidget {
+  const ChangeNumberOldScreen({super.key});
 
   @override
-  State<ChangeNumberScreen> createState() => ChangeNumberScreenState();
+  State<ChangeNumberOldScreen> createState() => ChangeNumberOldScreenState();
 }
 
 
@@ -28,8 +24,7 @@ TextEditingController phoneController = TextEditingController();
 
 final key = GlobalKey<FormState>();
 
-class ChangeNumberScreenState extends State<ChangeNumberScreen> {
-  static PhoneNumber number = PhoneNumber(isoCode: 'SA');
+class ChangeNumberOldScreenState extends State<ChangeNumberOldScreen> {
 
   @override
   void initState() {
@@ -43,17 +38,11 @@ class ChangeNumberScreenState extends State<ChangeNumberScreen> {
     return BlocConsumer<SendCodeBloc, SendCodeState>(
       listener: (context, state) {
         if (state is SendCodeSuccesMessageState) {
-          Navigator.pushNamed(context, Routes.otpBindScreen,
-              arguments: OtbScreenParm(phone:number.phoneNumber ,codeCountry:number.dialCode
-                  ,type:'changeNumber' ),
-
-          );
-          // Navigator.pushNamed(context, Routes.oTPForgetPassword,
-          //     arguments: OtbScreenParm(
-          //       slectedCountry:slectedCountry ,
-          //       slectedflag:slectedflag ,
-          //         password: passwordController.text,
-          //         phone: phoneController.text));
+          Navigator.pushNamed(context, Routes.otp,
+              arguments: OtbScreenParm(
+                  otpFrom: OtpFrom.changePhoneOld,
+                  codeCountry: ChangePhoneWithCountry.number.dialCode!,
+                  phone: ChangePhoneWithCountry.number.phoneNumber!));
         }
         if (state is SendCodeErrorMessageState) {
           errorToast(context: context, title: state.errorMessage.tr());
@@ -92,7 +81,7 @@ class ChangeNumberScreenState extends State<ChangeNumberScreen> {
                           const Spacer(
                             flex: 2,
                           ),
-                          const ChangePhoneWithCountry(),
+                          ChangePhoneWithCountry(hintText: StringManager.enterOldPhone.tr(),),
                           const Spacer(
                             flex: 2,
                           ),
@@ -100,27 +89,21 @@ class ChangeNumberScreenState extends State<ChangeNumberScreen> {
                           Center(
                             child: InkWell(
                               onTap: () {
-
-
                                 if (key.currentState!.validate()) {
                                   if (ChangePhoneWithCountry.number.dialCode == null) {
-                                    errorToast(context: context, title: StringManager
-                                        .pleaseAddYourCountry
-                                        .tr());
+                                    errorToast(context: context, title: StringManager.pleaseAddYourCountry.tr());
                                   } else if (ChangePhoneWithCountry.phoneIsValid) {
-                                    //todo
-                                    Navigator.pushNamed(context, Routes.otpBindScreen,
-                                        arguments: OtbScreenParm(
-                                            type: 'changeNumber',
-                                            codeCountry: ChangePhoneWithCountry.number.dialCode!,
-                                            phone:ChangePhoneWithCountry.number.phoneNumber! ));
-
+                                    BlocProvider.of<SendCodeBloc>(context).add(
+                                        SendPhoneEvent(
+                                          phone: ChangePhoneWithCountry.number.phoneNumber!,
+                                        ),
+                                    );
                                   } else {
                                     errorToast(context: context, title:  StringManager.pleaseEnterYourPhone.tr());
                                   }
                                 }
                               },
-                              child:   Container(
+                              child: Container(
                                 width:  ConfigSize.defaultSize! *26,
                                 height:ConfigSize.defaultSize! *6.5,
                                 decoration: BoxDecoration(
@@ -158,19 +141,5 @@ class ChangeNumberScreenState extends State<ChangeNumberScreen> {
         );
       },
     );
-  }
-
-
-
-
-
-
-  void getPhoneNumber(PhoneNumber phoneNumber) async {
-    PhoneNumber number = await PhoneNumber.getRegionInfoFromPhoneNumber(
-        phoneNumber.phoneNumber!, phoneNumber.dialCode!);
-
-    setState(() {
-     number = number;
-    });
   }
 }

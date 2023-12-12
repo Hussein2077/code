@@ -57,9 +57,10 @@ import 'package:tik_chat_v2/features/profile/persentation/component/level/level_
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/language_screen/language_screen.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_number_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_number_old_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_pass_or_number.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_pass_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/chnage_number_new_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/otp_bind_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/phone_number_bind_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/mode_screen/mode_screen.dart';
@@ -156,7 +157,8 @@ class Routes {
   static const String trimmerView = "/trimmerView";
 
 
-  static const String changeNumberScreen = "/ChangeNumberScreen";
+  static const String changeNumberOldScreen = "/ChangeNumberOldScreen";
+  static const String changeNumberNewScreen = "/ChangeNumberNewScreen";
   static const String changePassOrNumberScreen = "/ChangePassOrNumberScreen";
   static const String changePassScreen = "/ChangePassScreen";
   static const String privacyPolicyScreen = "/PrivacyPolicyScreen";
@@ -201,12 +203,11 @@ class RouteGenerator {
         OtbScreenParm otbScreenParm = settings.arguments as OtbScreenParm;
           return MaterialPageRoute(
             settings: settings,
-
             builder: (_) => OtpScreen(
               phone: otbScreenParm.phone,
               otpFrom: otbScreenParm.otpFrom!,
-              password: otbScreenParm.password,
-                ));
+              oldCode: otbScreenParm.oldCode??"",
+              password: otbScreenParm.password,));
       case Routes.addInfo:
         ThirdPartyAuthModel? Data = settings.arguments as ThirdPartyAuthModel?;
            return MaterialPageRoute(
@@ -554,10 +555,15 @@ class RouteGenerator {
               report: reportReelsScreen.report!,
             ));
 
-      case Routes.changeNumberScreen:
+      case Routes.changeNumberOldScreen:
          return MaterialPageRoute(
             settings: settings,
-            builder: (_) => const ChangeNumberScreen());
+            builder: (_) => const ChangeNumberOldScreen());
+      case Routes.changeNumberNewScreen:
+        var oldCode = settings.arguments;
+        return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => ChangeNumberNewScreen(oldCode: oldCode.toString(),));
       case Routes.changePassOrNumberScreen:
          return MaterialPageRoute(
             settings: settings,
@@ -666,6 +672,7 @@ class OtbScreenParm {
   final String? codeCountry;
   final String? type;
   final OtpFrom? otpFrom;
+  final String? oldCode;
 
   OtbScreenParm(
       { this.codeCountry,
@@ -673,6 +680,7 @@ class OtbScreenParm {
         this.password,
         this.type,
         this.otpFrom,
+        this.oldCode,
       });
 }
 

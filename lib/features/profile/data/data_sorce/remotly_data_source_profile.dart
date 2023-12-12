@@ -1,10 +1,6 @@
-
-
 // ignore_for_file: avoid_renaming_method_parameters, non_constant_identifier_names
-
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -53,13 +49,9 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dar
 import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_all_shipping_agents_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
-
-
-
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 
 abstract class BaseRemotlyDataSourceProfile {
   Future<MyDataModel> getmyData(Noparamiter noparamiter);
@@ -1461,9 +1453,9 @@ isVisit: isVisit,
     Map<String, String> headers = await DioHelper().header();
     final body = {
       'phone': boundNumberPramiter.phoneNumber,
-      'vr_code': boundNumberPramiter.vrCode,
+      'code': boundNumberPramiter.vrCode,
       'password': boundNumberPramiter.password,
-     'credential':boundNumberPramiter.credintial
+      'credential':boundNumberPramiter.credintial
     };
     try {
       final response = await Dio().post(
@@ -1487,9 +1479,8 @@ isVisit: isVisit,
     Map<String, String> headers = await DioHelper().header();
     final body = {
       'phone': boundNumberPramiter.phoneNumber,
-      'vr_code': boundNumberPramiter.vrCode,
+      'code': boundNumberPramiter.vrCode,
       'password': boundNumberPramiter.password,
-      'credential':boundNumberPramiter.credintial
 
     };
     try {
@@ -1511,11 +1502,12 @@ isVisit: isVisit,
   @override
   Future<String> changePhone(BoundNumberPramiter boundNumberPramiter) async {
     Map<String, String> headers = await DioHelper().header();
+
     final body = {
       'phone': boundNumberPramiter.phoneNumber,
-      'vr_code': boundNumberPramiter.vrCode,
+      'old_code': boundNumberPramiter.oldCode,
       'current_phone': boundNumberPramiter.currentPhone,
-      'credential':boundNumberPramiter.credintial
+      'new_code':boundNumberPramiter.newCode
 
     };
     try {

@@ -110,7 +110,7 @@ class _ChangePassOrNumberScreenState extends State<ChangePassOrNumberScreen> {
                             title: StringManager.changePhone,
                             firstIcon: (Icons.phone_android_outlined),
                             onTap: (){
-                              Navigator.pushNamed(context, Routes.changeNumberScreen);
+                              Navigator.pushNamed(context, Routes.changeNumberOldScreen);
                             },
 
                           ),
