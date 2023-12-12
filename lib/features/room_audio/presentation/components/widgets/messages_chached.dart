@@ -55,8 +55,6 @@ class MessagesChached extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(message.timestamp.toString()+"xxxxxxxxxxxx" +message.message
-    );
     bool changeTheme = message.changeTheme ?? false;
     bool isGame = (message.games != GamesInRoom.normal && message.games != null);
     List<String> words = message.message.split(" ");
