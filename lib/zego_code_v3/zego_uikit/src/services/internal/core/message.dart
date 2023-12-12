@@ -37,7 +37,7 @@ class ZegoUIKitCoreMessage {
     streamControllerMessageList.add(List<ZegoInRoomMessage>.from(messageList));
   }
 
-  Future<bool> sendBroadcastMessage(String message,bool? changeTheme,{required GamesInRoom games}) async {
+  Future<bool> sendBroadcastMessage(String message,bool? changeTheme,GamesInRoom? games) async {
     localMessageId = localMessageId - 1;
 
     final messageItem = ZegoInRoomMessage(
@@ -82,8 +82,8 @@ class ZegoUIKitCoreMessage {
     });
   }
 
-  Future<bool> resendInRoomMessage(ZegoInRoomMessage message,bool? changeTheme) async {
+  Future<bool> resendInRoomMessage(ZegoInRoomMessage message,bool? changeTheme   , GamesInRoom? game ) async {
     messageList.removeWhere((element) => element.messageID == message.messageID);
-    return sendBroadcastMessage(message.message,changeTheme, games: GamesInRoom.normal);
+    return sendBroadcastMessage(message.message,changeTheme, game);
   }
 }

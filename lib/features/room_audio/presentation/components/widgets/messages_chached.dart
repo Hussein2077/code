@@ -54,7 +54,7 @@ class MessagesChached extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool changeTheme = message.changeTheme ?? false;
-    bool isGame = message.games != GamesInRoom.normal;
+    bool isGame = (message.games != GamesInRoom.normal && message.games != null);
     List<String> words = message.message.split(" ");
     for (String word in words) {
       if (word.startsWith("@")) {
