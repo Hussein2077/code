@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -56,7 +58,7 @@ class MessagesChached extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
+log(message.message+"bbbbbbbbb");
     GamesInRoom  CommentType = checkMeesageType(message) ;
 
     bool isGame = (CommentType != GamesInRoom.normal &&  CommentType != GamesInRoom.luckyGiftComment);
@@ -343,32 +345,32 @@ class MessagesChached extends StatelessWidget {
 
 
 GamesInRoom checkMeesageType (ZegoInRoomMessage message) {
-  if (message.message.contains(StringManager.rpsGameKeyy)){
-    message.message= removeWordFromString(message.message,StringManager.rpsGameKeyy);
+  if (message.message.contains(StringManager.rpsGameKeyyy)){
+    message.message= removeWordFromString(message.message,StringManager.rpsGameKeyyy);
 
     return GamesInRoom.rpsGame ;
 
-  }else if (message.message.contains(StringManager.diceGameKeyy)){
-    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKeyy);
+  }else if (message.message.contains(StringManager.diceGameKeyyy)){
+    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKeyyy);
   return GamesInRoom.dicGame ;
-}else if (message.message.contains(StringManager.luckyDrawGameKeyy)){
-    message.message= removeWordFromString(message.message,StringManager.luckyDrawGameKeyy);
+}else if (message.message.contains(StringManager.luckyDrawGameKeyyy)){
+    message.message= removeWordFromString(message.message,StringManager.luckyDrawGameKeyyy);
 
     return GamesInRoom.luckyDrawGame ;
-  }else if (message.message.contains(StringManager.spinGameKeyy)){
-    message.message= removeWordFromString(message.message,StringManager.spinGameKeyy);
+  }else if (message.message.contains(StringManager.spinGameKeyyy)){
+    message.message= removeWordFromString(message.message,StringManager.spinGameKeyyy);
 
     return GamesInRoom.spinGame ;
-  }else if (message.message.contains(StringManager.luckyGiftCommentKeyy)){
-    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKeyy);
+  }else if (message.message.contains(StringManager.luckyGiftCommentKeyyy)){
+    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKeyyy);
 
     return GamesInRoom.luckyGiftComment ;
-  }else if (message.message.contains(StringManager.result+StringManager.diceGameKeyy)){
-    message.message= removeWordFromString(message.message,StringManager.result+StringManager.diceGameKeyy);
+  }else if (message.message.contains(StringManager.result+StringManager.diceGameKeyyy)){
+    message.message= removeWordFromString(message.message,StringManager.result+StringManager.diceGameKeyyy);
 
     return GamesInRoom.dicGameResult ;
-  }else if  (message.message.contains(StringManager.result+StringManager.rpsGameKeyy)){
-    message.message= removeWordFromString(message.message,StringManager.result+StringManager.rpsGameKeyy);
+  }else if  (message.message.contains(StringManager.result+StringManager.rpsGameKeyyy)){
+    message.message= removeWordFromString(message.message,StringManager.result+StringManager.rpsGameKeyyy);
 
     return GamesInRoom.rpsGameResult ;
   }

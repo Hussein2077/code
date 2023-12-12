@@ -905,7 +905,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                     gameId: result[messageContent]['game_record_id'].toString(),
                     answer: answer.toString()
                 )));
-                ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameKeyy}$answer");
+                ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameKeyyy} $answer");
               }
             }else{
               Navigator.pop(context);
@@ -916,9 +916,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       else if(result[messageContent][message] == "ResultOfGame"){
         if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
           if(result[messageContent]['game_id'].toString() == "1"){
-           ZegoUIKit.instance.sendInRoomMessage("${StringManager.result}${StringManager.rpsGameKeyy} قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", );
+           ZegoUIKit.instance.sendInRoomMessage("${StringManager.result} ${StringManager.rpsGameKeyyy} قام ${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", );
           }else if(result[messageContent]['game_id'].toString() == "2"){
-            ZegoUIKit.instance.sendInRoomMessage("${StringManager.result}${StringManager.diceGameKeyy} قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ",);
+            ZegoUIKit.instance.sendInRoomMessage("${StringManager.result} ${StringManager.diceGameKeyyy} قام ${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ",);
           }
         }
       }

@@ -49,7 +49,7 @@ class _GameDialogState extends State<GameDialog> {
               answer: selected_index.toString()
           )));
           Navigator.pop(context);
-          ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameKeyy}$selected_index",);
+          ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameKeyyy} $selected_index",);
         });
       } else {
         if(mounted){
