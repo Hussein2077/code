@@ -125,6 +125,7 @@ class _ChatPageState extends State<ChatPage> {
 
       messageConfiguration: MessageConfiguration(
           messageListConfiguration: (MessageListConfiguration(
+
               showAvatar: true,
               theme: CometChatTheme(
                   palette: ChatUi().palette,
@@ -171,7 +172,7 @@ class _ChatPageState extends State<ChatPage> {
 
           theme: CometChatTheme(
               palette: Palette(
-                accent:PaletteModel(light: Theme.of(context).colorScheme.secondary, dark: Colors.white),
+                accent:PaletteModel(light: Theme.of(context).colorScheme.primary, dark: Colors.white),
               ), typography: ChatUi().typography
 
           ),
@@ -182,12 +183,14 @@ class _ChatPageState extends State<ChatPage> {
                   fontSize: ConfigSize.defaultSize! * 1.3)),
           dateStyle: DateStyle(
               border: Border.all(color: Colors.transparent),
-              background:  Theme.of(context).colorScheme.background
+              background: Colors.transparent
 
           ),
+
           conversationsStyle: ConversationsStyle(
-
+background: Theme.of(context).colorScheme.background,
           ),
+
           showBackButton: false,
           title: '',
           appBarOptions: []),
