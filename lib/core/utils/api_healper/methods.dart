@@ -14,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
-import 'package:secure_shared_preferences/secure_shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -1036,23 +1035,5 @@ void checkIfFriends(
   }
 
 
-  Future<void> encrebtedKeys () async{
-
-    var pref = await SecureSharedPref.getInstance();
-    pref.putString("elhamody", "bzbz", isEncrypted : true);
-
-    log("2");
-
-
-  }
-
-  Future<String> getencrebtedKeys() async {
-    log("3");
-
-    var pref = await SecureSharedPref.getInstance();
-    String key = await pref.getString("elhamody", isEncrypted : true)??"";
-    log(key +"teeeeest gwo");
-    return key;
-  }
 
 }
