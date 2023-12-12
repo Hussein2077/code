@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,13 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/save_password_room_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/admins_room/admins_room_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/more_widget/back_ground/back_ground_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/more_widget/choose_mode/choose_mode_room.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/back_ground/back_ground_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/choose_mode/choose_mode_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class EditFeaturesContainer extends StatefulWidget{
@@ -252,8 +254,9 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
             ),
             InkWell(
               onTap: () {
-
                 Navigator.pop(context);
+
+
                 clearChat();
               },
               child: Container(
@@ -297,8 +300,10 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
       );
   }
   Future<void> clearChat()async{
-    RoomScreen.clearTimeNotifier.value =
-        DateTime.now().millisecondsSinceEpoch;
+    ZegoUIKitCore.shared.coreMessage.clear();
+
+    log("maaaaaaaaaaaaaaaaaap");
+
     var mapInformation = {"messageContent":{
       "message":"removeChat",
 

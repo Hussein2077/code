@@ -55,7 +55,8 @@ class MessagesChached extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(message.messageID.toString()+"xxxxxxxxxxxx");
+    log(message.timestamp.toString()+"xxxxxxxxxxxx" +message.message
+    );
     bool changeTheme = message.changeTheme ?? false;
     bool isGame = (message.games != GamesInRoom.normal && message.games != null);
     List<String> words = message.message.split(" ");
@@ -68,7 +69,8 @@ class MessagesChached extends StatelessWidget {
             text: "$word ", style: const TextStyle(color: Colors.white)));
       }
     }
-    return InkWell(
+    return message.timestamp==100 ? Container(margin: EdgeInsets.all(20), color: Colors.red, height:  200, width:  200,):
+      InkWell(
       onTap: () {
         (message.user.id.startsWith('-1'))
             ? bottomDailog(

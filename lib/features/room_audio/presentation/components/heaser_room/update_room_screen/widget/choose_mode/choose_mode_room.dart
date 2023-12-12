@@ -11,7 +11,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 
-import '../../../../../../../core/widgets/warning_dialog.dart';
+import '../../../../../../../../core/widgets/warning_dialog.dart';
 
 class ChooseModeRoom extends StatefulWidget {
   final String ownerId;
