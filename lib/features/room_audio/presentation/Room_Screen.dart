@@ -64,6 +64,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_def
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:video_player/video_player.dart';
 
@@ -84,7 +85,6 @@ class RoomScreen extends StatefulWidget {
   static Map<String, String> adminsInRoom = {};
   static Map<String, String> banedUsers = {};
   static Map<String, dynamic> usersInRoom = {};
-  static ValueNotifier<int> clearTimeNotifier = ValueNotifier(0);
   static ValueNotifier<bool> showMessageButton = ValueNotifier<bool>(true);
   static ValueNotifier<bool> banFromWriteIcon = ValueNotifier<bool>(true);
   static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMics = ValueNotifier<Map<int, ZegoUIKitUser>>({});
@@ -769,8 +769,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         setState(() {});
       }
       else if (result[messageContent][message] == removeChatKey) {
-        RoomScreen.clearTimeNotifier.value = DateTime.now().millisecondsSinceEpoch;
-        MessagesChached.usersMessagesRoom.clear();
+        ZegoUIKitCore.shared.coreMessage.clear();
+
       }
       else if (result[messageContent][message] == showLuckyBoxKey) {
         show_lucky_box(result);
@@ -1030,38 +1030,33 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               );
             }
             ..inRoomMessageConfig.itemBuilder = (context, message, extraInfo) {
-              return ValueListenableBuilder(
-                  valueListenable: RoomScreen.clearTimeNotifier,
-                  builder: (BuildContext context, dynamic value, Widget? child) {
-                    if (message.timestamp < value) {
-                      return const SizedBox.shrink();
-                    }
-                    if (message.user.inRoomAttributes.value['sen'] == null &&
-                        MessagesChached.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
-                      BlocProvider.of<GetUsersInRoomBloc>(context).add(GetUsersInRoomEvents(userId: message.user.id));
-                    }
 
-                    return BlocConsumer<GetUsersInRoomBloc,UsersInRoomState>(
-                      builder: (BuildContext context, UsersInRoomState state) {
-                          return MessagesChached(
-                              message: message,
-                              myDataModel: widget.myDataModel,
-                              room: widget.room,
-                              vip: message.user.inRoomAttributes.value['vip'] ?? "",
-                              bubble: message.user.inRoomAttributes.value['bubl'] ?? "",
-                              frame: message.user.inRoomAttributes.value['frm'] ?? "",
-                              sender: message.user.inRoomAttributes.value['sen'] ?? "",
-                              receiver: message.user.inRoomAttributes.value['rec'] ?? "",
-                              layoutMode:RoomScreen.layoutMode);
-                      },
-                      listener: (BuildContext context, UsersInRoomState state) {
-                      if (state is GetUsersInRoomSucssesState){
-                        MessagesChached.usersMessagesRoom.removeWhere((key, value) => key == state.data![0].id.toString());
-                        MessagesChached.usersMessagesRoom.putIfAbsent(state.data![0].id.toString(), () => state.data![0]);
-                      }
-                    },
-                    );
-                  });
+              if (message.user.inRoomAttributes.value['sen'] == null &&
+                  MessagesChached.usersMessagesRoom[message.user.id]?.senderLevelImg == null) {
+                BlocProvider.of<GetUsersInRoomBloc>(context).add(GetUsersInRoomEvents(userId: message.user.id));
+              }
+              return BlocConsumer<GetUsersInRoomBloc,UsersInRoomState>(
+
+                builder: (BuildContext context, UsersInRoomState state) {
+
+                  return MessagesChached(
+                      message: message,
+                      myDataModel: widget.myDataModel,
+                      room: widget.room,
+                      vip: message.user.inRoomAttributes.value['vip'] ?? "",
+                      bubble: message.user.inRoomAttributes.value['bubl'] ?? "",
+                      frame: message.user.inRoomAttributes.value['frm'] ?? "",
+                      sender: message.user.inRoomAttributes.value['sen'] ?? "",
+                      receiver: message.user.inRoomAttributes.value['rec'] ?? "",
+                      layoutMode:RoomScreen.layoutMode);
+                },
+                listener: (BuildContext context, UsersInRoomState state) {
+                  if (state is GetUsersInRoomSucssesState){
+                    MessagesChached.usersMessagesRoom.removeWhere((key, value) => key == state.data![0].id.toString());
+                    MessagesChached.usersMessagesRoom.putIfAbsent(state.data![0].id.toString(), () => state.data![0]);
+                  }
+                },
+              );
             },
         ));
   }

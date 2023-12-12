@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:zego_express_engine/zego_express_engine.dart';
 
 /// @nodoc
@@ -36,6 +37,7 @@ class ZegoUIKitCoreMessage {
   void clear() {
     messageList.clear();
     streamControllerMessageList.add(List<ZegoInRoomMessage>.from(messageList));
+
   }
 
   Future<bool> sendBroadcastMessage(String message,bool? changeTheme,GamesInRoom? games) async {
@@ -45,16 +47,17 @@ class ZegoUIKitCoreMessage {
 
     final messageItem = ZegoInRoomMessage(
       changeTheme:changeTheme,
-      messageID: 100,
+      messageID: localMessageId,
       user: ZegoUIKitCore.shared.coreData.localUser.toZegoUikitUser(),
       message: message,
       games:games,
-      timestamp:
-          ZegoUIKitCore.shared.coreData.networkDateTime_.millisecondsSinceEpoch,
+      timestamp:100
+
     );
     messageItem.state.value = ZegoInRoomMessageState.idle;
 
     messageList.add(messageItem);
+
     streamControllerMessageList.add(List<ZegoInRoomMessage>.from(messageList));
 
     Future.delayed(const Duration(milliseconds: 300), () {

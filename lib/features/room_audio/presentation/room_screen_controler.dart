@@ -247,7 +247,6 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
   getIt<CounterBloc>().resetCounter();
   RoomScreen.listOfLoskSeats.value = {0: 0};
   RoomScreen.listOfMuteSeats.clear();
-  RoomScreen.clearTimeNotifier = ValueNotifier(0);
   RoomScreen.isGiftEntroAnimating = false;
   RoomScreen.listOfAnimatingGifts.clear();
   RoomScreen.listOfAnimatingEntros.clear();
