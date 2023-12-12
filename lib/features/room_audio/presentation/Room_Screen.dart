@@ -867,10 +867,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if(result[messageContent][message] == "freeSpinGame"){
         if(result[messageContent]["ownerId"].toString() != MyDataModel.getInstance().id.toString()){
-          AllUsersSpinView(
-            list: result[messageContent]["items"],
-            winner: result[messageContent]["winner"],
-          );
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AllUsersSpinView(
+                  list: result[messageContent]["items"],
+                  winner: result[messageContent]["winner"],
+                );
+              });
         }
       }
     }
