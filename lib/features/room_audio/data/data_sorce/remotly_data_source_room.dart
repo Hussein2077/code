@@ -21,6 +21,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/lucky_gift_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/game_result_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
@@ -95,6 +96,7 @@ abstract class BaseRemotlyDataSourceRoom {
 
   Future<String> inviteToGameNew(InviteToGameNewPramiter inviteToGamePramiter);
   Future<String> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGameActionNewPramiter);
+  Future<String> gameresult(GameResultPramiter gameResultPramiter);
 
 }
 
@@ -1425,7 +1427,33 @@ Future<String> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGa
     Map<String, dynamic> jsonData = response.data;
     return jsonData['message'];
   } on DioError catch (e) {
-    throw DioHelper.handleDioError(dioError: e,endpointName: "start game");
+    throw DioHelper.handleDioError(dioError: e,endpointName: "otherSideGameActionNew");
+  }
+}
+
+@override
+Future<String> gameresult(GameResultPramiter gameResultPramiter)async {
+  Map<String, String> headers = await DioHelper().header();
+
+
+  final body ={
+    'game_record_id': gameResultPramiter.gameId,
+    'answer': gameResultPramiter.answer,
+    'round': gameResultPramiter.round,
+  };
+
+  try {
+    final response = await Dio().post(
+        ConstentApi.gameResult,
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+    Map<String, dynamic> jsonData = response.data;
+    return jsonData['message'];
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "gameresult");
   }
 }
 

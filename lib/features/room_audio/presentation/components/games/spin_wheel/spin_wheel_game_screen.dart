@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/free_play_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/input_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/paid_play_body.dart';
 
 class SpinWheelGameScreen extends StatefulWidget {
-  const SpinWheelGameScreen({super.key});
+  final EnterRoomModel roomData;
+  const SpinWheelGameScreen({super.key, required this.roomData});
 
   @override
   State<SpinWheelGameScreen> createState() => _SpinWheelGameScreenState();
@@ -117,7 +119,7 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
 
           if(index == 0) const FreePlayBody(),
 
-          if(index == 1) const PaidPlayBody(),
+          if(index == 1) PaidPlayBody(roomData: widget.roomData),
         ],
       ),
     );

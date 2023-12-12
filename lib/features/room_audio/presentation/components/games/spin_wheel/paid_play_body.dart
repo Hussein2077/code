@@ -5,17 +5,17 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class PaidPlayBody extends StatefulWidget {
-  const PaidPlayBody({super.key});
+  final EnterRoomModel roomData;
+  const PaidPlayBody({super.key, required this.roomData});
 
   @override
   State<PaidPlayBody> createState() => _PaidPlayBodyState();
@@ -29,6 +29,12 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
   void initState() {
     controller = TextEditingController();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    SpinWheelGameScreen.peoplesId.clear();
+    super.dispose();
   }
 
 
@@ -180,23 +186,14 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                         children: [
                           InkWell(
                             onTap: () {
-                              if(SpinWheelGameScreen.peoples.length >= 2){
+                              if(SpinWheelGameScreen.peoplesId.isNotEmpty){
                                 BlocProvider.of<GameBloc>(context).add(InviteToGameNew(inviteToGamePramiter: InviteToGameNewPramiter(
-                                    ownerId: MyDataModel.getInstance().id.toString(),
+                                    ownerId: widget.roomData.ownerId.toString(),
                                     game_id: "3",
                                     players: SpinWheelGameScreen.peoplesId,
                                     coins: controller.text,
                                     round_num: 1
                                 )));
-
-                                // Navigator.pop(context);
-                                // bottomDailog(
-                                //     context: context,
-                                //     widget: SpinScreen(
-                                //       list: SpinWheelGameScreen.peoplesId,
-                                //       isActive: false,
-                                //       isFree: false,
-                                //     ));
                               }
                             },
                             child: Stack(
@@ -206,8 +203,7 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                                 Text(
                                   StringManager.save.tr(),
                                   style: TextStyle(
-                                      color: const Color.fromRGBO(
-                                          149, 72, 72, 1),
+                                      color: const Color.fromRGBO(149, 72, 72, 1),
                                       fontWeight: FontWeight.w600,
                                       fontSize: ConfigSize.defaultSize! * 2),
                                 ),

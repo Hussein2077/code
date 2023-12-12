@@ -3,10 +3,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pay/pay.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/payment_config.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_event.dart';
 
 class PaymentButtons extends StatelessWidget {
 
@@ -35,7 +38,7 @@ class PaymentButtons extends StatelessWidget {
             "cardNetwork": result['paymentMethodData']['info']['cardNetwork']
           }
         };
-        callBack(map);
+        callBack(map, context);
       },
       onError: (e) => debugPrint('Payment error $e'),
       loadingIndicator: const Center(
@@ -59,7 +62,7 @@ class PaymentButtons extends StatelessWidget {
             "cardNetwork": result['paymentMethodData']['info']['cardNetwork']
           }
         };
-        callBack(map);
+        callBack(map, context);
       },
       onError: (e) => debugPrint('Payment error $e'),
       loadingIndicator: const Center(
@@ -82,11 +85,11 @@ class PaymentButtons extends StatelessWidget {
 
 
 
-  Future<void> callBack(Map <String, dynamic> map)async {
-    //TODO add end point
+  Future<void> callBack(Map <String, dynamic> map, BuildContext context)async {
 
     final encryptedData = encryptMap(map, "${MyDataModel.getInstance().id}-${ConstentApi.encryptionKey}");
 
-    print(encryptedData);
+    BlocProvider.of<PayBloc>(context).add(PayNow(message: encryptedData, type: Platform.isIOS ? 'apple' : 'google'));
+
   }
 }
