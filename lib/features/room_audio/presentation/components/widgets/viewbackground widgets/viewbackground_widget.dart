@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
@@ -30,6 +32,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gi
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_gift_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_lucky_banner_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/show_yallow_banner_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/dialog_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pageView_games/pageview_games.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
@@ -171,6 +174,32 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 padding: EdgeInsets.only(
                     right: 0, bottom: ConfigSize.defaultSize! * 2),
                 child: const PageViewGames())),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 10),
+            child: InkWell(
+              onTap: ()async {
+                String token = await Methods.instance.returnUserToken();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => WebViewInRoom(
+                          url: '${StringManager.fruitGame}${token}',
+                        ))));
+              },
+              child:  Container(
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                        image: AssetImage(AssetsPath.fruitsGame)
+                      )
+                    ),
+                    width: ConfigSize.defaultSize!*6,
+                    height: ConfigSize.defaultSize!*6,
+                  ),
+            ),
+          ),
+        ),
         ValueListenableBuilder(
             valueListenable: OwnerOfRoom.editRoom,
             builder: (context, editValue, _) {
