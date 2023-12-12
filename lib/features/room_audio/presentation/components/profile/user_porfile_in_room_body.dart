@@ -298,35 +298,38 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                       ),
                     ),
 
-                    InkWell(
-                      onTap: () {
-                        // Methods.instance.checkIfFriends(
-                        //     userData: widget.userData, context: context);
-                      },
-                      child: Container(
-                          // alignment: Alignment.centerRight,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: ConfigSize.defaultSize! * 2.2,
-                            vertical: ConfigSize.defaultSize! * 1.0,
-                          ),
-                          decoration:  const BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.contain,
-                                  image: AssetImage(
-                                    AssetsPath.chatIconProfile,
-                                  ))),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: ConfigSize.defaultSize! * 2.5,
+                      InkWell(
+                        onTap: () {
+                          Methods.instance.checkIfFriends(
+                              userData: widget.userData, context: context);
+                        },
+                        child: Container(
+                            // alignment: Alignment.centerRight,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: ConfigSize.defaultSize! * 4.2,
+                              vertical: ConfigSize.defaultSize! * 1.5,
                             ),
-                            child:  Text(StringManager.talk.tr(),
-                                textAlign: TextAlign.right),
-                          )),
-                    ),
-                  ],
-                ),
-
-              ],
+                            decoration:  const BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.contain,
+                                    image: AssetImage(
+                                      AssetsPath.chatIconProfile,
+                                    ))),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                left: ConfigSize.defaultSize! * 2.5,
+                              ),
+                              child:  Text(StringManager.talk.tr(),
+                                  textAlign: TextAlign.right),
+                            )),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                      height: ConfigSize.defaultSize!*1
+                  ),
+                ],
+              ),
             ),
           ),
 

@@ -391,5 +391,7 @@ class ConstentApi {
   static const String encryptionKey = "L9:65W&+nG@g";
   static const String merchantId = "BCR2DN4T3GPIDDAG";
   static const String merchantName = "software";
-
+  static String checkBlockUnblock( String userId) {
+    return "$baseUrl/black_list/check/$userId";
+  }
 }

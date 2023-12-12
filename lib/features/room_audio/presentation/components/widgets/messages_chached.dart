@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -53,8 +55,9 @@ class MessagesChached extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(message.messageID.toString()+"xxxxxxxxxxxx");
     bool changeTheme = message.changeTheme ?? false;
-    bool isGame = message.games != GamesInRoom.normal;
+    bool isGame = (message.games != GamesInRoom.normal && message.games != null);
     List<String> words = message.message.split(" ");
     for (String word in words) {
       if (word.startsWith("@")) {

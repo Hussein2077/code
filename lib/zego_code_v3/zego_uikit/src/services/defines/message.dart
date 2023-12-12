@@ -27,7 +27,7 @@ class ZegoInRoomMessage {
   /// message content.
   String message;
 
-  GamesInRoom games ;
+  GamesInRoom? games ;
   bool? changeTheme ;
   /// The timestamp at which the message was sent.
   /// You can format the timestamp, which is in milliseconds since epoch, using DateTime.fromMillisecondsSinceEpoch(timestamp).
@@ -40,7 +40,7 @@ class ZegoInRoomMessage {
     required this.timestamp,
     required this.messageID,
     this.changeTheme,
-    this.games = GamesInRoom.normal,
+    this.games ,
   });
 
   ZegoInRoomMessage.fromBroadcastMessage(ZegoBroadcastMessageInfo message)
@@ -49,6 +49,7 @@ class ZegoInRoomMessage {
           message: message.message,
           timestamp: message.sendTime,
           messageID: message.messageID,
+
         );
 
   @override

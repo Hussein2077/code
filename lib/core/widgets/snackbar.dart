@@ -21,37 +21,37 @@ class GradientSnackBar extends StatelessWidget {
   }
 }
 
-SnackBar custoumSnackBar(BuildContext context, String content) {
-  return SnackBar(
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5)),
-    elevation: 0,
-    backgroundColor: Colors.transparent,
-    margin: EdgeInsets.only(
-      bottom: ConfigSize.screenHeight! - ConfigSize.defaultSize! * 10,
-      right: ConfigSize.screenWidth! * 0.15,
-      left: ConfigSize.screenWidth! * 0.15,
-    ),
-    behavior: SnackBarBehavior.floating,
-    content: Container(
-      width: ConfigSize.defaultSize! * 2,
-      height: ConfigSize.screenHeight! * 0.04,
-      decoration: BoxDecoration(
-       color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
-        borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
-      ),
-      child: Center(
-        child: Text(
-          content,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.background,
-            fontSize: ConfigSize.defaultSize! * 1.5,
-          ),
-        ),
-      ),
-    ),
-  );
-}
+// SnackBar custoumSnackBar(BuildContext context, String content) {
+//   return SnackBar(
+//     shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5)),
+//     elevation: 0,
+//     backgroundColor: Colors.transparent,
+//     margin: EdgeInsets.only(
+//       bottom: ConfigSize.screenHeight! - ConfigSize.defaultSize! * 10,
+//       right: ConfigSize.screenWidth! * 0.15,
+//       left: ConfigSize.screenWidth! * 0.15,
+//     ),
+//     behavior: SnackBarBehavior.floating,
+//     content: Container(
+//       width: ConfigSize.defaultSize! * 2,
+//       height: ConfigSize.screenHeight! * 0.04,
+//       decoration: BoxDecoration(
+//        color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
+//         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
+//       ),
+//       child: Center(
+//         child: Text(
+//           content,
+//           style: TextStyle(
+//             color: Theme.of(context).colorScheme.background,
+//             fontSize: ConfigSize.defaultSize! * 1.5,
+//           ),
+//         ),
+//       ),
+//     ),
+//   );
+// }
 
 SnackBar loadingSnackBar(BuildContext context) {
   return SnackBar(
@@ -69,11 +69,12 @@ SnackBar loadingSnackBar(BuildContext context) {
       width: ConfigSize.defaultSize! * 2,
       height: ConfigSize.screenHeight! * 0.04,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: ColorManager.blueloadingList,
-          end: Alignment.bottomRight,
-          begin: Alignment.topLeft,
-        ),
+        color: Color(0xFF03a9fc),
+        // gradient: const LinearGradient(
+        //   colors: ColorManager.blueloadingList,
+        //   end: Alignment.bottomRight,
+        //   begin: Alignment.topLeft,
+        // ),
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
       ),
       child: Center(
@@ -122,14 +123,15 @@ SnackBar errorSnackBar(BuildContext context, String content) {
     ),
     behavior: SnackBarBehavior.floating,
     content: Container(
-      width: ConfigSize.defaultSize! * 2,
+     // width: ConfigSize.defaultSize! * 2,
       height: ConfigSize.screenHeight! * 0.04,
       decoration:  BoxDecoration(
-          gradient: const LinearGradient(
-        colors: ColorManager.redErrorList,
-            end: Alignment.bottomRight,
-            begin: Alignment.topLeft,
-      ),
+        color: Color(0xFFfc0303),
+      //     gradient: const LinearGradient(
+      //   colors: ColorManager.redErrorList,
+      //       end: Alignment.bottomRight,
+      //       begin: Alignment.topLeft,
+      // ),
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
       ),
       child: Center(
@@ -157,14 +159,15 @@ SnackBar successSnackBar(BuildContext context, String content) {
         left: ConfigSize.screenWidth! * 0.15),
     behavior: SnackBarBehavior.floating,
     content: Container(
-      width: ConfigSize.defaultSize! * 2,
+      //width: ConfigSize.defaultSize! * 2,
       height: ConfigSize.screenHeight! * 0.04,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: ColorManager.greenSuccessList,
-          end: Alignment.bottomRight,
-          begin: Alignment.topLeft,
-        ),
+        color: ColorManager.succesColor,
+        // gradient: const LinearGradient(
+        //   colors: ColorManager.greenSuccessList,
+        //   end: Alignment.bottomRight,
+        //   begin: Alignment.topLeft,
+        // ),
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
       ),
       child: Center(

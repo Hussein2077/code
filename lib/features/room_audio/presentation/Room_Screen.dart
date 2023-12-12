@@ -433,7 +433,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       Future.delayed(const Duration(seconds: 3), () async {
         if(!widget.myDataModel.id.toString().startsWith('-1')){
-          ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false);
+          ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false , null);
           if(widget.myDataModel.intro! != ""){
             Map<String,dynamic>    mapZego = {
               "messageContent" : {
@@ -851,8 +851,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                   gameId: result[messageContent]['game_record_id'].toString(),
                   answer: answer.toString()
               )));
-              print(answer.toString()+"xxxxxxxx");
-              ZegoUIKit.instance.sendInRoomMessage("$answer", false,games:GamesInRoom.dicGame);
+              ZegoUIKit.instance.sendInRoomMessage("$answer", false ,  GamesInRoom.dicGame);
             }
           }else{
             Navigator.pop(context);
@@ -862,9 +861,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       else if(result[messageContent][message] == "ResultOfGame"){
         if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
           if(result[messageContent]['game_id'].toString() == "1"){
-           ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false, games:GamesInRoom.rpsGameResult);
+           ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false, GamesInRoom.rpsGameResult);
           }else if(result[messageContent]['game_id'].toString() == "2"){
-            ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false, games:GamesInRoom.dicGameResult);
+            ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false , GamesInRoom.dicGameResult);
           }
         }
       }

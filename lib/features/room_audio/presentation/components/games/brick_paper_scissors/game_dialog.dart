@@ -48,7 +48,7 @@ class _GameDialogState extends State<GameDialog> {
               answer: selected_index.toString()
           )));
           Navigator.pop(context);
-          ZegoUIKit.instance.sendInRoomMessage("$selected_index", false, games: GamesInRoom.rpsGame);
+          ZegoUIKit.instance.sendInRoomMessage("$selected_index", false,  GamesInRoom.rpsGame);
         });
       } else {
         if(mounted){
