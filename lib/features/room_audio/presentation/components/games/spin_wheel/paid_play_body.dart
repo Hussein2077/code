@@ -1,13 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class PaidPlayBody extends StatefulWidget {
@@ -18,6 +22,14 @@ class PaidPlayBody extends StatefulWidget {
 }
 
 class _PaidPlayBodyState extends State<PaidPlayBody> {
+
+  late TextEditingController controller ;
+
+  @override
+  void initState() {
+    controller = TextEditingController();
+    super.initState();
+  }
 
 
   @override
@@ -31,6 +43,43 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
           color: const Color.fromRGBO(80, 68, 213, 1.0),
           child: Column(
             children: [
+              Text(
+                StringManager.numberOfCoins.tr(),
+                style: TextStyle(
+                    color: const Color.fromRGBO(149, 159, 225, 1),
+                    fontSize: ConfigSize.defaultSize! * 2,
+                    fontWeight: FontWeight.w600
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                child: TextField(
+                  controller: controller,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintText: StringManager.numberOfCoins.tr(),
+                    hintStyle: TextStyle(
+                        color: const Color.fromRGBO(149, 159, 225, 1),
+                        fontSize: ConfigSize.defaultSize! * 1.5,
+                        fontWeight: FontWeight.w600
+                    ),
+                  ),
+                  onChanged: (text){
+                    setState(() {
+
+                    });
+                  },
+                  onSubmitted: (text){
+                    setState(() {
+
+                    });
+                  },
+                ),
+              ),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -53,10 +102,10 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                         return InkWell(
                           onTap: (){
                             setState(() {
-                              if(SpinWheelGameScreen.peoples.contains(ZegoUIKit().getAllUsers()[index].id)){
-                                SpinWheelGameScreen.peoples.remove(ZegoUIKit().getAllUsers()[index].id);
+                              if(SpinWheelGameScreen.peoplesId.contains(int.parse(ZegoUIKit().getAllUsers()[index].id))){
+                                SpinWheelGameScreen.peoplesId.remove(int.parse(ZegoUIKit().getAllUsers()[index].id));
                               }else {
-                                SpinWheelGameScreen.peoples.add(ZegoUIKit().getAllUsers()[index].id);
+                                SpinWheelGameScreen.peoplesId.add(int.parse(ZegoUIKit().getAllUsers()[index].id));
                               }
                             });
                           },
@@ -65,7 +114,7 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: SpinWheelGameScreen.peoples.contains(ZegoUIKit().getAllUsers()[index].id) ? const Color.fromRGBO(149, 159, 225, 1) : Colors.transparent ),
+                                border: Border.all(color: SpinWheelGameScreen.peoplesId.contains(int.parse(ZegoUIKit().getAllUsers()[index].id)) ? const Color.fromRGBO(149, 159, 225, 1) : Colors.transparent ),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -132,14 +181,22 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                           InkWell(
                             onTap: () {
                               if(SpinWheelGameScreen.peoples.length >= 2){
-                                Navigator.pop(context);
-                                bottomDailog(
-                                    context: context,
-                                    widget: SpinScreen(
-                                      list: SpinWheelGameScreen.peoples,
-                                      isActive: false,
-                                      isFree: false,
-                                    ));
+                                BlocProvider.of<GameBloc>(context).add(InviteToGameNew(inviteToGamePramiter: InviteToGameNewPramiter(
+                                    ownerId: MyDataModel.getInstance().id.toString(),
+                                    game_id: "3",
+                                    players: SpinWheelGameScreen.peoplesId,
+                                    coins: controller.text,
+                                    round_num: 1
+                                )));
+
+                                // Navigator.pop(context);
+                                // bottomDailog(
+                                //     context: context,
+                                //     widget: SpinScreen(
+                                //       list: SpinWheelGameScreen.peoplesId,
+                                //       isActive: false,
+                                //       isFree: false,
+                                //     ));
                               }
                             },
                             child: Stack(

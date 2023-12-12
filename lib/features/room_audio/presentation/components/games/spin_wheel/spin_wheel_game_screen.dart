@@ -14,6 +14,7 @@ class SpinWheelGameScreen extends StatefulWidget {
   State<SpinWheelGameScreen> createState() => _SpinWheelGameScreenState();
   static ValueNotifier<int> updateList = ValueNotifier(0);
   static List<String> peoples = [];
+  static List<int> peoplesId = [];
   static Map<int, String> textFieldValues = {};
 
   static List<Widget> textFieldWidget = [InputWidget(), InputWidget()];

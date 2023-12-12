@@ -8,7 +8,9 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/widget/cashed_network_circle.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/other_side_game_action_new.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_game_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/waiting_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 
@@ -82,9 +84,16 @@ class AcceptOrCancelDialog extends StatelessWidget {
                         onTap: () {
                           if(!cancel){
                             cancel = true;
-                            BlocProvider.of<GameBloc>(context).add(CancelGame(cancelGamePramiter: CancelGamePramiter(
+                            if(gameId == "3"){
+                              BlocProvider.of<GameBloc>(context).add(OtherPlayerAction(otherSideGameActionNewPramiter: OtherSideGameActionNewPramiter(
+                                  gameId: gameRecordId,
+                                  status: 'cancel'
+                              )));
+                            }else {
+                              BlocProvider.of<GameBloc>(context).add(CancelGame(cancelGamePramiter: CancelGamePramiter(
                                 gameId: gameRecordId
                             )));
+                            }
                           }
                         },
                         child: Text(
@@ -99,9 +108,22 @@ class AcceptOrCancelDialog extends StatelessWidget {
                       onTap: () {
                         if(!accept){
                           accept = true;
-                          BlocProvider.of<GameBloc>(context).add(StartGame(startGamePramiter: StartGamePramiter(
+                          if(gameId == "3"){
+                            BlocProvider.of<GameBloc>(context).add(OtherPlayerAction(otherSideGameActionNewPramiter: OtherSideGameActionNewPramiter(
+                                gameId: gameRecordId,
+                                status: 'accept'
+                            )));
+                            Navigator.pop(context);
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const WaitingDialog();
+                                });
+                          }else {
+                            BlocProvider.of<GameBloc>(context).add(StartGame(startGamePramiter: StartGamePramiter(
                               gameId: gameRecordId
                           )));
+                          }
                         }
                       },
                       child: Text(
