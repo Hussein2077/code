@@ -263,7 +263,7 @@ class _ZegoInRoomLiveMessageViewItemState
         return GestureDetector(
           onTap: () {
             if (state == ZegoInRoomMessageState.failed) {
-              ZegoUIKit().resendInRoomMessage(widget.message,null , null);
+              ZegoUIKit().resendInRoomMessage(widget.message);
             }
           },
           child: null != widget.resendIcon

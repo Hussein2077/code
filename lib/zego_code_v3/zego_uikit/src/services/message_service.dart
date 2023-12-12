@@ -33,7 +33,7 @@ mixin ZegoMessageService {
 
   /// re-send in-room message
   /// @return Error code, please refer to the error codes document https://docs.zegocloud.com/en/5548.html for details.
-  Future<bool> resendInRoomMessage(ZegoInRoomMessage message,bool? changeTheme , GamesInRoom? games ) async {
-    return ZegoUIKitCore.shared.coreMessage.resendInRoomMessage(message,changeTheme , games);
+  Future<bool> resendInRoomMessage(ZegoInRoomMessage message ) async {
+    return ZegoUIKitCore.shared.coreMessage.resendInRoomMessage(message,);
   }
 }

@@ -49,6 +49,7 @@ class ZegoInRoomMessage {
           message: message.message,
           timestamp: message.sendTime,
           messageID: message.messageID,
+
         );
 
   @override

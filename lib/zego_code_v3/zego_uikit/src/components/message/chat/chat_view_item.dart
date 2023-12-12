@@ -147,7 +147,7 @@ class _ZegoCallMessageListState extends State<ZegoInRoomChatViewItem> {
         return GestureDetector(
           onTap: () {
             if (widget.message.state.value == ZegoInRoomMessageState.failed) {
-              ZegoUIKit().resendInRoomMessage(widget.message,null , null);
+              ZegoUIKit().resendInRoomMessage(widget.message,);
             }
           },
           child: Container(

@@ -7,6 +7,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/number_of_visitor/visitors_room_screen/Visitors_Room_Screen.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class NumberOfVisitor extends StatefulWidget {
  final MyDataModel myDataModel;
@@ -33,6 +34,8 @@ class NumberOfVisitorState extends State<NumberOfVisitor> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        // ZegoUIKit.instance.sendInRoomMessage("4", true ,  GamesInRoom.dicGame);
+
         bottomDailog(
           context: context,
           widget: VisitorsRoomScreen(

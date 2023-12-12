@@ -102,10 +102,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return BlocListener<HostOnMicTimeBloc, HostOnMicTimeState>(
       listener: (context, state) {
-        log('eljako1');
 
         if (state is HostOnMicTimeSucssesState) {
-          log('eljako2');
           ScaffoldMessenger.of(context)
               .showSnackBar(successSnackBar(context, state.messsage));
         }
