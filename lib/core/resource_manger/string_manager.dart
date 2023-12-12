@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 
 class StringManager {
   static const int versionApp = 50;
@@ -835,6 +836,20 @@ class StringManager {
     "قحبة",
     "لبوة"
   ];
+
+  // roomGameKeys
+
+  static String diceGameKeyy = "${RoomScreen.differentCommentKey}dice";
+  static String rpsGameKeyy = "${RoomScreen.differentCommentKey}rps";
+  static String spinGameKeyy = "${RoomScreen.differentCommentKey}spin";
+  static String  luckyDrawGameKeyy  = "${RoomScreen.differentCommentKey}draw";
+  static String luckyGiftCommentKeyy = "${RoomScreen.differentCommentKey}lucky_gift";
+
+
+
+
+
+
 
   //games links
   static const String teenPatti =

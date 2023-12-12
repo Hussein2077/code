@@ -317,7 +317,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
           LuckyCandy.winCircularluckyGift.value =
               LuckyCandy.winCircularluckyGift.value + 1;
         } else if (state.data.isWin && state.data.isPopular) {
-          ZegoUIKit().sendInRoomMessage(state.data.message, true , null);
+          ZegoUIKit().sendInRoomMessage(state.data.message,);
           //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
           //   LuckyCandy.recieverName = state.data.receiverName;
           //   LuckyCandy.winPopularCounter = LuckyCandy.winPopularCounter + 1;
@@ -450,7 +450,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
         if (state is ErrorSendGiftStates) {
     errorToast(context: context, title: state.errorMessage);
         } else if (state is SuccessSendGiftStates) {
-    ZegoUIKit().sendInRoomMessage(state.successMessage, false , null);
+    ZegoUIKit().sendInRoomMessage(state.successMessage, );
         }
       });
   }

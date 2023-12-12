@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -9,6 +7,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/room_user_messages_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
@@ -19,6 +18,7 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dice/dic_game.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
@@ -55,8 +55,11 @@ class MessagesChached extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool changeTheme = message.changeTheme ?? false;
-    bool isGame = (message.games != GamesInRoom.normal && message.games != null);
+
+
+    GamesInRoom  CommentType = checkMeesageType(message) ;
+
+    bool isGame = (CommentType != GamesInRoom.normal &&  CommentType != GamesInRoom.luckyGiftComment);
     List<String> words = message.message.split(" ");
     for (String word in words) {
       if (word.startsWith("@")) {
@@ -67,8 +70,7 @@ class MessagesChached extends StatelessWidget {
             text: "$word ", style: const TextStyle(color: Colors.white)));
       }
     }
-    return message.message.contains("dicGame") ? Container(margin: EdgeInsets.all(20), color: Colors.red, height:  200, width:  200,):
-      InkWell(
+    return InkWell(
       onTap: () {
         (message.user.id.startsWith('-1'))
             ? bottomDailog(
@@ -188,8 +190,8 @@ class MessagesChached extends StatelessWidget {
               ],
             ),
             if (isGame)
-              isGamesWidget(message),
-            (bubble == "" && changeTheme == false && !isGame)
+              isGamesWidget(CommentType),
+            (bubble == "" && CommentType != GamesInRoom.luckyGiftComment && !isGame)
                 ? Padding(
                     padding: EdgeInsets.only(
                         left: AppPadding.p24,
@@ -208,7 +210,7 @@ class MessagesChached extends StatelessWidget {
                       ),
                     ),
                   )
-                : changeTheme && !isGame
+                : CommentType == GamesInRoom.luckyGiftComment && !isGame
                     ? Padding(
                         padding: EdgeInsets.only(
                             left: ConfigSize.defaultSize! * 3,
@@ -281,8 +283,8 @@ class MessagesChached extends StatelessWidget {
       ),
     );
   }
-  Widget isGamesWidget(ZegoInRoomMessage message){
-    switch (message.games) {
+  Widget isGamesWidget(GamesInRoom type){
+    switch (type) {
       case GamesInRoom.luckyDrawGame:
         return CommentBody(room: room);
       case GamesInRoom.dicGame:
@@ -336,4 +338,48 @@ class MessagesChached extends StatelessWidget {
         return const SizedBox();
     }
   }
+}
+
+
+
+GamesInRoom checkMeesageType (ZegoInRoomMessage message) {
+  if (message.message.contains(StringManager.rpsGameKeyy)){
+    message.message= removeWordFromString(message.message,StringManager.rpsGameKeyy);
+
+    return GamesInRoom.rpsGame ;
+
+  }else if (message.message.contains(StringManager.diceGameKeyy)){
+    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKeyy);
+  return GamesInRoom.dicGame ;
+}else if (message.message.contains(StringManager.luckyDrawGameKeyy)){
+    message.message= removeWordFromString(message.message,StringManager.luckyDrawGameKeyy);
+
+    return GamesInRoom.luckyDrawGame ;
+  }else if (message.message.contains(StringManager.spinGameKeyy)){
+    message.message= removeWordFromString(message.message,StringManager.spinGameKeyy);
+
+    return GamesInRoom.spinGame ;
+  }else if (message.message.contains(StringManager.luckyGiftCommentKeyy)){
+    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKeyy);
+
+    return GamesInRoom.luckyGiftComment ;
+  }else if (message.message.contains(StringManager.result+StringManager.diceGameKeyy)){
+    message.message= removeWordFromString(message.message,StringManager.result+StringManager.diceGameKeyy);
+
+    return GamesInRoom.dicGameResult ;
+  }else if  (message.message.contains(StringManager.result+StringManager.rpsGameKeyy)){
+    message.message= removeWordFromString(message.message,StringManager.result+StringManager.rpsGameKeyy);
+
+    return GamesInRoom.rpsGameResult ;
+  }
+
+  else {
+    return GamesInRoom.normal;
+  }
+  }
+
+
+String removeWordFromString(String sentence, String word) {
+  final pattern = RegExp('\\b$word\\b', caseSensitive: false);
+  return sentence.replaceAll(pattern, '');
 }

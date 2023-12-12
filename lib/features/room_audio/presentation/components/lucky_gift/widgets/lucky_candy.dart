@@ -131,7 +131,7 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
         );
     Future.delayed(const Duration(seconds: 1),()=>GiftBottomBar.typeCandy.value = TypeCandy.non);
     Future.delayed(const Duration(seconds: 1),()=>LuckyCandy.winCircularluckyGift.value = 0);
-    if(LuckyCandy.winCounter != 0) ZegoUIKit().sendInRoomMessage("${StringManager.luckyGiftMessage.tr()} ${LuckyCandy.winCounter} ${StringManager.to.tr()} ${LuckyCandy.recieverName}", false , null);
+    if(LuckyCandy.winCounter != 0) ZegoUIKit().sendInRoomMessage("${StringManager.luckyGiftMessage.tr()} ${LuckyCandy.winCounter} ${StringManager.to.tr()} ${LuckyCandy.recieverName}",);
     LuckyCandy.winCounter = 0;
 
   }

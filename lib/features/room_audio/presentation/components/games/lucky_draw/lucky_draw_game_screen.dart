@@ -160,7 +160,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
               InkWell(
                 onTap: (){
                   if(selected1 != -1 && selected2 != -1){
-                    ZegoUIKit.instance.sendInRoomMessage('', false, GamesInRoom.luckyDrawGame);
+                    ZegoUIKit.instance.sendInRoomMessage(StringManager.luckyDrawGameKeyy, );
                     Navigator.pop(context);
                   }else{
 

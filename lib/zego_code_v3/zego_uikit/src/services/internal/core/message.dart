@@ -40,17 +40,15 @@ class ZegoUIKitCoreMessage {
 
   }
 
-  Future<bool> sendBroadcastMessage(String message,bool? changeTheme,GamesInRoom? games) async {
+  Future<bool> sendBroadcastMessage(String message) async {
     localMessageId = localMessageId - 1;
 
 
 
     final messageItem = ZegoInRoomMessage(
-      changeTheme:changeTheme,
       messageID: localMessageId,
       user: ZegoUIKitCore.shared.coreData.localUser.toZegoUikitUser(),
       message: message,
-      games:games,
       timestamp:100
 
     );
@@ -90,6 +88,6 @@ class ZegoUIKitCoreMessage {
 
   Future<bool> resendInRoomMessage(ZegoInRoomMessage message, ) async {
     messageList.removeWhere((element) => element.messageID == message.messageID);
-    return sendBroadcastMessage(message.message,message.changeTheme, message.games);
+    return sendBroadcastMessage(message.message,);
   }
 }

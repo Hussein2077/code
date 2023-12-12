@@ -52,7 +52,7 @@ class LuckyBoxVariables{
 }
 
 BickFromLuckyBox(Map<String, dynamic> result, BuildContext context){
-  ZegoUIKit.instance.sendInRoomMessage(result[messageContent]['res'], false , null);
+  ZegoUIKit.instance.sendInRoomMessage(result[messageContent]['res'],);
   if (result[messageContent]['succ']) {
     LuckyBoxVariables.luckyBoxMap['luckyBoxes'].removeAt(LuckyBoxVariables.luckyBoxMap['luckyBoxes'].length - 1);
     LuckyBoxVariables.luckyBoxRemovecontroller.add(LuckyBoxVariables.luckyBoxMap['luckyBoxes']);

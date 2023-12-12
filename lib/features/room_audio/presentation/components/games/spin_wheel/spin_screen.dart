@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
@@ -95,7 +96,7 @@ class _SpinScreenState extends State<SpinScreen> {
                           widget.list.remove(widget.list[_wheelNotifier.value]);
                         });
                       }
-                      ZegoUIKit.instance.sendInRoomMessage(widget.list[_wheelNotifier.value], false ,  GamesInRoom.spinGame);
+                      ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKeyy}${widget.list[_wheelNotifier.value]}",);
                     },
                     items: [
                       for (var it in widget.list) FortuneItem(child: Text(it), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(it), widget.list.length))),
