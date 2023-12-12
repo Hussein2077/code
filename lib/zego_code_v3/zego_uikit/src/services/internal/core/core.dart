@@ -592,78 +592,78 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
     }
   }
 
-  void turnCameraOn(String userID, bool isOn) {
-    ZegoLoggerService.logInfo(
-      "turn ${isOn ? "on" : "off"} $userID camera",
-      tag: 'uikit',
-      subTag: 'core',
-    );
+  // void turnCameraOn(String userID, bool isOn) {
+  //   ZegoLoggerService.logInfo(
+  //     "turn ${isOn ? "on" : "off"} $userID camera",
+  //     tag: 'uikit',
+  //     subTag: 'core',
+  //   );
+  //
+  //   if (coreData.localUser.id == userID) {
+  //     turnOnLocalCamera(isOn);
+  //   } else {
+  //     final isLargeRoom =
+  //         coreData.room.isLargeRoom || coreData.room.markAsLargeRoom;
+  //     ZegoLoggerService.logInfo(
+  //       'is large room:$isLargeRoom',
+  //       tag: 'uikit',
+  //       subTag: 'core',
+  //     );
+  //
+  //     if (isOn) {
+  //       sendInRoomCommand(
+  //         const JsonEncoder().convert({turnCameraOnInRoomCommandKey: userID}),
+  //         isLargeRoom ? [] : [userID],
+  //       );
+  //     } else {
+  //       sendInRoomCommand(
+  //         const JsonEncoder().convert({turnCameraOffInRoomCommandKey: userID}),
+  //         isLargeRoom ? [] : [userID],
+  //       );
+  //     }
+  //   }
+  // }
 
-    if (coreData.localUser.id == userID) {
-      turnOnLocalCamera(isOn);
-    } else {
-      final isLargeRoom =
-          coreData.room.isLargeRoom || coreData.room.markAsLargeRoom;
-      ZegoLoggerService.logInfo(
-        'is large room:$isLargeRoom',
-        tag: 'uikit',
-        subTag: 'core',
-      );
-
-      if (isOn) {
-        sendInRoomCommand(
-          const JsonEncoder().convert({turnCameraOnInRoomCommandKey: userID}),
-          isLargeRoom ? [] : [userID],
-        );
-      } else {
-        sendInRoomCommand(
-          const JsonEncoder().convert({turnCameraOffInRoomCommandKey: userID}),
-          isLargeRoom ? [] : [userID],
-        );
-      }
-    }
-  }
-
-  void turnOnLocalCamera(bool isOn) {
-    ZegoLoggerService.logInfo(
-      "turn ${isOn ? "on" : "off"} local camera",
-      tag: 'uikit',
-      subTag: 'core',
-    );
-
-    if (!isInit) {
-      ZegoLoggerService.logError(
-        'turn on local camera, core had not init',
-        tag: 'uikit',
-        subTag: 'core',
-      );
-      return;
-    }
-
-    if (isOn == coreData.localUser.camera.value) {
-      ZegoLoggerService.logInfo(
-        'turn on local camera, value is equal',
-        tag: 'uikit',
-        subTag: 'core',
-      );
-      return;
-    }
-
-    if (isOn) {
-      coreData.startPreview();
-    } else {
-      coreData.stopPreview();
-    }
-
-    ZegoExpressEngine.instance.enableCamera(isOn);
-
-    coreData.localUser.cameraMuteMode.value = false;
-    coreData.localUser.camera.value = isOn;
-
-    coreData.startPublishOrNot();
-
-    syncDeviceStatusByStreamExtraInfo();
-  }
+  // void turnOnLocalCamera(bool isOn) {
+  //   ZegoLoggerService.logInfo(
+  //     "turn ${isOn ? "on" : "off"} local camera",
+  //     tag: 'uikit',
+  //     subTag: 'core',
+  //   );
+  //
+  //   if (!isInit) {
+  //     ZegoLoggerService.logError(
+  //       'turn on local camera, core had not init',
+  //       tag: 'uikit',
+  //       subTag: 'core',
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (isOn == coreData.localUser.camera.value) {
+  //     ZegoLoggerService.logInfo(
+  //       'turn on local camera, value is equal',
+  //       tag: 'uikit',
+  //       subTag: 'core',
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (isOn) {
+  //     coreData.startPreview();
+  //   } else {
+  //     coreData.stopPreview();
+  //   }
+  //
+  //   ZegoExpressEngine.instance.enableCamera(isOn);
+  //
+  //   coreData.localUser.cameraMuteMode.value = false;
+  //   coreData.localUser.camera.value = isOn;
+  //
+  //   coreData.startPublishOrNot();
+  //
+  //   syncDeviceStatusByStreamExtraInfo();
+  // }
 
   void turnMicrophoneOn(String userID, bool isOn, {bool muteMode = false}) {
     ZegoLoggerService.logInfo(
@@ -959,7 +959,7 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
         tag: 'uikit',
         subTag: 'core',
       );
-      turnCameraOn(coreData.localUser.id, false);
+      //turnCameraOn(coreData.localUser.id, false);
     } else if (extraInfos.keys.contains(turnMicrophoneOnInRoomCommandKey)) {
       final mapData =
           extraInfos[turnMicrophoneOnInRoomCommandKey] as Map<String, dynamic>;

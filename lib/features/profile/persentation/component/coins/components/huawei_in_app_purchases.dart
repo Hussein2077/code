@@ -19,10 +19,12 @@ Future<void> getConsumableProducts() async {
 
 Future<PurchaseResultInfo?> purchaseConsumableProduct(String productId) async {
   try {
-    PurchaseIntentReq req = PurchaseIntentReq(priceType: IapClient.IN_APP_CONSUMABLE, productId: productId, developerPayload: "Test");
+    PurchaseIntentReq req = PurchaseIntentReq(priceType: IapClient.IN_APP_CONSUMABLE, productId: productId,
+        developerPayload: "Test");
 
     PurchaseResultInfo res = await IapClient.createPurchaseIntent(req);
-
+   IsSandboxActivatedResult result = await IapClient.isSandboxActivated();
+    log("result1111 ${result.isSandboxUser}");
     return res;
   } on PlatformException catch (e) {
     log(e.toString());

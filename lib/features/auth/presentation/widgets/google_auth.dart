@@ -73,12 +73,15 @@ class GoogleAndAppleAuth extends StatelessWidget {
               (route) => false,
             );
           }
-        } else if (state is SiginWithGoogleErrorMessageState) {
+        }
+        else if (state is SiginWithGoogleErrorMessageState) {
           errorToast(context: context, title: state.errorMessage);
         } else if (state is SiginWithHuaweiSuccesMessageState){
           Methods.instance.clearAuthData();
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-          if (state.userModel.apiUserData.isFirst!) {
+          if (state.userModel.apiUserData.isFirst!){
+
+            log("state.userModel.apiUserData.isFirst!");
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.addInfo,
@@ -89,7 +92,6 @@ class GoogleAndAppleAuth extends StatelessWidget {
                   (route) => false,
             );
           } else {
-            log(state.userModel.userData.email.toString() + "######");
             BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(email: state.userModel.userData.email.toString()));
             Navigator.pushNamedAndRemoveUntil(
               context,

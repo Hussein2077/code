@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,14 +46,14 @@ mixin ZegoAudioVideoService {
   }
 
   /// turn on/off camera
-  void turnCameraOn(bool isOn, {String? userID}) {
-    ZegoUIKitCore.shared.turnCameraOn(
-      userID?.isEmpty ?? true
-          ? ZegoUIKitCore.shared.coreData.localUser.id
-          : userID!,
-      isOn,
-    );
-  }
+  // void turnCameraOn(bool isOn, {String? userID}) {
+  //   ZegoUIKitCore.shared.turnCameraOn(
+  //     userID?.isEmpty ?? true
+  //         ? ZegoUIKitCore.shared.coreData.localUser.id
+  //         : userID!,
+  //     isOn,
+  //   );
+  // }
 
   /// turn on/off microphone
   void turnMicrophoneOn(bool isOn, {String? userID, bool muteMode = false}) {

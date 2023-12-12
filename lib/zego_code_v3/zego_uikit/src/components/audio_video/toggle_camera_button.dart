@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-// Package imports:
-import 'package:permission_handler/permission_handler.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/defines.dart';
@@ -49,9 +47,9 @@ class _ZegoToggleCameraButtonState extends State<ZegoToggleCameraButton> {
   void initState() {
     super.initState();
 
-    SchedulerBinding.instance?.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       /// synchronizing the default status
-      ZegoUIKit().turnCameraOn(widget.defaultOn);
+    //  ZegoUIKit().turnCameraOn(widget.defaultOn);
     });
   }
 
@@ -102,13 +100,13 @@ class _ZegoToggleCameraButtonState extends State<ZegoToggleCameraButton> {
     final targetState = !valueNotifier.value;
 
     if (targetState) {
-      requestPermission(Permission.camera).then((value) {
-        /// reverse current state
-        ZegoUIKit().turnCameraOn(true);
-      });
+     //  requestPermission(Permission.camera).then((value) {
+     //    /// reverse current state
+     // //   ZegoUIKit().turnCameraOn(true);
+     //  });
     } else {
       /// reverse current state
-      ZegoUIKit().turnCameraOn(false);
+   //   ZegoUIKit().turnCameraOn(false);
     }
 
     if (widget.onPressed != null) {

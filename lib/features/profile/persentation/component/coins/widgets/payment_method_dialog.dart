@@ -95,6 +95,8 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
                 IapClient.isEnvReady().then((res) {
                   purchaseConsumableProduct(widget.coin).then((res) {
                     log(res.toString());
+                   log(" res.errMsg ${res?.errMsg}");
+                    log(" res.errMsg ${res?.returnCode}");
                     // switch (res!.returnCode) {
                     //   case 0:
                     //     log("purchaseConsumableProduct: " + productId + " success");

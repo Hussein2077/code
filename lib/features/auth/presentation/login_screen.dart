@@ -57,25 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    // if ((widget.isUpdate ?? false)) {
-    //   SchedulerBinding.instance.addPostFrameCallback((_) {
-    //     showDialog(
-    //         barrierDismissible: widget.isForceUpdate ?? false,
-    //         context: context,
-    //         builder: (BuildContext context) {
-    //           return WillPopScope(
-    //               child: Material(
-    //                   color: Colors.transparent,
-    //                   child: UpdateScreen(
-    //                     isForceUpdate: (widget.isForceUpdate ?? false),
-    //                   )),
-    //               onWillPop: () async {
-    //                 SystemNavigator.pop();
-    //                 return false;
-    //               });
-    //         });
-    //   });
-    // }
+
 
     GoogleHuawei();
 

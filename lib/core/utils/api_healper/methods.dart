@@ -7,7 +7,6 @@ import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,10 +29,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
-import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_event.dart';
-
-
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
@@ -71,7 +66,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_ro
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_event.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
@@ -477,7 +471,6 @@ class Methods {
 
   Future<void> cacheSvgaEntro(
       {required List<DataMallModel> dataMallModel}) async {
-    log('cacheSvgaEntro');
     for (int i = 0; i < dataMallModel.length; i++) {
       await cacheSvgaImage(
           svgaUrl: ConstentApi().getImage(dataMallModel[i].svg),

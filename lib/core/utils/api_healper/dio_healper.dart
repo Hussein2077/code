@@ -23,10 +23,9 @@ class DioHelper {
 
     }
     final devicedata = await initPlatformState();
-    log(devicedata.toString());
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
-      // "device": devicedata??'noToken',
+      "device": devicedata??'noToken',
       "Accept": 'application/json',
       "X-localization": key,
     };

@@ -389,7 +389,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
 
   void onContextInit() {
     ZegoUIKit()
-      ..turnCameraOn(false)
+     // ..turnCameraOn(false)
       ..turnMicrophoneOn(widget.config.turnOnMicrophoneWhenJoining)
       ..setAudioOutputToSpeaker(widget.config.useSpeakerWhenJoining)
       ..setAudioVideoResourceMode(ZegoAudioVideoResourceMode.RTCOnly);

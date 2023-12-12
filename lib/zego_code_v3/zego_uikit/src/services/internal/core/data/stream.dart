@@ -157,9 +157,9 @@ mixin ZegoUIKitCoreDataStream {
           : ZegoViewMode.AspectFit,
     );
 
-    ZegoExpressEngine.instance
-      ..enableCamera(ZegoUIKitCore.shared.coreData.localUser.camera.value)
-      ..startPreview(canvas: previewCanvas);
+    // ZegoExpressEngine.instance
+    //   ..enableCamera(ZegoUIKitCore.shared.coreData.localUser.camera.value)
+    //   ..startPreview(canvas: previewCanvas);
   }
 
   Future<void> stopPreview() async {
@@ -232,8 +232,8 @@ mixin ZegoUIKitCoreDataStream {
               : ZegoViewMode.AspectFit,
         );
 
-        await ZegoExpressEngine.instance
-            .enableCamera(ZegoUIKitCore.shared.coreData.localUser.camera.value);
+        // await ZegoExpressEngine.instance
+        //     .enableCamera(ZegoUIKitCore.shared.coreData.localUser.camera.value);
         await ZegoExpressEngine.instance.muteMicrophone(
             !ZegoUIKitCore.shared.coreData.localUser.microphone.value);
         await ZegoExpressEngine.instance.startPreview(canvas: canvas);
