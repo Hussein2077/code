@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,10 +18,9 @@ import 'widget/body/home_body.dart';
 import 'widget/header/home_header.dart';
 
 class HomeScreen extends StatefulWidget {
+
   static ValueNotifier<bool> rebuildGroupChatCounter = ValueNotifier<bool>(false);
   static ValueNotifier<int> groupChatCounter = ValueNotifier<int>(0);
-
-
   final bool? isChachGift ;
   final bool? isCachFrame ;
   final bool? isCachExtra ;

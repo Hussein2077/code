@@ -115,14 +115,9 @@ class _ChatPageState extends State<ChatPage> {
               ],
             ),
           ),
-
-                Expanded(
+          Expanded(
 
     child:  CometChatConversationsWithMessages(
-
-
-
-
       messageConfiguration: MessageConfiguration(
           messageListConfiguration: (MessageListConfiguration(
 
@@ -167,7 +162,6 @@ class _ChatPageState extends State<ChatPage> {
 
           )
       ),
-
       conversationsConfiguration: ConversationsConfiguration(
 
           theme: CometChatTheme(
