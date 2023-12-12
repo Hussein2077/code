@@ -68,6 +68,8 @@ class EnterRoomModel extends Equatable {
   final bool? isUsersBaned ;
   final int? timePK ;
   final String? mutedUsers ;
+  final String? differentCommentKey ;
+
 
 
 
@@ -132,6 +134,7 @@ class EnterRoomModel extends Equatable {
         this.showPk , 
         this.roomRule,
         this.mutedUsers,
+        this.differentCommentKey ,
 
       });
 
@@ -201,6 +204,8 @@ class EnterRoomModel extends Equatable {
       topUser:jsonData['top_user']==null ? null : UserDataModel.fromMap(jsonData['top_user']),
        roomFamily:jsonData['room_family'] ==null ? null: RoomFamilyModel.fromJson( jsonData['room_family']),
       mutedUsers: jsonData['muted_users'],
+      differentCommentKey: jsonData['asdas'] ?? "12345678"
+
     );
   }
 
@@ -251,7 +256,9 @@ class EnterRoomModel extends Equatable {
     roomPassStatus,
     seats,
     topUser,
-    mutedUsers
+    mutedUsers,
+    differentCommentKey,
+
   ];
 }
 
@@ -315,3 +322,4 @@ class OwnerBox extends Equatable{
 
 
 }
+

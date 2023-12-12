@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
@@ -48,7 +49,7 @@ class _GameDialogState extends State<GameDialog> {
               answer: selected_index.toString()
           )));
           Navigator.pop(context);
-          ZegoUIKit.instance.sendInRoomMessage("$selected_index", false,  GamesInRoom.rpsGame);
+          ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameKeyy}$selected_index",);
         });
       } else {
         if(mounted){

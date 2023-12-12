@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
@@ -82,6 +83,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   void initState() {
 
+    getkeys();
+
     Methods.instance.getDependencies(context);
 
     listenToInternet();
@@ -101,6 +104,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   void dispose() {
     animationController.dispose();
     super.dispose();
+  }
+
+  void getkeys()async {
+    log("1");
+    await  Methods.instance.encrebtedKeys();
+    String key = await Methods.instance.getencrebtedKeys() ;
+    log(key +"teeeeeest");
   }
 
   @override

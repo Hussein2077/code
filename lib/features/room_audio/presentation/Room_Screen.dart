@@ -13,6 +13,7 @@ import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -97,6 +98,12 @@ class RoomScreen extends StatefulWidget {
   static late LayoutMode layoutMode;
   static int startTimeOnSeatMic = 0 ;
 
+  static String differentCommentKey = "";
+
+
+
+
+
 
 
 
@@ -175,6 +182,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
+    RoomScreen.differentCommentKey = widget.room.differentCommentKey ??"" ;
+
+
 
     RoomScreen.usersHasMute = widget.room.mutedUsers!.split(', ');
 
@@ -432,7 +443,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       Future.delayed(const Duration(seconds: 3), () async {
         if(!widget.myDataModel.id.toString().startsWith('-1')){
-          ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة", false , null);
+          ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة",);
           if(widget.myDataModel.intro! != ""){
             Map<String,dynamic>    mapZego = {
               "messageContent" : {
@@ -850,7 +861,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                   gameId: result[messageContent]['game_record_id'].toString(),
                   answer: answer.toString()
               )));
-              ZegoUIKit.instance.sendInRoomMessage("dicGame"+"$answer", false ,  GamesInRoom.dicGame);
+              ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameKeyy}"+"$answer",);
             }
           }else{
             Navigator.pop(context);
@@ -859,9 +870,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }else if(result[messageContent][message] == "ResultOfGame"){
         if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
           if(result[messageContent]['game_id'].toString() == "1"){
-           ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false, GamesInRoom.rpsGameResult);
+           ZegoUIKit.instance.sendInRoomMessage("${StringManager.result}${StringManager.rpsGameKeyy} قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", );
           }else if(result[messageContent]['game_id'].toString() == "2"){
-            ZegoUIKit.instance.sendInRoomMessage(" قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", false , GamesInRoom.dicGameResult);
+            ZegoUIKit.instance.sendInRoomMessage("${StringManager.result}${StringManager.diceGameKeyy} قام${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ",);
           }
         }
       }
