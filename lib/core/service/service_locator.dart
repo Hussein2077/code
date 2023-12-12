@@ -255,6 +255,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_user_in_room
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_room_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/host_time_on_mic_usecase.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/kickout_pramiter_uc.dart';
@@ -263,6 +264,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/lock_unLock_mic_
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_unmute_mic_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_unmute_use_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_user_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/other_side_game_action_new.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/pickup_box_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/remove_admin_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/remove_pass_room_UC.dart';
@@ -571,7 +573,7 @@ class ServerLocator {
     getIt.registerFactory(
             () => AllShippingAgentsBloc(getAllShippingAgentsUseCase:  getIt() ));
     getIt.registerFactory(
-            () => GameBloc(inviteToGameUC:  getIt(), cancelGameUC: getIt(), startGameUC: getIt(), sendGameChoiseUC: getIt() ));
+            () => GameBloc(inviteToGameUC:  getIt(), cancelGameUC: getIt(), startGameUC: getIt(), sendGameChoiseUC: getIt(), inviteToGameNewUC: getIt(), otherSideGameActionNewUC: getIt() ));
     getIt.registerFactory(
             () => GetFixedTargetBloc(fixedTargetReportUseCase:  getIt() ));
     getIt.registerFactory(
@@ -581,6 +583,8 @@ class ServerLocator {
 //usecase
     getIt.registerLazySingleton(() => ForgetPasswordUc(baseRepository: getIt()));
     getIt.registerLazySingleton(() => ForgetPasswordCodeVerificationUc(baseRepository: getIt()));
+    getIt.registerLazySingleton(() => InviteToGameNewUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => OtherSideGameActionNewUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(() => HostOnMicTimeUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(() => FixedTargetReportUseCase(FixedTargetReportReport: getIt()));

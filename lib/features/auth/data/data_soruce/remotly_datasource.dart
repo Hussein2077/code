@@ -301,23 +301,21 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
     accountAuthParamsHelper.setProfile() ;
 
-    accountAuthParamsHelper.setAccessToken() ;
-
     accountAuthParamsHelper.setEmail();
+
+    accountAuthParamsHelper.setIdToken();
 
     AccountAuthParams mAuthParam = accountAuthParamsHelper.createParams();
 
     AccountAuthService accountAuthService = AccountAuthManager.getService(mAuthParam);
 
     AuthAccount account = await accountAuthService.signIn();
-//DAEAAPHSNklA6pKO5QBOiiylpxmuh27Vg3sSmgU4vTQBkQ3obx23MDCuUYg2WAr4zHOArHiqFLVITXW5V0NkFOyu7/tuOBIPny5DaQ1mr/5lBVXA/A==
 
     try {
-      log("account.accessToken ${account.accessToken}");
        final body =  {
          ConstentApi.type: "huawei",
          ConstentApi.name: account.displayName,
-         "huawei_id": account.accessToken,
+         "huawei_id": account.idToken,
          'device_token':devicedata
        };
        try{

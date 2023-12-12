@@ -23,8 +23,10 @@ import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dar
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_user_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/other_side_game_action_new.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_game_uc.dart';
@@ -90,6 +92,9 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> cancelGame(CancelGamePramiter cancelGamePramiter);
   Future<String> startGame(StartGamePramiter startGamePramiter);
   Future<String> sendGameChoise(SendGameChoisePramiter sendGameChoisePramiter);
+
+  Future<String> inviteToGameNew(InviteToGameNewPramiter inviteToGamePramiter);
+  Future<String> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGameActionNewPramiter);
 
 }
 
@@ -1370,6 +1375,57 @@ Future<String> sendGameChoise(SendGameChoisePramiter sendGameChoisePramiter)asyn
     return jsonData['message'];
   } on DioError catch (e) {
     throw DioHelper.handleDioError(dioError: e,endpointName: "send game choise");
+  }
+}
+
+@override
+Future<String> inviteToGameNew(InviteToGameNewPramiter inviteToGameNewPramiter)async {
+  Map<String, String> headers = await DioHelper().header();
+
+  final body = {
+    "owner_id": inviteToGameNewPramiter.ownerId,
+    "game_id": inviteToGameNewPramiter.game_id,
+    "players": inviteToGameNewPramiter.players,
+    "coins": inviteToGameNewPramiter.coins,
+    "round_num": inviteToGameNewPramiter.round_num
+  };
+
+  try {
+    final response = await Dio().post(
+        ConstentApi.inviteToGameNew,
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+    Map<String, dynamic> jsonData = response.data;
+    return jsonData['message'];
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "invite user to game new");
+  }
+}
+
+@override
+Future<String> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGameActionNewPramiter)async {
+  Map<String, String> headers = await DioHelper().header();
+
+  final body ={
+    'game_record_id': otherSideGameActionNewPramiter.gameId,
+    'status': otherSideGameActionNewPramiter.status
+  };
+
+  try {
+    final response = await Dio().post(
+        ConstentApi.otherSideGameActionNew,
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+    Map<String, dynamic> jsonData = response.data;
+    return jsonData['message'];
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "start game");
   }
 }
 

@@ -16,7 +16,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/games/sp
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class SpinScreen extends StatefulWidget {
-  List<String> list;
+  List<dynamic> list;
   bool isActive;
   bool isFree;
   int? winner;
@@ -35,6 +35,7 @@ class _SpinScreenState extends State<SpinScreen> {
   @override
   void initState() {
     if(!widget.isFree){
+      _isSpinning = true;
       _wheelNotifier.add(widget.winner!);
     }
     super.initState();
@@ -121,6 +122,7 @@ class _SpinScreenState extends State<SpinScreen> {
           InkWell(
             onTap: (){
               if(!_isSpinning){
+                _isSpinning = true;
                 if(widget.isFree){
                   int winner = Fortune.randomInt(0, widget.list.length);
                   _wheelNotifier.add(winner);
@@ -175,7 +177,7 @@ class _SpinScreenState extends State<SpinScreen> {
     );
   }
 
-  String getMessagaRealTime(String ownerId, int winner, List<String> items){
+  String getMessagaRealTime(String ownerId, int winner, List<dynamic> items){
     var mapInformation = {"messageContent":{
       "message": "freeSpinGame",
       "ownerId": ownerId,

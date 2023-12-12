@@ -23,9 +23,11 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.d
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/enter_room.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/mute_user_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/other_side_game_action_new.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_box_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_gift_use_case.dart';
@@ -541,6 +543,26 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
   Future<Either<String, Failure>> sendGameChoise(SendGameChoisePramiter sendGameChoisePramiter) async {
     try {
       final result = await baseRemotlyDataSourceRoom.sendGameChoise(sendGameChoisePramiter);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> inviteToGameNew(InviteToGameNewPramiter inviteToGameNewPramiter) async {
+    try {
+      final result = await baseRemotlyDataSourceRoom.inviteToGameNew(inviteToGameNewPramiter);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGameActionNewPramiter) async {
+    try {
+      final result = await baseRemotlyDataSourceRoom.otherSideGameActionNew(otherSideGameActionNewPramiter);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));
