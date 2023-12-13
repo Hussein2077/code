@@ -37,8 +37,9 @@ class _CommentBodyState extends State<CommentBody> {
 
   @override
   void initState() {
-    
-    _wheelNotifier.add(1);
+
+    log(widget.items.toString());
+    _wheelNotifier.add(widget.winner);
     super.initState();
   }
 
