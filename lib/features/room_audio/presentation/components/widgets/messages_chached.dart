@@ -59,10 +59,13 @@ class MessagesChached extends StatelessWidget {
   Widget build(BuildContext context) {
 
 log(message.message+"bbbbbbbbb");
-    GamesInRoom  CommentType = checkMeesageType(message) ;
+    GamesInRoom  CommentType = checkMeesageType(message.message) ;
+    String messageWithOutKeys = removeWordFromString(message.message ,CommentType );
+
+
 
     bool isGame = (CommentType != GamesInRoom.normal &&  CommentType != GamesInRoom.luckyGiftComment);
-    List<String> words = message.message.split(" ");
+    List<String> words = messageWithOutKeys.split(" ");
     for (String word in words) {
       if (word.startsWith("@")) {
         spans.add(TextSpan(
@@ -192,7 +195,7 @@ log(message.message+"bbbbbbbbb");
               ],
             ),
             if (isGame)
-              isGamesWidget(CommentType),
+              isGamesWidget(CommentType , messageWithOutKeys),
             (bubble == "" && CommentType != GamesInRoom.luckyGiftComment && !isGame)
                 ? Padding(
                     padding: EdgeInsets.only(
@@ -285,7 +288,7 @@ log(message.message+"bbbbbbbbb");
       ),
     );
   }
-  Widget isGamesWidget(GamesInRoom type){
+  Widget isGamesWidget(GamesInRoom type , String message){
     switch (type) {
       case GamesInRoom.luckyDrawGame:
         return CommentBody(room: room);
@@ -294,14 +297,14 @@ log(message.message+"bbbbbbbbb");
           height: ConfigSize.defaultSize! * 5,
           width: ConfigSize.defaultSize! * 5,
           child: DiceGame(
-            randomNum: int.parse(message.message[0]),
+            randomNum: int.parse(message[0]),
           ),
         );
       case GamesInRoom.rpsGame:
         return SizedBox(
           height: ConfigSize.defaultSize! * 5,
           width: ConfigSize.defaultSize! * 5,
-          child: Image.asset(GameDialog.brickPaperNum[int.parse(message.message)]),
+          child: Image.asset(GameDialog.brickPaperNum[int.parse(message)]),
         );
       case GamesInRoom.spinGame:
         return SizedBox(
@@ -344,33 +347,27 @@ log(message.message+"bbbbbbbbb");
 
 
 
-GamesInRoom checkMeesageType (ZegoInRoomMessage message) {
-  if (message.message.contains(StringManager.rpsGameKey)){
-    message.message= removeWordFromString(message.message,StringManager.rpsGameKey);
+GamesInRoom checkMeesageType (String message) {
+  if (message.contains(StringManager.rpsGameKey)){
 
     return GamesInRoom.rpsGame ;
 
-  }else if (message.message.contains(StringManager.diceGameKey)){
-    message.message= removeWordFromString(message.message,StringManager.diceGameKey);
+  }else if (message.contains(StringManager.diceGameKey)){
   return GamesInRoom.dicGame ;
-}else if (message.message.contains(StringManager.luckyDrawGameKey)){
-    message.message= removeWordFromString(message.message,StringManager.luckyDrawGameKey);
+}else if (message.contains(StringManager.luckyDrawGameKey)){
 
     return GamesInRoom.luckyDrawGame ;
-  }else if (message.message.contains(StringManager.spinGameKey)){
-    message.message= removeWordFromString(message.message,StringManager.spinGameKey);
+  }else if (message.contains(StringManager.spinGameKey)){
 
     return GamesInRoom.spinGame ;
-  }else if (message.message.contains(StringManager.luckyGiftCommentKey)){
-    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKey);
+  }else if (message.contains(StringManager.luckyGiftCommentKey)){
 
     return GamesInRoom.luckyGiftComment ;
-  }else if (message.message.contains(StringManager.diceGameResultKey)){
-    message.message= removeWordFromString(message.message,StringManager.diceGameResultKey);
+  }else if (message.contains(StringManager.diceGameResultKey)){
 
     return GamesInRoom.dicGameResult ;
-  }else if  (message.message.contains(StringManager.rpsGameResultKey)){
-    message.message= removeWordFromString(message.message,StringManager.rpsGameResultKey);
+  }else if  (message.contains(StringManager.rpsGameResultKey)){
+
 
     return GamesInRoom.rpsGameResult ;
   }
@@ -381,7 +378,32 @@ GamesInRoom checkMeesageType (ZegoInRoomMessage message) {
   }
 
 
-String removeWordFromString(String sentence, String word) {
-  final pattern = RegExp('\\b$word\\b', caseSensitive: false);
-  return sentence.replaceAll(pattern, '');
+String removeWordFromString(String sentence,   GamesInRoom commentType ) {
+
+  switch (commentType) {
+    case GamesInRoom.luckyDrawGame:
+      final pattern = RegExp('\\b${StringManager.luckyDrawGameKey}\\b', caseSensitive: false);
+      return sentence.replaceAll(pattern, '');
+    case GamesInRoom.dicGame:
+      final pattern = RegExp('\\b${StringManager.diceGameKey}\\b', caseSensitive: false);
+      return sentence.replaceAll(pattern, '');
+    case GamesInRoom.rpsGame:
+      final pattern = RegExp('\\b${StringManager.rpsGameKey}\\b', caseSensitive: false);
+      return sentence.replaceAll(pattern, '');
+    case GamesInRoom.spinGame:
+      final pattern = RegExp('\\b${StringManager.spinGameKey}\\b', caseSensitive: false);
+      return sentence.replaceAll(pattern, '');
+    case GamesInRoom.dicGameResult:
+      final pattern = RegExp('\\b${StringManager.diceGameResultKey}\\b', caseSensitive: false);
+      return sentence.replaceAll(pattern, '');
+    case GamesInRoom.rpsGameResult:
+      final pattern = RegExp('\\b${StringManager.rpsGameResultKey}\\b', caseSensitive: false);
+      return sentence.replaceAll(pattern, '');
+    default:
+      return  sentence;
+  }
 }
+
+
+
+
