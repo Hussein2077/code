@@ -949,17 +949,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if(result[messageContent][message] == "luckyDraw"){
         if(result[messageContent]['index'] == 0){
-          for(int i =0 ; i < RoomScreen.userOnMics.value.length; i++) {
-            LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(RoomScreen.userOnMics.value[i]!.id),
-                  () => SelecteUsers(
-                userId: RoomScreen.userOnMics.value[i]?.id ?? "",
-                selected: true,
-                name: RoomScreen.userOnMics.value[i]?.name?? "",
-                image: RoomScreen.userOnMics.value[i]?.inRoomAttributes.value['img']?? "",
-              ),
-            );
-
-          }
+          GiftUser.userOnMicsForGifts.forEach((key, value) {
+            LuckyDrawGameScreen.userSelected.putIfAbsent(key, () => SelecteUsers(
+              userId: value.id,
+              selected: true,
+              name: value.name,
+              image: value.inRoomAttributes.value['img']!,
+            ),);
+          });
         } else{
           for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
             LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(ZegoUIKit().getAllUsers()[i].id), () => SelecteUsers(
