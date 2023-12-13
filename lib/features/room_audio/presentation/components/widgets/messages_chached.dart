@@ -345,32 +345,32 @@ log(message.message+"bbbbbbbbb");
 
 
 GamesInRoom checkMeesageType (ZegoInRoomMessage message) {
-  if (message.message.contains(StringManager.rpsGameKeyyy)){
-    message.message= removeWordFromString(message.message,StringManager.rpsGameKeyyy);
+  if (message.message.contains(StringManager.rpsGameKey)){
+    message.message= removeWordFromString(message.message,StringManager.rpsGameKey);
 
     return GamesInRoom.rpsGame ;
 
-  }else if (message.message.contains(StringManager.diceGameKeyyy)){
-    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKeyyy);
+  }else if (message.message.contains(StringManager.diceGameKey)){
+    message.message= removeWordFromString(message.message,StringManager.diceGameKey);
   return GamesInRoom.dicGame ;
-}else if (message.message.contains(StringManager.luckyDrawGameKeyyy)){
-    message.message= removeWordFromString(message.message,StringManager.luckyDrawGameKeyyy);
+}else if (message.message.contains(StringManager.luckyDrawGameKey)){
+    message.message= removeWordFromString(message.message,StringManager.luckyDrawGameKey);
 
     return GamesInRoom.luckyDrawGame ;
-  }else if (message.message.contains(StringManager.spinGameKeyyy)){
-    message.message= removeWordFromString(message.message,StringManager.spinGameKeyyy);
+  }else if (message.message.contains(StringManager.spinGameKey)){
+    message.message= removeWordFromString(message.message,StringManager.spinGameKey);
 
     return GamesInRoom.spinGame ;
-  }else if (message.message.contains(StringManager.luckyGiftCommentKeyyy)){
-    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKeyyy);
+  }else if (message.message.contains(StringManager.luckyGiftCommentKey)){
+    message.message= removeWordFromString(message.message,StringManager.luckyGiftCommentKey);
 
     return GamesInRoom.luckyGiftComment ;
-  }else if (message.message.contains(StringManager.result+StringManager.diceGameKeyyy)){
-    message.message= removeWordFromString(message.message,StringManager.result+StringManager.diceGameKeyyy);
+  }else if (message.message.contains(StringManager.diceGameResultKey)){
+    message.message= removeWordFromString(message.message,StringManager.diceGameResultKey);
 
     return GamesInRoom.dicGameResult ;
-  }else if  (message.message.contains(StringManager.result+StringManager.rpsGameKeyyy)){
-    message.message= removeWordFromString(message.message,StringManager.result+StringManager.rpsGameKeyyy);
+  }else if  (message.message.contains(StringManager.rpsGameResultKey)){
+    message.message= removeWordFromString(message.message,StringManager.rpsGameResultKey);
 
     return GamesInRoom.rpsGameResult ;
   }
