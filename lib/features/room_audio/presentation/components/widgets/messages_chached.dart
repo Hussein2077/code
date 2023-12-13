@@ -301,7 +301,8 @@ log(message.message+"bbbbbbbbb");
           ),
         );
       case GamesInRoom.rpsGame:
-        return SizedBox(
+        return 
+          SizedBox(
           height: ConfigSize.defaultSize! * 5,
           width: ConfigSize.defaultSize! * 5,
           child: Image.asset(GameDialog.brickPaperNum[int.parse(message)]),
