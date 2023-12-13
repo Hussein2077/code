@@ -131,7 +131,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                 onTap: (){
                   if(selected1 != -1){
                     int winner = Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length);
-                    List<int> mapKeysList = LuckyDrawGameScreen.userSelected.keys.toList();
+                    List<int> mapKeysList = sortMapByKey(LuckyDrawGameScreen.userSelected).keys.toList();
                     ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
                         winner,
                         selected1,
