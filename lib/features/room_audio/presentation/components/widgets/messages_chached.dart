@@ -297,7 +297,7 @@ log(message.message+"bbbbbbbbb");
           height: ConfigSize.defaultSize! * 5,
           width: ConfigSize.defaultSize! * 5,
           child: DiceGame(
-            randomNum: int.parse(message[0]),
+            randomNum: int.parse(message),
           ),
         );
       case GamesInRoom.rpsGame:
@@ -364,7 +364,7 @@ GamesInRoom checkMeesageType (String message) {
 
     return GamesInRoom.luckyGiftComment ;
   }else if (message.contains(StringManager.diceGameResultKey)){
-
+  log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     return GamesInRoom.dicGameResult ;
   }else if  (message.contains(StringManager.rpsGameResultKey)){
 
