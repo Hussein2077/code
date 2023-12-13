@@ -36,7 +36,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        
+
         body: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
             if (state is GetMyDataSucssesState) {

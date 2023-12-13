@@ -89,9 +89,13 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       ConstentApi.password: authPramiter.password,
        'device_token':devicedata
       };
+  Map<String, String> headers = await DioHelper().header();
 
-    try {
+  try {
       final response = await Dio().post(
+        options: Options(
+            headers:headers
+        ),
         ConstentApi.loginUrl,
         data: body,
       );

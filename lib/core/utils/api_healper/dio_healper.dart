@@ -20,6 +20,7 @@ class DioHelper {
 
     if (kDebugMode) {
       log(token + "######");
+      log(key + "lang");
     }
     final devicedata = await initPlatformState();
     Map<String, String> headers = {
