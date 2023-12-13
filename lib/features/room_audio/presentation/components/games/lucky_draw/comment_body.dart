@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class CommentBody extends StatefulWidget {
   EnterRoomModel room;
@@ -29,6 +30,15 @@ class _CommentBodyState extends State<CommentBody> {
 
   @override
   void initState() {
+    for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
+      LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteUsers(
+        userId: ZegoUIKit().getAllUsers()[i].id,
+        selected: true,
+        name: ZegoUIKit().getAllUsers()[i].name,
+        image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
+      ),
+      );
+    }
     print(LuckyDrawGameScreen.userSelected.toString());
     _wheelNotifier.add(Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length));
     super.initState();

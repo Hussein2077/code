@@ -190,7 +190,7 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                           InkWell(
                             onTap: () {
 
-                              if (SpinWheelGameScreen.peoplesId.length<2){
+                              if (SpinWheelGameScreen.peoplesId.length<1){
                                 errorToast(context: context, title: StringManager.pleaseAddAtLeastTwoValue.tr());
                               }else {
                                 BlocProvider.of<GameBloc>(context).add(InviteToGameNew(inviteToGamePramiter: InviteToGameNewPramiter(
