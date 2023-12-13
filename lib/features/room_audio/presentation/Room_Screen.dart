@@ -967,6 +967,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         }
         showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) {
               return CommentBody(
                 items: LuckyDrawGameScreen.userSelected,
