@@ -45,7 +45,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (Platform.isAndroid) {
       SplashScreen.devicePlatform = StringManager.androidPlatform;
-    } else if (Platform.isIOS) {
+    }
+    else if (Platform.isIOS) {
       SplashScreen.devicePlatform = StringManager.iOSPlatform;
     }
 
@@ -55,12 +56,14 @@ class _SplashScreenState extends State<SplashScreen> {
             context, Routes.login, (route) => false,
             arguments:
             const LoginPramiter(isForceUpdate: false, isUpdate: false));
-      } else if ((configModel!.isForce ?? false)) {
+      }
+      else if ((configModel!.isForce ?? false)) {
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.login, (route) => false,
             arguments: LoginPramiter(
                 isForceUpdate: configModel!.isForce, isUpdate: true));
-      } else if (!(configModel!.isLastVersion ?? false) &&
+      }
+      else if (!(configModel!.isLastVersion ?? false) &&
           (configModel!.isAuth ?? false)) {
         await initDynamicLinks();
         Navigator.pushNamedAndRemoveUntil(
@@ -73,12 +76,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 isCachFrame: configModel!.updateFrameCach,
                 isChachGift: configModel!.updateGiftCache,
                 actionDynamicLink: SplashScreen.dynamicLink));
-      } else if (!(configModel!.isAuth ?? false)) {
+      }
+      else if (!(configModel!.isAuth ?? false)) {
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.login, (route) => false,
             arguments:
             const LoginPramiter(isForceUpdate: false, isUpdate: false));
-      } else if ((configModel!.isAuth ?? false)) {
+      }
+      else if ((configModel!.isAuth ?? false)) {
         await initDynamicLinks();
         if (kDebugMode) {
           log("configModel1${configModel!.updateEntroCach}");
