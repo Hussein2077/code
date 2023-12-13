@@ -100,22 +100,24 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
                     indicatorSize: TabBarIndicatorSize.label,
                     labelColor: Colors.white,
                     indicatorColor: Colors.transparent,
+                    labelPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*0.5),
                     controller: giftControler,
                     padding: EdgeInsets.zero,
                     automaticIndicatorColorAdjustment: false,
                     tabs: [
                       Text(
                         StringManager.appGift.tr(),
-                        style: const TextStyle(fontWeight: FontWeight.w600),
+
+                        style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13),
                       ),
                       Text(StringManager.luckyGifts.tr(),
-                          style: const TextStyle(fontWeight: FontWeight.w600)),
+                          style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
                       Text(StringManager.spicalGift.tr(),
-                          style: const TextStyle(fontWeight: FontWeight.w600)),
+                          style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
                       Text(StringManager.famousGifts.tr(),
-                          style: const TextStyle(fontWeight: FontWeight.w600)),
+                          style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
                       Text(StringManager.country.tr(),
-                          style: const TextStyle(fontWeight: FontWeight.w600)),
+                          style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
                     ]),
                 Expanded(
                   child: TabBarView(
