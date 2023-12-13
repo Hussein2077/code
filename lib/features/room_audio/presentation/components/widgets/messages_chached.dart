@@ -301,7 +301,7 @@ log(message.message+"bbbbbbbbb");
           ),
         );
       case GamesInRoom.rpsGame:
-        return 
+        return
           SizedBox(
           height: ConfigSize.defaultSize! * 5,
           width: ConfigSize.defaultSize! * 5,
