@@ -929,9 +929,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       else if(result[messageContent][message] == "ResultOfGame"){
         if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
           if(result[messageContent]['game_id'].toString() == "1"){
-           ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameResultKey} قام ${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ", );
+           ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameResultKey} ${result[messageContent]["message_content"]}", );
           }else if(result[messageContent]['game_id'].toString() == "2"){
-            ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} قام ${result[messageContent]['winner_name']} بالفوز وحصل علي عدد ${result[messageContent]['coins']} عملات ",);
+            ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}", );
+          }else if(result[messageContent]['game_id'].toString() == "3"){
+            ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${result[messageContent]["message_content"]}", );
           }
         }
       }
@@ -948,6 +950,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         }
       }
       else if(result[messageContent][message] == "luckyDraw"){
+        LuckyDrawGameScreen.userSelected.clear();
         if(result[messageContent]['index'] == 0){
           GiftUser.userOnMicsForGifts.forEach((key, value) {
             LuckyDrawGameScreen.userSelected.putIfAbsent(key, () => SelecteUsers(
