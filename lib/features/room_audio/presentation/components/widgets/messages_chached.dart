@@ -19,6 +19,7 @@ import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/rps_comment_ui.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dice/dic_game.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
@@ -295,7 +296,7 @@ log(message.message+"bbbbbbbbb");
           ),
         );
       case GamesInRoom.rpsGame:
-        return
+        return BrickPaperScissorsGame(randomNum:int.parse(message) ,);
           SizedBox(
           height: ConfigSize.defaultSize! * 5,
           width: ConfigSize.defaultSize! * 5,

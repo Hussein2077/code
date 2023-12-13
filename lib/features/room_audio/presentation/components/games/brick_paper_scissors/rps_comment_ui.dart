@@ -17,8 +17,10 @@ class BrickPaperScissorsGame extends StatefulWidget {
   State<BrickPaperScissorsGame> createState() => _BrickPaperScissorsGameState();
 }
 
-class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame>
+class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with AutomaticKeepAliveClientMixin
      {
+       @override
+       bool get wantKeepAlive => true;
   bool showResultGame = false;
 
   @override
@@ -41,6 +43,8 @@ class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Ensure the super build is called
+
     return BlocBuilder<CacheGamesBloc, CacheStates>(
       builder: (context, state) {
         if (state is ExtraDataSuccess) {
