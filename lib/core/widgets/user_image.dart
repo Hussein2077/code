@@ -28,13 +28,13 @@ class UserImage extends StatelessWidget {
 
   const UserImage(
       {this.frameId,
-      this.frame,
-      this.child,
-      required this.image,
-      this.boxFit,
-      this.imageSize,
-      super.key,
-         this.isRoom});
+        this.frame,
+        this.child,
+        required this.image,
+        this.boxFit,
+        this.imageSize,
+        super.key,
+        this.isRoom});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class UserImage extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           SizedBox(
-             width: imageSize != null
+            width: imageSize != null
                 ? imageSize! * constValue
                 : ConfigSize.defaultSize! * 5,
             height: imageSize != null
@@ -58,6 +58,7 @@ class UserImage extends StatelessWidget {
                 image: DecorationImage(
                     fit: boxFit ?? BoxFit.fill,
                     image: CachedNetworkImageProvider(
+                        image.contains("https")?  image :
                         ConstentApi().getImage(image)))),
             child: child,
           ),
@@ -71,7 +72,7 @@ class UserImage extends StatelessWidget {
                     : ConfigSize.defaultSize! * 7,
                 child: ShowSVGA(imageId: "${frameId}Frame", url: frame!)),
 
-           if (isRoom??false)
+          if (isRoom??false)
             SizedBox(
                 width: imageSize != null
                     ? imageSize! * 1.85

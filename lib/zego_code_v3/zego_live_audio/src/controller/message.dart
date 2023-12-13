@@ -17,8 +17,8 @@ class ZegoLiveAudioRoomMessageController {
   /// @return Error code, please refer to the error codes document https://docs.zegocloud.com/en/5548.html for details.
   ///
   /// @return A `Future` that representing whether the request was successful.
-  Future<bool> send(String message,bool? changeTheme, {GamesInRoom? games}) async {
-    return ZegoUIKit().sendInRoomMessage(message,changeTheme, games: games??GamesInRoom.normal);
+  Future<bool> send(String message,bool? changeTheme, GamesInRoom? games) async {
+    return ZegoUIKit().sendInRoomMessage(message);
   }
 
   /// Retrieves a list of chat messages that already exist in the room.

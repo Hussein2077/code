@@ -1,9 +1,5 @@
-
-
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
@@ -30,9 +26,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
-import 'package:tik_chat_v2/features/profile/data/model/in_app_purchase_mode.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
-
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -50,11 +44,9 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/create_family_uc.dar
 import 'package:tik_chat_v2/features/profile/domin/use_case/feed_back_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_all_shipping_agents_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
-
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
-import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 
 
 
@@ -988,16 +980,6 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<InAppPurchaseMode, Failure>> inAppPurchase({required String user_id, required String product_id})async {
-   try {
-      final result =await baseRemotlyDataSourceProfile.inAppPurchase(user_id:user_id , product_id: product_id);
-      return Left(result);
-    } catch (e) {
-      return right(DioHelper.buildFailure(e));
-    }
-  }
-
-  @override
   Future<Either<List<UserDataModel>, Failure>> getAllShippingAgents({required GetAllShippingAgentsPram pram}) async{
 
     try {
@@ -1013,6 +995,18 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
 
     try {
       final result = await baseRemotlyDataSourceProfile.getFixedTargetReport(date);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+
+  }
+
+  @override
+  Future<Either<String, Failure>> pay({required String message, required String type}) async{
+
+    try {
+      final result = await baseRemotlyDataSourceProfile.pay(message: message, type: type);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));

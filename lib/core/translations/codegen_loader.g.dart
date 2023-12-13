@@ -505,6 +505,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.freePlay: 'لعب مجاني',
     StringManager.PaidPlay: 'اللعب المدفوع',
     StringManager.viewProfile: 'الصفحة الشخصية',
+    StringManager.changeThemeApproval: 'هل توافق علي تغيير الخلفية مقابل ',
     StringManager.wait: 'انتظر حتي تاتي بيانات المنتجات',
 
   };

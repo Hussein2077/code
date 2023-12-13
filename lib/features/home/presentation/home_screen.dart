@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -8,16 +9,18 @@ import 'package:tik_chat_v2/core/service/pusher_service.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/update_screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/widgets/group_chat_counter_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_state.dart';
 import 'widget/body/home_body.dart';
 import 'widget/header/home_header.dart';
 
 class HomeScreen extends StatefulWidget {
+
   static ValueNotifier<bool> rebuildGroupChatCounter = ValueNotifier<bool>(false);
   static ValueNotifier<int> groupChatCounter = ValueNotifier<int>(0);
-
-
   final bool? isChachGift ;
   final bool? isCachFrame ;
   final bool? isCachExtra ;
@@ -95,7 +98,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocListener<HostOnMicTimeBloc, HostOnMicTimeState>(
+      listener: (context, state) {
+
+        if (state is HostOnMicTimeSucssesState) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(successSnackBar(context, state.messsage));
+        }
+      },
+  child: Scaffold(
       body: ScreenColorBackGround(
         color: ColorManager.mainColorList,
         child: Column(
@@ -184,7 +195,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           }
         },
       ),
-    );
+    ),
+);
   }
 
 

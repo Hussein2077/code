@@ -1,16 +1,17 @@
 import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/data_sorce/remotly_data_source_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_event.dart';
+
 class AddThemeImage extends StatefulWidget {
   const AddThemeImage({super.key});
 
@@ -91,10 +92,53 @@ class _AddThemeImageState extends State<AddThemeImage> {
           MainButton(
             onTap: () {
               if (AddThemeImage.xFile == null) {
-                errorToast(context: context, title: StringManager.pleaseAddPhoto.tr());
+                errorToast(
+                    context: context, title: StringManager.pleaseAddPhoto.tr());
               } else if (AddThemeImage.xFile != null) {
-                BlocProvider.of<AddRoomBackgroundBloc>(context)
-                    .add(AddRoomBackgroundEvent(roomBackGround: _image!));
+                showDialog(
+                    context: context,
+                    builder: (BuildContext Newcontext) {
+                      return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .background
+                              .withOpacity(0.8),
+                          insetPadding: EdgeInsets.symmetric(
+                              horizontal: ConfigSize.defaultSize! * 5),
+                          title: Text(
+                            StringManager.changeThemeApproval.tr() +
+                                RemotlyDataSourceRoom.uploadImagePrice,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          content: Row(
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  {
+                                    BlocProvider.of<AddRoomBackgroundBloc>(
+                                            context)
+                                        .add(AddRoomBackgroundEvent(
+                                            roomBackGround: _image!));
+                                  }
+                                },
+                                child: Text(
+                                  StringManager.ok.tr(),
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(StringManager.cancel.tr(),
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge),
+                              ),
+                            ],
+                          ));
+                    });
               }
             },
             title: StringManager.done.tr(),

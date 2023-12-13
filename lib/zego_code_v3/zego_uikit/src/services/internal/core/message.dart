@@ -1,8 +1,10 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 import 'dart:async';
+import 'dart:developer';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:zego_express_engine/zego_express_engine.dart';
 
 /// @nodoc
@@ -35,23 +37,25 @@ class ZegoUIKitCoreMessage {
   void clear() {
     messageList.clear();
     streamControllerMessageList.add(List<ZegoInRoomMessage>.from(messageList));
+
   }
 
-  Future<bool> sendBroadcastMessage(String message,bool? changeTheme,{required GamesInRoom games}) async {
+  Future<bool> sendBroadcastMessage(String message) async {
     localMessageId = localMessageId - 1;
 
+
+
     final messageItem = ZegoInRoomMessage(
-      changeTheme:changeTheme,
       messageID: localMessageId,
       user: ZegoUIKitCore.shared.coreData.localUser.toZegoUikitUser(),
       message: message,
-      games:games,
-      timestamp:
-          ZegoUIKitCore.shared.coreData.networkDateTime_.millisecondsSinceEpoch,
+      timestamp:100
+
     );
     messageItem.state.value = ZegoInRoomMessageState.idle;
 
     messageList.add(messageItem);
+
     streamControllerMessageList.add(List<ZegoInRoomMessage>.from(messageList));
 
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -82,8 +86,8 @@ class ZegoUIKitCoreMessage {
     });
   }
 
-  Future<bool> resendInRoomMessage(ZegoInRoomMessage message,bool? changeTheme) async {
+  Future<bool> resendInRoomMessage(ZegoInRoomMessage message, ) async {
     messageList.removeWhere((element) => element.messageID == message.messageID);
-    return sendBroadcastMessage(message.message,changeTheme, games: GamesInRoom.normal);
+    return sendBroadcastMessage(message.message,);
   }
 }

@@ -5,7 +5,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 
 class ConstentApi {
-   // static const String baseUrl = 'https://tik-chat.com/api' ;
+  //static const String baseUrl = 'https://tik-chat.com/api' ;
   static const String baseUrl = 'https://test.tik-chat.com/api' ;
   static const String signUpUrl = "$baseUrl/auth/register";
   static const String sendCodeUrl = "$baseUrl/auth/send-code";
@@ -17,7 +17,8 @@ class ConstentApi {
   static const String otherSideGameActionNew = "$baseUrl/room-game/other-side-opinion";
   static const String acceptOrCancelGame = "$baseUrl/game-challange/other-side-opinion";
   static const String sendGameChoise = "$baseUrl/game-challange/challange-result";
-  static const String inAppPurchase = "$baseUrl/purchased";
+  static const String gameResult = "$baseUrl/room-game/challenge-result";
+  static const String pay = "$baseUrl/pay";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
   static const String levelUrl = "$baseUrl/level_center";
@@ -393,5 +394,7 @@ class ConstentApi {
   static const String encryptionKey = "L9:65W&+nG@g";
   static const String merchantId = "BCR2DN4T3GPIDDAG";
   static const String merchantName = "software";
-
+  static String checkBlockUnblock( String userId) {
+    return "$baseUrl/black_list/check/$userId";
+  }
 }

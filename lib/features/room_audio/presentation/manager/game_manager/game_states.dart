@@ -72,3 +72,13 @@ class OtherPlayerActionSuccessState extends GameState {
   final String message;
   OtherPlayerActionSuccessState({required this.message});
 }
+
+class GameResultErrorState extends GameState {
+  final String error;
+  GameResultErrorState({required this.error});
+}
+
+class GameResultSuccessState extends GameState {
+  final String message;
+  GameResultSuccessState({required this.message});
+}

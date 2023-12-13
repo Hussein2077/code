@@ -27,13 +27,13 @@ mixin ZegoMessageService {
 
   /// send in-room message
   /// @return Error code, please refer to the error codes document https://docs.zegocloud.com/en/5548.html for details.
-  Future<bool> sendInRoomMessage(String message,bool? changeTheme ,{GamesInRoom? games}) async {
-    return ZegoUIKitCore.shared.coreMessage.sendBroadcastMessage(message,changeTheme,games: games??GamesInRoom.normal);
+  Future<bool> sendInRoomMessage(String message) async {
+    return ZegoUIKitCore.shared.coreMessage.sendBroadcastMessage(message);
   }
 
   /// re-send in-room message
   /// @return Error code, please refer to the error codes document https://docs.zegocloud.com/en/5548.html for details.
-  Future<bool> resendInRoomMessage(ZegoInRoomMessage message,bool? changeTheme ) async {
-    return ZegoUIKitCore.shared.coreMessage.resendInRoomMessage(message,changeTheme);
+  Future<bool> resendInRoomMessage(ZegoInRoomMessage message ) async {
+    return ZegoUIKitCore.shared.coreMessage.resendInRoomMessage(message,);
   }
 }

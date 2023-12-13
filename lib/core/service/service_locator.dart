@@ -139,10 +139,10 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_user_reels_use_c
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vip_center_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vistors_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/in_app_purchase_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/pay_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/send_item_usecase.dart';
@@ -159,7 +159,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/active_notific
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_all_shipping_agents_manager/get_all_shipping_agents_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_fixed_target_bloc/get_fixed_target_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_add_intersted/add_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -211,6 +210,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bl
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
@@ -246,6 +246,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/dispose_hide_roo
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/emojie_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/enter_room.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/exist_room_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/game_result_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/getGiftes_useCase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_boxex_uc.dart';
@@ -558,7 +559,6 @@ class ServerLocator {
     getIt.registerFactory(() => LuckyGiftBannerBloc(sendLuckyGiftUc: getIt()));
     getIt.registerFactory(() => ActiveNotificationBloc(activeNotificationUseCase: getIt()));
     getIt.registerFactory(() => GetUsersInRoomBloc(getRoomUserUseCase: getIt(),));
-    getIt.registerFactory(() => InAppPurchaseBloc(inAppPurchaseUsecase: getIt(),));
     getIt.registerFactory(() => GetMomentallBloc(getMomenttUseCase:  getIt() ));
 
     getIt.registerFactory(
@@ -573,18 +573,21 @@ class ServerLocator {
     getIt.registerFactory(
             () => AllShippingAgentsBloc(getAllShippingAgentsUseCase:  getIt() ));
     getIt.registerFactory(
-            () => GameBloc(inviteToGameUC:  getIt(), cancelGameUC: getIt(), startGameUC: getIt(), sendGameChoiseUC: getIt(), inviteToGameNewUC: getIt(), otherSideGameActionNewUC: getIt() ));
+            () => GameBloc(inviteToGameUC:  getIt(), cancelGameUC: getIt(), startGameUC: getIt(), sendGameChoiseUC: getIt(), inviteToGameNewUC: getIt(), otherSideGameActionNewUC: getIt(), gameResultUC: getIt() ));
     getIt.registerFactory(
             () => GetFixedTargetBloc(fixedTargetReportUseCase:  getIt() ));
     getIt.registerFactory(
             () => ForgetPasswordBloc(forgetPasswordUc:  getIt(), forgetPasswordCodeVerificationUc: getIt()));
     getIt.registerFactory(
             () => HostOnMicTimeBloc(hostOnMicTimeUseCase:  getIt() ));
+    getIt.registerFactory(
+            () => PayBloc(payUsecase:  getIt() ));
 //usecase
     getIt.registerLazySingleton(() => ForgetPasswordUc(baseRepository: getIt()));
     getIt.registerLazySingleton(() => ForgetPasswordCodeVerificationUc(baseRepository: getIt()));
     getIt.registerLazySingleton(() => InviteToGameNewUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => OtherSideGameActionNewUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => GameResultUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(() => HostOnMicTimeUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(() => FixedTargetReportUseCase(FixedTargetReportReport: getIt()));
@@ -596,7 +599,6 @@ class ServerLocator {
     getIt.registerLazySingleton(() => GetOfficialMsgUC(baseRepositoryChat: getIt()));
 
     getIt.registerLazySingleton(() => GetRoomUserUseCase(roomRepo: getIt()));
-    getIt.registerLazySingleton(() => InAppPurchaseUsecase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => ActiveNotificationUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => SendLuckyGiftUc(roomRepo: getIt()));
     getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
@@ -882,6 +884,7 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton(() => CancelGameUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => StartGameUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => SendGameChoiseUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => PayUsecase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(() => LoginChatBloc());
     getIt.registerFactory(() => LogOutChatBloc());

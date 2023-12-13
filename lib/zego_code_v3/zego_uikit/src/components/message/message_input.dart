@@ -386,7 +386,7 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
           message: textController.text));
     }
 
-    ZegoUIKit().sendInRoomMessage(textController.text, false).then((value) =>
+    ZegoUIKit().sendInRoomMessage(textController.text,).then((value) =>
     ZegoInRoomMessageViewState.scrollController.jumpTo(ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent));
     textController.clear();
 

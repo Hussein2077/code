@@ -49,20 +49,7 @@ class _UpdateRoomBodyState extends State<UpdateRoomBody> {
   TextEditingController roomNameControler = TextEditingController();
   TextEditingController roomIntroControler = TextEditingController();
 
-  List<String> roomFeaturesTitles = [
-    StringManager.lockChat.tr(),
-    StringManager.lockRoom.tr(),
-    StringManager.music2.tr(),
-    StringManager.addAmin2.tr(),
-    StringManager.blockList.tr(),
-  ];
-  List<String> roomFeaturesIcons = [
-    AssetsPath.chatLock,
-    AssetsPath.lockRoom,
-    AssetsPath.music2,
-    AssetsPath.addAdmin,
-    AssetsPath.blockedUsers,
-  ];
+
   bool isEnable = false;
   bool isVisible = true;
 

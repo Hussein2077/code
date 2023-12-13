@@ -48,7 +48,7 @@ class ActivityGamesDialog extends StatelessWidget {
           name: StringManager.turntable.tr(),
           onTap: () {
             Navigator.pop(context);
-            bottomDailog(context: context, widget: const SpinWheelGameScreen());
+            bottomDailog(context: context, widget: SpinWheelGameScreen(roomData: roomData));
           }),
     ];
     return Container(

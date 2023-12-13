@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 
 class StringManager {
   static const int versionApp = 50;
@@ -547,6 +548,9 @@ class StringManager {
   static const String PaidPlay = "Paid Play";
   static const String wait = "Wait For Product Data";
   static const String viewProfile = "View Profile";
+  static const String changeThemeApproval ="Do you approve to change this theme for ";
+
+
 
   ///List Type Users
   //0 normal user,
@@ -835,6 +839,20 @@ class StringManager {
     "قحبة",
     "لبوة"
   ];
+
+  // roomGameKeys
+
+  static String diceGameKeyyy = "${RoomScreen.differentCommentKey} dice";
+  static String rpsGameKeyyy = "${RoomScreen.differentCommentKey} rps";
+  static String spinGameKeyyy = "${RoomScreen.differentCommentKey} spin";
+  static String  luckyDrawGameKeyyy  = "${RoomScreen.differentCommentKey} draw";
+  static String luckyGiftCommentKeyyy = "${RoomScreen.differentCommentKey} lucky_gift";
+
+
+
+
+
+
 
   //games links
   static const String teenPatti =
