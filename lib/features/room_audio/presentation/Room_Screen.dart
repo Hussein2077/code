@@ -31,6 +31,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/accept_or_cancel_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/waiting_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/all_users_spin_view.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
@@ -673,6 +675,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   }
 
+  Map<int, SelecteUsers> sortMapByKey(Map<int, SelecteUsers> inputMap) {
+    List<MapEntry<int, SelecteUsers>> entries = inputMap.entries.toList();
+    entries.sort((a, b) => a.key.compareTo(b.key));
+    return Map.fromEntries(entries);
+  }
+
 //massages
   Future<void> onInRoomCommandReceived(ZegoInRoomCommandReceivedData commandData) async {
     Map<String, dynamic> result = jsonDecode(commandData.command);
@@ -938,6 +946,42 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 );
               });
         }
+      }
+      else if(result[messageContent][message] == "luckyDraw"){
+        if(result[messageContent]['index'] == 0){
+          for(int i =0 ; i < RoomScreen.userOnMics.value.length; i++) {
+            LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(RoomScreen.userOnMics.value[i]!.id),
+                  () => SelecteUsers(
+                userId: RoomScreen.userOnMics.value[i]?.id ?? "",
+                selected: true,
+                name: RoomScreen.userOnMics.value[i]?.name?? "",
+                image: RoomScreen.userOnMics.value[i]?.inRoomAttributes.value['img']?? "",
+              ),
+            );
+
+          }
+        } else{
+          for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
+            LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(ZegoUIKit().getAllUsers()[i].id), () => SelecteUsers(
+              userId: ZegoUIKit().getAllUsers()[i].id,
+              selected: true,
+              name: ZegoUIKit().getAllUsers()[i].name,
+              image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
+            ),
+            );
+          }
+        }
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return CommentBody(
+                items: sortMapByKey(LuckyDrawGameScreen.userSelected),
+                winner: result[messageContent]["winner"],
+                room: widget.room,
+                id: result[messageContent]["id"],
+              );
+            });
       }
     }
   }

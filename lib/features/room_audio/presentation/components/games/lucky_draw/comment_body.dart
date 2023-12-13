@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
@@ -11,11 +13,14 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
+import 'dart:async';
 
 class CommentBody extends StatefulWidget {
   EnterRoomModel room;
-  CommentBody({super.key, required this.room});
+  Map<int,SelecteUsers> items;
+  int winner;
+  int id;
+  CommentBody({super.key, required this.room, required this.items, required this.winner, required this.id});
 
   @override
   State<CommentBody> createState() => _CommentBodyState();
@@ -27,12 +32,14 @@ class _CommentBodyState extends State<CommentBody> {
   String selectedItem = "";
   bool animationEnded = false;
 
+  bool isTimerFinished = false;
+  int start = 10;
 
   @override
   void initState() {
 
-    print(LuckyDrawGameScreen.userSelected.toString());
-    _wheelNotifier.add(Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length));
+    log(widget.items.toString());
+    _wheelNotifier.add(widget.winner);
     super.initState();
   }
 
@@ -44,104 +51,126 @@ class _CommentBodyState extends State<CommentBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: ConfigSize.defaultSize! * 3,
-          top: ConfigSize.defaultSize! - 4,
-          bottom: ConfigSize.defaultSize! - 4,
-          right: ConfigSize.defaultSize! - 4),
-      child: Container(
-        width: ConfigSize.defaultSize! * 25,
-        height: ConfigSize.defaultSize! * 25,
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(.5),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(StringManager.result.tr(),
-              style: const TextStyle(
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                blurRadius: 5,
-                color: Colors.red,
-                offset: Offset(2, 2),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Container(
+              width: ConfigSize.defaultSize! * 25,
+              height: ConfigSize.defaultSize! * 30,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(.5),
+                borderRadius: BorderRadius.circular(5),
               ),
-                    Shadow(
-                blurRadius: 5,
-                color: Colors.red,
-                offset: Offset(-2, -2),
-              ),
-                    Shadow(
-                blurRadius: 5,
-                color: Colors.red,
-                offset: Offset(2, -2),
-              ),
-                    Shadow(
-                blurRadius: 5,
-                color: Colors.red,
-                offset: Offset(-2, 2),
-              ),
-                  ],
-                  fontSize: 20
-              ),
-            ),
-
-        Text("Participants: ${LuckyDrawGameScreen.userSelected.length}", style: TextStyle(color: Colors.white),),
-        Text("Lucky Users: 1", style: TextStyle(color: Colors.white),),
-
-
-
-        SizedBox(
-          width: ConfigSize.defaultSize! * 18,
-          child: FortuneBar(
-            selected: _wheelNotifier.stream,
-            height: ConfigSize.defaultSize! * 10,
-            physics: DirectionalPanPhysics.horizontal(),
-            animateFirst: false, //start animation when open screen
-            onAnimationEnd: () {
-              setState(() {
-                animationEnded = true;
-              });
-            },
-            items: [
-              for (var it in LuckyDrawGameScreen.userSelected.values) FortuneItem(
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Column(
-                      children: [
-                        UserImage(image: it.image),
-                        const SizedBox(height: 5,),
-                        Text(it.name),
-                      ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(StringManager.result.tr(),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                      blurRadius: 5,
+                      color: Colors.red,
+                      offset: Offset(2, 2),
+                    ),
+                          Shadow(
+                      blurRadius: 5,
+                      color: Colors.red,
+                      offset: Offset(-2, -2),
+                    ),
+                          Shadow(
+                      blurRadius: 5,
+                      color: Colors.red,
+                      offset: Offset(2, -2),
+                    ),
+                          Shadow(
+                      blurRadius: 5,
+                      color: Colors.red,
+                      offset: Offset(-2, 2),
+                    ),
+                        ],
+                        fontSize: 20
                     ),
                   ),
+
+                  Text("Time Remains: ${start.toString()}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: ConfigSize.defaultSize! * 1.3),),
+
+              Text("Participants: ${widget.items.length}", style: TextStyle(color: Colors.white),),
+                  Text("Lucky Users: 1", style: TextStyle(color: Colors.white),),
+
+              SizedBox(
+                width: ConfigSize.defaultSize! * 18,
+                child: FortuneBar(
+                  selected: _wheelNotifier.stream,
+                  height: ConfigSize.defaultSize! * 10,
+                  physics: DirectionalPanPhysics.horizontal(),
+                  animateFirst: false, //start animation when open screen
+                  onAnimationEnd: () {
+                    setState(() {
+                      animationEnded = true;
+                      Timer.periodic(
+                        const Duration(seconds: 1), (Timer timer) {
+                        if (start == 0) {
+                          setState(() {
+                            timer.cancel();
+                            isTimerFinished = true;
+                            Navigator.pop(context);
+                          });
+                        } else {
+                          if(mounted){
+                            setState(() {
+                              start--;
+                            });
+                          }
+                        }
+                      },
+                      );
+                    });
+                  },
+                  items: [
+                    for (var it in widget.items.values) FortuneItem(
+                        child: Container(
+                          color: Colors.transparent,
+                          child: Column(
+                            children: [
+                              UserImage(image: it.image),
+                              const SizedBox(height: 5,),
+                              Text(it.name),
+                            ],
+                          ),
+                        ),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-            if(animationEnded) Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  bottomDailog(
-                      context: context,
-                      widget: GiftScreen(
-                        roomData: widget.room,
-                        userId: LuckyDrawGameScreen.userSelected[_wheelNotifier.value]!.userId.toString(),
-                        myDataModel: MyDataModel.getInstance(),
-                        userImage: LuckyDrawGameScreen.userSelected[_wheelNotifier.value]!.image,
-                        listAllUsers: null,
-                        isSingleUser: true,
-                      ));
-                },
-                child:  Image.asset(AssetsPath.sendGiftIconProfile, scale: 2,),
+                  if(animationEnded) Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        bottomDailog(
+                            context: context,
+                            widget: GiftScreen(
+                              roomData: widget.room,
+                              userId: widget.items[widget.id]!.userId.toString(),
+                              myDataModel: MyDataModel.getInstance(),
+                              userImage: widget.items[widget.id]!.image,
+                              listAllUsers: null,
+                              isSingleUser: true,
+                            ));
+                      },
+                      child:  Image.asset(AssetsPath.sendGiftIconProfile, scale: 2,),
+                    ),
+                  ),
+                ]
               ),
             ),
-          ]
-        ),
+          ),
+        ],
       ),
     );
   }

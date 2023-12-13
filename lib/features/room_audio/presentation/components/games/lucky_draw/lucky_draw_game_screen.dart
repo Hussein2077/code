@@ -1,15 +1,20 @@
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/selection_widget.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class LuckyDrawGameScreen extends StatefulWidget {
-  const LuckyDrawGameScreen({super.key});
+  EnterRoomModel room;
+  LuckyDrawGameScreen({super.key, required this.room});
 
   @override
   State<LuckyDrawGameScreen> createState() => _LuckyDrawGameScreenState();
@@ -20,15 +25,12 @@ class LuckyDrawGameScreen extends StatefulWidget {
 class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
 
   List<String> chooises = [StringManager.usersOnMic.tr(), StringManager.usersInRoom.tr()];
-  List<String> numbers = ["1"];
 
   int selected1 = -1;
-  int selected2 = -1;
 
   @override
   void initState() {
     LuckyDrawGameScreen.userSelected.clear();
-    print(RoomScreen.userOnMics.toString());
     super.initState();
   }
 
@@ -79,11 +81,9 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: (){
-
                             if(index == 0){
-
                               for(int i =0 ; i < RoomScreen.userOnMics.value.length; i++) {
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(i,
+                                LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(RoomScreen.userOnMics.value[i]!.id),
                                         () => SelecteUsers(
                                           userId: RoomScreen.userOnMics.value[i]?.id ?? "",
                                           selected: true,
@@ -93,11 +93,9 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                                 );
 
                               }
-
                             } else{
-
                               for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteUsers(
+                                LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(ZegoUIKit().getAllUsers()[i].id), () => SelecteUsers(
                                     userId: ZegoUIKit().getAllUsers()[i].id,
                                     selected: true,
                                     name: ZegoUIKit().getAllUsers()[i].name,
@@ -106,7 +104,6 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                                 );
                               }
                             }
-
                             setState(() {
                               selected1 = index;
                             });
@@ -122,32 +119,6 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                       padding: EdgeInsets.zero,
                       itemCount: chooises.length
                   ),
-
-                  const SizedBox(height: 10),
-
-                  Text(StringManager.numberOfLuckyUsers.tr(), style: TextStyle(color: const Color.fromRGBO(149, 72, 72, 1), fontSize: ConfigSize.defaultSize! * 2),),
-
-                  const SizedBox(height: 10),
-
-                  ListView.separated(
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: (){
-                            setState(() {
-                              selected2 = index;
-                            });
-                          },
-                          child: SelectionWidget(chooises: numbers, index: index, selected: (selected2 == index)),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 10);
-                      },
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      itemCount: numbers.length
-                  ),
                 ],
               ),
             ),
@@ -159,17 +130,32 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
               Image.asset(AssetsPath.luckyDrawGameBottom, scale: .9,),
               InkWell(
                 onTap: (){
-                  if(selected1 != -1 && selected2 != -1){
-                    ZegoUIKit.instance.sendInRoomMessage(StringManager.luckyDrawGameKey+" ", );
+                  if(selected1 != -1){
+                    int winner = Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length);
+                    List<int> mapKeysList = LuckyDrawGameScreen.userSelected.keys.toList();
+                    ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
+                        winner,
+                        selected1,
+                        mapKeysList[winner]
+                    ), []);
                     Navigator.pop(context);
-                  }else{
-
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return CommentBody(
+                            items: sortMapByKey(LuckyDrawGameScreen.userSelected),
+                            winner: winner,
+                            room: widget.room,
+                            id: mapKeysList[winner],
+                          );
+                        });
                   }
                 },
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    selected1 != -1 && selected2 != -1? Image.asset(AssetsPath.spinWheelGameBtnIcon, scale: .65,) : Image.asset(AssetsPath.luckyDrawGameGrayBtn, scale: .95,),
+                    selected1 != -1? Image.asset(AssetsPath.spinWheelGameBtnIcon, scale: .65,) : Image.asset(AssetsPath.luckyDrawGameGrayBtn, scale: .95,),
                     Text(StringManager.start.tr(), style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: ConfigSize.defaultSize! * 2),),
                   ],
                 ),
@@ -179,6 +165,21 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
         ],
       ),
     );
+  }
+  String getMessagaRealTime(int winner, int index, int id){
+    var mapInformation = {"messageContent":{
+      "message": "luckyDraw",
+      "winner": winner,
+      "index": index,
+      "id": id,
+    }};
+    String map = jsonEncode(mapInformation);
+    return map ;
+  }
+  Map<int, SelecteUsers> sortMapByKey(Map<int, SelecteUsers> inputMap) {
+    List<MapEntry<int, SelecteUsers>> entries = inputMap.entries.toList();
+    entries.sort((a, b) => a.key.compareTo(b.key));
+    return Map.fromEntries(entries);
   }
 }
 
