@@ -68,7 +68,6 @@ class _InputWidgetState extends State<InputWidget> {
                       setState(() {});
                     },
                     onSubmitted: (text) {
-                      SpinWheelGameScreen.peoples.add(text);
                     },
                     maxLines: 1,
                     hintColor: const Color.fromRGBO(149, 159, 225, 1),

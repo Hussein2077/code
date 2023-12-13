@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/input_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
@@ -22,6 +23,7 @@ class _FreePlayBodyState extends State<FreePlayBody> {
 
   @override
   void initState() {
+    SpinWheelGameScreen.peoples.clear();
     SpinWheelGameScreen.textFieldWidget = [InputWidget(), InputWidget()];
     SpinWheelGameScreen.textFieldValues.clear();
     SpinWheelGameScreen.textFieldValues.putIfAbsent(0, () => "");
@@ -151,14 +153,25 @@ class _FreePlayBodyState extends State<FreePlayBody> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.pop(context);
-                              bottomDailog(
-                                  context: context,
-                                  widget: SpinScreen(
-                                    list: SpinWheelGameScreen.peoples,
-                                    isActive: isActive,
-                                    isFree: true,
-                                  ));
+                              SpinWheelGameScreen.textFieldValues.forEach((key, value) {
+                                SpinWheelGameScreen.peoples.add(value);
+
+                              });
+                              if (SpinWheelGameScreen.peoples.length<2){
+                                errorToast(context: context, title: StringManager.pleaseAcceptTheRegulations.tr());
+                              }else {
+                                Navigator.pop(context);
+
+                                bottomDailog(
+                                    context: context,
+                                    widget: SpinScreen(
+                                      list: SpinWheelGameScreen.peoples,
+                                      isActive: isActive,
+                                      isFree: true,
+                                    ));
+                              }
+
+
                             },
                             child: Stack(
                               alignment: Alignment.center,

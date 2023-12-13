@@ -549,6 +549,8 @@ class StringManager {
   static const String wait = "Wait For Product Data";
   static const String viewProfile = "View Profile";
   static const String changeThemeApproval ="Do you approve to change this theme for ";
+  static const String pleaseAddAtLeastTwoValue = "Please Add At Least Two Value";
+
 
 
 

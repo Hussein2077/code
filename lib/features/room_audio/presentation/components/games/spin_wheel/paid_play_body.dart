@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
@@ -27,6 +28,8 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
 
   @override
   void initState() {
+    SpinWheelGameScreen.peoples.clear();
+
     controller = TextEditingController();
     super.initState();
   }
@@ -186,7 +189,10 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                         children: [
                           InkWell(
                             onTap: () {
-                              if(SpinWheelGameScreen.peoplesId.isNotEmpty){
+
+                              if (SpinWheelGameScreen.peoplesId.length<2){
+                                errorToast(context: context, title: StringManager.pleaseAddAtLeastTwoValue.tr());
+                              }else {
                                 BlocProvider.of<GameBloc>(context).add(InviteToGameNew(inviteToGamePramiter: InviteToGameNewPramiter(
                                     ownerId: widget.roomData.ownerId.toString(),
                                     game_id: "3",
@@ -195,6 +201,7 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                                     round_num: 1
                                 )));
                               }
+
                             },
                             child: Stack(
                               alignment: Alignment.center,
