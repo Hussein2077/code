@@ -170,12 +170,14 @@ class _CommentBodyState extends State<CommentBody> {
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
                           onTap: () {
+                            log(widget.id.toString());
+                            log(widget.items[widget.id]!.userId.toString());
+                            log(widget.items[widget.id]!.image.toString());
                             bottomDailog(
                                 context: context,
                                 widget: GiftScreen(
                                   roomData: widget.room,
-                                  userId: widget.items[widget.id]!.userId
-                                      .toString(),
+                                  userId: widget.items[widget.id]!.userId.toString(),
                                   myDataModel: MyDataModel.getInstance(),
                                   userImage: widget.items[widget.id]!.image,
                                   listAllUsers: null,
