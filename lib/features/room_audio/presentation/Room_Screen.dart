@@ -1022,7 +1022,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 //  ZegoMenuBarButtonName.soundEffectButton,
               ],
               hostExtendButtons: [
-
                 const SpeakerButton(),
                 GiftButton(
                   listAllUsers: ZegoUIKit().getAllUsers(),
