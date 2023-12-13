@@ -18,8 +18,8 @@ import 'dart:async';
 class CommentBody extends StatefulWidget {
   EnterRoomModel room;
   Map<int,SelecteUsers> items;
-  int id;
   int winner;
+  int id;
   CommentBody({super.key, required this.room, required this.items, required this.winner, required this.id});
 
   @override

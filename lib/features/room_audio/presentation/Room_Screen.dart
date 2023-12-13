@@ -675,6 +675,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
   }
 
+  Map<int, SelecteUsers> sortMapByKey(Map<int, SelecteUsers> inputMap) {
+    List<MapEntry<int, SelecteUsers>> entries = inputMap.entries.toList();
+    entries.sort((a, b) => a.key.compareTo(b.key));
+    return Map.fromEntries(entries);
+  }
+
 //massages
   Future<void> onInRoomCommandReceived(ZegoInRoomCommandReceivedData commandData) async {
     Map<String, dynamic> result = jsonDecode(commandData.command);
@@ -970,10 +976,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             barrierDismissible: false,
             builder: (context) {
               return CommentBody(
-                items: LuckyDrawGameScreen.userSelected,
+                items: sortMapByKey(LuckyDrawGameScreen.userSelected),
                 winner: result[messageContent]["winner"],
-                id: result[messageContent]["id"],
                 room: widget.room,
+                id: result[messageContent]["id"],
               );
             });
       }
