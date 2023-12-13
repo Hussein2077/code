@@ -932,7 +932,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
            ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameResultKey} ${result[messageContent]["message_content"]}", );
           }else if(result[messageContent]['game_id'].toString() == "2"){
             ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}", );
-          }else if(result[messageContent]['game_id'].toString() == "3"){
+          }
+        }
+        if(result[messageContent]['game_owner'].toString() == MyDataModel.getInstance().id.toString()){
+          if(result[messageContent]['game_id'].toString() == "3"){
             ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${result[messageContent]["message_content"]}", );
           }
         }
