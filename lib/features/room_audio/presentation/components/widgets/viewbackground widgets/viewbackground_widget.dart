@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
@@ -134,20 +135,28 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
       //height: ConfigSize.defaultSize! * 92.5,
     ),
     Container(
-      padding: const EdgeInsets.all(5),
-      margin: EdgeInsets.only(
-          top: ConfigSize.defaultSize!,
-          left: MediaQuery.of(context).size.width / 2.5),
-      decoration: BoxDecoration(color: Colors.white.withOpacity(0.5), borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
-        child:    StreamBuilder<int>(
-    stream: getIt<CounterBloc>().counterStream,
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        return Text(Methods.instance.formatSecondsTime(snapshot.data??0));
-      }
-      return Text(Methods.instance.formatSecondsTime(getIt<CounterBloc>().counter));
-    },
-        ),
+      padding: const EdgeInsets.all(2),
+          margin: EdgeInsets.only(
+              top: ConfigSize.defaultSize!,
+              left: MediaQuery.of(context).size.width / 2.355),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+          ),
+          child: StreamBuilder<int>(
+            stream: getIt<CounterBloc>().counterStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(
+                  Methods.instance.formatSecondsTime(snapshot.data ?? 0),
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w700),
+                );
+              }
+              return Text(Methods.instance
+                  .formatSecondsTime(getIt<CounterBloc>().counter));
+            },
+          ),
         ),
         Align(
             alignment: Alignment.bottomLeft,
