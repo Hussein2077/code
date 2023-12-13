@@ -96,7 +96,7 @@ class _SpinScreenState extends State<SpinScreen> {
                           widget.list.remove(widget.list[_wheelNotifier.value]);
                         });
                       }
-                      ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKeyyy} ${widget.list[_wheelNotifier.value]}",);
+                      ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${widget.list[_wheelNotifier.value]}",);
                     },
                     items: [
                       for (var it in widget.list) FortuneItem(child: Text(it), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(it), widget.list.length))),
