@@ -211,9 +211,6 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-
-
-
   void showReelDynamicLink({String? reelId}) {
     MainScreen.reelId = reelId ?? '';
     SplashScreen.initPage = 1;
