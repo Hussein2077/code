@@ -11,7 +11,7 @@ class PayBloc extends Bloc<PayEvent, payState> {
 
     on<PayNow>((event, emit) async {
       emit(payLoadingState());
-      final result = await payUsecase.pay(message: event.message, type: event.type);
+      final result = await payUsecase.pay(message: event.message, type: event.type, token: event.token);
       result.fold((l) => emit(paySucssesState(massege: l)),
               (r) => emit(payErrorState(massege: DioHelper().getTypeOfFailure(r))));
     });

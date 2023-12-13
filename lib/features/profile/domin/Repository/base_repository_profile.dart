@@ -212,6 +212,6 @@ abstract class BaseRepositoryProfile {
   
   Future<Either<List<UserDataModel>, Failure>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
   Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport(String date);
-  Future<Either<String, Failure>> pay({required String message, required String type});
+  Future<Either<String, Failure>> pay({required String message, required String type, required String token});
 
 }

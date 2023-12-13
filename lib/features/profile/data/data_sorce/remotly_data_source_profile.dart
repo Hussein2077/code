@@ -187,7 +187,7 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<bool> activeNotification();
   Future<List<UserDataModel>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
   Future<FixedTargetReportModel> getFixedTargetReport(String date);
-  Future<String> pay({required String message, required String type});
+  Future<String> pay({required String message, required String type, required String token});
 
 }
 
@@ -2136,15 +2136,16 @@ isVisit: isVisit,
   }
 
   @override
-  Future<String> pay({required String message, required String type})async {
+  Future<String> pay({required String message, required String type, required String token})async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
       final response = await Dio().post(
         ConstentApi.pay,
         data: {
-          "message": message,
-          "type": type
+          "product_id": message,
+          "type": type,
+          "purchase_token": type,
         },
         options: Options(
           headers: headers,
