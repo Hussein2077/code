@@ -364,7 +364,6 @@ GamesInRoom checkMeesageType (String message) {
 
     return GamesInRoom.luckyGiftComment ;
   }else if (message.contains(StringManager.diceGameResultKey)){
-  log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     return GamesInRoom.dicGameResult ;
   }else if  (message.contains(StringManager.rpsGameResultKey)){
 
