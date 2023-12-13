@@ -89,15 +89,21 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       ConstentApi.password: authPramiter.password,
        'device_token':devicedata
       };
+  Map<String, String> headers = await DioHelper().header();
 
-    try {
+  try {
       final response = await Dio().post(
+        options: Options(
+            headers:headers
+        ),
         ConstentApi.loginUrl,
         data: body,
       );
       Map<String, dynamic> jsonData = response.data;
+
       MyDataModel userData = MyDataModel.fromMap(jsonData['data']);
       Methods.instance.saveUserToken(authToken: userData.authToken);
+
       return userData;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:"loginWithPassAndPhone");

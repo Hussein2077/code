@@ -261,14 +261,14 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
     }else{
 
 
-      BlocProvider.of<PKBloc>(GlobalContextService.navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
-      BlocProvider.of<PKBloc>(GlobalContextService.navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
+      BlocProvider.of<PKBloc>(navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
+      BlocProvider.of<PKBloc>(navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
     }
   }
 
   if(context.mounted){      Methods.instance.hostTimeOnMic(context:context);
   }else{
-    Methods.instance.hostTimeOnMic(context:GlobalContextService.navigatorKey.currentContext!);
+    Methods.instance.hostTimeOnMic(context:navigatorKey.currentContext!);
 
   }
   PkController.timeMinutePK = 0;

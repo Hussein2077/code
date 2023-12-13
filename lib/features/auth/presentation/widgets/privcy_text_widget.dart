@@ -26,7 +26,7 @@ class PrivacyAndServiceTextWidget extends StatelessWidget {
     );
 
     return Container(
-      padding: EdgeInsets.all(ConfigSize.defaultSize! * 2),
+      padding: EdgeInsets.only(bottom: ConfigSize.defaultSize!),
       child: Column(
         children: [
           Row(
