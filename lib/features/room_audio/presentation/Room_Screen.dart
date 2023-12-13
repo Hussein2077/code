@@ -873,7 +873,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      return AllUsersSpinView(list: result[messageContent]['palyersName'], winner: int.parse(result[messageContent]['randomNumber']),);
+                      return AllUsersSpinView(list: result[messageContent]['palyersName'], winner: result[messageContent]['randomNumber'],);
                     });
               }
             }

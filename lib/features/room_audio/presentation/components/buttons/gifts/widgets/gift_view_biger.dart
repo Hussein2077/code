@@ -84,12 +84,10 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
                   }
                 },
                 child: Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: ConfigSize.defaultSize!,
-                        vertical: ConfigSize.defaultSize! - 2),
+
                     decoration: BoxDecoration(
                       borderRadius:
-                      BorderRadius.circular(ConfigSize.defaultSize!),
+                      BorderRadius.circular( AppPadding.p6),
                       border: Border.all(
                         color: (GiftScreen.numOfGift == index)
                             ? ColorManager.orangeRed
@@ -98,84 +96,87 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
                     ),
                     child: Stack(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            (GiftScreen.numOfGift == index
-                                //  && currentPageView == i
-                            )
-                                ? Container(
-                              color: Colors.black87,
-                              padding: EdgeInsets.only(
-                                  top: ConfigSize.defaultSize! * 0),
+                        (GiftScreen.numOfGift == index
+                            //  && currentPageView == i
+                        )
+                            ? Center(
+                              child: Container(
+                          color: Colors.black87,
+                          padding: EdgeInsets.only(
+                                top: ConfigSize.defaultSize! * 0),
 
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      AppPadding.p6),
-                                  child: CachedNetworkImage(
-                                    width: ConfigSize.defaultSize! * 6,
-                                    height: ConfigSize.defaultSize! * 6,
-                                    fit: BoxFit.contain,
-                                    imageUrl: ConstentApi()
-                                        .getImage(widget.data[index].img),
-                                    placeholder: (context, url) =>
-                                        Shimmer.fromColors(
-                                          baseColor: Colors.grey[850]!,
-                                          highlightColor: Colors.grey[800]!,
-                                          child: Container(
-                                            height: 170.0,
-                                            width: 120.0,
-                                            decoration: BoxDecoration(
-                                              color: Colors.black,
-                                              borderRadius:
-                                              BorderRadius.circular(8.0),
-                                            ),
+                          child: ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    AppPadding.p6),
+                                child: CachedNetworkImage(
+                                  width: ConfigSize.defaultSize! * 6,
+                                  height: ConfigSize.defaultSize! * 6,
+                                  fit: BoxFit.contain,
+                                  imageUrl: ConstentApi()
+                                      .getImage(widget.data[index].img),
+                                  placeholder: (context, url) =>
+                                      Shimmer.fromColors(
+                                        baseColor: Colors.grey[850]!,
+                                        highlightColor: Colors.grey[800]!,
+                                        child: Container(
+                                          height: 170.0,
+                                          width: 120.0,
+                                          decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                            BorderRadius.circular(8.0),
                                           ),
                                         ),
-                                    errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                                  )),
+                                      ),
+                                  errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                                )),
+                        ),
                             )
-                                : Container(
-                              color: Colors.black87,
-                              padding: EdgeInsets.only(
-                                  top: ConfigSize.defaultSize! * 0),
+                            : Center(
+                              child: Container(
+                          color: Colors.black87,
+                          padding: EdgeInsets.only(
+                                top: ConfigSize.defaultSize! * 0),
 
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      AppPadding.p6),
-                                  child: CachedNetworkImage(
-                                    width: ConfigSize.defaultSize! * 6,
-                                    height: ConfigSize.defaultSize! * 6,
-                                    fit: BoxFit.contain,
-                                    imageUrl: ConstentApi()
-                                        .getImage(widget.data[index].img),
-                                    placeholder: (context, url) =>
-                                        Shimmer.fromColors(
-                                          baseColor: Colors.grey[850]!,
-                                          highlightColor: Colors.grey[800]!,
-                                          child: Container(
-                                            height:
-                                            ConfigSize.defaultSize! * 17,
-                                            width:
-                                            ConfigSize.defaultSize! * 12,
-                                            decoration: BoxDecoration(
-                                              color: Colors.black,
-                                              borderRadius:
-                                              BorderRadius.circular(8.0),
-                                            ),
+                          child: ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    AppPadding.p6),
+                                child: CachedNetworkImage(
+                                  width: ConfigSize.defaultSize! * 6,
+                                  height: ConfigSize.defaultSize! * 6,
+                                  fit: BoxFit.contain,
+                                  imageUrl: ConstentApi()
+                                      .getImage(widget.data[index].img),
+                                  placeholder: (context, url) =>
+                                      Shimmer.fromColors(
+                                        baseColor: Colors.grey[850]!,
+                                        highlightColor: Colors.grey[800]!,
+                                        child: Container(
+                                          height:
+                                          ConfigSize.defaultSize! * 17,
+                                          width:
+                                          ConfigSize.defaultSize! * 12,
+                                          decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                            BorderRadius.circular(8.0),
                                           ),
                                         ),
-                                    errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                                  )),
+                                      ),
+                                  errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                                )),
+                        ),
                             ),
-                            SizedBox(
-                              height: ConfigSize.defaultSize! * 0.0,
-                            ),
-                            Row(
+
+                        Padding(
+                          padding:  EdgeInsets.only(bottom: ConfigSize.defaultSize!*0.2),
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 ClipRRect(
                                   borderRadius:
@@ -183,20 +184,24 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
                                   child: Image.asset(
                                     AssetsPath.goldCoinIcon,
                                     width: AppPadding.p12,
-                                    height: AppPadding.p12,
+
                                   ),
                                 ),
-
+                                SizedBox(
+                                  width: 5,
+                                ),
                                 Text(
                                   widget.data[index].price.toString(),
                                   style: TextStyle(
+                                      height:0.3 ,
+
                                       color: Colors.white,
                                       fontSize: AppPadding.p12,
                                       fontWeight: FontWeight.w600),
                                 )
                               ],
                             ),
-                          ],
+                          ),
                         ),
                         if (!checkPermissionGift(
                             myLevel: widget.myData.vip1?.level == null
@@ -239,16 +244,21 @@ class PageViewGeftWidgetState extends State<PageViewGeftWidget>
                             alignment: Alignment.topLeft,
                             child: Image.asset(
                               AssetsPath.globalIcon,
-                              scale: 2,
+                              scale: 3,
                             ),
                           ),
                         if (widget.data[index].musicGift == 1)
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Image.asset(
-                              AssetsPath.music2,
-                              scale: 1.5,
-                              color: Colors.grey,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              right: 10
+                            ),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: Image.asset(
+                                AssetsPath.music2,
+                                scale: 2,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
                       ],
