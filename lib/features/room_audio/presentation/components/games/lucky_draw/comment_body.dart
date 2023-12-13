@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:rxdart/rxdart.dart';
+import 'dart:async';
 
 class CommentBody extends StatefulWidget {
   EnterRoomModel room;
@@ -28,6 +29,8 @@ class _CommentBodyState extends State<CommentBody> {
   String selectedItem = "";
   bool animationEnded = false;
 
+  bool isTimerFinished = false;
+  int start = 10;
 
   @override
   void initState() {
@@ -43,102 +46,126 @@ class _CommentBodyState extends State<CommentBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: ConfigSize.defaultSize! * 3,
-          top: ConfigSize.defaultSize! - 4,
-          bottom: ConfigSize.defaultSize! - 4,
-          right: ConfigSize.defaultSize! - 4),
-      child: Container(
-        width: ConfigSize.defaultSize! * 25,
-        height: ConfigSize.defaultSize! * 25,
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(.5),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(StringManager.result.tr(),
-              style: const TextStyle(
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                blurRadius: 5,
-                color: Colors.red,
-                offset: Offset(2, 2),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Container(
+              width: ConfigSize.defaultSize! * 25,
+              height: ConfigSize.defaultSize! * 30,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(.5),
+                borderRadius: BorderRadius.circular(5),
               ),
-                    Shadow(
-                blurRadius: 5,
-                color: Colors.red,
-                offset: Offset(-2, -2),
-              ),
-                    Shadow(
-                blurRadius: 5,
-                color: Colors.red,
-                offset: Offset(2, -2),
-              ),
-                    Shadow(
-                blurRadius: 5,
-                color: Colors.red,
-                offset: Offset(-2, 2),
-              ),
-                  ],
-                  fontSize: 20
-              ),
-            ),
-
-        Text("Participants: ${widget.items.length}", style: TextStyle(color: Colors.white),),
-            Text("Lucky Users: 1", style: TextStyle(color: Colors.white),),
-
-        SizedBox(
-          width: ConfigSize.defaultSize! * 18,
-          child: FortuneBar(
-            selected: _wheelNotifier.stream,
-            height: ConfigSize.defaultSize! * 10,
-            physics: DirectionalPanPhysics.horizontal(),
-            animateFirst: false, //start animation when open screen
-            onAnimationEnd: () {
-              setState(() {
-                animationEnded = true;
-              });
-            },
-            items: [
-              for (var it in widget.items.values) FortuneItem(
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Column(
-                      children: [
-                        UserImage(image: it.image),
-                        const SizedBox(height: 5,),
-                        Text(it.name),
-                      ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(StringManager.result.tr(),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                      blurRadius: 5,
+                      color: Colors.red,
+                      offset: Offset(2, 2),
+                    ),
+                          Shadow(
+                      blurRadius: 5,
+                      color: Colors.red,
+                      offset: Offset(-2, -2),
+                    ),
+                          Shadow(
+                      blurRadius: 5,
+                      color: Colors.red,
+                      offset: Offset(2, -2),
+                    ),
+                          Shadow(
+                      blurRadius: 5,
+                      color: Colors.red,
+                      offset: Offset(-2, 2),
+                    ),
+                        ],
+                        fontSize: 20
                     ),
                   ),
+
+                  Text("Time Remains: ${start.toString()}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: ConfigSize.defaultSize! * 1.3),),
+
+              Text("Participants: ${widget.items.length}", style: TextStyle(color: Colors.white),),
+                  Text("Lucky Users: 1", style: TextStyle(color: Colors.white),),
+
+              SizedBox(
+                width: ConfigSize.defaultSize! * 18,
+                child: FortuneBar(
+                  selected: _wheelNotifier.stream,
+                  height: ConfigSize.defaultSize! * 10,
+                  physics: DirectionalPanPhysics.horizontal(),
+                  animateFirst: false, //start animation when open screen
+                  onAnimationEnd: () {
+                    setState(() {
+                      animationEnded = true;
+                      Timer.periodic(
+                        const Duration(seconds: 1), (Timer timer) {
+                        if (start == 0) {
+                          setState(() {
+                            timer.cancel();
+                            isTimerFinished = true;
+                            Navigator.pop(context);
+                          });
+                        } else {
+                          if(mounted){
+                            setState(() {
+                              start--;
+                            });
+                          }
+                        }
+                      },
+                      );
+                    });
+                  },
+                  items: [
+                    for (var it in widget.items.values) FortuneItem(
+                        child: Container(
+                          color: Colors.transparent,
+                          child: Column(
+                            children: [
+                              UserImage(image: it.image),
+                              const SizedBox(height: 5,),
+                              Text(it.name),
+                            ],
+                          ),
+                        ),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-            if(animationEnded) Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  bottomDailog(
-                      context: context,
-                      widget: GiftScreen(
-                        roomData: widget.room,
-                        userId: widget.items[_wheelNotifier.value]!.userId.toString(),
-                        myDataModel: MyDataModel.getInstance(),
-                        userImage: widget.items[_wheelNotifier.value]!.image,
-                        listAllUsers: null,
-                        isSingleUser: true,
-                      ));
-                },
-                child:  Image.asset(AssetsPath.sendGiftIconProfile, scale: 2,),
+                  if(animationEnded) Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        bottomDailog(
+                            context: context,
+                            widget: GiftScreen(
+                              roomData: widget.room,
+                              userId: widget.items[_wheelNotifier.value]!.userId.toString(),
+                              myDataModel: MyDataModel.getInstance(),
+                              userImage: widget.items[_wheelNotifier.value]!.image,
+                              listAllUsers: null,
+                              isSingleUser: true,
+                            ));
+                      },
+                      child:  Image.asset(AssetsPath.sendGiftIconProfile, scale: 2,),
+                    ),
+                  ),
+                ]
               ),
             ),
-          ]
-        ),
+          ),
+        ],
       ),
     );
   }

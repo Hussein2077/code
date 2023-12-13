@@ -41,7 +41,7 @@ class ActivityGamesDialog extends StatelessWidget {
           name: StringManager.luckyPull.tr(),
           onTap: () {
             Navigator.pop(context);
-            bottomDailog(context: context, widget: const LuckyDrawGameScreen());
+            bottomDailog(context: context, widget: LuckyDrawGameScreen(room: roomData,));
           }),
       gamesColumn(
           image: AssetsPath.turntableIcon,

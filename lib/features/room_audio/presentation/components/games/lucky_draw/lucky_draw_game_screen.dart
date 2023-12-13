@@ -6,12 +6,15 @@ import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/selection_widget.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class LuckyDrawGameScreen extends StatefulWidget {
-  const LuckyDrawGameScreen({super.key});
+  EnterRoomModel room;
+  LuckyDrawGameScreen({super.key, required this.room});
 
   @override
   State<LuckyDrawGameScreen> createState() => _LuckyDrawGameScreenState();
@@ -78,6 +81,29 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: (){
+                            if(index == 0){
+                              for(int i =0 ; i < RoomScreen.userOnMics.value.length; i++) {
+                                LuckyDrawGameScreen.userSelected.putIfAbsent(i,
+                                        () => SelecteUsers(
+                                          userId: RoomScreen.userOnMics.value[i]?.id ?? "",
+                                          selected: true,
+                                          name: RoomScreen.userOnMics.value[i]?.name?? "",
+                                          image: RoomScreen.userOnMics.value[i]?.inRoomAttributes.value['img']?? "",
+                                        ),
+                                );
+
+                              }
+                            } else{
+                              for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
+                                LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteUsers(
+                                    userId: ZegoUIKit().getAllUsers()[i].id,
+                                    selected: true,
+                                    name: ZegoUIKit().getAllUsers()[i].name,
+                                    image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
+                                ),
+                                );
+                              }
+                            }
                             setState(() {
                               selected1 = index;
                             });
@@ -111,6 +137,16 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                         selected1
                     ), []);
                     Navigator.pop(context);
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return CommentBody(
+                            items: LuckyDrawGameScreen.userSelected,
+                            winner: winner,
+                            room: widget.room,
+                          );
+                        });
                   }
                 },
                 child: Stack(
