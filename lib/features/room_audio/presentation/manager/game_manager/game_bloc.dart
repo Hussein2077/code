@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/game_result_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/other_side_game_action_new.dart';
@@ -19,14 +20,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   SendGameChoiseUC sendGameChoiseUC;
   InviteToGameNewUC inviteToGameNewUC;
   OtherSideGameActionNewUC otherSideGameActionNewUC;
+  GameResultUC gameResultUC;
 
-  GameBloc({required this.inviteToGameUC, required this.cancelGameUC, required this.startGameUC, required this.sendGameChoiseUC, required this.inviteToGameNewUC, required this.otherSideGameActionNewUC}) : super(GameInitial()) {
+  GameBloc({required this.inviteToGameUC, required this.cancelGameUC, required this.startGameUC, required this.sendGameChoiseUC, required this.inviteToGameNewUC, required this.otherSideGameActionNewUC, required this.gameResultUC}) : super(GameInitial()) {
     on<InviteToGame>(inviteToGame);
     on<CancelGame>(cancelGame);
     on<StartGame>(startGame);
     on<SendGameChoise>(sendGameChoise);
     on<InviteToGameNew>(inviteToGameNew);
     on<OtherPlayerAction>(otherPlayerAction);
+    on<GameResult>(gameResult);
   }
 
   FutureOr<void> inviteToGame(InviteToGame event, emit) async {
@@ -95,6 +98,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
     result.fold((l) => emit(OtherPlayerActionSuccessState(message: l)),
             (r) => emit(OtherPlayerActionErrorState(error: DioHelper().getTypeOfFailure(r))));
+
+  }
+
+  FutureOr<void> gameResult(GameResult event, emit) async {
+    emit(StartGameLoadingState());
+    final result = await gameResultUC.call(GameResultPramiter(
+      gameId: event.gameResultPramiter.gameId,
+      answer: event.gameResultPramiter.answer,
+      round: event.gameResultPramiter.round,
+    ));
+    result.fold((l) => emit(GameResultSuccessState(message: l)),
+            (r) => emit(GameResultErrorState(error: DioHelper().getTypeOfFailure(r))));
 
   }
 }

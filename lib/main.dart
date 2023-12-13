@@ -74,7 +74,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_fixed_targ
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_follwers_or_following_manger/bloc/get_follower_or_following_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/in_app_purchase_manager/in_app_purchase_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
@@ -119,6 +118,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_cen
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/my_bag_manager/my_bag_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
@@ -499,7 +499,7 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<GetUsersInRoomBloc>(),
         ),
         BlocProvider(
-          create: (context) => getIt<InAppPurchaseBloc>(),
+          create: (context) => getIt<PayBloc>(),
         ),
         BlocProvider(create: (_) => getIt<GetMomentallBloc>()),
         BlocProvider(create: (_) => getIt<GetGroupMassageBloc>()),

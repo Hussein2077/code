@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/game_result_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/other_side_game_action_new.dart';
@@ -52,4 +53,11 @@ class OtherPlayerAction extends GameEvent{
   final OtherSideGameActionNewPramiter otherSideGameActionNewPramiter;
 
   OtherPlayerAction({required this.otherSideGameActionNewPramiter});
+}
+
+class GameResult extends GameEvent{
+
+  final GameResultPramiter gameResultPramiter;
+
+  GameResult({required this.gameResultPramiter});
 }

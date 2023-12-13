@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dar
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/ban_user_from_writing_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/cancel_game_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/enter_room.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/game_result_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_all_room_user_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/get_top_room.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
@@ -96,5 +97,6 @@ abstract class BaseRepositoryRoom {
 
   Future<Either<String,Failure>> inviteToGameNew(InviteToGameNewPramiter inviteToGamePramiter) ;
   Future<Either<String,Failure>> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGameActionNewPramiter) ;
+  Future<Either<String,Failure>> gameresult(GameResultPramiter gameResultPramiter) ;
 
 }

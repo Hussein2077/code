@@ -33,7 +33,6 @@ import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
-import 'package:tik_chat_v2/features/profile/data/model/in_app_purchase_mode.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
@@ -186,9 +185,10 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<ReelModel>> getUserReel(String? id, String page);
   Future<String> deleteMessage(String id);
   Future<bool> activeNotification();
-  Future<InAppPurchaseMode> inAppPurchase({required String user_id ,required String product_id});
   Future<List<UserDataModel>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
   Future<FixedTargetReportModel> getFixedTargetReport(String date);
+  Future<String> pay({required String message, required String type});
+
 }
 
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
@@ -2095,32 +2095,6 @@ isVisit: isVisit,
 
   }
 
-    @override
-  Future<InAppPurchaseMode> inAppPurchase({required String user_id, required String product_id}) async{
-
-    Map<String, String> headers = await DioHelper().header();
-
-    final body = {
-      'product_id': product_id,
-      'user_id': user_id
-      };
-    try {
-      final response = await Dio().post(
-        ConstentApi.inAppPurchase,
-        data: body,
-        options: Options(
-          headers: headers,
-        ),
-      );
-      Map<String, dynamic> resultData = response.data;
-      InAppPurchaseMode data = InAppPurchaseMode.fromJson(resultData);
-      return data;
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'InAppPurchase' );
-    }
-
-  }
-
   @override
   Future<List<UserDataModel>> getAllShippingAgents({required GetAllShippingAgentsPram pram}) async {
 
@@ -2159,5 +2133,32 @@ isVisit: isVisit,
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'FixedTargetReportModel');
     }
+  }
+
+  @override
+  Future<String> pay({required String message, required String type})async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.pay,
+        data: {
+          "message": message,
+          "type": type
+        },
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      log(resultData.toString() + "#####");
+
+      return resultData['message'];
+
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'pay');
+    }
+
   }
 }

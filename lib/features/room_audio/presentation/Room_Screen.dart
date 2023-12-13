@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 import 'dart:math';
-
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -21,6 +20,7 @@ import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/user_on_mic_model.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/game_result_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/basic_tool_button.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/emojie/emojie_button.dart';
@@ -832,7 +832,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       else if (result[messageContent][message] == "requestDiceGame") {
         if(result[messageContent]['game_id'].toString() == "3"){
           for(int i = 0; i < result[messageContent]['to_id'].length; i++ ){
-            if(result[messageContent]['to_id'][i].toString() == MyDataModel.getInstance().id.toString()) {
+            if(result[messageContent]['to_id'][i].toString() == MyDataModel.getInstance().id.toString() && result[messageContent]['to_id'][i].toString() != result[messageContent]['user_id'].toString()) {
               showDialog(
                   context: context,
                   barrierDismissible: false,
@@ -869,22 +869,27 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if (result[messageContent][message] == "requestResultFromOther") {
         if(result[messageContent]['game_id'].toString() == "3" && result[messageContent]['type'].toString() == "finished"){
+          BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter: GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(), answer: result[messageContent]['randomNumber'].toString(), round: '1')));
           if(result[messageContent]["player_owner"].toString() == MyDataModel.getInstance().id.toString()){
             Navigator.pop(context);
-            showDialog(
+            if(result[messageContent]['palyersIds'].length > 1) {
+              showDialog(
                 context: context,
                 builder: (context) {
-                  return SpinScreen(list: result[messageContent]['palyersName'], isActive: false, isFree: false, winner: int.parse(result[messageContent]['randomNumber']),);
+                  return SpinScreen(list: result[messageContent]['palyersName'], isActive: false, isFree: false, winner: result[messageContent]['randomNumber'],);
                 });
+            }
           }else{
-            for(int i = 0; i < result[messageContent]['palyersIds'].length; i++){
-              if(result[messageContent]['palyersIds'][i].toString() == MyDataModel.getInstance().id.toString()){
-                Navigator.pop(context);
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AllUsersSpinView(list: result[messageContent]['palyersName'], winner: int.parse(result[messageContent]['randomNumber']),);
-                    });
+            if(result[messageContent]['palyersIds'].length > 1) {
+              for(int i = 0; i < result[messageContent]['palyersIds'].length; i++){
+                if(result[messageContent]['palyersIds'][i].toString() == MyDataModel.getInstance().id.toString()){
+                  Navigator.pop(context);
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AllUsersSpinView(list: result[messageContent]['palyersName'], winner: result[messageContent]['randomNumber'],);
+                      });
+                }
               }
             }
           }
