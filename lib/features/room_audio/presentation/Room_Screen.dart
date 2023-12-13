@@ -972,6 +972,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               return CommentBody(
                 items: LuckyDrawGameScreen.userSelected,
                 winner: result[messageContent]["winner"],
+                id: result[messageContent]["id"],
                 room: widget.room,
               );
             });
