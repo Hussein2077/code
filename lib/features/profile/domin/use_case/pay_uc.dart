@@ -7,8 +7,8 @@ class PayUsecase {
   BaseRepositoryProfile baseRepositoryProfile;
   PayUsecase({required this.baseRepositoryProfile});
 
-  Future<Either<String, Failure>> pay({required String message, required String type}) async {
-    final result = await baseRepositoryProfile.pay(message: message, type: type);
+  Future<Either<String, Failure>> pay({required String message, required String type, required String token}) async {
+    final result = await baseRepositoryProfile.pay(message: message, type: type, token: token);
     return result;
   }
 }

@@ -5,10 +5,11 @@ abstract class PayEvent extends Equatable {}
 class PayNow extends PayEvent {
   final String message;
   final String type;
-  PayNow ({required this.message, required this.type});
+  final String token;
+  PayNow ({required this.message, required this.type, required this.token});
 
   @override
-  List<Object?> get props => [message, type];
+  List<Object?> get props => [message, type, token];
 
 
 }

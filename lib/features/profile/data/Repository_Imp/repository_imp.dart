@@ -1003,10 +1003,10 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<String, Failure>> pay({required String message, required String type}) async{
+  Future<Either<String, Failure>> pay({required String message, required String type, required String token}) async{
 
     try {
-      final result = await baseRemotlyDataSourceProfile.pay(message: message, type: type);
+      final result = await baseRemotlyDataSourceProfile.pay(message: message, type: type, token: token);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));
