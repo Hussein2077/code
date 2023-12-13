@@ -191,7 +191,7 @@ class _SpinScreenState extends State<SpinScreen> {
       "ownerId": ownerId,
       "winner": winner,
       "items": items,
-    }} ;
+    }};
     String map = jsonEncode(mapInformation);
     return map ;
   }
