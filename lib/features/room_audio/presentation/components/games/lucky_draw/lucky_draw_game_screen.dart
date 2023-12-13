@@ -135,6 +135,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                     List<int> mapKeysList = LuckyDrawGameScreen.userSelected.keys.toList();
                     ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
                         mapKeysList[winner],
+                        winner,
                         selected1
                     ), []);
                     Navigator.pop(context);
@@ -144,7 +145,8 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                         builder: (context) {
                           return CommentBody(
                             items: LuckyDrawGameScreen.userSelected,
-                            winner: mapKeysList[winner],
+                            id: mapKeysList[winner],
+                            winner: winner,
                             room: widget.room,
                           );
                         });
@@ -164,9 +166,10 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
       ),
     );
   }
-  String getMessagaRealTime(int winner, int index){
+  String getMessagaRealTime(int id, int winner, int index){
     var mapInformation = {"messageContent":{
       "message": "luckyDraw",
+      "id": id,
       "winner": winner,
       "index": index,
     }};

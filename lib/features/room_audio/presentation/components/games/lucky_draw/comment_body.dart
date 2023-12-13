@@ -18,8 +18,9 @@ import 'dart:async';
 class CommentBody extends StatefulWidget {
   EnterRoomModel room;
   Map<int,SelecteUsers> items;
+  int id;
   int winner;
-  CommentBody({super.key, required this.room, required this.items, required this.winner});
+  CommentBody({super.key, required this.room, required this.items, required this.winner, required this.id});
 
   @override
   State<CommentBody> createState() => _CommentBodyState();
@@ -149,14 +150,13 @@ class _CommentBodyState extends State<CommentBody> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        log(_wheelNotifier.value.toString());
                         bottomDailog(
                             context: context,
                             widget: GiftScreen(
                               roomData: widget.room,
-                              userId: widget.items[_wheelNotifier.value]!.userId.toString(),
+                              userId: widget.items[widget.id]!.userId.toString(),
                               myDataModel: MyDataModel.getInstance(),
-                              userImage: widget.items[_wheelNotifier.value]!.image,
+                              userImage: widget.items[widget.id]!.image,
                               listAllUsers: null,
                               isSingleUser: true,
                             ));
