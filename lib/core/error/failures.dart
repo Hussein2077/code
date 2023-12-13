@@ -30,3 +30,7 @@ class UnauthorizedFailure extends Failure {}
 
 
 class InternetFailure extends Failure {}
+class BanFailure extends Failure {
+  BanFailure({required String message}):super(errorMessage: message);
+
+}

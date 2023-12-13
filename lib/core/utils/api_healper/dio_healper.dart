@@ -20,12 +20,11 @@ class DioHelper {
 
     if (kDebugMode) {
       log(token + "######");
-
     }
     final devicedata = await initPlatformState();
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
-      "device": devicedata??'noToken',
+      "device": devicedata ?? 'noToken',
       "Accept": 'application/json',
       "X-localization": key,
     };
@@ -52,12 +51,11 @@ class DioHelper {
         return Strings.serverFailureMessage.tr();
       case UnauthorizedFailure:
         Navigator.pushNamedAndRemoveUntil(
-            GlobalContextService.navigatorKey.currentContext!,
+            navigatorKey.currentContext!,
             Routes.login,
             (Route<dynamic> route) => false,
             arguments: const LoginPramiter(
-                isLoginFromAnotherAccountAndBuildFailure:
-              false));
+                isLoginFromAnotherAccountAndBuildFailure: false));
 
         return Strings.unauthorizedFailureMassage.tr();
       case SiginGoogleFailure:
@@ -70,15 +68,36 @@ class DioHelper {
         return Strings.checkYourInternet.tr();
       case AnotherAccountMessageFailure:
         Navigator.pushNamedAndRemoveUntil(
-            GlobalContextService.navigatorKey.currentContext!,
+            navigatorKey.currentContext!,
             Routes.login,
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
             arguments: const LoginPramiter(
-                isLoginFromAnotherAccountAndBuildFailure:
-                true));
+                isLoginFromAnotherAccountAndBuildFailure: true));
         return Strings.anotherAccountLoggedIn.tr();
-       case SiginHuaweiFailure:
-        return Strings.signinHuaweiFailureMessage.tr() ;
+      case SiginHuaweiFailure:
+        return Strings.signinHuaweiFailureMessage.tr();
+      case BanFailure:
+        // log("ModalRoute.of(GlobalContextService.navigatorKey.currentContext!)?.settings.name${ModalRoute.of(GlobalContextService.navigatorKey.currentContext!)?.settings.name}");
+        // if(ModalRoute.of(GlobalContextService.navigatorKey.currentContext!)?.settings.name == null){
+        //   showDialog(
+        //       context: GlobalContextService.navigatorKey.currentContext!,
+        //       builder: (context) {
+        //         return PopUpDialog(
+        //           headerText:failure.errorMessage??"",
+        //           accpetText: () {
+        //             Navigator.pop(context);
+        //           },
+        //           accpettitle: StringManager.ok.tr(),
+        //         );
+        //       });
+        // }else{
+        //   Navigator.pushNamedAndRemoveUntil(
+        //       GlobalContextService.navigatorKey.currentContext!,
+        //       Routes.login,
+        //           (Route<dynamic> route) => false,
+        //       arguments:   LoginPramiter(isBaned: true,error:failure.errorMessage??"" ));
+        // }
+        return failure.errorMessage??"";
       default:
         return failure.errorMessage ?? StringManager.unexcepectedError.tr();
     }
@@ -100,12 +119,12 @@ class DioHelper {
         return InternetFailure();
       case AnotherAccountException:
         return AnotherAccountMessageFailure();
-      case SiginHuaweiException :
-        return SiginHuaweiFailure() ;
-        case ErrorModelException:
+      case SiginHuaweiException:
+        return SiginHuaweiFailure();
+      case ErrorModelException:
         return ErrorMessageFailure(message: e.errorMessage);
-
-
+      case BanException:
+        return BanFailure(message: e.errorMessage??"");
       default:
         return ErrorMessageFailure(message: e.toString());
     }
@@ -149,6 +168,8 @@ class DioHelper {
       //todo change this
       case 5555:
         throw AnotherAccountException();
+      case 501:
+        throw BanException.fromJson(response?.data);
       default:
         if (response?.data.runtimeType == String) {
           throw ErrorModelException(errorMessage: response!.data);

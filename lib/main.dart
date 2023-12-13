@@ -156,9 +156,9 @@ import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
-class GlobalContextService {
-  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-}
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -534,7 +534,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: lightTheme,
-              navigatorKey: GlobalContextService.navigatorKey,
+              navigatorKey: navigatorKey,
               // set property
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
@@ -548,7 +548,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: darkTheme,
-              navigatorKey: GlobalContextService.navigatorKey,
+              navigatorKey:navigatorKey,
               // set property
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
@@ -562,9 +562,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: theme == "dark" ? darkTheme : lightTheme,
-              navigatorKey: GlobalContextService.navigatorKey,
-              // set property
-
+              navigatorKey: navigatorKey,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               onGenerateRoute: RouteGenerator.getRoute,

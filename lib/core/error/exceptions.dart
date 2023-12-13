@@ -34,3 +34,11 @@ class SiginAppleException implements Exception {}
 class SiginHuaweiException implements Exception {}
 
 class InternetException implements Exception {}
+class BanException implements Exception {
+  final String errorMessage;
+
+  factory BanException.fromJson( Map<String,dynamic> json){
+    return BanException( json['message']);
+  }
+  BanException(this.errorMessage):super();
+}

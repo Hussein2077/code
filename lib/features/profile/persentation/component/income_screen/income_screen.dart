@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +17,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
+import 'package:tik_chat_v2/main.dart';
 
 class IncomeScreen extends StatefulWidget {
   const IncomeScreen({super.key});
@@ -31,12 +34,14 @@ class _IncomeScreenState extends State<IncomeScreen> {
   }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: BlocBuilder<GetMyDataBloc, GetMyDataState>(
           builder: (context, state) {
             if (state is GetMyDataSucssesState) {
+
+
+
               return Column(
                 children: [
                   SizedBox(height: ConfigSize.defaultSize! / 0.2),

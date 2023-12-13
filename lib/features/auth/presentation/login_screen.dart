@@ -1,5 +1,6 @@
-
 // ignore_for_file: non_constant_identifier_names
+
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,17 @@ class LoginScreen extends StatefulWidget {
   final bool? isUpdate;
   final bool? isForceUpdate;
   final bool? isLoginFromAnotherAccountAndBuildFailure;
+  final bool? isBaned;
+  final String? banedMassage;
 
-  const LoginScreen({required this.isForceUpdate, required this.isUpdate, Key? key, this.isLoginFromAnotherAccountAndBuildFailure = false}) : super(key: key);
+  const LoginScreen(
+      {required this.isForceUpdate,
+      this.isBaned,
+      required this.isUpdate,
+      Key? key,
+      this.isLoginFromAnotherAccountAndBuildFailure = false,
+      this.banedMassage})
+      : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -47,21 +57,35 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isGoogle = true;
   bool isHuawei = true;
 
-  void GoogleHuawei()async{
+  void GoogleHuawei() async {
     isGoogle = (await GoogleHuaweiAvailability.isGoogleServiceAvailable)!;
     isHuawei = (await GoogleHuaweiAvailability.isHuaweiServiceAvailable)!;
-    setState(() {
-
-    });
+   // setState(() {});
   }
 
   @override
   void initState() {
-
-
     GoogleHuawei();
-
+    log('${widget.banedMassage}ggggggggg');
     passwordController = TextEditingController();
+    log("ban ${widget.isBaned}");
+    if (widget.isBaned!) {
+      Future.delayed(const Duration(seconds: 2), () {
+        if(mounted) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return PopUpDialog(
+                headerText: widget.banedMassage ?? "",
+                accpetText: () {
+                  Navigator.pop(context);
+                },
+                accpettitle: StringManager.ok.tr(),
+              );
+            });
+        }
+      });
+    }
     if (widget.isLoginFromAnotherAccountAndBuildFailure!) {
       Future.delayed(const Duration(seconds: 2), () {
         showDialog(
@@ -173,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     flex: 1,
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pushNamed(context, Routes.forgetPassword);
                     },
                     child: Text(
@@ -229,11 +253,12 @@ class _LoginScreenState extends State<LoginScreen> {
             Routes.mainScreen,
             (route) => false,
           );
-        }
-        else if (state is LoginWithPhoneErrorMessageState) {
-          errorToast(context: context, title: state.errorMessage);
-        }
-        else if (state is LoginWithPhoneLoadingState) {
+        } else if (state is LoginWithPhoneErrorMessageState) {
+          Future.delayed(const Duration(seconds: 1),(){
+            errorToast(context: context, title: state.errorMessage);
+
+          });
+        } else if (state is LoginWithPhoneLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
         }
       },

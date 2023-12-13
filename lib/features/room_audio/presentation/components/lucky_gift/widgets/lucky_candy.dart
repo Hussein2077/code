@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -126,7 +125,7 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
 
 
     widget.luckGiftBannderController!.reverse().then((value) {
-        BlocProvider.of<LuckyGiftBannerBloc>(GlobalContextService.navigatorKey.currentContext!).add(EndBannerEvent()) ;
+        BlocProvider.of<LuckyGiftBannerBloc>(navigatorKey.currentContext!).add(EndBannerEvent()) ;
     }
         );
     Future.delayed(const Duration(seconds: 1),()=>GiftBottomBar.typeCandy.value = TypeCandy.non);

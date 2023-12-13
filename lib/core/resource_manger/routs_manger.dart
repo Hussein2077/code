@@ -194,12 +194,14 @@ class RouteGenerator {
             builder: (_) => const SplashScreen());
       case Routes.login:
         LoginPramiter? loginPramiter = settings.arguments as LoginPramiter?;
-
         return MaterialPageRoute(
+            settings: settings ,
             builder: (_) => LoginScreen(
+              isBaned: loginPramiter?.isBaned??false,
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
               isLoginFromAnotherAccountAndBuildFailure: loginPramiter?.isLoginFromAnotherAccountAndBuildFailure??false,
+              banedMassage: loginPramiter?.error??"",
                 ));
       case Routes.otp:
         OtbScreenParm otbScreenParm = settings.arguments as OtbScreenParm;
@@ -389,7 +391,8 @@ class RouteGenerator {
 
       case Routes.incomeScreen:
          return MaterialPageRoute(
-            settings: settings,builder: (_) => const IncomeScreen());
+            settings: settings,
+             builder: (_) => const IncomeScreen());
 
       case Routes.joinToAgencyScreen:
          return MaterialPageRoute(
@@ -695,9 +698,11 @@ class LoginPramiter {
   final bool? isUpdate;
   final bool? isForceUpdate;
   final bool? isLoginFromAnotherAccountAndBuildFailure;
+  final bool? isBaned;
+  final String? error;
 
   const LoginPramiter(
-      { this.isForceUpdate,  this.isUpdate, this.isLoginFromAnotherAccountAndBuildFailure=false, Key? key});
+      { this.isForceUpdate,this.isBaned,this.error, this.isUpdate, this.isLoginFromAnotherAccountAndBuildFailure=false, Key? key});
 }
 
 class ReportReelsScreenPramiter {
