@@ -83,7 +83,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                           onTap: (){
                             if(index == 0){
                               for(int i =0 ; i < RoomScreen.userOnMics.value.length; i++) {
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(i,
+                                LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(RoomScreen.userOnMics.value[i]!.id),
                                         () => SelecteUsers(
                                           userId: RoomScreen.userOnMics.value[i]?.id ?? "",
                                           selected: true,
@@ -95,7 +95,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                               }
                             } else{
                               for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteUsers(
+                                LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(ZegoUIKit().getAllUsers()[i].id), () => SelecteUsers(
                                     userId: ZegoUIKit().getAllUsers()[i].id,
                                     selected: true,
                                     name: ZegoUIKit().getAllUsers()[i].name,
@@ -132,8 +132,9 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                 onTap: (){
                   if(selected1 != -1){
                     int winner = Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length);
+                    List<int> mapKeysList = LuckyDrawGameScreen.userSelected.keys.toList();
                     ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
-                        winner,
+                        mapKeysList[winner],
                         selected1
                     ), []);
                     Navigator.pop(context);
@@ -143,7 +144,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                         builder: (context) {
                           return CommentBody(
                             items: LuckyDrawGameScreen.userSelected,
-                            winner: winner,
+                            winner: mapKeysList[winner],
                             room: widget.room,
                           );
                         });

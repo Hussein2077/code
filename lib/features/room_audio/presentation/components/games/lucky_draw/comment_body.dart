@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
@@ -147,6 +149,7 @@ class _CommentBodyState extends State<CommentBody> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
+                        log(_wheelNotifier.value.toString());
                         bottomDailog(
                             context: context,
                             widget: GiftScreen(
