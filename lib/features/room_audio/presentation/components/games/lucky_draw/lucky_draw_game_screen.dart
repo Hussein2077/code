@@ -134,9 +134,9 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                     int winner = Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length);
                     List<int> mapKeysList = LuckyDrawGameScreen.userSelected.keys.toList();
                     ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
-                        mapKeysList[winner],
                         winner,
-                        selected1
+                        selected1,
+                        mapKeysList[winner]
                     ), []);
                     Navigator.pop(context);
                     showDialog(
@@ -144,10 +144,10 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                         barrierDismissible: false,
                         builder: (context) {
                           return CommentBody(
-                            items: LuckyDrawGameScreen.userSelected,
-                            id: mapKeysList[winner],
+                            items: sortMapByKey(LuckyDrawGameScreen.userSelected),
                             winner: winner,
                             room: widget.room,
+                            id: mapKeysList[winner],
                           );
                         });
                   }
@@ -166,15 +166,20 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
       ),
     );
   }
-  String getMessagaRealTime(int id, int winner, int index){
+  String getMessagaRealTime(int winner, int index, int id){
     var mapInformation = {"messageContent":{
       "message": "luckyDraw",
-      "id": id,
       "winner": winner,
       "index": index,
+      "id": id,
     }};
     String map = jsonEncode(mapInformation);
     return map ;
+  }
+  Map<int, SelecteUsers> sortMapByKey(Map<int, SelecteUsers> inputMap) {
+    List<MapEntry<int, SelecteUsers>> entries = inputMap.entries.toList();
+    entries.sort((a, b) => a.key.compareTo(b.key));
+    return Map.fromEntries(entries);
   }
 }
 
