@@ -30,15 +30,7 @@ class _CommentBodyState extends State<CommentBody> {
 
   @override
   void initState() {
-    for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
-      LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteUsers(
-        userId: ZegoUIKit().getAllUsers()[i].id,
-        selected: true,
-        name: ZegoUIKit().getAllUsers()[i].name,
-        image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
-      ),
-      );
-    }
+
     print(LuckyDrawGameScreen.userSelected.toString());
     _wheelNotifier.add(Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length));
     super.initState();
