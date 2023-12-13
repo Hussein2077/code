@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
-
 import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -20,10 +18,8 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dice/dic_game.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/widgets/anonymous_dialog.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/message.dart';
@@ -290,8 +286,6 @@ log(message.message+"bbbbbbbbb");
   }
   Widget isGamesWidget(GamesInRoom type , String message){
     switch (type) {
-      case GamesInRoom.luckyDrawGame:
-        return CommentBody(room: room);
       case GamesInRoom.dicGame:
         return SizedBox(
           height: ConfigSize.defaultSize! * 5,

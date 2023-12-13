@@ -31,6 +31,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/accept_or_cancel_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/waiting_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/all_users_spin_view.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
@@ -938,6 +939,17 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 );
               });
         }
+      }
+      else if(result[messageContent][message] == "luckyDraw"){
+        showDialog(
+            context: context,
+            builder: (context) {
+              return CommentBody(
+                items: result[messageContent]["items"],
+                winner: result[messageContent]["winner"],
+                room: widget.room,
+              );
+            });
       }
     }
   }

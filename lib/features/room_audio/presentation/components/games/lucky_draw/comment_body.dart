@@ -11,11 +11,12 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class CommentBody extends StatefulWidget {
   EnterRoomModel room;
-  CommentBody({super.key, required this.room});
+  Map<int,SelecteUsers> items;
+  int winner;
+  CommentBody({super.key, required this.room, required this.items, required this.winner});
 
   @override
   State<CommentBody> createState() => _CommentBodyState();
@@ -30,9 +31,7 @@ class _CommentBodyState extends State<CommentBody> {
 
   @override
   void initState() {
-
-    print(LuckyDrawGameScreen.userSelected.toString());
-    _wheelNotifier.add(Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length));
+    _wheelNotifier.add(widget.winner);
     super.initState();
   }
 
@@ -89,10 +88,8 @@ class _CommentBodyState extends State<CommentBody> {
               ),
             ),
 
-        Text("Participants: ${LuckyDrawGameScreen.userSelected.length}", style: TextStyle(color: Colors.white),),
-        Text("Lucky Users: 1", style: TextStyle(color: Colors.white),),
-
-
+        Text("Participants: ${widget.items.length}", style: TextStyle(color: Colors.white),),
+            Text("Lucky Users: 1", style: TextStyle(color: Colors.white),),
 
         SizedBox(
           width: ConfigSize.defaultSize! * 18,
@@ -107,7 +104,7 @@ class _CommentBodyState extends State<CommentBody> {
               });
             },
             items: [
-              for (var it in LuckyDrawGameScreen.userSelected.values) FortuneItem(
+              for (var it in widget.items.values) FortuneItem(
                   child: Container(
                     color: Colors.transparent,
                     child: Column(
@@ -130,9 +127,9 @@ class _CommentBodyState extends State<CommentBody> {
                       context: context,
                       widget: GiftScreen(
                         roomData: widget.room,
-                        userId: LuckyDrawGameScreen.userSelected[_wheelNotifier.value]!.userId.toString(),
+                        userId: widget.items[_wheelNotifier.value]!.userId.toString(),
                         myDataModel: MyDataModel.getInstance(),
-                        userImage: LuckyDrawGameScreen.userSelected[_wheelNotifier.value]!.image,
+                        userImage: widget.items[_wheelNotifier.value]!.image,
                         listAllUsers: null,
                         isSingleUser: true,
                       ));
