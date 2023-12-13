@@ -32,6 +32,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/games/br
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/waiting_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/all_users_spin_view.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/edit_features_container.dart';
@@ -941,11 +942,34 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         }
       }
       else if(result[messageContent][message] == "luckyDraw"){
+        if(result[messageContent]['index'] == 0){
+          for(int i =0 ; i < RoomScreen.userOnMics.value.length; i++) {
+            LuckyDrawGameScreen.userSelected.putIfAbsent(i,
+                  () => SelecteUsers(
+                userId: RoomScreen.userOnMics.value[i]?.id ?? "",
+                selected: true,
+                name: RoomScreen.userOnMics.value[i]?.name?? "",
+                image: RoomScreen.userOnMics.value[i]?.inRoomAttributes.value['img']?? "",
+              ),
+            );
+
+          }
+        } else{
+          for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
+            LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteUsers(
+              userId: ZegoUIKit().getAllUsers()[i].id,
+              selected: true,
+              name: ZegoUIKit().getAllUsers()[i].name,
+              image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
+            ),
+            );
+          }
+        }
         showDialog(
             context: context,
             builder: (context) {
               return CommentBody(
-                items: result[messageContent]["items"],
+                items: LuckyDrawGameScreen.userSelected,
                 winner: result[messageContent]["winner"],
                 room: widget.room,
               );

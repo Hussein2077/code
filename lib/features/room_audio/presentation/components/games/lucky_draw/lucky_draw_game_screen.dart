@@ -78,29 +78,6 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: (){
-                            if(index == 0){
-                              for(int i =0 ; i < RoomScreen.userOnMics.value.length; i++) {
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(i,
-                                        () => SelecteUsers(
-                                          userId: RoomScreen.userOnMics.value[i]?.id ?? "",
-                                          selected: true,
-                                          name: RoomScreen.userOnMics.value[i]?.name?? "",
-                                          image: RoomScreen.userOnMics.value[i]?.inRoomAttributes.value['img']?? "",
-                                        ),
-                                );
-
-                              }
-                            } else{
-                              for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(i, () => SelecteUsers(
-                                    userId: ZegoUIKit().getAllUsers()[i].id,
-                                    selected: true,
-                                    name: ZegoUIKit().getAllUsers()[i].name,
-                                    image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
-                                ),
-                                );
-                              }
-                            }
                             setState(() {
                               selected1 = index;
                             });
@@ -131,7 +108,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                     int winner = Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length);
                     ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
                         winner,
-                        LuckyDrawGameScreen.userSelected
+                        selected1
                     ), []);
                     Navigator.pop(context);
                   }
@@ -150,11 +127,11 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
       ),
     );
   }
-  String getMessagaRealTime(int winner, Map<int,SelecteUsers> items){
+  String getMessagaRealTime(int winner, int index){
     var mapInformation = {"messageContent":{
       "message": "luckyDraw",
       "winner": winner,
-      "items": items,
+      "index": index,
     }};
     String map = jsonEncode(mapInformation);
     return map ;
