@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,116 +30,122 @@ class AcceptOrCancelDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-      ),
-      child: Container(
-        height: ConfigSize.defaultSize! * 25,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: ColorManager.bageGriedinet),
+    log("dialoooooooog");
+    return WillPopScope(
+      onWillPop: ()async{
+        return false ;
+      },
+      child: Dialog(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
-                child: Text(
-                  (gameId == "1"? StringManager.rps.tr() : gameId == "2"? StringManager.diceGame.tr() : StringManager.turntable.tr() ),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: ConfigSize.defaultSize! * 1.7,
-                      overflow: TextOverflow.fade),
-                )),
+        child: Container(
+          height: ConfigSize.defaultSize! * 25,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: ColorManager.bageGriedinet),
+            borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
+                  child: Text(
+                    (gameId == "1"? StringManager.rps.tr() : gameId == "2"? StringManager.diceGame.tr() : StringManager.turntable.tr() ),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: ConfigSize.defaultSize! * 1.7,
+                        overflow: TextOverflow.fade),
+                  )),
 
-            CachedNetworkImgeCircular(
-              hight: ConfigSize.defaultSize! * 6,
-              width: ConfigSize.defaultSize! * 6,
-              image: senderImage,
-            ),
-
-            SizedBox(height: ConfigSize.defaultSize!,),
-            Text(
-              senderName,
-              style: const TextStyle(
-                color: Colors.white
+              CachedNetworkImgeCircular(
+                hight: ConfigSize.defaultSize! * 6,
+                width: ConfigSize.defaultSize! * 6,
+                image: senderImage,
               ),
-            ),
-            Text(
-              "${StringManager.numberOfCoins.tr()} : $coins",
-              style: const TextStyle(
+
+              SizedBox(height: ConfigSize.defaultSize!,),
+              Text(
+                senderName,
+                style: const TextStyle(
                   color: Colors.white
+                ),
               ),
-            ),
+              Text(
+                "${StringManager.numberOfCoins.tr()} : $coins",
+                style: const TextStyle(
+                    color: Colors.white
+                ),
+              ),
 
-            const Spacer(),
+              const Spacer(),
 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                      InkWell(
+                          onTap: () {
+                            if(!cancel){
+                              cancel = true;
+                              if(gameId == "3"){
+                                BlocProvider.of<GameBloc>(context).add(OtherPlayerAction(otherSideGameActionNewPramiter: OtherSideGameActionNewPramiter(
+                                    gameId: gameRecordId,
+                                    status: 'cancel'
+                                )));
+                              }else {
+                                BlocProvider.of<GameBloc>(context).add(CancelGame(cancelGamePramiter: CancelGamePramiter(
+                                  gameId: gameRecordId
+                              )));
+                              }
+                            }
+                          },
+                          child: Text(
+                            StringManager.cancel.tr(),
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.w600,
+                              fontSize: ConfigSize.defaultSize! * 1.7,
+                            ),
+                          )),
                     InkWell(
                         onTap: () {
-                          if(!cancel){
-                            cancel = true;
+                          if(!accept){
+                            accept = true;
                             if(gameId == "3"){
                               BlocProvider.of<GameBloc>(context).add(OtherPlayerAction(otherSideGameActionNewPramiter: OtherSideGameActionNewPramiter(
                                   gameId: gameRecordId,
-                                  status: 'cancel'
+                                  status: 'accept'
                               )));
+                              Navigator.pop(context);
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const WaitingDialog();
+                                  });
                             }else {
-                              BlocProvider.of<GameBloc>(context).add(CancelGame(cancelGamePramiter: CancelGamePramiter(
+                              BlocProvider.of<GameBloc>(context).add(StartGame(startGamePramiter: StartGamePramiter(
                                 gameId: gameRecordId
                             )));
                             }
                           }
                         },
                         child: Text(
-                          StringManager.cancel.tr(),
+                          StringManager.accept.tr(),
                           style: TextStyle(
-                            color: Colors.red,
+                            color: Colors.green,
                             fontWeight: FontWeight.w600,
                             fontSize: ConfigSize.defaultSize! * 1.7,
                           ),
                         )),
-                  InkWell(
-                      onTap: () {
-                        if(!accept){
-                          accept = true;
-                          if(gameId == "3"){
-                            BlocProvider.of<GameBloc>(context).add(OtherPlayerAction(otherSideGameActionNewPramiter: OtherSideGameActionNewPramiter(
-                                gameId: gameRecordId,
-                                status: 'accept'
-                            )));
-                            Navigator.pop(context);
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const WaitingDialog();
-                                });
-                          }else {
-                            BlocProvider.of<GameBloc>(context).add(StartGame(startGamePramiter: StartGamePramiter(
-                              gameId: gameRecordId
-                          )));
-                          }
-                        }
-                      },
-                      child: Text(
-                        StringManager.accept.tr(),
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.w600,
-                          fontSize: ConfigSize.defaultSize! * 1.7,
-                        ),
-                      )),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

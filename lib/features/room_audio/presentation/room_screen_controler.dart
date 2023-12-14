@@ -775,10 +775,10 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
       if(result[messageContent]['palyersIds'].length > 1) {
         for(int i = 0; i < result[messageContent]['palyersIds'].length; i++){
           if(result[messageContent]['palyersIds'][i].toString() == MyDataModel.getInstance().id.toString()){
-            if(RouteGenerator.currentContext!=Routes.roomScreen){
+
               Navigator.pop(context);
 
-            }            showDialog(
+                       showDialog(
                 context: context,
                 builder: (context) {
                   return AllUsersSpinView(list: result[messageContent]['palyersIds'], winner: result[messageContent]['randomNumber'], isFree: false,);
@@ -791,10 +791,10 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
   }else if(result[messageContent]['game_id'].toString() == rpsGameId || result[messageContent]['game_id'].toString() == diceGameId){
     if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString() || result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
       if(result[messageContent]["result"].toString() == "accepted"){
-        if(RouteGenerator.currentContext!=Routes.roomScreen){
+
           Navigator.pop(context);
 
-        }        if(result[messageContent]['game_id'].toString() == rpsGameId) {
+                if(result[messageContent]['game_id'].toString() == rpsGameId) {
           showDialog(
               context: context,
               builder: (context) {
@@ -809,10 +809,10 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
           ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameKey} $answer");
         }
       }else{
-        if(RouteGenerator.currentContext!=Routes.roomScreen){
+
           Navigator.pop(context);
 
-        }      }
+        }
     }
   }
 }
