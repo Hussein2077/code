@@ -10,6 +10,8 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
@@ -60,12 +62,14 @@ class _LoginScreenState extends State<LoginScreen> {
   void GoogleHuawei() async {
     isGoogle = (await GoogleHuaweiAvailability.isGoogleServiceAvailable)!;
     isHuawei = (await GoogleHuaweiAvailability.isHuaweiServiceAvailable)!;
-   // setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
-    GoogleHuawei();
+
     passwordController = TextEditingController();
     if (widget.isBaned!) {
       Future.delayed(const Duration(seconds: 2), () {
@@ -111,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     });
-
+    GoogleHuawei();
     super.didChangeDependencies();
   }
 
@@ -252,9 +256,9 @@ class _LoginScreenState extends State<LoginScreen> {
             (route) => false,
           );
         } else if (state is LoginWithPhoneErrorMessageState) {
-          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,state.errorMessage));
+          ScaffoldMessenger.of(getIt<NavigationService>().navigatorKey.currentContext!).showSnackBar(errorSnackBar(context,state.errorMessage));
         } else if (state is LoginWithPhoneLoadingState) {
-          loadingToast(context: context, title: StringManager.loading.tr());
+          loadingToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.loading.tr());
         }
       },
     );

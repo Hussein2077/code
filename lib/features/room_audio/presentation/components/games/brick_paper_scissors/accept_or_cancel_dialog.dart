@@ -46,7 +46,7 @@ class AcceptOrCancelDialog extends StatelessWidget {
             Padding(
                 padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
                 child: Text(
-                  "${(gameId == "1"? StringManager.rps.tr() : gameId == "2"? StringManager.diceGame.tr() : StringManager.turntable.tr() )} ${StringManager.games.tr()}",
+                  (gameId == "1"? StringManager.rps.tr() : gameId == "2"? StringManager.diceGame.tr() : StringManager.turntable.tr() ),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: ConfigSize.defaultSize! * 1.7,
