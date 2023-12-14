@@ -1116,8 +1116,6 @@ class CodegenLoader extends AssetLoader {
     StringManager.chooseTopic: 'آپ کے لئے سب سے اہم موضوعات منتخب کریں',
     StringManager.nowInRoom: 'کمرے میں داخل ہو رہے ہیں',
     StringManager.pleaseAddAtLeastTwoValue: " من فضلك ادخل علي الافل اختيارين" ,
-    StringManager.muteGameNotification: "كتم صوت جميع إشعارات الألعاب" ,
-    StringManager.enableGameNotification: "يرجى تمكين إشعار اللعبة أولا " ,
     StringManager.timeRemains: "الوقت المتبقي:" ,
     StringManager.waitForUsersResponse: "في انتظار رد المستخدمين" ,
     StringManager.participants: "المشاركون:" ,

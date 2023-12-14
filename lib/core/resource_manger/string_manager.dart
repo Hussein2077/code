@@ -594,6 +594,10 @@ class StringManager {
   static const String PaidPlay = "Paid Play";
   static const String wait = "Wait For Product Data";
   static const String viewProfile = "View Profile";
+  static const String timeRemains = "Time Remains:";
+  static const String waitForUsersResponse = "Waiting For Users Response";
+  static const String participants = "Participants:";
+  static const String luckyUsers = "Lucky Users:";
   static const String changeThemeApproval =
       "Do you approve to change this theme for ";
   static const String pleaseAddAtLeastTwoValue =
