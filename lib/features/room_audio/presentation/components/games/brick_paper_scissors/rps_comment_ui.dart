@@ -54,8 +54,8 @@ class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with Au
             child: showResultGame
                 ? Image.asset(brickPaperNum[widget.randomNum])
                 : ShowSVGA(
-                    imageId: state.svgaDataModel.rpsModel.id.toString(),
-                    url: state.svgaDataModel.rpsModel.image.toString()),
+                imageId: state.svgaDataModel.rpsModel?.id.toString()??"",
+                url: state.svgaDataModel.rpsModel?.image.toString()??""),
           );
         } else if (state is ExtraDataLoading) {
           if (isFirst == 0) {
@@ -70,8 +70,8 @@ class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with Au
               child: showResultGame
                   ? Image.asset(brickPaperNum[widget.randomNum])
                   : ShowSVGA(
-                      imageId: tempData!.rpsModel.id.toString(),
-                      url: tempData!.rpsModel.image.toString()),
+                  imageId: tempData!.rpsModel?.id.toString()??"",
+                  url: tempData!.rpsModel?.image.toString()??""),
             );
           }
         } else if (state is ExtraDataError) {

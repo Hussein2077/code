@@ -3,7 +3,7 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
-class CustomShowcaseWidget extends StatefulWidget {
+class RealsShowcaseWidget extends StatefulWidget {
   final String textInContainer;
   final Widget child;
   final GlobalKey globalKey;
@@ -12,7 +12,7 @@ class CustomShowcaseWidget extends StatefulWidget {
   final bool? disableMovingAnimation;
   final CrossAxisAlignment? crossAxisAlignment;
 
-  const CustomShowcaseWidget({
+  const RealsShowcaseWidget({
     super.key,
     required this.globalKey,
     required this.child,
@@ -24,10 +24,10 @@ class CustomShowcaseWidget extends StatefulWidget {
   });
 
   @override
-  State<CustomShowcaseWidget> createState() => _CustomShowcaseWidgetState();
+  State<RealsShowcaseWidget> createState() => _RealsShowcaseWidgetState();
 }
 
-class _CustomShowcaseWidgetState extends State<CustomShowcaseWidget> with TickerProviderStateMixin{
+class _RealsShowcaseWidgetState extends State<RealsShowcaseWidget> with TickerProviderStateMixin{
   late AnimationController _controller;
   late Animation<Offset> _animation;
   @override

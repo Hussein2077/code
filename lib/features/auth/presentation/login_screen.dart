@@ -73,18 +73,18 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController = TextEditingController();
     if (widget.isBaned!) {
       Future.delayed(const Duration(seconds: 2), () {
-        if(mounted) {
+        if (mounted) {
           showDialog(
-            context: context,
-            builder: (context) {
-              return PopUpDialog(
-                headerText: widget.banedMassage ?? "",
-                accpetText: () {
-                  Navigator.pop(context);
-                },
-                accpettitle: StringManager.ok.tr(),
-              );
-            });
+              context: context,
+              builder: (context) {
+                return PopUpDialog(
+                  headerText: widget.banedMassage ?? "",
+                  accpetText: () {
+                    Navigator.pop(context);
+                  },
+                  accpettitle: StringManager.ok.tr(),
+                );
+              });
         }
       });
     }

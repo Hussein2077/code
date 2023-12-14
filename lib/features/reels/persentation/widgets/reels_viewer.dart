@@ -169,7 +169,7 @@ Future.delayed(Duration.zero,()async{
                 Positioned(
                   right: ConfigSize.defaultSize! * 1.5,
                   top: ConfigSize.defaultSize! * 1.5,
-                  child:  (ReelsScreenTaps.isFirst)? CustomShowcaseWidget(
+                  child:  (ReelsScreenTaps.isFirst)? RealsShowcaseWidget(
                       globalKey: keyForUploadVideo,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       textInContainer: StringManager.tabToUpload.tr(),
@@ -181,7 +181,7 @@ Future.delayed(Duration.zero,()async{
                 Positioned(
                   left: ConfigSize.screenWidth! * .5,
                   top: ConfigSize.screenHeight! * .3,
-                  child: CustomShowcaseWidget(
+                  child: RealsShowcaseWidget(
                     globalKey: keyForSwapInCenter,
                     isSwap: true,
                     disableMovingAnimation: true,
@@ -196,7 +196,7 @@ Future.delayed(Duration.zero,()async{
                 Positioned(
                   left: ConfigSize.screenWidth! * .7,
                   top: ConfigSize.screenHeight! * .75,
-                  child: CustomShowcaseWidget(
+                  child: RealsShowcaseWidget(
                     globalKey: keyForSwapInBottom,
                     isSwap: true,
                     disableMovingAnimation: true,

@@ -189,7 +189,7 @@ class _UserReelsViewerState extends State<UserReelsViewer> {
                   Positioned(
                     right: ConfigSize.defaultSize! * 1.5,
                     top: ConfigSize.defaultSize! * 1.5,
-                    child:  (isFirst&&widget.isFromVideo)? CustomShowcaseWidget(
+                    child:  (isFirst&&widget.isFromVideo)? RealsShowcaseWidget(
                         globalKey: _one,
                         textInContainer: StringManager.tabToUpload.tr(),
                         child: const UploadVideo()):const UploadVideo(),
@@ -200,7 +200,7 @@ class _UserReelsViewerState extends State<UserReelsViewer> {
                   Positioned(
                     left: ConfigSize.screenWidth! * .5,
                     top: ConfigSize.screenHeight! * .5,
-                    child: CustomShowcaseWidget(
+                    child: RealsShowcaseWidget(
                       globalKey: _two,
                       textInContainer:StringManager.swapToGo.tr() ,
                       child: const SizedBox(
@@ -213,7 +213,7 @@ class _UserReelsViewerState extends State<UserReelsViewer> {
                   Positioned(
                     left: ConfigSize.defaultSize!*3,
                     top: ConfigSize.screenHeight! * .55,
-                    child: CustomShowcaseWidget(
+                    child: RealsShowcaseWidget(
                       globalKey: _three,
                       textInContainer:StringManager.tabToSwapToFollowing.tr() ,
                       child: const SizedBox(

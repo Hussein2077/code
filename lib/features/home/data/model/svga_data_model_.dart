@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 class SvgaDataModel {
   List<PKImages> pkIamges;
 
   List<VIPImage> vipImage;
-  DiceModel diceModel;
-  RpsModel rpsModel;
+  DiceModel? diceModel;
+  RpsModel? rpsModel;
   SvgaDataModel({
     required this.pkIamges,
     required this.vipImage,
@@ -12,13 +14,14 @@ class SvgaDataModel {
   });
 
   factory SvgaDataModel.fromJason(Map<String, dynamic> json) {
+    log('${json}cccc');
     return SvgaDataModel(
         pkIamges: json['pk_images']!=null? List<PKImages>.from(
             json['pk_images'].map((e) => PKImages.fromJason(e))):[],
         vipImage:json['vip_images']!=null? List<VIPImage>.from(
             json['vip_images'].map((e) => VIPImage.fromJason(e))):[],
-      diceModel: DiceModel.fromJson(json['dice']),
-      rpsModel: RpsModel.fromJson(json['rps']),
+      diceModel:json['dice']==null?null: DiceModel.fromJson(json['dice']),
+      rpsModel:json['rps']==null?null: RpsModel.fromJson(json['rps']),
     );
   }
 }
