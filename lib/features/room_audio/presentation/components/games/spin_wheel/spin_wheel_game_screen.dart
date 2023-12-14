@@ -84,7 +84,7 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                             color: const Color.fromRGBO(
                                 149, 72, 72, 1),
                             fontWeight: FontWeight.w600,
-                            fontSize: ConfigSize.defaultSize! * 2.5),
+                            fontSize: ConfigSize.defaultSize! * 2.2),
                       ),
                     ],
                   ),
@@ -108,7 +108,7 @@ class _SpinWheelGameScreenState extends State<SpinWheelGameScreen> {
                             color: const Color.fromRGBO(
                                 149, 72, 72, 1),
                             fontWeight: FontWeight.w600,
-                            fontSize: ConfigSize.defaultSize! * 2.5),
+                            fontSize: ConfigSize.defaultSize! * 2.2),
                       ),
                     ],
                   ),

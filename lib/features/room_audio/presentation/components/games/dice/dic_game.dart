@@ -24,7 +24,7 @@ class _DiceGameState extends State<DiceGame> with AutomaticKeepAliveClientMixin 
 
   @override
   void didChangeDependencies() {
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         showResultDicGame = true;
       });

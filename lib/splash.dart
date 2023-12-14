@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       if (configModel == null) {
         Navigator.pushNamedAndRemoveUntil(
-            context, Routes.login, (route) => false,
+            context, Routes.refreshScreen, (route) => false,
             arguments:
             const LoginPramiter(isForceUpdate: false, isUpdate: false));
       }
@@ -119,9 +119,9 @@ class _SplashScreenState extends State<SplashScreen> {
     UIKitSettings uiKitSettings = (UIKitSettingsBuilder()
       ..subscriptionType = CometChatSubscriptionType.allUsers
       ..autoEstablishSocketConnection = true
-      ..region = "US" //Replace with your region
-      ..appId = "248798bc476786ae" //replace with your app Id
-      ..authKey = "0229e2e04b923cc623de62bb48f51a8bec521639"
+      ..region = "EU" //Replace with your region
+      ..appId = "2494588e09875e27" //replace with your app Id
+      ..authKey = "e90735e3a0fe23da4ff50e98d03d75add227ecc9"
       ..extensions = CometChatUIKitChatExtensions.getDefaultExtensions()
       ..aiFeature = AIEnabler(
         aiFeatureList: [
@@ -140,10 +140,8 @@ class _SplashScreenState extends State<SplashScreen> {
           CometChat.setDemoMetaInfo(jsonObject: {
             "name": "com.tikkchat.app",
             "type": "release app",
-            "version": "1.5.0",
-            "bundle": Platform.isAndroid
-                ? "com.tikkchat.app"
-                : "com.cometchat.cometchatFlutterSampleApp",
+            "version": "1.5.1",
+            "bundle": "com.tikkchat.app",
             "platform": "Flutter",
           });
         } catch (e) {

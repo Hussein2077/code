@@ -45,7 +45,7 @@ class ConfigModel extends Equatable {
         updateGiftCache: json['cache_update']['gifts'],
         updateEmojieCach: json['cache_update']['emoji'],
         updateEntroCach: json['cache_update']['intro'],
-    disableChat:   json["disableChat"]?? true ,
+    disableChat:   json["disable_chat"]?? false ,
 
 
       );
