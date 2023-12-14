@@ -155,7 +155,7 @@ class _CommentBodyState extends State<CommentBody> {
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    Text(it.name),
+                                    Text(it.name, style: const TextStyle(overflow: TextOverflow.ellipsis),),
                                   ],
                                 ),
                               ),

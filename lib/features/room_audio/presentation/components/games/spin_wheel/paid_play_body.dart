@@ -107,7 +107,7 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                 child: ListView.builder(
                     itemCount: ZegoUIKit().getAllUsers().length,
                     itemBuilder: (context, index){
-                      if(ZegoUIKit().getAllUsers()[index].id.toString() != MyDataModel.getInstance().id.toString()) {
+                      if(ZegoUIKit().getAllUsers()[index].id.toString() != MyDataModel.getInstance().id.toString() && !(ZegoUIKit().getAllUsers()[index].id.toString().startsWith('-1'))) {
                         return InkWell(
                           onTap: (){
                             setState(() {
