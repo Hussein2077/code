@@ -72,7 +72,7 @@ late  List<ItemWidget> items;
   void initState() {
     liveController = TabController(length: 1, vsync: this);
     items = [
-      if (widget.isCachExtra ?? false)
+      if (widget.isChachGift ?? false)
         ItemWidget(
             text: StringManager.cacheGift.tr(), iconData: Icons.card_giftcard),
       if (widget.isCachExtra ?? false)
