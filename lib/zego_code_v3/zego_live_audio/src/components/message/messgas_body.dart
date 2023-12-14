@@ -133,19 +133,20 @@ class _MessagesBodyState extends State<MessagesBody> {
     ]);
     messagesNotifier = messages;
 
+    setState(() {
+
+    });
 
     Future.delayed(const Duration(milliseconds: 100), () {
       if (messagesNotifier.isEmpty) {
         return;
       }
-      setState(() {
-      });
-      log("ZegoInRoomMessageViewState.position${ZegoInRoomMessageViewState.scrollController.position.pixels}");
-      log("ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent${ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent}");
-      if (ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent -
-          ZegoInRoomMessageViewState.scrollController.position.pixels < 100.zH ) {
+      if (widget.scrollController.position.maxScrollExtent >
+          widget.scrollController.position.pixels){
         widget.scrollController.jumpTo(widget.scrollController.position.maxScrollExtent);
       }
+
+
     });
   }
 }

@@ -6,6 +6,7 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_number_old_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dialog_explained_game.dart';
@@ -99,7 +100,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                         backgroundColor: Colors.white,
                         child: Icon(Icons.question_mark_outlined, color: Colors.black, size: ConfigSize.defaultSize! * 3,)),
                   ),
-                  Spacer(),
+                  const  Spacer(),
                   Text(StringManager.rangeOfUsers.tr(), style: TextStyle(color: const Color.fromRGBO(149, 72, 72, 1), fontSize: ConfigSize.defaultSize! * 2),),
                   const SizedBox(height: 10),
                   ListView.separated(
@@ -145,7 +146,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                       padding: EdgeInsets.zero,
                       itemCount: chooises.length
                   ),
-                  Spacer(flex: 2),
+                  const Spacer(flex: 2),
 
                 ],
               ),
@@ -160,7 +161,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
               InkWell(
                 onTap: (){
                   if(selected1 != -1){
-                    int winner = Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length);
+                    int winner = Fortune.randomInt(0,LuckyDrawGameScreen.userSelected.length);
                     List<int> mapKeysList = sortMapByKey(LuckyDrawGameScreen.userSelected).keys.toList();
                     ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
                         winner,
@@ -169,6 +170,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                     ), []);
                     Navigator.pop(context);
                     showDialog(
+
                         context: context,
                         barrierDismissible: false,
                         builder: (context) {

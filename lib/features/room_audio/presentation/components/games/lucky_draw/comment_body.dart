@@ -135,7 +135,7 @@ class _CommentBodyState extends State<CommentBody> {
                                   setState(() {
                                     timer.cancel();
                                     isTimerFinished = true;
-                                    // Navigator.pop(context);
+                                     Navigator.pop(context);
                                   });
                                 } else {
                                   if (mounted) {
