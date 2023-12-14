@@ -135,6 +135,14 @@ const String muteUserKey = 'muteUser';
 const String mute = 'mute';
 const String showYallowBanner = "yellowBanner";
 const String anonymousKey ='anonymous';
+const String spinGameId ='3';
+const String rpsGameId ='1';
+const String diceGameId ='2';
+const String requestGame ='requestDiceGame';
+const String gameRequestResult ='requestResultFromOther';
+const String resultOfGame ='ResultOfGame';
+const String freeSpinGame ='freeSpinGame';
+const String luckyDraw ='luckyDraw';
 String appSign =  "";
 int appID =  0;
 
@@ -714,7 +722,7 @@ InviteToSeatKey(Map<String, dynamic> result, String id, String ownerId, BuildCon
 }
 
 GameRequest(Map<String, dynamic> result, BuildContext context){
-  if(result[messageContent]['game_id'].toString() == "3"){
+  if(result[messageContent]['game_id'].toString() == spinGameId){
     for(int i = 0; i < result[messageContent]['to_id'].length; i++ ){
       if(result[messageContent]['to_id'][i].toString() == MyDataModel.getInstance().id.toString() && result[messageContent]['to_id'][i].toString() != result[messageContent]['user_id'].toString()) {
         showDialog(
@@ -746,7 +754,7 @@ GameRequest(Map<String, dynamic> result, BuildContext context){
 }
 
 GameRequestResult(Map<String, dynamic> result, BuildContext context){
-  if(result[messageContent]['game_id'].toString() == "3" && result[messageContent]['type'].toString() == "finished"){
+  if(result[messageContent]['game_id'].toString() == spinGameId && result[messageContent]['type'].toString() == "finished"){
     BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter: GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(),
         answer: result[messageContent]['randomNumber'].toString(), round: '1')));
     if(result[messageContent]["player_owner"].toString() == MyDataModel.getInstance().id.toString()){
@@ -773,17 +781,17 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
       }
     }
 
-  }else if(result[messageContent]['game_id'].toString() == "1" || result[messageContent]['game_id'].toString() == "2"){
+  }else if(result[messageContent]['game_id'].toString() == rpsGameId || result[messageContent]['game_id'].toString() == diceGameId){
     if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString() || result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
       if(result[messageContent]["result"].toString() == "accepted"){
         Navigator.pop(context);
-        if(result[messageContent]['game_id'].toString() == "1") {
+        if(result[messageContent]['game_id'].toString() == rpsGameId) {
           showDialog(
               context: context,
               builder: (context) {
                 return GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
               });
-        }else if(result[messageContent]['game_id'].toString() == "2"){
+        }else if(result[messageContent]['game_id'].toString() == diceGameId){
           int answer = Random().nextInt(6);
           BlocProvider.of<GameBloc>(context).add(SendGameChoise(sendGameChoisePramiter: SendGameChoisePramiter(
               gameId: result[messageContent]['game_record_id'].toString(),
@@ -800,14 +808,14 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
 
 ResultOfGame(Map<String, dynamic> result){
   if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
-    if(result[messageContent]['game_id'].toString() == "1"){
+    if(result[messageContent]['game_id'].toString() == rpsGameId){
       ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameResultKey} ${result[messageContent]["message_content"]}", );
-    }else if(result[messageContent]['game_id'].toString() == "2"){
+    }else if(result[messageContent]['game_id'].toString() == diceGameId){
       ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}", );
     }
   }
   if(result[messageContent]['game_owner'].toString() == MyDataModel.getInstance().id.toString()){
-    if(result[messageContent]['game_id'].toString() == "3"){
+    if(result[messageContent]['game_id'].toString() == spinGameId){
       ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${result[messageContent]["message_content"]}", );
     }
   }
