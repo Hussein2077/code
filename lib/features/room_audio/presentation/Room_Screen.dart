@@ -949,6 +949,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       }
       else if(result[messageContent][message] == "luckyDraw"){
         if(result[messageContent]['index'] == 0){
+          LuckyDrawGameScreen.userSelected.clear();
           GiftUser.userOnMicsForGifts.forEach((key, value) {
             LuckyDrawGameScreen.userSelected.putIfAbsent(key, () => SelecteUsers(
               userId: value.id,
