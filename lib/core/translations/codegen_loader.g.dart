@@ -508,6 +508,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.changeThemeApproval: 'هل توافق علي تغيير الخلفية مقابل ',
     StringManager.wait: 'انتظر حتي تاتي بيانات المنتجات',
 
+    StringManager.refresh: 'اعاده تحميل',
+    StringManager.somethingsWrong: 'هناك خطا ما',
+
     StringManager.explainGameDice: '''
       اللاعبون:
       يمكن لعدة لاعبين اللعب، ولكن يمكن أن تكون لعبة فردية أيضًا.

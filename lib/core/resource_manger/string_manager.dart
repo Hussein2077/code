@@ -433,6 +433,8 @@ class StringManager {
   static const String usersOnMic = "Users on the Microphone";
   static const String usersInRoom = "All users in the room";
   static const String numberOfLuckyUsers = "Number of lucky users";
+  static const String refresh = "Refresh";
+  static const String somethingsWrong = "Something's wrong";
 
 //zego
   static const String thereAreNoEmptySeats = 'There are no empty seats';
