@@ -730,9 +730,13 @@ class RouteGenerator {
                 ));
 
         case Routes.refreshScreen:
-        return MaterialPageRoute(
-            settings: settings,
-            builder: (_) => const RefreshScreen());
+          currentContext = Routes.refreshScreen;
+           if (Platform.isIOS) {
+            return CupertinoPageRoute(builder: (_) => const RefreshScreen());
+          } else {
+            return MaterialPageRoute(
+                settings: settings, builder: (_) => const RefreshScreen());
+          }
     }
 
     return unDefinedRoute();
