@@ -264,6 +264,8 @@ class AssetsPath {
   static const String basicTool = "$pathImage/basic_tool.png";
   static const String settingRoom = "$pathIcon/settings_room.png";
   static const String contanerDiamodn = "$pathImage/contaner_diamodn.png";
+  static const String coinAnimate = "$pathImage/coin_animate.gif";
+
 
 
   static const String gemStone = "$pathIcon/gem-stone.png";
