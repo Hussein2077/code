@@ -141,7 +141,7 @@ class _MessagesBodyState extends State<MessagesBody> {
 
       });
       if (ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent -
-          ZegoInRoomMessageViewState.scrollController.position.pixels < 270.zH ) {
+          ZegoInRoomMessageViewState.scrollController.position.pixels < 400.zH ) {
         widget.scrollController.jumpTo(widget.scrollController.position.maxScrollExtent);
       }
     });
