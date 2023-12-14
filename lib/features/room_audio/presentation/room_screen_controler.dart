@@ -757,7 +757,8 @@ GameRequest(Map<String, dynamic> result, BuildContext context){
 
 GameRequestResult(Map<String, dynamic> result, BuildContext context){
   if(result[messageContent]['game_id'].toString() == spinGameId && result[messageContent]['type'].toString() == "finished"){
-    BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter: GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(),
+    BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter:
+    GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(),
         answer: result[messageContent]['randomNumber'].toString(), round: '1')));
     if(result[messageContent]["player_owner"].toString() == MyDataModel.getInstance().id.toString()){
       if(RouteGenerator.currentContext!=Routes.roomScreen){
@@ -789,7 +790,9 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
     }
 
   }else if(result[messageContent]['game_id'].toString() == rpsGameId || result[messageContent]['game_id'].toString() == diceGameId){
-    if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString() || result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
+    if(result[messageContent]['player-one-id'].toString() ==
+        MyDataModel.getInstance().id.toString() ||
+        result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
       if(result[messageContent]["result"].toString() == "accepted"){
         if(RouteGenerator.currentContext!=Routes.roomScreen){
           Navigator.pop(context);
@@ -809,10 +812,13 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
           ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameKey} $answer");
         }
       }else{
+        print("RouteGenerator.currentContext${RouteGenerator.currentContext}");
+
         if(RouteGenerator.currentContext!=Routes.roomScreen){
           Navigator.pop(context);
 
-        }      }
+        }
+      }
     }
   }
 }
