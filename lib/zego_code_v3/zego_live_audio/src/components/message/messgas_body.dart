@@ -90,7 +90,10 @@ class _MessagesBodyState extends State<MessagesBody> {
             ],
           );
         }else if (index == 1){
-          return Row(
+          return Padding(padding: EdgeInsets.symmetric(
+          vertical:   20.zR
+          ),
+          child: Row(
             children: [
               SizedBox(width: 50.zW, height: 50.zH,
                   child: Image.asset(AssetsPath.roomIntroMessageIcon)),
@@ -112,7 +115,8 @@ class _MessagesBodyState extends State<MessagesBody> {
                 ),
               )
             ],
-          );
+          ),
+          ) ;
         }else{
           return widget.itemBuilder.call(context, messagesNotifier[index],{});
         }},
@@ -123,8 +127,8 @@ class _MessagesBodyState extends State<MessagesBody> {
 
   void onMessageUpdate(List<ZegoInRoomMessage> messages) {
     messages.insertAll(0, [
-      ZegoInRoomMessage(user: ZegoUIKitUser(name: '',id: '-1',), message: 'dumy', timestamp: -1 ,messageID: -1),
-      ZegoInRoomMessage(user: ZegoUIKitUser(name: '',id: '-2',), message: 'dumy2', timestamp: -2 ,messageID: -4)
+      ZegoInRoomMessage(user: ZegoUIKitUser(name: '',id: '-1',),message: 'dumy', timestamp: -1 ,messageID: -1),
+      ZegoInRoomMessage(user: ZegoUIKitUser(name: '',id: '-2',),message: 'dumy2', timestamp: -2 ,messageID: -4)
     ]);
     messagesNotifier = messages;
 
