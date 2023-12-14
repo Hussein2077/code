@@ -241,7 +241,7 @@ Future<void> loadMusice({required String path}) async {
   MusicScreen.isPlaying.value = true;
 }
 
-Future<void> clearAll(String ownerId, BuildContext context) async {
+Future<void> clearAll(String ownerId, BuildContext context) async    {
   getIt<CounterBloc>().resetCounter();
   RoomScreen.listOfLoskSeats.value = {0: 0};
   RoomScreen.listOfMuteSeats.clear();

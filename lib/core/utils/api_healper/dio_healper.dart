@@ -67,7 +67,8 @@ class DioHelper {
       case InternetFailure:
         return Strings.checkYourInternet.tr();
       case AnotherAccountMessageFailure:
-        getIt<NavigationService>().navigatorKey.currentState?.pushNamedAndRemoveUntil( Routes.login,
+        getIt<NavigationService>().navigatorKey.currentState?.pushNamedAndRemoveUntil(
+            Routes.login,
               (Route<dynamic> route) => false,
           arguments: const LoginPramiter(
               isLoginFromAnotherAccountAndBuildFailure: true));
