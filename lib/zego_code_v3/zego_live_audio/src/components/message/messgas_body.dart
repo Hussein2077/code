@@ -1,6 +1,7 @@
 
 
 import 'dart:async';
+import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -138,10 +139,11 @@ class _MessagesBodyState extends State<MessagesBody> {
         return;
       }
       setState(() {
-
       });
+      log("ZegoInRoomMessageViewState.position${ZegoInRoomMessageViewState.scrollController.position.pixels}");
+      log("ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent${ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent}");
       if (ZegoInRoomMessageViewState.scrollController.position.maxScrollExtent -
-          ZegoInRoomMessageViewState.scrollController.position.pixels < 400.zH ) {
+          ZegoInRoomMessageViewState.scrollController.position.pixels < 100.zH ) {
         widget.scrollController.jumpTo(widget.scrollController.position.maxScrollExtent);
       }
     });
