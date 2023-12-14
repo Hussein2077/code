@@ -100,6 +100,9 @@ class _SpinScreenState extends State<SpinScreen> {
                             if(!widget.isFree){
                               Navigator.pop(context);
                             }
+                            if(widget.isFree){
+                              ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${widget.list[_wheelNotifier.value]} فاز", );
+                            }
                           },
                           items: [
                             if(!widget.isFree) for (var id in widget.list) FortuneItem(child: Text(ZegoUIKit().getUser(id.toString()).name), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(id), widget.list.length))),
