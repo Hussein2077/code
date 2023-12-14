@@ -59,7 +59,7 @@ class _AllUsersSpinViewState extends State<AllUsersSpinView> {
               Navigator.pop(context);
             },
             items: [
-              for (var id in widget.list) FortuneItem(child: Text(ZegoUIKit().getUser(id).name), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(id), widget.list.length))),
+              for (var id in widget.list) FortuneItem(child: Text(ZegoUIKit().getUser(id.toString()).name), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(id), widget.list.length))),
             ],
           ),
         ),
