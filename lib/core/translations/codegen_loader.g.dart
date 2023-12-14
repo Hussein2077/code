@@ -14,14 +14,15 @@ class CodegenLoader extends AssetLoader {
 
   static const Map<String, dynamic> ar = {
     StringManager.appTitle: "تيك شات",
-    StringManager.anotherAccountLoggedIn: "ليس لديك حساب تم تسجيل الدخول من جهاز اخر",
+    StringManager.anotherAccountLoggedIn:
+        "ليس لديك حساب تم تسجيل الدخول من جهاز اخر",
     StringManager.chooseContent: "يرجي اختيار المحتوي",
     StringManager.removeResult: "ازاله نتيجه كل جوله من العجله الدواره",
     StringManager.rangeOfUsers: "نطاق المستخدمين المحفوظين",
     StringManager.usersOnMic: "المستخمون علي المايك",
     StringManager.usersInRoom: "جميع المستخدمين في الغرفة",
     StringManager.numberOfLuckyUsers: "عدد المستخدمين المحظوظين",
-    StringManager.errorInUrl : 'يوجد خطأ في هذا الرابط',
+    StringManager.errorInUrl: 'يوجد خطأ في هذا الرابط',
     StringManager.video_size_error: "يرجى تحميل الفيديو أقل من 3 دقائق",
     StringManager.enterPhoneNum: "أدخل رقم هاتفك",
     StringManager.signUp: "سجل",
@@ -35,11 +36,20 @@ class CodegenLoader extends AssetLoader {
     StringManager.areYouSureLeaveSeat: "هل أنت متأكد من مغادرة المقعد؟",
     StringManager.and: "و",
     StringManager.age: "العمر",
+    StringManager.cacheGift: 'تحميل بيانات الهدايا',
+    StringManager.cacheExtra: 'تحميل بيانات اضافية',
+    StringManager.cacheFrame: 'تحميل بيانات الاطارات',
+    StringManager.cacheIntro: 'تحميل بيانات الدخلات',
+    StringManager.cacheEmoji: 'تحميل بيانات تعبيرات الاوجه',
+    StringManager.cache: 'البيانات المؤقتة',
+    StringManager.tabToLoadData: "اضغط هنا لتحميل بياناتك",
+    StringManager.dataLoaded: " تم تحميل بياناتك",
     StringManager.videos: "فيديوهات",
     StringManager.yourAgeIsUnder18: "عمرك اقل من 18",
     StringManager.selectTimeFirst: 'اختر الوقت اولا',
     StringManager.updatTikChatApp: 'تحديث تطبيق TikChatf',
-    StringManager.yourThemeIsUpload: 'تم تحميل الخلفية من فضلك انتظر حتي يتم الموافقة في خلال 24 ساعة',
+    StringManager.yourThemeIsUpload:
+        'تم تحميل الخلفية من فضلك انتظر حتي يتم الموافقة في خلال 24 ساعة',
     StringManager.enterYourRoomData: "أرجوك,ادخل بيانات غرفتك كاملة",
     StringManager.enterYourRoomName: "أرجوك,ادخل أسم غرفتك",
     StringManager.enterYourRoomImage: "أرجوك,ادخل صورة غرفتك",
@@ -247,7 +257,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.newReel: "البث المباشر الجديد",
     StringManager.videoDescription: "وصف الفيديو",
     StringManager.shareYourMoment: "شارك لحظتك مع العالم عبر الريلز",
-    StringManager.yourVideoWillPublished: "سيتم نشر الفيديو الخاص بك على صفحة الريلز",
+    StringManager.yourVideoWillPublished:
+        "سيتم نشر الفيديو الخاص بك على صفحة الريلز",
     StringManager.mentionYourFriends: "أشر إلى أصدقائك",
     StringManager.chooseTheTopic: "اختر الموضوع",
     StringManager.postTheVideo: "نشر الفيديو",
@@ -268,7 +279,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.pleaseCompleteYourInfoCountry: 'يرجى اضافة بلدك',
     StringManager.pleaseAddYourCountry: 'يرجى اضافة بلدك',
     StringManager.pleaseCompleteYourInfoAge: 'يرجى اضافة عمرك',
-    StringManager.pleaseCompleteYourInfoAgeAndCountry: ' يرجى اضافة عمرك ودولتك',
+    StringManager.pleaseCompleteYourInfoAgeAndCountry:
+        ' يرجى اضافة عمرك ودولتك',
     StringManager.loginSuccesfully: "تم تسجيل الدخول بنجاح",
     StringManager.pleaseEnterFamilyName: 'يرجى إدخال اسم العائلة',
     StringManager.pleaseEnterFamilyBio: 'يرجى إدخال نبذة عن العائلة',
@@ -281,12 +293,18 @@ class CodegenLoader extends AssetLoader {
     StringManager.income: "الدخل",
     StringManager.instructionsForJoiningAgency: "تعليمات الانضمام للوكالة",
     StringManager.goToJoin: "انتقل للانضمام",
-    StringManager.firstInstructions: "1- للتقدم للوكالة، تحتاج إلى تزويدنا بجميع المعلومات بشكل صحيح، مثل رقم هاتفك واسمك",
-    StringManager.secondInstructions: "2- نحتاج لإثبات هويتك قبل أن نبدأ في قبولك في الوكالة، ويرجى التأكد من أن جميع المعلومات المقدمة صحيحة تمامًا.",
-    StringManager.thirdInstructions: "3 - بعد رفض طلبك مرة أخرى، لقد تم رفض طلبك مرة أخرى، مرة أخرى، مرة أخرى",
-    StringManager.fourthInstructions: "3- عند قبولك في الوكالة، يرجى تجنب تسجيل الدخول إلى حسابك من جهاز آخر ومنع أي شخص آخر غيرك من استخدام حسابك، وإذا تم اكتشاف ذلك، سيتم حظر حسابك من استخدام التطبيق",
-    StringManager.fifthInstructions: "4- ستكون غرفة البث المباشر للوكالة متاحة لك بإشراف إدارة تيك شات، ويرجى اتباع القواعد المعتادة في الغرفة، مثل عدم نشر مواد غير لائقة ورسائل، وإذا تم اكتشاف ذلك، سيتم إلغاء عضويتك في الوكالة ولن تتمكن من الانضمام للوكالة مرة أخرى",
-    StringManager.agreedToTheRegulations: "بعد قراءة التعليمات يعني أنك وافقت على اللوائح",
+    StringManager.firstInstructions:
+        "1- للتقدم للوكالة، تحتاج إلى تزويدنا بجميع المعلومات بشكل صحيح، مثل رقم هاتفك واسمك",
+    StringManager.secondInstructions:
+        "2- نحتاج لإثبات هويتك قبل أن نبدأ في قبولك في الوكالة، ويرجى التأكد من أن جميع المعلومات المقدمة صحيحة تمامًا.",
+    StringManager.thirdInstructions:
+        "3 - بعد رفض طلبك مرة أخرى، لقد تم رفض طلبك مرة أخرى، مرة أخرى، مرة أخرى",
+    StringManager.fourthInstructions:
+        "3- عند قبولك في الوكالة، يرجى تجنب تسجيل الدخول إلى حسابك من جهاز آخر ومنع أي شخص آخر غيرك من استخدام حسابك، وإذا تم اكتشاف ذلك، سيتم حظر حسابك من استخدام التطبيق",
+    StringManager.fifthInstructions:
+        "4- ستكون غرفة البث المباشر للوكالة متاحة لك بإشراف إدارة تيك شات، ويرجى اتباع القواعد المعتادة في الغرفة، مثل عدم نشر مواد غير لائقة ورسائل، وإذا تم اكتشاف ذلك، سيتم إلغاء عضويتك في الوكالة ولن تتمكن من الانضمام للوكالة مرة أخرى",
+    StringManager.agreedToTheRegulations:
+        "بعد قراءة التعليمات يعني أنك وافقت على اللوائح",
     StringManager.areYouSureDeleteFamily: "هل أنت متأكد أنك تريد حذف العائلة",
     StringManager.no: "لا",
     StringManager.yes: "نعم",
@@ -298,7 +316,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.liveReport: "تقرير مباشر",
     StringManager.withdrawal: "السحب",
     StringManager.whatIsAgency: "ما هي الوكالة",
-    StringManager.enterTheAgencyYouWishToJoin: 'أدخل معرف الوكالة التي ترغب في الانضمام إليها',
+    StringManager.enterTheAgencyYouWishToJoin:
+        'أدخل معرف الوكالة التي ترغب في الانضمام إليها',
     StringManager.enterYourWhatsAppNumber: 'أدخل رقم هاتفك على WhatsApp',
     StringManager.enterAgencyIDHere: 'أدخل معرف الوكالة هنا',
     StringManager.enterYourNumberHere: 'أدخل رقمك هنا',
@@ -381,7 +400,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.description: "الوصف",
     StringManager.mustNotBeEmpty: "يجب ألا يكون فارغًا",
     StringManager.submission: "إرسال",
-    StringManager.pleaseExplain: 'يرجى شرح مشكلتك بالتفصيل حتى يتمكن موظفو خدمة العملاء لدينا من فهمها والتعامل معها',
+    StringManager.pleaseExplain:
+        'يرجى شرح مشكلتك بالتفصيل حتى يتمكن موظفو خدمة العملاء لدينا من فهمها والتعامل معها',
     StringManager.fiveMin: '5 دقائق',
     StringManager.fiftyMin: '15 دقيقة',
     StringManager.thirtyMin: '30 دقيقة',
@@ -399,8 +419,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.noCommentsYet: "لا يوجد تعليقات",
     StringManager.addAComment: "اضف تعليق",
     StringManager.enterYourImage: "ادخل الصوره للتوضيح",
-    StringManager.chooseTopic: "اختر المواضيع التي تعتبرها الأكثر أهمية بالنسبة لك!",
-    StringManager.luckGiftSend  : "اضرب",
+    StringManager.chooseTopic:
+        "اختر المواضيع التي تعتبرها الأكثر أهمية بالنسبة لك!",
+    StringManager.luckGiftSend: "اضرب",
     StringManager.pleaseChosseVideo: 'الرجاء اختيار الفيديو',
     StringManager.specialBar: "الشريط المميز",
     StringManager.chooseTimePK: "اختار وقت التحدي",
@@ -436,43 +457,46 @@ class CodegenLoader extends AssetLoader {
     StringManager.lockSeat: 'غلق المقعد',
     StringManager.showDetails: 'اظهر التفاصيل',
     StringManager.unlockRoom: 'فتح الغرفه',
-    StringManager.removeTheSpeaker : 'إزالة المتحدث',
-    StringManager.areYouSureToRemove : 'هل أنت متأكد من الإزالة',
-    StringManager.fromTheSeat : 'من المقعد؟',
-    StringManager.leaveTheSeat : 'مغادرة المقعد',
-    StringManager.areYouSureToLeaveSeat : 'هل أنت متأكد من مغادرة المقعد؟',
-    StringManager.ok : 'نعم',
-    StringManager.activeNotification : 'ارسال الاشعارات',
-    StringManager.data : 'البيانات',
-    StringManager.clearData : 'مسح البيانات',
-    StringManager.clearDataDone : 'تم مسح البيانات',
-    StringManager.downloadData : 'تحميل البيانات',
-    StringManager.downloadedData : 'تم تحميل البيانات',
-    StringManager.trendingTab : "تريند",
-    StringManager.nooneIsAwake : "لا يوجد احد الان 😕",
+    StringManager.removeTheSpeaker: 'إزالة المتحدث',
+    StringManager.areYouSureToRemove: 'هل أنت متأكد من الإزالة',
+    StringManager.fromTheSeat: 'من المقعد؟',
+    StringManager.leaveTheSeat: 'مغادرة المقعد',
+    StringManager.areYouSureToLeaveSeat: 'هل أنت متأكد من مغادرة المقعد؟',
+    StringManager.ok: 'نعم',
+    StringManager.activeNotification: 'ارسال الاشعارات',
+    StringManager.data: 'البيانات',
+    StringManager.clearData: 'مسح البيانات',
+    StringManager.clearDataDone: 'تم مسح البيانات',
+    StringManager.downloadData: 'تحميل البيانات',
+    StringManager.downloadedData: 'تم تحميل البيانات',
+    StringManager.trendingTab: "تريند",
+    StringManager.nooneIsAwake: "لا يوجد احد الان 😕",
     StringManager.lastSeen: "اخر ظهور",
     StringManager.blocked: "محظور",
     StringManager.youCanNotChat: "لا يمكنك الدردشة مع هذا الشخص",
-    StringManager.groupChat : "شات جماعي",
+    StringManager.groupChat: "شات جماعي",
     StringManager.system: "النظام",
     StringManager.appTeam: "فريق تيك شات",
-    StringManager.officialAccount : "الحساب الرسمي" ,
+    StringManager.officialAccount: "الحساب الرسمي",
     StringManager.toSendMassage: "لأرسال الرساله",
     StringManager.hinttext: "قل شيئا...",
-    StringManager.cantSendGift: "لا يمكنك ارسال هدايا عند تشغيل الرجل الغامض .. اغلق الخاصية اولا",
-    StringManager.enetrMessage:'مراسلة',
-    StringManager.youDontHaveMoments:'ليس لديك اي لحظات',
-    StringManager.youAreNotFriends:'انتم ليس اصدقاء' ,
-    StringManager.love : "احببته",
-    StringManager.comment :"تعليق",
-    StringManager.oneHashtag : "يجب علي الاقل وضع هاشتاج واحد",
-    StringManager.topicHasBeenChosen : "تم اختيار الموضوع",
-    StringManager.tabToSwapToFollowing :"اسحب الي اليمين او اليسار للتنقل بين الصفحات",
-    StringManager.tabToUpload :"اضغط هنا لرفع الفيديو الخاص بك",
-    StringManager.swapToGo :"اسحب الي اليمين للدخول الي الصفحة الشخصية",
-    StringManager.passwordProtected :"هذه الغرفة محمية بكلمة مرور",
-    StringManager.youCanOptanPassword :"يمكنك الحصول عليها من خلال احد الاعضاء المشاركين داخل الغرفة",
-    StringManager.forYou :"لك",
+    StringManager.cantSendGift:
+        "لا يمكنك ارسال هدايا عند تشغيل الرجل الغامض .. اغلق الخاصية اولا",
+    StringManager.enetrMessage: 'مراسلة',
+    StringManager.youDontHaveMoments: 'ليس لديك اي لحظات',
+    StringManager.youAreNotFriends: 'انتم ليس اصدقاء',
+    StringManager.love: "احببته",
+    StringManager.comment: "تعليق",
+    StringManager.oneHashtag: "يجب علي الاقل وضع هاشتاج واحد",
+    StringManager.topicHasBeenChosen: "تم اختيار الموضوع",
+    StringManager.tabToSwapToFollowing:
+        "اسحب الي اليمين او اليسار للتنقل بين الصفحات",
+    StringManager.tabToUpload: "اضغط هنا لرفع الفيديو الخاص بك",
+    StringManager.swapToGo: "اسحب الي اليمين للدخول الي الصفحة الشخصية",
+    StringManager.passwordProtected: "هذه الغرفة محمية بكلمة مرور",
+    StringManager.youCanOptanPassword:
+        "يمكنك الحصول عليها من خلال احد الاعضاء المشاركين داخل الغرفة",
+    StringManager.forYou: "لك",
     StringManager.luckyGiftMessage: 'ارسل هدية حظ  عددها',
     StringManager.to: 'الي',
     StringManager.nameAnayoums: 'الرجل الغامض',
@@ -486,14 +510,14 @@ class CodegenLoader extends AssetLoader {
     StringManager.end: 'انهاء',
     StringManager.result: 'النتيجه',
     StringManager.pleseSelectUser: 'الرجاء اختيار المستخدم',
-
-    Strings.signinGoogleFailureMessage : ' خطاء اثناء تسجيل الدخول بجوجل',
-    Strings.signinFacebookFailureMessage : 'خطاء اثناء تسجيل الدخول بفيس بوك',
-    Strings.serverFailureMessage: 'هناك خطاء في الخدمه يرجي المحاوله في وقت لاحق',
+    Strings.signinGoogleFailureMessage: ' خطاء اثناء تسجيل الدخول بجوجل',
+    Strings.signinFacebookFailureMessage: 'خطاء اثناء تسجيل الدخول بفيس بوك',
+    Strings.serverFailureMessage:
+        'هناك خطاء في الخدمه يرجي المحاوله في وقت لاحق',
     Strings.unauthorizedFailureMassage: 'ليس لديك حسابك',
-    Strings.unEexpectedFailureMessage: 'هناك خطاء في الخدمه يرجي المحاوله في وقت لاحق',
-    Strings.signinAppleFailureMessage : "هناك خطاء اثناء تسجيل الدخول بأبل",
-
+    Strings.unEexpectedFailureMessage:
+        'هناك خطاء في الخدمه يرجي المحاوله في وقت لاحق',
+    Strings.signinAppleFailureMessage: "هناك خطاء اثناء تسجيل الدخول بأبل",
     StringManager.diceGame: 'ألنرد',
     StringManager.rps: 'حجر ورقة مقص',
     StringManager.luckyNumber: 'رقم الحظ',
@@ -507,7 +531,6 @@ class CodegenLoader extends AssetLoader {
     StringManager.viewProfile: 'الصفحة الشخصية',
     StringManager.changeThemeApproval: 'هل توافق علي تغيير الخلفية مقابل ',
     StringManager.wait: 'انتظر حتي تاتي بيانات المنتجات',
-
   };
 
   static const Map<String, dynamic> tr = {
@@ -1062,7 +1085,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.empty: 'خالی',
     StringManager.chooseTopic: 'آپ کے لئے سب سے اہم موضوعات منتخب کریں',
     StringManager.nowInRoom: 'کمرے میں داخل ہو رہے ہیں',
-    StringManager.pleaseAddAtLeastTwoValue: " من فضلك ادخل علي الافل اختيارين" ,
+    StringManager.pleaseAddAtLeastTwoValue: " من فضلك ادخل علي الافل اختيارين",
   };
   static const Map<String, dynamic> chs = {
     StringManager.appTitle: "Tik Chat",

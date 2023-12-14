@@ -390,7 +390,7 @@ class Methods {
       Map<String, dynamic> jsonData = response.data;
 
       SvgaDataModel svgaDataModel = SvgaDataModel.fromJason(jsonData['data']);
-      log(svgaDataModel.toString());
+      log(svgaDataModel.toString()+'ssssssssssss');
       return svgaDataModel;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: "getExtraData");
@@ -401,6 +401,8 @@ class Methods {
     SvgaDataModel svgaDataModel = await getExtraData(type);
     // removeCacheSvgaExtra(svgaDataModel: svgaDataModel) ;
     await cacheSvgaExtraData(svgaDataModel: svgaDataModel);
+
+
   }
 
   Future<void> cacheSvgaExtraData(
@@ -1006,6 +1008,17 @@ void checkIfFriends(
   Future<bool> getShowCase() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool isFirst = preferences.getBool("is_first")??true;
+    return isFirst;
+  }
+  Future<void> saveHomeShowCase({required bool isFirst}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool("is_first_home", isFirst);
+  }
+  Future<bool> getHomeShowCase() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    log('${ preferences.getBool("is_first_home")} preferences.getBool("is_first_home")');
+    bool isFirst = preferences.getBool("is_first_home")??true;
+
     return isFirst;
   }
 

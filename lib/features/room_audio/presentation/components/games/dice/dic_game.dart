@@ -63,8 +63,8 @@ class _DiceGameState extends State<DiceGame> with AutomaticKeepAliveClientMixin 
             child: showResultDicGame
                 ? Image.asset(dicNum[widget.randomNum])
                 : ShowSVGA(
-                    imageId: state.svgaDataModel.diceModel.id.toString(),
-                    url: state.svgaDataModel.diceModel.image.toString()),
+                    imageId: state.svgaDataModel.diceModel?.id.toString()??"",
+                    url: state.svgaDataModel.diceModel?.image.toString()??""),
           );
         } else if (state is ExtraDataLoading) {
           if (isFirst == 0) {
@@ -79,8 +79,8 @@ class _DiceGameState extends State<DiceGame> with AutomaticKeepAliveClientMixin 
               child: showResultDicGame
                   ? Image.asset(dicNum[widget.randomNum])
                   : ShowSVGA(
-                      imageId: tempData!.diceModel.id.toString(),
-                      url: tempData!.diceModel.image.toString()),
+                      imageId: tempData!.diceModel?.id.toString()??"",
+                      url: tempData!.diceModel?.image.toString()??""),
             );
           }
         } else if (state is ExtraDataError) {

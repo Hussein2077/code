@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/show_svga.dart';
@@ -56,8 +55,8 @@ class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with Au
             child: showResultGame
                 ? Image.asset(brickPaperNum[widget.randomNum])
                 : ShowSVGA(
-                imageId: state.svgaDataModel.rpsModel.id.toString(),
-                url: state.svgaDataModel.rpsModel.image.toString()),
+                imageId: state.svgaDataModel.rpsModel?.id.toString()??"",
+                url: state.svgaDataModel.rpsModel?.image.toString()??""),
           );
         } else if (state is ExtraDataLoading) {
           if (isFirst == 0) {
@@ -72,8 +71,8 @@ class _BrickPaperScissorsGameState extends State<BrickPaperScissorsGame> with Au
               child: showResultGame
                   ? Image.asset(brickPaperNum[widget.randomNum])
                   : ShowSVGA(
-                  imageId: tempData!.rpsModel.id.toString(),
-                  url: tempData!.rpsModel.image.toString()),
+                  imageId: tempData!.rpsModel?.id.toString()??"",
+                  url: tempData!.rpsModel?.image.toString()??""),
             );
           }
         } else if (state is ExtraDataError) {

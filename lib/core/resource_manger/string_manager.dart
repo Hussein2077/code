@@ -80,6 +80,8 @@ class StringManager {
   static const String songs = "Songs";
   static const String added = "added";
   static const String add = "add";
+  static const String tabToLoadData = "Tab to load your data";
+  static const String dataLoaded = "Data Loaded";
   static const String chooseYourMusic = "Choose your musics";
   static const String youBanFromWriting = "You have been banned From Writing";
   static const String appTitle = "Tikchat";
@@ -429,7 +431,12 @@ class StringManager {
   static const String updateRoomName = "update your room name here";
   static const String next = "Next";
   static const String numberOfCoins = "Number Of Coins";
-
+  static const String cacheGift = "Load gift data";
+  static const String cacheExtra = "Load extra data";
+  static const String cacheFrame = "Load frame data";
+  static const String cacheIntro = "Load intro data";
+  static const String cacheEmoji = "Load emoji data";
+  static const String cache = "Cache";
   //وضع جميع اللغات
   static const String report = "Report";
   static const String whatProblem = "What problem is worth reporting?";

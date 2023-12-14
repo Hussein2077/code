@@ -60,27 +60,28 @@ class _LoginScreenState extends State<LoginScreen> {
   void GoogleHuawei() async {
     isGoogle = (await GoogleHuaweiAvailability.isGoogleServiceAvailable)!;
     isHuawei = (await GoogleHuaweiAvailability.isHuaweiServiceAvailable)!;
-   // setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
-    GoogleHuawei();
     passwordController = TextEditingController();
     if (widget.isBaned!) {
       Future.delayed(const Duration(seconds: 2), () {
-        if(mounted) {
+        if (mounted) {
           showDialog(
-            context: context,
-            builder: (context) {
-              return PopUpDialog(
-                headerText: widget.banedMassage ?? "",
-                accpetText: () {
-                  Navigator.pop(context);
-                },
-                accpettitle: StringManager.ok.tr(),
-              );
-            });
+              context: context,
+              builder: (context) {
+                return PopUpDialog(
+                  headerText: widget.banedMassage ?? "",
+                  accpetText: () {
+                    Navigator.pop(context);
+                  },
+                  accpettitle: StringManager.ok.tr(),
+                );
+              });
         }
       });
     }
@@ -111,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     });
-
+    GoogleHuawei();
     super.didChangeDependencies();
   }
 
@@ -252,9 +253,8 @@ class _LoginScreenState extends State<LoginScreen> {
             (route) => false,
           );
         } else if (state is LoginWithPhoneErrorMessageState) {
-          Future.delayed(const Duration(seconds: 1),(){
+          Future.delayed(const Duration(seconds: 1), () {
             errorToast(context: context, title: state.errorMessage);
-
           });
         } else if (state is LoginWithPhoneLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());

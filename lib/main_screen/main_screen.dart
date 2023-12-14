@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -54,6 +57,7 @@ class MainScreen extends StatefulWidget {
   static ValueNotifier<bool> iskeepInRoom = ValueNotifier<bool>(false);
 
   static EnterRoomModel? roomData;
+  static bool isHomeShowCaseFirst = true;
 
   static String reelId = '';
   static String? momentId;
@@ -135,15 +139,25 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               backgroundColor: Theme.of(context).colorScheme.background,
               body: BottomNavLayout(
                 pages: [
-                  (_) => HomeScreen(
-                        isCachExtra: widget.isCachExtra,
-                        isCachFrame: widget.isCachFrame,
-                        isChachGift: widget.isChachGift,
-                        isUpdate: widget.isUpdate,
-                        isCachEmojie: widget.isCachEmojie,
-                        isCachEntro: widget.isCachEntro,
-                        actionDynamicLink: widget.actionDynamicLink,
-                      ),
+                  (_) => ShowCaseWidget(
+                    onComplete: (index,key){
+                      MainScreen.isHomeShowCaseFirst=false;
+                    Methods.instance.saveHomeShowCase(isFirst:MainScreen.isHomeShowCaseFirst);
+                    },
+                 builder   : Builder(
+                      builder: (context) {
+                        return HomeScreen(
+                              isCachExtra: widget.isCachExtra,
+                              isCachFrame: widget.isCachFrame,
+                              isChachGift: widget.isChachGift,
+                              isUpdate: widget.isUpdate,
+                              isCachEmojie: widget.isCachEmojie,
+                              isCachEntro: widget.isCachEntro,
+                              actionDynamicLink: widget.actionDynamicLink,
+                            );
+                      }
+                    ),
+                  ),
                   (_) => const ReelsScreenTaps(),
                   (_) => const SafeArea(child: ChatPage()),
                   (_) => const FollowingLiveScreen(),
