@@ -8,10 +8,12 @@ import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dialog_explained_game.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_states.dart';
@@ -64,12 +66,25 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
               child: Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                     children: [
                       IconButton(
                         onPressed: (){
                           Navigator.pop(context);
                         },
                         icon: Icon(Icons.close, color: Colors.white, size: ConfigSize.defaultSize! * 3,),
+                      ),
+                      IconButton(
+                        onPressed: (){
+                          bottomDailog(context: context, widget:  ExplainGame(
+                            explainGame:StringManager.explainGamePaperScissorsBrick.tr() ,
+                            iconGame: AssetsPath.guessingIcon
+                          ));
+                        },
+                        icon: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            child: Icon(Icons.question_mark_outlined, color: Colors.black, size: ConfigSize.defaultSize! * 3,)),
                       ),
                     ],
                   ),
