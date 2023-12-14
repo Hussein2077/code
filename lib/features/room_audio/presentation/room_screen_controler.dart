@@ -259,6 +259,7 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   RoomScreen.isGiftEntroAnimating = false;
   RoomScreen.listOfAnimatingGifts.clear();
   RoomScreen.listOfAnimatingEntros.clear();
+  RoomScreen.isWinnerShowWidget.value = false ;
   if(ownerId == MyDataModel.getInstance().id.toString() &&  PkController.showPK.value){
 
 
@@ -806,7 +807,7 @@ ResultOfGame(Map<String, dynamic> result){
       }
       if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
         RoomScreen.isWinnerShowWidget.value = true ;
-        Future.delayed(const Duration(seconds: 3),(){
+        Future.delayed(const Duration(seconds: 4),(){
           RoomScreen.isWinnerShowWidget.value = false ;
 
         }
@@ -819,9 +820,12 @@ ResultOfGame(Map<String, dynamic> result){
         ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}", );
 
       }
+      print(result[messageContent]['winner_id'].toString()+"xxxxxxxx");
       if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
+        print("xxxxxxxxxxxxxxxxxxx");
+
         RoomScreen.isWinnerShowWidget.value = true ;
-        Future.delayed(const Duration(seconds: 3),(){
+        Future.delayed(const Duration(seconds: 4),(){
           RoomScreen.isWinnerShowWidget.value = false ;
 
         }
@@ -837,12 +841,12 @@ ResultOfGame(Map<String, dynamic> result){
       }
       if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
         RoomScreen.isWinnerShowWidget.value = true ;
-        Future.delayed(const Duration(seconds: 3),(){
+        Future.delayed(const Duration(seconds: 4),(){
           RoomScreen.isWinnerShowWidget.value = false ;
 
         }
         );
-      
+
       }
     }
   }
@@ -884,7 +888,7 @@ LuckyDraw(Map<String, dynamic> result, BuildContext context, EnterRoomModel room
       );
     }
   }
-  showDialog(
+  final route = showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
@@ -893,8 +897,16 @@ LuckyDraw(Map<String, dynamic> result, BuildContext context, EnterRoomModel room
           winner: result[messageContent]["winner"],
           room: room,
           id: result[messageContent]["id"],
+          exitDailog: (){
+
+          },
         );
       });
+  Navigator.of(context).push(route as Route<Object?>);
+   Future.delayed(const Duration(seconds: 5),(){
+     Navigator.of(context).removeRoute(route as Route<Object?>);
+   });
+
 }
 
 Map<int, SelecteUsers> sortMapByKey(Map<int, SelecteUsers> inputMap) {

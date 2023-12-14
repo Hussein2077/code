@@ -18,13 +18,17 @@ class CommentBody extends StatefulWidget {
   Map<int, SelecteUsers> items;
   int winner;
   int id;
+  void Function()? exitDailog ;
 
   CommentBody(
       {super.key,
       required this.room,
       required this.items,
       required this.winner,
-      required this.id});
+      required this.id,
+         this.exitDailog ,
+
+      });
 
   @override
   State<CommentBody> createState() => _CommentBodyState();
@@ -131,7 +135,7 @@ class _CommentBodyState extends State<CommentBody> {
                                   setState(() {
                                     timer.cancel();
                                     isTimerFinished = true;
-                                    Navigator.pop(context);
+                                    // Navigator.pop(context);
                                   });
                                 } else {
                                   if (mounted) {
