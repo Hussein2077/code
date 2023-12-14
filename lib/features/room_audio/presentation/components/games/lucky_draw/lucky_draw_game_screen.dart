@@ -7,9 +7,11 @@ import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dialog_explained_game.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/selection_widget.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
@@ -48,7 +50,9 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
 
           Stack(
             children: [
+
               Image.asset(AssetsPath.luckyDrawGameHeader, scale: .9,),
+
               Positioned(
                   bottom: 0,
                   child: InkWell(
@@ -58,6 +62,8 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                       child: Image.asset(AssetsPath.luckyDrawGameExite, scale: 1,),
                   ),
               ),
+
+
             ],
           ),
 
@@ -73,12 +79,32 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 10),
+                  IconButton(
+                    onPressed: (){
+                      bottomDailog(context: context, widget:  ExplainGame(
+                        hight: ConfigSize.screenHeight! * 0.60 ,
+                        hightContaner:ConfigSize.screenHeight! * 0.52  ,
+                        explainGame:StringManager.luckyDraw.tr() ,
+                        linearGradient: const [
+                          Color(0xffffd0be),
+                          Color(0xffffc8b3)
+                        ],
+                        iconGame: AssetsPath.luckyDrawGameHeader,
+                        topPostion: ConfigSize.defaultSize!*10,
+                        logoIcon: AssetsPath.lotteryIcon,
+                      ));
+                    },
+                    icon: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.question_mark_outlined, color: Colors.black, size: ConfigSize.defaultSize! * 3,)),
+                  ),
+                  Spacer(),
                   Text(StringManager.rangeOfUsers.tr(), style: TextStyle(color: const Color.fromRGBO(149, 72, 72, 1), fontSize: ConfigSize.defaultSize! * 2),),
                   const SizedBox(height: 10),
-
                   ListView.separated(
                       itemBuilder: (context, index) {
                         return InkWell(
@@ -118,6 +144,8 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                       padding: EdgeInsets.zero,
                       itemCount: chooises.length
                   ),
+                  Spacer(flex: 2),
+
                 ],
               ),
             ),
@@ -127,6 +155,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
             alignment: Alignment.bottomCenter,
             children: [
               Image.asset(AssetsPath.luckyDrawGameBottom, scale: .9,),
+
               InkWell(
                 onTap: (){
                   if(selected1 != -1){
