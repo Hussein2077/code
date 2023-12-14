@@ -20,10 +20,6 @@ class DioHelper {
     String key = await Methods.instance.getLocalization();
     String token = await Methods.instance.returnUserToken();
 
-    if (kDebugMode) {
-      log(token + "######");
-      log(key + "lang");
-    }
     final devicedata = await initPlatformState();
     Map<String, String> headers = {
       "Authorization": "Bearer $token",

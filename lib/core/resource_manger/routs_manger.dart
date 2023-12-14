@@ -172,6 +172,7 @@ class Routes {
   static const String whiteEmptyScreen = "/whiteEmptyScreen";
   static const String allShippingAgent = "/AllShippingAgent";
   static const String profileChatDetails = "/ProfileChatDetails";
+  static const String refreshScreen = "/RefreshScreen";
 }
 
 class RouteGenerator {
