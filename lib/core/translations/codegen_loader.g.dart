@@ -561,6 +561,10 @@ class CodegenLoader extends AssetLoader {
 و اذا كنت سعيد الحظ ستقف الدوران عليك و سيظهر للجميع داخل الروم اسمك و صورتك لكي يرسلو لك هديه     
     ''',
 
+    StringManager.chatWillBeAvailable : "ستكون الدردشة متاحة في الساعات القادمة",
+    StringManager.stayTuned : "ترقبوا 😉",
+    StringManager.thisFeaturenotAvailableNow : "هذه الميزة غير متوفرة الآن" ,
+
   };
 
   static const Map<String, dynamic> tr = {
@@ -1120,6 +1124,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.waitForUsersResponse: "في انتظار رد المستخدمين" ,
     StringManager.participants: "المشاركون:" ,
     StringManager.luckyUsers: "المستخدمون المحظوظون:" ,
+
   };
   static const Map<String, dynamic> chs = {
     StringManager.appTitle: "Tik Chat",

@@ -603,6 +603,13 @@ class StringManager {
   static const String pleaseAddAtLeastTwoValue =
       "Please Add At Least Two Value";
 
+  static const String chatWillBeAvailable = "The chat will be available in the coming hours";
+  static const String stayTuned = "Stay tuned 😉";
+
+  static const String thisFeaturenotAvailableNow = "This Feature not Available Now";
+
+
+
   static const String explainGameDice = '''
       Players:
       Several players can play, but the game can also be played individually.
@@ -963,6 +970,8 @@ class StringManager {
       "${RoomScreen.differentCommentKey}${StringManager.result}rps";
   static String diceGameResultKey =
       "${RoomScreen.differentCommentKey}${StringManager.result}dice";
+
+
 
   //games links
   static const String teenPatti =

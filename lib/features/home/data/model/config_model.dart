@@ -20,6 +20,8 @@ class ConfigModel extends Equatable {
   final String? appSign;
   final int? appId;
 
+  final bool? disableChat ;
+
   const ConfigModel({
     this.isForce,
     this.isAuth,
@@ -31,6 +33,7 @@ class ConfigModel extends Equatable {
     this.updateExtraCach,
     this.appId,
     this.appSign,
+    this.disableChat ,
   });
 
   factory ConfigModel.fromJson(Map<String, dynamic> json) => ConfigModel(
@@ -42,6 +45,8 @@ class ConfigModel extends Equatable {
         updateGiftCache: json['cache_update']['gifts'],
         updateEmojieCach: json['cache_update']['emoji'],
         updateEntroCach: json['cache_update']['intro'],
+    disableChat:   json["disableChat"]?? true ,
+
 
       );
 

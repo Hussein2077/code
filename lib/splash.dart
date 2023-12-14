@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/snackbar.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/chat_theme_integration.dart';
 import 'package:tik_chat_v2/features/home/data/model/config_model.dart';
 import 'package:tik_chat_v2/features/home/domin/use_case/get_confige_uc.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
@@ -51,6 +52,11 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     loadResources().then((value) async {
+      if(configModel != null){
+        ChatThemeIntegration.disableChat = configModel!.disableChat! ;
+
+      }
+
       if (configModel == null) {
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.login, (route) => false,

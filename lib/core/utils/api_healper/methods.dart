@@ -33,6 +33,7 @@ import 'package:tik_chat_v2/core/widgets/chat-ui.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/chat_theme_integration.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_event.dart';
 import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
@@ -942,11 +943,18 @@ class Methods {
 
 void checkIfFriends(
     { required UserDataModel userData, required BuildContext context ,}){
-  if (userData.isFriend!) {
-    navigatorToUserChat(context: context, userData: userData);
-  } else {
-    errorToast(context: context, title: StringManager.youAreNotFriends);
-  }
+    if(ChatThemeIntegration.disableChat){
+      errorToast(context: context, title: StringManager.thisFeaturenotAvailableNow.tr());
+
+
+    }else {
+      if (userData.isFriend!) {
+        navigatorToUserChat(context: context, userData: userData);
+      } else {
+        errorToast(context: context, title: StringManager.youAreNotFriends);
+      }
+    }
+
 
 }
   void navigatorToUserChat(

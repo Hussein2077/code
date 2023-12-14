@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/widgets/chat-ui.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_state.dart';
+import 'package:tik_chat_v2/features/chat/user_chat/chat_theme_integration.dart';
 
 import '../../../core/model/user_data_model.dart';
 import '../../../core/utils/config_size.dart';
@@ -115,6 +116,17 @@ class _ChatPageState extends State<ChatPage> {
               ],
             ),
           ),
+          ChatThemeIntegration.disableChat?
+
+              Expanded(child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  Text(StringManager.chatWillBeAvailable.tr()),
+                  Text(StringManager.stayTuned.tr()),
+                ],),
+              )):
+
           Expanded(
 
     child:  CometChatConversationsWithMessages(
