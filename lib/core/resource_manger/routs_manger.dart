@@ -15,6 +15,7 @@ import 'package:tik_chat_v2/features/auth/presentation/component/Privacy_Policy/
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/forget_password/forget_password.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
+import 'package:tik_chat_v2/features/auth/presentation/component/refresh_screen/refresh_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/reset_password/reset_password.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/sign_up/sign_up_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/login_screen.dart';
@@ -727,6 +728,11 @@ class RouteGenerator {
             builder: (_) => ProfileChatDetails(
                   userData: userData,
                 ));
+
+        case Routes.refreshScreen:
+        return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => const RefreshScreen());
     }
 
     return unDefinedRoute();
