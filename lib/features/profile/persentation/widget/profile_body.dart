@@ -31,7 +31,7 @@ class ProfileBody extends StatelessWidget {
          SizedBox(height: ConfigSize.defaultSize!*3,),
             UserInfoRow(
               imageSize: ConfigSize.defaultSize! * 6,
-              underName: IdWithCopyIcon(userData: myData),
+              underName: IdWithCopyIcon(userData: myData ),
               underNameWidth: ConfigSize.defaultSize!*14,
               endIcon: Container(
                 padding: EdgeInsets.all(ConfigSize.defaultSize!),

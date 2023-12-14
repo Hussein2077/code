@@ -63,12 +63,13 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
           SizedBox(
             width: ConfigSize.defaultSize,
           ),
+
+
           Icon(
             Icons.copy,
             size: ConfigSize.defaultSize! * 1.8,
-            color: widget.userData.isGold!
-                ? ColorManager.shimmerGold1
-                : ColorManager.orang,
+            color:  (widget.userData.imageIdModel==null||widget.userData.imageIdModel?.color=='')
+                ? ColorManager.darkBlack: HexColor(widget.userData.imageIdModel?.color),
           )
         ],
       ),
