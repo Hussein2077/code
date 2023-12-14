@@ -17,17 +17,22 @@ import 'dart:async';
 
 class CommentBody extends StatefulWidget {
   EnterRoomModel room;
-  Map<int,SelecteUsers> items;
+  Map<int, SelecteUsers> items;
   int winner;
   int id;
-  CommentBody({super.key, required this.room, required this.items, required this.winner, required this.id});
+
+  CommentBody(
+      {super.key,
+      required this.room,
+      required this.items,
+      required this.winner,
+      required this.id});
 
   @override
   State<CommentBody> createState() => _CommentBodyState();
 }
 
 class _CommentBodyState extends State<CommentBody> {
-
   final _wheelNotifier = BehaviorSubject<int>();
   String selectedItem = "";
   bool animationEnded = false;
@@ -37,8 +42,6 @@ class _CommentBodyState extends State<CommentBody> {
 
   @override
   void initState() {
-
-    log(widget.items.toString());
     _wheelNotifier.add(widget.winner);
     super.initState();
   }
@@ -67,107 +70,127 @@ class _CommentBodyState extends State<CommentBody> {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(StringManager.result.tr(),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        shadows: [
-                          Shadow(
-                      blurRadius: 5,
-                      color: Colors.red,
-                      offset: Offset(2, 2),
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      StringManager.result.tr(),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 5,
+                              color: Colors.red,
+                              offset: Offset(2, 2),
+                            ),
+                            Shadow(
+                              blurRadius: 5,
+                              color: Colors.red,
+                              offset: Offset(-2, -2),
+                            ),
+                            Shadow(
+                              blurRadius: 5,
+                              color: Colors.red,
+                              offset: Offset(2, -2),
+                            ),
+                            Shadow(
+                              blurRadius: 5,
+                              color: Colors.red,
+                              offset: Offset(-2, 2),
+                            ),
+                          ],
+                          fontSize: 20),
                     ),
-                          Shadow(
-                      blurRadius: 5,
-                      color: Colors.red,
-                      offset: Offset(-2, -2),
+                    Text(
+                      "Time Remains: ${start.toString()}",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: ConfigSize.defaultSize! * 1.3),
                     ),
-                          Shadow(
-                      blurRadius: 5,
-                      color: Colors.red,
-                      offset: Offset(2, -2),
+                    Text(
+                      "Participants: ${widget.items.length}",
+                      style: TextStyle(color: Colors.white),
                     ),
-                          Shadow(
-                      blurRadius: 5,
-                      color: Colors.red,
-                      offset: Offset(-2, 2),
+                    Text(
+                      "Lucky Users: 1",
+                      style: TextStyle(color: Colors.white),
                     ),
-                        ],
-                        fontSize: 20
-                    ),
-                  ),
-
-                  Text("Time Remains: ${start.toString()}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: ConfigSize.defaultSize! * 1.3),),
-
-              Text("Participants: ${widget.items.length}", style: TextStyle(color: Colors.white),),
-                  Text("Lucky Users: 1", style: TextStyle(color: Colors.white),),
-
-              SizedBox(
-                width: ConfigSize.defaultSize! * 18,
-                child: FortuneBar(
-                  selected: _wheelNotifier.stream,
-                  height: ConfigSize.defaultSize! * 10,
-                  physics: DirectionalPanPhysics.horizontal(),
-                  animateFirst: false, //start animation when open screen
-                  onAnimationEnd: () {
-                    setState(() {
-                      animationEnded = true;
-                      Timer.periodic(
-                        const Duration(seconds: 1), (Timer timer) {
-                        if (start == 0) {
+                    SizedBox(
+                      width: ConfigSize.defaultSize! * 18,
+                      child: FortuneBar(
+                        selected: _wheelNotifier.stream,
+                        height: ConfigSize.defaultSize! * 10,
+                        physics: DirectionalPanPhysics.horizontal(),
+                        animateFirst: false,
+                        //start animation when open screen
+                        onAnimationEnd: () {
                           setState(() {
-                            timer.cancel();
-                            isTimerFinished = true;
-                            Navigator.pop(context);
+                            animationEnded = true;
+                            Timer.periodic(
+                              const Duration(seconds: 1),
+                              (Timer timer) {
+                                if (start == 0) {
+                                  setState(() {
+                                    timer.cancel();
+                                    isTimerFinished = true;
+                                    Navigator.pop(context);
+                                  });
+                                } else {
+                                  if (mounted) {
+                                    setState(() {
+                                      start--;
+                                    });
+                                  }
+                                }
+                              },
+                            );
                           });
-                        } else {
-                          if(mounted){
-                            setState(() {
-                              start--;
-                            });
-                          }
-                        }
-                      },
-                      );
-                    });
-                  },
-                  items: [
-                    for (var it in widget.items.values) FortuneItem(
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Column(
-                            children: [
-                              UserImage(image: it.image),
-                              const SizedBox(height: 5,),
-                              Text(it.name),
-                            ],
+                        },
+                        items: [
+                          for (var it in widget.items.values)
+                            FortuneItem(
+                              child: Container(
+                                color: Colors.transparent,
+                                child: Column(
+                                  children: [
+                                    UserImage(image: it.image),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(it.name),
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    if (animationEnded)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () {
+                            log(widget.id.toString());
+                            log(widget.items[widget.id]!.userId.toString());
+                            log(widget.items[widget.id]!.image.toString());
+                            bottomDailog(
+                                context: context,
+                                widget: GiftScreen(
+                                  roomData: widget.room,
+                                  userId: widget.items[widget.id]!.userId.toString(),
+                                  myDataModel: MyDataModel.getInstance(),
+                                  userImage: widget.items[widget.id]!.image,
+                                  listAllUsers: null,
+                                  isSingleUser: true,
+                                ));
+                          },
+                          child: Image.asset(
+                            AssetsPath.sendGiftIconProfile,
+                            scale: 2,
                           ),
                         ),
-                    ),
-                  ],
-                ),
-              ),
-                  if(animationEnded) Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        bottomDailog(
-                            context: context,
-                            widget: GiftScreen(
-                              roomData: widget.room,
-                              userId: widget.items[widget.id]!.userId.toString(),
-                              myDataModel: MyDataModel.getInstance(),
-                              userImage: widget.items[widget.id]!.image,
-                              listAllUsers: null,
-                              isSingleUser: true,
-                            ));
-                      },
-                      child:  Image.asset(AssetsPath.sendGiftIconProfile, scale: 2,),
-                    ),
-                  ),
-                ]
-              ),
+                      ),
+                  ]),
             ),
           ),
         ],

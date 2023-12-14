@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/comment_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/selection_widget.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
@@ -82,17 +84,14 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                         return InkWell(
                           onTap: (){
                             if(index == 0){
-                              for(int i =0 ; i < RoomScreen.userOnMics.value.length; i++) {
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(RoomScreen.userOnMics.value[i]!.id),
-                                        () => SelecteUsers(
-                                          userId: RoomScreen.userOnMics.value[i]?.id ?? "",
-                                          selected: true,
-                                          name: RoomScreen.userOnMics.value[i]?.name?? "",
-                                          image: RoomScreen.userOnMics.value[i]?.inRoomAttributes.value['img']?? "",
-                                        ),
-                                );
-
-                              }
+                              GiftUser.userOnMicsForGifts.forEach((key, value) {
+                                LuckyDrawGameScreen.userSelected.putIfAbsent(key, () => SelecteUsers(
+                                  userId: value.id,
+                                  selected: true,
+                                  name: value.name,
+                                  image: value.inRoomAttributes.value['img']!,
+                                ),);
+                              });
                             } else{
                               for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
                                 LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(ZegoUIKit().getAllUsers()[i].id), () => SelecteUsers(
@@ -132,7 +131,7 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                 onTap: (){
                   if(selected1 != -1){
                     int winner = Fortune.randomInt(0, LuckyDrawGameScreen.userSelected.length);
-                    List<int> mapKeysList = LuckyDrawGameScreen.userSelected.keys.toList();
+                    List<int> mapKeysList = sortMapByKey(LuckyDrawGameScreen.userSelected).keys.toList();
                     ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(
                         winner,
                         selected1,
