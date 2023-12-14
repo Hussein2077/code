@@ -799,19 +799,54 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
 }
 
 ResultOfGame(Map<String, dynamic> result){
-  if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
+
     if(result[messageContent]['game_id'].toString() == "1"){
-      ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameResultKey} ${result[messageContent]["message_content"]}", );
+      if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
+        ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameResultKey} ${result[messageContent]["message_content"]}", );
+      }
+      if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
+        RoomScreen.isWinnerShowWidget.value = true ;
+        Future.delayed(const Duration(seconds: 3),(){
+          RoomScreen.isWinnerShowWidget.value = false ;
+
+        }
+        );
+      }
+
+
     }else if(result[messageContent]['game_id'].toString() == "2"){
-      ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}", );
+      if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
+        ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}", );
+
+      }
+      if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
+        RoomScreen.isWinnerShowWidget.value = true ;
+        Future.delayed(const Duration(seconds: 3),(){
+          RoomScreen.isWinnerShowWidget.value = false ;
+
+        }
+        );
+      }
     }
-  }
-  if(result[messageContent]['game_owner'].toString() == MyDataModel.getInstance().id.toString()){
+
+
     if(result[messageContent]['game_id'].toString() == "3"){
-      ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${result[messageContent]["message_content"]}", );
+      if(result[messageContent]['game_owner'].toString() == MyDataModel.getInstance().id.toString()){
+        ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${result[messageContent]["message_content"]}", );
+
+      }
+      if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
+        RoomScreen.isWinnerShowWidget.value = true ;
+        Future.delayed(const Duration(seconds: 3),(){
+          RoomScreen.isWinnerShowWidget.value = false ;
+
+        }
+        );
+      
+      }
     }
   }
-}
+
 
 FreeSpinGame(Map<String, dynamic> result, BuildContext context){
   if(result[messageContent]["ownerId"].toString() != MyDataModel.getInstance().id.toString()){
