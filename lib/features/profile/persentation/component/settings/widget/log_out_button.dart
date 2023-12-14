@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
@@ -66,8 +67,7 @@ class _LogOutOrDeleteAccountButtonState
               Methods().removeUserData();
               // ignore: use_build_context_synchronously
             }).then((value) =>
-                Navigator.pushNamedAndRemoveUntil(
-                    context, Routes.login, (route) => false));
+              getIt<NavigationService>().navigatorKey.currentState!.pushNamedAndRemoveUntil(Routes.login, (route) => false));
 
           } else if (state is LogOutLoadingState ||
               state is DeleteAccountLoadingState) {

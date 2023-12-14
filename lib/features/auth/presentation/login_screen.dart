@@ -258,7 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (state is LoginWithPhoneErrorMessageState) {
           ScaffoldMessenger.of(getIt<NavigationService>().navigatorKey.currentContext!).showSnackBar(errorSnackBar(context,state.errorMessage));
         } else if (state is LoginWithPhoneLoadingState) {
-          loadingToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.loading.tr());
+          ScaffoldMessenger.of(getIt<NavigationService>().navigatorKey.currentContext!).showSnackBar(loadingSnackBar(context));
         }
       },
     );
