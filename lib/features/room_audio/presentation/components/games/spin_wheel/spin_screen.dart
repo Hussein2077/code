@@ -102,7 +102,8 @@ class _SpinScreenState extends State<SpinScreen> {
                             }
                           },
                           items: [
-                            for (var id in widget.list) FortuneItem(child: Text(ZegoUIKit().getUser(id.toString()).name), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(id), widget.list.length))),
+                            if(!widget.isFree) for (var id in widget.list) FortuneItem(child: Text(ZegoUIKit().getUser(id.toString()).name), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(id), widget.list.length))),
+                            if(widget.isFree) for (var name in widget.list) FortuneItem(child: Text(name), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(name), widget.list.length))),
                           ],
                         ),
                       ),

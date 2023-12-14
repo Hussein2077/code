@@ -291,22 +291,26 @@ class MessagesChached extends StatelessWidget {
       case GamesInRoom.rpsGame:
         return BrickPaperScissorsGame(randomNum:int.parse(message) ,);
       case GamesInRoom.spinGame:
-        return SizedBox(
-          child: Row(
-            children: [
-              SelectableText.rich(
+        return Row(
+          children: [
+            SizedBox(
+              width: ConfigSize.screenWidth! / 1.5,
+              child: SelectableText.rich(
                 TextSpan(children: spans),
               ),
-              Image.asset(AssetsPath.turntableIcon, scale: 2,),
-            ],
-          ),
+            ),
+            Image.asset(AssetsPath.turntableIcon, scale: 2,),
+          ],
         );
       case GamesInRoom.dicGameResult:
         return SizedBox(
           child: Row(
             children: [
-              SelectableText.rich(
-                TextSpan(children: spans),
+              SizedBox(
+                width: ConfigSize.screenWidth! / 1.5,
+                child: SelectableText.rich(
+                  TextSpan(children: spans),
+                ),
               ),
               Image.asset(AssetsPath.diceIcon, scale: 2,),
             ],
@@ -316,8 +320,11 @@ class MessagesChached extends StatelessWidget {
         return SizedBox(
           child: Row(
             children: [
-              SelectableText.rich(
-                TextSpan(children: spans),
+              SizedBox(
+                width: ConfigSize.screenWidth! / 1.5,
+                child: SelectableText.rich(
+                  TextSpan(children: spans),
+                ),
               ),
               Image.asset(AssetsPath.guessingIcon, scale: 2,),
             ],

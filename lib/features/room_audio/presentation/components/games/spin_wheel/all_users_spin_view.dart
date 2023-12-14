@@ -9,7 +9,8 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.d
 class AllUsersSpinView extends StatefulWidget {
   List<dynamic> list;
   int winner;
-  AllUsersSpinView({super.key, required this.list, required this.winner});
+  bool isFree;
+  AllUsersSpinView({super.key, required this.list, required this.winner, required this.isFree});
 
   @override
   State<AllUsersSpinView> createState() => _AllUsersSpinViewState();
@@ -48,8 +49,8 @@ class _AllUsersSpinViewState extends State<AllUsersSpinView> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Positioned(top: 0,child: Image.asset(AssetsPath.spinWheelGameIndicatorIcon1, scale: 1.3,)),
-                      Image.asset(AssetsPath.spinWheelGameIndicatorIcon2, scale: 1.3),
+                      Positioned(top: 15,child: Image.asset(AssetsPath.spinWheelGameIndicatorIcon1, scale: 2,)),
+                      Image.asset(AssetsPath.spinWheelGameIndicatorIcon2, scale: 2),
                     ],
                   ),
                 ),
@@ -59,11 +60,18 @@ class _AllUsersSpinViewState extends State<AllUsersSpinView> {
               Navigator.pop(context);
             },
             items: [
-              for (var id in widget.list) FortuneItem(child: Text(ZegoUIKit().getUser(id.toString()).name), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(id), widget.list.length))),
+              if(!widget.isFree) for (var id in widget.list) FortuneItem(child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(ZegoUIKit().getUser(id.toString()).name),
+              ), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(id), widget.list.length), textStyle: const TextStyle(fontSize: 12))),
+              if(widget.isFree) for (var name in widget.list) FortuneItem(child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(name),
+              ), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(name), widget.list.length), textStyle: const TextStyle(fontSize: 12))),
             ],
           ),
         ),
-        Image.asset(AssetsPath.spinWheelGameFrameIcon, scale: 1.45,),
+        Image.asset(AssetsPath.spinWheelGameFrameIcon, scale: 1.38,),
       ],
     );
   }

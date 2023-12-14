@@ -766,7 +766,7 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
             showDialog(
                 context: context,
                 builder: (context) {
-                  return AllUsersSpinView(list: result[messageContent]['palyersIds'], winner: result[messageContent]['randomNumber'],);
+                  return AllUsersSpinView(list: result[messageContent]['palyersIds'], winner: result[messageContent]['randomNumber'], isFree: false,);
                 });
           }
         }
@@ -821,6 +821,7 @@ FreeSpinGame(Map<String, dynamic> result, BuildContext context){
           return AllUsersSpinView(
             list: result[messageContent]["items"],
             winner: result[messageContent]["winner"],
+            isFree: true,
           );
         });
   }
