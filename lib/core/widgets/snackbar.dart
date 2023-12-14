@@ -134,12 +134,15 @@ SnackBar errorSnackBar(BuildContext context, String content) {
       // ),
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
       ),
-      child: Center(
-        child: Text(
-          content,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: ConfigSize.defaultSize! * 1.5,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Text(
+            content,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: ConfigSize.defaultSize! * 1.5,
+            ),
           ),
         ),
       ),

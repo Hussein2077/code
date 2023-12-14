@@ -73,9 +73,6 @@ class GoogleAndAppleAuth extends StatelessWidget {
               (route) => false,
             );
           }
-        }
-        else if (state is SiginWithGoogleErrorMessageState) {
-          errorToast(context: context, title: state.errorMessage);
         } else if (state is SiginWithHuaweiSuccesMessageState){
           Methods.instance.clearAuthData();
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
