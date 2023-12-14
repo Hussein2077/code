@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
@@ -61,7 +59,7 @@ class _CommentBodyState extends State<CommentBody> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Container(
               width: ConfigSize.defaultSize! * 25,
               height: ConfigSize.defaultSize! * 30,
@@ -101,19 +99,19 @@ class _CommentBodyState extends State<CommentBody> {
                           fontSize: 20),
                     ),
                     Text(
-                      "Time Remains: ${start.toString()}",
+                      "${StringManager.timeRemains.tr()} ${start.toString()}",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: ConfigSize.defaultSize! * 1.3),
                     ),
                     Text(
-                      "Participants: ${widget.items.length}",
-                      style: TextStyle(color: Colors.white),
+                      "${StringManager.participants.tr()} ${widget.items.length}",
+                      style: const TextStyle(color: Colors.white),
                     ),
                     Text(
-                      "Lucky Users: 1",
-                      style: TextStyle(color: Colors.white),
+                      "${StringManager.luckyUsers.tr()} 1",
+                      style: const TextStyle(color: Colors.white),
                     ),
                     SizedBox(
                       width: ConfigSize.defaultSize! * 18,
@@ -170,9 +168,6 @@ class _CommentBodyState extends State<CommentBody> {
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
                           onTap: () {
-                            log(widget.id.toString());
-                            log(widget.items[widget.id]!.userId.toString());
-                            log(widget.items[widget.id]!.image.toString());
                             bottomDailog(
                                 context: context,
                                 widget: GiftScreen(

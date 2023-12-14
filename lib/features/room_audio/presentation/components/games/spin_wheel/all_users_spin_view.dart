@@ -4,6 +4,7 @@ import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class AllUsersSpinView extends StatefulWidget {
   List<dynamic> list;
@@ -58,7 +59,7 @@ class _AllUsersSpinViewState extends State<AllUsersSpinView> {
               Navigator.pop(context);
             },
             items: [
-              for (var it in widget.list) FortuneItem(child: Text(it), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(it), widget.list.length))),
+              for (var id in widget.list) FortuneItem(child: Text(ZegoUIKit().getUser(id).name), style: FortuneItemStyle(color: _getFillColor(ColorManager.mainColorList, widget.list.indexOf(id), widget.list.length))),
             ],
           ),
         ),
