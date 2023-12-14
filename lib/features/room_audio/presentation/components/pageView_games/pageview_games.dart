@@ -183,35 +183,31 @@ class _PageViewGamesState extends State<PageViewGames>
   void joinToGames(int index) async {
     String token = await Methods.instance.returnUserToken();
     if (index == 0) {
-      log("url${StringManager.teenPatti}$token");
       dailogRoom(
           context: context,
           widget: WebViewInRoom(
             url: '${StringManager.teenPatti}$token',
           ));
     } else if (index == 1) {
-      log("url${StringManager.roulette}$token");
       dailogRoom(
           context: context,
           widget: WebViewInRoom(
             url: '${StringManager.roulette}$token',
           ));
     } else if (index == 2) {
-      log("url${StringManager.carRace}$token");
       dailogRoom(
           context: context,
           widget: WebViewInRoom(
             url: '${StringManager.carRace}$token',
           ));
     } else if (index == 3) {
-      log("url${StringManager.updown}$token");
       dailogRoom(
           context: context,
           widget: WebViewInRoom(
             url: '${StringManager.updown}$token',
           ));
     } else if (index == 4) {
-      log("url${StringManager.ludo}$token");
+
       dailogRoom(
           context: context,
           widget: WebViewInRoom(

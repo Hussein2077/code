@@ -68,11 +68,9 @@ class DioHelper {
         return Strings.checkYourInternet.tr();
       case AnotherAccountMessageFailure:
         getIt<NavigationService>().navigatorKey.currentState?.pushNamedAndRemoveUntil( Routes.login,
-
               (Route<dynamic> route) => false,
           arguments: const LoginPramiter(
               isLoginFromAnotherAccountAndBuildFailure: true));
-
         return Strings.anotherAccountLoggedIn.tr();
       case SiginHuaweiFailure:
         return Strings.signinHuaweiFailureMessage.tr();

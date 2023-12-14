@@ -164,7 +164,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 padding: EdgeInsets.only(
                     right: 0, bottom: ConfigSize.defaultSize! * 2),
                 child: const PageViewGames())),
-        Align(
+        Align (
           alignment: Alignment.bottomLeft,
           child: Padding(
             padding: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 10),
