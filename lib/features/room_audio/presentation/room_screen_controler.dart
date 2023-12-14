@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -759,7 +760,10 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
     BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter: GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(),
         answer: result[messageContent]['randomNumber'].toString(), round: '1')));
     if(result[messageContent]["player_owner"].toString() == MyDataModel.getInstance().id.toString()){
-      Navigator.pop(context);
+      if(RouteGenerator.currentContext!=Routes.roomScreen){
+        Navigator.pop(context);
+
+      }
       if(result[messageContent]['palyersIds'].length > 1) {
         showDialog(
             context: context,
@@ -771,8 +775,10 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
       if(result[messageContent]['palyersIds'].length > 1) {
         for(int i = 0; i < result[messageContent]['palyersIds'].length; i++){
           if(result[messageContent]['palyersIds'][i].toString() == MyDataModel.getInstance().id.toString()){
-            Navigator.pop(context);
-            showDialog(
+            if(RouteGenerator.currentContext!=Routes.roomScreen){
+              Navigator.pop(context);
+
+            }            showDialog(
                 context: context,
                 builder: (context) {
                   return AllUsersSpinView(list: result[messageContent]['palyersIds'], winner: result[messageContent]['randomNumber'], isFree: false,);
@@ -785,8 +791,10 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
   }else if(result[messageContent]['game_id'].toString() == rpsGameId || result[messageContent]['game_id'].toString() == diceGameId){
     if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString() || result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
       if(result[messageContent]["result"].toString() == "accepted"){
-        Navigator.pop(context);
-        if(result[messageContent]['game_id'].toString() == rpsGameId) {
+        if(RouteGenerator.currentContext!=Routes.roomScreen){
+          Navigator.pop(context);
+
+        }        if(result[messageContent]['game_id'].toString() == rpsGameId) {
           showDialog(
               context: context,
               builder: (context) {
@@ -801,8 +809,10 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
           ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameKey} $answer");
         }
       }else{
-        Navigator.pop(context);
-      }
+        if(RouteGenerator.currentContext!=Routes.roomScreen){
+          Navigator.pop(context);
+
+        }      }
     }
   }
 }
@@ -857,12 +867,20 @@ ResultOfGame(Map<String, dynamic> result){
 
     if(result[messageContent]['game_id'].toString() == spinGameId){
       if(result[messageContent]['game_owner'].toString() == MyDataModel.getInstance().id.toString()){
-        ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${result[messageContent]["message_content"]}", );
+        Future.delayed(const Duration(seconds: 4),(){
+          ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${result[messageContent]["message_content"]}", );
+
+        }
+        );
 
       }
       if (result[messageContent]['winner_id'].contains(MyDataModel.getInstance().id) ){
-        RoomScreen.isWinnerShowWidget.value = true ;
         Future.delayed(const Duration(seconds: 4),(){
+          RoomScreen.isWinnerShowWidget.value = true ;
+
+        }
+        );
+        Future.delayed(const Duration(seconds: 7),(){
           RoomScreen.isWinnerShowWidget.value = false ;
 
         }
