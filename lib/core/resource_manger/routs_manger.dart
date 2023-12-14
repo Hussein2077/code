@@ -207,6 +207,7 @@ class RouteGenerator {
               banedMassage: loginPramiter?.error??"",
                 ));
       case Routes.otp:
+        currentContext = Routes.otp ;
         OtbScreenParm otbScreenParm = settings.arguments as OtbScreenParm;
           return MaterialPageRoute(
             settings: settings,
