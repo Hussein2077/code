@@ -88,7 +88,7 @@ class _GameDialogState extends State<GameDialog> {
                       overflow: TextOverflow.fade),
                 )),
 
-            Text("Time Remains: ${start.toString()}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: ConfigSize.defaultSize! * 1.3),),
+            Text("${StringManager.timeRemains.tr()} ${start.toString()}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: ConfigSize.defaultSize! * 1.3),),
 
             SizedBox(height: ConfigSize.defaultSize! * 3),
 

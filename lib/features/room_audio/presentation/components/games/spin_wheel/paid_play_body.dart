@@ -189,7 +189,6 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
                         children: [
                           InkWell(
                             onTap: () {
-
                               if (SpinWheelGameScreen.peoplesId.length<1){
                                 errorToast(context: context, title: StringManager.pleaseAddAtLeastTwoValue.tr());
                               }else {

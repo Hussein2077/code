@@ -86,9 +86,6 @@ class _InputWidgetState extends State<InputWidget> {
     var list = map.entries.map((e) => e.value).toList();
     list.removeAt(index);
     var newIndex = 0;
-
-
-    return Map.fromIterable(list,
-        key: (item) => newIndex++, value: (item) => item);
+    return Map.fromIterable(list, key: (item) => newIndex++, value: (item) => item);
   }
 }

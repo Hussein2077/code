@@ -14,7 +14,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/games/sp
 
 class ActivityGamesDialog extends StatelessWidget {
   final EnterRoomModel roomData;
-  const ActivityGamesDialog({super.key, required this.roomData});
+  ActivityGamesDialog({super.key, required this.roomData});
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +34,6 @@ class ActivityGamesDialog extends StatelessWidget {
             Navigator.pop(context);
             bottomDailog(context: context, widget: UserSelectionScreen(roomData: roomData));
           }),
-      // gamesColumn(
-      //     image: AssetsPath.luckyNumberIcon,
-      //     name: StringManager.luckyNumber.tr()),
       gamesColumn(
           image: AssetsPath.lotteryIcon,
           name: StringManager.luckyPull.tr(),

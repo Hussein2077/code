@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -18,7 +17,6 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/game_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/rps_comment_ui.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dice/dic_game.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/message_room_profile.dart';
@@ -54,13 +52,8 @@ class MessagesChached extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-log(message.message+"bbbbbbbbb");
     GamesInRoom  CommentType = checkMeesageType(message.message) ;
     String messageWithOutKeys = removeWordFromString(message.message ,CommentType );
-
-
-
     bool isGame = (CommentType != GamesInRoom.normal &&  CommentType != GamesInRoom.luckyGiftComment);
     List<String> words = messageWithOutKeys.split(" ");
     for (String word in words) {
@@ -297,11 +290,6 @@ log(message.message+"bbbbbbbbb");
         );
       case GamesInRoom.rpsGame:
         return BrickPaperScissorsGame(randomNum:int.parse(message) ,);
-          SizedBox(
-          height: ConfigSize.defaultSize! * 5,
-          width: ConfigSize.defaultSize! * 5,
-          child: Image.asset(GameDialog.brickPaperNum[int.parse(message)]),
-        );
       case GamesInRoom.spinGame:
         return SizedBox(
           child: Row(
