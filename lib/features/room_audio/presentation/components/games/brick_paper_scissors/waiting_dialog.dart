@@ -15,38 +15,43 @@ class WaitingDialog extends StatefulWidget {
 class _WaitingDialogState extends State<WaitingDialog> {
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-      ),
-      child: Container(
-        height: ConfigSize.defaultSize! * 20,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: ColorManager.bageGriedinet),
+    return WillPopScope(
+      onWillPop: ()async{
+        return false ;
+      },
+      child: Dialog(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
-                child: Text(
-                  StringManager.waitForUsersResponse.tr(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: ConfigSize.defaultSize! * 1.7,
-                      overflow: TextOverflow.fade),
-                )),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 14),
-              child: SizedBox(
-                  height: ConfigSize.defaultSize!*3,
-                  child: const TikTokLoadingAnimation(),
+        child: Container(
+          height: ConfigSize.defaultSize! * 20,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: ColorManager.bageGriedinet),
+            borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
+                  child: Text(
+                    StringManager.waitForUsersResponse.tr(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: ConfigSize.defaultSize! * 1.7,
+                        overflow: TextOverflow.fade),
+                  )),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 14),
+                child: SizedBox(
+                    height: ConfigSize.defaultSize!*3,
+                    child: const TikTokLoadingAnimation(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
