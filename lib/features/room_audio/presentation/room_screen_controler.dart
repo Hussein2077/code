@@ -845,7 +845,7 @@ ResultOfGame(Map<String, dynamic> result){
         ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${result[messageContent]["message_content"]}", );
 
       }
-      if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
+      if (result[messageContent]['winner_id'].contains(MyDataModel.getInstance().id) ){
         RoomScreen.isWinnerShowWidget.value = true ;
         Future.delayed(const Duration(seconds: 4),(){
           RoomScreen.isWinnerShowWidget.value = false ;
