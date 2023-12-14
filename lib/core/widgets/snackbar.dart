@@ -8,7 +8,7 @@ class GradientSnackBar extends StatelessWidget {
   final Widget content;
   final Gradient gradient;
 
-  GradientSnackBar({super.key, required this.content, required this.gradient});
+  const GradientSnackBar({super.key, required this.content, required this.gradient});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ SnackBar loadingSnackBar(BuildContext context) {
       width: ConfigSize.defaultSize! * 2,
       height: ConfigSize.screenHeight! * 0.04,
       decoration: BoxDecoration(
-        color: Color(0xFF03a9fc),
+        color: const Color(0xFF03a9fc),
         // gradient: const LinearGradient(
         //   colors: ColorManager.blueloadingList,
         //   end: Alignment.bottomRight,
@@ -126,7 +126,7 @@ SnackBar errorSnackBar(BuildContext context, String content) {
      // width: ConfigSize.defaultSize! * 2,
       height: ConfigSize.screenHeight! * 0.04,
       decoration:  BoxDecoration(
-        color: Color(0xFFfc0303),
+        color: const Color(0xFFfc0303),
       //     gradient: const LinearGradient(
       //   colors: ColorManager.redErrorList,
       //       end: Alignment.bottomRight,

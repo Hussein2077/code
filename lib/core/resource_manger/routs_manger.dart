@@ -57,6 +57,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/my_videos_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/language_screen/language_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_number_old_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_pass_or_number.dart';
@@ -73,7 +74,6 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/user_reel_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/vip/vip_screen.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/my_videos_screen.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/more_dialog_widget.dart';
 import 'package:tik_chat_v2/features/reels/persentation/widgets/trim_view.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
@@ -710,33 +710,50 @@ class RouteGenerator {
         } else {
           return MaterialPageRoute(
               settings: settings, builder: (_) => AllShippingAgent());
+           return MaterialPageRoute(
+            settings: settings, builder: (_) => AllShippingAgent());
         }
       case Routes.fixedTargetScreen:
         currentContext = Routes.fixedTargetScreen;
         MyDataModel myDataModel = settings.arguments as MyDataModel;
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
+              builder: (_) => FixedTargetScreen(
+                    myData: myDataModel,
+                  ));
+        } else {
+          return MaterialPageRoute(
+              settings: settings,
+              builder: (_) => FixedTargetScreen(
+                    myData: myDataModel,
+                  ));
+        }
 
-        return MaterialPageRoute(
-            settings: settings,
-            builder: (_) => FixedTargetScreen(
-                  myData: myDataModel,
-                ));
       case Routes.profileChatDetails:
-        currentContext = Routes.profileChatDetails;
         UserDataModel userData = settings.arguments as UserDataModel;
-        return MaterialPageRoute(
-            settings: settings,
-            builder: (_) => ProfileChatDetails(
-                  userData: userData,
-                ));
+        currentContext = Routes.profileChatDetails;
 
-        case Routes.refreshScreen:
-          currentContext = Routes.refreshScreen;
-           if (Platform.isIOS) {
-            return CupertinoPageRoute(builder: (_) => const RefreshScreen());
-          } else {
-            return MaterialPageRoute(
-                settings: settings, builder: (_) => const RefreshScreen());
-          }
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
+              builder: (_) => ProfileChatDetails(
+                    userData: userData,
+                  ));
+        } else {
+          return MaterialPageRoute(
+              settings: settings,
+              builder: (_) => ProfileChatDetails(
+                    userData: userData,
+                  ));
+        }
+
+      case Routes.refreshScreen:
+        currentContext = Routes.refreshScreen;
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(builder: (_) => const RefreshScreen());
+        } else {
+          return MaterialPageRoute(
+              settings: settings, builder: (_) => const RefreshScreen());
+        }
     }
 
     return unDefinedRoute();

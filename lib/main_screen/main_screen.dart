@@ -204,6 +204,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           RotationTransition(
                               turns: animationController,
                               child: UserImage(
+
                                 imageSize: ConfigSize.defaultSize! * 14,
                                 image: MainScreen.roomData?.roomCover??'',
                               )),

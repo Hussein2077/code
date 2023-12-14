@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,6 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'dart:ui' as ui ;
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
@@ -16,8 +17,8 @@ import 'package:tik_chat_v2/main_screen/main_screen.dart';
 
 class ExitWidget extends StatefulWidget {
   final EnterRoomModel roomData ;
-  final MyDataModel myDataModel ;
 
+  final MyDataModel myDataModel ;
 
 
   const  ExitWidget({  required this.roomData,required this.myDataModel, Key? key}) : super(key: key);
@@ -56,19 +57,23 @@ class ExitWidgetState extends State<ExitWidget> {
                 top:animation?  ConfigSize.defaultSize!*26:-200 ,
                 left: (ConfigSize.screenWidth! /2)-ConfigSize.defaultSize!*5 ,
                 child: InkWell(
-                  onTap: (){
-                    if(PkController.isPK.value==true){
+                  onTap: () {
+
+                    if (PkController.isPK.value == true) {
                       errorToast(
                           title: 'You Can\'t Save Room PK is Running',
                           context: context,
-                          subTitle: ''
-                      );
-                    }else{
-                      MainScreen.iskeepInRoom.value=true;
-                      Navigator.pop(context);
-                      Navigator.pop(context);
+                          subTitle: '');
+                    }
+                    else {
+                      MainScreen.iskeepInRoom.value = false;
+
                       MainScreen.roomData = widget.roomData;
-                      RoomScreen.outRoom = true ;
+
+                      MainScreen.iskeepInRoom.value = true;
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      RoomScreen.outRoom = true;
                     }
                   },
                   child: Column(
@@ -89,7 +94,6 @@ class ExitWidgetState extends State<ExitWidget> {
                   curve: Curves.easeInOut,
                   child: InkWell(
                     onTap: ()async{
-
                       MainScreen.iskeepInRoom.value=false;
                       Navigator.pop(context);
                       Navigator.pop(context);

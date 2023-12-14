@@ -135,6 +135,7 @@ late  List<ItemWidget> items;
 
   @override
   Widget build(BuildContext context) {
+
     return BlocListener<HostOnMicTimeBloc, HostOnMicTimeState>(
       listener: (context, state) {
         if (state is HostOnMicTimeSucssesState) {
@@ -310,18 +311,6 @@ late  List<ItemWidget> items;
                     scale: 2.5,
                   ),
 
-                  // IconButton(
-                  //   icon: Icon(
-                  //     Icons.edit,
-                  //     color: Theme
-                  //         .of(context)
-                  //         .colorScheme
-                  //         .background,
-                  //   ),
-                  //   onPressed: () {
-                  //     Navigator.pushNamed(context, Routes.groupChatScreen);
-                  //   },
-                  // ),
                 ),
               );
             }

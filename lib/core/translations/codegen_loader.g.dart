@@ -89,7 +89,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.thisGiftForbiden: "هذة الهديا متاجة ل",
     StringManager.hours24: '24 ساعة',
     StringManager.talk: 'تحدث',
-    StringManager.payment: 'فطوره الدفع',
+    StringManager.payment: 'فاتورة الدفع',
     StringManager.total: "الاجمالي",
     StringManager.noDaimonsNow: "لا يجود ماسات الآن",
     StringManager.areYouSure: "هل أنت متأكد أنك تريد حذف الدردشه؟",

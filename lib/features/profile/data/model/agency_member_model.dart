@@ -8,7 +8,7 @@ class AgencyMemberModel {
   int? diamond ;
   String? name ; 
   String? image ;
-  int? totalUsd ; 
+  dynamic totalUsd ;
   bool? hasColorName ;
 AgencyMemberModel({this.diamond , this.id , this.hasColorName,this.image ,this.name , this.totalUsd , this.uuid});
 

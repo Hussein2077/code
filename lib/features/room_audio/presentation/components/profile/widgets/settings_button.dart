@@ -44,7 +44,7 @@ class _SettingsButtonState extends State<SettingsButton> {
   @override
   Widget build(BuildContext context) {
     final List<String> items = [
-      StringManager.mention.tr(),
+     // StringManager.mention.tr(),
       if (!widget.myProfrile) StringManager.reports.tr(),
       if (widget.userData.id != MyDataModel.getInstance().id &&
           widget.userData.id != widget.roomData.ownerId &&
@@ -92,12 +92,12 @@ class _SettingsButtonState extends State<SettingsButton> {
               .toList(),
           // value:RoomTypeButton.roomType ,
           onChanged: (value) {
-            if (value == StringManager.mention.tr()) {
-              mentionAction(
-                  context: context,
-                  roomData: widget.roomData,
-                  userData: widget.userData);
-            }
+            // if (value == StringManager.mention.tr()) {
+            //   mentionAction(
+            //       context: context,
+            //       roomData: widget.roomData,
+            //       userData: widget.userData);
+            // }
 
             if (value == StringManager.admin.tr()) {
               BlocProvider.of<AdminRoomBloc>(context).add(AddAdminEvent(
