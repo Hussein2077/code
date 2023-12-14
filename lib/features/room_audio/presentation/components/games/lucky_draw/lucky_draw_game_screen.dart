@@ -108,22 +108,26 @@ class _LuckyDrawGameScreenState extends State<LuckyDrawGameScreen> {
                           onTap: (){
                             if(index == 0){
                               GiftUser.userOnMicsForGifts.forEach((key, value) {
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(key, () => SelecteUsers(
+                                if(!(value.id.toString().startsWith('-1'))) {
+                                  LuckyDrawGameScreen.userSelected.putIfAbsent(key, () => SelecteUsers(
                                   userId: value.id,
                                   selected: true,
                                   name: value.name,
                                   image: value.inRoomAttributes.value['img']!,
                                 ),);
+                                }
                               });
                             } else{
                               for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
-                                LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(ZegoUIKit().getAllUsers()[i].id), () => SelecteUsers(
+                                if(!(ZegoUIKit().getAllUsers()[i].id.toString().startsWith('-1'))) {
+                                  LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(ZegoUIKit().getAllUsers()[i].id), () => SelecteUsers(
                                     userId: ZegoUIKit().getAllUsers()[i].id,
                                     selected: true,
                                     name: ZegoUIKit().getAllUsers()[i].name,
                                     image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
                                 ),
                                 );
+                                }
                               }
                             }
                             setState(() {

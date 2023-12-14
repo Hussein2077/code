@@ -628,6 +628,8 @@ class StringManager {
       Players:
   static const String muteGameNotification = "Mute All Games Notifications";
   static const String enableGameNotification = "Please Enable Game Notification First";
+  static const String changeThemeApproval ="Do you approve to change this theme for ";
+  static const String pleaseAddAtLeastTwoValue = "Please Add At Least Two Value";
   static const String timeRemains = "Time Remains:";
   static const String waitForUsersResponse = "Waiting For Users Response";
   static const String participants = "Participants:";

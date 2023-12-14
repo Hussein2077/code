@@ -820,19 +820,19 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           ownerId: result[messageContent]['oid'],
         );
       }
-      else if (result[messageContent][message] == "requestDiceGame") {
+      else if (result[messageContent][message] == requestGame) {
         GameRequest(result, context);
       }
-      else if (result[messageContent][message] == "requestResultFromOther") {
+      else if (result[messageContent][message] == gameRequestResult) {
         GameRequestResult(result, context);
       }
-      else if(result[messageContent][message] == "ResultOfGame"){
+      else if(result[messageContent][message] == resultOfGame){
         ResultOfGame(result);
       }
-      else if(result[messageContent][message] == "freeSpinGame"){
+      else if(result[messageContent][message] == freeSpinGame){
         FreeSpinGame(result, context);
       }
-      else if(result[messageContent][message] == "luckyDraw"){
+      else if(result[messageContent][message] == luckyDraw){
         LuckyDraw(result, context, widget.room);
       }
     }
