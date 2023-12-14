@@ -15,6 +15,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/widgets/continer_with_icons.dart';
@@ -251,10 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
             (route) => false,
           );
         } else if (state is LoginWithPhoneErrorMessageState) {
-          Future.delayed(const Duration(seconds: 1),(){
-            errorToast(context: context, title: state.errorMessage);
-
-          });
+          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,state.errorMessage));
         } else if (state is LoginWithPhoneLoadingState) {
           loadingToast(context: context, title: StringManager.loading.tr());
         }
