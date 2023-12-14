@@ -811,11 +811,19 @@ ResultOfGame(Map<String, dynamic> result){
 
     if(result[messageContent]['game_id'].toString() == rpsGameId){
       if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
-        ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameResultKey} ${result[messageContent]["message_content"]}", );
+        Future.delayed(const Duration(seconds: 2),(){
+          ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameResultKey} ${result[messageContent]["message_content"]}", );
+
+        }
+        );
       }
       if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
-        RoomScreen.isWinnerShowWidget.value = true ;
-        Future.delayed(const Duration(seconds: 4),(){
+        Future.delayed(const Duration(seconds: 2),(){
+          RoomScreen.isWinnerShowWidget.value = true ;
+
+        }
+        );
+        Future.delayed(const Duration(seconds: 6),(){
           RoomScreen.isWinnerShowWidget.value = false ;
 
         }
@@ -825,13 +833,20 @@ ResultOfGame(Map<String, dynamic> result){
 
     }else if(result[messageContent]['game_id'].toString() == diceGameId){
       if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
-        ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}", );
+        Future.delayed(const Duration(seconds: 2),(){
+          ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}", );
+
+        }
+        );
 
       }
       if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
+        Future.delayed(const Duration(seconds: 2),(){
+          RoomScreen.isWinnerShowWidget.value = true ;
 
-        RoomScreen.isWinnerShowWidget.value = true ;
-        Future.delayed(const Duration(seconds: 4),(){
+        }
+        );
+        Future.delayed(const Duration(seconds: 6),(){
           RoomScreen.isWinnerShowWidget.value = false ;
 
         }
