@@ -1,4 +1,3 @@
-
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:io';
@@ -118,6 +117,7 @@ class Routes {
   static const String familyRequests = "/FamilyRequests";
   static const String familyMembers = "/FamilyMembers";
   static const String createLive = "/CreateLive";
+
   // static const String uploadReels = "/UploadReels";
   static const String signUp = "/SignUp";
   static const String musicList = "/musicList";
@@ -157,12 +157,12 @@ class Routes {
 
   static const String trimmerView = "/trimmerView";
 
-
   static const String changeNumberOldScreen = "/ChangeNumberOldScreen";
   static const String changeNumberNewScreen = "/ChangeNumberNewScreen";
   static const String changePassOrNumberScreen = "/ChangePassOrNumberScreen";
   static const String changePassScreen = "/ChangePassScreen";
   static const String privacyPolicyScreen = "/PrivacyPolicyScreen";
+
   //static const String chatScreen = "/ChatScreen";
   static const String paymentHistory = "/paymentHistory";
   static const String groupChatScreen = "/GropuChatScreen";
@@ -172,73 +172,67 @@ class Routes {
   static const String whiteEmptyScreen = "/whiteEmptyScreen";
   static const String allShippingAgent = "/AllShippingAgent";
   static const String profileChatDetails = "/ProfileChatDetails";
-
-
-
-
-
-
-
-
-
-
-
 }
 
 class RouteGenerator {
   static String currentContext = '';
-  static Route<dynamic> getRoute(RouteSettings settings) {
 
+  static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (_) => const SplashScreen());
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const SplashScreen());
       case Routes.login:
-        currentContext = Routes.login ;
+        currentContext = Routes.login;
         LoginPramiter? loginPramiter = settings.arguments as LoginPramiter?;
         return MaterialPageRoute(
-            settings: settings ,
+            settings: settings,
             builder: (_) => LoginScreen(
-              isBaned: loginPramiter?.isBaned??false,
+                  isBaned: loginPramiter?.isBaned ?? false,
                   isForceUpdate: loginPramiter?.isForceUpdate,
                   isUpdate: loginPramiter?.isUpdate,
-              isLoginFromAnotherAccountAndBuildFailure: loginPramiter?.isLoginFromAnotherAccountAndBuildFailure??false,
-              banedMassage: loginPramiter?.error??"",
+                  isLoginFromAnotherAccountAndBuildFailure:
+                      loginPramiter?.isLoginFromAnotherAccountAndBuildFailure ??
+                          false,
+                  banedMassage: loginPramiter?.error ?? "",
                 ));
       case Routes.otp:
-        currentContext = Routes.otp ;
+        currentContext = Routes.otp;
         OtbScreenParm otbScreenParm = settings.arguments as OtbScreenParm;
-          return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => OtpScreen(
-              phone: otbScreenParm.phone,
-              otpFrom: otbScreenParm.otpFrom!,
-              oldCode: otbScreenParm.oldCode??"",
-              password: otbScreenParm.password,));
+                  phone: otbScreenParm.phone,
+                  otpFrom: otbScreenParm.otpFrom!,
+                  oldCode: otbScreenParm.oldCode ?? "",
+                  password: otbScreenParm.password,
+                ));
       case Routes.addInfo:
+        currentContext = Routes.addInfo;
         ThirdPartyAuthModel? Data = settings.arguments as ThirdPartyAuthModel?;
-           return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => AddInfoScreen(
                   Data: Data,
-
                 ));
       case Routes.resetPassword:
+        currentContext = Routes.resetPassword;
         ResetPasswordParm resetPasswordParm =
-        settings.arguments as ResetPasswordParm;
+            settings.arguments as ResetPasswordParm;
         return MaterialPageRoute(
             settings: settings,
             builder: (_) => ResetPassword(
-              phone: resetPasswordParm.phone,
-              code: resetPasswordParm.code,
-            ));
+                  phone: resetPasswordParm.phone,
+                  code: resetPasswordParm.code,
+                ));
       case Routes.forgetPassword:
+        currentContext = Routes.forgetPassword;
         return MaterialPageRoute(
             settings: settings, builder: (_) => const ForgetPassword());
       case Routes.mainScreen:
+        currentContext = Routes.mainScreen;
         MainPramiter? mainPramiter = settings.arguments as MainPramiter?;
-          return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => MainScreen(
                   isChachGift: mainPramiter?.isChachGift,
@@ -250,62 +244,72 @@ class RouteGenerator {
                   actionDynamicLink: mainPramiter?.actionDynamicLink,
                 ));
       case Routes.topUsersScreen:
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (_) => const TopUsersScreen());
+        currentContext = Routes.topUsersScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const TopUsersScreen());
       case Routes.userProfile:
+        currentContext = Routes.userProfile;
         UserProfilePreamiter? pram =
             settings.arguments as UserProfilePreamiter?;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => UserProfile(
                   userId: pram?.userId,
                   userData: pram?.userData,
                 ));
       case Routes.giftGallery:
+        currentContext = Routes.giftGallery;
+
         int? userId = settings.arguments as int?;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => GiftGallery(
                   userId: userId,
                 ));
       case Routes.editInfo:
+        currentContext = Routes.editInfo;
+
         MyDataModel myDataModel = settings.arguments as MyDataModel;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => EditInfoScreen(
                   myDataModel: myDataModel,
                 ));
       case Routes.fff:
+        currentContext = Routes.fff;
         String title = settings.arguments as String;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => FFFScreen(
                   title: title,
                 ));
       case Routes.coins:
+        currentContext = Routes.coins;
+
         String type = settings.arguments as String;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => CoinsScreen(
                   type: type,
                 ));
       case Routes.roomHandler:
+        currentContext = Routes.roomHandler;
         RoomHandlerPramiter roomHandlerPramiter =
             settings.arguments as RoomHandlerPramiter;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => SafeArea(
                 child: HandlerRoomScreen(roomPramiter: roomHandlerPramiter)));
       case Routes.videoRoomHandler:
-         return MaterialPageRoute(
-            settings: settings,
-            builder: (_) => const VideoHandlerRoomScreen());
+        currentContext = Routes.videoRoomHandler;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const VideoHandlerRoomScreen());
       case Routes.roomScreen:
+        currentContext = Routes.roomScreen;
         RoomPramiter roomPramiter = settings.arguments as RoomPramiter;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => SafeArea(
                     child: RoomScreen(
@@ -314,190 +318,235 @@ class RouteGenerator {
                   isHost: roomPramiter.isHost,
                 )));
       case Routes.myBag:
+        currentContext = Routes.myBag;
         MyDataModel myDataModel = settings.arguments as MyDataModel;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => MyBagScreen(
                   myDataModel: myDataModel,
                 ));
       case Routes.mall:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const MallScreen());
+        currentContext = Routes.mall;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const MallScreen());
       case Routes.level:
+        currentContext = Routes.level;
         UserDataModel? userData = settings.arguments as UserDataModel?;
 
         return MaterialPageRoute(
-            settings: settings,builder: (_) =>  LevelScreen(userData: userData,));
+            settings: settings,
+            builder: (_) => LevelScreen(
+                  userData: userData,
+                ));
       case Routes.vip:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const VipScreen());
+        currentContext = Routes.vip;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const VipScreen());
       case Routes.familyRanking:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const FamilyRankingScreen());
+        currentContext = Routes.familyRanking;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const FamilyRankingScreen());
       case Routes.familyProfile:
+        currentContext = Routes.familyProfile;
         int familyId = settings.arguments as int;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => FamilyProfileScreen(
                   familyId: familyId,
                 ));
       case Routes.custoumService:
+        currentContext = Routes.custoumService;
         int myId = settings.arguments as int;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => CustoumServiceScreen(
                   myId: myId,
                 ));
 
       case Routes.settings:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const SettingsScreen());
+        currentContext = Routes.settings;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const SettingsScreen());
       case Routes.language:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const LanguageScreen());
+        currentContext = Routes.language;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const LanguageScreen());
       case Routes.mode:
-        String select =
-        settings.arguments as String;
-         return MaterialPageRoute(
-            settings: settings,builder: (_) =>  ModeScreen(select: select,));
+        currentContext = Routes.mode;
+        String select = settings.arguments as String;
+        return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => ModeScreen(
+                  select: select,
+                ));
       case Routes.familyRequests:
+        currentContext = Routes.familyRequests;
         String familyId = settings.arguments as String;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => FamilyRequestsScreen(
                   familyId: familyId,
                 ));
 
       case Routes.familyMembers:
+        currentContext = Routes.familyMembers;
         MemberFamilyDataModel ownerData =
             settings.arguments as MemberFamilyDataModel;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => FamilyMemberScreen(
                   owner: ownerData,
                 ));
       case Routes.createLive:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const CreateLiveScreen());
+        currentContext = Routes.createLive;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const CreateLiveScreen());
 
       case Routes.signUp:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const SignUpScreen());
+        currentContext = Routes.signUp;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const SignUpScreen());
       case Routes.deleteFamily:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const DeleteScreen());
+        currentContext = Routes.deleteFamily;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const DeleteScreen());
 
       case Routes.instructionsScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const InstructionsScreen());
+        currentContext = Routes.instructionsScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const InstructionsScreen());
 
       case Routes.incomeScreen:
-         return MaterialPageRoute(
-            settings: settings,
-             builder: (_) => const IncomeScreen());
+        currentContext = Routes.incomeScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const IncomeScreen());
 
       case Routes.joinToAgencyScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const JoinToAgencyScreen());
+        currentContext = Routes.joinToAgencyScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const JoinToAgencyScreen());
 
       case Routes.liveReportScreen:
+        currentContext = Routes.liveReportScreen;
         MyDataModel myDataModel = settings.arguments as MyDataModel;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => LiveReportScreen(
                   myData: myDataModel,
                 ));
 
       case Routes.exchangeForGoldScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const ExchangeForGoldScreen());
+        currentContext = Routes.exchangeForGoldScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const ExchangeForGoldScreen());
       case Routes.vistorScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => VistorScreen());
+        currentContext = Routes.vistorScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => VistorScreen());
       case Routes.phoneBindScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const PhoneNumberBindScreen());
+        currentContext = Routes.phoneBindScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const PhoneNumberBindScreen());
       case Routes.searchScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const SearchScreen());
+        currentContext = Routes.searchScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const SearchScreen());
       case Routes.cashWithdrawal:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => CashWithdrawal());
+        currentContext = Routes.cashWithdrawal;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => CashWithdrawal());
 
       case Routes.detailsWithdrawal:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const DetailsScreen());
+        currentContext = Routes.detailsWithdrawal;
+
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const DetailsScreen());
 
       case Routes.games:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => GamesScreen());
+        currentContext = Routes.games;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => GamesScreen());
 
       case Routes.agencyScreen:
+        currentContext = Routes.agencyScreen;
         MyDataModel myData = settings.arguments as MyDataModel;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => AgenceScreen(
                   mydata: myData,
                 ));
       case Routes.agencyMemberScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const AgencyMembersScreen());
+        currentContext = Routes.agencyMemberScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const AgencyMembersScreen());
       case Routes.agencyRequestsScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const AgencyRequestsScreen());
+        currentContext = Routes.agencyRequestsScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const AgencyRequestsScreen());
       case Routes.agencyRepoertsScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => ReportsScreen());
+        currentContext = Routes.agencyRepoertsScreen;
+
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => ReportsScreen());
       case Routes.charchingCoinsForUsers:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => CharchingCoinsForUsers());
+        currentContext = Routes.charchingCoinsForUsers;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => CharchingCoinsForUsers());
       case Routes.musicList:
+        currentContext = Routes.musicList;
         MusicPramiter pramiter = settings.arguments as MusicPramiter;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => SafeArea(
-                child: MusicListWidget(
-                    ownerId: pramiter.ownerId,)));
+                    child: MusicListWidget(
+                  ownerId: pramiter.ownerId,
+                )));
       case Routes.music:
+        currentContext = Routes.music;
         MusicPramiter pramiter = settings.arguments as MusicPramiter;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
-            builder: (_) => SafeArea(
-                    child: MusicScreen(
-                  ownerId: pramiter.ownerId)));
+            builder: (_) =>
+                SafeArea(child: MusicScreen(ownerId: pramiter.ownerId)));
 
       case Routes.charchingDolarsForUsers:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => CharchingDolarsForUsers());
+        currentContext = Routes.charchingDolarsForUsers;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => CharchingDolarsForUsers());
 
       case Routes.chargeFromSystemHistory:
-         return MaterialPageRoute(
+        currentContext = Routes.chargeFromSystemHistory;
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ChargeFromSystemHistory());
 
       case Routes.chargeAgencyOwnerHistory:
-         return MaterialPageRoute(
+        currentContext = Routes.chargeAgencyOwnerHistory;
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ChargeAgencyOwnerHistory());
       case Routes.interstedScreen:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const InterstedScreen());
+        currentContext = Routes.interstedScreen;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const InterstedScreen());
       case Routes.privacySettings:
+        currentContext = Routes.privacySettings;
         MyDataModel userData = settings.arguments as MyDataModel;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => SafeArea(
                     child: PrivacySetting(
                   myData: userData,
                 )));
       case Routes.webView:
+        currentContext = Routes.webView;
         WebViewPramiter webViewPramiter = settings.arguments as WebViewPramiter;
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => WebView(
                   url: webViewPramiter.url,
@@ -506,9 +555,10 @@ class RouteGenerator {
                 ));
 
       case Routes.userReelView:
+        currentContext = Routes.userReelView;
         ReelsUserPramiter pram = settings.arguments as ReelsUserPramiter;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => SafeArea(
                     child: UserReelView(
@@ -516,165 +566,173 @@ class RouteGenerator {
                   startIndex: pram.startIndex,
                 )));
       case Routes.myVideosScreen:
+        currentContext = Routes.myVideosScreen;
         UserDataModel pram = settings.arguments as UserDataModel;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => SafeArea(
                     child: MyVideosScreen(
                   userDataModel: pram,
                 )));
 
-                     case Routes.trimmerView:
+      case Routes.trimmerView:
+        currentContext = Routes.trimmerView;
         File pram = settings.arguments as File;
 
-         return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => SafeArea(
                     child: TrimmerView(
-                     file:pram , 
-
-
+                  file: pram,
                 )));
 
       case Routes.paymentHistory:
-         return MaterialPageRoute(
-            settings: settings,builder: (_) => const PaymentHistory());
-
+        currentContext = Routes.paymentHistory;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const PaymentHistory());
 
       case Routes.otpBindScreen:
-        OtbScreenParm otbScreenParm =settings.arguments as OtbScreenParm;
-         return MaterialPageRoute(
-            settings: settings,
-            builder: (_) =>  OtpBindScreen(
-              type: otbScreenParm.type,
-              phone: otbScreenParm.phone,
-              password: otbScreenParm.password,
-              codePhone: otbScreenParm.codeCountry,
+        currentContext = Routes.otpBindScreen;
 
-            ));
-
-        case Routes.reportReelsScreen:
-          ReportReelsScreenPramiter reportReelsScreen =settings.arguments as ReportReelsScreenPramiter;
-         return MaterialPageRoute(
+        OtbScreenParm otbScreenParm = settings.arguments as OtbScreenParm;
+        return MaterialPageRoute(
             settings: settings,
-            builder: (_) =>  MoreDialog(
-              id: reportReelsScreen.id!,
-              userId:reportReelsScreen.userId!,
-              report: reportReelsScreen.report!,
-            ));
+            builder: (_) => OtpBindScreen(
+                  type: otbScreenParm.type,
+                  phone: otbScreenParm.phone,
+                  password: otbScreenParm.password,
+                  codePhone: otbScreenParm.codeCountry,
+                ));
+
+      case Routes.reportReelsScreen:
+        currentContext = Routes.reportReelsScreen;
+
+        ReportReelsScreenPramiter reportReelsScreen =
+            settings.arguments as ReportReelsScreenPramiter;
+        return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => MoreDialog(
+                  id: reportReelsScreen.id!,
+                  userId: reportReelsScreen.userId!,
+                  report: reportReelsScreen.report!,
+                ));
 
       case Routes.changeNumberOldScreen:
-         return MaterialPageRoute(
-            settings: settings,
-            builder: (_) => const ChangeNumberOldScreen());
+        currentContext = Routes.changeNumberOldScreen;
+
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const ChangeNumberOldScreen());
       case Routes.changeNumberNewScreen:
+        currentContext = Routes.changeNumberNewScreen;
+
         var oldCode = settings.arguments;
         return MaterialPageRoute(
             settings: settings,
-            builder: (_) => ChangeNumberNewScreen(oldCode: oldCode.toString(),));
+            builder: (_) => ChangeNumberNewScreen(
+                  oldCode: oldCode.toString(),
+                ));
       case Routes.changePassOrNumberScreen:
-         return MaterialPageRoute(
+        currentContext = Routes.changePassOrNumberScreen;
+        return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ChangePassOrNumberScreen());
 
       case Routes.changePassScreen:
-         return MaterialPageRoute(
-            settings: settings,
-            builder: (_) => const ChangePassScreen());
+        currentContext = Routes.changePassScreen;
+
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const ChangePassScreen());
       case Routes.privacyPolicyScreen:
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
+        currentContext = Routes.privacyPolicyScreen;
+
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
               builder: (_) => const SafeArea(child: PrivacyPolicyScreen()));
-        } else
-        {
-           return MaterialPageRoute(
-            settings: settings,
+        } else {
+          return MaterialPageRoute(
+              settings: settings,
               builder: (_) => const SafeArea(child: PrivacyPolicyScreen()));
         }
 
-
       case Routes.systemmessages:
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
+        currentContext = Routes.systemmessages;
+
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
               builder: (_) => const SafeArea(child: SystemMessagesScreen()));
         } else {
-           return MaterialPageRoute(
-            settings: settings,
+          return MaterialPageRoute(
+              settings: settings,
               builder: (_) => const SafeArea(child: SystemMessagesScreen()));
         }
 
       case Routes.groupChatScreen:
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
+        currentContext = Routes.groupChatScreen;
+
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
               builder: (_) => SafeArea(child: GroupChatScreen()));
         } else {
-           return MaterialPageRoute(
-            settings: settings,
+          return MaterialPageRoute(
+              settings: settings,
               builder: (_) => SafeArea(child: GroupChatScreen()));
         }
 
       case Routes.messages:
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
+        currentContext = Routes.messages;
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
               builder: (_) => const SafeArea(child: OfficialMessagesScreen()));
         } else {
-           return MaterialPageRoute(
-            settings: settings,
+          return MaterialPageRoute(
+              settings: settings,
               builder: (_) => const SafeArea(child: OfficialMessagesScreen()));
         }
-
-
-
-
 
       case Routes.whiteEmptyScreen:
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
+        currentContext = Routes.whiteEmptyScreen;
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
               builder: (_) => const SafeArea(child: WhiteEmptyScreen()));
         } else {
-           return MaterialPageRoute(
-            settings: settings,
+          return MaterialPageRoute(
+              settings: settings,
               builder: (_) => const SafeArea(child: WhiteEmptyScreen()));
         }
-        case Routes.allShippingAgent:
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
-              builder: (_) =>   AllShippingAgent());
+      case Routes.allShippingAgent:
+        currentContext = Routes.allShippingAgent;
+
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(builder: (_) => AllShippingAgent());
         } else {
-           return MaterialPageRoute(
-            settings: settings,
-              builder: (_) =>  AllShippingAgent());
+          return MaterialPageRoute(
+              settings: settings, builder: (_) => AllShippingAgent());
         }
       case Routes.fixedTargetScreen:
+        currentContext = Routes.fixedTargetScreen;
         MyDataModel myDataModel = settings.arguments as MyDataModel;
 
         return MaterialPageRoute(
-            settings: settings,builder: (_) => FixedTargetScreen(myData:myDataModel ,));
-  case Routes.profileChatDetails:
-
-    UserDataModel userData=settings.arguments as UserDataModel;
+            settings: settings,
+            builder: (_) => FixedTargetScreen(
+                  myData: myDataModel,
+                ));
+      case Routes.profileChatDetails:
+        currentContext = Routes.profileChatDetails;
+        UserDataModel userData = settings.arguments as UserDataModel;
         return MaterialPageRoute(
-            settings: settings,builder: (_) => ProfileChatDetails(userData: userData,));
-
-
-
-
-
-
+            settings: settings,
+            builder: (_) => ProfileChatDetails(
+                  userData: userData,
+                ));
     }
 
     return unDefinedRoute();
   }
 
   static Route<dynamic> unDefinedRoute() {
-     return MaterialPageRoute(
+    return MaterialPageRoute(
         // ignore: prefer_const_constructors
         builder: (context) => EmptyScreen());
   }
@@ -688,14 +746,14 @@ class OtbScreenParm {
   final OtpFrom? otpFrom;
   final String? oldCode;
 
-  OtbScreenParm(
-      { this.codeCountry,
-        this.phone,
-        this.password,
-        this.type,
-        this.otpFrom,
-        this.oldCode,
-      });
+  OtbScreenParm({
+    this.codeCountry,
+    this.phone,
+    this.password,
+    this.type,
+    this.otpFrom,
+    this.oldCode,
+  });
 }
 
 class LoginPramiter {
@@ -706,7 +764,12 @@ class LoginPramiter {
   final String? error;
 
   const LoginPramiter(
-      { this.isForceUpdate,this.isBaned,this.error, this.isUpdate, this.isLoginFromAnotherAccountAndBuildFailure=false, Key? key});
+      {this.isForceUpdate,
+      this.isBaned,
+      this.error,
+      this.isUpdate,
+      this.isLoginFromAnotherAccountAndBuildFailure = false,
+      Key? key});
 }
 
 class ReportReelsScreenPramiter {
@@ -715,7 +778,7 @@ class ReportReelsScreenPramiter {
   final String? userId;
 
   const ReportReelsScreenPramiter(
-      { this.report,  this.id, this.userId, Key? key});
+      {this.report, this.id, this.userId, Key? key});
 }
 
 class MainPramiter {
@@ -802,5 +865,3 @@ class ResetPasswordParm {
 
   ResetPasswordParm({required this.phone, required this.code});
 }
-
-
