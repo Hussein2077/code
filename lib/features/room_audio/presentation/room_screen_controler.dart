@@ -747,14 +747,15 @@ GameRequest(Map<String, dynamic> result, BuildContext context){
 
 GameRequestResult(Map<String, dynamic> result, BuildContext context){
   if(result[messageContent]['game_id'].toString() == "3" && result[messageContent]['type'].toString() == "finished"){
-    BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter: GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(), answer: result[messageContent]['randomNumber'].toString(), round: '1')));
+    BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter: GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(),
+        answer: result[messageContent]['randomNumber'].toString(), round: '1')));
     if(result[messageContent]["player_owner"].toString() == MyDataModel.getInstance().id.toString()){
       Navigator.pop(context);
       if(result[messageContent]['palyersIds'].length > 1) {
         showDialog(
             context: context,
             builder: (context) {
-              return SpinScreen(list: result[messageContent]['palyersName'], isActive: false, isFree: false, winner: result[messageContent]['randomNumber'],);
+              return SpinScreen(list: result[messageContent]['palyersIds'], isActive: false, isFree: false, winner: result[messageContent]['randomNumber'],);
             });
       }
     }else{
@@ -765,7 +766,7 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
             showDialog(
                 context: context,
                 builder: (context) {
-                  return AllUsersSpinView(list: result[messageContent]['palyersName'], winner: result[messageContent]['randomNumber'],);
+                  return AllUsersSpinView(list: result[messageContent]['palyersIds'], winner: result[messageContent]['randomNumber'],);
                 });
           }
         }
