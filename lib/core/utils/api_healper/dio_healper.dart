@@ -77,7 +77,6 @@ class DioHelper {
         return Strings.signinHuaweiFailureMessage.tr();
       case BanFailure:
         if( RouteGenerator.currentContext == Routes.login){
-          Future.delayed(const Duration(seconds: 2), () {
             final GlobalKey<State> key1 = GlobalKey<State>();
             showDialog(
                 context: getIt<NavigationService>().navigatorKey.currentState!.overlay!.context,
@@ -86,19 +85,16 @@ class DioHelper {
                     key: key1,
                     headerText:failure.errorMessage??"",
                     accpetText: () {
-
                       Navigator.pop(context);
                     },
                     accpettitle: StringManager.ok.tr(),
                   );
                 });
-          });
-                  }
-        else{
+        } else{
           getIt<NavigationService>().navigatorKey.currentState
               ?.pushNamedAndRemoveUntil(Routes.login,
                   (Route<dynamic> route) => false,
-              arguments:   LoginPramiter(isBaned: true,error:failure.errorMessage??"" ));
+              arguments:   LoginPramiter(isBaned: true, error:failure.errorMessage??"" ));
         }
         return failure.errorMessage??"";
       default:
