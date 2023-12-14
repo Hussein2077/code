@@ -63,65 +63,70 @@ class _GameDialogState extends State<GameDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-      ),
-      child: Container(
-        height: ConfigSize.defaultSize! * 25,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: ColorManager.bageGriedinet),
+    return WillPopScope(
+      onWillPop: ()async{
+        return false;
+      },
+      child: Dialog(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 2),
-                child: Text(
-                  "${StringManager.rps.tr()} ${StringManager.games.tr()}",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: ConfigSize.defaultSize! * 1.7,
-                      overflow: TextOverflow.fade),
-                )),
+        child: Container(
+          height: ConfigSize.defaultSize! * 25,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: ColorManager.bageGriedinet),
+            borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 2),
+                  child: Text(
+                    "${StringManager.rps.tr()} ${StringManager.games.tr()}",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: ConfigSize.defaultSize! * 1.7,
+                        overflow: TextOverflow.fade),
+                  )),
 
-            Text("${StringManager.timeRemains.tr()} ${start.toString()}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: ConfigSize.defaultSize! * 1.3),),
+              Text("${StringManager.timeRemains.tr()} ${start.toString()}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: ConfigSize.defaultSize! * 1.3),),
 
-            SizedBox(height: ConfigSize.defaultSize! * 3),
+              SizedBox(height: ConfigSize.defaultSize! * 3),
 
-            SizedBox(
-              height: ConfigSize.defaultSize! * 7,
-              child: ListView.builder(
-                  itemCount: GameDialog.brickPaperNum.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 2.5),
-                      child: InkWell(
-                          onTap: (){
-                            setState(() {
-                              selected_index = index;
-                            });
-                          },
-                          child: Container(
-                            width: ConfigSize.defaultSize! * 6,
-                            height: ConfigSize.defaultSize! * 6,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: selected_index == index ? const Color.fromRGBO(149, 159, 225, 1) : Colors.transparent, width: 2),
+              SizedBox(
+                height: ConfigSize.defaultSize! * 7,
+                child: ListView.builder(
+                    itemCount: GameDialog.brickPaperNum.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 2.5),
+                        child: InkWell(
+                            onTap: (){
+                              setState(() {
+                                selected_index = index;
+                              });
+                            },
+                            child: Container(
+                              width: ConfigSize.defaultSize! * 6,
+                              height: ConfigSize.defaultSize! * 6,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: selected_index == index ? const Color.fromRGBO(149, 159, 225, 1) : Colors.transparent, width: 2),
+                              ),
+                              child: Image.asset(GameDialog.brickPaperNum[index]),
                             ),
-                            child: Image.asset(GameDialog.brickPaperNum[index]),
-                          ),
-                      ),
-                    );
-                  }
+                        ),
+                      );
+                    }
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
