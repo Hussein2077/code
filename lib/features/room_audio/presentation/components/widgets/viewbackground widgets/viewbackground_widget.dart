@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -367,7 +366,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                     top: ConfigSize.defaultSize! * 6.95,
                     left: ConfigSize.defaultSize! * 5.78,
                     child: ShowLuckyBannerWidget(
-                      sendDataUser: LuckyBoxVariables.sendSuperBox!,
+                      sendDataUser: LuckyBoxVariables.sendSuperBox??MyDataModel.getInstance().convertToUserObject(),
                       superBox: widget.superBox,
                       showBannerLuckyBox: LuckyBoxVariables.showBannerLuckyBox,
                       ownerId: widget.room.ownerId.toString(),
