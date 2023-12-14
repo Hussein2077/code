@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -39,15 +40,12 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/viewbackground_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
-import 'package:tik_chat_v2/main.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/live_page.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
@@ -251,26 +249,18 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
   RoomScreen.listOfAnimatingGifts.clear();
   RoomScreen.listOfAnimatingEntros.clear();
   if(ownerId == MyDataModel.getInstance().id.toString() &&  PkController.showPK.value){
-    if(context.mounted){
-      BlocProvider.of<PKBloc>(context).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
-      BlocProvider.of<PKBloc>(context).add(HidePKEvent(ownerId: ownerId));
 
 
-
-
-    }else{
-
-
-      BlocProvider.of<PKBloc>(navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
-      BlocProvider.of<PKBloc>(navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
-    }
-  }
-
-  if(context.mounted){      Methods.instance.hostTimeOnMic(context:context);
-  }else{
-    Methods.instance.hostTimeOnMic(context:navigatorKey.currentContext!);
+      BlocProvider.of<PKBloc>(context.mounted  ?context :
+      getIt<NavigationService>().navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
+      BlocProvider.of<PKBloc>(context.mounted  ?context :
+      getIt<NavigationService>().navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
 
   }
+
+   Methods.instance.hostTimeOnMic(context: context.mounted  ?context :
+  getIt<NavigationService>().navigatorKey.currentContext!);
+
   PkController.timeMinutePK = 0;
   PkController.timeSecondPK = 0;
   PkController.isPK.value = false;

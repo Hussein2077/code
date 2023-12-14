@@ -66,9 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     GoogleHuawei();
-    log('${widget.banedMassage}ggggggggg');
     passwordController = TextEditingController();
-    log("ban ${widget.isBaned}");
     if (widget.isBaned!) {
       Future.delayed(const Duration(seconds: 2), () {
         if(mounted) {

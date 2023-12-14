@@ -5,13 +5,13 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/host_time_counter/host_timer_counter_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
-import 'package:tik_chat_v2/main.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/co_host_mixin.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
@@ -1173,7 +1173,8 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
 
         //Todo close timer and add enevet to server ;
         getIt<CounterBloc>().pauseCounter();
-        Methods.instance.hostTimeOnMic(context:navigatorKey.currentContext!);
+        Methods.instance.hostTimeOnMic(context:
+        getIt<NavigationService>().navigatorKey.currentContext!);
 
         ZegoLoggerService.logInfo(
           'take off seat success',

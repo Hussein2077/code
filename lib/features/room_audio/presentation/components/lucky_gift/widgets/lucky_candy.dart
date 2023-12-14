@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
@@ -13,7 +15,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_user_only.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_event.dart';
-import 'package:tik_chat_v2/main.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import '../../../../../../../core/utils/config_size.dart';
 
@@ -125,7 +126,9 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
 
 
     widget.luckGiftBannderController!.reverse().then((value) {
-        BlocProvider.of<LuckyGiftBannerBloc>(navigatorKey.currentContext!).add(EndBannerEvent()) ;
+
+        BlocProvider.of<LuckyGiftBannerBloc>(context.mounted  ?context :
+        getIt<NavigationService>().navigatorKey.currentContext!).add(EndBannerEvent()) ;
     }
         );
     Future.delayed(const Duration(seconds: 1),()=>GiftBottomBar.typeCandy.value = TypeCandy.non);

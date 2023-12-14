@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/dark_theme.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/light_theme.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -112,7 +113,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bloc/send_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
@@ -157,7 +157,7 @@ import 'features/moment/presentation/manager/manager_report_moment/report_moment
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+// final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 
 Future<void> main() async {
@@ -182,7 +182,7 @@ Future<void> main() async {
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  NotificationSettings settings = await _firebaseMessaging.requestPermission(
+   await _firebaseMessaging.requestPermission(
     alert: true,
     announcement: false,
     badge: true,
@@ -534,7 +534,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: lightTheme,
-              navigatorKey: navigatorKey,
+              navigatorKey: getIt<NavigationService>().navigatorKey,
               // set property
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
@@ -548,7 +548,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: darkTheme,
-              navigatorKey:navigatorKey,
+              navigatorKey:getIt<NavigationService>().navigatorKey,
               // set property
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
@@ -562,7 +562,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: theme == "dark" ? darkTheme : lightTheme,
-              navigatorKey: navigatorKey,
+              navigatorKey:  getIt<NavigationService>().navigatorKey,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               onGenerateRoute: RouteGenerator.getRoute,

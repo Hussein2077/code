@@ -20,17 +20,17 @@ class MainButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width ?? MediaQuery.of(context).size.width - 50,
-        height: height ??  ConfigSize.defaultSize! * 5.5,
+        height: height ??  MediaQuery.of(context).size.height * 0.06,
         decoration: BoxDecoration(
           color: buttonColornotList,
             gradient: buttonColornotList==null? LinearGradient(colors:buttonColor?? ColorManager.mainColorList):null,
-            borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5)),
+            borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.06)),
         child: Center(
           child: Text(
             title,
             style: TextStyle(
                 color:textColor?? ColorManager.whiteColor,
-                fontSize:titleSize?? ConfigSize.defaultSize! * 1.8 , fontWeight: FontWeight.bold),
+                fontSize:titleSize?? 14 , fontWeight: FontWeight.bold),
           ),
         ),
       ),

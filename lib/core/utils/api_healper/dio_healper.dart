@@ -10,8 +10,10 @@ import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/error/failures_string.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
-import 'package:tik_chat_v2/main.dart';
+import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
 
 class DioHelper {
   Future<Map<String, String>> header() async {
@@ -51,13 +53,10 @@ class DioHelper {
       case ServerFailure:
         return Strings.serverFailureMessage.tr();
       case UnauthorizedFailure:
-        Navigator.pushNamedAndRemoveUntil(
-            navigatorKey.currentContext!,
-            Routes.login,
-            (Route<dynamic> route) => false,
+        getIt<NavigationService>().navigatorKey.currentState?.pushNamedAndRemoveUntil( Routes.login,
+                (Route<dynamic> route) => false,
             arguments: const LoginPramiter(
                 isLoginFromAnotherAccountAndBuildFailure: false));
-
         return Strings.unauthorizedFailureMassage.tr();
       case SiginGoogleFailure:
         return Strings.signinGoogleFailureMessage.tr();
@@ -68,36 +67,40 @@ class DioHelper {
       case InternetFailure:
         return Strings.checkYourInternet.tr();
       case AnotherAccountMessageFailure:
-        Navigator.pushNamedAndRemoveUntil(
-            navigatorKey.currentContext!,
-            Routes.login,
-            (Route<dynamic> route) => false,
-            arguments: const LoginPramiter(
-                isLoginFromAnotherAccountAndBuildFailure: true));
+        getIt<NavigationService>().navigatorKey.currentState?.pushNamedAndRemoveUntil( Routes.login,
+
+              (Route<dynamic> route) => false,
+          arguments: const LoginPramiter(
+              isLoginFromAnotherAccountAndBuildFailure: true));
+
         return Strings.anotherAccountLoggedIn.tr();
       case SiginHuaweiFailure:
         return Strings.signinHuaweiFailureMessage.tr();
       case BanFailure:
-        // log("ModalRoute.of(GlobalContextService.navigatorKey.currentContext!)?.settings.name${ModalRoute.of(GlobalContextService.navigatorKey.currentContext!)?.settings.name}");
-        // if(ModalRoute.of(GlobalContextService.navigatorKey.currentContext!)?.settings.name == null){
-        //   showDialog(
-        //       context: GlobalContextService.navigatorKey.currentContext!,
-        //       builder: (context) {
-        //         return PopUpDialog(
-        //           headerText:failure.errorMessage??"",
-        //           accpetText: () {
-        //             Navigator.pop(context);
-        //           },
-        //           accpettitle: StringManager.ok.tr(),
-        //         );
-        //       });
-        // }else{
-        //   Navigator.pushNamedAndRemoveUntil(
-        //       GlobalContextService.navigatorKey.currentContext!,
-        //       Routes.login,
-        //           (Route<dynamic> route) => false,
-        //       arguments:   LoginPramiter(isBaned: true,error:failure.errorMessage??"" ));
-        // }
+        if( RouteGenerator.currentContext == Routes.login){
+          Future.delayed(const Duration(seconds: 2), () {
+            final GlobalKey<State> key1 = GlobalKey<State>();
+            showDialog(
+                context: getIt<NavigationService>().navigatorKey.currentState!.overlay!.context,
+                builder: (context) {
+                  return PopUpDialog(
+                    key: key1,
+                    headerText:failure.errorMessage??"",
+                    accpetText: () {
+
+                      Navigator.pop(context);
+                    },
+                    accpettitle: StringManager.ok.tr(),
+                  );
+                });
+          });
+                  }
+        else{
+          getIt<NavigationService>().navigatorKey.currentState
+              ?.pushNamedAndRemoveUntil(Routes.login,
+                  (Route<dynamic> route) => false,
+              arguments:   LoginPramiter(isBaned: true,error:failure.errorMessage??"" ));
+        }
         return failure.errorMessage??"";
       default:
         return failure.errorMessage ?? StringManager.unexcepectedError.tr();
@@ -180,3 +183,17 @@ class DioHelper {
     }
   }
 }
+/*
+final route = DialogRoute(
+  context: context,
+  builder: (_) => const CupertinoAlertDialog(
+    content: CupertinoActivityIndicator(
+      radius: 25,
+    ),
+  ),
+);
+
+Navigator.of(context).push(route);
+await Future.delayed(const Duration(seconds: 1));
+Navigator.of(context).removeRoute(route);
+ */
