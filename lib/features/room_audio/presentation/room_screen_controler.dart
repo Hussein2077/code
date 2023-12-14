@@ -877,7 +877,8 @@ LuckyDraw(Map<String, dynamic> result, BuildContext context, EnterRoomModel room
   if(result[messageContent]['index'] == 0){
     LuckyDrawGameScreen.userSelected.clear();
     GiftUser.userOnMicsForGifts.forEach((key, value) {
-      LuckyDrawGameScreen.userSelected.putIfAbsent(key, () => SelecteUsers(
+      LuckyDrawGameScreen.userSelected.putIfAbsent(key,
+            () => SelecteUsers(
         userId: value.id,
         selected: true,
         name: value.name,
@@ -886,7 +887,9 @@ LuckyDraw(Map<String, dynamic> result, BuildContext context, EnterRoomModel room
     });
   } else{
     for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
-      LuckyDrawGameScreen.userSelected.putIfAbsent(int.parse(ZegoUIKit().getAllUsers()[i].id), () => SelecteUsers(
+      LuckyDrawGameScreen.userSelected.putIfAbsent(
+        int.parse(ZegoUIKit().getAllUsers()[i].id),
+            () => SelecteUsers(
         userId: ZegoUIKit().getAllUsers()[i].id,
         selected: true,
         name: ZegoUIKit().getAllUsers()[i].name,
@@ -895,7 +898,9 @@ LuckyDraw(Map<String, dynamic> result, BuildContext context, EnterRoomModel room
       );
     }
   }
-  final route = showDialog(
+
+
+ showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
@@ -909,10 +914,7 @@ LuckyDraw(Map<String, dynamic> result, BuildContext context, EnterRoomModel room
           },
         );
       });
-  Navigator.of(context).push(route as Route<Object?>);
-   Future.delayed(const Duration(seconds: 5),(){
-     Navigator.of(context).removeRoute(route as Route<Object?>);
-   });
+
 
 }
 

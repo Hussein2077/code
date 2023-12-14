@@ -433,6 +433,8 @@ class StringManager {
   static const String usersOnMic = "Users on the Microphone";
   static const String usersInRoom = "All users in the room";
   static const String numberOfLuckyUsers = "Number of lucky users";
+  static const String refresh = "Refresh";
+  static const String somethingsWrong = "Something's wrong";
 
 //zego
   static const String thereAreNoEmptySeats = 'There are no empty seats';
@@ -633,15 +635,7 @@ class StringManager {
 
   static const String explainGamePaperScissorsBrick = '''
       Players:
-  static const String muteGameNotification = "Mute All Games Notifications";
-  static const String enableGameNotification = "Please Enable Game Notification First";
-  static const String changeThemeApproval ="Do you approve to change this theme for ";
-  static const String pleaseAddAtLeastTwoValue = "Please Add At Least Two Value";
-  static const String timeRemains = "Time Remains:";
-  static const String waitForUsersResponse = "Waiting For Users Response";
-  static const String participants = "Participants:";
-  static const String luckyUsers = "Lucky Users:";
-
+      
       Two players can play against each other.
       Symbols:
       
@@ -661,13 +655,13 @@ class StringManager {
       If you are lucky and spin the wheel it returns to your name, thus you get total profit
     ''';
   static const String luckyDraw = '''
-     It's like spinning the wheel but for free
-     There are two options
-     First, 
-     you can play with everyone on the microphone
-     second
-     You can play with all people inside the ROM
-     If you are lucky, the rotation will stop and your name and picture will be shown to everyone inside the room so that they can send you a gift.
+      It's like spinning the wheel but for free
+      There are two options
+      First, 
+      you can play with everyone on the microphone
+      second
+      You can play with all people inside the ROM
+      If you are lucky, the rotation will stop and your name and picture will be shown to everyone inside the room so that they can send you a gift.
     ''';
 
   ///List Type Users
