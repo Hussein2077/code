@@ -33,7 +33,7 @@ class _CoinCollectAnimateState extends State<CoinCollectAnimate> with TickerProv
     SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Gif(
-        image: const AssetImage(AssetsPath.coinAnimate ,),
+        image: const AssetImage(AssetsPath.coinAnimate),
         controller: _controller, // if duration and fps is null, original gif fps will be used.
         //fps: 30,
         //duration: const Duration(seconds: 3),
