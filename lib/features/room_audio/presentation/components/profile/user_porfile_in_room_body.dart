@@ -231,33 +231,49 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     if(!myProfile)
-                    ValueListenableBuilder<bool>(
-                        valueListenable: followAneimate,
-                        builder: (context, isShow, _) {
-                          if (isShow) {
-                            return
-                              SizedBox(
-                                  height: ConfigSize.defaultSize!* 3.5,
-                                width: ConfigSize.defaultSize!* 3.5,
-                                child: Gif(
-                                  image:
-                                  const AssetImage(AssetsPath.verified),
-                                  controller: _controller,
-                                  autostart: Autostart.loop,
-                                  placeholder: (context) => const SizedBox(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            mentionAction(
+                                context: context,
+                                roomData: widget.roomData,
+                                userData: widget.userData);
+                          },
+                          child: mentionButton(),
+                        ),
 
-                                ),
-                              );
-                          } else {
-                            return   bottomBarColumn(
-                              context: context,
-                              icon: localisFollow ? AssetsPath.unfollowIcon : AssetsPath.followIcon,
-                              title: localisFollow ? StringManager.unFollow.tr() : StringManager.follow.tr(),
-                              onTap:follow
+                        ValueListenableBuilder<bool>(
+                            valueListenable: followAneimate,
+                            builder: (context, isShow, _) {
+                              if (isShow) {
+                                return
+                                  SizedBox(
+                                      height: ConfigSize.defaultSize!* 3.5,
+                                    width: ConfigSize.defaultSize!* 3.5,
+                                    child: Gif(
+                                      image:
+                                      const AssetImage(AssetsPath.verified),
+                                      controller: _controller,
+                                      autostart: Autostart.loop,
+                                      placeholder: (context) => const SizedBox(),
 
-                            );
-                          }
-                        }),
+                                    ),
+                                  );
+                              } else {
+                                return   bottomBarColumn(
+                                  context: context,
+                                  icon: localisFollow ? AssetsPath.unfollowIcon : AssetsPath.followIcon,
+                                  title: localisFollow ? StringManager.unFollow.tr() : StringManager.follow.tr(),
+                                  onTap:follow
+
+                                );
+                              }
+                            }),
+
+                      ],
+                    ),
 
                     //FOLLOW ICON
                     //todo i did comment here
@@ -323,7 +339,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                                   textAlign: TextAlign.right),
                             )),
                       ),
-                    ],
+
+                  ],
                   ),
                   SizedBox(
                       height: ConfigSize.defaultSize!*1
@@ -484,4 +501,33 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
     });return null;
 
   }
+
+  Widget mentionButton() {
+    return SizedBox(
+      width: ConfigSize.defaultSize! * 6,
+      child: Column(
+        children: [
+          Container(
+            width: ConfigSize.defaultSize! * 3,
+            height: ConfigSize.defaultSize! * 3,
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.65),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(ConfigSize.defaultSize! * 2.5)),
+            ),
+            child: Center(
+              child: Text(
+                '@',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: ConfigSize.defaultSize! * 2),
+              ),
+            ),
+          ),
+          Text(StringManager.mention.tr(),style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.black)),
+        ],
+      ),
+    );
+  }
+
 }

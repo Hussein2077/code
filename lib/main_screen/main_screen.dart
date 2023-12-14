@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -190,6 +192,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           RotationTransition(
                               turns: animationController,
                               child: UserImage(
+
                                 imageSize: ConfigSize.defaultSize! * 14,
                                 image: MainScreen.roomData?.roomCover??'',
                               )),

@@ -12,8 +12,9 @@ class ImageWithText extends StatelessWidget {
     return Column(
       children: [
         Image.asset(image,scale: ConfigSize.defaultSize!*0.25,),
-        Text(text,style: const TextStyle(
+        Text(text,style:  TextStyle(
           color: ColorManager.darkBlack,
+          fontSize: ConfigSize.defaultSize!*1.2
         ),)
       ],
     );
