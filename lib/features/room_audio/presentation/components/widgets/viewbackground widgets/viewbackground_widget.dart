@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_bottom_bar.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/collect_coin_animation/collect_coin_animation.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/header_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/owner_room/owner_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/host_time_counter/host_timer_counter_controller.dart';
@@ -454,7 +455,23 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
     const IgnorePointer(
       child: LuckyGiftWithOverlay(),
     ),
-        ]);
+          ValueListenableBuilder
+      <bool>(
+      valueListenable: RoomScreen.isWinnerShowWidget,
+      builder: (context, isShow, _) {
+      if (isShow) {
+      return  CoinCollectAnimate();
+      } else {
+      return const SizedBox();
+      }
+      },
+
+
+          // MyApp()
+
+
+
+          )]);
       }, listener: (context, state) {
         if (state is ErrorSendGiftStates) {
     errorToast(context: context, title: state.errorMessage);
