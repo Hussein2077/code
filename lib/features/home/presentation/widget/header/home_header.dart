@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:animated_icon/animated_icon.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -57,7 +56,8 @@ class _HomeHeaderState extends State<HomeHeader> {
     stream: HomeHeader.streamControllerCacheData.stream,
     builder: (context, snapshot) {
       log("HomeHeader") ;
-      if(snapshot.hasData && (snapshot.data?.isNotEmpty??false)){
+      if(snapshot.hasData && (snapshot.data?.isNotEmpty??false))
+      {
         log("snapshot.data?.values.toList()${snapshot.data?.values.toList()}");
          List<ItemWidget> ne = snapshot.data!.values.toList();
          return  DropdownButtonHideUnderline(
