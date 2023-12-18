@@ -5,6 +5,7 @@ import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/widgets/report_dailog_for_users.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/message/input_board.dart';
@@ -12,12 +13,10 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_inn
 
 bool checkIsUserOnMic(UserDataModel userData) {
   bool isOnMic = false;
-  RoomScreen.userOnMics.value.forEach((key, value) {
-    if (RoomScreen.usersInRoom.containsKey(userData.id.toString())) {
+  GiftUser.userOnMicsForGifts.forEach((key, value) {
       if (userData.id.toString() == value.id) {
         isOnMic = true;
       }
-    }
   });
   return isOnMic;
 }

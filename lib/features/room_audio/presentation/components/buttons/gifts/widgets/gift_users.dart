@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,9 @@ import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/services.dart';
 
 class GiftUser extends StatefulWidget {
   final List<ZegoUIKitUser> listAllUsers ;
@@ -32,7 +36,6 @@ class GiftUserState extends State<GiftUser> {
     'ألكل في الغرفة  ',
   ];
   final List<int> seatsIndex =[];
-  Map<String, int> mapOfUsersPositions = {};
 
   @override
   void initState() {
@@ -44,15 +47,10 @@ class GiftUserState extends State<GiftUser> {
   void dispose(){
     GiftUser.updateView.value = 0 ;
     super.dispose();
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-    RoomScreen.userOnMics.value.forEach((key, value) {
-      mapOfUsersPositions.putIfAbsent(value.id, () => key);
-    });
     return  SizedBox(
       child:Padding(
         padding: const EdgeInsets.all(8.0),
@@ -76,7 +74,7 @@ class GiftUserState extends State<GiftUser> {
                   return ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount: seatsIndex.length,
+                      itemCount: GiftUser.userOnMicsForGifts.length,
                       itemBuilder: (context, index) {
                         if(GiftUser.userOnMicsForGifts[seatsIndex[index]]?.name == StringManager.mysteriousPerson.tr()){
                           return const  SizedBox();
@@ -152,7 +150,7 @@ class GiftUserState extends State<GiftUser> {
                                             color: ColorManager.whiteColor),
                                         child:Center(
                                           child: Text(
-                                            mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id] == null ? "0" : "${mapOfUsersPositions[GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id]!+1}",
+                                            ZegoLiveAudioRoomManagers().seatManager!.getIndexByUserID(GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id) == null ? "0" : "${ZegoLiveAudioRoomManagers().seatManager!.getIndexByUserID(GiftUser.userOnMicsForGifts[seatsIndex[index]]!.id)}",
                                             style:  TextStyle(fontSize: AppPadding.p8,color: Colors.black),
                                           ),
                                         )
@@ -162,8 +160,7 @@ class GiftUserState extends State<GiftUser> {
                             ),
                           );
                         }
-
-                      }) ;
+                      });
                 }
               ),
             ),

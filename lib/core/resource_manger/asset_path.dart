@@ -127,6 +127,7 @@ class AssetsPath {
   static const String paper = "$pathImage/img_2.png";
   static const String scissors = "$pathImage/img_3.png";
   static const String sendBoxSVGA = "$pathImage/Icon G Box .svga";
+  static const String luckyGiftBubble = "$pathImage/lucky_gift_bubble.png";
 
 
 

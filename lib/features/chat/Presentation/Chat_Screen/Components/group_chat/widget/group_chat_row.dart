@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
-import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/widgets/aristocracy_level.dart';
 import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
@@ -12,18 +10,18 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
-
 import '../../../../../../../core/utils/config_size.dart';
 import '../../../../../data/models/group_chat_model.dart';
 
 class GroupChatRow extends StatelessWidget {
   final GroupChatModel userData;
+
   const GroupChatRow({required this.userData, super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width-50,
+      width: MediaQuery.of(context).size.width - 50,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -34,35 +32,31 @@ class GroupChatRow extends StatelessWidget {
                 children: [
                   BlocBuilder<GetMyDataBloc, GetMyDataState>(
                     builder: (context, state) {
-                      if(state is GetMyDataSucssesState){
-      return InkWell(
-                        onTap: () {
-
-
-                          Methods().userProfileNvgator(context: context , userId: userData.id.toString() );
-
-
-                        },
-                        child: UserImage(
-                          image: userData.profile!.image!,
-                         imageSize:  ConfigSize.defaultSize! * 5.3,
-
-                        ),
-                      );
-                      }else {
-                            return InkWell(
-                        onTap: () {
-                          Methods().userProfileNvgator(context: context , userId: userData.id.toString() );
-
-                        },
-                              child: UserImage(
-                                image: userData.profile!.image!,
-                                imageSize:  ConfigSize.defaultSize! * 5.3,
-
-                              ),
-                      );
+                      if (state is GetMyDataSucssesState) {
+                        return InkWell(
+                          onTap: () {
+                            Methods().userProfileNvgator(
+                                context: context,
+                                userId: userData.id.toString());
+                          },
+                          child: UserImage(
+                            image: userData.profile!.image!,
+                            imageSize: ConfigSize.defaultSize! * 5.3,
+                          ),
+                        );
+                      } else {
+                        return InkWell(
+                          onTap: () {
+                            Methods().userProfileNvgator(
+                                context: context,
+                                userId: userData.id.toString());
+                          },
+                          child: UserImage(
+                            image: userData.profile!.image!,
+                            imageSize: ConfigSize.defaultSize! * 5.3,
+                          ),
+                        );
                       }
-
                     },
                   ),
                   ShowSVGA(
@@ -77,7 +71,7 @@ class GroupChatRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GradientTextVip(
-                  isVip:    userData.hasColorName??false,
+                    isVip: userData.hasColorName ?? false,
                     text: userData.name!,
                     textStyle: TextStyle(
                         fontSize: ConfigSize.defaultSize! * 1.5,
@@ -91,22 +85,21 @@ class GroupChatRow extends StatelessWidget {
                           SizedBox(
                             width: ConfigSize.defaultSize! * 0.3,
                           ),
-                          if(userData.level!.senderImage != '')
-                            LevelContainer(
-                             height: ConfigSize.defaultSize! * 2.2,
-                              width: ConfigSize.defaultSize! * 4.1,
-                            image:
-                                userData.level!.senderImage!,
-                          ),
-                          SizedBox(
-                            width: ConfigSize.defaultSize! * 0.3,
-                          ),
-                          if(userData.level!.receiverImage != '')
+                          if (userData.level!.senderImage != '')
                             LevelContainer(
                               height: ConfigSize.defaultSize! * 2.2,
                               width: ConfigSize.defaultSize! * 4.1,
-                            image: userData.level!.receiverImage!,
+                              image: userData.level!.senderImage!,
+                            ),
+                          SizedBox(
+                            width: ConfigSize.defaultSize! * 0.3,
                           ),
+                          if (userData.level!.receiverImage != '')
+                            LevelContainer(
+                              height: ConfigSize.defaultSize! * 2.2,
+                              width: ConfigSize.defaultSize! * 4.1,
+                              image: userData.level!.receiverImage!,
+                            ),
                           SizedBox(
                             width: ConfigSize.defaultSize! * 0.3,
                           ),
@@ -117,11 +110,10 @@ class GroupChatRow extends StatelessWidget {
                           //       width: ConfigSize.defaultSize! * 4,
                           //       vip: userData.vip1!.level!)
 
-
-                          if (userData.vipLevel!= null )
+                          if (userData.vipLevel != null)
                             AristocracyLevel(
-                              level:userData.vipLevel! ,
-                               )
+                              level: userData.vipLevel!,
+                            )
                         ],
                       )),
                 ],
@@ -133,8 +125,10 @@ class GroupChatRow extends StatelessWidget {
             padding: EdgeInsets.all(ConfigSize.defaultSize!),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-                gradient:
-                     LinearGradient(colors: ColorManager.mainColorListLight)),
+                gradient: LinearGradient(colors: [
+                  const Color(0xFFFF5A52).withOpacity(0.75),
+                  const Color(0xFFFCC23C).withOpacity(0.75),
+                ])),
             child: Text(
               userData.groupMessage!,
               overflow: TextOverflow.fade,
@@ -143,7 +137,6 @@ class GroupChatRow extends StatelessWidget {
                   color: ColorManager.darkBlack),
             ),
           ),
-
           Text(
             userData.massageCreatedAt!,
             style: TextStyle(

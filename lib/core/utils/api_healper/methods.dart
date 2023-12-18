@@ -655,8 +655,7 @@ class Methods {
       if (kDebugMode) {
         log("isAlreadyloaded");
       }
-      final videoItem =
-          await SVGAParser.shared.decodeFromBuffer(bytes.toList());
+      final videoItem = await SVGAParser.shared.decodeFromBuffer(bytes.toList());
       return videoItem;
     } else {
       return await SVGAParser.shared

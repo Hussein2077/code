@@ -123,12 +123,12 @@ class _SplashScreenState extends State<SplashScreen> {
       ..appId = "2494588e09875e27" //replace with your app Id
       ..authKey = "e90735e3a0fe23da4ff50e98d03d75add227ecc9"
       ..extensions = CometChatUIKitChatExtensions.getDefaultExtensions()
-      ..aiFeature = AIEnabler(
-        aiFeatureList: [
-          AISmartRepliesExtension(),
-          AIConversationStarterExtension(),
-        ],
-      )
+      // ..aiFeature = AIEnabler(
+      //   aiFeatureList: [
+      //     AISmartRepliesExtension(),
+      //     AIConversationStarterExtension(),
+      //   ],
+      // )
         //replace this with empty array you want to disable all extensions
     ) //replace with your auth Key
         .build();
