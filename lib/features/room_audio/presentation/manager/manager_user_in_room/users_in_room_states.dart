@@ -43,22 +43,6 @@ class UnMuteRoomSuccesState extends OnUserInRoomStates {
   const UnMuteRoomSuccesState({required this.succesMessage});
 }
 
-class InviteUserInRoomLoadingState extends OnUserInRoomStates{
-  const  InviteUserInRoomLoadingState();
-}
-
-class  InviteUserInRoomErrorState extends OnUserInRoomStates {
-  final String errorMessage;
-
-  const  InviteUserInRoomErrorState({required this.errorMessage});
-}
-
-class InviteRoomSuccesState extends OnUserInRoomStates {
-  final String succesMessage;
-
-  const InviteRoomSuccesState({required this.succesMessage});
-}
-
 class LoadingKickoutState extends OnUserInRoomStates {}
 
 class SuccessKickoutState extends OnUserInRoomStates {

@@ -259,7 +259,6 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/hide_room_use_ca
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/host_time_on_mic_usecase.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_new_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_to_game_uc.dart';
-import 'package:tik_chat_v2/features/room_audio/domine/use_case/invite_user_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/kickout_pramiter_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/leave_mic_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/lock_unLock_mic_uc.dart';
@@ -523,8 +522,6 @@ class ServerLocator {
 
              getIt.registerFactory(
         () => UsersInRoomBloc(
-
-            inviteUserUC: getIt() ,
             muteUnMuteUserInRoomUC: getIt(), kickoutUC: getIt()));
                 getIt.registerFactory(
         () => GetReelCommentsBloc(getReelCommentUseCase: getIt()));
@@ -639,9 +636,7 @@ class ServerLocator {
 
  getIt.registerLazySingleton(
             () => GetReelCommentUseCase(baseRepositoryReel: getIt()));
-
 getIt.registerLazySingleton(
-            () => InviteUserUC(roomRepo: getIt()));getIt.registerLazySingleton(
             () => MuteUnMuteUserInRoomUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(

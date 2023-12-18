@@ -75,7 +75,6 @@ abstract class BaseRepositoryRoom {
   Future<Either<String, Failure>> addRoomBackGround(  File roomBackGround);
   Future<Either<List<BackGroundModel>, Failure>> getMyAllbackGround();
   Future<Either<Unit,Failure>> muteUser(String ownerId, String userId,bool mute);
-  Future<Either<Unit,Failure>> inviteUser(String ownerId, String userId,int  indexSeat);
   Future<Either<GetConfigKeyModel, Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
   Future<Either<String,Failure>> sendYallowBanner(SendPobUpPram sendPobUpPram );
   Future<Either<LuckyGiftModel , Failure>> sendLuckyGift(GiftPramiter giftPramiter);

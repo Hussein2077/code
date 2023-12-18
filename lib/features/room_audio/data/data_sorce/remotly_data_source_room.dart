@@ -78,7 +78,6 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> addRoomBackGround(  File roomBackGround);
   Future<List<BackGroundModel>> getMyBackGround();
   Future<Unit> muteUser(String ownerId,String  userId ,bool mute) ;
-  Future<Unit> inviteUser(String ownerId,String  userId ,int indexSeat) ;
    Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) ;
   Future<LuckyGiftModel> sendLuckyGift(GiftPramiter giftPramiter);
 
@@ -1058,40 +1057,6 @@ static String uploadImagePrice = "" ;
 
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'muteUser' );
-    }
-  }
-
-  @override
-  Future<Unit> inviteUser(String ownerId,String userId,int indexSeat)async {
-    Map<String, String> headers = await DioHelper().header();
-
-    Map<String,dynamic> mapToZego =
-    {
-      'id_user':userId ,
-      'index' : indexSeat
-    };
-
-    final body ={
-      'owner_id': ownerId,
-      'message' :'inviteToSeat',
-      'ext':jsonEncode(mapToZego) ,
-      'action':'SendCustomCommand'
-    };
-
-    try {
-      await Dio().post(ConstentApi.sentToZego,
-          options: Options(
-            headers:headers ,
-          ),
-          data: body
-      );
-
-
-
-      return Future.value(unit);
-
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'inviteUser' );
     }
   }
 

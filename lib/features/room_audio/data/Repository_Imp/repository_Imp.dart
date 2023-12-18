@@ -415,16 +415,6 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
     }
   }
 
-  @override
-  Future<Either<Unit, Failure>> inviteUser(String ownerId,String userId,int indexSeat) async{
-    try {
-      final result = await baseRemotlyDataSourceRoom.inviteUser(ownerId, userId, indexSeat) ;
-      return left(result);
-    } on Exception catch (e) {
-      return Right(DioHelper.buildFailure(e));
-    }
-  }
-
    @override
   Future<Either<GetConfigKeyModel, Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram) async{
       try {
