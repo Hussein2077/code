@@ -1,13 +1,8 @@
 import 'dart:convert';
-import 'dart:developer';
-
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -27,11 +22,9 @@ import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/manage
 import 'package:tik_chat_v2/features/chat/data/data_source/remoted_dataSource_chat.dart';
 import 'package:tik_chat_v2/features/chat/data/models/group_chat_model.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
-
 import '../../../../../../core/utils/config_size.dart';
 import 'widget/group_chat_row.dart';
 import 'dart:ui' as ui;
-
 
 class GroupChatScreen extends StatefulWidget {
   GroupChatScreen({super.key});
@@ -47,38 +40,31 @@ class GroupChatScreen extends StatefulWidget {
 class _GroupChatScreenState extends State<GroupChatScreen> {
   TextEditingController massageCotroller = TextEditingController();
   final ScrollController scrollController = ScrollController();
-
+  bool accepted = false;
 
   @override
   void initState() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (context.mounted) {
+        if (jsonDecode(message.data['message-type']) == "group-chat") {
+          Map<String, dynamic> data2 = jsonDecode(message.data["data"]);
+          GroupChatModel data = GroupChatModel.fromJson(data2);
 
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
-      log(message.data.toString());
-
-
-     if (context.mounted){
-       if(jsonDecode(message.data['message-type']) =="group-chat" ){
-         Map<String , dynamic> data2 = jsonDecode(message.data["data"]) ;
-         GroupChatModel data = GroupChatModel.fromJson(data2  );
-
-         BlocProvider.of<GetGroupMassageBloc>(context)
-             .add(GetGroupChatMessageReelTime(message:data ));
-       }
-     }
-
-
-
-
+          BlocProvider.of<GetGroupMassageBloc>(context)
+              .add(GetGroupChatMessageReelTime(message: data));
+        }
+      }
     });
     scrollController.addListener(scrollListener);
     BlocProvider.of<GetGroupMassageBloc>(context).add(GetGroupMassageEvent());
 
     super.initState();
   }
+
+
   @override
   void dispose() {
-    HomeScreen.groupChatCounter.value =0;
+    HomeScreen.groupChatCounter.value = 0;
 
     super.dispose();
   }
@@ -95,18 +81,15 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                 .add(GetGroupMassageEvent());
           } else if (state is PostGroupChatError) {
             errorToast(context: context, title: state.error);
-
           }
         },
         builder: (context, state) {
           return BlocConsumer<GetGroupMassageBloc, GetGroupMassageState>(
-            listener: (context, state) async{
+            listener: (context, state) async {
               if (state is GetGroupMassageSucsses) {
-                Methods.instance.setLocalGroupChatNotifecation(unReadMessage: false);
-                HomeScreen.rebuildGroupChatCounter.value = false ;
-
-
-
+                Methods.instance
+                    .setLocalGroupChatNotifecation(unReadMessage: false);
+                HomeScreen.rebuildGroupChatCounter.value = false;
               }
             },
             builder: (context, state) {
@@ -115,14 +98,14 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                 widget.tempData = state.data;
                 return Scaffold(
                   appBar: AppBar(
-                    backgroundColor:ColorManager.whiteColor ,
+                    backgroundColor: ColorManager.whiteColor,
                     leading: const ArrowBack(),
-elevation: 0,
+                    elevation: 0,
                     title: Text(
                       StringManager.groupChat.tr(),
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: ConfigSize.defaultSize! * 2,
-                      ),
+                            fontSize: ConfigSize.defaultSize! * 2,
+                          ),
                     ),
                     centerTitle: true,
                   ),
@@ -156,46 +139,54 @@ elevation: 0,
                                   : Expanded(
                                       child: ListView.builder(
                                           controller: scrollController,
-
-                                          // primary: true,
                                           physics: const BouncingScrollPhysics(),
                                           shrinkWrap: false,
-                                          itemCount: context
-                                                  .read<GetGroupMassageBloc>()
-                                                  .isLoadingMore
-                                              ? state.data!.length + 1
-                                              : state.data!.length,
+                                          itemCount: context.read<GetGroupMassageBloc>().isLoadingMore ? state.data!.length + 1 : state.data!.length,
                                           reverse: true,
                                           itemBuilder: (context, index) {
                                             if (index < state.data!.length) {
-
-                                              return Column(children: [
-                                              Row(children: [
-                                              if( state.data![index].id==MyDataModel.getInstance().id)
-                                            Spacer(),
-                                            Directionality (
-
-                                            textDirection: state.data![index].id==MyDataModel.getInstance().id? ui.TextDirection.rtl :ui.TextDirection.ltr,
-                                            child: Container(
-
-                                            margin: EdgeInsets.symmetric(
-                                            vertical: ConfigSize
-                                                .defaultSize!),
-                                            child: GroupChatRow(
-                                            userData: state.data![index],
-                                            )),
-                                            )],),
-                                                CustomHorizntalDvider(width: MediaQuery.of(context).size.width-250 , color: ColorManager.lightGray,)
-                                              ],);
+                                              return Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      if (state.data![index].id == MyDataModel.getInstance().id)
+                                                        const Spacer(),
+                                                      Directionality(
+                                                        textDirection: state.data![index].id != MyDataModel.getInstance().id ? ui.TextDirection.rtl : ui.TextDirection.ltr,
+                                                        child: Container(
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        ConfigSize
+                                                                            .defaultSize!),
+                                                            child: GroupChatRow(
+                                                              userData: state
+                                                                  .data![index],
+                                                            )),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  CustomHorizntalDvider(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            250,
+                                                    color:
+                                                        ColorManager.lightGray,
+                                                  )
+                                                ],
+                                              );
                                             } else {
                                               return Container(
                                                 padding: EdgeInsets.only(
-                                                    top: ConfigSize.defaultSize! *
+                                                    top: ConfigSize
+                                                            .defaultSize! *
                                                         5),
                                                 margin: EdgeInsets.symmetric(
-                                                    vertical:
-                                                        ConfigSize.defaultSize! *
-                                                            5),
+                                                    vertical: ConfigSize
+                                                            .defaultSize! *
+                                                        5),
                                                 child: const Center(
                                                   child:
                                                       CircularProgressIndicator(),
@@ -211,56 +202,71 @@ elevation: 0,
                           ),
                         ),
                       ),
+
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
                               child: TextFormField(
                                 maxLength: 170,
-                                style: TextStyle(
-                                  color: Colors.black
-                                ),
+                                style: const TextStyle(color: Colors.black),
                                 controller: massageCotroller,
                                 decoration: InputDecoration(
                                     filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 0.0, horizontal: 10.0),
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
                                     fillColor: const Color(0xfff1f2f6),
-                                    hintText:
-                                        " ${StringManager.youWillSpend.tr()} ${RemotedDataSourceChat.massagePrice}  ${StringManager.toSendMassage.tr()}",
-                                    hintStyle:
-                                        const TextStyle(color: Colors.grey),
+                                    hintText: "${StringManager.youWillSpend.tr()} ${RemotedDataSourceChat.massagePrice}  ${StringManager.toSendMassage.tr()}",
+                                    hintStyle: const TextStyle(color: Colors.grey),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Color(0xfff1f2f6)),
+                                      borderSide: const BorderSide(color: Color(0xfff1f2f6)),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(
-                                          color: Color(0xfff1f2f6)),
+                                      borderSide: const BorderSide(color: Color(0xfff1f2f6)),
                                     )),
                               ),
                             ),
                             const SizedBox(
                               width: 10,
                             ),
-                            CircleAvatar(
-                              backgroundColor: ColorManager.orang,
-                              radius: 23,
-                              child: IconButton(
-                                  onPressed: () {
-                                    BlocProvider.of<PostGroupChatBloc>(context)
-                                        .add(PostGroupChatEvent(
-                                            massage: massageCotroller.text));
-                                    massageCotroller.clear();
-                                  },
-                                  icon: const Icon(
-                                    Icons.send,
-                                    size: 26,
-                                    color: Colors.white,
-                                  )),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Switch(
+                                  activeColor: ColorManager.mainColor,
+                                  value: accepted,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      accepted = value;
+                                      if(accepted){
+                                        sucssesToast(context: context, title: "${StringManager.youWillSpend.tr()} ${RemotedDataSourceChat.massagePrice}  ${StringManager.toSendMassage.tr()}");
+                                      }
+                                    });
+                                  }
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: CircleAvatar(
+                                backgroundColor: accepted? ColorManager.orang : ColorManager.gray,
+                                radius: 23,
+                                child: IconButton(
+                                    onPressed: () {
+                                      if(accepted){
+                                        BlocProvider.of<PostGroupChatBloc>(context).add(PostGroupChatEvent(massage: massageCotroller.text));
+                                        massageCotroller.clear();
+                                      }else{
+                                        errorToast(context: context, title: "Please Enable The Switch First");
+                                      }
+                                    },
+                                    icon: const Icon(
+                                      Icons.send,
+                                      size: 26,
+                                      color: Colors.white,
+                                    )),
+                              ),
                             )
                           ],
                         ),
@@ -290,32 +296,57 @@ elevation: 0,
                                         physics: const BouncingScrollPhysics(),
                                         shrinkWrap: false,
                                         itemCount: context
-                                            .read<GetGroupMassageBloc>()
-                                            .isLoadingMore
+                                                .read<GetGroupMassageBloc>()
+                                                .isLoadingMore
                                             ? widget.tempData!.length + 1
                                             : widget.tempData!.length,
                                         reverse: true,
                                         itemBuilder: (context, index) {
                                           if (index < widget.tempData!.length) {
-
-                                            return Column(children: [
-                                              Row(children: [
-                                                if( widget.tempData![index].id==MyDataModel.getInstance().id)
-                                                  Spacer(),
-                                                Directionality (
-
-                                                  textDirection: widget.tempData![index].id==MyDataModel.getInstance().id? ui.TextDirection.rtl :ui.TextDirection.ltr,
-                                                  child: Container(
-
-                                                      margin: EdgeInsets.symmetric(
-                                                          vertical: ConfigSize
-                                                              .defaultSize!),
-                                                      child: GroupChatRow(
-                                                        userData: widget.tempData![index],
-                                                      )),
-                                                )],),
-                                              CustomHorizntalDvider(width: MediaQuery.of(context).size.width-250 , color: ColorManager.lightGray,)
-                                            ],);
+                                            return Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    if (widget.tempData![index]
+                                                            .id ==
+                                                        MyDataModel
+                                                                .getInstance()
+                                                            .id)
+                                                      const Spacer(),
+                                                    Directionality(
+                                                      textDirection: widget
+                                                                  .tempData![
+                                                                      index]
+                                                                  .id !=
+                                                              MyDataModel
+                                                                      .getInstance()
+                                                                  .id
+                                                          ? ui.TextDirection.rtl
+                                                          : ui.TextDirection
+                                                              .ltr,
+                                                      child: Container(
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                                  vertical:
+                                                                      ConfigSize
+                                                                          .defaultSize!),
+                                                          child: GroupChatRow(
+                                                            userData: widget
+                                                                    .tempData![
+                                                                index],
+                                                          )),
+                                                    )
+                                                  ],
+                                                ),
+                                                CustomHorizntalDvider(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      250,
+                                                  color: ColorManager.lightGray,
+                                                )
+                                              ],
+                                            );
                                           } else {
                                             return Container(
                                               padding: EdgeInsets.only(
@@ -323,11 +354,11 @@ elevation: 0,
                                                       5),
                                               margin: EdgeInsets.symmetric(
                                                   vertical:
-                                                  ConfigSize.defaultSize! *
-                                                      5),
+                                                      ConfigSize.defaultSize! *
+                                                          5),
                                               child: const Center(
                                                 child:
-                                                CircularProgressIndicator(),
+                                                    CircularProgressIndicator(),
                                               ),
                                             );
                                           }
@@ -347,13 +378,13 @@ elevation: 0,
                                 Expanded(
                                   child: TextFormField(
                                     maxLength: 170,
-
                                     controller: massageCotroller,
                                     decoration: InputDecoration(
                                         filled: true,
                                         contentPadding:
                                             const EdgeInsets.symmetric(
-                                                vertical: 0.0, horizontal: 10.0),
+                                                vertical: 0.0,
+                                                horizontal: 10.0),
                                         fillColor: const Color(0xfff1f2f6),
                                         hintText:
                                             " ${StringManager.youWillSpend.tr()} ${RemotedDataSourceChat.massagePrice} ${StringManager.toSendMassage.tr()}",
@@ -362,10 +393,12 @@ elevation: 0,
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
                                               color: Color(0xfff1f2f6)),
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                           borderSide: const BorderSide(
                                               color: Color(0xfff1f2f6)),
                                         )),
@@ -374,21 +407,41 @@ elevation: 0,
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                CircleAvatar(
-                                  backgroundColor: ColorManager.orang,
-                                  radius: 23,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        BlocProvider.of<PostGroupChatBloc>(
-                                                context)
-                                            .add(PostGroupChatEvent(
-                                                massage: massageCotroller.text));
-                                      },
-                                      icon: const Icon(
-                                        Icons.send,
-                                        size: 26,
-                                        color: Colors.white,
-                                      )),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: Switch(
+                                      activeColor: ColorManager.mainColor,
+                                      value: accepted,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          accepted = value;
+                                          if(accepted){
+                                            sucssesToast(context: context, title: "${StringManager.youWillSpend.tr()} ${RemotedDataSourceChat.massagePrice}  ${StringManager.toSendMassage.tr()}");
+                                          }
+                                        });
+                                      }
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: CircleAvatar(
+                                    backgroundColor: accepted? ColorManager.orang : ColorManager.gray,
+                                    radius: 23,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          if(accepted){
+                                            BlocProvider.of<PostGroupChatBloc>(context).add(PostGroupChatEvent(massage: massageCotroller.text));
+                                            massageCotroller.clear();
+                                          }else{
+                                            errorToast(context: context, title: "Please Enable The Switch First");
+                                          }
+                                        },
+                                        icon: const Icon(
+                                          Icons.send,
+                                          size: 26,
+                                          color: Colors.white,
+                                        )),
+                                  ),
                                 )
                               ],
                             ),
@@ -416,7 +469,7 @@ elevation: 0,
   void scrollListener() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-  loadingToast(context: context) ;
+      loadingToast(context: context);
       widget.page++;
       BlocProvider.of<GetGroupMassageBloc>(context)
           .add(GetMoreGroupMassageEvent(page: widget.page.toString()));

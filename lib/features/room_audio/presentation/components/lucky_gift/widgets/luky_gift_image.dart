@@ -58,7 +58,7 @@ class _LukyGiftImageState extends State<LukyGiftImage>
   }
 
 
-
+  @override
   void dispose() {
     animationController.dispose() ;
     controllerAnimationTransform.dispose();

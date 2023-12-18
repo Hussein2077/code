@@ -1,4 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
+import 'dart:developer';
+
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -78,7 +80,6 @@ class RoomScreen extends StatefulWidget {
   static Map<String, dynamic> usersInRoom = {};
   static ValueNotifier<bool> showMessageButton = ValueNotifier<bool>(true);
   static ValueNotifier<bool> banFromWriteIcon = ValueNotifier<bool>(true);
-  static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMics = ValueNotifier<Map<int, ZegoUIKitUser>>({});
   static ValueNotifier<UserDataModel> topUserInRoom = ValueNotifier<UserDataModel>(UserDataModel());
   static ValueNotifier<bool> showBanner = ValueNotifier<bool>(false);
   static ValueNotifier<String> myCoins = ValueNotifier<String>('');
@@ -312,7 +313,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           }
           ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(id: myDataModel.id.toString(), name: myDataModel.name.toString());
           zegoUIKitUser.inRoomAttributes.value['img'] = myDataModel.img;
-          RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
+          //RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
+          GiftUser.userOnMicsForGifts.clear();
+          GiftUser.userOnMicsForGifts.putIfAbsent(i, () => zegoUIKitUser);
         }
       }
 
@@ -713,12 +716,12 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ClosePkKey(result);
       }
       //PK end rtm
-      else if (result[messageContent][message] == leaveMicKey) {
-        RoomScreen.userOnMics.value.removeWhere((key, value) => key == result[messageContent]['position']);
-      }
-      else if (result[messageContent][message] == upMicKey) {
-        UpMicKey(result);
-      }
+      // else if (result[messageContent][message] == leaveMicKey) {
+      //   GiftUser.userOnMicsForGifts.removeWhere((key, value) => key == result[messageContent]['position']);
+      // }
+      // else if (result[messageContent][message] == upMicKey) {
+      //   UpMicKey(result);
+      // }
       else if (result[messageContent][message] == muteMicKey) {
         MuteMicKey(result);
       }
@@ -742,21 +745,21 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
           setState(() {
            RoomScreen.layoutMode = LayoutMode.hostTopCenter;
-            RoomScreen.userOnMics.value.clear();
+            GiftUser.userOnMicsForGifts.clear();
           });
         } else if (result[messageContent]['mode'] == 'party') {
           widget.room.mode = 1 ;
 
           setState(() {
             RoomScreen.layoutMode = LayoutMode.party;
-            RoomScreen.userOnMics.value.clear();
+            GiftUser.userOnMicsForGifts.clear();
           });
         } else if (result[messageContent]['mode'] == 'seats12') {
           widget.room.mode = 2 ;
 
           setState(() {
             RoomScreen.layoutMode = LayoutMode.seats12;
-            RoomScreen.userOnMics.value.clear();
+            GiftUser.userOnMicsForGifts.clear();
           });
         }
       }
@@ -906,7 +909,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               List<int> untakenSeats,
             ) {
           GiftUser.userOnMicsForGifts.clear();
-
           takenSeats.forEach((key, value) {
             if(value.id!='') {
               GiftUser.userOnMicsForGifts.putIfAbsent(int.parse(value.id),

@@ -37,6 +37,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/host_tim
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/luky_gift_image.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
@@ -56,6 +57,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/live_page.dart';
@@ -269,18 +272,12 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   RoomScreen.listOfAnimatingEntros.clear();
   RoomScreen.isWinnerShowWidget.value = false ;
   if(ownerId == MyDataModel.getInstance().id.toString() &&  PkController.showPK.value){
-
-
       BlocProvider.of<PKBloc>(context.mounted  ?context :
       getIt<NavigationService>().navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
       BlocProvider.of<PKBloc>(context.mounted  ?context :
       getIt<NavigationService>().navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
-
   }
-
-   Methods.instance.hostTimeOnMic(context: context.mounted  ?context :
-  getIt<NavigationService>().navigatorKey.currentContext!);
-
+  Methods.instance.hostTimeOnMic(context: context.mounted  ?context : getIt<NavigationService>().navigatorKey.currentContext!);
   PkController.timeMinutePK = 0;
   PkController.timeSecondPK = 0;
   PkController.isPK.value = false;
@@ -296,7 +293,7 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   if(getIt<SetTimerPK>().timer != null){
     getIt<SetTimerPK>().timer?.cancel();
   }
-  RoomScreen.userOnMics.value.clear();
+  //RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
   MusicScreen.musicesInRoom.clear();
   RoomScreen.adminsInRoom.clear();
@@ -323,6 +320,10 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   GiftUser.userSelected.clear();
   GiftUser.userOnMicsForGifts.clear();
   RoomScreen.showBanner.value = false;
+  if(LuckyCandy.winCircularluckyGift.value > 0){
+    BlocProvider.of<LuckyGiftBannerBloc>(context.mounted  ?context :
+    getIt<NavigationService>().navigatorKey.currentContext!).add(EndBannerEvent()) ;
+  }
 }
 
 Future<void> distroyMusic() async {
@@ -334,12 +335,12 @@ Future<void> distroyMusic() async {
 
 void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String ownerId, String userId) {
   if (layoutMode == LayoutMode.hostTopCenter) {
-    if (RoomScreen.userOnMics.value.length == 9) {
+    if (GiftUser.userOnMicsForGifts.length == 9) {
       errorToast(
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 1; i < 9; i++) {
-        if (RoomScreen.userOnMics.value.containsKey(i) ||
+        if (GiftUser.userOnMicsForGifts.containsKey(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
@@ -350,12 +351,12 @@ void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String 
       }
     }
   } else if (layoutMode == LayoutMode.party) {
-    if (RoomScreen.userOnMics.value.length == 16) {
+    if (GiftUser.userOnMicsForGifts.length == 16) {
       errorToast(
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 0; i < 16; i++) {
-        if (RoomScreen.userOnMics.value.containsKey(i) ||
+        if (GiftUser.userOnMicsForGifts.containsKey(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
@@ -365,12 +366,12 @@ void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String 
       }
     }
   } else if (layoutMode == LayoutMode.seats12) {
-    if (RoomScreen.userOnMics.value.length == 12) {
+    if (GiftUser.userOnMicsForGifts.length == 12) {
       errorToast(
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 0; i < 12; i++) {
-        if (RoomScreen.userOnMics.value.containsKey(i) ||
+        if (GiftUser.userOnMicsForGifts.containsKey(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
@@ -605,17 +606,17 @@ KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String
   });
 }
 
-
-UpMicKey(Map<String, dynamic> result){
-  ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(
-      id: result[messageContent]['userId'],
-      name: result[messageContent]['userName']);
-  if(result[messageContent]['is_swap']){
-    RoomScreen.userOnMics.value.removeWhere((key, value) => key == result[messageContent]['old_position']);
-  }
-  RoomScreen.userOnMics.value.putIfAbsent(
-      int.parse(result[messageContent]['position']), () => zegoUIKitUser);
-}
+//
+// UpMicKey(Map<String, dynamic> result){
+//   ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(
+//       id: result[messageContent]['userId'],
+//       name: result[messageContent]['userName']);
+//   if(result[messageContent]['is_swap']){
+//     GiftUser.userOnMicsForGifts.removeWhere((key, value) => key == result[messageContent]['old_position']);
+//   }
+//   GiftUser.userOnMicsForGifts.putIfAbsent(
+//       int.parse(result[messageContent]['position']), () => zegoUIKitUser);
+// }
 
 MuteMicKey(Map<String, dynamic> result){
   RoomScreen.listOfMuteSeats.putIfAbsent(
