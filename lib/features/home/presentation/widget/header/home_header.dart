@@ -51,14 +51,12 @@ class _HomeHeaderState extends State<HomeHeader> {
         LiveTabBAR(
           liveController: widget.liveController,
         ),
-       StreamBuilder<Map< String,ItemWidget>>(
+        StreamBuilder<Map< String,ItemWidget>>(
     initialData:HomeHeader.cacheData,
     stream: HomeHeader.streamControllerCacheData.stream,
     builder: (context, snapshot) {
-      log("HomeHeader") ;
       if(snapshot.hasData && (snapshot.data?.isNotEmpty??false))
       {
-        log("snapshot.data?.values.toList()${snapshot.data?.values.toList()}");
          List<ItemWidget> ne = snapshot.data!.values.toList();
          return  DropdownButtonHideUnderline(
                child: DropdownButton2<ItemWidget>(
