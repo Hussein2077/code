@@ -97,6 +97,7 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
                     log(res.toString());
                    log(" res.errMsg ${res?.errMsg}");
                     log(" res.errMsg ${res?.returnCode}");
+                    log("res?.inAppDataSignature${res?.inAppDataSignature.toString()}");
                     // switch (res!.returnCode) {
                     //   case 0:
                     //     log("purchaseConsumableProduct: " + productId + " success");

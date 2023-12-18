@@ -129,15 +129,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GameBloc, GameState>(
-      listener: (context, state){
-        if(state is InviteToGameErrorState){
-          errorToast(context: context, title: state.error);
-        }else if(state is InviteToGameNewErrorState){
-          errorToast(context: context, title: state.error);
-        }
-      },
-      child: BlocConsumer<SendGiftBloc, SendGiftStates>(
+    return  BlocConsumer<SendGiftBloc, SendGiftStates>(
           builder: (context, state) {
         return Stack(children: [
           SizedBox(
@@ -486,7 +478,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             state.successMessage,
           );
         }
-      }),
-    );
+      });
   }
 }

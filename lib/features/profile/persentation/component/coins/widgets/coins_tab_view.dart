@@ -129,10 +129,10 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                                           errorToast(context: context, title: StringManager.wait.tr());
                                         }
                                       }else{
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
-                                        );
+                                        // showDialog(
+                                        //   context: context,
+                                        //   builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
+                                        // );
                                       }
                                     },
                                     child: Column(

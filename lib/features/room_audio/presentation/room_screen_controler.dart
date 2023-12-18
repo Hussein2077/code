@@ -9,7 +9,6 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -761,10 +760,8 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
     GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(),
         answer: result[messageContent]['randomNumber'].toString(), round: '1')));
     if(result[messageContent]["player_owner"].toString() == MyDataModel.getInstance().id.toString()){
-      if(RouteGenerator.currentContext!=Routes.roomScreen){
         Navigator.pop(context);
 
-      }
       if(result[messageContent]['palyersIds'].length > 1) {
         showDialog(
             context: context,
