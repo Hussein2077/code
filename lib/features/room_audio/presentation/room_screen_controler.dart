@@ -333,13 +333,19 @@ Future<void> distroyMusic() async {
 
 
 void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String ownerId, String userId) {
+  List<int> list = [0];
+  for(int i = 0; i < ZegoUIKit().getAllUsers().length; i++){
+    if(GiftUser.userOnMicsForGifts[int.parse(ZegoUIKit().getAllUsers()[i].id)] != null){
+      list.add(ZegoLiveAudioRoomManagers().seatManager!.getIndexByUserID(ZegoUIKit().getAllUsers()[i].id));
+    }
+  }
   if (layoutMode == LayoutMode.hostTopCenter) {
     if (GiftUser.userOnMicsForGifts.length == 9) {
       errorToast(
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 1; i < 9; i++) {
-        if (GiftUser.userOnMicsForGifts.containsKey(i) ||
+        if (list.contains(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
@@ -355,7 +361,7 @@ void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String 
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 0; i < 16; i++) {
-        if (GiftUser.userOnMicsForGifts.containsKey(i) ||
+        if (list.contains(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
@@ -370,7 +376,7 @@ void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String 
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 0; i < 12; i++) {
-        if (GiftUser.userOnMicsForGifts.containsKey(i) ||
+        if (list.contains(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
