@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ui' as ui;
 
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -43,14 +44,18 @@ class ExitWidgetState extends State<ExitWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return  BlurryContainer(
         width: ConfigSize.screenWidth,
         height: ConfigSize.screenHeight,
-        color: Colors.black.withOpacity(0.4),
+        blur: 2,
         child: Directionality(
           textDirection:ui.TextDirection.ltr,
-          child:Stack(
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              const Spacer(
+                flex: 2,
+              ),
               AnimatedPositioned(
                 duration: const  Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
@@ -77,16 +82,19 @@ class ExitWidgetState extends State<ExitWidget> {
                     }
                   },
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                     children: [
-                      Image.asset(AssetsPath.saveRoom, width:  ConfigSize.defaultSize!*10, height: ConfigSize.defaultSize!*10,),
+                      Image.asset(AssetsPath.saveRoom, width:  ConfigSize.defaultSize!*10, height: ConfigSize.defaultSize!*10,
+
+                      ),
                       Padding(padding:const EdgeInsets.all(8),
                         child: Text(StringManager.save.tr(),style:const TextStyle(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 16),),
                       )
                     ],
                   ),
                 ) ,
-              ) ,
+              ),
+              const Spacer(),
               AnimatedPositioned(
                   bottom:  animation?  ConfigSize.defaultSize!*26:-200,
                   left: (ConfigSize.screenWidth! /2)-ConfigSize.defaultSize!*5 ,
@@ -108,7 +116,10 @@ class ExitWidgetState extends State<ExitWidget> {
                             child: Text(StringManager.exit.tr(),style:const TextStyle(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 16),))
                       ],
                     ),
-                  ))  ,
+                  )),
+              const Spacer(
+                flex: 2,
+              ),
             ],
           ),
         )

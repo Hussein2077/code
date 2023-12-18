@@ -74,7 +74,7 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
     return BlocBuilder<GiftBloc, GiftsStates>(
         builder: (context, state) {
       return BlurryContainer(
-        blur: 8,
+        blur: 5,
         elevation: 0,
         height: ConfigSize.screenHeight! / 2.1,
         width: double.infinity,
@@ -82,90 +82,88 @@ class _GiftScreenState extends State<GiftScreen> with TickerProviderStateMixin {
         padding: const EdgeInsets.all(0),
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(14), topRight: Radius.circular(14)),
-        child: Container(
-            color: Colors.black,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                widget.isSingleUser ? GiftUserOnly(
-                  userId: widget.userId!,
-                  ownerId: widget.roomData.ownerId.toString(),
-                  userImage: widget.userImage!,
-                ) : GiftUser(
-                  listAllUsers: widget.listAllUsers!,
-                  ownerId: widget.roomData.ownerId.toString(),
-                ),
-                TabBar(
-                    isScrollable: true,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    labelColor: Colors.white,
-                    indicatorColor: Colors.transparent,
-                    labelPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*0.5),
-                    controller: giftControler,
-                    padding: EdgeInsets.zero,
-                    automaticIndicatorColorAdjustment: false,
-                    tabs: [
-                      Text(
-                        StringManager.appGift.tr(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            widget.isSingleUser ? GiftUserOnly(
+              userId: widget.userId!,
+              ownerId: widget.roomData.ownerId.toString(),
+              userImage: widget.userImage!,
+            ) : GiftUser(
+              listAllUsers: widget.listAllUsers!,
+              ownerId: widget.roomData.ownerId.toString(),
+            ),
+            TabBar(
+                isScrollable: true,
+                indicatorSize: TabBarIndicatorSize.label,
+                labelColor: Colors.white,
+                indicatorColor: Colors.transparent,
+                labelPadding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!*0.5),
+                controller: giftControler,
+                padding: EdgeInsets.zero,
+                automaticIndicatorColorAdjustment: false,
+                tabs: [
+                  Text(
+                    StringManager.appGift.tr(),
 
-                        style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13),
-                      ),
-                      Text(StringManager.luckyGifts.tr(),
-                          style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
-                      Text(StringManager.spicalGift.tr(),
-                          style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
-                      Text(StringManager.famousGifts.tr(),
-                          style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
-                      Text(StringManager.country.tr(),
-                          style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
-                    ]),
-                Expanded(
-                  child: TabBarView(
+                    style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13),
+                  ),
+                  Text(StringManager.luckyGifts.tr(),
+                      style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
+                  Text(StringManager.spicalGift.tr(),
+                      style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
+                  Text(StringManager.famousGifts.tr(),
+                      style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
+                  Text(StringManager.country.tr(),
+                      style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13)),
+                ]),
+            Expanded(
+              child: TabBarView(
 
-                      controller: giftControler, children: [
-                    PageViewGeftWidget(
-                        data: state.dataNormal,
-                        state: state.normalState,
-                        message: state.normalMessage,
-                        userCoins:
-                        widget.myDataModel.myStore?.coins.toString() ?? '',
-                        myData: widget.myDataModel),
-                    PageViewGeftWidget(
-                        data: state.dataLucky,
-                        state: state.luckyState,
-                        message: state.luckyMessage,
-                        userCoins:
-                        widget.myDataModel.myStore?.coins.toString() ?? '',
-                        myData: widget.myDataModel),
-                    PageViewGeftWidget(
-                      data: state.dataHot,
-                      state: state.hotState,
-                      message: state.hotMessage,
-                      userCoins:
-                      widget.myDataModel.myStore?.coins.toString() ?? '',
-                      myData: widget.myDataModel,
-                    ),
-                    PageViewGeftWidget(
-                        data: state.dataFamous,
-                        state: state.famousState,
-                        message: state.famousMessage,
-                        userCoins:
-                        widget.myDataModel.myStore?.coins.toString() ?? '',
-                        myData: widget.myDataModel),
-                    PageViewGeftWidget(
-                        data: state.dataCountry,
-                        state: state.countryState,
-                        message: state.countryMessage,
-                        userCoins:
-                        widget.myDataModel.myStore?.coins.toString() ?? '',
-                        myData: widget.myDataModel),
-                  ]),
+                  controller: giftControler, children: [
+                PageViewGeftWidget(
+                    data: state.dataNormal,
+                    state: state.normalState,
+                    message: state.normalMessage,
+                    userCoins:
+                    widget.myDataModel.myStore?.coins.toString() ?? '',
+                    myData: widget.myDataModel),
+                PageViewGeftWidget(
+                    data: state.dataLucky,
+                    state: state.luckyState,
+                    message: state.luckyMessage,
+                    userCoins:
+                    widget.myDataModel.myStore?.coins.toString() ?? '',
+                    myData: widget.myDataModel),
+                PageViewGeftWidget(
+                  data: state.dataHot,
+                  state: state.hotState,
+                  message: state.hotMessage,
+                  userCoins:
+                  widget.myDataModel.myStore?.coins.toString() ?? '',
+                  myData: widget.myDataModel,
                 ),
-                GiftBottomBar(
-                  roomData: widget.roomData,
-                ),
-              ],
-            )),
+                PageViewGeftWidget(
+                    data: state.dataFamous,
+                    state: state.famousState,
+                    message: state.famousMessage,
+                    userCoins:
+                    widget.myDataModel.myStore?.coins.toString() ?? '',
+                    myData: widget.myDataModel),
+                PageViewGeftWidget(
+                    data: state.dataCountry,
+                    state: state.countryState,
+                    message: state.countryMessage,
+                    userCoins:
+                    widget.myDataModel.myStore?.coins.toString() ?? '',
+                    myData: widget.myDataModel),
+              ]),
+            ),
+            GiftBottomBar(
+              roomData: widget.roomData,
+            ),
+          ],
+        ),
       );
     });
   }

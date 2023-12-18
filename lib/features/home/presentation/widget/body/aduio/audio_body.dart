@@ -85,7 +85,11 @@ class _AduioBodyState extends State<AduioBody> {
                   },
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding:  EdgeInsets.only(
+                    bottom: ConfigSize.defaultSize!*3,
+                    left: ConfigSize.defaultSize!*2.5,
+                    right: ConfigSize.defaultSize!*2.5
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
