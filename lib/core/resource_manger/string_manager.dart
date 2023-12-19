@@ -627,10 +627,7 @@ class StringManager {
   static const String waitForUsersResponse = "Waiting For Users Response";
   static const String participants = "Participants:";
   static const String luckyUsers = "Lucky Users:";
-  static const String changeThemeApproval =
-      "Do you approve to change this theme for ";
-  static const String pleaseAddAtLeastTwoValue =
-      "Please Add At Least Two Value";
+
 
   static const String chatWillBeAvailable = "The chat will be available in the coming hours";
   static const String stayTuned = "Stay tuned 😉";
