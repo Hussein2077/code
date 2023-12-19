@@ -75,6 +75,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_fixed_targ
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_follwers_or_following_manger/bloc/get_follower_or_following_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitations_manager/get_invitations_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/invit_code_manager/invit_code_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
@@ -527,6 +529,8 @@ class MyApp extends StatelessWidget {
 
         BlocProvider(create: (_) => getIt<GameBloc>()),
         BlocProvider(create: (_) => getIt<HostOnMicTimeBloc>()),
+        BlocProvider(create: (_) => getIt<InvitCodeBloc>()),
+        BlocProvider(create: (_) => getIt<GetInvitationBloc>()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {

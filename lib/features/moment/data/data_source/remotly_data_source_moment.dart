@@ -279,8 +279,6 @@ class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
       }
 
       return  data ;
-
-
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getMoment');
     }

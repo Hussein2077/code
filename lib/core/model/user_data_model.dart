@@ -36,13 +36,13 @@ class UserDataModel {
   final String? notificationId;
   final String? bio;
 
-  GetAllCountriesModel? country;
+  final GetAllCountriesModel? country;
   final int? userType;
 
-  int? numberOfFans;
-  int? numberOfFollowings;
-  int? numberOfFriends;
-  int? profileVisotrs;
+  final int? numberOfFans;
+  final int? numberOfFollowings;
+  final  int? numberOfFriends;
+  final int? profileVisotrs;
 
   final bool? lastActiveHidden;
   final bool? visitHidden;
@@ -51,12 +51,12 @@ class UserDataModel {
   final bool? isAanonymous;
   final String? onlineTime;
   final bool? isCountryHiden;
-  var isGold;
+  final bool? isGold;
   final String? visitTime;
-  ImageIdModel? imageIdModel;
+  final ImageIdModel? imageIdModel;
 
 
-  UserDataModel({
+  const UserDataModel({
     this.bubbleId,
     this.introId,
     this.hasColorName,

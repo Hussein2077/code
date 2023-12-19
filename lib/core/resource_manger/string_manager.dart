@@ -603,6 +603,26 @@ class StringManager {
   static const String PaidPlay = "Paid Play";
   static const String wait = "Wait For Product Data";
   static const String viewProfile = "View Profile";
+  static const String changeThemeApproval ="Do you approve to change this theme for ";
+  static const String pleaseAddAtLeastTwoValue = "Please Add At Least Two Value";
+  static const String enterTheInvitCode = "enter the invitation code here";
+  static const String youHaveBeenInvited = "you have been invited before";
+  static const String youCantInvitYourSelf = "you can\'t invit yourself";
+  static const String invitaion = "Invitation";
+  static const String InvitationCode = "Invitation code";
+  static const String parent = "parent";
+  static const String successfulInvitations = "successful invitations";
+  static const String percentage = "percentage";
+  static const String profitProcess = "profit process ";
+  static const String coinsCharged = "coins charged ";
+  static const String watch = "watch";
+  static const String dayEarned = "day earned";
+  static const String dayInvited = "dat invited";
+  static const String totalEarned = "total earned";
+  static const String totalInvited = "total invited";
+  static const String invitationCodePoint1 = "1.invit your fiends to download the app and sign up";
+  static const String invitationCodePoint2 = "2.after your friend add your code successfully you will get 20 coin";
+  static const String invitationCodePoint3 = "3.after your friend recharg for the first time you will get 20% out of his coins ";
   static const String timeRemains = "Time Remains:";
   static const String waitForUsersResponse = "Waiting For Users Response";
   static const String participants = "Participants:";
@@ -671,6 +691,7 @@ class StringManager {
       You can play with all people inside the ROM
       If you are lucky, the rotation will stop and your name and picture will be shown to everyone inside the room so that they can send you a gift.
     ''';
+
 
 
 

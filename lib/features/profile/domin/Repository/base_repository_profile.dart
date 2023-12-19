@@ -24,6 +24,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/invitation_users_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -213,5 +214,8 @@ abstract class BaseRepositoryProfile {
   Future<Either<List<UserDataModel>, Failure>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
   Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport(String date);
   Future<Either<String, Failure>> pay({required String message, required String type, required String token});
+  Future<Either<String, Failure>> invitCode( String id);
+  Future<Either<List<InvitationUsersModel>?, Failure>> getInvitationDetails( );
+  Future<Either<ParentStaticsModel, Failure>> getParentDetails( );
 
 }

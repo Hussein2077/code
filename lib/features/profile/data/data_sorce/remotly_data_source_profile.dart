@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_renaming_method_parameters, non_constant_identifier_names
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -34,6 +35,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/invitation_users_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -169,26 +171,45 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<AgencyHistoryTime>> getAgencyHistoryTime();
   Future<AgencyHistoryModle> getAgencyHistory(
       {required String month, required String year, String? page});
+
   Future<String> chargeCoinForUsers(
       {required String id, required String amount});
+
   Future<String> chargeDolarsForUsers(
       {required String id, required String amount});
 
   Future<ChargeHistoryModel> getChargeDolarsAgencyOwnerHistory(
       String parameter);
+
   Future<ChargeHistoryModel> getChargeCoinsSystemHistory(String parameter);
+
   Future<List<InterstedMode>> getAllIntersted();
-    Future<String> addIntersted(List<int> ids);
-      Future<List<InterstedMode>> getUserIntersted();
-        Future<String> prevActive(String type);
+
+  Future<String> addIntersted(List<int> ids);
+
+  Future<List<InterstedMode>> getUserIntersted();
+
+  Future<String> prevActive(String type);
+
   Future<String> prevDispose(String type);
+
   Future<List<ReelModel>> getUserReel(String? id, String page);
+
   Future<String> deleteMessage(String id);
+
   Future<bool> activeNotification();
-  Future<List<UserDataModel>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
+
+  Future<List<UserDataModel>> getAllShippingAgents(
+      {required GetAllShippingAgentsPram pram});
+
   Future<FixedTargetReportModel> getFixedTargetReport(String date);
   Future<String> pay({required String message, required String type, required String token});
 
+  Future<String> invitCode(String id);
+
+  Future<List<InvitationUsersModel>?> getInvitationDetails();
+
+  Future<ParentStaticsModel> getParentDetails();
 }
 
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
@@ -2156,10 +2177,89 @@ isVisit: isVisit,
       log(resultData.toString() + "#####");
 
       return resultData['message'];
-
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'pay');
     }
+  }
 
+  @override
+  Future<String> invitCode(String id) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.invitCode(id),
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      log(resultData.toString());
+
+      return resultData['message'];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'invitCode');
+    }
+  }
+
+  @override
+  Future<List<InvitationUsersModel>?> getInvitationDetails() async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.invitationUsers,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+      return List<InvitationUsersModel>.from(
+          resultData['data'].map((x) => InvitationUsersModel.fromMap(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getInvitationDetails');
+    }
+  }
+
+  @override
+  Future<ParentStaticsModel> getParentDetails() async {
+    Map<String, String> headers = await DioHelper().header();
+    try {
+
+      final response = await Dio().get(
+        ConstentApi.invitationParent,
+        options: Options(
+          headers: headers,
+        ),
+      );
+
+      Map<String, dynamic> resultData = response.data;
+      ParentStaticsModel parentStaticsModel = ParentStaticsModel.fromMap(resultData['data']);
+      return parentStaticsModel;
+
+
+
+
+
+
+
+     //  final response = await Dio().get(
+     //    ConstentApi.invitationParent,
+     //    options: Options(
+     //      headers: headers,
+     //    ),
+     //  );
+     //
+     //  Map<String, dynamic> resultData = response.data;
+     //  // ParentStaticsModel parentStaticsModel =ParentStaticsModel.fromMap(
+     //  //     resultData['data'].map((x) => ParentStaticsModel.fromMap(x)));
+     // // return parentStaticsModel;
+     //  return ParentStaticsModel.fromMap(resultData['data']);
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getParentDetails');
+    }
   }
 }

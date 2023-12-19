@@ -13,7 +13,7 @@ import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'profile_room_model.dart';
 import 'vip_center_model.dart';
  class MyDataModel {
-
+bool? viewInvitation;
   int? id;
   String? chatId;
   String? name;
@@ -112,7 +112,8 @@ import 'vip_center_model.dart';
     this.isGold,
     this.unReadMessageCount,
     this.country,
-    this.imageIdModel
+    this.imageIdModel,
+    this.viewInvitation,
   });
 
   setNewMyData({
@@ -282,7 +283,9 @@ import 'vip_center_model.dart';
           nowRoom: map['now_room'] != null
               ? NowRoomModel.fromjson(map['now_room'] as Map<String, dynamic>)
               : null,
-          unReadMessageCount: map['unread_message_count']);
+          unReadMessageCount: map['unread_message_count'],
+          viewInvitation: map['view_invitation']??false,
+      );
     } else {
       _instance?.setNewMyData(
           id: map['id'],
@@ -346,7 +349,9 @@ import 'vip_center_model.dart';
               : null,
           isGold: map['is_gold_id'],
           myType: map['type_user'] ?? 0,
-          unReadMessageCount: map['unread_message_count']);
+          unReadMessageCount: map['unread_message_count'],
+
+      );
     }
 
     return _instance!;

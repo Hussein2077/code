@@ -3,16 +3,21 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+
+// ignore: depend_on_referenced_packages
+import 'package:path_provider/path_provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
@@ -55,6 +60,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/manager_join_family/bloc/join_family_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/invit_code_manager/invit_code_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/invit_code_manager/invit_code_event.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_event.dart';
@@ -62,9 +69,6 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reels/get_reels_event.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/gifts_model.dart';
-
-// ignore: depend_on_referenced_packages
-import 'package:path_provider/path_provider.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/exist_room_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/enter_password_dialog_room.dart';
@@ -883,50 +887,54 @@ class Methods {
     }
   }
 
-    Future<bool> getNotificationState() async {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      bool notificationState = preferences.getBool("notificationState") ?? true;
-      return notificationState;
+  Future<bool> getNotificationState() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool notificationState = preferences.getBool("notificationState") ?? true;
+    return notificationState;
+  }
+
+  Future<void> setNotificationState({required bool notificationState}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool("notificationState", notificationState);
+  }
+
+  getDependencies(BuildContext context) {
+    log('getTheNewData${MyDataModel.getInstance().id.toString()}');
+    // BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+
+    BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+
+    BlocProvider.of<GetFollowingUserMomentBloc>(context)
+        .add(const GetFollowingMomentEvent());
+    BlocProvider.of<GetMomentILikeItBloc>(context)
+        .add(const GetMomentIliKEitEvent());
+    BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(
+      userId: MyDataModel.getInstance().id.toString(),
+    ));
+    if (MainScreen.reelId == null || MainScreen.reelId == '') {
+      BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
     }
-    Future<void> setNotificationState({required bool notificationState}) async {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setBool("notificationState", notificationState);
+    BlocProvider.of<GetFollowingReelsBloc>(context)
+        .add(GetFollowingReelsEvent());
+    BlocProvider.of<GetFollwersRoomBloc>(context)
+        .add(const GetFollwersRoomEvent(type: "5"));
+    BlocProvider.of<GetRoomsBloc>(context)
+        .add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
+    if (MainScreen.momentId == null || MainScreen.momentId == '') {
+      BlocProvider.of<GetMomentallBloc>(context).add(GetMomentAllEvent());
     }
 
-    getDependencies(BuildContext context){
-        log('getTheNewData${MyDataModel.getInstance().id.toString()}');
-        // BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+    BlocProvider.of<JoinFamilyBloc>(context).add(InitJoinFamilyEvent());
+     BlocProvider.of<InvitCodeBloc>(context).add(const InvitCodeEventInitial());
 
+    AduioBody.type = StringManager.popular;
+    AduioBody.countryId = null;
+    CountryDialog.flag = AssetsPath.fireIcon;
+    CountryDialog.name = StringManager.popular.tr();
+    CountryDialog.selectedCountry.value = !CountryDialog.selectedCountry.value;
 
-          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-
-        BlocProvider.of<GetFollowingUserMomentBloc>(context).add(const GetFollowingMomentEvent());
-        BlocProvider.of<GetMomentILikeItBloc>(context).add(const GetMomentIliKEitEvent());
-        BlocProvider.of<GetMomentBloc>(context).add(GetUserMomentEvent(userId: MyDataModel.getInstance().id.toString(),));
-        if(MainScreen.reelId == null || MainScreen.reelId == ''){
-          BlocProvider.of<GetReelsBloc>(context).add(GetReelsEvent());
-        }
-        BlocProvider.of<GetFollowingReelsBloc>(context).add(GetFollowingReelsEvent());
-        BlocProvider.of<GetFollwersRoomBloc>(context).add(const GetFollwersRoomEvent(type: "5"));
-        BlocProvider.of<GetRoomsBloc>(context).add(GetRoomsEvent(typeGetRooms: TypeGetRooms.popular));
-        if(MainScreen.momentId == null || MainScreen.momentId == ''){
-          BlocProvider.of<GetMomentallBloc>(context).add( GetMomentAllEvent());
-
-        }
-
-        BlocProvider.of<JoinFamilyBloc>(context)
-            .add(InitJoinFamilyEvent() );
-        AduioBody.type = StringManager.popular;
-        AduioBody.countryId = null;
-        CountryDialog.flag = AssetsPath.fireIcon;
-        CountryDialog.name = StringManager.popular.tr();
-        CountryDialog.selectedCountry.value =
-        !CountryDialog.selectedCountry.value;
-
-
-        Methods.instance.addFireBaseNotifcationId();
-
-      }
+    Methods.instance.addFireBaseNotifcationId();
+  }
 
   int calculateAge(String date) {
     if(date==''){

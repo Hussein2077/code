@@ -27,6 +27,7 @@ import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/invitation_users_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -1012,6 +1013,36 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
       return Right(DioHelper.buildFailure(e));
     }
 
+  }
+
+  @override
+  Future<Either<String, Failure>> invitCode(String id) async{
+    try {
+      final result = await baseRemotlyDataSourceProfile.invitCode(id);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<List<InvitationUsersModel>?, Failure>> getInvitationDetails() async{
+    try {
+      final result = await baseRemotlyDataSourceProfile.getInvitationDetails();
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<ParentStaticsModel, Failure>> getParentDetails()async {
+    try {
+      final result = await baseRemotlyDataSourceProfile.getParentDetails();
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
   }
 
 }
