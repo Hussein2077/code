@@ -15,6 +15,8 @@ import 'package:tik_chat_v2/core/widgets/gredin_text_vip.dart';
 import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/break_moment_reals.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/card_Info_moment_reals.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/info_with_container_blue.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/live_month_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/live_report_screen/widget/live_today_card.dart';
@@ -36,25 +38,25 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<TimeDataReportBloc>()
-        ..add( TimeDataReportToday(today: 'today' , userId: widget.myData.id.toString()))
-        ..add( TimeDataReportMonth(month: "month" , userId: widget.myData.id.toString()))
-        ..add( TimeDataReportAllInformation(allInformation: '' , userId: widget.myData.id.toString())),
+        ..add(TimeDataReportToday(
+            today: 'today', userId: widget.myData.id.toString()))
+        ..add(TimeDataReportMonth(
+            month: "month", userId: widget.myData.id.toString()))
+        ..add(TimeDataReportAllInformation(
+            allInformation: '', userId: widget.myData.id.toString())),
       child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           body: SingleChildScrollView(
             child: Column(
-
               children: [
                 CustoumCachedImage(
                   height: ConfigSize.defaultSize! * 32,
-                  url:widget.myData.profile!.image!,
+                  url: widget.myData.profile!.image!,
                   width: MediaQuery.of(context).size.width,
                   boxFit: BoxFit.cover,
                   widget: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                     child: Column(
-
-
                       children: [
                         SizedBox(
                           height: ConfigSize.defaultSize! * 1,
@@ -74,16 +76,14 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             InkWell(
-
                               child: UserImage(
                                 boxFit: BoxFit.cover,
                                 image: widget.myData.profile!.image!,
                                 imageSize: ConfigSize.defaultSize! * 10,
                               ),
-                              onTap: (){
-                                                                      Methods.instance.userProfileNvgator(context: context);
-
-
+                              onTap: () {
+                                Methods.instance
+                                    .userProfileNvgator(context: context);
                               },
                             ),
                             const SizedBox(
@@ -95,13 +95,11 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                               children: [
                                 GradientTextVip(
                                   text: widget.myData.name!,
-                                  textAlign:TextAlign.center,
-                                  typeUser: widget.myData.myType??0,
-                                  textStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!,
-
-                                  isVip:  widget.myData.hasColorName!,
+                                  textAlign: TextAlign.center,
+                                  typeUser: widget.myData.myType ?? 0,
+                                  textStyle:
+                                      Theme.of(context).textTheme.bodyMedium!,
+                                  isVip: widget.myData.hasColorName!,
                                 ),
                                 /* Text(widget.ownerDataModel.name!,
                                         style:
@@ -145,31 +143,57 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 SizedBox(
                                   height: ConfigSize.defaultSize! * 3,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                Column(
                                   children: [
-                                    LiveTodayCard(
-                                      widget: Text(
-                                        state.dataToday!.hours,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium,
-                                      ),
-                                      title: StringManager.hours.tr(),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        LiveTodayCard(
+                                          widget: Text(
+                                            state.dataToday!.hours,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
+                                          ),
+                                          title: StringManager.hours.tr(),
+                                        ),
+                                        LiveTodayCard(
+                                          widget: state.dataToday!.today
+                                              ? const Icon(Icons.check)
+                                              : const Icon(Icons.close),
+                                          title: StringManager.today.tr(),
+                                        ),
+                                        LiveTodayCard(
+                                          widget: Text(
+                                            state.dataToday!.diamonds.toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
+                                          ),
+                                          title: StringManager.diamond.tr(),
+                                        ),
+                                      ],
                                     ),
-                                    LiveTodayCard(
-                                      widget: state.dataToday!.today
-                                          ? const Icon(Icons.check)
-                                          : const Icon(Icons.close),
-                                      title: StringManager.today.tr(),
+                                     BreakMomentReals(
+                                      title: StringManager.reels.tr(),
                                     ),
-                                    LiveTodayCard(
-                                      widget: Text(
-                                        state.dataToday!.diamonds.toString(),
-                                        style:Theme.of(context).textTheme.bodyMedium,
-                                      ),
-                                      title: StringManager.diamond.tr(),
+                                    CardInfoMomentReals(
+                                      like: state.dataToday!.reals.like.toString(),
+                                      comment:
+                                      state.dataToday!.reals.comment.toString(),
+                                      upload:
+                                      state.dataToday!.reals.upload.toString(),
+                                    ),
+                                     BreakMomentReals(
+                                      title: StringManager.moments.tr(),
+                                    ),
+                                    CardInfoMomentReals(
+                                      like: state.dataToday!.moment.like.toString(),
+                                      comment:
+                                      state.dataToday!.moment.comment.toString(),
+                                      upload:
+                                      state.dataToday!.moment.upload.toString(),
                                     ),
                                   ],
                                 ),
@@ -178,13 +202,12 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                           ),
                         );
                       case RequestState.loading:
-                        return const SizedBox(
-                        );
+                        return const SizedBox();
                       case RequestState.error:
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: ConfigSize.defaultSize! * 30,
-                          child:  CustomErrorWidget(
+                          child: CustomErrorWidget(
                               message: StringManager.unexcepectedError.tr()),
                         );
                     }
@@ -209,7 +232,6 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 horizontal: 20, vertical: 20),
                             child: Column(
                               children: [
-
                                 InfoWithWidget(
                                     title: StringManager.dataInMounth.tr()),
                                 const SizedBox(
@@ -222,7 +244,26 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                   infoHours:
                                       state.dataMonthly!.hours.toString(),
                                 ),
-
+                                BreakMomentReals(
+                                  title: StringManager.reels.tr(),
+                                ),
+                                CardInfoMomentReals(
+                                  like: state.dataMonthly!.reals.like.toString(),
+                                  comment:
+                                  state.dataMonthly!.reals.comment.toString(),
+                                  upload:
+                                  state.dataMonthly!.reals.upload.toString(),
+                                ),
+                                BreakMomentReals(
+                                  title: StringManager.moments.tr(),
+                                ),
+                                CardInfoMomentReals(
+                                  like: state.dataMonthly!.moment.like.toString(),
+                                  comment:
+                                  state.dataMonthly!.moment.comment.toString(),
+                                  upload:
+                                  state.dataMonthly!.moment.upload.toString(),
+                                ),
                               ],
                             ),
                           ),
@@ -237,7 +278,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: ConfigSize.defaultSize! * 20,
-                          child:  CustomErrorWidget(
+                          child: CustomErrorWidget(
                               message: StringManager.unexcepectedError.tr()),
                         );
                     }
@@ -251,7 +292,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
 
-                            ///0xfff8f8f8
+                              ///0xfff8f8f8
                               color: Theme.of(context).colorScheme.background,
                               borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(30),
@@ -262,20 +303,37 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                 horizontal: 20, vertical: 20),
                             child: Column(
                               children: [
-
-                                InfoWithWidget(
-                                    title: StringManager.total.tr()),
+                                InfoWithWidget(title: StringManager.total.tr()),
                                 const SizedBox(
                                   height: 20,
                                 ),
                                 CardInfoMonthOrAllInfo(
                                   infoDay: state.allInfoData!.days.toString(),
                                   infoDiamond:
-                                  state.allInfoData!.diamonds.toString(),
+                                      state.allInfoData!.diamonds.toString(),
                                   infoHours:
-                                  state.allInfoData!.hours.toString(),
+                                      state.allInfoData!.hours.toString(),
                                 ),
-
+                                BreakMomentReals(
+                                  title: StringManager.reels.tr(),
+                                ),
+                                CardInfoMomentReals(
+                                  like: state.allInfoData!.reals.comment.toString(),
+                                  comment:
+                                  state.allInfoData!.reals.like.toString(),
+                                  upload:
+                                  state.allInfoData!.reals.upload.toString(),
+                                ),
+                                BreakMomentReals(
+                                  title: StringManager.moments.tr(),
+                                ),
+                                CardInfoMomentReals(
+                                  like: state.allInfoData!.moment.comment.toString(),
+                                  comment:
+                                  state.allInfoData!.moment.like.toString(),
+                                  upload:
+                                  state.allInfoData!.moment.upload.toString(),
+                                ),
                               ],
                             ),
                           ),
@@ -286,7 +344,7 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: ConfigSize.defaultSize! * 20,
-                          child:  CustomErrorWidget(
+                          child: CustomErrorWidget(
                               message: StringManager.unexcepectedError.tr()),
                         );
                     }

@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 class ConstentApi {
  // static const String baseUrl = 'https://tik-chat.com/api' ;
-   static const String baseUrl = 'https://test.tik-chat.com/api' ;
+  static const String baseUrl = 'https://test.tik-chat.com/api' ;
   static const String signUpUrl = "$baseUrl/auth/register";
   static const String sendCodeUrl = "$baseUrl/auth/send-code";
   static const String forgetPassword = "$baseUrl/auth/forget_password";
@@ -117,12 +117,10 @@ class ConstentApi {
   static const String showAgency = "$baseUrl/agencies/show";
   static const String agencyMember = "$baseUrl/agencies/showAllusers";
   static const String agencyRequests = "$baseUrl/agencies/show_request";
-  static const String agencyRequestsAction =
-      "$baseUrl/agencies/actions_request";
+  static const String agencyRequestsAction = "$baseUrl/agencies/actions_request";
   static const String agencyHistoryTime = "$baseUrl/agencies/list_options_his";
   static const String agencyHistory = "$baseUrl/agencies/historyAgancy";
-  static const String chargeCoinForUser =
-      "$baseUrl/agencies/charge_co_for_users";
+  static const String chargeCoinForUser = "$baseUrl/agencies/charge_co_for_users";
   static const String chargeDolarsForUser =
       "$baseUrl/agencies/charge_dollar_for_owner";
   static const String getAllIntrested = "$baseUrl/allinterests";

@@ -962,7 +962,7 @@ void checkIfFriends(
       if (userData.isFriend!) {
         navigatorToUserChat(context: context, userData: userData);
       } else {
-        errorToast(context: context, title: StringManager.youAreNotFriends);
+        errorToast(context: context, title: StringManager.youAreNotFriends.tr());
       }
     }
 

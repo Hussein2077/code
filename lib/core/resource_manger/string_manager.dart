@@ -616,6 +616,7 @@ class StringManager {
   static const String stayTuned = "Stay tuned 😉";
 
   static const String thisFeaturenotAvailableNow = "This Feature not Available Now";
+  static const String like = "Likes 👍";
 
 
 
@@ -670,6 +671,9 @@ class StringManager {
       You can play with all people inside the ROM
       If you are lucky, the rotation will stop and your name and picture will be shown to everyone inside the room so that they can send you a gift.
     ''';
+
+
+
 
   ///List Type Users
   //0 normal user,

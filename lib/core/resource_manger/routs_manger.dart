@@ -182,6 +182,7 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
+        currentContext = Routes.splash;
         return MaterialPageRoute(
             settings: settings, builder: (_) => const SplashScreen());
       case Routes.login:

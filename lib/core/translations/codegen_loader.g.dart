@@ -253,7 +253,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.flip: "انعكاس",
     StringManager.fillter: "تصفية",
     StringManager.record: "تسجيل",
-    StringManager.upload: "تحميل",
+    StringManager.upload: "رفع",
     StringManager.newReel: "البث المباشر الجديد",
     StringManager.videoDescription: "وصف الفيديو",
     StringManager.shareYourMoment: "شارك لحظتك مع العالم عبر الريلز",
@@ -596,6 +596,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.waitForUsersResponse: "في انتظار رد المستخدمين" ,
     StringManager.participants: "المشاركون:" ,
     StringManager.luckyUsers: "المستخدمون المحظوظون:" ,
+    StringManager.like: "الاعجاب 👍" ,
   };
 
   static const Map<String, dynamic> tr = {
