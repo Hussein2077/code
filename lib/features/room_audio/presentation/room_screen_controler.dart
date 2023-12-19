@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/host_tim
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/widgets/dialog_lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/lucky_candy.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_gift/widgets/luky_gift_image.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
@@ -334,19 +334,33 @@ Future<void> distroyMusic() async {
 
 
 void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String ownerId, String userId) {
+  List<int> list = [0];
+  for(int i = 0; i < ZegoUIKit().getAllUsers().length; i++){
+    if(GiftUser.userOnMicsForGifts[int.parse(ZegoUIKit().getAllUsers()[i].id)] != null){
+      list.add(ZegoLiveAudioRoomManagers().seatManager!.getIndexByUserID(ZegoUIKit().getAllUsers()[i].id));
+    }
+  }
   if (layoutMode == LayoutMode.hostTopCenter) {
     if (GiftUser.userOnMicsForGifts.length == 9) {
       errorToast(
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 1; i < 9; i++) {
-        if (GiftUser.userOnMicsForGifts.containsKey(i) ||
+        if (list.contains(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
 
-        BlocProvider.of<UsersInRoomBloc>(context).add(
-            InviteUserInRoom(ownerId: ownerId, userId: userId, indexSeate: i));
+        String getMessagaRealTime(){
+          var mapInformation = {"messageContent":{
+            'message': 'inviteToSeat',
+            'id_user': userId,
+            'index': i
+          }};
+          String map = jsonEncode(mapInformation);
+          return map ;
+        }
+        ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(), []);
         break;
       }
     }
@@ -356,13 +370,22 @@ void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String 
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 0; i < 16; i++) {
-        if (GiftUser.userOnMicsForGifts.containsKey(i) ||
+        if (list.contains(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
 
-        BlocProvider.of<UsersInRoomBloc>(context).add(
-            InviteUserInRoom(ownerId: ownerId, userId: userId, indexSeate: i));
+        String getMessagaRealTime(){
+          var mapInformation = {"messageContent":{
+            'message': 'inviteToSeat',
+            'id_user': userId,
+            'index': i
+          }};
+          String map = jsonEncode(mapInformation);
+          return map ;
+        }
+        ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(), []);
+        break;
       }
     }
   } else if (layoutMode == LayoutMode.seats12) {
@@ -371,13 +394,22 @@ void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String 
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 0; i < 12; i++) {
-        if (GiftUser.userOnMicsForGifts.containsKey(i) ||
+        if (list.contains(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
 
-        BlocProvider.of<UsersInRoomBloc>(context).add(
-            InviteUserInRoom(ownerId: ownerId, userId: userId, indexSeate: i));
+        String getMessagaRealTime(){
+          var mapInformation = {"messageContent":{
+            'message': 'inviteToSeat',
+            'id_user': userId,
+            'index': i
+          }};
+          String map = jsonEncode(mapInformation);
+          return map ;
+        }
+        ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(), []);
+        break;
       }
     }
   }
@@ -719,7 +751,6 @@ InviteToSeatKey(Map<String, dynamic> result, String id, String ownerId, BuildCon
       InvitationToMicDialog.isInviteToMic = true;
       invitationDialog(context, ownerId, result[messageContent]['index']);
     }
-    //todo update this show
   }
 }
 
