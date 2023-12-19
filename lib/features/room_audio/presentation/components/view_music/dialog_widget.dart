@@ -29,7 +29,6 @@ late  bool isPlay  ;
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 2),
       child: Container(
@@ -81,7 +80,8 @@ late  bool isPlay  ;
                       onChanged: (double value) {
                         setState(() {
                           MusicDialog.currentSliderValue = value;
-                          ZegoUIKit.instance.setMediaVolume(MusicDialog.currentSliderValue.toInt()) ;
+                          ZegoUIKit.instance.
+                          setMediaVolume(MusicDialog.currentSliderValue.toInt()) ;
 
                         });
                       },
