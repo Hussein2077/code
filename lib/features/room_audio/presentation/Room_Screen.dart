@@ -54,7 +54,6 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_vi
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/media/player.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
@@ -879,7 +878,31 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 : -1
             ..hostSeatIndexes = [0]
             ..seatConfig = getSeatConfig()
-            ..viewbackground = ZegoMediaPlayer(
+            ..viewbackground = ViewbackgroundWidget(room: widget.room,
+                roomDataUpdates: roomDataUpdates,
+                userBannerData: userBannerData,
+                superBox: superBox,
+                layoutMode: RoomScreen.layoutMode,
+                controllerMusice: controllerMusice,
+                animationControllerEntro: animationControllerEntro,
+                animationControllerGift: animationControllerGift,
+                yallowBanner: yallowBanner,
+                showYellowBanner: showYellowBanner,
+                userIntroData: userIntroData,
+                offsetAnimationEntro: offsetAnimationEntro,
+                yellowBannercontroller: yellowBannercontroller,
+                offsetAnimationYellowBanner: offsetAnimationYellowBanner,
+                yallowBannerSender: yallowBannerSender,
+                isPlural: isPlural,
+                controllerBanner: controllerBanner,
+                offsetAnimationBanner: offsetAnimationBanner,
+                luckGiftBannderController: luckGiftBannderController,
+                offsetLuckGiftAnimationBanner: offsetLuckGiftAnimationBanner,
+                showPopUp: showPopUp,
+                popUpData: popUpData,
+                durationKickout: durationKickout)
+/*
+ZegoMediaPlayer(
               size: Size(200,200),
               enableRepeat: true,
               canControl: true,
@@ -890,7 +913,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                   100
               ),
             )
-
+ */
             ..background = BackgroundWidget(room: widget.room,
                 layoutMode:RoomScreen.layoutMode, isHost: widget.isHost)
             ..onSeatsChanged = (
