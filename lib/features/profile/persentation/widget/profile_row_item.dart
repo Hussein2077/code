@@ -3,13 +3,13 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class ProfileRowItem extends StatelessWidget {
   final String title;
-
+  final double? scale;
   final String image;
-
+  final Color? color;
   final void Function()? onTap;
 
   const ProfileRowItem(
-      {this.onTap, required this.image, required this.title, super.key});
+      {this.onTap,this.scale,this.color, required this.image, required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,8 @@ class ProfileRowItem extends StatelessWidget {
             ),
             Image.asset(
               image,
-              scale: 2.5,
+              scale:scale?? 2.5,
+              color: color,
             ),
             const Spacer(
               flex: 1,

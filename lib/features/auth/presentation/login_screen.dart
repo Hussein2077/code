@@ -234,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
           errorToast(context: context, title: state.errorMessage);
         }
         else if (state is LoginWithPhoneLoadingState) {
-          loadingToast(context: context, title: StringManager.loading.tr());
+          //loadingToast(context: context, title: StringManager.loading.tr());
         }
       },
     );

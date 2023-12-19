@@ -397,4 +397,11 @@ class ConstentApi {
   static String checkBlockUnblock( String userId) {
     return "$baseUrl/black_list/check/$userId";
   }
+  static  String invitCode(String userId) {
+    return "$baseUrl/add-code-invitation?code=$userId";
+  }
+  static const String invitationParent = "$baseUrl/parent-statistic";
+  static const String invitationUsers = "$baseUrl/user-earn-from-invitation";
+
+
 }

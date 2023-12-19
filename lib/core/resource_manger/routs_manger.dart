@@ -54,6 +54,8 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/details_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/withdrawal_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/income_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen/invit_screen_dtails.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen/widgets/user_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
@@ -163,6 +165,7 @@ class Routes {
   static const String changePassOrNumberScreen = "/ChangePassOrNumberScreen";
   static const String changePassScreen = "/ChangePassScreen";
   static const String privacyPolicyScreen = "/PrivacyPolicyScreen";
+
   //static const String chatScreen = "/ChatScreen";
   static const String paymentHistory = "/paymentHistory";
   static const String groupChatScreen = "/GropuChatScreen";
@@ -172,17 +175,8 @@ class Routes {
   static const String whiteEmptyScreen = "/whiteEmptyScreen";
   static const String allShippingAgent = "/AllShippingAgent";
   static const String profileChatDetails = "/ProfileChatDetails";
-
-
-
-
-
-
-
-
-
-
-
+  static const String invitScreenDetails = "/InvitScreenDetails";
+  static const String userScreen = "/UserScreen";
 }
 
 class RouteGenerator {
@@ -672,6 +666,27 @@ class RouteGenerator {
               builder: (_) => ProfileChatDetails(
                     userData: userData,
                   ));
+        }
+      case Routes.invitScreenDetails:
+        // UserDataModel userData = settings.arguments as UserDataModel;
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
+              builder: (_) => InvitScreenDetails(
+                  //  userData: userData,
+                  ));
+        } else {
+          return MaterialPageRoute(
+              settings: settings,
+              builder: (_) => InvitScreenDetails(
+                  //    userData: userData,
+                  ));
+        }
+      case Routes.userScreen:
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(builder: (_) => const UserScreen());
+        } else {
+          return MaterialPageRoute(
+              settings: settings, builder: (_) => const UserScreen());
         }
     }
 
