@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +77,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_fixed_targ
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_follwers_or_following_manger/bloc/get_follower_or_following_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitations_manager/get_invitations_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitation_parent_bloc/get_invitations_parent_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitations_users_manager/get_invitations_users_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/invit_code_manager/invit_code_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
@@ -153,7 +156,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
@@ -517,20 +520,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<LoginChatBloc>()),
         BlocProvider(create: (_) => getIt<LogOutChatBloc>()),
         BlocProvider(create: (_) => getIt<UpdateUserDataBloc>()),
-
-
         BlocProvider(create: (_) => getIt<GetFixedTargetBloc>()),
-
-
-
         BlocProvider(create: (_) => getIt<ForgetPasswordBloc>()),
-
-
-
         BlocProvider(create: (_) => getIt<GameBloc>()),
         BlocProvider(create: (_) => getIt<HostOnMicTimeBloc>()),
         BlocProvider(create: (_) => getIt<InvitCodeBloc>()),
-        BlocProvider(create: (_) => getIt<GetInvitationBloc>()),
+        BlocProvider(create: (_) => getIt<GetInvitationParentDetailsBloc>()),
+        BlocProvider(create: (_) => getIt<GetInvitationUsersDetailsBloc>()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {

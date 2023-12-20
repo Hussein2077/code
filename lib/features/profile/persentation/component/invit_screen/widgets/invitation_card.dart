@@ -12,14 +12,16 @@ import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/text_field.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/invit_code_manager/invit_code_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/invit_code_manager/invit_code_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/invit_code_manager/invit_code_state.dart';
 
 class InvitationCard extends StatefulWidget {
+  static ValueNotifier<bool> invitatioNotifier = ValueNotifier<bool>(false);
+
   @override
   State<InvitationCard> createState() => _InvitationCardState();
 }
 
 class _InvitationCardState extends State<InvitationCard> {
-  ValueNotifier<bool> invitatioNotifier = ValueNotifier<bool>(false);
   final TextEditingController invitCodeController = TextEditingController();
 
   @override
@@ -42,96 +44,203 @@ class _InvitationCardState extends State<InvitationCard> {
           //color: Colors.white.withOpacity(0.7),
           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 2.5),
           border: Border.all(color: Colors.white)),
-      child: ValueListenableBuilder(
-        valueListenable: invitatioNotifier,
-        builder: (context, value, child) {
-          log('rebuild');
-          return (MyDataModel.getInstance().viewInvitation!)
-              ? Column(
-                  children: [
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 7,
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ConfigSize.defaultSize!),
-                      width: ConfigSize.screenWidth! * 0.6,
-                      height: ConfigSize.defaultSize! * 6,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: ColorManager.mainColor,
-                        ),
-                        borderRadius:
-                            BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                      ),
-                      child: TextFieldWidget(
-                        type: TextInputType.number,
-                        controller: invitCodeController,
-                        hintText: StringManager.enterTheInvitCode.tr(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 2,
-                    ),
-                    MainButton(
-                      width: ConfigSize.defaultSize! * 20,
-                      height: ConfigSize.defaultSize! * 5,
-                      onTap: () {
-                        if (invitCodeController.text.isNotEmpty) {
-                          if (MyDataModel.getInstance().uuid.toString() ==
-                              invitCodeController.text) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                errorSnackBar(context,
-                                    StringManager.youCantInvitYourSelf.tr()));
-                          } else {
-                            BlocProvider.of<InvitCodeBloc>(context)
-                                .add(InvitCodeEvent(
-                              id: invitCodeController.text,
-                            ));
-                            invitCodeController.clear();
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              errorSnackBar(
-                                  context, StringManager.cantBeEmpty.tr()));
-                        }
-                      },
-                      title: StringManager.send.tr(),
-                    ),
-                  ],
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .primary
-                            .withOpacity(0.2),
-                        border: Border.all(
-                          color: Colors.green,
-                        ),
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(ConfigSize.defaultSize! * 20)),
-                      ),
-                      child: Icon(
-                        Icons.check,
-                        color: Colors.green,
-                        size: ConfigSize.defaultSize! * 15,
-                      ),
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 2,
-                    ),
-                    Text(
-                      StringManager.youHaveBeenInvited.tr(),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
-                );
+      child: BlocConsumer<InvitCodeBloc, InvitCodeState>(
+        listener: (context, state) {
+          if (state is InvitCodeLoadingState) {
+            ScaffoldMessenger.of(context).showSnackBar(loadingSnackBar(context));
+          } else if (state is InvitCodeScussesState) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(successSnackBar(context, state.massage));
+
+            MyDataModel.getInstance().viewInvitation = false;
+
+            InvitationCard.invitatioNotifier.value =
+            !InvitationCard.invitatioNotifier.value;
+          } else if (state is InvitCodeErorrState) {
+
+            ScaffoldMessenger.of(context)
+                .showSnackBar(errorSnackBar(context, state.massage));
+          }
         },
-      ),
+
+  builder: (context, state) {
+          if(state is InvitCodeScussesState){
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withOpacity(0.2),
+                    border: Border.all(
+                      color: Colors.green,
+                    ),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(ConfigSize.defaultSize! * 20)),
+                  ),
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.green,
+                    size: ConfigSize.defaultSize! * 15,
+                  ),
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 2,
+                ),
+                Text(
+                  StringManager.youHaveBeenInvited.tr(),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
+            );
+          }else{
+            return Column(
+              children: [
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 7,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ConfigSize.defaultSize!),
+                  width: ConfigSize.screenWidth! * 0.6,
+                  height: ConfigSize.defaultSize! * 6,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorManager.mainColor,
+                    ),
+                    borderRadius:
+                    BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                  ),
+                  child: TextFieldWidget(
+                    type: TextInputType.number,
+                    controller: invitCodeController,
+                    hintText: StringManager.enterTheInvitCode.tr(),
+                  ),
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 2,
+                ),
+                MainButton(
+                  width: ConfigSize.defaultSize! * 20,
+                  height: ConfigSize.defaultSize! * 5,
+                  onTap: () {
+                    if (invitCodeController.text.isNotEmpty) {
+                      if (MyDataModel.getInstance().uuid.toString() ==
+                          invitCodeController.text) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            errorSnackBar(context,
+                                StringManager.youCantInvitYourSelf.tr()));
+                      } else {
+                        BlocProvider.of<InvitCodeBloc>(context)
+                            .add(InvitCodeEvent(
+                          id: invitCodeController.text,
+                        ));
+                        invitCodeController.clear();
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          errorSnackBar(
+                              context, StringManager.cantBeEmpty.tr()));
+                    }
+                  },
+                  title: StringManager.send.tr(),
+                ),
+              ],
+            );
+          }
+    // return ValueListenableBuilder(
+    //     valueListenable: InvitationCard.invitatioNotifier,
+    //     builder: (context, value, child) {
+    //       return (MyDataModel.getInstance().viewInvitation!)
+    //           ? Column(
+    //               children: [
+    //                 SizedBox(
+    //                   height: ConfigSize.defaultSize! * 7,
+    //                 ),
+    //                 Container(
+    //                   padding: EdgeInsets.symmetric(
+    //                       horizontal: ConfigSize.defaultSize!),
+    //                   width: ConfigSize.screenWidth! * 0.6,
+    //                   height: ConfigSize.defaultSize! * 6,
+    //                   decoration: BoxDecoration(
+    //                     border: Border.all(
+    //                       color: ColorManager.mainColor,
+    //                     ),
+    //                     borderRadius:
+    //                         BorderRadius.circular(ConfigSize.defaultSize! * 2),
+    //                   ),
+    //                   child: TextFieldWidget(
+    //                     type: TextInputType.number,
+    //                     controller: invitCodeController,
+    //                     hintText: StringManager.enterTheInvitCode.tr(),
+    //                   ),
+    //                 ),
+    //                 SizedBox(
+    //                   height: ConfigSize.defaultSize! * 2,
+    //                 ),
+    //                 MainButton(
+    //                   width: ConfigSize.defaultSize! * 20,
+    //                   height: ConfigSize.defaultSize! * 5,
+    //                   onTap: () {
+    //                     if (invitCodeController.text.isNotEmpty) {
+    //                       if (MyDataModel.getInstance().uuid.toString() ==
+    //                           invitCodeController.text) {
+    //                         ScaffoldMessenger.of(context).showSnackBar(
+    //                             errorSnackBar(context,
+    //                                 StringManager.youCantInvitYourSelf.tr()));
+    //                       } else {
+    //                         BlocProvider.of<InvitCodeBloc>(context)
+    //                             .add(InvitCodeEvent(
+    //                           id: invitCodeController.text,
+    //                         ));
+    //                         invitCodeController.clear();
+    //                       }
+    //                     } else {
+    //                       ScaffoldMessenger.of(context).showSnackBar(
+    //                           errorSnackBar(
+    //                               context, StringManager.cantBeEmpty.tr()));
+    //                     }
+    //                   },
+    //                   title: StringManager.send.tr(),
+    //                 ),
+    //               ],
+    //             )
+    //           : Column(
+    //               mainAxisAlignment: MainAxisAlignment.center,
+    //               children: [
+    //                 Container(
+    //                   decoration: BoxDecoration(
+    //                     color: Theme.of(context)
+    //                         .colorScheme
+    //                         .primary
+    //                         .withOpacity(0.2),
+    //                     border: Border.all(
+    //                       color: Colors.green,
+    //                     ),
+    //                     borderRadius: BorderRadius.all(
+    //                         Radius.circular(ConfigSize.defaultSize! * 20)),
+    //                   ),
+    //                   child: Icon(
+    //                     Icons.check,
+    //                     color: Colors.green,
+    //                     size: ConfigSize.defaultSize! * 15,
+    //                   ),
+    //                 ),
+    //                 SizedBox(
+    //                   height: ConfigSize.defaultSize! * 2,
+    //                 ),
+    //                 Text(
+    //                   StringManager.youHaveBeenInvited.tr(),
+    //                   style: Theme.of(context).textTheme.bodyLarge,
+    //                 ),
+    //               ],
+    //             );
+    //     },
+    //   );
+  },
+),
     );
   }
 }

@@ -210,6 +210,8 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<InvitationUsersModel>?> getInvitationDetails();
 
   Future<ParentStaticsModel> getParentDetails();
+  Future<String> GetInvitationExplination();
+
 }
 
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
@@ -2261,5 +2263,27 @@ isVisit: isVisit,
       throw DioHelper.handleDioError(
           dioError: e, endpointName: 'getParentDetails');
     }
+  }
+
+  @override
+  Future<String> GetInvitationExplination() async{
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.explainInvitation,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+      log('hhhhhhhhhhh${resultData}');
+      return resultData['data'];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getInvitationDetails');
+    }
+
+
   }
 }

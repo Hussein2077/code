@@ -546,9 +546,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.dayInvited:  'دعوات اليوم',
     StringManager.totalEarned:  'كلي المكسب',
     StringManager.totalInvited:  'كلي الدعوات',
-    StringManager.invitationCodePoint1:  '1.ادعو صديقك لتحميل التطبيق و التسجيل',
-    StringManager.invitationCodePoint2:  '2.بعد اضافة صديقك لكودك ستحصل علي 20 عملة',
-    StringManager.invitationCodePoint3:  '3.بعد ان يشحن صديقك لاول مرة ستحصل علي 20% من الشحن',
+
 
     StringManager.refresh: 'اعاده تحميل',
     StringManager.somethingsWrong: 'هناك خطا ما',

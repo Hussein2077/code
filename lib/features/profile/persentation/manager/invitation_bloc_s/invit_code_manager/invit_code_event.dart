@@ -12,5 +12,4 @@ class InvitCodeEvent extends InvitCodeEvents {
   const InvitCodeEvent({required this.id, });
 }
 class InvitCodeEventInitial extends InvitCodeEvents {
-  const InvitCodeEventInitial();
 }

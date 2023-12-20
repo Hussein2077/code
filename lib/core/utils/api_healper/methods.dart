@@ -925,7 +925,7 @@ class Methods {
     }
 
     BlocProvider.of<JoinFamilyBloc>(context).add(InitJoinFamilyEvent());
-     BlocProvider.of<InvitCodeBloc>(context).add(const InvitCodeEventInitial());
+     BlocProvider.of<InvitCodeBloc>(context).add( InvitCodeEventInitial());
 
     AduioBody.type = StringManager.popular;
     AduioBody.countryId = null;

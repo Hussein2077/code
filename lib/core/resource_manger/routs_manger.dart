@@ -55,7 +55,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/withdrawal_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/income_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen/invit_screen_dtails.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen/widgets/user_view.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen/widgets/parent_users_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
@@ -766,10 +766,10 @@ class RouteGenerator {
         }
       case Routes.userScreen:
         if (Platform.isIOS) {
-          return CupertinoPageRoute(builder: (_) => const UserScreen());
+          return CupertinoPageRoute(builder: (_) => const ParentUsersScreen());
         } else {
           return MaterialPageRoute(
-              settings: settings, builder: (_) => const UserScreen());
+              settings: settings, builder: (_) => const ParentUsersScreen());
         }
 
       case Routes.refreshScreen:

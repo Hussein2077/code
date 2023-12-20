@@ -6,40 +6,29 @@ import 'package:tik_chat_v2/features/profile/data/model/invitation_users_model.d
 
 
 
-abstract class InvitationDetailsDataStates extends Equatable {
-  const InvitationDetailsDataStates();
+abstract class InvitationDetailsParentStates extends Equatable {
+  const InvitationDetailsParentStates();
 
   @override
   List<Object> get props => [];
 }
 
-class InvitationDetailsDataInitial extends InvitationDetailsDataStates {}
+class InvitationDetailsDataInitial extends InvitationDetailsParentStates {}
 
-class ParentDataLoadingState extends InvitationDetailsDataStates {}
+class ParentDataLoadingState extends InvitationDetailsParentStates {}
 
-class ParentDataScussesState extends InvitationDetailsDataStates {
+class ParentDataScussesState extends InvitationDetailsParentStates {
   final ParentStaticsModel parentStaticsModel;
 
   const ParentDataScussesState({required this.parentStaticsModel});
 }
 
-class ParentDataErorrState extends InvitationDetailsDataStates {
+class ParentDataErorrState extends InvitationDetailsParentStates {
   final String massage;
   const ParentDataErorrState({required this.massage});
 }
 
-class UsersDataLoadingState extends InvitationDetailsDataStates {}
 
-class UsersDataScussesState extends InvitationDetailsDataStates {
-  final List<InvitationUsersModel>? data;
-
-  const UsersDataScussesState({required this.data});
-}
-
-class UsersDataErorrState extends InvitationDetailsDataStates {
-  final String massage;
-  const UsersDataErorrState({required this.massage});
-}
 
 
 

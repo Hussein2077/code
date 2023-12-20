@@ -617,12 +617,10 @@ class StringManager {
   static const String coinsCharged = "coins charged ";
   static const String watch = "watch";
   static const String dayEarned = "day earned";
-  static const String dayInvited = "dat invited";
+  static const String dayInvited = "day invited";
   static const String totalEarned = "total earned";
   static const String totalInvited = "total invited";
-  static const String invitationCodePoint1 = "1.invit your fiends to download the app and sign up";
-  static const String invitationCodePoint2 = "2.after your friend add your code successfully you will get 20 coin";
-  static const String invitationCodePoint3 = "3.after your friend recharg for the first time you will get 20% out of his coins ";
+
   static const String timeRemains = "Time Remains:";
   static const String waitForUsersResponse = "Waiting For Users Response";
   static const String participants = "Participants:";
