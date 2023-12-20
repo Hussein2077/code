@@ -1014,4 +1014,16 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
 
   }
 
+  @override
+  Future<Either<String, Failure>> huaweiPay({required String product_id, required String token}) async{
+
+    try {
+      final result = await baseRemotlyDataSourceProfile.huaweiPay(product_id: product_id, token: token);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+
+  }
+
 }

@@ -188,6 +188,7 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<UserDataModel>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
   Future<FixedTargetReportModel> getFixedTargetReport(String date);
   Future<String> pay({required String message, required String type, required String token});
+  Future<String> huaweiPay({required String product_id, required String token});
 
 }
 
@@ -2159,6 +2160,33 @@ isVisit: isVisit,
 
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'pay');
+    }
+
+  }
+
+  @override
+  Future<String> huaweiPay({required String product_id, required String token})async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.huaweiPay,
+        data: {
+          "token": token,
+          "productId": product_id,
+        },
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      log(resultData.toString() + "#####");
+
+      return resultData['message'];
+
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'huaweiPay');
     }
 
   }

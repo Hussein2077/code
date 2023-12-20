@@ -321,7 +321,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
        final body =  {
          ConstentApi.type: "huawei",
          ConstentApi.name: account.displayName,
-         "huawei_id": account.idToken,
+         "huawei_id": account.unionId,
          'device_token':devicedata
        };
        try{

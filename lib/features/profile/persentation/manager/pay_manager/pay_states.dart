@@ -19,3 +19,16 @@ class payErrorState extends payState {
   payErrorState({required this.massege});
 
 }
+
+class huaweiPayLoadingState extends payState {}
+
+class huaweiPaySucssesState extends payState {
+  final String massege;
+  huaweiPaySucssesState({required this.massege});
+}
+
+class huaweiPayErrorState extends payState {
+  final String massege ;
+  huaweiPayErrorState({required this.massege});
+
+}

@@ -140,6 +140,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_user_reels_use_c
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vip_center_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_vistors_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/huawei_pay_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
@@ -579,13 +580,14 @@ class ServerLocator {
     getIt.registerFactory(
             () => HostOnMicTimeBloc(hostOnMicTimeUseCase:  getIt() ));
     getIt.registerFactory(
-            () => PayBloc(payUsecase:  getIt() ));
+            () => PayBloc(payUsecase:  getIt(), huaweiPayUsecase: getIt() ));
 //usecase
     getIt.registerLazySingleton(() => ForgetPasswordUc(baseRepository: getIt()));
     getIt.registerLazySingleton(() => ForgetPasswordCodeVerificationUc(baseRepository: getIt()));
     getIt.registerLazySingleton(() => InviteToGameNewUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => OtherSideGameActionNewUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => GameResultUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => HuaweiPayUsecase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(() => HostOnMicTimeUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(() => FixedTargetReportUseCase(FixedTargetReportReport: getIt()));

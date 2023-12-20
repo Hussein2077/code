@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,6 +14,7 @@ import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
@@ -130,6 +132,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_ree
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
@@ -159,7 +162,6 @@ import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_p
 
 // final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -180,30 +182,47 @@ Future<void> main() async {
   tokenDevices = await FirebaseMessaging.instance.getToken();
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
    await _firebaseMessaging.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
+     alert: true,
+     announcement: false,
+     badge: true,
+     carPlay: false,
+     criticalAlert: false,
+     provisional: false,
+     sound: true,
   );
-  bool groupChatUnReadMessage =
-      await Methods.instance.getLocalGroupChatNotifecation();
+  bool groupChatUnReadMessage = await Methods.instance.getLocalGroupChatNotifecation();
   HomeScreen.rebuildGroupChatCounter.value = groupChatUnReadMessage;
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     if (jsonDecode(message.data['message-type']) == "group-chat") {
       HomeScreen.groupChatCounter.value++;
       Methods.instance.setLocalGroupChatNotifecation(unReadMessage: true);
-
       HomeScreen.rebuildGroupChatCounter.value = true;
     }
+    log("when app opened");
   });
 
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    // Handle when the app is opened by clicking on a notification
+    // Navigate to HomeScreen when the notification is clicked
+    print('A new onMessageOpenedApp event was published!');
+    print('Message data: ${message.data}');
+    getIt<NavigationService>().navigatorKey.currentState!.pushNamed(Routes.splash);
+  });
+
+  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    if (message != null) {
+      // Handle when the app is opened by clicking on a notification
+      // Navigate to HomeScreen when the notification is clicked
+      print('Opened app by clicking on a notification!');
+      print('Message data: ${message.data}');
+      successSnackBar(getIt<NavigationService>().navigatorKey.currentContext!, "welcome to app");
+    }
+  });
 
   await ServerLocator().init();
 

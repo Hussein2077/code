@@ -87,7 +87,6 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   }
 
   @override
-  @override
   void dispose() {
     nameController.dispose();
     super.dispose();
@@ -176,7 +175,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                             name: nameController.text,
                             date: DateWidget.selectedDatee,
                             email: widget.Data?.data == null ? null : widget.Data?.data.email,
-                            countryID:CountryDropDownSearch. selectedItem!.id));
+                            countryID: CountryDropDownSearch. selectedItem!.id));
                       } else {
                         errorToast(
                           context: context,

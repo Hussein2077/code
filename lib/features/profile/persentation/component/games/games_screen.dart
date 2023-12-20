@@ -96,8 +96,6 @@ class GamesScreen extends StatelessWidget {
   void joinToGames(int index, BuildContext context)async {
     String token = await Methods.instance.returnUserToken() ;
     if(index==0){
-
-
       Navigator.push(context,
           MaterialPageRoute(builder: ((context) =>
            ForceRotateWidget(widget: WebViewInRoom(url:'${StringManager.teenPattiFull}${token}',),))));
@@ -118,7 +116,6 @@ class GamesScreen extends StatelessWidget {
               ForceRotateWidget(widget: WebViewInRoom(url:'${StringManager.updownFull}${token}',),))));
 
     }else if (index == 4) {
-      log("url${StringManager.ludo}${token}");
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -126,7 +123,6 @@ class GamesScreen extends StatelessWidget {
                     url: '${StringManager.ludo}${token}',
                   ))));
     } else if (index == 5) {
-      log("url${StringManager.ludo}${token}");
       Navigator.push(
           context,
           MaterialPageRoute(

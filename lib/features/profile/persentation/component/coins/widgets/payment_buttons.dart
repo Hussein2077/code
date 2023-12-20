@@ -97,13 +97,13 @@ class PaymentButtons extends StatelessWidget {
         );
 
 
-        log(result.toString());
+        //log(result.toString());
 
-        //Map<String, dynamic> myMap = json.decode(result['paymentMethodData']['tokenizationData']['token']);
+        Map<String, dynamic> myMap = json.decode(result['paymentMethodData']['tokenizationData']['token']);
 
-        //log(myMap['signature'].toString());
+        log(myMap['signature'].toString());
 
-        //callBack(map, context, myMap['signature'].toString());
+        callBack(map, context, myMap['signature'].toString());
       },
       onError: (e) => debugPrint('Payment error $e'),
       loadingIndicator: const Center(
