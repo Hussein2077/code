@@ -263,7 +263,8 @@ mixin ZegoUIKitCoreDataMedia {
       subTag: 'media',
     );
     mediaVolume.value = volume;
-    return currentMediaPlayer?.setPlayVolume(volume);
+    //to make it streaming
+    return currentMediaPlayer?.setVolume(volume);
   }
 
   int getMediaVolume() {
