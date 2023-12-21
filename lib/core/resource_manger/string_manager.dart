@@ -632,6 +632,8 @@ class StringManager {
 
   static const String thisFeaturenotAvailableNow = "This Feature not Available Now";
   static const String like = "Likes 👍";
+  static const String howToGainFreeCoins = "How to get";
+  static const String freeCoins = " Free Coins";
 
 
 

@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
@@ -53,67 +55,107 @@ class _InvitScreenDetailsState extends State<InvitScreenDetails> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.grey[350],
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              HeaderWithOnlyTitle(
-                  title: StringManager.invitaion.tr(),
-                  endIcon: const SizedBox()),
-              SizedBox(
-                height: ConfigSize.defaultSize! * 0.8,
-              ),
-
-              InvitationCard(),
-              SizedBox(
-                height: ConfigSize.defaultSize! * 0.8,
-              ),
-              ProfitCard(),
-
-              Container(
-                width: ConfigSize.screenWidth,
-                // height: ConfigSize.screenHeight! * 0.25,
-                margin: EdgeInsets.symmetric(
-                    vertical: ConfigSize.defaultSize! * 1,
-                    horizontal: ConfigSize.defaultSize! * 1.8),
-                padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                      const Color(0xFFFF382C),
-                      const Color(0xFFFFBB0D),
-                      Colors.white.withOpacity(0.7),
-                      Colors.white.withOpacity(0.7),
-                      Colors.white.withOpacity(0.7),
-                    ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-
-                    //color: Colors.white.withOpacity(0.7),
-                    borderRadius:
-                        BorderRadius.circular(ConfigSize.defaultSize! * 2.5),
-                    border: Border.all(color: Colors.white)),
-                child: Center(
-                  child: FutureBuilder(
-                    future: fetchData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Text(
-                          snapshot.data.toString(),
-                          overflow: TextOverflow.fade,
-                        );
-                      } else if (snapshot.hasError) {
-                        return const CustomErrorWidget(
-                          message: StringManager.noDataFoundHere,
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
-                    },
+        //backgroundColor: Colors.grey[200],
+        body: Column(
+          children: [
+            HeaderWithOnlyTitle(
+                title: StringManager.invitaion.tr(), endIcon: const SizedBox()),
+            SizedBox(
+              height: ConfigSize.defaultSize! * 0.8,
+            ),
+            Stack(
+              children: [
+                SizedBox(
+                  width: ConfigSize.screenWidth,
+                  height: ConfigSize.screenHeight! * 0.896,
+                  child: Image.asset(
+                    AssetsPath.dollersDropping,
+                    fit: BoxFit.fill,
                   ),
                 ),
-              ),
-            ],
-          ),
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      InvitationCard(),
+                      SizedBox(
+                        height: ConfigSize.defaultSize! * 0.8,
+                      ),
+                      ProfitCard(),
+                      Container(
+                        width: ConfigSize.screenWidth,
+                        // height: ConfigSize.screenHeight! * 0.25,
+                        margin: EdgeInsets.symmetric(
+                            vertical: ConfigSize.defaultSize! * 1,
+                            horizontal: ConfigSize.defaultSize! * 1.8),
+                        padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors:  [
+                                  const Color(0xFFFF382C),
+                                  const Color(0xFFFFBB0D),
+                                  Colors.white.withOpacity(0.8),
+                                  Colors.white.withOpacity(0.9),
+                                  Colors.white,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight),
+
+                            //color: Colors.white.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(
+                                ConfigSize.defaultSize! * 2.5),
+                            border: Border.all(color: Colors.white)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                text: StringManager.howToGainFreeCoins.tr(),
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: ConfigSize.defaultSize! * 1.4,
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: StringManager.freeCoins.tr(),
+                                    style: TextStyle(
+                                      color: ColorManager.mainColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: ConfigSize.defaultSize! * 1.6,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Center(
+                              child: FutureBuilder(
+                                future: fetchData(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Text(
+                                      snapshot.data.toString(),
+                                      overflow: TextOverflow.fade,
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return const CustomErrorWidget(
+                                      message: StringManager.noDataFoundHere,
+                                    );
+                                  } else {
+                                    return const SizedBox();
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

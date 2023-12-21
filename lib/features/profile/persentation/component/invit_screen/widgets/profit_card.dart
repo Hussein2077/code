@@ -22,12 +22,12 @@ class ProfitCard extends StatelessWidget {
           vertical: ConfigSize.defaultSize! * 1,
           horizontal: ConfigSize.defaultSize! * 1.8),
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
+          gradient: LinearGradient(colors:  [
             const Color(0xFFFF382C),
             const Color(0xFFFFBB0D),
-            Colors.white.withOpacity(0.7),
-            Colors.white.withOpacity(0.7),
-            Colors.white.withOpacity(0.7),
+            Colors.white.withOpacity(0.8),
+            Colors.white.withOpacity(0.9),
+            Colors.white,
           ], begin: Alignment.topLeft, end: Alignment.bottomRight),
 
           //color: Colors.white.withOpacity(0.7),

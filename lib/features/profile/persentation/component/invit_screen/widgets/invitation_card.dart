@@ -36,9 +36,9 @@ class _InvitationCardState extends State<InvitationCard> {
           gradient: LinearGradient(colors: [
             const Color(0xFFFF382C),
             const Color(0xFFFFBB0D),
-            Colors.white.withOpacity(0.7),
-            Colors.white.withOpacity(0.7),
-            Colors.white.withOpacity(0.7),
+            Colors.white.withOpacity(0.8),
+            Colors.white.withOpacity(0.9),
+            Colors.white,
           ], begin: Alignment.topLeft, end: Alignment.bottomRight),
 
           //color: Colors.white.withOpacity(0.7),

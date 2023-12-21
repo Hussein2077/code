@@ -311,6 +311,7 @@ class AssetsPath {
   static const String turntableIcon = "$pathIcon/turntable_icon.png";
   static const String activityGamesIcon = "$pathIcon/games_icon.png";
   static const String invitation = "$pathIcon/invitation.png";
+  static const String dollersDropping = "$pathImage/dollersdropping (2).jpeg";
 
 
 
