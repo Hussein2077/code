@@ -26,6 +26,7 @@ SnackBar custoumSnackBar(BuildContext context, String content) {
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5)),
     elevation: 0,
+    dismissDirection:DismissDirection.horizontal ,
     backgroundColor: Colors.transparent,
     margin: EdgeInsets.only(
       bottom: ConfigSize.screenHeight! - ConfigSize.defaultSize! * 10,
@@ -58,6 +59,7 @@ SnackBar loadingSnackBar(BuildContext context) {
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5)),
     elevation: 0,
+    dismissDirection:DismissDirection.horizontal ,
     backgroundColor: Colors.transparent,
     margin: EdgeInsets.only(
       bottom: ConfigSize.screenHeight! - ConfigSize.defaultSize! * 10,
@@ -115,6 +117,7 @@ SnackBar errorSnackBar(BuildContext context, String content) {
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 1.5)),
     elevation: 0,
+    dismissDirection:DismissDirection.horizontal ,
     backgroundColor: Colors.transparent,
     margin: EdgeInsets.only(
       bottom: ConfigSize.screenHeight! - ConfigSize.defaultSize! * 10,
@@ -156,6 +159,7 @@ SnackBar successSnackBar(BuildContext context, String content) {
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5)),
     backgroundColor: Colors.transparent,
+    dismissDirection:DismissDirection.horizontal ,
     margin: EdgeInsets.only(
         bottom: ConfigSize.screenHeight! - ConfigSize.defaultSize! * 10,
         right: ConfigSize.screenWidth! * 0.15,

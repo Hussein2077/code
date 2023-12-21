@@ -222,30 +222,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   initlaizCachData(){
 
 
-      if (true){
+      if ((widget.isChachGift ?? false)){
         CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheGift,() => ItemWidget(
             text: StringManager.cacheGift.tr(), iconData: Icons.card_giftcard));
       }
 
-      if (true){
+      if ((widget.isCachExtra ?? false)){
         CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheExtra,() => ItemWidget(
             text: StringManager.cacheExtra.tr(), iconData: Icons.mobile_screen_share_rounded));
       }
 
-      if (true){
-        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheExtra,
+      if ((widget.isCachFrame ?? false)){
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheFrame,
                 () =>  ItemWidget(
             text: StringManager.cacheFrame.tr(), iconData: Icons.filter_frames) );
 
       }
-      if (true){
+      if ((widget.isCachEntro ?? false)){
         CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheEntro,
                 () =>    ItemWidget(
                     text: StringManager.cacheIntro.tr(), iconData: Icons.arrow_circle_up)  );
 
       }
 
-      if (true){
+      if ((widget.isCachEmojie ?? false)){
         CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheEmojie,
                 () =>     ItemWidget(
                     text: StringManager.cacheEmoji.tr(), iconData: Icons.emoji_emotions_outlined)  );

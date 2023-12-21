@@ -29,6 +29,7 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/cach_manager.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -683,26 +684,32 @@ class Methods {
       case TypesCache.gift:
         sharedPreferences.setInt(StringManager.lastTimeCacheGift,timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheGift);
+        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
         CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
       case TypesCache.frame:
         sharedPreferences.setInt(StringManager.lastTimeCacheFrame, timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheFrame);
+        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
         CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
       case TypesCache.intro:
         sharedPreferences.setInt(StringManager.lastTimeCacheEntro, timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheEntro);
+        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
         CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
       case TypesCache.extra:
         sharedPreferences.setInt(StringManager.lastTimeCacheExtra, timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheExtra);
+        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
+
         CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
       case TypesCache.emojie:
         sharedPreferences.setInt(StringManager.lastTimeCacheEmojie, timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheEmojie);
+        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
         CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
     }

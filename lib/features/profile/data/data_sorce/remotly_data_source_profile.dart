@@ -2241,25 +2241,6 @@ isVisit: isVisit,
       Map<String, dynamic> resultData = response.data;
       ParentStaticsModel parentStaticsModel = ParentStaticsModel.fromMap(resultData['data']);
       return parentStaticsModel;
-
-
-
-
-
-
-
-     //  final response = await Dio().get(
-     //    ConstentApi.invitationParent,
-     //    options: Options(
-     //      headers: headers,
-     //    ),
-     //  );
-     //
-     //  Map<String, dynamic> resultData = response.data;
-     //  // ParentStaticsModel parentStaticsModel =ParentStaticsModel.fromMap(
-     //  //     resultData['data'].map((x) => ParentStaticsModel.fromMap(x)));
-     // // return parentStaticsModel;
-     //  return ParentStaticsModel.fromMap(resultData['data']);
     } on DioError catch (e) {
       throw DioHelper.handleDioError(
           dioError: e, endpointName: 'getParentDetails');
@@ -2278,7 +2259,6 @@ isVisit: isVisit,
         ),
       );
       Map<String, dynamic> resultData = response.data;
-      log('hhhhhhhhhhh${resultData}');
       return resultData['data'];
     } on DioError catch (e) {
       throw DioHelper.handleDioError(

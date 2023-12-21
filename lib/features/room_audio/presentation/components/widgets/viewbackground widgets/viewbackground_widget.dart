@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
@@ -188,6 +189,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                           builder: ((context) => WebViewInRoom(
                                 url: '${StringManager.fruitGame}${token}',
                               ))));
+
                 },
                 child: Container(
                   decoration: const BoxDecoration(
@@ -284,17 +286,19 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 }
               }),
           if (widget.showYellowBanner['showYellowBanner']!)
-            Positioned(
-                top: -48,
-                child: ShowYallowBannerWidget(
-                    cureentRoomId: widget.room.ownerId!,
-                    controllerYallowBanner: widget.yellowBannercontroller,
-                    offsetAnimationYallowBanner:
-                        widget.offsetAnimationYellowBanner,
-                    senderYallowBanner: widget.yallowBannerSender,
-                    hasPassword: widget.yallowBanner,
-                    myData: MyDataModel.getInstance(),
-                    ownerId: widget.yallowBanner)),
+         Positioned(
+                 top: -48,
+                 child:  IgnorePointer(
+                     child: ShowYallowBannerWidget(
+                     cureentRoomId: widget.room.ownerId!,
+                     controllerYallowBanner: widget.yellowBannercontroller,
+                     offsetAnimationYallowBanner:
+                     widget.offsetAnimationYellowBanner,
+                     senderYallowBanner: widget.yallowBannerSender,
+                     hasPassword: widget.yallowBanner,
+                     myData: MyDataModel.getInstance(),
+                     ownerId: widget.yallowBanner)) ,
+           ) ,
           ValueListenableBuilder<bool>(
               valueListenable: RoomScreen.showBanner,
               builder: (context, isShow, _) {
@@ -347,7 +351,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 if (state.isFirst == 1) {
                   widget.luckGiftBannderController.forward();
                 }
-              } else if (state is SendLuckyGiftErrorStateState) {
+              }
+              else if (state is SendLuckyGiftErrorStateState) {
                 errorToast(context: context, title: state.error);
               }
             },

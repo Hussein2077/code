@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
 
-import 'dart:developer';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -207,12 +206,17 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       vsync: this,
     );
     yellowBannercontroller.addListener(() {
-      if (controllerBanner.isCompleted) {
-        controllerBanner.stop();
-        Future.delayed(const Duration(seconds: 3), () async {
-          controllerBanner.reverse();
+      if (yellowBannercontroller.isCompleted) {
+        yellowBannercontroller.stop();
+        Future.delayed(const Duration(seconds: 20), () async {
+
+          yellowBannercontroller.reverse().then((value) {
+            setState(() {
+              showYellowBanner['showYellowBanner'] = false;
+            });
+          });
+
         });
-        controllerBanner.reverse();
       }
     });
     offsetAnimationYellowBanner = Tween(
@@ -640,21 +644,24 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           .getUserData(userId: senderId.toString());
       RoomScreen.usersInRoom
           .putIfAbsent(senderId.toString(), () => yallowBannerSender!);
-    } else {
+    }
+    else {
       yallowBannerSender = RoomScreen.usersInRoom[senderId.toString()];
     }
     ZegoInRoomMessageInput.messageYallowBanner = message;
     yallowBanner['yallowBannerhasPasswoedRoom'] = hasPasswoedRoom;
 
-    if (yellowBannercontroller.animationBehavior.name == "normal") {
-      yellowBannercontroller.reset();
-    }
 
-    setState(() {
+setState(() {
+  showYellowBanner['showYellowBanner'] = true;
+  yallowBanner['yallowBannerOwnerRoom'] = ownerId;
+});
       yellowBannercontroller.forward();
-      showYellowBanner['showYellowBanner'] = true;
-      yallowBanner['yallowBannerOwnerRoom'] = ownerId;
-    });
+
+
+
+
+
     //  }
 
   }
