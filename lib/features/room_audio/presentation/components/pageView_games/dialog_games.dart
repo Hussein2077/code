@@ -92,7 +92,8 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
               }
               controller!.goBack();
               Navigator.pop(context);
-            }, icon: const Icon(Icons.arrow_back_ios, color: Colors.white,)),
+            },
+                icon: const Icon(Icons.arrow_back_ios, color: Colors.white,)),
           ],
         ),
          );

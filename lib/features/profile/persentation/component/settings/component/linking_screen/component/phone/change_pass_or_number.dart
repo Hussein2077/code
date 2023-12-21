@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +8,6 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/sendcode_manger/bloc/send_code_bloc.dart';
-
 
 
 class ChangePassOrNumberScreen extends StatefulWidget {
@@ -37,42 +33,17 @@ class _ChangePassOrNumberScreenState extends State<ChangePassOrNumberScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log('changePassOrNumberScreen');
     return BlocConsumer<SendCodeBloc, SendCodeState>(
       listener: (context, state)async {
-
         if (state is SendCodeSuccesMessageState) {
           Navigator.pushNamed(context, Routes.otpBindScreen,
             arguments: OtbScreenParm(password: passwordController.text ,type:'changePassword' ),
-
           );
-          // Navigator.pushNamed(context, Routes.oTPForgetPassword,
-          //     arguments: OtbScreenParm(
-          //       slectedCountry:slectedCountry ,
-          //       slectedflag:slectedflag ,
-          //         password: passwordController.text,
-          //         phone: phoneController.text));
         }
         if (state is SendCodeErrorMessageState) {
           errorToast(context: context, title: state.errorMessage.tr());
         }
-
       },
-
-
-      // {
-      //   if (state is SendCodeSuccesMessageState) {
-      //     // Navigator.pushNamed(context, Routes.oTPForgetPassword,
-      //     //     arguments: OtbScreenParm(
-      //     //       slectedCountry:slectedCountry ,
-      //     //       slectedflag:slectedflag ,
-      //     //         password: passwordController.text,
-      //     //         phone: phoneController.text));
-      //   }
-      //   if (state is SendCodeErrorMessageState) {
-      //     errorToast(context: context, title: state.errorMessage.tr());
-      //   }
-      // },
       builder: (context, state) {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -107,27 +78,22 @@ class _ChangePassOrNumberScreenState extends State<ChangePassOrNumberScreen> {
                             flex: 2,
                           ),
                           ChangeItemRow(
-                            title: StringManager.changePhone,
+                            title: StringManager.changePhone.tr(),
                             firstIcon: (Icons.phone_android_outlined),
                             onTap: (){
                               Navigator.pushNamed(context, Routes.changeNumberOldScreen);
                             },
-
                           ),
                           const Spacer(
                             flex: 2,
                           ),
                           ChangeItemRow(
-
-                            title: StringManager.changePassword,
+                            title: StringManager.changePassword.tr(),
                             firstIcon: (Icons.lock),
                             onTap: (){
                               Navigator.pushNamed(context, Routes.changePassScreen);
-
-
                             },
                           ),
-
                           const Spacer(
                             flex: 17,
                           ),

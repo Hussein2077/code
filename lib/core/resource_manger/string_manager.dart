@@ -49,6 +49,10 @@ class StringManager {
   static const String deleteAccount = "delete account";
   static const String wanaLogeOut = "Do you want to log out?";
   static const String wanaDeletAccout = "Do you want to Delete Account?";
+  static const String achievements = "Achievements";
+  static const String meddles = "Medals";
+  static const String room = "Room";
+  static const String gift = "Gift";
 
   ////
   static const String youWillSpend = 'You will Spend';
@@ -161,7 +165,7 @@ class StringManager {
   static const String inviteFriend = "Invite Friend";
   static const String settings = "Settings";
   static const String complaints = "Complaints";
-  static const String giftGallery = "Gift Gallery";
+  static const String giftGallery = "Gift Recieved";
   static const String dimond = "Dimond";
   static const String addFriend = "Add Friend";
   static const String follow = "Follow";

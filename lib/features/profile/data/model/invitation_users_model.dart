@@ -44,7 +44,7 @@ class ParentStaticsModel {
   factory ParentStaticsModel.fromMap(Map<String, dynamic> map) {
     return ParentStaticsModel(
 
-      totalEarned: map['dayInvited']??0,
+      totalEarned: map['totalEarned']??0,
       dayEarned: map['earnedDay']??0,
       totalInvited: map['TotalInvited']??0,
       dayInvited: map['invitedDay']??0,

@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
+import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen/widgets/user_info_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitations_users_manager/get_invitations_users_bloc.dart';
@@ -34,17 +37,20 @@ class _ParentUsersScreenState extends State<ParentUsersScreen> {
         builder: (BuildContext context, InvitationDetailsUsersStates state) {
           if (state is UsersDataScussesUsersState) {
             if (state.data != null) {
-              return SizedBox(
-                width: ConfigSize.screenWidth,
-                height: ConfigSize.screenHeight,
-                child: ListView.builder(
-                  itemCount: state.data!.length,
-                  itemBuilder: (context, i) {
-                    return UserDetailsForParent(
-                      data: state.data![i],
-                    );
-                  },
-                ),
+              return Column(
+                children: [
+                  HeaderWithOnlyTitle(title: StringManager.rechargeHistory.tr()),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.data!.length,
+                      itemBuilder: (context, i) {
+                        return UserDetailsForParent(
+                          data: state.data![i],
+                        );
+                      },
+                    ),
+                  ),
+                ],
               );
             } else {
               return SizedBox(

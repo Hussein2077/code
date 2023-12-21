@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/room_audio/data/data_sorce/remotly_data_source_room.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ExtraRoomDataModel.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
@@ -564,6 +565,16 @@ class RepositoryImpRoom extends BaseRepositoryRoom {
   Future<Either<String, Failure>> gameresult(GameResultPramiter gameResultPramiter) async {
     try {
       final result = await baseRemotlyDataSourceRoom.gameresult(gameResultPramiter);
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<ExtraRoomDataModel, Failure>> extraRoomData(String OwnerId) async {
+    try {
+      final result = await baseRemotlyDataSourceRoom.getExtraRoomData(OwnerId);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));

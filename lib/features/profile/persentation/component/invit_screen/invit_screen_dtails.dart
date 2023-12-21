@@ -41,17 +41,10 @@ class _InvitScreenDetailsState extends State<InvitScreenDetails> {
         if (state is InvitCodeLoadingState) {
           ScaffoldMessenger.of(context).showSnackBar(loadingSnackBar(context));
         } else if (state is InvitCodeScussesState) {
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(successSnackBar(context, state.massage));
-
           MyDataModel.getInstance().viewInvitation = false;
-
-          InvitationCard.invitatioNotifier.value =
-              !InvitationCard.invitatioNotifier.value;
+          InvitationCard.invitatioNotifier.value = !InvitationCard.invitatioNotifier.value;
         } else if (state is InvitCodeErorrState) {
-
-          ScaffoldMessenger.of(context)
-              .showSnackBar(errorSnackBar(context, state.massage));
+          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context, state.massage));
         }
       },
       child: Scaffold(

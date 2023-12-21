@@ -26,8 +26,8 @@ class AdminOrOwnerContainer extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(StringManager.owner, style: TextStyle(color: Colors.white , fontSize: ConfigSize.defaultSize!*1.2),),
-            Image.asset(AssetsPath.admin , scale: 2.7,),
+            Text(StringManager.owner, style: TextStyle(color: Colors.white , fontSize: ConfigSize.defaultSize!*1),),
+            Image.asset(AssetsPath.admin , scale: 3,),
           ],),
       );
     }else if(RoomScreen.adminsInRoom.containsKey(userId)){

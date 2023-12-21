@@ -29,6 +29,11 @@ class Card2 extends StatelessWidget {
               image: AssetsPath.gamesIcon,
               onTap: () => Navigator.pushNamed(context, Routes.games),
             ),
+            ProfileRowItem(
+              title: StringManager.meddles.tr(),
+              image: AssetsPath.gamesIcon,
+              onTap: () => Navigator.pushNamed(context, Routes.meddles, arguments: MyDataModel.getInstance()),
+            ),
             if (StringManager.userType[1]! ||
                 StringManager.userType[2]! ||
                 StringManager.userType[4]! ||

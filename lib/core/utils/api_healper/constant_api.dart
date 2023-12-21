@@ -11,6 +11,11 @@ class ConstentApi {
   static const String sendCodeUrl = "$baseUrl/auth/send-code";
   static const String forgetPassword = "$baseUrl/auth/forget_password";
   static const String forgetPasswordCodeVerification = "$baseUrl/auth/verify-code";
+  String getExtraRoomData(String OwnerId) {
+    return "$baseUrl/rooms/${OwnerId}/extra-data";
+  }
+  static  String getUserBadges(String userId) => "$baseUrl/achievement/user/$userId";
+  static  String getBadges(String type) => "$baseUrl/achievement/$type";
   static const String getBoxes = "$baseUrl/box/list";
   static const String inviteToGame = "$baseUrl/game-challange/send-reuest-paly";
   static const String inviteToGameNew = "$baseUrl/room-game/send-request-play";

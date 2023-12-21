@@ -36,9 +36,7 @@ class ProfitCard extends StatelessWidget {
       child: BlocBuilder<GetInvitationParentDetailsBloc, InvitationDetailsParentStates>(
         builder: (context, state) {
           if (state is ParentDataScussesState) {
-            log('kkkkk1');
-
-            return Container(
+            return SizedBox(
               width: ConfigSize.screenWidth,
               height: ConfigSize.screenHeight! * 0.25,
               child: Column(

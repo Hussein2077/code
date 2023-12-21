@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,11 +21,14 @@ import 'package:tik_chat_v2/core/widgets/id_with_copy_icon.dart';
 import 'package:tik_chat_v2/core/widgets/male_female_icon.dart';
 import 'package:tik_chat_v2/core/widgets/user_country_icon.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/lower/user_badge_item.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/profile_bottom_bar.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_state.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
@@ -36,7 +38,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
-
 import 'profile_room_body_controler.dart';
 import 'widgets/block_button.dart';
 import 'widgets/image_with_text.dart';
@@ -67,10 +68,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
 
   @override
   void initState() {
-    log('${widget.userData.isFollow!}widget.userData.isFollow!');
     localisFollow = widget.userData.isFollow!;
     _controller = GifController(vsync: this);
-    log('${localisFollow}localisFollow');
     super.initState();
   }
 
@@ -84,7 +83,6 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
 
   @override
   void didChangeDependencies() {
-    log('${widget.userData.isFollow}ggggg');
     localisFollow = widget.userData.isFollow!;
     BlocProvider.of<GetUserBloc>(context)
         .add(const InituserEvent());
@@ -109,12 +107,12 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
     myProfile = myProfileOrNot(widget.userData, widget.myData);
 
     return SizedBox(
-      height: ConfigSize.screenHeight! * .47,
+      height: ConfigSize.screenHeight! * .51,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Container(
-            height: ConfigSize.screenHeight! * .4,
+            height: ConfigSize.screenHeight! * .45,
             decoration: BoxDecoration(
                 color: const Color(0xFFFFFCE4),
                 borderRadius: BorderRadius.only(
@@ -139,7 +137,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                 Column(
                   children: [
                     SizedBox(
-                      height: ConfigSize.defaultSize! * 4,
+                      height: ConfigSize.defaultSize! * 6,
                     ),
                     GradientTextVip(
                       text: widget.userData.name!,
@@ -150,13 +148,31 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                           fontWeight: FontWeight.w400),
                       isVip: widget.userData.hasColorName!,
                     ),
-                    Text(
+
+                    if(widget.userData.bio.toString() != "") Text(
                       widget.userData.bio.toString(),
                       style: TextStyle(
                           fontSize: ConfigSize.defaultSize! * 1.3,
                           color: ColorManager.darkBlack.withOpacity(0.8),
                           fontWeight: FontWeight.w400),
                     ),
+
+                    BlocBuilder<UserBadgesBloc, UserBadgesState>(
+                        builder: (context, state) {
+                          if (state is UserBadgesSucssesState) {
+                            return state.badges.data.isEmpty? const SizedBox(): SizedBox(
+                              width: ConfigSize.defaultSize! * 20,
+                              child: UserBadgesItem(
+                                width: ConfigSize.screenWidth! * .05,
+                                height: ConfigSize.screenHeight! * .05,
+                                userBadges: state.badges,
+                              ),
+                            );
+                          }else{
+                            return const SizedBox();
+                          }
+                        }),
+
                     IdWithCopyIcon(
                       userData: widget.userData,
                       color: Colors.black,
@@ -165,8 +181,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (!widget.userData.isCountryHiden!)
-                          UserCountryIcon(
-                              country: widget.userData.country?.flag ?? ""),
+                          UserCountryIcon(country: widget.userData.country?.flag ?? ""),
                         SizedBox(width: ConfigSize.defaultSize! * 0.5),
                         MaleFemaleIcon(
                           maleOrFeamle: widget.userData.profile!.gender,
@@ -185,6 +200,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                         SizedBox(width: ConfigSize.defaultSize! * 0.5),
                       ],
                     ),
+
                     SizedBox(height: ConfigSize.defaultSize! * 2),
                     widget.userData.familyData != null
                         ? InkWell(
@@ -203,16 +219,15 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text("${StringManager.familyName.tr()} :"),
-                                    Text(widget.userData.familyData!.name!
-                                        .toString()),
+                                    Text("${StringManager.familyName.tr()}: ", style: const TextStyle(fontSize: 12),),
+                                    Text(widget.userData.familyData!.name!.toString(), style: const TextStyle(fontSize: 12),),
                                   ],
                                 )),
                           )
                         : const SizedBox()
                   ],
                 ),
-                SizedBox(height: ConfigSize.defaultSize! * 1),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
                 Row(
                   children: [
                     Expanded(
@@ -262,8 +277,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                                     height: ConfigSize.defaultSize! * 3.5,
                                     width: ConfigSize.defaultSize! * 3.5,
                                     child: Gif(
-                                      image:
-                                          const AssetImage(AssetsPath.verified),
+                                      image: const AssetImage(AssetsPath.verified),
                                       controller: _controller,
                                       autostart: Autostart.loop,
                                       placeholder: (context) =>
@@ -315,10 +329,9 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                             userData: widget.userData, context: context);
                       },
                       child: Container(
-                          // alignment: Alignment.centerRight,
                           padding: EdgeInsets.symmetric(
-                            horizontal: ConfigSize.defaultSize! * 4.2,
-                            vertical: ConfigSize.defaultSize! * 1.5,
+                            horizontal: ConfigSize.defaultSize! * 3,
+                            vertical: ConfigSize.defaultSize! * .5,
                           ),
                           decoration: const BoxDecoration(
                               image: DecorationImage(

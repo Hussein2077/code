@@ -166,13 +166,8 @@ class MessagesChached extends StatelessWidget {
                         children: [
                           GradientTextVip(
                             text: message.user.name,
-                            isVip: message.user.inRoomAttributes.value['vip'] ==
-                                    ''
-                                ? false
-                                : message.user.inRoomAttributes.value['vip'] ==
-                                        '8'
-                                    ? true
-                                    : false,
+                            width: ConfigSize.defaultSize! * 15,
+                            isVip: message.user.inRoomAttributes.value['vip'] == '' ? false : message.user.inRoomAttributes.value['vip'] == '8' ? true : false,
                             textStyle: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w900,

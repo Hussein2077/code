@@ -11,10 +11,10 @@ class ImageWithText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset(image,scale: ConfigSize.defaultSize!*0.25,),
+        Image.asset(image,scale: ConfigSize.defaultSize! * 0.29,),
         Text(text,style:  TextStyle(
           color: ColorManager.darkBlack,
-          fontSize: ConfigSize.defaultSize!*1.2
+          fontSize: ConfigSize.defaultSize! * 1
         ),)
       ],
     );

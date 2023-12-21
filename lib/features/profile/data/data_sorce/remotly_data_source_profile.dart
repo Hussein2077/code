@@ -29,6 +29,7 @@ import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fixed_target_report.dart';
+import 'package:tik_chat_v2/features/profile/data/model/get_badges_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
@@ -43,6 +44,7 @@ import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
 import 'package:tik_chat_v2/features/profile/data/model/useitem_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/user_badges_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
@@ -212,6 +214,8 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<ParentStaticsModel> getParentDetails();
   Future<String> GetInvitationExplination();
+  Future<UserBadgesModel> userBadges(String userId);
+  Future<List<GetBadgesModel>> getBadges(String type);
 
 }
 
@@ -2293,5 +2297,43 @@ isVisit: isVisit,
       throw DioHelper.handleDioError(dioError: e, endpointName: 'huaweiPay');
     }
 
+  }
+
+  @override
+  Future<UserBadgesModel> userBadges(String userId)async  {
+    Map<String, String> headers = await DioHelper().header();
+    try{
+      final response = await Dio().get(
+        ConstentApi.getUserBadges(userId),
+        options: Options(
+          headers: headers,
+        ),
+      );
+
+      return UserBadgesModel.fromJson(response.data);
+    }on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'makeMomentLike');
+    }
+  }
+
+  @override
+  Future<List<GetBadgesModel>> getBadges(String type) async {
+    Map<String, String> headers = await DioHelper().header();
+    try {
+      final response = await Dio().get(
+        ConstentApi.getBadges(type),
+
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String,dynamic> resultData = response.data;
+      print(resultData['data'].runtimeType );
+      return  List<GetBadgesModel>.from(
+          resultData["data"].map((x) => GetBadgesModel.fromJson(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'get badges');
+    }
   }
 }
