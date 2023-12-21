@@ -52,27 +52,17 @@ class _InvitScreenDetailsState extends State<InvitScreenDetails> {
     return BlocListener<InvitCodeBloc, InvitCodeState>(
       listener: (context, state) {
         if (state is InvitCodeLoadingState) {
-          log('lllllll1');
           ScaffoldMessenger.of(context).showSnackBar(loadingSnackBar(context));
         } else if (state is InvitCodeScussesState) {
-          log('lllllll2');
 
           ScaffoldMessenger.of(context)
               .showSnackBar(successSnackBar(context, state.massage));
-          log('lllllll4');
-          log('ggggggg${MyDataModel.getInstance().viewInvitation}');
+
 
           MyDataModel.getInstance().viewInvitation = false;
-          log('ggggggg${MyDataModel.getInstance().viewInvitation}');
-          log('lllllll5');
-          log('ggggggggg${invitatioNotifier.value}');
 
           invitatioNotifier.value = !invitatioNotifier.value;
-          log('ggggggggg${invitatioNotifier.value}');
-          log('lllllll6');
-
         } else if (state is InvitCodeErorrState) {
-          log('lllllll3');
 
           ScaffoldMessenger.of(context)
               .showSnackBar(errorSnackBar(context, state.massage));

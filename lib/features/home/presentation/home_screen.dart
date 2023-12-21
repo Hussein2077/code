@@ -24,6 +24,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_o
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_state.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'widget/body/home_body.dart';
+import 'widget/header/cache_data_widget.dart';
 import 'widget/header/home_header.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -131,9 +132,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               SizedBox(
                 height: ConfigSize.defaultSize! * 3.6,
               ),
-
-
-
               Stack(
                   children: [
                     Positioned(
@@ -225,38 +223,36 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
 
       if (true){
-        HomeHeader.cacheData.putIfAbsent(StringManager.lastTimeCacheGift,() => ItemWidget(
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheGift,() => ItemWidget(
             text: StringManager.cacheGift.tr(), iconData: Icons.card_giftcard));
       }
 
       if (true){
-        HomeHeader.cacheData.putIfAbsent(StringManager.lastTimeCacheExtra,() => ItemWidget(
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheExtra,() => ItemWidget(
             text: StringManager.cacheExtra.tr(), iconData: Icons.mobile_screen_share_rounded));
       }
 
       if (true){
-        HomeHeader.cacheData.putIfAbsent(StringManager.lastTimeCacheExtra,
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheExtra,
                 () =>  ItemWidget(
             text: StringManager.cacheFrame.tr(), iconData: Icons.filter_frames) );
 
       }
       if (true){
-        HomeHeader.cacheData.putIfAbsent(StringManager.lastTimeCacheEntro,
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheEntro,
                 () =>    ItemWidget(
                     text: StringManager.cacheIntro.tr(), iconData: Icons.arrow_circle_up)  );
 
       }
 
       if (true){
-        HomeHeader.cacheData.putIfAbsent(StringManager.lastTimeCacheEmojie,
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheEmojie,
                 () =>     ItemWidget(
                     text: StringManager.cacheEmoji.tr(), iconData: Icons.emoji_emotions_outlined)  );
 
       }
+      CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
 
-      Future.delayed(const  Duration(seconds: 2),(){
-        HomeHeader.streamControllerCacheData.sink.add(HomeHeader.cacheData);
-      });
 
   }
 

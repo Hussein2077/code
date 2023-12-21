@@ -46,7 +46,7 @@ import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/
 import 'package:tik_chat_v2/features/home/presentation/manager/get_room_manager/get_room_events.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/body/aduio/audio_body.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/country_dilog.dart';
-import 'package:tik_chat_v2/features/home/presentation/widget/header/home_header.dart';
+import 'package:tik_chat_v2/features/home/presentation/widget/header/cache_data_widget.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_event.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
@@ -398,7 +398,6 @@ class Methods {
       Map<String, dynamic> jsonData = response.data;
 
       SvgaDataModel svgaDataModel = SvgaDataModel.fromJason(jsonData['data']);
-      log(svgaDataModel.toString()+'ssssssssssss');
       return svgaDataModel;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: "getExtraData");
@@ -683,28 +682,28 @@ class Methods {
     switch (typesCache) {
       case TypesCache.gift:
         sharedPreferences.setInt(StringManager.lastTimeCacheGift,timestamp);
-        HomeHeader.cacheData.remove(StringManager.lastTimeCacheGift);
-        HomeHeader.streamControllerCacheData.sink.add(HomeHeader.cacheData) ;
+        CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheGift);
+        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
       case TypesCache.frame:
         sharedPreferences.setInt(StringManager.lastTimeCacheFrame, timestamp);
-        HomeHeader.cacheData.remove(StringManager.lastTimeCacheFrame);
-        HomeHeader.streamControllerCacheData.sink.add(HomeHeader.cacheData);
+        CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheFrame);
+        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
       case TypesCache.intro:
         sharedPreferences.setInt(StringManager.lastTimeCacheEntro, timestamp);
-        HomeHeader.cacheData.remove(StringManager.lastTimeCacheEntro);
-        HomeHeader.streamControllerCacheData.sink.add(HomeHeader.cacheData);
+        CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheEntro);
+        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
       case TypesCache.extra:
         sharedPreferences.setInt(StringManager.lastTimeCacheExtra, timestamp);
-        HomeHeader.cacheData.remove(StringManager.lastTimeCacheExtra);
-        HomeHeader.streamControllerCacheData.sink.add(HomeHeader.cacheData);
+        CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheExtra);
+        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
       case TypesCache.emojie:
         sharedPreferences.setInt(StringManager.lastTimeCacheEmojie, timestamp);
-        HomeHeader.cacheData.remove(StringManager.lastTimeCacheEmojie);
-        HomeHeader.streamControllerCacheData.sink.add(HomeHeader.cacheData);
+        CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheEmojie);
+        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
         break;
     }
   }
