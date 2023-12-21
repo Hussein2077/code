@@ -138,7 +138,8 @@ class RepositoryImp extends BaseRepository {
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
     }
-  } @override
+  }
+  @override
   Future<Either<GetAllCountriesBase, Failure>> getAllCountries() async{
     try {
       final result =

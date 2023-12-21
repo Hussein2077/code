@@ -19,6 +19,7 @@ class ConstentApi {
   static const String sendGameChoise = "$baseUrl/game-challange/challange-result";
   static const String gameResult = "$baseUrl/room-game/challenge-result";
   static const String pay = "$baseUrl/pay";
+  static const String huaweiPay = "$baseUrl/huawei-payment";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
   static const String levelUrl = "$baseUrl/level_center";

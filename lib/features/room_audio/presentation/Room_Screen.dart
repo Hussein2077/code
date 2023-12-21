@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
 
+import 'dart:developer';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -87,18 +88,9 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
   static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
   static ValueNotifier<bool> isWinnerShowWidget = ValueNotifier<bool>(false);
-
   static late LayoutMode layoutMode;
   static int startTimeOnSeatMic = 0 ;
-
   static String differentCommentKey = "";
-
-
-
-
-
-
-
 
   const RoomScreen(
       {Key? key,

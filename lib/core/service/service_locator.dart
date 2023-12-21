@@ -143,6 +143,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/gift_history_usecase
 import 'package:tik_chat_v2/features/profile/domin/use_case/invitation_code/get_invitation_details_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/invitation_code/get_parent_details_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/invitation_code/invit_code_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/huawei_pay_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
@@ -589,12 +590,12 @@ class ServerLocator {
     getIt.registerFactory(() => ForgetPasswordBloc(
         forgetPasswordUc: getIt(), forgetPasswordCodeVerificationUc: getIt()));
     getIt.registerFactory(
-        () => HostOnMicTimeBloc(hostOnMicTimeUseCase: getIt()));
-    getIt.registerFactory(() => PayBloc(payUsecase: getIt()));
+            () => HostOnMicTimeBloc(hostOnMicTimeUseCase:  getIt() ));
+    getIt.registerFactory(
+            () => PayBloc(payUsecase:  getIt(), huaweiPayUsecase: getIt() ));
     getIt.registerFactory(() => InvitCodeBloc(invitUsecase: getIt()));
     getIt.registerFactory(() => GetInvitationUsersDetailsBloc(getInvitationsDetailsUsecase: getIt()));
     getIt.registerFactory(() => GetInvitationParentDetailsBloc(getParentDetailsUsecase: getIt()));
-
 //usecase
     getIt.registerLazySingleton(
         () => InvitUsecase(baseRepositoryProfile: getIt()));
@@ -610,6 +611,7 @@ class ServerLocator {
     getIt.registerLazySingleton(
         () => OtherSideGameActionNewUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => GameResultUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => HuaweiPayUsecase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(() => HostOnMicTimeUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(

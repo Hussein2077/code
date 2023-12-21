@@ -55,8 +55,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manage
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
@@ -104,8 +102,6 @@ const String numGift = "num_gift";
 const String roomGiftsPriceKey = "gift_price";
 const String kicKoutKey = "kickout";
 const String duration = "duration";
-const String leaveMicKey = "leaveMic";
-const String upMicKey = "upMic";
 const String muteMicKey = "muteMic";
 const String unMuteMicKey = "unmuteMic";
 const String lockMicKey = "lockMic";
@@ -637,18 +633,6 @@ KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String
     ViewbackgroundWidget.isKick.value = false;
   });
 }
-
-//
-// UpMicKey(Map<String, dynamic> result){
-//   ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(
-//       id: result[messageContent]['userId'],
-//       name: result[messageContent]['userName']);
-//   if(result[messageContent]['is_swap']){
-//     GiftUser.userOnMicsForGifts.removeWhere((key, value) => key == result[messageContent]['old_position']);
-//   }
-//   GiftUser.userOnMicsForGifts.putIfAbsent(
-//       int.parse(result[messageContent]['position']), () => zegoUIKitUser);
-// }
 
 MuteMicKey(Map<String, dynamic> result){
   RoomScreen.listOfMuteSeats.putIfAbsent(

@@ -217,5 +217,6 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> invitCode( String id);
   Future<Either<List<InvitationUsersModel>?, Failure>> getInvitationDetails( );
   Future<Either<ParentStaticsModel, Failure>> getParentDetails( );
+  Future<Either<String, Failure>> huaweiPay({required String product_id, required String token});
 
 }

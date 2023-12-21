@@ -12,6 +12,7 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/huawei_in_app_purchases.dart';
@@ -19,8 +20,13 @@ import 'package:tik_chat_v2/features/profile/persentation/component/coins/widget
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_method_dialog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_states.dart';
 
 class CoinsTabView extends StatefulWidget {
   final String type;
@@ -78,6 +84,18 @@ class _CoinsTabViewState extends State<CoinsTabView> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<PayBloc, payState>(
+      listener: (context, state) {
+        if(state is huaweiPaySucssesState){
+          ScaffoldMessenger.of(context).showSnackBar(successSnackBar(context, state.massege));
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+          BlocProvider.of<GoldCoinBloc>(context).add(GetGoldCoinDataEvent());
+        }else if(state is huaweiPayErrorState){
+          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context, state.massege));
+        }
+
+      },
+  builder: (context, state) {
     return Column(
       children: [
         CoinCard(
@@ -91,7 +109,8 @@ class _CoinsTabViewState extends State<CoinsTabView> {
           width: ConfigSize.defaultSize! * 3,
           color: widget.type == "gold" ? ColorManager.orang : Colors.grey,
         ),
-        BlocBuilder<GoldCoinBloc, GoldCoinState>(builder: (context, state) {
+        BlocBuilder<GoldCoinBloc, GoldCoinState>(
+            builder: (context, state) {
           if (state is GoldCoinLoadingState) {
             return const LoadingWidget();
           } else if (state is GoldCoinSucssesState) {
@@ -129,10 +148,10 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                                           errorToast(context: context, title: StringManager.wait.tr());
                                         }
                                       }else{
-                                        // showDialog(
-                                        //   context: context,
-                                        //   builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
-                                        // );
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
+                                        );
                                       }
                                     },
                                     child: Column(
@@ -194,5 +213,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
         })
       ],
     );
+  },
+);
   }
 }
