@@ -79,7 +79,7 @@ final InvitationUsersModel data;
                     style: Theme.of(context).textTheme.bodyMedium
                 ),
                 Text(
-                  data.invitedCharge.toString(),
+                  data.userCharge.toString(),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
@@ -96,7 +96,7 @@ final InvitationUsersModel data;
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   Text(
-                    data.userPercentage.toString(),
+                    data.parentPercentage.toString(),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],

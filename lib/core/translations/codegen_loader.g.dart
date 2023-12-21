@@ -366,6 +366,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.pleaseEnterquantity: "الرجاء إدخال الكمية",
     StringManager.agencyMembersRank: "ترتيب أعضاء الوكالة",
     StringManager.reports: "التقارير",
+    StringManager.report: "ابلاغ",
     StringManager.shippingFromTheAgency: "الشحن من الوكالة",
     StringManager.chargingFromTheSystem: "الشحن من النظام",
     StringManager.agencyOwner: "مالك الوكالة",
@@ -395,7 +396,6 @@ class CodegenLoader extends AssetLoader {
     StringManager.roomIntro: "مقدمة الغرفة",
     StringManager.roomSetting: "اعدادات الغرفة",
     StringManager.noDataFoundHere: "لا يوجد",
-    StringManager.report: "تقارير",
     StringManager.whatProblem: "ما هي المشكلة التي تستحق الإبلاغ عنها؟",
     StringManager.description: "الوصف",
     StringManager.mustNotBeEmpty: "يجب ألا يكون فارغًا",
@@ -544,11 +544,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.watch:  'شاهد',
     StringManager.dayEarned:  'مكسب اليوم',
     StringManager.dayInvited:  'دعوات اليوم',
-    StringManager.totalEarned:  'كلي المكسب',
-    StringManager.totalInvited:  'كلي الدعوات',
-    StringManager.invitationCodePoint1:  '1.ادعو صديقك لتحميل التطبيق و التسجيل',
-    StringManager.invitationCodePoint2:  '2.بعد اضافة صديقك لكودك ستحصل علي 20 عملة',
-    StringManager.invitationCodePoint3:  '3.بعد ان يشحن صديقك لاول مرة ستحصل علي 20% من الشحن',
+    StringManager.totalEarned:  'المكسب الكلي',
+    StringManager.totalInvited:  'الدعوات الكلية',
+
 
     StringManager.refresh: 'اعاده تحميل',
     StringManager.somethingsWrong: 'هناك خطا ما',
@@ -615,6 +613,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.participants: "المشاركون:" ,
     StringManager.luckyUsers: "المستخدمون المحظوظون:" ,
     StringManager.like: "الاعجاب 👍" ,
+    StringManager.howToGainFreeCoins: "كيف تحصل علي " ,
+    StringManager.freeCoins: "عملات مجانية" ,
+
   };
 
   static const Map<String, dynamic> tr = {

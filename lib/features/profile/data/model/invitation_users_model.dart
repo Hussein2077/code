@@ -1,15 +1,15 @@
 class InvitationUsersModel {
   final String invitedId;
-  final int invitedCharge;
-  final int userPercentage;
+  final int userCharge;
+  final int parentPercentage;
   final String date;
   final String image;
   final String name;
 
   InvitationUsersModel({
     required this.invitedId,
-    required this.invitedCharge,
-    required this.userPercentage,
+    required this.userCharge,
+    required this.parentPercentage,
     required this.date,
     required this.image,
     required this.name,
@@ -17,12 +17,12 @@ class InvitationUsersModel {
 
   factory InvitationUsersModel.fromMap(Map<String, dynamic> map) {
     return InvitationUsersModel(
-      invitedId: map['invited']['uuid']??'',
-      name: map['invited']['name']??'',
-      invitedCharge: map['invited_charge']??0,
-      userPercentage: map['user_percentage']??0,
+      invitedId: map['user']['uuid']??'',
+      name: map['user']['name']??'',
+      userCharge: map['user_charge']??0,
+      parentPercentage: map['parent_percentage']??0,
       date: map['updated_at']??'',
-      image: map['invited']['profile']['image']??'',
+      image: map['user']['profile']['image']??'',
     );
   }
 }

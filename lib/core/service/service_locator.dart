@@ -179,7 +179,8 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_fixed_targ
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_follwers_or_following_manger/bloc/get_follower_or_following_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitations_manager/get_invitations_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitation_parent_bloc/get_invitations_parent_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitations_users_manager/get_invitations_users_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/invit_code_manager/invit_code_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
@@ -591,9 +592,9 @@ class ServerLocator {
         () => HostOnMicTimeBloc(hostOnMicTimeUseCase: getIt()));
     getIt.registerFactory(() => PayBloc(payUsecase: getIt()));
     getIt.registerFactory(() => InvitCodeBloc(invitUsecase: getIt()));
-    getIt.registerFactory(() => GetInvitationBloc(
-        getInvitationsDetailsUsecase: getIt(),
-        getParentDetailsUsecase: getIt()));
+    getIt.registerFactory(() => GetInvitationUsersDetailsBloc(getInvitationsDetailsUsecase: getIt()));
+    getIt.registerFactory(() => GetInvitationParentDetailsBloc(getParentDetailsUsecase: getIt()));
+
 //usecase
     getIt.registerLazySingleton(
         () => InvitUsecase(baseRepositoryProfile: getIt()));
