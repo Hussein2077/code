@@ -22,6 +22,7 @@
     <uses-permission android:name="com.android.vending.BILLING"/>
 
 
+
     <application
         android:label="Tik Chat"
         android:name="${applicationName}"

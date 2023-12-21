@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 
 class StringManager {
-  static const int versionApp = 53;
+  static const int versionApp = 55;
   static const String androidPlatform = 'Android';
   static const String iOSPlatform = 'IOS';
 

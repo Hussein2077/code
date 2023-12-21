@@ -8,6 +8,7 @@ class AssetsPath {
   static const String midPartyMode = "$pathImage/mid_party_mode.jpg";
   static const String partyImg = "$pathImage/party.jpg";
   static const String topCenterImg = "$pathImage/topCenter.jpg";
+  static const String medles = "$pathImage/medles.png";
   static const String paintTheme = "$pathImage/paint_theme.png";
   static const String unLockRoom = "$pathImage/un_locked.png";
   static const String roomlocked = "$pathImage/lockedRoom.png";
