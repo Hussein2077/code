@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,8 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/profile_bottom_bar.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/Gift_Room_Screen.dart';
@@ -45,62 +48,75 @@ class UserProfileInRoom extends StatefulWidget {
   final EnterRoomModel roomData;
   final LayoutMode layoutMode;
 
-
-   UserProfileInRoom(
+  const UserProfileInRoom(
       {required this.roomData,
       required this.myData,
       required this.userData,
       required this.layoutMode,
       super.key});
+
   static ValueNotifier<int> updatebuttomBar = ValueNotifier<int>(0);
 
   @override
   State<UserProfileInRoom> createState() => _UserProfileInRoomState();
 }
 
-class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProviderStateMixin  {
+class _UserProfileInRoomState extends State<UserProfileInRoom>
+    with TickerProviderStateMixin {
   late GifController _controller;
-
 
   @override
   void initState() {
-    localisFollow = widget.userData.isFollow! ;
+    log('${widget.userData.isFollow!}widget.userData.isFollow!');
+    localisFollow = widget.userData.isFollow!;
     _controller = GifController(vsync: this);
-
-
-
+    log('${localisFollow}localisFollow');
     super.initState();
   }
+
   @override
   void dispose() {
     _controller.dispose();
 
     super.dispose();
   }
+
+
+  @override
+  void didChangeDependencies() {
+    log('${widget.userData.isFollow}ggggg');
+    localisFollow = widget.userData.isFollow!;
+    BlocProvider.of<GetUserBloc>(context)
+        .add(const InituserEvent());
+
+    super.didChangeDependencies();
+  }
   bool isOnMic = false;
 
   bool isAdminOrHost = false;
 
   bool myProfile = false;
-  late bool localisFollow  ;
-   ValueNotifier<bool> followAneimate = ValueNotifier<bool>(false);
+  late bool localisFollow;
 
+  ValueNotifier<bool> followAneimate = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
+
     isOnMic = checkIsUserOnMic(widget.userData);
-    isAdminOrHost = cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
+    isAdminOrHost =
+        cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
     myProfile = myProfileOrNot(widget.userData, widget.myData);
 
     return SizedBox(
-      height: ConfigSize.screenHeight! * .46,
+      height: ConfigSize.screenHeight! * .47,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Container(
-            height: ConfigSize.screenHeight! * .38,
+            height: ConfigSize.screenHeight! * .4,
             decoration: BoxDecoration(
-                color:  const Color(0xFFFFFCE4),
+                color: const Color(0xFFFFFCE4),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(
                       ConfigSize.defaultSize! * 2.0,
@@ -120,26 +136,27 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                 Column(
+                Column(
                   children: [
                     SizedBox(
-                      height: ConfigSize.defaultSize! * 3,
-                      // height: ConfigSize.defaultSize! * 1.5,
+                      height: ConfigSize.defaultSize! * 4,
                     ),
                     GradientTextVip(
                       text: widget.userData.name!,
-                      typeUser: widget.userData.userType??0,
+                      typeUser: widget.userData.userType ?? 0,
                       textStyle: TextStyle(
                           fontSize: ConfigSize.defaultSize! * 1.6,
                           color: ColorManager.darkBlack,
                           fontWeight: FontWeight.w400),
                       isVip: widget.userData.hasColorName!,
                     ),
-                    Text(widget.userData.bio.toString() ,style: TextStyle(
-
-                        fontSize: ConfigSize.defaultSize! * 1.3,
-                        color: ColorManager.darkBlack.withOpacity(0.8),
-                        fontWeight: FontWeight.w400), ),
+                    Text(
+                      widget.userData.bio.toString(),
+                      style: TextStyle(
+                          fontSize: ConfigSize.defaultSize! * 1.3,
+                          color: ColorManager.darkBlack.withOpacity(0.8),
+                          fontWeight: FontWeight.w400),
+                    ),
                     IdWithCopyIcon(
                       userData: widget.userData,
                       color: Colors.black,
@@ -147,9 +164,9 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if(!widget.userData.isCountryHiden!)
-                        UserCountryIcon(
-                            country: widget.userData.country?.flag??""),
+                        if (!widget.userData.isCountryHiden!)
+                          UserCountryIcon(
+                              country: widget.userData.country?.flag ?? ""),
                         SizedBox(width: ConfigSize.defaultSize! * 0.5),
                         MaleFemaleIcon(
                           maleOrFeamle: widget.userData.profile!.gender,
@@ -169,39 +186,33 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                       ],
                     ),
                     SizedBox(height: ConfigSize.defaultSize! * 2),
-                    widget.userData.familyData != null?
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, Routes.familyProfile,
-                              arguments: widget.roomData.roomFamily!.id);
-                        },
-                        child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical:   ConfigSize.defaultSize! * 0.2,
-                                horizontal: ConfigSize.defaultSize! * 1   ),
-                            decoration: BoxDecoration(
-                                gradient:  LinearGradient(
-                                    colors: ColorManager.mainColorList),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                    "${StringManager.familyName.tr()} :"),
-                                Text(widget.userData.familyData!.name!
-                                    .toString()),
-                              ],
-                            )),
-                      ):SizedBox(
-                       height: ConfigSize.defaultSize! * 3,
-                       width:  ConfigSize.defaultSize! * 3
-                    )
+                    widget.userData.familyData != null
+                        ? InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.familyProfile,
+                                  arguments: widget.roomData.roomFamily!.id);
+                            },
+                            child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: ConfigSize.defaultSize! * 0.2,
+                                    horizontal: ConfigSize.defaultSize! * 1),
+                                decoration: BoxDecoration(
+                                    gradient: const LinearGradient(
+                                        colors: ColorManager.mainColorList),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text("${StringManager.familyName.tr()} :"),
+                                    Text(widget.userData.familyData!.name!
+                                        .toString()),
+                                  ],
+                                )),
+                          )
+                        : const SizedBox()
                   ],
                 ),
-                 SizedBox(
-                  height: ConfigSize.defaultSize!*1
-                ),
+                SizedBox(height: ConfigSize.defaultSize! * 1),
                 Row(
                   children: [
                     Expanded(
@@ -212,81 +223,64 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                       colorText: ColorManager.yellowVipContanierText,
                       vipOrContribute: StringManager.receiverLevel.tr(),
                     )),
-                     SizedBox(width: ConfigSize.defaultSize! * 2),
+                    SizedBox(width: ConfigSize.defaultSize!),
                     Expanded(
                         child: ContainerVipOrContribute(
                       colors: ColorManager.lightBlueInPofile,
                       icons: AssetsPath.contribute,
                       level: widget.userData.level!.senderLevel.toString(),
-                      sizeOfIcon: ConfigSize.defaultSize! * 0.18,
+                      sizeOfIcon: ConfigSize.defaultSize! * 0.22,
                       colorText: ColorManager.blueContributeContanierText,
                       vipOrContribute: StringManager.senderLevel.tr(),
                     )),
                   ],
                 ),
-                SizedBox(height: ConfigSize.defaultSize!*0.7),
+                SizedBox(height: ConfigSize.defaultSize! * 0.7),
                 // GiftGalleryContainer(userId: widget.userData.id!),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    if(!myProfile)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            mentionAction(
-                                context: context,
-                                roomData: widget.roomData,
-                                userData: widget.userData);
-                          },
-                          child: mentionButton(),
-                        ),
-
-                        ValueListenableBuilder<bool>(
-                            valueListenable: followAneimate,
-                            builder: (context, isShow, _) {
-                              if (isShow) {
-                                return
-                                  SizedBox(
-                                      height: ConfigSize.defaultSize!* 3.5,
-                                    width: ConfigSize.defaultSize!* 3.5,
+                    if (!myProfile)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              mentionAction(
+                                  context: context,
+                                  roomData: widget.roomData,
+                                  userData: widget.userData);
+                            },
+                            child: mentionButton(),
+                          ),
+                          ValueListenableBuilder<bool>(
+                              valueListenable: followAneimate,
+                              builder: (context, isShow, _) {
+                                if (isShow) {
+                                  return SizedBox(
+                                    height: ConfigSize.defaultSize! * 3.5,
+                                    width: ConfigSize.defaultSize! * 3.5,
                                     child: Gif(
                                       image:
-                                      const AssetImage(AssetsPath.verified),
+                                          const AssetImage(AssetsPath.verified),
                                       controller: _controller,
                                       autostart: Autostart.loop,
-                                      placeholder: (context) => const SizedBox(),
-
+                                      placeholder: (context) =>
+                                          const SizedBox(),
                                     ),
                                   );
-                              } else {
-                                return   bottomBarColumn(
-                                  context: context,
-                                  icon: localisFollow ? AssetsPath.unfollowIcon : AssetsPath.followIcon,
-                                  title: localisFollow ? StringManager.unFollow.tr() : StringManager.follow.tr(),
-                                  onTap:follow
+                                } else {
 
-                                );
-                              }
-                            }),
-
-                      ],
-                    ),
-
-                    //FOLLOW ICON
-                    //todo i did comment here
-                    //  IconWithText(
-                    // onTap: (){},
-                    //   icon: AssetsPath.followIcon,
-                    //   text: StringManager.follow,
-                    // ),
-                    // //Friend REQUEST ICON
-                    //  IconWithText(
-                    //   image: AssetsPath.friendRequestIconProfile,
-                    //   text: StringManager.addFriend,
-                    // ),
+                                  return localisFollow?const SizedBox() :bottomBarColumn(
+                                      context: context,
+                                      icon: AssetsPath.followIcon,
+                                      title: StringManager.follow.tr(),
+                                      onTap: follow);
+                                }
+                              }),
+                        ],
+                      ),
                     //SEND GIFT ICON
                     InkWell(
                       onTap: () {
@@ -298,7 +292,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                                   roomData: widget.roomData,
                                   userId: widget.userData.id.toString(),
                                   myDataModel: widget.myData,
-                                  userImage: widget.userData.profile?.image ?? '',
+                                  userImage:
+                                      widget.userData.profile?.image ?? '',
                                   listAllUsers: null,
                                   isSingleUser: true,
                                 ))
@@ -308,48 +303,43 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                                   return AnonymounsDialogGifts();
                                 });
                       },
-                      child:  ImageWithText(
+                      child: ImageWithText(
                         image: AssetsPath.sendGiftIconProfile,
                         text: StringManager.sendGift.tr(),
                       ),
                     ),
 
-                      InkWell(
-                        onTap: () {
-                          Methods.instance.checkIfFriends(
-                              userData: widget.userData, context: context);
-                        },
-                        child: Container(
-                            // alignment: Alignment.centerRight,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: ConfigSize.defaultSize! * 4.2,
-                              vertical: ConfigSize.defaultSize! * 1.5,
+                    InkWell(
+                      onTap: () {
+                        Methods.instance.checkIfFriends(
+                            userData: widget.userData, context: context);
+                      },
+                      child: Container(
+                          // alignment: Alignment.centerRight,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: ConfigSize.defaultSize! * 4.2,
+                            vertical: ConfigSize.defaultSize! * 1.5,
+                          ),
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.contain,
+                                  image: AssetImage(
+                                    AssetsPath.chatIconProfile,
+                                  ))),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: ConfigSize.defaultSize! * 2.5,
                             ),
-                            decoration:  const BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.contain,
-                                    image: AssetImage(
-                                      AssetsPath.chatIconProfile,
-                                    ))),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: ConfigSize.defaultSize! * 2.5,
-                              ),
-                              child:  Text(StringManager.talk.tr(),
-                                  textAlign: TextAlign.right),
-                            )),
-                      ),
-
+                            child: Text(StringManager.talk.tr(),
+                                textAlign: TextAlign.right),
+                          )),
+                    ),
                   ],
-                  ),
-                  SizedBox(
-                      height: ConfigSize.defaultSize!*1
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(height: ConfigSize.defaultSize!),
+              ],
             ),
-
-
+          ),
           Align(
             alignment: Alignment.topCenter,
             child: InkWell(
@@ -361,38 +351,32 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                 boxFit: BoxFit.cover,
                 frame: widget.userData.frame,
                 frameId: widget.userData.frameId,
-                imageSize: ConfigSize.screenHeight! *.09,
+                imageSize: ConfigSize.screenHeight! * .08,
                 image: widget.userData.profile!.image!,
               ),
             ),
           ),
           Padding(
-            padding:  EdgeInsets.symmetric(
-              horizontal:  ConfigSize.defaultSize! * 1.5
-            ),
+            padding:
+                EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding:  EdgeInsets.only(
-                      top: ConfigSize.defaultSize!*9
-                  ),
+                  padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 6),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-
                     children: [
-                      myProfile//for the blockbutto
+                      myProfile //for the blockbutto
                           ? SizedBox(width: ConfigSize.defaultSize! * 8)
                           : isAdminOrHost
-                          ? BlockButton(
-                        roomData: widget.roomData,
-                        userData: widget.userData,
-                      )
-                          : SizedBox(
-                          width: ConfigSize.defaultSize! * 8),
-
+                              ? BlockButton(
+                                  roomData: widget.roomData,
+                                  userData: widget.userData,
+                                )
+                              : SizedBox(width: ConfigSize.defaultSize! * 8),
                       SizedBox(
-                        height: ConfigSize.defaultSize! * 5,
+                        height: ConfigSize.defaultSize! * 3,
                       ),
                     ],
                   ),
@@ -400,14 +384,10 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
 
                 //column for setting and mute buttons
                 Padding(
-                  padding:  EdgeInsets.only(
-                    top: ConfigSize.defaultSize!*9
-                  ),
+                  padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 6),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-
                     children: [
-
                       SettingsButton(
                           roomData: widget.roomData,
                           userData: widget.userData,
@@ -415,44 +395,48 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
                           isAdminOrHost: isAdminOrHost,
                           isOnMic: isOnMic,
                           myProfrile: myProfile),
-                        (isAdminOrHost && isOnMic)?
-                      ValueListenableBuilder<int>(
-                          valueListenable: UserProfileInRoom.updatebuttomBar,
-                          builder: (context, mute, _) {
-                            return IconButton(
-                                onPressed: () {
-                                  if (RoomScreen.usersHasMute.contains(widget.userData.id.toString())) {
-                                    sendMuteUserMessage(
-                                        mute: false,
-                                        userId: widget.userData.id.toString(),  ownerId: widget.roomData.ownerId.toString());
-                                  } else {
-                                    if (!(widget.roomData.ownerId !=
-                                        widget.myData.id &&
-                                        RoomScreen.adminsInRoom
-                                            .containsKey(widget
-                                            .userData.id
-                                            .toString()))) {
-                                      //admin can't make mute to admin
-                                      sendMuteUserMessage(
-                                          mute: true,
-                                          userId: widget.userData.id
-                                              .toString(), ownerId: widget.roomData.ownerId.toString());
-                                    }
-                                  }
-                                },
-                                icon: Icon(
-                                  RoomScreen.usersHasMute.contains(
-                                      widget.userData.id.toString())
-                                      ? Icons.mic_off
-                                      : Icons.mic_rounded,
-                                  color: Colors.black,
-                                ));
-
-                          }):
-                            SizedBox(
-                              height: ConfigSize.defaultSize!*4,
+                      (isAdminOrHost && isOnMic)
+                          ? ValueListenableBuilder<int>(
+                              valueListenable:
+                                  UserProfileInRoom.updatebuttomBar,
+                              builder: (context, mute, _) {
+                                return IconButton(
+                                    onPressed: () {
+                                      if (RoomScreen.usersHasMute.contains(
+                                          widget.userData.id.toString())) {
+                                        sendMuteUserMessage(
+                                            mute: false,
+                                            userId:
+                                                widget.userData.id.toString(),
+                                            ownerId: widget.roomData.ownerId
+                                                .toString());
+                                      } else {
+                                        if (!(widget.roomData.ownerId !=
+                                                widget.myData.id &&
+                                            RoomScreen.adminsInRoom.containsKey(
+                                                widget.userData.id
+                                                    .toString()))) {
+                                          //admin can't make mute to admin
+                                          sendMuteUserMessage(
+                                              mute: true,
+                                              userId:
+                                                  widget.userData.id.toString(),
+                                              ownerId: widget.roomData.ownerId
+                                                  .toString());
+                                        }
+                                      }
+                                    },
+                                    icon: Icon(
+                                      RoomScreen.usersHasMute.contains(
+                                              widget.userData.id.toString())
+                                          ? Icons.mic_off
+                                          : Icons.mic_rounded,
+                                      color: Colors.black,
+                                    ));
+                              })
+                          : SizedBox(
+                              height: ConfigSize.defaultSize! * 4,
                             )
-
                     ],
                   ),
                 ),
@@ -464,16 +448,23 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
     );
   }
 
-  Future<void> sendMuteUserMessage({required bool mute, required String userId, required String ownerId}) async {
+  Future<void> sendMuteUserMessage(
+      {required bool mute,
+      required String userId,
+      required String ownerId}) async {
     if (mute) {
       ZegoUIKit.instance.turnMicrophoneOn(false, userID: userId);
-      BlocProvider.of<OnRoomBloc>(context).add(MuteUserMicEvent(userId: userId, ownerId: ownerId));
+      BlocProvider.of<OnRoomBloc>(context)
+          .add(MuteUserMicEvent(userId: userId, ownerId: ownerId));
       RoomScreen.usersHasMute.add(userId);
-      UserProfileInRoom.updatebuttomBar.value = UserProfileInRoom.updatebuttomBar.value + 1;
+      UserProfileInRoom.updatebuttomBar.value =
+          UserProfileInRoom.updatebuttomBar.value + 1;
     } else {
       RoomScreen.usersHasMute.remove(userId);
-      BlocProvider.of<OnRoomBloc>(context).add(UnMuteUserMicEvent(userId: userId, ownerId: ownerId));
-      UserProfileInRoom.updatebuttomBar.value = UserProfileInRoom.updatebuttomBar.value + 1;
+      BlocProvider.of<OnRoomBloc>(context)
+          .add(UnMuteUserMicEvent(userId: userId, ownerId: ownerId));
+      UserProfileInRoom.updatebuttomBar.value =
+          UserProfileInRoom.updatebuttomBar.value + 1;
     }
     var mapInformation = {
       "messageContent": {"message": "muteUser", 'mute': mute, 'id_user': userId}
@@ -482,24 +473,23 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
     ZegoUIKit.instance.sendInRoomCommand(map, []);
   }
 
-  void Function()? follow (){
+  void Function()? follow() {
     _controller.reset();
 
     followAneimate.value = !followAneimate.value;
 
-    localisFollow
-      ? BlocProvider.of<FollowBloc>(context)
-      .add(UnFollowEvent(userId: widget.userData.id.toString()))
-      : BlocProvider.of<FollowBloc>(context)
-      .add(FollowEvent(userId: widget.userData.id.toString()));
-    localisFollow = !localisFollow ;
-    Future.delayed(const Duration(milliseconds:1800 ), () async {
+   if( !localisFollow) {
+     BlocProvider.of<FollowBloc>(context)
+            .add(FollowEvent(userId: widget.userData.id.toString()));
+     log('$localisFollow 1111111');
+     localisFollow = !localisFollow;
+     log('$localisFollow 22222');   }
+
+    Future.delayed(const Duration(milliseconds: 1800), () async {
       _controller.stop();
       followAneimate.value = !followAneimate.value;
-
-
-    });return null;
-
+    });
+    return null;
   }
 
   Widget mentionButton() {
@@ -519,15 +509,17 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>with TickerProvide
               child: Text(
                 '@',
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: ConfigSize.defaultSize! * 2),
+                    color: Colors.white, fontSize: ConfigSize.defaultSize! * 2),
               ),
             ),
           ),
-          Text(StringManager.mention.tr(),style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.black)),
+          Text(StringManager.mention.tr(),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(color: Colors.black)),
         ],
       ),
     );
   }
-
 }

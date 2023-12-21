@@ -56,9 +56,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
         listener: (context, state) {
           if (state is SuccessKickoutState) {
             ScaffoldMessenger.of(context).showSnackBar(successSnackBar(context,state.successMessage));
-
             // sucssesToast(context: context, title: state.successMessage);
-
             Navigator.pop(context);
           } else if (state is ErrorKickoutState) {
             ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,state.errorMessage));
@@ -69,6 +67,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
         child: BlocBuilder<GetUserBloc, GetUserState>(
           builder: (context, state) {
             if (state is GetUserLoddingState) {
+              log('GetUserLoddingState');
               return RoomScreen.usersInRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
                 height: ConfigSize.defaultSize! * 2,
@@ -80,6 +79,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
                   userData: RoomScreen.usersInRoom[widget.userId]!,
                   layoutMode: widget.layoutMode);}
             else if (state is GetUserSucssesState) {
+              log('GetUserSucssesState');
               RoomScreen.usersInRoom
                   .removeWhere((key, value) =>
               key == state.data.id.toString());
@@ -93,6 +93,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
                   layoutMode: widget.layoutMode);
             }
             else if (state is GetUserErorrState) {
+              log('GetUserErorrState');
               return InkWell(
                 onTap: () => Navigator.pop(context),
                 child: SizedBox(
@@ -105,6 +106,7 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
                     )),
               );
             } else {
+              log('elseeee');
               return RoomScreen.usersInRoom[widget.userId] == null
                   ? TransparentLoadingWidget(
                 height: ConfigSize.defaultSize! * 2,
