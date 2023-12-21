@@ -21,6 +21,7 @@ import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fixed_target_report.dart';
+import 'package:tik_chat_v2/features/profile/data/model/get_badges_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
@@ -35,6 +36,7 @@ import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
 import 'package:tik_chat_v2/features/profile/data/model/useitem_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/user_badges_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/data_mall_entities.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/back_pack_entities.dart';
@@ -1055,6 +1057,28 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
       return Right(DioHelper.buildFailure(e));
     }
 
+  }
+
+  @override
+  Future<Either<UserBadgesModel, Failure>> getUserBadge(String id)async {
+    try {
+      final  result = await baseRemotlyDataSourceProfile.userBadges(id) ;
+      return left(result);
+    } on Exception catch (e) {
+      return Right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<List<GetBadgesModel>, Failure>>getBadges(String type)async{
+    try {
+
+      final result=await baseRemotlyDataSourceProfile.getBadges(type);
+      return left(result);
+    }
+    on Exception catch(e){
+      return right(DioHelper.buildFailure(e));
+    }
   }
 
 }

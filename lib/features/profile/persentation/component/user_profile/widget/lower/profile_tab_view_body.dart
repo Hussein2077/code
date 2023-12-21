@@ -14,8 +14,11 @@ import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/lower/user_badge_item.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_state.dart';
 
 class ProfileTabViewBody extends StatelessWidget {
   final UserDataModel userDataModel;
@@ -128,6 +131,34 @@ class ProfileTabViewBody extends StatelessWidget {
         SizedBox(
           height: ConfigSize.defaultSize! * 1,
         ),
+
+        BlocBuilder<UserBadgesBloc, UserBadgesState>(
+            builder: (context, state) {
+              if (state is UserBadgesSucssesState) {
+                return state.badges.data.isEmpty? const SizedBox():
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 2),
+                    child: Row(
+                      children: [
+                        Text(
+                          "${StringManager.achievements.tr()} :  ",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        UserBadgesItem(
+                          userBadges: state.badges,
+                          scale: 2,
+                        ),
+                      ],
+                    ),
+                  );
+              }
+              else   {
+                return SizedBox();
+              }
+            }),
+        SizedBox(
+          height: ConfigSize.defaultSize! * 1,
+        ),
         InkWell(
           onTap: () {
             Navigator.pushNamed(context, Routes.giftGallery);
@@ -165,14 +196,15 @@ class ProfileTabViewBody extends StatelessWidget {
                 child: ListView.builder(
                     itemCount: state.data.length > 4 ? 4 : state.data.length,
                     scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
                           Container(
                             margin: EdgeInsets.symmetric(
                                 horizontal: ConfigSize.defaultSize!),
-                            width: ConfigSize.defaultSize! * 10,
-                            height: ConfigSize.defaultSize! * 10,
+                            width: ConfigSize.defaultSize! * 5,
+                            height: ConfigSize.defaultSize! * 5,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: CachedNetworkImageProvider(

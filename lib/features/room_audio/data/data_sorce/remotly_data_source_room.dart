@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ExtraRoomDataModel.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
@@ -96,6 +97,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> inviteToGameNew(InviteToGameNewPramiter inviteToGamePramiter);
   Future<String> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGameActionNewPramiter);
   Future<String> gameresult(GameResultPramiter gameResultPramiter);
+  Future<ExtraRoomDataModel> getExtraRoomData(String OwnerId);
 
 }
 
@@ -1419,6 +1421,22 @@ Future<String> gameresult(GameResultPramiter gameResultPramiter)async {
     return jsonData['message'];
   } on DioError catch (e) {
     throw DioHelper.handleDioError(dioError: e,endpointName: "gameresult");
+  }
+}
+
+@override
+Future<ExtraRoomDataModel> getExtraRoomData(String OwnerId) async {
+  Map<String, String> headers = await DioHelper().header();
+
+  try {
+    final response = await Dio().get(ConstentApi().getExtraRoomData(OwnerId),
+        options: Options(
+          headers: headers,
+        ));
+    Map<String, dynamic> jsonData = response.data;
+    return ExtraRoomDataModel.fromJson(jsonData);
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e, endpointName: 'getGifts');
   }
 }
 

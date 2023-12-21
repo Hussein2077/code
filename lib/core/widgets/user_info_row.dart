@@ -90,7 +90,7 @@ class UserInfoRow extends StatelessWidget {
                   typeUser: userData.userType??0,
                   text: userData.name ?? "",
                   textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: ConfigSize.defaultSize! * 1.6,
+                        fontSize: ConfigSize.defaultSize! * 1.4,
                       ),
                   isVip: userData.hasColorName!,
                 ),
@@ -98,14 +98,13 @@ class UserInfoRow extends StatelessWidget {
                     Row(
                       children: [
                         MaleFemaleIcon(
-                          width: ConfigSize.defaultSize! * 4,
-                          height: ConfigSize.defaultSize! * 1.5,
+                          width: ConfigSize.defaultSize! * 3.1,
+                          height: ConfigSize.defaultSize! * 1.3,
                           maleOrFeamle: userData.profile!.gender,
                           age: userData.profile!.age,
                         ),
                         SizedBox(width: ConfigSize.defaultSize! * 0.2),
-                        if (!userData.isCountryHiden!
-                            )
+                        if (!userData.isCountryHiden!)
                           UserCountryIcon(
                               width: ConfigSize.defaultSize! * 3.5,
                               height: ConfigSize.defaultSize! * 1.5,
@@ -115,14 +114,14 @@ class UserInfoRow extends StatelessWidget {
                         if (userData.level!.senderImage != '')
                           LevelContainer(
                             fit: BoxFit.fill,
-                            width: ConfigSize.defaultSize! * 4,
+                            width: ConfigSize.defaultSize! * 3,
                             height: ConfigSize.defaultSize! * 1.5,
-                            image: userData.level!.senderImage
-                            !,
+                            image: userData.level!.senderImage!,
                           ),
                         if (userData.vip1!.level != 0)
                           AristocracyLevel(
                             level: userData.vip1!.level!,
+                            scale: 8,
                           ),
                         SizedBox(
                           width: ConfigSize.defaultSize! * .2,

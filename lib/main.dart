@@ -59,6 +59,8 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/badges%20manager/badges_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/badges%20manager/badges_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -130,6 +132,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pa
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
@@ -141,6 +144,7 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_r
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
@@ -548,7 +552,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetInvitationParentDetailsBloc>()),
         BlocProvider(create: (_) => getIt<GetInvitationUsersDetailsBloc>()),
         BlocProvider(create: (_) => getIt<SendBloc>()),
-
+        BlocProvider(
+          create: (context) => getIt<ExtraRoomDataBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<UserBadgesBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<GetBadgesBloc>()
+            ..add(const AchievementEvent(type: '1'))
+            ..add(const HonorEvent(type: '2'))
+            ..add(const ActivityEvent(type: '3')),
+        ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {

@@ -10,6 +10,7 @@ class GradientTextVip extends StatelessWidget {
   final int? typeUser;
   final TextStyle textStyle;
   final TextAlign? textAlign ; 
+  final double? width ;
 
   const GradientTextVip(
       {Key? key,
@@ -17,7 +18,8 @@ class GradientTextVip extends StatelessWidget {
       required this.textStyle,
         this.typeUser,
       required this.isVip,
-      this.textAlign
+      this.textAlign,
+      this.width
       })
       : super(key: key);
 
@@ -27,12 +29,14 @@ class GradientTextVip extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        isVip ?  GradientText(
-          text,
-          style:textStyle,
-          colors: const [Colors.blue, Colors.purple],
-                  textAlign: textAlign,overflow: TextOverflow.ellipsis,
-
+        isVip ?  SizedBox(
+          width: width??null,
+          child: GradientText(
+            text,
+            style:textStyle,
+            colors: const [Colors.blue, Colors.purple],
+            textAlign: textAlign,overflow: TextOverflow.ellipsis,
+          ),
         ) :Text(
             text,
             style: textStyle,

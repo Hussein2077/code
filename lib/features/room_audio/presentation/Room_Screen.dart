@@ -45,6 +45,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/user_avatar.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/viewbackground_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_states.dart';
@@ -448,6 +450,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           }
         }
       });
+      BlocProvider.of<ExtraRoomDataBloc>(context).add( GetExtraRoomDataEvent(widget.room.ownerId.toString()));
     }
 
     Future.delayed(const Duration(milliseconds: 1500) ,(){
@@ -708,12 +711,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ClosePkKey(result);
       }
       //PK end rtm
-      // else if (result[messageContent][message] == leaveMicKey) {
-      //   GiftUser.userOnMicsForGifts.removeWhere((key, value) => key == result[messageContent]['position']);
-      // }
-      // else if (result[messageContent][message] == upMicKey) {
-      //   UpMicKey(result);
-      // }
       else if (result[messageContent][message] == muteMicKey) {
         MuteMicKey(result);
       }
@@ -780,11 +777,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         BannerSuperBoxKey(result, superBox, LuckyBoxVariables.sendSuperBox);
       }
       else if (result[messageContent]['msg'] == showPobUpKey) {
-
-
-        ShowPobUpKey(result,popUpData, showPopUp ) ;
-
-
+        ShowPobUpKey(result, popUpData, showPopUp) ;
       }
       else if (result[messageContent][message] == banFromWritingKey) {
         BanFromWritingKey(result, widget.myDataModel.id.toString(), widget.room.ownerId.toString(), context);
@@ -893,19 +886,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 showPopUp: showPopUp,
                 popUpData: popUpData,
                 durationKickout: durationKickout)
-/*
-ZegoMediaPlayer(
-              size: Size(200,200),
-              enableRepeat: true,
-              canControl: true,
-              showSurface: true,
-              initPosition: Offset(
-                  100
-                  ,
-                  100
-              ),
-            )
- */
             ..background = BackgroundWidget(room: widget.room,
                 layoutMode:RoomScreen.layoutMode, isHost: widget.isHost)
             ..onSeatsChanged = (

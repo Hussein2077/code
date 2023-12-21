@@ -58,6 +58,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen
 import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen/widgets/parent_users_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/medles%20screen/medles_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/my_videos_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/language_screen/language_screen.dart';
@@ -114,6 +115,7 @@ class Routes {
   static const String settings = "/Settings";
   static const String language = "/Language";
   static const String games = "/GamesScreen";
+  static const String meddles = "/meddles";
 
   static const String mode = "/Mode";
 
@@ -715,8 +717,6 @@ class RouteGenerator {
         } else {
           return MaterialPageRoute(
               settings: settings, builder: (_) => AllShippingAgent());
-           return MaterialPageRoute(
-            settings: settings, builder: (_) => AllShippingAgent());
         }
       case Routes.fixedTargetScreen:
         currentContext = Routes.fixedTargetScreen;
@@ -779,6 +779,15 @@ class RouteGenerator {
         } else {
           return MaterialPageRoute(
               settings: settings, builder: (_) => const RefreshScreen());
+        }
+      case Routes.meddles:
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => const MedlesScreen());
+        } else {
+          return MaterialPageRoute(
+              builder: (_) => const MedlesScreen());
         }
     }
 

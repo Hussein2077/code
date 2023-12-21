@@ -25,8 +25,8 @@ class UserCountryIcon extends StatelessWidget {
         imageUrl: ConstentApi().getImage(
             country
         ),
-        width: ConfigSize.defaultSize! * 2.4,
-        height: ConfigSize.defaultSize! * 2.4,
+        width: ConfigSize.defaultSize! * 2,
+        height: ConfigSize.defaultSize! * 2,
       ),
     );
   }

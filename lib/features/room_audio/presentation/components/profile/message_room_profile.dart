@@ -15,6 +15,8 @@ import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_event.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
@@ -49,7 +51,8 @@ class _MessageRoomProfileState extends State<MessageRoomProfile> {
   Widget build(BuildContext context) {
 
       BlocProvider.of<GetUserBloc>(context).add(GetuserEvent(userId: widget.userId));
-
+      BlocProvider.of<UserBadgesBloc>(context)
+          .add(GetUserBadges(id: widget.userId));
 
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
      listener: (context, state) {

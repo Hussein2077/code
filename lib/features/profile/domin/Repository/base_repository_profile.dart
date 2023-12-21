@@ -18,6 +18,7 @@ import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fixed_target_report.dart';
+import 'package:tik_chat_v2/features/profile/data/model/get_badges_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
@@ -32,6 +33,7 @@ import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
 import 'package:tik_chat_v2/features/profile/data/model/useitem_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/user_badges_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/back_pack_entities.dart';
 import 'package:tik_chat_v2/features/profile/domin/entitie/data_mall_entities.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.dart';
@@ -218,5 +220,7 @@ abstract class BaseRepositoryProfile {
   Future<Either<List<InvitationUsersModel>?, Failure>> getInvitationDetails( );
   Future<Either<ParentStaticsModel, Failure>> getParentDetails( );
   Future<Either<String, Failure>> huaweiPay({required String product_id, required String token});
+  Future<Either<UserBadgesModel, Failure>> getUserBadge(String id);
+  Future<Either<List<GetBadgesModel>, Failure>> getBadges(String type);
 
 }

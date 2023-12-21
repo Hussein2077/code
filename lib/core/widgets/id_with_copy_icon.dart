@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variable
-import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +33,7 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
       child: Row(
         mainAxisAlignment:widget.mainAxisAlignment?? MainAxisAlignment.center,
         children: [
-          widget.userData.imageIdModel==null||widget.userData.imageIdModel?.image==""?
+          widget.userData.imageIdModel==null || widget.userData.imageIdModel?.image==""?
 
           SizedBox(
             width: ConfigSize.defaultSize,
