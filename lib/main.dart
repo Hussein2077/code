@@ -529,6 +529,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetInvitationParentDetailsBloc>()),
         BlocProvider(create: (_) => getIt<GetInvitationUsersDetailsBloc>()),
         BlocProvider(create: (_) => getIt<SendBloc>()),
+
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {
