@@ -1,4 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
+
+
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -42,6 +44,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/user_avatar.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/viewbackground_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_states.dart';
@@ -78,7 +82,6 @@ class RoomScreen extends StatefulWidget {
   static Map<String, dynamic> usersInRoom = {};
   static ValueNotifier<bool> showMessageButton = ValueNotifier<bool>(true);
   static ValueNotifier<bool> banFromWriteIcon = ValueNotifier<bool>(true);
-  static ValueNotifier<Map<int, ZegoUIKitUser>> userOnMics = ValueNotifier<Map<int, ZegoUIKitUser>>({});
   static ValueNotifier<UserDataModel> topUserInRoom = ValueNotifier<UserDataModel>(UserDataModel());
   static ValueNotifier<bool> showBanner = ValueNotifier<bool>(false);
   static ValueNotifier<String> myCoins = ValueNotifier<String>('');
@@ -86,18 +89,9 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
   static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
   static ValueNotifier<bool> isWinnerShowWidget = ValueNotifier<bool>(false);
-
   static late LayoutMode layoutMode;
   static int startTimeOnSeatMic = 0 ;
-
   static String differentCommentKey = "";
-
-
-
-
-
-
-
 
   const RoomScreen(
       {Key? key,
@@ -214,12 +208,17 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       vsync: this,
     );
     yellowBannercontroller.addListener(() {
-      if (controllerBanner.isCompleted) {
-        controllerBanner.stop();
-        Future.delayed(const Duration(seconds: 3), () async {
-          controllerBanner.reverse();
+      if (yellowBannercontroller.isCompleted) {
+        yellowBannercontroller.stop();
+        Future.delayed(const Duration(seconds: 20), () async {
+
+          yellowBannercontroller.reverse().then((value) {
+            setState(() {
+              showYellowBanner['showYellowBanner'] = false;
+            });
+          });
+
         });
-        controllerBanner.reverse();
       }
     });
     offsetAnimationYellowBanner = Tween(
@@ -312,7 +311,9 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           }
           ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(id: myDataModel.id.toString(), name: myDataModel.name.toString());
           zegoUIKitUser.inRoomAttributes.value['img'] = myDataModel.img;
-          RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
+          //RoomScreen.userOnMics.value.putIfAbsent(i, () => zegoUIKitUser);
+          GiftUser.userOnMicsForGifts.clear();
+          GiftUser.userOnMicsForGifts.putIfAbsent(i, () => zegoUIKitUser);
         }
       }
 
@@ -453,6 +454,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           }
         }
       });
+      BlocProvider.of<ExtraRoomDataBloc>(context).add( GetExtraRoomDataEvent(widget.room.ownerId.toString()));
     }
 
     Future.delayed(const Duration(milliseconds: 1500) ,(){
@@ -645,21 +647,24 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
           .getUserData(userId: senderId.toString());
       RoomScreen.usersInRoom
           .putIfAbsent(senderId.toString(), () => yallowBannerSender!);
-    } else {
+    }
+    else {
       yallowBannerSender = RoomScreen.usersInRoom[senderId.toString()];
     }
     ZegoInRoomMessageInput.messageYallowBanner = message;
     yallowBanner['yallowBannerhasPasswoedRoom'] = hasPasswoedRoom;
 
-    if (yellowBannercontroller.animationBehavior.name == "normal") {
-      yellowBannercontroller.reset();
-    }
 
-    setState(() {
+setState(() {
+  showYellowBanner['showYellowBanner'] = true;
+  yallowBanner['yallowBannerOwnerRoom'] = ownerId;
+});
       yellowBannercontroller.forward();
-      showYellowBanner['showYellowBanner'] = true;
-      yallowBanner['yallowBannerOwnerRoom'] = ownerId;
-    });
+
+
+
+
+
     //  }
 
   }
@@ -713,12 +718,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         ClosePkKey(result);
       }
       //PK end rtm
-      else if (result[messageContent][message] == leaveMicKey) {
-        RoomScreen.userOnMics.value.removeWhere((key, value) => key == result[messageContent]['position']);
-      }
-      else if (result[messageContent][message] == upMicKey) {
-        UpMicKey(result);
-      }
       else if (result[messageContent][message] == muteMicKey) {
         MuteMicKey(result);
       }
@@ -742,21 +741,21 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
           setState(() {
            RoomScreen.layoutMode = LayoutMode.hostTopCenter;
-            RoomScreen.userOnMics.value.clear();
+            GiftUser.userOnMicsForGifts.clear();
           });
         } else if (result[messageContent]['mode'] == 'party') {
           widget.room.mode = 1 ;
 
           setState(() {
             RoomScreen.layoutMode = LayoutMode.party;
-            RoomScreen.userOnMics.value.clear();
+            GiftUser.userOnMicsForGifts.clear();
           });
         } else if (result[messageContent]['mode'] == 'seats12') {
           widget.room.mode = 2 ;
 
           setState(() {
             RoomScreen.layoutMode = LayoutMode.seats12;
-            RoomScreen.userOnMics.value.clear();
+            GiftUser.userOnMicsForGifts.clear();
           });
         }
       }
@@ -785,11 +784,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         BannerSuperBoxKey(result, superBox, LuckyBoxVariables.sendSuperBox);
       }
       else if (result[messageContent]['msg'] == showPobUpKey) {
-
-
-        ShowPobUpKey(result,popUpData, showPopUp ) ;
-
-
+        ShowPobUpKey(result, popUpData, showPopUp) ;
       }
       else if (result[messageContent][message] == banFromWritingKey) {
         BanFromWritingKey(result, widget.myDataModel.id.toString(), widget.room.ownerId.toString(), context);
@@ -898,7 +893,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
                 showPopUp: showPopUp,
                 popUpData: popUpData,
                 durationKickout: durationKickout)
-
             ..background = BackgroundWidget(room: widget.room,
                 layoutMode:RoomScreen.layoutMode, isHost: widget.isHost)
             ..onSeatsChanged = (
@@ -906,7 +900,6 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
               List<int> untakenSeats,
             ) {
           GiftUser.userOnMicsForGifts.clear();
-
           takenSeats.forEach((key, value) {
             if(value.id!='') {
               GiftUser.userOnMicsForGifts.putIfAbsent(int.parse(value.id),

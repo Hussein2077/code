@@ -1,8 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
-import 'package:animated_icon/animated_icon.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +16,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/snackbar.dart';
-import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/core/widgets/update_screen.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/widgets/group_chat_counter_widget.dart';
 import 'package:tik_chat_v2/features/home/presentation/widget/home_show_case.dart';
@@ -28,12 +24,13 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_o
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_state.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'widget/body/home_body.dart';
+import 'widget/header/cache_data_widget.dart';
 import 'widget/header/home_header.dart';
 
 class HomeScreen extends StatefulWidget {
-  static ValueNotifier<bool> rebuildGroupChatCounter =
-  ValueNotifier<bool>(false);
+  static ValueNotifier<bool> rebuildGroupChatCounter = ValueNotifier<bool>(false);
   static ValueNotifier<int> groupChatCounter = ValueNotifier<int>(0);
+
   final bool? isChachGift;
 
   final bool? isCachFrame;
@@ -65,32 +62,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController liveController;
-
   late bool isFirst;
-late  List<ItemWidget> items;
+
+
   @override
   void initState() {
     liveController = TabController(length: 1, vsync: this);
-    items = [
-      if (widget.isChachGift ?? false)
-        ItemWidget(
-            text: StringManager.cacheGift.tr(), iconData: Icons.card_giftcard),
-      if (widget.isCachExtra ?? false)
-        ItemWidget(
-            text: StringManager.cacheExtra.tr(), iconData: Icons.mobile_screen_share_rounded),
-      if (widget.isCachFrame ?? false)
-        ItemWidget(
-            text: StringManager.cacheFrame.tr(), iconData: Icons.filter_frames),
+    initlaizCachData();
 
-      if (widget.isCachEntro ?? false)
-        ItemWidget(
-            text: StringManager.cacheIntro.tr(), iconData: Icons.arrow_circle_up),
 
-      if (widget.isCachEmojie ?? false)
-        ItemWidget(
-            text: StringManager.cacheEmoji.tr(), iconData: Icons.emoji_emotions_outlined),
 
-    ];
     if (kDebugMode) {
       log('${widget.isChachGift}isChachGift');
       log('${widget.isCachExtra}isCachExtra');
@@ -127,9 +108,9 @@ late  List<ItemWidget> items;
       }
     });
 
-    Future.delayed(const Duration(seconds: 30), () {
+
       handleDeepLink(widget.actionDynamicLink);
-    });
+
     super.initState();
   }
 
@@ -151,42 +132,7 @@ late  List<ItemWidget> items;
               SizedBox(
                 height: ConfigSize.defaultSize! * 3.6,
               ),
-              StatefulBuilder(builder: (context, setState) {
-                void onChangedCacheInDropDownHome(ItemWidget? value) {
-
-                  if (value?.text == StringManager.cacheGift.tr()) {
-                    Methods.instance.chachGiftInRoom();
-                    setState(() {
-                      items.removeWhere((element) => element.text==StringManager.cacheGift.tr());
-
-                    });
-
-                  } else if (value?.text ==  StringManager.cacheExtra.tr()) {
-
-                    Methods.instance.getAndLoadExtraData();
-                    setState(() {
-                      items.removeWhere((element) => element.text==StringManager.cacheExtra.tr());
-                    });
-                  } else if (value?.text == StringManager.cacheFrame.tr()) {
-                    Methods.instance.getAndLoadFrames();
-                    setState(() {
-                      items.removeWhere((element) => element.text==StringManager.cacheFrame.tr());
-                    });
-                  } else if (value?.text == StringManager.cacheIntro.tr()) {
-                    Methods.instance.getAndLoadEntro();
-                    setState(() {
-                      items.removeWhere((element) => element.text==StringManager.cacheIntro.tr());
-                    });
-                  } else if (value?.text == StringManager.cacheEmoji.tr()) {
-
-                    Methods.instance.getAndLoadEmojie();
-                    setState(() {
-                      items.removeWhere((element) => element.text==StringManager.cacheEmoji.tr());
-                    });
-                  }
-                  sucssesToast(context: context, title: StringManager.dataLoaded.tr());
-                }
-                return Stack(
+              Stack(
                   children: [
                     Positioned(
                       right: ConfigSize.screenWidth! * .45,
@@ -198,58 +144,9 @@ late  List<ItemWidget> items;
                     ),
                     HomeHeader(
                       liveController: liveController,
-                      cacheButton: Visibility(
-                        visible: items.isNotEmpty,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2<ItemWidget>(
-                            items: items
-                                .map((item) =>
-                                DropdownMenuItem(
-                                  value: item,
-                                  child:
-                                  item,
-
-                                ))
-                                .toList(),
-                            onChanged: (value) {
-
-
-                              onChangedCacheInDropDownHome(value);
-                            },
-                            isExpanded: true,
-                            hint: Text(
-                              StringManager.cache.tr(),
-                              style: TextStyle(
-                                fontSize: ConfigSize.defaultSize!*1.2,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.whiteColor,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  ConfigSize.defaultSize!),
-                            ),
-                            buttonWidth: ConfigSize.defaultSize! * 12,
-                            dropdownWidth: ConfigSize.defaultSize! * 15,
-                            icon: AnimateIcon(
-                              key: UniqueKey(),
-                              onTap: () {},
-                              iconType: IconType.continueAnimation,
-                              height: ConfigSize.defaultSize! * 4,
-                              width: ConfigSize.defaultSize! * 4,
-                              color: ColorManager.whiteColor,
-                              animateIcon: AnimateIcons.cloud,
-                            ),
-                            offset: const Offset(25, 5),
-                          ),
-                        )
-                      ),
                     ),
                   ],
-                );
-              }),
+                ),
               HomeBody(liveController: liveController),
             ],
           ),
@@ -260,7 +157,8 @@ late  List<ItemWidget> items;
             if (isShow) {
               return InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, Routes.groupChatScreen);
+
+                 Navigator.pushNamed(context, Routes.groupChatScreen);
                 },
                 child: Stack(
                   children: [
@@ -321,7 +219,42 @@ late  List<ItemWidget> items;
 
   }
 
+  initlaizCachData(){
 
+
+      if ((widget.isChachGift ?? false)){
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheGift,() => ItemWidget(
+            text: StringManager.cacheGift.tr(), iconData: Icons.card_giftcard));
+      }
+
+      if ((widget.isCachExtra ?? false)){
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheExtra,() => ItemWidget(
+            text: StringManager.cacheExtra.tr(), iconData: Icons.mobile_screen_share_rounded));
+      }
+
+      if ((widget.isCachFrame ?? false)){
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheFrame,
+                () =>  ItemWidget(
+            text: StringManager.cacheFrame.tr(), iconData: Icons.filter_frames) );
+
+      }
+      if ((widget.isCachEntro ?? false)){
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheEntro,
+                () =>    ItemWidget(
+                    text: StringManager.cacheIntro.tr(), iconData: Icons.arrow_circle_up)  );
+
+      }
+
+      if ((widget.isCachEmojie ?? false)){
+        CacheDataWidget.cacheData.putIfAbsent(StringManager.lastTimeCacheEmojie,
+                () =>     ItemWidget(
+                    text: StringManager.cacheEmoji.tr(), iconData: Icons.emoji_emotions_outlined)  );
+
+      }
+      CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
+
+
+  }
 
   Future<void> handleDeepLink(Uri? data) async {
     final Uri? deepLink = data;
@@ -354,5 +287,7 @@ late  List<ItemWidget> items;
   void visitUserProfileDynamicLink({String? userId}) {
     Methods.instance.userProfileNvgator(context: context, userId: userId);
   }
+
+
 }
 

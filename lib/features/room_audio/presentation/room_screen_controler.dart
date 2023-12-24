@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
-import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -55,8 +55,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manage
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_user_in_room/users_in_room_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/live_page.dart';
@@ -102,8 +102,6 @@ const String numGift = "num_gift";
 const String roomGiftsPriceKey = "gift_price";
 const String kicKoutKey = "kickout";
 const String duration = "duration";
-const String leaveMicKey = "leaveMic";
-const String upMicKey = "upMic";
 const String muteMicKey = "muteMic";
 const String unMuteMicKey = "unmuteMic";
 const String lockMicKey = "lockMic";
@@ -270,18 +268,12 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   RoomScreen.listOfAnimatingEntros.clear();
   RoomScreen.isWinnerShowWidget.value = false ;
   if(ownerId == MyDataModel.getInstance().id.toString() &&  PkController.showPK.value){
-
-
       BlocProvider.of<PKBloc>(context.mounted  ?context :
       getIt<NavigationService>().navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
       BlocProvider.of<PKBloc>(context.mounted  ?context :
       getIt<NavigationService>().navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
-
   }
-
-   Methods.instance.hostTimeOnMic(context: context.mounted  ?context :
-  getIt<NavigationService>().navigatorKey.currentContext!);
-
+  Methods.instance.hostTimeOnMic(context: context.mounted  ?context : getIt<NavigationService>().navigatorKey.currentContext!);
   PkController.timeMinutePK = 0;
   PkController.timeSecondPK = 0;
   PkController.isPK.value = false;
@@ -297,7 +289,7 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   if(getIt<SetTimerPK>().timer != null){
     getIt<SetTimerPK>().timer?.cancel();
   }
-  RoomScreen.userOnMics.value.clear();
+  //RoomScreen.userOnMics.value.clear();
   RoomScreen.listOfEmojie.value.clear();
   MusicScreen.musicesInRoom.clear();
   RoomScreen.adminsInRoom.clear();
@@ -324,6 +316,10 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   GiftUser.userSelected.clear();
   GiftUser.userOnMicsForGifts.clear();
   RoomScreen.showBanner.value = false;
+  if(LuckyCandy.winCircularluckyGift.value > 0){
+    BlocProvider.of<LuckyGiftBannerBloc>(context.mounted  ?context :
+    getIt<NavigationService>().navigatorKey.currentContext!).add(EndBannerEvent()) ;
+  }
 }
 
 Future<void> distroyMusic() async {
@@ -334,50 +330,82 @@ Future<void> distroyMusic() async {
 
 
 void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String ownerId, String userId) {
+  List<int> list = [0];
+  for(int i = 0; i < ZegoUIKit().getAllUsers().length; i++){
+    if(GiftUser.userOnMicsForGifts[int.parse(ZegoUIKit().getAllUsers()[i].id)] != null){
+      list.add(ZegoLiveAudioRoomManagers().seatManager!.getIndexByUserID(ZegoUIKit().getAllUsers()[i].id));
+    }
+  }
   if (layoutMode == LayoutMode.hostTopCenter) {
-    if (RoomScreen.userOnMics.value.length == 9) {
+    if (GiftUser.userOnMicsForGifts.length == 9) {
       errorToast(
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 1; i < 9; i++) {
-        if (RoomScreen.userOnMics.value.containsKey(i) ||
+        if (list.contains(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
 
-        BlocProvider.of<UsersInRoomBloc>(context).add(
-            InviteUserInRoom(ownerId: ownerId, userId: userId, indexSeate: i));
+        String getMessagaRealTime(){
+          var mapInformation = {"messageContent":{
+            'message': 'inviteToSeat',
+            'id_user': userId,
+            'index': i
+          }};
+          String map = jsonEncode(mapInformation);
+          return map ;
+        }
+        ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(), []);
         break;
       }
     }
   } else if (layoutMode == LayoutMode.party) {
-    if (RoomScreen.userOnMics.value.length == 16) {
+    if (GiftUser.userOnMicsForGifts.length == 16) {
       errorToast(
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 0; i < 16; i++) {
-        if (RoomScreen.userOnMics.value.containsKey(i) ||
+        if (list.contains(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
 
-        BlocProvider.of<UsersInRoomBloc>(context).add(
-            InviteUserInRoom(ownerId: ownerId, userId: userId, indexSeate: i));
+        String getMessagaRealTime(){
+          var mapInformation = {"messageContent":{
+            'message': 'inviteToSeat',
+            'id_user': userId,
+            'index': i
+          }};
+          String map = jsonEncode(mapInformation);
+          return map ;
+        }
+        ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(), []);
+        break;
       }
     }
   } else if (layoutMode == LayoutMode.seats12) {
-    if (RoomScreen.userOnMics.value.length == 12) {
+    if (GiftUser.userOnMicsForGifts.length == 12) {
       errorToast(
           context: context, title: StringManager.thereAreNoEmptySeats.tr());
     } else {
       for (int i = 0; i < 12; i++) {
-        if (RoomScreen.userOnMics.value.containsKey(i) ||
+        if (list.contains(i) ||
             RoomScreen.listOfLoskSeats.value.containsKey(i)) {
           continue;
         }
 
-        BlocProvider.of<UsersInRoomBloc>(context).add(
-            InviteUserInRoom(ownerId: ownerId, userId: userId, indexSeate: i));
+        String getMessagaRealTime(){
+          var mapInformation = {"messageContent":{
+            'message': 'inviteToSeat',
+            'id_user': userId,
+            'index': i
+          }};
+          String map = jsonEncode(mapInformation);
+          return map ;
+        }
+        ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(), []);
+        break;
       }
     }
   }
@@ -606,18 +634,6 @@ KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String
   });
 }
 
-
-UpMicKey(Map<String, dynamic> result){
-  ZegoUIKitUser zegoUIKitUser = ZegoUIKitUser(
-      id: result[messageContent]['userId'],
-      name: result[messageContent]['userName']);
-  if(result[messageContent]['is_swap']){
-    RoomScreen.userOnMics.value.removeWhere((key, value) => key == result[messageContent]['old_position']);
-  }
-  RoomScreen.userOnMics.value.putIfAbsent(
-      int.parse(result[messageContent]['position']), () => zegoUIKitUser);
-}
-
 MuteMicKey(Map<String, dynamic> result){
   RoomScreen.listOfMuteSeats.putIfAbsent(
       int.parse(result[messageContent]['position']),
@@ -719,7 +735,6 @@ InviteToSeatKey(Map<String, dynamic> result, String id, String ownerId, BuildCon
       InvitationToMicDialog.isInviteToMic = true;
       invitationDialog(context, ownerId, result[messageContent]['index']);
     }
-    //todo update this show
   }
 }
 
@@ -757,13 +772,12 @@ GameRequest(Map<String, dynamic> result, BuildContext context){
 
 GameRequestResult(Map<String, dynamic> result, BuildContext context){
   if(result[messageContent]['game_id'].toString() == spinGameId && result[messageContent]['type'].toString() == "finished"){
-    BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter: GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(),
+    BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter:
+    GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(),
         answer: result[messageContent]['randomNumber'].toString(), round: '1')));
     if(result[messageContent]["player_owner"].toString() == MyDataModel.getInstance().id.toString()){
-      if(RouteGenerator.currentContext!=Routes.roomScreen){
         Navigator.pop(context);
 
-      }
       if(result[messageContent]['palyersIds'].length > 1) {
         showDialog(
             context: context,
@@ -789,7 +803,9 @@ GameRequestResult(Map<String, dynamic> result, BuildContext context){
     }
 
   }else if(result[messageContent]['game_id'].toString() == rpsGameId || result[messageContent]['game_id'].toString() == diceGameId){
-    if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString() || result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
+    if(result[messageContent]['player-one-id'].toString() ==
+        MyDataModel.getInstance().id.toString() ||
+        result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
       if(result[messageContent]["result"].toString() == "accepted"){
 
           Navigator.pop(context);

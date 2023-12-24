@@ -12,6 +12,8 @@ import 'package:tik_chat_v2/core/widgets/transparent_loading_widget.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_event.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
@@ -39,11 +41,18 @@ class GeneralRoomProfile extends StatefulWidget {
 }
 
 class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
+
+  @override
+  void initState() {
+    BlocProvider.of<UserBadgesBloc>(context)
+        .add(GetUserBadges(id: widget.userId));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<GetUserBloc>(context)
         .add(GetuserEvent(userId: widget.userId));
-
     return BlocListener<AdminRoomBloc, AdminRoomStates>(
       listener: (context, state) {
         if (state is SuccessAddAdminRoomState) {
@@ -56,14 +65,9 @@ class _GeneralRoomProfileState extends State<GeneralRoomProfile> {
         listener: (context, state) {
           if (state is SuccessKickoutState) {
             ScaffoldMessenger.of(context).showSnackBar(successSnackBar(context,state.successMessage));
-
-            // sucssesToast(context: context, title: state.successMessage);
-
             Navigator.pop(context);
           } else if (state is ErrorKickoutState) {
             ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context,state.errorMessage));
-
-            // errorToast(context: context, title: state.errorMessage);
           }
         },
         child: BlocBuilder<GetUserBloc, GetUserState>(

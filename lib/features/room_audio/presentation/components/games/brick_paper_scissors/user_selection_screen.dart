@@ -47,7 +47,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
       listener: (BuildContext context, GameState state) {
         if(state is InviteToGameErrorState){
           send = false;
-          errorToast(context: context, title: state.error);
+         errorToast(context: context, title: state.error);
         }
       },
       child: Container(

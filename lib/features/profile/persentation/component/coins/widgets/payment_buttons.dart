@@ -4,13 +4,13 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pay/pay.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/service/payment_config.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_event.dart';
+import 'package:pay/pay.dart';
 
 class PaymentButtons extends StatelessWidget {
 
@@ -97,13 +97,13 @@ class PaymentButtons extends StatelessWidget {
         );
 
 
-        log(result.toString());
+        //log(result.toString());
 
-        //Map<String, dynamic> myMap = json.decode(result['paymentMethodData']['tokenizationData']['token']);
+        Map<String, dynamic> myMap = json.decode(result['paymentMethodData']['tokenizationData']['token']);
 
-        //log(myMap['signature'].toString());
+        log(myMap['signature'].toString());
 
-        //callBack(map, context, myMap['signature'].toString());
+        callBack(map, context, myMap['signature'].toString());
       },
       onError: (e) => debugPrint('Payment error $e'),
       loadingIndicator: const Center(

@@ -86,40 +86,31 @@ class _VistorScreenState extends State<VistorScreen> {
                           return UserInfoRow(
                             idOrNot: SizedBox(
                               width: ConfigSize.defaultSize!*10,
-
                               child: Text(
                                 " ${Methods.instance.formatDateTime(dateTime: state.data![index].visitTime ?? '', locale: context.locale.languageCode)}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(fontSize: 10,overflow: TextOverflow.fade),
+                                style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 10,overflow: TextOverflow.fade),
                               ),
                             ),
                             userData: state.data![index],
                             endIcon: ValueListenableBuilder(
-                              valueListenable:
-                                  LogicFollowUnfollow.followUnfollowNotifier,
+                              valueListenable: LogicFollowUnfollow.followUnfollowNotifier,
                               builder: (context, value, child) {
                                 return MainButton(
-                                  title:
-                                      LogicFollowUnfollow.theFollowedUsersMap[
-                                              state.data![index].id]!
-                                          ? StringManager.unFollow.tr()
-                                          : StringManager.follow.tr(),
+                                  title: LogicFollowUnfollow.theFollowedUsersMap[state.data![index].id]! ? StringManager.unFollow.tr() : StringManager.follow.tr(),
                                   titleSize: ConfigSize.defaultSize! * 1.2,
-                                  width: ConfigSize.defaultSize! * 8,
-                                  height: ConfigSize.defaultSize! * 4,
+                                  width: ConfigSize.defaultSize! * 6,
+                                  height: ConfigSize.defaultSize! * 3,
+                                  buttonColor: const [
+                                    Color(0x96FF382C),
+                                    Color(0x90FFBB0D),
+                                  ],
                                   onTap: () {
-                                    LogicFollowUnfollow.userId =
-                                        state.data![index].id!;
-
-                                    LogicFollowUnfollow
-                                        .followUnfollowControllerEvents(
-                                            context,
-                                            state.data![index].id!,
-                                            LogicFollowUnfollow
-                                                    .theFollowedUsersMap[
-                                                state.data![index].id]!);
+                                    LogicFollowUnfollow.userId = state.data![index].id!;
+                                    LogicFollowUnfollow.followUnfollowControllerEvents(
+                                      context,
+                                      state.data![index].id!,
+                                      LogicFollowUnfollow.theFollowedUsersMap[state.data![index].id]!,
+                                    );
                                   },
                                 );
                               },

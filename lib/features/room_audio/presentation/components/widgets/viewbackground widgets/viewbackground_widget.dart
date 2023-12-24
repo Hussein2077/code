@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
-
 import 'dart:async';
-
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
@@ -18,6 +17,7 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_bottom_bar.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/collect_coin_animation/collect_coin_animation.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/header_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/owner_room/owner_room.dart';
@@ -38,8 +38,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/show_entro_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/music_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/viewbackground%20widgets/pop_up_widget.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_states.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
@@ -129,15 +127,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GameBloc, GameState>(
-      listener: (context, state){
-        if(state is InviteToGameErrorState){
-          errorToast(context: context, title: state.error);
-        }else if(state is InviteToGameNewErrorState){
-          errorToast(context: context, title: state.error);
-        }
-      },
-      child: BlocConsumer<SendGiftBloc, SendGiftStates>(
+    return  BlocConsumer<SendGiftBloc, SendGiftStates>(
           builder: (context, state) {
         return Stack(children: [
           SizedBox(
@@ -145,30 +135,41 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             height: ConfigSize.defaultSize! * 92.5,
             //height: ConfigSize.defaultSize! * 92.5,
           ),
-          Container(
-            padding: const EdgeInsets.all(2),
-            margin: EdgeInsets.only(
-                top: ConfigSize.defaultSize!,
-                left: MediaQuery.of(context).size.width / 2.355),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-            ),
-            child: StreamBuilder<int>(
-              stream: getIt<CounterBloc>().counterStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Text(
-                    Methods.instance.formatSecondsTime(snapshot.data ?? 0),
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w700),
-                  );
-                }
-                return Text(Methods.instance
-                    .formatSecondsTime(getIt<CounterBloc>().counter));
-              },
-            ),
+
+          ValueListenableBuilder<int>(
+            valueListenable: GiftUser.updateView,
+            builder: (context, price, _) {
+              if(GiftUser.userOnMicsForGifts[MyDataModel.getInstance().id] != null){
+                return Container(
+                  padding: const EdgeInsets.all(2),
+                  margin: EdgeInsets.only(
+                      top: ConfigSize.defaultSize!,
+                      left: MediaQuery.of(context).size.width / 2.355),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
+                  ),
+                  child: StreamBuilder<int>(
+                    stream: getIt<CounterBloc>().counterStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          Methods.instance.formatSecondsTime(snapshot.data ?? 0),
+                          style: const TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w700),
+                        );
+                      }
+                      return Text(Methods.instance
+                          .formatSecondsTime(getIt<CounterBloc>().counter));
+                    },
+                  ),
+                );
+              }else{
+                return const SizedBox();
+              }
+            },
           ),
+
           Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
@@ -188,6 +189,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                           builder: ((context) => WebViewInRoom(
                                 url: '${StringManager.fruitGame}${token}',
                               ))));
+
                 },
                 child: Container(
                   decoration: const BoxDecoration(
@@ -284,17 +286,19 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 }
               }),
           if (widget.showYellowBanner['showYellowBanner']!)
-            Positioned(
-                top: -48,
-                child: ShowYallowBannerWidget(
-                    cureentRoomId: widget.room.ownerId!,
-                    controllerYallowBanner: widget.yellowBannercontroller,
-                    offsetAnimationYallowBanner:
-                        widget.offsetAnimationYellowBanner,
-                    senderYallowBanner: widget.yallowBannerSender,
-                    hasPassword: widget.yallowBanner,
-                    myData: MyDataModel.getInstance(),
-                    ownerId: widget.yallowBanner)),
+         Positioned(
+                 top: -48,
+                 child:  IgnorePointer(
+                     child: ShowYallowBannerWidget(
+                     cureentRoomId: widget.room.ownerId!,
+                     controllerYallowBanner: widget.yellowBannercontroller,
+                     offsetAnimationYallowBanner:
+                     widget.offsetAnimationYellowBanner,
+                     senderYallowBanner: widget.yallowBannerSender,
+                     hasPassword: widget.yallowBanner,
+                     myData: MyDataModel.getInstance(),
+                     ownerId: widget.yallowBanner)) ,
+           ) ,
           ValueListenableBuilder<bool>(
               valueListenable: RoomScreen.showBanner,
               builder: (context, isShow, _) {
@@ -347,7 +351,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 if (state.isFirst == 1) {
                   widget.luckGiftBannderController.forward();
                 }
-              } else if (state is SendLuckyGiftErrorStateState) {
+              }
+              else if (state is SendLuckyGiftErrorStateState) {
                 errorToast(context: context, title: state.error);
               }
             },
@@ -486,7 +491,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             state.successMessage,
           );
         }
-      }),
-    );
+      });
   }
 }

@@ -8,6 +8,7 @@ import 'package:tik_chat_v2/features/home/data/model/svga_data_model_.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ExtraRoomDataModel.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
@@ -75,7 +76,6 @@ abstract class BaseRepositoryRoom {
   Future<Either<String, Failure>> addRoomBackGround(  File roomBackGround);
   Future<Either<List<BackGroundModel>, Failure>> getMyAllbackGround();
   Future<Either<Unit,Failure>> muteUser(String ownerId, String userId,bool mute);
-  Future<Either<Unit,Failure>> inviteUser(String ownerId, String userId,int  indexSeat);
   Future<Either<GetConfigKeyModel, Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
   Future<Either<String,Failure>> sendYallowBanner(SendPobUpPram sendPobUpPram );
   Future<Either<LuckyGiftModel , Failure>> sendLuckyGift(GiftPramiter giftPramiter);
@@ -98,5 +98,6 @@ abstract class BaseRepositoryRoom {
   Future<Either<String,Failure>> inviteToGameNew(InviteToGameNewPramiter inviteToGamePramiter) ;
   Future<Either<String,Failure>> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGameActionNewPramiter) ;
   Future<Either<String,Failure>> gameresult(GameResultPramiter gameResultPramiter) ;
+  Future<Either<ExtraRoomDataModel, Failure>> extraRoomData(String ownerId);
 
 }

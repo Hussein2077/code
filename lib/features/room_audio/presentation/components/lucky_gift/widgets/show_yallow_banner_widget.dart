@@ -22,18 +22,23 @@ class ShowYallowBannerWidget extends StatelessWidget {
   MyDataModel myData;
   Map<String, dynamic> ownerId;
   int cureentRoomId;
-  ShowYallowBannerWidget({super.key, required this.controllerYallowBanner, required this.offsetAnimationYallowBanner, this.senderYallowBanner, required this.hasPassword, required this.myData, required this.ownerId, required this.cureentRoomId});
+  ShowYallowBannerWidget({super.key,
+  required this.controllerYallowBanner,
+  required this.offsetAnimationYallowBanner,
+
+  this.senderYallowBanner, required this.hasPassword, required this.myData, required this.ownerId, required this.cureentRoomId});
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: ui.TextDirection.rtl,
       child: AnimatedBuilder(
-          animation: controllerYallowBanner,
-          builder: (context, child) {
-            return Transform.translate(
-                offset: offsetAnimationYallowBanner.value,
-                child: InkWell(
+        animation:controllerYallowBanner,
+        builder: (context, child) {
+      return Transform.translate(
+          offset: offsetAnimationYallowBanner.value,
+         child:
+      InkWell(
                   onTap: () {
                     if (ownerId['yallowBannerOwnerRoom'] != cureentRoomId) {
                       Methods.instance.checkIfRoomHasPassword(
@@ -98,7 +103,7 @@ class ShowYallowBannerWidget extends StatelessWidget {
                             child: Center(
                               child: IconButton(
                                   onPressed: () {
-                                    controllerYallowBanner.reset();
+                                //    controllerYallowBanner.reset();
                                   },
                                   icon: const Icon(
                                     Icons.close,
@@ -109,8 +114,7 @@ class ShowYallowBannerWidget extends StatelessWidget {
                           )
                         ],
                       )),
-                ));
-          }),
-    );
+
+    ));}));
   }
 }

@@ -34,16 +34,6 @@ class UnMuteUserInRoom extends UsersInRoomEvents{
   List<Object?> get props => [ownerId,userId];
 }
 
-class InviteUserInRoom extends UsersInRoomEvents{
-  final String ownerId;
-  final String userId ;
-  final int indexSeate ;
-
-  InviteUserInRoom({required this.ownerId,required this.userId,required this.indexSeate});
-
-  @override
-  List<Object?> get props => [ownerId,userId,indexSeate];
-}
 class kickoutUser extends UsersInRoomEvents{
   final String ownerId ;
   final String userId ;

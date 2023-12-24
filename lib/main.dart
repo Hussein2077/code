@@ -1,5 +1,8 @@
 import 'dart:convert';
+
+import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,7 @@ import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
@@ -55,6 +59,8 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/badges%20manager/badges_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/badges%20manager/badges_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -75,6 +81,9 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_fixed_targ
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_follwers_or_following_manger/bloc/get_follower_or_following_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/gift_history_manger/gift_history_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitation_parent_bloc/get_invitations_parent_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/get_invitations_users_manager/get_invitations_users_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/invitation_bloc_s/invit_code_manager/invit_code_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_buy_manager/mall_buy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/mall_manager/mall_event.dart';
@@ -113,6 +122,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_join_to_agencie/bloc/join_to_agencie_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_send/bloc/send_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_time_data_report/time_data_report_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_vip_center/vip_center_events.dart';
@@ -122,6 +132,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pa
 import 'package:tik_chat_v2/features/profile/persentation/manager/privacy_manger/privacy_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/replace_with_gold_manger/bloc/replace_with_gold_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/vistors_manager/vistors_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_following_reels/get_following_reels_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_get_reel_comments/get_reel_comments_bloc.dart';
@@ -130,8 +141,10 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_ree
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
@@ -151,14 +164,13 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
 
 // final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -180,30 +192,47 @@ Future<void> main() async {
   tokenDevices = await FirebaseMessaging.instance.getToken();
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
    await _firebaseMessaging.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
+     alert: true,
+     announcement: false,
+     badge: true,
+     carPlay: false,
+     criticalAlert: false,
+     provisional: false,
+     sound: true,
   );
-  bool groupChatUnReadMessage =
-      await Methods.instance.getLocalGroupChatNotifecation();
+  bool groupChatUnReadMessage = await Methods.instance.getLocalGroupChatNotifecation();
   HomeScreen.rebuildGroupChatCounter.value = groupChatUnReadMessage;
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     if (jsonDecode(message.data['message-type']) == "group-chat") {
       HomeScreen.groupChatCounter.value++;
       Methods.instance.setLocalGroupChatNotifecation(unReadMessage: true);
-
       HomeScreen.rebuildGroupChatCounter.value = true;
     }
+    log("when app opened");
   });
 
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    // Handle when the app is opened by clicking on a notification
+    // Navigate to HomeScreen when the notification is clicked
+    print('A new onMessageOpenedApp event was published!');
+    print('Message data: ${message.data}');
+    getIt<NavigationService>().navigatorKey.currentState!.pushNamed(Routes.splash);
+  });
+
+  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    if (message != null) {
+      // Handle when the app is opened by clicking on a notification
+      // Navigate to HomeScreen when the notification is clicked
+      print('Opened app by clicking on a notification!');
+      print('Message data: ${message.data}');
+      successSnackBar(getIt<NavigationService>().navigatorKey.currentContext!, "welcome to app");
+    }
+  });
 
   await ServerLocator().init();
 
@@ -515,18 +544,26 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<LoginChatBloc>()),
         BlocProvider(create: (_) => getIt<LogOutChatBloc>()),
         BlocProvider(create: (_) => getIt<UpdateUserDataBloc>()),
-
-
         BlocProvider(create: (_) => getIt<GetFixedTargetBloc>()),
-
-
-
         BlocProvider(create: (_) => getIt<ForgetPasswordBloc>()),
-
-
-
         BlocProvider(create: (_) => getIt<GameBloc>()),
         BlocProvider(create: (_) => getIt<HostOnMicTimeBloc>()),
+        BlocProvider(create: (_) => getIt<InvitCodeBloc>()),
+        BlocProvider(create: (_) => getIt<GetInvitationParentDetailsBloc>()),
+        BlocProvider(create: (_) => getIt<GetInvitationUsersDetailsBloc>()),
+        BlocProvider(create: (_) => getIt<SendBloc>()),
+        BlocProvider(
+          create: (context) => getIt<ExtraRoomDataBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<UserBadgesBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<GetBadgesBloc>()
+            ..add(const AchievementEvent(type: '1'))
+            ..add(const HonorEvent(type: '2'))
+            ..add(const ActivityEvent(type: '3')),
+        ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {

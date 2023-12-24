@@ -45,7 +45,7 @@ class ContainerVipOrContribute extends StatelessWidget {
           ),
           SizedBox(width: ConfigSize.defaultSize! * 0.7),
           Image.asset(icons,
-              scale: sizeOfIcon ?? ConfigSize.defaultSize! * 0.25),
+              scale: sizeOfIcon ?? ConfigSize.defaultSize! * 0.3),
         ],
       ),
     );

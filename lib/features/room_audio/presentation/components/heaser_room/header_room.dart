@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
@@ -9,15 +10,16 @@ import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/all_main_classes_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/admin_more_dailog/admin_more_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/exit_secreen/exit_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/number_of_visitor/number_visitor.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/owner_room/owner_room.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/show_ditails_screen/ShowDitailsScreen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/update_room_screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/widgets/achievmenet_image.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/widgets/custom_contain_room.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
@@ -153,7 +155,6 @@ class HeaderRoom extends StatelessWidget {
 
             ],
           ),
-          SizedBox(height: ConfigSize.defaultSize!*1.5),
           Row(
             children: [
               ValueListenableBuilder<String>(
@@ -167,7 +168,34 @@ class HeaderRoom extends StatelessWidget {
                       myData: myDataModel,
                       layoutMode: layoutMode,
                     );
-                  })
+                  }),
+              SizedBox(
+                  width: ConfigSize.defaultSize!
+              ),
+              BlocBuilder<ExtraRoomDataBloc, ExtraRoomDataState>(
+                builder: (context, state) {
+                  if(state is ExtraRoomDataSuccessState) {
+                    return SizedBox(
+                      width: ConfigSize.defaultSize! * 8,
+                      height: ConfigSize.defaultSize! * 2.5,
+                      child: ListView.builder(
+                          itemCount: state.data.data!.achievements!.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index){
+                            return AchievementCachImageWidget(
+                              width: ConfigSize.screenWidth! * .08,
+                              url:ConstentApi().getImage(state.data.data!.achievements![index].image),
+                            );
+                          }
+                      ),
+                    );
+                  }else if(state is ExtraRoomDataFilureState){
+                    return Container();
+                  }else{
+                    return Container();
+                  }
+                },
+              ),
             ],
           ),
         ],

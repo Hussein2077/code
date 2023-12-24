@@ -13,6 +13,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/ExtraRoomDataModel.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
@@ -78,7 +79,6 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> addRoomBackGround(  File roomBackGround);
   Future<List<BackGroundModel>> getMyBackGround();
   Future<Unit> muteUser(String ownerId,String  userId ,bool mute) ;
-  Future<Unit> inviteUser(String ownerId,String  userId ,int indexSeat) ;
    Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) ;
   Future<LuckyGiftModel> sendLuckyGift(GiftPramiter giftPramiter);
 
@@ -97,6 +97,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> inviteToGameNew(InviteToGameNewPramiter inviteToGamePramiter);
   Future<String> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGameActionNewPramiter);
   Future<String> gameresult(GameResultPramiter gameResultPramiter);
+  Future<ExtraRoomDataModel> getExtraRoomData(String OwnerId);
 
 }
 
@@ -1061,40 +1062,6 @@ static String uploadImagePrice = "" ;
     }
   }
 
-  @override
-  Future<Unit> inviteUser(String ownerId,String userId,int indexSeat)async {
-    Map<String, String> headers = await DioHelper().header();
-
-    Map<String,dynamic> mapToZego =
-    {
-      'id_user':userId ,
-      'index' : indexSeat
-    };
-
-    final body ={
-      'owner_id': ownerId,
-      'message' :'inviteToSeat',
-      'ext':jsonEncode(mapToZego) ,
-      'action':'SendCustomCommand'
-    };
-
-    try {
-      await Dio().post(ConstentApi.sentToZego,
-          options: Options(
-            headers:headers ,
-          ),
-          data: body
-      );
-
-
-
-      return Future.value(unit);
-
-    } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'inviteUser' );
-    }
-  }
-
     @override
   Future<GetConfigKeyModel> getConfigKey(GetConfigKeyPram? getConfigKeyPram) async{
 
@@ -1454,6 +1421,22 @@ Future<String> gameresult(GameResultPramiter gameResultPramiter)async {
     return jsonData['message'];
   } on DioError catch (e) {
     throw DioHelper.handleDioError(dioError: e,endpointName: "gameresult");
+  }
+}
+
+@override
+Future<ExtraRoomDataModel> getExtraRoomData(String OwnerId) async {
+  Map<String, String> headers = await DioHelper().header();
+
+  try {
+    final response = await Dio().get(ConstentApi().getExtraRoomData(OwnerId),
+        options: Options(
+          headers: headers,
+        ));
+    Map<String, dynamic> jsonData = response.data;
+    return ExtraRoomDataModel.fromJson(jsonData);
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e, endpointName: 'getGifts');
   }
 }
 

@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/host_time_counter/host_timer_counter_controller.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
@@ -1026,9 +1027,9 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
     }
     return true;
   }
-
+//todo check that
   Future<bool> takeOffAllSeat({required bool isPK}) async {
-    if(  RoomScreen.userOnMics.value.isNotEmpty)
+    if(GiftUser.userOnMicsForGifts.isNotEmpty)
     {
       if (isRoomAttributesBatching) {
         ZegoLoggerService.logInfo(
@@ -1039,20 +1040,20 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         return false;
       }
 
-
       _isRoomAttributesBatching = true;
       ZegoUIKit().getSignalingPlugin().beginRoomPropertiesBatchOperation(
         isForce: true, roomID: roomID,
       );
 
-      List<int> userOnMic =RoomScreen.userOnMics.value.keys.toList();
+      List<int> userOnMic = GiftUser.userOnMicsForGifts.keys.toList();
 
 
       for (int i = 0; i < userOnMic.length; i++) {
-        if(RoomScreen.userOnMics.value[userOnMic[i]]!.id.toString() == ownerId && isPK){
+        if(GiftUser.userOnMicsForGifts[userOnMic[i]]!.id.toString() == ownerId && isPK){
 
         }else{
-          BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: RoomScreen.userOnMics.value[userOnMic[i]]!.id.toString()));
+
+          BlocProvider.of<OnRoomBloc>(contextQuery!()).add(LeaveMicEvent(ownerId: ownerId, userId: GiftUser.userOnMicsForGifts[userOnMic[i]]!.id.toString()));
 
         }
 

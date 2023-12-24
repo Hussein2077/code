@@ -1,7 +1,4 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
-
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -183,36 +180,75 @@ class _PageViewGamesState extends State<PageViewGames>
   void joinToGames(int index) async {
     String token = await Methods.instance.returnUserToken();
     if (index == 0) {
-      dailogRoom(
+      showModalBottomSheet<void>(
           context: context,
-          widget: WebViewInRoom(
-            url: '${StringManager.teenPatti}$token',
-          ));
+          isDismissible: false,
+          backgroundColor: Colors.black,
+          builder: (BuildContext context) {
+            return SizedBox(
+                height: ConfigSize.screenHeight! * 0.42,
+                child: WebViewInRoom(
+                  url: '${StringManager.teenPatti}$token',
+                )
+            );
+          }
+      );
     } else if (index == 1) {
-      dailogRoom(
+      showModalBottomSheet<void>(
           context: context,
-          widget: WebViewInRoom(
-            url: '${StringManager.roulette}$token',
-          ));
+          isDismissible: false,
+          backgroundColor: Colors.black,
+          builder: (BuildContext context) {
+            return SizedBox(
+                height: ConfigSize.screenHeight! * 0.42,
+                child: WebViewInRoom(
+                  url: '${StringManager.roulette}$token',
+                )
+            );
+          }
+      );
     } else if (index == 2) {
-      dailogRoom(
+      showModalBottomSheet<void>(
           context: context,
-          widget: WebViewInRoom(
-            url: '${StringManager.carRace}$token',
-          ));
+          isDismissible: false,
+          backgroundColor: Colors.black,
+          builder: (BuildContext context) {
+            return SizedBox(
+                height: ConfigSize.screenHeight! * 0.42,
+                child: WebViewInRoom(
+                  url: '${StringManager.carRace}$token',
+                )
+            );
+          }
+      );
     } else if (index == 3) {
-      dailogRoom(
+      showModalBottomSheet<void>(
           context: context,
-          widget: WebViewInRoom(
-            url: '${StringManager.updown}$token',
-          ));
+          isDismissible: false,
+          backgroundColor: Colors.black,
+          builder: (BuildContext context) {
+            return SizedBox(
+                height: ConfigSize.screenHeight! * 0.42,
+                child: WebViewInRoom(
+                  url: '${StringManager.updown}$token',
+                )
+            );
+          }
+      );
     } else if (index == 4) {
-
-      dailogRoom(
+      showModalBottomSheet<void>(
           context: context,
-          widget: WebViewInRoom(
-            url: '${StringManager.ludo}$token',
-          ));
+          isDismissible: false,
+          backgroundColor: Colors.black,
+          builder: (BuildContext context) {
+            return SizedBox(
+                height: ConfigSize.screenHeight! * 0.42,
+                child: WebViewInRoom(
+                  url: '${StringManager.ludo}$token',
+                )
+            );
+          }
+      );
     }
   }
 }

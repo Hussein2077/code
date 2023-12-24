@@ -1,6 +1,5 @@
 
 // ignore_for_file: use_build_context_synchronously
-import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +25,7 @@ class HandlerRoomScreen extends StatefulWidget {
 
   @override
   HandlerRoomScreenState createState() => HandlerRoomScreenState();
+
 }
 
 class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTickerProviderStateMixin{
@@ -47,9 +47,7 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
   Widget build(BuildContext context) {
     return BlocConsumer<RoomHandlerBloc,RoomHandlerStates>(
         builder: (context,state){
-
           return const  LoadingWidget() ;
-
         },
         listener: (context,state )async{
           if (state is EnterRoomSuccesMessageState){
@@ -76,11 +74,14 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
                         myDataModel: MyDataModel.getInstance() ,
                     isHost: MyDataModel.getInstance().id.toString() == state.room.ownerId.toString()));
               }
+
               PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
-              await pusher.subscribe(channelName: 'presence-room-${state.room.ownerId}',
+              await pusher.subscribe(channelName: 'presence-room-${MyDataModel.getInstance().id}',
                   onEvent: (event){
 
                   });
+
+
               await pusher.connect();
             }
             else{

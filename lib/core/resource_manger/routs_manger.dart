@@ -54,8 +54,11 @@ import 'package:tik_chat_v2/features/profile/persentation/component/income_scree
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/component/details_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/component/withdrawal_screen/withdrawal_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/income_screen/income_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen/invit_screen_dtails.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/invit_screen/widgets/parent_users_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/level/level_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/medles%20screen/medles_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/my_videos_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/language_screen/language_screen.dart';
@@ -112,6 +115,7 @@ class Routes {
   static const String settings = "/Settings";
   static const String language = "/Language";
   static const String games = "/GamesScreen";
+  static const String meddles = "/meddles";
 
   static const String mode = "/Mode";
 
@@ -174,6 +178,8 @@ class Routes {
   static const String allShippingAgent = "/AllShippingAgent";
   static const String profileChatDetails = "/ProfileChatDetails";
   static const String refreshScreen = "/RefreshScreen";
+  static const String invitScreenDetails = "/InvitScreenDetails";
+  static const String userScreen = "/UserScreen";
 }
 
 class RouteGenerator {
@@ -182,6 +188,7 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
+        currentContext = Routes.splash;
         return MaterialPageRoute(
             settings: settings, builder: (_) => const SplashScreen());
       case Routes.login:
@@ -710,8 +717,6 @@ class RouteGenerator {
         } else {
           return MaterialPageRoute(
               settings: settings, builder: (_) => AllShippingAgent());
-           return MaterialPageRoute(
-            settings: settings, builder: (_) => AllShippingAgent());
         }
       case Routes.fixedTargetScreen:
         currentContext = Routes.fixedTargetScreen;
@@ -745,6 +750,27 @@ class RouteGenerator {
                     userData: userData,
                   ));
         }
+      case Routes.invitScreenDetails:
+        // UserDataModel userData = settings.arguments as UserDataModel;
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
+              builder: (_) => InvitScreenDetails(
+                  //  userData: userData,
+                  ));
+        } else {
+          return MaterialPageRoute(
+              settings: settings,
+              builder: (_) => InvitScreenDetails(
+                  //    userData: userData,
+                  ));
+        }
+      case Routes.userScreen:
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(builder: (_) => const ParentUsersScreen());
+        } else {
+          return MaterialPageRoute(
+              settings: settings, builder: (_) => const ParentUsersScreen());
+        }
 
       case Routes.refreshScreen:
         currentContext = Routes.refreshScreen;
@@ -753,6 +779,15 @@ class RouteGenerator {
         } else {
           return MaterialPageRoute(
               settings: settings, builder: (_) => const RefreshScreen());
+        }
+      case Routes.meddles:
+        if (Platform.isIOS)
+        {
+          return CupertinoPageRoute (
+              builder: (_) => const MedlesScreen());
+        } else {
+          return MaterialPageRoute(
+              builder: (_) => const MedlesScreen());
         }
     }
 

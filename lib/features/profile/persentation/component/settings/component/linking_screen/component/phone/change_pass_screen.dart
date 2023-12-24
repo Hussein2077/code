@@ -195,8 +195,8 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                                     : const LinearGradient(
                                         colors: ColorManager.mainColorList),
                               ),
-                              child: const Center(
-                                child: Text(StringManager.send),
+                              child: Center(
+                                child: Text(StringManager.send.tr()),
                               ),
                             ),
                           ),

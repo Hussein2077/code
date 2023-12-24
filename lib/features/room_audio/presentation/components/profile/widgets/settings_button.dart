@@ -45,7 +45,7 @@ class _SettingsButtonState extends State<SettingsButton> {
   Widget build(BuildContext context) {
     final List<String> items = [
      // StringManager.mention.tr(),
-      if (!widget.myProfrile) StringManager.reports.tr(),
+      if (!widget.myProfrile) StringManager.report.tr(),
       if (widget.userData.id != MyDataModel.getInstance().id &&
           widget.userData.id != widget.roomData.ownerId &&
           MyDataModel.getInstance().id == widget.roomData.ownerId)
@@ -104,7 +104,7 @@ class _SettingsButtonState extends State<SettingsButton> {
                   ownerId: widget.roomData.ownerId.toString(),
                   userId: widget.userData.id.toString()));
             }
-            if (value == StringManager.reports.tr()) {
+            if (value == StringManager.report.tr()) {
               repoertsAction(context: context, userData: widget.userData);
             }
             if (value == StringManager.writeBan.tr()) {

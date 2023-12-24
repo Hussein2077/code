@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_renaming_method_parameters, non_constant_identifier_names
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -28,12 +29,14 @@ import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fixed_target_report.dart';
+import 'package:tik_chat_v2/features/profile/data/model/get_badges_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_time_entities.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_vip_prev.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gift_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/gold_coin_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/intrested_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/invitation_users_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/replace_with_gold_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/search_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/show_agency_model.dart';
@@ -41,6 +44,7 @@ import 'package:tik_chat_v2/features/profile/data/model/show_family_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/silver_history.dart';
 import 'package:tik_chat_v2/features/profile/data/model/useitem_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/user_badges_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/charge_to_uc.dart';
@@ -169,25 +173,49 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<List<AgencyHistoryTime>> getAgencyHistoryTime();
   Future<AgencyHistoryModle> getAgencyHistory(
       {required String month, required String year, String? page});
+
   Future<String> chargeCoinForUsers(
       {required String id, required String amount});
+
   Future<String> chargeDolarsForUsers(
       {required String id, required String amount});
 
   Future<ChargeHistoryModel> getChargeDolarsAgencyOwnerHistory(
       String parameter);
+
   Future<ChargeHistoryModel> getChargeCoinsSystemHistory(String parameter);
+
   Future<List<InterstedMode>> getAllIntersted();
-    Future<String> addIntersted(List<int> ids);
-      Future<List<InterstedMode>> getUserIntersted();
-        Future<String> prevActive(String type);
+
+  Future<String> addIntersted(List<int> ids);
+
+  Future<List<InterstedMode>> getUserIntersted();
+
+  Future<String> prevActive(String type);
+
   Future<String> prevDispose(String type);
+
   Future<List<ReelModel>> getUserReel(String? id, String page);
+
   Future<String> deleteMessage(String id);
+
   Future<bool> activeNotification();
-  Future<List<UserDataModel>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
+
+  Future<List<UserDataModel>> getAllShippingAgents(
+      {required GetAllShippingAgentsPram pram});
+
   Future<FixedTargetReportModel> getFixedTargetReport(String date);
   Future<String> pay({required String message, required String type, required String token});
+  Future<String> huaweiPay({required String product_id, required String token});
+
+  Future<String> invitCode(String id);
+
+  Future<List<InvitationUsersModel>?> getInvitationDetails();
+
+  Future<ParentStaticsModel> getParentDetails();
+  Future<String> GetInvitationExplination();
+  Future<UserBadgesModel> userBadges(String userId);
+  Future<List<GetBadgesModel>> getBadges(String type);
 
 }
 
@@ -2156,10 +2184,156 @@ isVisit: isVisit,
       log(resultData.toString() + "#####");
 
       return resultData['message'];
-
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'pay');
     }
+  }
 
+  @override
+  Future<String> invitCode(String id) async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.invitCode(id),
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      log(resultData.toString());
+
+      return resultData['message'];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'invitCode');
+    }
+  }
+
+  @override
+  Future<List<InvitationUsersModel>?> getInvitationDetails() async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.invitationUsers,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+      return List<InvitationUsersModel>.from(
+          resultData['data'].map((x) => InvitationUsersModel.fromMap(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getInvitationDetails');
+    }
+  }
+
+  @override
+  Future<ParentStaticsModel> getParentDetails() async {
+    Map<String, String> headers = await DioHelper().header();
+    try {
+
+      final response = await Dio().get(
+        ConstentApi.invitationParent,
+        options: Options(
+          headers: headers,
+        ),
+      );
+
+      Map<String, dynamic> resultData = response.data;
+      ParentStaticsModel parentStaticsModel = ParentStaticsModel.fromMap(resultData['data']);
+      return parentStaticsModel;
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getParentDetails');
+    }
+  }
+
+  @override
+  Future<String> GetInvitationExplination() async{
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().get(
+        ConstentApi.explainInvitation,
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+      return resultData['data'];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getInvitationDetails');
+    }
+
+
+  }
+
+  @override
+  Future<String> huaweiPay({required String product_id, required String token})async {
+    Map<String, String> headers = await DioHelper().header();
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.huaweiPay,
+        data: {
+          "token": token,
+          "productId": product_id,
+        },
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      log(resultData.toString() + "#####");
+
+      return resultData['message'];
+
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'huaweiPay');
+    }
+
+  }
+
+  @override
+  Future<UserBadgesModel> userBadges(String userId)async  {
+    Map<String, String> headers = await DioHelper().header();
+    try{
+      final response = await Dio().get(
+        ConstentApi.getUserBadges(userId),
+        options: Options(
+          headers: headers,
+        ),
+      );
+
+      return UserBadgesModel.fromJson(response.data);
+    }on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'makeMomentLike');
+    }
+  }
+
+  @override
+  Future<List<GetBadgesModel>> getBadges(String type) async {
+    Map<String, String> headers = await DioHelper().header();
+    try {
+      final response = await Dio().get(
+        ConstentApi.getBadges(type),
+
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String,dynamic> resultData = response.data;
+      print(resultData['data'].runtimeType );
+      return  List<GetBadgesModel>.from(
+          resultData["data"].map((x) => GetBadgesModel.fromJson(x)));
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'get badges');
+    }
   }
 }

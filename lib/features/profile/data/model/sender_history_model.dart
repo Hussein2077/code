@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
@@ -8,7 +10,7 @@ class SenderHistory extends Equatable {
   String ? name;
   String ? image;
   String ? type;
-  
+
 
 
    SenderHistory({required this.id, required this.name, required this.image, required this.type , this.uid,});

@@ -84,34 +84,29 @@ class DilogBubbelVip extends StatelessWidget {
 
                   AristocracyLevel(
                     level: userData!.vip1!.level! ,
+                    scale: 8,
                   ),
                   SizedBox(
                     width: ConfigSize.defaultSize!*0.2,
                   ),
-
-                  // if(userData!.level!.senderImage! != '')
-                  //
-                  //   LevelContainer(
-                  //     image: userData!.level!.senderImage!),
-                  //         if (userData!.id == roomData.ownerId)
                   Image.asset(
                     AssetsPath.hostMark,
-                    scale: 3.5,
+                    scale: 4,
                   ),
                   SizedBox(
                     width: ConfigSize.defaultSize!*0.2,
                   ),
-                  // if(userData!.level!.receiverImage! != '')
-                  //   LevelContainer(
-                  //     image: userData!.level!.receiverImage!),
-                  GradientTextVip(
-                    text:userData!.name!,
-                    textStyle:TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: AppPadding.p12,
-                        color: Colors.white),
 
-                    isVip: false,
+                  SizedBox(
+                    width: ConfigSize.defaultSize! * 12,
+                    child: Text(
+                      userData!.name!,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: AppPadding.p10,
+                          color: Colors.white),
+                    ),
                   ),
                   SizedBox(
                     width: level==3?ConfigSize.defaultSize!*0.5:(level==4||level==5)?ConfigSize.defaultSize!*0.9:0,
@@ -132,7 +127,7 @@ class DilogBubbelVip extends StatelessWidget {
                         message,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: AppPadding.p10,
+                            fontSize: AppPadding.p8,
                             color: Colors.white),
                       ),
                     ],

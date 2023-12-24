@@ -11,6 +11,11 @@ class ConstentApi {
   static const String sendCodeUrl = "$baseUrl/auth/send-code";
   static const String forgetPassword = "$baseUrl/auth/forget_password";
   static const String forgetPasswordCodeVerification = "$baseUrl/auth/verify-code";
+  String getExtraRoomData(String OwnerId) {
+    return "$baseUrl/rooms/${OwnerId}/extra-data";
+  }
+  static  String getUserBadges(String userId) => "$baseUrl/achievement/user/$userId";
+  static  String getBadges(String type) => "$baseUrl/achievement/$type";
   static const String getBoxes = "$baseUrl/box/list";
   static const String inviteToGame = "$baseUrl/game-challange/send-reuest-paly";
   static const String inviteToGameNew = "$baseUrl/room-game/send-request-play";
@@ -19,6 +24,7 @@ class ConstentApi {
   static const String sendGameChoise = "$baseUrl/game-challange/challange-result";
   static const String gameResult = "$baseUrl/room-game/challenge-result";
   static const String pay = "$baseUrl/pay";
+  static const String huaweiPay = "$baseUrl/huawei-payment";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
   static const String levelUrl = "$baseUrl/level_center";
@@ -117,12 +123,10 @@ class ConstentApi {
   static const String showAgency = "$baseUrl/agencies/show";
   static const String agencyMember = "$baseUrl/agencies/showAllusers";
   static const String agencyRequests = "$baseUrl/agencies/show_request";
-  static const String agencyRequestsAction =
-      "$baseUrl/agencies/actions_request";
+  static const String agencyRequestsAction = "$baseUrl/agencies/actions_request";
   static const String agencyHistoryTime = "$baseUrl/agencies/list_options_his";
   static const String agencyHistory = "$baseUrl/agencies/historyAgancy";
-  static const String chargeCoinForUser =
-      "$baseUrl/agencies/charge_co_for_users";
+  static const String chargeCoinForUser = "$baseUrl/agencies/charge_co_for_users";
   static const String chargeDolarsForUser =
       "$baseUrl/agencies/charge_dollar_for_owner";
   static const String getAllIntrested = "$baseUrl/allinterests";
@@ -397,4 +401,12 @@ class ConstentApi {
   static String checkBlockUnblock( String userId) {
     return "$baseUrl/black_list/check/$userId";
   }
+  static  String invitCode(String userId) {
+    return "$baseUrl/add-code-invitation?code=$userId";
+  }
+  static const String invitationParent = "$baseUrl/parent-statistic";
+  static const String invitationUsers = "$baseUrl/user-earn-from-invitation";
+  static const String explainInvitation = "$baseUrl/explain-invitation";
+
+
 }

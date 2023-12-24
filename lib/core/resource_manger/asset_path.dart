@@ -8,6 +8,7 @@ class AssetsPath {
   static const String midPartyMode = "$pathImage/mid_party_mode.jpg";
   static const String partyImg = "$pathImage/party.jpg";
   static const String topCenterImg = "$pathImage/topCenter.jpg";
+  static const String medles = "$pathImage/medles.png";
   static const String paintTheme = "$pathImage/paint_theme.png";
   static const String unLockRoom = "$pathImage/un_locked.png";
   static const String roomlocked = "$pathImage/lockedRoom.png";
@@ -127,6 +128,7 @@ class AssetsPath {
   static const String paper = "$pathImage/img_2.png";
   static const String scissors = "$pathImage/img_3.png";
   static const String sendBoxSVGA = "$pathImage/Icon G Box .svga";
+  static const String luckyGiftBubble = "$pathImage/lucky_gift_bubble.png";
 
 
 
@@ -309,6 +311,8 @@ class AssetsPath {
   static const String luckyNumberIcon = "$pathIcon/lucky_number_icon.png";
   static const String turntableIcon = "$pathIcon/turntable_icon.png";
   static const String activityGamesIcon = "$pathIcon/games_icon.png";
+  static const String invitation = "$pathIcon/invitation.png";
+  static const String dollersDropping = "$pathImage/dollersdropping (2).jpeg";
 
 
 

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 
 class StringManager {
-  static const int versionApp = 50;
+  static const int versionApp = 56;
   static const String androidPlatform = 'Android';
   static const String iOSPlatform = 'IOS';
 
@@ -49,6 +49,10 @@ class StringManager {
   static const String deleteAccount = "delete account";
   static const String wanaLogeOut = "Do you want to log out?";
   static const String wanaDeletAccout = "Do you want to Delete Account?";
+  static const String achievements = "Achievements";
+  static const String meddles = "Medals";
+  static const String room = "Room";
+  static const String gift = "Gift";
 
   ////
   static const String youWillSpend = 'You will Spend';
@@ -161,7 +165,7 @@ class StringManager {
   static const String inviteFriend = "Invite Friend";
   static const String settings = "Settings";
   static const String complaints = "Complaints";
-  static const String giftGallery = "Gift Gallery";
+  static const String giftGallery = "Gift Recieved";
   static const String dimond = "Dimond";
   static const String addFriend = "Add Friend";
   static const String follow = "Follow";
@@ -603,19 +607,37 @@ class StringManager {
   static const String PaidPlay = "Paid Play";
   static const String wait = "Wait For Product Data";
   static const String viewProfile = "View Profile";
+  static const String changeThemeApproval ="Do you approve to change this theme for ";
+  static const String pleaseAddAtLeastTwoValue = "Please Add At Least Two Value";
+  static const String enterTheInvitCode = "enter the invitation code here";
+  static const String youHaveBeenInvited = "you have been invited before";
+  static const String youCantInvitYourSelf = "you can\'t invit yourself";
+  static const String invitaion = "Invitation";
+  static const String InvitationCode = "Invitation code";
+  static const String parent = "parent";
+  static const String successfulInvitations = "successful invitations";
+  static const String percentage = "percentage";
+  static const String profitProcess = "profit process ";
+  static const String coinsCharged = "coins charged ";
+  static const String watch = "watch";
+  static const String dayEarned = "day earned";
+  static const String dayInvited = "day invited";
+  static const String totalEarned = "total earned";
+  static const String totalInvited = "total invited";
+
   static const String timeRemains = "Time Remains:";
   static const String waitForUsersResponse = "Waiting For Users Response";
   static const String participants = "Participants:";
   static const String luckyUsers = "Lucky Users:";
-  static const String changeThemeApproval =
-      "Do you approve to change this theme for ";
-  static const String pleaseAddAtLeastTwoValue =
-      "Please Add At Least Two Value";
+
 
   static const String chatWillBeAvailable = "The chat will be available in the coming hours";
   static const String stayTuned = "Stay tuned 😉";
 
   static const String thisFeaturenotAvailableNow = "This Feature not Available Now";
+  static const String like = "Likes 👍";
+  static const String howToGainFreeCoins = "How to get";
+  static const String freeCoins = " Free Coins";
 
 
 
@@ -670,6 +692,10 @@ class StringManager {
       You can play with all people inside the ROM
       If you are lucky, the rotation will stop and your name and picture will be shown to everyone inside the room so that they can send you a gift.
     ''';
+
+
+
+
 
   ///List Type Users
   //0 normal user,

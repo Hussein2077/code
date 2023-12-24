@@ -19,7 +19,7 @@ height: height,
       width:width ,
       padding: EdgeInsets.symmetric(
         horizontal: ConfigSize.defaultSize!*0.6,
-        vertical: ConfigSize.defaultSize!*0.1
+        vertical: ConfigSize.defaultSize!*0.05
       ),
       decoration: BoxDecoration(color: maleOrFeamle==1? ColorManager.blue:ColorManager.pink , borderRadius: BorderRadius.circular(ConfigSize.defaultSize!) ),
       child: Row(
@@ -34,7 +34,7 @@ height: height,
           ),
 
           Text(age.toString(), style: TextStyle(
-              color: Colors.white, fontSize: ConfigSize.defaultSize!),)
+              color: Colors.white, fontSize: ConfigSize.defaultSize! * .8),)
         ],),
     );
   }

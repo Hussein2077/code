@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +11,8 @@ import 'package:tik_chat_v2/features/profile/persentation/component/coins/compon
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_buttons.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_event.dart';
 import '../../../../../../core/utils/config_size.dart';
 
 class PaymentMethodDialog extends StatefulWidget {
@@ -94,14 +95,8 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
               onTap: (){
                 IapClient.isEnvReady().then((res) {
                   purchaseConsumableProduct(widget.coin).then((res) {
-                    log(res.toString());
-                   log(" res.errMsg ${res?.errMsg}");
-                    log(" res.errMsg ${res?.returnCode}");
-                    // switch (res!.returnCode) {
-                    //   case 0:
-                    //     log("purchaseConsumableProduct: " + productId + " success");
-                    //     break;
-                    // }
+                   BlocProvider.of<PayBloc>(context).add(HuaweiPayNow(product_id: widget.coin, token: res!.inAppPurchaseData!.purchaseToken.toString()));
+                   Navigator.pop(context);
                   });
                 });
               },

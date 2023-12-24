@@ -63,9 +63,8 @@ class ChangeNumberAccountEvent extends AccountEvents {
   @override
   List<Object?> get props => [  currentPhoneNumber,oldCode, newCode, newtPhoneNumber];
 
-
-
 }
+
 class ChangePasswordAccountEvent extends AccountEvents {
   final String? password ;
   final String? phone ;

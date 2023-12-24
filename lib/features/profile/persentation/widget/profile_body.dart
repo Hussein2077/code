@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -28,7 +26,7 @@ class ProfileBody extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
-         SizedBox(height: ConfigSize.defaultSize!*3,),
+         SizedBox(height: ConfigSize.defaultSize!,),
             UserInfoRow(
               imageSize: ConfigSize.defaultSize! * 6,
               underName: IdWithCopyIcon(userData: myData ),
@@ -73,6 +71,7 @@ class ProfileBody extends StatelessWidget {
               isDarkTheme: isDarkTheme,
               myData: myData,
             ),
+
 
           ],
         ),
