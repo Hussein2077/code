@@ -555,9 +555,9 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
     }
   }
   Map<String, dynamic> cachedGifts = {};
-  if (result[messageContent]['showGift'].contains("mp4")) {
+  // if (result[messageContent]['showGift'].contains("mp4")) {
     cachedGifts = await Methods().getCachingVideo(key: StringManager.cachGiftKey);
-  }
+  // }
 
   GiftData giftData = GiftData(
       localPath: cachedGifts.containsKey(result[messageContent]['gift_id'].toString())
