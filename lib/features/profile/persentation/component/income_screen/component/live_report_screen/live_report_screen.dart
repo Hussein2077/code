@@ -318,9 +318,9 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                   title: StringManager.reels.tr(),
                                 ),
                                 CardInfoMomentReals(
-                                  like: state.allInfoData!.reals.comment.toString(),
+                                  like: state.allInfoData!.reals.like.toString(),
                                   comment:
-                                  state.allInfoData!.reals.like.toString(),
+                                  state.allInfoData!.reals.comment.toString(),
                                   upload:
                                   state.allInfoData!.reals.upload.toString(),
                                 ),
@@ -328,9 +328,9 @@ class _LiveReportScreenState extends State<LiveReportScreen> {
                                   title: StringManager.moments.tr(),
                                 ),
                                 CardInfoMomentReals(
-                                  like: state.allInfoData!.moment.comment.toString(),
+                                  like: state.allInfoData!.moment.like.toString(),
                                   comment:
-                                  state.allInfoData!.moment.like.toString(),
+                                  state.allInfoData!.moment.comment.toString(),
                                   upload:
                                   state.allInfoData!.moment.upload.toString(),
                                 ),
