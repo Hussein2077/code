@@ -80,15 +80,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
     super.dispose();
   }
 
-
-  @override
-  void didChangeDependencies() {
-    localisFollow = widget.userData.isFollow!;
-    BlocProvider.of<GetUserBloc>(context)
-        .add(const InituserEvent());
-
-    super.didChangeDependencies();
-  }
+  //  localisFollow = widget.userData.isFollow!;
   bool isOnMic = false;
 
   bool isAdminOrHost = false;
