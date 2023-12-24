@@ -5,8 +5,8 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 
 class ConstentApi {
-  static const String baseUrl = 'https://tik-chat.com/api' ;
- // static const String baseUrl = 'https://test.tik-chat.com/api' ;
+  //static const String baseUrl = 'https://tik-chat.com/api' ;
+  static const String baseUrl = 'https://test.tik-chat.com/api' ;
   static const String signUpUrl = "$baseUrl/auth/register";
   static const String sendCodeUrl = "$baseUrl/auth/send-code";
   static const String forgetPassword = "$baseUrl/auth/forget_password";

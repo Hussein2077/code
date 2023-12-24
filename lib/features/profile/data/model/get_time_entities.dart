@@ -39,9 +39,9 @@ class TimeDataReport extends Equatable {
     return TimeDataReport(
       days: jason['days'],
       diamonds: jason['diamonds'],
-      hours: jason['hours'],
-      today: jason['today'],
-      reals: RealsMoment.fromJason(jason['user_extras']['reals']),
+      hours:  jason['hours'],
+      today:  jason['today'],
+      reals:   RealsMoment.fromJason(jason['user_extras']['reals']),
       moment: RealsMoment.fromJason(jason['user_extras']['moments']),
     );
   }
