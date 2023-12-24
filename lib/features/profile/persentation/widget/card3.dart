@@ -20,7 +20,6 @@ class Card3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width - 30,
-        height: ConfigSize.defaultSize! * 18,
         decoration: BoxDecoration(
             color: isDarkTheme ? Colors.grey.withOpacity(0.3) : Colors.white,
             borderRadius: BorderRadius.circular(ConfigSize.defaultSize!)),
@@ -33,22 +32,24 @@ class Card3 extends StatelessWidget {
               onTap: () => Navigator.pushNamed(context, Routes.custoumService,
                   arguments: myData.id),
             ),
+
             ProfileRowItem(
-                title: StringManager.invitaion.tr(),
-                image: AssetsPath.invitation,
-    scale:20,
-    color:Colors.grey,
-                onTap:
-                //     () {
-                //   bottomDailog(context: context, widget: InvitScreenDetails());
-                // }
-                () => Navigator.pushNamed(context, Routes.invitScreenDetails),
-                ),
+              title: StringManager.invitaion.tr(),
+              image: AssetsPath.invitation,
+              scale: 20,
+              color: Colors.grey,
+              onTap:
+                  //     () {
+                  //   bottomDailog(context: context, widget: InvitScreenDetails());
+                  // }
+                  () => Navigator.pushNamed(context, Routes.invitScreenDetails),
+            ),
             ProfileRowItem(
               title: StringManager.settings.tr(),
               image: AssetsPath.settiengsIcon,
               onTap: () => Navigator.pushNamed(context, Routes.settings),
             ),
+
           ],
         ));
   }

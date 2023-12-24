@@ -6,6 +6,7 @@ Future<void> bottomDailog({
   Color? color,
   double?height,
 }) {
+
   return showGeneralDialog(
       context: context,
       barrierLabel: "",

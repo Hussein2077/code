@@ -20,60 +20,65 @@ class ProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     Brightness currentBrightness = Theme.of(context).brightness;
     bool isDarkTheme = currentBrightness == Brightness.dark;
-    return ScreenColorBackGround(
-      color1: isDarkTheme ? Colors.black : ColorManager.lightGray,
-      child: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-         SizedBox(height: ConfigSize.defaultSize!,),
-            UserInfoRow(
-              imageSize: ConfigSize.defaultSize! * 6,
-              underName: IdWithCopyIcon(userData: myData ),
-              underNameWidth: ConfigSize.defaultSize!*14,
-              endIcon: Container(
-                padding: EdgeInsets.all(ConfigSize.defaultSize!),
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                        colors: ColorManager.mainColorList,
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight)),
-                child: Icon(Icons.arrow_forward_ios,
-                    color: Colors.white, size: ConfigSize.defaultSize!),
+    return Container(
+
+      margin: EdgeInsets.only(bottom: ConfigSize.defaultSize!*3),
+      child: ScreenColorBackGround(
+        withoutHighit: true,
+        color1: isDarkTheme ? Colors.black : ColorManager.lightGray,
+        child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Column(
+            children: [
+           SizedBox(height: ConfigSize.defaultSize!,),
+              UserInfoRow(
+                imageSize: ConfigSize.defaultSize! * 6,
+                underName: IdWithCopyIcon(userData: myData ),
+                underNameWidth: ConfigSize.defaultSize!*14,
+                endIcon: Container(
+                  padding: EdgeInsets.all(ConfigSize.defaultSize!),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                          colors: ColorManager.mainColorList,
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight)),
+                  child: Icon(Icons.arrow_forward_ios,
+                      color: Colors.white, size: ConfigSize.defaultSize!),
+                ),
+                userData: myData.convertToUserObject(),
               ),
-              userData: myData.convertToUserObject(),
-            ),
-            SizedBox(height: ConfigSize.defaultSize!*1.5,),
+              SizedBox(height: ConfigSize.defaultSize!*1.5,),
 
-            FFFVRow(
-              myDataModel: myData,
-            ),
-            SizedBox(height: ConfigSize.defaultSize!*1.5,),
+              FFFVRow(
+                myDataModel: myData,
+              ),
+              SizedBox(height: ConfigSize.defaultSize!*1.5,),
 
-            GoldSilverButton(
-              myDataModel: myData,
-            ),
-            SizedBox(height: ConfigSize.defaultSize!*3.5,),
+              GoldSilverButton(
+                myDataModel: myData,
+              ),
+              SizedBox(height: ConfigSize.defaultSize!*3.5,),
 
-            Card1(
-              isDarkTheme: isDarkTheme,
-              myData: myData,
-            ),
-            SizedBox(height: ConfigSize.defaultSize!*3.5,),
-            Card2(
-              isDarkTheme: isDarkTheme,
-              myData: myData,
-            ),
-            SizedBox(height: ConfigSize.defaultSize!*3.5,),
+              Card1(
+                isDarkTheme: isDarkTheme,
+                myData: myData,
+              ),
+              SizedBox(height: ConfigSize.defaultSize!*3.5,),
+              Card2(
+                isDarkTheme: isDarkTheme,
+                myData: myData,
+              ),
+              SizedBox(height: ConfigSize.defaultSize!*3.5,),
 
-            Card3(
-              isDarkTheme: isDarkTheme,
-              myData: myData,
-            ),
+              Card3(
+                isDarkTheme: isDarkTheme,
+                myData: myData,
+              ),
 
 
-          ],
+            ],
+          ),
         ),
       ),
     );
