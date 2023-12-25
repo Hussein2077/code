@@ -48,10 +48,10 @@ class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
       key: UniqueKey(),
       onTap: () {},
       iconType: IconType.continueAnimation,
-      height:  ConfigSize.defaultSize! * 2,
-      width:  ConfigSize.defaultSize! * 2,
+      height:  ConfigSize.defaultSize! * 3,
+      width:  ConfigSize.defaultSize! * 3,
       color: ColorManager.orange,
-      animateIcon: AnimateIcons.tune,
+      animateIcon: AnimateIcons.volume,
     ) ;
     return Padding(
       padding: const EdgeInsets.all(8.0),
