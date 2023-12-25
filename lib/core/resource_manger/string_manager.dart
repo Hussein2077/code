@@ -53,6 +53,9 @@ class StringManager {
   static const String meddles = "Medals";
   static const String room = "Room";
   static const String gift = "Gift";
+  static const String roomMedals = "Room Medals";
+  static const String chargeMedals = "Charge Medals";
+  static const String giftMedals = "Gift Medals";
 
   ////
   static const String youWillSpend = 'You will Spend';

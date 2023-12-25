@@ -18,7 +18,7 @@ class MedlesTabBar extends StatelessWidget {
       indicator: const BoxDecoration(),
       labelStyle: TextStyle(
         fontFamily:'BalooBhaijaan2' ,
-        fontSize: ConfigSize.defaultSize! * 1.4,
+        fontSize: ConfigSize.defaultSize! * 1.1,
         overflow: TextOverflow.ellipsis,
       ),
       unselectedLabelColor: Colors.black,
@@ -36,7 +36,7 @@ class MedlesTabBar extends StatelessWidget {
   Widget customContainer({required String text,required bool isSelected}){
     return Container(
       alignment: Alignment.center,
-      width: ConfigSize.defaultSize! * 15.7,
+      width: ConfigSize.defaultSize! * 17,
       decoration: BoxDecoration(
         color: isSelected ? ColorManager.orange :  Colors.white,
         borderRadius: BorderRadius.circular(

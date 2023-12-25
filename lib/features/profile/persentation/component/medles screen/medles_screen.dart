@@ -79,9 +79,9 @@ class _MedlesScreenState extends State<MedlesScreen>
                             child: MedlesTabBar(
                               tabIndex: tabIndex,
                               titels: [
-                                StringManager.room.tr(),
-                                StringManager.payment.tr(),
-                                StringManager.gift.tr()
+                                StringManager.roomMedals.tr(),
+                                StringManager.chargeMedals.tr(),
+                                StringManager.giftMedals.tr()
                               ],
                               controller: controller,
                             )),

@@ -63,7 +63,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController liveController;
   late bool isFirst;
-
+  final GlobalKey homeCacheKey = GlobalKey();
 
   @override
   void initState() {
