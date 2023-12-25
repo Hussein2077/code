@@ -389,57 +389,72 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Row(children: [
-                        (isAdminOrHost && isOnMic)
-                            ? ValueListenableBuilder<int>(
-                            valueListenable:
-                            UserProfileInRoom.updatebuttomBar,
-                            builder: (context, mute, _) {
-                              return IconButton(
-                                  onPressed: () {
-                                    if (RoomScreen.usersHasMute.contains(
-                                        widget.userData.id.toString())) {
-                                      sendMuteUserMessage(
-                                          mute: false,
-                                          userId:
-                                          widget.userData.id.toString(),
-                                          ownerId: widget.roomData.ownerId
-                                              .toString());
-                                    } else {
-                                      if (!(widget.roomData.ownerId !=
-                                          widget.myData.id &&
-                                          RoomScreen.adminsInRoom.containsKey(
-                                              widget.userData.id
-                                                  .toString()))) {
-                                        //admin can't make mute to admin
-                                        sendMuteUserMessage(
-                                            mute: true,
-                                            userId:
-                                            widget.userData.id.toString(),
-                                            ownerId: widget.roomData.ownerId
-                                                .toString());
-                                      }
-                                    }
-                                  },
-                                  icon: Icon(
-                                    RoomScreen.usersHasMute.contains(
-                                        widget.userData.id.toString())
-                                        ? Icons.mic_off
-                                        : Icons.mic_rounded,
-                                    color: Colors.black,
-                                  ));
-                            })
-                            : SizedBox(
-                          height: ConfigSize.defaultSize! * 4,
+                        // (isAdminOrHost && isOnMic)
+                        //     ? ValueListenableBuilder<int>(
+                        //     valueListenable:
+                        //     UserProfileInRoom.updatebuttomBar,
+                        //     builder: (context, mute, _) {
+                        //       return IconButton(
+                        //           onPressed: () {
+                        //             if (RoomScreen.usersHasMute.contains(
+                        //                 widget.userData.id.toString())) {
+                        //               sendMuteUserMessage(
+                        //                   mute: false,
+                        //                   userId:
+                        //                   widget.userData.id.toString(),
+                        //                   ownerId: widget.roomData.ownerId
+                        //                       .toString());
+                        //             } else {
+                        //               if (!(widget.roomData.ownerId !=
+                        //                   widget.myData.id &&
+                        //                   RoomScreen.adminsInRoom.containsKey(
+                        //                       widget.userData.id
+                        //                           .toString()))) {
+                        //                 //admin can't make mute to admin
+                        //                 sendMuteUserMessage(
+                        //                     mute: true,
+                        //                     userId:
+                        //                     widget.userData.id.toString(),
+                        //                     ownerId: widget.roomData.ownerId
+                        //                         .toString());
+                        //               }
+                        //             }
+                        //           },
+                        //           icon: Icon(
+                        //             RoomScreen.usersHasMute.contains(widget.userData.id.toString())
+                        //                 ? Icons.mic_off
+                        //                 : Icons.mic_rounded,
+                        //             color: Colors.black,
+                        //           ));
+                        //     })
+                        //     : SizedBox(
+                        //   height: ConfigSize.defaultSize! * 4,
+                        // ),
+                        //
+                        // myProfile //for the blockbutto
+                        //     ? SizedBox(width: ConfigSize.defaultSize! * 8)
+                        //     : isAdminOrHost
+                        //     ? BlockButton(
+                        //   roomData: widget.roomData,
+                        //   userData: widget.userData,
+                        // ) : SizedBox(width: ConfigSize.defaultSize! * 8),
+
+
+                        if (!myProfile) InkWell(
+                          onTap: (){
+                            repoertsAction(context: context, userData: widget.userData);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.report),
+                              SizedBox(width: 5,),
+                              Text(
+                                  StringManager.report.tr()
+                              ),
+                            ],
+                          ),
                         ),
 
-                        myProfile //for the blockbutto
-                            ? SizedBox(width: ConfigSize.defaultSize! * 8)
-                            : isAdminOrHost
-                            ? BlockButton(
-                          roomData: widget.roomData,
-                          userData: widget.userData,
-                        )
-                            : SizedBox(width: ConfigSize.defaultSize! * 8),
                       ],),
 
 

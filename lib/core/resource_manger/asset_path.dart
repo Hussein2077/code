@@ -5,6 +5,7 @@ class AssetsPath {
 
   //image
   static const String chairIcon = "$pathImage/chair.png";
+  static const String happyNewYear = "$pathImage/happy-holidays-merry-christmas.gif";
   static const String midPartyMode = "$pathImage/mid_party_mode.jpg";
   static const String partyImg = "$pathImage/party.jpg";
   static const String topCenterImg = "$pathImage/topCenter.jpg";
