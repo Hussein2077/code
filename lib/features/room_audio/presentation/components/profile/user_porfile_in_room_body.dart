@@ -219,7 +219,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                         : const SizedBox()
                   ],
                 ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
+                SizedBox(height: ConfigSize.defaultSize! ),
                 Row(
                   children: [
                     Expanded(
@@ -242,7 +242,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                     )),
                   ],
                 ),
-                SizedBox(height: ConfigSize.defaultSize! * 0.7),
+                SizedBox(height: ConfigSize.defaultSize! * 0.3),
                 // GiftGalleryContainer(userId: widget.userData.id!),
 
                 Row(
@@ -250,7 +250,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                   children: [
                     if (!myProfile)
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
                             onTap: () {
@@ -272,6 +272,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                             },
                             child: privateCommentButton(),
                           ),
+
                           ValueListenableBuilder<bool>(
                               valueListenable: followAneimate,
                               builder: (context, isShow, _) {
@@ -293,9 +294,13 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                                       context: context,
                                       icon: AssetsPath.followIcon,
                                       title: StringManager.follow.tr(),
+                                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                          fontSize:ConfigSize.defaultSize!
+                                      ),
                                       onTap: follow);
                                 }
                               }),
+                          SizedBox(width: ConfigSize.defaultSize!,),
                         ],
                       ),
                     //SEND GIFT ICON
@@ -383,17 +388,63 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      myProfile //for the blockbutto
-                          ? SizedBox(width: ConfigSize.defaultSize! * 8)
-                          : isAdminOrHost
-                              ? BlockButton(
-                                  roomData: widget.roomData,
-                                  userData: widget.userData,
-                                )
-                              : SizedBox(width: ConfigSize.defaultSize! * 8),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 3,
-                      ),
+                      Row(children: [
+                        (isAdminOrHost && isOnMic)
+                            ? ValueListenableBuilder<int>(
+                            valueListenable:
+                            UserProfileInRoom.updatebuttomBar,
+                            builder: (context, mute, _) {
+                              return IconButton(
+                                  onPressed: () {
+                                    if (RoomScreen.usersHasMute.contains(
+                                        widget.userData.id.toString())) {
+                                      sendMuteUserMessage(
+                                          mute: false,
+                                          userId:
+                                          widget.userData.id.toString(),
+                                          ownerId: widget.roomData.ownerId
+                                              .toString());
+                                    } else {
+                                      if (!(widget.roomData.ownerId !=
+                                          widget.myData.id &&
+                                          RoomScreen.adminsInRoom.containsKey(
+                                              widget.userData.id
+                                                  .toString()))) {
+                                        //admin can't make mute to admin
+                                        sendMuteUserMessage(
+                                            mute: true,
+                                            userId:
+                                            widget.userData.id.toString(),
+                                            ownerId: widget.roomData.ownerId
+                                                .toString());
+                                      }
+                                    }
+                                  },
+                                  icon: Icon(
+                                    RoomScreen.usersHasMute.contains(
+                                        widget.userData.id.toString())
+                                        ? Icons.mic_off
+                                        : Icons.mic_rounded,
+                                    color: Colors.black,
+                                  ));
+                            })
+                            : SizedBox(
+                          height: ConfigSize.defaultSize! * 4,
+                        ),
+
+                        myProfile //for the blockbutto
+                            ? SizedBox(width: ConfigSize.defaultSize! * 8)
+                            : isAdminOrHost
+                            ? BlockButton(
+                          roomData: widget.roomData,
+                          userData: widget.userData,
+                        )
+                            : SizedBox(width: ConfigSize.defaultSize! * 8),
+                      ],),
+
+
+
+
                     ],
                   ),
                 ),
@@ -411,48 +462,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                           isAdminOrHost: isAdminOrHost,
                           isOnMic: isOnMic,
                           myProfrile: myProfile),
-                      (isAdminOrHost && isOnMic)
-                          ? ValueListenableBuilder<int>(
-                              valueListenable:
-                                  UserProfileInRoom.updatebuttomBar,
-                              builder: (context, mute, _) {
-                                return IconButton(
-                                    onPressed: () {
-                                      if (RoomScreen.usersHasMute.contains(
-                                          widget.userData.id.toString())) {
-                                        sendMuteUserMessage(
-                                            mute: false,
-                                            userId:
-                                                widget.userData.id.toString(),
-                                            ownerId: widget.roomData.ownerId
-                                                .toString());
-                                      } else {
-                                        if (!(widget.roomData.ownerId !=
-                                                widget.myData.id &&
-                                            RoomScreen.adminsInRoom.containsKey(
-                                                widget.userData.id
-                                                    .toString()))) {
-                                          //admin can't make mute to admin
-                                          sendMuteUserMessage(
-                                              mute: true,
-                                              userId:
-                                                  widget.userData.id.toString(),
-                                              ownerId: widget.roomData.ownerId
-                                                  .toString());
-                                        }
-                                      }
-                                    },
-                                    icon: Icon(
-                                      RoomScreen.usersHasMute.contains(
-                                              widget.userData.id.toString())
-                                          ? Icons.mic_off
-                                          : Icons.mic_rounded,
-                                      color: Colors.black,
-                                    ));
-                              })
-                          : SizedBox(
-                              height: ConfigSize.defaultSize! * 4,
-                            )
+
                     ],
                   ),
                 ),
@@ -497,9 +507,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
    if( !localisFollow) {
      BlocProvider.of<FollowBloc>(context)
             .add(FollowEvent(userId: widget.userData.id.toString()));
-     log('$localisFollow 1111111');
      localisFollow = !localisFollow;
-     log('$localisFollow 22222');   }
+     }
 
     Future.delayed(const Duration(milliseconds: 1800), () async {
       _controller.stop();
@@ -533,7 +542,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!
-                  .copyWith(color: Colors.black)),
+                  .copyWith(color: Colors.black,fontSize: ConfigSize.defaultSize!)),
         ],
       ),
     );
@@ -552,15 +561,15 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
               borderRadius: BorderRadius.all(
                   Radius.circular(ConfigSize.defaultSize! * 2.5)),
             ),
-            child: const Center(
-              child: Icon(Icons.lock_clock_outlined, color: ColorManager.whiteColor,),
+            child:   Center(
+              child: Icon(Icons.lock_clock_outlined, color: ColorManager.whiteColor,size: ConfigSize.defaultSize!*2,),
             ),
           ),
           Text("${StringManager.private.tr()} ${StringManager.comment.tr()}",
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!
-                  .copyWith(color: Colors.black)),
+                  .copyWith(color: Colors.black,fontSize: ConfigSize.defaultSize!)),
         ],
       ),
     );

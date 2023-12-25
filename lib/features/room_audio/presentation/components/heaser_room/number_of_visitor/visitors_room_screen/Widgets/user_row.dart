@@ -12,16 +12,23 @@ import 'package:tik_chat_v2/core/widgets/level_continer.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/buttons/gifts/widgets/gift_users.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/general_room_profile.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class UserRow extends StatefulWidget {
   final RoomVistorModel roomVistorModel;
-  final LayoutMode layoutMode ;
-  final EnterRoomModel roomData ;
+  final LayoutMode layoutMode;
 
-  const UserRow({super.key, required this.roomVistorModel, required this.layoutMode, required this.roomData,});
+  final EnterRoomModel roomData;
+
+  const UserRow({
+    super.key,
+    required this.roomVistorModel,
+    required this.layoutMode,
+    required this.roomData,
+  });
 
   @override
   State<UserRow> createState() => _UserRowState();
@@ -29,30 +36,30 @@ class UserRow extends StatefulWidget {
 
 class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
   final mediaUsers = ZegoUIKit().getMediaList();
-  bool isPlayingMusic =false;
+  bool isPlayingMusic = false;
+  bool isOnMic = false;
+
   @override
   void initState() {
-
-    for(int i =0; i<mediaUsers.length;i++){
-      if(mediaUsers[i].id==widget.roomVistorModel.id.toString()){
-      isPlayingMusic=true;
+    for (int i = 0; i < mediaUsers.length; i++) {
+      if (mediaUsers[i].id == widget.roomVistorModel.id.toString()) {
+        isPlayingMusic = true;
       }
     }
-
-
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    Widget animateIcon=    AnimateIcon(
+    Widget animateIcon = AnimateIcon(
       key: UniqueKey(),
       onTap: () {},
       iconType: IconType.continueAnimation,
-      height:  ConfigSize.defaultSize! * 3,
-      width:  ConfigSize.defaultSize! * 3,
+      height: ConfigSize.defaultSize! * 3,
+      width: ConfigSize.defaultSize! * 3,
       color: ColorManager.orange,
       animateIcon: AnimateIcons.volume,
-    ) ;
+    );
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -61,20 +68,22 @@ class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
           bottomDailog(
               context: context,
               widget: GeneralRoomProfile(
-
-                userId:widget.roomVistorModel.id.toString() ,
-                myData:MyDataModel.getInstance(),
-                roomData:widget.roomData,
-                layoutMode:widget.layoutMode,
-              )
-          );
+                userId: widget.roomVistorModel.id.toString(),
+                myData: MyDataModel.getInstance(),
+                roomData: widget.roomData,
+                layoutMode: widget.layoutMode,
+              ));
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(width:ConfigSize.defaultSize! ,),
-            UserImage(image: widget.roomVistorModel.image??'',
-              boxFit: BoxFit.cover,frame: widget.roomVistorModel.frame,
+            SizedBox(
+              width: ConfigSize.defaultSize!,
+            ),
+            UserImage(
+              image: widget.roomVistorModel.image ?? '',
+              boxFit: BoxFit.cover,
+              frame: widget.roomVistorModel.frame,
               frameId: widget.roomVistorModel.frameId,
               imageSize: ConfigSize.defaultSize! * 5,
             ),
@@ -86,60 +95,106 @@ class _UserRowState extends State<UserRow> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width:  ConfigSize.screenWidth! * .6,
+                  width: ConfigSize.screenWidth! * .6,
                   child: Row(
                     children: [
                       GradientTextVip(
-                        text: widget.roomVistorModel.name??'',
+                        text: widget.roomVistorModel.name ?? '',
                         textStyle: Theme.of(context).textTheme.bodyLarge!,
-                        isVip: widget.roomVistorModel.hasColorName??false,
+                        isVip: widget.roomVistorModel.hasColorName ?? false,
                       ),
                       SizedBox(
                         width: ConfigSize.defaultSize! * 2,
                       ),
-                      if(widget.roomVistorModel.type == 0) Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ColorManager.orang),child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                        child: Icon(Icons.home, color: Colors.white, size: ConfigSize.defaultSize!*2,),
-                      ),),
-                      if(widget.roomVistorModel.type == 1) Image.asset(AssetsPath.adminMark, scale: 2,),
+                      if (widget.roomVistorModel.type == 0)
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: ColorManager.orang),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: Icon(
+                              Icons.home,
+                              color: Colors.white,
+                              size: ConfigSize.defaultSize! * 2,
+                            ),
+                          ),
+                        ),
+                      if (widget.roomVistorModel.type == 1)
+                        Image.asset(
+                          AssetsPath.adminMark,
+                          scale: 2,
+                        ),
                       const Spacer(),
                       StreamBuilder<List<ZegoUIKitUser>>(
-                                stream: ZegoUIKit().getMediaListStream(),
-                                builder: (BuildContext context, AsyncSnapshot<List<ZegoUIKitUser>> snapshot){
-                                  return Row(
-                                    children: [
-                                      if(snapshot.hasData)
-                                        for(int i =0; i<snapshot.data!.length;i++)
-                                          if(snapshot.data![i].id==widget.roomVistorModel.id.toString())
-                                            animateIcon,
-                                      if (!snapshot.hasData&&isPlayingMusic)
-                                        animateIcon
-                                    ],
-                                  );
-                                }
-                            ),
-
+                          stream: ZegoUIKit().getMediaListStream(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<ZegoUIKitUser>> snapshot) {
+                            return Row(
+                              children: [
+                                if (snapshot.hasData)
+                                  for (int i = 0;
+                                      i < snapshot.data!.length;
+                                      i++)
+                                    if (snapshot.data![i].id ==
+                                        widget.roomVistorModel.id.toString())
+                                      animateIcon,
+                                if (!snapshot.hasData && isPlayingMusic)
+                                  animateIcon
+                              ],
+                            );
+                          }),
+                      ValueListenableBuilder(
+                          valueListenable: GiftUser.updateView,
+                          builder: (context, count, _) {
+                            isOnMic = false;
+                            for (int i = 0;
+                                i < GiftUser.userOnMicsForGifts.length;
+                                i++) {
+                              if (GiftUser.userOnMicsForGifts[
+                                      widget.roomVistorModel.id] !=
+                                  null) {
+                                isOnMic = true;
+                              }
+                            }
+                            return  (isOnMic)?
+                              AnimateIcon(
+                                key: UniqueKey(),
+                                onTap: () {},
+                                iconType: IconType.continueAnimation,
+                                height: ConfigSize.defaultSize! * 2,
+                                width: ConfigSize.defaultSize! * 2,
+                                color: ColorManager.orange,
+                                animateIcon: AnimateIcons.tune,
+                              ):const SizedBox();
+                          })
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: ConfigSize.defaultSize!*3,
+                  height: ConfigSize.defaultSize! * 3,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       LevelContainer(
-                        image: widget.roomVistorModel.revicerLevelImg??'',
-                        width: ConfigSize.defaultSize!*5,
-                        height: ConfigSize.defaultSize!*2,
+                        image: widget.roomVistorModel.revicerLevelImg ?? '',
+                        width: ConfigSize.defaultSize! * 5,
+                        height: ConfigSize.defaultSize! * 2,
                       ),
-                      SizedBox(width:ConfigSize.defaultSize! ,),
+                      SizedBox(
+                        width: ConfigSize.defaultSize!,
+                      ),
                       LevelContainer(
-                        width: ConfigSize.defaultSize!*5,
-                        height: ConfigSize.defaultSize!*2,
-                        image: widget.roomVistorModel.senderLevelImg??'',
-                      ),             SizedBox(width:ConfigSize.defaultSize! ,),
+                        width: ConfigSize.defaultSize! * 5,
+                        height: ConfigSize.defaultSize! * 2,
+                        image: widget.roomVistorModel.senderLevelImg ?? '',
+                      ),
+                      SizedBox(
+                        width: ConfigSize.defaultSize!,
+                      ),
                       AristocracyLevel(
-                        level: widget.roomVistorModel.vipLevel??0,
+                        level: widget.roomVistorModel.vipLevel ?? 0,
                       ),
                     ],
                   ),

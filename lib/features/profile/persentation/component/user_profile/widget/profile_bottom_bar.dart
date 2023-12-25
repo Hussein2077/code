@@ -144,6 +144,7 @@ class _ProfileBottomBarState extends State<ProfileBottomBar> {
 Widget bottomBarColumn({required BuildContext context,
   required String icon,
   String? title,
+TextStyle? style,
   void Function()? onTap}) {
   return InkWell(
     onTap: onTap,
@@ -184,7 +185,7 @@ Widget bottomBarColumn({required BuildContext context,
         if (title != null)
           Text(
             title,
-            style: Theme.of(context).textTheme.bodySmall,
+            style: style??Theme.of(context).textTheme.bodySmall,
           )
       ],
     ),
