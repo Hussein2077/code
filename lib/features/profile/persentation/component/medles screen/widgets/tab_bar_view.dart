@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
@@ -32,7 +31,7 @@ class MedlesTabBarView extends StatelessWidget {
       builder: (BuildContext context,) {
         return AlertDialog(
           title: const Text("Description"),
-          content: Text(description),
+          content: Text(description, overflow: TextOverflow.clip,),
           actions: <Widget>[
             TextButton(
               child: const Text('OK'),
