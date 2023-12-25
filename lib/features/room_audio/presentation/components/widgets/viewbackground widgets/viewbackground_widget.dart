@@ -132,7 +132,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
     return  BlocListener<SendPrivateCommentBloc, SendPrivateCommentStates>(
       listener: (context, state){
         if(state is SendPrivateCommentSucssesState){
-          ZegoUIKit.instance.sendInRoomMessage("${widget.room.differentCommentKey}${state.data.data!.toUserId} ${state.data.data!.message}");
+          ZegoUIKit.instance.sendInRoomMessage("${StringManager.privateCommentKey}${state.data.data!.toUserId} ${state.data.data!.message}");
           Navigator.pop(context);
         }
       },
@@ -471,6 +471,17 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                             child: LuckyGiftWinCircle()));
                       });
                       return const SizedBox();
+                    } else {
+                      return const SizedBox();
+                    }
+                  }),
+            ),
+            IgnorePointer(
+              child: ValueListenableBuilder<bool>(
+                  valueListenable: RoomScreen.showGif,
+                  builder: (context, sohw, _) {
+                    if (sohw) {
+                      return Image.asset("assets/images/coin_animate.gif");
                     } else {
                       return const SizedBox();
                     }

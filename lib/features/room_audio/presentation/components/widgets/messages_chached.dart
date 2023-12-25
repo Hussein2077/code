@@ -60,7 +60,7 @@ class MessagesChached extends StatelessWidget {
 
     List<String> words = messageWithOutKeys.split(" ");
 
-    bool isPrivateComment = message.message.contains(room.differentCommentKey!);
+    bool isPrivateComment = message.message.contains(StringManager.privateCommentKey);
 
     for (String word in words) {
       if (word.startsWith("@")) {
@@ -125,9 +125,8 @@ class MessagesChached extends StatelessWidget {
       );
     } else {
       if(isPrivateComment){
-        String x = message.message.split(" ").first;
-        String id = x.replaceAll(room.differentCommentKey!, '');
-        if((message.user.id.toString() == MyDataModel.getInstance().id.toString()) || (id == MyDataModel.getInstance().id.toString())) {
+        String recieverId = message.message.split(" ").first.replaceAll(StringManager.privateCommentKey, '');
+        if((message.user.id.toString() == MyDataModel.getInstance().id.toString()) || (recieverId == MyDataModel.getInstance().id.toString())) {
           return privateComment(context);
         }else{
           return const SizedBox();
@@ -394,7 +393,6 @@ class MessagesChached extends StatelessWidget {
   }
 
   Widget privateComment(BuildContext context){
-    String x = message.message.split(" ").first;
     return InkWell(
       onTap: () {
         (message.user.id.startsWith('-1')) ? bottomDailog(
@@ -497,7 +495,7 @@ class MessagesChached extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: ConfigSize.defaultSize! + 15,
                     vertical: ConfigSize.defaultSize!),
-                child: Text(message.message.replaceAll(x, ""), style: TextStyle(color: ColorManager.whiteColor),),
+                child: Text(message.message.replaceAll(message.message.split(" ").first, ""), style: TextStyle(color: ColorManager.whiteColor),),
               ),
             )
           ],

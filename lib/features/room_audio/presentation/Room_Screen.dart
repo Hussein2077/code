@@ -92,6 +92,7 @@ class RoomScreen extends StatefulWidget {
   static late LayoutMode layoutMode;
   static int startTimeOnSeatMic = 0 ;
   static String differentCommentKey = "";
+  static ValueNotifier<bool> showGif = ValueNotifier<bool>(false);
 
   const RoomScreen(
       {Key? key,
@@ -452,6 +453,14 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             String map = jsonEncode(mapZego);
             ZegoUIKit.instance.sendInRoomCommand(map,[]);
           }
+          RoomScreen.showGif.value = true;
+          Map<String,dynamic> mapZego = {
+            "messageContent" : {
+              "message" : "showGifIntro",
+            }
+          };
+          String map = jsonEncode(mapZego);
+          ZegoUIKit.instance.sendInRoomCommand(map,[]);
         }
       });
       BlocProvider.of<ExtraRoomDataBloc>(context).add( GetExtraRoomDataEvent(widget.room.ownerId.toString()));
@@ -459,6 +468,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
 
     Future.delayed(const Duration(milliseconds: 1500) ,(){
       MainScreen.iskeepInRoom.value = true;
+    });
+
+    Future.delayed(const Duration(seconds: 8) ,(){
+      RoomScreen.showGif.value = false;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -695,7 +708,6 @@ setState(() {
             timeEmojie: result[messageContent]['t_length']);
       }
       else if (result[messageContent][message] == showGifts) {
-
         ShowGifts(result, widget.myDataModel.id.toString(), loadMp4Gift, loadAnimationGift, widget.room.ownerId.toString());
       }
       else if (result[messageContent][message] == kicKoutKey) {
@@ -829,6 +841,12 @@ setState(() {
       }
       else if(result[messageContent][message] == luckyDraw){
         LuckyDraw(result, context, widget.room);
+      }
+      else if(result[messageContent][message] == "showGifIntro"){
+        RoomScreen.showGif.value = true;
+        Future.delayed(const Duration(seconds: 5) ,(){
+          RoomScreen.showGif.value = false;
+        });
       }
     }
   }

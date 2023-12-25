@@ -1000,6 +1000,8 @@ class StringManager {
       "${RoomScreen.differentCommentKey}${StringManager.result}rps";
   static String diceGameResultKey =
       "${RoomScreen.differentCommentKey}${StringManager.result}dice";
+  static String privateCommentKey =
+      "${RoomScreen.differentCommentKey}privateComment";
 
 
 
