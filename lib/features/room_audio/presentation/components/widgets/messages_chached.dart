@@ -394,6 +394,7 @@ class MessagesChached extends StatelessWidget {
   }
 
   Widget privateComment(BuildContext context){
+    String x = message.message.split(" ").first;
     return InkWell(
       onTap: () {
         (message.user.id.startsWith('-1')) ? bottomDailog(
@@ -491,44 +492,13 @@ class MessagesChached extends StatelessWidget {
                   top: AppPadding.p2,
                   bottom: AppPadding.p2,
                   right: AppPadding.p2),
-              child: CachedNetworkImage(
-                  imageUrl: ConstentApi().getImage(bubble == ""
-                      ? MessagesChached
-                      .usersMessagesRoom[message.user.id]
-                      ?.bubble
-                      : bubble),
-                  imageBuilder: (context, imageProvider) =>
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.fill),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                            ConfigSize.defaultSize! + 15,
-                            vertical: ConfigSize.defaultSize!),
-                        child: SelectableText.rich(
-                          TextSpan(children: spans),
-                        ),
-                      ),
-                  placeholder: (context, url) =>
-                      Shimmer.fromColors(
-                        baseColor: Colors.grey[850]!,
-                        highlightColor: Colors.grey[800]!,
-                        child: Container(
-                          width: ConfigSize.defaultSize! * 5.7,
-                          height: ConfigSize.defaultSize! * 5.7,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                  errorWidget: (context, url, error) =>
-                  const Center(
-                    child: Icon(Icons.error),
-                  )),
+              child: Container(
+                color: Colors.amber,
+                padding: EdgeInsets.symmetric(
+                    horizontal: ConfigSize.defaultSize! + 15,
+                    vertical: ConfigSize.defaultSize!),
+                child: Text(message.message.replaceAll(x, ""), style: TextStyle(color: ColorManager.whiteColor),),
+              ),
             )
           ],
         ),
