@@ -89,9 +89,7 @@ class _ZegoBottomBarState extends State<ZegoBottomBar> {
           ValueListenableBuilder<bool>(
               valueListenable: RoomScreen.showMessageButton ,
               builder:(context,value,_){
-
-                if ( RoomScreen.showMessageButton.value
-                    && !RoomScreen.banedUsers.containsKey( MyDataModel.getInstance().id.toString())) {
+                if ( RoomScreen.showMessageButton.value && !RoomScreen.banedUsers.containsKey( MyDataModel.getInstance().id.toString())) {
                   return   SizedBox(
                     height: 124.zR,
                     child: Row(

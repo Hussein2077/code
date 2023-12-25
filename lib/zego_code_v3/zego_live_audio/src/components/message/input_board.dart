@@ -15,12 +15,14 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
     required this.roomData,
     required this.mention,
     this.rootNavigator = false,
+    this.userId,
   }) : super();
 
   final ZegoInnerText innerText;
   final EnterRoomModel roomData ;
   final bool rootNavigator;
    final String? mention ;
+   final String? userId ;
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 200);
@@ -67,6 +69,7 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
             textColor: const Color(0xff1B1B1B),
             textHintColor: const Color(0xff1B1B1B).withOpacity(0.5),
             buttonColor: const Color(0xff0055FF),
+            userId: userId,
             onSubmit: () {
               Navigator.of(
                 context,

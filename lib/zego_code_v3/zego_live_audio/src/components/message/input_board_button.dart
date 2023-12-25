@@ -45,20 +45,17 @@ class _ZegoInRoomMessageInputBoardButtonState
       onPressed: () {
         final key = DateTime.now().millisecondsSinceEpoch;
         widget.onSheetPopUp?.call(key);
-
         Navigator.of(
           context,
           rootNavigator: widget.rootNavigator,
-        )
-            .push(
+        ).push(
           ZegoInRoomMessageInputBoard(
             innerText: widget.innerText,
             rootNavigator: widget.rootNavigator,
             roomData: widget.enterRoomModel,
             mention: '',
           ),
-        )
-            .then((value) {
+        ).then((value) {
           widget.onSheetPop?.call(key);
         });
       },

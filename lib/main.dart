@@ -161,6 +161,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
 import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
@@ -560,6 +561,9 @@ class MyApp extends StatelessWidget {
             ..add(const AchievementEvent(type: '1'))
             ..add(const HonorEvent(type: '2'))
             ..add(const ActivityEvent(type: '3')),
+        ),
+        BlocProvider(
+          create: (context) => getIt<SendPrivateCommentBloc>(),
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {

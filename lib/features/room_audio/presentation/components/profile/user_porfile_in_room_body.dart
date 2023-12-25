@@ -261,6 +261,17 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                             },
                             child: mentionButton(),
                           ),
+
+                          InkWell(
+                            onTap: () {
+                              privateCommentAction(
+                                  context: context,
+                                  roomData: widget.roomData,
+                                  userData: widget.userData,
+                              );
+                            },
+                            child: privateCommentButton(),
+                          ),
                           ValueListenableBuilder<bool>(
                               valueListenable: followAneimate,
                               builder: (context, isShow, _) {
@@ -519,6 +530,33 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
             ),
           ),
           Text(StringManager.mention.tr(),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(color: Colors.black)),
+        ],
+      ),
+    );
+  }
+
+  Widget privateCommentButton() {
+    return SizedBox(
+      width: ConfigSize.defaultSize! * 10,
+      child: Column(
+        children: [
+          Container(
+            width: ConfigSize.defaultSize! * 3,
+            height: ConfigSize.defaultSize! * 3,
+            decoration: BoxDecoration(
+              color: Colors.red.withOpacity(0.65),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(ConfigSize.defaultSize! * 2.5)),
+            ),
+            child: const Center(
+              child: Icon(Icons.lock_clock_outlined, color: ColorManager.whiteColor,),
+            ),
+          ),
+          Text("${StringManager.private.tr()} ${StringManager.comment.tr()}",
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!

@@ -204,7 +204,7 @@ class EnterRoomModel extends Equatable {
       topUser:jsonData['top_user']==null ? null : UserDataModel.fromMap(jsonData['top_user']),
        roomFamily:jsonData['room_family'] ==null ? null: RoomFamilyModel.fromJson( jsonData['room_family']),
       mutedUsers: jsonData['muted_users'],
-      differentCommentKey: jsonData['asdas'] ?? "12345678"
+      differentCommentKey: jsonData['room_keys']['comment_room_key'] ?? "12345678"
 
     );
   }
