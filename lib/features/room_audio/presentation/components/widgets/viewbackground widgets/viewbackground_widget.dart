@@ -133,6 +133,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
       listener: (context, state){
         if(state is SendPrivateCommentSucssesState){
           ZegoUIKit.instance.sendInRoomMessage("${widget.room.differentCommentKey}${state.data.data!.toUserId} ${state.data.data!.message}");
+          Navigator.pop(context);
         }
       },
       child: BlocConsumer<SendGiftBloc, SendGiftStates>(
