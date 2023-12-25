@@ -478,7 +478,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             ),
             IgnorePointer(
               child: ValueListenableBuilder<bool>(
-                  valueListenable: RoomScreen.showGif,
+                  valueListenable: RoomScreen.happyNewYearGif,
                   builder: (context, sohw, _) {
                     if (sohw) {
                       return Image.asset("assets/images/coin_animate.gif");
