@@ -48,6 +48,7 @@ class _InvitScreenDetailsState extends State<InvitScreenDetails> {
         }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         //backgroundColor: Colors.grey[200],
         body: Column(
           children: [

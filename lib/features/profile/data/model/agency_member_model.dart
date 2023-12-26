@@ -10,7 +10,8 @@ class AgencyMemberModel {
   String? image ;
   dynamic totalUsd ;
   bool? hasColorName ;
-AgencyMemberModel({this.diamond , this.id , this.hasColorName,this.image ,this.name , this.totalUsd , this.uuid});
+AgencyMemberModel({this.diamond , this.id , this.hasColorName,
+  this.image ,this.name , this.totalUsd , this.uuid});
 
 factory AgencyMemberModel.fromJson(Map <String, dynamic> json){
   return AgencyMemberModel(diamond: json["diamonds"]??0,
