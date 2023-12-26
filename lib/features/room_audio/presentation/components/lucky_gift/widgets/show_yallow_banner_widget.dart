@@ -33,7 +33,7 @@ class ShowYallowBannerWidget extends StatelessWidget {
     return Directionality(
       textDirection: ui.TextDirection.rtl,
       child: AnimatedBuilder(
-        animation:controllerYallowBanner,
+        animation: controllerYallowBanner,
         builder: (context, child) {
       return Transform.translate(
           offset: offsetAnimationYallowBanner.value,

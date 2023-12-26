@@ -481,7 +481,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   valueListenable: RoomScreen.happyNewYearGif,
                   builder: (context, sohw, _) {
                     if (sohw) {
-                      return Image.asset("assets/images/coin_animate.gif");
+                      return Image.asset(AssetsPath.happyNewYear);
                     } else {
                       return const SizedBox();
                     }
