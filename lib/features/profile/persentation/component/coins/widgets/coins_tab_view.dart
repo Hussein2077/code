@@ -16,6 +16,7 @@ import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/huawei_in_app_purchases.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchases.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_method_dialog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
@@ -71,6 +72,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                 titleColor: Colors.green));
       }
     });
+    initialize(context);
     GoogleHuawei();
 
     super.initState();

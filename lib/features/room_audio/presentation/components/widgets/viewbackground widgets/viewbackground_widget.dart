@@ -481,7 +481,34 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   valueListenable: RoomScreen.happyNewYearGif,
                   builder: (context, sohw, _) {
                     if (sohw) {
-                      return Image.asset(AssetsPath.happyNewYear);
+                      return Image.asset(AssetsPath.happyNewYearIntro);
+                    } else {
+                      return const SizedBox();
+                    }
+                  }),
+            ),
+            IgnorePointer(
+              child: ValueListenableBuilder<bool>(
+                  valueListenable: RoomScreen.happyNewYearVideo,
+                  builder: (context, sohw, _) {
+                    if (sohw) {
+                      late VideoPlayerController _controller;
+                      _controller = VideoPlayerController.asset(AssetsPath.happyNewYearVideo)
+                        ..initialize().then((_) {
+                          _controller.play();
+                          _controller.addListener(() {
+                              if (_controller.value.position == _controller.value.duration) {
+                                _controller.dispose();
+                                RoomScreen.happyNewYearVideo.value = false;
+                              }
+                          });
+                        });
+                      return Center(
+                        child: AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: VideoPlayer(_controller),
+                        ),
+                      );
                     } else {
                       return const SizedBox();
                     }

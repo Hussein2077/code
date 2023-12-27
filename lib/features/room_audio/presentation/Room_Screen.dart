@@ -93,6 +93,7 @@ class RoomScreen extends StatefulWidget {
   static int startTimeOnSeatMic = 0 ;
   static String differentCommentKey = "";
   static ValueNotifier<bool> happyNewYearGif = ValueNotifier<bool>(false);
+  static ValueNotifier<bool> happyNewYearVideo = ValueNotifier<bool>(false);
 
   const RoomScreen(
       {Key? key,
@@ -849,6 +850,9 @@ setState(() {
         Future.delayed(const Duration(seconds: 5) ,(){
           RoomScreen.happyNewYearGif.value = false;
         });
+      }
+      else if(result[messageContent][message] == "HappyNewYearVideo"){
+        RoomScreen.happyNewYearVideo.value = true;
       }
     }
   }
