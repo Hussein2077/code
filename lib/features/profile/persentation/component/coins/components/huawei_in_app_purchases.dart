@@ -5,7 +5,8 @@ import 'package:tik_chat_v2/features/profile/persentation/component/coins/widget
 
 Future<void> getConsumableProducts() async {
   try {
-    ProductInfoReq req = ProductInfoReq(priceType: IapClient.IN_APP_CONSUMABLE, skuIds: ["140", "1400", "4200", "14000", "28000", "70000"]);
+    ProductInfoReq req = ProductInfoReq(priceType: IapClient.IN_APP_CONSUMABLE,
+        skuIds: ["140", "1400", "4200", "14000", "28000", "70000"]);
 
 
     ProductInfoResult res = await IapClient.obtainProductInfo(req);
@@ -19,11 +20,11 @@ Future<void> getConsumableProducts() async {
 
 Future<PurchaseResultInfo?> purchaseConsumableProduct(String productId) async {
   try {
-    PurchaseIntentReq req = PurchaseIntentReq(priceType: IapClient.IN_APP_CONSUMABLE, productId: productId, developerPayload: "Test");
+    PurchaseIntentReq req = PurchaseIntentReq(priceType: IapClient.IN_APP_CONSUMABLE, productId: productId,
+        developerPayload: "Production");
 
     PurchaseResultInfo res = await IapClient.createPurchaseIntent(req);
-    IsSandboxActivatedResult result = await IapClient.isSandboxActivated();
-    log("result1111 ${result.isSandboxUser}");
+   // IsSandboxActivatedResult result = await IapClient.isSandboxActivated();
     return res;
   } on PlatformException catch (e) {
     log(e.toString());

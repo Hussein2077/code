@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,7 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
 
   @override
   Widget build(BuildContext context) {
+
     return Dialog(
       backgroundColor: Colors.transparent,
       insetPadding: const EdgeInsets.all(10),
@@ -94,8 +96,10 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
             if(isHuawei) InkWell(
               onTap: (){
                 IapClient.isEnvReady().then((res) {
-                  purchaseConsumableProduct(widget.coin).then((res) {
-                   BlocProvider.of<PayBloc>(context).add(HuaweiPayNow(product_id: widget.coin, token: res!.inAppPurchaseData!.purchaseToken.toString()));
+                  purchaseConsumableProduct(widget.coinPackageId).then((res) {
+                   BlocProvider.of<PayBloc>(context)
+                       .add(HuaweiPayNow(product_id: widget.coinPackageId,
+                       token: res!.inAppPurchaseData!.purchaseToken.toString()));
                    Navigator.pop(context);
                   });
                 });

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,6 +115,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
           if (state is GoldCoinLoadingState) {
             return const LoadingWidget();
           } else if (state is GoldCoinSucssesState) {
+
             if (state.data.isEmpty) {
               return EmptyWidget(message: StringManager.noDataFoundHere.tr());
             } else {
@@ -124,6 +126,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                               crossAxisCount: 3),
                       itemCount: state.data.length,
                       itemBuilder: (context, index) {
+                        log("widget.coinPackageId${state.data[index].id}");
                         return Container(
                           padding:
                               EdgeInsets.only(top: ConfigSize.defaultSize!),
