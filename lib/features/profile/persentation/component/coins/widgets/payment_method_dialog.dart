@@ -8,6 +8,8 @@ import 'package:pay/pay.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/huawei_in_app_purchases.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchases.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_tab_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_buttons.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
@@ -39,7 +41,9 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
 
   @override
   void initState() {
-    GoogleHuawei();
+    if(!Platform.isIOS) {
+      GoogleHuawei();
+    }
     super.initState();
   }
 
@@ -120,18 +124,28 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
               ),
             ),
 
-            if(!isHuawei) SizedBox(
-              width: double.infinity,
-              child: PaymentButtons(
-                paymentItems: [
-                  PaymentItem(
-                    amount: widget.price,
-                    label: widget.coin,
-                    status: PaymentItemStatus.final_price,
-                    type: PaymentItemType.item,
+            if(!isHuawei) InkWell(
+              onTap: (){
+                CoinsTabView.productId = 140;
+                buyProduct(productsMap["140"]);
+              },
+              child: Container(
+                height: ConfigSize.defaultSize! * 5,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(ConfigSize.defaultSize!*2),
+                  color: Colors.red,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Pay With google", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
+                      Image.asset(AssetsPath.googleIcon, color: Colors.white,),
+                    ],
                   ),
-                ],
-                productId: widget.coinPackageId,
+                ),
               ),
             ),
           ],

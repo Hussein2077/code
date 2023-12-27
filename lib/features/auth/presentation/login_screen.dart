@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController passwordController;
 
   bool isGoogle = true;
-  bool isHuawei = true;
+  bool isHuawei = false;
 
   void GoogleHuawei() async {
     isGoogle = (await GoogleHuaweiAvailability.isGoogleServiceAvailable)!;

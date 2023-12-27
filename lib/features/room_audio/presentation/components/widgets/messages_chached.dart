@@ -491,10 +491,15 @@ class MessagesChached extends StatelessWidget {
                   bottom: AppPadding.p2,
                   right: AppPadding.p2),
               child: Container(
-                color: Colors.amber,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AssetsPath.privateComment),
+                      fit: BoxFit.fill
+                  ),
+                ),
                 padding: EdgeInsets.symmetric(
-                    horizontal: ConfigSize.defaultSize! + 15,
-                    vertical: ConfigSize.defaultSize!),
+                    horizontal: ConfigSize.defaultSize! * 5,
+                    vertical: ConfigSize.defaultSize! * 1.5),
                 child: Text(message.message.replaceAll(message.message.split(" ").first, ""), style: TextStyle(color: ColorManager.whiteColor),),
               ),
             )

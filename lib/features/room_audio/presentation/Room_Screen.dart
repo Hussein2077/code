@@ -850,6 +850,12 @@ setState(() {
           RoomScreen.happyNewYearGif.value = false;
         });
       }
+      else if(result[messageContent][message] == "HappyNewYearVideo"){
+        RoomScreen.happyNewYearGif.value = true;
+        Future.delayed(const Duration(seconds: 5) ,(){
+          RoomScreen.happyNewYearGif.value = false;
+        });
+      }
     }
   }
 
