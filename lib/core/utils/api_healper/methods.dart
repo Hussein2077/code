@@ -205,12 +205,6 @@ class Methods {
     await ZegoLiveAudioRoomManagers().plugins?.uninit();
     ZegoLiveAudioRoomManagers().unintPluginAndManagers();
     ZegoUIKitPrebuiltLiveAudioRoomState.prebuiltData = null ;
-
-    // for (final subscription in ZegoUIKitPrebuiltLiveAudioRoomState.subscriptions) {
-    //   subscription?.cancel();
-    // }
-    // await ZegoUIKit().resetSoundEffect();
-    // await ZegoUIKit().resetBeautyEffect();
     await ZegoUIKit.instance.leaveRoom();
     await ZegoUIKit.instance.uninit();
     await ZegoUIKit.instance.uninit();
