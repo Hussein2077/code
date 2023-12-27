@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/widgets/report_dailog_for_users.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
@@ -58,7 +60,7 @@ void privateCommentAction({required UserDataModel userData, required EnterRoomMo
     roomData: roomData,
     mention:  "",
     userId: userData.id.toString(),
-    innerText: ZegoInnerText(messageEmptyToast: roomData.privateCommentPrice.toString()),
+    innerText: ZegoInnerText(messageEmptyToast:StringManager.youWillSpend.tr() +"${roomData.privateCommentPrice.toString()}" + StringManager.coins.tr()),
   ));
 }
 
