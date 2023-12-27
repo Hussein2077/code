@@ -252,6 +252,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+
                           InkWell(
                             onTap: () {
                               mentionAction(
@@ -261,6 +262,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                             },
                             child: mentionButton(),
                           ),
+
 
                           InkWell(
                             onTap: () {
@@ -569,22 +571,12 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
       child: Column(
         children: [
           Container(
-            width: ConfigSize.defaultSize! * 3,
+            width: ConfigSize.defaultSize! * 6,
             height: ConfigSize.defaultSize! * 3,
-            decoration: BoxDecoration(
-              color: Colors.red.withOpacity(0.65),
-              borderRadius: BorderRadius.all(
-                  Radius.circular(ConfigSize.defaultSize! * 2.5)),
-            ),
             child:   Center(
-              child: Icon(Icons.lock_clock_outlined, color: ColorManager.whiteColor,size: ConfigSize.defaultSize!*2,),
+              child: Image.asset(AssetsPath.privateCommentIcon),
             ),
           ),
-          Text("${StringManager.private.tr()} ${StringManager.comment.tr()}",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: Colors.black,fontSize: ConfigSize.defaultSize!)),
         ],
       ),
     );

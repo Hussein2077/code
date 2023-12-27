@@ -70,6 +70,7 @@ class EnterRoomModel extends Equatable {
   final String? mutedUsers ;
   final String? differentCommentKey ;
   final bool? welcomeAnimation ;
+  final String? privateCommentPrice ;
 
 
 
@@ -137,6 +138,7 @@ class EnterRoomModel extends Equatable {
         this.mutedUsers,
         this.differentCommentKey ,
         this.welcomeAnimation ,
+        this.privateCommentPrice ,
       });
 
 
@@ -206,7 +208,8 @@ class EnterRoomModel extends Equatable {
        roomFamily:jsonData['room_family'] ==null ? null: RoomFamilyModel.fromJson( jsonData['room_family']),
       mutedUsers: jsonData['muted_users'],
       differentCommentKey: jsonData['room_keys']['comment_room_key'] ?? "12345678",
-        welcomeAnimation: jsonData['show_welcom_animation']
+        welcomeAnimation: jsonData['show_welcom_animation'],
+        privateCommentPrice: jsonData['private_comment_price'],
 
     );
   }
@@ -261,6 +264,7 @@ class EnterRoomModel extends Equatable {
     mutedUsers,
     differentCommentKey,
     welcomeAnimation,
+    privateCommentPrice,
 
   ];
 }

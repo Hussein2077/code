@@ -315,6 +315,9 @@ class AssetsPath {
   static const String activityGamesIcon = "$pathIcon/games_icon.png";
   static const String invitation = "$pathIcon/invitation.png";
   static const String dollersDropping = "$pathImage/dollersdropping (2).jpeg";
+  static const String happyNewYearIntro = "$pathImage/happyNewYearIntro.gif";
+  static const String happyNewYearVideo = "$pathImage/happyNewYearVideo.mp4";
+  static const String privateCommentIcon = "$pathImage/private_comment_icon.png";
 
 
 

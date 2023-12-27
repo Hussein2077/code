@@ -43,7 +43,7 @@ class Data {
     toUserId = json['to_user_id'];
   }
   String? message;
-  int? price;
+  String? price;
   int? fromUserId;
   String? toUserId;
 

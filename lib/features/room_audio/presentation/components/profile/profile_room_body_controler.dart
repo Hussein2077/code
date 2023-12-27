@@ -58,7 +58,7 @@ void privateCommentAction({required UserDataModel userData, required EnterRoomMo
     roomData: roomData,
     mention:  "",
     userId: userData.id.toString(),
-    innerText: ZegoInnerText(messageEmptyToast: "100 coin"),
+    innerText: ZegoInnerText(messageEmptyToast: roomData.privateCommentPrice.toString()),
   ));
 }
 

@@ -540,27 +540,27 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<CacheGamesBloc>()..add(const FetchExtraDataEvent(2))),
         BlocProvider(create: (_) => getIt<LoginChatBloc>()),
         BlocProvider(create: (_) => getIt<LogOutChatBloc>()),
-        // BlocProvider(create: (_) => getIt<UpdateUserDataBloc>()),
-        // BlocProvider(create: (_) => getIt<GetFixedTargetBloc>()),
-        // BlocProvider(create: (_) => getIt<ForgetPasswordBloc>()),
-        // BlocProvider(create: (_) => getIt<GameBloc>()),
+        BlocProvider(create: (_) => getIt<UpdateUserDataBloc>()),
+        BlocProvider(create: (_) => getIt<GetFixedTargetBloc>()),
+        BlocProvider(create: (_) => getIt<ForgetPasswordBloc>()),
+        BlocProvider(create: (_) => getIt<GameBloc>()),
         BlocProvider(create: (_) => getIt<HostOnMicTimeBloc>()),
         BlocProvider(create: (_) => getIt<InvitCodeBloc>()),
-        // BlocProvider(create: (_) => getIt<GetInvitationParentDetailsBloc>()),
-        // BlocProvider(create: (_) => getIt<GetInvitationUsersDetailsBloc>()),
-        // BlocProvider(create: (_) => getIt<SendBloc>()),
+        BlocProvider(create: (_) => getIt<GetInvitationParentDetailsBloc>()),
+        BlocProvider(create: (_) => getIt<GetInvitationUsersDetailsBloc>()),
+        BlocProvider(create: (_) => getIt<SendBloc>()),
         BlocProvider(
           create: (context) => getIt<ExtraRoomDataBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<UserBadgesBloc>(),
         ),
-        // BlocProvider(
-        //   create: (context) => getIt<GetBadgesBloc>()
-        //     ..add(const AchievementEvent(type: '1'))
-        //     ..add(const HonorEvent(type: '2'))
-        //     ..add(const ActivityEvent(type: '3')),
-        // ),
+        BlocProvider(
+          create: (context) => getIt<GetBadgesBloc>()
+            ..add(const AchievementEvent(type: '1'))
+            ..add(const HonorEvent(type: '2'))
+            ..add(const ActivityEvent(type: '3')),
+        ),
         BlocProvider(
           create: (context) => getIt<SendPrivateCommentBloc>(),
         ),
