@@ -1,15 +1,14 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
+
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_huawei_availability/google_huawei_availability.dart';
 import 'package:huawei_iap/huawei_iap.dart';
-import 'package:pay/pay.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/huawei_in_app_purchases.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_buttons.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
@@ -96,9 +95,12 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
             if(isHuawei) InkWell(
               onTap: (){
                 IapClient.isEnvReady().then((res) {
-                  purchaseConsumableProduct(widget.coinPackageId).then((res) {
+                  purchaseConsumableProduct( widget.coinPackageId.toString()).then((res) {
+                    if(res?.returnCode == '0'){
+                      log("success");
+                    }
                    BlocProvider.of<PayBloc>(context)
-                       .add(HuaweiPayNow(product_id: widget.coinPackageId,
+                       .add(HuaweiPayNow(product_id: widget.coinPackageId.toString(),
                        token: res!.inAppPurchaseData!.purchaseToken.toString()));
                    Navigator.pop(context);
                   });
@@ -124,20 +126,20 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
               ),
             ),
 
-            if(!isHuawei) SizedBox(
-              width: double.infinity,
-              child: PaymentButtons(
-                paymentItems: [
-                  PaymentItem(
-                    amount: widget.price,
-                    label: widget.coin,
-                    status: PaymentItemStatus.final_price,
-                    type: PaymentItemType.item,
-                  ),
-                ],
-                productId: widget.coinPackageId,
-              ),
-            ),
+            // if(!isHuawei) SizedBox(
+            //   width: double.infinity,
+            //   child: PaymentButtons(
+            //     paymentItems: [
+            //       PaymentItem(
+            //         amount: widget.price,
+            //         label: widget.coin,
+            //         status: PaymentItemStatus.final_price,
+            //         type: PaymentItemType.item,
+            //       ),
+            //     ],
+            //     productId: widget.coinPackageId,
+            //   ),
+            // ),
           ],
         ),
       ),
