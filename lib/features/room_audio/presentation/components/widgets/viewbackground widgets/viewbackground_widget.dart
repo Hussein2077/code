@@ -295,10 +295,10 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   }
                 }),
             if (widget.showYellowBanner['showYellowBanner']!)
-           Positioned(
-                   top: -48,
-                   child:  IgnorePointer(
-                       child: ShowYallowBannerWidget(
+           // Positioned(
+           //         top: -48,
+           //         child:
+                   ShowYallowBannerWidget(
                        cureentRoomId: widget.room.ownerId!,
                        controllerYallowBanner: widget.yellowBannercontroller,
                        offsetAnimationYallowBanner:
@@ -306,8 +306,8 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                        senderYallowBanner: widget.yallowBannerSender,
                        hasPassword: widget.yallowBanner,
                        myData: MyDataModel.getInstance(),
-                       ownerId: widget.yallowBanner)) ,
-             ) ,
+                       ownerId: widget.yallowBanner) ,
+             // ) ,
             ValueListenableBuilder<bool>(
                 valueListenable: RoomScreen.showBanner,
                 builder: (context, isShow, _) {

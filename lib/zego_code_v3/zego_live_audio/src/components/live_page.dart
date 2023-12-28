@@ -107,10 +107,11 @@ class ZegoLivePageState extends State<ZegoLivePage>
       resizeToAvoidBottomInset: false,
       body: WillPopScope(
         onWillPop: () async {
+          MainScreen.iskeepInRoom.value = false;
           MainScreen.roomData = widget.roomData;
           MainScreen.iskeepInRoom.value = true;
-          RoomScreen.outRoom = true;
           Navigator.pop(context);
+          RoomScreen.outRoom = true;
           return true ;
         },
         child: ZegoScreenUtilInit(

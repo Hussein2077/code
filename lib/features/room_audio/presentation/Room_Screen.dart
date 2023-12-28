@@ -212,7 +212,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     yellowBannercontroller.addListener(() {
       if (yellowBannercontroller.isCompleted) {
         yellowBannercontroller.stop();
-        Future.delayed(const Duration(seconds: 20), () async {
+        Future.delayed(const Duration(seconds: 60), () async {
 
           yellowBannercontroller.reverse().then((value) {
             setState(() {

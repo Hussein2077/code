@@ -51,9 +51,9 @@ class ShowYallowBannerWidget extends StatelessWidget {
                     }
                   },
                   child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: ConfigSize.defaultSize! *0.6,
-                          horizontal: ConfigSize.defaultSize!* 0.7),
+                      // padding: EdgeInsets.symmetric(
+                      //     vertical: ConfigSize.defaultSize! *0.6,
+                      //     horizontal: ConfigSize.defaultSize!* 0.7),
                       decoration: BoxDecoration(
                           gradient: const LinearGradient(
                               colors: ColorManager.yellowBannerGrident,
@@ -62,7 +62,8 @@ class ShowYallowBannerWidget extends StatelessWidget {
 
                           ),
                           borderRadius: BorderRadius.circular(20)),
-                      margin: EdgeInsets.only(top: ConfigSize.defaultSize! * 10,right: ConfigSize.defaultSize! * 10),
+                      margin: EdgeInsets.only(top: ConfigSize.defaultSize! * 7,
+                          right: ConfigSize.defaultSize! * 3),
 
                       height: ConfigSize.defaultSize! * 4,
                       child: Row(
@@ -76,11 +77,13 @@ class ShowYallowBannerWidget extends StatelessWidget {
                           // SizedBox(
                           //   width: ConfigSize.defaultSize!*0.5,
                           // ),
-                          Text(senderYallowBanner!.isAanonymous!?StringManager.nameAnayoums.tr():"${senderYallowBanner!.name}"
-                              ,style: const TextStyle(color: Colors.black),),
-                          SizedBox(width:ConfigSize.defaultSize! * 1 ),
+                          SizedBox(width:ConfigSize.defaultSize! * 10,
+                          child:Text(senderYallowBanner!.isAanonymous!?StringManager.nameAnayoums.tr():
+                          "${senderYallowBanner!.name}"
+                            ,style: const TextStyle(color: Colors.white,fontSize: 10),)  ,
+                          ) ,
                           SizedBox(
-                            width: ConfigSize.defaultSize! * 23.5,
+                            width: ConfigSize.defaultSize! * 15,
                             child: TextScroll(
                               textDirection: ui.TextDirection.rtl,
                                   ZegoInRoomMessageInput.messageYallowBanner,
@@ -103,12 +106,12 @@ class ShowYallowBannerWidget extends StatelessWidget {
                             child: Center(
                               child: IconButton(
                                   onPressed: () {
-                                //    controllerYallowBanner.reset();
+                                    controllerYallowBanner.reverse();
                                   },
                                   icon: const Icon(
                                     Icons.close,
                                     color: Colors.white,
-                                    size: 15,
+                                    size: 10,
                                   )),
                             ),
                           )

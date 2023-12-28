@@ -39,7 +39,8 @@ class _CoinsScreenState extends State<CoinsScreen>
             coinsController: coinsController,
           ),
           Expanded(
-            child: TabBarView(controller: coinsController, children:  [
+            child: TabBarView(controller: coinsController,
+                children:  [
               CoinsTabView(type: "gold"),
               // CoinsTabView(type: "silver"),
             ]),

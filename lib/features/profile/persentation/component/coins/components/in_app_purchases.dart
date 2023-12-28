@@ -3,7 +3,10 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_event.dart';
 
 
 final InAppPurchase _connection = InAppPurchase.instance;
@@ -49,10 +52,16 @@ Future<void> _handlePurchaseUpdates(List<PurchaseDetails> detailsList, BuildCont
     print("status: ${purchaseDetails.status.name}");
     if (purchaseDetails.status == PurchaseStatus.purchased) {
       await acknowledgePurchase(purchaseDetails).then((value){
-        //BlocProvider.of<InAppPurchaseBloc>(context).add(PostInAppPurchaseEvent(user_id: MyDataModel.getInstance().id.toString(), product_id: CoinsTabView.productId.toString()));
+      //   BlocProvider.of<PayBloc>(context).
+      //   add(PayNow(user_id: MyDataModel.getInstance().id.toString(), product_id: CoinsTabView.productId.toString()));
       });
+      print(purchaseDetails.verificationData.source + "######");
       print(purchaseDetails.purchaseID! + "######");
       print(purchaseDetails.verificationData.serverVerificationData + "######");
+      print(purchaseDetails.verificationData.source + "######");
+      print(purchaseDetails.verificationData.localVerificationData + "######");
+      print(purchaseDetails.productID + "######");
+
     } else if (purchaseDetails.status == PurchaseStatus.error) {
       print("status error: ${purchaseDetails.error!.message}");
     }
