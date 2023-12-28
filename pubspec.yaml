@@ -116,6 +116,7 @@ dependencies:
   hexcolor: ^3.0.1
   huawei_iap: ^6.13.0+300
   cometchat_chat_uikit: ^4.0.5
+  google_mobile_ads: ^4.0.0
 
 dev_dependencies:
   flutter_test:

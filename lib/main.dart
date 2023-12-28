@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'dart:developer';
@@ -7,6 +8,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -174,6 +176,8 @@ import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_p
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //ads
+  unawaited(MobileAds.instance.initialize());
 
   await EasyLocalization.ensureInitialized();
   // CreateLiveVideoBody.cameras = await availableCameras();
