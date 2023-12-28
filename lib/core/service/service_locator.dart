@@ -287,6 +287,7 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_game_choise
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_gift_use_case.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_lucky_gift_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_pob_up_uc.dart';
+import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_private_comment_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/send_yallow_banner_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/show_pk_uc.dart';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/start_game_uc.dart';
@@ -315,6 +316,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_luck
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -605,6 +607,7 @@ class ServerLocator {
     getIt.registerFactory(() => ExtraRoomDataBloc(extraRoomDataUseCase: getIt()));
     getIt.registerFactory(() => UserBadgesBloc(getUserBadgeUc: getIt()));
     getIt.registerFactory(() => GetBadgesBloc(getBadgesUseCase: getIt()));
+    getIt.registerFactory(() => SendPrivateCommentBloc(sendPrivateCommentUC: getIt()));
 
 //usecase
     getIt.registerLazySingleton(
@@ -612,6 +615,7 @@ class ServerLocator {
     getIt.registerLazySingleton(
             () => GetBadgesUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => ExtraRoomDataUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => SendPrivateCommentUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => GetUserBadgeUc(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(
         () => GetInvitationsDetailsUsecase(baseRepositoryProfile: getIt()));

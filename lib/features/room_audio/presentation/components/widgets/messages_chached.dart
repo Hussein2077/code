@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -53,11 +55,15 @@ class MessagesChached extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GamesInRoom CommentType = checkMeesageType(message.message);
-    String messageWithOutKeys =
-        removeWordFromString(message.message, CommentType);
-    bool isGame = (CommentType != GamesInRoom.normal &&
-        CommentType != GamesInRoom.luckyGiftComment);
+
+    String messageWithOutKeys = removeWordFromString(message.message, CommentType);
+
+    bool isGame = (CommentType != GamesInRoom.normal && CommentType != GamesInRoom.luckyGiftComment);
+
     List<String> words = messageWithOutKeys.split(" ");
+
+    bool isPrivateComment = message.message.contains(StringManager.privateCommentKey);
+
     for (String word in words) {
       if (word.startsWith("@")) {
         spans.add(TextSpan(
@@ -67,6 +73,7 @@ class MessagesChached extends StatelessWidget {
             text: "$word ", style: const TextStyle(color: Colors.white)));
       }
     }
+
     if (CommentType == GamesInRoom.luckyGiftComment ||
         CommentType == GamesInRoom.dicGameResult ||
         CommentType == GamesInRoom.spinGame ||
@@ -120,7 +127,15 @@ class MessagesChached extends StatelessWidget {
         ),
       );
     } else {
-      return InkWell(
+      if(isPrivateComment){
+        String recieverId = message.message.split(" ").first.replaceAll(StringManager.privateCommentKey, '');
+        if((message.user.id.toString() == MyDataModel.getInstance().id.toString()) || (recieverId == MyDataModel.getInstance().id.toString())) {
+          return privateComment(context);
+        }else{
+          return const SizedBox();
+        }
+      }else {
+        return InkWell(
         onTap: () {
           (message.user.id.startsWith('-1'))
               ? bottomDailog(
@@ -137,8 +152,7 @@ class MessagesChached extends StatelessWidget {
                   ));
         },
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: AppPadding.p8, vertical: AppPadding.p2),
+          padding: EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -194,10 +208,6 @@ class MessagesChached extends StatelessWidget {
                           const SizedBox(
                             width: 1,
                           ),
-                          // if ((RoomScreen.usersMessagesRoom[message.user.id]
-                          //     ?.senderLevelImg ??
-                          //     '') !=
-                          //     '')
                           SizedBox(
                             width: ConfigSize.defaultSize! * 4,
                             height: ConfigSize.defaultSize! * 2,
@@ -213,21 +223,6 @@ class MessagesChached extends StatelessWidget {
                           const SizedBox(
                             width: 1,
                           ),
-                          // if ((RoomScreen.usersMessagesRoom[message.user.id]
-                          //     ?.revicerLevelImg ??
-                          //     '') !=
-                          //     '')
-                          //   SizedBox(
-                          //     width: ConfigSize.defaultSize! * 4,
-                          //     height: ConfigSize.defaultSize! * 2,
-                          //     child: LevelContainer(
-                          //       image: receiver == ""
-                          //           ? RoomScreen.usersMessagesRoom[message.user.id]
-                          //           ?.revicerLevelImg ??
-                          //           ''
-                          //           : receiver,
-                          //     ),
-                          //   ),
                         ],
                       ),
                     ],
@@ -328,6 +323,7 @@ class MessagesChached extends StatelessWidget {
           ),
         ),
       );
+      }
     }
   }
 
@@ -397,6 +393,123 @@ class MessagesChached extends StatelessWidget {
       default:
         return const SizedBox();
     }
+  }
+
+  Widget privateComment(BuildContext context){
+    return InkWell(
+      onTap: () {
+        (message.user.id.startsWith('-1')) ? bottomDailog(
+          widget: const AnonymousDialog(), context: context,
+        ) : bottomDailog(
+            context: context,
+            widget: MessageRoomProfile(
+              myData: myDataModel,
+              userId: message.user.id.toString(),
+              roomData: room,
+              layoutMode: layoutMode,
+            ));
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  child: UserImage(
+                      image: message.user.inRoomAttributes.value['img'] ??
+                          MessagesChached
+                              .usersMessagesRoom[message.user.id]?.image ??
+                          ""),
+                ),
+                SizedBox(
+                  width: ConfigSize.defaultSize,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: ConfigSize.defaultSize! * 1.5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        GradientTextVip(
+                          text: message.user.name,
+                          width: ConfigSize.defaultSize! * 15,
+                          isVip: message.user.inRoomAttributes.value['vip'] == '' ? false : message.user.inRoomAttributes.value['vip'] == '8' ? true : false,
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900,
+                              fontStyle: FontStyle.italic,
+                              fontSize: AppPadding.p10),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          width: ConfigSize.defaultSize! - 3,
+                        ),
+                        room.ownerId.toString() == message.user.id
+                            ? SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: Image.asset(AssetsPath.hostMark))
+                            : const SizedBox(),
+                        AristocracyLevel(
+                            level: vip == ""
+                                ? MessagesChached
+                                .usersMessagesRoom[message.user.id]
+                                ?.vipLevel ??
+                                0
+                                : int.parse(vip)),
+                        const SizedBox(
+                          width: 1,
+                        ),
+                        SizedBox(
+                          width: ConfigSize.defaultSize! * 4,
+                          height: ConfigSize.defaultSize! * 2,
+                          child: LevelContainer(
+                            image: sender == ""
+                                ? MessagesChached
+                                .usersMessagesRoom[message.user.id]
+                                ?.senderLevelImg ??
+                                ''
+                                : sender,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 1,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: AppPadding.p24,
+                  top: AppPadding.p2,
+                  bottom: AppPadding.p2,
+                  right: AppPadding.p2),
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AssetsPath.privateComment),
+                      fit: BoxFit.fill
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(
+                    horizontal: ConfigSize.defaultSize! * 5,
+                    vertical: ConfigSize.defaultSize! * 1.5),
+                child: Text(message.message.replaceAll(message.message.split(" ").first, ""), style: TextStyle(color: ColorManager.whiteColor),),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 

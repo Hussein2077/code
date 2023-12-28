@@ -25,6 +25,8 @@ class PaymentButtons extends StatelessWidget {
       paymentItems: paymentItems,
       style: ApplePayButtonStyle.black,
       width: double.infinity,
+      height: 40,
+      margin: const EdgeInsets.only(top: 15.0),
       type: ApplePayButtonType.buy,
       onPaymentResult: (result) {
         Map <String, dynamic> map = {
@@ -39,6 +41,9 @@ class PaymentButtons extends StatelessWidget {
             "cardNetwork": result['paymentMethodData']['info']['cardNetwork']
           }
         };
+
+        log(result.toString() + "########");
+
         //callBack(map, context);
       },
       onError: (e) => debugPrint('Payment error $e'),

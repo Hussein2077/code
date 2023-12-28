@@ -83,13 +83,13 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
                           ? widget.roomData.roomName!
                           : widget.roomName,
                       velocity: const Velocity(pixelsPerSecond: Offset(50, 0)),
-                      pauseBetween:const  Duration(milliseconds: 1000),
+                      pauseBetween: const Duration(milliseconds: 1000),
                       style:  TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                         fontSize:ConfigSize.defaultSize!*1.5,
                       ),
-                      textDirection: TextDirection.ltr,
+                      textDirection: isEnglish(widget.roomName == "" ? widget.roomData.roomName! : widget.roomName)? TextDirection.ltr : TextDirection.rtl,
                     ),
                   ),
                   Row(
@@ -124,4 +124,10 @@ class OwnerOfRoomState extends State<OwnerOfRoom> {
       )
     ) ;
   }
+
+  bool isEnglish(String text) {
+    RegExp englishRegex = RegExp(r'^[a-zA-Z\s]+$');
+    return englishRegex.hasMatch(text);
+  }
+
 }

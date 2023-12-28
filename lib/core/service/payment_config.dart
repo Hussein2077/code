@@ -7,7 +7,7 @@ const String defaultApplePay = '''{
     "apiVersion": 2,
     "apiVersionMinor": 0,
     "merchantIdentifier": "merchant.com.tikkchat.app",
-    "displayName": "for apple pay",
+    "displayName": "TIK CHAT",
     "merchantCapabilities": ["3DS", "debit", "credit"],
     "supportedNetworks": ["amex", "visa", "discover", "masterCard"],
     "countryCode": "US",

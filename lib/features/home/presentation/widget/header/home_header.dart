@@ -9,7 +9,6 @@ import 'package:tik_chat_v2/features/home/presentation/widget/header/live_tab_ba
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
 
-final GlobalKey homeCacheKey = GlobalKey();
 
 class HomeHeader extends StatefulWidget {
   final TabController liveController;

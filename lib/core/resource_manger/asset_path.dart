@@ -5,6 +5,7 @@ class AssetsPath {
 
   //image
   static const String chairIcon = "$pathImage/chair.png";
+  static const String happyNewYear = "$pathImage/happy-holidays-merry-christmas.gif";
   static const String midPartyMode = "$pathImage/mid_party_mode.jpg";
   static const String partyImg = "$pathImage/party.jpg";
   static const String topCenterImg = "$pathImage/topCenter.jpg";
@@ -129,6 +130,7 @@ class AssetsPath {
   static const String scissors = "$pathImage/img_3.png";
   static const String sendBoxSVGA = "$pathImage/Icon G Box .svga";
   static const String luckyGiftBubble = "$pathImage/lucky_gift_bubble.png";
+  static const String privateComment = "$pathImage/private_comment.png";
 
 
 
@@ -313,6 +315,9 @@ class AssetsPath {
   static const String activityGamesIcon = "$pathIcon/games_icon.png";
   static const String invitation = "$pathIcon/invitation.png";
   static const String dollersDropping = "$pathImage/dollersdropping (2).jpeg";
+  static const String happyNewYearIntro = "$pathImage/happyNewYearIntro.gif";
+  static const String happyNewYearVideo = "$pathImage/happyNewYearVideo.mp4";
+  static const String privateCommentIcon = "$pathImage/private_comment_icon.png";
 
 
 

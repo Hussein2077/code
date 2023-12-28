@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -97,10 +98,10 @@ class _VistorScreenState extends State<VistorScreen> {
                               builder: (context, value, child) {
                                 return MainButton(
                                   title: LogicFollowUnfollow.theFollowedUsersMap[state.data![index].id]! ? StringManager.unFollow.tr() : StringManager.follow.tr(),
-                                  titleSize: ConfigSize.defaultSize! * 1.2,
+                                  titleSize: LogicFollowUnfollow.theFollowedUsersMap[state.data![index].id]! ? ConfigSize.defaultSize! / 1.2 : ConfigSize.defaultSize! * 1.2,
                                   width: ConfigSize.defaultSize! * 6,
                                   height: ConfigSize.defaultSize! * 3,
-                                  buttonColor: const [
+                                  buttonColor: LogicFollowUnfollow.theFollowedUsersMap[state.data![index].id]! ? ColorManager.bageGriedinet : const [
                                     Color(0x96FF382C),
                                     Color(0x90FFBB0D),
                                   ],

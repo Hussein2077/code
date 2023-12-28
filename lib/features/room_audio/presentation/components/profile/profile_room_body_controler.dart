@@ -10,6 +10,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/message/input_board.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_inner_text.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 
 bool checkIsUserOnMic(UserDataModel userData) {
   bool isOnMic = false;
@@ -41,17 +42,24 @@ bool myProfileOrNot(
   }
 }
 
-void mentionAction(
-    {required UserDataModel userData,
-    required EnterRoomModel roomData,
-    required BuildContext context}) {
+void mentionAction({required UserDataModel userData, required EnterRoomModel roomData, required BuildContext context}) {
   String name = userData.name!.replaceAll(" ", "_");
   Navigator.pop(context);
   Navigator.of(context).push(ZegoInRoomMessageInputBoard(
       roomData: roomData,
       mention:  "@$name",
-    innerText: ZegoInnerText(),
+      innerText: ZegoInnerText(),
        ));
+}
+
+void privateCommentAction({required UserDataModel userData, required EnterRoomModel roomData, required BuildContext context}) {
+  Navigator.pop(context);
+  Navigator.of(context).push(ZegoInRoomMessageInputBoard(
+    roomData: roomData,
+    mention:  "",
+    userId: userData.id.toString(),
+    innerText: ZegoInnerText(messageEmptyToast: roomData.privateCommentPrice.toString()),
+  ));
 }
 
 void repoertsAction(

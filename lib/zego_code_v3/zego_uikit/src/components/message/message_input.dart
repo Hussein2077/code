@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_social_textfield/flutter_social_textfield.dart';
@@ -16,12 +18,10 @@ import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dar
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/zego_uikit_prebuilt_live_audio_room.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/internal/icon_defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/widgets/text_icon_button.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 // Project imports:
 
@@ -36,6 +36,7 @@ class ZegoInRoomMessageInput extends StatefulWidget {
   static String messageYallowBanner = '';
   ZegoInRoomMessageInput({
     this.mention,
+    this.userId,
     Key? key,
     this.placeHolder =  'Say something...',
     this.backgroundColor,
@@ -67,6 +68,7 @@ class ZegoInRoomMessageInput extends StatefulWidget {
   final ValueNotifier<String>? valueNotifier;
   final ValueNotifier<bool>? focusNotifier;
   String? mention;
+  String? userId;
 
   @override
   State<ZegoInRoomMessageInput> createState() => _ZegoInRoomMessageInputState();
@@ -350,7 +352,18 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
       builder: (context, bool isEmpty, Widget? child) {
         return ZegoTextIconButton(
           onPressed: () {
-            if (!isEmpty) send(numPobUp: numPobUp);
+            if (!isEmpty){
+              if(widget.userId != null){
+                BlocProvider.of<SendPrivateCommentBloc>(context).add(SnedPrivateComment(
+                    userId: widget.userId!,
+                    message: textController.text,
+                    roomId: widget.roomData.id.toString(),
+                ),
+                );
+              }else{
+                send(numPobUp: numPobUp);
+              }
+            }
           },
           icon: ButtonIcon(
             icon: isEmpty

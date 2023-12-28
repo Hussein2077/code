@@ -189,11 +189,13 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> feedBack(FeedBackPramiter feedBackPramiter);
         Future<Either<AgencyMyStoreModel,Failure>> myStore();
         Future<Either<ShowAgencyModel,Failure>> showAgency();
+
         Future<Either<List<AgencyMemberModel>,Failure>> agencyMember(int page);
         Future<Either<List<UserDataModel>,Failure>> agencyRequests();
   Future<Either<String, Failure>> agencyRequestsAction({required String userId ,required bool accept});
         Future<Either<List<AgencyHistoryTime>,Failure>> agencyTimeHistory();
         Future<Either<AgencyHistoryModle,Failure>> agencyHistory({required String month ,required String year , String? page});
+
         Future<Either<String,Failure>> chargeCoinForUsers({required String id ,required String amount});
         Future<Either<String,Failure>> chargeDolarsForUsers({required String id ,required String amount});
 

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,7 +17,6 @@ import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
-import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
@@ -143,7 +141,6 @@ import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_ree
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_make_reel_like/make_reel_like_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_report_reals/report_reals_bloc.dart';
 import 'package:tik_chat_v2/features/reels/persentation/manager/manager_upload_reel/upload_reels_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/kick_out_user_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger/gift_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_bloc.dart';
@@ -165,14 +162,14 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
-
 import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
 
-// final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+ //final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -220,23 +217,23 @@ Future<void> main() async {
     log("when app opened");
   });
 
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    // Handle when the app is opened by clicking on a notification
-    // Navigate to HomeScreen when the notification is clicked
-    print('A new onMessageOpenedApp event was published!');
-    print('Message data: ${message.data}');
-    getIt<NavigationService>().navigatorKey.currentState!.pushNamed(Routes.splash);
-  });
-
-  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
-    if (message != null) {
-      // Handle when the app is opened by clicking on a notification
-      // Navigate to HomeScreen when the notification is clicked
-      print('Opened app by clicking on a notification!');
-      print('Message data: ${message.data}');
-      successSnackBar(getIt<NavigationService>().navigatorKey.currentContext!, "welcome to app");
-    }
-  });
+  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //   // Handle when the app is opened by clicking on a notification
+  //   // Navigate to HomeScreen when the notification is clicked
+  //   print('A new onMessageOpenedApp event was published!');
+  //   print('Message data: ${message.data}');
+  //   getIt<NavigationService>().navigatorKey.currentState!.pushNamed(Routes.splash);
+  // });
+  //
+  // FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+  //   if (message != null) {
+  //     // Handle when the app is opened by clicking on a notification
+  //     // Navigate to HomeScreen when the notification is clicked
+  //     print('Opened app by clicking on a notification!');
+  //     print('Message data: ${message.data}');
+  //     successSnackBar(getIt<NavigationService>().navigatorKey.currentContext!, "welcome to app");
+  //   }
+  // });
 
   await ServerLocator().init();
 
@@ -568,6 +565,9 @@ class MyApp extends StatelessWidget {
             ..add(const HonorEvent(type: '2'))
             ..add(const ActivityEvent(type: '3')),
         ),
+        BlocProvider(
+          create: (context) => getIt<SendPrivateCommentBloc>(),
+        ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {
@@ -576,7 +576,6 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: lightTheme,
               navigatorKey: getIt<NavigationService>().navigatorKey,
-              // set property
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               onGenerateRoute: RouteGenerator.getRoute,
@@ -590,7 +589,6 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: darkTheme,
               navigatorKey:getIt<NavigationService>().navigatorKey,
-              // set property
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               onGenerateRoute: RouteGenerator.getRoute,

@@ -136,7 +136,7 @@ class _PaidPlayBodyState extends State<PaidPlayBody> {
               ),
 
               SizedBox(
-                height: ConfigSize.screenHeight! * 0.34,
+                height: ConfigSize.screenHeight! * 0.32,
                 width: ConfigSize.screenWidth,
                 child: ListView.builder(
                     itemCount: ZegoUIKit().getAllUsers().length,

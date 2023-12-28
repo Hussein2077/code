@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/features/home/data/model/user_top_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/get_config_key_model.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ExtraRoomDataModel.dart';
+import 'package:tik_chat_v2/features/room_audio/data/model/SendPrivateCommentModel.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/background_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/box_lucky_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/emojie_model.dart';
@@ -98,6 +99,7 @@ abstract class BaseRemotlyDataSourceRoom {
   Future<String> otherSideGameActionNew(OtherSideGameActionNewPramiter otherSideGameActionNewPramiter);
   Future<String> gameresult(GameResultPramiter gameResultPramiter);
   Future<ExtraRoomDataModel> getExtraRoomData(String OwnerId);
+  Future<SendPrivateCommentModel> sendPrivateComment({required String userId, required String message, required String roomId});
 
 }
 
@@ -1437,6 +1439,30 @@ Future<ExtraRoomDataModel> getExtraRoomData(String OwnerId) async {
     return ExtraRoomDataModel.fromJson(jsonData);
   } on DioError catch (e) {
     throw DioHelper.handleDioError(dioError: e, endpointName: 'getGifts');
+  }
+}
+
+@override
+Future<SendPrivateCommentModel> sendPrivateComment({required String userId, required String message, required String roomId})async {
+  Map<String, String> headers = await DioHelper().header();
+
+  final body ={
+    'message': message,
+    'to_user_id': userId,
+  };
+
+  try {
+    final response = await Dio().post(
+        ConstentApi.sendPrivateComment(roomId),
+        options: Options(
+          headers: headers,
+        ),
+        data: body
+    );
+    Map<String, dynamic> jsonData = response.data;
+    return SendPrivateCommentModel.fromJson(jsonData);
+  } on DioError catch (e) {
+    throw DioHelper.handleDioError(dioError: e,endpointName: "sendPrivateComment");
   }
 }
 

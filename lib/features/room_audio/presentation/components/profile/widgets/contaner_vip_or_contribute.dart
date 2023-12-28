@@ -38,14 +38,14 @@ class ContainerVipOrContribute extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children:  [
               Text(vipOrContribute,
-                  style:  TextStyle(color: colorText)),
+                  style:  TextStyle(color: colorText,fontSize:ConfigSize.defaultSize!*1.2 )),
                Text(level,
-                  style:  TextStyle(color: colorText)),
+                  style:  TextStyle(color: colorText,fontSize:ConfigSize.defaultSize!*1.2)),
             ],
           ),
           SizedBox(width: ConfigSize.defaultSize! * 0.7),
           Image.asset(icons,
-              scale: sizeOfIcon ?? ConfigSize.defaultSize! * 0.3),
+              scale: sizeOfIcon ?? ConfigSize.defaultSize! * 0.35),
         ],
       ),
     );

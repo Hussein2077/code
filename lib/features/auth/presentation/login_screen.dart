@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -59,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController passwordController;
 
   bool isGoogle = true;
-  bool isHuawei = true;
+  bool isHuawei = false;
 
   void GoogleHuawei() async {
     isGoogle = (await GoogleHuaweiAvailability.isGoogleServiceAvailable)!;
@@ -138,7 +140,9 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     });
-    GoogleHuawei();
+    if (!Platform.isIOS){
+      GoogleHuawei();
+    }
     super.didChangeDependencies();
   }
 
