@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 
@@ -45,9 +46,20 @@ class FamilyInfoRow extends StatelessWidget {
                 //     )
                 //   ],
                 // ),
-                Text(
-                  intro,
-                  style: Theme.of(context).textTheme.titleMedium,
+                Row(
+                  children: [
+                    Text(
+                      intro,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    SizedBox(
+                      width: ConfigSize.defaultSize,
+                    ),
+                    Image.asset(
+                      AssetsPath.daimons,
+                      scale: 2.4,
+                    )
+                  ],
                 )
               ],
             ),

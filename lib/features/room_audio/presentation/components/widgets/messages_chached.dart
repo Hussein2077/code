@@ -54,13 +54,16 @@ class MessagesChached extends StatelessWidget {
   Widget build(BuildContext context) {
     GamesInRoom CommentType = checkMeesageType(message.message);
 
-    String messageWithOutKeys = removeWordFromString(message.message, CommentType);
+    String messageWithOutKeys =
+        removeWordFromString(message.message, CommentType);
 
-    bool isGame = (CommentType != GamesInRoom.normal && CommentType != GamesInRoom.luckyGiftComment);
+    bool isGame = (CommentType != GamesInRoom.normal &&
+        CommentType != GamesInRoom.luckyGiftComment);
 
     List<String> words = messageWithOutKeys.split(" ");
 
-    bool isPrivateComment = message.message.contains(StringManager.privateCommentKey);
+    bool isPrivateComment =
+        message.message.contains(StringManager.privateCommentKey);
 
     for (String word in words) {
       if (word.startsWith("@")) {
@@ -76,7 +79,8 @@ class MessagesChached extends StatelessWidget {
         CommentType == GamesInRoom.spinGame ||
         CommentType == GamesInRoom.rpsGameResult) {
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
+        padding: EdgeInsets.symmetric(
+            horizontal: AppPadding.p8, vertical: AppPadding.p2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -111,9 +115,8 @@ class MessagesChached extends StatelessWidget {
             Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(AssetsPath.luckyGiftBubble),
-                  fit: BoxFit.cover
-                ),
+                    image: AssetImage(AssetsPath.luckyGiftBubble),
+                    fit: BoxFit.cover),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(3),
@@ -124,202 +127,220 @@ class MessagesChached extends StatelessWidget {
         ),
       );
     } else {
-      if(isPrivateComment){
-        String recieverId = message.message.split(" ").first.replaceAll(StringManager.privateCommentKey, '');
-        if((message.user.id.toString() == MyDataModel.getInstance().id.toString()) || (recieverId == MyDataModel.getInstance().id.toString())) {
+      if (isPrivateComment) {
+        String recieverId = message.message
+            .split(" ")
+            .first
+            .replaceAll(StringManager.privateCommentKey, '');
+        if ((message.user.id.toString() ==
+                MyDataModel.getInstance().id.toString()) ||
+            (recieverId == MyDataModel.getInstance().id.toString())) {
           return privateComment(context);
-        }else{
+        } else {
           return const SizedBox();
         }
-      }else {
+      } else {
         return InkWell(
-        onTap: () {
-          (message.user.id.startsWith('-1'))
-              ? bottomDailog(
-                  widget: const AnonymousDialog(), context: context,
-                  // height: ConfigSize.screenHeight!*0.3
-                )
-              : bottomDailog(
-                  context: context,
-                  widget: MessageRoomProfile(
-                    myData: myDataModel,
-                    userId: message.user.id.toString(),
-                    roomData: room,
-                    layoutMode: layoutMode,
-                  ));
-        },
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    child: UserImage(
-                        image: message.user.inRoomAttributes.value['img'] ??
-                            MessagesChached
-                                .usersMessagesRoom[message.user.id]?.image ??
-                            ""),
-                  ),
-                  SizedBox(
-                    width: ConfigSize.defaultSize,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * 1.5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          GradientTextVip(
-                            text: message.user.name,
-                            width: ConfigSize.defaultSize! * 15,
-                            isVip: message.user.inRoomAttributes.value['vip'] == '' ? false : message.user.inRoomAttributes.value['vip'] == '8' ? true : false,
-                            textStyle: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
-                                fontStyle: FontStyle.italic,
-                                fontSize: AppPadding.p10),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            width: ConfigSize.defaultSize! - 3,
-                          ),
-                          room.ownerId.toString() == message.user.id
-                              ? SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: Image.asset(AssetsPath.hostMark))
-                              : const SizedBox(),
-                          AristocracyLevel(
-                              level: vip == ""
-                                  ? MessagesChached
-                                          .usersMessagesRoom[message.user.id]
-                                          ?.vipLevel ??
-                                      0
-                                  : int.parse(vip)),
-                          const SizedBox(
-                            width: 1,
-                          ),
-                          SizedBox(
-                            width: ConfigSize.defaultSize! * 4,
-                            height: ConfigSize.defaultSize! * 2,
-                            child: LevelContainer(
-                              image: sender == ""
-                                  ? MessagesChached
-                                          .usersMessagesRoom[message.user.id]
-                                          ?.senderLevelImg ??
-                                      ''
-                                  : sender,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 1,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              if (isGame) isGamesWidget(CommentType, messageWithOutKeys),
-              (bubble == "" &&
-                      CommentType != GamesInRoom.luckyGiftComment &&
-                      !isGame)
-                  ? Padding(
-                      padding: EdgeInsets.only(
-                          left: AppPadding.p24,
-                          top: AppPadding.p2,
-                          bottom: AppPadding.p2,
-                          right: AppPadding.p2),
-                      child: Container(
-                        // width: ConfigSize.defaultSize!*33,
-                        decoration: BoxDecoration(
-                            color: ColorManager.lightGray.withOpacity(0.2)),
-
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 4),
-                        child: SelectableText.rich(
-                          TextSpan(children: spans),
+          onTap: () {
+            (message.user.id.startsWith('-1'))
+                ? bottomDailog(
+                    widget: const AnonymousDialog(), context: context,
+                    // height: ConfigSize.screenHeight!*0.3
+                  )
+                : bottomDailog(
+                    context: context,
+                    widget: MessageRoomProfile(
+                      myData: myDataModel,
+                      userId: message.user.id.toString(),
+                      roomData: room,
+                      layoutMode: layoutMode,
+                    ));
+          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: AppPadding.p8, vertical: AppPadding.p2),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: UserImage(
+                          image: message.user.inRoomAttributes.value['img'] ??
+                              MessagesChached
+                                  .usersMessagesRoom[message.user.id]?.image ??
+                              ""),
+                    ),
+                    SizedBox(
+                      width: ConfigSize.defaultSize,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: ConfigSize.defaultSize! * 1.5,
                         ),
-                      ),
-                    )
-                  : CommentType == GamesInRoom.luckyGiftComment && !isGame
-                      ? Padding(
-                          padding: EdgeInsets.only(
-                              left: ConfigSize.defaultSize! * 3,
-                              top: ConfigSize.defaultSize! - 4,
-                              bottom: ConfigSize.defaultSize! - 4,
-                              right: ConfigSize.defaultSize! - 4),
-                          child: Container(
-                            // width: ConfigSize.defaultSize!*33,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    ConfigSize.defaultSize!),
-                                color: ColorManager.deepBlue),
-
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 4),
-                            child: SelectableText.rich(
-                              TextSpan(children: spans),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            GradientTextVip(
+                              text: message.user.name,
+                              width: ConfigSize.defaultSize! * 15,
+                              isVip:
+                                  message.user.inRoomAttributes.value['vip'] ==
+                                          ''
+                                      ? false
+                                      : message.user.inRoomAttributes
+                                                  .value['vip'] ==
+                                              '8'
+                                          ? true
+                                          : false,
+                              textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: AppPadding.p10),
+                              textAlign: TextAlign.center,
                             ),
+                            SizedBox(
+                              width: ConfigSize.defaultSize! - 3,
+                            ),
+                            room.ownerId.toString() == message.user.id
+                                ? SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: Image.asset(AssetsPath.hostMark))
+                                : const SizedBox(),
+                            AristocracyLevel(
+                                level: vip == ""
+                                    ? MessagesChached
+                                            .usersMessagesRoom[message.user.id]
+                                            ?.vipLevel ??
+                                        0
+                                    : int.parse(vip)),
+                            const SizedBox(
+                              width: 1,
+                            ),
+                            SizedBox(
+                              width: ConfigSize.defaultSize! * 4,
+                              height: ConfigSize.defaultSize! * 2,
+                              child: LevelContainer(
+                                image: sender == ""
+                                    ? MessagesChached
+                                            .usersMessagesRoom[message.user.id]
+                                            ?.senderLevelImg ??
+                                        ''
+                                    : sender,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 1,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                if (isGame) isGamesWidget(CommentType, messageWithOutKeys),
+                (bubble == "" &&
+                        CommentType != GamesInRoom.luckyGiftComment &&
+                        !isGame)
+                    ? Padding(
+                        padding: EdgeInsets.only(
+                            left: AppPadding.p24,
+                            top: AppPadding.p2,
+                            bottom: AppPadding.p2,
+                            right: AppPadding.p2),
+                        child: Container(
+                          // width: ConfigSize.defaultSize!*33,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightGray.withOpacity(0.2)),
+
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 4),
+                          child: SelectableText.rich(
+                            TextSpan(children: spans),
                           ),
-                        )
-                      : !isGame
-                          ? Padding(
-                              padding: EdgeInsets.only(
-                                  left: AppPadding.p24,
-                                  top: AppPadding.p2,
-                                  bottom: AppPadding.p2,
-                                  right: AppPadding.p2),
-                              child: CachedNetworkImage(
-                                  imageUrl: ConstentApi().getImage(bubble == ""
-                                      ? MessagesChached
-                                          .usersMessagesRoom[message.user.id]
-                                          ?.bubble
-                                      : bubble),
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.fill),
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal:
-                                                ConfigSize.defaultSize! + 15,
-                                            vertical: ConfigSize.defaultSize!),
-                                        child: SelectableText.rich(
-                                          TextSpan(children: spans),
-                                        ),
-                                      ),
-                                  placeholder: (context, url) =>
-                                      Shimmer.fromColors(
-                                        baseColor: Colors.grey[850]!,
-                                        highlightColor: Colors.grey[800]!,
-                                        child: Container(
-                                          width: ConfigSize.defaultSize! * 5.7,
-                                          height: ConfigSize.defaultSize! * 5.7,
-                                          decoration: const BoxDecoration(
-                                            color: Colors.black,
-                                            shape: BoxShape.circle,
+                        ),
+                      )
+                    : CommentType == GamesInRoom.luckyGiftComment && !isGame
+                        ? Padding(
+                            padding: EdgeInsets.only(
+                                left: ConfigSize.defaultSize! * 3,
+                                top: ConfigSize.defaultSize! - 4,
+                                bottom: ConfigSize.defaultSize! - 4,
+                                right: ConfigSize.defaultSize! - 4),
+                            child: Container(
+                              // width: ConfigSize.defaultSize!*33,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      ConfigSize.defaultSize!),
+                                  color: ColorManager.deepBlue),
+
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 4),
+                              child: SelectableText.rich(
+                                TextSpan(children: spans),
+                              ),
+                            ),
+                          )
+                        : !isGame
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                    left: AppPadding.p24,
+                                    top: AppPadding.p2,
+                                    bottom: AppPadding.p2,
+                                    right: AppPadding.p2),
+                                child: CachedNetworkImage(
+                                    imageUrl: ConstentApi().getImage(bubble ==
+                                            ""
+                                        ? MessagesChached
+                                            .usersMessagesRoom[message.user.id]
+                                            ?.bubble
+                                        : bubble),
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.fill),
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  ConfigSize.defaultSize! + 15,
+                                              vertical:
+                                                  ConfigSize.defaultSize!),
+                                          child: SelectableText.rich(
+                                            TextSpan(children: spans),
                                           ),
                                         ),
-                                      ),
-                                  errorWidget: (context, url, error) =>
-                                      const Center(
-                                        child: Icon(Icons.error),
-                                      )),
-                            )
-                          : const SizedBox(),
-            ],
+                                    placeholder: (context, url) =>
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.grey[850]!,
+                                          highlightColor: Colors.grey[800]!,
+                                          child: Container(
+                                            width:
+                                                ConfigSize.defaultSize! * 5.7,
+                                            height:
+                                                ConfigSize.defaultSize! * 5.7,
+                                            decoration: const BoxDecoration(
+                                              color: Colors.black,
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                        ),
+                                    errorWidget: (context, url, error) =>
+                                        const Center(
+                                          child: Icon(Icons.error),
+                                        )),
+                              )
+                            : const SizedBox(),
+              ],
+            ),
           ),
-        ),
-      );
+        );
       }
     }
   }
@@ -392,22 +413,26 @@ class MessagesChached extends StatelessWidget {
     }
   }
 
-  Widget privateComment(BuildContext context){
+  Widget privateComment(BuildContext context) {
     return InkWell(
       onTap: () {
-        (message.user.id.startsWith('-1')) ? bottomDailog(
-          widget: const AnonymousDialog(), context: context,
-        ) : bottomDailog(
-            context: context,
-            widget: MessageRoomProfile(
-              myData: myDataModel,
-              userId: message.user.id.toString(),
-              roomData: room,
-              layoutMode: layoutMode,
-            ));
+        (message.user.id.startsWith('-1'))
+            ? bottomDailog(
+                widget: const AnonymousDialog(),
+                context: context,
+              )
+            : bottomDailog(
+                context: context,
+                widget: MessageRoomProfile(
+                  myData: myDataModel,
+                  userId: message.user.id.toString(),
+                  roomData: room,
+                  layoutMode: layoutMode,
+                ));
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p2),
+        padding: EdgeInsets.symmetric(
+            horizontal: AppPadding.p8, vertical: AppPadding.p2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -436,7 +461,13 @@ class MessagesChached extends StatelessWidget {
                         GradientTextVip(
                           text: message.user.name,
                           width: ConfigSize.defaultSize! * 15,
-                          isVip: message.user.inRoomAttributes.value['vip'] == '' ? false : message.user.inRoomAttributes.value['vip'] == '8' ? true : false,
+                          isVip: message.user.inRoomAttributes.value['vip'] ==
+                                  ''
+                              ? false
+                              : message.user.inRoomAttributes.value['vip'] ==
+                                      '8'
+                                  ? true
+                                  : false,
                           textStyle: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w900,
@@ -449,16 +480,16 @@ class MessagesChached extends StatelessWidget {
                         ),
                         room.ownerId.toString() == message.user.id
                             ? SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: Image.asset(AssetsPath.hostMark))
+                                width: 20,
+                                height: 20,
+                                child: Image.asset(AssetsPath.hostMark))
                             : const SizedBox(),
                         AristocracyLevel(
                             level: vip == ""
                                 ? MessagesChached
-                                .usersMessagesRoom[message.user.id]
-                                ?.vipLevel ??
-                                0
+                                        .usersMessagesRoom[message.user.id]
+                                        ?.vipLevel ??
+                                    0
                                 : int.parse(vip)),
                         const SizedBox(
                           width: 1,
@@ -469,9 +500,9 @@ class MessagesChached extends StatelessWidget {
                           child: LevelContainer(
                             image: sender == ""
                                 ? MessagesChached
-                                .usersMessagesRoom[message.user.id]
-                                ?.senderLevelImg ??
-                                ''
+                                        .usersMessagesRoom[message.user.id]
+                                        ?.senderLevelImg ??
+                                    ''
                                 : sender,
                           ),
                         ),
@@ -495,7 +526,11 @@ class MessagesChached extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: ConfigSize.defaultSize! + 15,
                     vertical: ConfigSize.defaultSize!),
-                child: Text(message.message.replaceAll(message.message.split(" ").first, ""), style: TextStyle(color: ColorManager.whiteColor),),
+                child: Text(
+                  message.message
+                      .replaceAll(message.message.split(" ").first, ""),
+                  style: TextStyle(color: ColorManager.whiteColor),
+                ),
               ),
             )
           ],

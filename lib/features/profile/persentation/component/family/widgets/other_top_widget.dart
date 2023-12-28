@@ -42,7 +42,7 @@ class OtherTopWidget extends StatelessWidget {
                 Navigator.pushNamed(context, Routes.familyProfile,arguments:otherRanking[index].id );
               },
               child: FamilyInfoRow(image: otherRanking[index].img!,
-              intro: otherRanking[index].introduce!,
+              intro: otherRanking[index].rank!,
               name: otherRanking[index].name!,),
             );
           }))
