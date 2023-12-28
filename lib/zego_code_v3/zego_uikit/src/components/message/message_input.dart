@@ -295,7 +295,18 @@ class _ZegoInRoomMessageInputState extends State<ZegoInRoomMessageInput> {
             }
           },
           textInputAction: TextInputAction.send,
-          onSubmitted: (message) => send(numPobUp: numPobUp),
+          onSubmitted: (message) {
+            if(widget.userId != null){
+              BlocProvider.of<SendPrivateCommentBloc>(context).add(SnedPrivateComment(
+                userId: widget.userId!,
+                message: textController.text,
+                roomId: widget.roomData.id.toString(),
+              ),
+              );
+            }else{
+              send(numPobUp: numPobUp);
+            }
+          },
           cursorColor: messageSendCursorColor,
           cursorHeight: 30.zR,
           cursorWidth: 3.zR,
