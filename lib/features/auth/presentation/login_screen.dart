@@ -1,14 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
-
-
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_huawei_availability/google_huawei_availability.dart';
 import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
@@ -60,16 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
   late TextEditingController passwordController;
 
-  bool isGoogle = true;
-  bool isHuawei = false;
-
-  void GoogleHuawei() async {
-    isGoogle = (await GoogleHuaweiAvailability.isGoogleServiceAvailable)!;
-    isHuawei = (await GoogleHuaweiAvailability.isHuaweiServiceAvailable)!;
-    if (mounted) {
-      setState(() {});
-    }
-  }
 
   @override
   void initState() {
@@ -140,9 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     });
-    if (!Platform.isIOS){
-      GoogleHuawei();
-    }
     super.didChangeDependencies();
   }
 
@@ -221,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Spacer(
                     flex: 1,
                   ),
-                  GoogleAndAppleAuth(isGoogle: isGoogle, isHuawei: isHuawei),
+                  GoogleAndAppleAuth(),
                   const Spacer(
                     flex: 1,
                   ),

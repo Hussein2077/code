@@ -1,5 +1,6 @@
 
 import 'package:dartz/dartz.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
@@ -14,6 +15,7 @@ import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_page_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_to_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
@@ -135,7 +137,7 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> buyOrSendVip(
       String type, String vipId, String toUId);
 
-  Future<Either<List<GoldCoinsModel>, Failure>> getGoldCoinData();
+  Future<Either<CoinsModel, Failure>> getGoldCoinData();
 
   Future<Either<ReplaceWithGoldModel, Failure>> replaceWithGold();
 
@@ -217,7 +219,7 @@ abstract class BaseRepositoryProfile {
   
   Future<Either<List<UserDataModel>, Failure>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
   Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport(String date);
-  Future<Either<String, Failure>> pay({required String message, required String type, required String token});
+  Future<Either<String, Failure>> pay({required String product_id, required String order_id});
   Future<Either<String, Failure>> invitCode( String id);
   Future<Either<List<InvitationUsersModel>?, Failure>> getInvitationDetails( );
   Future<Either<ParentStaticsModel, Failure>> getParentDetails( );

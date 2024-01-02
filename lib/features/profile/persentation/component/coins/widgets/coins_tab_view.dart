@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_huawei_availability/google_huawei_availability.dart';
-import 'package:huawei_iap/huawei_iap.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -15,8 +13,6 @@ import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/custom_horizental_dvider.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/huawei_in_app_purchases.dart';
-import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchases.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_card.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/payment_method_dialog.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
@@ -24,7 +20,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_mang
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_gold_coin/bloc/gold_coin_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_states.dart';
@@ -36,8 +31,6 @@ class CoinsTabView extends StatefulWidget {
 
   static int productId = 0;
 
-  static List<ProductInfo> list = [];
-
   @override
   State<CoinsTabView> createState() => _CoinsTabViewState();
 }
@@ -47,18 +40,6 @@ class _CoinsTabViewState extends State<CoinsTabView> {
   late BuyCoinsBloc buyCoinsBloc;
 
   late StreamSubscription mSub;
-
-  bool isHuawei = false;
-
-  void GoogleHuawei() async {
-    isHuawei = (await GoogleHuaweiAvailability.isHuaweiServiceAvailable)!;
-    setState(() {
-
-    });
-    if(isHuawei){
-      getConsumableProducts();
-    }
-  }
 
   @override
   void initState() {
@@ -72,9 +53,6 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                 titleColor: Colors.green));
       }
     });
-    initialize(context);
-    GoogleHuawei();
-
     super.initState();
   }
 
@@ -91,11 +69,16 @@ class _CoinsTabViewState extends State<CoinsTabView> {
         if(state is huaweiPaySucssesState){
           ScaffoldMessenger.of(context).showSnackBar(successSnackBar(context, state.massege));
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-          BlocProvider.of<GoldCoinBloc>(context).add(GetGoldCoinDataEvent());
         }else if(state is huaweiPayErrorState){
           ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context, state.massege));
+        }else if(state is inAppPurchaseSucssesState){
+          ScaffoldMessenger.of(context).showSnackBar(successSnackBar(context, state.massege));
+          BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }else if(state is inAppPurchaseErrorState){
+          ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(context, state.massege));
         }
-
       },
   builder: (context, state) {
     return Column(
@@ -116,8 +99,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
           if (state is GoldCoinLoadingState) {
             return const LoadingWidget();
           } else if (state is GoldCoinSucssesState) {
-
-            if (state.data.isEmpty) {
+            if (state.data.data.isEmpty) {
               return EmptyWidget(message: StringManager.noDataFoundHere.tr());
             } else {
               return Expanded(
@@ -125,7 +107,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3),
-                      itemCount: state.data.length,
+                      itemCount: state.data.data.length,
                       itemBuilder: (context, index) {
                         return Container(
                           padding:
@@ -141,21 +123,10 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                               ? BlocListener<BuyCoinsBloc, BuyCoinsState>(
                                   child: InkWell(
                                     onTap: () {
-                                      if(isHuawei){
-                                        if(CoinsTabView.list.isNotEmpty){
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString()),
-                                          );
-                                        }else{
-                                          errorToast(context: context, title: StringManager.wait.tr());
-                                        }
-                                      }else{
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
-                                        );
-                                      }
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data.data[index].id, productDetailsResponse: state.data.productDetailsResponse,),
+                                      );
                                     },
                                     child: Column(
                                       children: [
@@ -164,14 +135,14 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                                           scale: 4,
                                         ),
                                         Text(
-                                          "${state.data[index].coin}",
+                                          "${state.data.data[index].coin}",
                                           style: TextStyle(
                                               color: ColorManager.yellow,
                                               fontSize:
                                                   ConfigSize.defaultSize! *
                                                       1.7),
                                         ),
-                                        Text("\$ ${state.data[index].usd}",
+                                        Text("\$ ${state.data.data[index].usd}",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium)

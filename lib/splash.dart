@@ -6,6 +6,7 @@ import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_huawei_availability/google_huawei_availability.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
@@ -25,6 +26,9 @@ class SplashScreen extends StatefulWidget {
   static int initPage = 0;
   static Uri? dynamicLink;
 
+  static bool isGoogle = true;
+  static bool isHuawei = false;
+
   const SplashScreen({super.key});
 
   static late String devicePlatform;
@@ -38,7 +42,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
   ConfigModel? configModel;
 
+  void GoogleHuawei() async {
+    SplashScreen.isGoogle = (await GoogleHuaweiAvailability.isGoogleServiceAvailable)!;
+    SplashScreen.isHuawei = (await GoogleHuaweiAvailability.isHuaweiServiceAvailable)!;
+    if (mounted) {
+      setState(() {});
+    }
+  }
 
+  @override
+  void didChangeDependencies() {
+    if (!Platform.isIOS){
+      GoogleHuawei();
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   void initState() {

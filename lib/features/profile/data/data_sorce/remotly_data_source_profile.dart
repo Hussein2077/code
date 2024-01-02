@@ -1,16 +1,17 @@
 // ignore_for_file: avoid_renaming_method_parameters, non_constant_identifier_names
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/exceptions.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/model/vip_center_model.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
@@ -24,6 +25,7 @@ import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_page_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_to_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/data_mall_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
@@ -54,6 +56,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/get_all_shipping_age
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/update_family_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchases.dart';
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 
 abstract class BaseRemotlyDataSourceProfile {
@@ -116,7 +119,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<String> buyOrSendVip(String type, String vipId, String touId);
 
-  Future<List<GoldCoinsModel>> getGoldCoinData();
+  Future<CoinsModel> getGoldCoinData();
 
   Future<ReplaceWithGoldModel> getReplaceWithDimondData();
 
@@ -205,7 +208,7 @@ abstract class BaseRemotlyDataSourceProfile {
       {required GetAllShippingAgentsPram pram});
 
   Future<FixedTargetReportModel> getFixedTargetReport(String date);
-  Future<String> pay({required String message, required String type, required String token});
+  Future<String> pay({required String product_id, required String order_id});
   Future<String> huaweiPay({required String product_id, required String token});
 
   Future<String> invitCode(String id);
@@ -216,6 +219,8 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<String> GetInvitationExplination();
   Future<UserBadgesModel> userBadges(String userId);
   Future<List<GetBadgesModel>> getBadges(String type);
+
+  Future<ProductDetailsResponse> getGoogelAndAppleProducts(Set<String> products_id);
 
 }
 
@@ -1051,7 +1056,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<List<GoldCoinsModel>> getGoldCoinData() async {
+  Future<CoinsModel> getGoldCoinData() async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -1063,10 +1068,14 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
 
       Map<String, dynamic> resultData = response.data;
-      List<GoldCoinsModel> data = List<GoldCoinsModel>.from(
-          resultData['data'].map((x) => GoldCoinsModel.fromjson(x)));
 
-      return data;
+      List<GoldCoinsModel> data = List<GoldCoinsModel>.from(resultData['data'].map((x) => GoldCoinsModel.fromjson(x)));
+
+      Set<String> idSet = data.map((item) => item.id.toString()).toSet();
+
+      ProductDetailsResponse result = await getGoogelAndAppleProducts(idSet);
+
+      return CoinsModel(data: data, productDetailsResponse: result);
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName: 'getGoldCoinData');
     }
@@ -2159,24 +2168,21 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<String> pay({required String message, required String type, required String token})async {
+  Future<String> pay({required String product_id, required String order_id})async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
       final response = await Dio().post(
         ConstentApi.pay,
         data: {
-          "product_id": message,
-          "type": type,
-          "purchase_token": type,
+          "coin_id": product_id,
+          "order_id": order_id,
         },
         options: Options(
           headers: headers,
         ),
       );
       Map<String, dynamic> resultData = response.data;
-
-      log(resultData.toString() + "#####");
 
       return resultData['message'];
     } on DioError catch (e) {
@@ -2284,10 +2290,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
       Map<String, dynamic> resultData = response.data;
 
-      log(resultData.toString() + "#####");
-
       return resultData['message'];
-
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'huaweiPay');
     }
@@ -2324,11 +2327,26 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       Map<String,dynamic> resultData = response.data;
-      print(resultData['data'].runtimeType );
-      return  List<GetBadgesModel>.from(
-          resultData["data"].map((x) => GetBadgesModel.fromJson(x)));
+      return  List<GetBadgesModel>.from(resultData["data"].map((x) => GetBadgesModel.fromJson(x)));
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'get badges');
+    }
+  }
+
+  @override
+  Future<ProductDetailsResponse> getGoogelAndAppleProducts(Set<String> products_id) async {
+    try {
+      ProductDetailsResponse response = ProductDetailsResponse(productDetails: [], notFoundIDs: []);
+      final bool available = await getIt<PurchaseService>().connection.isAvailable();
+      if (available) {
+        response = await getIt<PurchaseService>().connection.queryProductDetails(products_id);
+        getIt<PurchaseService>().connection.purchaseStream.listen((detailsList) {
+          getIt<PurchaseService>().handlePurchaseUpdates(detailsList);
+        });
+      }
+      return response;
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getGoogelAndAppleProducts');
     }
   }
 }

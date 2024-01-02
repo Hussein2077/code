@@ -5,8 +5,8 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 
 class ConstentApi {
-  static const String baseUrl = 'https://tik-chat.com/api' ;
- // static const String baseUrl = 'https://test.tik-chat.com/api' ;
+  // static const String baseUrl = 'https://tik-chat.com/api' ;
+ static const String baseUrl = 'https://test.tik-chat.com/api' ;
   static const String signUpUrl = "$baseUrl/auth/register";
   static const String sendCodeUrl = "$baseUrl/auth/send-code";
   static const String forgetPassword = "$baseUrl/auth/forget_password";
@@ -24,7 +24,7 @@ class ConstentApi {
   static const String sendGameChoise = "$baseUrl/game-challange/challange-result";
   static const String gameResult = "$baseUrl/room-game/challenge-result";
   static  String sendPrivateComment(String roomId) => "$baseUrl/rooms/$roomId/send-private-comment";
-  static const String pay = "$baseUrl/pay";
+  static const String pay = "$baseUrl/google_coins_pay";
   static const String huaweiPay = "$baseUrl/huawei-payment";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";

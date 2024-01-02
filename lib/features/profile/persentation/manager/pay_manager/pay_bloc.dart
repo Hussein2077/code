@@ -12,10 +12,10 @@ class PayBloc extends Bloc<PayEvent, payState> {
   PayBloc({required this.payUsecase, required this.huaweiPayUsecase}) : super(payInitial()) {
 
     on<PayNow>((event, emit) async {
-      emit(payLoadingState());
-      final result = await payUsecase.pay(message: event.message, type: event.type, token: event.token);
-      result.fold((l) => emit(paySucssesState(massege: l)),
-              (r) => emit(payErrorState(massege: DioHelper().getTypeOfFailure(r))));
+      emit(inAppPurchaseLoadingState());
+      final result = await payUsecase.pay(product_id: event.product_id, order_id: event.order_id);
+      result.fold((l) => emit(inAppPurchaseSucssesState(massege: l)),
+              (r) => emit(inAppPurchaseErrorState(massege: DioHelper().getTypeOfFailure(r))));
     });
 
     on<HuaweiPayNow>((event, emit) async {

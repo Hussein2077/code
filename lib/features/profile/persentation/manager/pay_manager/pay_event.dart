@@ -3,13 +3,12 @@ import 'package:equatable/equatable.dart';
 abstract class PayEvent extends Equatable {}
 
 class PayNow extends PayEvent {
-  final String message;
-  final String type;
-  final String token;
-  PayNow ({required this.message, required this.type, required this.token});
+  final String product_id;
+  final String order_id;
+  PayNow ({required this.product_id, required this.order_id});
 
   @override
-  List<Object?> get props => [message, type, token];
+  List<Object?> get props => [product_id, order_id];
 
 
 }
