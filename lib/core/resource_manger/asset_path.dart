@@ -269,6 +269,7 @@ class AssetsPath {
   static const String settingRoom = "$pathIcon/settings_room.png";
   static const String contanerDiamodn = "$pathImage/contaner_diamodn.png";
   static const String coinAnimate = "$pathImage/coin_animate.gif";
+  static const String privateCommentGif = "$pathImage/privete_comment.gif";
 
 
 

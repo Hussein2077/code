@@ -115,7 +115,7 @@ dependencies:
   huawei_iap: ^6.13.0+300
   cometchat_chat_uikit: ^4.0.5
   in_app_purchase: ^3.1.11
-  video_player: ^2.8.1
+  video_player:
 
 dev_dependencies:
   flutter_test:

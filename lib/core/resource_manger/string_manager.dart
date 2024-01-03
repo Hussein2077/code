@@ -240,6 +240,7 @@ class StringManager {
   static const String roomName = "Room Name";
   static const String public = "Public";
   static const String private = "Private";
+  static const String privateComment = "Private comment";
   static const String createRoom = "Create Room";
   static const String createLiveVideo = "Create Live Video";
   static const String startLive = "Start Live";
@@ -641,6 +642,7 @@ class StringManager {
   static const String like = "Likes 👍";
   static const String howToGainFreeCoins = "How to get";
   static const String freeCoins = " Free Coins";
+  static const String remove = "Remove";
 
 
 

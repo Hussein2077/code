@@ -57,8 +57,10 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_trending/get_moment_all_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manger_get_moment_likes/get_moment_likes_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/add_or_delete_block/add_or_delete_block_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/badges%20manager/badges_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/badges%20manager/badges_event.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/block_list_bloc/block_list_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -166,8 +168,7 @@ import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
 import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_prev_event.dart';
 
-
- //final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+//final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -192,16 +193,17 @@ Future<void> main() async {
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-   await _firebaseMessaging.requestPermission(
-     alert: true,
-     announcement: false,
-     badge: true,
-     carPlay: false,
-     criticalAlert: false,
-     provisional: false,
-     sound: true,
+  await _firebaseMessaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
   );
-  bool groupChatUnReadMessage = await Methods.instance.getLocalGroupChatNotifecation();
+  bool groupChatUnReadMessage =
+      await Methods.instance.getLocalGroupChatNotifecation();
   HomeScreen.rebuildGroupChatCounter.value = groupChatUnReadMessage;
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
@@ -213,13 +215,23 @@ Future<void> main() async {
     log("when app opened");
   });
 
-  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  //   // Handle when the app is opened by clicking on a notification
-  //   // Navigate to HomeScreen when the notification is clicked
-  //   print('A new onMessageOpenedApp event was published!');
-  //   print('Message data: ${message.data}');
-  //   getIt<NavigationService>().navigatorKey.currentState!.pushNamed(Routes.splash);
-  // });
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    // Handle when the app is opened by clicking on a notification
+    // Navigate to HomeScreen when the notification is clicked
+    print('A new onMessageOpenedApp event was published!');
+    print('Message data: ${message.data}');
+
+    // if (message.data=={}['room_id'] ) {
+    //   getIt<NavigationService>()
+    //       .navigatorKey
+    //       .currentState!
+    //       .pushNamed(Routes.roomHandler);
+    // }
+    getIt<NavigationService>()
+        .navigatorKey
+        .currentState!
+        .pushNamed(Routes.splash);
+  });
   //
   // FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
   //   if (message != null) {
@@ -259,7 +271,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -464,13 +475,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetMyBackgroundBloc>()),
         BlocProvider(create: (_) => getIt<AddRoomBackgroundBloc>()),
         BlocProvider(
-            create: (_) => getIt<GiftBloc>()
-              ..add(GiftesNormalEvent(type: 1))
-              ..add(GiftesHotEvent(type: 2))
-              ..add(GiftesCountryEvent(type: 3))
-              ..add(GiftesFamousEvent(type: 5))
-              ..add(GiftesLuckyEvent(type: 6))
-              ..add(GiftesMomentEvent(type: 4)),
+          create: (_) => getIt<GiftBloc>()
+            ..add(GiftesNormalEvent(type: 1))
+            ..add(GiftesHotEvent(type: 2))
+            ..add(GiftesCountryEvent(type: 3))
+            ..add(GiftesFamousEvent(type: 5))
+            ..add(GiftesLuckyEvent(type: 6))
+            ..add(GiftesMomentEvent(type: 4)),
         ),
         BlocProvider(create: (_) => getIt<OnRoomBloc>()..add(EmojieEvent())),
         BlocProvider(create: (_) => getIt<LuckyBoxesBloc>()),
@@ -537,7 +548,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<ReportMomentBloc>()),
         BlocProvider(create: (_) => getIt<GetAllCountriesBloc>()),
         BlocProvider(create: (_) => getIt<AllShippingAgentsBloc>()),
-        BlocProvider(create: (_) => getIt<CacheGamesBloc>()..add(const FetchExtraDataEvent(2))),
+        BlocProvider(
+            create: (_) =>
+                getIt<CacheGamesBloc>()..add(const FetchExtraDataEvent(2))),
         BlocProvider(create: (_) => getIt<LoginChatBloc>()),
         BlocProvider(create: (_) => getIt<LogOutChatBloc>()),
         BlocProvider(create: (_) => getIt<UpdateUserDataBloc>()),
@@ -564,6 +577,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<SendPrivateCommentBloc>(),
         ),
+        BlocProvider(create: (_) => getIt<AddOrDeleteBLockListBloc>()),
+        BlocProvider(create: (_) => getIt<GetBlockListBloc>()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {
@@ -584,7 +599,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: darkTheme,
-              navigatorKey:getIt<NavigationService>().navigatorKey,
+              navigatorKey: getIt<NavigationService>().navigatorKey,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               onGenerateRoute: RouteGenerator.getRoute,
@@ -597,7 +612,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: theme == "dark" ? darkTheme : lightTheme,
-              navigatorKey:  getIt<NavigationService>().navigatorKey,
+              navigatorKey: getIt<NavigationService>().navigatorKey,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               onGenerateRoute: RouteGenerator.getRoute,
