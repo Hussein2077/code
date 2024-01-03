@@ -118,7 +118,6 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
             );
 
           }
-
         }
     );
   }
