@@ -56,6 +56,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_vi
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/media/player.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
@@ -284,7 +285,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       RoomScreen.showMessageButton.value = false;
     }
 
-    //   RoomScreen.zegoMediaPlayer = ZegoLiveAudioRoomController();
+
     RoomScreen.myCoins.value =
         widget.myDataModel.myStore?.coins.toString() ?? '';
     if (!MainScreen.iskeepInRoom.value) {
@@ -894,7 +895,19 @@ setState(() {
                 : -1
             ..hostSeatIndexes = [0]
             ..seatConfig = getSeatConfig()
-            ..viewbackground = ViewbackgroundWidget(room: widget.room,
+            ..viewbackground =
+
+            // ZegoMediaPlayer(
+            //   size: Size(300, 200),
+            //   enableRepeat: true,
+            //   canControl: true,
+            //   showSurface: true,
+            //   initPosition: Offset(
+            //     100,
+            //     100,
+            //   ),
+            //
+            ViewbackgroundWidget(room: widget.room,
                 roomDataUpdates: roomDataUpdates,
                 userBannerData: userBannerData,
                 superBox: superBox,
