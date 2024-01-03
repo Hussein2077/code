@@ -97,7 +97,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
         }
 
       },
-  builder: (context, state) {
+     builder: (context, state) {
     return Column(
       children: [
         CoinCard(
@@ -144,8 +144,12 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                                       if(isHuawei){
                                         if(CoinsTabView.list.isNotEmpty){
                                           showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString()),
+                                            context:context,
+                                            builder:(BuildContext context) =>
+                                                PaymentMethodDialog(
+                                                coinPackageId: state.data[index].id,
+                                                coin: state.data[index].coin.toString(),
+                                                price: state.data[index].usd.toString()),
                                           );
                                         }else{
                                           errorToast(context: context, title: StringManager.wait.tr());
@@ -153,7 +157,10 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                                       }else{
                                         showDialog(
                                           context: context,
-                                          builder: (BuildContext context) => PaymentMethodDialog(coinPackageId: state.data[index].id, coin: state.data[index].coin.toString(), price: state.data[index].usd.toString(),),
+                                          builder: (BuildContext context) =>
+                                              PaymentMethodDialog(coinPackageId: state.data[index].id,
+                                                coin: state.data[index].coin.toString(),
+                                                price: state.data[index].usd.toString()),
                                         );
                                       }
                                     },
@@ -181,7 +188,8 @@ class _CoinsTabViewState extends State<CoinsTabView> {
                                   listener: (context, state) {
                                     if (state is BuyCoinsLoadingState) {
                                       loadingToast(context: context, title: '');
-                                    } else if (state is BuyCoinsErrorState) {
+                                    }
+                                    else if (state is BuyCoinsErrorState) {
                                       errorToast(
                                           context: context, title: state.error);
                                     }
