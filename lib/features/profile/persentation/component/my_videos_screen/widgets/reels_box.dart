@@ -9,6 +9,7 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/cached_network_image.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -127,23 +128,10 @@ class _ReelsBoxState extends State<ReelsBox> with TickerProviderStateMixin {
                             margin: const EdgeInsets.symmetric(horizontal: 5),
                             child: Stack(
                               children: [
-                                Gif(
-                                  image: NetworkImage(ConstentApi()
-                                      .getImage(state.data![index].subVideo)),
-                                  controller: _controller,
-                                  // if duration and fps is null, original gif fps will be used.
-                                  // fps: 5,
-                                  duration: const Duration(seconds: 3),
-                                  autostart: Autostart.loop,
-                                  placeholder: (context) => Center(
-                                    child: SizedBox(
-                                        height: ConfigSize.defaultSize! * 3,
-                                        width: ConfigSize.defaultSize! * 8,
-                                        child: LoadingWidget(
-                                          padding: ConfigSize.defaultSize!,
-                                        )),
-                                  ),
-                                  onFetchCompleted: () {},
+                                CustoumCachedImage(
+                                  url: state.data![index].img!,
+                                  height: ConfigSize.screenHeight! * .2,
+                                  width: ConfigSize.screenWidth! * .3,
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(

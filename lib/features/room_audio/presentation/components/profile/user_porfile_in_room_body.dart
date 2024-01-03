@@ -92,7 +92,6 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
 
   @override
   Widget build(BuildContext context) {
-
     isOnMic = checkIsUserOnMic(widget.userData);
     isAdminOrHost =
         cheakisAdminOrHost(widget.userData, widget.myData, widget.roomData);
@@ -140,31 +139,31 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                           fontWeight: FontWeight.w400),
                       isVip: widget.userData.hasColorName!,
                     ),
-
-                    if(widget.userData.bio.toString() != "") Text(
-                      widget.userData.bio.toString(),
-                      style: TextStyle(
-                          fontSize: ConfigSize.defaultSize! * 1.3,
-                          color: ColorManager.darkBlack.withOpacity(0.8),
-                          fontWeight: FontWeight.w400),
-                    ),
-
+                    if (widget.userData.bio.toString() != "")
+                      Text(
+                        widget.userData.bio.toString(),
+                        style: TextStyle(
+                            fontSize: ConfigSize.defaultSize! * 1.3,
+                            color: ColorManager.darkBlack.withOpacity(0.8),
+                            fontWeight: FontWeight.w400),
+                      ),
                     BlocBuilder<UserBadgesBloc, UserBadgesState>(
                         builder: (context, state) {
-                          if (state is UserBadgesSucssesState) {
-                            return state.badges.data.isEmpty? const SizedBox(): SizedBox(
-                              width: ConfigSize.defaultSize! * 20,
-                              child: UserBadgesItem(
-                                width: ConfigSize.screenWidth! * .05,
-                                height: ConfigSize.screenHeight! * .05,
-                                userBadges: state.badges,
-                              ),
-                            );
-                          }else{
-                            return const SizedBox();
-                          }
-                        }),
-
+                      if (state is UserBadgesSucssesState) {
+                        return state.badges.data.isEmpty
+                            ? const SizedBox()
+                            : SizedBox(
+                                width: ConfigSize.defaultSize! * 20,
+                                child: UserBadgesItem(
+                                  width: ConfigSize.screenWidth! * .05,
+                                  height: ConfigSize.screenHeight! * .05,
+                                  userBadges: state.badges,
+                                ),
+                              );
+                      } else {
+                        return const SizedBox();
+                      }
+                    }),
                     IdWithCopyIcon(
                       userData: widget.userData,
                       color: Colors.black,
@@ -173,7 +172,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (!widget.userData.isCountryHiden!)
-                          UserCountryIcon(country: widget.userData.country?.flag ?? ""),
+                          UserCountryIcon(
+                              country: widget.userData.country?.flag ?? ""),
                         SizedBox(width: ConfigSize.defaultSize! * 0.5),
                         MaleFemaleIcon(
                           maleOrFeamle: widget.userData.profile!.gender,
@@ -192,7 +192,6 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                         SizedBox(width: ConfigSize.defaultSize! * 0.5),
                       ],
                     ),
-
                     SizedBox(height: ConfigSize.defaultSize! * 2),
                     widget.userData.familyData != null
                         ? InkWell(
@@ -211,15 +210,22 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text("${StringManager.familyName.tr()}: ", style: const TextStyle(fontSize: 12),),
-                                    Text(widget.userData.familyData!.name!.toString(), style: const TextStyle(fontSize: 12),),
+                                    Text(
+                                      "${StringManager.familyName.tr()}: ",
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                    Text(
+                                      widget.userData.familyData!.name!
+                                          .toString(),
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
                                   ],
                                 )),
                           )
                         : const SizedBox()
                   ],
                 ),
-                SizedBox(height: ConfigSize.defaultSize! ),
+                SizedBox(height: ConfigSize.defaultSize!),
                 Row(
                   children: [
                     Expanded(
@@ -252,7 +258,6 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-
                           InkWell(
                             onTap: () {
                               mentionAction(
@@ -262,19 +267,16 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                             },
                             child: mentionButton(),
                           ),
-
-
                           InkWell(
                             onTap: () {
                               privateCommentAction(
-                                  context: context,
-                                  roomData: widget.roomData,
-                                  userData: widget.userData,
+                                context: context,
+                                roomData: widget.roomData,
+                                userData: widget.userData,
                               );
                             },
                             child: privateCommentButton(),
                           ),
-
                           ValueListenableBuilder<bool>(
                               valueListenable: followAneimate,
                               builder: (context, isShow, _) {
@@ -283,7 +285,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                                     height: ConfigSize.defaultSize! * 3.5,
                                     width: ConfigSize.defaultSize! * 3.5,
                                     child: Gif(
-                                      image: const AssetImage(AssetsPath.verified),
+                                      image:
+                                          const AssetImage(AssetsPath.verified),
                                       controller: _controller,
                                       autostart: Autostart.loop,
                                       placeholder: (context) =>
@@ -291,18 +294,24 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                                     ),
                                   );
                                 } else {
-
-                                  return localisFollow?const SizedBox() :bottomBarColumn(
-                                      context: context,
-                                      icon: AssetsPath.followIcon,
-                                      title: StringManager.follow.tr(),
-                                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                          fontSize:ConfigSize.defaultSize!
-                                      ),
-                                      onTap: follow);
+                                  return localisFollow
+                                      ? const SizedBox()
+                                      : bottomBarColumn(
+                                          context: context,
+                                          icon: AssetsPath.followIcon,
+                                          title: StringManager.follow.tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontSize:
+                                                      ConfigSize.defaultSize!),
+                                          onTap: follow);
                                 }
                               }),
-                          SizedBox(width: ConfigSize.defaultSize!,),
+                          SizedBox(
+                            width: ConfigSize.defaultSize!,
+                          ),
                         ],
                       ),
                     //SEND GIFT ICON
@@ -390,78 +399,77 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        // (isAdminOrHost && isOnMic)
-                        //     ? ValueListenableBuilder<int>(
-                        //     valueListenable:
-                        //     UserProfileInRoom.updatebuttomBar,
-                        //     builder: (context, mute, _) {
-                        //       return IconButton(
-                        //           onPressed: () {
-                        //             if (RoomScreen.usersHasMute.contains(
-                        //                 widget.userData.id.toString())) {
-                        //               sendMuteUserMessage(
-                        //                   mute: false,
-                        //                   userId:
-                        //                   widget.userData.id.toString(),
-                        //                   ownerId: widget.roomData.ownerId
-                        //                       .toString());
-                        //             } else {
-                        //               if (!(widget.roomData.ownerId !=
-                        //                   widget.myData.id &&
-                        //                   RoomScreen.adminsInRoom.containsKey(
-                        //                       widget.userData.id
-                        //                           .toString()))) {
-                        //                 //admin can't make mute to admin
-                        //                 sendMuteUserMessage(
-                        //                     mute: true,
-                        //                     userId:
-                        //                     widget.userData.id.toString(),
-                        //                     ownerId: widget.roomData.ownerId
-                        //                         .toString());
-                        //               }
-                        //             }
-                        //           },
-                        //           icon: Icon(
-                        //             RoomScreen.usersHasMute.contains(widget.userData.id.toString())
-                        //                 ? Icons.mic_off
-                        //                 : Icons.mic_rounded,
-                        //             color: Colors.black,
-                        //           ));
-                        //     })
-                        //     : SizedBox(
-                        //   height: ConfigSize.defaultSize! * 4,
-                        // ),
-                        //
-                        // myProfile //for the blockbutto
-                        //     ? SizedBox(width: ConfigSize.defaultSize! * 8)
-                        //     : isAdminOrHost
-                        //     ? BlockButton(
-                        //   roomData: widget.roomData,
-                        //   userData: widget.userData,
-                        // ) : SizedBox(width: ConfigSize.defaultSize! * 8),
+                      Row(
+                        children: [
+                          // (isAdminOrHost && isOnMic)
+                          //     ? ValueListenableBuilder<int>(
+                          //     valueListenable:
+                          //     UserProfileInRoom.updatebuttomBar,
+                          //     builder: (context, mute, _) {
+                          //       return IconButton(
+                          //           onPressed: () {
+                          //             if (RoomScreen.usersHasMute.contains(
+                          //                 widget.userData.id.toString())) {
+                          //               sendMuteUserMessage(
+                          //                   mute: false,
+                          //                   userId:
+                          //                   widget.userData.id.toString(),
+                          //                   ownerId: widget.roomData.ownerId
+                          //                       .toString());
+                          //             } else {
+                          //               if (!(widget.roomData.ownerId !=
+                          //                   widget.myData.id &&
+                          //                   RoomScreen.adminsInRoom.containsKey(
+                          //                       widget.userData.id
+                          //                           .toString()))) {
+                          //                 //admin can't make mute to admin
+                          //                 sendMuteUserMessage(
+                          //                     mute: true,
+                          //                     userId:
+                          //                     widget.userData.id.toString(),
+                          //                     ownerId: widget.roomData.ownerId
+                          //                         .toString());
+                          //               }
+                          //             }
+                          //           },
+                          //           icon: Icon(
+                          //             RoomScreen.usersHasMute.contains(widget.userData.id.toString())
+                          //                 ? Icons.mic_off
+                          //                 : Icons.mic_rounded,
+                          //             color: Colors.black,
+                          //           ));
+                          //     })
+                          //     : SizedBox(
+                          //   height: ConfigSize.defaultSize! * 4,
+                          // ),
+                          //
+                          // myProfile //for the blockbutto
+                          //     ? SizedBox(width: ConfigSize.defaultSize! * 8)
+                          //     : isAdminOrHost
+                          //     ? BlockButton(
+                          //   roomData: widget.roomData,
+                          //   userData: widget.userData,
+                          // ) : SizedBox(width: ConfigSize.defaultSize! * 8),
 
-
-                        if (!myProfile) InkWell(
-                          onTap: (){
-                            repoertsAction(context: context, userData: widget.userData);
-                          },
-                          child: Row(
-                            children: [
-                              Icon(Icons.report),
-                              SizedBox(width: 5,),
-                              Text(
-                                  StringManager.report.tr()
+                          if (!myProfile)
+                            InkWell(
+                              onTap: () {
+                                repoertsAction(
+                                    context: context,
+                                    userData: widget.userData);
+                              },
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.report),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(StringManager.report.tr()),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-
-                      ],),
-
-
-
-
+                            ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -479,7 +487,6 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                           isAdminOrHost: isAdminOrHost,
                           isOnMic: isOnMic,
                           myProfrile: myProfile),
-
                     ],
                   ),
                 ),
@@ -521,11 +528,11 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
 
     followAneimate.value = !followAneimate.value;
 
-   if( !localisFollow) {
-     BlocProvider.of<FollowBloc>(context)
-            .add(FollowEvent(userId: widget.userData.id.toString()));
-     localisFollow = !localisFollow;
-     }
+    if (!localisFollow) {
+      BlocProvider.of<FollowBloc>(context)
+          .add(FollowEvent(userId: widget.userData.id.toString()));
+      localisFollow = !localisFollow;
+    }
 
     Future.delayed(const Duration(milliseconds: 1800), () async {
       _controller.stop();
@@ -556,10 +563,8 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
             ),
           ),
           Text(StringManager.mention.tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: Colors.black,fontSize: ConfigSize.defaultSize!)),
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Colors.black, fontSize: ConfigSize.defaultSize!)),
         ],
       ),
     );
@@ -570,13 +575,18 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
       width: ConfigSize.defaultSize! * 10,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             width: ConfigSize.defaultSize! * 6,
             height: ConfigSize.defaultSize! * 3,
-            child:   Center(
-              child: Image.asset(AssetsPath.privateCommentIcon),
+            child: Center(
+              child: Image.asset(AssetsPath.privateCommentGif),
             ),
           ),
+          Text(
+            StringManager.privateComment,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: Colors.black, fontSize: ConfigSize.defaultSize!),
+          )
         ],
       ),
     );

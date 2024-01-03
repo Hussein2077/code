@@ -61,6 +61,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_sc
 import 'package:tik_chat_v2/features/profile/persentation/component/medles%20screen/medles_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/my_videos_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/block_list/block_list.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/language_screen/language_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_number_old_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_pass_or_number.dart';
@@ -180,6 +181,7 @@ class Routes {
   static const String refreshScreen = "/RefreshScreen";
   static const String invitScreenDetails = "/InvitScreenDetails";
   static const String userScreen = "/UserScreen";
+  static const String blockList = "/blockList";
 }
 
 class RouteGenerator {
@@ -789,6 +791,16 @@ class RouteGenerator {
           return MaterialPageRoute(
               builder: (_) => const MedlesScreen());
         }
+      case Routes.blockList:
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
+              builder: (_) => const SafeArea(child: BlockListScreen()));
+        } else {
+          return MaterialPageRoute(
+              settings: settings,
+              builder: (_) => const SafeArea(child: BlockListScreen()));
+        }
+
     }
 
     return unDefinedRoute();

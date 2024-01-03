@@ -94,6 +94,7 @@ import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/active_notification_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/add_block_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/add_intrested_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_time_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_uc.dart';
@@ -126,6 +127,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/follow_unfollow_usec
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_all_intersted_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_all_shipping_agents_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_badges_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_black_list_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_data_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_member_usecase.dart';
@@ -150,6 +152,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/pay_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/remove_block_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/send_item_usecase.dart';
@@ -164,7 +167,9 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchases.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/add_or_delete_block/add_or_delete_block_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/badges%20manager/badges_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/block_list_bloc/block_list_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -459,7 +464,8 @@ class ServerLocator {
         () => GetFollwersRoomBloc(getFollwingRoomsUC: getIt()));
 
     getIt.registerFactory(() => CarouselBloc(getCarouselsUsecase: getIt()));
-
+    getIt.registerFactory(() => AddOrDeleteBLockListBloc(
+        addBlockUseCase: getIt(), removeBlockUseCase: getIt()));
     getIt.registerFactory(() => CounrtyBloc(getCountryUseCase: getIt()));
     getIt.registerFactory(() => GetRoomsBloc(allRoomsUsecase: getIt()));
     getIt.registerFactory(() => SearchBloc(searchUseCase: getIt()));
@@ -609,7 +615,7 @@ class ServerLocator {
     getIt.registerFactory(() => UserBadgesBloc(getUserBadgeUc: getIt()));
     getIt.registerFactory(() => GetBadgesBloc(getBadgesUseCase: getIt()));
     getIt.registerFactory(() => SendPrivateCommentBloc(sendPrivateCommentUC: getIt()));
-
+    getIt.registerFactory(() => GetBlockListBloc(getBlackListUseCase: getIt()));
 //usecase
     getIt.registerLazySingleton(
         () => InvitUsecase(baseRepositoryProfile: getIt()));
@@ -673,7 +679,8 @@ class ServerLocator {
     getIt.registerLazySingleton(() => BuyCoinsUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(
             () => GetGoldCoinDataUseCase(baseRepositoryProfile: getIt()));
-
+    getIt.registerLazySingleton(() => AddBlockUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => RemoveBlockUseCase(baseRepositoryProfile: getIt()));
  getIt.registerLazySingleton(
             () => MakeReelLikeUseCase(baseRepositoryReel: getIt()));
 
@@ -934,7 +941,8 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton(() => LoginChatBloc());
     getIt.registerFactory(() => LogOutChatBloc());
     getIt.registerFactory(() => UpdateUserDataBloc());
-
+    getIt.registerLazySingleton(
+            () => GetBlackListUseCase(baseRepositoryProfile: getIt()));
 
 
 

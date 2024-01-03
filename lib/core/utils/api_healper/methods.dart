@@ -176,9 +176,12 @@ class Methods {
         if(kDebugMode){
         }
         VideoCacheModel video = VideoCacheModel(
-            img: reels[i].img == null? "" : reels[i].img!,
+            img:ConstentApi().getImage(reels[i].img ) ?? "",
             url: reels[i].url!
         );
+        /*
+        ConstentApi().getImage(state.data![index].img)
+         */
 
       getIt<VideoCacheManager>().cacheVideo(video, StringManager.cachReelsKey);
     }

@@ -254,6 +254,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.roomName: "اسم الغرفة",
     StringManager.public: "عامة",
     StringManager.private: "خاصة",
+    StringManager.privateComment: "رسالة خاصة",
     StringManager.createRoom: "إنشاء الغرفة",
     StringManager.createLiveVideo: "إنشاء فيديو مباشر",
     StringManager.startLive: "بدء البث المباشر",
@@ -627,6 +628,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.like: "الاعجاب 👍" ,
     StringManager.howToGainFreeCoins: "كيف تحصل علي " ,
     StringManager.freeCoins: "عملات مجانية" ,
+    StringManager.remove: "إزالة",
 
   };
 
