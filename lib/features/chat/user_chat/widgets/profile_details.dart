@@ -110,48 +110,64 @@ class ProfileChatDetailsState extends State<ProfileChatDetails> {
                 ),
               ),
             ),
+
             // FutureBuilder<bool>(
             //   future: checker(),
             //   builder: (context, snapshot) {
-            //     bool isBlocked = snapshot.data ??
-            //         false;
+            //     if (snapshot.hasData) {
+            //       bool isBlocked = snapshot.data ??
+            //           false;
+            //       return Padding(
+            //         padding: EdgeInsets.symmetric(
+            //           horizontal: ConfigSize.defaultSize! * 3,
+            //           vertical: ConfigSize.defaultSize! * 0.8,
+            //         ),
+            //         child: InkWell(
+            //           onTap: () async {
+            //             if (!isBlocked) {
+            //               CometChat.blockUser(
+            //                   [widget.userData.id.toString()],
+            //                   onSuccess: (Map<String, dynamic> user) {
+            //                     BlocProvider.of<AddBlockBloc>(context).add(
+            //                       AddBlockEvent(
+            //                           userId: widget.userData.id
+            //                               .toString()),
+            //                     );
+            //                   }, onError: (CometChatException e) {
+            //                 log(e.toString());
+            //               });
+            //             } else {
+            //               CometChat.unblockUser(
+            //                   [widget.userData.id.toString()],
+            //                   onSuccess: (Map<String, dynamic> users) {
+            //                     BlocProvider.of<RemoveBlockBloc>(context)
+            //                         .add(
+            //                         RemoveBlockEvent(
+            //                             userId: widget.userData.id
+            //                                 .toString()));
+            //                   }, onError: (CometChatException e) {
+            //                 log(e.toString());
+            //               }
             //
-            //     return Padding(
-            //       padding: EdgeInsets.symmetric(
-            //         horizontal: ConfigSize.defaultSize! * 3,
-            //         vertical: ConfigSize.defaultSize! * 0.8,
-            //       ),
-            //       child: InkWell(
-            //         onTap: () async {
-            //           if (isBlocked) {
-            //             BlocProvider.of<AddBlockBloc>(context).add(
-            //               AddBlockEvent(
-            //                   userId: widget.userData.id.toString()),
-            //             );
-            //
-            //             // CometChat.blockUser(uids, onSuccess: (Map<String, dynamic>){
-            //             //
-            //             //
-            //             // }, onError: onError);
-            //           } else {
-            //             BlocProvider.of<RemoveBlockBloc>(context).add(
-            //               RemoveBlockEvent(
-            //                   userId: widget.userData.id.toString()),
-            //             );
-            //             // CometChat.unblockUser(uids, onSuccess: onSuccess, onError: onError);
-            //           }
-            //         },
-            //         child: Text(
-            //           isBlocked
-            //               ? StringManager.block.tr()
-            //               : StringManager.unBlock.tr(),
-            //           style: TextStyle(
-            //             color: Colors.red,
-            //             fontSize: ConfigSize.defaultSize! * 1.5,
+            //               );
+            //               // CometChat.unblockUser(uids, onSuccess: onSuccess, onError: onError);
+            //             }
+            //           },
+            //           child: Text(
+            //             isBlocked
+            //                 ? StringManager.unBlock.tr()
+            //                 : StringManager.block.tr(),
+            //             style: TextStyle(
+            //               color: Colors.red,
+            //               fontSize: ConfigSize.defaultSize! * 1.5,
+            //             ),
             //           ),
             //         ),
-            //       ),
-            //     );
+            //       );
+            //     }
+            //     else {
+            //       return SizedBox();
+            //     }
             //   },
             // ),
 

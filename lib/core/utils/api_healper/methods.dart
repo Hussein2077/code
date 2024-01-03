@@ -979,6 +979,9 @@ void checkIfFriends(
 
 
 }
+
+
+
   void navigatorToUserChat(
 
       {required BuildContext context, required UserDataModel userData }) {
