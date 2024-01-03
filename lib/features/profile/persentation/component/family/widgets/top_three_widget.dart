@@ -24,72 +24,70 @@ class TopThreeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Stack(
-        children: [
-
-          Padding(
-              padding: EdgeInsets.only(
-                  top: ConfigSize.defaultSize! * 10,
-                  left: ConfigSize.defaultSize! * 2.5),
-              child: Image.asset(
-                AssetsPath.familyPositionCover,
-                scale: 3.3,
-              )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                onTap: (){
-                  if(topRanking[1].id !=0){
-                  Navigator.pushNamed(context, Routes.familyProfile,arguments:topRanking[1].id );
-
-                  }
-                },
-                child: rankColumn(
-                    familyName: topRanking[1].name!,
-                    familyRank: topRanking[1].rank.toString(),
-                    image: topRanking[1].img!,
-                    kingImage: AssetsPath.crownSilver),
-              ),
-              InkWell(
-                onTap: () {
-                    if(topRanking[0].id !=0){
-             Navigator.pushNamed(context, Routes.familyProfile,arguments:topRanking[0].id);
-
-                    }
-
-
-                },
-                child: rankColumn(
-                    familyName: topRanking[0].name!,
-                    familyRank: topRanking[0].rank.toString(),
-                    image: topRanking[0].img!,
-                    kingImage: AssetsPath.crownGold),
-              ),
-              InkWell(
-                onTap: (){
-                                      if(topRanking[2].id !=0){
-                                                          Navigator.pushNamed(context, Routes.familyProfile,arguments:topRanking[2].id );
-
-                                      }
-                },
-                child: rankColumn(
-                    familyName: topRanking[2].name!,
-                    familyRank: topRanking[2].rank.toString(),
-                    image: topRanking[2].img!,
-                    kingImage: AssetsPath.crownBronze),
-              )
-            ],
-          ),
-        ],
-      );
+    return Stack(
+      children: [
+        Padding(
+            padding: EdgeInsets.only(
+                top: ConfigSize.defaultSize! * 10,
+                left: ConfigSize.defaultSize! * 2.5),
+            child: Image.asset(
+              AssetsPath.familyPositionCover,
+              scale: 3.3,
+            )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              onTap: () {
+                if (topRanking[1].id != 0) {
+                  Navigator.pushNamed(context, Routes.familyProfile,
+                      arguments: topRanking[1].id);
+                }
+              },
+              child: rankColumn(
+                  familyName: topRanking[1].name!,
+                  familyRank: topRanking[1].rank.toString(),
+                  image: topRanking[1].img!,
+                  kingImage: AssetsPath.crownSilver),
+            ),
+            InkWell(
+              onTap: () {
+                if (topRanking[0].id != 0) {
+                  Navigator.pushNamed(context, Routes.familyProfile,
+                      arguments: topRanking[0].id);
+                }
+              },
+              child: rankColumn(
+                  familyName: topRanking[0].name!,
+                  familyRank: topRanking[0].rank.toString(),
+                  image: topRanking[0].img!,
+                  kingImage: AssetsPath.crownGold),
+            ),
+            InkWell(
+              onTap: () {
+                if (topRanking[2].id != 0) {
+                  Navigator.pushNamed(context, Routes.familyProfile,
+                      arguments: topRanking[2].id);
+                }
+              },
+              child: rankColumn(
+                  familyName: topRanking[2].name!,
+                  familyRank: topRanking[2].rank.toString(),
+                  image: topRanking[2].img!,
+                  kingImage: AssetsPath.crownBronze),
+            )
+          ],
+        ),
+      ],
+    );
   }
 }
 
-Widget rankColumn({required String image,
-  required String kingImage,
-  required String familyName,
-  required String familyRank}) {
+Widget rankColumn(
+    {required String image,
+    required String kingImage,
+    required String familyName,
+    required String familyRank}) {
   return Padding(
     padding: kingImage == AssetsPath.crownGold
         ? EdgeInsets.only(bottom: ConfigSize.defaultSize! * 2)
@@ -112,9 +110,9 @@ Widget rankColumn({required String image,
               ),
               child: image != ""
                   ? CustoumCachedImage(
-                  url: image,
-                  height: ConfigSize.defaultSize! * 7,
-                  width: ConfigSize.defaultSize! * 7)
+                      url: image,
+                      height: ConfigSize.defaultSize! * 7,
+                      width: ConfigSize.defaultSize! * 7)
                   : Image.asset(AssetsPath.iconApp),
             ),
             Padding(
@@ -150,8 +148,8 @@ Widget rankColumn({required String image,
                       fontSize: ConfigSize.defaultSize! * 1.3),
                 ),
                 Image.asset(
-                  AssetsPath.goldCoinIcon,
-                  scale: 15,
+                  AssetsPath.daimons,
+                  scale: 2.4,
                 )
               ],
             ))

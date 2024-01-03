@@ -34,18 +34,7 @@ class ProfileBody extends StatelessWidget {
               UserInfoRow(
                 imageSize: ConfigSize.defaultSize! * 6,
                 underName: IdWithCopyIcon(userData: myData ),
-                underNameWidth: ConfigSize.defaultSize!*14,
-                endIcon: Container(
-                  padding: EdgeInsets.all(ConfigSize.defaultSize!),
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                          colors: ColorManager.mainColorList,
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight)),
-                  child: Icon(Icons.arrow_forward_ios,
-                      color: Colors.white, size: ConfigSize.defaultSize!),
-                ),
+                endIcon: const SizedBox(),
                 userData: myData.convertToUserObject(),
               ),
               SizedBox(height: ConfigSize.defaultSize!*1.5,),

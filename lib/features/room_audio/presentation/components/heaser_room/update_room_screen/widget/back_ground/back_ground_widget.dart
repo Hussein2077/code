@@ -50,7 +50,10 @@ class _BackGroundState extends State<BackGround> {
           sucssesToast(
               context: context, title: StringManager.yourThemeIsUpload.tr());
 
-          Future.delayed(const Duration(milliseconds: 200), () {
+
+          Future.delayed(const Duration(milliseconds: 100), () {
+            Navigator.pop(context);
+            Navigator.pop(context);
             Navigator.pop(context);
           });
         } else if (state is AddRoomBackgroundLoading) {
@@ -88,17 +91,22 @@ class _BackGroundState extends State<BackGround> {
                                 AddRoomBackgroundState>(
                               builder: (context, state) {
                                 if (state is AddRoomBackgroundSucsses) {
-                                  return Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: ConfigSize.defaultSize!,
-                                      horizontal: ConfigSize.defaultSize!
-                                    ),
-                                    child:  Center(
-                                        child: Text(
-                                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                fontSize: ConfigSize.defaultSize! * 1.3,
-                                          overflow: TextOverflow.visible,),
-                                            StringManager.yourThemeIsUpload.tr())),
+                                  return SizedBox(
+                                    height: ConfigSize.defaultSize! * 5,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: IconButton(
+                                        icon: Icon(
+                                          Icons.add,
+                                          color: Theme.of(context).iconTheme.color,
+                                          size: ConfigSize.defaultSize! * 3,
+                                        ),
+                                        onPressed: () async {
+                                          // await getImage();
+
+                                          bottomDailog(
+                                              context: context,
+                                              widget: const AddThemeImage());
+                                        }),
                                   );
                                 } else {
                                   return SizedBox(
