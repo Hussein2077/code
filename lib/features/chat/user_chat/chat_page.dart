@@ -63,18 +63,7 @@ class _ChatPageState extends State<ChatPage> {
 
     return Scaffold(
 
-      floatingActionButton: InkWell(
-          onTap: () {
-       
 
-            // CometChat.sendCustomMessage(
-            //     cometchat.CustomMessage(customData: customData,
-            //         receiverUid: receiverUid,
-            //         type: type,
-            //         receiverType: receiverType)
-            //     , onSuccess: onSuccess, onError: onError)
-          },
-          child: Container(width: 50, height: 50, color: Colors.red)),
       body: Column(
 
         children: [
