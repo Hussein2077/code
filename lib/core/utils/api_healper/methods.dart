@@ -179,9 +179,7 @@ class Methods {
             img:ConstentApi().getImage(reels[i].img ) ?? "",
             url: reels[i].url!
         );
-        /*
-        ConstentApi().getImage(state.data![index].img)
-         */
+
 
       getIt<VideoCacheManager>().cacheVideo(video, StringManager.cachReelsKey);
     }
@@ -212,12 +210,12 @@ class Methods {
     await ZegoUIKit.instance.uninit();
     await ZegoUIKit.instance.uninit();
     ZegoUIKit.instance.logout();
-    await clearAll(ownerId, context);
+    await clearAll(ownerId, context.mounted?context:getIt<NavigationService>().navigatorKey.currentContext!);
     ExistroomUC e = ExistroomUC(roomRepo: getIt());
     await e.call(ownerId);
     PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
-   // await pusher.subscribe(channelName: 'presence-room-${MyDataModel.getInstance().id}',
-    pusher.unsubscribe(channelName: 'presence-room-${MyDataModel.getInstance().id}');
+
+    pusher.unsubscribe(channelName: 'presence-room-${ownerId}');
 
   }
 
