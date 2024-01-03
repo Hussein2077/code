@@ -504,6 +504,7 @@ class StringManager {
   static const String writeUnBan = "write Unban";
   static const String writeBan = "write ban";
   static const String block = "Block";
+  static const String unBlock = "Unblock";
   static const String lastActive = "Last Active: ";
   static const String spitialMassege = "spitial messege";
   static const String theTextHasBeenCopied = "The text has been copied";

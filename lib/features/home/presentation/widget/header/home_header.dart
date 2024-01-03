@@ -40,11 +40,11 @@ class _HomeHeaderState extends State<HomeHeader> {
         ,
         InkWell(
             onTap: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>  MyBannerAdWidget()),
-              );
-              // Navigator.pushNamed(context, Routes.searchScreen);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) =>  MyBannerAdWidget()),
+              // );
+            Navigator.pushNamed(context, Routes.searchScreen);
               // Navigator.pushNamed(context, Routes.searchScreen);
             },
             child: Image.asset(
