@@ -38,7 +38,7 @@ class ProfileChatDetailsState extends State<ProfileChatDetails> {
           }
           else if (state is DeleteBlockListSuccessState){
             setState(() {
-              
+
             });
           }
           // TODO: implement listener
@@ -133,7 +133,6 @@ class ProfileChatDetailsState extends State<ProfileChatDetails> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     bool isBlocked = snapshot.data ?? false;
-                    log('ttttttt$isBlocked  ');
 
                     return Padding(
                       padding: EdgeInsets.symmetric(
