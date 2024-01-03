@@ -7,6 +7,7 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/chat/data/data_source/remoted_dataSource_chat.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manger_add_block/bloc/add_block_bloc.dart';
 
 
 class ProfileChatDetails extends StatefulWidget {
@@ -110,48 +111,64 @@ class ProfileChatDetailsState extends State<ProfileChatDetails> {
                 ),
               ),
             ),
+
             // FutureBuilder<bool>(
             //   future: checker(),
             //   builder: (context, snapshot) {
-            //     bool isBlocked = snapshot.data ??
-            //         false;
+            //     if (snapshot.hasData) {
+            //       bool isBlocked = snapshot.data ??
+            //           false;
+            //       return Padding(
+            //         padding: EdgeInsets.symmetric(
+            //           horizontal: ConfigSize.defaultSize! * 3,
+            //           vertical: ConfigSize.defaultSize! * 0.8,
+            //         ),
+            //         child: InkWell(
+            //           onTap: () async {
+            //             if (!isBlocked) {
+            //               CometChat.blockUser(
+            //                   [widget.userData.id.toString()],
+            //                   onSuccess: (Map<String, dynamic> user) {
+            //                     BlocProvider.of<AddBlockBloc>(context).add(
+            //                       AddBlockEvent(
+            //                           userId: widget.userData.id
+            //                               .toString()),
+            //                     );
+            //                   }, onError: (CometChatException e) {
+            //                 log(e.toString());
+            //               });
+            //             } else {
+            //               CometChat.unblockUser(
+            //                   [widget.userData.id.toString()],
+            //                   onSuccess: (Map<String, dynamic> users) {
+            //                     BlocProvider.of<RemoveBlockBloc>(context)
+            //                         .add(
+            //                         RemoveBlockEvent(
+            //                             userId: widget.userData.id
+            //                                 .toString()));
+            //                   }, onError: (CometChatException e) {
+            //                 log(e.toString());
+            //               }
             //
-            //     return Padding(
-            //       padding: EdgeInsets.symmetric(
-            //         horizontal: ConfigSize.defaultSize! * 3,
-            //         vertical: ConfigSize.defaultSize! * 0.8,
-            //       ),
-            //       child: InkWell(
-            //         onTap: () async {
-            //           if (isBlocked) {
-            //             BlocProvider.of<AddBlockBloc>(context).add(
-            //               AddBlockEvent(
-            //                   userId: widget.userData.id.toString()),
-            //             );
-            //
-            //             // CometChat.blockUser(uids, onSuccess: (Map<String, dynamic>){
-            //             //
-            //             //
-            //             // }, onError: onError);
-            //           } else {
-            //             BlocProvider.of<RemoveBlockBloc>(context).add(
-            //               RemoveBlockEvent(
-            //                   userId: widget.userData.id.toString()),
-            //             );
-            //             // CometChat.unblockUser(uids, onSuccess: onSuccess, onError: onError);
-            //           }
-            //         },
-            //         child: Text(
-            //           isBlocked
-            //               ? StringManager.block.tr()
-            //               : StringManager.unBlock.tr(),
-            //           style: TextStyle(
-            //             color: Colors.red,
-            //             fontSize: ConfigSize.defaultSize! * 1.5,
+            //               );
+            //               // CometChat.unblockUser(uids, onSuccess: onSuccess, onError: onError);
+            //             }
+            //           },
+            //           child: Text(
+            //             isBlocked
+            //                 ? StringManager.unBlock.tr()
+            //                 : StringManager.block.tr(),
+            //             style: TextStyle(
+            //               color: Colors.red,
+            //               fontSize: ConfigSize.defaultSize! * 1.5,
+            //             ),
             //           ),
             //         ),
-            //       ),
-            //     );
+            //       );
+            //     }
+            //     else {
+            //       return SizedBox();
+            //     }
             //   },
             // ),
 

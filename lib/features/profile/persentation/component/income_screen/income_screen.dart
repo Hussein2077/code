@@ -24,11 +24,11 @@ class IncomeScreen extends StatefulWidget {
 }
 
 class _IncomeScreenState extends State<IncomeScreen> {
-  @override
-  void initState() {
-    BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   BlocProvider.of<MyStoreBloc>(context).add(GetMyStoreEvent());
+  //   super.initState();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
