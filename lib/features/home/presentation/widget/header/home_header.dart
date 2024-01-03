@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tik_chat_v2/core/ads/bannaer_ads_test.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -39,7 +40,11 @@ class _HomeHeaderState extends State<HomeHeader> {
         ,
         InkWell(
             onTap: () async {
-              Navigator.pushNamed(context, Routes.searchScreen);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>  MyBannerAdWidget()),
+              );
+              // Navigator.pushNamed(context, Routes.searchScreen);
               // Navigator.pushNamed(context, Routes.searchScreen);
             },
             child: Image.asset(
