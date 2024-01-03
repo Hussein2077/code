@@ -498,7 +498,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
         BlocProvider(
             create: (_) =>
-                getIt<GetUserReelsBloc>()..add(const GetUserReelEvent())),
+                getIt<GetUserReelsBloc>()),
         BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
         BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),

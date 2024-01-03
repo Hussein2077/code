@@ -6,13 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/update_user_data/update_user_data_bloc.dart';
 import 'package:tik_chat_v2/features/chat/Presentation/Chat_Screen/Manger/update_user_data/update_user_data_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_state.dart';
@@ -68,6 +72,7 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   void dispose() {
+    BlocProvider.of<GetUserReelsBloc>(getIt<NavigationService>().navigatorKey.currentContext!).add(const InitialReelEvent());
 
     super.dispose();
   }
@@ -88,7 +93,7 @@ class _UserProfileState extends State<UserProfile> {
             ? BlocConsumer<GetMyDataBloc, GetMyDataState>(
           listener: (context, state) {
             if (state is GetMyDataSucssesState){
-              BlocProvider.of<UpdateUserDataBloc>(context).add(UpdateUserDataEvent(avatar:state.myDataModel.profile!.image! , name: state.myDataModel.name!));
+              BlocProvider.of<UpdateUserDataBloc>(context).add(UpdateUserDataEvent(avatar:ConstentApi().getImage(state.myDataModel.profile!.image!) , name: state.myDataModel.name!));
             }
           },
                 builder: (context, state) {
