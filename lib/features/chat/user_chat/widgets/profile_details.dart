@@ -7,7 +7,6 @@ import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/chat/data/data_source/remoted_dataSource_chat.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manger_add_block/bloc/add_block_bloc.dart';
 
 
 class ProfileChatDetails extends StatefulWidget {
