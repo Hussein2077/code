@@ -321,7 +321,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
         750.zR, 485.zR,
       ):
       Size(700.zR, 550.zR,
-      ) :Size(750.zR, 435.zR,
+      ) :Size(750.zW, 435.zH,
       );
       if (listSize.width < 54.zR) {
         listSize = Size(54.zR, listSize.height);

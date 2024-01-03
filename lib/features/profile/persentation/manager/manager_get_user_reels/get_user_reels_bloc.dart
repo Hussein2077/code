@@ -2,6 +2,8 @@
 
 
 
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_user_reels_use_case.dart';
@@ -15,9 +17,15 @@ final GetUserReelsUsecase getUserReelUseCase ;
 
   GetUserReelsBloc({required this.getUserReelUseCase}) : super(GetUserReelsInitial(null)) {
     on<InitialReelEvent>((event,emit){
+
+   log("############");
+
       emit(GetUserReelsInitial(null));
     });
     on<GetUserReelEvent>((event, emit)async {
+      log(event.id.toString()+"eveeeeeeeeent");
+      emit(GetUserReelsInitial(null));
+
       page = 1 ; 
     emit(GetUserReelsLoadingState(null));
 
@@ -29,6 +37,7 @@ final GetUserReelsUsecase getUserReelUseCase ;
 
 
         on<LoadMoreUserReelsEvent>((event, emit)async {
+
           page++ ;
           if(loadMore) {
             final result = await getUserReelUseCase.getUserReels(event.id, page.toString());
