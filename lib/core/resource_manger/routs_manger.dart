@@ -351,8 +351,9 @@ class RouteGenerator {
                 ));
       case Routes.vip:
         currentContext = Routes.vip;
+        int? index = settings.arguments as int?;
         return MaterialPageRoute(
-            settings: settings, builder: (_) => const VipScreen());
+            settings: settings, builder: (_) =>  VipScreen(index: index,));
       case Routes.familyRanking:
         currentContext = Routes.familyRanking;
         return MaterialPageRoute(

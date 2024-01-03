@@ -18,6 +18,7 @@ import 'vip_dailog.dart';
 class VipTabView extends StatelessWidget {
   final VipCenterModel vipData;
   final String vipIcon;
+
   const VipTabView({required this.vipData, required this.vipIcon, super.key});
 
   @override

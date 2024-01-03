@@ -20,7 +20,8 @@ import 'widgets/vip_tab_view.dart';
 import 'widgets/vip_tabs.dart';
 
 class VipScreen extends StatefulWidget {
-  const VipScreen({super.key});
+  int? index;
+   VipScreen({super.key, this.index});
 
   @override
   State<VipScreen> createState() => _VipScreenState();
@@ -28,9 +29,13 @@ class VipScreen extends StatefulWidget {
 
 class _VipScreenState extends State<VipScreen> with TickerProviderStateMixin {
   late TabController vipContriller;
+
   @override
   void initState() {
     vipContriller = TabController(length: 8, vsync: this);
+    if(widget.index!=null){
+      vipContriller.index=widget.index!;
+    }
     super.initState();
   }
 
@@ -51,20 +56,20 @@ class _VipScreenState extends State<VipScreen> with TickerProviderStateMixin {
     AssetsPath.superKing,
   ];
 
+
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<BuyOrSendVipBloc, BuyOrSendVipState>(
       listener: (context, state) {
-        if(state is BuyOrSendVipSucssesState){
+        if (state is BuyOrSendVipSucssesState) {
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
           sucssesToast(context: context, title: state.massage);
-        }else if (state is BuyOrSendVipLoadingState){
-        //  loadingToast(context: context, title: StringManager.loading.tr());
-        }else if (state is BuyOrSendVipErrorState){
+        } else if (state is BuyOrSendVipLoadingState) {
+          //  loadingToast(context: context, title: StringManager.loading.tr());
+        } else if (state is BuyOrSendVipErrorState) {
           errorToast(context: context, title: state.error);
         }
-
-
       },
       child: Scaffold(
         body: ScreenBackGround(
@@ -74,7 +79,7 @@ class _VipScreenState extends State<VipScreen> with TickerProviderStateMixin {
                 SizedBox(
                   height: ConfigSize.defaultSize! * 3.5,
                 ),
-                 HeaderWithOnlyTitle(
+                HeaderWithOnlyTitle(
                   title: StringManager.aristocracy.tr(),
                   titleColor: Colors.white,
                 ),

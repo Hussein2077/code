@@ -60,13 +60,13 @@ class ProfileTabViewBody extends StatelessWidget {
               title: StringManager.aristocracy.tr(),
               num:'' ,
               image: AssetsPath.vipCover,
-              onTap: () => Navigator.pushNamed(context, Routes.vip),
+              onTap: () => Navigator.pushNamed(context, Routes.vip,),
             ):
             cover(
               title: StringManager.aristocracy.tr(),
               num:vipNames[userDataModel.vip1!.level!-1] ,
               image: AssetsPath.vipCover,
-              onTap: () => Navigator.pushNamed(context, Routes.vip),
+              onTap: () => Navigator.pushNamed(context, Routes.vip,),
             ),
           ],
         ),

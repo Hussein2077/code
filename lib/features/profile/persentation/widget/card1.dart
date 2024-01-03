@@ -41,7 +41,7 @@ class Card1 extends StatelessWidget {
                 context: context,
                 image: AssetsPath.vipProfileIcon.tr(),
                 title: StringManager.aristocracy.tr()
-                ,onTap: () => Navigator.pushNamed(context, Routes.vip),
+                ,onTap: () => Navigator.pushNamed(context, Routes.vip,),
                 ),
           ],
         ));
