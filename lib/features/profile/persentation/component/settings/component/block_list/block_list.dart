@@ -68,21 +68,34 @@ class _BlockListScreenState extends State<BlockListScreen> {
                                 width: ConfigSize.screenWidth! * .15,
                                 height: ConfigSize.defaultSize! * 3,
                                 onTap: () {
-                                  CometChat.unblockUser([
-                                    state.blackListModel.data[index].id
-                                        .toString()
-                                  ], onSuccess: (Map<String, dynamic> users) {
-                                    log('unblock success');
-                                  },
-                                      onError: (CometChatException e) {
-                                    log(e.toString());
-                                  });
 
-                                  BlocProvider.of<AddOrDeleteBLockListBloc>(
-                                          context)
-                                      .add(DeleteBlockListEvent(state
-                                          .blackListModel.data[index].id
-                                          .toString()));
+                                  CometChat.unblockUser([                                    state.blackListModel.data[index].id
+                                      .toString()],
+                                      onSuccess: (Map<String, dynamic> users) {
+                                        BlocProvider.of<AddOrDeleteBLockListBloc>(
+                                            context)
+                                            .add(DeleteBlockListEvent(state
+                                            .blackListModel.data[index].id
+                                            .toString()));
+                                      }, onError: (CometChatException e) {
+                                        log(e.toString());
+                                      });
+
+                                  // CometChat.unblockUser([
+                                  //   state.blackListModel.data[index].id
+                                  //       .toString()
+                                  // ], onSuccess: (Map<String, dynamic> users) {
+                                  //   log('unblock success');
+                                  // },
+                                  //     onError: (CometChatException e) {
+                                  //   log(e.toString());
+                                  // });
+                                  //
+                                  // BlocProvider.of<AddOrDeleteBLockListBloc>(
+                                  //         context)
+                                  //     .add(DeleteBlockListEvent(state
+                                  //         .blackListModel.data[index].id
+                                  //         .toString()));
                                 },
                                 title: StringManager.remove.tr(),
                                 titleSize: ConfigSize.defaultSize! * 1.2,

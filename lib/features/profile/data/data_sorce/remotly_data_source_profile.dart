@@ -830,6 +830,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
 
       Map<String, dynamic> resultData = response.data;
+      log(resultData.toString());
       BlackListModel data = BlackListModel.fromJson(resultData);
 
       return data;
