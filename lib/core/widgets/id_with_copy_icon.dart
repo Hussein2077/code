@@ -48,7 +48,6 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
             'ID: ${widget.userData.uuid.toString()}',
             style: Theme.of(context).textTheme.labelMedium!.copyWith(
               fontSize: ConfigSize.defaultSize!*1.6,
-              color: widget.color??Colors.black
             ),
           ):
           Text(
@@ -68,7 +67,7 @@ class _IdWithCopyIconState extends State<IdWithCopyIcon> {
             Icons.copy,
             size: ConfigSize.defaultSize! * 1.8,
             color:  (widget.userData.imageIdModel==null||widget.userData.imageIdModel?.color=='')
-                ? ColorManager.darkBlack: HexColor(widget.userData.imageIdModel?.color),
+                ? Theme.of(context).primaryColorLight: HexColor(widget.userData.imageIdModel?.color),
           )
         ],
       ),

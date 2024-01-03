@@ -5,9 +5,9 @@ import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.d
 
 
 class ConstentApi {
-   static const String baseUrl = 'https://tik-chat.com/api' ;
-  //static const String baseUrl = 'https://test.tik-chat.com/api' ;
-  static const String signUpUrl = "$baseUrl/auth/register";
+   // static const String baseUrl = 'https://tik-chat.com/api' ;
+  static const String baseUrl = 'https://test.tik-chat.com/api' ;
+   static const String signUpUrl = "$baseUrl/auth/register";
   static const String sendCodeUrl = "$baseUrl/auth/send-code";
   static const String forgetPassword = "$baseUrl/auth/forget_password";
   static const String forgetPasswordCodeVerification = "$baseUrl/auth/verify-code";
@@ -139,7 +139,7 @@ class ConstentApi {
   static const String addMoment = "$baseUrl/moment";
   static  String makeMomentLikes(String momentID) => "$baseUrl/moment/$momentID/like";
   static   String momentSendGift({required String momentID}) =>"$baseUrl/moment/$momentID/gift";
-  static const  String privacyPolicy ="https://test.dragon-chat.co/page/privacy-policy";
+   static const  String privacyPolicy ="https://tik-chat.com/privacy-policy";
   static const String muteUserMic = "$baseUrl/rooms/mute-user";
   static const String unMuteUserMic = "$baseUrl/rooms/unmute-user";
   static String getAllShippingAgents(String? page){

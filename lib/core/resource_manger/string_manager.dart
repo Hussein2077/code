@@ -475,9 +475,10 @@ class StringManager {
   static const String beComeAdmin = "Be come admin";
   static const String privacy = "Privacy";
   static const String useTheFeatureAndEnjoyit = "Use The Feature And Enjoy it";
-  static const String thisFeatureisNotAvailableForYou =
-      "This Feature isNot Available For You";
+  static  String thisFeatureisNotAvailableForYou ({required String vip})=>"${youhavetobuy.tr()} $vip ${toenjouit.tr()}";
   static const String note = "notes";
+  static const String youhavetobuy = "You Have to Buy Aristocracy";
+  static const String toenjouit = "or more to enjoy it";
   static const String updateRoomName = "update your room name here";
   static const String next = "Next";
   static const String numberOfCoins = "Number Of Coins";

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/privacy_setting/widget/diloge_for_privcy.dart';
@@ -17,16 +18,20 @@ class MainPravelagePrivecyColumn extends StatefulWidget {
   final bool isAllow;
   final bool state;
   final MyDataModel myData;
+  final int Numbervip;
+  final int minPrice;
   final String keytype;
 
   const MainPravelagePrivecyColumn({
     super.key,
     required this.prevalageName,
+    required this.Numbervip,
     required this.prevalageDescription,
     required this.state,
     required this.myData,
     required this.isAllow,
     required this.keytype,
+    required this.minPrice,
   });
 
   @override
@@ -62,6 +67,17 @@ class _MainPravelagePrivecyColumnState
                           builder: (context) {
                             return DilogForPrivecyScreen(
                               flag: widget.isAllow,
+                              myData: widget.myData,
+                              minPrice: widget.minPrice,
+                              refuse: (){
+                                if(widget.minPrice>widget.myData.myStore!.coins){
+                                  Navigator.pushNamed(context, Routes.coins,arguments: 'gold');
+
+                                }else{
+                                  Navigator.pushNamed(context, Routes.vip,arguments: widget.Numbervip-1);
+
+                                }
+                              },
                               buildContext: context,
                               confirm: () {
                                 Navigator.pop(context);
@@ -72,8 +88,8 @@ class _MainPravelagePrivecyColumnState
                               text: widget.isAllow
                                   ? StringManager.useTheFeatureAndEnjoyit.tr()
                                   : StringManager
-                                      .thisFeatureisNotAvailableForYou
-                                      .tr(),
+                                      .thisFeatureisNotAvailableForYou(vip:widget.Numbervip.toString())
+                                      .tr()
                             );
                           });
                     });

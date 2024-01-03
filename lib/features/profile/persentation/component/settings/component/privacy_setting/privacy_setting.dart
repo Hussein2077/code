@@ -59,13 +59,16 @@ class PrivacySettingState extends State<PrivacySetting> {
               isFirst++;
               tempData = state.data;
 
-
               return Scaffold(
+                appBar: AppBar(
+                  title: Text(StringManager.privacy.tr(),
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  centerTitle: true,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  elevation: 0,
+                ),
                 body: Column(
                   children: [
-                    HeaderWithOnlyTitle(
-                      title: StringManager.settings.tr(),
-                    ),
                     Expanded(
                       child: ListView.builder(
                         itemBuilder: (BuildContext context, int index) {
@@ -76,12 +79,14 @@ class PrivacySettingState extends State<PrivacySetting> {
                                       horizontal: ConfigSize.defaultSize! * 2),
                                   child: MainPravelagePrivecyColumn(
                                     prevalageName: state.data[index].title!,
+                                    Numbervip: state.data[index].mine!,
                                     prevalageDescription:
                                         state.data[index].description!,
                                     state: state.data[index].isActive!,
                                     myData: widget.myData,
                                     isAllow: state.data[index].isAllowToUser!,
                                     keytype: state.data[index].key!,
+                                    minPrice: state.data[index].minPrice!,
                                   ),
                                 );
                         },
@@ -96,19 +101,22 @@ class PrivacySettingState extends State<PrivacySetting> {
                 if (isFirst == 0) {
                   return const LoadingWidget();
                 } else {
-                  return  Scaffold(
+                  return Scaffold(
                     body: Column(
                       children: [
-                        HeaderWithOnlyTitle(
-                          title: StringManager.settings.tr(),
+                        AppBar(
+                          title: Text(StringManager.privacy.tr(),
+                              style: Theme.of(context).textTheme.headlineMedium),
+                          centerTitle: true,
+                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                          elevation: 0,
                         ),
                         Expanded(
                           child: ListView.builder(
                             itemBuilder: (BuildContext context, int index) {
-                              return
-                                tempData![index].key == 'room'
-                                    ? const SizedBox()
-                                    :  Padding(
+                              return tempData![index].key == 'room'
+                                  ? const SizedBox()
+                                  : Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal:
                                               ConfigSize.defaultSize! * 2),
@@ -121,6 +129,9 @@ class PrivacySettingState extends State<PrivacySetting> {
                                         isAllow:
                                             tempData![index].isAllowToUser!,
                                         keytype: tempData![index].key!,
+                                        Numbervip: tempData![index].mine!,
+                                        minPrice: tempData![index].minPrice!,
+
                                       ),
                                     );
                             },

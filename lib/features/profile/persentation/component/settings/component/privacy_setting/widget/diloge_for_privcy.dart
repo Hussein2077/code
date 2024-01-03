@@ -3,6 +3,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
@@ -12,14 +13,21 @@ class DilogForPrivecyScreen extends StatelessWidget {
   final bool flag;
 
   final void Function() confirm;
+  final void Function() refuse;
   final String text;
+  final int minPrice;
+  final MyDataModel myData;
+
 
   const DilogForPrivecyScreen({
     Key? key,
     required this.buildContext,
     required this.confirm,
+    required this.refuse,
     required this.text,
     required this.flag,
+    required this.minPrice,
+    required this.myData,
   }) : super(key: key);
 
   @override
@@ -30,7 +38,7 @@ class DilogForPrivecyScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *1.0),
       ),
       child: Container(
-        height: ConfigSize.defaultSize! *18.5,
+        height: ConfigSize.defaultSize! *20.5,
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background, borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *1.0)),
         width: ConfigSize.screenWidth,
@@ -56,9 +64,7 @@ class DilogForPrivecyScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: flag ? confirm : () {
-
-                      },
+                      onTap: flag ? confirm : refuse,
                       child: Container(
                         decoration: BoxDecoration(
                           gradient:  LinearGradient(
@@ -66,9 +72,7 @@ class DilogForPrivecyScreen extends StatelessWidget {
                                 ? ColorManager.mainColorList
                                 : [Colors.grey,Colors.grey.shade700]
                           ),
-                          /*color: flag
-                              ? Colors.green
-                              : ColorManager.gray,*/
+
                           borderRadius: BorderRadius.circular(ConfigSize.defaultSize! *0.8,),
                         ),
                         padding: EdgeInsets.symmetric(
@@ -76,7 +80,8 @@ class DilogForPrivecyScreen extends StatelessWidget {
                           horizontal: ConfigSize.defaultSize! *4,
                         ),
                         child: Text(
-                          StringManager.active.tr(),
+                         flag? StringManager.active.tr(): (minPrice>myData.myStore!.coins)? StringManager.chargeCoins.tr():StringManager.buy.tr(),
+
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
