@@ -33,12 +33,8 @@ class CoinCard extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
           Text(
-
-            type == "gold"
-                ? coins > 0? coins.toString() : '${MyDataModel.getInstance().myStore?.coins}':
-            '${MyDataModel.getInstance().myStore?.silverCoin}',
+            type == "gold" ? coins > 0? coins.toString() : '${MyDataModel.getInstance().myStore?.coins}': '${MyDataModel.getInstance().myStore?.silverCoin}',
             style: TextStyle(
-
                 color: Colors.white,
                 fontSize: ConfigSize.defaultSize! * 1.8,
                 fontWeight: FontWeight.bold),

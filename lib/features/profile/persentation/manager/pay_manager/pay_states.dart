@@ -7,16 +7,16 @@ abstract class payState extends Equatable {
 
 class payInitial extends payState {}
 
-class payLoadingState extends payState {}
+class inAppPurchaseLoadingState extends payState {}
 
-class paySucssesState extends payState {
+class inAppPurchaseSucssesState extends payState {
   final String massege;
-  paySucssesState({required this.massege});
+  inAppPurchaseSucssesState({required this.massege});
 }
 
-class payErrorState extends payState {
+class inAppPurchaseErrorState extends payState {
   final String massege ;
-  payErrorState({required this.massege});
+  inAppPurchaseErrorState({required this.massege});
 
 }
 

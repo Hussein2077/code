@@ -16,12 +16,10 @@ class GoldCoinBloc extends Bloc<GoldCoinEvent, GoldCoinState> {
       final result = await getGoldCoinDataUseCase.getGoldCoinData();
 
       result.fold(
-          (l) => emit(GoldCoinSucssesState(
-                data: l,
-              )),
-          (r) =>
-              emit(GoldCoinErrorState(error: DioHelper().getTypeOfFailure(r))));
+          (l) => emit(GoldCoinSucssesState(data: l,)),
+          (r) => emit(GoldCoinErrorState(error: DioHelper().getTypeOfFailure(r))));
     });
+
 
     // on<RechargeCoinsEvent>((event, emit)async {
     //   emit(RechargeCoinLoadingState());

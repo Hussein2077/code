@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
@@ -17,6 +18,7 @@ import 'package:tik_chat_v2/features/profile/data/model/black_list_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_page_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/charge_to_model.dart';
+import 'package:tik_chat_v2/features/profile/data/model/coins_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/family_requests_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/fanily_rank_model.dart';
@@ -466,7 +468,7 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<List<GoldCoinsModel>, Failure>> getGoldCoinData()async {
+  Future<Either<CoinsModel, Failure>> getGoldCoinData()async {
      try {
       final result = await baseRemotlyDataSourceProfile.getGoldCoinData();
       return left(result);
@@ -1006,10 +1008,10 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
   }
 
   @override
-  Future<Either<String, Failure>> pay({required String message, required String type, required String token}) async{
+  Future<Either<String, Failure>> pay({required String product_id, required String order_id}) async{
 
     try {
-      final result = await baseRemotlyDataSourceProfile.pay(message: message, type: type, token: token);
+      final result = await baseRemotlyDataSourceProfile.pay(product_id: product_id, order_id: order_id);
       return left(result);
     } on Exception catch (e) {
       return Right(DioHelper.buildFailure(e));

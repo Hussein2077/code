@@ -18,11 +18,11 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_palt
 import 'package:tik_chat_v2/features/auth/presentation/manager/sign_in_with_paltform_manager/sign_in_with_platform_state.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
+import 'package:tik_chat_v2/splash.dart';
 
 class GoogleAndAppleAuth extends StatelessWidget {
-  bool isGoogle;
-  bool isHuawei;
-  GoogleAndAppleAuth({super.key, required this.isGoogle, required this.isHuawei});
+
+  GoogleAndAppleAuth({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
 
-            if(isGoogle) InkWell(
+            if(SplashScreen.isGoogle) InkWell(
               onTap: () {
                 BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginGoogleEvent());
               },
@@ -116,7 +116,7 @@ class GoogleAndAppleAuth extends StatelessWidget {
                     child: Image.asset(AssetsPath.googleIcon),
                   )),
             ),
-            if(isHuawei) InkWell(
+            if(SplashScreen.isHuawei) InkWell(
               onTap: () {
                 BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginHuaweiEvent());
               },
