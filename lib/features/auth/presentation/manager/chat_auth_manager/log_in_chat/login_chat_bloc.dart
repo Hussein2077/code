@@ -28,16 +28,29 @@ class LoginChatBloc extends Bloc<BaseLoginChatEvent, LoginChatState> {
                 avatar: event.avatar,
                 metadata: {"notification_id": notifecationId}),
             onSuccess: (User user) {
-          log("User created successfully ${user.name}");
+              log("User created successfully ${user.name}");
 
-          CometChatUIKit.login(event.id.toString(), onSuccess: (User user) {
-            log("User logged in successfully  ${user.name}");
-          }, onError: (CometChatException e) {
-            log("Login failed with exception: ${e.message}");
-          });
-        }, onError: (CometChatException e) {
+              CometChatUIKit.login(event.id.toString(), onSuccess: (User user) {
+                log("User logged in successfully  ${user.name}");
+                CometChat.registerTokenForPushNotification(notifecationId??"", onSuccess:(response) {
+                  log("heeeeeeeeer");
+
+                }, onError: (excep) {
+
+                },);
+              }, onError: (CometChatException e) {
+                log("Login failed with exception: ${e.message}");
+              });
+            }, onError: (CometChatException e) {
           log("Creating new user failed with exception: ${e.message}");
           CometChatUIKit.login(event.id.toString(), onSuccess: (User user) {
+            CometChat.registerTokenForPushNotification(notifecationId??"", onSuccess:(response) {
+              log("heeeeeeeeer");
+            }, onError: (excep) {
+
+            },);
+
+
             log("User logged in successfully  ${user.name}");
           }, onError: (CometChatException e) {
             log("Login failed with exception: ${e.message}");

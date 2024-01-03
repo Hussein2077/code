@@ -1,13 +1,17 @@
+import 'dart:developer';
 
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/chat/data/data_source/remoted_dataSource_chat.dart';
-
+import 'package:tik_chat_v2/features/profile/persentation/manager/add_or_delete_block/add_or_delete_block_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/add_or_delete_block/add_or_delete_block_event.dart';
 
 class ProfileChatDetails extends StatefulWidget {
   final UserDataModel userData;
@@ -19,8 +23,6 @@ class ProfileChatDetails extends StatefulWidget {
 }
 
 class ProfileChatDetailsState extends State<ProfileChatDetails> {
-  static bool chick = false;
-  static ValueNotifier<bool> blockNotifier = ValueNotifier(false);
 
   @override
   Widget build(BuildContext context) {
@@ -110,67 +112,57 @@ class ProfileChatDetailsState extends State<ProfileChatDetails> {
                 ),
               ),
             ),
+            FutureBuilder<bool>(
+              future: checker(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  bool isBlocked = snapshot.data ?? false;
+                  log('ttttttt$isBlocked  ');
 
-            // FutureBuilder<bool>(
-            //   future: checker(),
-            //   builder: (context, snapshot) {
-            //     if (snapshot.hasData) {
-            //       bool isBlocked = snapshot.data ??
-            //           false;
-            //       return Padding(
-            //         padding: EdgeInsets.symmetric(
-            //           horizontal: ConfigSize.defaultSize! * 3,
-            //           vertical: ConfigSize.defaultSize! * 0.8,
-            //         ),
-            //         child: InkWell(
-            //           onTap: () async {
-            //             if (!isBlocked) {
-            //               CometChat.blockUser(
-            //                   [widget.userData.id.toString()],
-            //                   onSuccess: (Map<String, dynamic> user) {
-            //                     BlocProvider.of<AddBlockBloc>(context).add(
-            //                       AddBlockEvent(
-            //                           userId: widget.userData.id
-            //                               .toString()),
-            //                     );
-            //                   }, onError: (CometChatException e) {
-            //                 log(e.toString());
-            //               });
-            //             } else {
-            //               CometChat.unblockUser(
-            //                   [widget.userData.id.toString()],
-            //                   onSuccess: (Map<String, dynamic> users) {
-            //                     BlocProvider.of<RemoveBlockBloc>(context)
-            //                         .add(
-            //                         RemoveBlockEvent(
-            //                             userId: widget.userData.id
-            //                                 .toString()));
-            //                   }, onError: (CometChatException e) {
-            //                 log(e.toString());
-            //               }
-            //
-            //               );
-            //               // CometChat.unblockUser(uids, onSuccess: onSuccess, onError: onError);
-            //             }
-            //           },
-            //           child: Text(
-            //             isBlocked
-            //                 ? StringManager.unBlock.tr()
-            //                 : StringManager.block.tr(),
-            //             style: TextStyle(
-            //               color: Colors.red,
-            //               fontSize: ConfigSize.defaultSize! * 1.5,
-            //             ),
-            //           ),
-            //         ),
-            //       );
-            //     }
-            //     else {
-            //       return SizedBox();
-            //     }
-            //   },
-            // ),
-
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: ConfigSize.defaultSize! * 3,
+                      vertical: ConfigSize.defaultSize! * 0.8,
+                    ),
+                    child: InkWell(
+                      onTap: () async {
+                        if (!isBlocked) {
+                          CometChat.blockUser([widget.userData.id.toString()],
+                              onSuccess: (Map<String, dynamic> user) {
+                            // BlocProvider.of<AddOrDeleteBLockListBloc>(context)
+                            //     .add(
+                            //   AddBlockListEvent(widget.userData.id.toString()),
+                            // );
+                          }, onError: (CometChatException e) {
+                            log(e.toString());
+                          });
+                        } else {
+                          CometChat.unblockUser([widget.userData.id.toString()],
+                              onSuccess: (Map<String, dynamic> users) {
+                            // BlocProvider.of<AddOrDeleteBLockListBloc>(context)
+                            //     .add(DeleteBlockListEvent(
+                            //         widget.userData.id.toString()));
+                          }, onError: (CometChatException e) {
+                            log(e.toString());
+                          });
+                        }
+                      },
+                      child: Text(
+                        isBlocked
+                            ? StringManager.unBlock.tr()
+                            : StringManager.block.tr(),
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: ConfigSize.defaultSize! * 1.5,
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return SizedBox();
+                }
+              },
+            ),
           ],
         ),
       ),

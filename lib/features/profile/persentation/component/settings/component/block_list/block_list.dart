@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,6 +68,16 @@ class _BlockListScreenState extends State<BlockListScreen> {
                                 width: ConfigSize.screenWidth! * .15,
                                 height: ConfigSize.defaultSize! * 3,
                                 onTap: () {
+                                  CometChat.unblockUser([
+                                    state.blackListModel.data[index].id
+                                        .toString()
+                                  ], onSuccess: (Map<String, dynamic> users) {
+                                    log('unblock success');
+                                  },
+                                      onError: (CometChatException e) {
+                                    log(e.toString());
+                                  });
+
                                   BlocProvider.of<AddOrDeleteBLockListBloc>(
                                           context)
                                       .add(DeleteBlockListEvent(state
