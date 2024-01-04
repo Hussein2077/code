@@ -56,9 +56,10 @@ class _SystemMessagesScreenState extends State<SystemMessagesScreen> {
                                   reverse: true,
                                   itemBuilder: (context , index){
 
-                                  return  SystemMaasageCard(
+                                  return
+                                    SystemMaasageCard(
+                                    userId: state.data!.sys![index].fromUserId,
                                     img: state.data!.sys![index].img,
-                                  content: state.data!.sys![index].content,
                                     title:state.data!.sys![index].title ,
                                     creadet:  state.data!.sys![index].created,
                                   );

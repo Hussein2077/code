@@ -37,7 +37,7 @@ class _ChatPageState extends State<ChatPage> {
   ];
   static const List<String> chatScreenIcons = [
     AssetsPath.groupChat,
-    AssetsPath.tikTeam,
+    AssetsPath.iconApp,
     AssetsPath.system,
   ];
 
