@@ -1990,18 +1990,18 @@ packages:
     dependency: "direct main"
     description:
       name: zego_express_engine
-      sha256: d7d35893cfccd9ad6c6fa3c4e4020d9a0ea0967ee43bf67b29003bdc37b75315
+      sha256: "8a3f8b4d54404d1b9dddf56d438fa6a6eeee9ba7d6049d8bbb2eb7cf80511f88"
       url: "https://pub.dev"
     source: hosted
-    version: "3.11.0"
+    version: "3.9.0"
   zego_plugin_adapter:
     dependency: "direct main"
     description:
       name: zego_plugin_adapter
-      sha256: "2b42cece3afcb6ea5dd54c97ac794b1a86f0f5a7e6250273891891962a2c26ea"
+      sha256: "298dcba14e97c2f0389d7de4e73ff35b7b5ff2db1eb7f94d678e779dd8a9250d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.0"
+    version: "2.8.2"
   zego_zim:
     dependency: "direct main"
     description:
