@@ -418,7 +418,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.twenyFourMin: '24 ساعة',
     StringManager.writeUnBan: "إلغاء الحظر كتابة",
     StringManager.writeBan: "حظر كتابة",
-    StringManager.block: "طرد",
+    StringManager.block: "حظر",
     StringManager.spitialMassege: "رسالة مميزة",
     StringManager.theTextHasBeenCopied: "تم نسخ النص",
     StringManager.senderLevel: "مستوى المرسل",
