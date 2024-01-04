@@ -43,6 +43,7 @@ class _CoinsTabViewState extends State<CoinsTabView> {
 
   @override
   void initState() {
+
     buyCoinsBloc = BlocProvider.of<BuyCoinsBloc>(context);
     mSub = buyCoinsBloc.stream.listen((state) {
       if (state is BuyCoinsSuccessState) {

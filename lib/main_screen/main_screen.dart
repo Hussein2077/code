@@ -114,7 +114,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           BlocProvider.of<LoginChatBloc>(context)
               .add( LoginChatEvent(name:state.myDataModel.name??"",
               avatar: ConstentApi().getImage(state.myDataModel.profile!.image),
-
               id: state.myDataModel.id.toString() , notificationId: state.myDataModel.notificationId!));
 
 

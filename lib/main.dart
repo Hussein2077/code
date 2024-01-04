@@ -7,14 +7,17 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/dark_theme.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/light_theme.dart';
 import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/translations/codegen_loader.g.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
+import 'package:tik_chat_v2/core/widgets/navigate_from_notification.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
@@ -218,30 +221,20 @@ Future<void> main() async {
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     // Handle when the app is opened by clicking on a notification
     // Navigate to HomeScreen when the notification is clicked
-    print('A new onMessageOpenedApp event was published!');
     print('Message data: ${message.data}');
 
-    // if (message.data=={}['room_id'] ) {
-    //   getIt<NavigationService>()
-    //       .navigatorKey
-    //       .currentState!
-    //       .pushNamed(Routes.roomHandler);
-    // }
-    getIt<NavigationService>()
-        .navigatorKey
-        .currentState!
-        .pushNamed(Routes.splash);
+    navigateFromNotification(message);
   });
   //
-  // FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
-  //   if (message != null) {
-  //     // Handle when the app is opened by clicking on a notification
-  //     // Navigate to HomeScreen when the notification is clicked
-  //     print('Opened app by clicking on a notification!');
-  //     print('Message data: ${message.data}');
-  //     successSnackBar(getIt<NavigationService>().navigatorKey.currentContext!, "welcome to app");
-  //   }
-  // });
+  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    if (message != null) {
+      // Handle when the app is opened by clicking on a notification
+      // Navigate to HomeScreen when the notification is clicked
+      print('Opened app by clicking on a notification!');
+      print('Message data: ${message.data}');
+      print('${message.data['message-type']} #############');
+    }
+  });
 
   await ServerLocator().init();
 
@@ -625,3 +618,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
