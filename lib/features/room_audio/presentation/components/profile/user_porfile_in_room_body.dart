@@ -475,11 +475,13 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                 ),
 
                 //column for setting and mute buttons
+
                 Padding(
                   padding: EdgeInsets.only(top: ConfigSize.defaultSize! * 6),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      if(isAdminOrHost && widget.userData.id!=MyDataModel.getInstance().id)
                       SettingsButton(
                           roomData: widget.roomData,
                           userData: widget.userData,
@@ -583,7 +585,7 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
             ),
           ),
           Text(
-            StringManager.privateComment,
+            StringManager.privateComment.tr(),
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color: Colors.black, fontSize: ConfigSize.defaultSize!),
           )

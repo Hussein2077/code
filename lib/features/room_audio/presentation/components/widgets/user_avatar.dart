@@ -59,7 +59,8 @@ class UserAvatar extends StatelessWidget {
                  return  const SizedBox();
                    }
 
-                })),
+                })
+        ),
         if (!isMicrophoneEnabled)
           Positioned(
             bottom: 0,

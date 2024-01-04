@@ -124,6 +124,8 @@ class ZegoLivePageState extends State<ZegoLivePage>
                 return Stack(
                   children: [
                     background(context, constraints.maxHeight),
+                    messageList(),
+
                     ValueListenableBuilder(
                         valueListenable: ZegoLivePage.editAudioVideoContainer,
                         builder: (context,update,_){
@@ -134,7 +136,6 @@ class ZegoLivePageState extends State<ZegoLivePage>
                         })   ,
                    // topBar(),
                     bottomBar(),
-                    messageList(),
                     durationTimeBoard(),
                     viewbackground(context, constraints.maxHeight),
                   ],
