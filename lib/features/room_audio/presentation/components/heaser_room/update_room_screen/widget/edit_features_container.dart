@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +10,6 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/save_password_room_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/admins_room/admins_room_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/back_ground/back_ground_widget.dart';
@@ -288,7 +285,6 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
             insetPadding: EdgeInsets.symmetric(
                 horizontal: ConfigSize.defaultSize!*2.9
             ),
-
             backgroundColor: Colors.transparent,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)),
@@ -301,12 +297,8 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
   }
   Future<void> clearChat()async{
     ZegoUIKitCore.shared.coreMessage.clear();
-
-    log("maaaaaaaaaaaaaaaaaap");
-
     var mapInformation = {"messageContent":{
       "message":"removeChat",
-
     }} ;
     String map = jsonEncode(mapInformation);
     ZegoUIKit.instance.sendInRoomCommand(map ,[]);

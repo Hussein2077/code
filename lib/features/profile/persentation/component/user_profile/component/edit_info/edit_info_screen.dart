@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -51,25 +52,32 @@ class EditInfoScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
+                      HeaderWithOnlyTitle(
+                          title: StringManager.editProfile.tr()),
                       CompleteProfile(percent: percent),
                       const AddProFilePic(
                         quality: 40,
                       ),
-                      title(context: context, title: StringManager.personalInfo.tr()),
+                      title(
+                          context: context,
+                          title: StringManager.personalInfo.tr()),
                       UserInfoWidget(myDataModel: state.myDataModel),
                       // title(context: context, title: StringManager.addImage.tr()),
 
                       MainButton(
                         onTap: () {
-                          BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(
-                              bio: UserInfoWidget.bioController!.text,
-                              date: UserInfoWidget.age == null ? null : UserInfoWidget.age!,
-                              gender: UserInfoWidget.gender!.toString(),
-                              name: UserInfoWidget.nameController!.text,
-                              image: AddProFilePic.image == null
-                                  ? null
-                                  : File(AddProFilePic.image!.path), countryID: 0));
+                          BlocProvider.of<AddInfoBloc>(context).add(
+                              AddInfoEvent(
+                                  bio: UserInfoWidget.bioController!.text,
+                                  date: UserInfoWidget.age == null
+                                      ? null
+                                      : UserInfoWidget.age!,
+                                  gender: UserInfoWidget.gender!,
+                                  name: UserInfoWidget.nameController!.text,
+                                  image: AddProFilePic.image == null
+                                      ? null
+                                      : File(AddProFilePic.image!.path),
+                                  countryID: 0));
                         },
                         title: StringManager.save.tr(),
                       )
@@ -83,9 +91,12 @@ class EditInfoScreen extends StatelessWidget {
                 children: [
                   HeaderWithOnlyTitle(title: StringManager.editProfile.tr()),
                   CompleteProfile(percent: percent),
-                  const AddProFilePic(quality: 40,),
+                  const AddProFilePic(
+                    quality: 40,
+                  ),
 
-                  title(context: context, title: StringManager.personalInfo.tr()),
+                  title(
+                      context: context, title: StringManager.personalInfo.tr()),
                   UserInfoWidget(myDataModel: myDataModel),
                   // title(context: context, title: StringManager.addImage.tr()),
                   MainButton(
@@ -118,10 +129,10 @@ Widget title({required BuildContext context, required String title}) {
 double completeProfile({required MyDataModel myDataModel}) {
   double name = (myDataModel.name == "" || myDataModel.name == null) ? 0 : 0.2;
   double bio = (myDataModel.bio == "" || myDataModel.bio == null) ? 0 : 0.2;
-  double country = (myDataModel.country?.flag == "" ||
-          myDataModel.country == null)
-      ? 0
-      : 0.2;
+  double country =
+      (myDataModel.country?.flag == "" || myDataModel.country == null)
+          ? 0
+          : 0.2;
   double image =
       (myDataModel.profile!.image == "" || myDataModel.profile!.image == null)
           ? 0

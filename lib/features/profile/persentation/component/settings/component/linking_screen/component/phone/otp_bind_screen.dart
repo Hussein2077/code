@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
@@ -33,21 +34,21 @@ class OtpBindScreen extends StatefulWidget {
 }
 
 class _OtpBindScreenState extends State<OtpBindScreen> {
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AcountBloc, AccountStates>(
         listener: (BuildContext context, AccountStates state) async {
       if (state is NumberAccountSuccessState) {
-        BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
         final snackBar = SnackBar(
           content: Text(state.successMessage),
           backgroundColor: (Colors.black12),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        Navigator.pop(context);
-        Navigator.pop(context);
-        Navigator.pop(context);
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          Routes.mainScreen,
+          (route) => false,
+        );
       } else if (state is NumberAccountErrorState) {
         errorToast(context: context, title: state.errorMessage);
       }
@@ -99,12 +100,12 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
             MainButton(
                 onTap: () async {
                   if (widget.type == 'bindNumber') {
-                    BlocProvider.of<AcountBloc>(context)
-                        .add(BindNumberAccountEvent(
-                        credential: "token",
-                        phoneNumber: widget.phone.toString(),
-                        password: widget.password ?? '',
-                        vrCode: OtpContiners.code));
+                    BlocProvider.of<AcountBloc>(context).add(
+                        BindNumberAccountEvent(
+                            credential: "token",
+                            phoneNumber: widget.phone.toString(),
+                            password: widget.password ?? '',
+                            vrCode: OtpContiners.code));
                   }
                 },
                 title: StringManager.done),

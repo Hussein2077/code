@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart
 import 'package:tik_chat_v2/features/auth/presentation/component/Privacy_Policy/privacy_policy_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/forget_password/forget_password.dart';
+import 'package:tik_chat_v2/features/auth/presentation/component/hint/hint_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/refresh_screen/refresh_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/reset_password/reset_password.dart';
@@ -147,6 +148,7 @@ class Routes {
   static const String agencyRequestsScreen = "/AgencyRequestsScreen";
   static const String agencyRepoertsScreen = "/AgencyRepoertsScreen";
   static const String charchingCoinsForUsers = "/CharchingCoinsForUsers";
+  static const String hintScreen = "/HintScreen";
 
   static const String charchingDolarsForUsers = "/CharchingDolarsForUsers";
   static const String chargeFromSystemHistory = "/ChargeFromSystemHistory";
@@ -226,6 +228,14 @@ class RouteGenerator {
             builder: (_) => AddInfoScreen(
                   Data: Data,
                 ));
+
+      case Routes.hintScreen:
+        currentContext = Routes.hintScreen;
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(builder: (_) => const HintScreen());
+        } else {
+          return MaterialPageRoute(builder: (_) => const HintScreen());
+        }
       case Routes.resetPassword:
         currentContext = Routes.resetPassword;
         ResetPasswordParm resetPasswordParm =
@@ -784,13 +794,10 @@ class RouteGenerator {
               settings: settings, builder: (_) => const RefreshScreen());
         }
       case Routes.meddles:
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
-              builder: (_) => const MedlesScreen());
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(builder: (_) => const MedlesScreen());
         } else {
-          return MaterialPageRoute(
-              builder: (_) => const MedlesScreen());
+          return MaterialPageRoute(builder: (_) => const MedlesScreen());
         }
       case Routes.blockList:
         if (Platform.isIOS) {
