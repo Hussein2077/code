@@ -40,7 +40,7 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
       child: Container(
         width: double.infinity,
-        height: ConfigSize.defaultSize! * 25,
+       height: ConfigSize.defaultSize! * 28,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white
@@ -114,8 +114,8 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
                 ),
               ),
             ),
-
-            if(!SplashScreen.isHuawei)
+            if (Platform.isAndroid ) SizedBox(height: ConfigSize.defaultSize!*1.2,),
+            if(Platform.isAndroid)
               InkWell(
               onTap: (){
                 CoinsTabView.productId = widget.coinPackageId;
