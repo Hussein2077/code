@@ -7,7 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/audio_video_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/custom_command_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/device_service.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/effect_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/media_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/message_service.dart';
@@ -30,7 +29,6 @@ class ZegoUIKit
         ZegoMessageService,
         ZegoCustomCommandService,
         ZegoDeviceService,
-        ZegoEffectService,
         ZegoPluginService,
         ZegoMediaService,
         ZegoLoggerService {

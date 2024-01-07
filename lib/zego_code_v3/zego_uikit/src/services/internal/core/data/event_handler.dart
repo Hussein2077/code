@@ -12,7 +12,6 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.
 import 'package:zego_express_engine/zego_express_engine.dart';
 
 // Project imports:
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/internal.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
 
 extension ZegoUIKitCoreDataEventHandler on ZegoUIKitCoreData {
@@ -168,75 +167,6 @@ extension ZegoUIKitCoreDataEventHandler on ZegoUIKitCoreData {
     );
   }
 
-  void onRemoteCameraStateUpdate(String streamID, ZegoRemoteDeviceState state) {
-    ZegoLoggerService.logInfo(
-      'onRemoteCameraStateUpdate, stream id:$streamID, state:$state',
-      tag: 'uikit',
-      subTag: 'core data',
-    );
-
-    final streamType = getStreamTypeByID(streamID);
-    if (ZegoStreamType.main != streamType) {
-      ZegoLoggerService.logInfo(
-        'onRemoteCameraStateUpdate, stream type is not main',
-        tag: 'uikit',
-        subTag: 'core data',
-      );
-
-      return;
-    }
-
-    /// update users' camera state
-
-    if (!streamDic.containsKey(streamID)) {
-      ZegoLoggerService.logInfo(
-        'onRemoteCameraStateUpdate, stream $streamID is not exist',
-        tag: 'uikit',
-        subTag: 'core data',
-      );
-      return;
-    }
-
-    final targetUserIndex =
-        remoteUsersList.indexWhere((user) => streamDic[streamID]! == user.id);
-    if (-1 == targetUserIndex) {
-      ZegoLoggerService.logInfo(
-        'onRemoteCameraStateUpdate, stream user $streamID is not exist',
-        tag: 'uikit',
-        subTag: 'core data',
-      );
-      return;
-    }
-
-    final targetUser = remoteUsersList[targetUserIndex];
-    ZegoLoggerService.logInfo(
-      'onRemoteCameraStateUpdate, stream id:$streamID, user:$targetUser, state:$state',
-      tag: 'uikit',
-      subTag: 'core data',
-    );
-    final oldValue = targetUser.camera.value;
-    switch (state) {
-      case ZegoRemoteDeviceState.Open:
-        targetUser.camera.value = true;
-        targetUser.cameraMuteMode.value = false;
-        break;
-      case ZegoRemoteDeviceState.NoAuthorization:
-        targetUser.camera.value = true;
-        targetUser.cameraMuteMode.value = false;
-        break;
-      case ZegoRemoteDeviceState.Mute:
-        targetUser.camera.value = false;
-        targetUser.cameraMuteMode.value = true;
-        break;
-      default:
-        targetUser.camera.value = false;
-    }
-
-    if (oldValue != targetUser.camera.value) {
-      /// notify outside to update audio video list
-      notifyStreamListControl(getStreamTypeByID(streamID));
-    }
-  }
 
   void onRemoteMicStateUpdate(String streamID, ZegoRemoteDeviceState state) {
     ZegoLoggerService.logInfo(
@@ -524,14 +454,7 @@ extension ZegoUIKitCoreDataEventHandler on ZegoUIKitCoreData {
       }
 
       final extraInfos = jsonDecode(stream.extraInfo) as Map<String, dynamic>;
-      if (extraInfos.containsKey(streamExtraInfoCameraKey)) {
-        onRemoteCameraStateUpdate(
-          stream.streamID,
-          extraInfos[streamExtraInfoCameraKey]!
-              ? ZegoRemoteDeviceState.Open
-              : ZegoRemoteDeviceState.Mute,
-        );
-      }
+
       if (extraInfos.containsKey(streamExtraInfoMicrophoneKey)) {
         onRemoteMicStateUpdate(
           stream.streamID,
@@ -590,12 +513,10 @@ extension ZegoUIKitCoreDataEventHandler on ZegoUIKitCoreData {
         mixerStreamDic[streamID]!.users.indexWhere((user) => user.id == userID);
     if (userIndex == -1) {
       final user = ZegoUIKitCoreUser(userID, '');
-      user.camera.value = sei[streamSEIKeyCamera]!;
       user.microphone.value = sei[streamSEIKeyMicrophone]!;
       mixerStreamDic[streamID]!.users.add(user);
     } else {
       final user = mixerStreamDic[streamID]!.users[userIndex];
-      user.camera.value = sei[streamSEIKeyCamera]!;
       user.microphone.value = sei[streamSEIKeyMicrophone]!;
     }
   }

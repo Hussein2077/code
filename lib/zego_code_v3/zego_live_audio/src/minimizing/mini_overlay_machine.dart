@@ -122,9 +122,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine {
     changeState(LiveAudioRoomMiniOverlayPageState.idle);
 
     ZegoLiveAudioRoomManagers().unintPluginAndManagers();
-
-    await ZegoUIKit().resetSoundEffect();
-    await ZegoUIKit().resetBeautyEffect();
+    //
     // await ZegoUIKit().leaveRoom(); //  kick-out will leave in zego_uikit
 
     _prebuiltAudioRoomData?.controller?.uninitByPrebuilt();

@@ -200,25 +200,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
 
      WidgetsBinding.instance.removeObserver(this);
 
-    // //
-    // if (LiveAudioRoomMiniOverlayPageState.minimizing !=
-    //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
-    //   ZegoLiveAudioRoomManagers().unintPluginAndManagers();
-    //
-    //  uninitContext();
-    //
-    //   widget.controller?.uninitByPrebuilt();
-    // } else {
-    //   ZegoLoggerService.logInfo(
-    //     'mini machine state is minimizing, room will not be leave',
-    //     tag: 'audio room',
-    //     subTag: 'prebuilt',
-    //   );
-    // }
-    //
-    // for (final subscription in subscriptions) {
-    //   subscription?.cancel();
-    // }
   }
 
   @override
@@ -443,12 +424,10 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
   }
 
   Future<void> uninitContext() async {
-    await ZegoUIKit().resetSoundEffect();
-    await ZegoUIKit().resetBeautyEffect();
 
     await ZegoUIKit().leaveRoom();
 
-    // await ZegoUIKit().uninit();
+     await ZegoUIKit().uninit();
   }
 
   void initToast() {

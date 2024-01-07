@@ -208,7 +208,6 @@ class Methods {
     ZegoUIKitPrebuiltLiveAudioRoomState.prebuiltData = null ;
     await ZegoUIKit.instance.leaveRoom();
     await ZegoUIKit.instance.uninit();
-    await ZegoUIKit.instance.uninit();
     ZegoUIKit.instance.logout();
     await clearAll(ownerId, context.mounted?context:getIt<NavigationService>().navigatorKey.currentContext!);
     ExistroomUC e = ExistroomUC(roomRepo: getIt());

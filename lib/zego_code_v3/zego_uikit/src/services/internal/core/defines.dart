@@ -10,13 +10,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.
 import 'package:zego_express_engine/zego_express_engine.dart';
 
 /// @nodoc
-const streamExtraInfoCameraKey = 'isCameraOn';
-
-/// @nodoc
 const streamExtraInfoMicrophoneKey = 'isMicrophoneOn';
-
-/// @nodoc
-const streamSEIKeyCamera = 'cam';
 
 /// @nodoc
 const streamSEIKeyMicrophone = 'mic';
@@ -97,15 +91,12 @@ class ZegoUIKitCoreUser {
   ZegoUIKitCoreUser.empty();
 
   ZegoUIKitCoreUser.localDefault() {
-    camera.value = true;
     microphone.value = true;
   }
 
   String id = '';
   String name = '';
 
-  ValueNotifier<bool> camera = ValueNotifier<bool>(false);
-  ValueNotifier<bool> cameraMuteMode = ValueNotifier<bool>(false);
   ValueNotifier<bool> microphone = ValueNotifier<bool>(false);
   ValueNotifier<bool> microphoneMuteMode = ValueNotifier<bool>(false);
 

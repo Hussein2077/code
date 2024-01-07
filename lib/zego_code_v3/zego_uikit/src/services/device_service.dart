@@ -4,11 +4,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/c
 
 /// @nodoc
 mixin ZegoDeviceService {
-  /// protocol: String is 'operator'
-  Stream<String> getTurnOnYourCameraRequestStream() {
-    return ZegoUIKitCore
-        .shared.coreData.turnOnYourCameraRequestStreamCtrl.stream;
-  }
+
 
   Stream<ZegoUIKitReceiveTurnOnLocalMicrophoneEvent>
       getTurnOnYourMicrophoneRequestStream() {
@@ -16,7 +12,5 @@ mixin ZegoDeviceService {
         .shared.coreData.turnOnYourMicrophoneRequestStreamCtrl.stream;
   }
 
-  void enableCustomVideoProcessing(bool enable) {
-    ZegoUIKitCore.shared.enableCustomVideoProcessing(enable);
-  }
+
 }

@@ -117,7 +117,7 @@ class _ZegoScreenSharingViewState extends State<ZegoScreenSharingView> {
                   if (asyncResult.hasData) {
                     /// Do not update ui when ui is building !!!
                     /// use postFrameCallback to update videoSize
-                    WidgetsBinding.instance?.addPostFrameCallback((_) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
                       ///  notify sdk to update video render orientation
                       ZegoUIKit().updateAppOrientation(
                         deviceOrientationMap(asyncResult.data!),
@@ -154,7 +154,7 @@ class _ZegoScreenSharingViewState extends State<ZegoScreenSharingView> {
                             true,
                         ...widget.extraInfo
                       },
-                    ) ??
+                    )??
                     Container(color: Colors.red);
               },
             ),

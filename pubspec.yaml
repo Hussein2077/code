@@ -65,7 +65,6 @@ dependencies:
   platform_device_id: ^1.0.1
   url_launcher: ^6.1.11
   svgaplayer_flutter: ^2.2.0
-  flutter_screenutil: ^5.6.0
   flutter_social_textfield: ^0.1.2
   profanity_filter: ^2.0.0
   flutter_animate: ^2.2.0

@@ -20,17 +20,11 @@ mixin ZegoAudioVideoService {
     return ZegoUIKitCore.shared.stopPlayAllAudioVideo();
   }
 
-  Future<void> muteUserAudioVideo(String userID, bool mute) async {
-    return ZegoUIKitCore.shared.muteUserAudioVideo(userID, mute);
-  }
 
   Future<void> muteUserAudio(String userID, bool mute) async {
     return ZegoUIKitCore.shared.muteUserAudio(userID, mute);
   }
 
-  Future<void> muteUserVideo(String userID, bool mute) async {
-    return ZegoUIKitCore.shared.muteUserVideo(userID, mute);
-  }
 
   /// set audio output to speaker
   void setAudioOutputToSpeaker(bool isSpeaker) {
@@ -45,15 +39,7 @@ mixin ZegoAudioVideoService {
     ZegoUIKitCore.shared.setVideoConfig(config, streamType);
   }
 
-  /// turn on/off camera
-  // void turnCameraOn(bool isOn, {String? userID}) {
-  //   ZegoUIKitCore.shared.turnCameraOn(
-  //     userID?.isEmpty ?? true
-  //         ? ZegoUIKitCore.shared.coreData.localUser.id
-  //         : userID!,
-  //     isOn,
-  //   );
-  // }
+
 
   /// turn on/off microphone
   void turnMicrophoneOn(bool isOn, {String? userID, bool muteMode = false}) {
@@ -66,15 +52,9 @@ mixin ZegoAudioVideoService {
     );
   }
 
-  /// local use front facing camera
-  void useFrontFacingCamera(bool isFrontFacing) {
-    ZegoUIKitCore.shared.useFrontFacingCamera(isFrontFacing);
-  }
 
-  /// set video mirror mode
-  void enableVideoMirroring(bool isVideoMirror) {
-    ZegoUIKitCore.shared.enableVideoMirroring(isVideoMirror);
-  }
+
+
 
   void setAudioVideoResourceMode(ZegoAudioVideoResourceMode mode) {
     ZegoUIKitCore.shared.setAudioVideoResourceMode(mode);
@@ -111,10 +91,7 @@ mixin ZegoAudioVideoService {
     }
   }
 
-  /// get camera state notifier
-  ValueNotifier<bool> getCameraStateNotifier(String userID) {
-    return ZegoUIKitCore.shared.coreData.getUser(userID).camera;
-  }
+
 
   /// get front facing camera switch notifier
   ValueNotifier<bool> getUseFrontFacingCameraStateNotifier(String userID) {
@@ -246,14 +223,7 @@ mixin ZegoAudioVideoService {
         ValueNotifier(null);
   }
 
-  ValueNotifier<bool> getMixAudioVideoCameraStateNotifier(
-      String mixerID, String userID) {
-    return ZegoUIKitCore.shared.coreData.mixerStreamDic[mixerID]?.users
-            .firstWhere((user) => user.id == userID,
-                orElse: ZegoUIKitCoreUser.empty)
-            .camera ??
-        ValueNotifier(false);
-  }
+
 
   ValueNotifier<bool> getMixAudioVideoMicrophoneStateNotifier(
       String mixerID, String userID) {

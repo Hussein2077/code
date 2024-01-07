@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class BanFromWritingDilog extends StatelessWidget {
@@ -18,10 +17,10 @@ class BanFromWritingDilog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25.r),
+        borderRadius: BorderRadius.circular(25),
       ),
       child: Container(
-        height: 200.h,
+        height: 200,
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: const LinearGradient(
@@ -30,13 +29,13 @@ class BanFromWritingDilog extends StatelessWidget {
               Color(0xffFFF1CC),
             ]
           ),
-          borderRadius: BorderRadius.circular(25.r),
+          borderRadius: BorderRadius.circular(25),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            SizedBox(height: 20.w,),
+            SizedBox(height: 20,),
             Text(headerText,style: TextStyle(
               color: Colors.black
             ),),
@@ -44,7 +43,7 @@ class BanFromWritingDilog extends StatelessWidget {
             Divider(
               color: Colors.black.withOpacity(0.12),
             ),
-            SizedBox(height: 15.w,),
+            SizedBox(height: 15,),
             InkWell(
               onTap: ()=>accpetText(),
               child: Container(
@@ -54,7 +53,7 @@ class BanFromWritingDilog extends StatelessWidget {
 
               ),
             ),
-            SizedBox(height: 15.w,),
+            SizedBox(height: 15,),
 
           ],
         ),

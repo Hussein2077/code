@@ -40,9 +40,6 @@ mixin ZegoUIKitCoreEvent {
     ZegoExpressEngine.onPlayerStateUpdate =
         ZegoUIKitCore.shared.coreData.onPlayerStateUpdate;
 
-    ZegoExpressEngine.onRemoteCameraStateUpdate =
-        ZegoUIKitCore.shared.coreData.onRemoteCameraStateUpdate;
-
     ZegoExpressEngine.onRemoteMicStateUpdate =
         ZegoUIKitCore.shared.coreData.onRemoteMicStateUpdate;
 

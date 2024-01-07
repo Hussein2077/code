@@ -103,8 +103,6 @@ class ZegoLiveAudioRoomController
       seatManager?.isLeavingRoom = true;
     }
 
-    await ZegoUIKit().resetSoundEffect();
-    await ZegoUIKit().resetBeautyEffect();
 
     final result = await ZegoUIKit().leaveRoom().then((result) {
       ZegoLoggerService.logInfo(

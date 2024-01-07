@@ -105,32 +105,5 @@ class _ZegoSeatForegroundState extends State<ZegoSeatBackground> {
       );
     }
   }
-  // Widget emptySeat() {
-  //   return Positioned(
-  //     top: avatarPosTop,
-  //     left: avatarPosLeft,
-  //     child: Container(
-  //       width: seatIconWidth,
-  //       height: seatIconWidth,
-  //       decoration: BoxDecoration(
-  //         shape: BoxShape.circle,
-  //         color: const Color(0xffE6E6E6).withOpacity(0.5),
-  //       ),
-  //       child: ValueListenableBuilder<bool>(
-  //         valueListenable: widget.seatManager.isSeatLockedNotifier,
-  //         builder: (context, isSeatLocked, _) {
-  //           return isSeatLocked
-  //               ? (widget.config.seatConfig.closeIcon ??
-  //                   PrebuiltLiveAudioRoomImage.asset(
-  //                     PrebuiltLiveAudioRoomIconUrls.seatLock,
-  //                   ))
-  //               : (widget.config.seatConfig.openIcon ??
-  //                   PrebuiltLiveAudioRoomImage.asset(
-  //                     PrebuiltLiveAudioRoomIconUrls.seatEmpty,
-  //                   ));
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // }
+
 }

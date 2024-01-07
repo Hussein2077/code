@@ -30,13 +30,6 @@ class ZegoUIKitUser {
     return ZegoUIKitCore.shared.coreData.getUser(id).microphoneMuteMode;
   }
 
-  ValueNotifier<bool> get camera {
-    return ZegoUIKitCore.shared.coreData.getUser(id).camera;
-  }
-
-  ValueNotifier<bool> get cameraMuteMode {
-    return ZegoUIKitCore.shared.coreData.getUser(id).cameraMuteMode;
-  }
 
   Stream<double> get soundLevel {
     return ZegoUIKitCore.shared.coreData
@@ -89,7 +82,7 @@ class ZegoUIKitUser {
   @override
   String toString() {
     return '{id:$id, name:$name, in-room attributes:${inRoomAttributes.value}, '
-        'camera:${camera.value}, microphone:${microphone.value}, '
+        'microphone:${microphone.value}, '
         'microphone mute mode:${microphoneMuteMode.value} }';
   }
 }
@@ -109,9 +102,6 @@ class ZegoUIKitUserPropertiesNotifier extends ChangeNotifier
   ZegoUIKitUser get user => _user;
 
   void listenUserProperty() {
-    _coreUser.camera.addListener(onCameraStatusChanged);
-    _coreUser.cameraMuteMode.addListener(onCameraMuteModeChanged);
-
     _coreUser.microphone.addListener(onMicrophoneStatusChanged);
     _coreUser.microphoneMuteMode.addListener(onMicrophoneMuteModeChanged);
 
@@ -119,9 +109,6 @@ class ZegoUIKitUserPropertiesNotifier extends ChangeNotifier
   }
 
   void removeListenUserProperty() {
-    _coreUser.camera.removeListener(onCameraStatusChanged);
-    _coreUser.cameraMuteMode.removeListener(onCameraMuteModeChanged);
-
     _coreUser.microphone.removeListener(onMicrophoneStatusChanged);
     _coreUser.microphoneMuteMode.removeListener(onMicrophoneMuteModeChanged);
 
