@@ -8,6 +8,7 @@ import 'package:huawei_iap/huawei_iap.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/huawei_in_app_purchases.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchases.dart';
@@ -85,12 +86,16 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
               onTap: (){
                 IapClient.isEnvReady().then((res) {
                   purchaseConsumableProduct(widget.coinPackageId.toString()).then((res) {
-                    if(res?.returnCode == '0'){
-                      log("success");
+                    log("res?.returnCode${res?.returnCode}");
+                    log("res?.returnCode${res?.errMsg}");
+                    if(res?.inAppPurchaseData?.purchaseToken !=null){
+                      BlocProvider.of<PayBloc>(context)
+                          .add(HuaweiPayNow(product_id: widget.coinPackageId.toString(),
+                          token: res!.inAppPurchaseData!.purchaseToken.toString()));
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          errorSnackBar(context,res!.errMsg!));
                     }
-                   BlocProvider.of<PayBloc>(context)
-                       .add(HuaweiPayNow(product_id: widget.coinPackageId.toString(),
-                       token: res!.inAppPurchaseData!.purchaseToken.toString()));
                    Navigator.pop(context);
                   });
                 });
