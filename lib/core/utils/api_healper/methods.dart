@@ -205,7 +205,7 @@ class Methods {
     await ZegoLiveAudioRoomManagers().seatManager?.uninit();
     await ZegoLiveAudioRoomManagers().plugins?.uninit();
     ZegoLiveAudioRoomManagers().unintPluginAndManagers();
-    ZegoUIKitPrebuiltLiveAudioRoomState.prebuiltData = null ;
+   // ZegoUIKitPrebuiltLiveAudioRoomState.prebuiltData = null ;
     await ZegoUIKit.instance.leaveRoom();
     await ZegoUIKit.instance.uninit();
     ZegoUIKit.instance.logout();

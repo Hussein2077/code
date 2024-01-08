@@ -29,7 +29,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_con
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_controller.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_inner_text.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
+//import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
 
 
 /// @nodoc
@@ -182,10 +182,10 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
       subscription?.cancel();
     }
 
-    if (LiveAudioRoomMiniOverlayPageState.minimizing !=
-        ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
-      ZegoUIKit().turnMicrophoneOn(false);
-    }
+    // if (LiveAudioRoomMiniOverlayPageState.minimizing !=
+    //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
+    //   ZegoUIKit().turnMicrophoneOn(false);
+    // }
   }
 
   void setConnectManager(ZegoLiveConnectManager value) {

@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/controller/controll
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/controller/media.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/controller/message.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
+//import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
@@ -114,34 +114,34 @@ class ZegoLiveAudioRoomController
       return 0 == result.errorCode;
     });
 
-    final isFromMinimizing = LiveAudioRoomMiniOverlayPageState.minimizing ==
-        ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state();
-    if (isFromMinimizing) {
-      /// leave in minimizing
-      await ZegoUIKit().getSignalingPlugin().leaveRoom();
-
-      /// not need logout
-      // await ZegoUIKit().getSignalingPlugin().logout();
-      /// not need destroy signaling sdk
-      await ZegoUIKit().getSignalingPlugin().uninit(forceDestroy: false);
-
-      await ZegoLiveAudioRoomManagers().unintPluginAndManagers();
-
-      ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().changeState(
-        LiveAudioRoomMiniOverlayPageState.idle,
-      );
-
-      prebuiltConfig?.onLeaveLiveAudioRoom?.call(isFromMinimizing);
-    } else {
+    // final isFromMinimizing = LiveAudioRoomMiniOverlayPageState.minimizing ==
+    //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state();
+    // if (isFromMinimizing) {
+    //   /// leave in minimizing
+    //   await ZegoUIKit().getSignalingPlugin().leaveRoom();
+    //
+    //   /// not need logout
+    //   // await ZegoUIKit().getSignalingPlugin().logout();
+    //   /// not need destroy signaling sdk
+    //   await ZegoUIKit().getSignalingPlugin().uninit(forceDestroy: false);
+    //
+    //   await ZegoLiveAudioRoomManagers().unintPluginAndManagers();
+    //
+    //   ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().changeState(
+    //     LiveAudioRoomMiniOverlayPageState.idle,
+    //   );
+    //
+    //   prebuiltConfig?.onLeaveLiveAudioRoom?.call(isFromMinimizing);
+    // } else {
       if (prebuiltConfig?.onLeaveLiveAudioRoom != null) {
-        prebuiltConfig?.onLeaveLiveAudioRoom!.call(isFromMinimizing);
+        prebuiltConfig?.onLeaveLiveAudioRoom!.call(false);
       } else {
         Navigator.of(
           context,
           rootNavigator: prebuiltConfig?.rootNavigator ?? true,
         ).pop();
       }
-    }
+   // }
 
     uninitByPrebuilt();
 

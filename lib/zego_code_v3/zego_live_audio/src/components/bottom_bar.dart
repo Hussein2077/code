@@ -19,7 +19,6 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/seat_mana
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_controller.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/prebuilt_data.dart';
 
 /// @nodoc
 class ZegoBottomBar extends StatefulWidget {
@@ -35,7 +34,7 @@ class ZegoBottomBar extends StatefulWidget {
 
   final ZegoAvatarBuilder? avatarBuilder;
 
-  final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltData;
+//  final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltData;
   final EnterRoomModel roomData ;
 
   const ZegoBottomBar({
@@ -49,7 +48,7 @@ class ZegoBottomBar extends StatefulWidget {
     required this.prebuiltController,
     required this.height,
     required this.buttonSize,
-    required this.prebuiltData,
+  //  required this.prebuiltData,
     required this.roomData
   }) : super(key: key);
 
@@ -164,14 +163,14 @@ class _ZegoBottomBarState extends State<ZegoBottomBar> {
         context,
         isSeatLocked: isSeatLocked,
         localRole: localRole,
-        microphoneDefaultValueFunc: widget.prebuiltData.isPrebuiltFromMinimizing
-            ? () {
-                /// if is minimizing, take the local device state
-                return ZegoUIKit()
-                    .getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id)
-                    .value;
-              }
-            : null,
+        // microphoneDefaultValueFunc: widget.prebuiltData.isPrebuiltFromMinimizing
+        //     ? () {
+        //         /// if is minimizing, take the local device state
+        //         return ZegoUIKit()
+        //             .getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id)
+        //             .value;
+        //       }
+        //     : null,
       ),
       ...extendButtons
     ];

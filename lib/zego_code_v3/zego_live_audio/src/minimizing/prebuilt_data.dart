@@ -18,7 +18,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomData {
     required this.userName,
     required this.config,
     required this.roomData,
-    required this.isPrebuiltFromMinimizing,
+    // required this.isPrebuiltFromMinimizing,
     this.controller,
   });
 
@@ -42,12 +42,12 @@ class ZegoUIKitPrebuiltLiveAudioRoomData {
 
   final ZegoUIKitPrebuiltLiveAudioRoomConfig config;
 
-  final bool isPrebuiltFromMinimizing;
+ // final bool isPrebuiltFromMinimizing;
 
   @override
   String toString() {
     return 'app id:$appID, app sign:$appSign, room id:$roomID, '
-        'isPrebuiltFromMinimizing: $isPrebuiltFromMinimizing, '
+      //  'isPrebuiltFromMinimizing: $isPrebuiltFromMinimizing, '
         'user id:$userID, user name:$userName, '
         'config:${config.toString()}';
   }

@@ -11,7 +11,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/toast.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
+//import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
 
 /// @nodoc
 enum PluginNetworkState {
@@ -188,22 +188,22 @@ class ZegoPrebuiltPlugins {
     roomHasInitLogin = false;
     tryReLogging = false;
 
-    final toMinimizing = LiveAudioRoomMiniOverlayPageState.minimizing ==
-        ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state();
-    if (toMinimizing) {
-      ZegoLoggerService.logInfo(
-        'to minimizing, not need to leave room, logout and uninit',
-        tag: 'audio room',
-        subTag: 'plugin',
-      );
-    } else {
+    // final toMinimizing = LiveAudioRoomMiniOverlayPageState.minimizing ==
+    //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state();
+    // if (toMinimizing) {
+    //   ZegoLoggerService.logInfo(
+    //     'to minimizing, not need to leave room, logout and uninit',
+    //     tag: 'audio room',
+    //     subTag: 'plugin',
+    //   );
+    // } else {
       await ZegoUIKit().getSignalingPlugin().leaveRoom();
 
       /// not need logout
       // await ZegoUIKit().getSignalingPlugin().logout();
       /// not need destroy signaling sdk
       await ZegoUIKit().getSignalingPlugin().uninit(forceDestroy: false);
-    }
+  //  }
 
     for (final streamSubscription in subscriptions) {
       streamSubscription?.cancel();

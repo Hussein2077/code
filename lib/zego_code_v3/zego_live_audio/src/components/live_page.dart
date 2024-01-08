@@ -30,7 +30,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/plugins.d
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/seat_manager.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_controller.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/prebuilt_data.dart';
+//import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/prebuilt_data.dart';
 
 /// @nodoc
 /// user and sdk should be login and init before page enter
@@ -48,7 +48,7 @@ class ZegoLivePage extends StatefulWidget {
     required this.connectManager,
     required this.popUpManager,
     required this.liveDurationManager,
-    required this.prebuiltAudioRoomData,
+   // required this.prebuiltAudioRoomData,
     required this.roomData ,
     this.plugins,
   }) : super(key: key);
@@ -68,7 +68,7 @@ class ZegoLivePage extends StatefulWidget {
   final ZegoLiveDurationManager liveDurationManager;
   final ZegoLiveAudioRoomController? prebuiltController;
   final ZegoPrebuiltPlugins? plugins;
-  final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltAudioRoomData;
+ // final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltAudioRoomData;
   static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
 
   @override
@@ -303,7 +303,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
         prebuiltController: widget.prebuiltController,
         isPluginEnabled: widget.plugins?.isEnabled ?? false,
         avatarBuilder: widget.config.seatConfig.avatarBuilder,
-        prebuiltData: widget.prebuiltAudioRoomData,
+        //prebuiltData: widget.prebuiltAudioRoomData,
         roomData: widget.roomData,
       ),
     );
