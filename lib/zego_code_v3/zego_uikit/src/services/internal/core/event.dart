@@ -72,8 +72,6 @@ mixin ZegoUIKitCoreEvent {
 
     ZegoExpressEngine.onPlayerRecvAudioFirstFrame =
         ZegoUIKitCore.shared.coreData.onPlayerRecvAudioFirstFrame;
-    ZegoExpressEngine.onPlayerRecvVideoFirstFrame =
-        ZegoUIKitCore.shared.coreData.onPlayerRecvVideoFirstFrame;
 
     ZegoExpressEngine.onPlayerRecvSEI =
         ZegoUIKitCore.shared.coreData.onPlayerRecvSEI;

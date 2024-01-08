@@ -473,9 +473,7 @@ extension ZegoUIKitCoreDataEventHandler on ZegoUIKitCoreData {
     }
   }
 
-  void onPlayerRecvVideoFirstFrame(String mixerID) {
-    mixerStreamDic[mixerID]?.loaded.value = true;
-  }
+
 
   void onPlayerRecvAudioFirstFrame(String mixerID) {
     mixerStreamDic[mixerID]?.loaded.value = true;

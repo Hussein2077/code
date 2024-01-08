@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/dialogs.dart';
@@ -22,21 +21,6 @@ Future<void> checkPermissions({
   bool isShowDialog = false,
   List<Permission> checkStatuses = const [Permission.microphone],
 }) async {
-  if (checkStatuses.contains(Permission.camera)) {
-    await Permission.camera.status.then((status) async {
-      if (status != PermissionStatus.granted) {
-        if (isShowDialog) {
-          await showAppSettingsDialog(
-            context,
-            translationText.cameraPermissionSettingDialogInfo,
-            rootNavigator: rootNavigator,
-            kickOutNotifier: kickOutNotifier,
-            popUpManager: popUpManager,
-          );
-        }
-      }
-    });
-  }
 
   if (checkStatuses.contains(Permission.microphone)) {
     await Permission.microphone.status.then((status) async {
@@ -67,18 +51,7 @@ Future<void> requestPermissions({
   await checkStatuses
       .request()
       .then((Map<Permission, PermissionStatus> statuses) async {
-    if (checkStatuses.contains(Permission.camera) &&
-        statuses[Permission.camera] != PermissionStatus.granted) {
-      if (isShowDialog) {
-        await showAppSettingsDialog(
-          context,
-          innerText.cameraPermissionSettingDialogInfo,
-          rootNavigator: rootNavigator,
-          kickOutNotifier: kickOutNotifier,
-          popUpManager: popUpManager,
-        );
-      }
-    }
+
 
     if (checkStatuses.contains(Permission.microphone) &&
         statuses[Permission.microphone] != PermissionStatus.granted) {

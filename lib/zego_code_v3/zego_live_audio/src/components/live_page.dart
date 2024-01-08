@@ -21,7 +21,6 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_vi
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_video/seat_container.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/bottom_bar.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/duration_time_board.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/message/view.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/pop_up_manager.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/connect/connect_manager.dart';
@@ -136,7 +135,6 @@ class ZegoLivePageState extends State<ZegoLivePage>
                         })   ,
                    // topBar(),
                     bottomBar(),
-                    durationTimeBoard(),
                     viewbackground(context, constraints.maxHeight),
                   ],
                 );
@@ -346,21 +344,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
 
   }
 
-  Widget durationTimeBoard() {
-    if (!widget.config.durationConfig.isVisible) {
-      return Container();
-    }
 
-    return Positioned(
-      left: 0,
-      right: 0,
-      top: 10,
-      child: LiveDurationTimeBoard(
-        config: widget.config.durationConfig,
-        manager: widget.liveDurationManager,
-      ),
-    );
-  }
 
   Future<void> onTurnOnYourMicrophoneRequest(
       ZegoUIKitReceiveTurnOnLocalMicrophoneEvent event) async {

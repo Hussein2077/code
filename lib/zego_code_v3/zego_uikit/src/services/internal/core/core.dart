@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 
 // Flutter imports:
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/audio_video.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/audio.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/data/data.dart';
@@ -494,32 +494,7 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
     );
   }
 
-  void useFrontFacingCamera(bool isFrontFacing) {
-    if (isFrontFacing == coreData.localUser.isFrontFacing.value) {
-      return;
-    }
 
-    ZegoExpressEngine.instance.useFrontCamera(isFrontFacing);
-    coreData.localUser.isFrontFacing.value = isFrontFacing;
-
-    ZegoExpressEngine.instance.setVideoMirrorMode(
-      isFrontFacing
-          ? (coreData.localUser.isVideoMirror.value
-              ? ZegoVideoMirrorMode.BothMirror
-              : ZegoVideoMirrorMode.NoMirror)
-          : ZegoVideoMirrorMode.NoMirror,
-    );
-  }
-
-  void enableVideoMirroring(bool isVideoMirror) {
-    coreData.localUser.isVideoMirror.value = isVideoMirror;
-
-    ZegoExpressEngine.instance.setVideoMirrorMode(
-      isVideoMirror
-          ? ZegoVideoMirrorMode.BothMirror
-          : ZegoVideoMirrorMode.NoMirror,
-    );
-  }
 
   void setAudioVideoResourceMode(ZegoAudioVideoResourceMode mode) {
     coreData.playResourceMode = mode;
@@ -707,41 +682,9 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
     }
   }
 
-  void setVideoConfig(
-    ZegoVideoConfig config,
-    ZegoStreamType streamType,
-  ) {
-    ZegoExpressEngine.instance.setVideoConfig(
-      config,
-      channel: streamType.channel,
-    );
-    coreData.localUser.mainChannel.viewSize.value = Size(
-      config.captureWidth.toDouble(),
-      config.captureHeight.toDouble(),
-    );
-  }
 
-  void setInternalVideoConfig(ZegoUIKitVideoConfig config) {
-    if (coreData.pushVideoConfig.needUpdateVideoConfig(config)) {
-      final zegoVideoConfig = config.toZegoVideoConfig();
-      ZegoExpressEngine.instance.setVideoConfig(
-        zegoVideoConfig,
-        channel: ZegoPublishChannel.Main,
-      );
-      coreData.localUser.mainChannel.viewSize.value = Size(
-        zegoVideoConfig.captureWidth.toDouble(),
-        zegoVideoConfig.captureHeight.toDouble(),
-      );
-    }
-    if (coreData.pushVideoConfig.needUpdateOrientation(config)) {
-      ZegoExpressEngine.instance.setAppOrientation(
-        config.orientation,
-        channel: ZegoPublishChannel.Main,
-      );
-    }
 
-    coreData.pushVideoConfig = config;
-  }
+
 
   void updateAppOrientation(DeviceOrientation orientation) {
     if (coreData.pushVideoConfig.orientation == orientation) {
@@ -758,47 +701,13 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
         subTag: 'core',
       );
 
-      setInternalVideoConfig(
-        coreData.pushVideoConfig.copyWith(orientation: orientation),
-      );
+      // setInternalVideoConfig(
+      //   coreData.pushVideoConfig.copyWith(orientation:orientation),
+      // );
     }
   }
 
-  void setVideoConfigByPreset(ZegoPresetResolution resolution) {
-    if (coreData.pushVideoConfig.resolution == resolution) {
-      ZegoLoggerService.logInfo(
-        'video config preset is equal',
-        tag: 'uikit',
-        subTag: 'core',
-      );
-      return;
-    } else {
-      ZegoLoggerService.logInfo(
-        'update video config preset:$resolution',
-        tag: 'uikit',
-        subTag: 'core',
-      );
 
-      setInternalVideoConfig(
-        coreData.pushVideoConfig.copyWith(resolution: resolution),
-      );
-    }
-  }
-
-  void updateVideoViewMode(bool useVideoViewAspectFill) {
-    if (coreData.pushVideoConfig.useVideoViewAspectFill ==
-        useVideoViewAspectFill) {
-      ZegoLoggerService.logInfo(
-        'video view mode is equal',
-        tag: 'uikit',
-        subTag: 'core',
-      );
-      return;
-    } else {
-      coreData.pushVideoConfig.useVideoViewAspectFill = useVideoViewAspectFill;
-      // TODO: need re preview, and re playStream
-    }
-  }
 
   void onInternalCustomCommandReceived(
       ZegoInRoomCommandReceivedData commandData) {

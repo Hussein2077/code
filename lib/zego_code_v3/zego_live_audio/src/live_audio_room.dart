@@ -112,8 +112,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
         userName: widget.userName,
         config: widget.config,
         controller: widget.controller,
-        // isPrebuiltFromMinimizing: LiveAudioRoomMiniOverlayPageState.idle !=
-        //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state(),
         roomData: widget.roomData,
       );
       WidgetsBinding.instance.addObserver(this);
@@ -129,20 +127,13 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       subscriptions
         ..add(ZegoUIKit().getUserJoinStream().listen(onUserJoined))
         ..add(ZegoUIKit().getUserLeaveStream().listen(onUserLeave))
-        ..add(
-            ZegoUIKit().getMeRemovedFromRoomStream().listen(onMeRemovedFromRoom));
+        ..add(ZegoUIKit().getMeRemovedFromRoomStream().listen(onMeRemovedFromRoom));
 
 
         ZegoLiveAudioRoomManagers().initPluginAndManagers(
           prebuiltData: prebuiltData!,
         );
-      // isFromMinimizing = LiveAudioRoomMiniOverlayPageState.idle !=
-      //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state();
-      // if (!isFromMinimizing) {
-      //   ZegoLiveAudioRoomManagers().initPluginAndManagers(
-      //     prebuiltData: prebuiltData!,
-      //   );
-      // }
+
       ZegoLiveAudioRoomManagers().updateContextQuery(() {
         return context;
       });
@@ -173,24 +164,8 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
           });
         });
       });
-      // ZegoLoggerService.logInfo(
-      //   'mini machine state is ${ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()}',
-      //   tag: 'audio room',
-      //   subTag: 'prebuilt',
-      // );
-      // if (isFromMinimizing) {
-      //   ZegoLoggerService.logInfo(
-      //     'mini machine state is not idle, context will not be init',
-      //     tag: 'audio room',
-      //     subTag: 'prebuilt',
-      //   );
-      // } else {
-        initContext();
-  //    }
 
-      // ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().changeState(
-      //   LiveAudioRoomMiniOverlayPageState.idle,
-      // );
+        initContext();
 
     }
 

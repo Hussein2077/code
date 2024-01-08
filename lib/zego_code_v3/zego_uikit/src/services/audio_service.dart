@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/audio_video.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/audio.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/defines.dart';
 import 'package:zego_express_engine/zego_express_engine.dart';
 
 /// @nodoc
-mixin ZegoAudioVideoService {
+mixin ZegoAudioService {
   /// start play all audio video
   Future<void> startPlayAllAudioVideo() async {
     return ZegoUIKitCore.shared.startPlayAllAudioVideo();
@@ -31,13 +31,7 @@ mixin ZegoAudioVideoService {
     ZegoUIKitCore.shared.setAudioOutputToSpeaker(isSpeaker);
   }
 
-  /// update video config
-  void setVideoConfig(
-    ZegoVideoConfig config,
-    ZegoStreamType streamType,
-  ) {
-    ZegoUIKitCore.shared.setVideoConfig(config, streamType);
-  }
+
 
 
 
@@ -171,10 +165,7 @@ mixin ZegoAudioVideoService {
     return ZegoUIKitCore.shared.coreData.stopSharingScreen();
   }
 
-  /// get video size notifier
-  ValueNotifier<Size> getVideoSizeNotifier(String userID) {
-    return ZegoUIKitCore.shared.coreData.getUser(userID).mainChannel.viewSize;
-  }
+
 
   /// update texture render orientation
   void updateTextureRendererOrientation(Orientation orientation) {
@@ -186,10 +177,7 @@ mixin ZegoAudioVideoService {
     ZegoUIKitCore.shared.updateAppOrientation(orientation);
   }
 
-  /// update video view mode
-  void updateVideoViewMode(bool useVideoViewAspectFill) {
-    ZegoUIKitCore.shared.updateVideoViewMode(useVideoViewAspectFill);
-  }
+
 
   Future<void> startPlayAnotherRoomAudioVideo(String roomID, String userID,
       {String userName = ''}) async {

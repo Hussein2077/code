@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/audio_video.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/audio.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
