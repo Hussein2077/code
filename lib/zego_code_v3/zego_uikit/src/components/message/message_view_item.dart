@@ -135,63 +135,63 @@ class _ZegoInRoomLiveMessageViewItemState
     );
   }
 
-  // Widget message() {
-  //   const defaultMessageNameColor = Color(0xffFFB763);
-  //
-  //   final padding =
-  //       widget.paddings ?? EdgeInsets.fromLTRB(20.zR, 10.zR, 20.zR, 10.zR);
-  //   return RichText(
-  //     maxLines: widget.maxLines,
-  //     overflow:
-  //         null == widget.maxLines ? TextOverflow.clip : TextOverflow.ellipsis,
-  //     text: TextSpan(
-  //       children: [
-  //         ...widget.showAvatar
-  //             ? [
-  //                 WidgetSpan(
-  //                   child: SizedBox(
-  //                     width: 26.zR + padding.vertical / 2 - 1,
-  //                     height: 26.zR + padding.vertical / 2 - 1,
-  //                     child: ZegoAvatar(
-  //                       user: widget.message.user,
-  //                       avatarSize: Size(30.zR, 30.zR),
-  //                       avatarBuilder: widget.avatarBuilder,
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 WidgetSpan(child: SizedBox(width: 1.zR))
-  //               ]
-  //             : [],
-  //         ...widget.showName
-  //             ? [
-  //                 if (widget.namePrefix != null) prefix(),
-  //                 TextSpan(
-  //                   text: widget.message.user.name,
-  //                   style: widget.nameTextStyle ??
-  //                       TextStyle(
-  //                         fontSize: 26.zR,
-  //                         fontWeight: FontWeight.w500,
-  //                         color: defaultMessageNameColor,
-  //                       ),
-  //                 ),
-  //                 WidgetSpan(child: SizedBox(width: 10.zR)),
-  //               ]
-  //             : [],
-  //         TextSpan(
-  //           text: widget.isHorizontal
-  //               ? widget.message.message
-  //               : '\n${widget.message.message}',
-  //           style: widget.messageTextStyle ??
-  //               TextStyle(
-  //                 fontSize: 26.zR,
-  //                 fontWeight: FontWeight.w400,
-  //                 color: Colors.white,
-  //               ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  Widget message() {
+    const defaultMessageNameColor = Color(0xffFFB763);
+
+    final padding =
+        widget.paddings ?? EdgeInsets.fromLTRB(20.zR, 10.zR, 20.zR, 10.zR);
+    return RichText(
+      maxLines: widget.maxLines,
+      overflow:
+          null == widget.maxLines ? TextOverflow.clip : TextOverflow.ellipsis,
+      text: TextSpan(
+        children: [
+          ...widget.showAvatar
+              ? [
+                  WidgetSpan(
+                    child: SizedBox(
+                      width: 26.zR + padding.vertical / 2 - 1,
+                      height: 26.zR + padding.vertical / 2 - 1,
+                      child: ZegoAvatar(
+                        user: widget.message.user,
+                        avatarSize: Size(30.zR, 30.zR),
+                        avatarBuilder: widget.avatarBuilder,
+                      ),
+                    ),
+                  ),
+                  WidgetSpan(child: SizedBox(width: 1.zR))
+                ]
+              : [],
+          ...widget.showName
+              ? [
+                  if (widget.namePrefix != null) prefix(),
+                  TextSpan(
+                    text: widget.message.user.name,
+                    style: widget.nameTextStyle ??
+                        TextStyle(
+                          fontSize: 26.zR,
+                          fontWeight: FontWeight.w500,
+                          color: defaultMessageNameColor,
+                        ),
+                  ),
+                  WidgetSpan(child: SizedBox(width: 10.zR)),
+                ]
+              : [],
+          TextSpan(
+            text: widget.isHorizontal
+                ? widget.message.message
+                : '\n${widget.message.message}',
+            style: widget.messageTextStyle ??
+                TextStyle(
+                  fontSize: 26.zR,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
 
   TextSpan prefix() {
     const messageHostColor = Color(0xff9f76ff);

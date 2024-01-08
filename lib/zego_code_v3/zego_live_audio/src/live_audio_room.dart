@@ -72,6 +72,7 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
 
   /// Initialize the configuration for the voice chat room.
   final ZegoUIKitPrebuiltLiveAudioRoomConfig config;
+  
   final EnterRoomModel roomData ;
 
   @Deprecated('Since 2.4.1')
@@ -176,10 +177,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
   @override
   void dispose() {
     super.dispose();
-
-
      WidgetsBinding.instance.removeObserver(this);
-
   }
 
   @override

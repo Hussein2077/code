@@ -238,7 +238,6 @@ class ZegoLivePageState extends State<ZegoLivePage>
           config: widget.config,
         );
       },
-      sortAudioVideo: audioVideoViewSorter,
      avatarBuilder: widget.config.seatConfig.avatarBuilder,
     );
 
@@ -264,29 +263,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
     );
   }
 
-  List<ZegoUIKitUser> audioVideoViewSorter(List<ZegoUIKitUser> users) {
-    return users;
-  }
 
-  // Widget topBar() {
-  //   return Positioned(
-  //     left: 0,
-  //     right: 0,
-  //     top: 64.zR,
-  //     child: ValueListenableBuilder<ZegoUIKitRoomState>(
-  //       valueListenable: ZegoUIKit().getRoomStateStream(),
-  //       builder: (context, roomState, _) {
-  //         return ZegoTopBar(
-  //           config: widget.config,
-  //           seatManager: widget.seatManager,
-  //           connectManager: widget.connectManager,
-  //           translationText: widget.config.innerText,
-  //           prebuiltAudioRoomData: widget.prebuiltAudioRoomData,
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
 
   Widget bottomBar() {
     return Align(

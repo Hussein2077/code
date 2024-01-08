@@ -84,19 +84,19 @@ class _ZegoAudioVideoViewState extends State<ZegoAudioVideoView> {
                     Container(color: Colors.transparent);
               },
             ),
-            // Positioned(
-            //   top: 0,
-            //   left: 0,
-            //   child: SizedBox(
-            //     width: constraints.maxWidth,
-            //     height: constraints.maxHeight,
-            //     child: Stack(
-            //       children: [
-            //         avatar(constraints.maxWidth, constraints.maxHeight)
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            Positioned(
+              top: 0,
+              left: 0,
+              child: SizedBox(
+                width: constraints.maxWidth,
+                height: constraints.maxHeight,
+                child: Stack(
+                  children: [
+                    avatar(constraints.maxWidth, constraints.maxHeight)
+                  ],
+                ),
+              ),
+            ),
           ],
         );
       },
@@ -154,32 +154,32 @@ class _ZegoAudioVideoViewState extends State<ZegoAudioVideoView> {
     );
   }
 
-  //
-  // Widget avatar(double maxWidth, double maxHeight) {
-  //   final screenSize = MediaQuery.of(context).size;
-  //   final isSmallView = maxHeight < screenSize.height / 2;
-  //   final avatarSize =
-  //       isSmallView ? Size(110.zR, 110.zR) : Size(258.zR, 258.zR);
-  //
-  //   return Positioned(
-  //     top: getAvatarTop(maxWidth, maxHeight, avatarSize),
-  //     left: (maxWidth - avatarSize.width) / 2,
-  //     child: SizedBox(
-  //       width: widget.avatarConfig?.size?.width ?? avatarSize.width,
-  //       height: widget.avatarConfig?.size?.height ?? avatarSize.width,
-  //       child: ZegoAvatar(
-  //         avatarSize: widget.avatarConfig?.size ?? avatarSize,
-  //         user: widget.user,
-  //         showAvatar: widget.avatarConfig?.showInAudioMode ?? true,
-  //         showSoundLevel:
-  //             widget.avatarConfig?.showSoundWavesInAudioMode ?? true,
-  //         avatarBuilder: widget.avatarConfig?.builder,
-  //         soundLevelSize: widget.avatarConfig?.size,
-  //         soundLevelColor: widget.avatarConfig?.soundWaveColor,
-  //       ),
-  //     ),
-  //   );
-  // }
+
+  Widget avatar(double maxWidth, double maxHeight) {
+    final screenSize = MediaQuery.of(context).size;
+    final isSmallView = maxHeight < screenSize.height / 2;
+    final avatarSize =
+        isSmallView ? Size(110.zR, 110.zR) : Size(258.zR, 258.zR);
+
+    return Positioned(
+      top: getAvatarTop(maxWidth, maxHeight, avatarSize),
+      left: (maxWidth - avatarSize.width) / 2,
+      child: SizedBox(
+        width: widget.avatarConfig?.size?.width ?? avatarSize.width,
+        height: widget.avatarConfig?.size?.height ?? avatarSize.width,
+        child: ZegoAvatar(
+          avatarSize: widget.avatarConfig?.size ?? avatarSize,
+          user: widget.user,
+          showAvatar: widget.avatarConfig?.showInAudioMode ?? true,
+          showSoundLevel:
+              widget.avatarConfig?.showSoundWavesInAudioMode ?? true,
+          avatarBuilder: widget.avatarConfig?.builder,
+          soundLevelSize: widget.avatarConfig?.size,
+          soundLevelColor: widget.avatarConfig?.soundWaveColor,
+        ),
+      ),
+    );
+  }
 
   double getAvatarTop(double maxWidth, double maxHeight, Size avatarSize) {
     switch (

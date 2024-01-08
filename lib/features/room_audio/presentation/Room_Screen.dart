@@ -1018,10 +1018,10 @@ setState(() {
             ..seatConfig.avatarBuilder = (context, size, user, extraInfo) {
             return ValueListenableBuilder<bool>(
                 valueListenable: ZegoUIKit().getMicrophoneStateNotifier(user!.id),
-                builder: (context, isMicrophoneEnabled, _) {
+                builder:(context, isMicrophoneEnabled, _){
                   return UserAvatar(
                       user: user ,
-                      image: user.inRoomAttributes.value['img'],
+                      image: user.inRoomAttributes.value['img'] ,
                       isMicrophoneEnabled: isMicrophoneEnabled);
                 },
               );
@@ -1033,9 +1033,7 @@ setState(() {
                 BlocProvider.of<GetUsersInRoomBloc>(context).add(GetUsersInRoomEvents(userId: message.user.id));
               }
               return BlocConsumer<GetUsersInRoomBloc,UsersInRoomState>(
-
                 builder: (BuildContext context, UsersInRoomState state) {
-
                   return MessagesChached(
                       message: message,
                       myDataModel: widget.myDataModel,
