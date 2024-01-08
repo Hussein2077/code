@@ -56,7 +56,6 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_vi
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/media/player.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
