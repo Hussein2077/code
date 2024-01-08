@@ -2,30 +2,36 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
 
-
-
 class ConstentApi {
-   //static const String baseUrl = 'https://tik-chat.com/api' ;
-  static const String baseUrl = 'https://test.tik-chat.com/api' ;
+  //static const String baseUrl = 'https://tik-chat.com/api' ;
+  static const String baseUrl = 'https://test.tik-chat.com/api';
   static const String signUpUrl = "$baseUrl/auth/register";
   static const String sendCodeUrl = "$baseUrl/auth/send-code";
   static const String forgetPassword = "$baseUrl/auth/forget_password";
-  static const String forgetPasswordCodeVerification = "$baseUrl/auth/verify-code";
+  static const String forgetPasswordCodeVerification =
+      "$baseUrl/auth/verify-code";
   String getExtraRoomData(String OwnerId) {
     return "$baseUrl/rooms/${OwnerId}/extra-data";
   }
-  static  String getUserBadges(String userId) => "$baseUrl/achievement/user/$userId";
-  static  String getBadges(String type) => "$baseUrl/achievement/$type";
+
+  static String getUserBadges(String userId) =>
+      "$baseUrl/achievement/user/$userId";
+  static String getBadges(String type) => "$baseUrl/achievement/$type";
   static const String getBoxes = "$baseUrl/box/list";
   static const String inviteToGame = "$baseUrl/game-challange/send-reuest-paly";
   static const String inviteToGameNew = "$baseUrl/room-game/send-request-play";
-  static const String otherSideGameActionNew = "$baseUrl/room-game/other-side-opinion";
-  static const String acceptOrCancelGame = "$baseUrl/game-challange/other-side-opinion";
-  static const String sendGameChoise = "$baseUrl/game-challange/challange-result";
+  static const String otherSideGameActionNew =
+      "$baseUrl/room-game/other-side-opinion";
+  static const String acceptOrCancelGame =
+      "$baseUrl/game-challange/other-side-opinion";
+  static const String sendGameChoise =
+      "$baseUrl/game-challange/challange-result";
   static const String gameResult = "$baseUrl/room-game/challenge-result";
-  static  String sendPrivateComment(String roomId) => "$baseUrl/rooms/$roomId/send-private-comment";
-  static const String pay = "$baseUrl/google_coins_pay";
+  static String sendPrivateComment(String roomId) =>
+      "$baseUrl/rooms/$roomId/send-private-comment";
+  static const String googlePay = "$baseUrl/google-pay";
   static const String huaweiPay = "$baseUrl/huawei-payment";
+  static const String applePay = "$baseUrl/apple-pay";
   static const String sendBox = "$baseUrl/box/send";
   static const String pickUpBoxes = "$baseUrl/box/pickup";
   static const String levelUrl = "$baseUrl/level_center";
@@ -100,7 +106,7 @@ class ConstentApi {
   static const String getGoldData = "$baseUrl/coins/list";
   static const String sentToZego = "$baseUrl/send_to_zego";
 
-  static const  String getUsersCommenstInRoom ="$baseUrl/rooms/users";
+  static const String getUsersCommenstInRoom = "$baseUrl/rooms/users";
   static const String banUserFromWriting =
       "$baseUrl/rooms/ban_user_from_writing";
   static const String unBanUserFromWriting =
@@ -124,10 +130,12 @@ class ConstentApi {
   static const String showAgency = "$baseUrl/agencies/show";
   static const String agencyMember = "$baseUrl/agencies/showAllusers";
   static const String agencyRequests = "$baseUrl/agencies/show_request";
-  static const String agencyRequestsAction = "$baseUrl/agencies/actions_request";
+  static const String agencyRequestsAction =
+      "$baseUrl/agencies/actions_request";
   static const String agencyHistoryTime = "$baseUrl/agencies/list_options_his";
   static const String agencyHistory = "$baseUrl/agencies/historyAgancy";
-  static const String chargeCoinForUser = "$baseUrl/agencies/charge_co_for_users";
+  static const String chargeCoinForUser =
+      "$baseUrl/agencies/charge_co_for_users";
   static const String chargeDolarsForUser =
       "$baseUrl/agencies/charge_dollar_for_owner";
   static const String getAllIntrested = "$baseUrl/allinterests";
@@ -137,37 +145,36 @@ class ConstentApi {
   static const String getReels = "$baseUrl/reals";
   static const String yallowBanner = "$baseUrl/rooms/yellow-banner";
   static const String addMoment = "$baseUrl/moment";
-  static  String makeMomentLikes(String momentID) => "$baseUrl/moment/$momentID/like";
-  static   String momentSendGift({required String momentID}) =>"$baseUrl/moment/$momentID/gift";
-   static const  String privacyPolicy ="https://tik-chat.com/privacy-policy";
+  static String makeMomentLikes(String momentID) =>
+      "$baseUrl/moment/$momentID/like";
+  static String momentSendGift({required String momentID}) =>
+      "$baseUrl/moment/$momentID/gift";
+  static const String privacyPolicy = "https://tik-chat.com/privacy-policy";
   static const String muteUserMic = "$baseUrl/rooms/mute-user";
   static const String unMuteUserMic = "$baseUrl/rooms/unmute-user";
-  static String getAllShippingAgents(String? page){
+  static String getAllShippingAgents(String? page) {
     return "$baseUrl/users/charger_agency?page=$page";
   }
 
   static const String reportReals = "$baseUrl/report";
- static   String getExtraData (int type)=> "$baseUrl/images?type=$type";
+  static String getExtraData(int type) => "$baseUrl/images?type=$type";
   static String getMoments(
-      String userId,
-      String type,
-      String page,
-
-      ) {
+    String userId,
+    String type,
+    String page,
+  ) {
     return "$baseUrl/moment?user_id=$userId&type=$type&page=$page";
   }
-  static String getOneMoment(
-    String momentId
 
-      ) {
+  static String getOneMoment(String momentId) {
     return "$baseUrl/moment/$momentId";
   }
-  static String reportMoment(
-      String momentid,
-      String type,
-      String discreption,
 
-      ) {
+  static String reportMoment(
+    String momentid,
+    String type,
+    String discreption,
+  ) {
     //{{base_url}}/moment/79/report?description=nknkj&type=lmk
     return "$baseUrl/moment/$momentid/report?description=$discreption&type=$type";
   }
@@ -265,13 +272,12 @@ class ConstentApi {
       "$allRooms?page=$page&country_id=${countryId ?? ''}&class_id=${classId ?? ''}&type_id=${typeId ?? ''}&search=${search ?? ''}&filter=${filter ?? ''}";
 
   String getUserData({
-
-   required String userId,
-   bool? isVisit,
+    required String userId,
+    bool? isVisit,
   }) {
-    if(isVisit != null){
+    if (isVisit != null) {
       return "$baseUrl/users/$userId?is_visit=$isVisit";
-    }else {
+    } else {
       return "$baseUrl/users/$userId";
     }
   }
@@ -295,7 +301,6 @@ class ConstentApi {
   String getVipCenter({required String level}) =>
       "$baseUrl/vip_center?level=$level";
 
-
   String getImage(imageUrl) =>
       "https://storage.googleapis.com/tik-chat/$imageUrl";
   String getDataMallUrl(int type) => "$baseUrl/mall/wares?type=$type";
@@ -307,9 +312,9 @@ class ConstentApi {
     return "$baseUrl/emojis/$id?room_id=$roomId&user_id=$userId&to_zego=$toZego";
   }
 
-   static String getMomentGifts(String momentId) {
-     return "$baseUrl/moments/$momentId/gifts";
-   }
+  static String getMomentGifts(String momentId) {
+    return "$baseUrl/moments/$momentId/gifts";
+  }
 
   String changeBackgroundZigo(
       {required String timestamp,
@@ -353,8 +358,7 @@ class ConstentApi {
   static const String phoneCode = "phone_code";
   static const String phonePass = "phone_pass";
   static String getgiftHistory(String id) => "$baseUrl/my_gifts?user_id=$id";
-  static const String sendLuckyGift   = "$baseUrl/gifts/send-lucky-gift";
-
+  static const String sendLuckyGift = "$baseUrl/gifts/send-lucky-gift";
 
   // messages send phone request
 
@@ -385,29 +389,32 @@ class ConstentApi {
   static String getMomentLike(String momentId, String page) {
     return "$baseUrl/moment/$momentId/like?page=$page";
   }
-  static String getFollowingReels( String page,) {
+
+  static String getFollowingReels(
+    String page,
+  ) {
     return "$baseUrl/reals/user-followers?page=$page";
   }
 
   static String activeNotification = "$baseUrl/reals/user-followers";
-  static String getFixedTargetReport(String date){
-   return "$baseUrl/user-statistics?date=$date";
+  static String getFixedTargetReport(String date) {
+    return "$baseUrl/user-statistics?date=$date";
   }
-  static const String hostOnMicTime = "$baseUrl/rooms/liveTime";
 
+  static const String hostOnMicTime = "$baseUrl/rooms/liveTime";
 
   static const String encryptionKey = "L9:65W&+nG@g";
   static const String merchantId = "BCR2DN4T3GPIDDAG";
   static const String merchantName = "software";
-  static String checkBlockUnblock( String userId) {
+  static String checkBlockUnblock(String userId) {
     return "$baseUrl/black_list/check/$userId";
   }
-  static  String invitCode(String userId) {
+
+  static String invitCode(String userId) {
     return "$baseUrl/add-code-invitation?code=$userId";
   }
+
   static const String invitationParent = "$baseUrl/parent-statistic";
   static const String invitationUsers = "$baseUrl/user-earn-from-invitation";
   static const String explainInvitation = "$baseUrl/explain-invitation";
-
-
 }

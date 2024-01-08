@@ -15,9 +15,8 @@ class inAppPurchaseSucssesState extends payState {
 }
 
 class inAppPurchaseErrorState extends payState {
-  final String massege ;
+  final String massege;
   inAppPurchaseErrorState({required this.massege});
-
 }
 
 class huaweiPayLoadingState extends payState {}
@@ -28,7 +27,18 @@ class huaweiPaySucssesState extends payState {
 }
 
 class huaweiPayErrorState extends payState {
-  final String massege ;
+  final String massege;
   huaweiPayErrorState({required this.massege});
+}
 
+class applePayLoadingState extends payState {}
+
+class applePaySucssesState extends payState {
+  final String massege;
+  applePaySucssesState({required this.massege});
+}
+
+class applePayErrorState extends payState {
+  final String massege;
+  applePayErrorState({required this.massege});
 }
