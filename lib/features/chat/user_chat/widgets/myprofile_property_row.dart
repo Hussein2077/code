@@ -8,6 +8,7 @@ class MyProfilPropertyRow extends StatelessWidget {
   final String iconPath;
   final String title;
   final Function() onTap;
+  final int index;
   final bool? showIcon;
 
   const MyProfilPropertyRow(
@@ -15,7 +16,7 @@ class MyProfilPropertyRow extends StatelessWidget {
       required this.iconPath,
       required this.title,
       required this.onTap,
-      this.showIcon,
+      this.showIcon, required this.index,
       });
 
   @override
@@ -30,7 +31,7 @@ class MyProfilPropertyRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
 
             children: [
-
+              index==2?const Icon(Icons.notifications_active_rounded,color:ColorManager.whiteColor,):
               Image.asset(iconPath,
                   color: iconPath == AssetsPath.groupChat
                       ? ColorManager.darkPink
@@ -48,7 +49,7 @@ class MyProfilPropertyRow extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headlineMedium!
-                      .copyWith(fontSize: ConfigSize.defaultSize! * 1.4,
+                      .copyWith(fontSize: ConfigSize.defaultSize! * 1.25,
                     fontWeight: FontWeight.bold
                   ),
                 ),
