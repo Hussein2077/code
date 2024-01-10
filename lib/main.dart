@@ -225,20 +225,28 @@ Future<void> main() async {
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     // Handle when the app is opened by clicking on a notification
     // Navigate to HomeScreen when the notification is clicked
-    print('Message data: ${message.data}');
+    print('onMessageOpenedApp ${message.data}');
 
     navigateFromNotification(message);
   });
   //
-  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
-    if (message != null) {
-      // Handle when the app is opened by clicking on a notification
-      // Navigate to HomeScreen when the notification is clicked
-      print('Opened app by clicking on a notification!');
-      print('Message data: ${message.data}');
-      print('${message.data['message-type']} #############');
-    }
+  FirebaseMessaging.onBackgroundMessage((message) async{
+    log(message.data.toString());
+    navigateFromNotification(message);
+    log("el3slyaaaaaa");
   });
+  // FirebaseMessaging.onBackgroundMessage().then((RemoteMessage? message) {
+  //   if (message != null) {
+  //     // Handle when the app is opened by clicking on a notification
+  //     // Navigate to HomeScreen when the notification is clicked
+  //     print('Opened app by clicking on a notification!');
+  //     print('getInitialMessage ${message.data}');
+  //     log('getInitialMessage ${message.data}');
+  //     print('${message.data['message-type']} #############');
+  //
+  //     // navigateFromNotification(message);
+  //   }
+  // });
 
   await ServerLocator().init();
 

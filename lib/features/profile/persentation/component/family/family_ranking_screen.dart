@@ -12,6 +12,8 @@ import 'package:tik_chat_v2/core/widgets/screen_back_ground.dart';
 import 'package:tik_chat_v2/core/widgets/screen_color_back_ground.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_state.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 
 import 'widgets/family_rank_bottom_bar.dart';
 import 'widgets/family_rank_tabs.dart';
@@ -31,6 +33,7 @@ class _FamilyRankingScreenState extends State<FamilyRankingScreen>
   @override
   void initState() {
     rankingController = TabController(length: 3, vsync: this);
+    BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
     super.initState();
   }
 
