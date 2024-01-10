@@ -114,7 +114,7 @@ class _InvitationCardState extends State<InvitationCard> {
                     BorderRadius.circular(ConfigSize.defaultSize! * 2),
                   ),
                   child: TextFieldWidget(
-                    type: TextInputType.number,
+                    type: TextInputType.multiline,
                     controller: invitCodeController,
                     hintText: StringManager.enterTheInvitCode.tr(),
                   ),

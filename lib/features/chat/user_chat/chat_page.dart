@@ -37,9 +37,9 @@ class _ChatPageState extends State<ChatPage> {
     StringManager.appTeam.tr(),
     StringManager.system.tr(),
   ];
-  static const List<String> chatScreenIcons = [
+  static const List<dynamic> chatScreenIcons = [
     AssetsPath.groupChat,
-    AssetsPath.tikTeam,
+    AssetsPath.iconApp,
     AssetsPath.system,
   ];
 
@@ -105,6 +105,7 @@ class _ChatPageState extends State<ChatPage> {
                           itemBuilder: (context, i) {
                             return MyProfilPropertyRow(
                               iconPath: chatScreenIcons[i],
+                              index: i,
                               title: chatScreenTitles[i],
                               onTap: chatScreenOntaps[i],
                               showIcon: false,

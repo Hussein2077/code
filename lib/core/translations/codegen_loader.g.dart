@@ -101,7 +101,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.talk: 'تحدث',
     StringManager.payment: 'فاتورة الدفع',
     StringManager.total: "الاجمالي",
-    StringManager.noDaimonsNow: "لا يجود ماسات الآن",
+    StringManager.noDaimonsNow: "فارغ 😔",
     StringManager.areYouSure: "هل أنت متأكد أنك تريد حذف الدردشه؟",
     StringManager.clearChat: "مسح الدردشة",
     StringManager.music: "موسيقى",

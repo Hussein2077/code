@@ -13,6 +13,7 @@ class AssetsPath {
   static const String paintTheme = "$pathImage/paint_theme.png";
   static const String unLockRoom = "$pathImage/un_locked.png";
   static const String roomlocked = "$pathImage/lockedRoom.png";
+  static const String blockIcon = "$pathIcon/block.png";
   static const String broom = "$pathImage/broom.png";
   static const String daimons = "$pathImage/diamon.png";
   static const String messages = "$pathImage/messages.png";
