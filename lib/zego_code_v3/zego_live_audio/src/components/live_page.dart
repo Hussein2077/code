@@ -124,6 +124,8 @@ class ZegoLivePageState extends State<ZegoLivePage>
                 return Stack(
                   children: [
                     background(context, constraints.maxHeight),
+                    messageList(),
+
                     ValueListenableBuilder(
                         valueListenable: ZegoLivePage.editAudioVideoContainer,
                         builder: (context,update,_){
@@ -134,7 +136,6 @@ class ZegoLivePageState extends State<ZegoLivePage>
                         })   ,
                    // topBar(),
                     bottomBar(),
-                    messageList(),
                     durationTimeBoard(),
                     viewbackground(context, constraints.maxHeight),
                   ],
@@ -321,7 +322,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
         750.zR, 485.zR,
       ):
       Size(700.zR, 550.zR,
-      ) :Size(750.zR, 435.zR,
+      ) :Size(750.zW, 435.zH,
       );
       if (listSize.width < 54.zR) {
         listSize = Size(54.zR, listSize.height);

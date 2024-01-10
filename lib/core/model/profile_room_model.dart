@@ -1,11 +1,10 @@
-
 // ignore_for_file: unnecessary_question_mark
 
 import 'dart:convert';
 
 class ProfileRoomModel {
   final String? image;
-  final int ? gender;
+  final int? gender;
   final String? imageId;
   final dynamic? birthday;
   final int? age;
@@ -20,7 +19,7 @@ class ProfileRoomModel {
 
   ProfileRoomModel copyWith({
     dynamic? image,
-    int ? gender,
+    int? gender,
     String? imageId,
     dynamic? birthday,
     dynamic? province,
@@ -36,7 +35,7 @@ class ProfileRoomModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'image': image??"",
+      'image': image ?? "",
       'gender': gender,
       'birthday': birthday,
     };
@@ -44,7 +43,7 @@ class ProfileRoomModel {
 
   factory ProfileRoomModel.fromMap(Map<String, dynamic> map) {
     return ProfileRoomModel(
-      image: map['image']??"",
+      image: map['image'] ?? "",
       imageId: map['image_id'],
       gender: map['gender'],
       birthday: map['birthday'],
@@ -52,9 +51,6 @@ class ProfileRoomModel {
     );
   }
 
-
   factory ProfileRoomModel.fromJson(String source) =>
       ProfileRoomModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-
 }

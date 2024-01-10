@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/user_profile.dart';
@@ -101,8 +102,8 @@ class ReelsPageState extends State<ReelsPage>
   Future initializePlayer() async {
     final file =
         await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
-    final cachImage =
-        await getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
+    final cachImage = await getIt<DefaultCacheManager>()
+        .getFileFromCache(ConstentApi().getImage(widget.item.img));
     image = cachImage;
 
     if (file?.file != null) {
@@ -196,10 +197,10 @@ class ReelsPageState extends State<ReelsPage>
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-      // case AppLifecycleState.hidden:
+        // case AppLifecycleState.hidden:
 
         _videoPlayerController?.pause();
-      ReelsPage.isVideoPause.value =true;
+        ReelsPage.isVideoPause.value = true;
         break;
     }
   }
@@ -244,8 +245,9 @@ class ReelsPageState extends State<ReelsPage>
                     double middleY = screenHeight / 1.7;
                     double middleX = screenWidth / 1.8;
 
-                    if (details.globalPosition.dy < middleY &&details.delta.direction==0.0&&
-                        details.globalPosition.dx < middleX+100) {
+                    if (details.globalPosition.dy < middleY &&
+                        details.delta.direction == 0.0 &&
+                        details.globalPosition.dx < middleX + 100) {
                       ReelsPage.isVideoPause.value = true;
                       Navigator.push(
                         context,

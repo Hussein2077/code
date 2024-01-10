@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/utils/url_checker.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/component/user_reel_viewr/widget/user_reel_loading_widget.dart';
@@ -108,7 +109,7 @@ class UserReelsPageState extends State<UserReelsPage>
   Future initializePlayer() async {
 
     final file = await getIt<DefaultCacheManager>().getFileFromCache(widget.item.url!);
-    final cachImage =  await getIt<DefaultCacheManager>().getFileFromCache(widget.item.img!);
+    final cachImage =  await getIt<DefaultCacheManager>().getFileFromCache(ConstentApi().getImage(widget.item.img! ));
     image = cachImage ;
 
     if(file?.file !=null){

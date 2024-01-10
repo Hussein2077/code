@@ -644,6 +644,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         //Todo start timer
         getIt<CounterBloc>().startCounter();
         RoomScreen.startTimeOnSeatMic = DateTime.now().millisecondsSinceEpoch;
+
      ZegoLoggerService.logInfo(
           'local user take on seat $index success',
           tag: 'audio room',

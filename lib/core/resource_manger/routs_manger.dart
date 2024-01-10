@@ -14,6 +14,7 @@ import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart
 import 'package:tik_chat_v2/features/auth/presentation/component/Privacy_Policy/privacy_policy_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/add_info/add_info_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/forget_password/forget_password.dart';
+import 'package:tik_chat_v2/features/auth/presentation/component/hint/hint_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/otp_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/refresh_screen/refresh_screen.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/reset_password/reset_password.dart';
@@ -61,6 +62,7 @@ import 'package:tik_chat_v2/features/profile/persentation/component/mall/mall_sc
 import 'package:tik_chat_v2/features/profile/persentation/component/medles%20screen/medles_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_bag/my_bag_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/my_videos_screen.dart';
+import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/block_list/block_list.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/language_screen/language_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_number_old_screen.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/settings/component/linking_screen/component/phone/change_pass_or_number.dart';
@@ -146,6 +148,7 @@ class Routes {
   static const String agencyRequestsScreen = "/AgencyRequestsScreen";
   static const String agencyRepoertsScreen = "/AgencyRepoertsScreen";
   static const String charchingCoinsForUsers = "/CharchingCoinsForUsers";
+  static const String hintScreen = "/HintScreen";
 
   static const String charchingDolarsForUsers = "/CharchingDolarsForUsers";
   static const String chargeFromSystemHistory = "/ChargeFromSystemHistory";
@@ -180,6 +183,7 @@ class Routes {
   static const String refreshScreen = "/RefreshScreen";
   static const String invitScreenDetails = "/InvitScreenDetails";
   static const String userScreen = "/UserScreen";
+  static const String blockList = "/blockList";
 }
 
 class RouteGenerator {
@@ -224,6 +228,14 @@ class RouteGenerator {
             builder: (_) => AddInfoScreen(
                   Data: Data,
                 ));
+
+      case Routes.hintScreen:
+        currentContext = Routes.hintScreen;
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(builder: (_) => const HintScreen());
+        } else {
+          return MaterialPageRoute(builder: (_) => const HintScreen());
+        }
       case Routes.resetPassword:
         currentContext = Routes.resetPassword;
         ResetPasswordParm resetPasswordParm =
@@ -782,14 +794,21 @@ class RouteGenerator {
               settings: settings, builder: (_) => const RefreshScreen());
         }
       case Routes.meddles:
-        if (Platform.isIOS)
-        {
-          return CupertinoPageRoute (
-              builder: (_) => const MedlesScreen());
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(builder: (_) => const MedlesScreen());
+        } else {
+          return MaterialPageRoute(builder: (_) => const MedlesScreen());
+        }
+      case Routes.blockList:
+        if (Platform.isIOS) {
+          return CupertinoPageRoute(
+              builder: (_) => const SafeArea(child: BlockListScreen()));
         } else {
           return MaterialPageRoute(
-              builder: (_) => const MedlesScreen());
+              settings: settings,
+              builder: (_) => const SafeArea(child: BlockListScreen()));
         }
+
     }
 
     return unDefinedRoute();

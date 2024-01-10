@@ -83,6 +83,17 @@ class SettingsScreen extends StatelessWidget {
             onTap: () => Navigator.pushNamed(
                     context, Routes.privacySettings,
                     arguments: MyDataModel.getInstance()),
+          ),SizedBox(
+            height: ConfigSize.defaultSize! * 3.5,
+          ),
+          settingsRow(
+            context: context,
+            title: StringManager.blockList.tr(),
+            widget: const Icon(Icons.block),
+            onTap: () => Navigator.pushNamed(
+              context,
+              Routes.blockList,
+            ),
           ),
           const Spacer(
             flex: 5,
@@ -132,11 +143,12 @@ class SettingsScreen extends StatelessWidget {
 
 Widget settingsRow(
     {required BuildContext context,
-    String? icon,
-    required String title,
-    bool? isIcon,
-    double? size,
-    void Function()? onTap}) {
+      String? icon,
+      required String title,
+      bool? isIcon,
+      double? size,
+      Widget? widget,
+      void Function()? onTap}) {
   return InkWell(
     onTap: onTap,
     child: Row(
@@ -145,11 +157,14 @@ Widget settingsRow(
           flex: 1,
         ),
         isIcon == null
-            ? Image.asset(
-                icon ?? '',
-                scale: size ?? 2,
-              )
-            : const Icon(Icons.cloud_done_outlined,color: ColorManager.mainColor,),
+            ?  widget ?? Image.asset(
+          icon ?? '',
+          scale: size ?? 2,
+        )
+            : const Icon(
+          Icons.cloud_done_outlined,
+          color: ColorManager.mainColor,
+        ),
         const Spacer(
           flex: 1,
         ),
@@ -160,6 +175,7 @@ Widget settingsRow(
         const Spacer(
           flex: 15,
         ),
+
         Icon(
           Icons.arrow_forward_ios,
           color: Theme.of(context).colorScheme.primary,

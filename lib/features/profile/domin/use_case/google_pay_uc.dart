@@ -7,8 +7,8 @@ class PayUsecase {
   BaseRepositoryProfile baseRepositoryProfile;
   PayUsecase({required this.baseRepositoryProfile});
 
-  Future<Either<String, Failure>> pay({required String product_id, required String order_id}) async {
-    final result = await baseRepositoryProfile.pay(product_id: product_id, order_id: order_id);
+  Future<Either<String, Failure>> googlePay({required String data}) async {
+    final result = await baseRepositoryProfile.googlePay(data: data);
     return result;
   }
 }

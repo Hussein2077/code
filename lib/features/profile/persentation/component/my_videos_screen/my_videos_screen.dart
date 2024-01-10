@@ -5,6 +5,8 @@ import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/home/presentation/component/create_live/reels/component/upload_reels/widgets/upload_video.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/my_videos_screen/widgets/reels_box.dart';
@@ -29,6 +31,11 @@ class _MyVideosScreenState extends State<MyVideosScreen> {
     scrollController.addListener(scrollListener);
 
     super.initState();
+  }
+  @override
+  void dispose() {
+    BlocProvider.of<GetUserReelsBloc>(getIt<NavigationService>().navigatorKey.currentContext!).add(const InitialReelEvent());
+    super.dispose();
   }
 
   @override

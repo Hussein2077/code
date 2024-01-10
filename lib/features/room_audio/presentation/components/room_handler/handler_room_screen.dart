@@ -76,7 +76,7 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
               }
 
               PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
-              await pusher.subscribe(channelName: 'presence-room-${MyDataModel.getInstance().id}',
+              await pusher.subscribe(channelName: 'presence-room-${state.room.ownerId}',
                   onEvent: (event){
 
                   });
@@ -118,7 +118,6 @@ class HandlerRoomScreenState extends State<HandlerRoomScreen>  with SingleTicker
             );
 
           }
-
         }
     );
   }

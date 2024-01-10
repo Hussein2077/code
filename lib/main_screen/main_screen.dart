@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -24,6 +23,7 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_event.dart';
+import 'package:tik_chat_v2/features/auth/presentation/widgets/add_gender_dialog.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
 import 'package:tik_chat_v2/features/following/persentation/following_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
@@ -85,7 +85,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-
     Methods.instance.getDependencies(context);
 
     listenToInternet();
@@ -98,36 +97,46 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     super.initState();
   }
 
-
-
-
   @override
   void dispose() {
     animationController.dispose();
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<GetMyDataBloc, GetMyDataState>(
       listener: (context, state) {
         if (state is GetMyDataSucssesState) {
-          BlocProvider.of<LoginChatBloc>(context)
-              .add( LoginChatEvent(name:state.myDataModel.name??"",
+          BlocProvider.of<LoginChatBloc>(context).add(LoginChatEvent(
+              name: state.myDataModel.name ?? "",
               avatar: ConstentApi().getImage(state.myDataModel.profile!.image),
+              id: state.myDataModel.id.toString(),
+              notificationId: state.myDataModel.notificationId!));
 
-              id: state.myDataModel.id.toString() , notificationId: state.myDataModel.notificationId!));
+          if (state.myDataModel.profile!.gender == 2) {
+            Future.delayed(const Duration(seconds: 1), () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return WillPopScope(
+                        child: const AddGenderDialog(),
+                        onWillPop: () async {
+                          return false;
+                        });
+                  });
+            });
+          }
 
+          log(state.myDataModel.isPhone!.toString() + "#######");
+          log(state.myDataModel.phone.toString() + "#######");
 
-          if (state.myDataModel.profile!.age == 0 && state.myDataModel.country == null) {
+          if (state.myDataModel.phone.toString() == "") {
             Navigator.pushNamedAndRemoveUntil(
-                context, Routes.addInfo, (route) => false,
-                arguments: ThirdPartyAuthModel(
-                    isCountryNotComplete:
-                        state.myDataModel.country == null ? true : false,
-                    isAgeNotComplete:
-                        state.myDataModel.profile!.age == 0 ? true : false));
+              context,
+              Routes.phoneBindScreen,
+              (route) => false,
+            );
           }
         }
       },
@@ -142,24 +151,23 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               body: BottomNavLayout(
                 pages: [
                   (_) => ShowCaseWidget(
-                    onComplete: (index,key){
-                      MainScreen.isHomeShowCaseFirst=false;
-                    Methods.instance.saveHomeShowCase(isFirst:MainScreen.isHomeShowCaseFirst);
-                    },
-                 builder   : Builder(
-                      builder: (context) {
-                        return HomeScreen(
-                              isCachExtra: widget.isCachExtra,
-                              isCachFrame: widget.isCachFrame,
-                              isChachGift: widget.isChachGift,
-                              isUpdate: widget.isUpdate,
-                              isCachEmojie: widget.isCachEmojie,
-                              isCachEntro: widget.isCachEntro,
-                              actionDynamicLink: widget.actionDynamicLink,
-                            );
-                      }
-                    ),
-                  ),
+                        onComplete: (index, key) {
+                          MainScreen.isHomeShowCaseFirst = false;
+                          Methods.instance.saveHomeShowCase(
+                              isFirst: MainScreen.isHomeShowCaseFirst);
+                        },
+                        builder: Builder(builder: (context) {
+                          return HomeScreen(
+                            isCachExtra: widget.isCachExtra,
+                            isCachFrame: widget.isCachFrame,
+                            isChachGift: widget.isChachGift,
+                            isUpdate: widget.isUpdate,
+                            isCachEmojie: widget.isCachEmojie,
+                            isCachEntro: widget.isCachEntro,
+                            actionDynamicLink: widget.actionDynamicLink,
+                          );
+                        }),
+                      ),
                   (_) => const ReelsScreenTaps(),
                   (_) => const SafeArea(child: ChatPage()),
                   (_) => const FollowingLiveScreen(),
@@ -227,9 +235,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           RotationTransition(
                               turns: animationController,
                               child: UserImage(
-
                                 imageSize: ConfigSize.defaultSize! * 14,
-                                image: MainScreen.roomData?.roomCover??'',
+                                image: MainScreen.roomData?.roomCover ?? '',
                               )),
                           GestureDetector(
                             onTap: () async {

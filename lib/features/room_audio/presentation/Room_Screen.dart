@@ -284,7 +284,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       RoomScreen.showMessageButton.value = false;
     }
 
-    //   RoomScreen.zegoMediaPlayer = ZegoLiveAudioRoomController();
+
     RoomScreen.myCoins.value =
         widget.myDataModel.myStore?.coins.toString() ?? '';
     if (!MainScreen.iskeepInRoom.value) {
@@ -894,7 +894,19 @@ setState(() {
                 : -1
             ..hostSeatIndexes = [0]
             ..seatConfig = getSeatConfig()
-            ..viewbackground = ViewbackgroundWidget(room: widget.room,
+            ..viewbackground =
+
+            // ZegoMediaPlayer(
+            //   size: Size(300, 200),
+            //   enableRepeat: true,
+            //   canControl: true,
+            //   showSurface: true,
+            //   initPosition: Offset(
+            //     100,
+            //     100,
+            //   ),
+            //
+            ViewbackgroundWidget(room: widget.room,
                 roomDataUpdates: roomDataUpdates,
                 userBannerData: userBannerData,
                 superBox: superBox,

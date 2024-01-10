@@ -6,4 +6,5 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   log("Handling a background message: ${message.toMap()}");
+  log("Handling a background message: ${message.data}");
 }

@@ -529,13 +529,19 @@ class MessagesChached extends StatelessWidget {
                       fit: BoxFit.fill
                   ),
                 ),
-                padding: EdgeInsets.symmetric(
-                    horizontal: ConfigSize.defaultSize! + 15,
-                    vertical: ConfigSize.defaultSize!),
+                padding: EdgeInsets.only(
+                  top: ConfigSize.defaultSize!*5
+                    ,
+                    bottom: ConfigSize.defaultSize!*3.2,
+                    left: ConfigSize.defaultSize! *5,
+                    right: ConfigSize.defaultSize!*5.5),
                 child: Text(
+
                   message.message
                       .replaceAll(message.message.split(" ").first, ""),
-                  style: TextStyle(color: ColorManager.whiteColor),
+                  style: TextStyle(
+                      height : 1.3,
+                      color: ColorManager.whiteColor, overflow: TextOverflow.clip , fontSize: ConfigSize.defaultSize!*1.3),
                 ),
               ),
             )

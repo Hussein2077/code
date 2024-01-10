@@ -94,12 +94,14 @@ import 'package:tik_chat_v2/features/profile/data/Repository_Imp/repository_imp.
 import 'package:tik_chat_v2/features/profile/data/data_sorce/remotly_data_source_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/Repository/base_repository_profile.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/active_notification_usecase.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/add_block_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/add_intrested_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_time_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_history_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_member_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_requests_action_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/agency_requests_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/apple_pay_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/back_pack_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/bound_platform_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/buy_coins_uc.dart';
@@ -126,6 +128,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/follow_unfollow_usec
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_all_intersted_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_all_shipping_agents_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_badges_use_case.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/get_black_list_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_config_key.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_data_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/get_family_member_usecase.dart';
@@ -149,7 +152,8 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/huawei_pay_uc.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/join_to_agencie_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/my_store_uc.dart';
-import 'package:tik_chat_v2/features/profile/domin/use_case/pay_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/google_pay_uc.dart';
+import 'package:tik_chat_v2/features/profile/domin/use_case/remove_block_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/remove_user_family_usecase.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/search_use_case.dart';
 import 'package:tik_chat_v2/features/profile/domin/use_case/send_item_usecase.dart';
@@ -164,7 +168,9 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase
 import 'package:tik_chat_v2/features/profile/domin/use_case/vipPervilage_usecase/prev_dispose_use_case.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/components/in_app_purchases.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/active_notification_manager/active_notification_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/add_or_delete_block/add_or_delete_block_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/badges%20manager/badges_bloc.dart';
+import 'package:tik_chat_v2/features/profile/persentation/manager/block_list_bloc/block_list_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/buy_coins_manger/buy_coins_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/exchange_dimonds_manger/bloc/exchange_dimond_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/family_manager/family_ranking_manager/family_ranking_bloc.dart';
@@ -325,50 +331,56 @@ class ServerLocator {
   Future<void> init() async {
     //bloc
 
-    
-    getIt.registerFactory(() => GoldCoinBloc(getGoldCoinDataUseCase: getIt(),));
+    getIt.registerFactory(() => GoldCoinBloc(
+          getGoldCoinDataUseCase: getIt(),
+        ));
+    getIt.registerFactory(() => AdminRoomBloc(
+        removeAdminUC: getIt(), roomAdminsUC: getIt(), addAdminUC: getIt()));
+    getIt.registerFactory(() => PKBloc(
+        showPKUC: getIt(),
+        hidePKUC: getIt(),
+        startPKUC: getIt(),
+        closePKUC: getIt()));
+    getIt.registerFactory(() => LuckyBoxesBloc(
+          getBoxexUC: getIt(),
+          sendBoxUC: getIt(),
+          pickupBoxUC: getIt(),
+        ));
+    getIt.registerFactory(() => GiftBloc(giftsUseCase: getIt()));
     getIt.registerFactory(
-            () => AdminRoomBloc(removeAdminUC: getIt(),roomAdminsUC: getIt(),addAdminUC:getIt()));
+        () => AddRoomBackgroundBloc(addRoomBackGroundUseCase: getIt()));
     getIt.registerFactory(
-            () => PKBloc(showPKUC: getIt(), hidePKUC:getIt(),startPKUC: getIt(), closePKUC: getIt()));
+        () => GetMyBackgroundBloc(getMyBackGroundUseCase: getIt()));
     getIt.registerFactory(
-            () => LuckyBoxesBloc(getBoxexUC: getIt(), sendBoxUC: getIt(), pickupBoxUC: getIt(),));
-    getIt.registerFactory(
-            () => GiftBloc(giftsUseCase: getIt()));
-    getIt.registerFactory(
-            () => AddRoomBackgroundBloc(addRoomBackGroundUseCase: getIt()));
-    getIt.registerFactory(
-            () => GetMyBackgroundBloc(getMyBackGroundUseCase: getIt()));
-    getIt.registerFactory(
-            () => MangerGetVipPrevBloc(getVipPrevUseCase:getIt() ));
-    getIt.registerFactory(
-            () => OnRoomBloc(
-              banUserFromWritingUC:getIt() ,
-                backGroundUseCase:getIt() ,
-                sendPobUpUC:getIt() ,
-                changeRoomModeUC: getIt(),
-                lockUnLockMicUC:getIt() ,
-                muteUnMuteMicUC: getIt(),
-                leaveMicUC: getIt(),
-                upMicUsecase: getIt(),
-                emojieUseCase:getIt() ,
-                existroomUC: getIt() ,
-                removePassRoomUC: getIt() ,
-                updateRoomUsecase: getIt() ,
-                disposeHideRoomUseCase: getIt(),
-                hideRoomUseCase: getIt() , 
-                sendYallowBannerUC: getIt(),
-                muteUserMicUsecase: getIt(),
-              unMuteUserMicUsecase: getIt(),));
-    getIt.registerFactory(
-            () => SendGiftBloc(giftUseCase: getIt()));
-    getIt.registerFactory(
-            () => RoomHandlerBloc(enterRoomUC: getIt() ));
-    getIt.registerFactory(
-            () => CreateRoomBloc(createRoomUsecase:getIt(),
-                getAllRoomTypesUC: getIt() ));
-    getIt.registerFactory(
-        () => SignInWithPlatformBloc(signInWithGoogleUC: getIt(), signInWithAppleUC: getIt(), signInWithHuaweiUC: getIt(),));
+        () => MangerGetVipPrevBloc(getVipPrevUseCase: getIt()));
+    getIt.registerFactory(() => OnRoomBloc(
+          banUserFromWritingUC: getIt(),
+          backGroundUseCase: getIt(),
+          sendPobUpUC: getIt(),
+          changeRoomModeUC: getIt(),
+          lockUnLockMicUC: getIt(),
+          muteUnMuteMicUC: getIt(),
+          leaveMicUC: getIt(),
+          upMicUsecase: getIt(),
+          emojieUseCase: getIt(),
+          existroomUC: getIt(),
+          removePassRoomUC: getIt(),
+          updateRoomUsecase: getIt(),
+          disposeHideRoomUseCase: getIt(),
+          hideRoomUseCase: getIt(),
+          sendYallowBannerUC: getIt(),
+          muteUserMicUsecase: getIt(),
+          unMuteUserMicUsecase: getIt(),
+        ));
+    getIt.registerFactory(() => SendGiftBloc(giftUseCase: getIt()));
+    getIt.registerFactory(() => RoomHandlerBloc(enterRoomUC: getIt()));
+    getIt.registerFactory(() =>
+        CreateRoomBloc(createRoomUsecase: getIt(), getAllRoomTypesUC: getIt()));
+    getIt.registerFactory(() => SignInWithPlatformBloc(
+          signInWithGoogleUC: getIt(),
+          signInWithAppleUC: getIt(),
+          signInWithHuaweiUC: getIt(),
+        ));
     getIt.registerFactory(() => AddInfoBloc(addInFormationUC: getIt()));
     getIt.registerFactory(
         () => RegisterWithPhoneBloc(registerWithPhoneUsecase: getIt()));
@@ -382,7 +394,8 @@ class ServerLocator {
     getIt.registerFactory(() => MallBuyBloc(buyUseCase: getIt()));
 
     getIt.registerFactory(() => MyBagBloc(getBackPackUseCase: getIt()));
-    getIt.registerFactory(() => GetAllCountriesBloc(getAllCountriesUC: getIt()));
+    getIt
+        .registerFactory(() => GetAllCountriesBloc(getAllCountriesUC: getIt()));
     getIt.registerFactory(
         () => UseItemBloc(useItemUseCase: getIt(), unusedItemUsecase: getIt()));
     getIt.registerFactory(() => VipCenterBloc(
@@ -451,7 +464,6 @@ class ServerLocator {
 
     getIt.registerFactory(() => SendBloc(sendItemUsecase: getIt()));
 
-
     getIt.registerFactory(
         () => AcountBloc(boundPlatformUC: getIt(), deleteAccountUC: getIt()));
 
@@ -459,7 +471,8 @@ class ServerLocator {
         () => GetFollwersRoomBloc(getFollwingRoomsUC: getIt()));
 
     getIt.registerFactory(() => CarouselBloc(getCarouselsUsecase: getIt()));
-
+    getIt.registerFactory(() => AddOrDeleteBLockListBloc(
+        addBlockUseCase: getIt(), removeBlockUseCase: getIt()));
     getIt.registerFactory(() => CounrtyBloc(getCountryUseCase: getIt()));
     getIt.registerFactory(() => GetRoomsBloc(allRoomsUsecase: getIt()));
     getIt.registerFactory(() => SearchBloc(searchUseCase: getIt()));
@@ -497,95 +510,94 @@ class ServerLocator {
     getIt.registerFactory(
         () => ChargeHistoryBloc(chargeHistoryUseCases: getIt()));
 
-            getIt.registerFactory(
-        () => AgencyTimeBloc(agencyHistoryUsecase: getIt()));
+    getIt.registerFactory(() => AgencyTimeBloc(agencyHistoryUsecase: getIt()));
 
-                  getIt.registerFactory(
+    getIt.registerFactory(
         () => ChargeCoinForUserBloc(chargeCoinForUserUsecase: getIt()));
-           getIt.registerFactory(
+    getIt.registerFactory(
         () => ChargeDolarsForUserBloc(chargeDolarsForUserUsecase: getIt()));
 
-
-           getIt.registerFactory(
+    getIt.registerFactory(
         () => ChargeOwnerAgencyHistoryBloc(chargeHistoryUseCases: getIt()));
-          getIt.registerFactory(
+    getIt.registerFactory(
         () => ChargeCoinSystemHistoryBloc(chargeHistoryUseCases: getIt()));
-                 getIt.registerFactory(
+    getIt.registerFactory(
         () => GetAllInterstedBloc(getAllIntrestedUseCase: getIt()));
-        
-                         getIt.registerFactory(
-        () => AddInterstedBloc(addInterstedUsecase: getIt()));
-                            getIt.registerFactory(
+
+    getIt.registerFactory(() => AddInterstedBloc(addInterstedUsecase: getIt()));
+    getIt.registerFactory(
         () => GetUserInterstedBloc(getUserIntrestedUseCase: getIt()));
-                              getIt.registerFactory(
-        () => PrivacyBloc(prevActiveUseCases: getIt() , prevDisposeUseCases: getIt()));
+    getIt.registerFactory(() =>
+        PrivacyBloc(prevActiveUseCases: getIt(), prevDisposeUseCases: getIt()));
 
     getIt.registerFactory(() => FamilyRoomBloc(getFamilyRoomUsecase: getIt()));
 
-                                 getIt.registerFactory(
-        () => UploadReelsBloc(uploadReelUseCase: getIt()));
-                                 getIt.registerFactory(
-        () => GetReelsBloc(getReelUseCase: getIt()));
+    getIt.registerFactory(() => UploadReelsBloc(uploadReelUseCase: getIt()));
+    getIt.registerFactory(() => GetReelsBloc(getReelUseCase: getIt()));
 
-    
+    getIt.registerFactory(() => UserReportBloc(userReporetUseCase: getIt()));
 
+    getIt.registerFactory(() => ReportRealsBloc(reportRealsUseCases: getIt()));
 
-        getIt.registerFactory(
-        () => UserReportBloc(userReporetUseCase: getIt()));
-
-        getIt.registerFactory(
-        () => ReportRealsBloc(reportRealsUseCases: getIt()));
-
-             getIt.registerFactory(
-        () => UsersInRoomBloc(
-            muteUnMuteUserInRoomUC: getIt(), kickoutUC: getIt()));
-                getIt.registerFactory(
+    getIt.registerFactory(() =>
+        UsersInRoomBloc(muteUnMuteUserInRoomUC: getIt(), kickoutUC: getIt()));
+    getIt.registerFactory(
         () => GetReelCommentsBloc(getReelCommentUseCase: getIt()));
-                getIt.registerFactory(
+    getIt.registerFactory(
         () => MakeReelCommentBloc(makeReelCommentUseCase: getIt()));
-               getIt.registerFactory(
-        () => MakeReelLikeBloc(makeReelLikeUseCase: getIt()));
-
+    getIt.registerFactory(() => MakeReelLikeBloc(makeReelLikeUseCase: getIt()));
 
     getIt.registerFactory(() => BuyCoinsBloc(buyCoinsUseCase: getIt()));
     getIt.registerFactory(() => CacheGamesBloc(cacheGamesUS: getIt()));
 
-        getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
-        getIt.registerFactory(() => GetUserReelsBloc(getUserReelUseCase: getIt()));
-                getIt.registerFactory(() => DeleteReelBloc(deleteReelUseCse: getIt()));
-    getIt.registerFactory(() => SendCodeBloc(sendCodeUseCase:  getIt()));
-    getIt.registerFactory(() => PrivacyPolicyBloc(privacyPolicyUseCase:  getIt()));
-    getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase:  getIt()));
+    getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
+    getIt.registerFactory(() => GetUserReelsBloc(getUserReelUseCase: getIt()));
+    getIt.registerFactory(() => DeleteReelBloc(deleteReelUseCse: getIt()));
+    getIt.registerFactory(() => SendCodeBloc(sendCodeUseCase: getIt()));
+    getIt.registerFactory(
+        () => PrivacyPolicyBloc(privacyPolicyUseCase: getIt()));
+    getIt.registerFactory(() => RoomVistorBloc(getAllRoomUserUseCase: getIt()));
     getIt.registerFactory(() => AddMomentBloc(addMomentUseCase: getIt()));
     getIt.registerFactory(() => DeleteMomentBloc(deleteMomentUseCase: getIt()));
     getIt.registerFactory(() => GetMomentBloc(getMomentUseCase: getIt()));
-    getIt.registerFactory(() => GetFollowingUserMomentBloc(getMomenttUseCase: getIt()));
-    getIt.registerFactory(() => GetMomentILikeItBloc(getMomenttUseCase: getIt()));
-    getIt.registerFactory(() => DeleteMomentCommentBloc(deleteMomentCommentUseCase: getIt()));
-    getIt.registerFactory(() => GetMomentCommentBloc(getMomentCommentUseCase: getIt()));
-    getIt.registerFactory(() => MomentSendGiftBloc(momentSendGiftUseCase:  getIt()));
-    getIt.registerFactory(() => MakeMomentLikeBloc(makeMomentLikeUseCase:  getIt()));
-    getIt.registerFactory(() => AddMomentCommentBloc(addMomentCommentUseCase:  getIt()));
-    getIt.registerFactory(() => GetMomentLikesBloc(getMomentLikeUseCase:  getIt()));
-    getIt.registerFactory(() => GetMomentGiftsBloc(getMomentGiftsUseCase:  getIt()));
-    getIt.registerFactory(() => GetFollowingReelsBloc(getFollowingReelUseCase:  getIt()));
+    getIt.registerFactory(
+        () => GetFollowingUserMomentBloc(getMomenttUseCase: getIt()));
+    getIt.registerFactory(
+        () => GetMomentILikeItBloc(getMomenttUseCase: getIt()));
+    getIt.registerFactory(
+        () => DeleteMomentCommentBloc(deleteMomentCommentUseCase: getIt()));
+    getIt.registerFactory(
+        () => GetMomentCommentBloc(getMomentCommentUseCase: getIt()));
+    getIt.registerFactory(
+        () => MomentSendGiftBloc(momentSendGiftUseCase: getIt()));
+    getIt.registerFactory(
+        () => MakeMomentLikeBloc(makeMomentLikeUseCase: getIt()));
+    getIt.registerFactory(
+        () => AddMomentCommentBloc(addMomentCommentUseCase: getIt()));
+    getIt.registerFactory(
+        () => GetMomentLikesBloc(getMomentLikeUseCase: getIt()));
+    getIt.registerFactory(
+        () => GetMomentGiftsBloc(getMomentGiftsUseCase: getIt()));
+    getIt.registerFactory(
+        () => GetFollowingReelsBloc(getFollowingReelUseCase: getIt()));
 
     getIt.registerFactory(() => LuckyGiftBannerBloc(sendLuckyGiftUc: getIt()));
-    getIt.registerFactory(() => ActiveNotificationBloc(activeNotificationUseCase: getIt()));
-    getIt.registerFactory(() => GetUsersInRoomBloc(getRoomUserUseCase: getIt(),));
-    getIt.registerFactory(() => GetMomentallBloc(getMomenttUseCase:  getIt() ));
+    getIt.registerFactory(
+        () => ActiveNotificationBloc(activeNotificationUseCase: getIt()));
+    getIt.registerFactory(() => GetUsersInRoomBloc(
+          getRoomUserUseCase: getIt(),
+        ));
+    getIt.registerFactory(() => GetMomentallBloc(getMomenttUseCase: getIt()));
 
     getIt.registerFactory(
-            () => GetGroupMassageBloc(getGroupMassageUseCase:  getIt() ));
-    getIt.registerFactory(
-            () => GetOfficialMsgsBloc(getOfficialMsgUC:  getIt() ));
+        () => GetGroupMassageBloc(getGroupMassageUseCase: getIt()));
+    getIt.registerFactory(() => GetOfficialMsgsBloc(getOfficialMsgUC: getIt()));
 
     getIt.registerFactory(
-            () => PostGroupChatBloc(postGroupMassageUseCase:  getIt() ));
+        () => PostGroupChatBloc(postGroupMassageUseCase: getIt()));
+    getIt.registerFactory(() => ReportMomentBloc(reportMomentUseCase: getIt()));
     getIt.registerFactory(
-            () => ReportMomentBloc(reportMomentUseCase:  getIt() ));
-    getIt.registerFactory(
-            () => AllShippingAgentsBloc(getAllShippingAgentsUseCase:  getIt() ));
+        () => AllShippingAgentsBloc(getAllShippingAgentsUseCase: getIt()));
     getIt.registerFactory(() => GameBloc(
         inviteToGameUC: getIt(),
         cancelGameUC: getIt(),
@@ -599,25 +611,32 @@ class ServerLocator {
     getIt.registerFactory(() => ForgetPasswordBloc(
         forgetPasswordUc: getIt(), forgetPasswordCodeVerificationUc: getIt()));
     getIt.registerFactory(
-            () => HostOnMicTimeBloc(hostOnMicTimeUseCase:  getIt() ));
-    getIt.registerFactory(
-            () => PayBloc(payUsecase:  getIt(), huaweiPayUsecase: getIt() ));
+        () => HostOnMicTimeBloc(hostOnMicTimeUseCase: getIt()));
+    getIt.registerFactory(() => PayBloc(
+        payUsecase: getIt(),
+        huaweiPayUsecase: getIt(),
+        applePayUsecase: getIt()));
     getIt.registerFactory(() => InvitCodeBloc(invitUsecase: getIt()));
-    getIt.registerFactory(() => GetInvitationUsersDetailsBloc(getInvitationsDetailsUsecase: getIt()));
-    getIt.registerFactory(() => GetInvitationParentDetailsBloc(getParentDetailsUsecase: getIt()));
-    getIt.registerFactory(() => ExtraRoomDataBloc(extraRoomDataUseCase: getIt()));
+    getIt.registerFactory(() =>
+        GetInvitationUsersDetailsBloc(getInvitationsDetailsUsecase: getIt()));
+    getIt.registerFactory(
+        () => GetInvitationParentDetailsBloc(getParentDetailsUsecase: getIt()));
+    getIt.registerFactory(
+        () => ExtraRoomDataBloc(extraRoomDataUseCase: getIt()));
     getIt.registerFactory(() => UserBadgesBloc(getUserBadgeUc: getIt()));
     getIt.registerFactory(() => GetBadgesBloc(getBadgesUseCase: getIt()));
-    getIt.registerFactory(() => SendPrivateCommentBloc(sendPrivateCommentUC: getIt()));
-
+    getIt.registerFactory(
+        () => SendPrivateCommentBloc(sendPrivateCommentUC: getIt()));
+    getIt.registerFactory(() => GetBlockListBloc(getBlackListUseCase: getIt()));
 //usecase
     getIt.registerLazySingleton(
         () => InvitUsecase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(
-            () => GetBadgesUseCase(baseRepositoryProfile: getIt()));
+        () => GetBadgesUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => ExtraRoomDataUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(() => SendPrivateCommentUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(() => GetUserBadgeUc(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => GetUserBadgeUc(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(
         () => GetInvitationsDetailsUsecase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(
@@ -630,7 +649,10 @@ class ServerLocator {
     getIt.registerLazySingleton(
         () => OtherSideGameActionNewUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => GameResultUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(() => HuaweiPayUsecase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => HuaweiPayUsecase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => ApplePayUsecase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(() => HostOnMicTimeUseCase(roomRepo: getIt()));
     getIt.registerLazySingleton(
@@ -641,135 +663,123 @@ class ServerLocator {
           baseRepositoryMoment: getIt(),
         ));
 
-    getIt.registerLazySingleton(() => GetGroupMassageUseCase(baseRepositoryChat: getIt()));
+    getIt.registerLazySingleton(
+        () => GetGroupMassageUseCase(baseRepositoryChat: getIt()));
 
-    getIt.registerLazySingleton(() => GetOfficialMsgUC(baseRepositoryChat: getIt()));
+    getIt.registerLazySingleton(
+        () => GetOfficialMsgUC(baseRepositoryChat: getIt()));
 
     getIt.registerLazySingleton(() => GetRoomUserUseCase(roomRepo: getIt()));
-    getIt.registerLazySingleton(() => ActiveNotificationUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => ActiveNotificationUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => SendLuckyGiftUc(roomRepo: getIt()));
-    getIt.registerLazySingleton(() => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
-    getIt.registerLazySingleton(() => GetMomentGiftsUseCase(baseRepositoryMoment: getIt()));
-    getIt.registerLazySingleton(() => GetMomentLikeUseCase(baseRepositoryMoment: getIt()));
-    getIt.registerLazySingleton(() => AddMomentCommentUseCase(baseRepositoryMoment: getIt()));
-    getIt.registerLazySingleton(() => MakeMomentLikeUseCase(baseRepositoryMoment: getIt()));
-    getIt.registerLazySingleton(() => GetMomentCommentUseCase(baseRepositoryMoment: getIt()));
-   getIt.registerLazySingleton(() => DeleteMomentCommentUseCase(baseRepositoryMoment: getIt()));
-   getIt.registerLazySingleton(() => GetMomentUseCase(baseRepositoryMoment: getIt()));
-   getIt.registerLazySingleton(() => DeleteMomentUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => MomentSendGiftUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => GetMomentGiftsUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => GetMomentLikeUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => AddMomentCommentUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => MakeMomentLikeUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => GetMomentCommentUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => DeleteMomentCommentUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => GetMomentUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => DeleteMomentUseCase(baseRepositoryMoment: getIt()));
 
-   getIt.registerLazySingleton(() => AddMomentUseCase(baseRepositoryMoment: getIt()));
-    getIt.registerLazySingleton(() => PrivacyPolicyUseCase(baseRepository: getIt()));
+    getIt.registerLazySingleton(
+        () => AddMomentUseCase(baseRepositoryMoment: getIt()));
+    getIt.registerLazySingleton(
+        () => PrivacyPolicyUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => SendCodeUseCase(baseRepository: getIt()));
-   getIt.registerLazySingleton(() => DeleteReelUseCse(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => DeleteReelUseCse(baseRepositoryProfile: getIt()));
 
-   getIt.registerLazySingleton(() => GetUserReelsUsecase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => GetUserReelsUsecase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => GetTopRoomUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(() => SendYallowBannerUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => MuteUserMicUsecase(roomRepo: getIt()));
     getIt.registerLazySingleton(() => UnMuteUserMicUsecase(roomRepo: getIt()));
 
-    getIt.registerLazySingleton(() => BuyCoinsUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(
-            () => GetGoldCoinDataUseCase(baseRepositoryProfile: getIt()));
-
- getIt.registerLazySingleton(
-            () => MakeReelLikeUseCase(baseRepositoryReel: getIt()));
-
- getIt.registerLazySingleton(
-            () => MakeReelCommentUseCase(baseRepositoryReel: getIt()));
-
+        () => BuyCoinsUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(
-            () => SendItemUsecase(baseRepositoryProfile: getIt()));
-
- getIt.registerLazySingleton(
-            () => GetReelCommentUseCase(baseRepositoryReel: getIt()));
-getIt.registerLazySingleton(
-            () => MuteUnMuteUserInRoomUC(roomRepo: getIt()));
+        () => GetGoldCoinDataUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => AddBlockUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => RemoveBlockUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => MakeReelLikeUseCase(baseRepositoryReel: getIt()));
 
     getIt.registerLazySingleton(
-            () => KickoutUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(
-            () => GetAllCountriesUC(baseRepository: getIt()));
+        () => MakeReelCommentUseCase(baseRepositoryReel: getIt()));
 
     getIt.registerLazySingleton(
-            () => RemoveAdminUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(
-            () => AddAdminUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(
-            () => RoomAdminsUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(
-            () => ShowPKUC(roomRepo: getIt()));
+        () => SendItemUsecase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(
-            () => StartPKUC(roomRepo: getIt()));
+        () => GetReelCommentUseCase(baseRepositoryReel: getIt()));
+    getIt
+        .registerLazySingleton(() => MuteUnMuteUserInRoomUC(roomRepo: getIt()));
+
+    getIt.registerLazySingleton(() => KickoutUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(
+        () => GetAllCountriesUC(baseRepository: getIt()));
+
+    getIt.registerLazySingleton(() => RemoveAdminUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => AddAdminUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => RoomAdminsUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => ShowPKUC(roomRepo: getIt()));
+
+    getIt.registerLazySingleton(() => StartPKUC(roomRepo: getIt()));
+
+    getIt.registerLazySingleton(() => ClosePKUC(roomRepo: getIt()));
+
+    getIt.registerLazySingleton(() => HidePKUC(roomRepo: getIt()));
 
     getIt.registerLazySingleton(
-            () => ClosePKUC(roomRepo: getIt()));
+        () => SignInWithAppleUC(baseRepository: getIt()));
+    getIt.registerLazySingleton(
+        () => SignInWithHuaweiUC(baseRepository: getIt()));
+    getIt.registerLazySingleton(() => PickupBoxUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => SendBoxUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => GetBoxexUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(
+        () => AddRoomBackGroundUseCase(roomRepo: getIt()));
+    getIt
+        .registerLazySingleton(() => GetMyBackGroundUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(
+        () => GetVipPrevUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(() => SendGiftUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => ExistroomUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => GetAllRoomUserUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => BackGroundUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => UpdateRoomUsecase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => EmojieUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => RemovePassRoomUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => UpMicUsecase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => LeaveMicUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => MuteUnMuteMicUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => LockUnLockMicUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => ChangeRoomModeUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => BanUserFromWritingUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => SendPobUpUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => HideRoomUseCase(roomRepo: getIt()));
+    getIt
+        .registerLazySingleton(() => DisposeHideRoomUseCase(roomRepo: getIt()));
 
-
-    getIt.registerLazySingleton(
-            () => HidePKUC(roomRepo: getIt()));
-       
-
-    getIt.registerLazySingleton(
-            () => SignInWithAppleUC(baseRepository: getIt()));
-    getIt.registerLazySingleton(
-            () => SignInWithHuaweiUC(baseRepository: getIt()));
-    getIt.registerLazySingleton(
-            () => PickupBoxUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(
-            () => SendBoxUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(
-            () => GetBoxexUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(
-            () => AddRoomBackGroundUseCase(roomRepo: getIt()));
-    getIt.registerLazySingleton(
-            () => GetMyBackGroundUseCase(roomRepo: getIt()));
-    getIt.registerLazySingleton(
-    () => GetVipPrevUseCase(baseRepositoryProfile: getIt()));
-    getIt.registerLazySingleton(
-            () => SendGiftUseCase(roomRepo:getIt() ));
-    getIt.registerLazySingleton(
-            () => ExistroomUC(roomRepo:getIt() ));
-    getIt.registerLazySingleton(
-            () => GetAllRoomUserUseCase(roomRepo:getIt() ));
-    getIt.registerLazySingleton(
-            () => BackGroundUseCase(roomRepo:getIt() ));
-    getIt.registerLazySingleton(
-            () => UpdateRoomUsecase(roomRepo:getIt() ));
-    getIt.registerLazySingleton(
-            () => EmojieUseCase(roomRepo:getIt() ));
-    getIt.registerLazySingleton(
-            () => RemovePassRoomUC(roomRepo:getIt() ));
-    getIt.registerLazySingleton(
-            () => UpMicUsecase(roomRepo:getIt()));
-    getIt.registerLazySingleton(
-            () => LeaveMicUC(roomRepo:getIt()));
-    getIt.registerLazySingleton(
-            () => MuteUnMuteMicUC(roomRepo:getIt()));
-    getIt.registerLazySingleton(
-            () => LockUnLockMicUC(roomRepo:getIt()));
-    getIt.registerLazySingleton(
-            () => ChangeRoomModeUC(roomRepo:getIt()));
-    getIt.registerLazySingleton(
-            () => BanUserFromWritingUC(roomRepo:getIt()));
-    getIt.registerLazySingleton(
-            () => SendPobUpUC(roomRepo:getIt()));
-    getIt.registerLazySingleton(
-            () => HideRoomUseCase(roomRepo:getIt()));
-    getIt.registerLazySingleton(
-            () => DisposeHideRoomUseCase(roomRepo:getIt()));
-
-    getIt.registerLazySingleton(
-            () => GiftsUseCase(roomRepo:getIt()));
-    getIt.registerLazySingleton(
-            () => EnterRoomUC(roomRepo:getIt() ));
-    getIt.registerLazySingleton(
-            () => GetAllRoomTypesUC(repoHome:getIt() ));
-    getIt.registerLazySingleton(
-            () => CreateRoomUsecase(repoHome:getIt() ));
+    getIt.registerLazySingleton(() => GiftsUseCase(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => EnterRoomUC(roomRepo: getIt()));
+    getIt.registerLazySingleton(() => GetAllRoomTypesUC(repoHome: getIt()));
+    getIt.registerLazySingleton(() => CreateRoomUsecase(repoHome: getIt()));
     getIt.registerLazySingleton(
         () => SignInWithGoogleUC(baseRepository: getIt()));
 
@@ -884,69 +894,68 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton(
         () => AgencyHistoryTimemUsecase(baseRepositoryProfile: getIt()));
 
-            getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => AgencyHistoryUsecase(baseRepositoryProfile: getIt()));
 
-     getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => ChargeCoinForUserUsecase(baseRepositoryProfile: getIt()));
 
-             getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => ChargeDolarsForUserUsecase(baseRepositoryProfile: getIt()));
 
-                getIt.registerLazySingleton(
-        () => GetChargeDolarsAgencyOwnerHistoryUseCase(chargeHistoryUc: getIt()));
-                        getIt.registerLazySingleton(
+    getIt.registerLazySingleton(() =>
+        GetChargeDolarsAgencyOwnerHistoryUseCase(chargeHistoryUc: getIt()));
+    getIt.registerLazySingleton(
         () => GetChargeCoinsSystemHistoryUseCases(chargeHistoryUc: getIt()));
 
-                                getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GetAllIntrestedUseCase(baseRepositoryProfile: getIt()));
-                                        getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => AddInterstedUsecase(baseRepositoryProfile: getIt()));
 
-        getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GetUserIntrestedUseCase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(
-            () => GetFamilyRoomUsecase(baseRepositoryProfile: getIt()));
-               getIt.registerLazySingleton(
+        () => GetFamilyRoomUsecase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
         () => PrevActiveUseCases(baseRepositoryProfile: getIt()));
-               getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => PrevDisposeUseCases(baseRepositoryProfile: getIt()));
 
-                 getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => UploadReelUseCase(baseRepositoryReel: getIt()));
-                getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => GetReelUseCase(baseRepositoryReel: getIt()));
-               getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => UserReporetUseCase(baseRepository: getIt()));
 
-         getIt.registerLazySingleton(
+    getIt.registerLazySingleton(
         () => ReportRealsUseCases(baseRepositoryReel: getIt()));
 
-    getIt.registerLazySingleton(() => GetFollowingReelUseCase(baseRepositoryReel: getIt()));
-    getIt.registerLazySingleton(() => GetAllShippingAgentsUseCase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => GetFollowingReelUseCase(baseRepositoryReel: getIt()));
+    getIt.registerLazySingleton(
+        () => GetAllShippingAgentsUseCase(baseRepositoryProfile: getIt()));
     getIt.registerLazySingleton(() => InviteToGameUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => CancelGameUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => StartGameUC(roomRepo: getIt()));
     getIt.registerLazySingleton(() => SendGameChoiseUC(roomRepo: getIt()));
-    getIt.registerLazySingleton(() => PayUsecase(baseRepositoryProfile: getIt()));
+    getIt.registerLazySingleton(
+        () => PayUsecase(baseRepositoryProfile: getIt()));
 
     getIt.registerLazySingleton(() => LoginChatBloc());
     getIt.registerFactory(() => LogOutChatBloc());
     getIt.registerFactory(() => UpdateUserDataBloc());
-
-
-
-
-
+    getIt.registerLazySingleton(
+        () => GetBlackListUseCase(baseRepositoryProfile: getIt()));
 
 //repo
 
     getIt.registerLazySingleton<BaseRepositoryChat>(
-            () => RepositoryImpChat(baseDataSourceChat: getIt()));
+        () => RepositoryImpChat(baseDataSourceChat: getIt()));
     getIt.registerLazySingleton<BaseRepository>(
-            () => RepositoryImp(baseRemotlyDataSource: getIt()));
-
+        () => RepositoryImp(baseRemotlyDataSource: getIt()));
 
     getIt.registerLazySingleton<BaseRepositoryMoment>(
         () => RepositoryImpMoment(baseRemotlyDataSourceMoment: getIt()));
@@ -954,21 +963,21 @@ getIt.registerLazySingleton(
     getIt.registerLazySingleton<BaseRepositoryProfile>(
         () => RepositoryImpProfile(baseRemotlyDataSourceProfile: getIt()));
     getIt.registerLazySingleton<BaseRepositoryRoom>(
-            () => RepositoryImpRoom(baseRemotlyDataSourceRoom: getIt()));
+        () => RepositoryImpRoom(baseRemotlyDataSourceRoom: getIt()));
     getIt.registerLazySingleton<RepoHome>(
         () => HomeRepostoryImp(homeRemoteDataSours: getIt()));
     getIt.registerLazySingleton<RepoFollow>(
         () => FollwoingRepostoryImp(follwoingRemoteDataSours: getIt()));
-          getIt.registerLazySingleton<BaseRepositoryReels>(
+    getIt.registerLazySingleton<BaseRepositoryReels>(
         () => RepositoryReels(baseRemotlyDataSourceReels: getIt()));
 
 //data source
     getIt.registerLazySingleton<BaseDataSourceChat>(
-            () => RemotedDataSourceChat());
+        () => RemotedDataSourceChat());
     getIt.registerLazySingleton<BaseRemotlyDataSourceMoment>(
-            () => RemotlyDataSourceMoment());
+        () => RemotlyDataSourceMoment());
     getIt.registerLazySingleton<BaseRemotlyDataSourceRoom>(
-            () => RemotlyDataSourceRoom());
+        () => RemotlyDataSourceRoom());
     getIt.registerLazySingleton<BaseRemotlyDataSource>(
         () => RemotlyDataSource());
     getIt.registerLazySingleton<BaseRemotlyDataSourceProfile>(
@@ -979,25 +988,19 @@ getIt.registerLazySingleton(
 
     getIt.registerLazySingleton<FollwoingRemoteDataSours>(
         () => FollwingRemoteDataSoursImp());
-            getIt.registerLazySingleton<BaseRemotlyDataSourceReels>(
+    getIt.registerLazySingleton<BaseRemotlyDataSourceReels>(
         () => RemotlyDataSourceReels());
-
-
-
 
     SetTimerPK setTimerPK = SetTimerPK();
     getIt.registerLazySingleton(() => setTimerPK);
 
-    TimeData timeData = TimeData() ;
+    TimeData timeData = TimeData();
     getIt.registerLazySingleton(() => timeData);
 
     SetTimerLuckyBox setTimer = SetTimerLuckyBox();
     getIt.registerLazySingleton(() => setTimer);
 
-
-
     getIt.registerSingleton<CounterBloc>(CounterBloc());
-
 
     //extarnal
 
@@ -1010,9 +1013,9 @@ getIt.registerLazySingleton(
 
     final sharedPreferences = await SharedPreferences.getInstance();
     getIt.registerLazySingleton(() => sharedPreferences);
-    final cacheManager =  DefaultCacheManager();
+    final cacheManager = DefaultCacheManager();
     getIt.registerLazySingleton(() => cacheManager);
-   final VideoCacheManager videoCacheManager = VideoCacheManager() ;
+    final VideoCacheManager videoCacheManager = VideoCacheManager();
     getIt.registerLazySingleton(() => videoCacheManager);
     final MyDataModel cacheMyData = await Methods.instance.returnMyData();
     getIt.registerLazySingleton(() => cacheMyData);

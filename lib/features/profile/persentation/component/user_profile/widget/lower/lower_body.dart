@@ -40,11 +40,7 @@ class _LowerProfileBodyState extends State<LowerProfileBody> with TickerProvider
     }
     super.initState();
   }
-  @override
-  void didChangeDependencies() {
-    BlocProvider.of<GetUserReelsBloc>(context).add(const InitialReelEvent());
-    super.didChangeDependencies();
-  }
+
   @override
   Widget build(BuildContext context) {
     return Column(

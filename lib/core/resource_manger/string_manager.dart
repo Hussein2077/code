@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 
 class StringManager {
-  static const int versionApp = 58;
+  static const int versionApp = 59;
   static const String androidPlatform = 'Android';
   static const String iOSPlatform = 'IOS';
 
@@ -26,6 +26,8 @@ class StringManager {
   static const String cachReelsKey = 'cachReelsKey';
   static const String video = 'Video';
   static const String age = 'Age';
+  static const String skip = 'Skip';
+  static const String hint = "Follow these steps to edit your details later";
 
 //shared
   static const String selectTimeFirst = 'Select time frist';
@@ -56,6 +58,7 @@ class StringManager {
   static const String roomMedals = "Room Medals";
   static const String chargeMedals = "Charge Medals";
   static const String giftMedals = "Gift Medals";
+  static const String pleaseAddYourGender = "Please Add Your Gender";
 
   ////
   static const String youWillSpend = 'You will Spend';
@@ -240,6 +243,7 @@ class StringManager {
   static const String roomName = "Room Name";
   static const String public = "Public";
   static const String private = "Private";
+  static const String privateComment = "Private comment";
   static const String createRoom = "Create Room";
   static const String createLiveVideo = "Create Live Video";
   static const String startLive = "Start Live";
@@ -504,6 +508,7 @@ class StringManager {
   static const String writeUnBan = "write Unban";
   static const String writeBan = "write ban";
   static const String block = "Block";
+  static const String unBlock = "Unblock";
   static const String lastActive = "Last Active: ";
   static const String spitialMassege = "spitial messege";
   static const String theTextHasBeenCopied = "The text has been copied";
@@ -611,8 +616,10 @@ class StringManager {
   static const String PaidPlay = "Paid Play";
   static const String wait = "Wait For Product Data";
   static const String viewProfile = "View Profile";
-  static const String changeThemeApproval ="Do you approve to change this theme for ";
-  static const String pleaseAddAtLeastTwoValue = "Please Add At Least Two Value";
+  static const String changeThemeApproval =
+      "Do you approve to change this theme for ";
+  static const String pleaseAddAtLeastTwoValue =
+      "Please Add At Least Two Value";
   static const String enterTheInvitCode = "enter the invitation code here";
   static const String youHaveBeenInvited = "you have been invited before";
   static const String youCantInvitYourSelf = "you can\'t invit yourself";
@@ -634,16 +641,16 @@ class StringManager {
   static const String participants = "Participants:";
   static const String luckyUsers = "Lucky Users:";
 
-
-  static const String chatWillBeAvailable = "The chat will be available in the coming hours";
+  static const String chatWillBeAvailable =
+      "The chat will be available in the coming hours";
   static const String stayTuned = "Stay tuned 😉";
 
-  static const String thisFeaturenotAvailableNow = "This Feature not Available Now";
+  static const String thisFeaturenotAvailableNow =
+      "This Feature not Available Now";
   static const String like = "Likes 👍";
   static const String howToGainFreeCoins = "How to get";
   static const String freeCoins = " Free Coins";
-
-
+  static const String remove = "Remove";
 
   static const String explainGameDice = '''
       Players:
@@ -696,10 +703,6 @@ class StringManager {
       You can play with all people inside the ROM
       If you are lucky, the rotation will stop and your name and picture will be shown to everyone inside the room so that they can send you a gift.
     ''';
-
-
-
-
 
   ///List Type Users
   //0 normal user,
@@ -1003,8 +1006,6 @@ class StringManager {
       "${RoomScreen.differentCommentKey}${StringManager.result}dice";
   static String privateCommentKey =
       "${RoomScreen.differentCommentKey}privateComment";
-
-
 
   //games links
   static const String teenPatti =

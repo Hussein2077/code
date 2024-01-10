@@ -95,17 +95,14 @@ class ProfitCard extends StatelessWidget {
               ),
             );
           } else if (state is ParentDataErorrState) {
-            log('kkkkk2');
 
             return CustomErrorWidget(
               message: state.massage,
             );
           } else if (state is ParentDataLoadingState) {
-            log('kkkkk3');
 
             return const LoadingWidget();
           } else {
-            log('kkkkk4');
 
             return const SizedBox();
           }
