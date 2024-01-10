@@ -48,35 +48,17 @@ class _LogOutOrDeleteAccountButtonState
     return BlocListener<LogOutBloc, LogOutState>(
         listener: (context, state) async {
           if (state is LogOutSucssesState ||
-              state is DeleteAccountSucssesState||state is LogOutErrorState) {
-            BlocProvider.of<LogOutChatBloc>(context).add(LogOutChatEvent());
-
-            Future.delayed(Duration.zero, () async {
-              if(MainScreen.iskeepInRoom.value){
-                await Methods.instance.exitFromRoom(MainScreen
-                    .roomData!.ownerId
-                    .toString(), context);
-                MainScreen.iskeepInRoom.value = false ;
-              }
-              SharedPreferences preference = getIt();
-              preference.remove(StringManager.keepLogin);
-              preference.remove(StringManager.userDataKey);
-              preference.remove(StringManager.userTokenKey);
-              preference.remove(StringManager.deviceToken);
-              MyDataModel.getInstance().clearObject();
-              Methods().removeUserData();
-              // ignore: use_build_context_synchronously
-            }).then((value) =>
-              getIt<NavigationService>().navigatorKey.currentState!.pushNamedAndRemoveUntil(Routes.login, (route) => false));
-
+              state is DeleteAccountSucssesState ||
+              state is LogOutErrorState) {
+          getIt<NavigationService>()
+                .navigatorKey
+                .currentState!
+                .pushNamedAndRemoveUntil(Routes.login, (route) => false);
           } else if (state is LogOutLoadingState ||
               state is DeleteAccountLoadingState) {
           } else if (state is DeleteAccountErrorState) {
-
-            ScaffoldMessenger.of(context).showSnackBar(
-                errorSnackBar(context,state.error));
-
-
+            ScaffoldMessenger.of(context)
+                .showSnackBar(errorSnackBar(context, state.error));
 
             LogOutOrDeleteAccountButton.isFirstTabInAcceptButton = true;
           }
@@ -92,15 +74,16 @@ class _LogOutOrDeleteAccountButtonState
                         accpetText: () async {
                           if (LogOutOrDeleteAccountButton
                               .isFirstTabInAcceptButton) {
-
                             setState(() {
                               LogOutOrDeleteAccountButton
                                   .isFirstTabInAcceptButton = false;
                             });
-                            final googleSignIn = GoogleSignIn();
-                            googleSignIn.disconnect();
-                            BlocProvider.of<LogOutBloc>(context)
-                                .add(LogOutEvent());
+                            Methods.instance
+                                .removeUserDataWhileLogOutOrBanOrLoginWithAnotherAccount(
+                                    context,
+                                    ownerId: MyDataModel.getInstance()
+                                        .id
+                                        .toString());
                           }
                         });
                     // BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
@@ -120,6 +103,12 @@ class _LogOutOrDeleteAccountButtonState
                               LogOutOrDeleteAccountButton
                                   .isFirstTabInAcceptButton = false;
                             });
+                            Methods.instance
+                                .removeUserDataWhileLogOutOrBanOrLoginWithAnotherAccount(
+                                context,
+                                ownerId: MyDataModel.getInstance()
+                                    .id
+                                    .toString());
                             BlocProvider.of<LogOutBloc>(context)
                                 .add(DeleteAccountEvent());
                           }

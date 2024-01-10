@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -61,6 +62,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
     passwordController = TextEditingController();
     if (widget.isBaned!) {
+      Methods.instance
+          .removeUserDataWhileLogOutOrBanOrLoginWithAnotherAccount(
+          getIt<NavigationService>().navigatorKey.currentContext!,
+          ownerId: MyDataModel.getInstance()
+              .id
+              .toString());
       Future.delayed(const Duration(seconds: 2), () {
         if (mounted) {
           showDialog(
@@ -79,8 +86,15 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     else if (widget.isLoginFromAnotherAccountAndBuildFailure!) {
+      Methods.instance
+          .removeUserDataWhileLogOutOrBanOrLoginWithAnotherAccount(
+          getIt<NavigationService>().navigatorKey.currentContext!,
+          ownerId: MyDataModel.getInstance()
+              .id
+              .toString());
       Future.delayed(const Duration(seconds: 2), () {
-        showDialog(
+        if(mounted) {
+          showDialog(
             context: context,
             builder: (context) {
               return PopUpDialog(
@@ -91,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 accpettitle: StringManager.ok.tr(),
               );
             });
+        }
       });
     }
     else if ((widget.isUpdate ?? false)) {

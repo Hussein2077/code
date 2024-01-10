@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 // ignore: depend_on_referenced_packages
@@ -39,6 +40,10 @@ import 'package:tik_chat_v2/core/widgets/chat-ui.dart';
 import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_event.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/chat_theme_integration.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
@@ -77,6 +82,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_ro
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_event.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
@@ -427,7 +434,6 @@ class Methods {
       }
       CacheDataWidget.notifierDownloadCache.value =
           CacheDataWidget.notifierDownloadCache.value + 1;
-
     }
 
     for (int i = 0; i < svgaDataModel.pkIamges.length; i++) {
@@ -489,7 +495,6 @@ class Methods {
               '${dataMallModel[i].id.toString()}${StringManager.cacheEntroKey}');
       CacheDataWidget.notifierDownloadCache.value =
           CacheDataWidget.notifierDownloadCache.value + 1;
-
     }
 
     setLastTimeCache(TypesCache.intro);
@@ -626,7 +631,7 @@ class Methods {
       if (!data[i].showImg.contains('mp4')) {
         //cache svga image
         await cacheSvgaImage(
-            svgaUrl: ConstentApi().getImage(data[i].showImg + 'uuu'),
+            svgaUrl: ConstentApi().getImage(data[i].showImg),
             imageId: data[i].id.toString());
         CacheDataWidget.notifierDownloadCache.value =
             CacheDataWidget.notifierDownloadCache.value + 1;
@@ -638,7 +643,6 @@ class Methods {
       await _download(path: path, img: data[i].showImg, giftId: data[i].id);
       CacheDataWidget.notifierDownloadCache.value =
           CacheDataWidget.notifierDownloadCache.value + 1;
-
     }
   }
 
@@ -1112,5 +1116,33 @@ class Methods {
     String secondsText = remainingSeconds.toString().padLeft(2, '0');
 
     return '$hoursText:$minutesText:$secondsText';
+  }
+
+  void removeUserDataWhileLogOutOrBanOrLoginWithAnotherAccount(
+    BuildContext context, {
+    required String ownerId,
+  }) async {
+    // exit room
+    if (MainScreen.iskeepInRoom.value) {
+      await Methods().exitFromRoom(ownerId, context);
+      BlocProvider.of<OnRoomBloc>(context)
+          .add(LeaveMicEvent(ownerId: ownerId, userId: id));
+      BlocProvider.of<OnRoomBloc>(context).add(InitRoomEvent());
+      MainScreen.iskeepInRoom.value = false;
+    }
+    //logout from Chat
+    BlocProvider.of<LogOutChatBloc>(context).add(LogOutChatEvent());
+    //log out from google
+    final googleSignIn = GoogleSignIn();
+      googleSignIn.disconnect();
+    //logout
+    BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
+    SharedPreferences preference = getIt();
+    preference.remove(StringManager.keepLogin);
+    preference.remove(StringManager.userDataKey);
+    preference.remove(StringManager.userTokenKey);
+    preference.remove(StringManager.deviceToken);
+    MyDataModel.getInstance().clearObject();
+    Methods().removeUserData();
   }
 }
