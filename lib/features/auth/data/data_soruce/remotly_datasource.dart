@@ -19,7 +19,6 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart'
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-
 abstract class BaseRemotlyDataSource {
   Future<MyDataModel> registerWithCodeAndPhone(AuthPramiter authPramiter);
   Future<Unit> resendCode(String uuid);
@@ -33,14 +32,13 @@ abstract class BaseRemotlyDataSource {
   Future<String> privacyPolicy();
   Future<String> deleteAccount();
   Future<GetAllCountriesBase> getAllCountries();
-  Future<String> forgetPassword({required String phone, required String password, required String code});
-  Future<String> forgetPasswordCodeVerification({required String phone, required String code});
+  Future<String> forgetPassword(
+      {required String phone, required String password, required String code});
+  Future<String> forgetPasswordCodeVerification(
+      {required String phone, required String code});
 }
 
-
-
 class RemotlyDataSource extends BaseRemotlyDataSource {
-
   @override
   Future<Unit> resendCode(String phone) async {
     final body = {"phone": phone};
@@ -56,7 +54,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   }
 
   @override
-  Future<MyDataModel> registerWithCodeAndPhone(AuthPramiter authPramiter) async {
+  Future<MyDataModel> registerWithCodeAndPhone(
+      AuthPramiter authPramiter) async {
     final body = {
       ConstentApi.phone: authPramiter.phone,
       ConstentApi.password: authPramiter.password,
@@ -73,29 +72,27 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       Methods.instance.saveUserToken(authToken: jsonData['data']['auth_token']);
       return userData;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e, endpointName: "registerWithCodeAndPhone");
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "registerWithCodeAndPhone");
     }
   }
 
   @override
-  Future<MyDataModel> loginWithPassAndPhone(AuthPramiter authPramiter)async {
+  Future<MyDataModel> loginWithPassAndPhone(AuthPramiter authPramiter) async {
+    final devicedata =
+        await DioHelper().initPlatformState(); // to get information device
 
-  final devicedata = await DioHelper().initPlatformState(); // to get information device
-
-
-     final body =  {
-        ConstentApi.type: ConstentApi.phonePass,
+    final body = {
+      ConstentApi.type: ConstentApi.phonePass,
       ConstentApi.phone: authPramiter.phone,
       ConstentApi.password: authPramiter.password,
-       'device_token':devicedata
-      };
-  Map<String, String> headers = await DioHelper().header();
+      'device_token': devicedata
+    };
+    Map<String, String> headers = await DioHelper().header();
 
-  try {
+    try {
       final response = await Dio().post(
-        options: Options(
-            headers:headers
-        ),
+        options: Options(headers: headers),
         ConstentApi.loginUrl,
         data: body,
       );
@@ -106,63 +103,64 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       return userData;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:"loginWithPassAndPhone");
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "loginWithPassAndPhone");
     }
   }
-  
+
   @override
-  Future<MyDataModel> addInformation(InformationPramiter informationPramiter)async {
-     FormData formData;
+  Future<MyDataModel> addInformation(
+      InformationPramiter informationPramiter) async {
+    FormData formData;
 
     if (informationPramiter.image == null) {
       formData = FormData.fromMap({
-        'bio' : informationPramiter.bio,
+        'bio': informationPramiter.bio,
         ConstentApi.name: informationPramiter.name,
         ConstentApi.birthday: informationPramiter.date,
-        ConstentApi.gender: informationPramiter.gender,
-        'country_id':informationPramiter.countryID,
-        if(informationPramiter.email != null) "email": informationPramiter.email.toString()
-
+        "gender": informationPramiter.gender!,
+        'country_id': informationPramiter.countryID,
+        if (informationPramiter.email != null)
+          "email": informationPramiter.email.toString()
       });
-    }
-    else {
+    } else {
       File file = informationPramiter.image!;
       String fileName = file.path.split('/').last;
 
       formData = FormData.fromMap({
-                'bio' : informationPramiter.bio,
-
+        'bio': informationPramiter.bio,
         "image": await MultipartFile.fromFile(file.path, filename: fileName),
         ConstentApi.name: informationPramiter.name,
         ConstentApi.birthday: informationPramiter.date,
-        ConstentApi.gender: informationPramiter.gender,
-        'country_id':informationPramiter.countryID,
-        if(informationPramiter.email != null) "email": informationPramiter.email
-
+        "gender": informationPramiter.gender!,
+        'country_id': informationPramiter.countryID,
+        if (informationPramiter.email != null)
+          "email": informationPramiter.email
       });
     }
 
     Map<String, String> headers = await DioHelper().header();
+
     try {
       final response = await Dio().post(
         ConstentApi.editeUrl,
         data: formData,
-        options: Options(
-          headers:headers
-        ),
+        options: Options(headers: headers),
       );
-      MyDataModel userData = MyDataModel.fromMap(response.data[ConstentApi.data]);
+
+      // MyDataModel userData =
+      //     MyDataModel.fromMap(response.data[ConstentApi.data]);
 
       Methods.instance.saveMyData();
-      return userData;
+      return MyDataModel();
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:"addInformation");
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "addInformation");
     }
   }
-  
+
   @override
-  Future<AuthWithGoogleModel> sigInWithGoogle() async{
-  
+  Future<AuthWithGoogleModel> sigInWithGoogle() async {
     // ignore: no_leading_underscores_for_local_identifiers
     final _googleSignIn = GoogleSignIn(scopes: ['email']);
     Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
@@ -171,68 +169,68 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     // Future logout() => _googleSignIn.disconnect();
     final userModel = await login();
 
-    final devicedata = await DioHelper().initPlatformState(); // to get information device
+    final devicedata =
+        await DioHelper().initPlatformState(); // to get information device
     Map<String, String> headers = await DioHelper().header();
 
-    if (userModel == null)
-    {
+    if (userModel == null) {
       throw SiginGoogleException();
-    }
-    else {
-         final body =    {
-          ConstentApi.type: "google",
-          ConstentApi.name: userModel.displayName,
-          "google_id": userModel.id,
-          'device_token':devicedata
+    } else {
+      final body = {
+        ConstentApi.type: "google",
+        ConstentApi.name: userModel.displayName,
+        "google_id": userModel.id,
+        'device_token': devicedata
       };
- try{
+      try {
+        final response = await Dio().post(
+          ConstentApi.loginUrl,
+          data: body,
+          options: Options(
+            headers: headers,
+          ),
+        );
 
-      final response = await Dio().post(
-        ConstentApi.loginUrl,
-        data: body,
-        options: Options(
-          headers: headers,
-        ),
-      );
+        Map<String, dynamic> resultData = response.data;
 
-      Map<String, dynamic> resultData = response.data;
+        MyDataModel userData = MyDataModel.fromMap(resultData['data']);
 
-      MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+        Methods.instance.saveUserToken(authToken: userData.authToken);
 
-      Methods.instance.saveUserToken(authToken: userData.authToken);
-
-        return AuthWithGoogleModel(apiUserData:userData , userData:userModel  );
-      }on DioError catch (e){
-         throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithGoogle");
+        return AuthWithGoogleModel(apiUserData: userData, userData: userModel);
+      } on DioError catch (e) {
+        throw DioHelper.handleDioError(
+            dioError: e, endpointName: "sigInWithGoogle");
       }
-      } 
+    }
   }
 
   @override
-  Future<AuthWithAppleModel> sigInWithApple() async{
-    final AuthorizationCredentialAppleID? credential ;
+  Future<AuthWithAppleModel> sigInWithApple() async {
+    final AuthorizationCredentialAppleID? credential;
     try {
-      credential = await SignInWithApple
-          .getAppleIDCredential(scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
+      credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
       );
-    } catch(e){
+    } catch (e) {
       log(e.toString());
       throw SiginAppleException();
     }
-    final devicedata = await DioHelper().initPlatformState(); // to get information device
+    final devicedata =
+        await DioHelper().initPlatformState(); // to get information device
     Map<String, String> headers = await DioHelper().header();
 
-    final body =    {
+    final body = {
       ConstentApi.type: "apple",
       ConstentApi.name: credential.givenName,
       "apple_id": credential.authorizationCode,
       'user_id': credential.userIdentifier,
-      'device_token':devicedata
+      'device_token': devicedata
     };
-    try{
+    try {
       final response = await Dio().post(
         ConstentApi.loginUrl,
         data: body,
@@ -248,18 +246,17 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       Methods.instance.saveUserToken(authToken: userData.authToken);
 
       return AuthWithAppleModel(apiUserData: userData, userData: credential);
-    }on DioError catch (e){
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'sigInWithApple');
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'sigInWithApple');
     }
   }
 
-  
   @override
-  Future<MyDataModel> sigInWithFacebook()async {
+  Future<MyDataModel> sigInWithFacebook() async {
     final LoginResult result =
         await FacebookAuth.i.login(permissions: ['email']);
     if (result.status == LoginStatus.success) {
-
       final data = await FacebookAuth.i.getUserData();
 
       // to get device info
@@ -271,8 +268,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         ConstentApi.type: "facebook",
         ConstentApi.name: model.name,
         "facebook_id": model.id,
-       'device_token':devicedata
-      } ;
+        'device_token': devicedata
+      };
       Map<String, String> headers = await DioHelper().header();
 
       final response = await Dio().post(
@@ -288,24 +285,23 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
         Methods.instance.saveUserToken(authToken: userData.authToken);
         return userData;
-      }
-      else {
+      } else {
         throw SiginFacebookException();
       }
     } else {
       throw SiginFacebookException();
     }
-    
   }
 
   @override
-  Future<AuthWithHuaweiModel> sigInWithHuawei() async{
+  Future<AuthWithHuaweiModel> sigInWithHuawei() async {
     final devicedata = await DioHelper().initPlatformState();
     Map<String, String> headers = await DioHelper().header();
 
-    AccountAuthParamsHelper accountAuthParamsHelper = AccountAuthParamsHelper(AccountAuthParams.defaultAuthRequestParam);
+    AccountAuthParamsHelper accountAuthParamsHelper =
+        AccountAuthParamsHelper(AccountAuthParams.defaultAuthRequestParam);
 
-    accountAuthParamsHelper.setProfile() ;
+    accountAuthParamsHelper.setProfile();
 
     accountAuthParamsHelper.setEmail();
 
@@ -313,83 +309,78 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
     AccountAuthParams mAuthParam = accountAuthParamsHelper.createParams();
 
-    AccountAuthService accountAuthService = AccountAuthManager.getService(mAuthParam);
+    AccountAuthService accountAuthService =
+        AccountAuthManager.getService(mAuthParam);
 
     AuthAccount account = await accountAuthService.signIn();
 
     try {
-       final body =  {
-         ConstentApi.type: "huawei",
-         ConstentApi.name: account.displayName,
-         "huawei_id": account.unionId,
-         'device_token':devicedata
-       };
-       try{
+      final body = {
+        ConstentApi.type: "huawei",
+        ConstentApi.name: account.displayName,
+        "huawei_id": account.unionId,
+        'device_token': devicedata
+      };
+      try {
+        final response = await Dio().post(
+          ConstentApi.loginUrl,
+          data: body,
+          options: Options(
+            headers: headers,
+          ),
+        );
 
-         final response = await Dio().post(
-           ConstentApi.loginUrl,
-           data: body,
-           options: Options(
-             headers: headers,
-           ),
-         );
+        Map<String, dynamic> resultData = response.data;
 
-         Map<String, dynamic> resultData = response.data;
+        MyDataModel userData = MyDataModel.fromMap(resultData['data']);
 
-         MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+        Methods.instance.saveUserToken(authToken: userData.authToken);
 
-         Methods.instance.saveUserToken(authToken: userData.authToken);
-
-         return AuthWithHuaweiModel(apiUserData:userData , userData:account);
-       }on DioError catch (e){
-         throw DioHelper.handleDioError(dioError: e,endpointName: "sigInWithHuawei");
-       }
-     } on Exception catch (e) {
-       throw SiginHuaweiException();
-     }
-
+        return AuthWithHuaweiModel(apiUserData: userData, userData: account);
+      } on DioError catch (e) {
+        throw DioHelper.handleDioError(
+            dioError: e, endpointName: "sigInWithHuawei");
+      }
+    } on Exception catch (e) {
+      throw SiginHuaweiException();
+    }
   }
-  
+
   @override
-  Future<String> logOut() async{
-     Map<String, String> headers = await DioHelper().header();
+  Future<String> logOut() async {
+    Map<String, String> headers = await DioHelper().header();
 
     try {
       final response = await Dio().post(
         ConstentApi.logOut,
-          options: Options(
-        headers: headers,
-
-
-      ),
-       
+        options: Options(
+          headers: headers,
+        ),
       );
       Map<String, dynamic> jsonData = response.data;
 
-
-
       return jsonData[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'logOut');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'logOut');
     }
   }
 
   @override
-  Future<String> privacyPolicy()async {
-    try{
+  Future<String> privacyPolicy() async {
+    try {
       final response = await Dio().get(
-        ConstentApi.privacyPolicy,);
+        ConstentApi.privacyPolicy,
+      );
 
       return response.data;
-
-    }on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'privacyPolicy' );
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'privacyPolicy');
     }
-
   }
 
   @override
-  Future<String> deleteAccount()async {
+  Future<String> deleteAccount() async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -403,12 +394,13 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
 
       return jsonData[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e, endpointName: 'delete account');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'delete account');
     }
   }
 
   @override
-  Future<GetAllCountriesBase> getAllCountries() async{
+  Future<GetAllCountriesBase> getAllCountries() async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -418,15 +410,19 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
           headers: headers,
         ),
       );
-      List< dynamic> jsonData = response.data;
+      List<dynamic> jsonData = response.data;
       return GetAllCountriesBase.fromJson(jsonData);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e, endpointName: 'Get All Countries');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'Get All Countries');
     }
   }
 
   @override
-  Future<String> forgetPassword({required String phone, required String password, required String code}) async {
+  Future<String> forgetPassword(
+      {required String phone,
+      required String password,
+      required String code}) async {
     final body = {
       ConstentApi.phone: phone,
       ConstentApi.password: password,
@@ -439,7 +435,7 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       );
       Map<String, dynamic> jsonData = response.data;
 
-      return jsonData[ConstentApi.message]??"";
+      return jsonData[ConstentApi.message] ?? "";
     } on DioError catch (e) {
       throw DioHelper.handleDioError(
           dioError: e, endpointName: 'forgetPassword');
@@ -447,7 +443,8 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
   }
 
   @override
-  Future<String> forgetPasswordCodeVerification({required String phone, required String code}) async {
+  Future<String> forgetPasswordCodeVerification(
+      {required String phone, required String code}) async {
     final body = {
       ConstentApi.phone: phone,
       "code": code,
@@ -459,13 +456,10 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
       );
       Map<String, dynamic> jsonData = response.data;
 
-      return jsonData[ConstentApi.message]??"";
+      return jsonData[ConstentApi.message] ?? "";
     } on DioError catch (e) {
       throw DioHelper.handleDioError(
           dioError: e, endpointName: 'forgetPasswordCodeVerification');
     }
   }
-
-
 }
-

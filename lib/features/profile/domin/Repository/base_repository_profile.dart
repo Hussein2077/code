@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
@@ -50,9 +49,7 @@ import 'package:tik_chat_v2/features/profile/domin/use_case/user_reporet_uc.dart
 import 'package:tik_chat_v2/features/reels/data/models/reel_model.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/room_vistor_model.dart';
 
-
 abstract class BaseRepositoryProfile {
-
   Future<Either<MyDataModel, Failure>> getmyData(Noparamiter noparamiter);
 
   Future<Either<List<DataMallEntities>, Failure>> getDataMall(int type);
@@ -63,20 +60,17 @@ abstract class BaseRepositoryProfile {
 
   Future<Either<Failure, String>> unFollow({required String userId});
 
-  Future<Either<UserDataModel, Failure>> getUserData({required String userId,bool? isVisit});
+  Future<Either<UserDataModel, Failure>> getUserData(
+      {required String userId, bool? isVisit});
 
   Future<Either<List<VipCenterModel>, Failure>> getVipCenter();
 
-
-
-
-  Future<Either<List<UserDataModel>, Failure>> getVistors({String?page});
+  Future<Either<List<UserDataModel>, Failure>> getVistors({String? page});
   Future<bool> checkIfFriend(String userId);
 
   Future<Either<List<BackPackEnities>, Failure>> getBckPack(String type);
 
   Future<Either<UesItemModel, Failure>> useItem(String id);
-
 
   Future<Either<String, Failure>> deleteAccount();
   Future<Either<String, Failure>> createFamily(
@@ -105,7 +99,8 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> changeUserType(
       String userId, String familyId, String type);
 
-  Future<Either<FamilyMemberModel, Failure>> getFamilyMember(String familyId , String? page);
+  Future<Either<FamilyMemberModel, Failure>> getFamilyMember(
+      String familyId, String? page);
 
   Future<Either<AllRoomsDataModel, Failure>> getFamilyRoom(String familyId);
 
@@ -126,7 +121,6 @@ abstract class BaseRepositoryProfile {
 
   Future<Either<ChargeHistoryModel, Failure>> getChargeHistory(
       String parameter);
-
 
   Future<Either<SilverCoinsModel, Failure>> getSilverData();
 
@@ -163,8 +157,9 @@ abstract class BaseRepositoryProfile {
   Future<Either<List<GetVipPrevModel>, Failure>> getVipPerv();
 
   Future<Either<String, Failure>> buyCoins(BuyCoinsParameter buyCoinsParameter);
-    Future<Either<List<GiftHistoryModel>, Failure>> getGiftHistory(String id);
-  Future<Either<TimeDataReport, Failure>> getTimeDataReport(String time , String userId);
+  Future<Either<List<GiftHistoryModel>, Failure>> getGiftHistory(String id);
+  Future<Either<TimeDataReport, Failure>> getTimeDataReport(
+      String time, String userId);
   Future<Either<String, Failure>> bountFacebook();
 
   Future<Either<String, Failure>> bountGmail();
@@ -180,51 +175,59 @@ abstract class BaseRepositoryProfile {
   Future<Either<String, Failure>> ChangePhone(
       BoundNumberPramiter boundNumberPramiter);
 
-         Future<Either<bool, Failure>> joinToAgencie(
-    String agencieId, String whatsAppNum);
-          Future<Either<bool, Failure>> updateFamily(
-   UpdateFamilyPramiter parameter);
+  Future<Either<bool, Failure>> joinToAgencie(
+      String agencieId, String whatsAppNum);
+  Future<Either<bool, Failure>> updateFamily(UpdateFamilyPramiter parameter);
 
-       Future<Either<String, Failure>> userReporet(UserReporetPramiter pramiter);
+  Future<Either<String, Failure>> userReporet(UserReporetPramiter pramiter);
 
-      Future<Either<GetConfigKeyModel,Failure>> getConfigKey(GetConfigKeyPram getConfigKeyPram  );
+  Future<Either<GetConfigKeyModel, Failure>> getConfigKey(
+      GetConfigKeyPram getConfigKeyPram);
   Future<Either<String, Failure>> feedBack(FeedBackPramiter feedBackPramiter);
-        Future<Either<AgencyMyStoreModel,Failure>> myStore();
-        Future<Either<ShowAgencyModel,Failure>> showAgency();
+  Future<Either<AgencyMyStoreModel, Failure>> myStore();
+  Future<Either<ShowAgencyModel, Failure>> showAgency();
 
-        Future<Either<List<AgencyMemberModel>,Failure>> agencyMember(int page);
-        Future<Either<List<UserDataModel>,Failure>> agencyRequests();
-  Future<Either<String, Failure>> agencyRequestsAction({required String userId ,required bool accept});
-        Future<Either<List<AgencyHistoryTime>,Failure>> agencyTimeHistory();
-        Future<Either<AgencyHistoryModle,Failure>> agencyHistory({required String month ,required String year , String? page});
+  Future<Either<List<AgencyMemberModel>, Failure>> agencyMember(int page);
+  Future<Either<List<UserDataModel>, Failure>> agencyRequests();
+  Future<Either<String, Failure>> agencyRequestsAction(
+      {required String userId, required bool accept});
+  Future<Either<List<AgencyHistoryTime>, Failure>> agencyTimeHistory();
+  Future<Either<AgencyHistoryModle, Failure>> agencyHistory(
+      {required String month, required String year, String? page});
 
-        Future<Either<String,Failure>> chargeCoinForUsers({required String id ,required String amount});
-        Future<Either<String,Failure>> chargeDolarsForUsers({required String id ,required String amount});
+  Future<Either<String, Failure>> chargeCoinForUsers(
+      {required String id, required String amount});
+  Future<Either<String, Failure>> chargeDolarsForUsers(
+      {required String id, required String amount});
 
-          Future<Either<ChargeHistoryModel, Failure>> getChargeDolarsAgencyOwnerHistory(
+  Future<Either<ChargeHistoryModel, Failure>> getChargeDolarsAgencyOwnerHistory(
       String parameter);
-        Future<Either<ChargeHistoryModel, Failure>> getChargeCoinsSystemHistory(
+  Future<Either<ChargeHistoryModel, Failure>> getChargeCoinsSystemHistory(
       String parameter);
-  Future<Either<List<InterstedMode>,Failure>> getAllIntersted();
-    Future<Either<String,Failure>> addIntersted(List<int> ids);
-  Future<Either<List<InterstedMode>,Failure>> getUserIntersted();
-    Future<Either<String, Failure>> prevActive(String type);
+  Future<Either<List<InterstedMode>, Failure>> getAllIntersted();
+  Future<Either<String, Failure>> addIntersted(List<int> ids);
+  Future<Either<List<InterstedMode>, Failure>> getUserIntersted();
+  Future<Either<String, Failure>> prevActive(String type);
 
   Future<Either<String, Failure>> prevDispose(String type);
-    Future<Either<List<ReelModel>, Failure>> getUserReels(String? id , String page );
+  Future<Either<List<ReelModel>, Failure>> getUserReels(
+      String? id, String page);
 
   Future<Either<String, Failure>> deleteReel(String id);
 
   Future<Either<bool, Failure>> activeNotification();
-  
-  Future<Either<List<UserDataModel>, Failure>> getAllShippingAgents({required GetAllShippingAgentsPram pram});
-  Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport(String date);
-  Future<Either<String, Failure>> pay({required String product_id, required String order_id});
-  Future<Either<String, Failure>> invitCode( String id);
-  Future<Either<List<InvitationUsersModel>?, Failure>> getInvitationDetails( );
-  Future<Either<ParentStaticsModel, Failure>> getParentDetails( );
-  Future<Either<String, Failure>> huaweiPay({required String product_id, required String token});
+
+  Future<Either<List<UserDataModel>, Failure>> getAllShippingAgents(
+      {required GetAllShippingAgentsPram pram});
+  Future<Either<FixedTargetReportModel, Failure>> getFixedTargetReport(
+      String date);
+  Future<Either<String, Failure>> googlePay({required String data});
+  Future<Either<String, Failure>> invitCode(String id);
+  Future<Either<List<InvitationUsersModel>?, Failure>> getInvitationDetails();
+  Future<Either<ParentStaticsModel, Failure>> getParentDetails();
+  Future<Either<String, Failure>> huaweiPay(
+      {required String product_id, required String token});
+  Future<Either<String, Failure>> applePay({required String data});
   Future<Either<UserBadgesModel, Failure>> getUserBadge(String id);
   Future<Either<List<GetBadgesModel>, Failure>> getBadges(String type);
-
 }
