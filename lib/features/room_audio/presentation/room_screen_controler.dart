@@ -2,9 +2,13 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
@@ -1032,4 +1036,16 @@ Map<int, SelecteUsers> sortMapByKey(Map<int, SelecteUsers> inputMap) {
   List<MapEntry<int, SelecteUsers>> entries = inputMap.entries.toList();
   entries.sort((a, b) => a.key.compareTo(b.key));
   return Map.fromEntries(entries);
+}
+
+Future<void> playMusicFromAssets(String assetPath) async {
+  ByteData data = await rootBundle.load(assetPath);
+  List<int> bytes = data.buffer.asUint8List();
+
+  Directory tempDir = await getTemporaryDirectory();
+  String tempFilePath = '${tempDir.path}/temp_music_file.mp3';
+  File tempFile = File(tempFilePath);
+  await tempFile.writeAsBytes(bytes);
+
+  await ZegoUIKit().playMedia(filePathOrURL: tempFilePath,);
 }
