@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
@@ -7,10 +9,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/view_mus
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
-
 class MusicDialog extends StatefulWidget {
-  static double currentSliderValue = 45;
-  final String ownerId ;
+  final String ownerId;
 
   const MusicDialog({required this.ownerId, Key? key}) : super(key: key);
 
@@ -19,11 +19,12 @@ class MusicDialog extends StatefulWidget {
 }
 
 class _MusicDialogState extends State<MusicDialog> {
-late  bool isPlay  ;
+  late bool isPlay;
+  late bool repeat = false;
 
   @override
   void initState() {
-    isPlay =  MusicScreen.isPlaying.value ;
+    isPlay = MusicScreen.isPlaying.value;
     super.initState();
   }
 
@@ -38,115 +39,153 @@ late  bool isPlay  ;
         ),
         width: MediaQuery.of(context).size.width,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! ),
+          padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ValueListenableBuilder(
-                valueListenable: ZegoUIKit.instance.getMediaCurrentProgressNotifier(),
-                builder: (BuildContext context, dynamic value, Widget? child){
+                valueListenable:
+                    ZegoUIKit.instance.getMediaCurrentProgressNotifier(),
+                builder: (BuildContext context, dynamic value, Widget? child) {
                   return Text(
-                    MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].name.toString(),
-                    style: const TextStyle(color: Colors.white),overflow: TextOverflow.ellipsis,);
+                    MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].name
+                        .toString(),
+                    style: const TextStyle(color: Colors.white),
+                    overflow: TextOverflow.ellipsis,
+                  );
                 },
               ),
               SizedBox(
-                height: ConfigSize.defaultSize! *  2.5,
+                height: ConfigSize.defaultSize! * 2.5,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Spacer(flex: 2,),
                   InkWell(
-                      onTap: () async {
-                        Navigator.pop(context);
-                        Navigator.pushNamed(context, Routes.music , arguments: MusicPramiter(ownerId: widget.ownerId));
-                      },
-                      child: const Icon(
-                        Icons.library_music_outlined,
-                        color: Colors.white,
-                      ) //player.hasPrevious ? player.seekToPrevious : null,
-                  ),
-                  SizedBox(
-                    height: AppPadding.p10,
-                    width: ConfigSize.defaultSize! * 17.4,
-                    child: Slider(
-                      autofocus: true,
-                      activeColor: ColorManager.gold1,
-                      min: 0,
-                      max: 100,
-                      value: MusicDialog.currentSliderValue,
-                      onChanged: (double value) {
-                        setState(() {
-                          MusicDialog.currentSliderValue = value;
-                          ZegoUIKit.instance.
-                          setMediaVolume(MusicDialog.currentSliderValue.toInt()) ;
-
-                        });
-                      },
+                    onTap: () async {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, Routes.music,
+                          arguments: MusicPramiter(ownerId: widget.ownerId));
+                    },
+                    child: Icon(
+                      Icons.library_music_outlined,
+                      color: Colors.white,
+                      size: ConfigSize.defaultSize! * 2,
                     ),
                   ),
-                  const Spacer(),
+                  ValueListenableBuilder(
+                    valueListenable:
+                        ZegoUIKit.instance.getMediaVolumeNotifier(),
+                    builder: (BuildContext context, int value, Widget? child) {
+                      return SizedBox(
+                        height: AppPadding.p10,
+                        width: ConfigSize.defaultSize! * 16,
+                        child: Slider(
+                          autofocus: true,
+                          activeColor: ColorManager.gold1,
+                          min: 0,
+                          max: 100,
+                          value: double.parse(value.toString()),
+                          onChanged: (double value) async {
+                            ZegoUIKit.instance.setMediaVolume(value.toInt());
+                          },
+                        ),
+                      );
+                    },
+                  ),
+
                   InkWell(
-                      onTap: () async {
-                        if ((MusicScreen.nowPlaying! - 1) > -1) {
+                    onTap: () async {
+                      setState(() {
+                        repeat = !repeat;
+                      });
+                    },
+                    child: Icon(
+                      Icons.repeat,
+                      color: repeat ? Colors.black : Colors.white,
+                      size: ConfigSize.defaultSize! * 2,
+                    ),
+                  ),
 
-                          distroyMusic();
-                          MusicScreen.nowPlaying = MusicScreen.nowPlaying! - 1;
-                          loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                  SizedBox(
+                    width: ConfigSize.defaultSize!,
+                  ),
 
-                        } else {
-                          distroyMusic();
-                          MusicScreen.nowPlaying = MusicScreen.musicesInRoom.length - 1;
-                          loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
-                        }
-                        ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
-                        setState(() {
-                          isPlay = true ;
-                        });
-                      },
-                      child: const Icon(
-                        Icons.skip_previous,
-                        color: Colors.white,
-                      ) //player.hasPrevious ? player.seekToPrevious : null,
-                      ),
+                  InkWell(
+                    onTap: () async {
+                      if ((MusicScreen.nowPlaying! - 1) > -1) {
+                        distroyMusic();
+                        MusicScreen.nowPlaying = MusicScreen.nowPlaying! - 1;
+                        loadMusice(
+                            path: MusicScreen
+                                .musicesInRoom[MusicScreen.nowPlaying!].uri,
+                            repeat: repeat);
+                      } else {
+                        distroyMusic();
+                        MusicScreen.nowPlaying =
+                            MusicScreen.musicesInRoom.length - 1;
+                        loadMusice(
+                            path: MusicScreen
+                                .musicesInRoom[MusicScreen.nowPlaying!].uri,
+                            repeat: repeat);
+                      }
+                      ZegoUIKit.instance
+                          .getMediaCurrentProgressNotifier()
+                          .value = 0;
+                      setState(() {
+                        isPlay = true;
+                      });
+                    },
+                    child: const Icon(
+                      Icons.skip_previous,
+                      color: Colors.white,
+                    ),
+                  ),
                   //todo refact that like zego code
                   Container(
                     margin: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: () async{
+                      onTap: () async {
                         if (isPlay) {
-                        await  ZegoUIKit.instance.pauseMedia() ;
+                          await ZegoUIKit.instance.pauseMedia();
                           setState(() {
                             isPlay = false;
                           });
                         } else {
-                          await  ZegoUIKit.instance.resumeMedia() ;
+                          await ZegoUIKit.instance.resumeMedia();
                           setState(() {
-                            isPlay= true;
+                            isPlay = true;
                           });
                         }
                       },
                       child: isPlay
                           ? const Icon(Icons.pause, color: Colors.white)
                           : const Icon(Icons.play_arrow, color: Colors.white),
-                      //player.pause,
                     ),
                   ),
                   InkWell(
                     child: const Icon(Icons.skip_next, color: Colors.white),
-                    onTap: ()  async{
-                      if ((MusicScreen.nowPlaying! +1) >=  MusicScreen.musicesInRoom.length) {
+                    onTap: () async {
+                      if ((MusicScreen.nowPlaying! + 1) >=
+                          MusicScreen.musicesInRoom.length) {
                         distroyMusic();
                         MusicScreen.nowPlaying = 0;
-                        loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                        loadMusice(
+                            path: MusicScreen
+                                .musicesInRoom[MusicScreen.nowPlaying!].uri,
+                            repeat: repeat);
                       } else {
                         distroyMusic();
                         MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
-                        loadMusice(path: MusicScreen.musicesInRoom[MusicScreen.nowPlaying!].uri);
+                        loadMusice(
+                            path: MusicScreen
+                                .musicesInRoom[MusicScreen.nowPlaying!].uri,
+                            repeat: repeat);
                       }
-                      ZegoUIKit.instance.getMediaCurrentProgressNotifier().value = 0;
+                      ZegoUIKit.instance
+                          .getMediaCurrentProgressNotifier()
+                          .value = 0;
                       setState(() {
                         isPlay = true;
                       });
@@ -158,24 +197,29 @@ late  bool isPlay  ;
                 ],
               ),
               SizedBox(
-                height: ConfigSize.defaultSize! *  2.5,
+                height: ConfigSize.defaultSize! * 2.5,
               ),
               SizedBox(
                 height: AppPadding.p10,
                 width: ConfigSize.defaultSize! * 32,
                 child: ValueListenableBuilder(
-                  valueListenable: ZegoUIKit.instance.getMediaCurrentProgressNotifier(),
-                  builder: (BuildContext context, dynamic value, Widget? child){
+                  valueListenable:
+                      ZegoUIKit.instance.getMediaCurrentProgressNotifier(),
+                  builder:
+                      (BuildContext context, dynamic value, Widget? child) {
                     return Slider(
                       autofocus: true,
                       activeColor: ColorManager.gold1,
                       min: 0,
-                      max:ZegoUIKit.instance.getMediaTotalDuration().toDouble(),
-                      value: ZegoUIKit.instance.getMediaCurrentProgress().toDouble(),
-                      onChanged: (double value) async{
-                        ZegoUIKit.instance.seekTo(value.toInt()) ;
-                    },
-                  );
+                      max:
+                          ZegoUIKit.instance.getMediaTotalDuration().toDouble(),
+                      value: ZegoUIKit.instance
+                          .getMediaCurrentProgress()
+                          .toDouble(),
+                      onChanged: (double value) async {
+                        ZegoUIKit.instance.seekTo(value.toInt());
+                      },
+                    );
                   },
                 ),
               )
