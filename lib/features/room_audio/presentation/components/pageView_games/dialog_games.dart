@@ -81,20 +81,8 @@ class _WebViewInRoomState extends State<WebViewInRoom> {
           Navigator.pop(context);
           return false;
         },
-        child: Stack(
-          children: [
-            WebViewWidget(
-                 controller: controller!
-            ),
-            IconButton(onPressed: ()async{
-              if ( await controller!.canGoBack()) {
-              controller!.goBack();
-              }
-              controller!.goBack();
-              Navigator.pop(context);
-            },
-                icon: const Icon(Icons.arrow_back_ios, color: Colors.white,)),
-          ],
+        child: WebViewWidget(
+             controller: controller!
         ),
          );
   }

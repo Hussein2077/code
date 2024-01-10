@@ -191,13 +191,21 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 child: InkWell(
                   onTap: () async {
                     String token = await Methods.instance.returnUserToken();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => WebViewInRoom(
-                                  url: '${StringManager.fruitGame}${token}',
-                                ))));
+                    showModalBottomSheet<void>(
+                        context: context,
+                        isDismissible: false,
+                        backgroundColor: Colors.black,
+                        isScrollControlled: true, // This is important to make it full screen
 
+                        builder: (BuildContext context) {
+                          return SizedBox(
+
+                              child: WebViewInRoom(
+                                url: '${StringManager.fruitGame}$token',
+                              )
+                          );
+                        }
+                    );
                   },
                   child: Container(
                     decoration: const BoxDecoration(
