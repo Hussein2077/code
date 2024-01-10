@@ -32,7 +32,6 @@ class UserInfoRow extends StatelessWidget {
 
   final Widget? endIcon;
 
-  final double? underNameWidth;
   final Widget? idOrNot;
 
   final String? flag;
@@ -41,7 +40,7 @@ class UserInfoRow extends StatelessWidget {
   final void Function()? onTap;
 
   const UserInfoRow(
-      {this.underNameWidth,
+      {
       this.onTap,
       required this.userData,
       this.endIcon,
@@ -66,9 +65,7 @@ class UserInfoRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Spacer(
-              flex: 1,
-            ),
+
             UserImage(
               frame: userData.frame,
               frameId: userData.frameId,
@@ -77,11 +74,9 @@ class UserInfoRow extends StatelessWidget {
               image: userData.profile!.image!,
             ),
             SizedBox(
-              width: ConfigSize.defaultSize! * 0.2,
+              width: ConfigSize.defaultSize! * 2,
             ),
-            const Spacer(
-              flex: 4,
-            ),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +93,7 @@ class UserInfoRow extends StatelessWidget {
                     Row(
                       children: [
                         MaleFemaleIcon(
-                          width: ConfigSize.defaultSize! * 3.1,
+                          width: ConfigSize.defaultSize! * 5.1,
                           height: ConfigSize.defaultSize! * 1.3,
                           maleOrFeamle: userData.profile!.gender,
                           age: userData.profile!.age,
@@ -133,18 +128,14 @@ class UserInfoRow extends StatelessWidget {
                     )
               ],
             ),
-            const Spacer(
-              flex: 20,
-            ),
+            const Spacer(),
             if(flag == null)
             endIcon ??
                 Image.asset(
                   AssetsPath.chatWithUserIcon,
                   scale: 2.5,
                 ),
-            const Spacer(
-              flex: 1,
-            ),
+
             if(flag != null)
               InkWell(
                 onTap: () {
@@ -183,6 +174,9 @@ class UserInfoRow extends StatelessWidget {
                   ),
                 ),
               ),
+            SizedBox(
+              width: ConfigSize.defaultSize! * 0.5,
+            ),
           ],
         ),
       ),

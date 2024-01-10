@@ -86,13 +86,19 @@ class SettingsScreen extends StatelessWidget {
           ),SizedBox(
             height: ConfigSize.defaultSize! * 3.5,
           ),
-          settingsRow(
-            context: context,
-            title: StringManager.blockList.tr(),
-            widget: const Icon(Icons.block),
-            onTap: () => Navigator.pushNamed(
-              context,
-              Routes.blockList,
+          Padding(
+            padding:  EdgeInsets.only(
+              right: ConfigSize.defaultSize!
+            ),
+            child: settingsRow(
+              context: context,
+              title: StringManager.blockList.tr(),
+              icon: AssetsPath.blockIcon,
+              size: ConfigSize.defaultSize!*0.8,
+              onTap: () => Navigator.pushNamed(
+                context,
+                Routes.blockList,
+              ),
             ),
           ),
           const Spacer(

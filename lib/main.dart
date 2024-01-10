@@ -486,7 +486,7 @@ class MyApp extends StatelessWidget {
         //BlocProvider(create: (_) => getIt<PrivacyBloc>()),
         //BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
         BlocProvider(create: (_) => getIt<GetReelsBloc>()),
-        //BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
+        BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
         BlocProvider(create: (_) => getIt<UserReportBloc>()),
         BlocProvider(
           create: (context) =>
