@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,9 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/message/input_board.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_inner_text.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/zego_uikit_prebuilt_live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 
 bool checkIsUserOnMic(UserDataModel userData) {
   bool isOnMic = false;
@@ -52,6 +56,21 @@ void mentionAction({required UserDataModel userData, required EnterRoomModel roo
       mention:  "@$name",
       innerText: ZegoInnerText(),
        ));
+}
+
+String getUserId(
+    { required String userName}) {
+  List<ZegoUIKitUser> allUsers=ZegoUIKit.instance.getAllUsers();
+  String userId = '';
+  for (var element in allUsers) {
+    if (element.name.toString() == userName) {
+      userId = element.id;
+    }
+  }
+ // log(userId+'oooooooooooo');
+  return userId;
+
+
 }
 
 void privateCommentAction({required UserDataModel userData, required EnterRoomModel roomData, required BuildContext context}) {
