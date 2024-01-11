@@ -60,44 +60,43 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
             SizedBox(
               height: ConfigSize.defaultSize! * 3.5,
             ),
-            if (Platform.isAndroid || SplashScreen.isHuawei)
-              InkWell(
-                onTap: () {
-                  BlocProvider.of<BuyCoinsBloc>(context).add(BuyCoins(
-                      buyCoinsParameter: BuyCoinsParameter(
-                          coinsID: widget.coinPackageId.toString(),
-                          paymentMethod: 'opay')));
-                },
-                child: Container(
-                  height: ConfigSize.defaultSize! * 5,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(ConfigSize.defaultSize! * 2),
-                    color: const Color.fromRGBO(101, 111, 221, 1.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Pay With Strip",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        Image.asset(
-                          AssetsPath.stripeIcon,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
+            InkWell(
+              onTap: () {
+                BlocProvider.of<BuyCoinsBloc>(context).add(BuyCoins(
+                    buyCoinsParameter: BuyCoinsParameter(
+                        coinsID: widget.coinPackageId.toString(),
+                        paymentMethod: 'opay')));
+              },
+              child: Container(
+                height: ConfigSize.defaultSize! * 5,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.circular(ConfigSize.defaultSize! * 2),
+                  color: const Color.fromRGBO(101, 111, 221, 1.0),
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Pay With Strip",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                      Image.asset(
+                        AssetsPath.stripeIcon,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
                 ),
               ),
+            ),
             if (Platform.isAndroid || SplashScreen.isHuawei)
               SizedBox(
                 height: ConfigSize.defaultSize!,
