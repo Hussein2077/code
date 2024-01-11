@@ -41,6 +41,7 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
     required this.roomID,
     required this.config,
     required this.roomData ,
+     this.popUpWidget,
     this.controller,
     @Deprecated('Since 2.4.1') this.appDesignSize,
   }) : super(key: key);
@@ -74,6 +75,7 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
   final ZegoUIKitPrebuiltLiveAudioRoomConfig config;
   
   final EnterRoomModel roomData ;
+  final Widget? popUpWidget ;
 
   @Deprecated('Since 2.4.1')
   final Size? appDesignSize;
@@ -222,7 +224,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       prebuiltController: widget.controller,
    //   prebuiltAudioRoomData: prebuiltData!,
       roomData: widget.roomData,
-      popUpWidget: widget.p,
+      popUpWidget: widget.popUpWidget,
     );
   }
 

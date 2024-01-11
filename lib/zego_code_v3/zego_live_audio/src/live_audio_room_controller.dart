@@ -30,9 +30,10 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.d
 /// This class is used by setting the [controller] parameter in the constructor of [ZegoUIKitPrebuiltLiveAudioRoom].
 class ZegoLiveAudioRoomController
     with
-        ZegoLiveAudioRoomControllerPrivate,
-        ZegoLiveAudioRoomControllerMedia,
-        ZegoLiveAudioRoomControllerMessage {
+        ZegoLiveAudioRoomControllerPrivate
+       // ZegoLiveAudioRoomControllerMedia
+       //ZegoLiveAudioRoomControllerMessage
+{
   ///  enable or disable the microphone of a specified user. If userID is empty or null, it controls the local microphone. The isOn parameter specifies whether the microphone should be turned on or off, where true means it is turned on and false means it is turned off.
   void turnMicrophoneOn(bool isOn, {String? userID}) {
     ZegoUIKit().turnMicrophoneOn(isOn, userID: userID);

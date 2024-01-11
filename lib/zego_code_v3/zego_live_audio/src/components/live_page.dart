@@ -47,7 +47,7 @@ class ZegoLivePage extends StatefulWidget {
     required this.connectManager,
     required this.popUpManager,
     required this.liveDurationManager,
-    required this.popUpWidget,
+     this.popUpWidget,
    // required this.prebuiltAudioRoomData,
     required this.roomData ,
     this.plugins,
@@ -68,7 +68,7 @@ class ZegoLivePage extends StatefulWidget {
   final ZegoLiveDurationManager liveDurationManager;
   final ZegoLiveAudioRoomController? prebuiltController;
   final ZegoPrebuiltPlugins? plugins;
-  final Widget popUpWidget ;
+  final Widget? popUpWidget ;
  // final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltAudioRoomData;
   static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
 

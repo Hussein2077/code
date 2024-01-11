@@ -70,7 +70,7 @@ class _ZegoAudioRoomLayoutState extends State<ZegoAudioRoomLayout> {
 
       if (targetUserCurrentIndex != targetItemIndex) {
         final targetUser = users[targetUserCurrentIndex];
-        if((targetItemIndex !=-1)&&(targetItemIndex < users.length)){
+        if((targetItemIndex !=-1)){
           users[targetUserCurrentIndex] = users[targetItemIndex];
           users[targetItemIndex] = targetUser;
         }

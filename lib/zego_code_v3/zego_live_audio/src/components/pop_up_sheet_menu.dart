@@ -33,7 +33,7 @@ class ZegoPopUpSheetMenu extends StatefulWidget {
     required this.seatManager,
     required this.connectManager,
     required this.roomData,
-    required this.popUpWidget,
+     this.popUpWidget,
     this.onPressed,
   }) : super(key: key);
 
@@ -43,7 +43,7 @@ class ZegoPopUpSheetMenu extends StatefulWidget {
   final EnterRoomModel roomData ;
   final void Function(PopupItemValue)? onPressed;
   final ZegoInnerText innerText;
-  final Widget popUpWidget ;
+  final Widget? popUpWidget ;
 
   @override
   State<ZegoPopUpSheetMenu> createState() => _ZegoPopUpSheetMenuState();
@@ -216,7 +216,7 @@ void showPopUpSheet({
   required ZegoLiveConnectManager connectManager,
   required ZegoPopUpManager popUpManager,
   required EnterRoomModel roomData,
-  required Widget  popUpWidget
+  required Widget?  popUpWidget
 }) {
   final key = DateTime.now().millisecondsSinceEpoch;
   popUpManager.addAPopUpSheet(key);
