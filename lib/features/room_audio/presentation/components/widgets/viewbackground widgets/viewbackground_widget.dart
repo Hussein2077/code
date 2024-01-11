@@ -372,8 +372,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   if (state.isFirst == 1) {
                     widget.luckGiftBannderController.forward();
                   }
-                }
-              } else if (state is SendLuckyGiftErrorStateState) {
+                } else if (state is SendLuckyGiftErrorStateState) {
                 errorToast(context: context, title: state.error);
               }
             },
