@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_vap2/flutter_vap.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
@@ -128,55 +129,59 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocListener<SendPrivateCommentBloc, SendPrivateCommentStates>(
-      listener: (context, state){
-        if(state is SendPrivateCommentSucssesState){
-          ZegoUIKit.instance.sendInRoomMessage("${StringManager.privateCommentKey}${state.data.data!.toUserId} ${state.data.data!.message}");
+    return BlocListener<SendPrivateCommentBloc, SendPrivateCommentStates>(
+      listener: (context, state) {
+        if (state is SendPrivateCommentSucssesState) {
+          ZegoUIKit.instance.sendInRoomMessage(
+              "${StringManager.privateCommentKey}${state.data.data!.toUserId} ${state.data.data!.message}");
           Navigator.pop(context);
         }
       },
-      child: BlocConsumer<SendGiftBloc, SendGiftStates>(
-            builder: (context, state) {
-          return Stack(children: [
-            SizedBox(
-              width: ConfigSize.defaultSize! * 92.5,
-              height: ConfigSize.defaultSize! * 92.5,
-              //height: ConfigSize.defaultSize! * 92.5,
-            ),
+      child:
+          BlocConsumer<SendGiftBloc, SendGiftStates>(builder: (context, state) {
+        return Stack(children: [
+          SizedBox(
+            width: ConfigSize.defaultSize! * 92.5,
+            height: ConfigSize.defaultSize! * 92.5,
+            //height: ConfigSize.defaultSize! * 92.5,
+          ),
 
-            ValueListenableBuilder<int>(
-              valueListenable: GiftUser.updateView,
-              builder: (context, price, _) {
-                if(GiftUser.userOnMicsForGifts[MyDataModel.getInstance().id] != null){
-                  return Container(
-                    padding: const EdgeInsets.all(2),
-                    margin: EdgeInsets.only(
-                        top: ConfigSize.defaultSize!,
-                        left: MediaQuery.of(context).size.width / 2.355),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
-                    ),
-                    child: StreamBuilder<int>(
-                      stream: getIt<CounterBloc>().counterStream,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Text(
-                            Methods.instance.formatSecondsTime(snapshot.data ?? 0),
-                            style: const TextStyle(
-                                color: Colors.black, fontWeight: FontWeight.w700),
-                          );
-                        }
-                        return Text(Methods.instance
-                            .formatSecondsTime(getIt<CounterBloc>().counter));
-                      },
-                    ),
-                  );
-                }else{
-                  return const SizedBox();
-                }
-              },
-            ),
+          ValueListenableBuilder<int>(
+            valueListenable: GiftUser.updateView,
+            builder: (context, price, _) {
+              if (GiftUser.userOnMicsForGifts[MyDataModel.getInstance().id] !=
+                  null) {
+                return Container(
+                  padding: const EdgeInsets.all(2),
+                  margin: EdgeInsets.only(
+                      top: ConfigSize.defaultSize!,
+                      left: MediaQuery.of(context).size.width / 2.355),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius:
+                        BorderRadius.circular(ConfigSize.defaultSize!),
+                  ),
+                  child: StreamBuilder<int>(
+                    stream: getIt<CounterBloc>().counterStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          Methods.instance
+                              .formatSecondsTime(snapshot.data ?? 0),
+                          style: const TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w700),
+                        );
+                      }
+                      return Text(Methods.instance
+                          .formatSecondsTime(getIt<CounterBloc>().counter));
+                    },
+                  ),
+                );
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
 
             Align(
                 alignment: Alignment.bottomLeft,
@@ -368,182 +373,192 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                     widget.luckGiftBannderController.forward();
                   }
                 }
-                else if (state is SendLuckyGiftErrorStateState) {
-                  errorToast(context: context, title: state.error);
-                }
-              },
-              builder: (context, state) {
-                if (state is SendLuckyGiftSucssesState) {
+              } else if (state is SendLuckyGiftErrorStateState) {
+                errorToast(context: context, title: state.error);
+              }
+            },
+            builder: (context, state) {
+              if (state is SendLuckyGiftSucssesState) {
+                return Positioned(
+                    top: ConfigSize.defaultSize! * 50,
+                    left: 0,
+                    child: LuckGiftBannerWidget(
+                        reciverName: state.data.receiverName,
+                        giftNum: state.giftNum,
+                        giftImage: state.data.giftImage,
+                        controllerBanner: widget.luckGiftBannderController,
+                        offsetAnimationBanner:
+                            widget.offsetLuckGiftAnimationBanner));
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+          ValueListenableBuilder(
+              valueListenable: LuckyBoxVariables.showBannerLuckyBox,
+              builder: (context, showBanner, _) {
+                if (showBanner) {
                   return Positioned(
-                      top: ConfigSize.defaultSize! * 50,
-                      left: 0,
-                      child: LuckGiftBannerWidget(
-                          reciverName: state.data.receiverName,
-                          giftNum: state.giftNum,
-                          giftImage: state.data.giftImage,
-                          controllerBanner: widget.luckGiftBannderController,
-                          offsetAnimationBanner:
-                              widget.offsetLuckGiftAnimationBanner));
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
-            ValueListenableBuilder(
-                valueListenable: LuckyBoxVariables.showBannerLuckyBox,
-                builder: (context, showBanner, _) {
-                  if (showBanner) {
-                    return Positioned(
-                        top: ConfigSize.defaultSize! * 6.95,
-                        left: ConfigSize.defaultSize! * 5.78,
-                        child: ShowLuckyBannerWidget(
-                          sendDataUser: LuckyBoxVariables.sendSuperBox??MyDataModel.getInstance().convertToUserObject(),
-                          superBox: widget.superBox,
-                          showBannerLuckyBox: LuckyBoxVariables.showBannerLuckyBox,
-                          ownerId: widget.room.ownerId.toString(),
-                        ));
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-            ValueListenableBuilder<bool>(
-                valueListenable: widget.showPopUp,
-                builder: (context, isShow, _) {
-                  return AnimatedPositioned(
-                    duration: const Duration(seconds: 10),
-                    curve: Curves.linear,
-                    onEnd: () {
-                      widget.showPopUp.value = false;
-                    },
-                    top: ConfigSize.defaultSize! * 30,
-                    left: isShow
-                        ? -ConfigSize.defaultSize! * 40
-                        : ConfigSize.defaultSize! * 40,
-                    child: SizedBox(
-                        width: ConfigSize.defaultSize! * 40.5,
-                        height: ConfigSize.defaultSize! * 40.5,
-                        child: PopUpWidget(
-                            ownerDataModel: widget.popUpData?['pop_up_sender'] ??
-                                MyDataModel.getInstance().convertToUserObject(),
-                            massage: ZegoInRoomMessageInput.messagePonUp,
-                            enterRoomModel: widget.room,
-                            vip: widget.popUpData?['pop_up_sender'] == null
-                                ? 0
-                                : widget.popUpData!['pop_up_sender'].vip1!.level!
-                            // == null ? 8 : widget.pobUpSender!.vip1!.level!
-                            )),
-                  );
-                }),
-            Positioned(
-              bottom: ConfigSize.defaultSize! * 12,
-              left: ConfigSize.screenWidth! * 0.45,
-              child: ValueListenableBuilder<TypeCandy>(
-                  valueListenable: GiftBottomBar.typeCandy,
-                  builder: (BuildContext context, TypeCandy typeCabdy, _) {
-                    if (typeCabdy == TypeCandy.luckyCandy) {
-                      return LuckyCandy(
-                          roomData: widget.room,
-                          luckGiftBannderController:
-                              widget.luckGiftBannderController);
-                    } else {
-                      return const IgnorePointer(child: SizedBox());
-                    }
-                  }),
-            ),
-            ValueListenableBuilder<bool>(
-              valueListenable: ViewbackgroundWidget.isKick,
-              builder: (context, isKicked, _) {
-                if (isKicked) {
-                  return Positioned(
-                      bottom: ConfigSize.defaultSize! * 6,
-                      left: AppPadding.p30,
-                      right: AppPadding.p36,
-                      child: KickOutUserWidget(
-                        durationKickout: widget.durationKickout,
-                        isKick: isKicked,
+                      top: ConfigSize.defaultSize! * 6.95,
+                      left: ConfigSize.defaultSize! * 5.78,
+                      child: ShowLuckyBannerWidget(
+                        sendDataUser: LuckyBoxVariables.sendSuperBox ??
+                            MyDataModel.getInstance().convertToUserObject(),
+                        superBox: widget.superBox,
+                        showBannerLuckyBox:
+                            LuckyBoxVariables.showBannerLuckyBox,
+                        ownerId: widget.room.ownerId.toString(),
                       ));
                 } else {
                   return const SizedBox();
                 }
-              },
-            ),
-            IgnorePointer(
-              child: ValueListenableBuilder<int>(
-                  valueListenable: LuckyCandy.winCircularluckyGift,
-                  builder: (context, sohw, _) {
-                    if (sohw != 0) {
-                      Future.delayed(const Duration(seconds: 1)).then((value) {
-                        return showOverlay(const Align(
-                            alignment: Alignment.topCenter,
-                            child: LuckyGiftWinCircle()));
-                      });
-                      return const SizedBox();
-                    } else {
-                      return const SizedBox();
-                    }
-                  }),
-            ),
-            IgnorePointer(
-              child: ValueListenableBuilder<bool>(
-                  valueListenable: RoomScreen.happyNewYearGif,
-                  builder: (context, sohw, _) {
-                    if (sohw) {
-                      return Image.asset(AssetsPath.happyNewYearIntro);
-                    } else {
-                      return const SizedBox();
-                    }
-                  }),
-            ),
-            IgnorePointer(
-              child: ValueListenableBuilder<bool>(
-                  valueListenable: RoomScreen.happyNewYearVideo,
-                  builder: (context, sohw, _) {
-                    if (sohw) {
-                      late VideoPlayerController _controller;
-                      _controller = VideoPlayerController.asset(AssetsPath.happyNewYearVideo)
-                        ..initialize().then((_) {
-                          _controller.play();
-                          _controller.addListener(() {
-                              if (_controller.value.position == _controller.value.duration) {
-                                _controller.dispose();
-                                RoomScreen.happyNewYearVideo.value = false;
-                              }
-                          });
-                        });
-                      return Center(
-                        child: AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: VideoPlayer(_controller),
-                        ),
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
-                  }),
-            ),
-            const IgnorePointer(
-              child: LuckyGiftWithOverlay(),
-            ),
-            ValueListenableBuilder<bool>(
-              valueListenable: RoomScreen.isWinnerShowWidget,
+              }),
+          ValueListenableBuilder<bool>(
+              valueListenable: widget.showPopUp,
               builder: (context, isShow, _) {
-                if (isShow) {
-                  return const IgnorePointer(child: CoinCollectAnimate());
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
-          ]);
-        }, listener: (context, state) {
-          if (state is ErrorSendGiftStates) {
-            errorToast(context: context, title: state.errorMessage);
-          } else if (state is SuccessSendGiftStates) {
-            ZegoUIKit().sendInRoomMessage(
-              state.successMessage,
-            );
-          }
-        }),
+                return AnimatedPositioned(
+                  duration: const Duration(seconds: 10),
+                  curve: Curves.linear,
+                  onEnd: () {
+                    widget.showPopUp.value = false;
+                  },
+                  top: ConfigSize.defaultSize! * 30,
+                  left: isShow
+                      ? -ConfigSize.defaultSize! * 40
+                      : ConfigSize.defaultSize! * 40,
+                  child: SizedBox(
+                      width: ConfigSize.defaultSize! * 40.5,
+                      height: ConfigSize.defaultSize! * 40.5,
+                      child: PopUpWidget(
+                          ownerDataModel: widget.popUpData?['pop_up_sender'] ??
+                              MyDataModel.getInstance().convertToUserObject(),
+                          massage: ZegoInRoomMessageInput.messagePonUp,
+                          enterRoomModel: widget.room,
+                          vip: widget.popUpData?['pop_up_sender'] == null
+                              ? 0
+                              : widget.popUpData!['pop_up_sender'].vip1!.level!
+                          // == null ? 8 : widget.pobUpSender!.vip1!.level!
+                          )),
+                );
+              }),
+          Positioned(
+            bottom: ConfigSize.defaultSize! * 12,
+            left: ConfigSize.screenWidth! * 0.45,
+            child: ValueListenableBuilder<TypeCandy>(
+                valueListenable: GiftBottomBar.typeCandy,
+                builder: (BuildContext context, TypeCandy typeCabdy, _) {
+                  if (typeCabdy == TypeCandy.luckyCandy) {
+                    return LuckyCandy(
+                        roomData: widget.room,
+                        luckGiftBannderController:
+                            widget.luckGiftBannderController);
+                  } else {
+                    return const IgnorePointer(child: SizedBox());
+                  }
+                }),
+          ),
+          ValueListenableBuilder<bool>(
+            valueListenable: ViewbackgroundWidget.isKick,
+            builder: (context, isKicked, _) {
+              if (isKicked) {
+                return Positioned(
+                    bottom: ConfigSize.defaultSize! * 6,
+                    left: AppPadding.p30,
+                    right: AppPadding.p36,
+                    child: KickOutUserWidget(
+                      durationKickout: widget.durationKickout,
+                      isKick: isKicked,
+                    ));
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+          IgnorePointer(
+            child: ValueListenableBuilder<int>(
+                valueListenable: LuckyCandy.winCircularluckyGift,
+                builder: (context, sohw, _) {
+                  if (sohw != 0) {
+                    Future.delayed(const Duration(seconds: 1)).then((value) {
+                      return showOverlay(const Align(
+                          alignment: Alignment.topCenter,
+                          child: LuckyGiftWinCircle()));
+                    });
+                    return const SizedBox();
+                  } else {
+                    return const SizedBox();
+                  }
+                }),
+          ),
+          IgnorePointer(
+            child: ValueListenableBuilder<bool>(
+                valueListenable: RoomScreen.happyNewYearGif,
+                builder: (context, sohw, _) {
+                  if (sohw) {
+                    return Image.asset(AssetsPath.happyNewYearIntro);
+                  } else {
+                    return const SizedBox();
+                  }
+                }),
+          ),
+          IgnorePointer(
+            child: ValueListenableBuilder<bool>(
+                valueListenable: RoomScreen.happyNewYearVideo,
+                builder: (context, sohw, _) {
+                  if (sohw) {
+                    late VideoPlayerController _controller;
+                    _controller = VideoPlayerController.asset(
+                        AssetsPath.happyNewYearVideo)
+                      ..initialize().then((_) {
+                        _controller.play();
+                        _controller.addListener(() {
+                          if (_controller.value.position ==
+                              _controller.value.duration) {
+                            _controller.dispose();
+                            RoomScreen.happyNewYearVideo.value = false;
+                          }
+                        });
+                      });
+                    return Center(
+                      child: AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: VideoPlayer(_controller),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                }),
+          ),
+          const IgnorePointer(
+            child: LuckyGiftWithOverlay(),
+          ),
+          ValueListenableBuilder<bool>(
+            valueListenable: RoomScreen.isWinnerShowWidget,
+            builder: (context, isShow, _) {
+              if (isShow) {
+                return const IgnorePointer(child: CoinCollectAnimate());
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+          IgnorePointer(
+            // VapView can set the width and height through the outer package Container() to limit the width and height of the pop-up video
+            child: VapView(onVapViewCreated: (controller) {
+              RoomScreen.vapViewController = controller;
+            }),
+          ),
+        ]);
+      }, listener: (context, state) {
+        if (state is ErrorSendGiftStates) {
+          errorToast(context: context, title: state.errorMessage);
+        } else if (state is SuccessSendGiftStates) {
+          ZegoUIKit().sendInRoomMessage(
+            state.successMessage,
+          );
+        }
+      }),
     );
   }
 }

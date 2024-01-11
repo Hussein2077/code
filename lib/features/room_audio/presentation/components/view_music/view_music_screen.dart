@@ -15,6 +15,7 @@ class MusicScreen extends StatefulWidget {
   static int? nowPlaying;
   final String ownerId;
   static List<MusicObject> musicesInRoom = [];
+  static bool repeatMusic = false;
 
   static StreamController<List<MusicObject>> musicController =
       StreamController.broadcast();
@@ -132,8 +133,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         onPressed: () async {
                           if (!MusicScreen.isPlaying.value) {
                             await loadMusice(
-                                path: MusicScreen.musicesInRoom[index].uri,
-                                repeat: false);
+                                path: MusicScreen.musicesInRoom[index].uri);
                             MusicScreen.nowPlaying = index;
                             setState(() {});
                           } else if (MusicScreen.isPlaying.value &&
@@ -145,8 +145,7 @@ class _MusicScreenState extends State<MusicScreen> {
                               MusicScreen.nowPlaying != index) {
                             distroyMusic();
                             await loadMusice(
-                                path: MusicScreen.musicesInRoom[index].uri,
-                                repeat: false);
+                                path: MusicScreen.musicesInRoom[index].uri);
                             MusicScreen.nowPlaying = index;
                             setState(() {});
                           }

@@ -104,8 +104,7 @@ class MusicWidget extends StatelessWidget {
                   MusicScreen.nowPlaying = 0;
                   loadMusice(
                       path: MusicScreen
-                          .musicesInRoom[MusicScreen.nowPlaying!].uri,
-                      repeat: false);
+                          .musicesInRoom[MusicScreen.nowPlaying!].uri);
                   ZegoUIKit.instance.getMediaCurrentProgressNotifier().value =
                       0;
                 } else {
@@ -113,8 +112,7 @@ class MusicWidget extends StatelessWidget {
                   MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
                   loadMusice(
                       path: MusicScreen
-                          .musicesInRoom[MusicScreen.nowPlaying!].uri,
-                      repeat: false);
+                          .musicesInRoom[MusicScreen.nowPlaying!].uri);
                   ZegoUIKit.instance.getMediaCurrentProgressNotifier().value =
                       0;
                 }
@@ -190,8 +188,7 @@ class MusicWidget extends StatelessWidget {
                   MusicScreen.nowPlaying = 0;
                   loadMusice(
                       path: MusicScreen
-                          .musicesInRoom[MusicScreen.nowPlaying!].uri,
-                      repeat: false);
+                          .musicesInRoom[MusicScreen.nowPlaying!].uri);
                   ZegoUIKit.instance.getMediaCurrentProgressNotifier().value =
                       0;
                 } else {
@@ -199,8 +196,7 @@ class MusicWidget extends StatelessWidget {
                   MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
                   loadMusice(
                       path: MusicScreen
-                          .musicesInRoom[MusicScreen.nowPlaying!].uri,
-                      repeat: false);
+                          .musicesInRoom[MusicScreen.nowPlaying!].uri);
                   ZegoUIKit.instance.getMediaCurrentProgressNotifier().value =
                       0;
                 }
