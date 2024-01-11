@@ -274,10 +274,16 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   valueListenable: RoomScreen.isVideoVisible,
                   builder: (context, isShow, _) {
                     if (isShow) {
-                      return AspectRatio(
-                        aspectRatio:
-                            ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
-                        child: VideoPlayer(ViewbackgroundWidget.mp4Controller!),
+                      return Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          height:ConfigSize.defaultSize!*42,
+                          width: MediaQuery.of(context).size.width,
+                          child: AspectRatio(
+                            aspectRatio: ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
+                            child: VideoPlayer(ViewbackgroundWidget.mp4Controller!),
+                          ),
+                        ),
                       );
                     } else {
                       return Container();

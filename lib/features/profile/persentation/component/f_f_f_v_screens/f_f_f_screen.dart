@@ -64,7 +64,6 @@ class _FFFScreenState extends State<FFFScreen> {
           ),
           HeaderWithOnlyTitle(
             title: widget.title,
-            titleColor: Colors.black,
           ),
           BlocListener<FollowBloc, FollowState>(
             listener: (context, state) {

@@ -7,14 +7,14 @@ ThemeData darkTheme = ThemeData(
 
   TextTheme(
     headlineLarge: const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize:20,
       color: Colors.white,
             overflow: TextOverflow.ellipsis
 
     ),
     headlineMedium:  const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 18,
       color: Colors.white,
             overflow: TextOverflow.ellipsis
@@ -22,35 +22,35 @@ ThemeData darkTheme = ThemeData(
     ),
    bodyLarge: 
     const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize:16,
       color: Colors.white,
             overflow: TextOverflow.ellipsis
 
     ),
      bodyMedium:const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 14,
       color: Colors.white,
             overflow: TextOverflow.ellipsis
 
     ), 
       bodySmall:const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 12,
       color: Colors.white,
             overflow: TextOverflow.ellipsis
 
     ), 
     titleMedium: TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 16,
       color: Colors.white.withOpacity(0.4),
             overflow: TextOverflow.ellipsis
 
     ), 
        titleSmall: TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 12,
       color: Colors.white.withOpacity(0.4),
             overflow: TextOverflow.ellipsis
@@ -59,7 +59,7 @@ ThemeData darkTheme = ThemeData(
 
    
   ),
-  fontFamily: 'ElMessiri',
+  fontFamily: 'GothamMedium',
   brightness: Brightness.dark ,
   colorScheme:  const ColorScheme.dark(
     background: Colors.black , 
