@@ -335,4 +335,5 @@ class AssetsPath {
   static const String happyNewYearVideo = "$pathImage/happyNewYearVideo.mp4";
   static const String privateCommentIcon =
       "$pathImage/private_comment_icon.png";
+  static const String liveVideoSoon = "$pathImage/live_video_soon.png";
 }
