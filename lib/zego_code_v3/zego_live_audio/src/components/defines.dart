@@ -19,13 +19,12 @@ enum PopupItemValue {
   takeOnSeat,
   takeOffSeat,
   leaveSeat,
-  muteSeat,
   inviteLink,
   muteMic,
   unMuteMic,
   showUserDetails,
   lockSeat,
-  unLoackSeat,
+  unLockSeat,
   cancel,
 }
 

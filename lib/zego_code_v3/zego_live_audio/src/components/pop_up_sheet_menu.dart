@@ -33,6 +33,7 @@ class ZegoPopUpSheetMenu extends StatefulWidget {
     required this.seatManager,
     required this.connectManager,
     required this.roomData,
+    required this.popUpWidget,
     this.onPressed,
   }) : super(key: key);
 
@@ -42,6 +43,7 @@ class ZegoPopUpSheetMenu extends StatefulWidget {
   final EnterRoomModel roomData ;
   final void Function(PopupItemValue)? onPressed;
   final ZegoInnerText innerText;
+  final Widget popUpWidget ;
 
   @override
   State<ZegoPopUpSheetMenu> createState() => _ZegoPopUpSheetMenuState();
@@ -147,7 +149,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
             RoomScreen.listOfLoskSeats.value.putIfAbsent(popupItem.index,
                     () => popupItem.index);
             break;
-          case PopupItemValue.unLoackSeat :
+          case PopupItemValue.unLockSeat :
             BlocProvider.of<OnRoomBloc>(context)
                 .add(UnLockMicEvent(ownerId: widget.roomData.ownerId.toString(),
                 position: popupItem.index.toString()));
@@ -164,11 +166,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
                 .add(UnMuteMicEvent(ownerId: widget.roomData.ownerId.toString(),
                 position:popupItem.index.toString()));
             RoomScreen.listOfMuteSeats.remove(popupItem.index);
-
             break ;
-          case PopupItemValue.muteSeat:
-            await widget.seatManager.muteSeat(popupItem.index);
-            break;
           case PopupItemValue.inviteLink:
             await widget.connectManager.inviteAudienceConnect(
                 ZegoUIKit().getUser(popupItem.index as String? ?? ''));
@@ -180,7 +178,7 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
 
         widget.onPressed?.call(popupItem.value);
       },
-      child: Container(
+      child: widget.popUpWidget?? Container(
         width: double.infinity,
         height: 100.zR,
         // color: ColorManager.orang,
@@ -217,7 +215,8 @@ void showPopUpSheet({
   required ZegoLiveSeatManager seatManager,
   required ZegoLiveConnectManager connectManager,
   required ZegoPopUpManager popUpManager,
-  required EnterRoomModel roomData
+  required EnterRoomModel roomData,
+  required Widget  popUpWidget
 }) {
   final key = DateTime.now().millisecondsSinceEpoch;
   popUpManager.addAPopUpSheet(key);
@@ -261,7 +260,7 @@ void showPopUpSheet({
             innerText: innerText,
             seatManager: seatManager,
             connectManager: connectManager,
-            roomData : roomData
+            roomData : roomData, popUpWidget:popUpWidget ,
           ),
         ),
       );

@@ -222,6 +222,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       prebuiltController: widget.controller,
    //   prebuiltAudioRoomData: prebuiltData!,
       roomData: widget.roomData,
+      popUpWidget: widget.p,
     );
   }
 

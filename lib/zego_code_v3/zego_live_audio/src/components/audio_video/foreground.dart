@@ -42,6 +42,7 @@ class ZegoSeatForeground extends StatefulWidget {
   final ZegoLiveAudioRoomController? prebuiltController;
   final bool isHost ;
   final EnterRoomModel roomData;
+  final Widget popUpWidget ;
 
   const ZegoSeatForeground({
     Key? key,
@@ -54,7 +55,8 @@ class ZegoSeatForeground extends StatefulWidget {
     required this.popUpManager,
     required this.config,
     required this.roomData,
-    required this.isHost
+    required this.isHost,
+    required this.popUpWidget
   }) : super(key: key);
 
   @override
@@ -211,7 +213,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
               ));
               RoomScreen.listOfLoskSeats.value.containsKey(index)
                   ? popupItems.add(PopupItem(
-                PopupItemValue.unLoackSeat,
+                PopupItemValue.unLockSeat,
                 StringManager.unLockSeat.tr(),
                 index: index,
               ))
@@ -244,7 +246,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
           ));
           RoomScreen.listOfLoskSeats.value.containsKey(index)
               ? popupItems.add(PopupItem(
-            PopupItemValue.unLoackSeat,
+            PopupItemValue.unLockSeat,
             StringManager.unLockSeat.tr(),
             index: index,
           ))
@@ -333,7 +335,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
           ));
           RoomScreen.listOfLoskSeats.value.containsKey(index)
               ? popupItems.add(PopupItem(
-            PopupItemValue.unLoackSeat,
+            PopupItemValue.unLockSeat,
             StringManager.unLockSeat.tr(),
             index: index,
           ))
@@ -480,7 +482,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
         roomData: widget.roomData,
         innerText: ZegoInnerText(),
         connectManager: widget.connectManager,
-        popUpManager: widget.popUpManager
+        popUpManager: widget.popUpManager, popUpWidget: widget.popUpWidget
     );
     //!widget.seatManager.isAHostSeat(index)
   }
