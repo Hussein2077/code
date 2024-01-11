@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -20,7 +22,15 @@ class VideoBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(width: MediaQuery.of(context).size.width,
     decoration: BoxDecoration(color: Theme.of(context).colorScheme.background),
-      child: Column(children: [
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+          Image.asset(AssetsPath.liveVideoSoon ,scale: 1.2),
+
+          Text(StringManager.comingSoon.toString() , style: Theme.of(context).textTheme.bodyLarge,),
+
+
 
 
       ],),
