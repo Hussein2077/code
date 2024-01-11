@@ -75,20 +75,20 @@ class _CacheDataWidgetState extends State<CacheDataWidget> {
                   onChangedCacheInDropDownHome(value);
                 },
                 isExpanded: true,
-                hint: Text(
-                  StringManager.cache.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.2,
-                    fontWeight: FontWeight.w500,
-                    color: ColorManager.whiteColor,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                // hint: Text(
+                //   StringManager.cache.tr(),
+                //   style: TextStyle(
+                //     fontSize: ConfigSize.defaultSize! * 1.2,
+                //     fontWeight: FontWeight.w500,
+                //     color: ColorManager.whiteColor,
+                //   ),
+                //   maxLines: 1,
+                //   overflow: TextOverflow.ellipsis,
+                // ),
                 dropdownDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
                 ),
-                buttonWidth: ConfigSize.defaultSize! * 12,
+                buttonWidth: ConfigSize.defaultSize! * 5,
                 dropdownWidth: ConfigSize.defaultSize! * 15,
                 icon: AnimateIcon(
                   key: UniqueKey(),

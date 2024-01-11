@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    liveController = TabController(length: 1, vsync: this);
+    liveController = TabController(length: 2, vsync: this);
     initlaizCachData();
 
 
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Column(
             children: [
               SizedBox(
-                height: ConfigSize.defaultSize! * 3.6,
+                height: ConfigSize.defaultSize! * 1,
               ),
               Stack(
                   children: [

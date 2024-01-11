@@ -27,7 +27,7 @@ class _LiveTabBARState extends State<LiveTabBAR> {
   Widget build(BuildContext context) {
     return SizedBox(
       // width: ConfigSize.defaultSize! * 22,
-      width: ConfigSize.defaultSize! * 15,
+      width: ConfigSize.defaultSize! * 23,
       child: TabBar(
           indicatorSize: TabBarIndicatorSize.label,
         indicatorColor: ColorManager.whiteColor,
@@ -39,28 +39,28 @@ class _LiveTabBARState extends State<LiveTabBAR> {
           children: [
              Text("${StringManager.appTitle.tr()} " ,
                  style: TextStyle(color: ColorManager.whiteColor ,
-                     fontSize: ConfigSize.defaultSize!*1.5)),
+                     fontSize: ConfigSize.defaultSize!*1.3)),
                  Image.asset(
                     AssetsPath.iconApp,
-                    scale: 12,
+                    scale: 14,
                   )
 
           ],
         ),
-            // Row(
-            //   children: [
-            //     Text("${StringManager.live}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.7),),
-            //     widget.liveController.index == 1
-            //         ? Image.asset(
-            //       AssetsPath.videoIcon,
-            //       scale: 2,
-            //     )
-            //         : Image.asset(
-            //       AssetsPath.unslectedVideoIcon,
-            //       scale: 2,
-            //     )
-            //   ],
-            // ),
+            Row(
+              children: [
+                Text("${StringManager.video.tr()}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.3),),
+                widget.liveController.index == 1
+                    ? Image.asset(
+                  AssetsPath.videoIcon,
+                  scale: 2,
+                )
+                    : Image.asset(
+                  AssetsPath.unslectedVideoIcon,
+                  scale: 2,
+                )
+              ],
+            ),
       ]),
     );
   }
