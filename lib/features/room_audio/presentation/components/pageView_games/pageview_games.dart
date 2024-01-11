@@ -186,7 +186,6 @@ class _PageViewGamesState extends State<PageViewGames>
           backgroundColor: Colors.black,
           builder: (BuildContext context) {
             return SizedBox(
-                height: ConfigSize.screenHeight! * 0.42,
                 child: WebViewInRoom(
                   url: '${StringManager.teenPatti}$token',
                 )
@@ -200,7 +199,6 @@ class _PageViewGamesState extends State<PageViewGames>
           backgroundColor: Colors.black,
           builder: (BuildContext context) {
             return SizedBox(
-                height: ConfigSize.screenHeight! * 0.42,
                 child: WebViewInRoom(
                   url: '${StringManager.roulette}$token',
                 )
@@ -211,10 +209,10 @@ class _PageViewGamesState extends State<PageViewGames>
       showModalBottomSheet<void>(
           context: context,
           isDismissible: false,
+
           backgroundColor: Colors.black,
           builder: (BuildContext context) {
             return SizedBox(
-                height: ConfigSize.screenHeight! * 0.42,
                 child: WebViewInRoom(
                   url: '${StringManager.carRace}$token',
                 )
@@ -224,11 +222,9 @@ class _PageViewGamesState extends State<PageViewGames>
     } else if (index == 3) {
       showModalBottomSheet<void>(
           context: context,
-          isDismissible: false,
           backgroundColor: Colors.black,
           builder: (BuildContext context) {
             return SizedBox(
-                height: ConfigSize.screenHeight! * 0.42,
                 child: WebViewInRoom(
                   url: '${StringManager.updown}$token',
                 )
@@ -240,9 +236,11 @@ class _PageViewGamesState extends State<PageViewGames>
           context: context,
           isDismissible: false,
           backgroundColor: Colors.black,
+          isScrollControlled: true, // This is important to make it full screen
+
           builder: (BuildContext context) {
             return SizedBox(
-                height: ConfigSize.screenHeight! * 0.42,
+
                 child: WebViewInRoom(
                   url: '${StringManager.ludo}$token',
                 )
