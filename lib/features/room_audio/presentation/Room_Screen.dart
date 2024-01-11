@@ -614,44 +614,27 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
   }
 
   Future<void> loadAlphaMp4({required GiftData giftData}) async {
-    List<String> downloadPathList = [];
-
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String rootPath = appDocDir.path;
-    downloadPathList.add("$rootPath/vap_demo1.mov");
-    log("downloadPathList:$downloadPathList");
-
-    await Dio().download("https://rotato.netlify.app/alpha-demo/movie-hevc.mov",
-        downloadPathList[0]);
-
-    log("downloadPathList:$downloadPathList");
-
-    var res = await RoomScreen.vapViewController!.playPath(downloadPathList[0]);
-    if (res["status"] == "failure") {
-      log(res["errorMsg"] + "######");
+    if (giftData.localPath == null) {
+      await Methods()
+          .cacheMp4(
+              vedioId: int.parse(giftData.giftId), vedioUrl: giftData.giftImg)
+          .then((value) async {
+        Directory appDocDir = await getApplicationDocumentsDirectory();
+        String rootPath = appDocDir.path;
+        String path = "$rootPath/${giftData.giftId}.mp4";
+        var res = await RoomScreen.vapViewController!.playPath(path);
+        if (res["status"] == "failure") {
+          log(res["errorMsg"]);
+        }
+      });
+    } else {
+      log(giftData.localPath!);
+      var res =
+          await RoomScreen.vapViewController!.playPath(giftData.localPath!);
+      if (res["status"] == "failure") {
+        log(res["errorMsg"] + "######");
+      }
     }
-
-    // if (giftData.localPath == null) {
-    //   await Methods()
-    //       .cacheMp4(
-    //           vedioId: int.parse(giftData.giftId), vedioUrl: giftData.giftImg)
-    //       .then((value) async {
-    //     Directory appDocDir = await getApplicationDocumentsDirectory();
-    //     String rootPath = appDocDir.path;
-    //     String path = "$rootPath/${giftData.giftId}.mp4";
-    //     var res = await RoomScreen.vapViewController!.playPath(path);
-    //     if (res["status"] == "failure") {
-    //       log(res["errorMsg"]);
-    //     }
-    //   });
-    // } else {
-    //   log(giftData.localPath!);
-    //   var res =
-    //       await RoomScreen.vapViewController!.playPath(downloadPathList[0]);
-    //   if (res["status"] == "failure") {
-    //     log(res["errorMsg"] + "######");
-    //   }
-    // }
   }
 
   Future<void> loadAnimationGift(GiftData giftData) async {
