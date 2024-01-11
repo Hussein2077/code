@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
@@ -20,20 +18,23 @@ class VideoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: MediaQuery.of(context).size.width,
-    decoration: BoxDecoration(color: Theme.of(context).colorScheme.background),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration:
+          BoxDecoration(color: Theme.of(context).colorScheme.background),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
-          Image.asset(AssetsPath.liveVideoSoon ,scale: 1.2),
-
-          Text(StringManager.comingSoon.toString() , style: Theme.of(context).textTheme.bodyLarge,),
-
-
-
-
-      ],),
+          Image.asset(AssetsPath.liveVideoSoon, scale: 1.3),
+          SizedBox(
+            height: ConfigSize.defaultSize! * 2,
+          ),
+          Text(StringManager.comingSoon.toString(),
+              style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 2,
+                  fontWeight: FontWeight.bold)),
+        ],
+      ),
     );
 
     // return    Container(
