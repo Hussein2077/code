@@ -144,6 +144,9 @@ PODS:
   - flutter_logs (0.0.1):
     - Flutter
     - ZIPFoundation
+  - flutter_vap2 (0.0.1):
+    - Flutter
+    - QGVAPlayer
   - flutter_video_info (1.1.0):
     - Flutter
   - FMDB (2.7.5):
@@ -238,6 +241,7 @@ PODS:
   - PusherSwift (10.1.4):
     - NWWebSocket (~> 0.5.3)
     - TweetNacl (~> 1.0.0)
+  - QGVAPlayer (1.0.19)
   - ReachabilitySwift (5.0.0)
   - rive_common (0.0.1):
     - Flutter
@@ -298,6 +302,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
   - flutter_logs (from `.symlinks/plugins/flutter_logs/ios`)
+  - flutter_vap2 (from `.symlinks/plugins/flutter_vap2/ios`)
   - flutter_video_info (from `.symlinks/plugins/flutter_video_info/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
@@ -358,6 +363,7 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - PusherSwift
+    - QGVAPlayer
     - ReachabilitySwift
     - SDWebImage
     - SwiftyBeaver
@@ -400,6 +406,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_facebook_auth/ios"
   flutter_logs:
     :path: ".symlinks/plugins/flutter_logs/ios"
+  flutter_vap2:
+    :path: ".symlinks/plugins/flutter_vap2/ios"
   flutter_video_info:
     :path: ".symlinks/plugins/flutter_video_info/ios"
   google_sign_in_ios:
@@ -488,6 +496,7 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_facebook_auth: 361ac7a57263ebf327f26089507ead0d66558ee8
   flutter_logs: 5d0dca26963e0f30b11a995a764744ef77d5d428
+  flutter_vap2: 6cc895047383e0dca37ceca11f923f3b20692858
   flutter_video_info: a932e1b0da369bba95c3a14b7f61d5f8b0d03280
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   google_sign_in_ios: 1256ff9d941db546373826966720b0c24804bcdd
@@ -514,6 +523,7 @@ SPEC CHECKSUMS:
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
   pusher_channels_flutter: 2bc74ab92bacd0ac436e10fa326125408d3c7598
   PusherSwift: 671c49e9c5441e30960d2e0282a879b2f8c80bcb
+  QGVAPlayer: a0bca68c9bd6f1c8de5ac2d10ddf98be6038cce9
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   rive_common: 8a159d68033a8b073e5853acc50f03aa486a2888
   SDWebImage: f9258c58221ed854cfa0e2b80ee4033710b1c6d3

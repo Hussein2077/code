@@ -20,7 +20,6 @@ class MusicDialog extends StatefulWidget {
 
 class _MusicDialogState extends State<MusicDialog> {
   late bool isPlay;
-  late bool repeat = false;
 
   @override
   void initState() {
@@ -63,17 +62,16 @@ class _MusicDialogState extends State<MusicDialog> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () async {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, Routes.music,
-                          arguments: MusicPramiter(ownerId: widget.ownerId));
-                    },
-                    child: Icon(
-                      Icons.library_music_outlined,
-                      color: Colors.white,
-                      size: ConfigSize.defaultSize! * 2,
-                    ),
-                  ),
+                      onTap: () async {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, Routes.music,
+                            arguments: MusicPramiter(ownerId: widget.ownerId));
+                      },
+                      child: const Icon(
+                        Icons.library_music_outlined,
+                        color: Colors.white,
+                      ) //player.hasPrevious ? player.seekToPrevious : null,
+                      ),
                   ValueListenableBuilder(
                     valueListenable:
                         ZegoUIKit.instance.getMediaVolumeNotifier(),
@@ -87,8 +85,8 @@ class _MusicDialogState extends State<MusicDialog> {
                           min: 0,
                           max: 100,
                           value: double.parse(value.toString()),
-                          onChanged: (double value) async {
-                            ZegoUIKit.instance.setMediaVolume(value.toInt());
+                          onChanged: (double sound) async {
+                            ZegoUIKit.instance.setMediaVolume(sound.toInt());
                           },
                         ),
                       );
@@ -98,12 +96,13 @@ class _MusicDialogState extends State<MusicDialog> {
                   InkWell(
                     onTap: () async {
                       setState(() {
-                        repeat = !repeat;
+                        MusicScreen.repeatMusic = !MusicScreen.repeatMusic;
                       });
                     },
                     child: Icon(
                       Icons.repeat,
-                      color: repeat ? Colors.black : Colors.white,
+                      color:
+                          MusicScreen.repeatMusic ? Colors.black : Colors.white,
                       size: ConfigSize.defaultSize! * 2,
                     ),
                   ),
@@ -111,37 +110,31 @@ class _MusicDialogState extends State<MusicDialog> {
                   SizedBox(
                     width: ConfigSize.defaultSize!,
                   ),
-
                   InkWell(
-                    onTap: () async {
-                      if ((MusicScreen.nowPlaying! - 1) > -1) {
+                      onTap: () async {
+                        if ((MusicScreen.nowPlaying! - 1) > -1) {
+                          MusicScreen.nowPlaying = MusicScreen.nowPlaying! - 1;
+                        } else {
+                          MusicScreen.nowPlaying =
+                              MusicScreen.musicesInRoom.length - 1;
+                        }
                         distroyMusic();
-                        MusicScreen.nowPlaying = MusicScreen.nowPlaying! - 1;
                         loadMusice(
                             path: MusicScreen
                                 .musicesInRoom[MusicScreen.nowPlaying!].uri,
-                            repeat: repeat);
-                      } else {
-                        distroyMusic();
-                        MusicScreen.nowPlaying =
-                            MusicScreen.musicesInRoom.length - 1;
-                        loadMusice(
-                            path: MusicScreen
-                                .musicesInRoom[MusicScreen.nowPlaying!].uri,
-                            repeat: repeat);
-                      }
-                      ZegoUIKit.instance
-                          .getMediaCurrentProgressNotifier()
-                          .value = 0;
-                      setState(() {
-                        isPlay = true;
-                      });
-                    },
-                    child: const Icon(
-                      Icons.skip_previous,
-                      color: Colors.white,
-                    ),
-                  ),
+                            repeat: MusicScreen.repeatMusic);
+                        ZegoUIKit.instance
+                            .getMediaCurrentProgressNotifier()
+                            .value = 0;
+                        setState(() {
+                          isPlay = true;
+                        });
+                      },
+                      child: const Icon(
+                        Icons.skip_previous,
+                        color: Colors.white,
+                      ) //player.hasPrevious ? player.seekToPrevious : null,
+                      ),
                   //todo refact that like zego code
                   Container(
                     margin: const EdgeInsets.all(8.0),
@@ -162,27 +155,39 @@ class _MusicDialogState extends State<MusicDialog> {
                       child: isPlay
                           ? const Icon(Icons.pause, color: Colors.white)
                           : const Icon(Icons.play_arrow, color: Colors.white),
+                      //player.pause,
                     ),
                   ),
                   InkWell(
                     child: const Icon(Icons.skip_next, color: Colors.white),
                     onTap: () async {
-                      if ((MusicScreen.nowPlaying! + 1) >=
+                      // if ((MusicScreen.nowPlaying! + 1) >=
+                      //     MusicScreen.musicesInRoom.length) {
+                      //   distroyMusic();
+                      //   MusicScreen.nowPlaying = 0;
+                      //   loadMusice(
+                      //       path: MusicScreen
+                      //           .musicesInRoom[MusicScreen.nowPlaying!].uri);
+                      // } else {
+                      //   distroyMusic();
+                      //   MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
+                      //   loadMusice(
+                      //       path: MusicScreen
+                      //           .musicesInRoom[MusicScreen.nowPlaying!].uri);
+                      // }
+
+                      if (MusicScreen.nowPlaying! + 1 ==
                           MusicScreen.musicesInRoom.length) {
-                        distroyMusic();
                         MusicScreen.nowPlaying = 0;
-                        loadMusice(
-                            path: MusicScreen
-                                .musicesInRoom[MusicScreen.nowPlaying!].uri,
-                            repeat: repeat);
-                      } else {
-                        distroyMusic();
+                      } else if (MusicScreen.nowPlaying! + 1 <
+                          MusicScreen.musicesInRoom.length) {
                         MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
-                        loadMusice(
-                            path: MusicScreen
-                                .musicesInRoom[MusicScreen.nowPlaying!].uri,
-                            repeat: repeat);
                       }
+                      distroyMusic();
+                      loadMusice(
+                          path: MusicScreen
+                              .musicesInRoom[MusicScreen.nowPlaying!].uri,
+                          repeat: MusicScreen.repeatMusic);
                       ZegoUIKit.instance
                           .getMediaCurrentProgressNotifier()
                           .value = 0;
@@ -207,19 +212,23 @@ class _MusicDialogState extends State<MusicDialog> {
                       ZegoUIKit.instance.getMediaCurrentProgressNotifier(),
                   builder:
                       (BuildContext context, dynamic value, Widget? child) {
-                    return Slider(
-                      autofocus: true,
-                      activeColor: ColorManager.gold1,
-                      min: 0,
-                      max:
-                          ZegoUIKit.instance.getMediaTotalDuration().toDouble(),
-                      value: ZegoUIKit.instance
-                          .getMediaCurrentProgress()
-                          .toDouble(),
-                      onChanged: (double value) async {
-                        ZegoUIKit.instance.seekTo(value.toInt());
-                      },
-                    );
+                    int max = ZegoUIKit.instance.getMediaTotalDuration();
+                    if (max > 0) {
+                      return Slider(
+                        autofocus: true,
+                        activeColor: ColorManager.gold1,
+                        min: 0,
+                        max: max.toDouble(),
+                        value: ZegoUIKit.instance
+                            .getMediaCurrentProgress()
+                            .toDouble(),
+                        onChanged: (double value) async {
+                          ZegoUIKit.instance.seekTo(value.toInt());
+                        },
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
                   },
                 ),
               )

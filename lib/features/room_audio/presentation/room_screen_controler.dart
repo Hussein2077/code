@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
+import 'package:path_provider/path_provider.dart';
 
 class EmojieData {
   final String emojie;
@@ -248,7 +250,7 @@ int getHostSeatIndex(
   return -1;
 }
 
-Future<void> loadMusice({required String path, required bool repeat}) async {
+Future<void> loadMusice({required String path, bool repeat = false}) async {
   MusicWidget.isIPlayerMedia = true;
   await ZegoUIKit().playMedia(filePathOrURL: path, enableRepeat: repeat);
 
@@ -588,6 +590,7 @@ ShowGifts(
     String id,
     Future<void> Function({required GiftData giftData}) loadMp4Gift,
     Future<void> Function(GiftData giftData) loadAnimationGift,
+    Future<void> Function({required GiftData giftData}) loadAlphaMp4,
     String roomOwnerId) async {
   String sendId = result[messageContent][sendIdKey].toString();
   String receiverId = result[messageContent][receiverIdKey].toString();
@@ -613,16 +616,21 @@ ShowGifts(
       receiverData.add(RoomScreen.usersInRoom[receiverId]!);
     }
   }
-  Map<String, dynamic> cachedGifts = {};
+  //Map<String, dynamic> cachedGifts = {};
   // if (result[messageContent]['showGift'].contains("mp4")) {
-  cachedGifts = await Methods().getCachingVideo(key: StringManager.cachGiftKey);
+  //cachedGifts = await Methods().getCachingVideo(key: StringManager.cachGiftKey);
   // }
 
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+  String rootPath = appDocDir.path;
+  String path = "$rootPath/${result[messageContent]['gift_id'].toString()}.mp4";
+
+  File? file = File(path);
+
+  bool exist = await file.exists();
+
   GiftData giftData = GiftData(
-      localPath:
-          cachedGifts.containsKey(result[messageContent]['gift_id'].toString())
-              ? cachedGifts[result[messageContent]['gift_id'].toString()]
-              : null,
+      localPath: exist ? path : null,
       giftId: result[messageContent]['gift_id'].toString(),
       img: result[messageContent][showGiftKey],
       senderData: sendData.isNotEmpty ? sendData[0] : null,
@@ -633,19 +641,26 @@ ShowGifts(
       roomGiftsPrice: result[messageContent][roomGiftsPriceKey].toString(),
       isPlural: result[messageContent][plural],
       showBanner: result[messageContent][isExpensive]);
-  if (cachedGifts.containsKey(result[messageContent]['gift_id'].toString()) ||
-      result[messageContent]['showGift'].contains("mp4")) {
-    // RoomScreen.isGiftEntroAnimating = true;
+
+  if (result[messageContent]['type'].toString() == showGiftType.mp4.name) {
     if (RoomScreen.isGiftEntroAnimating) {
       RoomScreen.listOfAnimatingMp4Gifts.add(giftData);
     } else {
       await loadMp4Gift(giftData: giftData);
     }
-  } else {
+  } else if (result[messageContent]['type'].toString() ==
+      showGiftType.svga.name) {
     if (RoomScreen.isGiftEntroAnimating) {
       RoomScreen.listOfAnimatingGifts.add(giftData);
     } else {
       await loadAnimationGift(giftData);
+    }
+  } else if (result[messageContent]['type'].toString() ==
+      showGiftType.alpha.name) {
+    if (RoomScreen.isGiftEntroAnimating) {
+      RoomScreen.listOfAnimatingAlphaGifts.add(giftData);
+    } else {
+      await loadAlphaMp4(giftData: giftData);
     }
   }
 }
