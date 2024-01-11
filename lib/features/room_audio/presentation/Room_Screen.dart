@@ -438,7 +438,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
-        if(!widget.myDataModel.id.toString().startsWith('-1')){
+        if(widget.myDataModel.id.toString() !='276'||widget.myDataModel.id.toString() !='23'){
           ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة",);
           if(widget.myDataModel.intro! != ""){
             Map<String,dynamic>    mapZego = {

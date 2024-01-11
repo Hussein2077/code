@@ -47,11 +47,6 @@ class _CacheDataWidgetState extends State<CacheDataWidget> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     overlayEntry = OverlayEntry(
       builder: (context) {
