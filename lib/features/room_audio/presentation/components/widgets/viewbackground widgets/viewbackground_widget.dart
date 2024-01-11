@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_vap2/flutter_vap.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
@@ -46,6 +45,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_privat
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_states.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
+import 'package:vap/vap.dart';
 import 'package:video_player/video_player.dart';
 
 class ViewbackgroundWidget extends StatefulWidget {
@@ -183,196 +183,193 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             },
           ),
 
-            Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                    padding: EdgeInsets.only(
-                        right: 0, bottom: ConfigSize.defaultSize! * 2),
-                    child: const PageViewGames())),
-            Align(
+          Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 10),
-                child: InkWell(
-                  onTap: () async {
-                    String token = await Methods.instance.returnUserToken();
-                    showModalBottomSheet<void>(
-                        context: context,
-                        isDismissible: false,
-                        backgroundColor: Colors.black,
-                        isScrollControlled: true, // This is important to make it full screen
+                  padding: EdgeInsets.only(
+                      right: 0, bottom: ConfigSize.defaultSize! * 2),
+                  child: const PageViewGames())),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 10),
+              child: InkWell(
+                onTap: () async {
+                  String token = await Methods.instance.returnUserToken();
+                  showModalBottomSheet<void>(
+                      context: context,
+                      isDismissible: false,
+                      backgroundColor: Colors.black,
+                      isScrollControlled:
+                          true, // This is important to make it full screen
 
-                        builder: (BuildContext context) {
-                          return SizedBox(
-
-                              child: WebViewInRoom(
-                                url: '${StringManager.fruitGame}$token',
-                              )
-                          );
-                        }
-                    );
-                  },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(AssetsPath.fruitsGame))),
-                    width: ConfigSize.defaultSize! * 6,
-                    height: ConfigSize.defaultSize! * 6,
-                  ),
+                      builder: (BuildContext context) {
+                        return SizedBox(
+                            child: WebViewInRoom(
+                          url: '${StringManager.fruitGame}$token',
+                        ));
+                      });
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(AssetsPath.fruitsGame))),
+                  width: ConfigSize.defaultSize! * 6,
+                  height: ConfigSize.defaultSize! * 6,
                 ),
               ),
             ),
-            ValueListenableBuilder(
-                valueListenable: OwnerOfRoom.editRoom,
-                builder: (context, editValue, _) {
-                  return HeaderRoom(
-                    roomName: widget.roomDataUpdates['room_name'] ?? '',
-                    room: widget.room,
-                    myDataModel: MyDataModel.getInstance(),
-                    introRoom: widget.roomDataUpdates['room_intro'] ?? '',
-                    roomImg: widget.roomDataUpdates['room_img'] ?? '',
-                    roomMode: widget.layoutMode == LayoutMode.hostTopCenter
-                        ? 0
-                        : widget.layoutMode == LayoutMode.party
-                            ? 1
-                            : 2,
-                    roomType: widget.roomDataUpdates['room_type'] ?? '',
-                    layoutMode: widget.layoutMode,
-                  );
-                }),
-            ValueListenableBuilder(
-                valueListenable: LuckyBoxVariables.updateLuckyBox,
-                builder: (context, edit, _) {
-                  if (LuckyBoxVariables.luckyBoxMap['luckyBoxes'].isNotEmpty) {
-                    return LuckyBox(
-                        luckyBoxRemovecontroller:
-                            LuckyBoxVariables.luckyBoxRemovecontroller);
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-            MusicWidget(
-              room: widget.room,
-              controllerMusice: widget.controllerMusice,
-            ),
-            Positioned(
-                top: ConfigSize.defaultSize! * 35,
-                bottom: ConfigSize.defaultSize! * 7,
-                right: ConfigSize.defaultSize! * 7,
-                left: ConfigSize.defaultSize! * 7,
-                child: SVGAImage(widget.animationControllerEntro)),
-            Positioned(
-                top: ConfigSize.defaultSize! * 18,
-                bottom: ConfigSize.defaultSize! * 45,
-                right: ConfigSize.defaultSize! * 14,
-                child: SVGAImage(PkController.animationControllerRedTeam)),
-            Positioned(
-                top: ConfigSize.defaultSize! * 18,
-                bottom: ConfigSize.defaultSize! * 45,
-                left: ConfigSize.defaultSize! * 14,
-                child: SVGAImage(
-                  PkController.animationControllerBlueTeam,
-                )),
-            Positioned(child: SVGAImage(widget.animationControllerGift)),
-            IgnorePointer(
-              child: ValueListenableBuilder<bool>(
-                  valueListenable: RoomScreen.isVideoVisible,
-                  builder: (context, isShow, _) {
-                    if (isShow) {
-                      return AspectRatio(
-                        aspectRatio:
-                            ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
-                        child: VideoPlayer(ViewbackgroundWidget.mp4Controller!),
-                      );
-                    } else {
-                      return Container();
-                    }
-                  }),
-            ),
-            Positioned(
-                top: ConfigSize.defaultSize! * 35,
-                bottom: ConfigSize.defaultSize! * 7,
-                right: ConfigSize.defaultSize! * 7,
-                left: ConfigSize.defaultSize! * 7,
-                child: SVGAImage(widget.animationControllerEntro)),
-            ValueListenableBuilder<bool>(
-                valueListenable: ShowEntroWidget.showEntro,
+          ),
+          ValueListenableBuilder(
+              valueListenable: OwnerOfRoom.editRoom,
+              builder: (context, editValue, _) {
+                return HeaderRoom(
+                  roomName: widget.roomDataUpdates['room_name'] ?? '',
+                  room: widget.room,
+                  myDataModel: MyDataModel.getInstance(),
+                  introRoom: widget.roomDataUpdates['room_intro'] ?? '',
+                  roomImg: widget.roomDataUpdates['room_img'] ?? '',
+                  roomMode: widget.layoutMode == LayoutMode.hostTopCenter
+                      ? 0
+                      : widget.layoutMode == LayoutMode.party
+                          ? 1
+                          : 2,
+                  roomType: widget.roomDataUpdates['room_type'] ?? '',
+                  layoutMode: widget.layoutMode,
+                );
+              }),
+          ValueListenableBuilder(
+              valueListenable: LuckyBoxVariables.updateLuckyBox,
+              builder: (context, edit, _) {
+                if (LuckyBoxVariables.luckyBoxMap['luckyBoxes'].isNotEmpty) {
+                  return LuckyBox(
+                      luckyBoxRemovecontroller:
+                          LuckyBoxVariables.luckyBoxRemovecontroller);
+                } else {
+                  return const SizedBox();
+                }
+              }),
+          MusicWidget(
+            room: widget.room,
+            controllerMusice: widget.controllerMusice,
+          ),
+          Positioned(
+              top: ConfigSize.defaultSize! * 35,
+              bottom: ConfigSize.defaultSize! * 7,
+              right: ConfigSize.defaultSize! * 7,
+              left: ConfigSize.defaultSize! * 7,
+              child: SVGAImage(widget.animationControllerEntro)),
+          Positioned(
+              top: ConfigSize.defaultSize! * 18,
+              bottom: ConfigSize.defaultSize! * 45,
+              right: ConfigSize.defaultSize! * 14,
+              child: SVGAImage(PkController.animationControllerRedTeam)),
+          Positioned(
+              top: ConfigSize.defaultSize! * 18,
+              bottom: ConfigSize.defaultSize! * 45,
+              left: ConfigSize.defaultSize! * 14,
+              child: SVGAImage(
+                PkController.animationControllerBlueTeam,
+              )),
+          Positioned(child: SVGAImage(widget.animationControllerGift)),
+          IgnorePointer(
+            child: ValueListenableBuilder<bool>(
+                valueListenable: RoomScreen.isVideoVisible,
                 builder: (context, isShow, _) {
                   if (isShow) {
-                    return ShowEntroWidget(
-                        userIntroData: widget.userIntroData,
-                        offsetAnimationEntro: widget.offsetAnimationEntro);
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-            if (widget.showYellowBanner['showYellowBanner']!)
-           // Positioned(
-           //         top: -48,
-           //         child:
-                   ShowYallowBannerWidget(
-                       cureentRoomId: widget.room.ownerId!,
-                       controllerYallowBanner: widget.yellowBannercontroller,
-                       offsetAnimationYallowBanner:
-                       widget.offsetAnimationYellowBanner,
-                       senderYallowBanner: widget.yallowBannerSender,
-                       hasPassword: widget.yallowBanner,
-                       myData: MyDataModel.getInstance(),
-                       ownerId: widget.yallowBanner) ,
-             // ) ,
-            ValueListenableBuilder<bool>(
-                valueListenable: RoomScreen.showBanner,
-                builder: (context, isShow, _) {
-                  if (isShow) {
-                    return Positioned(
-                        top: ConfigSize.defaultSize! * 7.5,
-                        left: AppPadding.p36,
-                        child: ShowGiftBannerWidget(
-                          isPlural: widget.isPlural['isPlural']!,
-                          sendDataUser: widget.userBannerData['user_data_sender'],
-                          receiverDataUser:
-                              widget.userBannerData['user_data_receiver'],
-                          giftImage: widget.userBannerData['gift_banner'] ?? '',
-                          ownerId:
-                              widget.userBannerData['owner_id_room_banner'] == ''
-                                  ? widget.room.ownerId.toString()
-                                  : widget.userBannerData['owner_id_room_banner'],
-                          controllerBanner: widget.controllerBanner,
-                          offsetAnimationBanner: widget.offsetAnimationBanner,
-                          isPassword:
-                              widget.userBannerData['is_password_room_banner'],
-                          roomOwnerId: widget.room.ownerId.toString(),
-                          showGift: showGift,
-                          roomIntro: widget.room.roomIntro!,
-                        ));
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-            BlocConsumer<LuckyGiftBannerBloc, LuckyGiftBannerState>(
-              listener: (context, state) {
-                if (state is SendLuckyGiftSucssesState) {
-                  LuckyCandy.recieverName = state.data.receiverName;
-                  LuckyCandy.winCounter = LuckyCandy.winCounter + 1;
-                  if (state.data.isWin && !state.data.isPopular) {
-                    // ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
-                    LuckyGiftWinCircle.winCoin = state.data.winCoin;
-                    LuckyCandy.winCircularluckyGift.value =
-                        LuckyCandy.winCircularluckyGift.value + 1;
-                  } else if (state.data.isWin && state.data.isPopular) {
-                    ZegoUIKit().sendInRoomMessage(
-                      state.data.message,
+                    return AspectRatio(
+                      aspectRatio:
+                          ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
+                      child: VideoPlayer(ViewbackgroundWidget.mp4Controller!),
                     );
-                    //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
-                    //   LuckyCandy.recieverName = state.data.receiverName;
-                    //   LuckyCandy.winPopularCounter = LuckyCandy.winPopularCounter + 1;
                   } else {
-                    //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
+                    return Container();
                   }
-                  if (state.isFirst == 1) {
-                    widget.luckGiftBannderController.forward();
-                  }
-                } else if (state is SendLuckyGiftErrorStateState) {
+                }),
+          ),
+          Positioned(
+              top: ConfigSize.defaultSize! * 35,
+              bottom: ConfigSize.defaultSize! * 7,
+              right: ConfigSize.defaultSize! * 7,
+              left: ConfigSize.defaultSize! * 7,
+              child: SVGAImage(widget.animationControllerEntro)),
+          ValueListenableBuilder<bool>(
+              valueListenable: ShowEntroWidget.showEntro,
+              builder: (context, isShow, _) {
+                if (isShow) {
+                  return ShowEntroWidget(
+                      userIntroData: widget.userIntroData,
+                      offsetAnimationEntro: widget.offsetAnimationEntro);
+                } else {
+                  return const SizedBox();
+                }
+              }),
+          if (widget.showYellowBanner['showYellowBanner']!)
+            // Positioned(
+            //         top: -48,
+            //         child:
+            ShowYallowBannerWidget(
+                cureentRoomId: widget.room.ownerId!,
+                controllerYallowBanner: widget.yellowBannercontroller,
+                offsetAnimationYallowBanner: widget.offsetAnimationYellowBanner,
+                senderYallowBanner: widget.yallowBannerSender,
+                hasPassword: widget.yallowBanner,
+                myData: MyDataModel.getInstance(),
+                ownerId: widget.yallowBanner),
+          // ) ,
+          ValueListenableBuilder<bool>(
+              valueListenable: RoomScreen.showBanner,
+              builder: (context, isShow, _) {
+                if (isShow) {
+                  return Positioned(
+                      top: ConfigSize.defaultSize! * 7.5,
+                      left: AppPadding.p36,
+                      child: ShowGiftBannerWidget(
+                        isPlural: widget.isPlural['isPlural']!,
+                        sendDataUser: widget.userBannerData['user_data_sender'],
+                        receiverDataUser:
+                            widget.userBannerData['user_data_receiver'],
+                        giftImage: widget.userBannerData['gift_banner'] ?? '',
+                        ownerId:
+                            widget.userBannerData['owner_id_room_banner'] == ''
+                                ? widget.room.ownerId.toString()
+                                : widget.userBannerData['owner_id_room_banner'],
+                        controllerBanner: widget.controllerBanner,
+                        offsetAnimationBanner: widget.offsetAnimationBanner,
+                        isPassword:
+                            widget.userBannerData['is_password_room_banner'],
+                        roomOwnerId: widget.room.ownerId.toString(),
+                        showGift: showGift,
+                        roomIntro: widget.room.roomIntro!,
+                      ));
+                } else {
+                  return const SizedBox();
+                }
+              }),
+          BlocConsumer<LuckyGiftBannerBloc, LuckyGiftBannerState>(
+            listener: (context, state) {
+              if (state is SendLuckyGiftSucssesState) {
+                LuckyCandy.recieverName = state.data.receiverName;
+                LuckyCandy.winCounter = LuckyCandy.winCounter + 1;
+                if (state.data.isWin && !state.data.isPopular) {
+                  // ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
+                  LuckyGiftWinCircle.winCoin = state.data.winCoin;
+                  LuckyCandy.winCircularluckyGift.value =
+                      LuckyCandy.winCircularluckyGift.value + 1;
+                } else if (state.data.isWin && state.data.isPopular) {
+                  ZegoUIKit().sendInRoomMessage(
+                    state.data.message,
+                  );
+                  //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
+                  //   LuckyCandy.recieverName = state.data.receiverName;
+                  //   LuckyCandy.winPopularCounter = LuckyCandy.winPopularCounter + 1;
+                } else {
+                  //  ZegoUIKit().sendInRoomMessage(state.data.coomentMesasge, false);
+                }
+                if (state.isFirst == 1) {
+                  widget.luckGiftBannderController.forward();
+                }
+              } else if (state is SendLuckyGiftErrorStateState) {
                 errorToast(context: context, title: state.error);
               }
             },
@@ -543,10 +540,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
             },
           ),
           IgnorePointer(
-            // VapView can set the width and height through the outer package Container() to limit the width and height of the pop-up video
-            child: VapView(onVapViewCreated: (controller) {
-              RoomScreen.vapViewController = controller;
-            }),
+            child: VapView(),
           ),
         ]);
       }, listener: (context, state) {

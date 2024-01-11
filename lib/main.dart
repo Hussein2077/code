@@ -171,6 +171,8 @@ import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_p
 
 //final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+bool firebaseInitialized = true;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //ads
@@ -183,28 +185,37 @@ Future<void> main() async {
       Permission.notification.request();
     }
   });
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
-  await FirebaseMessaging.instance.setAutoInitEnabled(true);
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    firebaseInitialized = false;
+    log(e.toString());
+  }
 
-  tokenDevices = await FirebaseMessaging.instance.getToken();
+  try {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    tokenDevices = await FirebaseMessaging.instance.getToken();
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+    await _firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+  } catch (e) {
+    firebaseInitialized = false;
+    log(e.toString());
+  }
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  await _firebaseMessaging.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
   bool groupChatUnReadMessage =
       await Methods.instance.getLocalGroupChatNotifecation();
   HomeScreen.rebuildGroupChatCounter.value = groupChatUnReadMessage;
@@ -215,34 +226,16 @@ Future<void> main() async {
       Methods.instance.setLocalGroupChatNotifecation(unReadMessage: true);
       HomeScreen.rebuildGroupChatCounter.value = true;
     }
-    log("when app opened");
   });
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    // Handle when the app is opened by clicking on a notification
-    // Navigate to HomeScreen when the notification is clicked
-    print('onMessageOpenedApp ${message.data}');
-
     navigateFromNotification(message);
   });
-  //
-  FirebaseMessaging.onBackgroundMessage((message) async{
+
+  FirebaseMessaging.onBackgroundMessage((message) async {
     log(message.data.toString());
     navigateFromNotification(message);
-    log("el3slyaaaaaa");
   });
-  // FirebaseMessaging.onBackgroundMessage().then((RemoteMessage? message) {
-  //   if (message != null) {
-  //     // Handle when the app is opened by clicking on a notification
-  //     // Navigate to HomeScreen when the notification is clicked
-  //     print('Opened app by clicking on a notification!');
-  //     print('getInitialMessage ${message.data}');
-  //     log('getInitialMessage ${message.data}');
-  //     print('${message.data['message-type']} #############');
-  //
-  //     // navigateFromNotification(message);
-  //   }
-  // });
 
   await ServerLocator().init();
 
@@ -492,7 +485,7 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<FamilyRoomBloc>(),
         ),
         BlocProvider(create: (_) => getIt<PrivacyBloc>()),
-        //BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
+        BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
         BlocProvider(create: (_) => getIt<GetReelsBloc>()),
         BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
         BlocProvider(create: (_) => getIt<UserReportBloc>()),
@@ -501,10 +494,10 @@ class MyApp extends StatelessWidget {
               getIt<GoldCoinBloc>()..add(GetGoldCoinDataEvent()),
         ),
         BlocProvider(create: (_) => getIt<BuyCoinsBloc>()),
-        //BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
-        //BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
-        //BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
-        //BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
+        BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
+        BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
+        BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
+        BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
         BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
         BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),
@@ -516,9 +509,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetMomentLikesBloc>()),
         BlocProvider(create: (_) => getIt<DeleteMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
-        //BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
-        //BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
-        //BlocProvider(create: (_) => getIt<GetMomentGiftsBloc>()),
+        BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
+        BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
+        BlocProvider(create: (_) => getIt<GetMomentGiftsBloc>()),
         BlocProvider(create: (context) => ThemeBloc()),
         BlocProvider(create: (_) => getIt<RoomVistorBloc>()),
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),

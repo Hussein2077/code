@@ -1,5 +1,3 @@
-
-
 import 'package:dartz/dartz.dart';
 import 'package:tik_chat_v2/core/error/failures.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -13,11 +11,14 @@ import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_use
 abstract class BaseRepository {
   Future<Either<Unit, Failure>> resendCode(String uuid);
 
-  Future<Either<MyDataModel, Failure>> registerWithPhone(AuthPramiter authPramiter);
+  Future<Either<MyDataModel, Failure>> registerWithPhone(
+      AuthPramiter authPramiter);
 
-  Future<Either<MyDataModel, Failure>> loginWithPhone(AuthPramiter authPramiter);
+  Future<Either<MyDataModel, Failure>> loginWithPhone(
+      AuthPramiter authPramiter);
 
-  Future<Either<MyDataModel, Failure>> addInformation(InformationPramiter informationPramiter);
+  Future<Either<MyDataModel, Failure>> addInformation(
+      InformationPramiter informationPramiter);
 
   Future<Either<AuthWithGoogleModel, Failure>> siginWithGoogle();
 
@@ -25,7 +26,7 @@ abstract class BaseRepository {
 
   Future<Either<AuthWithAppleModel, Failure>> siginWithApple();
 
-  Future<Either<MyDataModel, Failure>> siginWithFacebook();
+  // Future<Either<MyDataModel, Failure>> siginWithFacebook();
 
   Future<Either<String, Failure>> logOut();
 
@@ -35,7 +36,9 @@ abstract class BaseRepository {
 
   Future<Either<GetAllCountriesBase, Failure>> getAllCountries();
 
-  Future<Either<String, Failure>> forgetPassword({required String phone, required String password, required String code});
+  Future<Either<String, Failure>> forgetPassword(
+      {required String phone, required String password, required String code});
 
-  Future<Either<String, Failure>> forgetPasswordCodeVerification({required String phone, required String code});
+  Future<Either<String, Failure>> forgetPasswordCodeVerification(
+      {required String phone, required String code});
 }

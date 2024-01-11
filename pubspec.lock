@@ -606,30 +606,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
-  flutter_facebook_auth:
-    dependency: "direct main"
-    description:
-      name: flutter_facebook_auth
-      sha256: "50dc3eef562acbe1e4cfad478053c9c16f9eaac49ad14ec48f00ed9dae1ba0cd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.4.1+1"
-  flutter_facebook_auth_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_facebook_auth_platform_interface
-      sha256: "7950f5f8a6f2270c5d29af2a514733987db1191f70838fa777b282e47365f8c8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.0"
-  flutter_facebook_auth_web:
-    dependency: transitive
-    description:
-      name: flutter_facebook_auth_web
-      sha256: "0f732e968c929a3c11a215ded802557576230ff0a0794c88941a8e92ff07b2eb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.0"
   flutter_fortune_wheel:
     dependency: "direct main"
     description:
@@ -720,14 +696,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_vap2:
-    dependency: "direct main"
-    description:
-      name: flutter_vap2
-      sha256: cd500ba428170e78bf9643fde767456b0957c33fbc190a8fc4ace5adc1c96084
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   flutter_video_info:
     dependency: "direct main"
     description:
@@ -1834,6 +1802,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.7"
+  vap:
+    dependency: "direct main"
+    description:
+      name: vap
+      sha256: "77ff3762026d715516cd77606639a943e5128b6269f3c4a27157fb27ca15742e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   vector_math:
     dependency: transitive
     description:

@@ -640,16 +640,16 @@ class RepositoryImpProfile extends BaseRepositoryProfile {
     }
   }
 
-  @override
-  Future<Either<String, Failure>> bountFacebook() async {
-    try {
-      final result = await baseRemotlyDataSourceProfile.boundFacebook();
-      log(result.toString());
-      return left(result);
-    } on Exception {
-      return right(SiginFacebookFailure());
-    }
-  }
+  // @override
+  // Future<Either<String, Failure>> bountFacebook() async {
+  //   try {
+  //     final result = await baseRemotlyDataSourceProfile.boundFacebook();
+  //     log(result.toString());
+  //     return left(result);
+  //   } on Exception {
+  //     return right(SiginFacebookFailure());
+  //   }
+  // }
 
   @override
   Future<Either<String, Failure>> bountGmail() async {

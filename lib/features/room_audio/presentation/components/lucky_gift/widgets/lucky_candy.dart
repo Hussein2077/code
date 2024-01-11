@@ -18,15 +18,13 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_luck
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import '../../../../../../../core/utils/config_size.dart';
 
-
-
 class LuckyCandy extends StatefulWidget {
-  final EnterRoomModel roomData ;
-  final AnimationController? luckGiftBannderController ;
+  final EnterRoomModel roomData;
+  final AnimationController? luckGiftBannderController;
 
-  const LuckyCandy({
-    this.luckGiftBannderController,
-    required this.roomData, Key? key}) : super(key: key);
+  const LuckyCandy(
+      {this.luckGiftBannderController, required this.roomData, Key? key})
+      : super(key: key);
   static ValueNotifier<int> winCircularluckyGift = ValueNotifier<int>(0);
   static int winCounter = 0;
   static String recieverName = "";
@@ -35,7 +33,7 @@ class LuckyCandy extends StatefulWidget {
   _LuckyCandyState createState() => _LuckyCandyState();
 }
 
-class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
+class _LuckyCandyState extends State<LuckyCandy> with TickerProviderStateMixin {
   int compo = 1;
   Timer? timer;
   Timer? timerDuration;
@@ -51,7 +49,7 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
       vsync: this,
     )..repeat();
     timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
-      percentNotifier.value += 0.0017;
+      percentNotifier.value += 0.0008;
     });
     sendGift();
     super.initState();
@@ -65,81 +63,77 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return
-      InkWell(
-        onTap: () {
-          sendGift();
-          percentNotifier.value =  0;
-        },
-        child:Container(
-          decoration: BoxDecoration(
-            gradient:   const LinearGradient(colors: ColorManager.mainColorList),
-            borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-
-              Center(
-                child: Text(
-                  StringManager.luckGiftSend.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Colors.white),
-                ),
-              ),
-              ValueListenableBuilder<double>(
-                  valueListenable: percentNotifier,
-                  builder: (context, percent, child)  {
-                    if(percent >= 1){
-                      endAllLuckyGift();
-                    }
-                    return CircularPercentIndicator(
-                      radius: ConfigSize.defaultSize! * 3.4,
-                      lineWidth: 3,
-                      animation: true,
-                      curve: Curves.ease,
-                      animateFromLastPercent: true,
-                      addAutomaticKeepAlive: true,
-                      percent: percent<1?percent:1,
-                      backgroundColor: Colors.grey,
-                      progressColor: Colors.yellow,
-                    );
-                  }
-              ),
-            ],
-          ),
+    return InkWell(
+      onTap: () {
+        sendGift();
+        percentNotifier.value = 0;
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(colors: ColorManager.mainColorList),
+          borderRadius: BorderRadius.circular(ConfigSize.defaultSize! * 5),
         ),
-      );
-
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Center(
+              child: Text(
+                StringManager.luckGiftSend.tr(),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: Colors.white),
+              ),
+            ),
+            ValueListenableBuilder<double>(
+                valueListenable: percentNotifier,
+                builder: (context, percent, child) {
+                  if (percent >= 1) {
+                    endAllLuckyGift();
+                  }
+                  return CircularPercentIndicator(
+                    radius: ConfigSize.defaultSize! * 3.4,
+                    lineWidth: 3,
+                    animation: true,
+                    curve: Curves.ease,
+                    animateFromLastPercent: true,
+                    addAutomaticKeepAlive: true,
+                    percent: percent < 1 ? percent : 1,
+                    backgroundColor: Colors.grey,
+                    progressColor: Colors.yellow,
+                  );
+                }),
+          ],
+        ),
+      ),
+    );
   }
 
-
-  void endAllLuckyGift(){
-
+  void endAllLuckyGift() {
     if (timer != null) {
       timer!.cancel();
     }
     compo = 0;
 
-
-
     widget.luckGiftBannderController!.reverse().then((value) {
-
-        BlocProvider.of<LuckyGiftBannerBloc>(context.mounted  ?context :
-        getIt<NavigationService>().navigatorKey.currentContext!).add(EndBannerEvent()) ;
-    }
-        );
-    Future.delayed(const Duration(seconds: 1),()=>GiftBottomBar.typeCandy.value = TypeCandy.non);
-    Future.delayed(const Duration(seconds: 1),()=>LuckyCandy.winCircularluckyGift.value = 0);
-    if(LuckyCandy.winCounter != 0) ZegoUIKit().sendInRoomMessage("${StringManager.luckyGiftMessage.tr()} ${LuckyCandy.winCounter} ${StringManager.to.tr()} ${LuckyCandy.recieverName}",);
+      BlocProvider.of<LuckyGiftBannerBloc>(context.mounted
+              ? context
+              : getIt<NavigationService>().navigatorKey.currentContext!)
+          .add(EndBannerEvent());
+    });
+    Future.delayed(const Duration(seconds: 1),
+        () => GiftBottomBar.typeCandy.value = TypeCandy.non);
+    Future.delayed(const Duration(seconds: 1),
+        () => LuckyCandy.winCircularluckyGift.value = 0);
+    if (LuckyCandy.winCounter != 0)
+      ZegoUIKit().sendInRoomMessage(
+        "${StringManager.luckyGiftMessage.tr()} ${LuckyCandy.winCounter} ${StringManager.to.tr()} ${LuckyCandy.recieverName}",
+      );
     LuckyCandy.winCounter = 0;
-
   }
 
   void sendGift() {
-    List<String> userSelected =[] ;
+    List<String> userSelected = [];
     GiftUser.userSelected.forEach((key, value) {
       userSelected.add(value.userId);
     });
@@ -148,23 +142,20 @@ class _LuckyCandyState extends State<LuckyCandy>with TickerProviderStateMixin {
       toUid += '${userSelected[i].toString()},';
     }
 
-
     (userSelected.isEmpty && GiftUserOnly.userSelected == "")
         ? BlocProvider.of<LuckyGiftBannerBloc>(context).add(SendLuckyGiftEvent(
-      ownerId: widget.roomData.ownerId.toString(),
-      id: GiftScreen.giftId.toString(),
-      toUid: "",
-      num: GiftBottomBar.numberOfGift.toString(),
-    ))
-        :  BlocProvider.of<LuckyGiftBannerBloc>(context).add(SendLuckyGiftEvent(
-      ownerId: widget.roomData.ownerId.toString(),
-      id: GiftScreen.giftId.toString(),
-      toUid: GiftUserOnly.userSelected == ""
-          ? toUid.substring(0, toUid.length - 1)
-          : GiftUserOnly.userSelected,
-      num: GiftBottomBar.numberOfGift.toString(),
-    ));
-
-
+            ownerId: widget.roomData.ownerId.toString(),
+            id: GiftScreen.giftId.toString(),
+            toUid: "",
+            num: GiftBottomBar.numberOfGift.toString(),
+          ))
+        : BlocProvider.of<LuckyGiftBannerBloc>(context).add(SendLuckyGiftEvent(
+            ownerId: widget.roomData.ownerId.toString(),
+            id: GiftScreen.giftId.toString(),
+            toUid: GiftUserOnly.userSelected == ""
+                ? toUid.substring(0, toUid.length - 1)
+                : GiftUserOnly.userSelected,
+            num: GiftBottomBar.numberOfGift.toString(),
+          ));
   }
 }

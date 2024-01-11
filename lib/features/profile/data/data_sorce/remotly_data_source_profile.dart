@@ -2,7 +2,6 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:tik_chat_v2/core/base_use_case/base_use_case.dart';
@@ -152,7 +151,7 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<String> deleteAccount();
   Future<String> boundGmail();
-  Future<String> boundFacebook();
+  // Future<String> boundFacebook();
   Future<String> boundNumber(BoundNumberPramiter boundNumberPramiter);
   Future<String> changePassword(BoundNumberPramiter boundNumberPramiter);
   Future<String> changePhone(BoundNumberPramiter boundNumberPramiter);
@@ -1469,38 +1468,38 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     }
   }
 
-  @override
-  Future<String> boundFacebook() async {
-    final LoginResult result =
-        await FacebookAuth.i.login(permissions: ['email']);
-    Map<String, String> headers = await DioHelper().header();
-    if (result.status == LoginStatus.success) {
-      final data = await FacebookAuth.i.getUserData();
+  // @override
+  // Future<String> boundFacebook() async {
+  //   final LoginResult result =
+  //       await FacebookAuth.i.login(permissions: ['email']);
+  //   Map<String, String> headers = await DioHelper().header();
+  //   if (result.status == LoginStatus.success) {
+  //     final data = await FacebookAuth.i.getUserData();
 
-      UserPlatformModel model = UserPlatformModel.fromJson(data);
-      final body = {
-        "facebook_id": model.id,
-      };
-      final response = await Dio().post(
-        ConstentApi.boundAccount,
-        data: body,
-        options: Options(
-          headers: headers,
-        ),
-      );
+  //     UserPlatformModel model = UserPlatformModel.fromJson(data);
+  //     final body = {
+  //       "facebook_id": model.id,
+  //     };
+  //     final response = await Dio().post(
+  //       ConstentApi.boundAccount,
+  //       data: body,
+  //       options: Options(
+  //         headers: headers,
+  //       ),
+  //     );
 
-      Map<String, dynamic> resultData = response.data;
-      log(resultData.toString());
-      bool sussec = resultData["success"];
-      if (sussec) {
-        return resultData['message'];
-      } else {
-        throw SiginFacebookException();
-      }
-    } else {
-      throw SiginFacebookException();
-    }
-  }
+  //     Map<String, dynamic> resultData = response.data;
+  //     log(resultData.toString());
+  //     bool sussec = resultData["success"];
+  //     if (sussec) {
+  //       return resultData['message'];
+  //     } else {
+  //       throw SiginFacebookException();
+  //     }
+  //   } else {
+  //     throw SiginFacebookException();
+  //   }
+  // }
 
   @override
   Future<String> boundNumber(BoundNumberPramiter boundNumberPramiter) async {

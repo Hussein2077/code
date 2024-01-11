@@ -1,10 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
-
 import 'dart:developer';
-
-import 'package:dio/dio.dart';
-import 'package:flutter_vap2/flutter_vap.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -65,6 +61,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
+import 'package:vap/vap.dart';
 import 'package:video_player/video_player.dart';
 
 class RoomScreen extends StatefulWidget {
@@ -101,7 +98,6 @@ class RoomScreen extends StatefulWidget {
   static String differentCommentKey = "";
   static ValueNotifier<bool> happyNewYearGif = ValueNotifier<bool>(false);
   static ValueNotifier<bool> happyNewYearVideo = ValueNotifier<bool>(false);
-  static VapViewController? vapViewController;
 
   const RoomScreen(
       {Key? key,
@@ -485,17 +481,22 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         getIt<SetTimerPK>().start(context, widget.room.ownerId.toString());
       }
       Future.delayed(const Duration(seconds: 3), () async {
-        if(widget.myDataModel.id.toString() !='276'||widget.myDataModel.id.toString() !='23'){
-          ZegoUIKit.instance.sendInRoomMessage("انضم للغرفة",);
-          if(widget.myDataModel.intro! != ""){
-            Map<String,dynamic>    mapZego = {
-              "messageContent" : {
-                "message" : "userEntro" ,
-                "entroImg"  :  widget.myDataModel.intro ,
-                "entroImgId" : widget.myDataModel.introId ,
-                'userName'   : widget.myDataModel.name,
-                'userImge'   : widget.myDataModel.profile?.image,
-                'vip'   :  ((MyDataModel.getInstance().vip1?.level??0)>0) ? true:false,
+        if (widget.myDataModel.id.toString() != '276' ||
+            widget.myDataModel.id.toString() != '23') {
+          ZegoUIKit.instance.sendInRoomMessage(
+            "انضم للغرفة",
+          );
+          if (widget.myDataModel.intro! != "") {
+            Map<String, dynamic> mapZego = {
+              "messageContent": {
+                "message": "userEntro",
+                "entroImg": widget.myDataModel.intro,
+                "entroImgId": widget.myDataModel.introId,
+                'userName': widget.myDataModel.name,
+                'userImge': widget.myDataModel.profile?.image,
+                'vip': ((MyDataModel.getInstance().vip1?.level ?? 0) > 0)
+                    ? true
+                    : false,
               }
             };
             UserEntro(mapZego, userIntroData, loadAnimationEntro);
@@ -622,16 +623,15 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         Directory appDocDir = await getApplicationDocumentsDirectory();
         String rootPath = appDocDir.path;
         String path = "$rootPath/${giftData.giftId}.mp4";
-        var res = await RoomScreen.vapViewController!.playPath(path);
-        if (res["status"] == "failure") {
+        var res = await VapController.playPath(path);
+        if (res!["status"] == "failure") {
           log(res["errorMsg"]);
         }
       });
     } else {
       log(giftData.localPath!);
-      var res =
-          await RoomScreen.vapViewController!.playPath(giftData.localPath!);
-      if (res["status"] == "failure") {
+      var res = await VapController.playPath(giftData.localPath!);
+      if (res!["status"] == "failure") {
         log(res["errorMsg"] + "######");
       }
     }

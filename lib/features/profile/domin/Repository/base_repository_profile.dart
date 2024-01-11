@@ -160,7 +160,7 @@ abstract class BaseRepositoryProfile {
   Future<Either<List<GiftHistoryModel>, Failure>> getGiftHistory(String id);
   Future<Either<TimeDataReport, Failure>> getTimeDataReport(
       String time, String userId);
-  Future<Either<String, Failure>> bountFacebook();
+  // Future<Either<String, Failure>> bountFacebook();
 
   Future<Either<String, Failure>> bountGmail();
 
