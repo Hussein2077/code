@@ -48,17 +48,6 @@ typedef ZegoAvatarBuilder = Widget? Function(
 );
 
 /// @nodoc
-/// Specifies the rules for showing the fullscreen mode toggle button.
-enum ZegoShowFullscreenModeToggleButtonRules {
-  /// The fullscreen mode toggle button is shown when press the the video widget.
-  showWhenScreenPressed,
-
-  /// The fullscreen mode toggle button is always shown.
-  alwaysShow,
-
-  /// The fullscreen mode toggle button is always hidden.
-  alwaysHide,
-}
 
 /// @nodoc
 /// Configuration for the avatar in Zego UI Kit.
