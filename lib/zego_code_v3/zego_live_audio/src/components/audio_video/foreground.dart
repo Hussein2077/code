@@ -126,7 +126,7 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
             // else
             //   Container(),
             ...null == widget.user ? [] : [
-           //   microphoneOffFlag()
+           //microphoneOffFlag()
         ],
           ],
         );
