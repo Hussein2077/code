@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -7,15 +6,17 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/rps_free_or_paid.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/brick_paper_scissors/user_selection_screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dice/dice_free_or_paid.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/dice/user_selection_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/lucky_draw/lucky_draw_game_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/spin_wheel/spin_wheel_game_screen.dart';
 
 class ActivityGamesDialog extends StatelessWidget {
   final EnterRoomModel roomData;
-  ActivityGamesDialog({super.key, required this.roomData});
 
+  ActivityGamesDialog({super.key, required this.roomData});
 
   @override
   Widget build(BuildContext context) {
@@ -25,28 +26,36 @@ class ActivityGamesDialog extends StatelessWidget {
           name: StringManager.diceGame.tr(),
           onTap: () {
             Navigator.pop(context);
-            bottomDailog(context: context, widget: UserSelectionDiceScreen(roomData: roomData));
+            bottomDailog(
+                context: context, widget: DiceFreeOrPaid(roomData: roomData));
           }),
       gamesColumn(
           image: AssetsPath.guessingIcon,
           name: StringManager.rps.tr(),
           onTap: () {
             Navigator.pop(context);
-            bottomDailog(context: context, widget: UserSelectionScreen(roomData: roomData));
+            bottomDailog(
+                context: context, widget: RpsFreeOrPaid(roomData: roomData));
           }),
       gamesColumn(
           image: AssetsPath.lotteryIcon,
           name: StringManager.luckyPull.tr(),
           onTap: () {
             Navigator.pop(context);
-            bottomDailog(context: context, widget: LuckyDrawGameScreen(room: roomData,));
+            bottomDailog(
+                context: context,
+                widget: LuckyDrawGameScreen(
+                  room: roomData,
+                ));
           }),
       gamesColumn(
           image: AssetsPath.turntableIcon,
           name: StringManager.turntable.tr(),
           onTap: () {
             Navigator.pop(context);
-            bottomDailog(context: context, widget: SpinWheelGameScreen(roomData: roomData));
+            bottomDailog(
+                context: context,
+                widget: SpinWheelGameScreen(roomData: roomData));
           }),
     ];
     return Container(

@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/all_rooms_model.dart';
+import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
@@ -18,71 +20,87 @@ class VideoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return    Container(
-
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(
-    top: ConfigSize.defaultSize! * 2,
-      ),
-      decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.background,
-      borderRadius: BorderRadius.only(
-          topRight: Radius.circular(ConfigSize.defaultSize! * 4),
-          topLeft: Radius.circular(ConfigSize.defaultSize! * 4))),
-      child: SingleChildScrollView(
+    return Container(width: MediaQuery.of(context).size.width,
+    decoration: BoxDecoration(color: Theme.of(context).colorScheme.background),
       child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      BlocBuilder<CarouselBloc, CarouselStates>(
-        builder: (context, state) {
-          if (state is GetCarouselSuccesState) {
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+          Image.asset(AssetsPath.liveVideoSoon ,scale: 1.2),
+
+          Text(StringManager.comingSoon.toString() , style: Theme.of(context).textTheme.bodyLarge,),
 
 
-            return PageViewWidget(
-              carouselsList: state.carouselsList,
-            );
-          } else {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width - 50,
-              height: ConfigSize.defaultSize! * 15,
-              child: const LoadingWidget(),
-            );
-          }
-        },
-      ),
 
-      InkWell(
-          onTap: () {
-            bottomDailog(
-                context: context, widget: const CountryDialog());
-          },
-          child: ValueListenableBuilder(
-            valueListenable: CountryDialog.selectedCountry,
-            builder: (context, value, Widget? widget) {
-              return CountryIcon(
-                flag: CountryDialog.flag,
-                name: CountryDialog.name,
 
-              );
-            },
-          )),
-
-      GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: 0,
-          itemBuilder: (context, index) {
-            int style = 0 ; 
-            if(index==0 || index==1 ||index==2){
-              style = index ; 
-            }else {
-              style = index % 3 ;
-            }
-            return VideoLiveBox(style: style, room: RoomModelOfAll() ,);
-          })
-    ],
-      )),
+      ],),
     );
+
+    // return    Container(
+    //
+    //   width: MediaQuery.of(context).size.width,
+    //   margin: EdgeInsets.only(
+    // top: ConfigSize.defaultSize! * 2,
+    //   ),
+    //   decoration: BoxDecoration(
+    //   color: Theme.of(context).colorScheme.background,
+    //   borderRadius: BorderRadius.only(
+    //       topRight: Radius.circular(ConfigSize.defaultSize! * 4),
+    //       topLeft: Radius.circular(ConfigSize.defaultSize! * 4))),
+    //   child: SingleChildScrollView(
+    //   child: Column(
+    // crossAxisAlignment: CrossAxisAlignment.start,
+    // children: [
+    //   BlocBuilder<CarouselBloc, CarouselStates>(
+    //     builder: (context, state) {
+    //       if (state is GetCarouselSuccesState) {
+    //
+    //
+    //         return PageViewWidget(
+    //           carouselsList: state.carouselsList,
+    //         );
+    //       } else {
+    //         return SizedBox(
+    //           width: MediaQuery.of(context).size.width - 50,
+    //           height: ConfigSize.defaultSize! * 15,
+    //           child: const LoadingWidget(),
+    //         );
+    //       }
+    //     },
+    //   ),
+    //
+    //   InkWell(
+    //       onTap: () {
+    //         bottomDailog(
+    //             context: context, widget: const CountryDialog());
+    //       },
+    //       child: ValueListenableBuilder(
+    //         valueListenable: CountryDialog.selectedCountry,
+    //         builder: (context, value, Widget? widget) {
+    //           return CountryIcon(
+    //             flag: CountryDialog.flag,
+    //             name: CountryDialog.name,
+    //
+    //           );
+    //         },
+    //       )),
+    //
+    //   GridView.builder(
+    //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+    //       physics: const NeverScrollableScrollPhysics(),
+    //       shrinkWrap: true,
+    //       itemCount: 0,
+    //       itemBuilder: (context, index) {
+    //         int style = 0 ;
+    //         if(index==0 || index==1 ||index==2){
+    //           style = index ;
+    //         }else {
+    //           style = index % 3 ;
+    //         }
+    //         return VideoLiveBox(style: style, room: RoomModelOfAll() ,);
+    //       })
+    // ],
+    //   )),
+    // );
   }
 }

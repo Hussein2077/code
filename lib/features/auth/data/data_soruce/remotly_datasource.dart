@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:huawei_account/huawei_account.dart';
 import 'package:tik_chat_v2/core/error/exceptions.dart';
@@ -14,7 +13,6 @@ import 'package:tik_chat_v2/features/auth/data/model/auth_with_apple_model.dart'
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_google_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/auth_with_huawei_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
-import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/add_info_use_case.dart';
 import 'package:tik_chat_v2/features/auth/domin/use_case/register_with_phone_usecase.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -24,7 +22,7 @@ abstract class BaseRemotlyDataSource {
   Future<Unit> resendCode(String uuid);
   Future<MyDataModel> loginWithPassAndPhone(AuthPramiter authPramiter);
   Future<MyDataModel> addInformation(InformationPramiter informationPramiter);
-  Future<MyDataModel> sigInWithFacebook();
+  //Future<MyDataModel> sigInWithFacebook();
   Future<AuthWithAppleModel> sigInWithApple();
   Future<AuthWithGoogleModel> sigInWithGoogle();
   Future<AuthWithHuaweiModel> sigInWithHuawei();
@@ -252,46 +250,46 @@ class RemotlyDataSource extends BaseRemotlyDataSource {
     }
   }
 
-  @override
-  Future<MyDataModel> sigInWithFacebook() async {
-    final LoginResult result =
-        await FacebookAuth.i.login(permissions: ['email']);
-    if (result.status == LoginStatus.success) {
-      final data = await FacebookAuth.i.getUserData();
+  // @override
+  // Future<MyDataModel> sigInWithFacebook() async {
+  //   final LoginResult result =
+  //       await FacebookAuth.i.login(permissions: ['email']);
+  //   if (result.status == LoginStatus.success) {
+  //     final data = await FacebookAuth.i.getUserData();
 
-      // to get device info
-      UserPlatformModel model = UserPlatformModel.fromJson(data);
-      final devicedata = await DioHelper().initPlatformState();
-      // final body ={} ;
+  //     // to get device info
+  //     UserPlatformModel model = UserPlatformModel.fromJson(data);
+  //     final devicedata = await DioHelper().initPlatformState();
+  //     // final body ={} ;
 
-      final body = {
-        ConstentApi.type: "facebook",
-        ConstentApi.name: model.name,
-        "facebook_id": model.id,
-        'device_token': devicedata
-      };
-      Map<String, String> headers = await DioHelper().header();
+  //     final body = {
+  //       ConstentApi.type: "facebook",
+  //       ConstentApi.name: model.name,
+  //       "facebook_id": model.id,
+  //       'device_token': devicedata
+  //     };
+  //     Map<String, String> headers = await DioHelper().header();
 
-      final response = await Dio().post(
-        ConstentApi.loginUrl,
-        data: body,
-        options: Options(
-          headers: headers,
-        ),
-      );
-      Map<String, dynamic> resultData = response.data;
-      bool sussec = resultData["success"];
-      if (sussec) {
-        MyDataModel userData = MyDataModel.fromMap(resultData['data']);
-        Methods.instance.saveUserToken(authToken: userData.authToken);
-        return userData;
-      } else {
-        throw SiginFacebookException();
-      }
-    } else {
-      throw SiginFacebookException();
-    }
-  }
+  //     final response = await Dio().post(
+  //       ConstentApi.loginUrl,
+  //       data: body,
+  //       options: Options(
+  //         headers: headers,
+  //       ),
+  //     );
+  //     Map<String, dynamic> resultData = response.data;
+  //     bool sussec = resultData["success"];
+  //     if (sussec) {
+  //       MyDataModel userData = MyDataModel.fromMap(resultData['data']);
+  //       Methods.instance.saveUserToken(authToken: userData.authToken);
+  //       return userData;
+  //     } else {
+  //       throw SiginFacebookException();
+  //     }
+  //   } else {
+  //     throw SiginFacebookException();
+  //   }
+  // }
 
   @override
   Future<AuthWithHuaweiModel> sigInWithHuawei() async {

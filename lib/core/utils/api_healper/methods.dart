@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 // ignore: depend_on_referenced_packages
@@ -36,8 +37,13 @@ import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/chat-ui.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
 import 'package:tik_chat_v2/features/auth/presentation/component/otp/widget/otp_continers.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_out_chat/log_out_chat_event.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_bloc.dart';
+import 'package:tik_chat_v2/features/auth/presentation/manager/log_out_manager/log_out_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/phone_wtih_country.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/chat_theme_integration.dart';
 import 'package:tik_chat_v2/features/following/persentation/manager/followers_room_manager/get_follwers_room_bloc.dart';
@@ -76,21 +82,20 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_ro
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/music_list.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_event.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
-
 class Methods {
-
   Methods._intarnel();
 
-    static final   instance =   Methods._intarnel() ;
+  static final instance = Methods._intarnel();
 
-  factory  Methods() => instance ;
-
+  factory Methods() => instance;
 
   Future<void> clearAuth() async {
     SharedPreferences preference = getIt();
@@ -108,30 +113,30 @@ class Methods {
   //   int count = preferences.getInt("count") ??0;
   //   return count;
   // }
-  Future<void> setLocalGroupChatNotifecation({required bool unReadMessage}) async {
+  Future<void> setLocalGroupChatNotifecation(
+      {required bool unReadMessage}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool("unReadMessage", unReadMessage);
   }
+
   Future<bool> getLocalGroupChatNotifecation() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool unReadMessage = preferences.getBool("unReadMessage") ??false;
+    bool unReadMessage = preferences.getBool("unReadMessage") ?? false;
     return unReadMessage;
   }
-
 
   Future<void> saveLocalazitaon({required String language}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("languagne", language);
   }
 
-
   Future<String> getLocalization() async {
     final String defaultLocale = Platform.localeName;
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String language = preferences.getString("languagne") ??defaultLocale.substring(0,2);
+    String language =
+        preferences.getString("languagne") ?? defaultLocale.substring(0, 2);
     return language;
   }
-
 
   Future<void> setCachingMusic(
       {required Map<String, dynamic> cachingMusic}) async {
@@ -159,7 +164,6 @@ class Methods {
   }
 
   Future<Map<String, dynamic>> getCachingVideo({required String key}) async {
-
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, dynamic> defultMap = {};
     String encodedMap1 = json.encode(defultMap);
@@ -169,17 +173,13 @@ class Methods {
     return decodedMap;
   }
 
-
-  Future<void> cachingReels(List<ReelModel> reels , Map<String,dynamic> mapReels ) async{
-    await getIt<VideoCacheManager>().init() ;
-      for(int i =0;i<reels.length;i++){
-        if(kDebugMode){
-        }
-        VideoCacheModel video = VideoCacheModel(
-            img:ConstentApi().getImage(reels[i].img ) ?? "",
-            url: reels[i].url!
-        );
-
+  Future<void> cachingReels(
+      List<ReelModel> reels, Map<String, dynamic> mapReels) async {
+    await getIt<VideoCacheManager>().init();
+    for (int i = 0; i < reels.length; i++) {
+      if (kDebugMode) {}
+      VideoCacheModel video = VideoCacheModel(
+          img: ConstentApi().getImage(reels[i].img) ?? "", url: reels[i].url!);
 
       getIt<VideoCacheManager>().cacheVideo(video, StringManager.cachReelsKey);
     }
@@ -194,7 +194,6 @@ class Methods {
   }
 
   Future<void> removeCachReels() async {
-
     await getIt<VideoCacheManager>().init();
     getIt<VideoCacheManager>()
         .removeVideosByCacheKey(StringManager.cachReelsKey);
@@ -205,26 +204,32 @@ class Methods {
     await ZegoLiveAudioRoomManagers().seatManager?.uninit();
     await ZegoLiveAudioRoomManagers().plugins?.uninit();
     ZegoLiveAudioRoomManagers().unintPluginAndManagers();
-    ZegoUIKitPrebuiltLiveAudioRoomState.prebuiltData = null ;
+    ZegoUIKitPrebuiltLiveAudioRoomState.prebuiltData = null;
     await ZegoUIKit.instance.leaveRoom();
     await ZegoUIKit.instance.uninit();
     await ZegoUIKit.instance.uninit();
     ZegoUIKit.instance.logout();
-    await clearAll(ownerId, context.mounted?context:getIt<NavigationService>().navigatorKey.currentContext!);
+    await clearAll(
+        ownerId,
+        context.mounted
+            ? context
+            : getIt<NavigationService>().navigatorKey.currentContext!);
     ExistroomUC e = ExistroomUC(roomRepo: getIt());
     await e.call(ownerId);
     PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
 
     pusher.unsubscribe(channelName: 'presence-room-${ownerId}');
-
   }
 
-  Future<void> checkIfInRoom({required String ownerId, required BuildContext context}) async {
+  Future<void> checkIfInRoom(
+      {required String ownerId, required BuildContext context}) async {
     if (MainScreen.iskeepInRoom.value) {
       MainScreen.iskeepInRoom.value = false;
-      await Methods.instance.exitFromRoom(MainScreen.roomData?.ownerId == null
-          ? ownerId
-          : MainScreen.roomData!.ownerId.toString(), context);
+      await Methods.instance.exitFromRoom(
+          MainScreen.roomData?.ownerId == null
+              ? ownerId
+              : MainScreen.roomData!.ownerId.toString(),
+          context);
     }
   }
 
@@ -252,10 +257,10 @@ class Methods {
                 ));
           });
     } else {
-     if(Navigator.canPop(context)){
-       Navigator.pop(context);
-     }
-      if((isInRoom??false)){
+      if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
+      if ((isInRoom ?? false)) {
         MainScreen.iskeepInRoom.value = true;
       }
       Navigator.pushNamed(context, Routes.roomHandler,
@@ -302,9 +307,8 @@ class Methods {
     }
   }
 
-  void removeUserData (){
+  void removeUserData() {
     DefaultCacheManager().removeFile(StringManager.cachUserData);
-
   }
 
   Future<void> saveThemeStatus({required String theme}) async {
@@ -389,7 +393,6 @@ class Methods {
         options: Options(
           headers: headers,
         ),
-
       );
       Map<String, dynamic> jsonData = response.data;
 
@@ -400,12 +403,14 @@ class Methods {
     }
   }
 
-  Future<void> getAndLoadExtraData({int type=1}) async {
+  Future<void> getAndLoadExtraData({int type = 1}) async {
     SvgaDataModel svgaDataModel = await getExtraData(type);
+    CacheDataWidget.totalOfData.value = CacheDataWidget.totalOfData.value +
+        svgaDataModel.vipImage.length.toDouble();
+    CacheDataWidget.showDownloadLoading.value = 1;
+
     // removeCacheSvgaExtra(svgaDataModel: svgaDataModel) ;
     await cacheSvgaExtraData(svgaDataModel: svgaDataModel);
-
-
   }
 
   Future<void> cacheSvgaExtraData(
@@ -427,6 +432,8 @@ class Methods {
             imageId:
                 '${svgaDataModel.vipImage[i].frameId}${StringManager.cacheFrameKey}');
       }
+      CacheDataWidget.notifierDownloadCache.value =
+          CacheDataWidget.notifierDownloadCache.value + 1;
     }
 
     for (int i = 0; i < svgaDataModel.pkIamges.length; i++) {
@@ -472,6 +479,10 @@ class Methods {
 
   Future<void> getAndLoadEntro() async {
     List<DataMallModel> entroModel = await getUsersEntro();
+    CacheDataWidget.totalOfData.value =
+        CacheDataWidget.totalOfData.value + entroModel.length.toDouble();
+    CacheDataWidget.showDownloadLoading.value = 1;
+
     await cacheSvgaEntro(dataMallModel: entroModel);
   }
 
@@ -482,7 +493,10 @@ class Methods {
           svgaUrl: ConstentApi().getImage(dataMallModel[i].svg),
           imageId:
               '${dataMallModel[i].id.toString()}${StringManager.cacheEntroKey}');
+      CacheDataWidget.notifierDownloadCache.value =
+          CacheDataWidget.notifierDownloadCache.value + 1;
     }
+
     setLastTimeCache(TypesCache.intro);
   }
 
@@ -517,6 +531,10 @@ class Methods {
 
   Future<void> getAndLoadFrames() async {
     List<DataMallModel> emojieModel = await getFrames();
+    CacheDataWidget.totalOfData.value =
+        CacheDataWidget.totalOfData.value + emojieModel.length.toDouble();
+    CacheDataWidget.showDownloadLoading.value = 1;
+
     //  removeCacheSvgaFrames(dataMallModel: emojieModel);
     await cacheSvgaFrame(dataMallModel: emojieModel);
   }
@@ -524,6 +542,9 @@ class Methods {
   Future<void> cacheSvgaFrame(
       {required List<DataMallModel> dataMallModel}) async {
     for (int i = 0; i < dataMallModel.length; i++) {
+      CacheDataWidget.notifierDownloadCache.value =
+          CacheDataWidget.notifierDownloadCache.value + 1;
+
       await cacheSvgaImage(
           svgaUrl: ConstentApi().getImage(dataMallModel[i].svg),
           imageId:
@@ -535,7 +556,9 @@ class Methods {
   // cache Emojie
   Future<void> getAndLoadEmojie() async {
     List<EmojieModel> emojieModel = await getEmojie();
-    // removeCacheSvgaEmojie(emojieModel: emojieModel);
+    CacheDataWidget.totalOfData.value =
+        CacheDataWidget.totalOfData.value + emojieModel.length.toDouble();
+    CacheDataWidget.showDownloadLoading.value = 1;
     await cacheSvgaEmojie(emojieModel: emojieModel);
   }
 
@@ -560,6 +583,8 @@ class Methods {
           svgaUrl: ConstentApi().getImage(emojieModel[i].emoji),
           imageId:
               '${emojieModel[i].id.toString()}${StringManager.cacheEmojieKey}');
+      CacheDataWidget.notifierDownloadCache.value =
+          CacheDataWidget.notifierDownloadCache.value + 1;
     }
     setLastTimeCache(TypesCache.emojie);
   }
@@ -570,7 +595,13 @@ class Methods {
     List<GiftsModel> hotGift = await getGifts(2);
     List<GiftsModel> ciuntryGift = await getGifts(3);
     List<GiftsModel> famousGift = await getGifts(5);
-
+    CacheDataWidget.totalOfData.value = CacheDataWidget.totalOfData.value +
+        (normalGift.length +
+                hotGift.length +
+                ciuntryGift.length +
+                famousGift.length)
+            .toDouble();
+    CacheDataWidget.showDownloadLoading.value = 1;
     await initDownloadPath(normalGift);
     await initDownloadPath(hotGift);
     await initDownloadPath(ciuntryGift);
@@ -596,23 +627,29 @@ class Methods {
   Future<void> initDownloadPath(List<GiftsModel> data) async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String rootPath = appDocDir.path;
-
     for (int i = 0; i < data.length; i++) {
       if (!data[i].showImg.contains('mp4')) {
         //cache svga image
-        cacheSvgaImage(
+        await cacheSvgaImage(
             svgaUrl: ConstentApi().getImage(data[i].showImg),
             imageId: data[i].id.toString());
+        CacheDataWidget.notifierDownloadCache.value =
+            CacheDataWidget.notifierDownloadCache.value + 1;
+
         continue;
       }
 
       String path = "$rootPath/${data[i].id}.mp4";
       await _download(path: path, img: data[i].showImg, giftId: data[i].id);
+      CacheDataWidget.notifierDownloadCache.value =
+          CacheDataWidget.notifierDownloadCache.value + 1;
     }
   }
 
-  _download({required String img, required int giftId, required String path}) async {
-    Map<String, dynamic> chachedMp4Gifts = await Methods.instance.getCachingVideo(key: StringManager.cachGiftKey);
+  _download(
+      {required String img, required int giftId, required String path}) async {
+    Map<String, dynamic> chachedMp4Gifts =
+        await Methods.instance.getCachingVideo(key: StringManager.cachGiftKey);
 
     if (!chachedMp4Gifts.containsKey(giftId.toString())) {
       if (kDebugMode) {
@@ -629,12 +666,12 @@ class Methods {
       if (kDebugMode) {
         log('loaded$giftId');
       }
+
       chachedMp4Gifts.putIfAbsent(giftId.toString(), () => path);
     }
 
     await setCachingVideo(
-        cachingVideos: chachedMp4Gifts,
-        key: StringManager.cachGiftKey);
+        cachingVideos: chachedMp4Gifts, key: StringManager.cachGiftKey);
   }
 
   Future<void> cacheMp4(
@@ -654,7 +691,8 @@ class Methods {
       if (kDebugMode) {
         log("isAlreadyloaded");
       }
-      final videoItem = await SVGAParser.shared.decodeFromBuffer(bytes.toList());
+      final videoItem =
+          await SVGAParser.shared.decodeFromBuffer(bytes.toList());
       return videoItem;
     } else {
       return await SVGAParser.shared
@@ -677,37 +715,46 @@ class Methods {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     switch (typesCache) {
       case TypesCache.gift:
-        sharedPreferences.setInt(StringManager.lastTimeCacheGift,timestamp);
+        sharedPreferences.setInt(StringManager.lastTimeCacheGift, timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheGift);
-        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
-        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
+        doneCacheInCacheDataWidget();
         break;
       case TypesCache.frame:
         sharedPreferences.setInt(StringManager.lastTimeCacheFrame, timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheFrame);
-        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
-        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
+        doneCacheInCacheDataWidget();
         break;
       case TypesCache.intro:
         sharedPreferences.setInt(StringManager.lastTimeCacheEntro, timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheEntro);
-        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
-        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
+        doneCacheInCacheDataWidget();
         break;
       case TypesCache.extra:
         sharedPreferences.setInt(StringManager.lastTimeCacheExtra, timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheExtra);
-        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
-
-        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
+        doneCacheInCacheDataWidget();
         break;
       case TypesCache.emojie:
         sharedPreferences.setInt(StringManager.lastTimeCacheEmojie, timestamp);
         CacheDataWidget.cacheData.remove(StringManager.lastTimeCacheEmojie);
-        sucssesToast(context: getIt<NavigationService>().navigatorKey.currentContext!, title: StringManager.successfulOperation);
-        CacheDataWidget.notifierCacheData.value = CacheDataWidget.notifierCacheData.value+1;
+        doneCacheInCacheDataWidget();
+
         break;
     }
+  }
+
+  doneCacheInCacheDataWidget() {
+    if (CacheDataWidget.totalOfData.value ==
+        CacheDataWidget.notifierDownloadCache.value) {
+      CacheDataWidget.showDownloadLoading.value = 0;
+      ScaffoldMessenger.of(
+              getIt<NavigationService>().navigatorKey.currentContext!)
+          .showSnackBar(successSnackBar(
+              getIt<NavigationService>().navigatorKey.currentContext!,
+              StringManager.successfulOperation));
+    }
+    CacheDataWidget.notifierCacheData.value =
+        CacheDataWidget.notifierCacheData.value + 1;
   }
 
   Future<int?> getsLastTimeCache(TypesCache typesCache) async {
@@ -793,7 +840,7 @@ class Methods {
     sucssesToast(context: context, title: StringManager.clearDataDone.tr());
   }
 
- /* Future<void> sizeOfCacheManger(BuildContext context) async {
+  /* Future<void> sizeOfCacheManger(BuildContext context) async {
 
     DefaultCacheManager cacheManager = DefaultCacheManager();
 
@@ -809,7 +856,6 @@ class Methods {
     await cacheManager.close();
   }
 */
-
 
   Future<void> removeFileFromChach({required String key}) async {
     final cacheManager = getIt<DefaultCacheManager>();
@@ -850,12 +896,10 @@ class Methods {
 
   Future addFireBaseNotifcationId() async {
     String token = await Methods.instance.returnUserToken();
-    String? NotifecationId = await FirebaseMessaging.instance.getToken() ;
+    String? NotifecationId = await FirebaseMessaging.instance.getToken();
     await Dio().post(
       ConstentApi.editeUrl,
-      data: {
-        "notification_id": NotifecationId
-      },
+      data: {"notification_id": NotifecationId},
       options: Options(
         headers: {
           // 'X-localization': lang,
@@ -865,16 +909,18 @@ class Methods {
       ),
     );
   }
+
   Future<String> getCurrentTimeZone() async {
     DateTime dateTimeNow = DateTime.now();
     return dateTimeNow.timeZoneName;
   }
+
   String formatDateTime({
     required String dateTime,
     String format = 'E, d MMM yyyy hh:mm a',
     String locale = 'ar',
   }) {
-    if(dateTime==''){
+    if (dateTime == '') {
       return '';
     }
     DateTime dateTimeNow = DateTime.now();
@@ -926,7 +972,7 @@ class Methods {
     }
 
     BlocProvider.of<JoinFamilyBloc>(context).add(InitJoinFamilyEvent());
-     BlocProvider.of<InvitCodeBloc>(context).add( InvitCodeEventInitial());
+    BlocProvider.of<InvitCodeBloc>(context).add(InvitCodeEventInitial());
 
     AduioBody.type = StringManager.popular;
     AduioBody.countryId = null;
@@ -938,11 +984,11 @@ class Methods {
   }
 
   int calculateAge(String date) {
-    if(date==''){
+    if (date == '') {
       return 0;
     }
     DateTime currentDate = DateTime.now();
-    DateTime   birthDate= DateTime.parse(date.replaceAll('/', '-'));
+    DateTime birthDate = DateTime.parse(date.replaceAll('/', '-'));
     int age = currentDate.year - birthDate.year;
     int month1 = currentDate.month;
     int month2 = birthDate.month;
@@ -959,110 +1005,106 @@ class Methods {
     return age;
   }
 
-
-
-void checkIfFriends(
-    { required UserDataModel userData, required BuildContext context ,}){
-    if(ChatThemeIntegration.disableChat){
-      errorToast(context: context, title: StringManager.thisFeaturenotAvailableNow.tr());
-
-
-    }else {
+  void checkIfFriends({
+    required UserDataModel userData,
+    required BuildContext context,
+  }) {
+    if (ChatThemeIntegration.disableChat) {
+      errorToast(
+          context: context,
+          title: StringManager.thisFeaturenotAvailableNow.tr());
+    } else {
       if (userData.isFriend!) {
         navigatorToUserChat(context: context, userData: userData);
       } else {
-        errorToast(context: context, title: StringManager.youAreNotFriends.tr());
+        errorToast(
+            context: context, title: StringManager.youAreNotFriends.tr());
       }
     }
-
-
-}
-
-
+  }
 
   void navigatorToUserChat(
-
-      {required BuildContext context, required UserDataModel userData }) {
-
+      {required BuildContext context, required UserDataModel userData}) {
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context)
-        =>
-            CometChatMessages(
-
-                messageListConfiguration: (MessageListConfiguration(showAvatar: true ,theme: CometChatTheme(palette:ChatUi().palette , typography:ChatUi().typography  ) ) ),
-                user: User(uid: userData.id.toString(),
+        MaterialPageRoute(
+            builder: (context) => CometChatMessages(
+                messageListConfiguration: (MessageListConfiguration(
+                    showAvatar: true,
+                    theme: CometChatTheme(
+                        palette: ChatUi().palette,
+                        typography: ChatUi().typography))),
+                user: User(
+                  uid: userData.id.toString(),
                   name: userData.name!,
-                  avatar:ConstentApi().getImage( userData.profile!.image),),
-
+                  avatar: ConstentApi().getImage(userData.profile!.image),
+                ),
                 messageHeaderConfiguration: MessageHeaderConfiguration(
-                  appBarOptions: (user, group, context) {
-                    return [
-                      IconButton(
+                    appBarOptions: (user, group, context) {
+                      return [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, Routes.profileChatDetails,
+                                  arguments: userData);
+                            },
+                            icon: const Icon(Icons.more_horiz)),
+                      ];
+                    },
+                    backButton: (context) {
+                      return IconButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, Routes.profileChatDetails,
-                                arguments: userData);
+                            Navigator.pop(context);
                           },
-                          icon: const Icon(Icons.more_horiz)),
-                    ];
-                  },
-                  backButton: (context) {
-                    return IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.arrow_back_ios));
-                  },
-                  avatarStyle: const AvatarStyle(
-                    height: 0,
-                    width: 0,
-
-                  ),
-
+                          icon: const Icon(Icons.arrow_back_ios));
+                    },
+                    avatarStyle: const AvatarStyle(
+                      height: 0,
+                      width: 0,
+                    ),
                     messageHeaderStyle: MessageHeaderStyle(
                       height: ConfigSize.defaultSize! * 6,
                       backButtonIconTint: ColorManager.mainColor,
                       typingIndicatorTextStyle: const TextStyle(
                         color: ColorManager.whiteColor,
                       ),
-
-                )))));
+                    )))));
   }
 
   Future<void> saveShowCase({required bool isFirst}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool("is_first", isFirst);
   }
+
   Future<bool> getShowCase() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool isFirst = preferences.getBool("is_first")??true;
+    bool isFirst = preferences.getBool("is_first") ?? true;
     return isFirst;
   }
+
   Future<void> saveHomeShowCase({required bool isFirst}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool("is_first_home", isFirst);
   }
+
   Future<bool> getHomeShowCase() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    log('${ preferences.getBool("is_first_home")} preferences.getBool("is_first_home")');
-    bool isFirst = preferences.getBool("is_first_home")??true;
+    log('${preferences.getBool("is_first_home")} preferences.getBool("is_first_home")');
+    bool isFirst = preferences.getBool("is_first_home") ?? true;
 
     return isFirst;
   }
 
-
-
-  void hostTimeOnMic ({required BuildContext context}){
-    if(RoomScreen.startTimeOnSeatMic != 0){
-      var result = (DateTime.now().millisecondsSinceEpoch - RoomScreen.startTimeOnSeatMic)/1000;
-      RoomScreen.startTimeOnSeatMic = 0 ;
-      BlocProvider.of<HostOnMicTimeBloc>(context).add(HostOnMicTimeEvent(totalTime:result.toInt() ));
+  void hostTimeOnMic({required BuildContext context}) {
+    if (RoomScreen.startTimeOnSeatMic != 0) {
+      var result = (DateTime.now().millisecondsSinceEpoch -
+              RoomScreen.startTimeOnSeatMic) /
+          1000;
+      RoomScreen.startTimeOnSeatMic = 0;
+      BlocProvider.of<HostOnMicTimeBloc>(context)
+          .add(HostOnMicTimeEvent(totalTime: result.toInt()));
     }
-
-
   }
-
 
   String formatSecondsTime(int seconds) {
     int hours = seconds ~/ 3600;
@@ -1076,6 +1118,31 @@ void checkIfFriends(
     return '$hoursText:$minutesText:$secondsText';
   }
 
-
-
+  void removeUserDataWhileLogOutOrBanOrLoginWithAnotherAccount(
+    BuildContext context, {
+    required String ownerId,
+  }) async {
+    // exit room
+    if (MainScreen.iskeepInRoom.value) {
+      await Methods().exitFromRoom(ownerId, context);
+      BlocProvider.of<OnRoomBloc>(context)
+          .add(LeaveMicEvent(ownerId: ownerId, userId: id));
+      BlocProvider.of<OnRoomBloc>(context).add(InitRoomEvent());
+      MainScreen.iskeepInRoom.value = false;
+    }
+    //logout from Chat
+    BlocProvider.of<LogOutChatBloc>(context).add(LogOutChatEvent());
+    //log out from google
+    final googleSignIn = GoogleSignIn();
+      googleSignIn.disconnect();
+    //logout
+    BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
+    SharedPreferences preference = getIt();
+    preference.remove(StringManager.keepLogin);
+    preference.remove(StringManager.userDataKey);
+    preference.remove(StringManager.userTokenKey);
+    preference.remove(StringManager.deviceToken);
+    MyDataModel.getInstance().clearObject();
+    Methods().removeUserData();
+  }
 }
