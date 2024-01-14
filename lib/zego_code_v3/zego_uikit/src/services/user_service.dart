@@ -72,13 +72,5 @@ mixin ZegoUserService {
         .map((users) => users.map((e) => e.toZegoUikitUser()).toList());
   }
 
-  /// remove user from room, kick out
-  Future<bool> removeUserFromRoom(List<String> userIDs) async {
-    return ZegoUIKitCore.shared.removeUserFromRoom(userIDs);
-  }
 
-  /// get kicked out notifier
-  Stream<String> getMeRemovedFromRoomStream() {
-    return ZegoUIKitCore.shared.coreData.meRemovedFromRoomStreamCtrl.stream;
-  }
 }
