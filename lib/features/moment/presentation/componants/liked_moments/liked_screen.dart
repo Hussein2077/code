@@ -32,7 +32,6 @@ class _LikedScreenState extends State<LikedScreen> {
   @override
   void initState() {
     scrollController.addListener(scrollListner);
-    // MomentBottomBarState.momentType = MomentType.likedMoment ;
     super.initState();
   }
 

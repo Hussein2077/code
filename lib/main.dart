@@ -49,9 +49,10 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_mom
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_all_moment_types/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_get_gifts/get_moment_gifts_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
@@ -493,10 +494,10 @@ class MyApp extends StatelessWidget {
               getIt<GoldCoinBloc>()..add(GetGoldCoinDataEvent()),
         ),
         BlocProvider(create: (_) => getIt<BuyCoinsBloc>()),
-        //BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
-        //BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
-        //BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
-        //BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
+        BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
+        BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
+        BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
+        BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
         BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
         BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),
@@ -570,6 +571,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (_) => getIt<AddOrDeleteBLockListBloc>()),
         BlocProvider(create: (_) => getIt<GetBlockListBloc>()),
+        BlocProvider(create: (_) => getIt<GetOtherUserMomentBloc>()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {

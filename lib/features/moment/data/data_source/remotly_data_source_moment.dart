@@ -277,7 +277,6 @@ class RemotlyDataSourceMoment extends BaseRemotlyDataSourceMoment{
         );
         data.insert(0, MomentModel.fromJson(response.data['data']));
       }
-log('iiiiiiii${data.toString()}');
       return  data ;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e,endpointName:'getMoment');

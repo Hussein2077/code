@@ -50,7 +50,6 @@ class MomentCommentsScreenState extends State<MomentCommentsScreen> {
     scrollController.addListener(scrollListener);
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
       _keyboardHeight = height;
-      log('_keyboardHeight${_keyboardHeight}');
       showTextFieldmoment.value = !showTextFieldmoment.value;
     });
   }
