@@ -62,7 +62,7 @@ Widget columnInfo(
         Text(
           title,
           style: TextStyle(
-            fontFamily: 'ElMessiri',
+            fontFamily: 'GothamMedium',
             fontSize: ConfigSize.defaultSize! * 1.6,
             color: Colors.grey,
           ),
@@ -72,7 +72,7 @@ Widget columnInfo(
           style:
 
           TextStyle(
-                  fontFamily: 'ElMessiri',
+                  fontFamily: 'GothamMedium',
                   fontSize: ConfigSize.defaultSize! * 1.6,
 
                 ),

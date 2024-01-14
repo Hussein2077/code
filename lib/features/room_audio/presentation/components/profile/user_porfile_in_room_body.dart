@@ -144,23 +144,37 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                             color: ColorManager.darkBlack.withOpacity(0.8),
                             fontWeight: FontWeight.w400),
                       ),
-                    BlocBuilder<UserBadgesBloc, UserBadgesState>(
-                        builder: (context, state) {
-                      if (state is UserBadgesSucssesState) {
-                        return state.badges.data.isEmpty
-                            ? const SizedBox()
-                            : SizedBox(
-                                width: ConfigSize.defaultSize! * 20,
-                                child: UserBadgesItem(
-                                  width: ConfigSize.screenWidth! * .05,
-                                  height: ConfigSize.screenHeight! * .05,
-                                  userBadges: state.badges,
-                                ),
-                              );
-                      } else {
-                        return const SizedBox();
-                      }
-                    }),
+
+                    widget.userData.familyData != null
+                        ? InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.familyProfile,
+                            arguments: widget.roomData.roomFamily!.id);
+                      },
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: ConfigSize.defaultSize! * 0.2,
+                              horizontal: ConfigSize.defaultSize! * 1),
+                          decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                  colors: ColorManager.mainColorList),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "${StringManager.familyName.tr()}: ",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              Text(
+                                widget.userData.familyData!.name!
+                                    .toString(),
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          )),
+                    )
+                        : const SizedBox(),
                     IdWithCopyIcon(
                       userData: widget.userData,
                       color: Colors.black,
@@ -189,37 +203,24 @@ class _UserProfileInRoomState extends State<UserProfileInRoom>
                         SizedBox(width: ConfigSize.defaultSize! * 0.5),
                       ],
                     ),
-                    SizedBox(height: ConfigSize.defaultSize! * 2),
-                    widget.userData.familyData != null
-                        ? InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context, Routes.familyProfile,
-                                  arguments: widget.roomData.roomFamily!.id);
-                            },
-                            child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: ConfigSize.defaultSize! * 0.2,
-                                    horizontal: ConfigSize.defaultSize! * 1),
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                        colors: ColorManager.mainColorList),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "${StringManager.familyName.tr()}: ",
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
-                                    Text(
-                                      widget.userData.familyData!.name!
-                                          .toString(),
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
-                                  ],
-                                )),
-                          )
-                        : const SizedBox()
+
+                    BlocBuilder<UserBadgesBloc, UserBadgesState>(
+                        builder: (context, state) {
+                          if (state is UserBadgesSucssesState) {
+                            return state.badges.data.isEmpty
+                                ? const SizedBox()
+                                : SizedBox(
+                              width: ConfigSize.defaultSize! * 20,
+                              child: UserBadgesItem(
+                                width: ConfigSize.screenWidth! * 0.1,
+                                height: ConfigSize.screenHeight! * 0.075,
+                                userBadges: state.badges,
+                              ),
+                            );
+                          } else {
+                            return const SizedBox();
+                          }
+                        }),
                   ],
                 ),
                 SizedBox(height: ConfigSize.defaultSize!),

@@ -151,7 +151,7 @@ class _CharchingCoinsForUsersState extends State<CharchingCoinsForUsers> {
                             BorderRadius.circular(ConfigSize.defaultSize! * 2),
                       ),
                       child: TextFieldWidget(
-                        type: TextInputType.number,
+                        type: TextInputType.multiline,
                         controller: userID,
                         hintText: StringManager.enterUserID.tr(),
                         onChanged: (value) {

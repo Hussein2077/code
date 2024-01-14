@@ -25,6 +25,7 @@ class OfficialMsgModel extends Equatable {
   final String url;
   final String created;
   final String updated;
+  final int fromUserId;
   final int id;
   final int userId;
   final int type;
@@ -40,6 +41,7 @@ class OfficialMsgModel extends Equatable {
       required this.id,
       required this.userId,
       required this.type,
+      required this.fromUserId,
       // required this.isRead
       
       });
@@ -55,7 +57,9 @@ class OfficialMsgModel extends Equatable {
           url: jsonData['url']??"",
           userId: jsonData['user_id']??0,
           id: jsonData['id'],
-          img: jsonData['img']??"");
+          img: jsonData['img']??"",
+        fromUserId: jsonData['from_user_id']??0,
+      );
   @override
   List<Object?> get props => [];
 }

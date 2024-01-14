@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -29,6 +27,7 @@ import 'widget/upper/upper_body.dart';
 class UserProfile extends StatefulWidget {
   final String? userId;
   final UserDataModel? userData;
+
   const UserProfile({this.userId, this.userData, super.key});
 
   @override
@@ -37,26 +36,26 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   bool? myProfile;
+
   @override
   void initState() {
-
-   
     if (widget.userId != null) {
       myProfile = false;
       BlocProvider.of<GetUserBloc>(context)
-          .add(GetuserEvent(userId: widget.userId!,isVisit: true));
-      BlocProvider.of<UserBadgesBloc>(context)
-          .add(GetUserBadges(id: widget.userId!, ));
-    }
-    else if (widget.userData != null) {
-      BlocProvider.of<UserBadgesBloc>(context)
-          .add(GetUserBadges(id: widget.userData!.id.toString(), ));
+          .add(GetuserEvent(userId: widget.userId!, isVisit: true));
+      BlocProvider.of<UserBadgesBloc>(context).add(GetUserBadges(
+        id: widget.userId!,
+      ));
+    } else if (widget.userData != null) {
+      BlocProvider.of<UserBadgesBloc>(context).add(GetUserBadges(
+        id: widget.userData!.id.toString(),
+      ));
       myProfile = false;
     } else {
-      BlocProvider.of<UserBadgesBloc>(context)
-          .add(GetUserBadges(id: MyDataModel.getInstance().id.toString(), ));
+      BlocProvider.of<UserBadgesBloc>(context).add(GetUserBadges(
+        id: MyDataModel.getInstance().id.toString(),
+      ));
       myProfile = true;
-  
     }
 
     super.initState();
@@ -64,15 +63,16 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   void didChangeDependencies() {
-    BlocProvider.of<GetUserBloc>(context)
-        .add( const InituserEvent());
-    LowerProfileBody.getUserReels= false ;
+    BlocProvider.of<GetUserBloc>(context).add(const InituserEvent());
+    LowerProfileBody.getUserReels = false;
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    BlocProvider.of<GetUserReelsBloc>(getIt<NavigationService>().navigatorKey.currentContext!).add(const InitialReelEvent());
+    BlocProvider.of<GetUserReelsBloc>(
+            getIt<NavigationService>().navigatorKey.currentContext!)
+        .add(const InitialReelEvent());
 
     super.dispose();
   }
@@ -81,7 +81,7 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onHorizontalDragUpdate: (DragUpdateDetails details) {
-        if (details.delta.dx >10) {
+        if (details.delta.dx > 10) {
           Navigator.of(context).pop();
         }
       },
@@ -91,11 +91,15 @@ class _UserProfileState extends State<UserProfile> {
 
             //MyProfile
             ? BlocConsumer<GetMyDataBloc, GetMyDataState>(
-          listener: (context, state) {
-            if (state is GetMyDataSucssesState){
-              BlocProvider.of<UpdateUserDataBloc>(context).add(UpdateUserDataEvent(avatar:ConstentApi().getImage(state.myDataModel.profile!.image!) , name: state.myDataModel.name!));
-            }
-          },
+                listener: (context, state) {
+                  if (state is GetMyDataSucssesState) {
+                    BlocProvider.of<UpdateUserDataBloc>(context).add(
+                        UpdateUserDataEvent(
+                            avatar: ConstentApi()
+                                .getImage(state.myDataModel.profile!.image!),
+                            name: state.myDataModel.name!));
+                  }
+                },
                 builder: (context, state) {
                   if (state is GetMyDataSucssesState) {
                     return Column(
@@ -121,7 +125,6 @@ class _UserProfileState extends State<UserProfile> {
                           myProfile: myProfile!,
                           userDataModel:
                               getIt<MyDataModel>().convertToUserObject(),
-
                         ),
                       ],
                     );
@@ -137,7 +140,6 @@ class _UserProfileState extends State<UserProfile> {
                       children: [
                         //TODO you should remove this function
                         UpperProfileBody(
-
                             myProfile: myProfile!,
                             myDataModel: widget.userData != null
                                 ? widget.userData!.convertToMyDataObject()

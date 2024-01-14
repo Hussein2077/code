@@ -26,7 +26,7 @@ height: height,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-            width: ConfigSize.screenWidth!*0.02,
+
             child: maleOrFeamle == 1 ? Image.asset(
               AssetsPath.whiteMaleIcon, ) : Image.asset(
               AssetsPath.whiteFemaleIcon, ),

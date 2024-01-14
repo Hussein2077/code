@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
@@ -32,6 +33,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dart';
 import 'package:tik_chat_v2/splash.dart';
 import '../features/reels/persentation/reels_screen_taps.dart';
@@ -197,15 +199,36 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         borderBottom: 30,
                       ),
                       onTap: () {
+
                         RoomScreen.outRoom = false;
-                        Navigator.pushNamed(context, Routes.roomScreen,
-                            arguments: RoomPramiter(
-                                roomModel: MainScreen.roomData!,
-                                myDataModel: MyDataModel.getInstance(),
-                                isHost: MyDataModel.getInstance()
-                                        .id
-                                        .toString() ==
-                                    MainScreen.roomData!.ownerId.toString()));
+
+                        if(MyDataModel.getInstance().isAanonymous??false){
+                          String anonymousId = '${'-1'}${MyDataModel.getInstance().id}';
+                          MyDataModel activeMysteriousUser =
+                          MyDataModel(
+                              id:  int.parse(anonymousId),
+                              uuid:'${MyDataModel.getInstance().uuid}$anonymousKey',
+                              name: StringManager.mysteriousPerson.tr(),
+                              profile:ProfileRoomModel(image:'hide.png'),intro: "");
+                          Navigator.pushNamed(context, Routes.roomScreen,
+                              arguments: RoomPramiter(
+                                  roomModel: MainScreen.roomData!,
+                                  myDataModel: activeMysteriousUser,
+                                  isHost: MyDataModel.getInstance()
+                                      .id
+                                      .toString() ==
+                                      MainScreen.roomData!.ownerId.toString()));
+                        }else{
+                          Navigator.pushNamed(context, Routes.roomScreen,
+                              arguments: RoomPramiter(
+                                  roomModel: MainScreen.roomData!,
+                                  myDataModel: MyDataModel.getInstance(),
+                                  isHost: MyDataModel.getInstance()
+                                      .id
+                                      .toString() ==
+                                      MainScreen.roomData!.ownerId.toString()));
+                        }
+
                       },
                       child: Stack(
                         children: [

@@ -164,6 +164,13 @@ flutter:
       fonts:
         - asset: assets/fonts/ElMessiri-Regular.ttf
         # - asset: assets/fonts/ElMessiri-Medium.ttf
+    - family: GothamMedium
+      fonts:
+        - asset: assets/fonts/GothamMedium.ttf
+        - asset: assets/fonts/Gotham-Bold.otf
+          weight: 700
+
+            # - asset: assets/fonts/ElMessiri-Medium.ttf
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-VariableFont_slnt,wght.ttf

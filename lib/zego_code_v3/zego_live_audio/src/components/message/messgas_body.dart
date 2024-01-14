@@ -90,7 +90,8 @@ class _MessagesBodyState extends State<MessagesBody> {
               )
             ],
           );
-        }else if (index == 1){
+        }
+        else if (index == 1){
           return Padding(padding: EdgeInsets.symmetric(
           vertical:   20.zR
           ),

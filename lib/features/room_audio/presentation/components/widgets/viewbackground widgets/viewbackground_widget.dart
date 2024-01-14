@@ -194,13 +194,21 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 child: InkWell(
                   onTap: () async {
                     String token = await Methods.instance.returnUserToken();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => WebViewInRoom(
-                                  url: '${StringManager.fruitGame}${token}',
-                                ))));
+                    showModalBottomSheet<void>(
+                        context: context,
+                        isDismissible: false,
+                        backgroundColor: Colors.black,
+                        isScrollControlled: true, // This is important to make it full screen
 
+                        builder: (BuildContext context) {
+                          return SizedBox(
+
+                              child: WebViewInRoom(
+                                url: '${StringManager.fruitGame}$token',
+                              )
+                          );
+                        }
+                    );
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -269,10 +277,16 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                   valueListenable: RoomScreen.isVideoVisible,
                   builder: (context, isShow, _) {
                     if (isShow) {
-                      return AspectRatio(
-                        aspectRatio:
-                            ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
-                        child: VideoPlayer(ViewbackgroundWidget.mp4Controller!),
+                      return Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          height:ConfigSize.defaultSize!*42,
+                          width: MediaQuery.of(context).size.width,
+                          child: AspectRatio(
+                            aspectRatio: ViewbackgroundWidget.mp4Controller!.value.aspectRatio,
+                            child: VideoPlayer(ViewbackgroundWidget.mp4Controller!),
+                          ),
+                        ),
                       );
                     } else {
                       return Container();

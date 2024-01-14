@@ -84,7 +84,7 @@ class _OtpBindScreenState extends State<OtpBindScreen> {
             Text(
               widget.phone ?? "",
               style: TextStyle(
-                  fontFamily: "Inter",
+                  fontFamily: "GothamMedium",
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: ConfigSize.defaultSize! + 6),

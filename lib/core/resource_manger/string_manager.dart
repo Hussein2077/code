@@ -136,7 +136,7 @@ class StringManager {
   static const String videos = "Videos";
   static const String forShippingAgent = "Change Dollars for Shipping Agent";
   static const String followingReels = "Following";
-  static const String follwoing = "Follwoing";
+  static const String follwoing = "Followings";
   static const String followers = "Followers";
   static const String vistors = "Vistors";
   static const String thisUserIsBaned = "this user is baned";
