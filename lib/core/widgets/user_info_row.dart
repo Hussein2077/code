@@ -59,126 +59,125 @@ class UserInfoRow extends StatelessWidget {
             Methods.instance.userProfileNvgator(
                 context: context, userId: userData.id.toString());
           },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1.1),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: ConfigSize.defaultSize! * 0.5,
+          ),
+          UserImage(
+            frame: userData.frame,
+            frameId: userData.frameId,
+            imageSize: imageSize,
+            boxFit: BoxFit.cover,
+            image: userData.profile!.image!,
+          ),
+          SizedBox(
+            width: ConfigSize.defaultSize! * 2,
+          ),
 
-            UserImage(
-              frame: userData.frame,
-              frameId: userData.frameId,
-              imageSize: imageSize,
-              boxFit: BoxFit.cover,
-              image: userData.profile!.image!,
-            ),
-            SizedBox(
-              width: ConfigSize.defaultSize! * 2,
-            ),
-
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GradientTextVip(
-                  typeUser: userData.userType??0,
-                  text: userData.name ?? "",
-                  textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: ConfigSize.defaultSize! * 1.4,
-                      ),
-                  isVip: userData.hasColorName!,
-                ),
-                underName ??
-                    Row(
-                      children: [
-                        MaleFemaleIcon(
-                          width: ConfigSize.defaultSize! * 5.1,
-                          height: ConfigSize.defaultSize! * 1.3,
-                          maleOrFeamle: userData.profile!.gender,
-                          age: userData.profile!.age,
-                        ),
-                        SizedBox(width: ConfigSize.defaultSize! * 0.2),
-                        if (!userData.isCountryHiden!)
-                          UserCountryIcon(
-                              width: ConfigSize.defaultSize! * 3.5,
-                              height: ConfigSize.defaultSize! * 1.5,
-                              fontSize: ConfigSize.defaultSize! * 1.5,
-                              country: userData.country?.flag??""),
-                        SizedBox(width: ConfigSize.defaultSize! * 0.2),
-                        if (userData.level!.senderImage != '')
-                          LevelContainer(
-                            fit: BoxFit.fill,
-                            width: ConfigSize.defaultSize! * 3,
-                            height: ConfigSize.defaultSize! * 1.5,
-                            image: userData.level!.senderImage!,
-                          ),
-                        if (userData.vip1!.level != 0)
-                          AristocracyLevel(
-                            level: userData.vip1!.level!,
-                            scale: 8,
-                          ),
-                        SizedBox(
-                          width: ConfigSize.defaultSize! * .2,
-                        ),
-                        idOrNot != null
-                            ? idOrNot!
-                            :IdWithCopyIcon(userData: userData,)
-                      ],
-                    )
-              ],
-            ),
-            const Spacer(),
-            if(flag == null)
-            endIcon ??
-                Image.asset(
-                  AssetsPath.chatWithUserIcon,
-                  scale: 2.5,
-                ),
-
-            if(flag != null)
-              InkWell(
-                onTap: () {
-                  if(flag == 'vip'){
-                    BlocProvider.of<BuyOrSendVipBloc>(
-                        context)
-                        .add(BuyOrSendVipEvent(
-                        type: "1",
-                        vipId: itemId!,
-                        toUId:
-                        userData.uuid!));
-
-                    Navigator.pop(context);
-                  }else if(flag == 'myLook'){
-
-                    BlocProvider.of<SendBloc>(context)
-                        .add(sendItemEvent(
-                        packId: itemId!,
-                        touId: userData.uuid!));
-                    log('myLook');
-                    Navigator.pop(context);
-                  }
-                },
-                child: Container(
-                  width: ConfigSize.defaultSize! * 8.1,
-                  height: ConfigSize.defaultSize! * 3.1,
-                  decoration: BoxDecoration(
-                      gradient:
-                      const LinearGradient(colors: ColorManager.mainColorList),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Center(
-                    child: Text(
-                      StringManager.send.tr(),
-                      style: const TextStyle(color: ColorManager.whiteColor),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GradientTextVip(
+                typeUser: userData.userType??0,
+                text: userData.name ?? "",
+                textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: ConfigSize.defaultSize! * 1.6,
                     ),
+                isVip: userData.hasColorName!,
+              ),
+              underName ??
+                  Row(
+                    children: [
+                      MaleFemaleIcon(
+                        width: ConfigSize.defaultSize! * 5.1,
+                        height: ConfigSize.defaultSize! * 1.3,
+                        maleOrFeamle: userData.profile!.gender,
+                        age: userData.profile!.age,
+                      ),
+                      SizedBox(width: ConfigSize.defaultSize! * 0.2),
+                      if (!userData.isCountryHiden!)
+                        UserCountryIcon(
+                            width: ConfigSize.defaultSize! * 3.5,
+                            height: ConfigSize.defaultSize! * 1.5,
+                            fontSize: ConfigSize.defaultSize! * 1.5,
+                            country: userData.country?.flag??""),
+                      SizedBox(width: ConfigSize.defaultSize! * 0.2),
+                      if (userData.level!.senderImage != '')
+                        LevelContainer(
+                          fit: BoxFit.fill,
+                          width: ConfigSize.defaultSize! * 3,
+                          height: ConfigSize.defaultSize! * 1.5,
+                          image: userData.level!.senderImage!,
+                        ),
+                      if (userData.vip1!.level != 0)
+                        AristocracyLevel(
+                          level: userData.vip1!.level!,
+                          scale: 8,
+                        ),
+                      SizedBox(
+                        width: ConfigSize.defaultSize! * .2,
+                      ),
+                      idOrNot != null
+                          ? idOrNot!
+                          :IdWithCopyIcon(userData: userData,)
+                    ],
+                  )
+            ],
+          ),
+          const Spacer(),
+          if(flag == null)
+          endIcon ??
+              Image.asset(
+                AssetsPath.chatWithUserIcon,
+                scale: 2.5,
+              ),
+
+          if(flag != null)
+            InkWell(
+              onTap: () {
+                if(flag == 'vip'){
+                  BlocProvider.of<BuyOrSendVipBloc>(
+                      context)
+                      .add(BuyOrSendVipEvent(
+                      type: "1",
+                      vipId: itemId!,
+                      toUId:
+                      userData.uuid!));
+
+                  Navigator.pop(context);
+                }else if(flag == 'myLook'){
+
+                  BlocProvider.of<SendBloc>(context)
+                      .add(sendItemEvent(
+                      packId: itemId!,
+                      touId: userData.uuid!));
+                  log('myLook');
+                  Navigator.pop(context);
+                }
+              },
+              child: Container(
+                width: ConfigSize.defaultSize! * 8.1,
+                height: ConfigSize.defaultSize! * 3.1,
+                decoration: BoxDecoration(
+                    gradient:
+                    const LinearGradient(colors: ColorManager.mainColorList),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Center(
+                  child: Text(
+                    StringManager.send.tr(),
+                    style: const TextStyle(color: ColorManager.whiteColor),
                   ),
                 ),
               ),
-            SizedBox(
-              width: ConfigSize.defaultSize! * 0.5,
             ),
-          ],
-        ),
+          SizedBox(
+            width: ConfigSize.defaultSize! * 0.5,
+          ),
+        ],
       ),
     );
   }

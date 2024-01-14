@@ -191,7 +191,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               StringManager.broadcastYourMoment.tr(),
               style: const TextStyle(
-                fontFamily: 'ElMessiri',
+                fontFamily: 'GothamMedium',
                 fontSize: 12,
                 color: Colors.white,
               ),

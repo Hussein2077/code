@@ -106,7 +106,7 @@ class OtpScreen extends StatelessWidget {
                       Text(
                         phone??'',
                         style: TextStyle(
-                            fontFamily: "Inter",
+                            fontFamily: "GothamMedium",
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary,
                             fontSize: ConfigSize.defaultSize! + 6),

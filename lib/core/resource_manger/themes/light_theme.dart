@@ -11,13 +11,13 @@ import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 ThemeData lightTheme = ThemeData(
     textTheme:  TextTheme(
     headlineLarge: const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize:20,
       color: Colors.black,
       overflow: TextOverflow.ellipsis
     ),
     headlineMedium:  const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 18,
       color: Colors.black,
             overflow: TextOverflow.ellipsis
@@ -25,21 +25,21 @@ ThemeData lightTheme = ThemeData(
     ),
     
     bodyLarge: const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize:16,
       color: Colors.black,
             overflow: TextOverflow.ellipsis
 
     ),
      bodyMedium:const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 14,
       color: Colors.black,
             overflow: TextOverflow.ellipsis
 
     ), 
       bodySmall:const TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 12,
       color: Colors.black,
             overflow: TextOverflow.ellipsis
@@ -47,14 +47,14 @@ ThemeData lightTheme = ThemeData(
     ), 
 
 titleMedium: TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 16,
       color: Colors.black.withOpacity(0.4),
             overflow: TextOverflow.ellipsis
 
     ), 
  titleSmall: TextStyle(
-      fontFamily: 'ElMessiri',
+      fontFamily: 'GothamMedium',
       fontSize: 12,
       color: Colors.black.withOpacity(0.4),
             overflow: TextOverflow.ellipsis
@@ -62,7 +62,7 @@ titleMedium: TextStyle(
     ), 
    
   ),
-  fontFamily: 'ElMessiri',
+  fontFamily: 'GothamMedium',
   brightness: Brightness.light ,
   colorScheme:  const ColorScheme.light(
     background: Colors.white , 
