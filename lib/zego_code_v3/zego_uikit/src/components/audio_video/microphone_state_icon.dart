@@ -106,18 +106,6 @@ class _ZegoMicrophoneStateIconState extends State<ZegoMicrophoneStateIcon> {
   int soundLevelConvertToRippleCount(double soundLevel) {
     /// in order to show the wave effect even if the sound wave is small
 
-    /** make (0~100) sound level value to (0,10) ripple count
-     * 1~3 => 1
-     * 4~6 => 2
-     * 7~9 => 3
-     * 10~20 => 4
-     * 21~30 => 5
-     * 31~40 => 6
-     * 41~50 => 7
-     * 51~65 => 8
-     * 66~80 => 9
-     * 81~100 => 10
-     */
     var currentValue = 0;
     if (soundLevel < 0.01) {
       currentValue = 0;

@@ -26,7 +26,6 @@ class MusicScreen extends StatefulWidget {
 }
 
 class _MusicScreenState extends State<MusicScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -35,7 +34,8 @@ class _MusicScreenState extends State<MusicScreen> {
     });
 
     Future.delayed(Duration.zero, () async {
-      Map<String, dynamic> mapChachedMusic = await Methods.instance.getCachingMusic();
+      Map<String, dynamic> mapChachedMusic =
+          await Methods.instance.getCachingMusic();
 
       if (mapChachedMusic[widget.ownerId] != null) {
         for (int i = 0; i < mapChachedMusic[widget.ownerId].length; i++) {
@@ -93,11 +93,16 @@ class _MusicScreenState extends State<MusicScreen> {
                                         MusicScreen.nowPlaying = index;
                                       });
                                       setState(() {
-                                        MusicScreen.musicesInRoom.removeAt(index);
+                                        MusicScreen.musicesInRoom
+                                            .removeAt(index);
                                       });
-                                      Map<String, dynamic> mapChachedMusic = await Methods.instance.getCachingMusic();
-                                      mapChachedMusic.update(widget.ownerId, (value) => MusicScreen.musicesInRoom);
-                                      Methods.instance.setCachingMusic(cachingMusic: mapChachedMusic);
+                                      Map<String, dynamic> mapChachedMusic =
+                                          await Methods.instance
+                                              .getCachingMusic();
+                                      mapChachedMusic.update(widget.ownerId,
+                                          (value) => MusicScreen.musicesInRoom);
+                                      Methods.instance.setCachingMusic(
+                                          cachingMusic: mapChachedMusic);
                                       Navigator.pop(context);
                                     },
                                     child: Text(
@@ -116,7 +121,7 @@ class _MusicScreenState extends State<MusicScreen> {
                   children: [
                     Expanded(
                         child: Text(
-                          MusicScreen.musicesInRoom[index].name,
+                      MusicScreen.musicesInRoom[index].name,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -126,22 +131,28 @@ class _MusicScreenState extends State<MusicScreen> {
                     IconButton(
                         onPressed: () async {
                           if (!MusicScreen.isPlaying.value) {
-                            await loadMusice(path: MusicScreen.musicesInRoom[index].uri);
+                            await loadMusice(
+                                path: MusicScreen.musicesInRoom[index].uri,
+                                repeat: false);
                             MusicScreen.nowPlaying = index;
                             setState(() {});
-                          } else if (MusicScreen.isPlaying.value && MusicScreen.nowPlaying == index) {
+                          } else if (MusicScreen.isPlaying.value &&
+                              MusicScreen.nowPlaying == index) {
                             distroyMusic();
                             MusicScreen.nowPlaying = null;
                             setState(() {});
-                          } else if (MusicScreen.isPlaying.value && MusicScreen.nowPlaying != index) {
+                          } else if (MusicScreen.isPlaying.value &&
+                              MusicScreen.nowPlaying != index) {
                             distroyMusic();
-                            await loadMusice(path: MusicScreen.musicesInRoom[index].uri);
+                            await loadMusice(
+                                path: MusicScreen.musicesInRoom[index].uri,
+                                repeat: false);
                             MusicScreen.nowPlaying = index;
                             setState(() {});
                           }
-
                         },
-                        icon: (MusicScreen.isPlaying.value && (MusicScreen.nowPlaying == index))
+                        icon: (MusicScreen.isPlaying.value &&
+                                (MusicScreen.nowPlaying == index))
                             ? Icon(
                                 Icons.pause_circle_outline,
                                 color: (MusicScreen.isPlaying.value &&

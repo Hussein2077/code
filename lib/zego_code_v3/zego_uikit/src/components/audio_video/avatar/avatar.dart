@@ -4,13 +4,8 @@ import 'dart:math';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/defines.dart';
-
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/avatar/ripple_avatar.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
 
 /// @nodoc
@@ -68,63 +63,14 @@ class ZegoAvatar extends StatelessWidget {
         user ?? ZegoUIKitUser.empty(),
       ),
       builder: (context, _, __) {
-        final avatarURL = user?.inRoomAttributes.value.avatarURL ?? '';
         return avatarBuilder?.call(
               context,
               size,
               user,
               extraInfo,
-            ) ??
-            (avatarURL.isNotEmpty
-                ? CachedNetworkImage(
-                    imageUrl: avatarURL,
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            CircularProgressIndicator(
-                                value: downloadProgress.progress),
-                    errorWidget: (context, url, error) {
-                      ZegoLoggerService.logInfo(
-                        '$user avatar url is invalid',
-                        tag: 'uikit',
-                        subTag: 'avatar',
-                      );
-                      return circleName(context, avatarSize, user);
-                    },
-                  )
-                : circleName(context, avatarSize, user));
+            ) ??const SizedBox();
       },
     );
   }
 
-  Widget circleName(BuildContext context, Size size, ZegoUIKitUser? user) {
-    final userName = user?.name ?? '';
-    return SizedBox.fromSize(
-      size: size,
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Color(0xffDBDDE3),
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: Text(
-            userName.isNotEmpty ? userName.characters.first : '',
-            style: TextStyle(
-              fontSize: showSoundLevel ? size.width / 4 : size.width / 5 * 4,
-              color: const Color(0xff222222),
-              decoration: TextDecoration.none,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }

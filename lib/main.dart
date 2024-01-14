@@ -7,12 +7,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/notifcation/constent_notifcatrion.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
-import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/dark_theme.dart';
 import 'package:tik_chat_v2/core/resource_manger/themes/light_theme.dart';
 import 'package:tik_chat_v2/core/service/navigation_service.dart';
@@ -111,7 +108,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_al
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_config_key/get_config_keys_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_intersed/get_user_intersted_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manager_get_user_reels/get_user_reels_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_my_store/my_store_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/manager_show_agency/show_agency_bloc.dart';
@@ -178,7 +174,7 @@ import 'features/profile/persentation/manager/manger_getVipPrev/manger_get_vip_p
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //ads
-  unawaited(MobileAds.instance.initialize());
+  //unawaited(MobileAds.instance.initialize());
 
   await EasyLocalization.ensureInitialized();
   // CreateLiveVideoBody.cameras = await availableCameras();
@@ -488,7 +484,7 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<FamilyRoomBloc>(),
         ),
         BlocProvider(create: (_) => getIt<PrivacyBloc>()),
-        BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
+        //BlocProvider(create: (_) => getIt<UploadReelsBloc>()),
         BlocProvider(create: (_) => getIt<GetReelsBloc>()),
         BlocProvider(create: (_) => getIt<UsersInRoomBloc>()),
         BlocProvider(create: (_) => getIt<UserReportBloc>()),
@@ -497,12 +493,10 @@ class MyApp extends StatelessWidget {
               getIt<GoldCoinBloc>()..add(GetGoldCoinDataEvent()),
         ),
         BlocProvider(create: (_) => getIt<BuyCoinsBloc>()),
-        BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
-        BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
-        BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
-        BlocProvider(
-            create: (_) =>
-                getIt<GetUserReelsBloc>()),
+        //BlocProvider(create: (_) => getIt<GetReelCommentsBloc>()),
+        //BlocProvider(create: (_) => getIt<MakeReelCommentBloc>()),
+        //BlocProvider(create: (_) => getIt<MakeReelLikeBloc>()),
+        //BlocProvider(create: (_) => getIt<GetUserReelsBloc>()),
         BlocProvider(create: (_) => getIt<TobinRoomBloc>()),
         BlocProvider(create: (_) => getIt<DeleteReelBloc>()),
         BlocProvider(create: (_) => getIt<AddMomentBloc>()),
@@ -514,9 +508,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetMomentLikesBloc>()),
         BlocProvider(create: (_) => getIt<DeleteMomentCommentBloc>()),
         BlocProvider(create: (_) => getIt<GetMomentCommentBloc>()),
-        BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
-        BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
-        BlocProvider(create: (_) => getIt<GetMomentGiftsBloc>()),
+        //BlocProvider(create: (_) => getIt<MakeMomentLikeBloc>()),
+        //BlocProvider(create: (_) => getIt<MomentSendGiftBloc>()),
+        //BlocProvider(create: (_) => getIt<GetMomentGiftsBloc>()),
         BlocProvider(create: (context) => ThemeBloc()),
         BlocProvider(create: (_) => getIt<RoomVistorBloc>()),
         BlocProvider(create: (_) => getIt<ReportRealsBloc>()),
@@ -622,5 +616,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

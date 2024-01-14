@@ -37,8 +37,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomConfig {
         topMenuBarConfig = ZegoTopMenuBarConfig(),
         bottomMenuBarConfig = ZegoBottomMenuBarConfig(),
         inRoomMessageConfig = ZegoInRoomMessageConfig(),
-        memberListConfig = ZegoMemberListConfig(),
-        audioEffectConfig = ZegoAudioEffectConfig(),
         durationConfig = ZegoLiveDurationConfig(),
         backgroundMediaConfig = ZegoBackgroundMediaConfig(),
         innerText = ZegoInnerText(),
@@ -72,8 +70,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomConfig {
         topMenuBarConfig = ZegoTopMenuBarConfig(),
         bottomMenuBarConfig = ZegoBottomMenuBarConfig(),
         inRoomMessageConfig = ZegoInRoomMessageConfig(),
-        memberListConfig = ZegoMemberListConfig(),
-        audioEffectConfig = ZegoAudioEffectConfig(),
         durationConfig = ZegoLiveDurationConfig(),
         backgroundMediaConfig = ZegoBackgroundMediaConfig(),
         innerText = ZegoInnerText();
@@ -87,8 +83,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomConfig {
     ZegoBottomMenuBarConfig? bottomMenuBarConfig,
     ZegoLiveAudioRoomLayoutConfig? layoutConfig,
     ZegoInRoomMessageConfig? messageConfig,
-    ZegoMemberListConfig? memberListConfig,
-    ZegoAudioEffectConfig? effectConfig,
     ZegoLiveDurationConfig? durationConfig,
     ZegoBackgroundMediaConfig? backgroundMediaConfig,
     this.hostSeatIndexes = const [0],
@@ -121,8 +115,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomConfig {
         bottomMenuBarConfig = bottomMenuBarConfig ?? ZegoBottomMenuBarConfig(),
         layoutConfig = layoutConfig ?? ZegoLiveAudioRoomLayoutConfig(),
         inRoomMessageConfig = messageConfig ?? ZegoInRoomMessageConfig(),
-        memberListConfig = memberListConfig ?? ZegoMemberListConfig(),
-        audioEffectConfig = effectConfig ?? ZegoAudioEffectConfig(),
         durationConfig = durationConfig ?? ZegoLiveDurationConfig(),
         backgroundMediaConfig =
             backgroundMediaConfig ?? ZegoBackgroundMediaConfig(),
@@ -203,9 +195,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomConfig {
   /// Configuration options for the message list.
   ZegoInRoomMessageConfig inRoomMessageConfig;
 
-  /// Configuration related to the bottom member list, including displaying the member list, member list styles, and more.
-  ZegoMemberListConfig memberListConfig;
-
   @Deprecated('Since 2.8.5, please use inRoomMessageConfig instead')
   ZegoInRoomMessageViewConfig get inRoomMessageViewConfig =>
       inRoomMessageConfig;
@@ -218,8 +207,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomConfig {
   /// All visible text content on the UI can be modified using this single property.
   ZegoInnerText innerText;
 
-  /// You can use this to modify your voice and control reverb.
-  ZegoAudioEffectConfig audioEffectConfig;
 
   /// Live audio room timing configuration.
   ZegoLiveDurationConfig durationConfig;
@@ -444,18 +431,13 @@ class ZegoBottomMenuBarConfig {
   ZegoBottomMenuBarConfig({
     this.showInRoomMessageButton = true,
     this.hostButtons = const [
-      ZegoMenuBarButtonName.soundEffectButton,
       ZegoMenuBarButtonName.toggleMicrophoneButton,
-      ZegoMenuBarButtonName.showMemberListButton,
       ZegoMenuBarButtonName.closeSeatButton,
     ],
     this.speakerButtons = const [
-      ZegoMenuBarButtonName.soundEffectButton,
       ZegoMenuBarButtonName.toggleMicrophoneButton,
-      ZegoMenuBarButtonName.showMemberListButton,
     ],
     this.audienceButtons = const [
-      ZegoMenuBarButtonName.showMemberListButton,
       ZegoMenuBarButtonName.applyToTakeSeatButton,
     ],
     this.hostExtendButtons = const [],
@@ -583,74 +565,8 @@ typedef ZegoInRoomMessageViewConfig = ZegoInRoomMessageConfig;
 ///
 /// In this example, we pass the builder function of the custom view, `CustomMemberListItem`, to the [itemBuilder] property so that the member list item will be rendered using the custom component.
 ///
-/// In addition, you can listen for item click events through [onClicked].
-class ZegoMemberListConfig {
-  /// Custom member list item view.
-  ZegoMemberListItemBuilder? itemBuilder;
 
-  /// You can listen to the user click event on the member list,
-  /// for example, if you want to display specific information about a member after they are clicked.
-  void Function(ZegoUIKitUser user)? onClicked;
 
-  ZegoMemberListConfig({
-    this.itemBuilder,
-    this.onClicked,
-  });
-}
-
-/// Configuration options for voice changer and reverberation effects.
-/// This class is used for the [audioEffectConfig] property in [ZegoUIKitPrebuiltLiveAudioRoomConfig].
-class ZegoAudioEffectConfig {
-  /// List of voice changer effects.
-  /// If you don't want a certain effect, simply remove it from the list.
-  List<VoiceChangerType> voiceChangeEffect;
-
-  /// List of reverb effects.
-  /// If you don't want a certain effect, simply remove it from the list.
-  List<ReverbType> reverbEffect;
-
-  ZegoAudioEffectConfig({
-    this.voiceChangeEffect = const [
-      VoiceChangerType.littleGirl,
-      VoiceChangerType.deep,
-      VoiceChangerType.robot,
-      VoiceChangerType.ethereal,
-      VoiceChangerType.littleBoy,
-      VoiceChangerType.female,
-      VoiceChangerType.male,
-      VoiceChangerType.optimusPrime,
-      VoiceChangerType.crystalClear,
-      VoiceChangerType.cMajor,
-      VoiceChangerType.aMajor,
-      VoiceChangerType.harmonicMinor,
-    ],
-    this.reverbEffect = const [
-      ReverbType.ktv,
-      ReverbType.hall,
-      ReverbType.concert,
-      ReverbType.rock,
-      ReverbType.smallRoom,
-      ReverbType.largeRoom,
-      ReverbType.valley,
-      ReverbType.recordingStudio,
-      ReverbType.basement,
-      ReverbType.popular,
-      ReverbType.gramophone,
-    ],
-  });
-
-  /// @nodoc
-  ZegoAudioEffectConfig.none({
-    this.voiceChangeEffect = const [],
-    this.reverbEffect = const [],
-  });
-
-  /// @nodoc
-  bool get isSupportVoiceChange => voiceChangeEffect.isNotEmpty;
-
-  /// @nodoc
-  bool get isSupportReverb => reverbEffect.isNotEmpty;
-}
 
 /// Live Audio Room timing configuration.
 class ZegoLiveDurationConfig {

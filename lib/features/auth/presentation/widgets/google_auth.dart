@@ -1,6 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +19,6 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/splash.dart';
 
 class GoogleAndAppleAuth extends StatelessWidget {
-
   GoogleAndAppleAuth({super.key});
 
   @override
@@ -42,7 +39,8 @@ class GoogleAndAppleAuth extends StatelessWidget {
               (route) => false,
             );
           } else {
-            BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(email: state.userData.userData.email.toString()));
+            BlocProvider.of<AddInfoBloc>(context).add(
+                AddInfoEvent(email: state.userData.userData.email.toString()));
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.mainScreen,
@@ -73,12 +71,10 @@ class GoogleAndAppleAuth extends StatelessWidget {
               (route) => false,
             );
           }
-        } else if (state is SiginWithHuaweiSuccesMessageState){
+        } else if (state is SiginWithHuaweiSuccesMessageState) {
           Methods.instance.clearAuthData();
           BlocProvider.of<GetMyDataBloc>(context).add(GetMyDataEvent());
-          if (state.userModel.apiUserData.isFirst!){
-
-            log("state.userModel.apiUserData.isFirst!");
+          if (state.userModel.apiUserData.isFirst!) {
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.addInfo,
@@ -86,14 +82,15 @@ class GoogleAndAppleAuth extends StatelessWidget {
                 data: state.userModel.userData,
                 type: "huawei",
               ),
-                  (route) => false,
+              (route) => false,
             );
           } else {
-            BlocProvider.of<AddInfoBloc>(context).add(AddInfoEvent(email: state.userModel.userData.email.toString()));
+            BlocProvider.of<AddInfoBloc>(context).add(
+                AddInfoEvent(email: state.userModel.userData.email.toString()));
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.mainScreen,
-                  (route) => false,
+              (route) => false,
             );
           }
         } else if (state is SiginWithHuaweiErrorMessageState) {
@@ -104,32 +101,34 @@ class GoogleAndAppleAuth extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            // if (SplashScreen.isGoogle)
+            //   InkWell(
+            //     onTap: () {
+            //       BlocProvider.of<SignInWithPlatformBloc>(context)
+            //           .add(SiginGoogleEvent());
+            //     },
+            //     child: SizedBox(
+            //         width: ConfigSize.defaultSize! * 5,
+            //         height: ConfigSize.defaultSize! * 5,
+            //         child: Center(
+            //           child: Image.asset(AssetsPath.googleIcon),
+            //         )),
+            //   ),
+            // if(SplashScreen.isHuawei) InkWell(
+            //   onTap: () {
+            //     BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginHuaweiEvent());
+            //   },
+            //   child: CircleAvatar(
+            //     backgroundColor: Colors.red,
+            //     radius: ConfigSize.defaultSize! * 2.5,
+            //     child: Center(
+            //       child: Image.asset(AssetsPath.huaweiIcon, color: ColorManager.whiteColor, scale: 20,),
+            //     ),
+            //   ),
+            // ),
 
-            if(SplashScreen.isGoogle) InkWell(
-              onTap: () {
-                BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginGoogleEvent());
-              },
-              child: SizedBox(
-                  width: ConfigSize.defaultSize! * 5,
-                  height: ConfigSize.defaultSize! * 5,
-                  child: Center(
-                    child: Image.asset(AssetsPath.googleIcon),
-                  )),
-            ),
-            if(SplashScreen.isHuawei) InkWell(
-              onTap: () {
-                BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginHuaweiEvent());
-              },
-              child: CircleAvatar(
-                backgroundColor: Colors.red,
-                radius: ConfigSize.defaultSize! * 2.5,
-                child: Center(
-                  child: Image.asset(AssetsPath.huaweiIcon, color: ColorManager.whiteColor, scale: 20,),
-                ),
-              ),
-            ),
-
-            if (Platform.isIOS) InkWell(
+            if (Platform.isIOS)
+              InkWell(
                 onTap: () {
                   BlocProvider.of<SignInWithPlatformBloc>(context)
                       .add(SiginAppleEvent());

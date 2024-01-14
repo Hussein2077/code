@@ -552,7 +552,6 @@ class ZegoLiveConnectManager {
 
     switch (state) {
       case ConnectState.idle:
-        ZegoUIKit().resetSoundEffect();
 
         ZegoUIKit().turnMicrophoneOn(false);
 

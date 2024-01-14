@@ -25,8 +25,6 @@ import 'package:tik_chat_v2/features/profile/persentation/component/user_profile
 import 'package:tik_chat_v2/features/profile/persentation/component/user_profile/widget/profile_bottom_bar.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/follow_manger/bloc/follow_event.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_bloc.dart';
-import 'package:tik_chat_v2/features/profile/persentation/manager/manger_getuser/get_user_event.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/user_badges_manager/user_badges_state.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
@@ -39,7 +37,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'profile_room_body_controler.dart';
-import 'widgets/block_button.dart';
 import 'widgets/image_with_text.dart';
 
 // ignore: must_be_immutable

@@ -56,7 +56,6 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_vi
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/media/player.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
@@ -1018,10 +1017,10 @@ setState(() {
             ..seatConfig.avatarBuilder = (context, size, user, extraInfo) {
             return ValueListenableBuilder<bool>(
                 valueListenable: ZegoUIKit().getMicrophoneStateNotifier(user!.id),
-                builder: (context, isMicrophoneEnabled, _) {
+                builder:(context, isMicrophoneEnabled, _){
                   return UserAvatar(
                       user: user ,
-                      image: user.inRoomAttributes.value['img'],
+                      image: user.inRoomAttributes.value['img'] ,
                       isMicrophoneEnabled: isMicrophoneEnabled);
                 },
               );
@@ -1033,9 +1032,7 @@ setState(() {
                 BlocProvider.of<GetUsersInRoomBloc>(context).add(GetUsersInRoomEvents(userId: message.user.id));
               }
               return BlocConsumer<GetUsersInRoomBloc,UsersInRoomState>(
-
                 builder: (BuildContext context, UsersInRoomState state) {
-
                   return MessagesChached(
                       message: message,
                       myDataModel: widget.myDataModel,
@@ -1055,6 +1052,7 @@ setState(() {
                 },
               );
             },
+
         ));
   }
 

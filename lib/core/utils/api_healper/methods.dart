@@ -205,9 +205,8 @@ class Methods {
     await ZegoLiveAudioRoomManagers().seatManager?.uninit();
     await ZegoLiveAudioRoomManagers().plugins?.uninit();
     ZegoLiveAudioRoomManagers().unintPluginAndManagers();
-    ZegoUIKitPrebuiltLiveAudioRoomState.prebuiltData = null ;
+   // ZegoUIKitPrebuiltLiveAudioRoomState.prebuiltData = null ;
     await ZegoUIKit.instance.leaveRoom();
-    await ZegoUIKit.instance.uninit();
     await ZegoUIKit.instance.uninit();
     ZegoUIKit.instance.logout();
     await clearAll(ownerId, context.mounted?context:getIt<NavigationService>().navigatorKey.currentContext!);

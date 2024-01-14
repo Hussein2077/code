@@ -106,7 +106,6 @@ class _LogOutOrDeleteAccountButtonState
                     // BlocProvider.of<LogOutBloc>(context).add(LogOutEvent());
                   });
             } else {
-              log('${widget.logOut.toString()}innnn');
               showDialog(
                   context: context,
                   builder: (context) {
@@ -115,7 +114,6 @@ class _LogOutOrDeleteAccountButtonState
                         accpetText: () async {
                           if (LogOutOrDeleteAccountButton
                               .isFirstTabInAcceptButton) {
-                            log('One tab');
                             setState(() {
                               LogOutOrDeleteAccountButton
                                   .isFirstTabInAcceptButton = false;

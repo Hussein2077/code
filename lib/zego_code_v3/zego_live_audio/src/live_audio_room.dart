@@ -11,6 +11,7 @@ import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart'
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/connect/connect_manager.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/seat_manager.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/prebuilt_data.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
 
@@ -23,8 +24,8 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_controller.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/prebuilt_data.dart';
+// import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
+// import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/prebuilt_data.dart';
 
 /// Live Audio Room Widget.
 /// You can embed this widget into any page of your project to integrate the functionality of a audio chat room.
@@ -40,6 +41,7 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
     required this.roomID,
     required this.config,
     required this.roomData ,
+     this.popUpWidget,
     this.controller,
     @Deprecated('Since 2.4.1') this.appDesignSize,
   }) : super(key: key);
@@ -71,7 +73,9 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
 
   /// Initialize the configuration for the voice chat room.
   final ZegoUIKitPrebuiltLiveAudioRoomConfig config;
+  
   final EnterRoomModel roomData ;
+  final Widget? popUpWidget ;
 
   @Deprecated('Since 2.4.1')
   final Size? appDesignSize;
@@ -111,8 +115,6 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
         userName: widget.userName,
         config: widget.config,
         controller: widget.controller,
-        isPrebuiltFromMinimizing: LiveAudioRoomMiniOverlayPageState.idle !=
-            ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state(),
         roomData: widget.roomData,
       );
       WidgetsBinding.instance.addObserver(this);
@@ -128,16 +130,13 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       subscriptions
         ..add(ZegoUIKit().getUserJoinStream().listen(onUserJoined))
         ..add(ZegoUIKit().getUserLeaveStream().listen(onUserLeave))
-        ..add(
-            ZegoUIKit().getMeRemovedFromRoomStream().listen(onMeRemovedFromRoom));
+        ..add(ZegoUIKit().getMeRemovedFromRoomStream().listen(onMeRemovedFromRoom));
 
-      isFromMinimizing = LiveAudioRoomMiniOverlayPageState.idle !=
-          ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state();
-      if (!isFromMinimizing) {
+
         ZegoLiveAudioRoomManagers().initPluginAndManagers(
           prebuiltData: prebuiltData!,
         );
-      }
+
       ZegoLiveAudioRoomManagers().updateContextQuery(() {
         return context;
       });
@@ -168,24 +167,8 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
           });
         });
       });
-      ZegoLoggerService.logInfo(
-        'mini machine state is ${ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()}',
-        tag: 'audio room',
-        subTag: 'prebuilt',
-      );
-      if (isFromMinimizing) {
-        ZegoLoggerService.logInfo(
-          'mini machine state is not idle, context will not be init',
-          tag: 'audio room',
-          subTag: 'prebuilt',
-        );
-      } else {
-        initContext();
-      }
 
-      ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().changeState(
-        LiveAudioRoomMiniOverlayPageState.idle,
-      );
+        initContext();
 
     }
 
@@ -196,29 +179,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
   @override
   void dispose() {
     super.dispose();
-
-
      WidgetsBinding.instance.removeObserver(this);
-
-    // //
-    // if (LiveAudioRoomMiniOverlayPageState.minimizing !=
-    //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
-    //   ZegoLiveAudioRoomManagers().unintPluginAndManagers();
-    //
-    //  uninitContext();
-    //
-    //   widget.controller?.uninitByPrebuilt();
-    // } else {
-    //   ZegoLoggerService.logInfo(
-    //     'mini machine state is minimizing, room will not be leave',
-    //     tag: 'audio room',
-    //     subTag: 'prebuilt',
-    //   );
-    // }
-    //
-    // for (final subscription in subscriptions) {
-    //   subscription?.cancel();
-    // }
   }
 
   @override
@@ -261,8 +222,9 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
       popUpManager: ZegoLiveAudioRoomManagers().popUpManager,
       liveDurationManager: ZegoLiveAudioRoomManagers().liveDurationManager!,
       prebuiltController: widget.controller,
-      prebuiltAudioRoomData: prebuiltData!,
+   //   prebuiltAudioRoomData: prebuiltData!,
       roomData: widget.roomData,
+      popUpWidget: widget.popUpWidget,
     );
   }
 
@@ -443,12 +405,10 @@ class ZegoUIKitPrebuiltLiveAudioRoomState
   }
 
   Future<void> uninitContext() async {
-    await ZegoUIKit().resetSoundEffect();
-    await ZegoUIKit().resetBeautyEffect();
 
     await ZegoUIKit().leaveRoom();
 
-    // await ZegoUIKit().uninit();
+     await ZegoUIKit().uninit();
   }
 
   void initToast() {

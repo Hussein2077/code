@@ -2,10 +2,10 @@ const String pathImage = "assets/images";
 const String pathIcon = "assets/icons";
 
 class AssetsPath {
-
   //image
   static const String chairIcon = "$pathImage/chair.png";
-  static const String happyNewYear = "$pathImage/happy-holidays-merry-christmas.gif";
+  static const String happyNewYear =
+      "$pathImage/happy-holidays-merry-christmas.gif";
   static const String midPartyMode = "$pathImage/mid_party_mode.jpg";
   static const String partyImg = "$pathImage/party.jpg";
   static const String topCenterImg = "$pathImage/topCenter.jpg";
@@ -44,7 +44,7 @@ class AssetsPath {
   static const String blueBackGround = "$pathImage/blue_voice_background.png";
   static const String yellowBackGround =
       "$pathImage/yellwo_voice_background.png";
-  static const String luckyGiftBox ="$pathImage/Bubble-Win.png" ;
+  static const String luckyGiftBox = "$pathImage/Bubble-Win.png";
   static const String goldCoin = "$pathImage/goldcoin.png";
 
   static const String pinkBackGround = "$pathImage/pink_voice_background.png";
@@ -90,7 +90,8 @@ class AssetsPath {
   static const String emptyScreen = "$pathImage/empty_screen.gif";
   static const String sendMessage = "$pathImage/send-message.png";
   static const String pkGif = "$pathImage/pk.gif";
-  static const String roomIntroMessageIcon = "$pathImage/roomIntroMessageIcon.png";
+  static const String roomIntroMessageIcon =
+      "$pathImage/roomIntroMessageIcon.png";
   static const String kingchir = "$pathImage/kingschire.png";
 
   static const String teenPatti = "$pathImage/Teen-Patti-1.png";
@@ -102,21 +103,35 @@ class AssetsPath {
   static const String openLock = "$pathImage/open_lock.png";
   static const String hand = "$pathImage/hand.png.png";
   static const String hand2 = "$pathImage/hand.png";
-  static const String spinWheelGameExiteIcon = "$pathImage/room_turntable_close_icon 1.png";
-  static const String spinWheelGameHeaderImage = "$pathImage/room_turntable_top_bg 1.png";
-  static const String spinWheelGameDeleteIcon = "$pathImage/room_turntable_delete_icon 1.png";
-  static const String spinWheelGameBottonImage = "$pathImage/room_turntable_bottom_bg 1.png";
-  static const String spinWheelGameBtnIcon = "$pathImage/room_lottery_btn_yellow 2.png";
-  static const String spinWheelGameFrameIcon = "$pathImage/room_turntable_bg 1.png";
-  static const String spinWheelGameFrameBgIcon = "$pathImage/room_turntable_console_bottom_bg 1.png";
-  static const String spinWheelGameIndicatorIcon1 = "$pathImage/room_turntable_arrow_icon 1.png";
-  static const String spinWheelGameIndicatorIcon2 = "$pathImage/room_turntable_center_icon 1.png";
-  static const String luckyDrawGameArrow = "$pathImage/room_lottery_arrow_icon 1.png";
+  static const String spinWheelGameExiteIcon =
+      "$pathImage/room_turntable_close_icon 1.png";
+  static const String spinWheelGameHeaderImage =
+      "$pathImage/room_turntable_top_bg 1.png";
+  static const String spinWheelGameDeleteIcon =
+      "$pathImage/room_turntable_delete_icon 1.png";
+  static const String spinWheelGameBottonImage =
+      "$pathImage/room_turntable_bottom_bg 1.png";
+  static const String spinWheelGameBtnIcon =
+      "$pathImage/room_lottery_btn_yellow 2.png";
+  static const String spinWheelGameFrameIcon =
+      "$pathImage/room_turntable_bg 1.png";
+  static const String spinWheelGameFrameBgIcon =
+      "$pathImage/room_turntable_console_bottom_bg 1.png";
+  static const String spinWheelGameIndicatorIcon1 =
+      "$pathImage/room_turntable_arrow_icon 1.png";
+  static const String spinWheelGameIndicatorIcon2 =
+      "$pathImage/room_turntable_center_icon 1.png";
+  static const String luckyDrawGameArrow =
+      "$pathImage/room_lottery_arrow_icon 1.png";
   static const String luckyDrawGameHeader = "$pathImage/Group 1.png";
-  static const String luckyDrawGameBottom = "$pathImage/room_lottery_bottom_bg 1.png";
-  static const String luckyDrawGameGrayBtn = "$pathImage/room_lottery_btn_gray 2.png";
-  static const String luckyDrawGameBody = "$pathImage/room_lottery_center_bg 2.png";
-  static const String luckyDrawGameExite = "$pathImage/room_lottery_close_icon 1.png";
+  static const String luckyDrawGameBottom =
+      "$pathImage/room_lottery_bottom_bg 1.png";
+  static const String luckyDrawGameGrayBtn =
+      "$pathImage/room_lottery_btn_gray 2.png";
+  static const String luckyDrawGameBody =
+      "$pathImage/room_lottery_center_bg 2.png";
+  static const String luckyDrawGameExite =
+      "$pathImage/room_lottery_close_icon 1.png";
   static const String dicSVGA = "$pathImage/room_default_dice.svga";
   static const String fingerGuessing = "$pathImage/room_finger_guessing.svga";
   static const String dic1 = "$pathImage/1.png";
@@ -131,17 +146,16 @@ class AssetsPath {
   static const String sendBoxSVGA = "$pathImage/Icon G Box .svga";
   static const String luckyGiftBubble = "$pathImage/lucky_gift_bubble.png";
   static const String privateComment = "$pathImage/private_comment.png";
-
-
+  static const String hint = "$pathImage/hint.png";
 
   //icons
   static const String verified = "$pathIcon/verified.gif";
 
   static const String pk1 = "$pathIcon/pk2.png";
   static const String gamesIcon = "$pathIcon/games.png";
-  static const String appleIcon ="$pathIcon/apple_logo.png" ;
-  static const String huaweiIcon ="$pathIcon/huawei.png" ;
-  static const String stripeIcon ="$pathIcon/stripe_logo.png" ;
+  static const String appleIcon = "$pathIcon/apple_logo.png";
+  static const String huaweiIcon = "$pathIcon/huawei.png";
+  static const String stripeIcon = "$pathIcon/stripe_logo.png";
   static const String muteSeatGreen = "$pathIcon/muteIcon.png";
   static const String adminMark = "$pathIcon/admin-mark.png";
   static const String iconShare = "$pathIcon/share.png";
@@ -271,8 +285,6 @@ class AssetsPath {
   static const String coinAnimate = "$pathImage/coin_animate.gif";
   static const String privateCommentGif = "$pathImage/privete_comment.gif";
 
-
-
   static const String gemStone = "$pathIcon/gem-stone.png";
   static const String circleDollar = "$pathIcon/circle-dollar.png";
   static const String rank = "$pathIcon/rank.png";
@@ -291,7 +303,8 @@ class AssetsPath {
   static const String lockRoom = "$pathIcon/lockroom.png";
   static const String music2 = "$pathIcon/music.png";
   static const String myVideos = "$pathImage/my_videos.jpeg";
-    static const String defaultImage = "$pathImage/Facebook_default_male_avatar.gif";
+  static const String defaultImage =
+      "$pathImage/Facebook_default_male_avatar.gif";
   static const String likeIcon = "$pathIcon/likeicon.png";
   static const String commentIcon = "$pathIcon/commentIcon.png";
   static const String giftMoment = "$pathIcon/giftmoment.png";
@@ -301,7 +314,8 @@ class AssetsPath {
   static const String system = "$pathIcon/system.png";
   static const String isRoomGIF = "$pathIcon/is_room.gif";
   static const String conversation = "$pathIcon/conversation.png";
-  static const String selectedConversation = "$pathIcon/selectedconversation.png";
+  static const String selectedConversation =
+      "$pathIcon/selectedconversation.png";
   static const String shareMomentIcon = "$pathIcon/sharemomenticon.png";
   static const String deleteAccout = "$pathIcon/delet_account.png";
   static const String chatIconActive = "$pathIcon/chat.png";
@@ -318,6 +332,8 @@ class AssetsPath {
   static const String dollersDropping = "$pathImage/dollersdropping (2).jpeg";
   static const String happyNewYearIntro = "$pathImage/happyNewYearIntro.gif";
   static const String happyNewYearVideo = "$pathImage/happyNewYearVideo.mp4";
+  static const String privateCommentIcon =
+      "$pathImage/private_comment_icon.png";
   static const String privateCommentIcon = "$pathImage/private_comment_icon.png";
   static const String liveVideoSoon = "$pathImage/live_video_soon.png";
 

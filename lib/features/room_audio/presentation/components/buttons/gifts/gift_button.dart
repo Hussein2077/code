@@ -56,7 +56,6 @@ class _GiftButtonState extends State<GiftButton> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        log('fffffffffff');
         widget.myDataModel.id.toString().startsWith('-1')
             ? showDialog(
                 context: context,

@@ -1,10 +1,6 @@
 // ignore_for_file: must_be_immutable, non_constant_identifier_names, prefer_typing_uninitialized_variables
 
-import 'dart:developer';
 import 'dart:io';
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,10 +10,8 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
-import 'package:tik_chat_v2/core/widgets/header_with_only_title.dart';
 import 'package:tik_chat_v2/core/widgets/mian_button.dart';
 import 'package:tik_chat_v2/core/widgets/toast_widget.dart';
-import 'package:tik_chat_v2/features/auth/data/model/country_model.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add_info_event.dart';
@@ -25,7 +19,6 @@ import 'package:tik_chat_v2/features/auth/presentation/manager/add_info_bloc/add
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/get_all_country_bloc/get_all_country_event.dart';
 import 'package:tik_chat_v2/features/auth/presentation/widgets/country_drop_down_search.dart';
-import 'package:tik_chat_v2/features/auth/presentation/widgets/google_auth.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_manager/get_my_data_event.dart';
 import 'widgets/add_profile_pic.dart';
@@ -53,7 +46,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
     SnackBar snackBar = SnackBar(
       content: widget.Data?.isAgeNotComplete == true &&
               widget.Data?.isCountryNotComplete == true
-          ?  Text(StringManager.pleaseCompleteYourInfoAgeAndCountry.tr())
+          ? Text(StringManager.pleaseCompleteYourInfoAgeAndCountry.tr())
           : Text(widget.Data?.isAgeNotComplete == true
               ? StringManager.pleaseCompleteYourInfoAge.tr()
               : StringManager.pleaseCompleteYourInfoCountry.tr()),
@@ -92,7 +85,6 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddInfoBloc, AddInfoState>(
@@ -104,8 +96,52 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
               const Spacer(
                 flex: 2,
               ),
-               HeaderWithOnlyTitle(
-                title: StringManager.completeYourAccount.tr(),
+              Row(
+                children: [
+                  SizedBox(
+                    width: ConfigSize.defaultSize! * 2,
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      size: ConfigSize.defaultSize! * 2,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                    color: Colors.white,
+                  ),
+                  Text(StringManager.completeYourAccount.tr(),
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  const Spacer(),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        Routes.hintScreen,
+                        (route) => false,
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            StringManager.skip.tr(),
+                            style: TextStyle(
+                                fontSize: ConfigSize.defaultSize! * 1.5,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: ConfigSize.defaultSize! * 1.5,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const Spacer(
                 flex: 1,
@@ -170,12 +206,14 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                 ? AddProFilePic.googleImage
                                 : File(AddProFilePic.image!.path),
                             gender: MaleFemaleButtons.selectedGender == "male"
-                                ? "1"
-                                : "0",
+                                ? 1
+                                : 0,
                             name: nameController.text,
                             date: DateWidget.selectedDatee,
-                            email: widget.Data?.data == null ? null : widget.Data?.data.email,
-                            countryID: CountryDropDownSearch. selectedItem!.id));
+                            email: widget.Data?.data == null
+                                ? null
+                                : widget.Data?.data.email,
+                            countryID: CountryDropDownSearch.selectedItem!.id));
                       } else {
                         errorToast(
                           context: context,
@@ -229,7 +267,9 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   bool valadate() {
     if (AddProFilePic.googleImage == null &&
         AddProFilePic.image == null &&
-       (MyDataModel.getInstance().profile==null?true: MyDataModel.getInstance().profile!.image == '')) {
+        (MyDataModel.getInstance().profile == null
+            ? true
+            : MyDataModel.getInstance().profile!.image == '')) {
       warningToast(context: context, title: StringManager.pleaseAddPhoto.tr());
       return false;
     } else if (nameController.text.isEmpty &&
@@ -250,6 +290,4 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
       return true;
     }
   }
-
-
 }

@@ -6,7 +6,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/controller/controll
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/controller/media.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/controller/message.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
+//import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/logger_service.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
@@ -30,9 +30,10 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.d
 /// This class is used by setting the [controller] parameter in the constructor of [ZegoUIKitPrebuiltLiveAudioRoom].
 class ZegoLiveAudioRoomController
     with
-        ZegoLiveAudioRoomControllerPrivate,
-        ZegoLiveAudioRoomControllerMedia,
-        ZegoLiveAudioRoomControllerMessage {
+        ZegoLiveAudioRoomControllerPrivate
+       // ZegoLiveAudioRoomControllerMedia
+       //ZegoLiveAudioRoomControllerMessage
+{
   ///  enable or disable the microphone of a specified user. If userID is empty or null, it controls the local microphone. The isOn parameter specifies whether the microphone should be turned on or off, where true means it is turned on and false means it is turned off.
   void turnMicrophoneOn(bool isOn, {String? userID}) {
     ZegoUIKit().turnMicrophoneOn(isOn, userID: userID);
@@ -103,8 +104,6 @@ class ZegoLiveAudioRoomController
       seatManager?.isLeavingRoom = true;
     }
 
-    await ZegoUIKit().resetSoundEffect();
-    await ZegoUIKit().resetBeautyEffect();
 
     final result = await ZegoUIKit().leaveRoom().then((result) {
       ZegoLoggerService.logInfo(
@@ -116,34 +115,34 @@ class ZegoLiveAudioRoomController
       return 0 == result.errorCode;
     });
 
-    final isFromMinimizing = LiveAudioRoomMiniOverlayPageState.minimizing ==
-        ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state();
-    if (isFromMinimizing) {
-      /// leave in minimizing
-      await ZegoUIKit().getSignalingPlugin().leaveRoom();
-
-      /// not need logout
-      // await ZegoUIKit().getSignalingPlugin().logout();
-      /// not need destroy signaling sdk
-      await ZegoUIKit().getSignalingPlugin().uninit(forceDestroy: false);
-
-      await ZegoLiveAudioRoomManagers().unintPluginAndManagers();
-
-      ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().changeState(
-        LiveAudioRoomMiniOverlayPageState.idle,
-      );
-
-      prebuiltConfig?.onLeaveLiveAudioRoom?.call(isFromMinimizing);
-    } else {
+    // final isFromMinimizing = LiveAudioRoomMiniOverlayPageState.minimizing ==
+    //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state();
+    // if (isFromMinimizing) {
+    //   /// leave in minimizing
+    //   await ZegoUIKit().getSignalingPlugin().leaveRoom();
+    //
+    //   /// not need logout
+    //   // await ZegoUIKit().getSignalingPlugin().logout();
+    //   /// not need destroy signaling sdk
+    //   await ZegoUIKit().getSignalingPlugin().uninit(forceDestroy: false);
+    //
+    //   await ZegoLiveAudioRoomManagers().unintPluginAndManagers();
+    //
+    //   ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().changeState(
+    //     LiveAudioRoomMiniOverlayPageState.idle,
+    //   );
+    //
+    //   prebuiltConfig?.onLeaveLiveAudioRoom?.call(isFromMinimizing);
+    // } else {
       if (prebuiltConfig?.onLeaveLiveAudioRoom != null) {
-        prebuiltConfig?.onLeaveLiveAudioRoom!.call(isFromMinimizing);
+        prebuiltConfig?.onLeaveLiveAudioRoom!.call(false);
       } else {
         Navigator.of(
           context,
           rootNavigator: prebuiltConfig?.rootNavigator ?? true,
         ).pop();
       }
-    }
+   // }
 
     uninitByPrebuilt();
 
