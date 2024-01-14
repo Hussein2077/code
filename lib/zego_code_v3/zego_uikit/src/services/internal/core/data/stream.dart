@@ -24,8 +24,7 @@ mixin ZegoUIKitCoreDataStream {
   StreamController<List<ZegoUIKitCoreUser>> audioVideoListStreamCtrl =
       StreamController<List<ZegoUIKitCoreUser>>.broadcast();
 
-  StreamController<String> turnOnYourCameraRequestStreamCtrl =
-      StreamController<String>.broadcast();
+
   StreamController<ZegoUIKitReceiveTurnOnLocalMicrophoneEvent>
       turnOnYourMicrophoneRequestStreamCtrl =
       StreamController<ZegoUIKitReceiveTurnOnLocalMicrophoneEvent>.broadcast();
@@ -231,8 +230,7 @@ mixin ZegoUIKitCoreDataStream {
               : ZegoViewMode.AspectFit,
         );
 
-        // await ZegoExpressEngine.instance
-        //     .enableCamera(ZegoUIKitCore.shared.coreData.localUser.camera.value);
+
         await ZegoExpressEngine.instance.muteMicrophone(
             !ZegoUIKitCore.shared.coreData.localUser.microphone.value);
         await ZegoExpressEngine.instance.startPreview(canvas: canvas);

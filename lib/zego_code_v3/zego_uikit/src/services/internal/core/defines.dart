@@ -138,8 +138,7 @@ class ZegoUIKitCoreUser {
       ValueNotifier<ZegoStreamQualityLevel>(ZegoStreamQualityLevel.Excellent);
 
   // only for local
-  ValueNotifier<bool> isFrontFacing = ValueNotifier<bool>(true);
-  ValueNotifier<bool> isVideoMirror = ValueNotifier<bool>(false);
+
   ValueNotifier<ZegoAudioRoute> audioRoute =
       ValueNotifier<ZegoAudioRoute>(ZegoAudioRoute.Receiver);
   ZegoAudioRoute lastAudioRoute = ZegoAudioRoute.Receiver;

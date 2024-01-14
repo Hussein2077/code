@@ -186,7 +186,6 @@ extension ZegoUIKitCoreDataEventHandler on ZegoUIKitCoreData {
       return;
     }
 
-    /// update users' camera state
 
     if (!streamDic.containsKey(streamID)) {
       ZegoLoggerService.logInfo(
@@ -429,14 +428,7 @@ extension ZegoUIKitCoreDataEventHandler on ZegoUIKitCoreData {
   }
 
   void onRoomStreamExtraInfoUpdate(String roomID, List<ZegoStream> streamList) {
-    /*
-    * {
-    * "isCameraOn": true,
-    * "isMicrophoneOn": true,
-    * "hasAudio": true,
-    * "hasVideo": true,
-    * }
-    * */
+
 
     ZegoLoggerService.logInfo(
       "onRoomStreamExtraInfoUpdate, roomID:$roomID, stream list:${streamList.map((e) => "stream id:${e.streamID}, extra info${e.extraInfo}, user id:${e.user.userID}")}",

@@ -115,17 +115,7 @@ class ZegoUIKitUserPropertiesNotifier extends ChangeNotifier
     _coreUser.inRoomAttributes.removeListener(onInRoomAttributesUpdated);
   }
 
-  void onCameraStatusChanged() {
-    _updateTimestamp = DateTime.now().microsecondsSinceEpoch;
 
-    notifyListeners();
-  }
-
-  void onCameraMuteModeChanged() {
-    _updateTimestamp = DateTime.now().microsecondsSinceEpoch;
-
-    notifyListeners();
-  }
 
   void onMicrophoneStatusChanged() {
     _updateTimestamp = DateTime.now().microsecondsSinceEpoch;

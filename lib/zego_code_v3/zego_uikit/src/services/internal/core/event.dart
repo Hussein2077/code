@@ -11,7 +11,6 @@ mixin ZegoUIKitCoreEvent {
     ZegoExpressEngine.onRoomUserUpdate = null;
     ZegoExpressEngine.onPublisherStateUpdate = null;
     ZegoExpressEngine.onPlayerStateUpdate = null;
-    ZegoExpressEngine.onRemoteCameraStateUpdate = null;
     ZegoExpressEngine.onRemoteMicStateUpdate = null;
     ZegoExpressEngine.onRemoteSoundLevelUpdate = null;
     ZegoExpressEngine.onCapturedSoundLevelUpdate = null;
