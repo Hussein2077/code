@@ -17,14 +17,10 @@ enum ZegoMenuBarButtonName {
 
   /// Button for audience members to apply for a seat and join others in a voice chat.
   /// Typically placed on the audience toolbar.
-  applyToTakeSeatButton,
+  //applyToTakeSeatButton,
 
 
 
-  /// Button for toggling the seat availability.
-  /// When the seat is **open**, all audience members can freely choose an empty seat to join and start chatting with others.
-  /// If the seat is **closed**, audience members need to request permission from the host or be invited by the host to occupy a seat.
-  closeSeatButton,
 }
 
 /// User roles in the live audio room.

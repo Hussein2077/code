@@ -125,7 +125,9 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
             //   )
             // else
             //   Container(),
-            ...null == widget.user ? [] : [microphoneOffFlag()],
+            ...null == widget.user ? [] : [
+           //   microphoneOffFlag()
+        ],
           ],
         );
       },
@@ -490,24 +492,24 @@ class _ZegoSeatForegroundState extends State<ZegoSeatForeground> {
 
 
 
-  Widget microphoneOffFlag() {
-    return widget.user?.microphone.value ?? false
-        ? Container()
-        : Positioned(
-            top: avatarPosTop,
-            left: 0,
-            right: 0,
-            child: Container(
-              width: seatIconWidth,
-              height: seatIconWidth,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.black.withOpacity(0.5),
-              ),
-              child: PrebuiltLiveAudioRoomImage.asset(
-                PrebuiltLiveAudioRoomIconUrls.seatMicrophoneOff,
-              ),
-            ),
-          );
-  }
+  // Widget microphoneOffFlag() {
+  //   return widget.user?.microphone.value ?? false
+  //       ? Container()
+  //       : Positioned(
+  //           top: avatarPosTop,
+  //           left: 0,
+  //           right: 0,
+  //           child: Container(
+  //             width: seatIconWidth,
+  //             height: seatIconWidth,
+  //             decoration: BoxDecoration(
+  //               shape: BoxShape.circle,
+  //               color: Colors.black.withOpacity(0.5),
+  //             ),
+  //             child: PrebuiltLiveAudioRoomImage.asset(
+  //               PrebuiltLiveAudioRoomIconUrls.seatMicrophoneOff,
+  //             ),
+  //           ),
+  //         );
+  // }
 }

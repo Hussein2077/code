@@ -432,13 +432,12 @@ class ZegoBottomMenuBarConfig {
     this.showInRoomMessageButton = true,
     this.hostButtons = const [
       ZegoMenuBarButtonName.toggleMicrophoneButton,
-      ZegoMenuBarButtonName.closeSeatButton,
     ],
     this.speakerButtons = const [
       ZegoMenuBarButtonName.toggleMicrophoneButton,
     ],
     this.audienceButtons = const [
-      ZegoMenuBarButtonName.applyToTakeSeatButton,
+     // ZegoMenuBarButtonName.applyToTakeSeatButton,
     ],
     this.hostExtendButtons = const [],
     this.speakerExtendButtons = const [],
