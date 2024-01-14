@@ -4,7 +4,6 @@ export 'audio_video/media/container.dart';
 export 'audio_video/media/player.dart';
 export 'audio_video/media/view.dart';
 export 'defines.dart';
-export 'functions.dart';
 export 'internal/icon_defines.dart';
 export 'message/message.dart';
 export 'screen_util/screen_util.dart';
