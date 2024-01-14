@@ -34,11 +34,11 @@ class ZegoAudienceConnectButton extends StatefulWidget {
 
 /// @nodoc
 class _ZegoAudienceConnectButtonState extends State<ZegoAudienceConnectButton> {
-  ButtonIcon get buttonIcon => ButtonIcon(
-        icon: PrebuiltLiveAudioRoomImage.asset(
-            PrebuiltLiveAudioRoomIconUrls.toolbarAudienceConnect),
-        backgroundColor: Colors.transparent,
-      );
+  // ButtonIcon get buttonIcon => ButtonIcon(
+  //       icon: PrebuiltLiveAudioRoomImage.asset(
+  //           PrebuiltLiveAudioRoomIconUrls.toolbarAudienceConnect),
+  //       backgroundColor: Colors.transparent,
+  //     );
 
   TextStyle get buttonTextStyle => TextStyle(
         color: Colors.white,
@@ -58,7 +58,10 @@ class _ZegoAudienceConnectButtonState extends State<ZegoAudienceConnectButton> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
+    return
+      //SizedBox();
+
+      ValueListenableBuilder<bool>(
         valueListenable: widget.seatManager.isSeatLockedNotifier,
         builder: (context, isSeatLocked, _) {
           if (!isSeatLocked) {
@@ -84,9 +87,12 @@ class _ZegoAudienceConnectButtonState extends State<ZegoAudienceConnectButton> {
                                 builder: (context, connectState, _) {
                                   switch (connectState) {
                                     case ConnectState.idle:
-                                      return requestConnectButton();
+                                      return SizedBox() ;
+                                      //  requestConnectButton();
                                     case ConnectState.connecting:
-                                      return cancelRequestConnectButton();
+                                      return SizedBox() ;
+
+                                       // cancelRequestConnectButton();
                                     case ConnectState.connected:
                                       return Container();
                                   }
@@ -97,90 +103,90 @@ class _ZegoAudienceConnectButtonState extends State<ZegoAudienceConnectButton> {
         });
   }
 
-  Widget requestConnectButton() {
-    final invitees = widget.seatManager.hostsNotifier.value.isNotEmpty
-        ? widget.seatManager.hostsNotifier.value
-        : widget.seatManager.coHostsNotifier.value;
+  // Widget requestConnectButton() {
+  //   final invitees = widget.seatManager.hostsNotifier.value.isNotEmpty
+  //       ? widget.seatManager.hostsNotifier.value
+  //       : widget.seatManager.coHostsNotifier.value;
+  //
+  //   return ZegoStartInvitationButton(
+  //     invitationType: ZegoInvitationType.requestTakeSeat.value,
+  //     invitees: invitees,
+  //     data: '',
+  //     icon: buttonIcon,
+  //     buttonSize: Size(330.zR, 72.zR),
+  //     iconSize: Size(48.zR, 48.zR),
+  //     iconTextSpacing: 12.zR,
+  //     text: widget.innerText.applyToTakeSeatButton,
+  //     textStyle: buttonTextStyle,
+  //     verticalLayout: false,
+  //     onWillPressed: checkHostAndCoHostExist,
+  //     onPressed: (
+  //       String code,
+  //       String message,
+  //       String invitationID,
+  //       List<String> errorInvitees,
+  //     ) {
+  //       if (code.isNotEmpty) {
+  //         widget.connectManager.config.onSeatTakingRequestFailed?.call();
+  //
+  //         showDebugToast('Failed to apply for take seat, $code $message');
+  //       } else {
+  //         showDebugToast(
+  //             'You are applying to take seat, please wait for confirmation.');
+  //
+  //         widget.connectManager
+  //             .updateAudienceConnectState(ConnectState.connecting);
+  //       }
+  //       //
+  //     },
+  //     clickableTextColor: Colors.white,
+  //     clickableBackgroundColor: const Color(0xff1E2740).withOpacity(0.4),
+  //   );
+  // }
 
-    return ZegoStartInvitationButton(
-      invitationType: ZegoInvitationType.requestTakeSeat.value,
-      invitees: invitees,
-      data: '',
-      icon: buttonIcon,
-      buttonSize: Size(330.zR, 72.zR),
-      iconSize: Size(48.zR, 48.zR),
-      iconTextSpacing: 12.zR,
-      text: widget.innerText.applyToTakeSeatButton,
-      textStyle: buttonTextStyle,
-      verticalLayout: false,
-      onWillPressed: checkHostAndCoHostExist,
-      onPressed: (
-        String code,
-        String message,
-        String invitationID,
-        List<String> errorInvitees,
-      ) {
-        if (code.isNotEmpty) {
-          widget.connectManager.config.onSeatTakingRequestFailed?.call();
+  // Widget cancelRequestConnectButton() {
+  //   final invitees = widget.seatManager.hostsNotifier.value.isNotEmpty
+  //       ? widget.seatManager.hostsNotifier.value
+  //       : widget.seatManager.coHostsNotifier.value;
+  //
+  //   return ZegoCancelInvitationButton(
+  //     invitees: invitees,
+  //     icon: buttonIcon,
+  //     buttonSize: Size(330.zR, 72.zR),
+  //     iconSize: Size(48.zR, 48.zR),
+  //     iconTextSpacing: 12.zR,
+  //     text: widget.innerText.cancelTheTakeSeatApplicationButton,
+  //     textStyle: buttonTextStyle,
+  //     verticalLayout: false,
+  //     onPressed: (String code, String message, List<String> errorInvitees) {
+  //       widget.connectManager.updateAudienceConnectState(ConnectState.idle);
+  //       //
+  //     },
+  //     clickableTextColor: Colors.white,
+  //     clickableBackgroundColor: const Color(0xff1E2740).withOpacity(0.4),
+  //   );
+  // }
 
-          showDebugToast('Failed to apply for take seat, $code $message');
-        } else {
-          showDebugToast(
-              'You are applying to take seat, please wait for confirmation.');
-
-          widget.connectManager
-              .updateAudienceConnectState(ConnectState.connecting);
-        }
-        //
-      },
-      clickableTextColor: Colors.white,
-      clickableBackgroundColor: const Color(0xff1E2740).withOpacity(0.4),
-    );
-  }
-
-  Widget cancelRequestConnectButton() {
-    final invitees = widget.seatManager.hostsNotifier.value.isNotEmpty
-        ? widget.seatManager.hostsNotifier.value
-        : widget.seatManager.coHostsNotifier.value;
-
-    return ZegoCancelInvitationButton(
-      invitees: invitees,
-      icon: buttonIcon,
-      buttonSize: Size(330.zR, 72.zR),
-      iconSize: Size(48.zR, 48.zR),
-      iconTextSpacing: 12.zR,
-      text: widget.innerText.cancelTheTakeSeatApplicationButton,
-      textStyle: buttonTextStyle,
-      verticalLayout: false,
-      onPressed: (String code, String message, List<String> errorInvitees) {
-        widget.connectManager.updateAudienceConnectState(ConnectState.idle);
-        //
-      },
-      clickableTextColor: Colors.white,
-      clickableBackgroundColor: const Color(0xff1E2740).withOpacity(0.4),
-    );
-  }
-
-  bool checkHostExist({bool withToast = true}) {
-    if (widget.seatManager.hostsNotifier.value.isEmpty) {
-      if (withToast) {
-        showDebugToast('Failed to apply for take seat, host is not exist');
-      }
-      return false;
-    }
-
-    return true;
-  }
-
-  Future<bool> checkHostAndCoHostExist({bool withToast = true}) async {
-    if (widget.seatManager.hostsNotifier.value.isEmpty &&
-        widget.seatManager.coHostsNotifier.value.isEmpty) {
-      if (withToast) {
-        showDebugToast('Failed to apply for take seat, host is not exist');
-      }
-      return false;
-    }
-
-    return true;
-  }
+  // bool checkHostExist({bool withToast = true}) {
+  //   if (widget.seatManager.hostsNotifier.value.isEmpty) {
+  //     if (withToast) {
+  //       showDebugToast('Failed to apply for take seat, host is not exist');
+  //     }
+  //     return false;
+  //   }
+  //
+  //   return true;
+  // }
+  //
+  // Future<bool> checkHostAndCoHostExist({bool withToast = true}) async {
+  //   if (widget.seatManager.hostsNotifier.value.isEmpty &&
+  //       widget.seatManager.coHostsNotifier.value.isEmpty) {
+  //     if (withToast) {
+  //       showDebugToast('Failed to apply for take seat, host is not exist');
+  //     }
+  //     return false;
+  //   }
+  //
+  //   return true;
+  // }
 }
