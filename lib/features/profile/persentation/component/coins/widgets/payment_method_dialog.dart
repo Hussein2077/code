@@ -107,8 +107,6 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
                   IapClient.isEnvReady().then((res) {
                     purchaseConsumableProduct(widget.coinPackageId.toString())
                         .then((res) {
-                      log("res?.returnCode${res?.returnCode}");
-                      log("res?.returnCode${res?.errMsg}");
                       if (res?.inAppPurchaseData?.purchaseToken != null) {
                         BlocProvider.of<PayBloc>(context).add(HuaweiPayNow(
                             product_id: widget.coinPackageId.toString(),

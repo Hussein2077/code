@@ -2,12 +2,14 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/service/navigation_service.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_tab_view.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_bloc.dart';
 import 'package:tik_chat_v2/features/profile/persentation/manager/pay_manager/pay_event.dart';
@@ -69,6 +71,11 @@ class PurchaseService {
     try {
       await connection.buyConsumable(purchaseParam: purchaseParam);
     } catch (e) {
+      ScaffoldMessenger.of(
+              getIt<NavigationService>().navigatorKey.currentContext!)
+          .showSnackBar(errorSnackBar(
+              getIt<NavigationService>().navigatorKey.currentContext!,
+              e.toString()));
       log("error in buy function: $e");
     }
   }
