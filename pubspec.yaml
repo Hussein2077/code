@@ -117,7 +117,8 @@ dependencies:
   in_app_purchase: ^3.1.11
   video_player:
   google_mobile_ads: ^4.0.0
-
+  youtube_api:
+  youtube_player_flutter: ^8.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

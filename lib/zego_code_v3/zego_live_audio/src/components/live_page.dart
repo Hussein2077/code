@@ -245,7 +245,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
     );
 
     return Positioned(
-      top: 190.zR,
+      top:RoomScreen.layoutMode==LayoutMode.cinemaMode?680.zR :190.zR,
       child: SizedBox(
         width: maxWidth - 20.zW ,
         height: RoomScreen.layoutMode == LayoutMode.hostTopCenter

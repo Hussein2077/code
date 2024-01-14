@@ -17,6 +17,7 @@ class StringManager {
   static const String forgetPassword = "Forget Password?  ";
   static const String hasJoin = "has joined";
   static const String games = "Games";
+  static const String cinemaMode = "Cinema Mode";
   static const String gameroom = "Game Room";
   static const String cacheEmojieKey = 'Emojie';
   static const String cacheEntroKey = 'Entro';
@@ -445,6 +446,10 @@ class StringManager {
   static const String numberOfLuckyUsers = "Number of lucky users";
   static const String refresh = "Refresh";
   static const String somethingsWrong = "Something's wrong";
+  static const String searchOnYouTube = "1-search on video on YouTube";
+  static const String pressOnVideo = "2-Press on video which you need watch it";
+  static const String everyOneWatchWithYou = "3-every one watch with you";
+  static const String ownerOrAdminCanSwitchVideo = "4-owner or admin can switch video";
 
 //zego
   static const String thereAreNoEmptySeats = 'There are no empty seats';

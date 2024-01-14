@@ -19,6 +19,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_luc
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 
 class BasicToolDialog extends StatefulWidget {
@@ -80,13 +82,38 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
               },
               child: Column(
                 children: [
-                 Image.asset(AssetsPath.activityGamesIcon,scale: 2.1,),
+                 Image.asset(AssetsPath.activityGamesIcon,scale: 2.5,),
                   Text(StringManager.games.tr(),
                       style: TextStyle(
                           fontSize: ConfigSize.defaultSize! + 2,
                           color: Colors.black,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w600))
+                ],
+              ),
+            ),
+            InkWell(
+              onTap: ()async{
+                await    ZegoLiveAudioRoomManagers().seatManager!
+                    .takeOffAllSeat(isPK: false);
+                BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
+                    ownerId: widget.ownerId, roomMode: '3'));
+                Navigator.pop(context);
+              },
+              child: Column(
+mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.video_camera_back,size:ConfigSize.defaultSize!*4 ,),
+                  SizedBox(height: ConfigSize.defaultSize!*.4,),
+                  Text(StringManager.cinemaMode.tr(),
+                      style: TextStyle(
+                          fontSize: ConfigSize.defaultSize! + 2,
+                          color: Colors.black,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w600)),
+                  SizedBox(height: ConfigSize.defaultSize!*1.5,),
+
+
                 ],
               ),
             ),
@@ -106,8 +133,8 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                 children: [
                   Image.asset(
                     AssetsPath.luckyBox,
-                    width: ConfigSize.defaultSize! * 6,
-                    height: ConfigSize.defaultSize! * 6,
+                    width: ConfigSize.defaultSize! * 5,
+                    height: ConfigSize.defaultSize! * 5,
                   ),
                   Text(StringManager.luckyBox.tr(),
                       style: TextStyle(
@@ -163,8 +190,8 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                         child: Column(
                           children: [
                             Image(
-                                width: ConfigSize.defaultSize! * 6,
-                                height: ConfigSize.defaultSize! * 6,
+                                width: ConfigSize.defaultSize! * 5,
+                                height: ConfigSize.defaultSize! * 5,
                                 image: const AssetImage(AssetsPath.pk1)),
                             const Text(StringManager.pk,
                                 style: TextStyle(
@@ -190,8 +217,8 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                 child: Column(
                   children: [
                     Image(
-                        width: ConfigSize.defaultSize! * 6,
-                        height: ConfigSize.defaultSize! * 6,
+                        width: ConfigSize.defaultSize! * 5,
+                        height: ConfigSize.defaultSize! * 5,
                         image: const AssetImage(AssetsPath.iconShare)),
                     Text(StringManager.share.tr(),
                         style: TextStyle(

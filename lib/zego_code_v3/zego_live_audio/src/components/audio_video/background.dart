@@ -78,7 +78,6 @@ class _ZegoSeatForegroundState extends State<ZegoSeatBackground> {
                 bottom: AppPadding.p2,
                 left: AppPadding.p2,
                 child: Container(
-
                   width:  AppPadding.p24,
                   height: AppPadding.p24,
                   decoration:const BoxDecoration(

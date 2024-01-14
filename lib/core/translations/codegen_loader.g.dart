@@ -454,6 +454,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.noReels: 'لا يوجد فيديوهات',
     StringManager.noMoreReels: 'لا يوجد مزيد من الريلز',
     StringManager.games: 'الالعاب',
+    StringManager.cinemaMode: 'وضع السينيما',
     StringManager.readMore: '...أقراء المزيد',
     StringManager.readLess: '  اعرض اقل',
     StringManager.copiedToClipboard: 'تمم النسخ',
@@ -564,6 +565,10 @@ class CodegenLoader extends AssetLoader {
 
     StringManager.refresh: 'اعاده تحميل',
     StringManager.somethingsWrong: 'هناك خطا ما',
+    StringManager.searchOnYouTube:'1-ابحث عن فيديو يوتيوب',
+    StringManager.pressOnVideo:'2-اضغط علي الفيديو الذي تريد مشاهدته',
+    StringManager.everyOneWatchWithYou:'3-سيشاهده الحميع معك',
+    StringManager.ownerOrAdminCanSwitchVideo:'4-يمكن لصاحب الغرفة او المشرفين تبديل الفيديو',
 
     StringManager.explainGameDice: '''
       اللاعبون:

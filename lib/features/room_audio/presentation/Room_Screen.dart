@@ -200,6 +200,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       RoomScreen.layoutMode = LayoutMode.hostTopCenter;
     } else if (widget.room.mode == 2) {
       RoomScreen.layoutMode = LayoutMode.seats12;
+    }else if (widget.room.mode == 3) {
+      RoomScreen.layoutMode = LayoutMode.cinemaMode;
     }
 
     animationControllerGift = SVGAAnimationController(vsync: this);
@@ -774,6 +776,14 @@ setState(() {
             GiftUser.userOnMicsForGifts.clear();
           });
         }
+        else if(result[messageContent]['mode'] == 'cinema') {
+          widget.room.mode = 3 ;
+
+          setState(() {
+            RoomScreen.layoutMode = LayoutMode.cinemaMode;
+            GiftUser.userOnMicsForGifts.clear();
+          });
+        }
       }
       else if (result[messageContent][message] == updateAdminsKey) {
         RoomScreen.adminsInRoom.clear();
@@ -1184,6 +1194,17 @@ List<ZegoLiveAudioRoomLayoutRowConfig> rowRoomSeats(LayoutMode layoutMode) {
             seatSpacing: 10,
             alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
         ZegoLiveAudioRoomLayoutRowConfig()
+      ];
+    case LayoutMode.cinemaMode:
+      return [
+        ZegoLiveAudioRoomLayoutRowConfig(
+            count: 4,
+            seatSpacing: 5,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
+        ZegoLiveAudioRoomLayoutRowConfig(
+            count: 4,
+            seatSpacing: 5,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
       ];
   }
 }

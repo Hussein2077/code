@@ -6,6 +6,6 @@ enum TypesCache   {gift,frame,intro,extra, emojie }
 enum MomentType {myMoment,followingMoment,likedMoment,allMoments}
 enum TypeCandy {non,luckyCandy,normalCandy}
 enum TypeGift {normal,lucky,spical,famous,country}
-enum LayoutMode { hostTopCenter, party, seats12 }
+enum LayoutMode { hostTopCenter, party, seats12,cinemaMode }
 enum GamesInRoom {normal, dicGame, rpsGame, luckyDrawGame, spinGame, dicGameResult, rpsGameResult , luckyGiftComment }
 enum OtpFrom { register , forgetPassword, changePhoneOld, changePhoneNew, changePassword}
