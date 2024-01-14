@@ -61,7 +61,6 @@ class ReelsPageState extends State<ReelsPage>
 
   ChewieController? _chewieController;
   FileInfo? image;
-
   bool _liked = false;
   double? videoWidth;
   double? videoHeight;
