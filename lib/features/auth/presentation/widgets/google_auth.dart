@@ -101,31 +101,31 @@ class GoogleAndAppleAuth extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // if (SplashScreen.isGoogle)
-            //   InkWell(
-            //     onTap: () {
-            //       BlocProvider.of<SignInWithPlatformBloc>(context)
-            //           .add(SiginGoogleEvent());
-            //     },
-            //     child: SizedBox(
-            //         width: ConfigSize.defaultSize! * 5,
-            //         height: ConfigSize.defaultSize! * 5,
-            //         child: Center(
-            //           child: Image.asset(AssetsPath.googleIcon),
-            //         )),
-            //   ),
-            // if(SplashScreen.isHuawei) InkWell(
-            //   onTap: () {
-            //     BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginHuaweiEvent());
-            //   },
-            //   child: CircleAvatar(
-            //     backgroundColor: Colors.red,
-            //     radius: ConfigSize.defaultSize! * 2.5,
-            //     child: Center(
-            //       child: Image.asset(AssetsPath.huaweiIcon, color: ColorManager.whiteColor, scale: 20,),
-            //     ),
-            //   ),
-            // ),
+            if (SplashScreen.isGoogle)
+              InkWell(
+                onTap: () {
+                  BlocProvider.of<SignInWithPlatformBloc>(context)
+                      .add(SiginGoogleEvent());
+                },
+                child: SizedBox(
+                    width: ConfigSize.defaultSize! * 5,
+                    height: ConfigSize.defaultSize! * 5,
+                    child: Center(
+                      child: Image.asset(AssetsPath.googleIcon),
+                    )),
+              ),
+            if(SplashScreen.isHuawei) InkWell(
+              onTap: () {
+                BlocProvider.of<SignInWithPlatformBloc>(context).add(SiginHuaweiEvent());
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.red,
+                radius: ConfigSize.defaultSize! * 2.5,
+                child: Center(
+                  child: Image.asset(AssetsPath.huaweiIcon, color: ColorManager.whiteColor, scale: 20,),
+                ),
+              ),
+            ),
 
             if (Platform.isIOS)
               InkWell(

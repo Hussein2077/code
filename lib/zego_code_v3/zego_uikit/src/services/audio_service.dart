@@ -87,10 +87,7 @@ mixin ZegoAudioService {
 
 
 
-  /// get front facing camera switch notifier
-  ValueNotifier<bool> getUseFrontFacingCameraStateNotifier(String userID) {
-    return ZegoUIKitCore.shared.coreData.getUser(userID).isFrontFacing;
-  }
+
 
   /// get microphone state notifier
   ValueNotifier<bool> getMicrophoneStateNotifier(String userID) {
