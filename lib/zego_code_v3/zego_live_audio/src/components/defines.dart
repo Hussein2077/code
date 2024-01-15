@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
 
 // Package imports:
@@ -19,7 +18,6 @@ enum PopupItemValue {
   takeOnSeat,
   takeOffSeat,
   leaveSeat,
-  inviteLink,
   muteMic,
   unMuteMic,
   showUserDetails,

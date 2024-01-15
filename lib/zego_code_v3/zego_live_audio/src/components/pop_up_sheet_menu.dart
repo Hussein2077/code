@@ -167,11 +167,6 @@ class _ZegoPopUpSheetMenuState extends State<ZegoPopUpSheetMenu> {
                 position:popupItem.index.toString()));
             RoomScreen.listOfMuteSeats.remove(popupItem.index);
             break ;
-          case PopupItemValue.inviteLink:
-            await widget.connectManager.inviteAudienceConnect(
-                ZegoUIKit().getUser(popupItem.index as String? ?? ''));
-            break;
-
           case PopupItemValue.cancel:
             break;
         }
