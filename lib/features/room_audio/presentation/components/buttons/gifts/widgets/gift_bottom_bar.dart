@@ -51,6 +51,7 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
   @override
   void dispose() {
     GiftUserOnly.userSelected = "";
+    GiftBottomBar.numberOfGift = 1;
     super.dispose();
   }
 
@@ -119,7 +120,8 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
                         valueListenable: GiftBottomBar.typeCandy,
                         builder:(BuildContext context, TypeCandy typeCabdy, _){
                           if(typeCabdy == TypeCandy.normalCandy){
-                            return NormalCandy(sendGift:sendGift) ;
+                            return NormalCandy(sendGift:sendGift);
+
                           }// else if (typeCabdy == TypeCandy.luckyCandy) {
                           //   return LuckyCandy(sendGift: sendGift) ;
                           // }
@@ -214,9 +216,11 @@ class _GiftBottomBarState extends State<GiftBottomBar>  {
               ));
         }, listener: (_, state) {
       if (state is SuccessSendGiftStates) {
+        GiftBottomBar.numberOfGift = 1;
       }
       else if (state is ErrorSendGiftStates) {
         errorToast(context: context, title: state.errorMessage.tr()) ;
+        GiftBottomBar.numberOfGift = 1;
       }
     });
   }
