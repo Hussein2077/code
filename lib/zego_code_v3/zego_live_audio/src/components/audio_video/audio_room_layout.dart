@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 
 // Package imports:
@@ -69,7 +70,7 @@ class _ZegoAudioRoomLayoutState extends State<ZegoAudioRoomLayout> {
 
       if (targetUserCurrentIndex != targetItemIndex) {
         final targetUser = users[targetUserCurrentIndex];
-        if((targetItemIndex !=-1)&&(targetItemIndex < users.length)){
+        if((targetItemIndex !=-1)){
           users[targetUserCurrentIndex] = users[targetItemIndex];
           users[targetItemIndex] = targetUser;
         }

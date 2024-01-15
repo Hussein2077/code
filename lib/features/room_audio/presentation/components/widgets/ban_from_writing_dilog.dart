@@ -35,7 +35,7 @@ class BanFromWritingDilog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            SizedBox(height: 20),
+            SizedBox(height: 20,),
             Text(headerText,style: TextStyle(
               color: Colors.black
             ),),

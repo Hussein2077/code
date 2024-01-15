@@ -11,7 +11,6 @@ mixin ZegoUIKitCoreEvent {
     ZegoExpressEngine.onRoomUserUpdate = null;
     ZegoExpressEngine.onPublisherStateUpdate = null;
     ZegoExpressEngine.onPlayerStateUpdate = null;
-    ZegoExpressEngine.onRemoteCameraStateUpdate = null;
     ZegoExpressEngine.onRemoteMicStateUpdate = null;
     ZegoExpressEngine.onRemoteSoundLevelUpdate = null;
     ZegoExpressEngine.onCapturedSoundLevelUpdate = null;
@@ -39,9 +38,6 @@ mixin ZegoUIKitCoreEvent {
         ZegoUIKitCore.shared.coreData.onPublisherStateUpdate;
     ZegoExpressEngine.onPlayerStateUpdate =
         ZegoUIKitCore.shared.coreData.onPlayerStateUpdate;
-
-    ZegoExpressEngine.onRemoteCameraStateUpdate =
-        ZegoUIKitCore.shared.coreData.onRemoteCameraStateUpdate;
 
     ZegoExpressEngine.onRemoteMicStateUpdate =
         ZegoUIKitCore.shared.coreData.onRemoteMicStateUpdate;
@@ -75,8 +71,6 @@ mixin ZegoUIKitCoreEvent {
 
     ZegoExpressEngine.onPlayerRecvAudioFirstFrame =
         ZegoUIKitCore.shared.coreData.onPlayerRecvAudioFirstFrame;
-    ZegoExpressEngine.onPlayerRecvVideoFirstFrame =
-        ZegoUIKitCore.shared.coreData.onPlayerRecvVideoFirstFrame;
 
     ZegoExpressEngine.onPlayerRecvSEI =
         ZegoUIKitCore.shared.coreData.onPlayerRecvSEI;

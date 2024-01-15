@@ -4,14 +4,10 @@ import 'dart:core';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:native_device_orientation/native_device_orientation.dart';
-
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/avatar/avatar.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/defines.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/internal/internal.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/screen_util/screen_util.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/services.dart';
 
@@ -68,57 +64,6 @@ class _ZegoAudioVideoViewState extends State<ZegoAudioVideoView> {
     );
   }
 
-  Widget videoView() {
-    if (widget.user == null) {
-      return Container(color: Colors.transparent);
-    }
-
-    return ValueListenableBuilder<bool>(
-      valueListenable: ZegoUIKit().getCameraStateNotifier(widget.user!.id),
-      builder: (context, isCameraOn, _) {
-        if (!isCameraOn) {
-          /// hide video view when use close camera
-          return Container(color: Colors.transparent);
-        }
-
-        return SizedBox.expand(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return ValueListenableBuilder<Widget?>(
-                valueListenable:
-                    ZegoUIKit().getAudioVideoViewNotifier(widget.user!.id),
-                builder: (context, userView, _) {
-                  if (userView == null) {
-                    /// hide video view when use not found
-                    return Container(color: Colors.transparent);
-                  }
-
-                  return StreamBuilder(
-                    stream: NativeDeviceOrientationCommunicator()
-                        .onOrientationChanged(),
-                    builder: (context,
-                        AsyncSnapshot<NativeDeviceOrientation> asyncResult) {
-                      if (asyncResult.hasData) {
-                        /// Do not update ui when ui is building !!!
-                        /// use postFrameCallback to update videoSize
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          ///  notify sdk to update video render orientation
-                          ZegoUIKit().updateAppOrientation(
-                            deviceOrientationMap(asyncResult.data!),
-                          );
-                        });
-                      }
-                      return userView;
-                    },
-                  );
-                },
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
 
   Widget background() {
     return LayoutBuilder(
@@ -208,6 +153,7 @@ class _ZegoAudioVideoViewState extends State<ZegoAudioVideoView> {
       ),
     );
   }
+
 
   Widget avatar(double maxWidth, double maxHeight) {
     final screenSize = MediaQuery.of(context).size;

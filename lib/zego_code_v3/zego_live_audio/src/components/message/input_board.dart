@@ -34,7 +34,7 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
   bool get barrierDismissible => true;
 
   @override
-  Color get barrierColor => ZegoUIKitDefaultTheme.viewBarrierColor;
+  Color get barrierColor =>const Color(0xff171821).withOpacity(0.4);
 
   @override
   String? get barrierLabel => null;

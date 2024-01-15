@@ -24,8 +24,7 @@ mixin ZegoUIKitCoreDataStream {
   StreamController<List<ZegoUIKitCoreUser>> audioVideoListStreamCtrl =
       StreamController<List<ZegoUIKitCoreUser>>.broadcast();
 
-  StreamController<String> turnOnYourCameraRequestStreamCtrl =
-      StreamController<String>.broadcast();
+
   StreamController<ZegoUIKitReceiveTurnOnLocalMicrophoneEvent>
       turnOnYourMicrophoneRequestStreamCtrl =
       StreamController<ZegoUIKitReceiveTurnOnLocalMicrophoneEvent>.broadcast();
@@ -128,39 +127,38 @@ mixin ZegoUIKitCoreDataStream {
     }
   }
 
-  Future<void> startPreview() async {
-    ZegoLoggerService.logInfo(
-      'start preview',
-      tag: 'uikit',
-      subTag: 'core data',
-    );
+  // Future<void> startPreview() async {
+  //   ZegoLoggerService.logInfo(
+  //     'start preview',
+  //     tag: 'uikit',
+  //     subTag: 'core data',
+  //   );
+  //
+  //   createLocalUserVideoView(
+  //     streamType: ZegoStreamType.main,
+  //     onViewCreated: onViewCreatedByStartPreview,
+  //   );
+  // }
 
-    createLocalUserVideoView(
-      streamType: ZegoStreamType.main,
-      onViewCreated: onViewCreatedByStartPreview,
-    );
-  }
-
-  Future<void> onViewCreatedByStartPreview(ZegoStreamType streamType) async {
-    ZegoLoggerService.logInfo(
-      'start preview, on view created',
-      tag: 'uikit',
-      subTag: 'core data',
-    );
-
-    assert(ZegoUIKitCore.shared.coreData.localUser.mainChannel.viewID != -1);
-
-    final previewCanvas = ZegoCanvas(
-      ZegoUIKitCore.shared.coreData.localUser.mainChannel.viewID,
-      viewMode: pushVideoConfig.useVideoViewAspectFill
-          ? ZegoViewMode.AspectFill
-          : ZegoViewMode.AspectFit,
-    );
-
-    // ZegoExpressEngine.instance
-    //   ..enableCamera(ZegoUIKitCore.shared.coreData.localUser.camera.value)
-    //   ..startPreview(canvas: previewCanvas);
-  }
+  // Future<void> onViewCreatedByStartPreview(ZegoStreamType streamType) async {
+  //   ZegoLoggerService.logInfo(
+  //     'start preview, on view created',
+  //     tag: 'uikit',
+  //     subTag: 'core data',
+  //   );
+  //
+  //   assert(ZegoUIKitCore.shared.coreData.localUser.mainChannel.viewID != -1);
+  //
+  //   final previewCanvas = ZegoCanvas(
+  //     ZegoUIKitCore.shared.coreData.localUser.mainChannel.viewID,
+  //     viewMode: pushVideoConfig.useVideoViewAspectFill
+  //         ? ZegoViewMode.AspectFill
+  //         : ZegoViewMode.AspectFit,
+  //   );
+  //
+  //    ZegoExpressEngine.instance
+  //     ..startPreview(canvas: previewCanvas);
+  // }
 
   Future<void> stopPreview() async {
     ZegoLoggerService.logInfo(
@@ -232,8 +230,7 @@ mixin ZegoUIKitCoreDataStream {
               : ZegoViewMode.AspectFit,
         );
 
-        // await ZegoExpressEngine.instance
-        //     .enableCamera(ZegoUIKitCore.shared.coreData.localUser.camera.value);
+
         await ZegoExpressEngine.instance.muteMicrophone(
             !ZegoUIKitCore.shared.coreData.localUser.microphone.value);
         await ZegoExpressEngine.instance.startPreview(canvas: canvas);
@@ -360,9 +357,7 @@ mixin ZegoUIKitCoreDataStream {
       return;
     }
 
-    if (ZegoUIKitCore.shared.coreData.localUser.camera.value ||
-        ZegoUIKitCore.shared.coreData.localUser.cameraMuteMode.value ||
-        ZegoUIKitCore.shared.coreData.localUser.microphone.value ||
+    if (ZegoUIKitCore.shared.coreData.localUser.microphone.value ||
         ZegoUIKitCore.shared.coreData.localUser.microphoneMuteMode.value) {
       startPublishingStream(
         streamType: ZegoStreamType.main,
@@ -402,10 +397,9 @@ mixin ZegoUIKitCoreDataStream {
     String userID,
     bool mute, {
     bool forAudio = true,
-    bool forVideo = true,
   }) async {
     ZegoLoggerService.logInfo(
-      'muteUserAudioVideo, userID: $userID, mute: $mute, for audio:$forAudio, for video:$forVideo',
+      'muteUserAudioVideo, userID: $userID, mute: $mute, for audio:$forAudio',
       tag: 'uikit',
       subTag: 'core data',
     );
@@ -438,11 +432,6 @@ mixin ZegoUIKitCoreDataStream {
           .mutePlayStreamAudio(targetUser.mainChannel.streamID, mute);
     }
 
-    if (forVideo) {
-      targetUser.cameraMuteMode.value = mute;
-      await ZegoExpressEngine.instance
-          .mutePlayStreamVideo(targetUser.mainChannel.streamID, mute);
-    }
   }
 
   Future<void> muteAllPlayStreamAudioVideo(bool isMuted) async {
@@ -575,9 +564,6 @@ mixin ZegoUIKitCoreDataStream {
         ..streamTimestamp = 0;
       targetUser
         ..destroyTextureRenderer(streamType: streamType)
-        ..camera.value = false
-        ..cameraMuteMode.value = false
-       // ..microphone.value = false
         ..microphoneMuteMode.value = false;
     }
 
@@ -609,15 +595,13 @@ mixin ZegoUIKitCoreDataStream {
       }
 
       if (streamType == ZegoStreamType.main) {
-        /// if camera is in mute mode, same as open state
-        final isCameraOpen = user.camera.value || user.cameraMuteMode.value;
 
         /// if microphone is in mute mode, same as open state
         final isMicrophoneOpen =
             user.microphone.value || user.microphoneMuteMode.value;
 
-        /// only open camera or microphone
-        return isCameraOpen || isMicrophoneOpen;
+        /// only open  microphone
+        return  isMicrophoneOpen;
       }
 
       return true;
@@ -686,8 +670,6 @@ mixin ZegoUIKitCoreDataStream {
         ..mainChannel.streamID = ''
         ..mainChannel.streamTimestamp = 0
         ..destroyTextureRenderer(streamType: ZegoStreamType.main)
-        ..camera.value = false
-        ..cameraMuteMode.value = false
         ..microphone.value = false
         ..microphoneMuteMode.value = false
         ..mainChannel.soundLevel.add(0);

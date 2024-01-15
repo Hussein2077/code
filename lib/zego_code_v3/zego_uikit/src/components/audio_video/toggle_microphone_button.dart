@@ -132,22 +132,5 @@ class _ZegoToggleMicrophoneButtonState
     }
   }
 
-  // void onPressed() {
-  //   /// get current microphone state
-  //   final valueNotifier =
-  //       ZegoUIKit().getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id);
-  //
-  //   final targetState = !valueNotifier.value;
-  //
-  //   if (targetState) {
-  //     requestPermission(Permission.microphone);
-  //   }
-  //
-  //   /// reverse current state
-  //   ZegoUIKit().turnMicrophoneOn(targetState, muteMode: widget.muteMode);
-  //
-  //   if (widget.onPressed != null) {
-  //     widget.onPressed!(targetState);
-  //   }
-  // }
+
 }

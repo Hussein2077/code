@@ -121,7 +121,7 @@ class _ZegoInRoomLiveMessageViewItemState
                 EdgeInsets.fromLTRB(20.zR, 10.zR, 20.zR, 10.zR),
             child: Stack(
               children: [
-                message(),
+            //    message(),
                 Positioned(
                   top: 1.zR,
                   right: 1.zR,

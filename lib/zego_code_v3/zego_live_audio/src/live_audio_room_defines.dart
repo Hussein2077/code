@@ -9,31 +9,18 @@
 /// For example, if your business scenario only allows the host to invite audiences to the seat and doesn't allow audiences to apply as speakers, you can exclude the applyToTakeSeatButton from ZegoBottomMenuBarConfig.audienceButtons.
 enum ZegoMenuBarButtonName {
   /// Button for leaving the audio chat room.
-  /// You can proactively add a leave button to the bottom or top toolbar to optimize the interaction experience based on your business needs.
-  leaveButton,
 
   /// Button for controlling the microphone switch.
   toggleMicrophoneButton,
 
-  /// Button for controlling the visibility of the member list.
-  showMemberListButton,
 
-  /// Button for controlling the display or hiding of the sound effect adjustment panel.
-  /// Typically, only the host and speakers will be speaking, so this button is usually displayed on their toolbars.
-  soundEffectButton,
 
   /// Button for audience members to apply for a seat and join others in a voice chat.
   /// Typically placed on the audience toolbar.
-  applyToTakeSeatButton,
+  //applyToTakeSeatButton,
 
-  /// Button for minimizing the current [ZegoUIKitPrebuiltLiveAudioRoom] widget within the app.
-  /// When clicked, the [ZegoUIKitPrebuiltLiveAudioRoom] widget will shrink into a small draggable widget within the app.
-  minimizingButton,
 
-  /// Button for toggling the seat availability.
-  /// When the seat is **open**, all audience members can freely choose an empty seat to join and start chatting with others.
-  /// If the seat is **closed**, audience members need to request permission from the host or be invited by the host to occupy a seat.
-  closeSeatButton,
+
 }
 
 /// User roles in the live audio room.

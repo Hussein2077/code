@@ -48,6 +48,9 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.d
 import 'package:vap/vap.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../../../zego_code_v3/zego_uikit/src/components/audio_video/audio_video.dart';
+import '../../../../../../zego_code_v3/zego_uikit/src/components/components.dart';
+
 class ViewbackgroundWidget extends StatefulWidget {
   EnterRoomModel room;
   Map<String, String> roomDataUpdates;

@@ -12,7 +12,7 @@ class ZegoMoreButton extends StatefulWidget {
   const ZegoMoreButton({
     Key? key,
     required this.menuButtonListFunc,
-    this.icon,
+   required this.icon,
     this.menuItemSize = const Size(60.0, 60.0),
     this.menuItemCountPerRow = 5,
     this.menuRowHeight = 80.0,
@@ -67,8 +67,8 @@ class _ZegoMoreButtonState extends State<ZegoMoreButton> {
         ),
         child: SizedBox.fromSize(
           size: sizeBoxSize,
-          child: widget.icon?.icon ??
-              UIKitImage.asset(StyleIconUrls.iconS1ControlBarMore),
+          child: widget.icon!.icon
+
         ),
       ),
     );

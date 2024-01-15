@@ -6,11 +6,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.da
 /// @nodoc
 const removeUserInRoomCommandKey = 'zego_remove_user';
 
-/// @nodoc
-const turnCameraOnInRoomCommandKey = 'zego_turn_camera_on';
 
-/// @nodoc
-const turnCameraOffInRoomCommandKey = 'zego_turn_camera_off';
 
 /// @nodoc
 const turnMicrophoneOnInRoomCommandKey = 'zego_turn_microphone_on';

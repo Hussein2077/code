@@ -29,7 +29,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_con
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_controller.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_inner_text.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
+//import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_overlay_machine.dart';
 
 
 /// @nodoc
@@ -137,7 +137,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
 
     localRole.addListener(onRoleChanged);
     seatsUserMapNotifier.addListener(onSeatUsersChanged);
-    isSeatLockedNotifier.addListener(onSeatLockedChanged);
+   // isSeatLockedNotifier.addListener(onSeatLockedChanged);
 
     await queryRoomAllAttributes(withToast: false);
     await queryUsersInRoomAttributes();
@@ -182,10 +182,10 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
       subscription?.cancel();
     }
 
-    if (LiveAudioRoomMiniOverlayPageState.minimizing !=
-        ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
-      ZegoUIKit().turnMicrophoneOn(false);
-    }
+    // if (LiveAudioRoomMiniOverlayPageState.minimizing !=
+    //     ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayMachine().state()) {
+    //   ZegoUIKit().turnMicrophoneOn(false);
+    // }
   }
 
   void setConnectManager(ZegoLiveConnectManager value) {
@@ -486,25 +486,25 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
     );
   }
 
-  void onSeatLockedChanged() {
-    if (!isSeatLockedNotifier.value) {
-      /// after seat is unlocked
-
-      if (localIsAHost) {
-        /// host cancels the invitation
-        _connectManager?.hostCancelTakeSeatInvitation();
-      } else if (localIsAAudience) {
-        /// audience cancels self requesting
-        _connectManager?.audienceCancelTakeSeatRequest();
-      }
-    }
-
-    _connectManager?.onSeatLockedChanged(isSeatLockedNotifier.value);
-
-    isSeatLockedNotifier.value
-        ? config.onSeatClosed?.call()
-        : config.onSeatsOpened?.call();
-  }
+  // void onSeatLockedChanged() {
+  //   if (!isSeatLockedNotifier.value) {
+  //     /// after seat is unlocked
+  //
+  //     if (localIsAHost) {
+  //       /// host cancels the invitation
+  //       _connectManager?.hostCancelTakeSeatInvitation();
+  //     } else if (localIsAAudience) {
+  //       /// audience cancels self requesting
+  //       _connectManager?.audienceCancelTakeSeatRequest();
+  //     }
+  //   }
+  //
+  //   _connectManager?.onSeatLockedChanged(isSeatLockedNotifier.value);
+  //
+  //   isSeatLockedNotifier.value
+  //       ? config.onSeatClosed?.call()
+  //       : config.onSeatsOpened?.call();
+  // }
 
   bool isSpeaker(ZegoUIKitUser? user) {
     if (null == user) {
@@ -1279,11 +1279,8 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
         return;
       }
 
-      /// update hosts
-      cacheHosts(updateUser, updateUserAttributes);
-      cacheCoHosts(updateUser, updateUserAttributes);
 
-      /// update local role
+       /// update local role
       if (localUserID == updateUserID) {
         if (updateUserAttributes[attributeKeyRole]?.isNotEmpty ?? false) {
           localRole.value = ZegoLiveAudioRoomRole
@@ -1299,48 +1296,7 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
     });
   }
 
-  void cacheHosts(
-    ZegoUIKitUser updateUser,
-    Map<String, String> updateUserAttributes,
-  ) {
-    /// update host
-    final currentHosts = List<String>.from(hostsNotifier.value);
-    if (currentHosts.contains(updateUser.id)) {
-      /// local is host
-      if (
-          //  host key is removed
-          !updateUserAttributes.containsKey(attributeKeyRole) ||
-              // host is kicked or leave
-              (updateUserAttributes.containsKey(attributeKeyRole) &&
-                  (updateUserAttributes[attributeKeyRole]!.isEmpty ||
-                      updateUserAttributes[attributeKeyRole]! !=
-                          ZegoLiveAudioRoomRole.host.index.toString()))) {
-        currentHosts.removeWhere((userID) => userID == updateUser.id);
-      }
-    } else if (updateUserAttributes.containsKey(attributeKeyRole) &&
-        updateUserAttributes[attributeKeyRole]! ==
-            ZegoLiveAudioRoomRole.host.index.toString()) {
-      /// new host?
-      currentHosts.add(updateUser.id);
-    }
-    hostsNotifier.value = currentHosts;
-    ZegoLoggerService.logInfo(
-      'hosts is:${hostsNotifier.value}',
-      tag: 'audio room',
-      subTag: 'seat manager',
-    );
 
-    if (hostsNotifier.value.isNotEmpty &&
-        isCoHost(ZegoUIKit().getLocalUser())) {
-      ZegoLoggerService.logInfo(
-        "host enter, remove co-host's host data ",
-        tag: 'audio room',
-        subTag: 'seat manager',
-      );
-
-      _connectManager?.clearAudienceIDsInvitedTakeSeatByHost();
-    }
-  }
 
   void onUserListUpdated(List<ZegoUIKitUser> users) {
     final doneUserIDs = <String>[];
@@ -1637,51 +1593,51 @@ class ZegoLiveSeatManager with ZegoLiveSeatCoHost {
     });
   }
 
-  void cacheCoHosts(
-    ZegoUIKitUser updateUser,
-    Map<String, String> updateUserAttributes,
-  ) {
-    /// update co-host
-    final currentCoHosts = List<String>.from(coHostsNotifier.value);
-    if (currentCoHosts.contains(updateUser.id)) {
-      /// local is co-host
-      if (
-          //  co-host key is removed
-          !updateUserAttributes.containsKey(attributeKeyIsCoHost) ||
-              // host is kicked or leave
-              (updateUserAttributes.containsKey(attributeKeyIsCoHost) &&
-                  (updateUserAttributes[attributeKeyIsCoHost]!.isEmpty ||
-                      updateUserAttributes[attributeKeyIsCoHost]!
-                              .toLowerCase() !=
-                          'true'))) {
-        currentCoHosts.removeWhere((userID) => userID == updateUser.id);
-      }
-    } else if (updateUserAttributes.containsKey(attributeKeyIsCoHost) &&
-        updateUserAttributes[attributeKeyIsCoHost]!.toLowerCase() == 'true') {
-      currentCoHosts.add(updateUser.id);
-    }
-
-    final selfIsCoHostBefore =
-        coHostsNotifier.value.contains(ZegoUIKit().getLocalUser().id);
-    final selfIsCoHostNow =
-        currentCoHosts.contains(ZegoUIKit().getLocalUser().id);
-    if (selfIsCoHostBefore && !selfIsCoHostNow) {
-      ZegoLoggerService.logInfo(
-        "self's co-host had removed",
-        tag: 'audio room',
-        subTag: 'seat manager',
-      );
-
-      _connectManager?.clearAudienceIDsInvitedTakeSeatByHost();
-    }
-    coHostsNotifier.value = currentCoHosts;
-
-    ZegoLoggerService.logInfo(
-      'co-hosts is:${coHostsNotifier.value}',
-      tag: 'audio room',
-      subTag: 'seat manager',
-    );
-  }
+  // void cacheCoHosts(
+  //   ZegoUIKitUser updateUser,
+  //   Map<String, String> updateUserAttributes,
+  // ) {
+  //   /// update co-host
+  //   final currentCoHosts = List<String>.from(coHostsNotifier.value);
+  //   if (currentCoHosts.contains(updateUser.id)) {
+  //     /// local is co-host
+  //     if (
+  //         //  co-host key is removed
+  //         !updateUserAttributes.containsKey(attributeKeyIsCoHost) ||
+  //             // host is kicked or leave
+  //             (updateUserAttributes.containsKey(attributeKeyIsCoHost) &&
+  //                 (updateUserAttributes[attributeKeyIsCoHost]!.isEmpty ||
+  //                     updateUserAttributes[attributeKeyIsCoHost]!
+  //                             .toLowerCase() !=
+  //                         'true'))) {
+  //       currentCoHosts.removeWhere((userID) => userID == updateUser.id);
+  //     }
+  //   } else if (updateUserAttributes.containsKey(attributeKeyIsCoHost) &&
+  //       updateUserAttributes[attributeKeyIsCoHost]!.toLowerCase() == 'true') {
+  //     currentCoHosts.add(updateUser.id);
+  //   }
+  //
+  //   final selfIsCoHostBefore =
+  //       coHostsNotifier.value.contains(ZegoUIKit().getLocalUser().id);
+  //   final selfIsCoHostNow =
+  //       currentCoHosts.contains(ZegoUIKit().getLocalUser().id);
+  //   if (selfIsCoHostBefore && !selfIsCoHostNow) {
+  //     ZegoLoggerService.logInfo(
+  //       "self's co-host had removed",
+  //       tag: 'audio room',
+  //       subTag: 'seat manager',
+  //     );
+  //
+  //     _connectManager?.clearAudienceIDsInvitedTakeSeatByHost();
+  //   }
+  //   coHostsNotifier.value = currentCoHosts;
+  //
+  //   ZegoLoggerService.logInfo(
+  //     'co-hosts is:${coHostsNotifier.value}',
+  //     tag: 'audio room',
+  //     subTag: 'seat manager',
+  //   );
+  // }
 }
 
 class KickSeatDialogInfo {

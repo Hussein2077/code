@@ -21,7 +21,6 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_vi
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_video/seat_container.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/bottom_bar.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/duration_time_board.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/message/view.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/pop_up_manager.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/connect/connect_manager.dart';
@@ -30,7 +29,7 @@ import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/plugins.d
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/seat_manager.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_controller.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/prebuilt_data.dart';
+//import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/prebuilt_data.dart';
 
 /// @nodoc
 /// user and sdk should be login and init before page enter
@@ -48,7 +47,8 @@ class ZegoLivePage extends StatefulWidget {
     required this.connectManager,
     required this.popUpManager,
     required this.liveDurationManager,
-    required this.prebuiltAudioRoomData,
+     this.popUpWidget,
+   // required this.prebuiltAudioRoomData,
     required this.roomData ,
     this.plugins,
   }) : super(key: key);
@@ -68,7 +68,8 @@ class ZegoLivePage extends StatefulWidget {
   final ZegoLiveDurationManager liveDurationManager;
   final ZegoLiveAudioRoomController? prebuiltController;
   final ZegoPrebuiltPlugins? plugins;
-  final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltAudioRoomData;
+  final Widget? popUpWidget ;
+ // final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltAudioRoomData;
   static ValueNotifier<int> editAudioVideoContainer = ValueNotifier<int>(0);
 
   @override
@@ -136,7 +137,6 @@ class ZegoLivePageState extends State<ZegoLivePage>
                         })   ,
                    // topBar(),
                     bottomBar(),
-                    durationTimeBoard(),
                     viewbackground(context, constraints.maxHeight),
                   ],
                 );
@@ -219,6 +219,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
                 popUpManager: widget.popUpManager,
                 roomData: widget.roomData,
                 isHost: widget.userID == widget.roomData.ownerId.toString(),
+                popUpWidget: widget.popUpWidget,
 
               );
             });
@@ -240,7 +241,6 @@ class ZegoLivePageState extends State<ZegoLivePage>
           config: widget.config,
         );
       },
-      sortAudioVideo: audioVideoViewSorter,
      avatarBuilder: widget.config.seatConfig.avatarBuilder,
     );
 
@@ -266,29 +266,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
     );
   }
 
-  List<ZegoUIKitUser> audioVideoViewSorter(List<ZegoUIKitUser> users) {
-    return users;
-  }
 
-  // Widget topBar() {
-  //   return Positioned(
-  //     left: 0,
-  //     right: 0,
-  //     top: 64.zR,
-  //     child: ValueListenableBuilder<ZegoUIKitRoomState>(
-  //       valueListenable: ZegoUIKit().getRoomStateStream(),
-  //       builder: (context, roomState, _) {
-  //         return ZegoTopBar(
-  //           config: widget.config,
-  //           seatManager: widget.seatManager,
-  //           connectManager: widget.connectManager,
-  //           translationText: widget.config.innerText,
-  //           prebuiltAudioRoomData: widget.prebuiltAudioRoomData,
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
 
   Widget bottomBar() {
     return Align(
@@ -303,7 +281,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
         prebuiltController: widget.prebuiltController,
         isPluginEnabled: widget.plugins?.isEnabled ?? false,
         avatarBuilder: widget.config.seatConfig.avatarBuilder,
-        prebuiltData: widget.prebuiltAudioRoomData,
+        //prebuiltData: widget.prebuiltAudioRoomData,
         roomData: widget.roomData,
       ),
     );
@@ -346,21 +324,7 @@ class ZegoLivePageState extends State<ZegoLivePage>
 
   }
 
-  Widget durationTimeBoard() {
-    if (!widget.config.durationConfig.isVisible) {
-      return Container();
-    }
 
-    return Positioned(
-      left: 0,
-      right: 0,
-      top: 10,
-      child: LiveDurationTimeBoard(
-        config: widget.config.durationConfig,
-        manager: widget.liveDurationManager,
-      ),
-    );
-  }
 
   Future<void> onTurnOnYourMicrophoneRequest(
       ZegoUIKitReceiveTurnOnLocalMicrophoneEvent event) async {

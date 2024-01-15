@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 
 // Flutter imports:
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/audio_video.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/audio.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/data/data.dart';
@@ -494,32 +494,7 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
     );
   }
 
-  void useFrontFacingCamera(bool isFrontFacing) {
-    if (isFrontFacing == coreData.localUser.isFrontFacing.value) {
-      return;
-    }
 
-    ZegoExpressEngine.instance.useFrontCamera(isFrontFacing);
-    coreData.localUser.isFrontFacing.value = isFrontFacing;
-
-    ZegoExpressEngine.instance.setVideoMirrorMode(
-      isFrontFacing
-          ? (coreData.localUser.isVideoMirror.value
-              ? ZegoVideoMirrorMode.BothMirror
-              : ZegoVideoMirrorMode.NoMirror)
-          : ZegoVideoMirrorMode.NoMirror,
-    );
-  }
-
-  void enableVideoMirroring(bool isVideoMirror) {
-    coreData.localUser.isVideoMirror.value = isVideoMirror;
-
-    ZegoExpressEngine.instance.setVideoMirrorMode(
-      isVideoMirror
-          ? ZegoVideoMirrorMode.BothMirror
-          : ZegoVideoMirrorMode.NoMirror,
-    );
-  }
 
   void setAudioVideoResourceMode(ZegoAudioVideoResourceMode mode) {
     coreData.playResourceMode = mode;
@@ -539,32 +514,15 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
     coreData.muteAllPlayStreamAudioVideo(true);
   }
 
-  Future<void> muteUserAudioVideo(String userID, bool mute) async {
-    return coreData.muteUserAudioVideo(
-      userID,
-      mute,
-      forAudio: true,
-      forVideo: true,
-    );
-  }
 
   Future<void> muteUserAudio(String userID, bool mute) async {
     return coreData.muteUserAudioVideo(
       userID,
       mute,
       forAudio: true,
-      forVideo: false,
     );
   }
 
-  Future<void> muteUserVideo(String userID, bool mute) async {
-    return coreData.muteUserAudioVideo(
-      userID,
-      mute,
-      forAudio: false,
-      forVideo: true,
-    );
-  }
 
   void setAudioOutputToSpeaker(bool useSpeaker) {
     if (!isInit) {
@@ -592,78 +550,6 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
     }
   }
 
-  // void turnCameraOn(String userID, bool isOn) {
-  //   ZegoLoggerService.logInfo(
-  //     "turn ${isOn ? "on" : "off"} $userID camera",
-  //     tag: 'uikit',
-  //     subTag: 'core',
-  //   );
-  //
-  //   if (coreData.localUser.id == userID) {
-  //     turnOnLocalCamera(isOn);
-  //   } else {
-  //     final isLargeRoom =
-  //         coreData.room.isLargeRoom || coreData.room.markAsLargeRoom;
-  //     ZegoLoggerService.logInfo(
-  //       'is large room:$isLargeRoom',
-  //       tag: 'uikit',
-  //       subTag: 'core',
-  //     );
-  //
-  //     if (isOn) {
-  //       sendInRoomCommand(
-  //         const JsonEncoder().convert({turnCameraOnInRoomCommandKey: userID}),
-  //         isLargeRoom ? [] : [userID],
-  //       );
-  //     } else {
-  //       sendInRoomCommand(
-  //         const JsonEncoder().convert({turnCameraOffInRoomCommandKey: userID}),
-  //         isLargeRoom ? [] : [userID],
-  //       );
-  //     }
-  //   }
-  // }
-
-  // void turnOnLocalCamera(bool isOn) {
-  //   ZegoLoggerService.logInfo(
-  //     "turn ${isOn ? "on" : "off"} local camera",
-  //     tag: 'uikit',
-  //     subTag: 'core',
-  //   );
-  //
-  //   if (!isInit) {
-  //     ZegoLoggerService.logError(
-  //       'turn on local camera, core had not init',
-  //       tag: 'uikit',
-  //       subTag: 'core',
-  //     );
-  //     return;
-  //   }
-  //
-  //   if (isOn == coreData.localUser.camera.value) {
-  //     ZegoLoggerService.logInfo(
-  //       'turn on local camera, value is equal',
-  //       tag: 'uikit',
-  //       subTag: 'core',
-  //     );
-  //     return;
-  //   }
-  //
-  //   if (isOn) {
-  //     coreData.startPreview();
-  //   } else {
-  //     coreData.stopPreview();
-  //   }
-  //
-  //   ZegoExpressEngine.instance.enableCamera(isOn);
-  //
-  //   coreData.localUser.cameraMuteMode.value = false;
-  //   coreData.localUser.camera.value = isOn;
-  //
-  //   coreData.startPublishOrNot();
-  //
-  //   syncDeviceStatusByStreamExtraInfo();
-  // }
 
   void turnMicrophoneOn(String userID, bool isOn, {bool muteMode = false}) {
     ZegoLoggerService.logInfo(
@@ -764,7 +650,6 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
   void syncDeviceStatusByStreamExtraInfo() {
     // sync device status via stream extra info
     final streamExtraInfo = <String, dynamic>{
-      streamExtraInfoCameraKey: coreData.localUser.camera.value,
       streamExtraInfoMicrophoneKey: coreData.localUser.microphone.value
     };
 
@@ -775,7 +660,6 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
 
   void syncDeviceStatusBySEI() {
     final seiMap = <String, dynamic>{
-      streamSEIKeyCamera: coreData.localUser.camera.value,
       streamSEIKeyMicrophone: coreData.localUser.microphone.value,
     };
     coreData.sendSEI(
@@ -798,41 +682,9 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
     }
   }
 
-  void setVideoConfig(
-    ZegoVideoConfig config,
-    ZegoStreamType streamType,
-  ) {
-    ZegoExpressEngine.instance.setVideoConfig(
-      config,
-      channel: streamType.channel,
-    );
-    coreData.localUser.mainChannel.viewSize.value = Size(
-      config.captureWidth.toDouble(),
-      config.captureHeight.toDouble(),
-    );
-  }
 
-  void setInternalVideoConfig(ZegoUIKitVideoConfig config) {
-    if (coreData.pushVideoConfig.needUpdateVideoConfig(config)) {
-      final zegoVideoConfig = config.toZegoVideoConfig();
-      ZegoExpressEngine.instance.setVideoConfig(
-        zegoVideoConfig,
-        channel: ZegoPublishChannel.Main,
-      );
-      coreData.localUser.mainChannel.viewSize.value = Size(
-        zegoVideoConfig.captureWidth.toDouble(),
-        zegoVideoConfig.captureHeight.toDouble(),
-      );
-    }
-    if (coreData.pushVideoConfig.needUpdateOrientation(config)) {
-      ZegoExpressEngine.instance.setAppOrientation(
-        config.orientation,
-        channel: ZegoPublishChannel.Main,
-      );
-    }
 
-    coreData.pushVideoConfig = config;
-  }
+
 
   void updateAppOrientation(DeviceOrientation orientation) {
     if (coreData.pushVideoConfig.orientation == orientation) {
@@ -849,47 +701,13 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
         subTag: 'core',
       );
 
-      setInternalVideoConfig(
-        coreData.pushVideoConfig.copyWith(orientation: orientation),
-      );
+      // setInternalVideoConfig(
+      //   coreData.pushVideoConfig.copyWith(orientation:orientation),
+      // );
     }
   }
 
-  void setVideoConfigByPreset(ZegoPresetResolution resolution) {
-    if (coreData.pushVideoConfig.resolution == resolution) {
-      ZegoLoggerService.logInfo(
-        'video config preset is equal',
-        tag: 'uikit',
-        subTag: 'core',
-      );
-      return;
-    } else {
-      ZegoLoggerService.logInfo(
-        'update video config preset:$resolution',
-        tag: 'uikit',
-        subTag: 'core',
-      );
 
-      setInternalVideoConfig(
-        coreData.pushVideoConfig.copyWith(resolution: resolution),
-      );
-    }
-  }
-
-  void updateVideoViewMode(bool useVideoViewAspectFill) {
-    if (coreData.pushVideoConfig.useVideoViewAspectFill ==
-        useVideoViewAspectFill) {
-      ZegoLoggerService.logInfo(
-        'video view mode is equal',
-        tag: 'uikit',
-        subTag: 'core',
-      );
-      return;
-    } else {
-      coreData.pushVideoConfig.useVideoViewAspectFill = useVideoViewAspectFill;
-      // TODO: need re preview, and re playStream
-    }
-  }
 
   void onInternalCustomCommandReceived(
       ZegoInRoomCommandReceivedData commandData) {
@@ -942,25 +760,8 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
 
         coreData.meRemovedFromRoomStreamCtrl.add(commandData.fromUser.id);
       }
-    } else if (extraInfos.keys.contains(turnCameraOnInRoomCommandKey) &&
-        extraInfos[turnCameraOnInRoomCommandKey]!.toString() ==
-            coreData.localUser.id) {
-      ZegoLoggerService.logInfo(
-        'local camera request turn on by ${commandData.fromUser}',
-        tag: 'uikit',
-        subTag: 'core',
-      );
-      coreData.turnOnYourCameraRequestStreamCtrl.add(commandData.fromUser.id);
-    } else if (extraInfos.keys.contains(turnCameraOffInRoomCommandKey) &&
-        extraInfos[turnCameraOffInRoomCommandKey]!.toString() ==
-            coreData.localUser.id) {
-      ZegoLoggerService.logInfo(
-        'local camera request turn off by ${commandData.fromUser}',
-        tag: 'uikit',
-        subTag: 'core',
-      );
-      //turnCameraOn(coreData.localUser.id, false);
-    } else if (extraInfos.keys.contains(turnMicrophoneOnInRoomCommandKey)) {
+    }
+    else if (extraInfos.keys.contains(turnMicrophoneOnInRoomCommandKey)) {
       final mapData =
           extraInfos[turnMicrophoneOnInRoomCommandKey] as Map<String, dynamic>;
       final userID = mapData[userIDCommandKey] ?? '';

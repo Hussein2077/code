@@ -9,20 +9,13 @@ import 'package:tik_chat_v2/zego_code_v3/zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/components.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/effects/sound_effect_button.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/leave_button.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/message/input_board_button.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/pop_up_manager.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/connect/connect_button.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/connect/connect_manager.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/connect/defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/connect/host_lock_seat_button.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/seat/seat_manager.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_controller.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/mini_button.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/minimizing/prebuilt_data.dart';
 
 /// @nodoc
 class ZegoBottomBar extends StatefulWidget {
@@ -38,7 +31,7 @@ class ZegoBottomBar extends StatefulWidget {
 
   final ZegoAvatarBuilder? avatarBuilder;
 
-  final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltData;
+//  final ZegoUIKitPrebuiltLiveAudioRoomData prebuiltData;
   final EnterRoomModel roomData ;
 
   const ZegoBottomBar({
@@ -52,7 +45,7 @@ class ZegoBottomBar extends StatefulWidget {
     required this.prebuiltController,
     required this.height,
     required this.buttonSize,
-    required this.prebuiltData,
+  //  required this.prebuiltData,
     required this.roomData
   }) : super(key: key);
 
@@ -167,14 +160,14 @@ class _ZegoBottomBarState extends State<ZegoBottomBar> {
         context,
         isSeatLocked: isSeatLocked,
         localRole: localRole,
-        microphoneDefaultValueFunc: widget.prebuiltData.isPrebuiltFromMinimizing
-            ? () {
-                /// if is minimizing, take the local device state
-                return ZegoUIKit()
-                    .getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id)
-                    .value;
-              }
-            : null,
+        // microphoneDefaultValueFunc: widget.prebuiltData.isPrebuiltFromMinimizing
+        //     ? () {
+        //         /// if is minimizing, take the local device state
+        //         return ZegoUIKit()
+        //             .getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id)
+        //             .value;
+        //       }
+        //     : null,
       ),
       ...extendButtons
     ];
@@ -236,24 +229,24 @@ class _ZegoBottomBarState extends State<ZegoBottomBar> {
   }
 
   Widget buttonWrapper({required Widget child, ZegoMenuBarButtonName? type}) {
-    var buttonSize = widget.buttonSize;
-    switch (type) {
-      case ZegoMenuBarButtonName.applyToTakeSeatButton:
-        switch (widget.connectManager.audienceLocalConnectStateNotifier.value) {
-          case ConnectState.idle:
-            buttonSize = Size(330.zR, 72.zR);
-            break;
-          case ConnectState.connecting:
-            buttonSize = Size(330.zR, 72.zR);
-            break;
-          case ConnectState.connected:
-            buttonSize = Size(168.zR, 72.zR);
-            break;
-        }
-        break;
-      default:
-        break;
-    }
+     var buttonSize = widget.buttonSize;
+    // switch (type) {
+    //   case ZegoMenuBarButtonName.applyToTakeSeatButton:
+    //     switch (widget.connectManager.audienceLocalConnectStateNotifier.value) {
+    //       case ConnectState.idle:
+    //         buttonSize = Size(330.zR, 72.zR);
+    //         break;
+    //       case ConnectState.connecting:
+    //         buttonSize = Size(330.zR, 72.zR);
+    //         break;
+    //       case ConnectState.connected:
+    //         buttonSize = Size(168.zR, 72.zR);
+    //         break;
+    //     }
+    //     break;
+    //   default:
+    //     break;
+    // }
 
     return SizedBox(
       width: buttonSize.width,
@@ -275,16 +268,18 @@ class _ZegoBottomBarState extends State<ZegoBottomBar> {
     return buttons
         .where((button) {
           if (isSeatLocked) {
-            if (localRole != ZegoLiveAudioRoomRole.audience &&
-                ZegoMenuBarButtonName.applyToTakeSeatButton == button) {
-              /// if audience is on seat, then hide the applyToTakeSeatButton
-              return false;
-            }
+            // if (localRole != ZegoLiveAudioRoomRole.audience
+            //    // && ZegoMenuBarButtonName.applyToTakeSeatButton == button
+            // ) {
+            //   /// if audience is on seat, then hide the applyToTakeSeatButton
+            //   return false;
+            // }
             return true;
           }
 
           /// if seat is not locked, then hide the applyToTakeSeatButton
-          return ZegoMenuBarButtonName.applyToTakeSeatButton != button;
+          return true ;
+          //  ZegoMenuBarButtonName.applyToTakeSeatButton != button;
         })
         .map((type) => buttonWrapper(
               child: generateDefaultButtonsByEnum(
@@ -308,27 +303,6 @@ class _ZegoBottomBarState extends State<ZegoBottomBar> {
     final iconSize = zegoLiveButtonIconSize;
 
     switch (type) {
-      case ZegoMenuBarButtonName.showMemberListButton:
-        return ZegoMemberButton(
-          buttonSize: buttonSize,
-          iconSize: iconSize,
-          icon: ButtonIcon(
-            icon: PrebuiltLiveAudioRoomImage.asset(
-                PrebuiltLiveAudioRoomIconUrls.toolbarMember),
-            backgroundColor: Colors.white,
-          ),
-          avatarBuilder: widget.avatarBuilder,
-          itemBuilder: widget.config.memberListConfig.itemBuilder,
-          isPluginEnabled: widget.isPluginEnabled,
-          seatManager: widget.seatManager,
-          connectManager: widget.connectManager,
-          popUpManager: widget.popUpManager,
-          innerText: widget.config.innerText,
-          onMoreButtonPressed: widget.config.onMemberListMoreButtonPressed,
-          hiddenUserIDsNotifier:
-              widget.prebuiltController?.hiddenUsersOfMemberListNotifier,
-          roomData: roomData,
-        );
       case ZegoMenuBarButtonName.toggleMicrophoneButton:
         var microphoneDefaultOn = widget.config.turnOnMicrophoneWhenJoining;
         final localUserID = ZegoUIKit().getLocalUser().id;
@@ -357,49 +331,19 @@ class _ZegoBottomBarState extends State<ZegoBottomBar> {
           defaultOn: microphoneDefaultOn, zegoLiveSeatManager: widget.seatManager,
           roomData: widget.roomData,
         );
-      case ZegoMenuBarButtonName.leaveButton:
-        return ZegoLeaveAudioRoomButton(
-          buttonSize: buttonSize,
-          iconSize: iconSize,
-          icon: ButtonIcon(
-            icon: PrebuiltLiveAudioRoomImage.asset(
-                PrebuiltLiveAudioRoomIconUrls.im),
-            backgroundColor: Colors.white,
-          ),
-          config: widget.config,
-          seatManager: widget.seatManager,
-        );
-      case ZegoMenuBarButtonName.soundEffectButton:
-        return ZegoSoundEffectButton(
-          innerText: widget.config.innerText,
-          voiceChangeEffect: widget.config.audioEffectConfig.voiceChangeEffect,
-          reverbEffect: widget.config.audioEffectConfig.reverbEffect,
-          buttonSize: buttonSize,
-          iconSize: iconSize,
-          icon: ButtonIcon(
-            icon: PrebuiltLiveAudioRoomImage.asset(
-                PrebuiltLiveAudioRoomIconUrls.toolbarSoundEffect),
-            backgroundColor: Colors.white,
-          ),
-          rootNavigator: widget.config.rootNavigator,
-          popUpManager: widget.popUpManager,
-        );
-      case ZegoMenuBarButtonName.applyToTakeSeatButton:
-        return ZegoAudienceConnectButton(
-          seatManager: widget.seatManager,
-          connectManager: widget.connectManager,
-          innerText: widget.seatManager.innerText,
-        );
-      case ZegoMenuBarButtonName.closeSeatButton:
-        return ZegoHostLockSeatButton(
-          buttonSize: buttonSize,
-          iconSize: iconSize,
-          seatManager: widget.seatManager,
-        );
-      case ZegoMenuBarButtonName.minimizingButton:
-        return ZegoMinimizingButton(
-          prebuiltAudioRoomData: widget.prebuiltData,
-        );
+      // case ZegoMenuBarButtonName.applyToTakeSeatButton:
+      //   return ZegoAudienceConnectButton(
+      //     seatManager: widget.seatManager,
+      //     connectManager: widget.connectManager,
+      //     innerText: widget.seatManager.innerText,
+      //   );
+      // case ZegoMenuBarButtonName.closeSeatButton:
+      //   return ZegoHostLockSeatButton(
+      //     buttonSize: buttonSize,
+      //     iconSize: iconSize,
+      //     seatManager: widget.seatManager,
+      //   );
+
     }
   }
 
