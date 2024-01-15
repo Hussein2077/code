@@ -14,14 +14,15 @@ final YouTubeVideo youTubeVideo;
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(ConfigSize.defaultSize!),
       ),
-      child: Row(
+      child: Column(
         children: [
-          Image.network( youTubeVideo.thumbnail.medium.url.toString()),
-          // CustoumCachedImage(
-          //   url: youTubeVideo.thumbnail.medium.url.toString(),
-          //   height: ConfigSize.defaultSize!,
-          //   width: ConfigSize.defaultSize!,
-          // ),
+          CustoumCachedImage(url: youTubeVideo.thumbnail.medium.url.toString(),
+            height: ConfigSize.screenHeight!*.2,
+            width: ConfigSize.screenWidth!*.8,
+            urlWithOutAPiConstant: true,
+
+          ),
+
           SizedBox(width:ConfigSize.defaultSize!*3 ,),
           Column(
             children: [
@@ -30,17 +31,18 @@ final YouTubeVideo youTubeVideo;
                 child: Text(
                   youTubeVideo.title,
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
-              SizedBox(
-                width: ConfigSize.screenWidth!*.7,
-                child: Text(
-                  youTubeVideo.description.toString(),
-                  style: Theme.of(context).textTheme.bodySmall,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
+              // SizedBox(
+              //   width: ConfigSize.screenWidth!*.7,
+              //   child: Text(
+              //     youTubeVideo.description.toString(),
+              //     style: Theme.of(context).textTheme.bodySmall,
+              //     overflow: TextOverflow.ellipsis,
+              //   ),
+              // ),
             ],
           ),
 

@@ -152,6 +152,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/get_youtube_videos/get_youtube_videos_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
@@ -168,6 +169,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
 import 'package:tik_chat_v2/firebase_options.dart';
 import 'core/notifcation/firebase_messaging_background.dart';
 import 'features/moment/presentation/manager/manager_report_moment/report_moment_bloc.dart';
@@ -567,6 +569,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GetInvitationParentDetailsBloc>()),
         BlocProvider(create: (_) => getIt<GetInvitationUsersDetailsBloc>()),
         BlocProvider(create: (_) => getIt<SendBloc>()),
+        BlocProvider(create: (_) => getIt<YoutubeBloc>()),
         BlocProvider(
           create: (context) => getIt<ExtraRoomDataBloc>(),
         ),
@@ -584,6 +587,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (_) => getIt<AddOrDeleteBLockListBloc>()),
         BlocProvider(create: (_) => getIt<GetBlockListBloc>()),
+        BlocProvider(create: (_) => getIt<GetYoutubeVideosBloc>()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         if (state is LightThemeState) {

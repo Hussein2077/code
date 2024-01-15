@@ -45,6 +45,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/user_porfile_in_room_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/room_background.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_search_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/invitation_to_mic.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
@@ -59,6 +60,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_luck
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/live_page.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
@@ -319,6 +322,9 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   if(LuckyCandy.winCircularluckyGift.value > 0){
     BlocProvider.of<LuckyGiftBannerBloc>(context.mounted  ?context :
     getIt<NavigationService>().navigatorKey.currentContext!).add(EndBannerEvent()) ;
+  }
+  if (YoutubeAPISearchDialog.playVideo.value) {
+    BlocProvider.of<YoutubeBloc>(context).add(const DisposeViewYoutubeVideo());
   }
 }
 

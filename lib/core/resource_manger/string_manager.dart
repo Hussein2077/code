@@ -96,6 +96,7 @@ class StringManager {
   static const String added = "added";
   static const String add = "add";
   static const String tabToLoadData = "Tab to load your data";
+  static const String tabToAddVideo = "Tab to add video";
   static const String dataLoaded = "Data Loaded";
   static const String chooseYourMusic = "Choose your musics";
   static const String youBanFromWriting = "You have been banned From Writing";

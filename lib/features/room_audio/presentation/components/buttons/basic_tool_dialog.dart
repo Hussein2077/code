@@ -10,10 +10,12 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/warning_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/actitvity_games_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_search_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
@@ -21,6 +23,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/
 import 'package:share_plus/share_plus.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 
 class BasicToolDialog extends StatefulWidget {
@@ -32,12 +36,13 @@ class BasicToolDialog extends StatefulWidget {
 
   final EnterRoomModel roomData;
 
-  const BasicToolDialog({Key? key,
-    required this.roomData,
-    required this.layoutMode,
-    required this.ownerId,
-    required this.userId,
-    required this.isOnMic})
+  const BasicToolDialog(
+      {Key? key,
+      required this.roomData,
+      required this.layoutMode,
+      required this.ownerId,
+      required this.userId,
+      required this.isOnMic})
       : super(key: key);
 
   @override
@@ -71,18 +76,21 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
             InkWell(
               onTap: () {
                 Navigator.pop(context);
-               bottomDailog(
-                    context: context,
-                     widget: Padding(
-                       padding:   EdgeInsets.only(bottom: ConfigSize.defaultSize!*7),
-                       child: ActivityGamesDialog(roomData: widget.roomData),
-                     ),
-                  );
-
+                bottomDailog(
+                  context: context,
+                  widget: Padding(
+                    padding:
+                        EdgeInsets.only(bottom: ConfigSize.defaultSize! * 7),
+                    child: ActivityGamesDialog(roomData: widget.roomData),
+                  ),
+                );
               },
               child: Column(
                 children: [
-                 Image.asset(AssetsPath.activityGamesIcon,scale: 2.5,),
+                  Image.asset(
+                    AssetsPath.activityGamesIcon,
+                    scale: 2.5,
+                  ),
                   Text(StringManager.games.tr(),
                       style: TextStyle(
                           fontSize: ConfigSize.defaultSize! + 2,
@@ -93,27 +101,54 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
               ),
             ),
             InkWell(
-              onTap: ()async{
-                await    ZegoLiveAudioRoomManagers().seatManager!
-                    .takeOffAllSeat(isPK: false);
-                BlocProvider.of<OnRoomBloc>(context).add(ChangeModeRoomEvent(
-                    ownerId: widget.ownerId, roomMode: '3'));
-                Navigator.pop(context);
+              onTap: () async {
+                if (RoomScreen.layoutMode == LayoutMode.cinemaMode) {
+
+                  await ZegoLiveAudioRoomManagers()
+                      .seatManager!
+                      .takeOffAllSeat(isPK: false);
+                  Future.delayed(const Duration(milliseconds: 50), () {
+                    BlocProvider.of<OnRoomBloc>(context).add(
+                        ChangeModeRoomEvent(
+                            ownerId: widget.ownerId, roomMode: '0'));
+                    if (YoutubeAPISearchDialog.playVideo.value) {
+                      BlocProvider.of<YoutubeBloc>(context)
+                          .add(const DisposeViewYoutubeVideo());
+                      YoutubeAPISearchDialog.playVideo.value = false;
+                    }
+                    Navigator.pop(context);
+                  });
+                } else {
+                  await ZegoLiveAudioRoomManagers()
+                      .seatManager!
+                      .takeOffAllSeat(isPK: false);
+                  Future.delayed(const Duration(milliseconds: 50), () {
+                    BlocProvider.of<OnRoomBloc>(context).add(
+                        ChangeModeRoomEvent(
+                            ownerId: widget.ownerId, roomMode: '3'));
+                    Navigator.pop(context);
+                  });
+                }
               },
               child: Column(
-mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.video_camera_back,size:ConfigSize.defaultSize!*4 ,),
-                  SizedBox(height: ConfigSize.defaultSize!*.4,),
+                  Icon(
+                    Icons.video_camera_back,
+                    size: ConfigSize.defaultSize! * 4,
+                  ),
+                  SizedBox(
+                    height: ConfigSize.defaultSize! * .4,
+                  ),
                   Text(StringManager.cinemaMode.tr(),
                       style: TextStyle(
                           fontSize: ConfigSize.defaultSize! + 2,
                           color: Colors.black,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w600)),
-                  SizedBox(height: ConfigSize.defaultSize!*1.5,),
-
-
+                  SizedBox(
+                    height: ConfigSize.defaultSize! * 1.5,
+                  ),
                 ],
               ),
             ),
@@ -184,7 +219,8 @@ mainAxisAlignment: MainAxisAlignment.center,
                                 .takeOffAllSeat(isPK: true);
                             Navigator.pop(context);
                             activePK();
-                            BlocProvider.of<PKBloc>(context).add(ShowPKEvent(ownerId: widget.ownerId));
+                            BlocProvider.of<PKBloc>(context)
+                                .add(ShowPKEvent(ownerId: widget.ownerId));
                           }
                         },
                         child: Column(
@@ -203,32 +239,32 @@ mainAxisAlignment: MainAxisAlignment.center,
                       );
                     }),
             // if(widget.ownerId == widget.userId)
-              InkWell(
-                onTap: () async {
-                  DynamicLinkProvider()
-                      .createInvetionRoomLink(
-                      refCod: widget.roomData.ownerId!,
-                      password: widget.roomData.roomPassStatus ?? false,
-                      ownerImage: widget.roomData.roomCover!)
-                      .then((value) {
-                    Share.share(value);
-                  });
-                },
-                child: Column(
-                  children: [
-                    Image(
-                        width: ConfigSize.defaultSize! * 5,
-                        height: ConfigSize.defaultSize! * 5,
-                        image: const AssetImage(AssetsPath.iconShare)),
-                    Text(StringManager.share.tr(),
-                        style: TextStyle(
-                            fontSize: ConfigSize.defaultSize! + 2,
-                            color: Colors.black,
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w600))
-                  ],
-                ),
+            InkWell(
+              onTap: () async {
+                DynamicLinkProvider()
+                    .createInvetionRoomLink(
+                        refCod: widget.roomData.ownerId!,
+                        password: widget.roomData.roomPassStatus ?? false,
+                        ownerImage: widget.roomData.roomCover!)
+                    .then((value) {
+                  Share.share(value);
+                });
+              },
+              child: Column(
+                children: [
+                  Image(
+                      width: ConfigSize.defaultSize! * 5,
+                      height: ConfigSize.defaultSize! * 5,
+                      image: const AssetImage(AssetsPath.iconShare)),
+                  Text(StringManager.share.tr(),
+                      style: TextStyle(
+                          fontSize: ConfigSize.defaultSize! + 2,
+                          color: Colors.black,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w600))
+                ],
               ),
+            ),
           ],
         ));
   }

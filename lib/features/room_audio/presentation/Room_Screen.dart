@@ -33,6 +33,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conte
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/background_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_view.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_mid_party.dart';
@@ -498,6 +499,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     for (final subscription in subscriptions) {
       subscription?.cancel();
     }
+
     controllerEntro.dispose();
     controllerBanner.dispose();
     animationControllerGift.dispose();
@@ -511,7 +513,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     luckGiftBannderController.dispose();
     RoomScreen.showBanner.value = false;
 
-
+// if( RoomScreen.layoutMode == LayoutMode.cinemaMode)
+//   {
+//     (context).read<YoutubeBloc>().controller.dispose();
+//   }
     super.dispose();
   }
 

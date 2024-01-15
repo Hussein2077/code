@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_fu
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/host_top_center_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/room_background.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube_search_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_search_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_view.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/dialog_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
@@ -43,61 +45,13 @@ class BackgroundWidget extends StatefulWidget {
 }
 
 class _BackgroundWidgetState extends State<BackgroundWidget> {
-
-
-  late YoutubePlayerController _controller;
-  late PlayerState _playerState;
-  late YoutubeMetaData _videoMetaData;
-  double volume = 100;
-  bool muted = false;
-  bool isPlayerReady = true;
-
-  void listener() {
-    if (isPlayerReady && mounted && !_controller.value.isFullScreen) {
-      setState(() {
-        _playerState = _controller.value.playerState;
-        _videoMetaData = _controller.metadata;
-      });
-    }
-  }
-
   @override
   void initState() {
-    _videoMetaData = const YoutubeMetaData();
-    _playerState = PlayerState.unknown;
     super.initState();
   }
 
   @override
-  void deactivate() {
-    // Pauses video while navigating to next page.
-    _controller.pause();
-    super.deactivate();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (true) {
-      _controller = YoutubePlayerController(
-        initialVideoId: YoutubeAPISearchDialog.videoId,
-        flags: YoutubePlayerFlags(
-          mute: false,
-          autoPlay: false,
-          disableDragSeek: false,
-          loop: false,
-          isLive: false,
-          forceHD: false,
-          enableCaption: true,
-          hideControls: YoutubeAPISearchDialog.videoId == '',
-        ),
-      )..addListener(listener);
-    } else {}
     return BlocConsumer<OnRoomBloc, OnRoomStates>(
       builder: (_, state) {
         return Stack(
@@ -118,41 +72,23 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
                       Align(
                         alignment: Alignment.topCenter,
                         child: CircleAvatar(
-                          radius: 15,
-                          backgroundColor: ColorManager.mainColor,
+                          radius: 16,
+                          backgroundColor:    ColorManager.darkBlack,
                           child: IconButton(
                             onPressed: () {
                               bottomDailog(
                                   context: context,
-                                  widget:   YoutubeAPISearchDialog(controller: _controller,));
+                                  widget: const YoutubeAPISearchDialog());
                             },
                             icon: Icon(
                               Icons.add,
                               size: ConfigSize.defaultSize! * 1.8,
+                              color: ColorManager.mainColor,
                             ),
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          height: ConfigSize.screenHeight! * .3,
-                          child: YoutubePlayer(
-                            // actionsPadding: const EdgeInsets.all(100),
-                            controller: _controller,
-                            aspectRatio: .5,
-                            showVideoProgressIndicator: false,
-                            progressIndicatorColor: Colors.red,
-                            // progressColors: const ProgressBarColors(
-                            //   playedColor: Colors.amber,
-                            //   handleColor: Colors.amberAccent,
-                            // ),
-                            onReady: () {
-                              _controller.addListener(listener);
-                            },
-                          ),
-                        ),
-                      ),
+                      const YoutubeView(),
                     ],
                   ),
                 ),

@@ -308,6 +308,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/get_youtube_videos/get_youtube_videos_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
@@ -323,6 +324,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -555,6 +557,7 @@ class ServerLocator {
 
     getIt.registerFactory(() => BuyCoinsBloc(buyCoinsUseCase: getIt()));
     getIt.registerFactory(() => CacheGamesBloc(cacheGamesUS: getIt()));
+    getIt.registerFactory(() => YoutubeBloc());
 
         getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
         getIt.registerFactory(() => GetUserReelsBloc(getUserReelUseCase: getIt()));
@@ -616,6 +619,7 @@ class ServerLocator {
     getIt.registerFactory(() => GetBadgesBloc(getBadgesUseCase: getIt()));
     getIt.registerFactory(() => SendPrivateCommentBloc(sendPrivateCommentUC: getIt()));
     getIt.registerFactory(() => GetBlockListBloc(getBlackListUseCase: getIt()));
+    getIt.registerFactory(() => GetYoutubeVideosBloc());
 //usecase
     getIt.registerLazySingleton(
         () => InvitUsecase(baseRepositoryProfile: getIt()));

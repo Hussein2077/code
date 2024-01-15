@@ -50,6 +50,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.cacheEmoji: 'تحميل بيانات تعبيرات الاوجه',
     StringManager.cache: 'البيانات المؤقتة',
     StringManager.tabToLoadData: "اضغط هنا لتحميل بياناتك",
+    StringManager.tabToAddVideo: "اضغط هنا لتشغيل الفيديو",
     StringManager.dataLoaded: " تم تحميل بياناتك",
     StringManager.videos: "فيديوهات",
     StringManager.yourAgeIsUnder18: "عمرك اقل من 18",
