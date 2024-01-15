@@ -65,6 +65,8 @@ mixin ZegoRoomService {
 
   /// get network state notifier
   Stream<ZegoNetworkMode> getNetworkModeStream() {
+
     return ZegoUIKitCore.shared.coreData.networkModeStreamCtrl.stream;
+
   }
 }
