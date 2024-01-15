@@ -224,7 +224,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 ),
               ),
             ),
-          ),
           ValueListenableBuilder(
               valueListenable: OwnerOfRoom.editRoom,
               builder: (context, editValue, _) {
@@ -379,7 +378,7 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
                 }
                 if (state.isFirst == 1) {
                   widget.luckGiftBannderController.forward();
-                }
+                }}
                else if (state is SendLuckyGiftErrorStateState) {
                 errorToast(context: context, title: state.error);
               }
