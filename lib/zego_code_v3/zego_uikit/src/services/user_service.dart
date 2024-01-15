@@ -73,4 +73,8 @@ mixin ZegoUserService {
   }
 
 
+  /// get kicked out notifier
+  Stream<String> getMeRemovedFromRoomStream() {
+    return ZegoUIKitCore.shared.coreData.meRemovedFromRoomStreamCtrl.stream;
+  }
 }
