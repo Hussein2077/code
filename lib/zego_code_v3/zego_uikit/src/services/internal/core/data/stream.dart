@@ -269,7 +269,7 @@ mixin ZegoUIKitCoreDataStream {
         );
         break;
     }
-
+    await ZegoExpressEngine.instance.enableCamera(false);
     await ZegoExpressEngine.instance.startPublishingStream(
       getLocalStreamID(streamType),
       channel: streamType.channel,

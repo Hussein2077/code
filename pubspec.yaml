@@ -93,7 +93,6 @@ dependencies:
   cached_network_image: ^3.2.3
   statemachine: ^3.2.0
   permission_handler: ^10.2.0
-  zego_express_engine: ^3.6.1
   native_device_orientation: ^1.2.0
   flutter_logs: ^2.1.10
   zego_zim: 2.11.0
@@ -116,6 +115,8 @@ dependencies:
   video_player: ^2.8.1
   vap: ^1.1.0
   #google_mobile_ads: ^4.0.0
+  zego_express_engine:
+    path: zego_express_engine
 
 dev_dependencies:
   flutter_test:

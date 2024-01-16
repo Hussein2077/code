@@ -208,7 +208,7 @@ class ZegoUIKitCore with ZegoUIKitCoreEvent {
       tag: 'uikit',
       subTag: 'core',
     );
-
+    await ZegoExpressEngine.instance.enableCamera(false);
     if (joinRoomResult.errorCode == 0) {
       coreData.startPublishOrNot();
       syncDeviceStatusByStreamExtraInfo();

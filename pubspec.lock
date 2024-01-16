@@ -1957,11 +1957,10 @@ packages:
   zego_express_engine:
     dependency: "direct main"
     description:
-      name: zego_express_engine
-      sha256: "8a3f8b4d54404d1b9dddf56d438fa6a6eeee9ba7d6049d8bbb2eb7cf80511f88"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.9.0"
+      path: zego_express_engine
+      relative: true
+    source: path
+    version: "3.11.0-private.120"
   zego_plugin_adapter:
     dependency: "direct main"
     description:
