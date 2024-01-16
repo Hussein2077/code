@@ -140,13 +140,14 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
       },
       child:
           BlocConsumer<SendGiftBloc, SendGiftStates>(builder: (context, state) {
-        return Stack(children: [
+        return Stack(
+            children: [
+
           SizedBox(
             width: ConfigSize.defaultSize! * 92.5,
             height: ConfigSize.defaultSize! * 92.5,
             //height: ConfigSize.defaultSize! * 92.5,
           ),
-
           ValueListenableBuilder<int>(
             valueListenable: GiftUser.updateView,
             builder: (context, price, _) {
@@ -183,7 +184,6 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
               }
             },
           ),
-
           Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
