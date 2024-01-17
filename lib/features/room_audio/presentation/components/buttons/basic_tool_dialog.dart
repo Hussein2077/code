@@ -96,10 +96,10 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                 ],
               ),
             ),
-            CinemaModeInkwell(
-              ownerId: widget.ownerId,
-            ),
-            const LocalVideoInkwell(),
+            // CinemaModeInkwell(
+            //   ownerId: widget.ownerId,
+            // ),
+            // const LocalVideoInkwell(),
 
             InkWell(
               onTap: () {

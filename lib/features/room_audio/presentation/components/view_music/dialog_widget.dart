@@ -70,11 +70,12 @@ class _MusicDialogState extends State<MusicDialog> {
                   InkWell(
                     onTap: () async {
                       Navigator.pop(context);
-                      if (ZegoUIKit.instance.getMediaTypeNotifier().value ==
-                          MediaType.PureAudio) {
+                      if (ZegoUIKit.instance.getMediaTypeNotifier().value !=
+                          MediaType.Video) {
                         Navigator.pushNamed(context, Routes.music,
                             arguments: MusicPramiter(ownerId: ownerId));
-                      } else {
+                      } else if(ZegoUIKit.instance.getMediaTypeNotifier().value ==
+                          MediaType.Video){
                         showDialog(
                             context: context,
                             builder: (context) {
