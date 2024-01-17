@@ -21,18 +21,22 @@ class LoginChatBloc extends Bloc<BaseLoginChatEvent, LoginChatState> {
 
       } else {
         String? notifecationId = await FirebaseMessaging.instance.getToken();
+        log(notifecationId.toString()+"##############");
 
         CometChatUIKit.createUser(
             User(
                 name: event.name,
                 uid: event.id.toString(),
                 avatar: event.avatar,
-                metadata: {"notification_id": notifecationId}),
+                link: notifecationId,
+
+            ),
             onSuccess: (User user) {
           log("User created successfully ${user.name}");
 
           CometChatUIKit.login(event.id.toString(), onSuccess: (User user) {
-            log("User logged in successfully  ${user.name}");
+
+
 
           }, onError: (CometChatException e) {
             log("Login failed with exception: ${e.message}");
@@ -52,7 +56,7 @@ class LoginChatBloc extends Bloc<BaseLoginChatEvent, LoginChatState> {
 
                     uid: event.id.toString(),
                     name: MyDataModel.getInstance().name!,
-                    metadata: {"notification_id": notifecationId}
+                  link: notifecationId,
                 )
             );
 
