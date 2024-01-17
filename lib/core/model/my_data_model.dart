@@ -61,6 +61,7 @@ bool? viewInvitation;
 
   GetAllCountriesModel? country;
   ImageIdModel? imageIdModel;
+  bool? gameAvailable ;
 
   static MyDataModel? _instance;
 
@@ -114,6 +115,7 @@ bool? viewInvitation;
     this.country,
     this.imageIdModel,
     this.viewInvitation,
+    this.gameAvailable ,
   });
 
   setNewMyData({
@@ -160,6 +162,7 @@ bool? viewInvitation;
     int? unReadMessageCount,
     GetAllCountriesModel? country,
     ImageIdModel? imageIdModel,
+    bool ?gameAvailable ,
   }) {
     this.id = id ?? this.id;
     this.chatId = chatId ?? this.chatId;
@@ -202,6 +205,7 @@ bool? viewInvitation;
     this.unReadMessageCount = unReadMessageCount ?? this.unReadMessageCount;
     this.isCountryHiden = isCountryHiden ?? this.isCountryHiden;
     this.imageIdModel = imageIdModel ?? this.imageIdModel;
+    this.gameAvailable = gameAvailable ?? this.gameAvailable ;
   }
 
   factory MyDataModel.fromMap(Map<String, dynamic> map) {
@@ -285,6 +289,7 @@ bool? viewInvitation;
               : null,
           unReadMessageCount: map['unread_message_count'],
           viewInvitation: map['view_invitation']??false,
+        gameAvailable:  map["game_Available"]?? false
       );
     } else {
       _instance?.setNewMyData(
@@ -350,6 +355,8 @@ bool? viewInvitation;
           isGold: map['is_gold_id'],
           myType: map['type_user'] ?? 0,
           unReadMessageCount: map['unread_message_count'],
+          gameAvailable:  map["game_Available"]?? false
+
 
       );
     }
@@ -414,6 +421,8 @@ bool? viewInvitation;
       isGold: isGold,
       profileVisotrs: profileVisotrs,
       country: country,
+      gameAvailable: gameAvailable ,
+
     );
   }
 }

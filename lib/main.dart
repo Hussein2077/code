@@ -201,6 +201,7 @@ Future<void> main() async {
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
     await _firebaseMessaging.requestPermission(
+
       alert: true,
       announcement: false,
       badge: true,

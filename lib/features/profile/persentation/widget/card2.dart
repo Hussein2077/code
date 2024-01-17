@@ -24,6 +24,7 @@ class Card2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+          if(  MyDataModel.getInstance().gameAvailable!)
             ProfileRowItem(
               title: StringManager.games.tr(),
               image: AssetsPath.gamesIcon,
