@@ -6,6 +6,9 @@ import 'dart:io';
 import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
@@ -46,6 +49,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/
 import 'package:tik_chat_v2/features/room_audio/presentation/components/profile/user_porfile_in_room_body.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/room_background.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_search_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/ban_from_writing_dilog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/invitation_to_mic.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
@@ -60,9 +64,12 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_luck
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_lucky_gift_banner/lucky_gift_banner_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/live_page.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/media.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:path_provider/path_provider.dart';
@@ -328,12 +335,20 @@ Future<void> clearAll(String ownerId, BuildContext context) async {
             : getIt<NavigationService>().navigatorKey.currentContext!)
         .add(EndBannerEvent());
   }
+    if(RoomScreen.layoutMode==LayoutMode.cinemaMode){
+      BlocProvider.of<YoutubeBloc>(context).add(const DisposeViewYoutubeVideoEvent());
+    }
+
 }
 
 Future<void> distroyMusic() async {
   MusicWidget.isIPlayerMedia = false;
   await ZegoUIKit.instance.stopMedia();
   MusicScreen.isPlaying.value = false;
+}Future<void> distroyLocalVideo() async {
+  ZegoUIKit.instance.getMediaTypeNotifier().value=MediaType.Unknown;
+  await ZegoUIKit.instance.stopMedia();
+
 }
 
 void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context,
@@ -1047,4 +1062,16 @@ Map<int, SelecteUsers> sortMapByKey(Map<int, SelecteUsers> inputMap) {
   List<MapEntry<int, SelecteUsers>> entries = inputMap.entries.toList();
   entries.sort((a, b) => a.key.compareTo(b.key));
   return Map.fromEntries(entries);
+}
+
+Future<void> playMusicFromAssets(String assetPath) async {
+  ByteData data = await rootBundle.load(assetPath);
+  List<int> bytes = data.buffer.asUint8List();
+
+  Directory tempDir = await getTemporaryDirectory();
+  String tempFilePath = '${tempDir.path}/temp_music_file.mp3';
+  File tempFile = File(tempFilePath);
+  await tempFile.writeAsBytes(bytes);
+
+  await ZegoUIKit().playMedia(filePathOrURL: tempFilePath,);
 }

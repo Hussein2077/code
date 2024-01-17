@@ -10,6 +10,8 @@ import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
+import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/enter_room_pass/save_password_room_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/admins_room/admins_room_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/heaser_room/update_room_screen/widget/back_ground/back_ground_widget.dart';
@@ -18,6 +20,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_fu
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/media.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
@@ -111,9 +114,23 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
 
           },
           () {
-            Navigator.pushNamed(context, Routes.music,
-                arguments: MusicPramiter(
-                    ownerId: widget.ownerId));
+            if (ZegoUIKit.instance.getMediaTypeNotifier().value ==
+                MediaType.PureAudio) {
+              Navigator.pushNamed(context, Routes.music,
+                  arguments: MusicPramiter(ownerId: widget.ownerId));
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return PopUpDialog(
+                      headerText: StringManager.youHaveToStopVideo.tr(),
+                      accpetText: () {
+                        Navigator.pop(context);
+                      },
+                      accpettitle: StringManager.ok.tr(),
+                    );
+                  });
+            }
           },
           () {
             Navigator.pop(context);

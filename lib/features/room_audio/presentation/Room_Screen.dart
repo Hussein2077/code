@@ -5,11 +5,13 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:svgaplayer_flutter/player.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -32,13 +34,14 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_bo
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_blue.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_red.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/background_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_view.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_party.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_blue.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_red.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
@@ -49,9 +52,10 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_states.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_video/defines.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
@@ -212,6 +216,8 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       RoomScreen.layoutMode = LayoutMode.hostTopCenter;
     } else if (widget.room.mode == 2) {
       RoomScreen.layoutMode = LayoutMode.seats12;
+    }else if (widget.room.mode == 3) {
+      RoomScreen.layoutMode = LayoutMode.cinemaMode;
     }
 
     animationControllerGift = SVGAAnimationController(vsync: this);
@@ -545,6 +551,7 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     for (final subscription in subscriptions) {
       subscription?.cancel();
     }
+
     controllerEntro.dispose();
     controllerBanner.dispose();
     animationControllerGift.dispose();
@@ -557,7 +564,10 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
     yellowBannercontroller.dispose();
     luckGiftBannderController.dispose();
     RoomScreen.showBanner.value = false;
-
+// if( RoomScreen.layoutMode == LayoutMode.cinemaMode)
+//   {
+//     (context).read<YoutubeBloc>().controller.dispose();
+//   }
     super.dispose();
   }
 
@@ -831,7 +841,16 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
             GiftUser.userOnMicsForGifts.clear();
           });
         }
-      } else if (result[messageContent][message] == updateAdminsKey) {
+        else if(result[messageContent]['mode'] == 'cinema') {
+          widget.room.mode = 3 ;
+
+          setState(() {
+            RoomScreen.layoutMode = LayoutMode.cinemaMode;
+            GiftUser.userOnMicsForGifts.clear();
+          });
+        }
+      }
+      else if (result[messageContent][message] == updateAdminsKey) {
         RoomScreen.adminsInRoom.clear();
         List<String> admins =
             List<String>.from(result[messageContent]['admins'].map((x) => x));
@@ -882,9 +901,11 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
         GameRequest(result, context);
       } else if (result[messageContent][message] == gameRequestResult) {
         GameRequestResult(result, context);
-      } else if (result[messageContent][message] == resultOfGame) {
+        playMusicFromAssets("assets/audio/slots_rolling_loop.mp3");
+      } else if(result[messageContent][message] == resultOfGame) {
         ResultOfGame(result);
-      } else if (result[messageContent][message] == freeSpinGame) {
+        playMusicFromAssets("assets/audio/big_win.mp3");
+      } else if(result[messageContent][message] == freeSpinGame){
         FreeSpinGame(result, context);
       } else if (result[messageContent][message] == luckyDraw) {
         LuckyDraw(result, context, widget.room);
@@ -896,6 +917,20 @@ class RoomScreenState extends State<RoomScreen> with TickerProviderStateMixin {
       } else if (result[messageContent][message] == "HappyNewYearVideo") {
         RoomScreen.happyNewYearVideo.value = true;
       }
+      else if(result[messageContent][message] == "cinema mode") {
+        BlocProvider.of<YoutubeBloc>(context)
+            .add(const InitialViewYoutubeVideoEvent());
+        Future.delayed(const Duration(milliseconds: 300),
+                () {
+              BlocProvider.of<YoutubeBloc>(context).add(
+                  ViewYoutubeVideoEvent(
+                      result[messageContent]['url'] ?? ""));
+            });
+      }
+      // else if(result[messageContent][message] == "local_video") {
+      //   RoomScreen.localVideoModeShow.value=true;
+      //
+      // }
     }
   }
 
@@ -1225,6 +1260,17 @@ List<ZegoLiveAudioRoomLayoutRowConfig> rowRoomSeats(LayoutMode layoutMode) {
             seatSpacing: 10,
             alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
         ZegoLiveAudioRoomLayoutRowConfig()
+      ];
+    case LayoutMode.cinemaMode:
+      return [
+        ZegoLiveAudioRoomLayoutRowConfig(
+            count: 4,
+            seatSpacing: 5,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
+        ZegoLiveAudioRoomLayoutRowConfig(
+            count: 4,
+            seatSpacing: 5,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
       ];
   }
 }

@@ -148,6 +148,9 @@ class AssetsPath {
   static const String luckyGiftBubble = "$pathImage/lucky_gift_bubble.png";
   static const String privateComment = "$pathImage/private_comment.png";
   static const String hint = "$pathImage/hint.png";
+  static const String youtube = "$pathImage/youtube.png";
+
+
 
   //icons
   static const String verified = "$pathIcon/verified.gif";
@@ -282,9 +285,13 @@ class AssetsPath {
   static const String aristocracy8 = "$pathIcon/aristocracy 8.png";
   static const String basicTool = "$pathImage/basic_tool.png";
   static const String settingRoom = "$pathIcon/settings_room.png";
+  static const String cinemaNewIcon = "$pathIcon/cinema_new.png";
+  static const String videoNewIcon = "$pathIcon/video_new.png";
   static const String contanerDiamodn = "$pathImage/contaner_diamodn.png";
   static const String coinAnimate = "$pathImage/coin_animate.gif";
   static const String privateCommentGif = "$pathImage/privete_comment.gif";
+
+
 
   static const String gemStone = "$pathIcon/gem-stone.png";
   static const String circleDollar = "$pathIcon/circle-dollar.png";

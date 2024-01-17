@@ -2,9 +2,13 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:tik_chat_v2/features/room_audio/domine/use_case/up_mic_usecase.dart';
 
+
+
 class ConstentApi {
-   // static const String baseUrl = 'https://tik-chat.com/api' ;
- static const String baseUrl = 'https://test.tik-chat.com/api';
+   //static const String baseUrl = 'https://tik-chat.com/api' ;
+  static const String baseUrl = 'https://test.tik-chat.com/api' ;
+  static String youtubeApiKey = "AIzaSyAXWdc9rrPT02_tnQrp-BN7reFAbMFTAps";
+
   static const String signUpUrl = "$baseUrl/auth/register";
   static const String sendCodeUrl = "$baseUrl/auth/send-code";
   static const String forgetPassword = "$baseUrl/auth/forget_password";
@@ -302,6 +306,7 @@ class ConstentApi {
   String getVipCenter({required String level}) =>
       "$baseUrl/vip_center?level=$level";
 
+
   String getImage(imageUrl) =>
       "https://storage.googleapis.com/tik-chat/$imageUrl";
   String getDataMallUrl(int type) => "$baseUrl/mall/wares?type=$type";
@@ -360,6 +365,7 @@ class ConstentApi {
   static const String phonePass = "phone_pass";
   static String getgiftHistory(String id) => "$baseUrl/my_gifts?user_id=$id";
   static const String sendLuckyGift = "$baseUrl/gifts/send-lucky-gift";
+
 
   // messages send phone request
 

@@ -48,6 +48,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.areYouSureLeaveSeat: "هل أنت متأكد من مغادرة المقعد؟",
     StringManager.and: "و",
     StringManager.age: "العمر",
+    StringManager.video: "فيديو",
     StringManager.cacheGift: 'تحميل بيانات الهدايا',
     StringManager.cacheExtra: 'تحميل بيانات اضافية',
     StringManager.cacheFrame: 'تحميل بيانات الاطارات',
@@ -55,6 +56,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.cacheEmoji: 'تحميل بيانات تعبيرات الاوجه',
     StringManager.cache: 'البيانات المؤقتة',
     StringManager.tabToLoadData: "اضغط هنا لتحميل بياناتك",
+    StringManager.tabToAddVideo: "اضغط هنا لتشغيل الفيديو",
     StringManager.dataLoaded: " تم تحميل بياناتك",
     StringManager.videos: "فيديوهات",
     StringManager.yourAgeIsUnder18: "عمرك اقل من 18",
@@ -458,6 +460,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.noReels: 'لا يوجد فيديوهات',
     StringManager.noMoreReels: 'لا يوجد مزيد من الريلز',
     StringManager.games: 'الالعاب',
+    StringManager.cinemaMode: 'وضع السينيما',
     StringManager.readMore: '...أقراء المزيد',
     StringManager.readLess: '  اعرض اقل',
     StringManager.copiedToClipboard: 'تمم النسخ',
@@ -566,6 +569,11 @@ class CodegenLoader extends AssetLoader {
     StringManager.enterNewPassword: 'أدخل كلمة مرور جديدة',
     StringManager.refresh: 'اعاده تحميل',
     StringManager.somethingsWrong: 'هناك خطا ما',
+    StringManager.searchOnYouTube:'1-ابحث عن فيديو يوتيوب',
+    StringManager.pressOnVideo:'2-اضغط علي الفيديو الذي تريد مشاهدته',
+    StringManager.everyOneWatchWithYou:'3-سيشاهده الحميع معك',
+    StringManager.ownerOrAdminCanSwitchVideo:'4-يمكن لصاحب الغرفة او المشرفين تبديل الفيديو',
+
     StringManager.explainGameDice: '''
       اللاعبون:
       يمكن لعدة لاعبين اللعب، ولكن يمكن أن تكون لعبة فردية أيضًا.
@@ -603,6 +611,7 @@ class CodegenLoader extends AssetLoader {
 
 إذا اختار اللاعبان نفس الرمز، يكون النتيجة تعادل ويتم إعادة اللعب.     
     ''',
+
     StringManager.spineGame: '''
      يمكنك لعبها مع جميع المستخدمين في الغرفة
 أولاً، قم بوضع ما تريده من العملات المعدنية من محفظتك ثم قم باختيار بعض المستخدمين الذين تريد تحديهم وسيقومون أيضًا بدفع العملات التي كتبتها في السابق     
@@ -629,6 +638,9 @@ class CodegenLoader extends AssetLoader {
     StringManager.howToGainFreeCoins: "كيف تحصل علي ",
     StringManager.freeCoins: "عملات مجانية",
     StringManager.remove: "إزالة",
+    StringManager.youHaveToStopMedia: "يجب اغلاق الموسيقي اولا لتستطيع تشغيل الفيديو",
+    StringManager.youHaveToStopVideo: "يجب اغلاق ألفيديو اولا لتستطيع تشغيل الموسيقي",
+
   };
 
   static const Map<String, dynamic> tr = {

@@ -27,10 +27,12 @@ import 'package:tik_chat_v2/features/moment/presentation/moment_controller.dart'
 class MomentBottomBar extends StatefulWidget {
   final MomentModel momentModel;
   final String? type;
+  final bool? isFromUserProfile;
 
   const MomentBottomBar({
     required this.momentModel,
     this.type,
+    this.isFromUserProfile,
     super.key,
   });
 
@@ -70,6 +72,7 @@ class MomentBottomBarState extends State<MomentBottomBar> {
                 ),
                 onTap: (){
                   bottomDailog(
+                    height: widget.isFromUserProfile==true?ConfigSize.screenHeight! * .7:ConfigSize.screenHeight!,
                       context: context,
                       widget: MomentsLikesScreen(
                         momentId: widget.momentModel.momentId.toString(),

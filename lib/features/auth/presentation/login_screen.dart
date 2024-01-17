@@ -57,8 +57,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
   late TextEditingController passwordController;
 
+
   @override
   void initState() {
+
     passwordController = TextEditingController();
     if (widget.isBaned!) {
       Methods.instance
@@ -94,18 +96,17 @@ class _LoginScreenState extends State<LoginScreen> {
       Future.delayed(const Duration(seconds: 2), () {
         if(mounted) {
           showDialog(
-            context: context,
-            builder: (context) {
-              return PopUpDialog(
-                headerText: StringManager.anotherAccountLoggedIn.tr(),
-                accpetText: () {
-                  Navigator.pop(context);
-                },
-                accpettitle: StringManager.ok.tr(),
-              );
-            });
-        }
-      });
+              context: context,
+              builder: (context) {
+                return PopUpDialog(
+                  headerText: StringManager.anotherAccountLoggedIn.tr(),
+                  accpetText: () {
+                    Navigator.pop(context);
+                  },
+                  accpettitle: StringManager.ok.tr(),
+                );
+              });
+        }});
     }
     else if ((widget.isUpdate ?? false)) {
       SchedulerBinding.instance.addPostFrameCallback((_) {

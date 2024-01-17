@@ -80,9 +80,10 @@ import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_mom
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_add_moment_comment/add_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_comment/delete_moment_comment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_delete_moment/delete_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_all_moment_types/get_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_moment_comment/get_moment_comment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_user_moment_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_make_moment_like/make_moment_like_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_get_gifts/get_moment_gifts_bloc.dart';
 import 'package:tik_chat_v2/features/moment/presentation/manager/manager_moment_i_like_it/get_moment_i_like_it_bloc.dart';
@@ -309,6 +310,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/Gift_manger
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_data_manager/extra_room_data_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_cashe_bloc/bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/game_manager/game_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/get_youtube_videos/get_youtube_videos_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/host_time_on_mic_bloc/host_on_mic_time_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_add_room_backGround/add_room_background_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_admin_room/admin_room_bloc.dart';
@@ -324,6 +326,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/room_handler_manager/room_handler_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -549,6 +552,7 @@ class ServerLocator {
 
     getIt.registerFactory(() => BuyCoinsBloc(buyCoinsUseCase: getIt()));
     getIt.registerFactory(() => CacheGamesBloc(cacheGamesUS: getIt()));
+    getIt.registerFactory(() => YoutubeBloc());
 
     getIt.registerFactory(() => TobinRoomBloc(getTopRoomUC: getIt()));
     getIt.registerFactory(() => GetUserReelsBloc(getUserReelUseCase: getIt()));
@@ -628,6 +632,8 @@ class ServerLocator {
     getIt.registerFactory(
         () => SendPrivateCommentBloc(sendPrivateCommentUC: getIt()));
     getIt.registerFactory(() => GetBlockListBloc(getBlackListUseCase: getIt()));
+    getIt.registerFactory(() => GetOtherUserMomentBloc(getMomentUseCase: getIt()));
+    getIt.registerFactory(() => GetYoutubeVideosBloc());
 //usecase
     getIt.registerLazySingleton(
         () => InvitUsecase(baseRepositoryProfile: getIt()));
@@ -957,6 +963,7 @@ class ServerLocator {
     getIt.registerLazySingleton<BaseRepository>(
         () => RepositoryImp(baseRemotlyDataSource: getIt()));
 
+
     getIt.registerLazySingleton<BaseRepositoryMoment>(
         () => RepositoryImpMoment(baseRemotlyDataSourceMoment: getIt()));
 
@@ -1001,6 +1008,7 @@ class ServerLocator {
     getIt.registerLazySingleton(() => setTimer);
 
     getIt.registerSingleton<CounterBloc>(CounterBloc());
+
 
     //extarnal
 

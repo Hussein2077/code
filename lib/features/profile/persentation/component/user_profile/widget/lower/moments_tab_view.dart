@@ -1,37 +1,47 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/enum.dart';
-import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
-
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_following_moment/get_following_user_moment_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_user_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_user_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_user_moment_state.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/tab_view_body.dart';
 
-class FollowingScreen extends StatefulWidget {
-   const FollowingScreen({super.key});
+class MomentsTabBarView extends StatefulWidget {
+  final String userId;
+
+  const MomentsTabBarView({
+     required this.userId,
+    super.key,
+  });
 
   @override
-  State<FollowingScreen> createState() => _FollowingScreenState();
+  State<MomentsTabBarView> createState() => _MomentsTabBarViewState();
 }
 
-class _FollowingScreenState extends State<FollowingScreen> {
-  List<MomentModel>? tempData = [];
-
+class _MomentsTabBarViewState extends State<MomentsTabBarView> {
   ScrollController scrollController = ScrollController();
+
+  List<MomentModel>? tempUserData = [];
 
   @override
   void initState() {
+    MomentBottomBarState.momentType = MomentType.userMoment;
+
+      BlocProvider.of<GetOtherUserMomentBloc>(context).add(
+          GetOtherUserMomentEvent(userId: widget.userId.toString())
+
+      );
+
     scrollController.addListener(scrollListner);
     super.initState();
   }
@@ -43,45 +53,43 @@ class _FollowingScreenState extends State<FollowingScreen> {
       backgroundColor: ColorManager.mainColor,
       showChildOpacityTransition: false,
       onRefresh: () async {
-
-        BlocProvider.of<GetFollowingUserMomentBloc>(context)
-            .add(const GetFollowingMomentEvent());
+        BlocProvider.of<GetOtherUserMomentBloc>(context).add(GetOtherUserMomentEvent(
+            userId: MyDataModel
+                .getInstance()
+                .id
+                .toString()));
       },
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
-
-        child: BlocBuilder<GetFollowingUserMomentBloc, GetFollowingUserMomentState>(
+        child: BlocBuilder<GetOtherUserMomentBloc, GetMomentOtherUserState>(
           builder: (context, state) {
-            if (state is GetFollowingUserMomentSucssesState) {
-              tempData = state.data;
-
+            if (state is GetMomentOtherUserSucssesState) {
+              tempUserData = state.data;
               return state.data!.isEmpty
                   ? EmptyWidget(
-                message: StringManager.nooneIsAwake.tr(),
+                message: StringManager.youDontHaveMoments.tr(),
                 backgrpundColor: Colors.transparent,
-                style: Theme.of(context)
+                style: Theme
+                    .of(context)
                     .textTheme
                     .headlineLarge,
               )
-                  :  TabViewBody(momentModelList:state.data!,scrollController:scrollController , );
-            } else if (state is GetFollowingUserMomentErrorState) {
+                  : TabViewBody(
+                momentModelList: state.data!,
+                scrollController: scrollController,
+                isFromUserProfile: true,
+              );
+            }
+            else if (state is GetMomentOtherUserErrorState) {
               return CustomErrorWidget(
                 message: state.errorMassage,
               );
-            } else if (state is GetFollowingUserMomentLoadingState) {
-              if (tempData!.isNotEmpty) {
-                return  TabViewBody(momentModelList:tempData!,scrollController: scrollController, );
-              } else {
-                return Container(
-                    width: ConfigSize.screenWidth,
-                    height: ConfigSize.screenHeight,
-                    padding: EdgeInsets.symmetric(
-                        horizontal:
-                        ConfigSize.defaultSize! *
-                            0.2),
-                    child: const LoadingWidget());
+            } else if (state is GetMomentOtherUserLoadingState) {
 
-              }          } else {
+              return const LoadingWidget();
+
+
+            } else {
               return const CustomErrorWidget(
                 message: StringManager.noDataFoundHere,
               );
@@ -95,9 +103,11 @@ class _FollowingScreenState extends State<FollowingScreen> {
   void scrollListner() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      BlocProvider.of<GetFollowingUserMomentBloc>(context)
-          .add(const LoadMoreFollowingMomentEvent());
+      BlocProvider.of<GetOtherUserMomentBloc>(context).add(LoadMoreOtherUserMomentEvent(
+          userId: MyDataModel
+              .getInstance()
+              .id
+              .toString()));
     }
   }
-
 }

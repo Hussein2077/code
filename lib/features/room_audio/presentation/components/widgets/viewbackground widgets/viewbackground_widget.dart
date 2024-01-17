@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -43,7 +45,9 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_m
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_gift_manger/send_gift_states.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_states.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/media/player.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/media.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:vap/vap.dart';
 import 'package:video_player/video_player.dart';
@@ -556,6 +560,27 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
           IgnorePointer(
             child: VapView(),
           ),
+              ValueListenableBuilder<MediaType>(
+                valueListenable: ZegoUIKit.instance.getMediaTypeNotifier(),
+                builder: (context, isShow, _) {
+                  if (ZegoUIKit.instance.getMediaTypeNotifier().value ==
+                      MediaType.Video) {
+                    return ZegoMediaPlayer(
+                      size: Size(ConfigSize.screenWidth! * .8,
+                          ConfigSize.screenHeight! * .25),
+                      enableRepeat: true,
+                      canControl: true,
+                      showSurface: true,
+                      initPosition: const Offset(
+                        100,
+                        100,
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              )
         ]);
       }, listener: (context, state) {
         if (state is ErrorSendGiftStates) {

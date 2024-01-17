@@ -15,6 +15,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_bo
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/actitvity_games_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/cinema_mode_ink.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/local_video_ink.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
@@ -31,12 +33,13 @@ class BasicToolDialog extends StatefulWidget {
 
   final EnterRoomModel roomData;
 
-  const BasicToolDialog({Key? key,
-    required this.roomData,
-    required this.layoutMode,
-    required this.ownerId,
-    required this.userId,
-    required this.isOnMic})
+  const BasicToolDialog(
+      {Key? key,
+      required this.roomData,
+      required this.layoutMode,
+      required this.ownerId,
+      required this.userId,
+      required this.isOnMic})
       : super(key: key);
 
   @override
@@ -72,18 +75,21 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
               InkWell(
               onTap: () {
                 Navigator.pop(context);
-               bottomDailog(
-                    context: context,
-                     widget: Padding(
-                       padding:   EdgeInsets.only(bottom: ConfigSize.defaultSize!*7),
-                       child: ActivityGamesDialog(roomData: widget.roomData),
-                     ),
-                  );
-
+                bottomDailog(
+                  context: context,
+                  widget: Padding(
+                    padding:
+                        EdgeInsets.only(bottom: ConfigSize.defaultSize! * 7),
+                    child: ActivityGamesDialog(roomData: widget.roomData),
+                  ),
+                );
               },
               child: Column(
                 children: [
-                 Image.asset(AssetsPath.activityGamesIcon,scale: 2.1,),
+                  Image.asset(
+                    AssetsPath.activityGamesIcon,
+                    scale: 2.5,
+                  ),
                   Text(StringManager.games.tr(),
                       style: TextStyle(
                           fontSize: ConfigSize.defaultSize! + 2,
@@ -93,6 +99,11 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                 ],
               ),
             ),
+            CinemaModeInkwell(
+              ownerId: widget.ownerId,
+            ),
+            const LocalVideoInkwell(),
+
             InkWell(
               onTap: () {
                 Navigator.pop(context);
@@ -109,8 +120,8 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                 children: [
                   Image.asset(
                     AssetsPath.luckyBox,
-                    width: ConfigSize.defaultSize! * 6,
-                    height: ConfigSize.defaultSize! * 6,
+                    width: ConfigSize.defaultSize! * 5,
+                    height: ConfigSize.defaultSize! * 5,
                   ),
                   Text(StringManager.luckyBox.tr(),
                       style: TextStyle(
@@ -160,14 +171,15 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                                 .takeOffAllSeat(isPK: true);
                             Navigator.pop(context);
                             activePK();
-                            BlocProvider.of<PKBloc>(context).add(ShowPKEvent(ownerId: widget.ownerId));
+                            BlocProvider.of<PKBloc>(context)
+                                .add(ShowPKEvent(ownerId: widget.ownerId));
                           }
                         },
                         child: Column(
                           children: [
                             Image(
-                                width: ConfigSize.defaultSize! * 6,
-                                height: ConfigSize.defaultSize! * 6,
+                                width: ConfigSize.defaultSize! * 5,
+                                height: ConfigSize.defaultSize! * 5,
                                 image: const AssetImage(AssetsPath.pk1)),
                             const Text(StringManager.pk,
                                 style: TextStyle(
@@ -179,32 +191,32 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                       );
                     }),
             // if(widget.ownerId == widget.userId)
-              InkWell(
-                onTap: () async {
-                  DynamicLinkProvider()
-                      .createInvetionRoomLink(
-                      refCod: widget.roomData.ownerId!,
-                      password: widget.roomData.roomPassStatus ?? false,
-                      ownerImage: widget.roomData.roomCover!)
-                      .then((value) {
-                    Share.share(value);
-                  });
-                },
-                child: Column(
-                  children: [
-                    Image(
-                        width: ConfigSize.defaultSize! * 6,
-                        height: ConfigSize.defaultSize! * 6,
-                        image: const AssetImage(AssetsPath.iconShare)),
-                    Text(StringManager.share.tr(),
-                        style: TextStyle(
-                            fontSize: ConfigSize.defaultSize! + 2,
-                            color: Colors.black,
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w600))
-                  ],
-                ),
+            InkWell(
+              onTap: () async {
+                DynamicLinkProvider()
+                    .createInvetionRoomLink(
+                        refCod: widget.roomData.ownerId!,
+                        password: widget.roomData.roomPassStatus ?? false,
+                        ownerImage: widget.roomData.roomCover!)
+                    .then((value) {
+                  Share.share(value);
+                });
+              },
+              child: Column(
+                children: [
+                  Image(
+                      width: ConfigSize.defaultSize! * 5,
+                      height: ConfigSize.defaultSize! * 5,
+                      image: const AssetImage(AssetsPath.iconShare)),
+                  Text(StringManager.share.tr(),
+                      style: TextStyle(
+                          fontSize: ConfigSize.defaultSize! + 2,
+                          color: Colors.black,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w600))
+                ],
               ),
+            ),
           ],
         ));
   }

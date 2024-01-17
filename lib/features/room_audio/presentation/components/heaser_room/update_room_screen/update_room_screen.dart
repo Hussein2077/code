@@ -35,6 +35,8 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
       layoutMode = LayoutMode.hostTopCenter;
     }else if (widget.room.mode == 2) {
       layoutMode = LayoutMode.seats12;
+    }else if (widget.room.mode == 3) {
+      layoutMode = LayoutMode.cinemaMode;
     }
   }
   @override

@@ -112,7 +112,11 @@ dependencies:
   huawei_iap: ^6.13.0+300
   cometchat_chat_uikit: ^4.0.5
   in_app_purchase: ^3.1.11
-  video_player: ^2.8.1
+  video_player:
+  #google_mobile_ads: ^4.0.0
+  google_mobile_ads: ^4.0.0
+  youtube_api: 1.0.4
+  pod_player: 0.2.0
   vap: ^1.1.0
   #google_mobile_ads: ^4.0.0
   zego_express_engine:
@@ -144,6 +148,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/audio/
 
 
 

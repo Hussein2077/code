@@ -11,9 +11,10 @@ import 'package:tik_chat_v2/core/widgets/custoum_error_widget.dart';
 import 'package:tik_chat_v2/core/widgets/empty_widget.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/moment/data/model/moment_model.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_bloc.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_event.dart';
-import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_user_moment/get_moment_state.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_all_moment_types/get_moment_bloc.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_all_moment_types/get_moment_event.dart';
+import 'package:tik_chat_v2/features/moment/presentation/manager/manager_get_all_moment_types/get_moment_state.dart';
+
 import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_bottom_bar.dart';
 import 'package:tik_chat_v2/features/moment/presentation/widgets/tab_view_body.dart';
 
@@ -34,7 +35,6 @@ class _MyMomentsScreenState extends State<MyMomentsScreen> {
   List<MomentModel>? tempData = [];
    @override
    void initState() {
-     // MomentBottomBarState.momentType = MomentType.myMoment ;
 
      scrollController.addListener(scrollListner);
      super.initState();

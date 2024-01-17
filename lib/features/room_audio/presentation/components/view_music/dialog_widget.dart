@@ -1,12 +1,17 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
+import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
 import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/core/widgets/pop_up_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/view_music/view_music_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/media.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class MusicDialog extends StatefulWidget {
@@ -62,16 +67,32 @@ class _MusicDialogState extends State<MusicDialog> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
-                      onTap: () async {
-                        Navigator.pop(context);
+                    onTap: () async {
+                      Navigator.pop(context);
+                      if (ZegoUIKit.instance.getMediaTypeNotifier().value ==
+                          MediaType.PureAudio) {
                         Navigator.pushNamed(context, Routes.music,
-                            arguments: MusicPramiter(ownerId: widget.ownerId));
-                      },
-                      child: const Icon(
-                        Icons.library_music_outlined,
-                        color: Colors.white,
-                      ) //player.hasPrevious ? player.seekToPrevious : null,
-                      ),
+                            arguments: MusicPramiter(ownerId: ownerId));
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return PopUpDialog(
+                                headerText: StringManager.youHaveToStopVideo.tr(),
+                                accpetText: () {
+                                  Navigator.pop(context);
+                                },
+                                accpettitle: StringManager.ok.tr(),
+                              );
+                            });
+                      }
+                    },
+                    child: Icon(
+                      Icons.library_music_outlined,
+                      color: Colors.white,
+                      size: ConfigSize.defaultSize! * 2,
+                    ),
+                  ),
                   ValueListenableBuilder(
                     valueListenable:
                         ZegoUIKit.instance.getMediaVolumeNotifier(),
@@ -161,20 +182,7 @@ class _MusicDialogState extends State<MusicDialog> {
                   InkWell(
                     child: const Icon(Icons.skip_next, color: Colors.white),
                     onTap: () async {
-                      // if ((MusicScreen.nowPlaying! + 1) >=
-                      //     MusicScreen.musicesInRoom.length) {
-                      //   distroyMusic();
-                      //   MusicScreen.nowPlaying = 0;
-                      //   loadMusice(
-                      //       path: MusicScreen
-                      //           .musicesInRoom[MusicScreen.nowPlaying!].uri);
-                      // } else {
-                      //   distroyMusic();
-                      //   MusicScreen.nowPlaying = MusicScreen.nowPlaying! + 1;
-                      //   loadMusice(
-                      //       path: MusicScreen
-                      //           .musicesInRoom[MusicScreen.nowPlaying!].uri);
-                      // }
+
 
                       if (MusicScreen.nowPlaying! + 1 ==
                           MusicScreen.musicesInRoom.length) {

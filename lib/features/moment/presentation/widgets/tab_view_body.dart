@@ -13,14 +13,19 @@ import 'package:tik_chat_v2/features/moment/presentation/widgets/moment_view.dar
 class TabViewBody extends StatelessWidget {
  final List<MomentModel> momentModelList;
  final ScrollController scrollController;
+ final bool? isFromUserProfile;
 
-  const TabViewBody({Key? key,required this.scrollController, required this.momentModelList}) : super(key: key);
+  const TabViewBody({Key? key,
+    required this.scrollController,
+    required this.momentModelList,
+  this.isFromUserProfile
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return  Container(
       width: ConfigSize.screenWidth,
-      height: ConfigSize.screenHeight!*0.84,
+      height: isFromUserProfile==true?ConfigSize.screenHeight!*0.5:ConfigSize.screenHeight!*0.84,
       padding: EdgeInsets.symmetric(
           horizontal: ConfigSize.defaultSize! * 0.2),
       child: ListView.builder(
@@ -47,6 +52,7 @@ class TabViewBody extends StatelessWidget {
                     ),
                     MomentBottomBar(
                       momentModel: momentModelList[i],
+                        isFromUserProfile:isFromUserProfile
                     ),
                     SizedBox(
                       height: ConfigSize.defaultSize! * 1.5,
