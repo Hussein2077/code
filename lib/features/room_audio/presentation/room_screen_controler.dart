@@ -69,6 +69,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/you
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/live_page.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/media.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
@@ -344,7 +345,7 @@ Future<void> distroyMusic() async {
   await ZegoUIKit.instance.stopMedia();
   MusicScreen.isPlaying.value = false;
 }Future<void> distroyLocalVideo() async {
-  // RoomScreen.localVideoModeShow.value=false;
+  ZegoUIKit.instance.getMediaTypeNotifier().value=MediaType.Unknown;
   await ZegoUIKit.instance.stopMedia();
 
 }
