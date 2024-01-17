@@ -13,7 +13,6 @@ import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/widgets/chat-ui.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/chat_theme_integration.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import '../../../core/model/user_data_model.dart';
 import '../../../core/utils/config_size.dart';
 import 'widgets/myprofile_property_row.dart';
@@ -131,7 +130,6 @@ class _ChatPageState extends State<ChatPage> {
           )) :
 
           Expanded(
-
               child: CometChatConversationsWithMessages(
                 messageConfiguration: MessageConfiguration(
                     messageListConfiguration: (MessageListConfiguration(
