@@ -43,6 +43,8 @@ class LoginChatBloc extends Bloc<BaseLoginChatEvent, LoginChatState> {
 
 
 
+
+
             log("User logged in successfully  ${user.name}");
           }, onError: (CometChatException e) {
             log("Login failed with exception: ${e.message}");

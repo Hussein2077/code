@@ -44,7 +44,6 @@ class _ChatPageState extends State<ChatPage> {
 
   bool open = false;
 
-
   @override
   Widget build(BuildContext context) {
     List<Function()> chatScreenOntaps = [
