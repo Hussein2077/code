@@ -113,7 +113,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               avatar: ConstentApi().getImage(state.myDataModel.profile!.image),
               id: state.myDataModel.id.toString(),
               notificationId: state.myDataModel.notificationId!));
-
+          // 2 mean has not gender
           if (state.myDataModel.profile!.gender == 2) {
             Future.delayed(const Duration(seconds: 1), () {
               showDialog(
@@ -128,13 +128,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             });
           }
 
-          // if (state.myDataModel.phone.toString() == "") {
-          //   Navigator.pushNamedAndRemoveUntil(
-          //     context,
-          //     Routes.phoneBindScreen,
-          //     (route) => false,
-          //   );
-          // }
+          if (state.myDataModel.phone.toString() == "") {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.phoneBindScreen,
+              (route) => false,
+            );
+          }
         }
       },
       child: WillPopScope(
