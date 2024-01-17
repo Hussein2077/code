@@ -128,6 +128,7 @@ class _FFFScreenState extends State<FFFScreen> {
                                 );
                               },
                             ),
+                            idOrNot: const SizedBox(),
                           );
                         }),
                   );

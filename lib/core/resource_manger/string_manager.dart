@@ -102,6 +102,8 @@ class StringManager {
   static const String chooseYourMusic = "Choose your musics";
   static const String youBanFromWriting = "You have been banned From Writing";
   static const String appTitle = "Tikchat";
+  static const String tikChat = "Voice";
+  static const String videoTab = "Live";
   static const String enterPhoneNum = "Enter your phone number";
   static const String signUp = "Sign Up";
   static const String login = "Login";
@@ -143,8 +145,7 @@ class StringManager {
   static const String chat = "Chat ";
   static const String chatWithDifferentTranslation = "Chat";
   static const String profile = "Profile";
-  static const String live = "Live";
-  static const String voice = "Voice";
+  static const String voice = "Voices";
   static const String countries = "Countries";
   static const String rank = "Rank";
   static const String sendGift = "Send Gift";
