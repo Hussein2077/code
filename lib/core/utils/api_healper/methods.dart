@@ -907,6 +907,20 @@ class Methods {
         },
       ),
     );
+    CometChat.updateCurrentUserDetails(
+
+        onSuccess: (retUser) {
+        },
+        onError: (excep) {
+
+        },
+        User(
+
+            uid: MyDataModel.getInstance().id.toString(),
+            name: MyDataModel.getInstance().name!,
+            metadata: {"notification_id": NotifecationId}
+        )
+    );
   }
 
   Future<String> getCurrentTimeZone() async {
@@ -980,6 +994,7 @@ class Methods {
     CountryDialog.selectedCountry.value = !CountryDialog.selectedCountry.value;
 
     Methods.instance.addFireBaseNotifcationId();
+
   }
 
   int calculateAge(String date) {
