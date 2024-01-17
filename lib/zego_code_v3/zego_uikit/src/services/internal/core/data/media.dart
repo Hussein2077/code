@@ -124,7 +124,7 @@ mixin ZegoUIKitCoreDataMedia {
     mediaInfo = await currentMediaPlayer!.getMediaInfo();
     final pathExtension = path.extension(filePathOrURL);
     var extension = 'mp3';
-    if(pathExtension.length>1){
+    if (pathExtension.length > 1) {
       extension = pathExtension.substring(1);
     }
     if (pureAudioExtensions.contains(extension)) {
@@ -144,7 +144,7 @@ mixin ZegoUIKitCoreDataMedia {
       startMedia();
     }
 
-    currentMediaPlayer!.setPublishVolume(200);
+    // currentMediaPlayer!.setPublishVolume(200);
 
     mediaVolume.value = await currentMediaPlayer!.getPlayVolume() ~/ 2;
     _mediaDuration = await currentMediaPlayer!.getTotalDuration();
