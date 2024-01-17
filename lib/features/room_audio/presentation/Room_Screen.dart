@@ -90,7 +90,6 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<String> roomGiftsPrice = ValueNotifier<String>("");
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
   static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
-  static ValueNotifier<bool> localCinemaModeShow = ValueNotifier<bool>(false);
   static ValueNotifier<bool> isWinnerShowWidget = ValueNotifier<bool>(false);
   static late LayoutMode layoutMode;
   static int startTimeOnSeatMic = 0 ;
@@ -880,10 +879,11 @@ setState(() {
                   ViewYoutubeVideoEvent(
                       result[messageContent]['url'] ?? ""));
             });
-      }else if(result[messageContent][message] == "local_video") {
-        RoomScreen.localCinemaModeShow.value=! RoomScreen.localCinemaModeShow.value;
-
       }
+      // else if(result[messageContent][message] == "local_video") {
+      //   RoomScreen.localVideoModeShow.value=true;
+      //
+      // }
     }
   }
 

@@ -657,6 +657,8 @@ class StringManager {
   static const String howToGainFreeCoins = "How to get";
   static const String freeCoins = " Free Coins";
   static const String remove = "Remove";
+  static const String youHaveToStopMedia = "You have to stop media then you can play video";
+  static const String youHaveToStopVideo = "You have to stop video then you can play media";
 
   static const String explainGameDice = '''
       Players:

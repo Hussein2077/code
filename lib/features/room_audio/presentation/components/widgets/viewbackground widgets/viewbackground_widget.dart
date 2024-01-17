@@ -47,6 +47,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_privat
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/send_private_comment_manager/send_private_comment_states.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/media/player.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/media.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:video_player/video_player.dart';
 
@@ -534,10 +535,11 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
               }
             },
           ),
-          ValueListenableBuilder<bool>(
-            valueListenable: RoomScreen.localCinemaModeShow,
+          ValueListenableBuilder<MediaType>(
+            valueListenable: ZegoUIKit.instance.getMediaTypeNotifier(),
             builder: (context, isShow, _) {
-              if (isShow) {
+              if (ZegoUIKit.instance.getMediaTypeNotifier().value ==
+                  MediaType.Video) {
                 return ZegoMediaPlayer(
                   size: Size(ConfigSize.screenWidth! * .8,
                       ConfigSize.screenHeight! * .25),

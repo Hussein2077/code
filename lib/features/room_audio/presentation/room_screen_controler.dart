@@ -344,7 +344,7 @@ Future<void> distroyMusic() async {
   await ZegoUIKit.instance.stopMedia();
   MusicScreen.isPlaying.value = false;
 }Future<void> distroyLocalVideo() async {
-  RoomScreen.localCinemaModeShow.value=false;
+  // RoomScreen.localVideoModeShow.value=false;
   await ZegoUIKit.instance.stopMedia();
 
 }

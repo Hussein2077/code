@@ -46,6 +46,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.areYouSureLeaveSeat: "هل أنت متأكد من مغادرة المقعد؟",
     StringManager.and: "و",
     StringManager.age: "العمر",
+    StringManager.video: "فيديو",
     StringManager.cacheGift: 'تحميل بيانات الهدايا',
     StringManager.cacheExtra: 'تحميل بيانات اضافية',
     StringManager.cacheFrame: 'تحميل بيانات الاطارات',
@@ -636,6 +637,8 @@ class CodegenLoader extends AssetLoader {
     StringManager.howToGainFreeCoins: "كيف تحصل علي ",
     StringManager.freeCoins: "عملات مجانية",
     StringManager.remove: "إزالة",
+    StringManager.youHaveToStopMedia: "يجب اغلاق الموسيقي اولا لتستطيع تشغيل الفيديو",
+    StringManager.youHaveToStopVideo: "يجب اغلاق ألفيديو اولا لتستطيع تشغيل الموسيقي",
 
   };
 

@@ -34,7 +34,6 @@ final String ownerId;
           });
         }
         else {
-          RoomScreen.localCinemaModeShow.value=false;
           await ZegoLiveAudioRoomManagers()
               .seatManager!
               .takeOffAllSeat(isPK: false);

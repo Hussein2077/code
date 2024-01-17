@@ -141,7 +141,6 @@ class ZegoMediaPlayerState extends State<ZegoMediaPlayer> {
                 surface(constraints.maxWidth, constraints.maxHeight),
                 InkWell(
                   onTap: (){
-
                     distroyLocalVideo();
                   },
                   child: CircleAvatar(

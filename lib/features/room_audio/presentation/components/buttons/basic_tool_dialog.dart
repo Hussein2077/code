@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,26 +10,18 @@ import 'package:tik_chat_v2/core/widgets/bottom_dailog.dart';
 import 'package:tik_chat_v2/core/widgets/warning_dialog.dart';
 import 'package:tik_chat_v2/core/widgets/loading_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_box/lucky_box.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/actitvity_games_dialog.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_search_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/cinema_mode_ink.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/local_video_ink.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_events.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_events.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/media/player.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class BasicToolDialog extends StatefulWidget {
   final LayoutMode layoutMode;
@@ -106,37 +96,10 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                 ],
               ),
             ),
-          CinemaModeInkwell(ownerId: widget.ownerId,),
-            InkWell(
-              onTap: () {
-            RoomScreen.localCinemaModeShow.value=! RoomScreen.localCinemaModeShow.value;
-Navigator.pop(context);
-                Map<String, dynamic> mapZego = {
-                  "messageContent": {
-                    "message": "local_video",
-                    // 'path':
-
-                  }
-                };
-                String map = jsonEncode(mapZego);
-                ZegoUIKit.instance.sendInRoomCommand(map, []);
-              },
-              child: Column(
-                children: [
-                  Image.asset(
-                    AssetsPath.videoNewIcon,
-                    width: ConfigSize.defaultSize! * 5,
-                    height: ConfigSize.defaultSize! * 5,
-                  ),
-                  Text(StringManager.video.tr(),
-                      style: TextStyle(
-                          fontSize: ConfigSize.defaultSize! + 2,
-                          color: Colors.black,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w600))
-                ],
-              ),
+            CinemaModeInkwell(
+              ownerId: widget.ownerId,
             ),
+            const LocalVideoInkwell(),
 
             InkWell(
               onTap: () {
