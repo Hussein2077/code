@@ -28,6 +28,12 @@ navigateFromNotification(RemoteMessage message) {
   log('${data}oooooo');
   String messageTypeDecode = jsonDecode(message.data['message-type']);
   switch (messageTypeDecode) {
+    case 'send-notifaction':
+      SplashScreen.initPage = 2 ;
+      getIt<NavigationService>().navigatorKey.currentState!.pushNamed(
+          Routes.mainScreen,
+          );
+      break ;
     case "enter-room":
       getIt<NavigationService>().navigatorKey.currentState!.pushNamed(
           Routes.roomHandler,

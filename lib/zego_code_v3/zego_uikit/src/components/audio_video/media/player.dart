@@ -137,7 +137,6 @@ class ZegoMediaPlayerState extends State<ZegoMediaPlayer> {
             return Stack(
               children: [
                 media(),
-
                 surface(constraints.maxWidth, constraints.maxHeight),
                 InkWell(
                   onTap: (){

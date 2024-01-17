@@ -219,13 +219,13 @@ Future<void> main() async {
   }
 
   // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  // RemoteMessage? message = await FirebaseMessaging.instance.getInitialMessage();
-  // if (message != null) {
-  //   log("herrrrreeeeeeeeeeee");
-  //   navigateFromNotification(message);
-  //   log("herrrrreeeeeeeeeeee22222222222");
-  // }
-  log("herrrrreeeeeeeeeeee22222222222");
+  RemoteMessage? message = await FirebaseMessaging.instance.getInitialMessage();
+  if (message != null) {
+    log("herrrrreeeeeeeeeeee");
+    navigateFromNotification(message);
+    log("herrrrreeeeeeeeeeee22222222222");
+  }
+
   bool groupChatUnReadMessage =
       await Methods.instance.getLocalGroupChatNotifecation();
   HomeScreen.rebuildGroupChatCounter.value = groupChatUnReadMessage;

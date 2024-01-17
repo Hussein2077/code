@@ -345,7 +345,8 @@ Future<void> distroyMusic() async {
   MusicWidget.isIPlayerMedia = false;
   await ZegoUIKit.instance.stopMedia();
   MusicScreen.isPlaying.value = false;
-}Future<void> distroyLocalVideo() async {
+}
+Future<void> distroyLocalVideo() async {
   ZegoUIKit.instance.getMediaTypeNotifier().value=MediaType.Unknown;
   await ZegoUIKit.instance.stopMedia();
 
