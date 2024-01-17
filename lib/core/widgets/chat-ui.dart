@@ -1,6 +1,7 @@
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart' as cometchat;
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
 
 class ChatUi {
   Palette palette = Palette(
@@ -21,7 +22,7 @@ class ChatUi {
 
   cometchat.Typography typography = cometchat.Typography.fromDefault(
       name: FontStyle(
-          fontSize: 22,
+          fontSize: ConfigSize.defaultSize!*1.5,
           fontWeight: FontWeight.w400
       )
   );
