@@ -86,33 +86,43 @@ class _MusicDialogState extends State<MusicDialog> {
                               );
                             });
                       }
-                    },
-                    child: Icon(
-                      Icons.library_music_outlined,
-                      color: Colors.white,
-                      size: ConfigSize.defaultSize! * 2,
+                      },
+                      child: const Icon(
+                        Icons.library_music_outlined,
+                        color: Colors.white,
+                      ) //player.hasPrevious ? player.seekToPrevious : null,
+                      ),
+                  SizedBox(
+                    width: ConfigSize.defaultSize! * 10,
+                    child: ValueListenableBuilder<int>(
+                      valueListenable: ZegoUIKit().getMediaVolumeNotifier(),
+                      builder: (context, volume, _) {
+                        return SliderTheme(
+                          data: SliderThemeData(
+                            trackHeight: ConfigSize.defaultSize! / 2,
+                            thumbColor: Colors.white,
+                            thumbShape: const RoundSliderThumbShape(
+                              enabledThumbRadius: 8.0,
+                            ),
+                            overlayShape: SliderComponentShape.noOverlay,
+                            overlayColor: Colors.yellow.withOpacity(0.4),
+                            activeTrackColor: ColorManager.yellow,
+                            inactiveTrackColor:
+                                ColorManager.yellow.withOpacity(0.5),
+                          ),
+                          child: Slider(
+                            min: 0,
+                            max: 100,
+                            value: volume.toDouble(),
+                            onChanged: (double value) {
+                              ZegoUIKit().setMediaVolume(value.toInt());
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ),
-                  ValueListenableBuilder(
-                    valueListenable:
-                        ZegoUIKit.instance.getMediaVolumeNotifier(),
-                    builder: (BuildContext context, int value, Widget? child) {
-                      return SizedBox(
-                        height: AppPadding.p10,
-                        width: ConfigSize.defaultSize! * 16,
-                        child: Slider(
-                          autofocus: true,
-                          activeColor: ColorManager.gold1,
-                          min: 0,
-                          max: 100,
-                          value: double.parse(value.toString()),
-                          onChanged: (double sound) async {
-                            ZegoUIKit.instance.setMediaVolume(sound.toInt());
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                  const Spacer(),
 
                   InkWell(
                     onTap: () async {
@@ -215,31 +225,52 @@ class _MusicDialogState extends State<MusicDialog> {
               SizedBox(
                 height: AppPadding.p10,
                 width: ConfigSize.defaultSize! * 32,
-                child: ValueListenableBuilder(
+                child: ValueListenableBuilder<int>(
                   valueListenable:
-                      ZegoUIKit.instance.getMediaCurrentProgressNotifier(),
-                  builder:
-                      (BuildContext context, dynamic value, Widget? child) {
-                    int max = ZegoUIKit.instance.getMediaTotalDuration();
-                    if (max > 0) {
-                      return Slider(
-                        autofocus: true,
-                        activeColor: ColorManager.gold1,
-                        min: 0,
-                        max: max.toDouble(),
-                        value: ZegoUIKit.instance
-                            .getMediaCurrentProgress()
-                            .toDouble(),
-                        onChanged: (double value) async {
-                          ZegoUIKit.instance.seekTo(value.toInt());
-                        },
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
+                      ZegoUIKit().getMediaCurrentProgressNotifier(),
+                  builder: (context, progress, _) {
+                    return ValueListenableBuilder<MediaPlayState>(
+                      valueListenable: ZegoUIKit().getMediaPlayStateNotifier(),
+                      builder: (context, playState, _) {
+                        final duration = ZegoUIKit().getMediaTotalDuration();
+                        return SizedBox(
+                          height: 10,
+                          child: SliderTheme(
+                            data: SliderThemeData(
+                              trackHeight: 5.0,
+                              thumbColor: Colors.white,
+                              thumbShape: const RoundSliderThumbShape(
+                                enabledThumbRadius: 13.0,
+                              ),
+                              overlayShape: SliderComponentShape.noOverlay,
+                              activeTrackColor: Colors.white,
+                              inactiveTrackColor: Colors.white.withOpacity(0.5),
+                              disabledThumbColor: Colors.white,
+                              disabledActiveTrackColor: Colors.white,
+                              disabledInactiveTrackColor: Colors.white,
+                            ),
+                            child: MediaPlayState.NoPlay == playState
+                                ? const Slider(
+                                    min: 0,
+                                    max: 1,
+                                    value: 0,
+                                    onChanged: null,
+                                  )
+                                : Slider(
+                                    min: 0,
+                                    max: duration.toDouble(),
+                                    value: progress.toDouble(),
+                                    onChanged: (double value) {
+                                      ZegoUIKit().seekTo(value.toInt());
+                                    },
+                                  ),
+                          ),
+                        );
+                      },
+                    );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),
