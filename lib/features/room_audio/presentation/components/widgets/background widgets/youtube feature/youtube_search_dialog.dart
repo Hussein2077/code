@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/get_youtube
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/get_youtube_videos/get_youtube_videos_state.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:youtube_api/youtube_api.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -21,7 +23,6 @@ class YoutubeAPISearchDialog extends StatefulWidget {
     super.key,
   });
 
-  static ValueNotifier<bool> playVideo = ValueNotifier<bool>(false);
 
   @override
   State<YoutubeAPISearchDialog> createState() => _YoutubeAPISearchDialogState();
@@ -95,17 +96,28 @@ class _YoutubeAPISearchDialogState extends State<YoutubeAPISearchDialog> {
                           return InkWell(
                             onTap: () async {
                               String url = state.results[index].url;
-                              BlocProvider.of<YoutubeBloc>(context).add(
-                                  ViewYoutubeVideo(
-                                      YoutubePlayer.convertUrlToId(url) ?? ""));
-                              if (YoutubeAPISearchDialog.playVideo.value) {
-                                YoutubeAPISearchDialog.playVideo.value = false;
-                              }
+                              log('${url}url');
+                                BlocProvider.of<YoutubeBloc>(context)
+                                    .add(const InitialViewYoutubeVideoEvent());
                               Future.delayed(const Duration(milliseconds: 300),
                                   () {
-                                YoutubeAPISearchDialog.playVideo.value = true;
+                                BlocProvider.of<YoutubeBloc>(context).add(
+                                    ViewYoutubeVideoEvent(
+                                        url ?? ""));
+                                if(mounted){
+                                  Navigator.pop(context);
+                                }
                               });
-                              Navigator.pop(context);
+
+                              Map<String,dynamic> mapZego = {
+                                "messageContent" : {
+                                  "message" : "cinema mode",
+                                  "url": url,
+                                }
+                              };
+                              String map = jsonEncode(mapZego);
+                              ZegoUIKit.instance.sendInRoomCommand(map,[]);
+
                             },
                             child: Column(
                               children: [

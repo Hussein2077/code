@@ -268,6 +268,8 @@ class AssetsPath {
   static const String aristocracy8 = "$pathIcon/aristocracy 8.png";
   static const String basicTool = "$pathImage/basic_tool.png";
   static const String settingRoom = "$pathIcon/settings_room.png";
+  static const String cinemaNewIcon = "$pathIcon/cinema_new.png";
+  static const String videoNewIcon = "$pathIcon/video_new.png";
   static const String contanerDiamodn = "$pathImage/contaner_diamodn.png";
   static const String coinAnimate = "$pathImage/coin_animate.gif";
   static const String privateCommentGif = "$pathImage/privete_comment.gif";
@@ -320,6 +322,7 @@ class AssetsPath {
   static const String happyNewYearIntro = "$pathImage/happyNewYearIntro.gif";
   static const String happyNewYearVideo = "$pathImage/happyNewYearVideo.mp4";
   static const String privateCommentIcon = "$pathImage/private_comment_icon.png";
+
 
 
 

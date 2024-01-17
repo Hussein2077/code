@@ -1,3 +1,4 @@
+import 'package:pod_player/pod_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 abstract class YoutubeState  {
@@ -8,7 +9,7 @@ abstract class YoutubeState  {
 class YoutubeStateInitial extends YoutubeState {}
 
 class GetViewYoutubeSuccessState extends YoutubeState {
-  final YoutubePlayerController controller;
+  final PodPlayerController controller;
 
   const GetViewYoutubeSuccessState(this.controller);
 }

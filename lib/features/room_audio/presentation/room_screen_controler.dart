@@ -323,9 +323,10 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
     BlocProvider.of<LuckyGiftBannerBloc>(context.mounted  ?context :
     getIt<NavigationService>().navigatorKey.currentContext!).add(EndBannerEvent()) ;
   }
-  if (YoutubeAPISearchDialog.playVideo.value) {
-    BlocProvider.of<YoutubeBloc>(context).add(const DisposeViewYoutubeVideo());
-  }
+    if(RoomScreen.layoutMode==LayoutMode.cinemaMode){
+      BlocProvider.of<YoutubeBloc>(context).add(const DisposeViewYoutubeVideoEvent());
+    }
+
 }
 
 Future<void> distroyMusic() async {

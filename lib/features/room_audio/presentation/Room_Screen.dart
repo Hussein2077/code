@@ -50,6 +50,8 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/extra_room_
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_get_users_in_room/manager_get_users_in_room_states.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
@@ -869,6 +871,18 @@ setState(() {
       }
       else if(result[messageContent][message] == "HappyNewYearVideo"){
         RoomScreen.happyNewYearVideo.value = true;
+      }else if(result[messageContent][message] == "cinema mode") {
+        BlocProvider.of<YoutubeBloc>(context)
+            .add(const InitialViewYoutubeVideoEvent());
+        Future.delayed(const Duration(milliseconds: 300),
+                () {
+              BlocProvider.of<YoutubeBloc>(context).add(
+                  ViewYoutubeVideoEvent(
+                      result[messageContent]['url'] ?? ""));
+              if(mounted){
+                Navigator.pop(context);
+              }
+            });
       }
     }
   }

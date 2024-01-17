@@ -3,13 +3,18 @@ abstract class YoutubeEvent  {
 
 }
 
-class ViewYoutubeVideo extends YoutubeEvent {
+class ViewYoutubeVideoEvent extends YoutubeEvent {
   final String videoId;
 
-  const ViewYoutubeVideo(this.videoId);
+  const ViewYoutubeVideoEvent(this.videoId);
 }
-class DisposeViewYoutubeVideo extends YoutubeEvent {
+class DisposeViewYoutubeVideoEvent extends YoutubeEvent {
 
 
-  const DisposeViewYoutubeVideo();
+  const DisposeViewYoutubeVideoEvent();
+}
+class InitialViewYoutubeVideoEvent extends YoutubeEvent {
+
+
+  const InitialViewYoutubeVideoEvent();
 }

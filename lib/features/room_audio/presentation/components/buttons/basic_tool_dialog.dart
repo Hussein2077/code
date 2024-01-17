@@ -111,11 +111,10 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                     BlocProvider.of<OnRoomBloc>(context).add(
                         ChangeModeRoomEvent(
                             ownerId: widget.ownerId, roomMode: '0'));
-                    if (YoutubeAPISearchDialog.playVideo.value) {
+                    BlocProvider.of<YoutubeBloc>(context)
+                        .add(const InitialViewYoutubeVideoEvent());
                       BlocProvider.of<YoutubeBloc>(context)
-                          .add(const DisposeViewYoutubeVideo());
-                      YoutubeAPISearchDialog.playVideo.value = false;
-                    }
+                          .add(const DisposeViewYoutubeVideoEvent());
                     Navigator.pop(context);
                   });
                 } else {
@@ -131,24 +130,15 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                 }
               },
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.video_camera_back,
-                    size: ConfigSize.defaultSize! * 4,
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! * .4,
-                  ),
+                Image.asset(AssetsPath.cinemaNewIcon,scale: 130,),
                   Text(StringManager.cinemaMode.tr(),
                       style: TextStyle(
                           fontSize: ConfigSize.defaultSize! + 2,
                           color: Colors.black,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w600)),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! * 1.5,
-                  ),
                 ],
               ),
             ),

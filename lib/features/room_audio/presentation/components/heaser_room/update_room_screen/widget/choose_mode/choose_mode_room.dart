@@ -96,11 +96,8 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                 InkWell(
                   onTap: ()async {
                     if(RoomScreen.layoutMode==LayoutMode.cinemaMode){
-                      if (YoutubeAPISearchDialog.playVideo.value) {
                         BlocProvider.of<YoutubeBloc>(context)
-                            .add(const DisposeViewYoutubeVideo());
-                        YoutubeAPISearchDialog.playVideo.value = false;
-                      }
+                            .add(const DisposeViewYoutubeVideoEvent());
                     }
                 await    ZegoLiveAudioRoomManagers().seatManager!
                         .takeOffAllSeat(isPK: false);
@@ -157,11 +154,8 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                 InkWell(
                   onTap: ()async {
                     if(RoomScreen.layoutMode==LayoutMode.cinemaMode){
-                      if (YoutubeAPISearchDialog.playVideo.value) {
                         BlocProvider.of<YoutubeBloc>(context)
-                            .add(const DisposeViewYoutubeVideo());
-                        YoutubeAPISearchDialog.playVideo.value = false;
-                      }
+                            .add(const DisposeViewYoutubeVideoEvent());
                     }
                     if(!PkController.isPK.value){
                    await   ZegoLiveAudioRoomManagers().seatManager!
@@ -233,11 +227,8 @@ class ChooseModeRoomState extends State<ChooseModeRoom> {
                 InkWell(
                   onTap: ()async {
                     if(RoomScreen.layoutMode==LayoutMode.cinemaMode){
-                      if (YoutubeAPISearchDialog.playVideo.value) {
                         BlocProvider.of<YoutubeBloc>(context)
-                            .add(const DisposeViewYoutubeVideo());
-                        YoutubeAPISearchDialog.playVideo.value = false;
-                      }
+                            .add(const DisposeViewYoutubeVideoEvent());
                     }
                     if(!PkController.isPK.value){
                    await   ZegoLiveAudioRoomManagers().seatManager!
