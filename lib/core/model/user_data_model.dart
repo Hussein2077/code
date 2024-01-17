@@ -54,6 +54,8 @@ class UserDataModel {
   final bool? isGold;
   final String? visitTime;
   final ImageIdModel? imageIdModel;
+  final bool ?         gameAvailable ;
+
 
 
   const UserDataModel({
@@ -97,6 +99,7 @@ class UserDataModel {
     this.isGold,
     this.country,
     this.imageIdModel,
+    this.gameAvailable ,
   });
 
   factory UserDataModel.fromMap(Map<String, dynamic> map) {
@@ -215,6 +218,11 @@ class UserDataModel {
           isnInRoom: nowRoom?.isnInRoom ?? false,
           uid: nowRoom?.uid ?? 0,
           roomstatus: nowRoom?.roomstatus ?? false,
-        ));
+
+        ) ,
+    gameAvailable: gameAvailable
+
+    );
+
   }
 }

@@ -184,13 +184,17 @@ class _ViewbackgroundWidgetState extends State<ViewbackgroundWidget> {
               }
             },
           ),
-          Align(
+              if(  MyDataModel.getInstance().gameAvailable!)
+
+                Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
                   padding: EdgeInsets.only(
                       right: 0, bottom: ConfigSize.defaultSize! * 2),
                   child: const PageViewGames())),
-          Align(
+              if(  MyDataModel.getInstance().gameAvailable!)
+
+                Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
               padding: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 10),
