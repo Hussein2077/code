@@ -97,17 +97,17 @@ class _LoginScreenState extends State<LoginScreen> {
       Future.delayed(const Duration(seconds: 2), () {
         if(mounted) {
           showDialog(
-            context: context,
-            builder: (context) {
-              return PopUpDialog(
-                headerText: StringManager.anotherAccountLoggedIn.tr(),
-                accpetText: () {
-                  Navigator.pop(context);
-                },
-                accpettitle: StringManager.ok.tr(),
-              );
-            });
-      });
+              context: context,
+              builder: (context) {
+                return PopUpDialog(
+                  headerText: StringManager.anotherAccountLoggedIn.tr(),
+                  accpetText: () {
+                    Navigator.pop(context);
+                  },
+                  accpettitle: StringManager.ok.tr(),
+                );
+              });
+        }});
     }
     else if ((widget.isUpdate ?? false)) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
