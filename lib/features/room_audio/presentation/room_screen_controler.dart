@@ -343,6 +343,10 @@ Future<void> distroyMusic() async {
   MusicWidget.isIPlayerMedia = false;
   await ZegoUIKit.instance.stopMedia();
   MusicScreen.isPlaying.value = false;
+}Future<void> distroyLocalVideo() async {
+  RoomScreen.localCinemaModeShow.value=false;
+  await ZegoUIKit.instance.stopMedia();
+
 }
 
 void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context,

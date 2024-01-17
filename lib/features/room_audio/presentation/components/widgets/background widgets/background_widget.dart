@@ -27,7 +27,6 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRoom/OnRoom_states.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
 import 'package:youtube_api/youtube_api.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class BackgroundWidget extends StatefulWidget {
   EnterRoomModel room;

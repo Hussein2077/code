@@ -1,5 +1,4 @@
 import 'package:pod_player/pod_player.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 abstract class YoutubeState  {
   const YoutubeState();

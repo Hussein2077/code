@@ -1,8 +1,13 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:tik_chat_v2/core/resource_manger/color_manager.dart';
+import 'package:tik_chat_v2/core/utils/config_size.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 
 // Project imports:
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/internal/core/core.dart';
@@ -132,7 +137,19 @@ class ZegoMediaPlayerState extends State<ZegoMediaPlayer> {
             return Stack(
               children: [
                 media(),
+
                 surface(constraints.maxWidth, constraints.maxHeight),
+                InkWell(
+                  onTap: (){
+
+                    distroyLocalVideo();
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: ColorManager.whiteColor.withOpacity(.3),
+                    radius: ConfigSize.defaultSize!*1.2,
+                    child: Icon(Icons.close,color: ColorManager.whiteColor,size:ConfigSize.defaultSize!*1.8,),
+                  ),
+                ),
               ],
             );
           },

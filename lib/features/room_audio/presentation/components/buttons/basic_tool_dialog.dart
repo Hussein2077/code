@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,7 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_fu
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/games/actitvity_games_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_search_dialog.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/cinema_mode_ink.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_lucky_boxes/luck_boxes_events.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/manager_pk/pk_bloc.dart';
@@ -26,6 +29,9 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/manger_onRo
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/core/core_managers.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/media/player.dart';
+import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 
 class BasicToolDialog extends StatefulWidget {
   final LayoutMode layoutMode;
@@ -100,48 +106,38 @@ class _BasicToolDialogState extends State<BasicToolDialog> {
                 ],
               ),
             ),
+          CinemaModeInkwell(ownerId: widget.ownerId,),
             InkWell(
-              onTap: () async {
-                if (RoomScreen.layoutMode == LayoutMode.cinemaMode) {
+              onTap: () {
+            RoomScreen.localCinemaModeShow.value=! RoomScreen.localCinemaModeShow.value;
+Navigator.pop(context);
+                Map<String, dynamic> mapZego = {
+                  "messageContent": {
+                    "message": "local_video",
+                    // 'path':
 
-                  await ZegoLiveAudioRoomManagers()
-                      .seatManager!
-                      .takeOffAllSeat(isPK: false);
-                  Future.delayed(const Duration(milliseconds: 50), () {
-                    BlocProvider.of<OnRoomBloc>(context).add(
-                        ChangeModeRoomEvent(
-                            ownerId: widget.ownerId, roomMode: '0'));
-                    BlocProvider.of<YoutubeBloc>(context)
-                        .add(const InitialViewYoutubeVideoEvent());
-                      BlocProvider.of<YoutubeBloc>(context)
-                          .add(const DisposeViewYoutubeVideoEvent());
-                    Navigator.pop(context);
-                  });
-                } else {
-                  await ZegoLiveAudioRoomManagers()
-                      .seatManager!
-                      .takeOffAllSeat(isPK: false);
-                  Future.delayed(const Duration(milliseconds: 50), () {
-                    BlocProvider.of<OnRoomBloc>(context).add(
-                        ChangeModeRoomEvent(
-                            ownerId: widget.ownerId, roomMode: '3'));
-                    Navigator.pop(context);
-                  });
-                }
+                  }
+                };
+                String map = jsonEncode(mapZego);
+                ZegoUIKit.instance.sendInRoomCommand(map, []);
               },
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                Image.asset(AssetsPath.cinemaNewIcon,scale: 130,),
-                  Text(StringManager.cinemaMode.tr(),
+                  Image.asset(
+                    AssetsPath.videoNewIcon,
+                    width: ConfigSize.defaultSize! * 5,
+                    height: ConfigSize.defaultSize! * 5,
+                  ),
+                  Text(StringManager.video.tr(),
                       style: TextStyle(
                           fontSize: ConfigSize.defaultSize! + 2,
                           color: Colors.black,
                           fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w600)),
+                          fontWeight: FontWeight.w600))
                 ],
               ),
             ),
+
             InkWell(
               onTap: () {
                 Navigator.pop(context);

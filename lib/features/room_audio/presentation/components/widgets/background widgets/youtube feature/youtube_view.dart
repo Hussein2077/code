@@ -9,7 +9,6 @@ import 'package:tik_chat_v2/core/utils/config_size.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_search_dialog.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_bloc.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_state.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubeView extends StatefulWidget {
   const YoutubeView({super.key});

@@ -119,7 +119,6 @@ dependencies:
   #google_mobile_ads: ^4.0.0
   google_mobile_ads: ^4.0.0
   youtube_api: 1.0.4
-  youtube_player_flutter: ^8.1.2
   pod_player: 0.2.0
 
 dev_dependencies:

@@ -16,13 +16,11 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/you
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/uikit_service.dart';
 import 'package:youtube_api/youtube_api.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubeAPISearchDialog extends StatefulWidget {
   const YoutubeAPISearchDialog({
     super.key,
   });
-
 
   @override
   State<YoutubeAPISearchDialog> createState() => _YoutubeAPISearchDialogState();
@@ -96,28 +94,26 @@ class _YoutubeAPISearchDialogState extends State<YoutubeAPISearchDialog> {
                           return InkWell(
                             onTap: () async {
                               String url = state.results[index].url;
-                              log('${url}url');
-                                BlocProvider.of<YoutubeBloc>(context)
-                                    .add(const InitialViewYoutubeVideoEvent());
+
+                              BlocProvider.of<YoutubeBloc>(context)
+                                  .add(const InitialViewYoutubeVideoEvent());
                               Future.delayed(const Duration(milliseconds: 300),
                                   () {
-                                BlocProvider.of<YoutubeBloc>(context).add(
-                                    ViewYoutubeVideoEvent(
-                                        url ?? ""));
-                                if(mounted){
+                                BlocProvider.of<YoutubeBloc>(context)
+                                    .add(ViewYoutubeVideoEvent(url ?? ""));
+                                if (mounted) {
                                   Navigator.pop(context);
                                 }
                               });
 
-                              Map<String,dynamic> mapZego = {
-                                "messageContent" : {
-                                  "message" : "cinema mode",
+                              Map<String, dynamic> mapZego = {
+                                "messageContent": {
+                                  "message": "cinema mode",
                                   "url": url,
                                 }
                               };
                               String map = jsonEncode(mapZego);
-                              ZegoUIKit.instance.sendInRoomCommand(map,[]);
-
+                              ZegoUIKit.instance.sendInRoomCommand(map, []);
                             },
                             child: Column(
                               children: [

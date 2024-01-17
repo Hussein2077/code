@@ -90,6 +90,7 @@ class RoomScreen extends StatefulWidget {
   static ValueNotifier<String> roomGiftsPrice = ValueNotifier<String>("");
   static ValueNotifier<Map<int, int>> listOfLoskSeats = ValueNotifier<Map<int, int>>({0: 0});
   static ValueNotifier<bool> isVideoVisible = ValueNotifier<bool>(false);
+  static ValueNotifier<bool> localCinemaModeShow = ValueNotifier<bool>(false);
   static ValueNotifier<bool> isWinnerShowWidget = ValueNotifier<bool>(false);
   static late LayoutMode layoutMode;
   static int startTimeOnSeatMic = 0 ;
@@ -869,7 +870,8 @@ setState(() {
       }
       else if(result[messageContent][message] == "HappyNewYearVideo"){
         RoomScreen.happyNewYearVideo.value = true;
-      }else if(result[messageContent][message] == "cinema mode") {
+      }
+      else if(result[messageContent][message] == "cinema mode") {
         BlocProvider.of<YoutubeBloc>(context)
             .add(const InitialViewYoutubeVideoEvent());
         Future.delayed(const Duration(milliseconds: 300),
@@ -877,10 +879,10 @@ setState(() {
               BlocProvider.of<YoutubeBloc>(context).add(
                   ViewYoutubeVideoEvent(
                       result[messageContent]['url'] ?? ""));
-              if(mounted){
-                Navigator.pop(context);
-              }
             });
+      }else if(result[messageContent][message] == "local_video") {
+        RoomScreen.localCinemaModeShow.value=! RoomScreen.localCinemaModeShow.value;
+
       }
     }
   }
