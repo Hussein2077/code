@@ -1,6 +1,10 @@
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:huawei_iap/huawei_iap.dart';
+import 'package:tik_chat_v2/core/service/navigation_service.dart';
+import 'package:tik_chat_v2/core/service/service_locator.dart';
+import 'package:tik_chat_v2/core/widgets/snackbar.dart';
 import 'package:tik_chat_v2/features/profile/persentation/component/coins/widgets/coins_tab_view.dart';
 
 // Future<void> getConsumableProducts() async {
@@ -22,10 +26,13 @@ Future<PurchaseResultInfo?> purchaseConsumableProduct(String productId) async {
       productId: productId,
     );
     PurchaseResultInfo res = await IapClient.createPurchaseIntent(req);
-   // IsSandboxActivatedResult result = await IapClient.isSandboxActivated();
     return res;
   } on PlatformException catch (e) {
-    log(e.toString());
+    ScaffoldMessenger.of(
+            getIt<NavigationService>().navigatorKey.currentContext!)
+        .showSnackBar(errorSnackBar(
+            getIt<NavigationService>().navigatorKey.currentContext!,
+            e.message.toString()));
     return null;
   }
 }

@@ -128,16 +128,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             });
           }
 
-          log(state.myDataModel.isPhone!.toString() + "#######");
-          log(state.myDataModel.phone.toString() + "#######");
-
-          if (state.myDataModel.phone.toString() == "") {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              Routes.phoneBindScreen,
-              (route) => false,
-            );
-          }
+          // if (state.myDataModel.phone.toString() == "") {
+          //   Navigator.pushNamedAndRemoveUntil(
+          //     context,
+          //     Routes.phoneBindScreen,
+          //     (route) => false,
+          //   );
+          // }
         }
       },
       child: WillPopScope(
@@ -199,36 +196,36 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         borderBottom: 30,
                       ),
                       onTap: () {
-
                         RoomScreen.outRoom = false;
 
-                        if(MyDataModel.getInstance().isAanonymous??false){
-                          String anonymousId = '${'-1'}${MyDataModel.getInstance().id}';
-                          MyDataModel activeMysteriousUser =
-                          MyDataModel(
-                              id:  int.parse(anonymousId),
-                              uuid:'${MyDataModel.getInstance().uuid}$anonymousKey',
+                        if (MyDataModel.getInstance().isAanonymous ?? false) {
+                          String anonymousId =
+                              '${'-1'}${MyDataModel.getInstance().id}';
+                          MyDataModel activeMysteriousUser = MyDataModel(
+                              id: int.parse(anonymousId),
+                              uuid:
+                                  '${MyDataModel.getInstance().uuid}$anonymousKey',
                               name: StringManager.mysteriousPerson.tr(),
-                              profile:ProfileRoomModel(image:'hide.png'),intro: "");
+                              profile: ProfileRoomModel(image: 'hide.png'),
+                              intro: "");
                           Navigator.pushNamed(context, Routes.roomScreen,
                               arguments: RoomPramiter(
                                   roomModel: MainScreen.roomData!,
                                   myDataModel: activeMysteriousUser,
                                   isHost: MyDataModel.getInstance()
-                                      .id
-                                      .toString() ==
+                                          .id
+                                          .toString() ==
                                       MainScreen.roomData!.ownerId.toString()));
-                        }else{
+                        } else {
                           Navigator.pushNamed(context, Routes.roomScreen,
                               arguments: RoomPramiter(
                                   roomModel: MainScreen.roomData!,
                                   myDataModel: MyDataModel.getInstance(),
                                   isHost: MyDataModel.getInstance()
-                                      .id
-                                      .toString() ==
+                                          .id
+                                          .toString() ==
                                       MainScreen.roomData!.ownerId.toString()));
                         }
-
                       },
                       child: Stack(
                         children: [
