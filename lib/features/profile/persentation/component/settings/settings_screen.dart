@@ -176,7 +176,9 @@ Widget settingsRow(
         ),
         Text(
           title,
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontSize: ConfigSize.defaultSize!*1.65,
+          ),
         ),
         const Spacer(
           flex: 15,

@@ -37,7 +37,7 @@ class _LiveTabBARState extends State<LiveTabBAR> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Text("${StringManager.appTitle.tr()} " ,
+             Text("${StringManager.tikChat.tr()} " ,
                  style: TextStyle(color: ColorManager.whiteColor ,
                      fontSize: ConfigSize.defaultSize!*1.3)),
                  Image.asset(
@@ -49,7 +49,7 @@ class _LiveTabBARState extends State<LiveTabBAR> {
         ),
             Row(
               children: [
-                Text("${StringManager.video.tr()}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.3),),
+                Text("${StringManager.videoTab.tr()}  " , style: TextStyle(color: ColorManager.whiteColor , fontSize: ConfigSize.defaultSize!*1.3),),
                 widget.liveController.index == 1
                     ? Image.asset(
                   AssetsPath.videoIcon,
