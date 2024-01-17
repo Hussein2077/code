@@ -114,11 +114,12 @@ class _EditFeaturesContainerState extends State<EditFeaturesContainer> {
 
           },
           () {
-            if (ZegoUIKit.instance.getMediaTypeNotifier().value ==
-                MediaType.PureAudio) {
+            if (ZegoUIKit.instance.getMediaTypeNotifier().value !=
+                MediaType.Video) {
               Navigator.pushNamed(context, Routes.music,
                   arguments: MusicPramiter(ownerId: widget.ownerId));
-            } else {
+            } else if(ZegoUIKit.instance.getMediaTypeNotifier().value ==
+                MediaType.Video){
               showDialog(
                   context: context,
                   builder: (context) {
