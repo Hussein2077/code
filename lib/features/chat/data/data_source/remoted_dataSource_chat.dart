@@ -1,6 +1,8 @@
 
 
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
@@ -15,6 +17,9 @@ abstract class BaseDataSourceChat {
     Future<String> postGroupMassage(String massage);
         Future<List<GroupChatModel>> getGroupMassage(String?page);
   Future<bool> blockUnblock(String userId);
+  Future<String> sendChatNotifcation({String? userId, String? body , String? image} );
+
+
 
 
 }
@@ -139,4 +144,28 @@ class RemotedDataSourceChat extends BaseDataSourceChat {
       }
 
     }
+
+  @override
+  Future<String> sendChatNotifcation({String? userId, String? body , String? image}) async{
+    Map<String, String> headers = await DioHelper().header();
+   log(image.toString()+"xxxxxxxxxxxxx");
+    try {
+      final response = await Dio().post(
+          ConstentApi.sendChatNotifecation,
+          options: Options(
+            headers: headers,
+
+
+          ),
+          data: {"reciver_id" : userId , "content" : body , "media" :image  }
+      );
+
+      Map<String, dynamic> jsonData = response.data;
+   log(jsonData['message']);
+      return (jsonData['message']) ;
+
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e,endpointName: 'sendChatNotifecation');
+    }
+  }
 }

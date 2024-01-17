@@ -418,4 +418,6 @@ class ConstentApi {
   static const String invitationParent = "$baseUrl/parent-statistic";
   static const String invitationUsers = "$baseUrl/user-earn-from-invitation";
   static const String explainInvitation = "$baseUrl/explain-invitation";
+   static const String sendChatNotifecation = "$baseUrl/send-notifaction-message";
+
 }
