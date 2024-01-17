@@ -1,15 +1,15 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
-
-import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:svgaplayer_flutter/player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:svgaplayer_flutter/player.dart';
+import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/user_data_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/service/service_locator.dart';
@@ -32,14 +32,14 @@ import 'package:tik_chat_v2/features/room_audio/presentation/components/lucky_bo
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/Conter_Time_pk_Widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_functions.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/pk_widget.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_blue.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_red.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/background_widget.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/background%20widgets/youtube%20feature/youtube_view.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/messages_chached.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/none_user_on_seat_party.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_blue.dart';
-import 'package:tik_chat_v2/features/room_audio/presentation/components/pk/team_red.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_mid_party.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/components/widgets/seatconfig%20widgets/user_forground_cach_party.dart';
@@ -54,12 +54,10 @@ import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/you
 import 'package:tik_chat_v2/features/room_audio/presentation/manager/youtube/youtube_event.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/main_screen.dart';
-import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/components/audio_video/defines.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_config.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_live_audio/src/live_audio_room_defines.dart';
-import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/audio_video/media/player.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/components/message/message_input.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/command.dart';
 import 'package:tik_chat_v2/zego_code_v3/zego_uikit/src/services/defines/user.dart';
@@ -853,11 +851,11 @@ setState(() {
       }
       else if (result[messageContent][message] == gameRequestResult) {
         GameRequestResult(result, context);
-      }
-      else if(result[messageContent][message] == resultOfGame){
+        playMusicFromAssets("assets/audio/slots_rolling_loop.mp3");
+      } else if(result[messageContent][message] == resultOfGame) {
         ResultOfGame(result);
-      }
-      else if(result[messageContent][message] == freeSpinGame){
+        playMusicFromAssets("assets/audio/big_win.mp3");
+      } else if(result[messageContent][message] == freeSpinGame){
         FreeSpinGame(result, context);
       }
       else if(result[messageContent][message] == luckyDraw){

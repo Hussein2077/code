@@ -2,9 +2,13 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
 import 'package:tik_chat_v2/core/model/profile_room_model.dart';
@@ -136,18 +140,17 @@ const String inviteToSeatKey = "inviteToSeat";
 const String muteUserKey = 'muteUser';
 const String mute = 'mute';
 const String showYallowBanner = "yellowBanner";
-const String anonymousKey ='anonymous';
-const String spinGameId ='3';
-const String rpsGameId ='1';
-const String diceGameId ='2';
-const String requestGame ='requestDiceGame';
-const String gameRequestResult ='requestResultFromOther';
-const String resultOfGame ='ResultOfGame';
-const String freeSpinGame ='freeSpinGame';
-const String luckyDraw ='luckyDraw';
-String appSign =  "";
-int appID =  0;
-
+const String anonymousKey = 'anonymous';
+const String spinGameId = '3';
+const String rpsGameId = '1';
+const String diceGameId = '2';
+const String requestGame = 'requestDiceGame';
+const String gameRequestResult = 'requestResultFromOther';
+const String resultOfGame = 'ResultOfGame';
+const String freeSpinGame = 'freeSpinGame';
+const String luckyDraw = 'luckyDraw';
+String appSign = "";
+int appID = 0;
 
 class GiftData {
   final String giftId;
@@ -213,8 +216,6 @@ List<String> splitUsersInRoom({required List<ZegoUIKitUser> orginalList}) {
   return listIds;
 }
 
-
-
 List<int> getLockSeatIndex({required LayoutMode layoutMode}) {
   if (layoutMode == LayoutMode.hostTopCenter) {
     return [0];
@@ -243,10 +244,10 @@ List<Color> colors = const [
   Color(0xFF9EFF00),
 ];
 
-int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) {
+int getHostSeatIndex(
+    {required LayoutMode layoutMode, required String ownerId}) {
   if (layoutMode == LayoutMode.hostTopCenter) {
-    ZegoLiveAudioRoomManagers().seatManager
-        ?.takeOnSeat(0, ownerId: ownerId);
+    ZegoLiveAudioRoomManagers().seatManager?.takeOnSeat(0, ownerId: ownerId);
     return 0;
   } else if (layoutMode == LayoutMode.party) {
     return 0;
@@ -254,29 +255,36 @@ int getHostSeatIndex({required LayoutMode layoutMode, required String ownerId}) 
   return -1;
 }
 
-Future<void> loadMusice({required String path}) async {
-  MusicWidget.isIPlayerMedia=true ;
-  await ZegoUIKit().playMedia(filePathOrURL: path);
-
+Future<void> loadMusice({required String path, required bool repeat}) async {
+  MusicWidget.isIPlayerMedia = true;
+  await ZegoUIKit().playMedia(filePathOrURL: path, enableRepeat: repeat);
 
   MusicScreen.isPlaying.value = true;
 }
 
-Future<void> clearAll(String ownerId, BuildContext context) async    {
+Future<void> clearAll(String ownerId, BuildContext context) async {
   getIt<CounterBloc>().resetCounter();
   RoomScreen.listOfLoskSeats.value = {0: 0};
   RoomScreen.listOfMuteSeats.clear();
   RoomScreen.isGiftEntroAnimating = false;
   RoomScreen.listOfAnimatingGifts.clear();
   RoomScreen.listOfAnimatingEntros.clear();
-  RoomScreen.isWinnerShowWidget.value = false ;
-  if(ownerId == MyDataModel.getInstance().id.toString() &&  PkController.showPK.value){
-      BlocProvider.of<PKBloc>(context.mounted  ?context :
-      getIt<NavigationService>().navigatorKey.currentContext!).add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
-      BlocProvider.of<PKBloc>(context.mounted  ?context :
-      getIt<NavigationService>().navigatorKey.currentContext!).add(HidePKEvent(ownerId: ownerId));
+  RoomScreen.isWinnerShowWidget.value = false;
+  if (ownerId == MyDataModel.getInstance().id.toString() &&
+      PkController.showPK.value) {
+    BlocProvider.of<PKBloc>(context.mounted
+            ? context
+            : getIt<NavigationService>().navigatorKey.currentContext!)
+        .add(ClosePKEvent(ownerId: ownerId, pkId: PKWidget.pkId));
+    BlocProvider.of<PKBloc>(context.mounted
+            ? context
+            : getIt<NavigationService>().navigatorKey.currentContext!)
+        .add(HidePKEvent(ownerId: ownerId));
   }
-  Methods.instance.hostTimeOnMic(context: context.mounted  ?context : getIt<NavigationService>().navigatorKey.currentContext!);
+  Methods.instance.hostTimeOnMic(
+      context: context.mounted
+          ? context
+          : getIt<NavigationService>().navigatorKey.currentContext!);
   PkController.timeMinutePK = 0;
   PkController.timeSecondPK = 0;
   PkController.isPK.value = false;
@@ -289,7 +297,7 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   PkController.winBlueTeam = false;
   PkController.showPK.value = false;
   PkController.updatePKNotifier.value = 0;
-  if(getIt<SetTimerPK>().timer != null){
+  if (getIt<SetTimerPK>().timer != null) {
     getIt<SetTimerPK>().timer?.cancel();
   }
   //RoomScreen.userOnMics.value.clear();
@@ -319,9 +327,11 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
   GiftUser.userSelected.clear();
   GiftUser.userOnMicsForGifts.clear();
   RoomScreen.showBanner.value = false;
-  if(LuckyCandy.winCircularluckyGift.value > 0){
-    BlocProvider.of<LuckyGiftBannerBloc>(context.mounted  ?context :
-    getIt<NavigationService>().navigatorKey.currentContext!).add(EndBannerEvent()) ;
+  if (LuckyCandy.winCircularluckyGift.value > 0) {
+    BlocProvider.of<LuckyGiftBannerBloc>(context.mounted
+            ? context
+            : getIt<NavigationService>().navigatorKey.currentContext!)
+        .add(EndBannerEvent());
   }
     if(RoomScreen.layoutMode==LayoutMode.cinemaMode){
       BlocProvider.of<YoutubeBloc>(context).add(const DisposeViewYoutubeVideoEvent());
@@ -330,17 +340,21 @@ Future<void> clearAll(String ownerId, BuildContext context) async    {
 }
 
 Future<void> distroyMusic() async {
-  MusicWidget.isIPlayerMedia=false ;
+  MusicWidget.isIPlayerMedia = false;
   await ZegoUIKit.instance.stopMedia();
   MusicScreen.isPlaying.value = false;
 }
 
-
-void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String ownerId, String userId) {
+void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context,
+    String ownerId, String userId) {
   List<int> list = [0];
-  for(int i = 0; i < ZegoUIKit().getAllUsers().length; i++){
-    if(GiftUser.userOnMicsForGifts[int.parse(ZegoUIKit().getAllUsers()[i].id)] != null){
-      list.add(ZegoLiveAudioRoomManagers().seatManager!.getIndexByUserID(ZegoUIKit().getAllUsers()[i].id));
+  for (int i = 0; i < ZegoUIKit().getAllUsers().length; i++) {
+    if (GiftUser
+            .userOnMicsForGifts[int.parse(ZegoUIKit().getAllUsers()[i].id)] !=
+        null) {
+      list.add(ZegoLiveAudioRoomManagers()
+          .seatManager!
+          .getIndexByUserID(ZegoUIKit().getAllUsers()[i].id));
     }
   }
   if (layoutMode == LayoutMode.hostTopCenter) {
@@ -354,15 +368,18 @@ void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String 
           continue;
         }
 
-        String getMessagaRealTime(){
-          var mapInformation = {"messageContent":{
-            'message': 'inviteToSeat',
-            'id_user': userId,
-            'index': i
-          }};
+        String getMessagaRealTime() {
+          var mapInformation = {
+            "messageContent": {
+              'message': 'inviteToSeat',
+              'id_user': userId,
+              'index': i
+            }
+          };
           String map = jsonEncode(mapInformation);
-          return map ;
+          return map;
         }
+
         ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(), []);
         break;
       }
@@ -378,15 +395,18 @@ void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String 
           continue;
         }
 
-        String getMessagaRealTime(){
-          var mapInformation = {"messageContent":{
-            'message': 'inviteToSeat',
-            'id_user': userId,
-            'index': i
-          }};
+        String getMessagaRealTime() {
+          var mapInformation = {
+            "messageContent": {
+              'message': 'inviteToSeat',
+              'id_user': userId,
+              'index': i
+            }
+          };
           String map = jsonEncode(mapInformation);
-          return map ;
+          return map;
         }
+
         ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(), []);
         break;
       }
@@ -402,15 +422,18 @@ void chooseSeatToInvatation(LayoutMode layoutMode, BuildContext context, String 
           continue;
         }
 
-        String getMessagaRealTime(){
-          var mapInformation = {"messageContent":{
-            'message': 'inviteToSeat',
-            'id_user': userId,
-            'index': i
-          }};
+        String getMessagaRealTime() {
+          var mapInformation = {
+            "messageContent": {
+              'message': 'inviteToSeat',
+              'id_user': userId,
+              'index': i
+            }
+          };
           String map = jsonEncode(mapInformation);
-          return map ;
+          return map;
         }
+
         ZegoUIKit.instance.sendInRoomCommand(getMessagaRealTime(), []);
         break;
       }
@@ -424,7 +447,8 @@ invitationDialog(BuildContext context, String owerId, int index) {
     builder: (BuildContext context) => InvitationToMicDialog(
       onClick: () async {
         Navigator.pop(context);
-        await ZegoLiveAudioRoomManagers().seatManager!
+        await ZegoLiveAudioRoomManagers()
+            .seatManager!
             .takeOnSeat(index, ownerId: owerId);
       },
     ),
@@ -502,28 +526,31 @@ class YallowBannerData {
       required this.yallowBannerOwnerRoom});
 }
 
-
-
-ChangeBackground(Map<String, dynamic> result, Map<String,String> roomDataUpdates ){
-  RoomBackground.imgbackground.value = result[messageContent][imgBackgroundKey] ?? "";
+ChangeBackground(
+    Map<String, dynamic> result, Map<String, String> roomDataUpdates) {
+  RoomBackground.imgbackground.value =
+      result[messageContent][imgBackgroundKey] ?? "";
   roomDataUpdates['room_img'] = result[messageContent][roomImgKey];
-   roomDataUpdates['room_intro']  = result[messageContent][roomIntroKey];
+  roomDataUpdates['room_intro'] = result[messageContent][roomIntroKey];
   roomDataUpdates['room_name'] = result[messageContent][roomNameKey];
   roomDataUpdates['room_type'] = result[messageContent]['room_type'] ?? "";
   EditFeaturesContainer.roomIsLoked = result[messageContent]['is_locked'];
   OwnerOfRoom.editRoom.value = OwnerOfRoom.editRoom.value + 1;
 }
 
-UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Future<void> Function(String imgId, String imgUrl) loadAnimationEntro)async{
+UserEntro(
+    Map<String, dynamic> result,
+    Map<String, String> userIntroData,
+    Future<void> Function(String imgId, String imgUrl)
+        loadAnimationEntro) async {
   if (result[messageContent][entroImgIdKey] == "") {
-    userIntroData['user_name_intro']  = result[messageContent][userName];
-    userIntroData['user_image_intro']   = result[messageContent][userImge];
-    if (result[messageContent]['vip'] == null ? false : result[messageContent]['vip'] > 0) {
+    userIntroData['user_name_intro'] = result[messageContent][userName];
+    userIntroData['user_image_intro'] = result[messageContent][userImge];
+    if (result[messageContent]['vip'] == null
+        ? false
+        : result[messageContent]['vip'] > 0) {
       ShowEntroWidget.showEntro.value = true;
-
     }
-
-
   } else {
     if (RoomScreen.isGiftEntroAnimating) {
       RoomScreen.listOfAnimatingEntros.add(EntroData(
@@ -531,19 +558,19 @@ UserEntro(Map<String, dynamic> result,  Map<String,String> userIntroData ,  Futu
           imgUrl: result[messageContent]['entroImg']));
     } else {
       await loadAnimationEntro(result[messageContent][entroImgIdKey].toString(),
-      result[messageContent]['entroImg']);
-      userIntroData['user_name_intro']  = result[messageContent][userName];
-      userIntroData['user_image_intro']  = result[messageContent][userImge];
-      if ( result[messageContent]['vip'] ) {
+          result[messageContent]['entroImg']);
+      userIntroData['user_name_intro'] = result[messageContent][userName];
+      userIntroData['user_image_intro'] = result[messageContent][userImge];
+      if (result[messageContent]['vip']) {
         ShowEntroWidget.showEntro.value = true;
       }
-
     }
   }
 }
 
-ShowPopularBanner(Map<String, dynamic> result, Map<String,dynamic>  userBannerData , var controllerBanner){
-  userBannerData ['user_data_sender']  = RoomVistorModel(
+ShowPopularBanner(Map<String, dynamic> result,
+    Map<String, dynamic> userBannerData, var controllerBanner) {
+  userBannerData['user_data_sender'] = RoomVistorModel(
     image: result[messageContent]['si'],
     name: result[messageContent]['sn'],
     revicerLevelImg: result[messageContent]['srl'],
@@ -551,7 +578,7 @@ ShowPopularBanner(Map<String, dynamic> result, Map<String,dynamic>  userBannerDa
     vipLevel: result[messageContent]['sv'],
   );
 
-  userBannerData['user_data_receiver'] =  RoomVistorModel(
+  userBannerData['user_data_receiver'] = RoomVistorModel(
     image: result[messageContent]['ri'],
     name: result[messageContent]['rn'],
     revicerLevelImg: result[messageContent]['rrl'],
@@ -559,14 +586,20 @@ ShowPopularBanner(Map<String, dynamic> result, Map<String,dynamic>  userBannerDa
     vipLevel: result[messageContent]['rv'],
   );
 
-  userBannerData['gift_banner']  = result[messageContent][giftImgKey].toString();
-  userBannerData['is_password_room_banner']  = result[messageContent]['isPass'];
-  userBannerData['owner_id_room_banner']  = result[messageContent]['oId'].toString();
+  userBannerData['gift_banner'] = result[messageContent][giftImgKey].toString();
+  userBannerData['is_password_room_banner'] = result[messageContent]['isPass'];
+  userBannerData['owner_id_room_banner'] =
+      result[messageContent]['oId'].toString();
   controllerBanner.forward();
   RoomScreen.showBanner.value = true;
 }
 
-ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({required GiftData giftData}) loadMp4Gift, Future<void> Function(GiftData giftData) loadAnimationGift, String roomOwnerId)async{
+ShowGifts(
+    Map<String, dynamic> result,
+    String id,
+    Future<void> Function({required GiftData giftData}) loadMp4Gift,
+    Future<void> Function(GiftData giftData) loadAnimationGift,
+    String roomOwnerId) async {
   String sendId = result[messageContent][sendIdKey].toString();
   String receiverId = result[messageContent][receiverIdKey].toString();
   if (sendId == id) {
@@ -576,14 +609,16 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
   List<RoomVistorModel> receiverData = [];
   if (result[messageContent][isExpensive]) {
     if (RoomScreen.usersInRoom[sendId] == null) {
-      sendData = await RemotlyDataSourceRoom().getRoomUser(pram: GetAlluserPram(roomOwnerId, "1", [sendId]));
+      sendData = await RemotlyDataSourceRoom()
+          .getRoomUser(pram: GetAlluserPram(roomOwnerId, "1", [sendId]));
       RoomScreen.usersInRoom.putIfAbsent(sendId, () => sendData[0]);
     } else {
       sendData.add(RoomScreen.usersInRoom[sendId]!);
     }
 
     if (RoomScreen.usersInRoom[receiverId] == null) {
-      receiverData = await RemotlyDataSourceRoom().getRoomUser(pram: GetAlluserPram(roomOwnerId, "1", [receiverId]));
+      receiverData = await RemotlyDataSourceRoom()
+          .getRoomUser(pram: GetAlluserPram(roomOwnerId, "1", [receiverId]));
       RoomScreen.usersInRoom.putIfAbsent(receiverId, () => receiverData[0]);
     } else {
       receiverData.add(RoomScreen.usersInRoom[receiverId]!);
@@ -591,65 +626,65 @@ ShowGifts(Map<String, dynamic> result, String id, Future<void> Function({require
   }
   Map<String, dynamic> cachedGifts = {};
   // if (result[messageContent]['showGift'].contains("mp4")) {
-    cachedGifts = await Methods().getCachingVideo(key: StringManager.cachGiftKey);
+  cachedGifts = await Methods().getCachingVideo(key: StringManager.cachGiftKey);
   // }
 
   GiftData giftData = GiftData(
-      localPath: cachedGifts.containsKey(result[messageContent]['gift_id'].toString())
-          ? cachedGifts[result[messageContent]['gift_id'].toString()]
-          : null,
+      localPath:
+          cachedGifts.containsKey(result[messageContent]['gift_id'].toString())
+              ? cachedGifts[result[messageContent]['gift_id'].toString()]
+              : null,
       giftId: result[messageContent]['gift_id'].toString(),
       img: result[messageContent][showGiftKey],
-      senderData: sendData.isNotEmpty? sendData[0] : null,
-      reciverData: receiverData.isNotEmpty? receiverData[0] : null,
+      senderData: sendData.isNotEmpty ? sendData[0] : null,
+      reciverData: receiverData.isNotEmpty ? receiverData[0] : null,
       giftBanner: result[messageContent][giftImgKey].toString(),
       giftImg: result[messageContent][showGiftKey],
       numberOfGift: result[messageContent][numGift].toString(),
-      roomGiftsPrice:
-      result[messageContent][roomGiftsPriceKey].toString(),
+      roomGiftsPrice: result[messageContent][roomGiftsPriceKey].toString(),
       isPlural: result[messageContent][plural],
       showBanner: result[messageContent][isExpensive]);
-      if (cachedGifts.containsKey(result[messageContent]['gift_id'].toString())||
-          result[messageContent]['showGift'].contains("mp4"))  {
-        // RoomScreen.isGiftEntroAnimating = true;
-        if (RoomScreen.isGiftEntroAnimating) {
-          RoomScreen.listOfAnimatingMp4Gifts.add(giftData);
-        } else {
-          await loadMp4Gift(giftData: giftData);
-        }
-      } else {
-        if (RoomScreen.isGiftEntroAnimating) {
-          RoomScreen.listOfAnimatingGifts.add(giftData);
-        }
-        else {
-          await loadAnimationGift(giftData);
-        }
-      }
+  if (cachedGifts.containsKey(result[messageContent]['gift_id'].toString()) ||
+      result[messageContent]['showGift'].contains("mp4")) {
+    // RoomScreen.isGiftEntroAnimating = true;
+    if (RoomScreen.isGiftEntroAnimating) {
+      RoomScreen.listOfAnimatingMp4Gifts.add(giftData);
+    } else {
+      await loadMp4Gift(giftData: giftData);
+    }
+  } else {
+    if (RoomScreen.isGiftEntroAnimating) {
+      RoomScreen.listOfAnimatingGifts.add(giftData);
+    } else {
+      await loadAnimationGift(giftData);
+    }
+  }
 }
 
-KicKout(Map<String, dynamic> result, var durationKickout, String ownerId, String id, BuildContext context){
-  durationKickout['durationKickout'] = int.parse(result[messageContent]['duration']);
+KicKout(Map<String, dynamic> result, var durationKickout, String ownerId,
+    String id, BuildContext context) {
+  durationKickout['durationKickout'] =
+      int.parse(result[messageContent]['duration']);
   ViewbackgroundWidget.isKick.value = true;
   Future.delayed(const Duration(seconds: 3), () async {
     Navigator.pop(context);
     await Methods().exitFromRoom(ownerId, context);
-    BlocProvider.of<OnRoomBloc>(context).add(LeaveMicEvent(
-        ownerId: ownerId,
-        userId: id));
+    BlocProvider.of<OnRoomBloc>(context)
+        .add(LeaveMicEvent(ownerId: ownerId, userId: id));
     BlocProvider.of<OnRoomBloc>(context).add(InitRoomEvent());
     ViewbackgroundWidget.isKick.value = false;
   });
 }
 
-MuteMicKey(Map<String, dynamic> result){
+MuteMicKey(Map<String, dynamic> result) {
   RoomScreen.listOfMuteSeats.putIfAbsent(
       int.parse(result[messageContent]['position']),
-          () => int.parse(result[messageContent]['position']));
+      () => int.parse(result[messageContent]['position']));
   ZegoLivePage.editAudioVideoContainer.value =
       ZegoLivePage.editAudioVideoContainer.value + 1;
 }
 
-UnMuteMicKey(Map<String, dynamic> result){
+UnMuteMicKey(Map<String, dynamic> result) {
   RoomScreen.listOfMuteSeats
       .remove(int.parse(result[messageContent]['position']));
 
@@ -657,44 +692,52 @@ UnMuteMicKey(Map<String, dynamic> result){
       ZegoLivePage.editAudioVideoContainer.value + 1;
 }
 
-LockMicKey(Map<String, dynamic> result){
+LockMicKey(Map<String, dynamic> result) {
   RoomScreen.listOfLoskSeats.value.putIfAbsent(
       int.parse(result[messageContent]['position']),
-          () => int.parse(result[messageContent]['position']));
+      () => int.parse(result[messageContent]['position']));
   ZegoLivePage.editAudioVideoContainer.value =
       ZegoLivePage.editAudioVideoContainer.value + 1;
 }
 
-UnLockMicKey(Map<String, dynamic> result){
+UnLockMicKey(Map<String, dynamic> result) {
   RoomScreen.listOfLoskSeats.value
       .remove(int.parse(result[messageContent]['position']));
   ZegoLivePage.editAudioVideoContainer.value =
       ZegoLivePage.editAudioVideoContainer.value + 1;
 }
 
-TopUserKey(Map<String, dynamic> result)async{
+TopUserKey(Map<String, dynamic> result) async {
   RoomScreen.topUserInRoom.value = UserDataModel(
       id: result[messageContent]['id'],
       name: result[messageContent]['name'],
       frame: result[messageContent]['frame'],
       profile: ProfileRoomModel(image: result[messageContent]['img']),
       hasColorName: result[messageContent]['has_color_name']);
-  final topModel = await RemotlyDataSourceProfile().getUserData(
-      userId: RoomScreen.topUserInRoom.value.id.toString());
+  final topModel = await RemotlyDataSourceProfile()
+      .getUserData(userId: RoomScreen.topUserInRoom.value.id.toString());
   RoomScreen.topUserInRoom.value = topModel;
 }
 
-ShowPobUpKey(Map<String, dynamic> result, Map<String , dynamic> pobUpData, var showPopUp)async{
+ShowPobUpKey(Map<String, dynamic> result, Map<String, dynamic> pobUpData,
+    var showPopUp) async {
   ZegoInRoomMessageInput.senderPobUpId = result[messageContent]['uId'];
-  pobUpData['pop_up_sender']  = UserDataModel(name:result[messageContent]['name'] , profile: ProfileRoomModel(image:result[messageContent]['image'] ,  ) , vip1:VipCenterModel(level:result[messageContent]['VIP'] ) );
+  pobUpData['pop_up_sender'] = UserDataModel(
+      name: result[messageContent]['name'],
+      profile: ProfileRoomModel(
+        image: result[messageContent]['image'],
+      ),
+      vip1: VipCenterModel(level: result[messageContent]['VIP']));
 
   ZegoInRoomMessageInput.messagePonUp = result[messageContent]['my_msg'];
 
   showPopUp.value = true;
 }
 
-BanFromWritingKey(Map<String, dynamic> result, String id, String ownerId, BuildContext context){
-  RoomScreen.banedUsers.putIfAbsent(result[messageContent]['userId'], () => result[messageContent]['userId']);
+BanFromWritingKey(Map<String, dynamic> result, String id, String ownerId,
+    BuildContext context) {
+  RoomScreen.banedUsers.putIfAbsent(
+      result[messageContent]['userId'], () => result[messageContent]['userId']);
   if (id == result[messageContent]['userId']) {
     RoomScreen.showMessageButton.value = false;
     showBanFromWritingDilog(context);
@@ -714,7 +757,7 @@ BanFromWritingKey(Map<String, dynamic> result, String id, String ownerId, BuildC
   }
 }
 
-UnbanFromWritingKey(Map<String, dynamic> result, String id){
+UnbanFromWritingKey(Map<String, dynamic> result, String id) {
   RoomScreen.banedUsers.remove(result[messageContent]['userId']);
 
   if (id == result[messageContent]['userId']) {
@@ -726,17 +769,19 @@ UnbanFromWritingKey(Map<String, dynamic> result, String id){
   }
 }
 
-MuteUserKey(Map<String, dynamic> result){
+MuteUserKey(Map<String, dynamic> result) {
   if (result[messageContent][mute]) {
     ZegoUIKit().turnMicrophoneOn(false, userID: result[messageContent][idUser]);
     RoomScreen.usersHasMute.add(result[messageContent][idUser]);
   } else {
     RoomScreen.usersHasMute.remove(result[messageContent][idUser]);
   }
-  UserProfileInRoom.updatebuttomBar.value = UserProfileInRoom.updatebuttomBar.value + 1;
+  UserProfileInRoom.updatebuttomBar.value =
+      UserProfileInRoom.updatebuttomBar.value + 1;
 }
 
-InviteToSeatKey(Map<String, dynamic> result, String id, String ownerId, BuildContext context){
+InviteToSeatKey(Map<String, dynamic> result, String id, String ownerId,
+    BuildContext context) {
   if (result[messageContent][idUser] == id) {
     if (InvitationToMicDialog.isInviteToMic == false) {
       InvitationToMicDialog.isInviteToMic = true;
@@ -745,29 +790,49 @@ InviteToSeatKey(Map<String, dynamic> result, String id, String ownerId, BuildCon
   }
 }
 
-GameRequest(Map<String, dynamic> result, BuildContext context){
-  if(result[messageContent]['game_id'].toString() == spinGameId){
-    for(int i = 0; i < result[messageContent]['to_id'].length; i++ ){
-      if(result[messageContent]['to_id'][i].toString() == MyDataModel.getInstance().id.toString() && result[messageContent]['to_id'][i].toString() != result[messageContent]['user_id'].toString()) {
+GameRequest(Map<String, dynamic> result, BuildContext context) {
+  if (result[messageContent]['game_id'].toString() == spinGameId) {
+    for (int i = 0; i < result[messageContent]['to_id'].length; i++) {
+      if (result[messageContent]['to_id'][i].toString() ==
+              MyDataModel.getInstance().id.toString() &&
+          result[messageContent]['to_id'][i].toString() !=
+              result[messageContent]['user_id'].toString()) {
         showDialog(
             context: context,
             barrierDismissible: false,
             builder: (context) {
-              return AcceptOrCancelDialog(coins: result[messageContent]['coins'].toString(), senderImage: result[messageContent]['user_image'].toString(), senderName: result[messageContent]['user_name'].toString(), toId: result[messageContent]['to_id'][i].toString(), gameRecordId: result[messageContent]['game_record_id'].toString(), gameId: result[messageContent]['game_id'].toString(),);
+              return AcceptOrCancelDialog(
+                coins: result[messageContent]['coins'].toString(),
+                senderImage: result[messageContent]['user_image'].toString(),
+                senderName: result[messageContent]['user_name'].toString(),
+                toId: result[messageContent]['to_id'][i].toString(),
+                gameRecordId:
+                    result[messageContent]['game_record_id'].toString(),
+                gameId: result[messageContent]['game_id'].toString(),
+              );
             });
       }
     }
-  }else{
-    if(result[messageContent]['to_id'].toString() == MyDataModel.getInstance().id.toString()) {
+  } else {
+    if (result[messageContent]['to_id'].toString() ==
+        MyDataModel.getInstance().id.toString()) {
       showDialog(
           context: context,
           barrierDismissible: false,
           builder: (context) {
-            return AcceptOrCancelDialog(coins: result[messageContent]['coins'].toString(), senderImage: result[messageContent]['user_image'].toString(), senderName: result[messageContent]['user_name'].toString(), toId: result[messageContent]['to_id'].toString(), gameRecordId: result[messageContent]['game_record_id'].toString(), gameId: result[messageContent]['game_id'].toString(),);
+            return AcceptOrCancelDialog(
+              coins: result[messageContent]['coins'].toString(),
+              senderImage: result[messageContent]['user_image'].toString(),
+              senderName: result[messageContent]['user_name'].toString(),
+              toId: result[messageContent]['to_id'].toString(),
+              gameRecordId: result[messageContent]['game_record_id'].toString(),
+              gameId: result[messageContent]['game_id'].toString(),
+            );
           });
     }
   }
-  if(result[messageContent]['user_id'].toString() == MyDataModel.getInstance().id.toString()){
+  if (result[messageContent]['user_id'].toString() ==
+      MyDataModel.getInstance().id.toString()) {
     Navigator.pop(context);
     showDialog(
         context: context,
@@ -777,145 +842,146 @@ GameRequest(Map<String, dynamic> result, BuildContext context){
   }
 }
 
-GameRequestResult(Map<String, dynamic> result, BuildContext context){
-  if(result[messageContent]['game_id'].toString() == spinGameId && result[messageContent]['type'].toString() == "finished"){
-    BlocProvider.of<GameBloc>(context).add(GameResult(gameResultPramiter:
-    GameResultPramiter(gameId: result[messageContent]['game_record_id'].toString(),
-        answer: result[messageContent]['randomNumber'].toString(), round: '1')));
-    if(result[messageContent]["player_owner"].toString() == MyDataModel.getInstance().id.toString()){
-        Navigator.pop(context);
+GameRequestResult(Map<String, dynamic> result, BuildContext context) {
+  if (result[messageContent]['game_id'].toString() == spinGameId &&
+      result[messageContent]['type'].toString() == "finished") {
+    BlocProvider.of<GameBloc>(context).add(GameResult(
+        gameResultPramiter: GameResultPramiter(
+            gameId: result[messageContent]['game_record_id'].toString(),
+            answer: result[messageContent]['randomNumber'].toString(),
+            round: '1')));
+    if (result[messageContent]["player_owner"].toString() ==
+        MyDataModel.getInstance().id.toString()) {
+      Navigator.pop(context);
 
-      if(result[messageContent]['palyersIds'].length > 1) {
+      if (result[messageContent]['palyersIds'].length > 1) {
         showDialog(
             context: context,
             builder: (context) {
-              return SpinScreen(list: result[messageContent]['palyersIds'], isActive: false, isFree: false, winner: result[messageContent]['randomNumber'],);
+              return SpinScreen(
+                list: result[messageContent]['palyersIds'],
+                isActive: false,
+                isFree: false,
+                winner: result[messageContent]['randomNumber'],
+              );
             });
       }
-    }else{
-      if(result[messageContent]['palyersIds'].length > 1) {
-        for(int i = 0; i < result[messageContent]['palyersIds'].length; i++){
-          if(result[messageContent]['palyersIds'][i].toString() == MyDataModel.getInstance().id.toString()){
+    } else {
+      if (result[messageContent]['palyersIds'].length > 1) {
+        for (int i = 0; i < result[messageContent]['palyersIds'].length; i++) {
+          if (result[messageContent]['palyersIds'][i].toString() ==
+              MyDataModel.getInstance().id.toString()) {
+            Navigator.pop(context);
 
-              Navigator.pop(context);
-
-                       showDialog(
+            showDialog(
                 context: context,
                 builder: (context) {
-                  return AllUsersSpinView(list: result[messageContent]['palyersIds'], winner: result[messageContent]['randomNumber'], isFree: false,);
+                  return AllUsersSpinView(
+                    list: result[messageContent]['palyersIds'],
+                    winner: result[messageContent]['randomNumber'],
+                    isFree: false,
+                  );
                 });
           }
         }
       }
     }
+  } else if (result[messageContent]['game_id'].toString() == rpsGameId ||
+      result[messageContent]['game_id'].toString() == diceGameId) {
+    if (result[messageContent]['player-one-id'].toString() ==
+            MyDataModel.getInstance().id.toString() ||
+        result[messageContent]['player-two-id'].toString() ==
+            MyDataModel.getInstance().id.toString()) {
+      if (result[messageContent]["result"].toString() == "accepted") {
+        Navigator.pop(context);
 
-  }else if(result[messageContent]['game_id'].toString() == rpsGameId || result[messageContent]['game_id'].toString() == diceGameId){
-    if(result[messageContent]['player-one-id'].toString() ==
-        MyDataModel.getInstance().id.toString() ||
-        result[messageContent]['player-two-id'].toString() == MyDataModel.getInstance().id.toString()){
-      if(result[messageContent]["result"].toString() == "accepted"){
-
-          Navigator.pop(context);
-
-                if(result[messageContent]['game_id'].toString() == rpsGameId) {
+        if (result[messageContent]['game_id'].toString() == rpsGameId) {
           showDialog(
               context: context,
               builder: (context) {
-                return GameDialog(gameRecordId: result[messageContent]['game_record_id'].toString());
+                return GameDialog(
+                    gameRecordId:
+                        result[messageContent]['game_record_id'].toString());
               });
-        }else if(result[messageContent]['game_id'].toString() == diceGameId){
+        } else if (result[messageContent]['game_id'].toString() == diceGameId) {
           int answer = Random().nextInt(6);
-          BlocProvider.of<GameBloc>(context).add(SendGameChoise(sendGameChoisePramiter: SendGameChoisePramiter(
-              gameId: result[messageContent]['game_record_id'].toString(),
-              answer: answer.toString()
-          )));
-          ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameKey} $answer");
+          BlocProvider.of<GameBloc>(context).add(SendGameChoise(
+              sendGameChoisePramiter: SendGameChoisePramiter(
+                  gameId: result[messageContent]['game_record_id'].toString(),
+                  answer: answer.toString())));
+          ZegoUIKit.instance
+              .sendInRoomMessage("${StringManager.diceGameKey} $answer");
         }
-      }else{
-
-          Navigator.pop(context);
-
-        }
+      } else {
+        Navigator.pop(context);
+      }
     }
   }
 }
 
-ResultOfGame(Map<String, dynamic> result){
-
-    if(result[messageContent]['game_id'].toString() == rpsGameId){
-      if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
-        Future.delayed(const Duration(seconds: 2),(){
-          ZegoUIKit.instance.sendInRoomMessage("${StringManager.rpsGameResultKey} ${result[messageContent]["message_content"]}", );
-
-        }
+ResultOfGame(Map<String, dynamic> result) {
+  if (result[messageContent]['game_id'].toString() == rpsGameId) {
+    if (result[messageContent]['player-one-id'].toString() ==
+        MyDataModel.getInstance().id.toString()) {
+      Future.delayed(const Duration(seconds: 2), () {
+        ZegoUIKit.instance.sendInRoomMessage(
+          "${StringManager.rpsGameResultKey} ${result[messageContent]["message_content"]}",
         );
-      }
-      if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
-        Future.delayed(const Duration(seconds: 2),(){
-          RoomScreen.isWinnerShowWidget.value = true ;
-
-        }
-        );
-        Future.delayed(const Duration(seconds: 6),(){
-          RoomScreen.isWinnerShowWidget.value = false ;
-
-        }
-        );
-      }
-
-
-    }else if(result[messageContent]['game_id'].toString() == diceGameId){
-      if(result[messageContent]['player-one-id'].toString() == MyDataModel.getInstance().id.toString()){
-        Future.delayed(const Duration(seconds: 2),(){
-          ZegoUIKit.instance.sendInRoomMessage("${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}", );
-
-        }
-        );
-
-      }
-      if (result[messageContent]['winner_id'].toString() == MyDataModel.getInstance().id.toString()){
-        Future.delayed(const Duration(seconds: 2),(){
-          RoomScreen.isWinnerShowWidget.value = true ;
-
-        }
-        );
-        Future.delayed(const Duration(seconds: 6),(){
-          RoomScreen.isWinnerShowWidget.value = false ;
-
-        }
-        );
-      }
+      });
     }
-
-
-    if(result[messageContent]['game_id'].toString() == spinGameId){
-      if(result[messageContent]['game_owner'].toString() == MyDataModel.getInstance().id.toString()){
-        Future.delayed(const Duration(seconds: 4),(){
-          ZegoUIKit.instance.sendInRoomMessage("${StringManager.spinGameKey} ${result[messageContent]["message_content"]}", );
-
-        }
+    if (result[messageContent]['winner_id'].toString() ==
+        MyDataModel.getInstance().id.toString()) {
+      Future.delayed(const Duration(seconds: 2), () {
+        RoomScreen.isWinnerShowWidget.value = true;
+      });
+      Future.delayed(const Duration(seconds: 6), () {
+        RoomScreen.isWinnerShowWidget.value = false;
+      });
+    }
+  } else if (result[messageContent]['game_id'].toString() == diceGameId) {
+    if (result[messageContent]['player-one-id'].toString() ==
+        MyDataModel.getInstance().id.toString()) {
+      Future.delayed(const Duration(seconds: 2), () {
+        ZegoUIKit.instance.sendInRoomMessage(
+          "${StringManager.diceGameResultKey} ${result[messageContent]["message_content"]}",
         );
-
-      }
-      if (result[messageContent]['winner_id'].contains(MyDataModel.getInstance().id) ){
-        Future.delayed(const Duration(seconds: 4),(){
-          RoomScreen.isWinnerShowWidget.value = true ;
-
-        }
-        );
-        Future.delayed(const Duration(seconds: 7),(){
-          RoomScreen.isWinnerShowWidget.value = false ;
-
-        }
-        );
-
-      }
+      });
+    }
+    if (result[messageContent]['winner_id'].toString() ==
+        MyDataModel.getInstance().id.toString()) {
+      Future.delayed(const Duration(seconds: 2), () {
+        RoomScreen.isWinnerShowWidget.value = true;
+      });
+      Future.delayed(const Duration(seconds: 6), () {
+        RoomScreen.isWinnerShowWidget.value = false;
+      });
     }
   }
 
+  if (result[messageContent]['game_id'].toString() == spinGameId) {
+    if (result[messageContent]['game_owner'].toString() ==
+        MyDataModel.getInstance().id.toString()) {
+      Future.delayed(const Duration(seconds: 4), () {
+        ZegoUIKit.instance.sendInRoomMessage(
+          "${StringManager.spinGameKey} ${result[messageContent]["message_content"]}",
+        );
+      });
+    }
+    if (result[messageContent]['winner_id']
+        .contains(MyDataModel.getInstance().id)) {
+      Future.delayed(const Duration(seconds: 4), () {
+        RoomScreen.isWinnerShowWidget.value = true;
+      });
+      Future.delayed(const Duration(seconds: 7), () {
+        RoomScreen.isWinnerShowWidget.value = false;
+      });
+    }
+  }
+}
 
-FreeSpinGame(Map<String, dynamic> result, BuildContext context){
-  if(result[messageContent]["ownerId"].toString() != MyDataModel.getInstance().id.toString()){
+FreeSpinGame(Map<String, dynamic> result, BuildContext context) {
+  if (result[messageContent]["ownerId"].toString() !=
+      MyDataModel.getInstance().id.toString()) {
     showDialog(
         context: context,
         builder: (context) {
@@ -928,35 +994,38 @@ FreeSpinGame(Map<String, dynamic> result, BuildContext context){
   }
 }
 
-LuckyDraw(Map<String, dynamic> result, BuildContext context, EnterRoomModel room){
+LuckyDraw(
+    Map<String, dynamic> result, BuildContext context, EnterRoomModel room) {
   LuckyDrawGameScreen.userSelected.clear();
-  if(result[messageContent]['index'] == 0){
+  if (result[messageContent]['index'] == 0) {
     LuckyDrawGameScreen.userSelected.clear();
     GiftUser.userOnMicsForGifts.forEach((key, value) {
-      LuckyDrawGameScreen.userSelected.putIfAbsent(key,
-            () => SelecteUsers(
-        userId: value.id,
-        selected: true,
-        name: value.name,
-        image: value.inRoomAttributes.value['img']!,
-      ),);
+      LuckyDrawGameScreen.userSelected.putIfAbsent(
+        key,
+        () => SelecteUsers(
+          userId: value.id,
+          selected: true,
+          name: value.name,
+          image: value.inRoomAttributes.value['img']!,
+        ),
+      );
     });
-  } else{
-    for(int i =0 ; i < ZegoUIKit().getAllUsers().length; i++){
+  } else {
+    for (int i = 0; i < ZegoUIKit().getAllUsers().length; i++) {
       LuckyDrawGameScreen.userSelected.putIfAbsent(
         int.parse(ZegoUIKit().getAllUsers()[i].id),
-            () => SelecteUsers(
-        userId: ZegoUIKit().getAllUsers()[i].id,
-        selected: true,
-        name: ZegoUIKit().getAllUsers()[i].name,
-        image: ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img']?? "",
-      ),
+        () => SelecteUsers(
+          userId: ZegoUIKit().getAllUsers()[i].id,
+          selected: true,
+          name: ZegoUIKit().getAllUsers()[i].name,
+          image:
+              ZegoUIKit().getAllUsers()[i].inRoomAttributes.value['img'] ?? "",
+        ),
       );
     }
   }
 
-
- showDialog(
+  showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
@@ -965,17 +1034,25 @@ LuckyDraw(Map<String, dynamic> result, BuildContext context, EnterRoomModel room
           winner: result[messageContent]["winner"],
           room: room,
           id: result[messageContent]["id"],
-          exitDailog: (){
-
-          },
+          exitDailog: () {},
         );
       });
-
-
 }
 
 Map<int, SelecteUsers> sortMapByKey(Map<int, SelecteUsers> inputMap) {
   List<MapEntry<int, SelecteUsers>> entries = inputMap.entries.toList();
   entries.sort((a, b) => a.key.compareTo(b.key));
   return Map.fromEntries(entries);
+}
+
+Future<void> playMusicFromAssets(String assetPath) async {
+  ByteData data = await rootBundle.load(assetPath);
+  List<int> bytes = data.buffer.asUint8List();
+
+  Directory tempDir = await getTemporaryDirectory();
+  String tempFilePath = '${tempDir.path}/temp_music_file.mp3';
+  File tempFile = File(tempFilePath);
+  await tempFile.writeAsBytes(bytes);
+
+  await ZegoUIKit().playMedia(filePathOrURL: tempFilePath,);
 }

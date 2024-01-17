@@ -66,8 +66,7 @@ abstract class BaseRemotlyDataSourceProfile {
       {required String type, String? page});
   Future<String> follow({required String userId});
   Future<String> unFollow({required String userId});
-  Future<UserDataModel> getUserData(
-      {required String userId,bool? isVisit});
+  Future<UserDataModel> getUserData({required String userId, bool? isVisit});
   Future<List<VipCenterModel>> getVipCenter();
   Future<int> getvipCount();
   Future<List<UserDataModel>> getVaistors({String? page});
@@ -169,9 +168,10 @@ abstract class BaseRemotlyDataSourceProfile {
 
   Future<ShowAgencyModel> showAgency();
 
-    Future<List<AgencyMemberModel>> agencyMember(int page);
-    Future<List<UserDataModel>> agencyRequests();
-        Future<String> agencyRequestsAction({required String userId ,required bool accept});
+  Future<List<AgencyMemberModel>> agencyMember(int page);
+  Future<List<UserDataModel>> agencyRequests();
+  Future<String> agencyRequestsAction(
+      {required String userId, required bool accept});
 
   Future<List<AgencyHistoryTime>> getAgencyHistoryTime();
   Future<AgencyHistoryModle> getAgencyHistory(
@@ -208,8 +208,11 @@ abstract class BaseRemotlyDataSourceProfile {
       {required GetAllShippingAgentsPram pram});
 
   Future<FixedTargetReportModel> getFixedTargetReport(String date);
-  Future<String> pay({required String product_id, required String order_id});
+  Future<String> googlePay({required String data});
+
   Future<String> huaweiPay({required String product_id, required String token});
+
+  Future<String> applePay({required String data});
 
   Future<String> invitCode(String id);
 
@@ -220,12 +223,11 @@ abstract class BaseRemotlyDataSourceProfile {
   Future<UserBadgesModel> userBadges(String userId);
   Future<List<GetBadgesModel>> getBadges(String type);
 
-  Future<ProductDetailsResponse> getGoogelAndAppleProducts(Set<String> products_id);
-
+  Future<ProductDetailsResponse> getGoogelAndAppleProducts(
+      Set<String> products_id);
 }
 
 class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
-
   @override
   Future<MyDataModel> getmyData(Noparamiter noparamiter) async {
     Map<String, String> headers = await DioHelper().header();
@@ -236,15 +238,13 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           headers: headers,
         ),
       );
-        Methods.instance.saveMyData();
+      Methods.instance.saveMyData();
       MyDataModel userData =
-      MyDataModel.fromMap(response.data[ConstentApi.data]);
+          MyDataModel.fromMap(response.data[ConstentApi.data]);
       return userData;
-
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getmyData' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getmyData');
     }
-    
   }
 
   @override
@@ -269,7 +269,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       }
       return listDataMall;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getDataMall');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getDataMall');
     }
   }
 
@@ -288,7 +288,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'follow');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'follow');
     }
   }
 
@@ -314,11 +314,11 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       // log(response.toString());
 
       List<UserDataModel> relation = List<UserDataModel>.from(
-          (response.data["data"] as List)
-              .map((e) => UserDataModel.fromMap(e)));
+          (response.data["data"] as List).map((e) => UserDataModel.fromMap(e)));
       return Future.value(relation);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getFriendsOrFollowers' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getFriendsOrFollowers');
     }
   }
 
@@ -337,12 +337,13 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data[ConstentApi.message];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'unFollow');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'unFollow');
     }
   }
 
   @override
-  Future<UserDataModel> getUserData({required String userId,bool?isVisit}) async {
+  Future<UserDataModel> getUserData(
+      {required String userId, bool? isVisit}) async {
     Map<String, String> headers = await DioHelper().header();
     try {
       final response = await Dio().get(
@@ -356,7 +357,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       UserDataModel userData = UserDataModel.fromMap(response.data["data"]);
       return userData;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getUserData' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getUserData');
     }
   }
 
@@ -379,7 +380,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       }
       return dataVip;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getVipCenter' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getVipCenter');
     }
   }
 
@@ -398,15 +399,15 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> data = response.data;
       return data['data']['vip_count'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getvipCount' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getvipCount');
     }
   }
 
   @override
   Future<List<UserDataModel>> getVaistors({String? page}) async {
     Map<String, String> headers = await DioHelper().header();
-    final timeZone=await Methods.instance.getCurrentTimeZone();
-  headers.addAll({'tz':timeZone});
+    final timeZone = await Methods.instance.getCurrentTimeZone();
+    headers.addAll({'tz': timeZone});
     try {
       final response = page == null
           ? await Dio().get(ConstentApi.getVistors,
@@ -419,20 +420,19 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
               ));
 
       List<UserDataModel> result = List<UserDataModel>.from(
-          (response.data["data"] as List)
-              .map((e) => UserDataModel.fromMap(e)));
+          (response.data["data"] as List).map((e) => UserDataModel.fromMap(e)));
 
       return result;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getVaistors');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getVaistors');
     }
   }
 
   @override
   Future<List<BackPackModel>> getBackPack(String type) async {
     Map<String, String> headers = await DioHelper().header();
-    final timeZone=await Methods.instance.getCurrentTimeZone();
-    headers.addAll({'tz':timeZone});
+    final timeZone = await Methods.instance.getCurrentTimeZone();
+    headers.addAll({'tz': timeZone});
     try {
       final response = await Dio().get(ConstentApi().getBackPack(type),
           options: Options(
@@ -442,11 +442,11 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           (response.data["data"] as List)
               .map((e) => BackPackModel.fromjson(e)));
 
-              log(result.toString());
+      log(result.toString());
 
       return result;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getBackPack');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getBackPack');
     }
   }
 
@@ -461,7 +461,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           ));
       return UesItemModel.fromJson(response.data);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'useItem' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'useItem');
     }
   }
 
@@ -490,7 +490,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData["data"]["id"].toString();
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'creatFamily' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'creatFamily');
     }
   }
 
@@ -512,7 +512,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'buy');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'buy');
     }
   }
 
@@ -534,7 +534,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(resultData.toString());
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'sendPack');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'sendPack');
     }
   }
 
@@ -558,14 +558,13 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'unUsedPack' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'unUsedPack');
     }
   }
 
   @override
   Future<FamilyRankModel> familyRanking(String time) async {
     Map<String, String> headers = await DioHelper().header();
-
 
     final body = {
       'time': time,
@@ -587,7 +586,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'familyRanking');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'familyRanking');
     }
   }
 
@@ -603,7 +603,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return resultData['message'];
     } on DioError catch (e) {
       log(e.toString());
-      throw DioHelper.handleDioError(dioError: e,endpointName:'deletFamily' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'deletFamily');
     }
   }
 
@@ -626,7 +626,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return resultData['message'];
     } on DioError catch (e) {
       log(e.toString());
-      throw DioHelper.handleDioError(dioError: e,endpointName:'removeUserFromFamily' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'removeUserFromFamily');
     }
   }
 
@@ -644,7 +645,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(data.toString());
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'showFamily');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'showFamily');
     }
   }
 
@@ -668,7 +669,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'joinFamily' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'joinFamily');
     }
   }
 
@@ -690,7 +691,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       // log(data.toString());
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getfamilyRequest');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getfamilyRequest');
     }
   }
 
@@ -714,14 +716,14 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'familyTakeAction');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'familyTakeAction');
     }
   }
 
   @override
   Future<String> changeUserType(
       String userId, String familyId, String type) async {
-
     Map<String, String> headers = await DioHelper().header();
 
     final body = {'family_id': familyId, 'user_id': userId, 'type': type};
@@ -739,7 +741,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'changeUserType' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'changeUserType');
     }
   }
 
@@ -765,7 +768,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getFamilyMember');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getFamilyMember');
     }
   }
 
@@ -792,7 +796,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getFamilyRoom' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getFamilyRoom');
     }
   }
 
@@ -813,7 +818,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'exitFamily' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'exitFamily');
     }
   }
 
@@ -835,7 +840,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getBlackList' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getBlackList');
     }
   }
 
@@ -861,7 +866,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'removeBlock' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'removeBlock');
     }
   }
 
@@ -887,7 +892,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'addBlock' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'addBlock');
     }
   }
 
@@ -908,7 +913,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getChargePage' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getChargePage');
     }
   }
 
@@ -935,15 +941,15 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'chargeTo' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'chargeTo');
     }
   }
 
   @override
   Future<ChargeHistoryModel> getChargeHistory(String type) async {
     Map<String, String> headers = await DioHelper().header();
-    final timeZone=await Methods.instance.getCurrentTimeZone();
-    headers.addAll({'tz':timeZone});
+    final timeZone = await Methods.instance.getCurrentTimeZone();
+    headers.addAll({'tz': timeZone});
     final body = {
       'type': type,
     };
@@ -962,7 +968,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getChargeHistory');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getChargeHistory');
     }
   }
 
@@ -983,7 +990,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getSilverCoinData');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getSilverCoinData');
     }
   }
 
@@ -1008,7 +1016,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'buySilverCoin');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'buySilverCoin');
     }
   }
 
@@ -1029,7 +1038,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           resultData['data'].map((x) => SilverCoinHistory.fromjson(x)));
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getSilverHistory' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getSilverHistory');
     }
   }
 
@@ -1052,7 +1062,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(response.toString());
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'buyOrSendVip');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'buyOrSendVip');
     }
   }
 
@@ -1070,7 +1080,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       Map<String, dynamic> resultData = response.data;
 
-      List<GoldCoinsModel> data = List<GoldCoinsModel>.from(resultData['data'].map((x) => GoldCoinsModel.fromjson(x)));
+      List<GoldCoinsModel> data = List<GoldCoinsModel>.from(
+          resultData['data'].map((x) => GoldCoinsModel.fromjson(x)));
 
       Set<String> idSet = data.map((item) => item.id.toString()).toSet();
 
@@ -1078,7 +1089,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return CoinsModel(data: data, productDetailsResponse: result);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getGoldCoinData');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getGoldCoinData');
     }
   }
 
@@ -1099,7 +1111,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getReplaceWithDimondData');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getReplaceWithDimondData');
     }
   }
 
@@ -1124,7 +1137,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'].toString();
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'exchangeDimond');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'exchangeDimond');
     }
   }
 
@@ -1143,7 +1157,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       SearchModel searchModel = SearchModel.fromJson(result['data']);
       return searchModel;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'search' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'search');
     }
   }
 
@@ -1164,7 +1178,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       bool succes = jsonData['data'];
       return succes;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'checkIfFriend');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'checkIfFriend');
     }
   }
 
@@ -1183,7 +1198,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'lastCommunicationTime');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'lastCommunicationTime');
     }
   }
 
@@ -1202,7 +1218,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'hideCountry');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'hideCountry');
     }
   }
 
@@ -1221,7 +1237,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'hideVisitor' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'hideVisitor');
     }
   }
 
@@ -1240,7 +1256,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'activeMyseteriousMan');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'activeMyseteriousMan');
     }
   }
 
@@ -1259,7 +1276,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'disposeMyseteriousMan' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'disposeMyseteriousMan');
     }
   }
 
@@ -1278,7 +1296,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'dipsoseLastCommunicationTime');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'dipsoseLastCommunicationTime');
     }
   }
 
@@ -1286,7 +1305,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> disposeHideCountry(String type) async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().post(
         ConstentApi.prevsUnUse(type),
@@ -1298,7 +1316,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'disposeHideCountry' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'disposeHideCountry');
     }
   }
 
@@ -1306,7 +1325,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<String> disposeHideVisitor(String type) async {
     Map<String, String> headers = await DioHelper().header();
 
-
     try {
       final response = await Dio().post(
         ConstentApi.prevsUnUse(type),
@@ -1318,14 +1336,14 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'disposeHideVisitor');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'disposeHideVisitor');
     }
   }
 
   @override
   Future<List<GetVipPrevModel>> getVipPrev() async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().get(
@@ -1335,12 +1353,12 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       log(response.data.toString());
-        List<GetVipPrevModel> result = List<GetVipPrevModel>.from(
+      List<GetVipPrevModel> result = List<GetVipPrevModel>.from(
           response.data['data'].map((e) => GetVipPrevModel.fromjosn(e)));
 
-      return result ; 
+      return result;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getVipPrev' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getVipPrev');
     }
   }
 
@@ -1350,7 +1368,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
     try {
       final response = await Dio().get(
-        ConstentApi().payment(idPackageCoin:buyCoinsParameter.coinsID ),
+        ConstentApi().payment(idPackageCoin: buyCoinsParameter.coinsID),
         options: Options(
           headers: headers,
         ),
@@ -1358,7 +1376,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> resultData = response.data;
       return resultData['redirect_url'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'buyCoins');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'buyCoins');
     }
   }
 
@@ -1379,7 +1397,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getGiftHistory');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getGiftHistory');
     }
   }
 
@@ -1402,7 +1421,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       TimeDataReport data = TimeDataReport.fromJason(resultData["data"]);
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getTimeDataReport');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getTimeDataReport');
     }
   }
 
@@ -1416,7 +1436,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
           ));
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'deleteAccount');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'deleteAccount');
     }
   }
 
@@ -1488,7 +1509,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       'phone': boundNumberPramiter.phoneNumber,
       'code': boundNumberPramiter.vrCode,
       'password': boundNumberPramiter.password,
-      'credential':boundNumberPramiter.credintial
+      'credential': boundNumberPramiter.credintial
     };
     try {
       final response = await Dio().post(
@@ -1503,7 +1524,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'boundNumber');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'boundNumber');
     }
   }
 
@@ -1514,7 +1535,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       'phone': boundNumberPramiter.phoneNumber,
       'code': boundNumberPramiter.vrCode,
       'password': boundNumberPramiter.password,
-
     };
     try {
       final response = await Dio().post(
@@ -1528,7 +1548,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'changePassword');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'changePassword');
     }
   }
 
@@ -1540,8 +1561,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       'phone': boundNumberPramiter.phoneNumber,
       'old_code': boundNumberPramiter.oldCode,
       'current_phone': boundNumberPramiter.currentPhone,
-      'new_code':boundNumberPramiter.newCode
-
+      'new_code': boundNumberPramiter.newCode
     };
     try {
       final response = await Dio().post(
@@ -1554,7 +1574,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> resultData = response.data;
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'changePhone');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'changePhone');
     }
   }
 
@@ -1575,7 +1595,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(resultData.toString());
       return resultData['success'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'joinToAgencie');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'joinToAgencie');
     }
   }
 
@@ -1599,7 +1620,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(resultData.toString());
       return resultData['success'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'updateFamily' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'updateFamily');
     }
   }
 
@@ -1636,7 +1657,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'userReporet');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'userReporet');
     }
   }
 
@@ -1664,7 +1685,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       log(result.toString());
       return result;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getConfigKey');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getConfigKey');
     }
   }
 
@@ -1706,7 +1727,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
         return result['message'];
       } on DioError catch (e) {
-        throw DioHelper.handleDioError(dioError: e,endpointName: 'feedBack');
+        throw DioHelper.handleDioError(dioError: e, endpointName: 'feedBack');
       }
     }
   }
@@ -1722,9 +1743,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       final result =
           AgencyMyStoreModel.fromJson(response.data["data"]['my_store']);
-      return result ;
+      return result;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'myStore' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'myStore');
     }
   }
 
@@ -1732,14 +1753,14 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<ShowAgencyModel> showAgency() async {
     Map<String, String> headers = await DioHelper().header();
 
-      final response = await Dio().get(ConstentApi.showAgency,
-          options: Options(
-            headers: headers,
-          ));
+    final response = await Dio().get(ConstentApi.showAgency,
+        options: Options(
+          headers: headers,
+        ));
 
-      final result = ShowAgencyModel.fromJson(response.data["data"]);
+    final result = ShowAgencyModel.fromJson(response.data["data"]);
 
-      return result;
+    return result;
     // try {
     //   final response = await Dio().get(ConstentApi.showAgency,
     //       options: Options(
@@ -1755,9 +1776,11 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<List<AgencyMemberModel>> agencyMember(int page) async{
-  Map<String, String> headers = await DioHelper().header();
-   final body = {'page': page, };
+  Future<List<AgencyMemberModel>> agencyMember(int page) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = {
+      'page': page,
+    };
 
     try {
       final response = await Dio().post(
@@ -1772,19 +1795,17 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return List<AgencyMemberModel>.from(
           resultData['data'].map((x) => AgencyMemberModel.fromJson(x)));
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'agencyMember');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'agencyMember');
     }
   }
 
   @override
-  Future<List<UserDataModel>> agencyRequests() async{
-  Map<String, String> headers = await DioHelper().header();
-   
+  Future<List<UserDataModel>> agencyRequests() async {
+    Map<String, String> headers = await DioHelper().header();
 
     try {
       final response = await Dio().get(
         ConstentApi.agencyRequests,
-      
         options: Options(
           headers: headers,
         ),
@@ -1794,7 +1815,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return List<UserDataModel>.from(
           resultData['data'].map((x) => UserDataModel.fromMap(x)));
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'agencyRequests');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'agencyRequests');
     }
   }
 
@@ -1816,7 +1838,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData["message"];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'agencyRequestsAction');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'agencyRequestsAction');
     }
   }
 
@@ -1827,7 +1850,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     try {
       final response = await Dio().get(
         ConstentApi.agencyHistoryTime,
-      
         options: Options(
           headers: headers,
         ),
@@ -1837,7 +1859,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       return List<AgencyHistoryTime>.from(
           resultData['data'].map((x) => AgencyHistoryTime.fromJson(x)));
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getAgencyHistoryTime' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getAgencyHistoryTime');
     }
   }
 
@@ -1861,7 +1884,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return AgencyHistoryModle.fromJson(resultData["data"]);
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getAgencyHistory' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getAgencyHistory');
     }
   }
 
@@ -1872,7 +1896,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     final body = {'user_id': id, "amount": amount};
     log("heer");
 
-    try{
+    try {
       final response = await Dio().post(
         ConstentApi.chargeCoinForUser,
         data: body,
@@ -1884,7 +1908,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData["message"];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'chargeCoinForUsers' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'chargeCoinForUsers');
     }
   }
 
@@ -1906,7 +1931,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData["message"];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'chargeDolarsForUsers' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'chargeDolarsForUsers');
     }
   }
 
@@ -1927,7 +1953,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getChargeDolarsAgencyOwnerHistory');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getChargeDolarsAgencyOwnerHistory');
     }
   }
 
@@ -1948,10 +1975,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getChargeCoinsSystemHistory');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getChargeCoinsSystemHistory');
     }
-
-    
   }
 
   @override
@@ -1969,16 +1995,18 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return List<InterstedMode>.from(
           resultData['data'].map((x) => InterstedMode.fromjson(x)));
-
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'getAllIntersted');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getAllIntersted');
     }
   }
 
   @override
-  Future<String> addIntersted(List<int> ids)async {
-     Map<String, String> headers = await DioHelper().header();
-    final body = {'id': ids,};
+  Future<String> addIntersted(List<int> ids) async {
+    Map<String, String> headers = await DioHelper().header();
+    final body = {
+      'id': ids,
+    };
     try {
       final response = await Dio().post(
         ConstentApi.addIntrested,
@@ -1991,12 +2019,12 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData["message"];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'addIntersted');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'addIntersted');
     }
   }
 
   @override
-  Future<List<InterstedMode>> getUserIntersted()async {
+  Future<List<InterstedMode>> getUserIntersted() async {
     log("message");
     Map<String, String> headers = await DioHelper().header();
 
@@ -2011,13 +2039,13 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return List<InterstedMode>.from(
           resultData['data'].map((x) => InterstedMode.fromjson(x)));
-
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getUserIntersted' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getUserIntersted');
     }
   }
 
-    @override
+  @override
   Future<String> prevActive(String type) async {
     Map<String, String> headers = await DioHelper().header();
     try {
@@ -2031,15 +2059,9 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'prevActive' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'prevActive');
     }
   }
-
-
-
- 
-
-  
 
   @override
   Future<String> prevDispose(String type) async {
@@ -2056,39 +2078,37 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return response.data['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'prevDispose');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'prevDispose');
     }
   }
-  
+
   @override
-  Future<List<ReelModel>> getUserReel(String? id , String page) async{
-  Map<String, String> headers = await DioHelper().header();
-  List<ReelModel> reels = [];
+  Future<List<ReelModel>> getUserReel(String? id, String page) async {
+    Map<String, String> headers = await DioHelper().header();
+    List<ReelModel> reels = [];
 
     try {
       final response = await Dio().get(
-        ConstentApi.getReelUser(id , page),
+        ConstentApi.getReelUser(id, page),
         options: Options(
           headers: headers,
         ),
       );
       Map<String, dynamic> resultData = response.data;
-      List<ReelModel> normalReels =   List<ReelModel>.from(
+      List<ReelModel> normalReels = List<ReelModel>.from(
           resultData['data'].map((x) => ReelModel.fromJson(x)));
       reels.addAll(normalReels);
 
-      Methods.instance.cachingReels(reels,response.data);
+      Methods.instance.cachingReels(reels, response.data);
 
-
-      return reels ;
-
+      return reels;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'getUserReel' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'getUserReel');
     }
   }
-  
+
   @override
-  Future<String> deleteMessage(String id)async {
+  Future<String> deleteMessage(String id) async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -2101,15 +2121,13 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> resultData = response.data;
 
       return resultData['message'];
-
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'deleteReel' );
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'deleteReel');
     }
- 
   }
 
   @override
-  Future<bool> activeNotification() async{
+  Future<bool> activeNotification() async {
     Map<String, String> headers = await DioHelper().header();
     try {
       final response = await Dio().get(
@@ -2121,16 +2139,15 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       Map<String, dynamic> resultData = response.data;
 
       return resultData['message'];
-
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName:'activeNotification' );
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'activeNotification');
     }
-
   }
 
   @override
-  Future<List<UserDataModel>> getAllShippingAgents({required GetAllShippingAgentsPram pram}) async {
-
+  Future<List<UserDataModel>> getAllShippingAgents(
+      {required GetAllShippingAgentsPram pram}) async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -2141,17 +2158,17 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       Map<String, dynamic> resultData = response.data;
-      return List<UserDataModel>.from(resultData['data'].map((x) => UserDataModel.fromMap(x)));
+      return List<UserDataModel>.from(
+          resultData['data'].map((x) => UserDataModel.fromMap(x)));
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e, endpointName: 'getAllShippingAgents');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getAllShippingAgents');
     }
   }
-
 
   @override
   Future<FixedTargetReportModel> getFixedTargetReport(String date) async {
     Map<String, String> headers = await DioHelper().header();
-
 
     try {
       final response = await Dio().get(
@@ -2161,23 +2178,24 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
         ),
       );
       Map<String, dynamic> resultData = response.data;
-      FixedTargetReportModel data = FixedTargetReportModel.fromJason(resultData["data"]);
+      FixedTargetReportModel data =
+          FixedTargetReportModel.fromJason(resultData["data"]);
       return data;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e,endpointName: 'FixedTargetReportModel');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'FixedTargetReportModel');
     }
   }
 
   @override
-  Future<String> pay({required String product_id, required String order_id})async {
+  Future<String> googlePay({required String data}) async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
       final response = await Dio().post(
-        ConstentApi.pay,
+        ConstentApi.googlePay,
         data: {
-          "coin_id": product_id,
-          "order_id": order_id,
+          "message": data,
         },
         options: Options(
           headers: headers,
@@ -2187,7 +2205,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
 
       return resultData['message'];
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e, endpointName: 'pay');
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'googlePay');
     }
   }
 
@@ -2236,7 +2254,6 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   Future<ParentStaticsModel> getParentDetails() async {
     Map<String, String> headers = await DioHelper().header();
     try {
-
       final response = await Dio().get(
         ConstentApi.invitationParent,
         options: Options(
@@ -2245,7 +2262,8 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
 
       Map<String, dynamic> resultData = response.data;
-      ParentStaticsModel parentStaticsModel = ParentStaticsModel.fromMap(resultData['data']);
+      ParentStaticsModel parentStaticsModel =
+          ParentStaticsModel.fromMap(resultData['data']);
       return parentStaticsModel;
     } on DioError catch (e) {
       throw DioHelper.handleDioError(
@@ -2254,7 +2272,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
   }
 
   @override
-  Future<String> GetInvitationExplination() async{
+  Future<String> GetInvitationExplination() async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -2270,12 +2288,11 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       throw DioHelper.handleDioError(
           dioError: e, endpointName: 'getInvitationDetails');
     }
-
-
   }
 
   @override
-  Future<String> huaweiPay({required String product_id, required String token})async {
+  Future<String> huaweiPay(
+      {required String product_id, required String token}) async {
     Map<String, String> headers = await DioHelper().header();
 
     try {
@@ -2295,13 +2312,34 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'huaweiPay');
     }
-
   }
 
   @override
-  Future<UserBadgesModel> userBadges(String userId)async  {
+  Future<String> applePay({required String data}) async {
     Map<String, String> headers = await DioHelper().header();
-    try{
+
+    try {
+      final response = await Dio().post(
+        ConstentApi.applePay,
+        data: {
+          "receipt_data": data,
+        },
+        options: Options(
+          headers: headers,
+        ),
+      );
+      Map<String, dynamic> resultData = response.data;
+
+      return resultData['message'];
+    } on DioError catch (e) {
+      throw DioHelper.handleDioError(dioError: e, endpointName: 'huaweiPay');
+    }
+  }
+
+  @override
+  Future<UserBadgesModel> userBadges(String userId) async {
+    Map<String, String> headers = await DioHelper().header();
+    try {
       final response = await Dio().get(
         ConstentApi.getUserBadges(userId),
         options: Options(
@@ -2310,7 +2348,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
       );
 
       return UserBadgesModel.fromJson(response.data);
-    }on DioError catch (e) {
+    } on DioError catch (e) {
       throw DioHelper.handleDioError(
           dioError: e, endpointName: 'makeMomentLike');
     }
@@ -2322,32 +2360,41 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
     try {
       final response = await Dio().get(
         ConstentApi.getBadges(type),
-
         options: Options(
           headers: headers,
         ),
       );
-      Map<String,dynamic> resultData = response.data;
-      return  List<GetBadgesModel>.from(resultData["data"].map((x) => GetBadgesModel.fromJson(x)));
+      Map<String, dynamic> resultData = response.data;
+      return List<GetBadgesModel>.from(
+          resultData["data"].map((x) => GetBadgesModel.fromJson(x)));
     } on DioError catch (e) {
       throw DioHelper.handleDioError(dioError: e, endpointName: 'get badges');
     }
   }
 
   @override
-  Future<ProductDetailsResponse> getGoogelAndAppleProducts(Set<String> products_id) async {
+  Future<ProductDetailsResponse> getGoogelAndAppleProducts(
+      Set<String> products_id) async {
     try {
-      ProductDetailsResponse response = ProductDetailsResponse(productDetails: [], notFoundIDs: []);
-      final bool available = await getIt<PurchaseService>().connection.isAvailable();
+      ProductDetailsResponse response =
+          ProductDetailsResponse(productDetails: [], notFoundIDs: []);
+      final bool available =
+          await getIt<PurchaseService>().connection.isAvailable();
       if (available) {
-        response = await getIt<PurchaseService>().connection.queryProductDetails(products_id);
-        getIt<PurchaseService>().connection.purchaseStream.listen((detailsList) {
+        response = await getIt<PurchaseService>()
+            .connection
+            .queryProductDetails(products_id);
+        getIt<PurchaseService>()
+            .connection
+            .purchaseStream
+            .listen((detailsList) {
           getIt<PurchaseService>().handlePurchaseUpdates(detailsList);
         });
       }
       return response;
     } on DioError catch (e) {
-      throw DioHelper.handleDioError(dioError: e, endpointName: 'getGoogelAndAppleProducts');
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: 'getGoogelAndAppleProducts');
     }
   }
 }

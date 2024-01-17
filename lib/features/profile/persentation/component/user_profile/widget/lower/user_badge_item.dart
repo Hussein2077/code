@@ -27,8 +27,9 @@ class UserBadgesItem extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize!),
               child: AchievementCachImageWidget(
+                boxFit: BoxFit.cover,
                 width:width?? ConfigSize.screenWidth! * .08,
                 url:ConstentApi().getImage(userBadges.data[index].image),
               ),

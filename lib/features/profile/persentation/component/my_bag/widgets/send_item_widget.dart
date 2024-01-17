@@ -115,7 +115,6 @@ class _SendItemWidgetState extends State<SendItemWidget> {
                         itemBuilder: (context, index) {
                           if (index < state.data!.length) {
                             return UserInfoRow(
-                              underNameWidth: ConfigSize.screenWidth! - ConfigSize.defaultSize! * 20,
                               userData: UserDataModel(
                                 id: state.data![index].id,
                                 isGold: state.data![index].isGold,
@@ -301,7 +300,6 @@ class _SendItemWidgetState extends State<SendItemWidget> {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 2),
                           child: UserInfoRow(
-                            underNameWidth: ConfigSize.screenWidth! - ConfigSize.defaultSize! * 20,
                             userData: state.data.userModel[index],
                             flag: 'myLook',
                             itemId: widget.itemId,

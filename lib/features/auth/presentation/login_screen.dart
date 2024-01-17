@@ -1,4 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -105,7 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 accpettitle: StringManager.ok.tr(),
               );
             });
-        }
       });
     }
     else if ((widget.isUpdate ?? false)) {
@@ -200,24 +201,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Spacer(
                     flex: 1,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      CustomHorizntalDvider(
-                          width: ConfigSize.defaultSize! * 10),
-                      Text(
-                        StringManager.orLoginWith.tr(),
-                        style: TextStyle(
-                            fontSize: ConfigSize.defaultSize! + 4,
-                            color: ColorManager.whiteColor),
-                      ),
-                      CustomHorizntalDvider(
-                          width: ConfigSize.defaultSize! * 10),
-                    ],
-                  ),
-                  const Spacer(
-                    flex: 1,
-                  ),
+                  if (Platform.isIOS)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CustomHorizntalDvider(
+                            width: ConfigSize.defaultSize! * 10),
+                        Text(
+                          StringManager.orLoginWith.tr(),
+                          style: TextStyle(
+                              fontSize: ConfigSize.defaultSize! + 4,
+                              color: ColorManager.whiteColor),
+                        ),
+                        CustomHorizntalDvider(
+                            width: ConfigSize.defaultSize! * 10),
+                      ],
+                    ),
+                  if (Platform.isIOS)
+                    const Spacer(
+                      flex: 1,
+                    ),
                   GoogleAndAppleAuth(),
                   const Spacer(
                     flex: 1,
@@ -280,9 +283,13 @@ class _LoginScreenState extends State<LoginScreen> {
             (route) => false,
           );
         } else if (state is LoginWithPhoneErrorMessageState) {
-          ScaffoldMessenger.of(getIt<NavigationService>().navigatorKey.currentContext!).showSnackBar(errorSnackBar(context,state.errorMessage));
+          ScaffoldMessenger.of(
+                  getIt<NavigationService>().navigatorKey.currentContext!)
+              .showSnackBar(errorSnackBar(context, state.errorMessage));
         } else if (state is LoginWithPhoneLoadingState) {
-          ScaffoldMessenger.of(getIt<NavigationService>().navigatorKey.currentContext!).showSnackBar(loadingSnackBar(context));
+          ScaffoldMessenger.of(
+                  getIt<NavigationService>().navigatorKey.currentContext!)
+              .showSnackBar(loadingSnackBar(context));
         }
       },
     );

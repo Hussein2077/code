@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -10,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:tik_chat_v2/core/model/my_data_model.dart';
+import 'package:tik_chat_v2/core/model/profile_room_model.dart';
 import 'package:tik_chat_v2/core/resource_manger/routs_manger.dart';
 import 'package:tik_chat_v2/core/resource_manger/string_manager.dart';
 import 'package:tik_chat_v2/core/resource_manger/values_manger.dart';
@@ -23,6 +23,7 @@ import 'package:tik_chat_v2/core/widgets/user_image.dart';
 import 'package:tik_chat_v2/features/auth/data/model/third_party_auth_model.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_bloc.dart';
 import 'package:tik_chat_v2/features/auth/presentation/manager/chat_auth_manager/log_in_chat/login_chat_event.dart';
+import 'package:tik_chat_v2/features/auth/presentation/widgets/add_gender_dialog.dart';
 import 'package:tik_chat_v2/features/chat/user_chat/chat_page.dart';
 import 'package:tik_chat_v2/features/following/persentation/following_live_screen.dart';
 import 'package:tik_chat_v2/features/home/presentation/home_screen.dart';
@@ -32,6 +33,7 @@ import 'package:tik_chat_v2/features/profile/persentation/manager/get_my_data_ma
 import 'package:tik_chat_v2/features/profile/persentation/profile_screen.dart';
 import 'package:tik_chat_v2/features/room_audio/data/model/ente_room_model.dart';
 import 'package:tik_chat_v2/features/room_audio/presentation/Room_Screen.dart';
+import 'package:tik_chat_v2/features/room_audio/presentation/room_screen_controler.dart';
 import 'package:tik_chat_v2/main_screen/components/nav_bar/bottom_nav_layout.dart';
 import 'package:tik_chat_v2/splash.dart';
 import '../features/reels/persentation/reels_screen_taps.dart';
@@ -83,7 +85,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-
     Methods.instance.getDependencies(context);
 
     listenToInternet();
@@ -96,35 +97,46 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     super.initState();
   }
 
-
-
-
   @override
   void dispose() {
     animationController.dispose();
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<GetMyDataBloc, GetMyDataState>(
       listener: (context, state) {
         if (state is GetMyDataSucssesState) {
-          BlocProvider.of<LoginChatBloc>(context)
-              .add( LoginChatEvent(name:state.myDataModel.name??"",
+          BlocProvider.of<LoginChatBloc>(context).add(LoginChatEvent(
+              name: state.myDataModel.name ?? "",
               avatar: ConstentApi().getImage(state.myDataModel.profile!.image),
-              id: state.myDataModel.id.toString() , notificationId: state.myDataModel.notificationId!));
+              id: state.myDataModel.id.toString(),
+              notificationId: state.myDataModel.notificationId!));
 
+          if (state.myDataModel.profile!.gender == 2) {
+            Future.delayed(const Duration(seconds: 1), () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return WillPopScope(
+                        child: const AddGenderDialog(),
+                        onWillPop: () async {
+                          return false;
+                        });
+                  });
+            });
+          }
 
-          if (state.myDataModel.profile!.age == 0 && state.myDataModel.country == null) {
+          log(state.myDataModel.isPhone!.toString() + "#######");
+          log(state.myDataModel.phone.toString() + "#######");
+
+          if (state.myDataModel.phone.toString() == "") {
             Navigator.pushNamedAndRemoveUntil(
-                context, Routes.addInfo, (route) => false,
-                arguments: ThirdPartyAuthModel(
-                    isCountryNotComplete:
-                        state.myDataModel.country == null ? true : false,
-                    isAgeNotComplete:
-                        state.myDataModel.profile!.age == 0 ? true : false));
+              context,
+              Routes.phoneBindScreen,
+              (route) => false,
+            );
           }
         }
       },
@@ -139,24 +151,23 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               body: BottomNavLayout(
                 pages: [
                   (_) => ShowCaseWidget(
-                    onComplete: (index,key){
-                      MainScreen.isHomeShowCaseFirst=false;
-                    Methods.instance.saveHomeShowCase(isFirst:MainScreen.isHomeShowCaseFirst);
-                    },
-                 builder   : Builder(
-                      builder: (context) {
-                        return HomeScreen(
-                              isCachExtra: widget.isCachExtra,
-                              isCachFrame: widget.isCachFrame,
-                              isChachGift: widget.isChachGift,
-                              isUpdate: widget.isUpdate,
-                              isCachEmojie: widget.isCachEmojie,
-                              isCachEntro: widget.isCachEntro,
-                              actionDynamicLink: widget.actionDynamicLink,
-                            );
-                      }
-                    ),
-                  ),
+                        onComplete: (index, key) {
+                          MainScreen.isHomeShowCaseFirst = false;
+                          Methods.instance.saveHomeShowCase(
+                              isFirst: MainScreen.isHomeShowCaseFirst);
+                        },
+                        builder: Builder(builder: (context) {
+                          return HomeScreen(
+                            isCachExtra: widget.isCachExtra,
+                            isCachFrame: widget.isCachFrame,
+                            isChachGift: widget.isChachGift,
+                            isUpdate: widget.isUpdate,
+                            isCachEmojie: widget.isCachEmojie,
+                            isCachEntro: widget.isCachEntro,
+                            actionDynamicLink: widget.actionDynamicLink,
+                          );
+                        }),
+                      ),
                   (_) => const ReelsScreenTaps(),
                   (_) => const SafeArea(child: ChatPage()),
                   (_) => const FollowingLiveScreen(),
@@ -188,24 +199,44 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         borderBottom: 30,
                       ),
                       onTap: () {
+
                         RoomScreen.outRoom = false;
-                        Navigator.pushNamed(context, Routes.roomScreen,
-                            arguments: RoomPramiter(
-                                roomModel: MainScreen.roomData!,
-                                myDataModel: MyDataModel.getInstance(),
-                                isHost: MyDataModel.getInstance()
-                                        .id
-                                        .toString() ==
-                                    MainScreen.roomData!.ownerId.toString()));
+
+                        if(MyDataModel.getInstance().isAanonymous??false){
+                          String anonymousId = '${'-1'}${MyDataModel.getInstance().id}';
+                          MyDataModel activeMysteriousUser =
+                          MyDataModel(
+                              id:  int.parse(anonymousId),
+                              uuid:'${MyDataModel.getInstance().uuid}$anonymousKey',
+                              name: StringManager.mysteriousPerson.tr(),
+                              profile:ProfileRoomModel(image:'hide.png'),intro: "");
+                          Navigator.pushNamed(context, Routes.roomScreen,
+                              arguments: RoomPramiter(
+                                  roomModel: MainScreen.roomData!,
+                                  myDataModel: activeMysteriousUser,
+                                  isHost: MyDataModel.getInstance()
+                                      .id
+                                      .toString() ==
+                                      MainScreen.roomData!.ownerId.toString()));
+                        }else{
+                          Navigator.pushNamed(context, Routes.roomScreen,
+                              arguments: RoomPramiter(
+                                  roomModel: MainScreen.roomData!,
+                                  myDataModel: MyDataModel.getInstance(),
+                                  isHost: MyDataModel.getInstance()
+                                      .id
+                                      .toString() ==
+                                      MainScreen.roomData!.ownerId.toString()));
+                        }
+
                       },
                       child: Stack(
                         children: [
                           RotationTransition(
                               turns: animationController,
                               child: UserImage(
-
                                 imageSize: ConfigSize.defaultSize! * 14,
-                                image: MainScreen.roomData?.roomCover??'',
+                                image: MainScreen.roomData?.roomCover ?? '',
                               )),
                           GestureDetector(
                             onTap: () async {

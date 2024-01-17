@@ -14,6 +14,9 @@ class CodegenLoader extends AssetLoader {
 
   static const Map<String, dynamic> ar = {
     StringManager.appTitle: "تيك شات",
+    StringManager.skip: "تخطي",
+    StringManager.hint: "اتبع هذه الخطوات لتعديل بياناتك لاحقا",
+    StringManager.pleaseAddYourGender: "الرجاء إضافة النوع",
     StringManager.anotherAccountLoggedIn:
         "ليس لديك حساب تم تسجيل الدخول من جهاز اخر",
     StringManager.chooseContent: "يرجي اختيار المحتوي",
@@ -99,7 +102,7 @@ class CodegenLoader extends AssetLoader {
     StringManager.talk: 'تحدث',
     StringManager.payment: 'فاتورة الدفع',
     StringManager.total: "الاجمالي",
-    StringManager.noDaimonsNow: "لا يجود ماسات الآن",
+    StringManager.noDaimonsNow: "فارغ 😔",
     StringManager.areYouSure: "هل أنت متأكد أنك تريد حذف الدردشه؟",
     StringManager.clearChat: "مسح الدردشة",
     StringManager.music: "موسيقى",
@@ -552,18 +555,16 @@ class CodegenLoader extends AssetLoader {
     StringManager.percentage: 'نسبتك',
     StringManager.profitProcess: 'عملية ربح',
     StringManager.coinsCharged: 'العملات ',
-    StringManager.watch:  'شاهد',
-    StringManager.dayEarned:  'مكسب اليوم',
-    StringManager.dayInvited:  'دعوات اليوم',
-    StringManager.totalEarned:  'المكسب الكلي',
-    StringManager.totalInvited:  'الدعوات الكلية',
-    StringManager.changePhone:  'تغيير الهاتف',
-    StringManager.changePassword:  'تغيير كلمة المرور',
-    StringManager.enterOldPhone:  'أدخل رقم هاتفك القديم',
-    StringManager.enterNewPhone:  'أدخل رقم هاتفك الجديد',
-    StringManager.enterNewPassword:  'أدخل كلمة مرور جديدة',
-
-
+    StringManager.watch: 'شاهد',
+    StringManager.dayEarned: 'مكسب اليوم',
+    StringManager.dayInvited: 'دعوات اليوم',
+    StringManager.totalEarned: 'المكسب الكلي',
+    StringManager.totalInvited: 'الدعوات الكلية',
+    StringManager.changePhone: 'تغيير الهاتف',
+    StringManager.changePassword: 'تغيير كلمة المرور',
+    StringManager.enterOldPhone: 'أدخل رقم هاتفك القديم',
+    StringManager.enterNewPhone: 'أدخل رقم هاتفك الجديد',
+    StringManager.enterNewPassword: 'أدخل كلمة مرور جديدة',
     StringManager.refresh: 'اعاده تحميل',
     StringManager.somethingsWrong: 'هناك خطا ما',
     StringManager.searchOnYouTube:'1-ابحث عن فيديو يوتيوب',
@@ -591,7 +592,7 @@ class CodegenLoader extends AssetLoader {
       يتم تحديد قواعد الفوز والخسارة بناءً على الرقم الذي ظهر على المكعب.
       مثال: إذا اتفق اللاعبون على أن اللاعب يفوز إذا كان رقم المكعب 6، يحقق الفوز إذا ظهر رقم 6.
     ''',
- StringManager.explainGamePaperScissorsBrick: '''
+    StringManager.explainGamePaperScissorsBrick: '''
       اللاعبون:
 
 يمكن لاثنين من اللاعبين اللعب ضد بعضهما البعض.      
@@ -614,7 +615,7 @@ class CodegenLoader extends AssetLoader {
 أولاً، قم بوضع ما تريده من العملات المعدنية من محفظتك ثم قم باختيار بعض المستخدمين الذين تريد تحديهم وسيقومون أيضًا بدفع العملات التي كتبتها في السابق     
 إذا كنت محظوظاً وقمت بتدوير العجله و توقفت العجلة على اسمك، فسوف تحصل إجمالي الربح     
     ''',
-   StringManager.luckyDraw: '''
+    StringManager.luckyDraw: '''
      انها مثل تدوير العجلة و لكن هذه مجانا
 هناك خياران     
 أولاً،     
@@ -623,18 +624,17 @@ class CodegenLoader extends AssetLoader {
 يمكنك العب مع جميع الاشخاص بداخل الروم     
 و اذا كنت سعيد الحظ ستقف الدوران عليك و سيظهر للجميع داخل الروم اسمك و صورتك لكي يرسلو لك هديه     
     ''',
-
-    StringManager.chatWillBeAvailable : "ستكون الدردشة متاحة في الساعات القادمة",
-    StringManager.stayTuned : "ترقبوا 😉",
-    StringManager.thisFeaturenotAvailableNow : "هذه الميزة غير متوفرة الآن" ,
-    StringManager.pleaseAddAtLeastTwoValue: " من فضلك ادخل علي الافل اختيارين" ,
-    StringManager.timeRemains: "الوقت المتبقي:" ,
-    StringManager.waitForUsersResponse: "في انتظار رد المستخدمين" ,
-    StringManager.participants: "المشاركون:" ,
-    StringManager.luckyUsers: "المستخدمون المحظوظون:" ,
-    StringManager.like: "الاعجاب 👍" ,
-    StringManager.howToGainFreeCoins: "كيف تحصل علي " ,
-    StringManager.freeCoins: "عملات مجانية" ,
+    StringManager.chatWillBeAvailable: "ستكون الدردشة متاحة في الساعات القادمة",
+    StringManager.stayTuned: "ترقبوا 😉",
+    StringManager.thisFeaturenotAvailableNow: "هذه الميزة غير متوفرة الآن",
+    StringManager.pleaseAddAtLeastTwoValue: " من فضلك ادخل علي الافل اختيارين",
+    StringManager.timeRemains: "الوقت المتبقي:",
+    StringManager.waitForUsersResponse: "في انتظار رد المستخدمين",
+    StringManager.participants: "المشاركون:",
+    StringManager.luckyUsers: "المستخدمون المحظوظون:",
+    StringManager.like: "الاعجاب 👍",
+    StringManager.howToGainFreeCoins: "كيف تحصل علي ",
+    StringManager.freeCoins: "عملات مجانية",
     StringManager.remove: "إزالة",
 
   };

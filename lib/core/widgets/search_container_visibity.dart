@@ -24,7 +24,7 @@ class _SearchContainerVisibilityState extends State<SearchContainerVisibility> {
       child: Container(
         height:ConfigSize.screenHeight! * .3,
         width: ConfigSize.screenWidth!,
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: BlocBuilder<SearchBloc, SearchStates>(
           builder: (context, state) {
             if (state is SuccessSearchStates) {

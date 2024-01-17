@@ -68,7 +68,6 @@ class _AgencyRequestsScreenState extends State<AgencyRequestsScreen> {
                             return Container(
                               margin: EdgeInsets.symmetric(vertical: ConfigSize.defaultSize!),
                               child: UserInfoRow(
-                                underNameWidth: ConfigSize.defaultSize,
                                 userData: state.data[index],
                                 underName: const SizedBox(),
                                 endIcon: Row(
@@ -127,7 +126,6 @@ class _AgencyRequestsScreenState extends State<AgencyRequestsScreen> {
                                 child: UserInfoRow(
                                   userData: agenceRequests![index],
                                   underName: const SizedBox(),
-                                  underNameWidth: ConfigSize.defaultSize!,
                                   endIcon: Row(
                                     children: [
                                       reqIcon(
