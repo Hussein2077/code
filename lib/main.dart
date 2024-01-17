@@ -215,7 +215,7 @@ Future<void> main() async {
     log(e.toString());
   }
 
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   bool groupChatUnReadMessage =
       await Methods.instance.getLocalGroupChatNotifecation();
@@ -234,7 +234,7 @@ Future<void> main() async {
   });
 
   FirebaseMessaging.onBackgroundMessage((message) async {
-    log(message.data.toString());
+
     navigateFromNotification(message);
   });
 

@@ -58,7 +58,6 @@ class PurchaseService {
   Future<void> acknowledgePurchase(PurchaseDetails purchaseDetails) async {
     try {
       if (purchaseDetails.pendingCompletePurchase) {
-        print("pendingCompletePurchase");
         await InAppPurchase.instance.completePurchase(purchaseDetails);
       }
     } catch (e) {

@@ -157,8 +157,9 @@ class _PaymentMethodDialogState extends State<PaymentMethodDialog> {
               InkWell(
                 onTap: () {
                   CoinsTabView.productId = widget.coinPackageId;
-                  getIt<PurchaseService>().buyProduct(widget
-                      .productDetailsResponse.productDetails
+            log(" widget.productDetailsResponse.productDetails${ widget.productDetailsResponse.productDetails.toString()}");
+                  getIt<PurchaseService>().buyProduct(
+                      widget.productDetailsResponse.productDetails
                       .where((element) =>
                           element.id.toString() ==
                           widget.coinPackageId.toString())

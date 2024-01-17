@@ -21,7 +21,6 @@ class LoginChatBloc extends Bloc<BaseLoginChatEvent, LoginChatState> {
 
       } else {
         String? notifecationId = await FirebaseMessaging.instance.getToken();
-        log(notifecationId.toString()+"##############");
 
         CometChatUIKit.createUser(
             User(

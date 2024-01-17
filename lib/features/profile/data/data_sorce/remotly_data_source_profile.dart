@@ -14,7 +14,6 @@ import 'package:tik_chat_v2/core/service/service_locator.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/constant_api.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/dio_healper.dart';
 import 'package:tik_chat_v2/core/utils/api_healper/methods.dart';
-import 'package:tik_chat_v2/features/auth/data/model/user_platform_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_history_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_member_model.dart';
 import 'package:tik_chat_v2/features/profile/data/model/agency_my_store.dart';
@@ -2389,6 +2388,7 @@ class RemotlyDataSourceProfile extends BaseRemotlyDataSourceProfile {
             .listen((detailsList) {
           getIt<PurchaseService>().handlePurchaseUpdates(detailsList);
         });
+        log("response${response.productDetails.toString()}");
       }
       return response;
     } on DioError catch (e) {
