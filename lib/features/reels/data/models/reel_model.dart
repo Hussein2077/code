@@ -31,7 +31,7 @@ class ReelModel {
       likeExists: json['likes_exists']??false,
       userName: json["user"]==null? "" :json["user"]['name']??"",
       userImage: json["user"]==null?"": json["user"]['image']??"",
-      isFollow: json["user"]==null?"": json["user"]['is_follow']??false,
+      isFollow: json["user"]==null?false: json["user"]['is_follow']??false,
       subVideo: json['sub_video']??"",
       img: json['sub_frame']??"",
 
