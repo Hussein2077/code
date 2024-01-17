@@ -1,72 +1,112 @@
 {
   "project_info": {
-    "project_number": "260492813683",
-    "project_id": "tikchat-874b7",
-    "storage_bucket": "tikchat-874b7.appspot.com"
+    "project_number": "425921046469",
+    "project_id": "tik-chat-4b87f",
+    "storage_bucket": "tik-chat-4b87f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:260492813683:android:d180c831dba4130fd99106",
+        "mobilesdk_app_id": "1:425921046469:android:d51cc525f4571f9130cdac",
         "android_client_info": {
-          "package_name": "com.tikkchat.app"
+          "package_name": "com.example.kita_chat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "260492813683-j43nlruna48ehc08fr3qohc9usb2j1it.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tikkchat.app",
-            "certificate_hash": "71b4fec6403d5b5d7efbaa9dba96114cdafbf37b"
-          }
-        },
-        {
-          "client_id": "260492813683-m2a88vfvbp3km5196qslbf0bdjkol0dc.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tikkchat.app",
-            "certificate_hash": "f6d03d945a01a00c3a40ebd9d90db54cf2b06813"
-          }
-        },
-        {
-          "client_id": "260492813683-mimqqj8lr414etgpn080a454n14oignn.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tikkchat.app",
-            "certificate_hash": "09dcbdf0623868929b7ce2cc4c04663afb80f61f"
-          }
-        },
-        {
-          "client_id": "260492813683-utjs21fb9gfst13ep6o0ca19lpqqk9en.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tikkchat.app",
-            "certificate_hash": "9f9261dc004ca42e4086051691f5ac8c71049ed4"
-          }
-        },
-        {
-          "client_id": "260492813683-lmdl5ln0nv3b6f4t5kjau60gjk9d85da.apps.googleusercontent.com",
+          "client_id": "425921046469-v2tmvos11p0elq3d6t3k2lvi577faqfe.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAqyR_EjfxXG2Xmgq1LeDCx53tbBkg0Wkc"
+          "current_key": "AIzaSyCOMmFEs6J3FAI4VDPuZMjn_Whl2B1aQCQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "260492813683-h1eu48nkb2mg319i5vkk43h0k2m3vj9v.apps.googleusercontent.com",
+              "client_id": "425921046469-v2tmvos11p0elq3d6t3k2lvi577faqfe.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "260492813683-rpc2j93eah87smunm49vjtr5hn0mbt87.apps.googleusercontent.com",
+              "client_id": "425921046469-5fdjdqd743tbqt5se7a9hrpcg1n1m09m.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.temoLive"
+                "bundle_id": "com.example.kitaChat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425921046469:android:2a37f313ba2b9cee30cdac",
+        "android_client_info": {
+          "package_name": "com.example.temo_live"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425921046469-v2tmvos11p0elq3d6t3k2lvi577faqfe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOMmFEs6J3FAI4VDPuZMjn_Whl2B1aQCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425921046469-v2tmvos11p0elq3d6t3k2lvi577faqfe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "425921046469-5fdjdqd743tbqt5se7a9hrpcg1n1m09m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kitaChat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425921046469:android:dde01e90811f580d30cdac",
+        "android_client_info": {
+          "package_name": "com.tikkchatV3.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425921046469-v2tmvos11p0elq3d6t3k2lvi577faqfe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOMmFEs6J3FAI4VDPuZMjn_Whl2B1aQCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425921046469-v2tmvos11p0elq3d6t3k2lvi577faqfe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "425921046469-5fdjdqd743tbqt5se7a9hrpcg1n1m09m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kitaChat"
               }
             }
           ]
