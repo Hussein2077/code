@@ -58,10 +58,11 @@ Widget card1Coulumn(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(image , scale: 2.5,),
+        SizedBox(height:  ConfigSize.defaultSize! * .8),
         Text(
           title,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontSize: ConfigSize.defaultSize! * 1.6,
+            fontSize: ConfigSize.defaultSize! * 1.4,
           ),
         )
       ],

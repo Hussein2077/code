@@ -1,5 +1,3 @@
-
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_chat_v2/core/resource_manger/asset_path.dart';
@@ -11,43 +9,46 @@ import 'package:tik_chat_v2/main_screen/widget/bottom_bar_icon.dart';
 import '../../core/widgets/message_count_comet_chat.dart';
 
 class BottomBarWidget extends StatelessWidget {
-  final int currentIndex ; 
-  final dynamic Function(int) onTap ; 
-  const BottomBarWidget({required this.currentIndex , required this.onTap ,   super.key});
+  final int currentIndex;
+
+  final dynamic Function(int) onTap;
+
+  const BottomBarWidget(
+      {required this.currentIndex, required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-    decoration:  BoxDecoration(
-                              
-         boxShadow: const[
-                                  BoxShadow(
-                                      color: ColorManager.orang,
-                                      spreadRadius: 0,
-                                      blurRadius: 1),
-                                ],
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(ConfigSize.defaultSize!*2.5),
-                                    topRight: Radius.circular(ConfigSize.defaultSize!*2.5))),
-                            child: ClipRRect(
-                              borderRadius:  BorderRadius.only(
-                                   topLeft: Radius.circular(ConfigSize.defaultSize!*2.5),
-                                    topRight: Radius.circular(ConfigSize.defaultSize!*2.5)),
-                              child: BottomNavigationBar(
-                                backgroundColor: Colors.amber,
-                                currentIndex: currentIndex,
-                                onTap: (index) => onTap(index),
-                                showSelectedLabels: true,
-                                iconSize: ConfigSize.defaultSize!*3,
-                                unselectedItemColor: Theme.of(context).colorScheme.primary,
-                                unselectedIconTheme:
-                                const IconThemeData(color: Colors.black),
-                                showUnselectedLabels: true,
-                                selectedItemColor: ColorManager.mainColor,
-                                selectedLabelStyle: const TextStyle(
-                                  color: ColorManager.mainColor,
-                                ),
-                                items: [
+      decoration: BoxDecoration(
+          boxShadow: const [
+            BoxShadow(
+                color: ColorManager.orang, spreadRadius: 0, blurRadius: 1),
+          ],
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(ConfigSize.defaultSize! * 2.5),
+              topRight: Radius.circular(ConfigSize.defaultSize! * 2.5))),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(ConfigSize.defaultSize! * 2.5),
+            topRight: Radius.circular(ConfigSize.defaultSize! * 2.5)),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.amber,
+          currentIndex: currentIndex,
+          onTap: (index) => onTap(index),
+          showSelectedLabels: true,
+          iconSize: ConfigSize.defaultSize! * 3,
+          unselectedItemColor: Theme.of(context).colorScheme.primary,
+          unselectedIconTheme: const IconThemeData(color: Colors.black),
+          showUnselectedLabels: true,
+          selectedItemColor: ColorManager.mainColor,
+          unselectedLabelStyle:TextStyle(
+            fontSize: ConfigSize.defaultSize!*1,
+          ),
+          selectedLabelStyle:  TextStyle(
+            fontSize: ConfigSize.defaultSize!*1,
+            color: ColorManager.mainColor,
+          ),
+          items: [
             BottomNavigationBarItem(
               icon: const BottomIcon(
                 icon: AssetsPath.unSelectedHomeIcon,
@@ -67,18 +68,16 @@ class BottomBarWidget extends StatelessWidget {
               label: StringManager.reels.tr(),
             ),
             BottomNavigationBarItem(
-              icon: const ChatCountMessageCometChat(widget:BottomIcon(
-                icon: AssetsPath.chatIconDissActive,
-                   ), ),
-
+              icon: const ChatCountMessageCometChat(
+                widget: BottomIcon(
+                  icon: AssetsPath.chatIconDissActive,
+                ),
+              ),
               activeIcon: const ChatCountMessageCometChat(
                 widget: BottomIcon(
-                    icon: AssetsPath.chatIconActive,
-                  ),
-
+                  icon: AssetsPath.chatIconActive,
+                ),
               ),
-
-
               label: StringManager.chat.tr(),
             ),
             BottomNavigationBarItem(
@@ -108,9 +107,9 @@ class BottomBarWidget extends StatelessWidget {
               ),
               label: StringManager.profile.tr(),
             ),
-                                ],
-                              ),
-                            ),
-                          );
+          ],
+        ),
+      ),
+    );
   }
 }
